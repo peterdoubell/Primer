@@ -72,6 +72,547 @@
   const families = Object.create(null);
   function define(id, title, initial, controls, build) { families[id] = {title, initial, controls, build}; }
 
+  if (window.PrimerCoordinatePlaneSpatial) families["coordinate-plane-exact"] = window.PrimerCoordinatePlaneSpatial.family;
+
+  const algebraFunctionsBindings = {
+  "module.math.3.linear": [
+    "algebra-functions-linear",
+    "Linear Equations"
+  ],
+  "module.math.3.slope": [
+    "algebra-functions-slope",
+    "Slope and Lines"
+  ],
+  "module.math.3.quadratics": [
+    "algebra-functions-quadratics",
+    "Quadratic Equations"
+  ],
+  "module.math.3.polynomials": [
+    "algebra-functions-polynomials",
+    "Polynomials"
+  ]
+};
+  if (window.PrimerAlgebraFunctionsSpatialFamilies) for (const [scenario, [family]] of Object.entries(algebraFunctionsBindings)) families[family] = window.PrimerAlgebraFunctionsSpatialFamilies[scenario.slice(7)];
+
+  const baseTenBindings = {
+    'module.math.1.place-value': ['base-ten-place-value', "Place Value"],
+    'module.math.1.addition': ['base-ten-addition', "Addition"],
+    'module.math.1.subtraction': ['base-ten-subtraction', "Subtraction"],
+    'module.math.1.multiplication': ['base-ten-multiplication', "Multiplication"],
+    'module.math.1.division': ['base-ten-division', "Division"],
+  };
+  if (window.PrimerBaseTenSpatialFamilies) for (const [scenario, [family]] of Object.entries(baseTenBindings)) families[family] = window.PrimerBaseTenSpatialFamilies[scenario.slice(7)];
+
+  if (window.PrimerRatioSpatialFamily) families['ratio-calibrated-volumes'] = window.PrimerRatioSpatialFamily;
+
+  if (window.PrimerDecimalSpatialFamily) families['decimal-base-ten'] = window.PrimerDecimalSpatialFamily;
+
+  if (window.PrimerFidelitySpatialFamilies) {
+    families['topology-open-set-geometry'] = window.PrimerFidelitySpatialFamilies.topology;
+    families['relativistic-event-geometry'] = window.PrimerFidelitySpatialFamilies.relativity;
+  }
+  if (window.PrimerQuantumInformationSpatialFamily) families['quantum-information-geometry'] = window.PrimerQuantumInformationSpatialFamily;
+  if (window.PrimerQftSpatialFamily) families['qft-observable-geometry'] = window.PrimerQftSpatialFamily;
+  if (window.PrimerAlgebraSpatialFamily) families['algebra-operation-geometry'] = window.PrimerAlgebraSpatialFamily;
+  if (window.PrimerLogicSpatialFamily) families['logic-witness-geometry'] = window.PrimerLogicSpatialFamily;
+  if (window.PrimerNumberTheorySpatialFamily) families['number-theory-exact-traces'] = window.PrimerNumberTheorySpatialFamily;
+  if (window.PrimerMaxwellSpatialFamily) families['maxwell-field-geometry'] = window.PrimerMaxwellSpatialFamily;
+  if (window.PrimerCosmologySpatialFamily) families['cosmology-chart-geometry'] = window.PrimerCosmologySpatialFamily;
+
+  const cqNum=(v,d,a,b)=>(typeof v==='number'||typeof v==='string'&&v.trim()!=='')&&Number.isFinite(Number(v))?Math.max(a,Math.min(b,Number(v))):d;
+  const cqFmt=v=>Number.isFinite(v)?Number(v.toPrecision(6)).toString():String(v);
+  function cqColor(phase){
+    if(phase==null||!Number.isFinite(phase))return '#83949a';
+    const h=((phase/TAU%1)+1)%1*6,x=1-Math.abs(h%2-1),rgb=[[1,x,0],[x,1,0],[0,1,x],[0,x,1],[x,0,1],[1,0,x]][Math.floor(h)%6];
+    return 'rgb('+rgb.map(v=>Math.round(45+145*v)).join(',')+')';
+  }
+  function cqAxes(g,o,ends,labels){
+    ends.forEach((p,i)=>{g.line([o,p],g.colors.ink,{width:1.2,cq_kind:'axis'});g.label(p,labels[i]);});
+  }
+  define('complex-function-domain','Complex domain and projected function values',{},[],(s,g)=>{
+    const lab=window.PrimerMathComplexLab,m=lab.build(s),c=m.state,d=m.active,name=d.functionName;
+    let extent=s.domainExtent;
+    if(d.center&&d.radius)extent=Math.max(extent,Math.abs(d.center.re)+d.radius,Math.abs(d.center.im)+d.radius);
+    if(c.station==='C6'||c.station==='C4')extent=Math.max(extent,d.R);
+    const cap=s.heightCrop,poles=(d.poles||d.singularities||[]).map(p=>p.z||p),fields=[],cells=[];
+    if(name==='pathology')poles.push({re:0,im:0,discontinuity:true});
+    const evaluate=z=>{
+      if(c.station!=='C6')return lab.evaluate(name,z,c);
+      const factor=lab.arcFactor(c.arcFn,z,c.poleA);
+      if(!factor)return {value:null,logAbs:Infinity,phase:null,status:'pole'};
+      const a=lab.abs(factor),logAbs=a===0?-Infinity:Math.log(a)-c.k*z.im;
+      const phase=a===0?null:Math.atan2(Math.sin(Math.atan2(factor.im,factor.re)+c.k*z.re),Math.cos(Math.atan2(factor.im,factor.re)+c.k*z.re));
+      return {value:logAbs>-740&&logAbs<700?lab.polar(Math.exp(logAbs),phase):null,logAbs,phase,status:'sample'};
+    };
+    const height=v=>s.heightMode==='log'?v.logAbs:(v.logAbs<700?Math.exp(v.logAbs):Infinity);
+    const displayed=(z,v)=>[z.re,height(v),-z.im];
+    function zeroTest(bounds,radialRange){
+      const {x0,x1,y0,y1}=bounds,contains=(x,y)=>x>=x0&&x<=x1&&y>=y0&&y<=y1;
+      if(c.station==='C6')return {possible:false,basis:'Exponential times the selected reciprocal factor is nonzero in its regular domain'};
+      if(name==='peak')return {possible:radialRange.min<=1&&radialRange.max>=1,basis:'Exact zero circle |z|=1'};
+      if(['z2','linear','annulus-z','conjugate','abs2','pathology'].includes(name))return {possible:contains(0,0),basis:'Exact isolated zero/extension at 0'};
+      if(name==='rational'){
+        if(c.residueA===0&&c.residueB===0)return {possible:true,basis:'Identically zero'};
+        const sum=c.residueA+c.residueB;
+        const zero=c.residueA!==0&&c.residueB!==0&&sum!==0?2*c.residueA/sum:null;
+        return {possible:zero!==null&&contains(zero,0),basis:'Exact numerator zero after removing zero-residue terms',zero};
+      }
+      if(name==='laurent'){
+        // f=P(z)/z², P=z⁴+2z³+7z²+5z+3. On a convex rectangle,
+        // |P(z)-P(mid)| <= sup|P'| |z-mid|. Failure to certify
+        // nonzero means omission; it does not assert that a root exists.
+        const z={re:(x0+x1)/2,im:(y0+y1)/2},R=radialRange.max;
+        const P=lab.add(lab.add(lab.pow(z,4),lab.scale(lab.pow(z,3),2)),lab.add(lab.scale(lab.pow(z,2),7),lab.add(lab.scale(z,5),lab.complex(3))));
+        const derivativeBound=4*R**3+6*R**2+14*R+5,halfDiagonal=Math.hypot((x1-x0)/2,(y1-y0)/2),variation=derivativeBound*halfDiagonal;
+        const midpointMagnitude=lab.abs(P),lower=midpointMagnitude-variation,roundingGuard=64*Number.EPSILON*(midpointMagnitude+variation+1);
+        return {possible:!(lower>roundingGuard),basis:'Conservative analytic polynomial derivative bound with roundoff guard',midpoint:z,midpointMagnitude,derivativeBound,halfDiagonal,lower,roundingGuard};
+      }
+      return {possible:false,basis:'Selected named numerator is nonzero throughout its regular domain'};
+    }
+    for(let i=0;i<24;i++)for(let j=0;j<24;j++){
+      const x0=-extent+2*extent*i/24,x1=-extent+2*extent*(i+1)/24,y0=-extent+2*extent*j/24,y1=-extent+2*extent*(j+1)/24;
+      const inputs=[{re:x0,im:y0},{re:x1,im:y0},{re:x1,im:y1},{re:x0,im:y1}],samples=inputs.map(evaluate);
+      const critical=poles.some(p=>p.re>=x0&&p.re<=x1&&p.im>=y0&&p.im<=y1);
+      const nearX=x0>0?x0:x1<0?x1:0,nearY=y0>0?y0:y1<0?y1:0;
+      const radialRange={min:Math.hypot(nearX,nearY),max:Math.max(...inputs.map(z=>Math.hypot(z.re,z.im)))};
+      const domainContained=d.domain.kind!=='annulus'||radialRange.min>d.domain.inner&&radialRange.max<d.domain.outer;
+      const zeroCertificate=zeroTest({x0,x1,y0,y1},radialRange);
+      const visible=!critical&&domainContained&&(s.heightMode!=='log'||!zeroCertificate.possible)&&samples.every(v=>Number.isFinite(height(v))&&Math.abs(height(v))<=cap);
+      const row={indices:[i,j],bounds:{x0,x1,y0,y1},inputs,samples,critical,radialRange,domainContained,zeroCertificate,visible};fields.push(row);
+      if(!visible)continue;
+      const midpoint=evaluate({re:(x0+x1)/2,im:(y0+y1)/2}),corners=inputs.map((z,k)=>displayed(z,samples[k]));
+      g.polygon(corners,cqColor(midpoint.phase),{opacity:.52,cq_kind:'function_cell',i,j});cells.push({...row,corners,midpoint});
+    }
+    cqAxes(g,[0,0,0],[[extent,0,0],[0,cap,0],[0,0,-extent]],['Re z',s.heightMode==='log'?'ln |f|':'|f|','Im z']);
+    const curve=['C2','C5','C6'].includes(c.station)?d.curve:c.station==='C3'&&Number.isFinite(d.radius)?lab.circlePoints({re:0,im:0},d.radius,1,96):c.station==='C4'?lab.circlePoints({re:0,im:0},d.R,1,96):[];
+    if(curve.length)g.line(curve.map(z=>[z.re,0,-z.im]),g.colors.teal,{width:3,cq_kind:'input_curve'});
+    if(c.station==='C6')g.line([[-d.R,0,0],[d.R,0,0]],g.colors.blue,{width:2,cq_kind:'real_segment'});
+    if(d.domain.kind==='annulus')for(const r of [d.domain.inner,d.domain.outer])g.line(lab.circlePoints({re:0,im:0},r,1,128).map(z=>[z.re,0,-z.im]),g.colors.coral,{width:1.4,dashed:true,cq_kind:'annulus_boundary',radius:r});
+    for(const p of poles)g.sphere([p.re,0,-p.im],.025*extent,g.colors.coral,{cq_kind:'critical_input'});
+    const probe=['C1','C3'].includes(c.station)?{re:c.pointRe,im:c.pointIm}:['C2','C6'].includes(c.station)?d.probe.z:c.station==='C4'?{re:d.R,im:0}:d.center||{re:0,im:0},sample=evaluate(probe);
+    const probeInDomain=d.domain.kind!=='annulus'||Math.hypot(probe.re,probe.im)>d.domain.inner&&Math.hypot(probe.re,probe.im)<d.domain.outer;
+    g.sphere([probe.re,0,-probe.im],.025*extent,g.colors.ink,{cq_kind:'input_probe'});
+    if(probeInDomain&&Number.isFinite(height(sample))&&Math.abs(height(sample))<=cap)g.line([[probe.re,0,-probe.im],displayed(probe,sample)],g.colors.ink,{width:2,cq_kind:'probe_height'});
+    const representable=q=>q&&q.value&&Number.isFinite(q.value.re)&&Number.isFinite(q.value.im)&&!String(q.status).includes('log-only');
+    const outputSamples=d.pathPole||d.contourInDomain===false?[]:c.station==='C2'?d.outputCurve:c.station==='C5'?d.outputs:[],values=outputSamples.filter(representable).map(v=>v.value);
+    const extraSamples=c.station==='C3'?[{value:d.partial,status:'regular'}]:c.station==='C5'?[{value:d.mean,status:'regular'}]:c.station==='C1'?[d.selected]:[];
+    const extraValues=extraSamples.map(q=>q.value),finiteExtra=extraSamples.filter(representable).map(q=>q.value);
+    const outputScale=Math.max(1,...values.map(lab.abs),...finiteExtra.map(lab.abs),representable(sample)?lab.abs(sample.value):0),origin=[3.5*extent,0,0],output=v=>[origin[0]+extent*v.re/outputScale,0,-extent*v.im/outputScale];
+    cqAxes(g,origin,[[origin[0]+extent,0,0],[origin[0],cap/3,0],[origin[0],0,-extent]],['Re f / scale','Output plane','Im f / scale']);
+    if(values.length===outputSamples.length&&values.length>1)g.line((c.station==='C5'?[...values,values[0]]:values).map(output),g.colors.plum,{width:2.5,cq_kind:'output_curve'});
+    if(probeInDomain&&representable(sample))g.sphere(output(sample.value),.025*extent,g.colors.gold,{cq_kind:'output_probe'});
+    for(const value of finiteExtra)g.sphere(output(value),.025*extent,g.colors.coral,{cq_kind:'auxiliary_output',station:c.station});
+    const proofGlyphs=[];
+    if(c.station==='C1'){
+      const endpoint={re:probe.re+d.h*Math.cos(d.theta),im:probe.im+d.h*Math.sin(d.theta)};
+      const points=[[probe.re,0,-probe.im],[endpoint.re,0,-endpoint.im]];
+      g.line(points,g.colors.coral,{width:3,cq_kind:'approach_step'});proofGlyphs.push({kind:'approach_step',points,endpoint,h:d.h,theta:d.theta});
+    }
+    if(c.station==='C4'){
+      const points=d.growth.map(v=>[origin[0]+v.radius/6,.1*v.hypotheticalBound,-extent/2]);
+      g.line(points,g.colors.coral,{width:2,cq_kind:'hypothetical_cauchy_bound'});
+      g.label([origin[0],0,-extent/2],'Hypothesis only: y = 0.1 M/R; x = R/6');
+      proofGlyphs.push({kind:'hypothetical_cauchy_bound',points,growth:d.growth,xGain:1/6,yGain:.1});
+    }
+    const note='Projection: (Re z, Im z, '+(s.heightMode==='log'?'ln |f|':'|f|')+'); a C→C graph needs four real coordinates. Input Im z maps to −Z. The separate output plane uses uniform scale '+cqFmt(outputScale)+'. Phase colour is cyclic; a true zero has undefined phase. '+(576-cells.length)+' of 576 cells are conservatively omitted when they leave the selected open domain, touch poles/discontinuities, lack a certificate excluding zeros in log-height mode, or exceed the ±'+cqFmt(cap)+' height crop; no artificial caps or bridges are inserted. Dashed annulus rings are excluded boundaries. A requested contour outside the annulus has no mapped-output trace here. Log-only underflow/overflow is retained in the ledger and is not plotted as a genuine zero. Probe/theorem values remain uncropped. Finite facets do not prove holomorphy or a global theorem. Taylor rings mark open convergence boundaries, not value contours. The complete six-station state is shared with the activity; camera and display crop stay local.';
+    return {...result(m.readout+' Uncropped probe ln magnitude '+cqFmt(sample.logAbs)+'.',note,[['Arg f = 0',cqColor(0)],['Arg f = π/2',cqColor(Math.PI/2)],['Arg f = π',cqColor(Math.PI)],['Arg f = −π/2',cqColor(-Math.PI/2)],['Input contour',g.colors.teal],['Complex output',g.colors.plum]],g),
+      state:{...s,...c},complex:{state:c,active:d,name,extent,cap,heightMode:s.heightMode,domain:d.domain,fields,cells,poles,probe,probeInDomain,sample,curve,outputSamples,outputScale,outputOrigin:origin,extraValues,extraSamples,proofGlyphs}};
+  });
+  const cf=families['complex-function-domain'];cf.requires='PrimerMathComplexLab';cf.linkedStateKey='math.5.complex-analysis';
+  cf.initialFactory=()=>({...window.PrimerMathComplexLab.initial,domainExtent:2,heightCrop:5,heightMode:'log'});
+  cf.normalize=raw=>({...window.PrimerMathComplexLab.normalize(raw),domainExtent:cqNum(raw.domainExtent,2,.5,5),heightCrop:cqNum(raw.heightCrop,5,1,12),heightMode:raw.heightMode==='magnitude'?'magnitude':'log'});
+  cf.controlsFactory=()=>[...window.PrimerMathComplexLab.controls.map(c=>({...c,numericInput:!c.options,preserveExact:!c.options,visibleWhen:c.stations?{station:c.stations,...(c.presets?{contourFn:c.presets}:{})}:undefined})),
+    {...range('domainExtent','Minimum input half-span',.5,5,.25),numericInput:true,preserveExact:true},{...range('heightCrop','Visible absolute height crop',1,12,.5),numericInput:true,preserveExact:true},choice('heightMode','Surface height',[['log','Natural log magnitude'],['magnitude','Magnitude']])];
+
+  define('quantum-state-geometry','Complex amplitudes, spin and conserved quantum flux',{},[],(s,g)=>{
+    const lab=window.PrimerPhysicsQuantumLab,m=lab.build(s),c=m.state,d=m.current,samples=[],ribbons=[],glyphs=[];
+    const line=(points,color,kind,attrs={})=>g.line(points,color,{width:2.5,cq_kind:kind,...attrs});
+    if(c.mode==='well'){
+      const points=m.curves.find(v=>v.key==='real').points.map(v=>{const q=lab.wellAt(c,v.x),p=[q.xNm,q.re,q.im];samples.push({input:v.x,value:q,point:p});return p;});
+      line(points,g.colors.blue,'well_amplitude');cqAxes(g,[0,0,0],[[c.lengthNm,0,0],[0,2,0],[0,0,2]],['x / nm','Re ψ / nm⁻¹/²','Im ψ / nm⁻¹/²']);
+      for(const x of [0,c.lengthNm])line([[x,-2,-2],[x,2,-2],[x,2,2],[x,-2,2],[x,-2,-2]],g.colors.ink,'hard_wall',{xNm:x});
+      const density=m.curves.find(v=>v.key==='density').points.map(v=>[v.x,v.y,-2.5]);line(density,g.colors.teal,'well_density');ribbons.push({kind:'well_density',points:density,gain:1,unit:'nm⁻¹',offsetZ:-2.5});
+      line([[c.regionStart*c.lengthNm,0,-2.5],[c.regionEnd*c.lengthNm,0,-2.5]],g.colors.gold,'well_region');
+      const energyScale=Math.max(1,...d.energies.map(e=>e.energyEV)),energyGain=2/energyScale;
+      for(const e of d.energies){const p=[[c.lengthNm+.4,energyGain*e.energyEV,-1.8],[c.lengthNm+.7,energyGain*e.energyEV,-1.8]];line(p,g.colors.coral,'well_energy',{n:e.n,energyEV:e.energyEV});glyphs.push({kind:'energy',n:e.n,energyEV:e.energyEV,points:p,gain:energyGain,scaleEV:energyScale});}
+      const probe=d.probe;g.sphere([probe.xNm,probe.re,probe.im],.025,g.colors.coral,{cq_kind:'well_probe'});
+      for(const bin of d.counts.histogram){const a=bin.start*c.lengthNm,b=bin.end*c.lengthNm,h=bin.count/d.counts.total,p=[[a,0,-3.2],[b,0,-3.2],[b,h,-3.2],[a,h,-3.2]];g.polygon(p,g.colors.gold,{opacity:.6,cq_kind:'well_count',count:bin.count});glyphs.push({kind:'count',bin,points:p});}
+      g.label([c.lengthNm+.5,0,-1.8],'Energy: y = 2 E/('+cqFmt(energyScale)+' eV)');g.label([c.lengthNm,0,-3.2],'Bin count / N');
+    }else if(c.mode==='spin'){
+      const display=p=>[p[0],p[2],-p[1]];
+      for(let k=0;k<3;k++)line(Array.from({length:65},(_,i)=>{const t=TAU*i/64,p=[0,0,0];p[(k+1)%3]=Math.cos(t);p[(k+2)%3]=Math.sin(t);return display(p);}), '#b9c8c4','bloch_unit_circle');
+      cqAxes(g,[0,0,0],[[1.3,0,0],[0,1.3,0],[0,0,-1.3]],['⟨σx⟩','⟨σz⟩','⟨σy⟩']);
+      const b=display(d.bloch),a=display(d.measurement.postPlus);line([[0,0,0],b],g.colors.blue,'prepared_bloch');line([a.map(v=>-v),a],g.colors.plum,'measurement_axis');g.sphere(b,.045,g.colors.blue,{cq_kind:'bloch_endpoint'});glyphs.push({kind:'bloch',physical:d.bloch,points:[[0,0,0],b]});
+      const t=d.tree,flows=[{key:'first_selected',p:t.firstPlus,points:[[2,0,0],[3,.6,0]]},{key:'middle_selected',p:t.survivalOriginal,points:[[3,.6,0],[4,.6,0]]},{key:'final_plus',p:t.finalOriginalPlus,points:[[4,.6,0],[5,1.2,0]]},{key:'final_minus',p:t.finalOriginalMinus,points:[[4,.6,0],[5,0,0]]}];
+      for(const f of flows){g.line(f.points,f.key==='final_minus'?g.colors.coral:g.colors.teal,{width:1+5*f.p,cq_kind:'spin_branch',probabilityOriginal:f.p});glyphs.push({kind:'branch',...f});}
+      g.label([2,-.4,0],'Original input');g.label([3,1,0],'Selected z+');g.label([4,1,0],c.middle==='bypass'?'Bypass':'Selected '+c.middle+c.middleSign);g.label([5,1.6,0],'Final z+');g.label([5,-.4,0],'Final z−');
+    }else if(c.mode==='gaussian'){
+      const x=m.curves.find(v=>v.key==='position').points,k=m.curves.find(v=>v.key==='momentum').points;
+      const position=x.map(v=>{const q=lab.gaussianAt(c,v.x),p=[q.xNm,q.re,q.im];samples.push({kind:'position',input:v.x,value:q,point:p});return p;});line(position,g.colors.blue,'gaussian_position_amplitude');
+      const momentum=k.map(v=>{const q=lab.gaussianMomentumAt(c,v.x),p=[4+q.kNmInverse/10,5*q.re,5*q.im];samples.push({kind:'momentum',input:v.x,value:q,point:p});return p;});line(momentum,g.colors.plum,'gaussian_momentum_amplitude');
+      cqAxes(g,[0,0,0],[[2,0,0],[0,2,0],[0,0,2]],['x / nm','Re ψ / nm⁻¹/²','Im ψ / nm⁻¹/²']);cqAxes(g,[4,0,0],[[6,0,0],[4,2,0],[4,0,2]],['k / (10 nm⁻¹)','5 Re φ / nm¹/²','5 Im φ / nm¹/²']);
+      const xp=x.map(v=>[v.x,v.y,-2.5]),kp=k.map(v=>[4+v.x/10,5*v.y,-2.5]);line(xp,g.colors.teal,'gaussian_position_density');line(kp,g.colors.gold,'gaussian_momentum_density');ribbons.push({kind:'position_density',points:xp,gain:1,unit:'nm⁻¹'},{kind:'momentum_density',points:kp,gain:5,unit:'nm'});
+    }else if(c.mode==='barrier'){
+      const real=m.curves.find(v=>v.key==='real').points,points=real.map(v=>{const q=lab.barrierAt(c,v.x),p=[q.xNm,q.re,q.im];samples.push({input:v.x,value:q,point:p});return p;});line(points,g.colors.blue,'barrier_amplitude');
+      const potential=[[real[0].x,0,-2],[0,0,-2],[0,.25*c.heightEV,-2],[c.widthNm,.25*c.heightEV,-2],[c.widthNm,0,-2],[real.at(-1).x,0,-2]],energy=[[real[0].x,.25*c.energyEV,-2],[real.at(-1).x,.25*c.energyEV,-2]];
+      line(potential,g.colors.coral,'barrier_potential');line(energy,g.colors.gold,'barrier_energy');glyphs.push({kind:'potential',points:potential,gain:.25},{kind:'incident_energy',points:energy,gain:.25});
+      cqAxes(g,[0,0,0],[[Math.max(.5,c.widthNm),0,0],[0,2,0],[0,0,2]],['x / nm','Re ψ; incident amplitude 1','Im ψ; incident amplitude 1']);g.label([c.widthNm,.25*c.heightEV,-2],'Potential y = 0.25 V/eV');
+      const origin=real.at(-1).x+.5;for(const [key,p,z] of [['R',d.R,-1],['T',d.T,1]]){const ps=[[origin,0,z],[origin,p,z]];line(ps,key==='T'?g.colors.teal:g.colors.coral,'flux_fraction');glyphs.push({kind:'flux_fraction',key,probability:p,points:ps});g.label([origin,p+.2,z],key+' = '+cqFmt(p));}
+    }else{
+      const points=m.curves.find(v=>v.key==='exact').points.map(v=>[v.x/100,v.y,0]);line(points,g.colors.blue,'photon_energy_curve');ribbons.push({kind:'photon_energy',points,xGain:.01,yGain:1});
+      const marker=[c.wavelengthNm/100,d.energyEV,0];g.sphere(marker,.05,g.colors.coral,{cq_kind:'photon_energy_probe'});glyphs.push({kind:'photon_probe',points:[marker],wavelengthNm:c.wavelengthNm,energyEV:d.energyEV});
+      const phase=Array.from({length:65},(_,i)=>[c.wavelengthNm*i/6400,0,-2+.5*Math.sin(TAU*i/64)]);line(phase,g.colors.teal,'photon_phase_reference');glyphs.push({kind:'wavelength',points:[[0,0,-2],[c.wavelengthNm/100,0,-2]],gain:.01});
+      cqAxes(g,[0,0,0],[[10,0,0],[0,6.5,0],[0,0,1]],['λ / (100 nm)','E / eV','Separate phase reference']);g.label([c.wavelengthNm/200,0,-2.8],'One wavelength; phase reference only');
+    }
+    const note='These are calibrated mathematical charts, not three physical particle directions. Position uses x in nm and complex ψ in nm⁻¹/²; density and count strips have separate ordinates. The energy strip uses its explicitly labelled uniform scale, with y=2 E/max(1 eV,largest shown energy). Momentum uses k=p/ℏ, horizontal gain 0.1 and amplitude/density gain 5; cropped tails are not renormalized. Scattering has incident-amplitude/flux normalization and matched internal exponentials; potential/energy gain is 0.25. Bloch coordinates are expectations, not a rotating ball; branch separations are schematic and widths show original-input probabilities. Zero-survivor branches do not define a selected state. Photon phase marks one wavelength without assigning amplitude-dependent photon energy or a trajectory. Complete core state, batches and projections are shared with the activity; camera stays local.';
+    return {...result(m.readout,note,[['Complex amplitudes',g.colors.blue],['Density / transmission',g.colors.teal],['Momentum / measurement axis',g.colors.plum],['Energy / count / wavelength',g.colors.gold]],g),state:{...s,...c},quantum:{state:c,current:d,samples,ribbons,glyphs,curves:m.curves}};
+  });
+  const qf=families['quantum-state-geometry'];qf.requires='PrimerPhysicsQuantumLab';qf.linkedStateKey='phys.4.quantum';
+  qf.initialFactory=()=>({...window.PrimerPhysicsQuantumLab.initial});qf.normalize=raw=>window.PrimerPhysicsQuantumLab.normalize(raw);
+  qf.controlsFactory=()=>[choice('mode','Quantum station',window.PrimerPhysicsQuantumLab.modes),
+    {...choice('wellState','Well preparation',[['eigen','Eigenstate'],['superposition','n=1 / n=2 superposition']]),visibleWhen:{mode:['well']}},
+    {...choice('projection','Observed eigenenergy / restore preparation',[['none','Unmeasured preparation'],...Array.from({length:6},(_,i)=>[String(i+1),'Observed n = '+(i+1)])]),visibleWhen:{mode:['well']},optionEnabled:(state,value)=>value==='none'||window.PrimerPhysicsQuantumLab.preparedEnergyProbability(state,value)>0},
+    {...choice('prep','Spin preparation',[['z+','z+'],['z-','z−'],['x+','x+'],['x-','x−'],['y+','y+'],['y-','y−'],['unpolarized','Unpolarized']]),visibleWhen:{mode:['spin']}},
+    {...choice('axis','Single spin measurement axis',[['x','x'],['y','y'],['z','z']]),visibleWhen:{mode:['spin']}},
+    {...choice('middle','Middle filter / bypass',[['x','x'],['y','y'],['z','z'],['bypass','Bypass']]),visibleWhen:{mode:['spin']}},
+    {...choice('middleSign','Transmitted middle output',[['+','+'],['-','−']]),visibleWhen:{mode:['spin']}},
+    ...window.PrimerPhysicsQuantumLab.controls.map(v=>({...v,numericInput:true,preserveExact:true,visibleWhen:{mode:v.modes,...(['mix','phaseDeg'].includes(v.key)?{wellState:['superposition']}:{})}})),
+    {...range('batch','Independent preparation batch',0,1000000,1),numericInput:true,preserveExact:true,visibleWhen:{mode:['well','spin','barrier']}}];
+
+
+  define('curvature-surface','Metric and curvature on an embedded surface',
+    {surface:'torus',radius:1,major:3,a:0,b:0,normal:'outward',coverage:100},
+    [choice('surface','Surface',[['plane','Plane patch'],['cylinder','Circular cylinder'],['sphere','Round sphere'],['torus','Standard embedded torus']]),
+     range('radius','Radius r / plane patch half-width',.5,2,.25),range('major','Torus major radius R',3,6,.25),
+     range('a','Probe coordinate fraction a',-1,1,.1),range('b','Probe coordinate fraction b',-1,1,.1),
+     choice('normal','Unit normal',[['outward','Outward / plane +z'],['inward','Reversed normal']]),
+     range('coverage','Selected patch span',0,100,5,'%')],(s,g)=>{
+      const lab=window.PrimerMathCurvatureLab,kind=s.surface,r=s.radius,R=s.major,sign=s.normal==='outward'?1:-1;
+      const coordinate=(a,b)=>({u:kind==='plane'?r*a:Math.PI*a,v:kind==='sphere'?Math.PI*b/2:kind==='torus'?Math.PI*b:r*b,radius:r,major:R,normalSign:sign});
+      const local=lab.surfaceAt(kind,coordinate(s.a,s.b)),nu=24,nv=12,faces=[],cut=-1+2*s.coverage/100;
+      const knots=Array.from({length:nu+1},(_,i)=>-1+2*i/nu);
+      if(cut>-1&&cut<1&&!knots.includes(cut))knots.push(cut);
+      knots.sort((a,b)=>a-b);
+      for(let i=0;i<knots.length-1;i++)for(let j=0;j<nv;j++){
+        const a0=knots[i],a1=knots[i+1],b0=-1+2*j/nv,b1=-1+2*(j+1)/nv;
+        const corners=[[a0,b0],[a1,b0],[a1,b1],[a0,b1]].map(([a,b])=>lab.surfaceAt(kind,coordinate(a,b)).point);
+        const mid=lab.surfaceAt(kind,coordinate((a0+a1)/2,(b0+b1)/2)),selected=a1<=cut;
+        const color=mid.gaussian>0?g.colors.teal:mid.gaussian<0?g.colors.coral:g.colors.blue;
+        g.polygon(corners,color,{opacity:selected?.58:.13,curvature_kind:'surface_cell',uIndex:i,vIndex:j,gaussian:mid.gaussian,selected});
+        faces.push({indices:[i,j],parameters:{a0,a1,b0,b1},corners,gaussian:mid.gaussian,selected});
+      }
+      const glyphScale=.45*r,endpoint=vector=>local.point.map((x,i)=>x+glyphScale*vector[i]);
+      g.sphere(local.point,.035,g.colors.ink,{curvature_kind:'probe'});
+      g.line([local.point,endpoint(local.normal)],g.colors.ink,{width:3,curvature_kind:'normal',unitVector:local.normal});
+      g.label(endpoint(local.normal),'n');
+      if(local.regular)for(let i=0;i<2;i++){
+        const t=local.principalDirections[i];
+        g.line([local.point.map((x,j)=>x-glyphScale*t[j]),endpoint(t)],i?g.colors.gold:g.colors.plum,{width:2,curvature_kind:'principal_direction',index:i,unitVector:t,principal:local.principal[i]});
+        g.label(endpoint(t),'k'+(i+1));
+      }
+      const parameters=coordinate(0,0),u0=kind==='plane'?-r:-Math.PI,u1=kind==='plane'?r:Math.PI,v0=kind==='sphere'?-Math.PI/2:kind==='torus'?-Math.PI:-r,v1=-v0;
+      const patch={u0,u1:u0+(u1-u0)*s.coverage/100,v0,v1},integral=lab.patchIntegral(kind,parameters,patch);
+      const f=v=>Number(v.toPrecision(6));
+      return {...result(kind+': actual probe position ('+local.point.map(f).join(', ')+') length units; metric(E,F,G)=('+[local.metric.E,local.metric.F,local.metric.G].map(f).join(', ')+'). Principal curvatures '+local.principal.map(f).join(', ')+' per length; K='+f(local.gaussian)+' per length squared. Selected analytic area='+f(integral.area)+' length squared; integral K dA='+f(integral.curvatureIntegral)+'. '+(local.regular?'Coordinate principal directions are shown.':'At the sphere pole the angular chart fails, while the surface and intrinsic K remain smooth.'),
+        'Surface coordinates preserve their stated length units; the polygon mesh is a display approximation with 24 by 12 base parameter cells and an explicit patch-boundary split. Metric, normal, principal curvatures and integrals come from analytic surface derivatives, not polygon angles or screen measurements. Colours show analytic K at each cell midpoint (teal positive, coral negative, blue zero); opacity marks a parameter patch. Metric coefficients E,F,G belong to the actual (u,v) chart; a,b choose positions within its domain. For the plane, a/b map to x/r and y/r; cylinder a maps to angle/pi and b to height/r; sphere a maps to longitude/pi and b to latitude/(pi/2); torus a/b map to its two angles/pi. Angular seams identify the same physical surface; coordinate endpoints do not cut holes. The chosen normal reverses both signed principal curvatures under S=-Dn but leaves K unchanged. Normal and tangent glyph lengths and the probe dot are display aids. The cylinder is locally intrinsically flat; the embedded donut has signed curvature, unlike an abstract flat quotient torus. Closed-surface curvature identities, exact great-circle transport and chart-domain reasoning are in the associated activity. No spacetime curvature or patient geometry is inferred.',
+        [['Teal: positive analytic Gaussian curvature',g.colors.teal],['Coral: negative analytic Gaussian curvature',g.colors.coral],['Blue: zero Gaussian curvature',g.colors.blue]],g),
+        curvature:{state:s,local,faces,patch,integral,glyphScale}};
+    });
+
+  define('driven-hoop-state','Moving constraint, real power and virtual work',
+    {radius:1,mass:1,angle:45,rate:1,omega:4,phase:0},
+    [range('radius','Hoop radius R',.5,2,.25,'m'),range('mass','Bead mass',.5,2,.25,'kg'),
+     range('angle','Instantaneous θ from downward vertical',-180,180,15,'°'),
+     range('rate','Instantaneous θ rate',-3,3,.5,'rad/s'),range('omega','Prescribed angular speed Ω',-4,4,.5,'rad/s'),
+     range('phase','Instantaneous hoop orientation φ',0,360,30,'°')],(s,g)=>{
+      const theta=s.angle*Math.PI/180,phase=s.phase*Math.PI/180,m=window.PrimerPhysicsConstraintsLab.hoopSnapshot({mass:s.mass,radius:s.radius,gravity:9.8,theta,thetaRate:s.rate,driveOmega:s.omega,phase});
+      const wire=Array.from({length:97},(_,i)=>{const a=-Math.PI+2*Math.PI*i/96;return [s.radius*Math.sin(a)*Math.cos(phase),s.radius*Math.sin(a)*Math.sin(phase),-s.radius*Math.cos(a)];});
+      const display=p=>[p[0],p[2],-p[1]];
+      g.line(wire.map(display),g.colors.ink,{width:3,constraints_kind:'wire'});
+      g.sphere(display(m.position),.04*s.radius,g.colors.blue,{constraints_kind:'bead',physicalPosition:m.position});
+      const forceScale=.1,velocityScale=.2,virtualScale=.2,vector=(value,scale,color,kind,label)=>{
+        const tip=m.position.map((x,i)=>x+scale*value[i]);
+        g.line([display(m.position),display(tip)],color,{width:3,constraints_kind:kind,vector:value,scale});
+        if(Math.hypot(...value)>0){g.sphere(display(tip),.018,color,{constraints_kind:kind+'_tip'});if(label)g.label(display(tip),label);}
+        return {start:m.position,tip,vector:value,scale};
+      };
+      const glyphs={gravity:vector(m.gravityForce,forceScale,g.colors.coral,'gravity','mg'),
+        reaction:vector(m.reactionForce,forceScale,g.colors.gold,'reaction','R'),
+        velocity:vector(m.velocity,velocityScale,g.colors.teal,'velocity','v'),
+        virtual:vector(m.virtualThetaTangent,virtualScale,g.colors.plum,'virtual_theta',null)};
+      const f=v=>Number(v.toPrecision(7));
+      return {...result('Instantaneous valid hoop state: position ('+m.position.map(f).join(', ')+') m, θ rate='+s.rate+' rad/s, prescribed Ω='+s.omega+' rad/s. T='+f(m.T)+' J; V='+f(m.V)+' J; reduced H='+f(m.Hreduced)+' J; laboratory E='+f(m.Elab)+' J. E−H=Ωpφ='+f(s.omega*m.momentumPhi)+' J. Reaction·∂r/∂θ='+f(m.virtualWorkCoefficient)+' J per radian; reaction·velocity='+f(m.constraintPower)+' W, equal to drive power '+f(m.drivePower)+' W.',
+        'The wire and bead preserve metres in laboratory Cartesian axes with z upward. The viewer uses the rigid display basis (x,z,−y), placing laboratory z along its vertical axis without stretching positions or vectors. The short plum virtual-tangent glyph is identified by its legend. A polygonal line displays the exact circular wire through 97 sampled points. The bob dot and stroke widths are display aids, not physical bead size or wire thickness. θ, θ rate and hoop orientation select an instantaneous admissible state, not a timed trajectory. The associated activity separately calculates bounded trajectories and numerical convergence/work residuals. Gravity is 9.8 m/s²; V is zero at the bottom. Force arrows use 0.1 metre of drawing length per newton; velocity arrows 0.2 metre per m/s; the virtual tangent is drawn at 0.2 times ∂r/∂θ and represents an infinitesimal allowed variation, not a finite displacement. The ideal reaction has zero component along that virtual tangent but can deliver real power through the moving azimuthal constraint. For constant Ω, the autonomous reduced Hamiltonian differs from laboratory mechanical energy by Ωpφ. At Ω=0 the ideal fixed constraint supplies no power. Readout values are rounded and Cartesian dot products may retain floating-point residuals near zero. No energy drift, chaos or biological geometry is inferred from this static picture.',
+        [['Coral: gravity force',g.colors.coral],['Gold: ideal constraint reaction',g.colors.gold],['Teal: laboratory velocity',g.colors.teal],['Plum: allowed virtual tangent',g.colors.plum]],g),
+        constraints:{state:s,snapshot:m,wire,glyphs,displayFrame:[[1,0,0],[0,0,1],[0,-1,0]],scales:{forceScale,velocityScale,virtualScale}}};
+    });
+
+  define('operator-coordinate-graph','Input and output coefficient graph',
+    {operator:'shift',realization:'infinite',cutoff:4,position:'boundary',first:4,second:0,probe:'zero'},
+    [choice('operator','Operator',[['shift','Right shift S'],['diagonal','Diagonal D']]),
+     choice('realization','Domain',[['infinite','Infinite operator; cropped view'],['matrix','Compressed N-dimensional matrix'],['finite-rank','Finite-rank operator on ℓ²']]),
+     range('cutoff','Visible cutoff N',1,32,1),
+     choice('position','First occupied coordinate',[['first','k = 1'],['boundary','k = N'],['tail','k = N + 1']]),
+     range('first','First coefficient numerator a; value a/4',-16,16,1),range('second','Next coefficient numerator b; value b/4',-16,16,1),
+     choice('probe','Real spectral probe',[['zero','λ = 0'],['two-fifths','λ = 2/5'],['one','λ = 1']])],(s,g)=>{
+      const k=s.position==='first'?1:s.position==='boundary'?s.cutoff:s.cutoff+1;
+      const p=s.probe==='two-fifths'?2:s.probe==='one'?1:0,q=s.probe==='two-fifths'?5:1;
+      const m=window.PrimerMathOperatorLab.build({...s,index:k,lambdaNumerator:p,lambdaDenominator:q});
+      const input=new Map(m.selected.input.entries.map(e=>[e.index,e.value])),output=new Map(m.selected.output.entries.map(e=>[e.index,e.value]));
+      const plotted=[];
+      for(let j=1;j<=s.cutoff;j++){
+        const a=input.get(j)||0,b=output.get(j)||0,point=[j/s.cutoff,a,b];
+        g.line([[j/s.cutoff,0,0],[j/s.cutoff,a,0],point],g.colors.teal,{operator_kind:'coordinate_pair',index:j,input:a,output:b});
+        g.sphere(point,.025,g.colors.blue,{operator_kind:'coordinate_point',index:j,input:a,output:b});
+        plotted.push({index:j,input:a,output:b,point});
+      }
+      g.line([[0,0,0],[1.18,0,0]],g.colors.ink);g.label([1.22,0,0],'j/N');
+      g.line([[0,-4.3,0],[0,4.3,0]],g.colors.ink);g.label([0,4.55,0],'xⱼ');
+      g.line([[0,0,-4.3],[0,0,4.3]],g.colors.ink);g.label([0,0,4.55],'(Tx)ⱼ');
+      return {...result(m.readout,
+        'Each discrete point has coordinates (j/N, accepted input coefficient x_j, output coefficient (Tx)_j). The coefficient axes keep their real dimensionless values; horizontal position is the labelled coordinate fraction. These are coordinate-wise pairs, not vectors embedded isometrically from infinite ℓ² into physical space. Joined stems are display guides, not a continuous curve or norm. Only coordinates1…N are drawn; all hidden input, output and residual terms remain in the exact ledger. Fixed-size dots mark points and do not encode probability, length or norm. A zero visible output can still have a nonzero offscreen norm. The 2D activity supplies general sparse inputs, exact spectral probes and the analytic infinite-dimensional arguments.',
+        [['Blue: discrete accepted-input/output pair',g.colors.blue],['Teal: display stem',g.colors.teal]],g),
+        operator:{state:m.state,plotted,requested:m.requested,selected:m.selected,lambda:m.lambda,truncation:m.truncation}};
+    });
+
+  define('ensemble-state-graph','Multiplicity and macrostate surprisal',
+    {mode:'particles',N:4,x:1,selected:'middle'},
+    [choice('mode','Independent distinguishable sites',[['coins','Fair coins'],['particles','Canonical two-level sites']]),
+     range('N','Number of distinguishable sites N',1,32,1),range('x','Canonical gap ΔE/(kT)',0,20,.25),
+     choice('selected','Selected upper-state count',[['zero','j = 0'],['middle','j = floor(N/2)'],['all','j = N']])],(s,g)=>{
+      const j=s.selected==='zero'?0:s.selected==='all'?s.N:Math.floor(s.N/2);
+      const m=window.PrimerPhysicsEnsembleLab.build({mode:s.mode,N:s.N,j,temperature:300,gap:s.x*1.380649e-23*300/1e-21});
+      const plotted=m.rows.map(r=>({j:r.j,omega:r.omega.toString(),logOmega:r.logOmega,macroLogP:r.macroLogP,
+        point:[r.j/s.N,r.logOmega/s.N,-r.macroLogP/s.N]}));
+      for(const row of plotted){const selected=row.j===j;
+        g.line([[row.point[0],row.point[1],0],row.point],g.colors.teal,{ensemble_kind:'surprisal_stem',j:row.j});
+        g.sphere(row.point,selected?.045:.025,selected?g.colors.coral:g.colors.blue,{ensemble_kind:'macrostate',j:row.j,omega:row.omega,logOmega:row.logOmega,macroLogP:row.macroLogP});}
+      const zMax=Math.max(1,...plotted.map(r=>r.point[2]))*1.06;
+      g.line([[0,0,0],[1.15,0,0]],g.colors.ink);g.label([1.23,0,0],'j/N');
+      g.line([[0,0,0],[0,.85,0]],g.colors.ink);g.label([0,.99,0],'ln Ω/N');
+      g.line([[0,0,0],[0,0,zMax]],g.colors.ink);g.label([0,0,zMax+.12],'−ln P/N');
+      return {...result('N = '+s.N+', selected j = '+j+'. Exact Ω = '+m.omega+'. '+m.readout,
+        'Each point is a discrete macrostate: upper-state fraction j/N, multiplicity entropy per site lnΩ/N and macrostate surprisal per site −lnP(j)/N. Natural logarithms remain finite even for very small positive probabilities; no underflowed zero is plotted. For fair coins, lnΩ/N −lnP/N = ln2. For independent canonical sites this sum is (j/N)x + lnZ, with x = ΔE/(kT). This plot does not equate the selected multiplicity entropy with the full ensemble Gibbs entropy. T is fixed at300 K for the canonical example, x ranges0…20 and N1…32; the 2D activity includes wider counts/temperature bounds, exact enumeration, entropy decomposition, free expansion and finite blocks. All sites are distinguishable and independent, a positive gap gives distinct energies while at x=0 the two labelled states share one energy, and these static probabilities give no recurrence time or dynamics. Point size/highlight and stems are display aids, not physical particles or entropy volume.',
+        [['Blue: discrete macrostate',g.colors.blue],['Coral: selected count',g.colors.coral]],g),
+        ensemble:{state:m.state,x:m.x,logZ:m.logZ,plotted,selected:j,microGibbsOverK:m.microGibbsOverK,macroGibbsOverK:m.macroGibbsOverK}};
+    });
+
+  define('shrinking-support-subgraph','Exact shrinking-support subgraph volume',
+    {indexPower:2,amplitude:2,alpha:'1',probe:'quarter'},
+    [range('indexPower','n = 2ᑫ; choose q',0,16,1),range('amplitude','Fixed amplitude A',0,8,.25),
+     choice('alpha','Fixed exponent α',[['0','0: fixed height'],['0.5','1/2: square-root height'],['1','1: height proportional to n']]),
+     choice('probe','Probe in the input interval',[['zero','x = 0'],['quarter','x = 1/4'],['boundary','Moving: x = 1/n'],['inside','Moving: x = 1/(2n)']])],(s,g)=>{
+      const n=2**s.indexPower,alpha=Number(s.alpha),height=s.amplitude*n**alpha,width=1/n;
+      const probe=s.probe==='zero'?{a:0,b:1}:s.probe==='quarter'?{a:1,b:4}:s.probe==='boundary'?{a:1,b:n}:{a:1,b:2*n};
+      const inside=probe.a>0&&n*probe.a<probe.b,x=probe.a/probe.b,value=inside?height:0;
+      const integral=s.amplitude*n**(alpha-1),norm2Squared=s.amplitude**2*n**(2*alpha-1);
+      if(height>0)g.box([width/2,height/2,.5],[width,height,1],g.colors.teal,{opacity:.24,measure_kind:'subgraph_boundary',physical:{width,height,depth:1,volume:integral},x_boundaries_included:false});
+      else g.line([[0,0,.5],[width,0,.5]],g.colors.teal,{measure_kind:'support_interval_reference',volume:0});
+      g.line([[0,0,0],[1.08,0,0]],g.colors.ink);g.label([1.08,-.12,0],'x');
+      g.line([[0,0,0],[0,Math.max(1.1,height*1.12),0]],g.colors.ink);g.label([-.13,Math.max(1.1,height*1.12),0],'height hₙ');
+      g.line([[0,0,0],[0,0,1.12]],g.colors.ink);g.label([-.13,0,1.12],'z');
+      g.label([1,-.12,0],'1');g.label([0,-.12,0],'0');g.label([width,height,1],'1/'+n+' excluded');
+      g.sphere([x,value,.5],.025,g.colors.coral,{measure_kind:'probe',rational:probe,inside,physical:{x,value}});
+      const fmt=v=>Number(v.toPrecision(6));
+      return {...result('n = '+n+', A = '+s.amplitude+', α = '+s.alpha+'. Defined open interval width1/'+n+'; height ≈ '+fmt(height)+'. Exact unit-depth subgraph volume and integral ≈ '+fmt(integral)+'. Squared L² norm ≈ '+fmt(norm2Squared)+'; essential supremum ≈ '+fmt(height)+'. Probe x = '+probe.a+'/'+probe.b+' is '+(inside?'inside':'outside')+' the defined open interval; hₙ(x) ≈ '+fmt(value)+'.',
+        'Every coordinate is dimensionless and uses its actual value: x width1/n, y heightA n^α and unit depth0<z<1. The product-measure volume equals ∫hₙ dx, not the squared L² norm or an assigned probability. The translucent faces draw the boundary of the closure for inspection; x=0 andx=1/n are excluded from the function’s support. Rational membership uses exact integer products within these controls. The zero and quarter probes are fixed; boundary and interior probes move with n and cannot test pointwise convergence at a fixed x. Marker radius and colour are display aids, not part of the subgraph volume. At A=0 there is no nonzero set or volume; the teal line marks the defined input interval only, not a nonempty subgraph. Very thin or tall shapes can become visually unresolved; no minimum width or artificial height is imposed, and the analytic readout remains authoritative. Use the 2D support-detail view to inspect narrow intervals. This is a finite, exact subgraph example; convergence of the infinite sequence and common domination require the separate analytic arguments in the integration activity.',
+        [['Teal: subgraph boundary, not included end faces',g.colors.teal],['Coral: function-value probe',g.colors.coral]],g),
+        measure:{n,alpha,amplitude:s.amplitude,width,height,integral,norm2Squared,probe:{...probe,x,value,inside}}};
+    });
+
+  define('carnot-state-path','Working-gas pressure, volume and temperature',
+    {mode:'engine',hot:600,cold:300,hotHeat:400,leg:'0',progress:50},
+    [choice('mode','Cycle direction',[['engine','Heat engine'],['refrigerator','Reversed cycle']]),
+     range('hot','Hot reservoir',400,1200,50,'K'),range('cold','Cold reservoir',100,350,25,'K'),
+     range('hotHeat','Working-gas hot-isotherm heat magnitude',200,500,25,'J'),
+     choice('leg','Process leg',[['0','First leg'],['1','Second leg'],['2','Third leg'],['3','Fourth leg']]),
+     range('progress','Log-volume position along the selected leg',0,100,1,'%')],(s,g)=>{
+      const lab=window.PrimerPhysicsCycleLab,m=lab.build({...s,moles:.1,volume:.001,leak:0}),q=lab.stateAtLeg(m.state,Number(s.leg),s.progress/100);
+      const scales={volume:.005,pressure:200000,temperature:1000},point=q=>[q.V/scales.volume,q.p/scales.pressure,q.T/scales.temperature];
+      for(const leg of m.legs){const color=leg.reservoir==='hot'?g.colors.coral:leg.reservoir==='cold'?g.colors.blue:g.colors.teal;
+        g.line(leg.points.map(point),color,{width:3,cycle_kind:'process_leg',leg:leg.index,process:leg.kind,reservoir:leg.reservoir});}
+      for(const c of m.corners)g.label(point(c),c.name);
+      g.sphere(point(q),.05,g.colors.ink,{cycle_kind:'selected_state',physical:q});
+      const limits=[Math.max(1.1,m.plot.maxV/scales.volume*1.08),Math.max(1.1,m.plot.maxP/scales.pressure*1.08),Math.max(1.1,s.hot/scales.temperature*1.12)];
+      g.line([[0,0,0],[limits[0],0,0]],g.colors.ink);g.label([limits[0],-.13,0],'V (m³)');
+      g.line([[0,0,0],[0,limits[1],0]],g.colors.ink);g.label([-.1,limits[1],0],'p (Pa)');
+      g.line([[0,0,0],[0,0,limits[2]]],g.colors.ink);g.label([-.13,0,limits[2]],'T (K)');
+      g.label([1,-.12,0],'0.005');g.label([-.18,1,0],'200000');g.label([-.1,0,1],'1000');
+      const fmt=v=>Number(v.toPrecision(6));
+      return {...result('Leg '+(Number(s.leg)+1)+' of the '+s.mode+' cycle: V ≈ '+fmt(q.V)+' m³, p ≈ '+fmt(q.p)+' Pa, T ≈ '+fmt(q.T)+' K. From this leg’s start: Q ≈ '+fmt(q.Q)+' J, work by gas ≈ '+fmt(q.Wby)+' J, ΔU ≈ '+fmt(q.deltaU)+' J. pV = nRT for n = 0.1 mol.',
+        'This is a quantitative state-space graph, not a piston, molecular arrangement or real-time engine simulation. One x coordinate unit is0.005 m³, one y unit200000 Pa and one z unit1000 K. Every state uses a monatomic ideal gas with fixed γ=5/3. The reversible isotherms and adiabats are calculated analytically; each curved leg is shown by121 log-volume samples with straight display joins, not an exact polygonal physical path. The selected state is analytic. Position parameterizes log volume on a leg, not elapsed time. Reversing the cycle reverses process order and work; it does not fabricate a new equation of state. The 2D activity separately models a heat leak bypassing the working gas, first-law budgets, entropy and the room boundary for an open refrigerator. These controls deliberately retain Tc<Th and an accessible isothermal ratio; volume at A is0.001 m³. A reversible adiabat does not solve a rapid irreversible compression transient.',
+        [['Coral: hot isotherm',g.colors.coral],['Blue: cold isotherm',g.colors.blue],['Teal: reversible adiabats',g.colors.teal]],g),
+        cycle:{state:m.state,scales,current:q,corners:m.corners,legs:m.legs}};
+    });
+
+  define('phase-enthalpy-path','Energy, temperature and liquid fraction',
+    {stage:'fusion',progress:50},
+    [choice('stage','Equilibrium interval',[['ice','Ice warming/cooling'],['fusion','Melting/freezing'],['liquid','Liquid warming/cooling'],['vaporization','Boiling/condensing'],['steam','Vapour warming/cooling']]),
+     range('progress','Position within the chosen enthalpy interval',0,100,1,'%')],(s,g)=>{
+      const lab=window.PrimerPhysicsPhaseLab,H=lab.H,keys=['ice','fusion','liquid','vaporization','steam'];
+      const knots=[H.min,H.ice0,H.water0,H.water100,H.steam100,H.max],colours=[g.colors.blue,g.colors.teal,g.colors.green,g.colors.gold,g.colors.coral];
+      const point=h=>{const q=lab.equilibriumAtSpecificEnthalpy(h);return [h/1000,q.temperature/100,q.fractions.water];};
+      for(let i=0;i<5;i++)g.line([point(knots[i]),point(knots[i+1])],colours[i],{width:3,phase_kind:'equilibrium_segment',stage:keys[i],enthalpy_bounds:[knots[i],knots[i+1]]});
+      const i=keys.indexOf(s.stage),h=s.progress===0?knots[i]:s.progress===100?knots[i+1]:knots[i]+(knots[i+1]-knots[i])*s.progress/100,q=lab.equilibriumAtSpecificEnthalpy(h);
+      g.sphere(point(h),.045,g.colors.ink,{phase_kind:'selected_state',enthalpy:h,temperature:q.temperature,fractions:q.fractions});
+      g.line([[0,0,0],[3.25,0,0]],g.colors.ink);g.label([3.25,-.12,0],'h: kJ/kg');
+      g.line([[0,-.3,0],[0,1.55,0]],g.colors.ink);g.label([-.08,1.55,0],'T: °C');
+      g.line([[0,0,0],[0,0,1.15]],g.colors.ink);g.label([-.2,0,1.15],'Liquid fraction');
+      g.label([0,-.15,0],'0');g.label([3,-.15,0],'3000');g.label([-.16,1,0],'100');g.label([-.16,-.3,0],'−30');g.label([-.13,0,1],'1');
+      return {...result('At h ≈ '+Number(h.toPrecision(7))+' kJ/kg: '+q.phase+'; T ≈ '+Number(q.temperature.toPrecision(7))+' °C; mass fractions ice/liquid/vapour = '+Object.values(q.fractions).map(v=>Number(v.toPrecision(7))).join(' / ')+'.',
+        'Every curve coordinate follows the same constant-pressure, constant-property equilibrium law as the phase activity. One x coordinate unit represents 1000 kJ/kg, one y unit 100 °C, and one z unit liquid mass fraction1. The specific-enthalpy reference is pure ice at0 °C. Two horizontal-temperature stages change phase fractions while heat changes. Adjacent endpoints are continuous; each of the five intervals is linear under the stated approximation, so its two endpoints determine its full segment. Progress selects enthalpy within an interval, not elapsed time or generally a phase fraction. Cooling traverses the same path backward. This is a thermodynamic graph in three physical variables, not a molecular arrangement or inferred volume. Pressure ≈101.325 kPa, no escaped mass, fixed heat capacities/latent heats, temperature domain−30…140 °C. Graphics are rounded; heat-resolved tiny coexistence in the 2D activity can remain distinct even if its absolute-h plot coordinate rounds to a boundary.',
+        [['Blue: ice temperature change',g.colors.blue],['Teal: fusion plateau',g.colors.teal],['Green: liquid temperature change',g.colors.green],['Gold: vaporization plateau',g.colors.gold],['Coral: vapour temperature change',g.colors.coral]],g),
+        phase:{enthalpy:h,temperature:q.temperature,fractions:q.fractions}};
+    });
+
+  define('numerical-conditioning','Singular-value scaling and conditioning',
+    {conditionPower:1,perturbPower:16,sign:1},
+    [range('conditionPower','η = 10⁻ᑫ; choose q',0,16,1),range('perturbPower','|δ| = 10⁻ᵖ; choose p',2,16,1),
+     choice('sign','RHS perturbation sign',[[1,'Positive δ'],[-1,'Negative δ']])],(s,g)=>{
+      const m=window.PrimerMathNumericalLab.conditioning({...s,mode:'conditioning'});
+      g.box([-1.5,0,0],[2,2,2],g.colors.gold,{opacity:.18,conditioning_kind:'input'});
+      g.box([1.5,0,0],[2,2*m.eta,2],g.colors.blue,{opacity:.3,conditioning_kind:'output',eta:m.eta});
+      g.label([-1.5,1.3,0],'Input cube');g.label([1.5,1.3,0],'diag(1,η,1)');
+      g.label([1.5,-1.3,0],'η = '+Number(m.eta.toPrecision(5)));
+      g.label([-1.5,-1.3,0],'Δx₂ = '+Number(window.PrimerMathNumericalLab.approximate(m.change).toPrecision(5)));
+      return {...result(m.readout,'The two dimensionless cubes are separated by translations of−1.5 and+1.5 on x for comparison. Subtract the centre before applying the linear map. Every output corner is exactly the displayed floating-point evaluation of(x,ηy,z). The additional identity z direction embeds the lesson’s two-dimensional diag(1,η) problem without changing κ₂. No minimum thickness is invented: a tiny positive η can look flat at screen resolution, but its world coordinates remain positive and the mathematical map remains invertible. The boxes show singular-value scaling, not a computed solver’s accuracy. Exact nearby-RHS formulas and error norms are in the readout. '+m.proof,
+        [['Gold: unit input cube',g.colors.gold],['Blue: actual scaled output cube',g.colors.blue]],g),
+        conditioning:{eta:m.eta,kappa:m.kappa,inputRelative:m.inputRelative,forwardRelative:m.forwardRelative,bound:m.bound}};
+    });
+
+  define('analysis-tail-errors','Function tails and error bounds',{family:'powers',index:5,epsilon:50},
+    [choice('family','Function family',[['powers','xⁿ: pointwise, not uniform'],['uniform-ramp','x/n: uniform']]),
+     range('index','First tail index N',1,120,1),range('epsilon','Tolerance ε in hundredths',1,200,1)],(s,g)=>{
+      const lab=window.PrimerMathConvergenceLab,e=s.epsilon/100;
+      for(let offset=0;offset<8;offset++){
+        const n=s.index+offset,z=.2*offset;
+        const xs=lab.functionGrid(n).filter(x=>s.family!=='powers'||x<1);
+        g.line(xs.map(x=>[x,lab.functionPoint(s.family,n,x).error,z]),offset%2?g.colors.teal:g.colors.blue,{width:2,convergence_kind:'data',index:n});
+        if(s.family==='powers'){
+          // Open ring: an excluded supremum, not a sampled function value.
+          g.line(Array.from({length:25},(_,i)=>[1+.045*Math.cos(i*Math.PI/12),1+.045*Math.sin(i*Math.PI/12),z]),g.colors.coral,{width:1.25,convergence_kind:'unattained',index:n});
+          g.sphere([1,0,z],.012,g.colors.blue,{convergence_kind:'endpoint',index:n});
+        }else g.sphere([1,1/n,z],.012,g.colors.blue,{convergence_kind:'endpoint',index:n});
+      }
+      g.polygon([[0,e,0],[1,e,0],[1,e,1.4],[0,e,1.4]],g.colors.gold,{opacity:.15});
+      g.line([[0,0,0],[1.15,0,0]],g.colors.ink,{width:2});
+      g.line([[0,0,0],[0,2.1,0]],g.colors.ink,{width:2});
+      g.line([[0,0,0],[0,0,1.55]],g.colors.ink,{width:2});
+      g.label([1.15,-.1,0],'x = 1');g.label([-.15,2.1,0],'Error');
+      g.label([-.12,-.1,0],'n = '+s.index);g.label([-.12,-.1,1.4],'n = '+(s.index+7));
+      const m=lab.build({family:s.family,index:s.index,epsilon:s.epsilon,sample:50});
+      return {readout:m.readout,
+        note:'Eight separate curves show actual absolute errors for integer indices N…N+7 on x∈[0,1]. The index axis advances by0.2 coordinate units per index; labels give the actual n. No continuous surface or intervening noninteger index data is drawn. Gold is the strict ε boundary, not an error value. '+
+          (s.family==='powers'?'Open red rings at x=1,error=1 are unattained left-endpoint limits/suprema; filled blue points at x=1,error=0 are actual data. ':'Filled endpoint points at x=1 attain error1/n. ')+
+          'Adaptive finite curve samples are rounded and connected only to illustrate the known continuous pieces. The all-index/all-input result follows from the displayed analytical argument, not the eight visible curves. '+m.proof,
+        legend:[{label:'Blue/teal: separate finite-index error curves',color:g.colors.blue},
+          {label:'Gold: ε boundary; strict inequality excludes equality',color:g.colors.gold},
+          {label:s.family==='powers'?'Open red rings: excluded supremum1':'Filled endpoints: attained maxima',color:g.colors.coral}],
+        convergence:{family:s.family,index:s.index,epsilon:e,works:m.works},
+      };
+    });
+
+  define('thermal-slab','Steady conducting slab',
+    {left:80,right:20,area:100,length:5,conductivity:1},
+    [range('left','Boundary A temperature',-20,120,1,'°C'),range('right','Boundary B temperature',-20,120,1,'°C'),
+     range('area','Square cross-section area',10,200,10,'cm²'),range('length','Thickness',.5,20,.5,'cm'),
+     range('conductivity','Thermal conductivity',.02,200,.02,'W/(m·K)')],(s,g)=>{
+      const m=window.PrimerPhysicsThermalLab.build({...s,mode:'conduction'}),w=Math.sqrt(s.area)*.1,L=s.length*.1;
+      // All geometric lengths use 0.1 scene unit per centimetre.
+      for(let i=0;i<16;i++){
+        const t=s.left+(s.right-s.left)*(i+.5)/16,u=(t+20)/140;
+        const color='rgb('+Math.round(62+(185-62)*u)+','+Math.round(112+(102-112)*u)+','+Math.round(133+(82-133)*u)+')';
+        g.box([-L/2+L*(i+.5)/16,0,0],[L/16,w,w],color,{thermal_kind:'slab',temperature:t,slice:i});
+      }
+      g.label([-L/2,w/2+.2,0],'A: '+s.left+' °C');g.label([L/2,w/2+.2,0],'B: '+s.right+' °C');
+      g.label([0,-w/2-.2,0],s.length+' cm');g.label([0,w/2+.7,0],'A → B: '+Number(m.power.toPrecision(5))+' W');g.label([0,0,w/2+.2],s.area+' cm²');
+      if(m.power!==0)g.arrow([m.power>0?-L/2:L/2,w/2+.45,0],[m.power>0?L/2:-L/2,w/2+.45,0],g.colors.gold,{width:2});
+      return {...result(m.readout,'Square transverse section and thickness are physical dimensions. Every length uses0.1 scene unit/cm. Sixteen colour bands sample the exact linear steady temperature at their centres; they are display subdivisions, not separate materials or numerical cells. Blue is−20 °C and red120 °C. The gold arrow gives signed net-energy direction, not magnitude; matter stays stationary. '+m.note,
+        [['Colour: temperature on fixed−20…120 °C scale',g.colors.coral],['Gold: net heat direction',g.colors.gold]],g),
+        thermal:{area:m.area,length:m.length,power:m.power,flux:m.flux}};
+    });
+
+  define('buoyant-prism', 'Sealed prism in liquid',
+    { volume: 200, mass: 120, height: 10, density: 1000, gravity: 9.81, depth: 6 },
+    [range('volume', 'Sealed volume', 50, 200, 5, 'cm³'), range('mass', 'Mass', 50, 200, 10, 'g'),
+      range('height', 'Prism height', 5, 15, .5, 'cm'), range('density', 'Liquid density', 800, 1200, 50, 'kg/m³'),
+      range('gravity', 'Gravity', 1, 20, .01, 'm/s²'), range('depth', 'Held bottom depth', 0, 20, .1, 'cm')],
+    (state, g) => {
+      const m = window.PrimerPhysicsBuoyancyLab.build({ ...state, mode: 'hold' });
+      const half = m.widthCm / 20, bottom = -m.depth / 10, top = (m.state.height - m.depth) / 10;
+      const cut = Math.max(bottom, Math.min(top, 0));
+      const corners = [[-half, -half], [half, -half], [half, half], [-half, half]];
+      const point = (corner, y) => [corner[0], y, corner[1]];
+      for (const [low, high, color, part] of [[bottom, cut, g.colors.blue, 'wet'], [cut, top, g.colors.gold, 'dry']]) {
+        if (high <= low) continue;
+        corners.forEach((corner, i) => {
+          const next = corners[(i + 1) % 4];
+          g.polygon([point(corner, low), point(corner, high), point(next, high), point(next, low)], color,
+            { buoyancy_surface: part });
+        });
+      }
+      g.polygon(corners.map(c => point(c, bottom)), m.immersedHeight > 0 ? g.colors.blue : g.colors.gold,
+        { buoyancy_surface: 'bottom' });
+      g.polygon([...corners].reverse().map(c => point(c, top)), top > 0 ? g.colors.gold : g.colors.blue,
+        { buoyancy_surface: 'top' });
+      g.polygon([[-1.5, 0, -1.5], [-1.5, 0, 1.5], [1.5, 0, 1.5], [1.5, 0, -1.5]], g.colors.blue,
+        { opacity: .18, buoyancy_surface: 'liquid-reference' });
+      for (const x of [-1, -.5, 0, .5, 1]) {
+        g.line([[x, 0, -1.5], [x, 0, 1.5]], g.colors.teal, { width: 1 });
+        g.line([[-1.5, 0, x], [1.5, 0, x]], g.colors.teal, { width: 1 });
+      }
+      g.line([[-1.4, .08, 1.3], [-.9, .08, 1.3]], g.colors.ink, { width: 3 });
+      g.label([-1.15, .25, 1.3], '5 cm');
+      const centreMass = (m.state.height / 2 - m.depth) / 10;
+      const centreBuoyancy = (-m.depth + m.immersedHeight / 2) / 10;
+      g.arrow([-half - .25, centreBuoyancy, 0], [-half - .25, centreBuoyancy + .15 * m.buoyancy, 0], g.colors.teal, { buoyancy_force: 'buoyancy' });
+      g.arrow([half + .25, centreMass, 0], [half + .25, centreMass - .15 * m.weight, 0], g.colors.coral, { buoyancy_force: 'weight' });
+      g.arrow([half + .65, centreMass, 0], [half + .65, centreMass + .15 * m.holding, 0], g.colors.plum, { buoyancy_force: 'holding' });
+      return { readout: m.readout,
+        note: 'The prism is held at the selected position for inspection. Its predicted free floating depth is ' +
+          (m.floats ? fmt(m.equilibriumDepth) + ' cm.' : m.neutral ? 'not unique: any fully immersed depth is neutral.' : 'absent: it is too dense to float.') +
+          ' One 3D coordinate unit is 10 cm; the square base and height preserve the actual stated volume. Blue and gold partition one sealed object into submerged and exposed surfaces, not separate materials or water entering it. The grid is a window of the free liquid surface; it is not a tank bottom or a wall. Force arrows use one graphical scale, 0.15 coordinate units per newton. They are moved sideways for legibility and do not depict torques or different physical attachment points. Pressure is hydrostatic in a large uniform-density reservoir. Surface tension, air buoyancy, flooding, rotation and motion are omitted. The side-section activity above predicts the free equilibrium; this separate view lets you inspect a held depth.',
+        legend: [{ label: 'Blue: submerged object surfaces', color: g.colors.blue },
+          { label: 'Gold: exposed object surfaces', color: g.colors.gold },
+          { label: 'Grid: liquid surface; each square is 5 cm × 5 cm', color: g.colors.teal },
+          { label: 'Teal: buoyancy; coral: weight; purple: holding force', color: g.colors.teal }],
+        hydrostatics: m,
+      };
+    });
+
+  define('plane-shapes', 'Sides and corners', {shape:'circle',turn:0,size:1}, [
+    choice('shape','Choose a shape',[['circle','Circle'],['triangle','Triangle'],['square','Square'],['rectangle','Rectangle']]),
+    range('turn','Turn the shape',0,360,15,'°'), range('size','Resize the shape',.5,1.5,.1),
+  ], (s,g) => {
+    const names={circle:'Circle',triangle:'Triangle',square:'Square',rectangle:'Rectangle'};
+    const source=s.shape==='triangle'?[[0,1],[-Math.sqrt(3)/2,-.5],[Math.sqrt(3)/2,-.5]]:
+      s.shape==='square'?[[-.8,-.8],[.8,-.8],[.8,.8],[-.8,.8]]:
+      s.shape==='rectangle'?[[-1,-.6],[1,-.6],[1,.6],[-1,.6]]:null;
+    // A rigid rotation preserves lengths and angles. All boundary points lie
+    // in the same plane; marker spheres denote vertices, not solid thickness.
+    const angle=radians(s.turn),tilt=radians(25),transform=([x,y])=>{
+      const u=s.size*(x*Math.cos(angle)-y*Math.sin(angle));
+      const v=s.size*(x*Math.sin(angle)+y*Math.cos(angle));
+      return [u,v*Math.cos(tilt),v*Math.sin(tilt)];
+    };
+    const corners=(source||[]).map(transform),count=source?source.length:360;
+    const outline=source?corners:Array.from({length:count},(_,i)=>transform([Math.cos(i*TAU/count),Math.sin(i*TAU/count)]));
+    // The displayed circle is sampled for drawing only. Sampling points are
+    // never classified or marked as mathematical corners or straight sides.
+    for(let i=0;i<count;i++)g.line([outline[i],outline[(i+1)%count]],g.colors.blue,{width:3,shape_part:'boundary',shape_index:i});
+    corners.forEach((p,i)=>{g.sphere(p,.045,g.colors.coral,{shape_part:'corner',shape_index:i});g.label(p.map((v,j)=>v+(j===1?.12:0)),String(i+1));});
+    const readout=s.shape==='circle'?'Circle: no straight sides and no corners. Its boundary is one continuous curve.':
+      s.shape==='triangle'?'Triangle: 3 straight sides and 3 corners. This example has three equal sides.':
+      s.shape==='square'?'Square: 4 equal straight sides and 4 square corners (right angles). A square is also a rectangle.':
+      'Rectangle: 4 straight sides and 4 square corners (right angles). Opposite sides have equal lengths. This example has two long and two short sides.';
+    return {...result(readout+' Turning and resizing keep the same shape.',
+      'These are flat shapes viewed in 3D. Tilting a flat circle can make its picture look oval. Red dots mark polygon corners; their size is only a drawing aid. The circle has a smooth outline with no corners.',
+      [['Blue: outline',g.colors.blue],...(source?[['Red dots: corners',g.colors.coral]]:[])],g),
+      planeShape:{name:names[s.shape],straightSides:corners.length,corners:corners.length,vertices:corners,circleRadius:source?null:s.size,circleSamples:source?0:count,maximumCircleChordError:source?0:s.size*(1-Math.cos(Math.PI/count))}};
+  });
+
+  families['plane-shapes'].camera = {yaw:0,pitch:-25};
+
   define('unit-blocks', 'Counting blocks', {count: 12, group: 4}, [range('count', 'Number of blocks', 1, 30, 1), range('group', 'Blocks in each row', 1, 10, 1)], (s, g) => {
     for (let i = 0; i < s.count; i++) g.box([(i % s.group - (s.group-1)/2)*.4, -.68, (Math.floor(i/s.group) - 1)*.4], [.34,.34,.34], i % 2 ? g.colors.teal : g.colors.blue);
     const rows = Math.floor(s.count / s.group), remainder = s.count % s.group;
@@ -378,15 +919,19 @@
 
 
   define('fraction-disk','Partitioned disk',{parts:'4',selected:1,separation:.1},[choice('parts','Equal parts',[['2','Halves'],['4','Quarters'],['8','Eighths']]),range('selected','Highlighted parts',1,8,1),range('separation','Separate the pieces',0,.3,.1)],(s,g)=>{
-    const n=Number(s.parts),selected=Math.min(n,s.selected),radius=1;
+    const n=Number(s.parts),selected=Math.min(n,s.selected),radius=1,segments=96/n;
     for(let i=0;i<n;i++){
       const a=i*TAU/n,b=(i+1)*TAU/n,mid=(a+b)/2,offset=[Math.cos(mid)*s.separation,0,Math.sin(mid)*s.separation],color=i<selected?g.colors.blue:colors.paper;
-      const arc=Array.from({length:13},(_,j)=>add([Math.cos(a+(b-a)*j/12)*radius,.04,Math.sin(a+(b-a)*j/12)*radius],offset));
-      const center=add([0,.04,0],offset);g.polygon([center,...arc],color);
-      for(let j=0;j<12;j++)g.polygon([arc[j],arc[j+1],add(arc[j+1],[0,-.18,0]),add(arc[j],[0,-.18,0])],color);
-      for(const edge of [arc[0],arc[12]])g.polygon([center,edge,add(edge,[0,-.18,0]),add(center,[0,-.18,0])],color);
+      const arc=Array.from({length:segments+1},(_,j)=>add([Math.cos(a+(b-a)*j/segments)*radius,.04,Math.sin(a+(b-a)*j/segments)*radius],offset));
+      const center=add([0,.04,0],offset),top=[center,...arc],bottom=top.map(p=>add(p,[0,-.18,0]));
+      g.polygon([...top].reverse(),color,{fraction_sector:i,fraction_face:'top'});
+      g.polygon(bottom,color,{fraction_sector:i,fraction_face:'bottom'});
+      for(let j=0;j<segments;j++)g.polygon([arc[j],arc[j+1],add(arc[j+1],[0,-.18,0]),add(arc[j],[0,-.18,0])],color,{fraction_sector:i,fraction_face:'curve'});
+      const first=[center,arc[0],add(arc[0],[0,-.18,0]),add(center,[0,-.18,0])],last=[center,arc[segments],add(arc[segments],[0,-.18,0]),add(center,[0,-.18,0])];
+      g.polygon(first,color,{fraction_sector:i,fraction_face:'start'});
+      g.polygon(last.reverse(),color,{fraction_sector:i,fraction_face:'end'});
     }
-    return result(`${selected} of ${n} equal parts: ${selected}/${n} = ${fmt(selected/n)} = ${fmt(selected/n*100)}%. Each piece subtends ${360/n}°. Selecting more than ${n} highlights the whole disk.`, 'The pieces have equal angle, radius and thickness, so they have equal area and volume. Separation is an inspection aid and does not change the part-to-whole fraction. This represents one fixed whole.',[['Blue: selected parts',g.colors.blue],['Cream: other equal parts',colors.paper]],g);
+    return result(`${selected} of ${n} equal parts: ${selected}/${n} = ${String(selected/n)} = ${fmt(selected/n*100)}%. Each piece subtends ${360/n}°. Selecting more than ${n} highlights the whole disk.`, 'The pieces have equal angle, radius and thickness, so they have equal area and volume. Separation is an inspection aid and does not change the part-to-whole fraction. This is a separate example of one fixed whole, not the selected operation or signed value in another activity. The circular boundary is approximated by the same 96 straight chords for every partition, and every sector has outward-facing top, bottom and side faces; exact fraction ratios come from the equal angular partitions, not screen area or the faceted mesh.',[['Blue: selected parts',g.colors.blue],['Cream: other equal parts',colors.paper]],g);
   });
 
   define('clock','Clock face and hands',{hour:3,minute:0},[range('hour','Hour',0,11,1),range('minute','Minutes',0,55,5)],(s,g)=>{
@@ -453,18 +998,56 @@
     return result(`Slit separation d = ${s.gap}; screen distance L = ${s.distance}; wavelength λ = ${wavelength}, all in the same model units. Approximate central fringe spacing λL/d = ${fmt(wavelength*s.distance/s.gap,3)}. Bands use the actual path-length difference from the two slit centers.`, 'Ideal coherent, monochromatic light with equal amplitudes at each point. Display intensity is proportional to cos²(πΔ/λ). Finite-slit diffraction envelopes, spreading losses, alignment error and quantum detection events are omitted. Wavelength and slit widths are enlarged for visibility; this is not a laboratory setup guide.',[['Gray: two-slit barrier',colors.metal],['Gold bands: relative intensity',g.colors.gold],['Coral: source housing',g.colors.coral]],g);
   });
 
+  define('rotation-density-geometry','Calibrated disk density',{diskMass:6e10,diskA:3,diskB:.3},[
+    range('diskMass','Disk mass (solar masses)',0,15e10,5e9),range('diskA','Radial scale a (kpc)',0,10,.25),range('diskB','Vertical scale b (kpc)',.1,2,.1)
+  ],(state,g)=>{
+    const mesh=window.RotationDensity.densitySurface(state,.1,128,128);
+    for(const face of mesh.triangles)g.polygon(face.map(i=>mesh.positions[i]),g.colors.gold);
+    if(mesh.empty)g.label([0,0,0],'Zero disk mass: no density surface');
+    return result('Density contour at '+mesh.density+' solar masses/kpc³. Positions use kpc.','The contour is not a material boundary or the full disk extent. Halo density is not drawn.',[['Gold: 10% of central disk density',g.colors.gold]],g);
+  });
+  families['rotation-density-geometry'].requires='RotationDensity';
+
+  define('type-i-field-geometry','Ideal type-I cylinder field',{temperature:5,appliedMilliTesla:30},[
+    range('temperature','Temperature (K)',0,10,.1),range('appliedMilliTesla','Applied mu0 H (mT)',0,100,1)
+  ],(state,g)=>{
+    const model=window.CondensedGeometry.geometry(state);
+    for(const ring of model.rings)g.line(ring,g.colors.ink);
+    for(let i=0;i<8;i++){const t=i*Math.PI/4;g.line([[Math.cos(t),Math.sin(t),-2],[Math.cos(t),Math.sin(t),2]],g.colors.ink);}
+    for(const glyph of [...model.fieldGlyphs,...model.currentGlyphs]){const color=glyph.kind==='surface-K'?g.colors.gold:g.colors.blue;if(glyph.zero)g.sphere(glyph.originMM,.025,g.colors.ink);else g.arrow(glyph.originMM,glyph.endpointMM,color);}
+    return result(model.uniqueHomogeneousState?'Field and sheet-current samples at '+state.temperature+' K and mu0 H = '+state.appliedMilliTesla+' mT.':model.note,'Ideal infinite cylinder; rings bound the display window, not physical ends. Positions in mm; vector glyphs encode separate T and A/m scales, not trajectories.',[['Blue: magnetic field',g.colors.blue],['Gold: sheet current',g.colors.gold]],g);
+  });
+  families['type-i-field-geometry'].requires='CondensedGeometry';
+
   function ensure(item) {
     const p = item && item.props;
     if (!p || typeof p.scenario !== 'string' || !/^module\.(math|lang|phys|bio|chem|cs|hist|earth|arts|mind|eng|health|env|design|business|civics|education|media|img)\.[0-5]\.[a-z0-9-]+$/.test(p.scenario)) return false;
     if (!Object.prototype.hasOwnProperty.call(families,p.family)) return false;
+    if ((p.scenario === 'module.math.2.coordinates' || p.family === 'coordinate-plane-exact')
+        && (p.scenario !== 'module.math.2.coordinates' || p.family !== 'coordinate-plane-exact' || p.mode !== 'model' || p.lesson !== 'The Coordinate Plane')) return false;
+    if ((Object.hasOwn(algebraFunctionsBindings, p.scenario) || p.family.startsWith('algebra-functions-'))
+        && (!Object.hasOwn(algebraFunctionsBindings, p.scenario) || p.family !== algebraFunctionsBindings[p.scenario][0] || p.mode !== 'model' || p.lesson !== algebraFunctionsBindings[p.scenario][1])) return false;
+    if ((Object.hasOwn(baseTenBindings, p.scenario) || p.family.startsWith('base-ten-'))
+        && (!Object.hasOwn(baseTenBindings, p.scenario) || p.family !== baseTenBindings[p.scenario][0] || p.mode !== 'model' || p.lesson !== baseTenBindings[p.scenario][1])) return false;
+    if ((p.scenario === 'module.math.2.ratio' || p.family === 'ratio-calibrated-volumes')
+        && (p.scenario !== 'module.math.2.ratio' || p.family !== 'ratio-calibrated-volumes' || p.mode !== 'model' || p.lesson !== 'Ratio and Proportion')) return false;
+    if ((p.scenario === 'module.math.2.decimals' || p.family === 'decimal-base-ten')
+        && (p.scenario !== 'module.math.2.decimals' || p.family !== 'decimal-base-ten' || p.mode !== 'model' || p.lesson !== 'Decimals')) return false;
+    if ((p.scenario === 'module.math.4.numtheory' || p.family === 'number-theory-exact-traces')
+        && (p.scenario !== 'module.math.4.numtheory' || p.family !== 'number-theory-exact-traces' || p.mode !== 'model' || p.lesson !== 'Number Theory')) return false;
+    if ((p.scenario === 'module.phys.5.frontier' || p.family === 'rotation-density-geometry') && (p.scenario !== 'module.phys.5.frontier' || p.family !== 'rotation-density-geometry' || p.mode !== 'model' || p.lesson !== 'Open Problems')) return false;
+    if ((p.scenario === 'module.phys.5.condensed' || p.family === 'type-i-field-geometry') && (p.scenario !== 'module.phys.5.condensed' || p.family !== 'type-i-field-geometry' || p.mode !== 'model' || p.lesson !== 'Condensed Matter')) return false;
     if (!['model','context'].includes(p.mode) || typeof p.context !== 'string' || typeof p.lesson !== 'string') return false;
     const binding = JSON.stringify([p.family,p.mode,p.context,p.lesson]);
     if (registered.has(p.scenario)) return registered.get(p.scenario) === binding;
     if (window.PrimerSpatial.supported.includes(p.scenario)) return false;
     const family = families[p.family];
+    if (family.requires && !window[family.requires]) return false;
     const context = p.context, mode = p.mode, lesson = p.lesson;
     window.PrimerSpatial.register({[p.scenario]: {
-      initial:{...family.initial}, controls:family.controls, camera:{yaw:-28,pitch:21},
+      initial:family.initialFactory ? family.initialFactory() : {...family.initial},
+      controls:family.controlsFactory ? family.controlsFactory() : family.controls,
+      normalize:family.normalize, familyId:p.family, camera:family.camera || {yaw:-28,pitch:21}, linkedStateKey:family.linkedStateKey,
       build(state,g) {
         const explanation = family.build(state,g);
         explanation.readout = context + ' ' + explanation.readout;

@@ -1,0 +1,72 @@
+{
+  "sourceSHA256": "a8403ffb053c31afffa65f6906d6e2d256bacb9d525235a15c0be0cf04f48dad",
+  "purePrefixSHA256": "459823951a252ab6c49f369928aca9c212456ba0b6df8f436116864a8729d0cf",
+  "checks": [
+    {
+      "area": "exact algebra and consistency",
+      "cases": 55,
+      "result": "pass",
+      "method": "Rank from all exact permutation minors; independent largest-pivot Fraction Gauss-Jordan; original column bases, canonical free-variable kernel/left-kernel bases and augmented consistency, including rectangular and near-singular matrices."
+    },
+    {
+      "area": "matrix operations",
+      "cases": 84,
+      "result": "pass",
+      "method": "Independent exact dot products and sequential multiplication, including rectangular composition, reflection, nilpotent/defective matrices, rational decay and zero exponent."
+    },
+    {
+      "area": "maps and parameterized systems",
+      "cases": 21,
+      "result": "pass",
+      "method": "Independent shoelace area and composition order; exact inconsistent k=\u00b14, consistent singular comparisons and accepted near-singular distant intersections."
+    },
+    {
+      "area": "3D geometry and four-coordinate kernels",
+      "cases": 21,
+      "result": "pass",
+      "method": "All cube corners and oriented triple-product volume, rank-drop plane membership, complete 4D coordinates and rectangular kernel-family invariance."
+    },
+    {
+      "area": "spectra and repeated powers",
+      "cases": 28,
+      "result": "pass",
+      "method": "Characteristic polynomial evaluations and exact nullspaces, identity/defective shear distinction, explicit complex quarter-turn eigenpairs, exact entire orbits and independent nonnormal closed form with n=2 versus n=3."
+    },
+    {
+      "area": "affine constraint planes and camera",
+      "cases": 22,
+      "result": "pass",
+      "method": "Independent exact cube-face-pair intersections recover all polygon vertices; plane residuals, convex ordering and common point/line/plane or empty classifications; orthonormal declared projection coordinates."
+    },
+    {
+      "area": "invalid domains",
+      "cases": 30,
+      "result": "pass",
+      "method": "Invalid rational grammar, nonfinite values, declared magnitude/denominator bounds, ragged/oversized shapes, incompatible dimensions and unsupported spectrum/camera/iteration states rejected."
+    }
+  ],
+  "metrics": {
+    "nonnormal_transient": {
+      "n2": [
+        "14",
+        "81/100"
+      ],
+      "norm2": 14.023412566133823,
+      "n3": [
+        "151/10",
+        "729/1000"
+      ],
+      "norm3": 15.117587142133496,
+      "peakIndex": 3,
+      "n100": [
+        "16600874304742173083673832134198160913694712408506802696669541562939258738192008455724712025211/25000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000",
+        "265613988875874769338781322035779626829233452653394495974574961739092490901302182994384699044001/10000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000"
+      ]
+    }
+  },
+  "requests": 272,
+  "allPassed": true,
+  "remainingActionableDefects": [],
+  "rendererVerifiedByThisReceipt": false,
+  "scope": "Exact small rational matrices and declared fixture APIs. A bounded quarter-turn complex contrast is checked; no general numerical or complex eigensolver is claimed."
+}

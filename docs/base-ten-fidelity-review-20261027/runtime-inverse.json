@@ -1,0 +1,231 @@
+{
+  "base_commit": "e672744a2d66e94af8e063d09bc7819e218f2298",
+  "scope": "exact_five_lesson_base_ten_and_callout_integration",
+  "files": {
+    "data/curriculum/01-mathematics.json": {
+      "before_sha256": "af745c88f26428084f200c7fb5c1f33569bb2c4b6cb7dd1930c74f8541ebd253",
+      "after_sha256": "b3f1c786ca47001e7f06251e397146df3f4d579340ffe0f131bdd16c28b98a61",
+      "changes": [
+        {
+          "start": 670,
+          "end": 680,
+          "before": "",
+          "after": "        },\n        {\n          \"id\": \"math.1.addition-whole-number-workbench\",\n          \"kind\": \"model\",\n          \"renderer\": \"base-ten-lab\",\n          \"title\": \"Addition: units, places and groups\",\n          \"instructions\": \"Choose a worked example or edit the labelled whole-number inputs. Compare each exact ledger with the diagram; diagrams can be enlarged and scrolled.\",\n          \"props\": {\n            \"scenario\": \"math.1.addition\"\n          }\n"
+        },
+        {
+          "start": 778,
+          "end": 792,
+          "before": "      ]\n",
+          "after": "      ],\n      \"learning_outcomes\": [\n        \"Combine quantities and check addition by counting equal units.\",\n        \"Align equal places and follow carries from smaller to larger places.\",\n        \"Explain that exchanging ten units for one unit of the next place preserves the sum.\",\n        \"Swap addends and verify that the total stays the same.\",\n        \"Inspect fixed-volume pieces before and after regrouping.\"\n      ],\n      \"lesson\": {\n        \"overview\": \"Adding combines quantities. Ones add to ones and tens add to tens. Ten ones can be exchanged for one ten without changing how many unit values there are.\",\n        \"worked_example\": \"For 8 + 5, combine thirteen ones, exchange ten for one ten and retain three ones: the total is 13. For 20 + 30, two tens and three tens make five tens, or 50. For 99 + 1, ten ones exchange to a ten, and ten tens exchange to a hundred.\",\n        \"activity\": \"Use the original friendly-ten activity and all seven quiz examples in the new workbench. Follow the carry ledger from ones upwards. Swap the addends and compare the total. In the independent 3D companion, switch between combined equal-place pieces and the usual digits of the sum.\",\n        \"reflection\": \"A carry changes the pieces, not the total value. The incoming carry is measured in the current place; an outgoing carry goes to the next larger place. The workbench and 3D companion support addends through 999, including challenges beyond the lesson goal of adding through 100. Their controls are independent.\"\n      }\n"
+        },
+        {
+          "start": 920,
+          "end": 930,
+          "before": "",
+          "after": "        },\n        {\n          \"id\": \"math.1.subtraction-whole-number-workbench\",\n          \"kind\": \"model\",\n          \"renderer\": \"base-ten-lab\",\n          \"title\": \"Subtraction: units, places and groups\",\n          \"instructions\": \"Choose a worked example or edit the labelled whole-number inputs. Compare each exact ledger with the diagram; diagrams can be enlarged and scrolled.\",\n          \"props\": {\n            \"scenario\": \"math.1.subtraction\"\n          }\n"
+        },
+        {
+          "start": 931,
+          "end": 945,
+          "before": "      ]\n",
+          "after": "      ],\n      \"learning_outcomes\": [\n        \"Interpret subtraction as removing an amount or comparing two amounts.\",\n        \"Relate the difference to inverse addition.\",\n        \"Regroup across one or more zero places to calculate a gap.\",\n        \"Distinguish a nonnegative gap from a signed subtraction result and a physical shortfall.\",\n        \"Inspect equal-sized retained, removed and comparison counters.\"\n      ],\n      \"lesson\": {\n        \"overview\": \"Subtraction can ask what stays after taking some away, or how far apart two quantities are. Addition checks the answer: removed plus retained gives the starting amount.\",\n        \"worked_example\": \"From nine counters, remove four and five stay: 9 − 4 = 5. Comparing ten with six also leaves a gap of four. For 12 − 5, exchange a ten into ten ones to leave seven. In 100 − 1, regroup across the empty tens place; the difference is 99.\",\n        \"activity\": \"Explore both meanings and the original quiz examples. Read the borrowing ledger from ones towards larger places. Swap the comparison amounts and observe the signed equation. In the independent 3D companion, compare the groups or move available counters into the removed group.\",\n        \"reflection\": \"The ledger finds the nonnegative gap by subtracting the smaller amount from the larger. The equation A − B also states its sign. If more objects are requested than are available, the missing amount is a shortfall, rather than negative physical cubes. The workbench supports amounts through 999; the independent counter companion shows amounts through 100.\"\n      }\n"
+        },
+        {
+          "start": 1074,
+          "end": 1084,
+          "before": "",
+          "after": "        },\n        {\n          \"id\": \"math.1.place-value-whole-number-workbench\",\n          \"kind\": \"model\",\n          \"renderer\": \"base-ten-lab\",\n          \"title\": \"Place Value: units, places and groups\",\n          \"instructions\": \"Choose a worked example or edit the labelled whole-number inputs. Compare each exact ledger with the diagram; diagrams can be enlarged and scrolled.\",\n          \"props\": {\n            \"scenario\": \"math.1.place-value\"\n          }\n"
+        },
+        {
+          "start": 1086,
+          "end": 1100,
+          "before": "      \"practice\": \"know:math.1.place-value\"\n",
+          "after": "      \"practice\": \"know:math.1.place-value\",\n      \"learning_outcomes\": [\n        \"Read ones, tens, hundreds and thousands as positional units, including zero placeholders.\",\n        \"Write a whole number as the sum of its digit contributions.\",\n        \"Exchange ten smaller pieces for one larger piece, or reverse an exchange, without changing value.\",\n        \"Distinguish the number of pieces from the value they represent.\",\n        \"Compare calibrated 3D unit, ten, hundred and thousand volumes.\"\n      ],\n      \"lesson\": {\n        \"overview\": \"A digit gets its value from its place. In 47, four tens contribute 40 and seven ones contribute 7. A zero keeps an empty place, so 101 and 11 mean different numbers.\",\n        \"worked_example\": \"Four ten pieces and seven one pieces make 47. Exchange one ten for ten ones: three tens and seventeen ones still make 47. Reverse the exchange to return to four tens and seven ones. In 1001, one thousand and one one contribute value while the hundreds and tens places are empty.\",\n        \"activity\": \"Try the original worked examples, then read every place in 9999. Use the exchange investigation to apply and reverse an exchange. Compare the total before and after. In the independent 3D companion, unbundle one ten, hundred or thousand and inspect the differently sized pieces.\",\n        \"reflection\": \"One hundred piece is worth one hundred one pieces. Counting unequal pieces alone does not tell their value: use the place unit or calibrated volume. The number reader covers 0 to 9999; the repeatable exchange ledger covers totals through 200. The 3D companion has independent controls and uses a fixed volume per unit.\"\n      }\n"
+        },
+        {
+          "start": 1229,
+          "end": 1239,
+          "before": "",
+          "after": "        },\n        {\n          \"id\": \"math.1.multiplication-whole-number-workbench\",\n          \"kind\": \"model\",\n          \"renderer\": \"base-ten-lab\",\n          \"title\": \"Multiplication: units, places and groups\",\n          \"instructions\": \"Choose a worked example or edit the labelled whole-number inputs. Compare each exact ledger with the diagram; diagrams can be enlarged and scrolled.\",\n          \"props\": {\n            \"scenario\": \"math.1.multiplication\"\n          }\n"
+        },
+        {
+          "start": 1240,
+          "end": 1254,
+          "before": "      ]\n",
+          "after": "      ],\n      \"learning_outcomes\": [\n        \"Interpret multiplication as equal groups or equal rows.\",\n        \"Build and count every product through 12 × 12.\",\n        \"Relate multiplication to repeated addition.\",\n        \"Swap rows and columns to explain why the product is unchanged.\",\n        \"Explain zero products with no invented counters.\"\n      ],\n      \"lesson\": {\n        \"overview\": \"Multiplication counts equal groups. Four rows with three counters in each row contain twelve counters. Each row must have the same number.\",\n        \"worked_example\": \"Four groups of three give 3 + 3 + 3 + 3 = 12. Turning the array makes three groups of four, still twelve. Twelve rows of twelve contain 144 counters. Zero rows or zero counters in every row give zero counters.\",\n        \"activity\": \"Try all seven quiz examples, then edit rows and counters per row from zero through twelve. Swap the factors and compare the array. Rotate the independent 3D array and turn it using its labelled orientation control.\",\n        \"reflection\": \"The same unit counter is used throughout each array. Row colors identify groups and do not change the amount represented. Turning the array changes the grouping description without adding or removing counters. The 3D companion has its own controls.\"\n      }\n"
+        },
+        {
+          "start": 1382,
+          "end": 1392,
+          "before": "",
+          "after": "        },\n        {\n          \"id\": \"math.1.division-whole-number-workbench\",\n          \"kind\": \"model\",\n          \"renderer\": \"base-ten-lab\",\n          \"title\": \"Division: units, places and groups\",\n          \"instructions\": \"Choose a worked example or edit the labelled whole-number inputs. Compare each exact ledger with the diagram; diagrams can be enlarged and scrolled.\",\n          \"props\": {\n            \"scenario\": \"math.1.division\"\n          }\n"
+        },
+        {
+          "start": 1393,
+          "end": 1407,
+          "before": "      ]\n",
+          "after": "      ],\n      \"learning_outcomes\": [\n        \"Distinguish sharing into a given number of groups from making groups of a given size.\",\n        \"Use multiplication facts to calculate quotients.\",\n        \"Keep whole-counter remainders and verify dividend = divisor × quotient + remainder.\",\n        \"Explain zero dividends and undefined division by zero.\",\n        \"Inspect every counter in equal groups and the remainder.\"\n      ],\n      \"lesson\": {\n        \"overview\": \"Division asks about equal groups. Sharing twelve among three groups gives four in each group. Making groups of three from twelve gives four groups. The quotient has a different role in these two questions.\",\n        \"worked_example\": \"For 12 ÷ 3, each of three equal sharing groups receives four counters. For 17 ÷ 5, the quotient is three and two counters remain: 5 × 3 + 2 = 17. A remainder is smaller than the nonzero divisor.\",\n        \"activity\": \"Try every original quiz example in both sharing and grouping contexts. Explore a remainder, zero counters, and division by zero. Compare the ledger with every counter in the diagram. Rotate the independent 3D companion to inspect the complete groups and the separate gold remainder.\",\n        \"reflection\": \"Whole counters are not silently split or discarded. A continuously divisible amount may have an exact fractional quotient, which the workbench states separately. Dividing by zero is undefined; zero divided by zero does not determine a unique quotient. The controls cover totals through 144 and group counts or group sizes through twelve. The 3D companion has independent controls.\"\n      }\n"
+        }
+      ]
+    },
+    "data/module-models.json": {
+      "before_sha256": "26c43d0b0f9a31809b1fadaf95dcc14512b82a0496959ed7704730a35759003a",
+      "after_sha256": "aa4c2f14591b3fcd358a07ac05a4c7a4c472e3aabc8cc50c930aa60556f8d3f8",
+      "changes": [
+        {
+          "start": 45,
+          "end": 49,
+          "before": "      \"family\": \"unit-blocks\",\n      \"title\": \"Counting blocks · 3D study\",\n      \"instructions\": \"Drag or use the camera buttons to inspect the object from different sides. Change the labeled controls, then compare the geometry with the explanation below.\",\n      \"context\": \"Addition: Count the same equal units in different arrangements and compare the total with complete groups and leftovers.\",\n",
+          "after": "      \"family\": \"base-ten-addition\",\n      \"title\": \"Addition with calibrated 3D quantities\",\n      \"instructions\": \"Use the labelled controls to inspect the quantity and its representation. This companion has independent controls; camera movement changes the view.\",\n      \"context\": \"Addition: Fixed-size unit counters and calibrated place-value pieces represent the stated quantity.\",\n"
+        },
+        {
+          "start": 53,
+          "end": 57,
+          "before": "      \"family\": \"unit-blocks\",\n      \"title\": \"Counting blocks · 3D study\",\n      \"instructions\": \"Drag or use the camera buttons to inspect the object from different sides. Change the labeled controls, then compare the geometry with the explanation below.\",\n      \"context\": \"Subtraction: Count the same equal units in different arrangements and compare the total with complete groups and leftovers.\",\n",
+          "after": "      \"family\": \"base-ten-subtraction\",\n      \"title\": \"Subtraction with calibrated 3D quantities\",\n      \"instructions\": \"Use the labelled controls to inspect the quantity and its representation. This companion has independent controls; camera movement changes the view.\",\n      \"context\": \"Subtraction: Fixed-size unit counters and calibrated place-value pieces represent the stated quantity.\",\n"
+        },
+        {
+          "start": 61,
+          "end": 65,
+          "before": "      \"family\": \"unit-blocks\",\n      \"title\": \"Counting blocks · 3D study\",\n      \"instructions\": \"Drag or use the camera buttons to inspect the object from different sides. Change the labeled controls, then compare the geometry with the explanation below.\",\n      \"context\": \"Place Value: Count the same equal units in different arrangements and compare the total with complete groups and leftovers.\",\n",
+          "after": "      \"family\": \"base-ten-place-value\",\n      \"title\": \"Place Value with calibrated 3D quantities\",\n      \"instructions\": \"Use the labelled controls to inspect the quantity and its representation. This companion has independent controls; camera movement changes the view.\",\n      \"context\": \"Place Value: Fixed-size unit counters and calibrated place-value pieces represent the stated quantity.\",\n"
+        },
+        {
+          "start": 69,
+          "end": 73,
+          "before": "      \"family\": \"unit-blocks\",\n      \"title\": \"Counting blocks · 3D study\",\n      \"instructions\": \"Drag or use the camera buttons to inspect the object from different sides. Change the labeled controls, then compare the geometry with the explanation below.\",\n      \"context\": \"Multiplication: Count the same equal units in different arrangements and compare the total with complete groups and leftovers.\",\n",
+          "after": "      \"family\": \"base-ten-multiplication\",\n      \"title\": \"Multiplication with calibrated 3D quantities\",\n      \"instructions\": \"Use the labelled controls to inspect the quantity and its representation. This companion has independent controls; camera movement changes the view.\",\n      \"context\": \"Multiplication: Fixed-size unit counters and calibrated place-value pieces represent the stated quantity.\",\n"
+        },
+        {
+          "start": 77,
+          "end": 81,
+          "before": "      \"family\": \"unit-blocks\",\n      \"title\": \"Counting blocks · 3D study\",\n      \"instructions\": \"Drag or use the camera buttons to inspect the object from different sides. Change the labeled controls, then compare the geometry with the explanation below.\",\n      \"context\": \"Division: Count the same equal units in different arrangements and compare the total with complete groups and leftovers.\",\n",
+          "after": "      \"family\": \"base-ten-division\",\n      \"title\": \"Division with calibrated 3D quantities\",\n      \"instructions\": \"Use the labelled controls to inspect the quantity and its representation. This companion has independent controls; camera movement changes the view.\",\n      \"context\": \"Division: Fixed-size unit counters and calibrated place-value pieces represent the stated quantity.\",\n"
+        }
+      ]
+    },
+    "primer/curriculum.py": {
+      "before_sha256": "ab3519a8034990f0643d1baa6e4686d1ed9072c03c66d823805fa312a45644ff",
+      "after_sha256": "6e1eea5a3bcd4a378cf5fdfd2c538179fba3e70d94d17ae64d041de3beec55b1",
+      "changes": [
+        {
+          "start": 178,
+          "end": 179,
+          "before": "    \"fraction-equivalence-lab\", \"fraction-arithmetic-lab\", \"atom-element-builder\", \"cell-microscope\",\n",
+          "after": "    \"base-ten-lab\", \"fraction-equivalence-lab\", \"fraction-arithmetic-lab\", \"atom-element-builder\", \"cell-microscope\",\n"
+        },
+        {
+          "start": 503,
+          "end": 506,
+          "before": "",
+          "after": "            elif renderer == \"base-ten-lab\":\n                if node.get(\"id\") not in {\"math.1.place-value\", \"math.1.addition\", \"math.1.subtraction\", \"math.1.multiplication\", \"math.1.division\"} or props != {\"scenario\": node.get(\"id\")}:\n                    raise ValueError(\"{} base-ten model has an unknown or cross-lesson scenario\".format(node.get(\"id\")))\n"
+        }
+      ]
+    },
+    "primer/server.py": {
+      "before_sha256": "132b3e3e0e9bd1d0ef3ebe4e82baad2e88f6a7025a8fc6f05672ad8d9fbde144",
+      "after_sha256": "1d3b2d0acaba1b5a0b06658c75ea7ff31ff68e4632f1ede138f5a1da8c658fe2",
+      "changes": [
+        {
+          "start": 3552,
+          "end": 3554,
+          "before": "                     \"ratio-core.js\", \"ratio-lab.js\", \"ratio-lab.css\", \"ratio-spatial.js\"):\n",
+          "after": "                     \"ratio-core.js\", \"ratio-lab.js\", \"ratio-lab.css\", \"ratio-spatial.js\",\n                     \"base-ten-core.js\", \"base-ten-lab.js\", \"base-ten-lab.css\", \"base-ten-spatial.js\"):\n"
+        }
+      ]
+    },
+    "web/index.html": {
+      "before_sha256": "1542541f3012f5affb157fe3baf65c8da70c5c0222fdb8338acf428cd7c4b9cc",
+      "after_sha256": "91efb42889c5f02e72d6e605baa642a2c15953ec945a4257fb34085788ea77d5",
+      "changes": [
+        {
+          "start": 34,
+          "end": 35,
+          "before": "",
+          "after": "  <link rel=\"stylesheet\" href=\"/app/base-ten-lab.css\">\n"
+        },
+        {
+          "start": 82,
+          "end": 84,
+          "before": "",
+          "after": "  <script src=\"/app/base-ten-core.js\"></script>\n  <script src=\"/app/base-ten-spatial.js\"></script>\n"
+        },
+        {
+          "start": 129,
+          "end": 130,
+          "before": "",
+          "after": "  <script src=\"/app/base-ten-lab.js\"></script>\n"
+        }
+      ]
+    },
+    "web/lesson-models.js": {
+      "before_sha256": "962089396f8fd765f3676c1ca79189414e2f09104162b0e1f7f118c997a91906",
+      "after_sha256": "191633ab4f1dcfb6aeb010689736a4a3819098813f72277fd07e385a722f87b1",
+      "changes": [
+        {
+          "start": 6169,
+          "end": 6170,
+          "before": "",
+          "after": "    'base-ten-lab': (item, hooks) => window.PrimerBaseTenLab?.render(item, hooks) || null,\n"
+        }
+      ]
+    },
+    "web/spatial-module-objects.js": {
+      "before_sha256": "e84326b228affe2432ea921489801786acf72927c68a001fcf08b7eed7e8d014",
+      "after_sha256": "4f4e3874cf058c6fa6a670aca8fd98f0081004e19bd2d730cd41e8aa61be6633",
+      "changes": [
+        {
+          "start": 73,
+          "end": 82,
+          "before": "",
+          "after": "\n  const baseTenBindings = {\n    'module.math.1.place-value': ['base-ten-place-value', \"Place Value\"],\n    'module.math.1.addition': ['base-ten-addition', \"Addition\"],\n    'module.math.1.subtraction': ['base-ten-subtraction', \"Subtraction\"],\n    'module.math.1.multiplication': ['base-ten-multiplication', \"Multiplication\"],\n    'module.math.1.division': ['base-ten-division', \"Division\"],\n  };\n  if (window.PrimerBaseTenSpatialFamilies) for (const [scenario, [family]] of Object.entries(baseTenBindings)) families[family] = window.PrimerBaseTenSpatialFamilies[scenario.slice(7)];\n"
+        },
+        {
+          "start": 982,
+          "end": 984,
+          "before": "",
+          "after": "    if ((Object.hasOwn(baseTenBindings, p.scenario) || p.family.startsWith('base-ten-'))\n        && (!Object.hasOwn(baseTenBindings, p.scenario) || p.family !== baseTenBindings[p.scenario][0] || p.mode !== 'model' || p.lesson !== baseTenBindings[p.scenario][1])) return false;\n"
+        }
+      ]
+    },
+    "web/spatial-models.js": {
+      "before_sha256": "3fec71f2b3d9d6a3fb6b2840181baccb06954b54b83b633344a25e9d2a5431c3",
+      "after_sha256": "9520bb0096b41b056f90269c457ba5489524fe74bacbfa6db46f652b0889e42f",
+      "changes": [
+        {
+          "start": 158,
+          "end": 160,
+          "before": "",
+          "after": "      const cropped = extents.some(p => (Math.abs(p.point[0]) + p.radius) * scale > 300 + 1e-8 ||\n        (Math.abs(p.point[1]) + p.radius) * scale > 210 + 1e-8);\n"
+        },
+        {
+          "start": 199,
+          "end": 203,
+          "before": "",
+          "after": "        // Search around an on-screen origin even when zoom moves the source\n        // anchor off-screen; otherwise every candidate clamps to one edge.\n        const originX = clamp(anchorX, width / 2 + 12, 588 - width / 2);\n        const originY = clamp(anchorY, height + 12, 408);\n"
+        },
+        {
+          "start": 206,
+          "end": 208,
+          "before": "            const x = clamp(anchorX + dx, width / 2 + 12, 588 - width / 2);\n            const y = clamp(anchorY + dy, height + 12, 408);\n",
+          "after": "            const x = clamp(originX + dx, width / 2 + 12, 588 - width / 2);\n            const y = clamp(originY + dy, height + 12, 408);\n"
+        },
+        {
+          "start": 226,
+          "end": 228,
+          "before": "        '° · Zoom ' + Math.round(camera.zoom * 100) + '%' + (scale < requestedScale ? ' · Auto-fit' : '');\n",
+          "after": "        '° · Zoom ' + Math.round(camera.zoom * 100) + '%' + (scale < requestedScale ? ' · Auto-fit' : '') +\n        (cropped ? ' · Cropped view; zoom out to inspect all geometry.' : '');\n"
+        },
+        {
+          "start": 229,
+          "end": 230,
+          "before": "",
+          "after": "      root.dataset.cropped = String(cropped);\n"
+        }
+      ]
+    }
+  },
+  "clinical_approval": false,
+  "extends_historical_approval": false,
+  "whole_goal_complete": false
+}

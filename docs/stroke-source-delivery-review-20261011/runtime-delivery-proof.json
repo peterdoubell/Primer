@@ -1,0 +1,69 @@
+{
+  "schema_version": 1,
+  "reviewed_at": "2026-10-11",
+  "scope": "Stroke source cloud delivery and private runtime identity; source clinical and anatomical validity not granted",
+  "investigation_id": "ra.acute-stroke",
+  "module_id": "rad.4.stroke",
+  "file_count": 48,
+  "total_bytes": 143265946,
+  "ctp_files": 27,
+  "ctp_bytes": 37429274,
+  "soop_files": 21,
+  "soop_bytes": 105836672,
+  "fresh_http_body_equals_local_source_for_every_file": true,
+  "cors_every_file": "*",
+  "public_content_addressed_urls": true,
+  "existing_brain_delivery_and_inspector_registries_unchanged": true,
+  "private_GET_HEAD_auth_preserved": true,
+  "fixed_hosted_redirect_urls": true,
+  "unknown_nested_trailing_path_rejection": true,
+  "native_iframe_connect_scope": "https://ja2lsnp9uca4bivw.public.blob.vercel-storage.com/anatomy/soop-stroke-sub342/",
+  "ordinary_pages_connect_scope": "'self'",
+  "short_lived_oidc_only_no_production_env_pull": true,
+  "task_token_files_deleted": true,
+  "independent_ctp_review_sha256": "4af86b0db18667fd1b5af5e3c8244e7654828d4b2c0cfa5584de1b2f9deecde4",
+  "independent_soop_review_sha256": "5f51f80d3bf56d412fc81e825927f1415e19d59fc1409651fab5a667836a9902",
+  "upload_receipts": [
+    {
+      "path": "docs/stroke-source-delivery-review-20261011/acute-stroke-ctp-blob-upload-proof-20261011.json",
+      "sha256": "582988a27de7ac8e9f81a241dc39470cd73e8523c6005cc7b34cbd53e10788b8",
+      "file_count": 27,
+      "total_bytes": 37429274
+    },
+    {
+      "path": "docs/stroke-source-delivery-review-20261011/soop-stroke-blob-upload-proof-20261011.json",
+      "sha256": "25c30c6c15b5dcde889eb17179fbeb5c688c5639b162b34ea6f6d8fb0deaba30",
+      "file_count": 21,
+      "total_bytes": 105836672
+    }
+  ],
+  "pins": {
+    "primer/stroke_source_delivery.py": "e37562d5d24c5b70d05e405d8d56f8db0b056751a3e1ee7d0b71a264beeaf8e0",
+    "primer/stroke_native_inspectors.py": "9a968a449890a0bb5540f1688a799d2b07e8b759d3dc75fd753d9ab6fe5804dd",
+    "primer/source_native_inspectors.py": "03c3f43f6995391b182e0b4b7b8ae947f10dbe9d2fe83b699a8b12662f8b6a09",
+    "primer/server.py": "607e717a8be8adf16b5fe4c9471770b6d07370627a097cffe58db7796c5acfe4",
+    "data/radiology/acute-stroke-source-delivery.json": "5dd069f8237dc81aed27d421bfab395da5aefc0c3fb9a3edd915675a114234a2",
+    "data/radiology/soop-native-inspector.json": "449ac4b15f9b9104bb35da36e2441571bca458a8947b874eeb1b87034b39c13e",
+    "vercel.json": "eec673997c205cf346461b71485fb7335982e6de191428c882db1cf84dfca684",
+    ".vercelignore": "159ea9146da86f9f15179be5df24991d4a3e85a0834e5cf89c740ef82ed2d33f",
+    "tests/test_stroke_source_delivery.py": "84c5108d1e1d00968bb0c8c7f6896fc3c773d6c70b1054c2dd4d50830c29fa95",
+    "tests/test_native_source_inspector_integration.py": "7492c6b8c8c332a5a56181e5a9ea17413f76f69d55f1f6032934677763fc4a91"
+  },
+  "focused_test_log": ".research/stroke-delivery-focused-20261011.log",
+  "focused_test_result": "53 passed",
+  "preserved_initial_focused_regression_observation": {
+    "result": "2 failed / 65 passed",
+    "failures": [
+      "Existing brain MEDIA instruction string changed by generalized shared wording; root asked to retain oldbrain wording and scope new wording to stroke",
+      "Static raster inventory had not yet been regenerated for CTP13; health correctly rejected missing reviewed metadata"
+    ],
+    "own_new_delivery_tests_passed": 50
+  },
+  "independent_delivery_review_pending": true,
+  "integrated_authenticated_reader_browser_review_pending": true,
+  "production_deployment_verification_pending": true,
+  "clinical_approval": false,
+  "fine_anatomical_approval": false,
+  "structure_coverage_granted": false,
+  "whole_goal_complete": false
+}

@@ -1,0 +1,22 @@
+:root { font:16px/1.55 "Instrument Sans",system-ui,sans-serif; background:#eef3f8; color:#1e354d; }
+body { margin:0; }
+main { max-width:66rem; padding:1.2rem; margin:auto; }
+h1 { font-family:"Instrument Serif",Georgia,serif; font-size:clamp(2.4rem,7vw,4rem); line-height:1.08; margin:.6em 0 .18em; }
+h2 { font-size:1.25rem; margin:0 0 .5rem; }
+a { color:#285786; text-underline-offset:.15em; }
+fieldset { display:grid; grid-template-columns:max-content minmax(5rem,14rem) minmax(5.2rem,1fr); gap:.35rem .75rem; align-items:center; margin-bottom:1rem; border:1px solid #91a8be; border-radius:.45rem; }
+fieldset button { grid-column:1 / -1; justify-self:start; }
+button, select, input { font:inherit; max-width:100%; }
+button, select { padding:.35rem .5rem; }
+input { accent-color:#315a87; }
+.layout { display:grid; grid-template-columns:minmax(0,1fr) minmax(0,1fr); gap:1rem; align-items:start; }
+section { border:1px solid #abbfd0; background:#fff; padding:1rem; border-radius:.45rem; min-width:0; }
+figure { margin:.65rem 0 0; }
+canvas { width:100%; height:auto; display:block; }
+figcaption { margin-top:.5rem; }
+table { border-collapse:collapse; width:100%; font-variant-numeric:tabular-nums; }
+caption { text-align:left; font-weight:600; margin-bottom:.35rem; }
+td, th { padding:.38rem; border-bottom:1px solid #cdd8e3; text-align:left; }
+.challenge { margin:1rem 0; }
+:focus-visible { outline:3px solid #396da2; outline-offset:2px; }
+@media(max-width:47rem) { .layout { grid-template-columns:1fr; } }

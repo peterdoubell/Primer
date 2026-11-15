@@ -13,7 +13,7 @@ const input = JSON.parse(fs.readFileSync(0, 'utf8'));
 const root = fs.realpathSync(path.resolve(__dirname, '..'));
 assert.equal(path.resolve(input.basePath), root);
 const files = input.files;
-const forbidden = /(^|\/)(content|artifacts|\.git|\.venv|\.vercel|\.env[^/]*|\.agents|\.claude|\.github|\.pytest_cache|__pycache__|docs|tests|tools)(\/|$)|\.db(?:-|$)| 2\./;
+const forbidden = /(^|\/)(content|artifacts|\.git|\.venv|\.vercel|\.env[^/]*|\.agents|\.claude|\.github|\.research|\.pytest_cache|__pycache__|docs|tests|tools)(\/|$)|\.db(?:-|$)| 2\./;
 for (const file of files) {
   assert.ok(!path.isAbsolute(file.path) && !file.path.split('/').includes('..'), file.path);
   const runtimeDocument = file.path === 'docs/msk-hamstring-shared-figures.md';

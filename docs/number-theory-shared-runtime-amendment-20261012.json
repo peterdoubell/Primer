@@ -1,0 +1,60 @@
+{
+  "schema_version": 1,
+  "scope": "Bounded exact inverse correspondence for shared UI controls and number-theory family registration only. All frozen QFT science receipts remain unchanged. This does not grant new QFT scientific or reader approval.",
+  "baseline_commit": "1e1337aecef27acdc90ce7be93f6a92c3bd36360",
+  "original_receipt": {
+    "path": "docs/physics-qft-integrated-science-review-20261011/representability-scientific-amendment.json",
+    "sha256": "60fb846c3659017e25691b053ef4ca166f38c3b91931a84a930196b05aa95965"
+  },
+  "files": {
+    "web/spatial-models.js": {
+      "historical_sha256": "d16b25a18d59a79cb5d9f94c5573c486f19d01099d7ced70d74b4ecee0e20136",
+      "current_sha256": "3fec71f2b3d9d6a3fb6b2840181baccb06954b54b83b633344a25e9d2a5431c3",
+      "inverse_replacements": [
+        {
+          "old_literal": "",
+          "new_literal": "      const exactIntegerControl = id === 'module.math.4.numtheory' && spec.familyId === 'number-theory-exact-traces'\n        && spec.linkedStateKey === 'math.4.numtheory' && control.exactInteger === true\n        && window.PrimerMathNumberTheoryLab?.controls.some(c => c.key === control.key\n          && c.min === control.min && c.max === control.max && c.exactInteger === true);\n",
+          "occurrences": 1
+        },
+        {
+          "old_literal": "          input.type = 'number';\n",
+          "new_literal": "          input.type = exactIntegerControl ? 'text' : 'number';\n",
+          "occurrences": 1
+        },
+        {
+          "old_literal": "        if (control.numericInput && (input.value.trim() === '' || !Number.isFinite(Number(input.value)))) {\n",
+          "new_literal": "        if (exactIntegerControl && !control.integerValidator?.(input.value)) {\n          input.setAttribute('aria-invalid', 'true');\n          status.textContent = 'Enter an exact integer from ' + control.min + ' to ' + control.max + '. The last accepted state is retained.';\n          return;\n        }\n        input.removeAttribute('aria-invalid');\n        if (control.numericInput && !exactIntegerControl && (input.value.trim() === '' || !Number.isFinite(Number(input.value)))) {\n",
+          "occurrences": 1
+        },
+        {
+          "old_literal": "          : Number(input.value);\n",
+          "new_literal": "          : exactIntegerControl ? input.value : Number(input.value);\n",
+          "occurrences": 1
+        }
+      ]
+    },
+    "web/spatial-module-objects.js": {
+      "historical_sha256": "ca8cbf328cc1c38e3fc89826d72f47e0e72f3abb1fe6ffbb70889b923ea974fe",
+      "current_sha256": "54ce7bdabc20ae919a211b6df6ec2e02e0ff148a58bd5e99742eb80fc78727a7",
+      "inverse_replacements": [
+        {
+          "old_literal": "",
+          "new_literal": "  if (window.PrimerNumberTheorySpatialFamily) families['number-theory-exact-traces'] = window.PrimerNumberTheorySpatialFamily;\n",
+          "occurrences": 1
+        },
+        {
+          "old_literal": "",
+          "new_literal": "    if ((p.scenario === 'module.math.4.numtheory' || p.family === 'number-theory-exact-traces')\n        && (p.scenario !== 'module.math.4.numtheory' || p.family !== 'number-theory-exact-traces' || p.mode !== 'model' || p.lesson !== 'Number Theory')) return false;\n",
+          "occurrences": 1
+        }
+      ]
+    }
+  },
+  "new_semantics": "Decimal BigInt strings are permitted only at module.math.4.numtheory with family number-theory-exact-traces, linked key math.4.numtheory and matching declared integer control keys/bounds. Other numeric families retain Number parsing and input types. Number-theory registration rejects cross-lesson family/scenario/lesson bindings.",
+  "historical_pin_failure": {
+    "path": "docs/number-theory-reader-review-20261012/preserved-shared-pin-failure.txt",
+    "sha256": "0edc00c290c8c042fddd5da2f65e1352a858a32fbd80b85b30d60548722c4f7e"
+  },
+  "full_goal_complete": false,
+  "production_cryptography_approved": false
+}

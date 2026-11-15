@@ -26,15 +26,36 @@ def bind(domain, family, mode, context, suffixes):
 
 # Mathematics: concrete quantities, measurements and explicitly chosen examples.
 bind('math','unit-blocks','model','Count the same equal units in different arrangements and compare the total with complete groups and leftovers.', '0.counting 0.compare 0.patterns 0.numbers20 1.addition 1.subtraction 1.place-value 1.multiplication 1.division 2.primes 2.order-ops 2.exponents 3.sequences')
-bind('math','lattice','model','Inspect edges, equal distances and repeated positions in three perpendicular directions.', '0.shapes 1.measurement 2.geometry')
+bind('math','plane-shapes','model','Choose a flat shape and count its straight sides and corners. Turn or resize it and check what stays the same.', '0.shapes')
+bind('math','lattice','model','Inspect edges, equal distances and repeated positions in three perpendicular directions.', '1.measurement 2.geometry')
 bind('math','clock','model','Relate equal angular divisions to the positions of an analog clock’s two hands.', '1.time')
 bind('math','fraction-disk','model','Compare equal parts with the fixed whole; relate the selected fraction to its decimal and percentage.', '1.fractions-intro 2.fractions 2.decimals 2.percent 2.ratio')
 bind('math','balance','context','Use a physical equality comparison to discuss which changes preserve or break a balance; signed numbers and algebraic symbols need the lesson’s separate definitions.', '2.negatives 2.prealgebra 3.linear 3.systems')
-bind('math','surface','model','Inspect an explicit coordinate example from several directions and distinguish an input coordinate from a plotted output height.', '2.coordinates 3.slope 3.quadratics 3.functions 3.polynomials 3.trig 3.precalc 4.diff-calc 4.int-calc 4.multivar 4.diffeq 4.analysis 5.diffgeo 5.numerical 5.pde')
+bind('math','surface','model','Inspect an explicit coordinate example from several directions and distinguish an input coordinate from a plotted output height.', '2.coordinates 3.slope 3.quadratics 3.functions 3.polynomials 3.trig 3.precalc 4.diff-calc 4.int-calc 4.multivar 4.diffeq 5.pde')
 bind('math','urn','model','Use an inspectable finite population to connect counts, proportions and equally likely selection; broader distributions require additional assumptions.', '2.data 3.probability 3.statistics 4.prob-theory')
-bind('math','lattice','context','This regular spatial construction provides a concrete example for discussing structure and relations; it does not establish the lesson’s general theorem or abstract definition.', '3.euclid 3.expo-logs 3.vectors 4.linalg 4.discrete 4.numtheory 5.abstract 5.topology')
-bind('math','surface','context','Use the chosen real-valued surface as one geometric example when discussing the lesson’s more general mathematical objects; it is not a complete model of those objects.', '4.complex 5.measure 5.functional 5.complex-analysis')
-bind('math','book','context','Inspect a text-bearing object as a setting for definitions, arguments and open problems; mathematical validity comes from the statements and proofs, not the object’s shape.', '5.logic 5.frontier')
+bind('math','lattice','context','This regular spatial construction provides a concrete example for discussing structure and relations; it does not establish the lesson’s general theorem or abstract definition.', '3.euclid 3.expo-logs 3.vectors 4.linalg 4.discrete 4.numtheory')
+bind('math','shrinking-support-subgraph','model','Inspect exact dimensionless shrinking-support geometry, product-measure volume and rational open-boundary probes for the stated sequence.', '5.measure')
+bind('math','surface','context','Use the chosen real-valued surface as one geometric example when discussing the lesson’s more general mathematical objects; it is not a complete model of those objects.', '4.complex')
+bind('math','book','context','Inspect a text-bearing object as a setting for definitions, arguments and open problems; mathematical validity comes from the statements and proofs, not the object’s shape.', '5.frontier')
+
+bind('math','numerical-conditioning','model','Inspect actual singular-value scaling for an embedded linear problem and separate its conditioning from an algorithm’s error.', '5.numerical')
+bind('math','analysis-tail-errors','model','Compare exact finite-index function errors with the all-tail argument; open suprema and actual endpoint values stay distinct.', '4.analysis')
+
+bind('math','operator-coordinate-graph','model','Inspect actual accepted input/output coefficient pairs, their visible coordinate crop and the full exact norm ledger.', '5.functional')
+bind('phys','ensemble-state-graph','model','Inspect distinguishable macrostate counts, multiplicity and negative log probability without inventing microscopic dynamics.', '4.statmech')
+
+bind('math','curvature-surface','model','Inspect actual surface coordinates, metric and signed curvature, preserving sphere chart poles and the embedded torus’s positive/negative regions.', '5.diffgeo')
+bind('phys','driven-hoop-state','model','Inspect a real instantaneous moving-constraint state and compare ideal virtual work with laboratory force, velocity, power and energy.', '4.classical')
+
+bind('math','logic-witness-geometry','model','Inspect exact finite memberships, ordered relations and directed theorem dependencies while retaining infinite proof hypotheses and categorical layout.', '5.logic')
+bind('phys','maxwell-field-geometry','model','Inspect actual SI field samples and oriented surfaces, circuits and radiative geometry with declared coordinate and field display gains.', '4.em-maxwell')
+bind('math','algebra-operation-geometry','model','Inspect exact finite operations, cosets, permutations and integer maps while preserving quotient and field-embedding hypotheses.', '5.abstract')
+bind('phys','qft-observable-geometry','model','Inspect calibrated field modes, exact external momenta and categorical diagram contributions, Dirac branches and matched ideal observables.', '5.qft')
+bind('phys','quantum-information-geometry','model','Inspect actual complex amplitudes, three-coordinate Bloch states, declared mixed-state probabilities and discrete circuit operations.', '5.quantum-info')
+bind('math','topology-open-set-geometry','model','Inspect exact open-set and quotient data, infinite proof witnesses and actual closed triangulated surfaces with invertible affine deformations.', '5.topology')
+bind('phys','relativistic-event-geometry','model','Inspect actual relativistic event coordinates, clock comparisons and worldlines with disclosed units, gains and approximation domains.', '4.relativity')
+bind('math','complex-function-domain','model','Inspect named complex functions in their input domains, a disclosed magnitude projection, and a calibrated output plane while retaining poles and analytic hypotheses.', '5.complex-analysis')
+bind('phys','quantum-state-geometry','model','Inspect calibrated complex-amplitude graphs, spin expectations, Fourier-linked distributions, matched barrier flux and photon energy while sharing the complete preparation state.', '4.quantum')
 
 # Language: material texts, reproduction and physical communication settings.
 bind('lang','book','context','Inspect facing pages and their order as a physical setting for reading and writing. The displayed lines are placeholders; linguistic meaning comes from the lesson’s actual words.', '0.alphabet 0.stories 1.reading 1.spelling 1.vocabulary 1.sentences 1.handwriting 1.childrens-lit 1.writing-stories 1.dictionary 2.grammar 2.paragraphs 2.poetry 2.mythology 2.novels 2.research 3.literature 3.world-lit 3.essays 4.lit-theory 4.creative 4.classics 4.comp-lit 5.narratology')
@@ -46,17 +67,21 @@ bind('lang','computer','context','Inspect the physical computing substrate on wh
 # Physics: geometry and ideal examples, with research apparatus for abstract topics.
 bind('phys','lever','model','Inspect a load, effort and pivot, and compare force with moment arm in the stated ideal static example.', '0.push-pull 1.machines 2.forces 3.energy-work')
 bind('phys','camera','model','Trace straight sightlines through a pinhole and inspect the inverted image on the screen.', '0.light-shadow 1.light 3.optics-waves')
-bind('phys','particles','context','Compare inspectable arrangements of enlarged particles; this static object does not calculate temperature, pressure, buoyancy or a thermodynamic process.', '0.hot-cold 0.float-sink 2.heat 2.matter 3.thermo 4.statmech')
-bind('phys','pendulum','model','Relate string length and angular position to the bob’s geometry and height above its lowest point.', '1.motion 1.energy 2.gravity 3.mechanics 4.classical')
+bind('phys','particles','context','Compare inspectable arrangements of enlarged particles; this static object does not calculate temperature, pressure, buoyancy or a thermodynamic process.', '0.hot-cold')
+bind('phys','carnot-state-path','model','Inspect real monatomic ideal-gas p–V–T states on a reversible Carnot cycle and its reversal, with signed leg energies.', '3.thermo')
+bind('phys','phase-enthalpy-path','model','Inspect the actual equilibrium relation between specific enthalpy, temperature and liquid mass fraction; latent heat changes fractions on a temperature plateau.', '2.matter')
+bind('phys','thermal-slab','model','Inspect the physical slab dimensions, its steady linear temperature profile and signed Fourier heat flux.', '2.heat')
+bind('phys','buoyant-prism','model','inspect the actual prism volume and hydrostatic force balance at a chosen held depth.', '0.float-sink')
+bind('phys','pendulum','model','Relate string length and angular position to the bob’s geometry and height above its lowest point.', '1.motion 1.energy 2.gravity 3.mechanics')
 bind('phys','circuit','model','Trace the complete path in a simple ideal DC circuit and compare resistance, voltage and current; magnetic effects need a separate field description.', '2.electricity')
-bind('phys','wave','context','Inspect a transverse rope example and distinguish its spatial wavelength from displacement. Sound in air and electromagnetic fields are different physical wave systems.', '1.sound 2.waves 4.em-maxwell')
+bind('phys','wave','context','Inspect a transverse rope example and distinguish its spatial wavelength from displacement. Sound in air and electromagnetic fields are different physical wave systems.', '1.sound 2.waves')
 bind('phys','laboratory','context','Inspect separate containers and relative measurement marks as a physical context for units, experiments and fluid observations; no flow or measurement uncertainty is calculated.', '2.units 4.fluids 4.experiment')
 bind('phys','lattice','context','Inspect a repeated three-dimensional arrangement as a concrete structural example. Quantum states, elementary particles and material properties require models beyond these visible sites.', '4.solid-state 5.condensed')
-bind('phys','clock','context','Inspect how a physical clock displays readings before discussing comparisons between observers; the clock geometry itself does not simulate time dilation.', '3.relativity-intro 4.relativity')
+bind('phys','clock','context','Inspect how a physical clock displays readings before discussing comparisons between observers; the clock geometry itself does not simulate time dilation.', '3.relativity-intro')
 bind('phys','magnet','model','Inspect magnetic-field directions on two perpendicular planes and reverse the poles to reverse the field.', '1.magnets 3.em')
-bind('phys','detector','context','Inspect concentric sensing regions around a particle-interaction point as a physical context for testing theories against measurements; no collision event or field dynamics is simulated.', '3.nuclear 4.particles 5.qft 5.frontier')
-bind('phys','interference','context','Inspect coherent-light interference as a concrete experimental setting for discussing waves, measurement and quantum phenomena; the model itself computes only an ideal classical intensity pattern.', '3.modern 4.quantum 5.quantum-info')
-bind('phys','telescope','context','Inspect astronomical observing equipment as a bridge from theory to measurements; its shape does not model spacetime curvature or cosmic expansion.', '5.gr-cosmo')
+bind('phys','detector','context','Inspect concentric sensing regions around a particle-interaction point as a physical context for testing theories against measurements; no collision event or field dynamics is simulated.', '3.nuclear 4.particles 5.frontier')
+bind('phys','interference','context','Inspect coherent-light interference as a concrete experimental setting for discussing waves, measurement and quantum phenomena; the model itself computes only an ideal classical intensity pattern.', '3.modern')
+bind('phys','cosmology-chart-geometry','model','Inspect the actual FLRW and Schwarzschild chart data, calibrated events, distances and conditional horizons with the eight-station activity.', '5.gr-cosmo')
 
 # Biology: visible structures are schematic and should not imply universal anatomy.
 bind('bio','habitat','context','Inspect organisms within a land-and-water setting and identify the kinds of evidence needed to discuss life, behavior and environmental relationships.', '0.living 0.animals 0.seasons 1.habitats 1.food-chains 2.classification 2.ecosystems 3.evolution 3.ecology 4.evo-bio 4.ethology')
@@ -115,8 +140,26 @@ bind('mind','book','context','Inspect a physical carrier of arguments, definitio
 bind('mind','neuron','context','Inspect a generic neuron as one biological level relevant to mind research; it does not explain consciousness, diagnose mental states or reduce the lesson’s philosophical question to anatomy.', '4.cognitive-sci 5.phil-mind')
 
 FAMILY_TITLES = {
+ 'logic-witness-geometry':'Logical witnesses and proof dependencies',
+ 'maxwell-field-geometry':'Calibrated electromagnetic fields and flux',
+ 'cosmology-chart-geometry':'Cosmic history and gravitational spacetime charts',
+ 'algebra-operation-geometry':'Exact algebraic operations and maps',
+ 'qft-observable-geometry':'Fields, momenta and matched observables',
+ 'quantum-information-geometry':'Quantum amplitudes, Bloch states and circuits',
+ 'topology-open-set-geometry':'Open sets and actual topological surfaces',
+ 'relativistic-event-geometry':'Calibrated events and relativistic worldlines',
+ 'complex-function-domain':'Complex domain and projected function values',
+ 'quantum-state-geometry':'Complex amplitudes, spin and conserved quantum flux',
+ 'curvature-surface':'Metric and curvature on an embedded surface',
+ 'driven-hoop-state':'Moving constraint, real power and virtual work',
+ 'operator-coordinate-graph':'Input and output coefficient graph',
+ 'ensemble-state-graph':'Multiplicity and macrostate surprisal',
+ 'shrinking-support-subgraph':'Exact shrinking-support subgraph volume',
+ 'carnot-state-path':'Working-gas pressure, volume and temperature',
+ 'analysis-tail-errors':'Function tails and error bounds', 'numerical-conditioning':'Singular-value scaling and conditioning',
+ 'buoyant-prism':'Sealed prism in liquid', 'thermal-slab':'Steady conducting slab', 'phase-enthalpy-path':'Energy, temperature and liquid fraction',
  'magnet':'Bar magnet and field directions','detector':'Layered particle detector','interference':'Two-slit optical bench',
- 'unit-blocks':'Counting blocks','balance':'Equal-arm balance','surface':'Coordinate surface',
+ 'unit-blocks':'Counting blocks','plane-shapes':'Sides and corners','balance':'Equal-arm balance','surface':'Coordinate surface',
  'urn':'Probability urn','book':'Bound book','press':'Printing press','stage':'Speaking and performance space',
  'lever':'Lever and fulcrum','pendulum':'Pendulum','wave':'Transverse wave on a rope','camera':'Pinhole camera',
  'circuit':'Simple electric circuit','particles':'Particle chamber','plant':'Plant and root system',
@@ -131,7 +174,11 @@ FAMILY_TITLES = {
 }
 for node_id, node in NODES.items():
     if node.get('lesson'):
-        family = node['model_family']
+        # A dedicated, explicitly authored scientific binding can accompany a
+        # full lesson; it does not need an unrelated generic context object.
+        if not node.get('model_family') and node_id in BINDINGS:
+            continue
+        family = node.get('model_family')
         if family not in FAMILY_TITLES or not node.get('model_context'):
             raise ValueError('Expansion lesson needs a known model and an authored context: ' + node_id)
         BINDINGS[node_id] = dict(family=family, mode='context', context=node['model_context'])
@@ -144,11 +191,13 @@ for node_id, node in NODES.items():
     models.append({
         'node_id':node_id,
         'family':family,
-        'title':FAMILY_TITLES[family] + ' · 3D study',
-        'instructions':'Drag or use the camera buttons to inspect the object from different sides. Change the labeled controls, then compare the geometry with the explanation below.',
+        'title':FAMILY_TITLES[family] + (' · 3D hydrostatics' if family=='buoyant-prism' else ' · 3D study'),
+        'instructions':('Choose a shape. Count its sides and corners. Turn or resize it, then reset the view to see it face-on.' if family=='plane-shapes' else 'Rotate exact calibrated field-mode coordinates, momentum vectors and observable charts. Diagram edges are amplitude contribution topology, not trajectories; compare all nine stations and their stated limits.' if family=='qft-observable-geometry' else 'Rotate the exact finite tables and directed proof-dependency graphs. Compare complete membership witnesses and theorem hypotheses with the eight-station logic activity; categorical spacing does not measure proof strength or infinite cardinality.' if family=='logic-witness-geometry' else 'Rotate actual SI electromagnetic samples, oriented integration surfaces and source geometry. Compare the same fields and full controls with the seven-station Maxwell activity; every display gain is stated.' if family=='maxwell-field-geometry' else 'Rotate actual calibrated FLRW and gravitational spacetime charts. Preserve the eight-station activity state and compare horizon barriers, observer conventions, source dynamics and distances.' if family=='cosmology-chart-geometry' else 'Rotate exact operation graphs, full finite tables, coset fibres and integer-map coordinates. Compare algebraic witnesses and proof hypotheses with the eight-station activity.' if family=='algebra-operation-geometry' else 'Rotate the actual Bloch vectors, complex coefficient graph and circuit layout. Preserve full preparation, branch, oracle and noise-channel state with the seven-station activity.' if family=='quantum-information-geometry' else 'Rotate actual topology diagrams and triangulated surfaces. Compare exact open sets, preimages, cover witnesses, Euler counts and quotient hypotheses with the seven-station activity.' if family=='topology-open-set-geometry' else 'Rotate calibrated spacetime charts and the circular light/detector worldlines. Compare actual events and clock readings, then preserve frame conventions, scales and gravitational approximation limits.' if family=='relativistic-event-geometry' else 'Rotate the named complex-function domain and output plane. Compare uncropped probes, exact contour/Taylor/mean/proof/arc ledgers and disclosed gaps with the synchronized six-station activity.' if family=='complex-function-domain' else 'Rotate the calibrated mathematical state charts. Share preparation, phase, measurement projection and exact fixtures with the five-station activity; camera changes preserve the physics.' if family=='quantum-state-geometry' else 'Rotate the actual surface. Compare analytic metric and curvature with a selected chart probe, normal and integration patch.' if family=='curvature-surface' else 'Rotate the instantaneous bead and wire. Inspect true laboratory vectors and distinguish drive power from virtual work.' if family=='driven-hoop-state' else 'Rotate the discrete input/output coefficient graph. Compare actual coordinate pairs with exact accepted-input, visible-output and hidden-tail ledgers.' if family=='operator-coordinate-graph' else 'Rotate discrete macrostate points. Compare exact multiplicity with probability and distinguish selected macrostate entropy from whole-ensemble Gibbs entropy.' if family=='ensemble-state-graph' else 'Inspect the exact subgraph closure with its open support endpoints. Change the sequence index, exponent and amplitude; compare true width, height, volume and rational probe membership.' if family=='shrinking-support-subgraph' else 'Rotate the actual p–V–T cycle. Reverse its direction, choose a process and inspect calibrated pressure, volume, temperature and signed energy.' if family=='carnot-state-path' else 'Rotate the equilibrium enthalpy path. Choose a phase interval and inspect how energy changes temperature and liquid fraction, including the two latent-heat plateaux.' if family=='phase-enthalpy-path' else 'Rotate the original unit cube and its actual scaled image. Compare tiny positive thickness with the exact nearby-data solution and condition-number error bound.' if family=='numerical-conditioning' else 'Rotate the stationary conducting slab. Change its area, thickness, temperatures and conductivity, and inspect the corresponding steady heat flux.' if family=='thermal-slab' else 'Rotate eight separate error curves. Compare finite-index values, the strict epsilon boundary and endpoint markers with the all-tail proof. The open rings are excluded suprema, not actual function values.' if family=='analysis-tail-errors' else 'Rotate the sealed prism and inspect its real dimensions and submerged surfaces. Set a held depth and compare displaced liquid, buoyancy, weight and the required holding force.' if family=='buoyant-prism' else 'Drag or use the camera buttons to inspect the object from different sides. Change the labeled controls, then compare the geometry with the explanation below.'),
         'context':node['title'] + ': ' + binding['context'],
         'mode':binding['mode'],
     })
+# Preserve the authored exact-arithmetic companion when regenerating other bindings.
+models = [({'node_id': 'math.4.numtheory', 'family': 'number-theory-exact-traces', 'title': 'Exact arithmetic relationships · 3D study', 'instructions': 'Rotate the identified integer, operation and theorem-hypothesis graph. Follow exact relation arrows, select a diagram page, and compare the same full labels and edge witnesses in the companion mathematical diagram.', 'context': 'Number Theory: Inspect quotient partitions, exact operations, factor trees, unit maps and proof dependencies. Nodes identify actual values and hypotheses; arrows carry their mathematical relations. Layout positions are display choices, never integer magnitude or cryptographic security geometry.', 'mode': 'model'} if row['node_id'] == 'math.4.numtheory' else row) for row in models]
 output=ROOT/'data/module-models.json'
 output.write_text(json.dumps({'version':1,'models':models},ensure_ascii=False,indent=2)+'\n')
 print(f'{len(models)} exact lesson bindings; {len(set(m["family"] for m in models))} object families → {output}')

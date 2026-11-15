@@ -17,7 +17,7 @@ def test_every_gallery_loads_with_hosted_rasters_absent_and_local_provenance_kep
     try:
         with patch.object(Path,'is_file',lambda p:False if missing_raster(p) else original(p)):
             atlas=catalog._structure_atlases()
-            assert len(atlas['ra.hrct-lung'])==8 and len(atlas['ra.chest-radiography'])==11
+            assert len(atlas['ra.hrct-lung'])==19 and len(atlas['ra.chest-radiography'])==11
             assert any(r.get('origin')=='native-volume-sections' for rows in atlas.values() for r in rows)
     finally:catalog._structure_atlases.cache_clear();integrity._inventory.cache_clear()
 def test_local_missing_file_still_rejected(monkeypatch):
@@ -53,7 +53,7 @@ def test_authenticated_reference_api_works_with_hosted_source_file_layout(monkey
             with TestClient(server.app) as client:
                 response=client.get('/api/radiology/modules/ra.hrct-lung',auth=('reader','secret'))
                 assert response.status_code==200
-                assert len(response.json()['radiology_reference']['structure_atlas'])==8
+                assert len(response.json()['radiology_reference']['structure_atlas'])==17
                 health=client.get('/healthz')
                 assert health.status_code==200 and health.json()['source_gallery_metadata_validated'] is True
     finally:catalog._structure_atlases.cache_clear();integrity._inventory.cache_clear()

@@ -15,12 +15,47 @@ function toSignIn() {
 }
 
 const api = {
-  async get(path) { const r = await fetch(path); if (r.status === 401) return toSignIn(), new Promise(() => {}); if (!r.ok) throw await r.json().catch(() => ({ error: r.statusText })); return r.json(); },
+  async get(path) { const r = await fetch(path); if (r.status === 401) return toSignIn(), new Promise(() => {}); if (!r.ok) throw await r.json().catch(() => ({ error: r.statusText })); return radiologyPresentation(await r.json()); },
   async post(path, body) { const r = await fetch(path, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(body || {}) }); if (r.status === 401) return toSignIn(), new Promise(() => {}); if (!r.ok) throw await r.json().catch(() => ({ error: r.statusText })); return r.json(); },
 };
 
+// Presentation policy: source records stay intact, but radiology views show no
+// histology, microscopy slides, or publisher figures containing those panels.
+function histologyFigure(asset) {
+  if (!asset || typeof asset !== 'object' || !asset.src) return false;
+  const context = asset.source_context || {};
+  const types = [asset.modality, asset.image_type, asset.kind,
+    ...Object.values(context.panel_types || {}),
+    ...(asset.ancillary_panels || []).map(panel => panel.kind)];
+  return types.some(type => /histolog|histopath|photomicrograph/i.test(type || ''))
+    || /histolog|histopath|photomicrograph|original-microscopy/i.test([asset.id, asset.src].join(' '));
+}
+
+function withoutHistologyFigures(value) {
+  if (Array.isArray(value)) return value.filter(item => !histologyFigure(item)).map(withoutHistologyFigures);
+  if (!value || typeof value !== 'object') return value;
+  return Object.fromEntries(Object.entries(value)
+    .filter(([, item]) => !histologyFigure(item))
+    .map(([key, item]) => [key, withoutHistologyFigures(item)]));
+}
+
+function radiologyPresentation(data) {
+  if (!data || typeof data !== 'object') return data;
+  if (Array.isArray(data)) return data.map(radiologyPresentation);
+  if (data.radiology_reference) {
+    const ref = data.radiology_reference = withoutHistologyFigures(data.radiology_reference);
+    data.lesson_media = withoutHistologyFigures(data.lesson_media);
+    const visible = new Set([...(ref.key_images || []), ...(ref.structure_atlas || [])].map(image => image.id));
+    if (ref.walkthrough) for (const step of [ref.walkthrough.start, ...(ref.walkthrough.steps || [])]) {
+      if (step && step.images) step.images = step.images.filter(id => visible.has(id));
+    }
+  }
+  for (const key of ['nodes', 'node', 'modules', 'results']) if (data[key]) data[key] = radiologyPresentation(data[key]);
+  return data;
+}
+
 const S = { state: null, domains: [], view: 'today', stage: 2, speak: true, curriculum: null,
-  visualGallery: null, restoreFocus: null, readerTitle: null };
+  visualGallery: null, knowledgeMapIndex: null, restoreFocus: null, readerTitle: null };
 // The review deck's document-level keydown handler, held here so leaving the
 // page can remove it deterministically — its old self-removal only fired on
 // the *next* keypress after the deck was gone.
@@ -70,74 +105,133 @@ function el(tag, props = {}, ...kids) {
 function btn(props, ...kids) { return el('button', { type: 'button', ...props }, ...kids); }
 
 /* ---------------- drawn glyphs ----------------
-   Emoji were standing in for iconography: they render as a different picture
-   on every platform (and as full-colour cartoons beside a page of engraved
-   serif type), so the one part of the interface meant to be wordless was the
-   least controlled thing on screen. These are drawn instead — one stroke
-   weight, one geometry, inheriting currentColor so they gild in day mode and
-   phosphoresce at night. Each is a plain noun a child can name aloud, which
-   is the only test an icon in this book has to pass. */
+   The book's own plates, in the hand of its period: every mark is an engraved
+   pictogram of the sort a neo-Victorian primer would carry — compass rose,
+   reading glass, retort, pendulum, punched card, the rod of Asclepius — drawn
+   for this book alone on one 24-unit plate. Two weights only: the main line
+   (1.5) and a fine engraving line (0.85) for hatching, rules and detail, with
+   small inked gems where the Diamond Age would put them. Everything inherits
+   currentColor, so a mark gilds by day and phosphoresces at night, and each is
+   a plain noun a child can name aloud — the only test an icon here must pass. */
 const GLYPHS = {
-  // A sun clearing a horizon rule.
-  today: '<circle cx="12" cy="12" r="4.2"/><path d="M3 20h18"/><path d="M12 3.2v2M12 19v1.2M5.2 5.2l1.4 1.4M17.4 17.4l1.4 1.4M3.2 12h2M18.8 12h2M5.2 18.8l1.4-1.4M17.4 6.6l1.4-1.4"/>',
-  // A compass rose: the whole map, oriented.
-  atlas: '<circle cx="12" cy="12" r="9"/><path d="M15.5 8.5l-2 5-5 2 2-5z"/>',
-  // Four framed plates: a gallery of explanations, not a second atlas.
-  gallery: '<rect x="3.5" y="3.5" width="7" height="7" rx="1.2"/><rect x="13.5" y="3.5" width="7" height="7" rx="1.2"/><rect x="3.5" y="13.5" width="7" height="7" rx="1.2"/><rect x="13.5" y="13.5" width="7" height="7" rx="1.2"/><path d="M5.2 8.6l1.6-1.7 2 2.1M15.2 8.6l1.5-1.6 2.1 2M5.2 18.6l1.6-1.7 2 2.1M15.2 18.6l1.5-1.6 2.1 2"/>',
-  // Return: the loop that brings a thing back.
-  review: '<path d="M20 12a8 8 0 1 1-2.7-6"/><path d="M20 4v5h-5"/>',
-  // A lens over the page.
-  lookup: '<circle cx="10.5" cy="10.5" r="6.5"/><path d="M15.4 15.4L21 21"/>',
-  // An open book with a spark rising from the gutter — the Primer itself.
-  story: '<path d="M3 5.5c3-1.2 6-1.2 9 0v13c-3-1.2-6-1.2-9 0z"/><path d="M21 5.5c-3-1.2-6-1.2-9 0v13c3-1.2 6-1.2 9 0z"/><path d="M12 3.6l.9-1.8.9 1.8 1.8.9-1.8.9-.9 1.8-.9-1.8-1.8-.9z"/>',
-  // The chronicle itself: a spine of days with the moments marked on it.
-  // (Distinct on purpose from `path`, which forks forward — this one only
-  // ever runs backward, and an earlier draft of it read as a capital A.)
-  journey: '<path d="M7 3.5v17"/><circle cx="7" cy="7" r="2"/><circle cx="7" cy="12.5" r="2"/><circle cx="7" cy="18" r="2"/><path d="M11.5 7h8M11.5 12.5h6M11.5 18h7"/>',
-  // A branching path: the plan, forking forward.
-  path: '<path d="M6 21V9"/><circle cx="6" cy="6" r="2.4"/><path d="M6 12h6a3 3 0 0 0 3-3V8"/><circle cx="15" cy="5.6" r="2.2"/><path d="M6 17h9a3 3 0 0 0 3-3v-1"/><circle cx="18" cy="10.6" r="2.2"/>',
-  // A flame, for the streak. Drawn rather than 🔥 so it sits at the same
-  // stroke weight as everything else on the line instead of shouting.
-  flame: '<path d="M12 2.8c.6 3.4 3 4.6 4.4 6.6a7 7 0 1 1-11.4 5.4c0-3 1.6-4.7 3-6.2.3 1 .9 1.8 1.7 2.3.5-3.4 1.3-6 2.3-8.1z"/><path d="M12 20a3.4 3.4 0 0 0 3.4-3.4c0-1.7-1.4-2.7-2.3-4-1 1.3-2.4 2.1-2.4 4A3.3 3.3 0 0 0 12 20z"/>',
-  // A speaker with one arc: read this aloud.
-  speak: '<path d="M4 9.5h3.5L12 5.5v13L7.5 14.5H4z"/><path d="M15.6 9.4a4 4 0 0 1 0 5.2"/><path d="M18 7a7.5 7.5 0 0 1 0 10"/>',
-  // The same speaker, struck through: the voice is off.
-  mute: '<path d="M4 9.5h3.5L12 5.5v13L7.5 14.5H4z"/><path d="M16 10l5 4M21 10l-5 4"/>',
-  // A nib: write it back in your own words.
-  quill: '<path d="M4 20s1.2-4.6 4.6-8S17 5 20 4c-.6 3.4-2.4 8.6-5.8 11.4S4 20 4 20z"/><path d="M9 15c1.6-2.4 3.6-4.2 6-5.6"/>',
-  // A closed padlock: not yet, rather than never.
-  lock: '<rect x="4.8" y="10.5" width="14.4" height="9.7" rx="2"/><path d="M8.2 10.5V7.8a3.8 3.8 0 0 1 7.6 0v2.7"/>',
-  // A crescent: a chapter set aside for later.
-  moon: '<path d="M20 14.5A8.5 8.5 0 0 1 9.5 4a8.6 8.6 0 1 0 10.5 10.5z"/>',
-  // A target: aim, practice, calibration.
-  target: '<circle cx="12" cy="12" r="8.2"/><circle cx="12" cy="12" r="4.4"/><circle cx="12" cy="12" r="1"/>',
-  // A die mid-roll: take me somewhere unplanned.
-  dice: '<rect x="4.2" y="4.2" width="15.6" height="15.6" rx="3.2"/><circle cx="9" cy="9" r="1.1"/><circle cx="15" cy="15" r="1.1"/><circle cx="15" cy="9" r="1.1"/><circle cx="9" cy="15" r="1.1"/>',
-  // A globe: the whole encyclopedia, not just your shelf.
-  globe: '<circle cx="12" cy="12" r="8.6"/><path d="M3.4 12h17.2"/><path d="M12 3.4c2.4 2.4 3.6 5.4 3.6 8.6S14.4 18.2 12 20.6c-2.4-2.4-3.6-5.4-3.6-8.6S9.6 5.8 12 3.4z"/>',
-  // A laurel-less crown: the day is complete.
-  crown: '<path d="M4 17.5h16"/><path d="M4 8.5l3.4 3.2L12 5.8l4.6 5.9L20 8.5v6.2H4z"/>',
-  // Slabs on a shelf — archives, not paperbacks.
-  shelf: '<path d="M3 20h18"/><rect x="4.5" y="7" width="3.6" height="11"/><rect x="9.6" y="4.5" width="3.6" height="13.5"/><rect x="14.7" y="9" width="3.6" height="9"/>',
-  // A question mark, drawn — the young reader's "not sure". The 🤔 it
-  // replaces rendered as a full-colour cartoon amid engraved stroke icons,
-  // the same breach the padlock fix removed.
-  unsure: '<path d="M8.4 9.2a3.6 3.6 0 1 1 5.4 3.1c-1.1.7-1.8 1.5-1.8 2.9"/><circle cx="12" cy="18.8" r="0.9" fill="currentColor" stroke="none"/>',
-  // A four-point star, drawn. The unknown-domain tag used the typeface's
-  // '✦' — a text character standing in among stroke marks, which is the
-  // same one-geometry breach the emoji purge removed everywhere else.
-  spark: '<path d="M12 3.4c.9 4.1 2.6 5.8 6.7 6.7-4.1.9-5.8 2.6-6.7 6.7-.9-4.1-2.6-5.8-6.7-6.7 4.1-.9 5.8-2.6 6.7-6.7z"/><path d="M18.2 15.4c.4 1.8 1.1 2.5 2.9 2.9-1.8.4-2.5 1.1-2.9 2.9-.4-1.8-1.1-2.5-2.9-2.9 1.8-.4 2.5-1.1 2.9-2.9z"/>',
-  // A single stroke of certainty: the check, for "I know it".
-  known: '<path d="M4.5 13l5 5L19.5 6.5"/>',
-  // Its opposite: a crossed stroke, for the wrong verdict. Drawn so ✓ and ✗
-  // share one weight instead of two fonts' ideas of a tick.
-  wrong: '<path d="M6.5 6.5l11 11M17.5 6.5l-11 11"/>',
-  // A sun with eight short rays: day reading.
-  sun: '<circle cx="12" cy="12" r="4"/><path d="M12 2.8v2.4M12 18.8v2.4M2.8 12h2.4M18.8 12h2.4M5.5 5.5l1.7 1.7M16.8 16.8l1.7 1.7M5.5 18.5l1.7-1.7M16.8 7.2l1.7-1.7"/>',
-  // A fleuron: a chapter's closing ornament — two leaves off one stem.
-  fleuron: '<path d="M2 12h6M16 12h6"/><path d="M12 12c-2.6-1-4-3.4-3.2-6.4 2.8.6 4 3.2 3.2 6.4z"/><path d="M12 12c2.6 1 4 3.4 3.2 6.4-2.8-.6-4-3.2-3.2-6.4z"/><circle cx="12" cy="12" r="1.1" fill="currentColor" stroke="none"/>',
-  // A head and shoulders: whose book this is.
-  account: '<circle cx="12" cy="8.6" r="3.4"/><path d="M5 20c1-4 4-6 7-6s6 2 7 6"/>',
+  // A sun clearing a hatched horizon, a gem at its zenith: today's reading.
+  today: '<path d="M2.8 17.6h18.4"/><path d="M6.8 17.6a5.2 5.2 0 0 1 10.4 0"/><path d="M12 6.6v2.6M5.7 9.4l1.7 1.7M18.3 9.4l-1.7 1.7M2.9 14.2h2.4M18.7 14.2h2.4"/><path stroke-width=".85" d="M6.2 20.3h11.6M9.2 22.6h5.6"/><path d="M12 3.3l0.72 0.9 -0.72 0.9 -0.72 -0.9 z" fill="currentColor" stroke="none"/>',
+  // A compass rose on a fine ring: the whole map of what can be learned.
+  atlas: '<circle cx="12" cy="12" r="7.6" stroke-width=".85"/><path d="M12.00 2.60 L13.70 10.30 L21.40 12.00 L13.70 13.70 L12.00 21.40 L10.30 13.70 L2.60 12.00 L10.30 10.30z"/><path stroke-width=".85" d="M12 2.6v18.8M2.6 12h18.8"/><path stroke-width=".85" d="M7.4 7.4l2.9 2.9M16.6 7.4l-2.9 2.9M7.4 16.6l2.9-2.9M16.6 16.6l-2.9-2.9"/><circle cx="12" cy="12" r="1.05" fill="currentColor" stroke="none"/>',
+  // A gem-cornered frame around a small landscape: the plates and pictures.
+  gallery: '<path d="M3.4 4.4h17.2v15.2H3.4z"/><path stroke-width=".85" d="M5.8 6.8h12.4v10.4H5.8z"/><path d="M7.4 15.6l3.2-3.9 2.3 2.6 1.6-1.8 2.4 3.1"/><circle cx="15.3" cy="9.6" r="1.25"/><path d="M3.4 3.5l0.72 0.9 -0.72 0.9 -0.72 -0.9 z" fill="currentColor" stroke="none"/><path d="M20.6 3.5l0.72 0.9 -0.72 0.9 -0.72 -0.9 z" fill="currentColor" stroke="none"/><path d="M3.4 18.7l0.72 0.9 -0.72 0.9 -0.72 -0.9 z" fill="currentColor" stroke="none"/><path d="M20.6 18.7l0.72 0.9 -0.72 0.9 -0.72 -0.9 z" fill="currentColor" stroke="none"/>',
+  // A deck of index cards, the front one ruled: the cards that come back.
+  review: '<path d="M7.6 5.6V4.4A1.4 1.4 0 0 1 9 3h9.6A1.4 1.4 0 0 1 20 4.4v11.2a1.4 1.4 0 0 1-1.4 1.4H17"/><path d="M4 8.4A1.4 1.4 0 0 1 5.4 7h10.2A1.4 1.4 0 0 1 17 8.4v11.2a1.4 1.4 0 0 1-1.4 1.4H5.4A1.4 1.4 0 0 1 4 19.6z"/><path stroke-width=".85" d="M7 11.4h7M7 14.2h7M7 17h4.2"/><path d="M14.2 16.4l0.64 0.8 -0.64 0.8 -0.64 -0.8 z" fill="currentColor" stroke="none"/>',
+  // A brass-collared reading glass with a glint on the lens.
+  lookup: '<circle cx="10" cy="10" r="6.2"/><path stroke-width=".85" d="M6.4 8.2a4 4 0 0 1 2.6-2.6"/><path d="M14.5 14.5l1.4 1.4"/><path stroke-width="2.6" d="M16.6 16.6l3.6 3.6"/><path stroke-width=".85" d="M14.7 16.9l2.2-2.2"/>',
+  // The Primer itself: open, ribboned, a spark above the gutter.
+  story: '<path d="M12 6.6C10 5.2 7 4.8 3.4 5.5v12.6c3.6-.7 6.6-.3 8.6 1.1"/><path d="M12 6.6c2-1.4 5-1.8 8.6-1.1v12.6c-3.6-.7-6.6-.3-8.6 1.1"/><path d="M12 6.6v12.6"/><path stroke-width=".85" d="M5.4 9c1.8-.3 3.6-.2 4.8.4M5.4 11.6c1.8-.3 3.6-.2 4.8.4M5.4 14.2c1.8-.3 3.6-.2 4.8.4M13.8 9.4c1.2-.6 3-.7 4.8-.4"/><path d="M15 18.4v3.4l1-.9 1 .9v-3.8"/><path d="M12 1.4l.6 1.3 1.3.6-1.3.6-.6 1.3-.6-1.3-1.3-.6 1.3-.6z" fill="currentColor" stroke="none"/>',
+  // A rolled scroll, ruled: the chronicle of what the reader has done.
+  journey: '<path d="M5 3.2h14a1.6 1.6 0 0 1 0 3.2H5a1.6 1.6 0 0 1 0-3.2z"/><path d="M5 17.6h14a1.6 1.6 0 0 1 0 3.2H5a1.6 1.6 0 0 1 0-3.2z"/><path d="M6.8 6.4v11.2M17.2 6.4v11.2"/><path stroke-width=".85" d="M9.4 9.4h5.2M9.4 12h5.2M9.4 14.6h3.4"/><path d="M15.6 13.9l0.56 0.7 -0.56 0.7 -0.56 -0.7 z" fill="currentColor" stroke="none"/>',
+  // A fingerpost: the plan forks forward from here.
+  path: '<path d="M12 3.6v17.4"/><path d="M8.6 21h6.8"/><path d="M12 5.4h6.6l2.2 2.2-2.2 2.2H12z"/><path d="M12 11.6H5.4l-2.2 2.2 2.2 2.2H12z"/><circle cx="12" cy="2.6" r="0.9" fill="currentColor" stroke="none"/><path stroke-width=".85" d="M14 7.6h3.4M7 13.8h3.4"/>',
+  // Banded spines on a shelf, one leaning: the reader's library.
+  shelf: '<path d="M2.4 20.6h19.2"/><path d="M4 6.2h3.6v14.4H4zM8.6 4h3.6v16.6H8.6z"/><path d="M13.2 20.6l3.4-13.8 3.4.8-3.4 13z"/><path stroke-width=".85" d="M4 9h3.6M4 17.8h3.6M8.6 7h3.6M8.6 17.6h3.6M15.7 10.2l3.3.8"/>',
+  // A cameo in a double oval: whose book this is.
+  account: '<ellipse cx="12" cy="12" rx="7.6" ry="9.6"/><ellipse cx="12" cy="12" rx="6.1" ry="8.1" stroke-width=".85"/><circle cx="12" cy="9.8" r="2.6"/><path d="M8.4 17.9c.8-2.4 2.1-3.6 3.6-3.6s2.8 1.2 3.6 3.6"/>',
+  // A speaking trumpet with its bell rim, sounding.
+  speak: '<path d="M3.2 10.2h3l8.6-5v13.6l-8.6-5h-3z"/><path d="M14.8 5.2c.9 0 1.6 3 1.6 6.8s-.7 6.8-1.6 6.8"/><path d="M19 9.3a3.8 3.8 0 0 1 0 5.4M21.1 7.2a6.8 6.8 0 0 1 0 9.6"/><path stroke-width=".85" d="M6.2 10.2v3.6"/>',
+  // The same trumpet, struck silent.
+  mute: '<path d="M3.2 10.2h3l8.6-5v13.6l-8.6-5h-3z"/><path d="M14.8 5.2c.9 0 1.6 3 1.6 6.8s-.7 6.8-1.6 6.8"/><path d="M18.4 9.6l4 4.8M22.4 9.6l-4 4.8"/><path stroke-width=".85" d="M6.2 10.2v3.6"/>',
+  // A sun of long and short rays: day reading.
+  sun: '<circle cx="12" cy="12" r="3.8"/><circle cx="12" cy="12" r="2" stroke-width=".85"/><path d="M12 2.2v3.4M12 18.4v3.4M2.2 12h3.4M18.4 12h3.4"/><path stroke-width=".85" d="M5.4 5.4l1.9 1.9M16.7 16.7l1.9 1.9M5.4 18.6l1.9-1.9M16.7 7.3l1.9-1.9"/>',
+  // A crescent with a star: night reading.
+  moon: '<path d="M19.6 14.8A8.4 8.4 0 0 1 9.2 4.4a8.5 8.5 0 1 0 10.4 10.4z"/><path stroke-width=".85" d="M10.4 9.4a5.6 5.6 0 0 0 4.2 6.6"/><path d="M17.4 3.4l.5 1.2 1.2.5-1.2.5-.5 1.2-.5-1.2-1.2-.5 1.2-.5z" fill="currentColor" stroke="none"/><circle cx="21" cy="8.4" r="0.6" fill="currentColor" stroke="none"/>',
+  // The spine with its ruled index, folding away.
+  panelClose: '<path d="M3.2 4.4h17.6v15.2H3.2z"/><path d="M8.6 4.4v15.2"/><path stroke-width=".85" d="M4.9 7.4h2M4.9 9.8h2M4.9 12.2h2"/><path d="M15.6 9.4L13 12l2.6 2.6"/>',
+  // The spine with its ruled index, opening out.
+  panelOpen: '<path d="M3.2 4.4h17.6v15.2H3.2z"/><path d="M8.6 4.4v15.2"/><path stroke-width=".85" d="M4.9 7.4h2M4.9 9.8h2M4.9 12.2h2"/><path d="M13 9.4l2.6 2.6-2.6 2.6"/>',
+  // A candle on its dish: the streak kept alight.
+  flame: '<path d="M12 2.8c1.9 2.3 2.8 3.8 2.8 5.3a2.8 2.8 0 0 1-5.6 0c0-1.5.9-3 2.8-5.3z"/><path stroke-width=".85" d="M12 6.4c.8 1 1.1 1.6 1.1 2.3a1.1 1.1 0 0 1-2.2 0c0-.7.3-1.3 1.1-2.3z"/><path d="M12 10.9v1.3"/><path d="M9.4 12.2h5.2v8.2H9.4z"/><path d="M5.8 20.4h12.4"/><path stroke-width=".85" d="M9.4 14.6c.8 0 .8 1.3 1.6 1.3M12.6 13.4v5.4"/>',
+  // A barbed quill with a cut nib: write it in your own words.
+  quill: '<path d="M20 3c-5.6 1-10 5.6-11.6 11.4l1.6 1.6C15.8 14.4 19.2 9 20 3z"/><path d="M20 3L5.2 17.8"/><path d="M6.6 16.4l-2.6 4.6 4.6-2.6"/><path stroke-width=".85" d="M15.4 8.6l1.9 1.3M13 11l1.9 1.2M10.8 13.4l1.6 1"/>',
+  // A padlock with a ruled plate: not yet, rather than never.
+  lock: '<path d="M8 10.6V7.8a4 4 0 0 1 8 0v2.8"/><path d="M5 10.6h14v10H5z"/><path stroke-width=".85" d="M6.6 12.2h10.8v6.8H6.6z"/><circle cx="12" cy="14.6" r="1.2" fill="currentColor" stroke="none"/><path d="M12 15.4v1.8"/>',
+  // A ringed target with a fletched arrow home: aim and calibration.
+  target: '<circle cx="12" cy="12.4" r="8.4"/><circle cx="12" cy="12.4" r="5.3"/><circle cx="12" cy="12.4" r="2.2" stroke-width=".85"/><path d="M12 12.4l7-7"/><path d="M17.2 3.6v2.6h2.6M19 1.8v2.6h2.6"/><circle cx="12" cy="12.4" r="0.9" fill="currentColor" stroke="none"/>',
+  // A die turned on its corner, pips on three faces: somewhere unplanned.
+  dice: '<path d="M12 3l8 4.2-8 4.2-8-4.2z"/><path d="M4 7.2v9.4l8 4.4v-9.6M20 7.2v9.4l-8 4.4"/><circle cx="12" cy="7.2" r="0.95" fill="currentColor" stroke="none"/><circle cx="6.4" cy="11.8" r="0.9" fill="currentColor" stroke="none"/><circle cx="9.6" cy="16.6" r="0.9" fill="currentColor" stroke="none"/><circle cx="14.4" cy="12.8" r="0.9" fill="currentColor" stroke="none"/><circle cx="16" cy="15.2" r="0.9" fill="currentColor" stroke="none"/><circle cx="17.6" cy="17.6" r="0.9" fill="currentColor" stroke="none"/>',
+  // A terrestrial globe in its meridian ring, on a stand.
+  globe: '<circle cx="11.6" cy="10" r="6.2"/><path stroke-width=".85" d="M5.4 10h12.4M11.6 3.8c-2 1.6-3 3.8-3 6.2s1 4.6 3 6.2M11.6 3.8c2 1.6 3 3.8 3 6.2s-1 4.6-3 6.2"/><path d="M18.4 3.6a8.6 8.6 0 0 1-12.2 12.2"/><path d="M11.6 18.6v2.4M7.8 21.2h7.6"/>',
+  // A jewelled crown: the day is complete.
+  crown: '<path d="M5.4 16L3.8 8.2l4.6 3.6L12 5.4l3.6 6.4 4.6-3.6L18.6 16z"/><path d="M5.4 16h13.2v2.8H5.4z"/><circle cx="3.8" cy="7.4" r="0.95" fill="currentColor" stroke="none"/><circle cx="12" cy="4.4" r="0.95" fill="currentColor" stroke="none"/><circle cx="20.2" cy="7.4" r="0.95" fill="currentColor" stroke="none"/><circle cx="9" cy="17.4" r="0.6" fill="currentColor" stroke="none"/><circle cx="12" cy="17.4" r="0.6" fill="currentColor" stroke="none"/><circle cx="15" cy="17.4" r="0.6" fill="currentColor" stroke="none"/>',
+  // A question set in a ruled cartouche: not sure yet.
+  unsure: '<circle cx="12" cy="12" r="8.8"/><circle cx="12" cy="12" r="7.2" stroke-width=".85"/><path d="M9.5 9.8a2.6 2.6 0 1 1 3.7 2.4c-.8.4-1.2 1-1.2 1.9v.5"/><circle cx="12" cy="16.8" r="0.85" fill="currentColor" stroke="none"/>',
+  // The four-point star of the Diamond Age, with a sparkle: something new.
+  spark: '<path d="M12 3c.8 5 3.2 7.6 8 9-4.8 1.4-7.2 4-8 9-.8-5-3.2-7.6-8-9 4.8-1.4 7.2-4 8-9z"/><path stroke-width=".85" d="M12 7.2v9.6M7.2 12h9.6"/><path d="M19.4 2.2l.5 1.3 1.3.5-1.3.5-.5 1.3-.5-1.3-1.3-.5 1.3-.5z" fill="currentColor" stroke="none"/><circle cx="4.6" cy="19.6" r="0.7" fill="currentColor" stroke="none"/>',
+  // A single stroke of certainty.
+  known: '<path d="M4.4 12.9l4.8 4.8L19.8 6.4"/>',
+  // A saltire: not this one.
+  wrong: '<path d="M6.4 6.4l11.2 11.2M17.6 6.4L6.4 17.6"/>',
+  // A fletched arrow, onward.
+  onward: '<path d="M3.4 12h16.4M15 7.4l4.8 4.6-4.8 4.6"/><path stroke-width=".85" d="M7.6 12L5.4 9.2M7.6 12l-2.2 2.8M5.2 12L3 9.2M5.2 12L3 14.8"/>',
+  // A fletched arrow, back.
+  backward: '<path d="M20.6 12H4.2M9 7.4L4.2 12 9 16.6"/><path stroke-width=".85" d="M16.4 12l2.2-2.8M16.4 12l2.2 2.8M18.8 12l2.2-2.8M18.8 12l2.2 2.8"/>',
+  // An arrow leaving its frame: this goes outside the book.
+  outside: '<path d="M10.4 5.2H5.6A1.4 1.4 0 0 0 4.2 6.6v11.8a1.4 1.4 0 0 0 1.4 1.4h11.8a1.4 1.4 0 0 0 1.4-1.4v-4.8"/><path d="M11.2 12.8L20 4M14.4 4H20v5.6"/>',
+  // A sweep of the clock hand coming round again.
+  refresh: '<path d="M19.4 12.6a7.5 7.5 0 1 1-2.1-5.9"/><path d="M19.6 3.6v4.6H15"/><path stroke-width=".85" d="M12 8.4v3.6l2.4 1.6"/>',
+  // The clock hand swept back: start over.
+  restart: '<path d="M4.6 12.6a7.5 7.5 0 1 0 2.1-5.9"/><path d="M4.4 3.6v4.6H9"/><path stroke-width=".85" d="M12 8.4v3.6l-2.4 1.6"/>',
+  // A half-dark disc: begun, or slipped.
+  half: '<circle cx="12" cy="12" r="8"/><path d="M12 4a8 8 0 0 1 0 16z" fill="currentColor" stroke="none"/>',
+  // The other half: sat, and not yet passed.
+  halfAlt: '<circle cx="12" cy="12" r="8"/><path d="M12 4a8 8 0 0 0 0 16z" fill="currentColor" stroke="none"/>',
+  // A lozenge within a lozenge: assumed, not proved.
+  assumed: '<path d="M12 3.2l8.8 8.8-8.8 8.8L3.2 12z"/><path stroke-width=".85" d="M12 8.6l3.4 3.4-3.4 3.4L8.6 12z"/>',
+  // A star, outlined.
+  star: '<path d="M12.00 3.40 L14.29 9.44 L20.75 9.76 L15.71 13.81 L17.41 20.04 L12.00 16.50 L6.59 20.04 L8.29 13.81 L3.25 9.76 L9.71 9.44z"/>',
+  // A star, inked in.
+  starFill: '<path fill="currentColor" d="M12.00 3.40 L14.29 9.44 L20.75 9.76 L15.71 13.81 L17.41 20.04 L12.00 16.50 L6.59 20.04 L8.29 13.81 L3.25 9.76 L9.71 9.44z"/>',
+  // An instrument dial with its needle: a model you work by hand.
+  interact: '<circle cx="12" cy="13" r="8.4"/><path stroke-width=".85" d="M6.36 10.95L5.05 10.47M7.40 9.14L6.33 8.24M9.00 7.80L8.30 6.59M10.96 7.09L10.72 5.71M13.04 7.09L13.28 5.71M15.00 7.80L15.70 6.59M16.60 9.14L17.67 8.24M17.64 10.95L18.95 10.47"/><path d="M12 13l4.2-4.8"/><circle cx="12" cy="13" r="1.5"/><path stroke-width=".85" d="M7.4 18.2h9.2"/>',
+  // A cube with its shadow side hatched: a model you turn in space.
+  cube: '<path d="M12 3.2l7.6 4.4-7.6 4.4-7.6-4.4z"/><path d="M4.4 7.6v8.8l7.6 4.4v-8.8M19.6 7.6v8.8L12 20.8"/><path stroke-width=".85" d="M14.5 10.6v8.8M17 9.1v8.8"/>',
+  // A printer's hedera on its stem: the end of a chapter.
+  fleuron: '<path d="M12 18.4c-4-2.4-6.4-5-6.4-7.9a3.2 3.2 0 0 1 6.4-1 3.2 3.2 0 0 1 6.4 1c0 2.9-2.4 5.5-6.4 7.9z"/><path stroke-width=".85" d="M12 9.6v7"/><path d="M2 12h3.6M18.4 12H22"/><path stroke-width=".85" d="M3.4 12c0-1.4-1.4-1.6-1.8-.8M20.6 12c0-1.4 1.4-1.6 1.8-.8"/>',
+  // Euclid: a triangle inscribed in its circle.
+  'd-math': '<circle cx="12" cy="12.6" r="8.4" stroke-width=".85"/><path d="M12 4.2l7.3 12.6H4.7z"/><path stroke-width=".85" d="M12 4.2v12.6"/><circle cx="12" cy="4.2" r="1" fill="currentColor" stroke="none"/><circle cx="19.3" cy="16.8" r="1" fill="currentColor" stroke="none"/><circle cx="4.7" cy="16.8" r="1" fill="currentColor" stroke="none"/>',
+  // An inkwell and quill.
+  'd-language': '<path d="M6 14.2h9v5.6a1.4 1.4 0 0 1-1.4 1.4H7.4A1.4 1.4 0 0 1 6 19.8z"/><path d="M8 14.2v-1.8h5v1.8"/><path stroke-width=".85" d="M6 16.8h9"/><path d="M11.4 12.4L19.6 3"/><path d="M19.6 3c-3.2.6-5.6 2.8-6.7 5.6l1.3 1.3c2.8-1.1 4.8-3.6 5.4-6.9z"/>',
+  // A pendulum from a hatched beam, its arc dotted.
+  'd-physics': '<path d="M5.4 3.6h13.2"/><path stroke-width=".85" d="M7.2 3.6L5.8 2.2M10.2 3.6L8.8 2.2M13.2 3.6l-1.4-1.4M16.2 3.6l-1.4-1.4"/><path d="M12 3.6l3.7 12.4"/><circle cx="16.3" cy="18.3" r="2.4"/><path stroke-width="1.1" stroke-dasharray=".01 2" d="M6.9 17.7A15 15 0 0 0 13.6 18.9"/><circle cx="12" cy="3.6" r="0.9" fill="currentColor" stroke="none"/>',
+  // A botanical leaf with its veins.
+  'd-biology': '<path d="M4.8 19.2C4.8 10.2 10.4 4.4 19.6 4.4c0 9.2-5.8 14.8-14.8 14.8z"/><path d="M4.8 19.2L15.6 8.4"/><path stroke-width=".85" d="M8.4 15.6l-.2-3.8M8.4 15.6l3.8.2M11.4 12.6l-.2-3.6M11.4 12.6l3.6.2"/><path d="M4.8 19.2l-1.6 1.6"/>',
+  // A stoppered retort.
+  'd-chemistry': '<path d="M10.2 9.7A5 5 0 1 0 13.1 12.3"/><path d="M10.2 9.7C13 8.8 16.4 10.6 21.2 15"/><path d="M13.1 12.3c2.6.3 4.8 1.7 7.5 3.9"/><path d="M21.2 15l-.6 1.2"/><path stroke-width=".85" d="M4 15.6h9.2"/><path d="M7.4 9.7V7.8h2.4v1.6"/><circle cx="7.4" cy="17.4" r="0.6" fill="currentColor" stroke="none"/><circle cx="10" cy="18.2" r="0.5" fill="currentColor" stroke="none"/><path d="M4.4 21h8.4"/>',
+  // A punched card, after Jacquard and Babbage.
+  'd-cs': '<path d="M5 3h11l4 4v14H5z"/><path stroke-width=".85" d="M16 3v4h4"/><path stroke-width="1.5" d="M8 8.4v1.2"/><path stroke-width="1.5" d="M11 8.4v1.2"/><path stroke-width="1.5" d="M17 8.4v1.2"/><path stroke-width="1.5" d="M8 12.4v1.2"/><path stroke-width="1.5" d="M14 12.4v1.2"/><path stroke-width="1.5" d="M11 16.4v1.2"/><path stroke-width="1.5" d="M14 16.4v1.2"/><path stroke-width="1.5" d="M17 16.4v1.2"/><path stroke-width=".85" d="M7 20h4"/>',
+  // An hourglass in its posts.
+  'd-history': '<path d="M5.6 3h12.8M5.6 21h12.8"/><path stroke-width=".85" d="M7.4 3v18M16.6 3v18"/><path d="M8.8 4.2c0 4.4 3.2 5.6 3.2 7.8s-3.2 3.4-3.2 7.8M15.2 4.2c0 4.4-3.2 5.6-3.2 7.8s3.2 3.4 3.2 7.8"/><path stroke-width=".85" d="M10.2 7.4h3.6"/><path d="M9.8 19.6c.8-1.5 1.5-2.2 2.2-2.2s1.4.7 2.2 2.2z"/><path stroke-width=".85" stroke-dasharray=".01 1.4" d="M12 12.6v4"/>',
+  // A ringed planet, a moon and a star.
+  'd-earth': '<circle cx="12" cy="12" r="5.2"/><path stroke-width=".85" d="M7.2 10.6c2.6.7 6.4.5 9.4-.7"/><path d="M5.9 14.6c-2.9 2.3-4 4.2-3 4.8 1.9 1.1 7.4-1.3 12-5.2s7.4-8.4 5.5-9.5c-1-.6-3.1.2-5.6 1.9"/><circle cx="19.6" cy="18.4" r="1.1"/><path d="M4.4 3.2l.5 1.2 1.2.5-1.2.5-.5 1.2-.5-1.2-1.2-.5 1.2-.5z" fill="currentColor" stroke="none"/>',
+  // A lyre.
+  'd-arts': '<path d="M7.6 20C5.4 16.4 5.2 12.6 6.6 9.8c1-2 2-3 2-4.8M16.4 20c2.2-3.6 2.4-7.4 1-10.2-1-2-2-3-2-4.8"/><path d="M7 20h10"/><path d="M8.6 6.2h6.8"/><path stroke-width=".85" d="M10.4 6.2V20M12 6.2V20M13.6 6.2V20"/><path d="M8.6 5c0-1.2-1.4-1.6-1.9-.6M15.4 5c0-1.2 1.4-1.6 1.9-.6"/>',
+  // The lamp of learning.
+  'd-mind': '<path d="M3.8 13.6c0 2.2 3.4 3.6 7.6 3.6s7.6-1.4 7.6-3.6z"/><path d="M19 13.6l2.2-2"/><path d="M3.8 13.6c-1.6 0-2.2-2.4-.4-2.8"/><path d="M9.2 17.2l-.6 2.6h5.6l-.6-2.6"/><path d="M11.4 13.6v-1.6"/><circle cx="11.4" cy="11.2" r="0.8"/><path d="M21.4 11.2c-1-1.4-1.1-2.6-.1-4.4 1 1.8.9 3 .1 4.4z"/><path stroke-width=".85" d="M5.4 15.4c3.2 1 8.8 1 12 0"/>',
+  // A chest film on its lightbox clip.
+  'd-radiology': '<path d="M4 3.4h16v17.4H4z"/><path d="M10 3.4V2.4h4v1"/><path stroke-width="1.15" d="M12 6v12.8"/><path stroke-width=".85" d="M12 8.4c-1.8-.6-3.6-.2-5 1.2M12 8.4c1.8-.6 3.6-.2 5 1.2M12 11.2c-1.9-.6-3.8-.1-5.2 1.4M12 11.2c1.9-.6 3.8-.1 5.2 1.4M12 14c-1.8-.5-3.4 0-4.6 1.4M12 14c1.8-.5 3.4 0 4.6 1.4M7.6 6.4c1.6-.5 3-.6 4.4-.2M16.4 6.4c-1.6-.5-3-.6-4.4-.2"/>',
+  // A spoked gear.
+  'd-engineering': '<path d="M19.17 10.16 L21.68 10.47 L21.68 13.53 L19.17 13.84 L18.37 15.77 L19.93 17.76 L17.76 19.93 L15.77 18.37 L13.84 19.17 L13.53 21.68 L10.47 21.68 L10.16 19.17 L8.23 18.37 L6.24 19.93 L4.07 17.76 L5.63 15.77 L4.83 13.84 L2.32 13.53 L2.32 10.47 L4.83 10.16 L5.63 8.23 L4.07 6.24 L6.24 4.07 L8.23 5.63 L10.16 4.83 L10.47 2.32 L13.53 2.32 L13.84 4.83 L15.77 5.63 L17.76 4.07 L19.93 6.24 L18.37 8.23z"/><circle cx="12" cy="12" r="5.2" stroke-width=".85"/><circle cx="12" cy="12" r="1.9"/><path stroke-width=".85" d="M12 6.8v3.3M12 13.9v3.3M6.8 12h3.3M13.9 12h3.3"/>',
+  // The rod of Asclepius.
+  'd-health': '<path d="M12 2.8v18.4"/><path d="M9.8 21.2h4.4"/><path d="M14.4 5.6c-1.8-.8-4 .2-3.5 1.9.5 1.6 4 1.5 4.2 3.5.2 2-3.6 2.2-3.6 4.2 0 1.8 3 1.6 3.2 3.4"/><circle cx="14.9" cy="5.2" r="0.9" fill="currentColor" stroke="none"/><path stroke-width=".85" d="M15.8 5l1.2-.6"/>',
+  // A wheat sheaf.
+  'd-environment': '<path d="M12 21.2V8.6"/><path d="M12 8.6c-1.6-.4-2.4-1.6-2.4-3 1.6.4 2.4 1.6 2.4 3zM12 8.6c1.6-.4 2.4-1.6 2.4-3-1.6.4-2.4 1.6-2.4 3zM12 12c-1.6-.4-2.4-1.6-2.4-3 1.6.4 2.4 1.6 2.4 3zM12 12c1.6-.4 2.4-1.6 2.4-3-1.6.4-2.4 1.6-2.4 3zM12 15.4c-1.6-.4-2.4-1.6-2.4-3 1.6.4 2.4 1.6 2.4 3zM12 15.4c1.6-.4 2.4-1.6 2.4-3-1.6.4-2.4 1.6-2.4 3z"/><path d="M12 5.6c-.8-1-.8-2.4 0-3.4.8 1 .8 2.4 0 3.4z"/><path stroke-width=".85" d="M12 18.2c-2 0-3.6 1.2-4.4 3M12 18.2c2 0 3.6 1.2 4.4 3"/>',
+  // An Ionic column.
+  'd-design': '<path d="M4.8 5h14.4"/><path d="M6.6 5c-1.4 0-1.9 2.4-.2 2.8 1 .2 1.4-.6 1.2-1.2M17.4 5c1.4 0 1.9 2.4.2 2.8-1 .2-1.4-.6-1.2-1.2"/><path d="M7.6 7.4h8.8"/><path d="M8 7.4v11.6M16 7.4v11.6"/><path stroke-width=".85" d="M10.6 8.2v10.4M13.4 8.2v10.4"/><path d="M6.8 19h10.4M5.4 21.2h13.2"/>',
+  // A milled stack of coin.
+  'd-business': '<ellipse cx="12" cy="7" rx="6" ry="2.2"/><path d="M6 7v10c0 1.2 2.7 2.2 6 2.2s6-1 6-2.2V7"/><path stroke-width=".85" d="M6 10.4c0 1.2 2.7 2.2 6 2.2s6-1 6-2.2M6 13.8c0 1.2 2.7 2.2 6 2.2s6-1 6-2.2"/><path d="M12 6.1l0.72 0.9 -0.72 0.9 -0.72 -0.9 z" fill="currentColor" stroke="none"/>',
+  // The scales.
+  'd-civics': '<path d="M4.6 6.6h14.8M12 4.2v16.2M8.6 20.4h6.8"/><circle cx="12" cy="3.2" r="1" fill="currentColor" stroke="none"/><path stroke-width=".85" d="M4.6 6.6l-2 6M4.6 6.6l2 6M19.4 6.6l-2 6M19.4 6.6l2 6"/><path d="M2.2 12.6a2.4 2.4 0 0 0 4.8 0zM17 12.6a2.4 2.4 0 0 0 4.8 0z"/>',
+  // A mortarboard and tassel.
+  'd-education': '<path d="M2.4 9.4L12 5l9.6 4.4L12 13.8z"/><path d="M6.4 11.4v4.4c1.7 1.6 3.5 2.3 5.6 2.3s3.9-.7 5.6-2.3v-4.4"/><path stroke-width=".85" d="M12 9.4l7 2.2v4.8"/><path d="M19 16.4l-.9 2.4h1.8z"/>',
+  // A folded broadsheet.
+  'd-media': '<path d="M4 4.8h13.2v13.8a1.4 1.4 0 0 0 1.4 1.4H5.4A1.4 1.4 0 0 1 4 18.6z"/><path d="M17.2 8.4h2.6v10.2a1.4 1.4 0 0 1-2.6.7"/><path stroke-width="1.7" d="M6.6 7.8h8"/><path stroke-width=".85" d="M6.6 11h3.4M6.6 13.6h3.4M6.6 16.2h3.4M11.4 11h3.2M11.4 13.6h3.2M11.4 16.2h3.2"/>',
 };
 function glyph(name, size) {
   const s = size || 20;
@@ -162,7 +256,18 @@ function verdictMark(ok) {
 const domainById = id => S.domains.find(d => d.id === id) || { name: id, color: 'var(--edge)', icon: '' };
 // Authored domains ship their own character; the fallback has none, so it is
 // drawn in the book's own hand rather than borrowed from the running text.
-function domainMark(d, size) { return d.icon ? d.icon : glyph('spark', size || 15); }
+function domainMark(d, size) {
+  return GLYPHS['d-' + d.id] ? glyph('d-' + d.id, size || 15) : d.icon ? d.icon : glyph('spark', size || 15);
+}
+// A label with its drawn arrow. Fragments rather than arrays because el()
+// appends anything with a nodeType, and a fragment hands over its children.
+function frag(...kids) {
+  const f = document.createDocumentFragment();
+  kids.forEach(k => { if (k != null) f.append(k.nodeType ? k : document.createTextNode(k)); });
+  return f;
+}
+function onward(label) { return frag(label + ' ', glyph('onward', 16)); }
+function backward(label) { return frag(glyph('backward', 16), ' ' + label); }
 function esc(s) { return (s || '').replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c])); }
 
 /* ---------------- haptics ----------------
@@ -221,7 +326,9 @@ function toast(msg) { const t = $('#toast'); t.textContent = msg; t.classList.ad
    silenced — navigate away mid-read and the book keeps reading the page you
    left. Every stop bumps the sequence, and a chunk that finishes under a stale
    sequence drops the rest of its queue on the floor. */
-const SPEAK_CHUNK = 1200;
+const SpeechChunks = typeof module !== 'undefined' && module.exports
+  ? require('./speech-chunks.js') : globalThis.PrimerSpeechChunks;
+const SPEAK_CHUNK = SpeechChunks.SPEAK_CHUNK;
 let speakSeq = 0;
 // Whatever the voice leaves lit — a pulsing speaker button, the paragraph it is
 // reading, the article's transport row — is only true while it is talking. The
@@ -234,30 +341,7 @@ let _voiceRestore = null;
 // boundary inside a clause is exactly what made the old truncation sound like
 // a fault rather than an ending.
 function splitForSpeech(text) {
-  const clean = String(text == null ? '' : text).replace(/\s+/g, ' ').trim();
-  if (!clean) return [];
-  if (clean.length <= SPEAK_CHUNK) return [clean];
-  const sentences = clean.match(/[^.!?\u2026]+(?:[.!?\u2026]+["\')\]]*|$)/g) || [clean];
-  const out = [];
-  let buf = '';
-  for (const s of sentences) {
-    let piece = s.trim();
-    // One "sentence" longer than a whole chunk — a run-on caption, a list of
-    // dates with no full stop in it. Fall back to word boundaries rather than
-    // cutting a word in half.
-    while (piece.length > SPEAK_CHUNK) {
-      let cut = piece.lastIndexOf(' ', SPEAK_CHUNK);
-      if (cut < SPEAK_CHUNK * 0.5) cut = SPEAK_CHUNK;
-      if (buf) { out.push(buf); buf = ''; }
-      out.push(piece.slice(0, cut).trim());
-      piece = piece.slice(cut).trim();
-    }
-    if (!piece) continue;
-    if (buf && buf.length + 1 + piece.length > SPEAK_CHUNK) { out.push(buf); buf = piece; }
-    else buf = buf ? buf + ' ' + piece : piece;
-  }
-  if (buf) out.push(buf);
-  return out;
+  return SpeechChunks.splitForSpeech(text);
 }
 
 // The only place an utterance is ever built. `parts` is spoken in order;
@@ -336,6 +420,7 @@ function speakBtn(getText, label) {
 
 /* ---------------- routing (hash-based) ---------------- */
 function hashFor(view, arg) {
+  if (view === 'maps') return '#/maps' + (arg ? '/' + arg.map(encodeURIComponent).join('/') : '');
   if (view === 'node') return '#/node/' + encodeURIComponent(arg);
   if (view === 'radiology') return '#/radiology' + (arg ? '/' + encodeURIComponent(arg) : '');
   if ((view === 'atlas' || view === 'math-images') && arg) {
@@ -358,8 +443,11 @@ const KNOWN_VIEWS = new Set(['today', 'atlas', 'math-images', 'review', 'review-
                              'journey', 'roadmap', 'library', 'node', 'read', 'reader', 'account', 'radiology']);
 function parseHash() {
   const h = (location.hash || '#/today').replace(/^#\/?/, '');
-  const parts = h.split('/').map(decodeURIComponent);
+  let parts;
+  try { parts = h.split('/').map(decodeURIComponent); }
+  catch (e) { if (e instanceof URIError) return { view: 'today', corrected: true }; throw e; }
   const view = parts[0] || 'today';
+  if (view === 'maps') return { view, arg: parts.slice(1) };
   if (view === 'node') return { view, arg: parts[1] };
   if (view === 'radiology') return { view, arg: parts[1] || null };
   if (view === 'atlas' || view === 'math-images') return { view, arg: {
@@ -405,13 +493,16 @@ function renderRoute() {
   // Falling back to Today while leaving the address bar on a bogus route left
   // no nav item marked current, and a reload landed nowhere.
   if (corrected) { location.replace('#/' + view); return; }
+  if (view !== 'maps') S.knowledgeMapIndex = null;
   S.view = view;
   document.querySelectorAll('.navbtn').forEach(b => {
-    const active = b.dataset.nav === view || (view === 'review-game' && b.dataset.nav === 'review');
+    const active = b.dataset.nav === view || (view === 'review-game' && b.dataset.nav === 'review')
+      || (view === 'maps' && b.dataset.nav === 'atlas');
     b.classList.toggle('active', active);
     if (active) b.setAttribute('aria-current', 'page'); else b.removeAttribute('aria-current');
   });
   const routes = { today: renderToday, atlas: renderAtlas, 'math-images': renderVisualGallery,
+    maps: renderKnowledgeMaps,
     review: renderReview, 'review-game': renderMemoryGame, 'library-search': renderSearch, roadmap: renderRoadmap,
     library: renderLibrary, journey: renderJourney, story: renderStory, node: renderNode,
     reader: renderReader, account: renderAccount, radiology: renderRadiologyDesk };
@@ -534,8 +625,13 @@ async function boot() {
   // Ask once, after the book is on screen, if we do not actually know.
   setTimeout(askPronounsIfUnknown, 600);
 }
+// The reading palettes: value, the name the reader sees, its mark. Silvertone
+// and Slate are monochrome (no gilt, no tint) for readers who want the page
+// without the book's warmth.
+const THEMES = [['light', 'Day', 'sun'], ['dark', 'Night', 'moon'],
+  ['silvertone', 'Silvertone', 'half'], ['slate', 'Slate', 'halfAlt']];
 function applyTheme(theme) {
-  if (theme === 'dark' || theme === 'light') document.documentElement.setAttribute('data-theme', theme);
+  if (THEMES.some(([value]) => value === theme)) document.documentElement.setAttribute('data-theme', theme);
   else document.documentElement.removeAttribute('data-theme');
 }
 
@@ -584,7 +680,7 @@ function renderOnboarding() {
         field('Your name', nameInput, 'ob-name'),
         el('div', { style: 'display:flex;gap:10px;align-items:center' },
           speakBtnAlways(() => 'Welcome, reader. This book will teach you everything. First, what is your name?'),
-          btn({ class: 'btn gold', style: 'flex:1', onclick: () => { if (!data.name.trim()) data.name = 'Reader'; step = 1; draw(); } }, 'Begin →')),
+          btn({ class: 'btn gold', style: 'flex:1', onclick: () => { if (!data.name.trim()) data.name = 'Reader'; step = 1; draw(); } }, onward('Begin'))),
       );
       setTimeout(() => nameInput.focus(), 30);
     } else if (step === 1) {
@@ -630,9 +726,9 @@ function renderOnboarding() {
   }
   function field(label, input, id) { const l = el('label', { class: 'field', for: id }); l.append(el('span', {}, label), input); return l; }
 function field2(label, out, input) { const l = el('label', { class: 'field' }); const head = el('span', { style: 'display:flex;justify-content:space-between' }, el('span', {}, label), out); l.append(head, input); return l; }
-  function navRow(back, next, nextLabel = 'Continue →') {
+  function navRow(back, next, nextLabel = onward('Continue')) {
     return el('div', { style: 'display:flex;gap:10px;margin-top:20px' },
-      btn({ class: 'btn ghost', onclick: back }, '← Back'),
+      btn({ class: 'btn ghost', onclick: back }, backward('Back')),
       btn({ class: 'btn gold', style: 'flex:1', onclick: next }, ...[].concat(nextLabel)));
   }
   // The frame story is written *about* the reader, so it needs a pronoun for
@@ -761,7 +857,7 @@ function offerPlacement(domains) {
           btn({ class: 'btn ghost', style: 'flex:1', onclick: close }, 'Skip for now'),
           btn({ class: 'btn gold', style: 'flex:1',
             onclick: () => { close(); runPlacement(only.id, S.stage, measuredAt(only.id) !== null); } },
-            'Check my level →')));
+            onward('Check my level'))));
         return;
       }
       const list = el('div', { class: 'placement-fields' });
@@ -898,7 +994,7 @@ async function runPlacement(domain, stage, recheck) {
           : 'The book has found where to open in ' + domainById(domain).name + ' — a little below ' + STAGE_NAMES[stage] + ', so the ground is solid under you. Nothing here was a check you could fail.')));
     if (r.suggest_stage != null && !r.settled) {
       splash.append(el('p', { class: 'muted' }, r.passed ? 'Let\'s try one level higher.' : 'Let\'s try one level down.'),
-        btn({ class: 'btn gold', onclick: () => { close(); runPlacement(domain, r.suggest_stage); } }, 'Continue →'));
+        btn({ class: 'btn gold', onclick: () => { close(); runPlacement(domain, r.suggest_stage); } }, onward('Continue')));
     } else {
       splash.append(el('p', { class: 'result-msg' }, 'The book has placed you. You can re-check any time.'),
         btn({ class: 'btn gold', onclick: async () => { close(); S.state = await api.get('/api/state'); S.stage = Number.isFinite(S.state.profile.stage) ? S.state.profile.stage : 2; document.body.dataset.stage = S.stage; renderShell(); renderRoute(); } }, 'Open my book ', glyph('spark', 15)));
@@ -908,6 +1004,43 @@ async function runPlacement(domain, stage, recheck) {
 }
 
 /* ---------------- shell ---------------- */
+// The side panel folds to a rail of icons so the page can take the width —
+// for reading, mostly. Wide screens only (the narrow layout already tucks the
+// panel behind its Menu button). The choice is the reader's and is kept on
+// this device; the attribute lives on <html> so a rebuilt shell keeps it.
+const SPINE_KEY = 'primer-spine';
+function spineFolded() {
+  try { return localStorage.getItem(SPINE_KEY) === 'folded'; } catch (e) { return false; }
+}
+function setSpineFolded(folded, { remember = true, resize = true } = {}) {
+  document.documentElement.dataset.spine = folded ? 'folded' : 'open';
+  if (remember) { try { localStorage.setItem(SPINE_KEY, folded ? 'folded' : 'open'); } catch (e) { /* kept for this visit only */ } }
+  const toggle = $('#spine-toggle');
+  if (toggle) {
+    const name = folded ? 'Show the side panel' : 'Hide the side panel';
+    toggle.setAttribute('aria-expanded', String(!folded));
+    toggle.setAttribute('aria-label', name);
+    toggle.title = name + ' (' + (/Mac|iP(hone|ad|od)/.test(navigator.platform) ? '⌘' : 'Ctrl') + ' \\)';
+    toggle.replaceChildren(glyph(folded ? 'panelOpen' : 'panelClose', 18));
+  }
+  // Folded, the labels are hidden from sight (never from the accessibility
+  // tree), so each icon says its name on hover.
+  document.querySelectorAll('#sidebar .navbtn').forEach(b => {
+    if (folded) b.title = b.querySelector('.label').textContent; else b.removeAttribute('title');
+  });
+  // Canvases and measured layouts size themselves on resize; the page just
+  // changed width without the window changing, so tell them.
+  if (resize) setTimeout(() => window.dispatchEvent(new Event('resize')), 260);
+}
+// Guarded: tests load this file in Node against a stub document.
+if (document.documentElement) document.documentElement.dataset.spine = spineFolded() ? 'folded' : 'open';
+document.addEventListener('keydown', event => {
+  if ((event.metaKey || event.ctrlKey) && !event.altKey && event.key === '\\'
+      && $('#spine-toggle') && matchMedia('(min-width: 901px)').matches) {
+    event.preventDefault();
+    setSpineFolded(document.documentElement.dataset.spine !== 'folded');
+  }
+});
 function setSidebarExpanded(expanded, restoreFocus = false) {
   const sidebar = $('#sidebar'), toggle = $('#navigation-toggle');
   if (!sidebar || !toggle) return;
@@ -926,13 +1059,15 @@ function renderShell() {
   // Icons are deliberately distinct — four near-identical book glyphs are no
   // help to a child who cannot read the labels.
   const nav = [['today', 'today', 'Today'], ['atlas', 'atlas', 'The Atlas'],
-    ['radiology', 'lookup', 'Radiology reference'],
+    ['radiology', 'd-radiology', 'Radiology reference'],
     ['math-images', 'gallery', 'Visual Gallery'], ['review', 'review', 'Review'],
     ['library-search', 'lookup', 'Look Up'], ['story', 'story', 'Your Story'], ['journey', 'journey', 'Journey'],
     ['roadmap', 'path', 'Your Path'], ['library', 'shelf', 'The Shelf']];
   const sidebar = el('nav', { id: 'sidebar', 'aria-label': 'Main' },
     el('div', { class: 'brand' }, el('div', { class: 'mark', 'aria-hidden': 'true' }, glyph('story', 34)), el('h1', {}, 'The Primer'),
       el('div', { class: 'sub' }, p.title || p.stage_name),
+      btn({ id: 'spine-toggle', 'aria-controls': 'sidebar',
+        onclick: () => setSpineFolded(document.documentElement.dataset.spine !== 'folded') }),
       btn({ id: 'navigation-toggle', 'aria-expanded': 'false',
         'aria-controls': 'primary-nav navigation-stats reading-settings',
         onclick: () => setSidebarExpanded(sidebar.dataset.navOpen !== 'true') }, 'Menu')),
@@ -997,6 +1132,7 @@ function renderShell() {
   const skip = btn({ class: 'skip-link', onclick: () => { const m = $('#page'); if (m) { m.setAttribute('tabindex', '-1'); m.focus(); } } }, 'Skip to content');
   $('#root').append(skip, book);
   setSidebarExpanded(navigationWasOpen);
+  setSpineFolded(spineFolded(), { remember: false, resize: false });
   // The shell was just rebuilt from nothing; if the world is still away, the
   // band must come back with it — this is the only path that can restore it
   // for a reader who opened the book already offline.
@@ -1009,10 +1145,13 @@ function effectiveTheme() {
   return matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
 }
 function themeToggle() {
-  const b = btn({ id: 'theme-toggle', class: 'chrome-toggle', onclick: () => {
-    // Toggle relative to what the reader actually sees, so the first press
-    // always visibly changes the page (even when following the OS setting).
-    const next = effectiveTheme() === 'dark' ? 'light' : 'dark';
+  // Four palettes are a choice, not a polarity, so the control is a real
+  // <select> under the toggle's face: native on every keyboard, screen reader
+  // and phone, named "Reading theme" with the current palette as its value.
+  const icon = el('span', { class: 'tt-icon', 'aria-hidden': 'true' });
+  const label = el('span', { class: 'tt-label', 'aria-hidden': 'true' });
+  const b = el('select', { id: 'theme-toggle', class: 'theme-select', 'aria-label': 'Reading theme', onchange: event => {
+    const next = event.target.value;
     applyTheme(next); localStorage.setItem('primer-theme', next);
     // Some engines don't fully invalidate custom properties on an attribute
     // change, so elements can keep the old theme's colours. Rebuilding the view
@@ -1038,23 +1177,16 @@ function themeToggle() {
       S.restoreFocus = 'theme-toggle';   // honoured once the view has rebuilt
       renderShell(); renderRoute();
     } else paint();
-  } }, el('span', { class: 'tt-icon', 'aria-hidden': 'true' }, glyph('moon', 15)), el('span', { class: 'tt-label' }, ''));
+  } }, ...THEMES.map(([value, name]) => el('option', { value }, name)));
   function paint() {
     const now = effectiveTheme();
-    b.querySelector('.tt-label').textContent = now === 'dark' ? 'Night' : 'Day';
-    b.querySelector('.tt-icon').replaceChildren(glyph(now === 'dark' ? 'moon' : 'sun', 15));
-    // The state has to live in the NAME. A fixed aria-label ("Switch between
-    // day and night reading") overrides the element's contents in the
-    // accessible-name computation, so the one word that says which mode is on
-    // — the visible 'Night'/'Day' right there in the button — never reached a
-    // screen reader at all, and the control announced identically in both
-    // states. Named rather than aria-pressed: a theme is not a pressed
-    // control, and a polarity has to be guessed to announce one.
-    b.setAttribute('aria-label', now === 'dark'
-      ? 'Night reading on — switch to day' : 'Day reading on — switch to night');
+    const [value, name, mark] = THEMES.find(([v]) => v === now) || THEMES[0];
+    b.value = value;
+    label.textContent = name;
+    icon.replaceChildren(glyph(mark, 15));
   }
   paint();
-  return b;
+  return el('div', { class: 'chrome-toggle theme-control', title: 'Reading theme' }, icon, label, b);
 }
 function accountToggle() {
   return btn({ id: 'account-toggle', class: 'chrome-toggle',
@@ -1520,7 +1652,7 @@ async function renderToday(page) {
     // a time that has already passed.
     t.pending.forEach(w => pr.append(btn({ class: 'req-chip pending-chip' + (w.open === false ? ' blocked' : ''),
       onclick: () => go('node', w.id) },
-      '◐ ' + w.title + ' · ' + (w.open === false
+      glyph('half', 14), ' ' + w.title + ' · ' + (w.open === false
         ? (w.blocked_by || 'waiting on earlier work')
         : (readyNow(w.ready_at) ? 'ready now' : 'ready ' + whenReady(w.ready_at))))));
     page.append(pr);
@@ -1530,7 +1662,7 @@ async function renderToday(page) {
   if (t.refresh && t.refresh.length) {
     page.append(sectionLabel('Worth refreshing'));
     const rr = el('div', { class: 'refresh-row' });
-    t.refresh.forEach(r => rr.append(btn({ class: 'req-chip', onclick: () => go('node', r.id) }, '↻ ' + r.title)));
+    t.refresh.forEach(r => rr.append(btn({ class: 'req-chip', onclick: () => go('node', r.id) }, glyph('refresh', 14), ' ' + r.title)));
     page.append(rr);
   }
 
@@ -1672,7 +1804,7 @@ function openStory(s, canAdvance, needs, onClose) {
           } catch (e) { close(); toast('The page would not turn just now — nothing is lost, and the chapter is still waiting. Try again in a moment.'); }
         } }, 'Turn the page ', glyph('spark', 15)));
       } else if (s.leads_to) {
-        controls.append(btn({ class: 'btn gold', style: 'flex:1', onclick: () => { close(); go('node', s.leads_to); } }, "Let's learn it →"));
+        controls.append(btn({ class: 'btn gold', style: 'flex:1', onclick: () => { close(); go('node', s.leads_to); } }, onward("Let's learn it")));
         if (needs) modal.append(el('p', { style: 'color:var(--gold-bright);font-family:var(--sans);font-size:13px;margin-top:12px' },
           needs.faded ? storyWaitingText(needs) : 'This page turns when you prove ' + storyWaitingText(needs) + '.'));
       } else {
@@ -1735,7 +1867,7 @@ function wireOutsideLinks(root) {
     link.dataset.outsideWired = '1';
     const host = link.getAttribute('data-primer-outside') || 'another site';
     if (!link.querySelector('.outside-mark')) {
-      link.append(el('span', { class: 'outside-mark', 'aria-hidden': 'true' }, '↗'));
+      link.append(el('span', { class: 'outside-mark', 'aria-hidden': 'true' }, glyph('outside', 12)));
     }
     const said = link.getAttribute('aria-label') || link.textContent.trim();
     link.setAttribute('aria-label', said + ' — leaves the book, on ' + host);
@@ -1754,7 +1886,7 @@ function wireOutsideLinks(root) {
             btn({ class: 'btn gold', style: 'flex:1', onclick: () => {
               close();
               window.open(href, '_blank', 'noopener,noreferrer');
-            } }, 'Open ' + host + ' →')));
+            } }, onward('Open ' + host))));
       } });
     });
   });
@@ -1894,11 +2026,140 @@ function renderReference(ref, nodeTitle) {
   return wrap;
 }
 
+function sourceStudyReference(asset, { createElement = el, sourceLink = radiologySourceLink } = {}) {
+  return createElement('section', { class: 'card rad-source-study', 'aria-label': asset.title },
+    createElement('h3', {}, asset.title), createElement('p', {}, asset.caption),
+    createElement('a', { href: asset.src, target: '_blank', rel: 'noopener noreferrer', class: 'btn ghost small' }, 'Open native MRI frames'),
+    createElement('p', {}, asset.limits), createElement('p', { class: 'rad-image-credit' }, asset.attribution),
+    sourceLink('Source dataset', asset.source_url), ' · ', sourceLink(asset.license, asset.license_url));
+}
+
+function glioblastomaCaseViewer() {
+  const details = el('details', { class: 'card' },
+    el('summary', {}, 'Compare glioblastoma MRI sequences and 3D compartments'));
+  details.addEventListener('toggle', () => {
+    if (details.open && !details.querySelector('iframe')) {
+      details.append(el('iframe', { src: '/app/anatomy/glioblastoma-ba2/index.html',
+        title: 'Glioblastoma MRI and tumour compartments', loading: 'lazy',
+        style: 'display:block;width:100%;height:850px;border:0' }));
+    } else if (!details.open) {
+      details.querySelector('iframe')?.remove();
+    }
+  });
+  return details;
+}
+
+function sourceNativeInspector(asset) {
+  const sourceCase = Boolean(asset.publication_url);
+  const noduleCT = asset.id === 'lidc-idri-0525-native' && asset.modality === 'CT';
+  const lungCT = asset.id === 'totalseg-s0028-lung-native' && asset.modality === 'CT';
+  const basalCT = asset.id === 'totalseg-s0028-basal-context' && asset.modality === 'CT';
+  const cardiacCT = asset.id === 'totalseg-v1-s0028-cardiac-native' && asset.modality === 'CT';
+  const comparisonCT = asset.id === 'baskaran-2020-cardiac-comparisons' && asset.modality === 'CT image comparisons';
+  const registeredMRI = asset.id === 'hippunfold-hcp101006-registered-reference';
+  const epilepsyContextMRI = asset.id === 'spl-epilepsy-temporal-ventricular-source-context';
+  const additionalMRI = asset.id === 'spl-additional-native-source-reference';
+  const reportingMRI = asset.id === 'spl-nac-reporting-native-reference' || epilepsyContextMRI || additionalMRI;
+  const temporalCBCT = asset.id === 'openear-zeta-native-reference';
+  const sourceContacts = ['spl-cortical-source-contacts-reference', 'spl-sellar-source-interfaces-reference'].includes(asset.id);
+  const dissectionPhotos = asset.id === 'mosteiro-cavernous-dissection-reference';
+  const pituitaryCase = asset.id === 'pandit-pituitary-case1-processed-reference';
+  const fcdMRI = asset.id === 'bonn-fcd-case4-native-reference';
+  const hippocampalRaters = asset.id === 'dryad-hippocampal-case10-rater-reference';
+  const exVivoMRI = asset.id === 'nextbrain-exvivo-reference';
+  const vascularTemplate = asset.id === 'schirmer-vascular-template-reference';
+  const templateMRI = asset.id === 'holiatlas-source-template-reference' || vascularTemplate;
+  const limbicMRI = asset.id === 'spl-nac-limbic-native-reference' || reportingMRI;
+  const nativeCT = noduleCT || lungCT || basalCT || cardiacCT;
+  const curatedSurface = ['bp3d-thoracic-original-surfaces', 'bp3d-cardiac-original-context'].includes(asset.id) && asset.modality === 'Curated 3D anatomy';
+  const section = el('section', { class: 'rad-protocol source-native-inspector' },
+    el('h3', {}, el('a', { href: asset.src, target: '_blank', rel: 'noopener noreferrer' }, asset.title)),
+    el('p', {}, asset.caption), el('p', { class: 'rad-image-credit', style: 'overflow-wrap:anywhere' }, asset.attribution),
+    radiologySourceLink(sourceContacts ? 'SPL source atlas publication' : fcdMRI ? 'Original FCD MRI and lesion dataset' : hippocampalRaters ? 'Original hippocampal MRI and annotations dataset' : temporalCBCT ? 'OpenEar CBCT and source anatomy dataset' : exVivoMRI ? 'Ex vivo MRI reference dataset' : vascularTemplate ? 'Vascular study-template dataset' : templateMRI ? 'Population brain template dataset' : limbicMRI ? 'SPL atlas publication' : registeredMRI ? 'Published registered MRI training dataset' : curatedSurface ? 'Original curated surface dataset' : comparisonCT ? 'Original CT comparison dataset' : nativeCT ? 'Original CT source dataset' : sourceCase ? 'Original MRI source dataset' : 'Original MRI templates', asset.source_url),
+    ...(curatedSurface || lungCT || basalCT || cardiacCT || comparisonCT ? [] : [' · ', radiologySourceLink(sourceContacts || fcdMRI || hippocampalRaters || templateMRI ? 'Source publication and methods' : limbicMRI ? 'Pinned original files and scene' : sourceCase ? 'Source publication and methods' : 'Original probabilistic atlas', asset.publication_url || asset.atlas_source_url)]), ' · ',
+    radiologySourceLink(sourceCase ? asset.license + ' · data' : asset.license, asset.license_url));
+  if (nativeCT || curatedSurface || comparisonCT || registeredMRI || limbicMRI || templateMRI || exVivoMRI || temporalCBCT || hippocampalRaters || fcdMRI || sourceContacts || pituitaryCase || dissectionPhotos) {
+    if (noduleCT) section.append(' · ', radiologySourceLink('Original standardized annotations', asset.annotation_source_url));
+    const openLabel = dissectionPhotos ? 'Inspect original dissection photographs inline' : pituitaryCase ? 'Inspect provided pituitary MRI and source annotations inline' : sourceContacts ? 'Inspect source-label contact surfaces inline' : fcdMRI ? 'Inspect FCD MRI and source lesion inline' : hippocampalRaters ? 'Inspect hippocampal MRI and compare annotations inline' : temporalCBCT ? 'Inspect source CBCT, masks and surfaces inline' : exVivoMRI ? 'Inspect ex vivo MRI, labels and source boundaries inline' : vascularTemplate ? 'Inspect vascular template MRI and regions inline' : templateMRI ? 'Inspect source brain templates and cell boundaries inline' : additionalMRI ? 'Inspect optic, pituitary and head/neck source anatomy inline' : epilepsyContextMRI ? 'Inspect temporal and ventricular source context inline' : reportingMRI ? 'Inspect native MRI and brain reporting relationships inline' : limbicMRI ? 'Inspect native SPL MRI and limbic surfaces inline' : registeredMRI ? 'Inspect registered hippocampal MRI and surfaces inline' : comparisonCT ? 'Inspect original CT comparison images inline' : cardiacCT ? 'Inspect original cardiac CT and source interfaces inline' : curatedSurface ? 'Inspect original surfaces inline' : basalCT ? 'Inspect matching CT, liver and spleen inline' : lungCT ? 'Inspect matching CT and lung surfaces inline' : 'Inspect source CT and models inline';
+    const host = el('div', { class: 'source-native-inline-host' });
+    let frame = null;
+    const toggle = btn({ class: 'btn ghost small', 'aria-expanded': 'false', onclick: () => {
+      if (frame) { frame.remove(); frame = null; toggle.textContent = openLabel; toggle.setAttribute('aria-expanded', 'false'); return; }
+      frame = el('iframe', { src: asset.src, title: asset.title, loading: 'lazy',
+        sandbox: 'allow-scripts allow-same-origin allow-popups allow-downloads',
+        style: 'display:block;width:100%;height:850px;border:1px solid var(--border);border-radius:8px' });
+      host.replaceChildren(frame); toggle.textContent = 'Close source viewer'; toggle.setAttribute('aria-expanded', 'true');
+    } }, openLabel);
+    section.append(el('p', {}, toggle), host);
+  }
+  return section;
+}
+
+function sourceContextDocuments(documents, createElement = el) {
+  const section = createElement('section', { class: 'rad-protocol source-context-documents' },
+    createElement('h3', {}, 'Original reporting documents'),
+    createElement('p', {}, 'These publications and their original examples support the reporting definitions. They do not supply the current patient’s acquisitions or register different source cases to one another.'));
+  for (const document of documents) {
+    const format = document.src.split('.').at(-1).toUpperCase();
+    section.append(createElement('p', {},
+      createElement('a', { href: document.src, target: '_blank', rel: 'noopener noreferrer' }, document.title + ' · ' + format),
+      ' · ' + (document.bytes / 1048576).toFixed(2) + ' MB'));
+    section.append(createElement('p', { class: 'rad-image-credit' }, document.attribution));
+    section.append(createElement('a', { href: document.source_url, target: '_blank', rel: 'noopener noreferrer' }, 'Original publication'), ' · ',
+      createElement('a', { href: document.license_url, target: '_blank', rel: 'noopener noreferrer' }, document.license));
+  }
+  return section;
+}
+
+function lessonSourceGallery(item, { loadReference = id => api.get('/api/radiology/modules/' + encodeURIComponent(id)),
+  createElement = el, createButton = btn, renderFigure = sourceAtlasFigure, renderStudy = sourceStudyReference, renderInspector = sourceNativeInspector,
+  wirePictures = attachPictureHandlers } = {}) {
+  const studyMode = item.kind === 'source-studies', nativeMode = item.kind === 'source-native-inspectors';
+  const registeredMRI = nativeMode && item.investigation_ids.every(id => ['ra.mri-epilepsy', 'ra.mri-dementia'].includes(id));
+  const label = registeredMRI ? 'MRI and limbic source references' : nativeMode ? 'native source inspections' : studyMode ? 'source studies' : 'source figures';
+  const status = createElement('p', { role: 'status', 'aria-live': 'polite' });
+  const groups = new Map();
+  const gallery = createElement('section', { class: 'card lesson-source-gallery', 'aria-label': item.title },
+    createElement('h3', {}, item.title), createElement('p', {}, item.instructions));
+  const load = createButton({ class: 'btn ghost small', onclick: async () => {
+    load.disabled = true;
+    status.textContent = 'Loading original ' + label + '…';
+    const missing = item.investigation_ids.filter(id => !groups.has(id));
+    const results = await Promise.allSettled(missing.map(loadReference));
+    results.forEach((result, index) => {
+      if (result.status !== 'fulfilled') return;
+      const reference = result.value;
+      const figures = reference.radiology_reference?.[nativeMode ? 'source_native_inspectors' : studyMode ? 'source_study_references' : 'structure_atlas'];
+      if (!Array.isArray(figures) || !figures.length || reference.id !== missing[index]) return;
+      const section = createElement('details', {}, createElement('summary', {}, reference.title + ' · ' + figures.length + ' source references'));
+      section.append(createElement('a', { href: '#radiology/' + encodeURIComponent(reference.id) }, 'Open reporting reference'));
+      for (const figure of figures) section.append(nativeMode ? renderInspector(figure) : studyMode ? renderStudy(figure) : renderFigure(figure));
+      if (!studyMode && !nativeMode && reference.radiology_reference.source_context_documents?.length)
+        section.append(sourceContextDocuments(reference.radiology_reference.source_context_documents, createElement));
+      groups.set(missing[index], section);
+      wirePictures(section);
+    });
+    // Keep source-reader order after retries; each reader retains its own case context.
+    for (const id of item.investigation_ids) if (groups.has(id)) gallery.append(groups.get(id));
+    const complete = groups.size === item.investigation_ids.length;
+    status.textContent = complete ? 'Original ' + label + ' loaded. Expand a reference to read its case context and source captions.'
+      : 'Some ' + label + ' could not be loaded. Retry to load the missing references.';
+    load.textContent = complete ? 'Source references loaded' : 'Retry missing source references';
+    load.disabled = complete;
+  } }, 'Load original ' + label);
+  gallery.append(load, status);
+  return gallery;
+}
+
 function renderLessonMedia(items) {
   if (!Array.isArray(items) || !items.length) return null;
   const media = el('div', { class: 'lesson-media' });
   let imageCount = 0;
   items.forEach(item => {
+    if (item && ['source-gallery', 'source-studies', 'source-native-inspectors'].includes(item.kind)) {
+      media.append(lessonSourceGallery(item));
+      return;
+    }
     if (item && item.kind === 'illustration') {
       if (!item.src || !item.alt) return;
       const firstImage = imageCount++ === 0;
@@ -1941,8 +2202,8 @@ function renderLessonMedia(items) {
 
 /* ---------------- radiology reference workbench ----------------
    Foundation articles stay with their publisher. Our report drafts contain
-   plain text only, held in the mounted editor: no storage, patient uploads,
-   background requests, or generated conclusions. */
+   text and its bold, italic and underline only, held in the mounted editor:
+   no storage, patient uploads, background requests, or generated conclusions. */
 function radiologySourceLink(title, url, props = {}) {
   if (/^\/app\/illustrations\/[a-z0-9/_-]+\.webp$/.test(url || '')) {
     return el('a', { ...props, href: url, target: '_blank', rel: 'noopener noreferrer' }, title);
@@ -1973,19 +2234,49 @@ function renderRadiologyTemplate(template, index, nodeId, open) {
   const content = el('div', { class: 'rad-template-content' });
   if (template.description) content.append(el('p', {}, template.description));
   const uid = 'rad-report-' + nodeId + '-' + index;
-  const original = radiologyReportText(template);
+  const original = template.text ?? radiologyReportText(template);
   const status = el('p', { class: 'rad-report-status', role: 'status', 'aria-live': 'polite', 'aria-atomic': 'true' },
     'Template ready. Changes last until you leave or reload this page.');
   const hint = el('p', { id: uid + '-hint', class: 'rad-report-hint' },
     'Educational drafting template. Replace the bracketed prompts using the imaging findings and clinical context; review the completed report before use. Keep patient identifiers out of this page.');
-  const editor = el('textarea', { id: uid, class: 'rad-report-editor', rows: 22,
-    spellcheck: 'false', autocomplete: 'off', 'aria-describedby': uid + '-hint' });
-  editor.value = original;
+  // A rich-text editor: headings underlined and subheadings italic as they are copied.
+  const editor = el('div', { id: uid, class: 'rad-report-editor rad-report-rich', contenteditable: 'true', role: 'textbox',
+    'aria-multiline': 'true', 'aria-labelledby': uid + '-label', 'aria-describedby': uid + '-hint', spellcheck: 'false' });
+  const wrap = body => '<div style="font-family:Arial,sans-serif;font-size:12pt;line-height:1.4">' + body + '</div>';
+  const fill = () => {
+    const formatter = window.PrimerStructuredReporting;
+    if (!formatter || !formatter.reportHTML) { editor.textContent = original; return; }
+    const holder = document.createElement('div');
+    holder.innerHTML = formatter.reportHTML(original, template.studyTitle || template.title);
+    editor.innerHTML = holder.firstChild.innerHTML;
+  };
+  fill();
+  const initial = editor.innerHTML;
+  const draftText = () => editor.innerText.replace(/\u00a0/g, ' ').replace(/\n+$/, '');
+  const format = (command, label, name) => {
+    const control = btn({ class: 'btn ghost small rad-report-format-' + command, title: name, 'aria-label': name,
+      onclick: () => { editor.focus(); document.execCommand(command); } }, label);
+    // Keep the selection in the editor when the control is pressed.
+    control.addEventListener('mousedown', event => event.preventDefault());
+    return control;
+  };
+  const toolbar = el('div', { class: 'rad-report-format', role: 'toolbar', 'aria-label': 'Text formatting' },
+    format('bold', 'B', 'Bold'), format('italic', 'I', 'Italic'), format('underline', 'U', 'Underline'));
+  // Pasted and dropped content arrives as plain text; a new line is a line break, not a new block.
+  editor.addEventListener('paste', event => {
+    event.preventDefault();
+    document.execCommand('insertText', false, (event.clipboardData || window.clipboardData).getData('text/plain'));
+  });
+  editor.addEventListener('drop', event => event.preventDefault());
+  editor.addEventListener('keydown', event => {
+    if (event.key !== 'Enter' || event.isComposing) return;
+    event.preventDefault();
+    document.execCommand('insertLineBreak');
+  });
   let action = 0;
   const reset = btn({ class: 'btn ghost small', disabled: '', onclick: () => {
     action++;
-    editor.value = original;
-    editor.setSelectionRange(0, 0);
+    fill();
     editor.scrollTop = 0;
     editor.scrollLeft = 0;
     reset.disabled = true;
@@ -1993,19 +2284,26 @@ function renderRadiologyTemplate(template, index, nodeId, open) {
   } }, 'Reset edits');
   editor.addEventListener('input', () => {
     action++;
-    reset.disabled = editor.value === original;
+    reset.disabled = editor.innerHTML === initial;
     status.textContent = reset.disabled
       ? 'Original template. Changes last until you leave or reload this page.'
       : 'Edited on this page. Copy or download to keep this text.';
   });
   const copy = btn({ class: 'btn small', onclick: async () => {
     const attempt = ++action;
-    const text = editor.value;
+    // A line break typed in the editor is a newline character; rich text needs it as a break.
+    const text = draftText(), html = wrap(editor.innerHTML.replace(/\n/g, '<br>'));
     copy.disabled = true;
     status.textContent = 'Copying template text…';
     let copied = false;
     try {
-      if (navigator.clipboard && navigator.clipboard.writeText) {
+      if (navigator.clipboard && navigator.clipboard.write && typeof ClipboardItem !== 'undefined') {
+        await navigator.clipboard.write([new ClipboardItem({
+          'text/plain': new Blob([text], { type: 'text/plain' }),
+          'text/html': new Blob([html], { type: 'text/html' }),
+        })]);
+        copied = true;
+      } else if (navigator.clipboard && navigator.clipboard.writeText) {
         await navigator.clipboard.writeText(text);
         copied = true;
       }
@@ -2018,18 +2316,23 @@ function renderRadiologyTemplate(template, index, nodeId, open) {
     }
     if (!copied) {
       const priorFocus = document.activeElement;
-      const selection = [editor.selectionStart, editor.selectionEnd, editor.selectionDirection];
+      const selection = window.getSelection();
+      const prior = selection.rangeCount ? selection.getRangeAt(0) : null;
+      const all = document.createRange();
+      all.selectNodeContents(editor);
       editor.focus();
-      editor.select();
+      selection.removeAllRanges();
+      selection.addRange(all);
       try { copied = !!document.execCommand && document.execCommand('copy'); } catch (e) { /* Manual copy remains available. */ }
       if (copied) {
-        editor.setSelectionRange(...selection);
+        selection.removeAllRanges();
+        if (prior) selection.addRange(prior);
         if (priorFocus && priorFocus.focus) priorFocus.focus();
       }
     }
     copy.disabled = false;
     status.textContent = copied
-      ? 'Current template text copied.'
+      ? 'Current template copied with its formatting.'
       : 'Text selected. Use your device’s Copy command, or download the text file.';
   } }, 'Copy text');
   const download = btn({ class: 'btn small', onclick: () => {
@@ -2039,11 +2342,11 @@ function renderRadiologyTemplate(template, index, nodeId, open) {
     let url;
     let link;
     try {
-      url = URL.createObjectURL(new Blob([editor.value], { type: 'text/plain;charset=utf-8' }));
+      url = URL.createObjectURL(new Blob([draftText()], { type: 'text/plain;charset=utf-8' }));
       link = el('a', { href: url, download: base + '.txt', hidden: '' });
       document.body.append(link);
       link.click();
-      status.textContent = 'Download requested: ' + base + '.txt. The file contains the current editor text.';
+      status.textContent = 'Download requested: ' + base + '.txt. The file contains the current editor text without formatting.';
     } catch (e) {
       status.textContent = 'The download could not start. Use Copy text to keep your draft.';
     } finally {
@@ -2051,8 +2354,8 @@ function renderRadiologyTemplate(template, index, nodeId, open) {
       if (url) setTimeout(() => URL.revokeObjectURL(url), 30000);
     }
   } }, 'Download .txt');
-  content.append(hint, el('label', { for: uid, class: 'rad-report-label' }, 'Report text — ' + (template.title || 'template')),
-    editor, el('div', { class: 'rad-report-actions' }, copy, download, reset), status);
+  content.append(hint, el('p', { id: uid + '-label', class: 'rad-report-label' }, 'Report text — ' + (template.title || 'template')),
+    toolbar, editor, el('div', { class: 'rad-report-actions' }, copy, download, reset), status);
   if ((template.notes || []).length) content.append(el('div', { class: 'rad-template-notes' },
     el('h4', {}, 'Template notes'), el('ul', {}, ...template.notes.map(note => el('li', {}, note)))));
   if ((template.sources || []).length) content.append(el('div', { class: 'rad-template-sources' },
@@ -2060,6 +2363,14 @@ function renderRadiologyTemplate(template, index, nodeId, open) {
       radiologySourceLink(source.title, source.url))))));
   panel.append(content);
   return panel;
+}
+
+function renderQuickReport(report, nodeId) {
+  // Two editable texts in the reporting-system layout: the fast template and the all-normal report.
+  return [['template', 'Fast template', report.template, 'Under each heading the first line is normal. Delete the lines that do not apply, choose within [a / b] and fill [ ].'],
+    ['normal', 'Normal report', report.normal, 'Every heading normal. Add the clinical history and keep one study title.']]
+    .map(([kind, title, text, description], index) => renderRadiologyTemplate({ id: nodeId + '-' + kind, title, description, text, studyTitle: report.title },
+      'quick-' + index, nodeId, true));
 }
 
 function renderRadiologyReference(n) {
@@ -2071,13 +2382,14 @@ function renderRadiologyReference(n) {
   const images = ref.key_images || [];
   const header = el('div', { class: 'rad-reference-head' },
     el('div', { class: 'kicker' }, 'Specialist reference'),
-    el('h2', {}, 'Radiology Assistant foundation'),
+    el('h2', {}, ref.source_label || 'Radiology Assistant foundation'),
     el('p', {}, ref.overview || 'Study the linked foundation articles, then apply the structured approach in the report templates.'),
     el('p', { class: 'rad-reference-credit' },
-      radiologySourceLink('The Radiology Assistant', 'https://radiologyassistant.nl/'),
+      ref.source_label ? 'Society guidelines and original reporting worksheets' : radiologySourceLink('The Radiology Assistant', 'https://radiologyassistant.nl/'),
       ' · Articles, clinical images and complete explanations open at the source.',
       ref.reviewed_at ? ' Reference index reviewed ' + ref.reviewed_at + '.' : ''));
   section.append(header);
+  if (ref.spine_neurology_map && !ref.investigation) section.append(renderSpineNeurologyMap(ref));
   if ((ref.learning_points || []).length) section.append(el('div', { class: 'rad-learning-points' },
     el('h3', {}, 'Learning focus'), el('ul', {}, ...ref.learning_points.map(point => el('li', {}, point)))));
   if (reading.length) {
@@ -2107,10 +2419,13 @@ function renderRadiologyReference(n) {
     section.append(el('p', { class: 'muted' },
       ref.supplementary ? 'Additional module extending the foundation reference.' : 'Open the source index above to explore the foundation reference.'));
   }
-  if (templates.length) section.append(el('div', { class: 'rad-report-templates' },
-    el('h3', {}, 'Structured report templates'),
-    el('p', { class: 'rad-reference-meta' }, 'Editable educational text. Copy and download use exactly the current editor contents. Notes and references remain below each template.'),
-    ...templates.map((template, index) => renderRadiologyTemplate(template, index, n.id, index === 0))));
+  if (templates.length || ref.quick_report) section.append(el('div', { class: 'rad-report-templates' },
+    ...(ref.quick_report ? renderQuickReport(ref.quick_report, n.id) : []),
+    ref.structured_form && window.PrimerStructuredReporting ? window.PrimerStructuredReporting.render(ref.structured_form) : null,
+    ...(ref.quick_report || ref.structured_form?.descriptor_form && window.PrimerStructuredReporting ? [] : [
+      el('h3', {}, 'Structured report templates'),
+      el('p', { class: 'rad-reference-meta' }, 'Editable educational text. Copy and download use exactly the current editor contents. Notes and references remain below each template.'),
+      ...templates.map((template, index) => renderRadiologyTemplate(template, index, n.id, index === 0))])));
   if (images.length) section.append(el('div', { class: 'rad-key-images' },
     el('h3', {}, 'Key image examples'),
     el('p', { class: 'rad-reference-meta' }, 'Independent teaching examples illustrate the report image slots. They are not a single patient study. Open a picture to inspect it at full size; report image references remain blank for your own study.'),
@@ -2163,11 +2478,12 @@ function sourceAtlasFigure(asset, { onExploreSource, createElement = el, sourceL
   const nativeVolume = asset.origin === 'native-volume-sections';
   const derived = asset.origin === 'source-derived' || nativeVolume;
   const panel = asset.source_panel || '';
+  const tableArtwork = asset.source_table ? 'Table ' + asset.source_table + ' · artwork ' + asset.source_table_panel : null;
   const ancillary = asset.ancillary_panels || [];
   const modality = (asset.modality || 'Source anatomy') + (asset.contains_schematic_panels ? ' + schematic panels' : '')
     + [...new Set(ancillary.map(item => item.kind.toLowerCase()))].map(kind => ' + ' + kind + ' panels').join('');
   const figure = createElement('figure', { class: 'rad-anatomy-illustration' },
-    createElement('h4', {}, (derived ? asset.figure_title : 'Figure ' + asset.figure_number + panel) + ' · ' + modality),
+    createElement('h4', {}, (tableArtwork || (derived ? asset.figure_title : 'Figure ' + asset.figure_number + panel)) + ' · ' + modality),
     createElement('img', { src: asset.src, alt: asset.alt, width: asset.width, height: asset.height,
       loading: 'lazy', decoding: 'async', dataset: { fullSrc: asset.src, sourceFigure: 'true',
         ...(asset.source_background === 'white' ? { paperBackground: 'white' } : {}) } }),
@@ -2180,13 +2496,28 @@ function sourceAtlasFigure(asset, { onExploreSource, createElement = el, sourceL
       createElement('p', { class: 'rad-image-credit' }, asset.limits),
       createElement('p', { class: 'rad-image-credit' }, asset.attribution),
       sourceLink(derived ? 'Source dataset' : 'Source article', asset.source_url), ' · ',
-      sourceLink(nativeVolume ? 'Source volume record' : derived ? 'Source geometry' : 'Original figure', asset.figure_url), ' · ',
+      sourceLink(nativeVolume ? 'Source volume record' : derived ? 'Source geometry' : tableArtwork ? 'Original table' : 'Original figure', asset.figure_url), ' · ',
       sourceLink(asset.license, asset.license_url)));
+  if (asset.source_label_locator) {
+    const locator = asset.source_label_locator;
+    figure.dataset.sourceLabelFigure = locator.figure_id;
+    const details = createElement('details', { class: 'rad-source-label-locator' },
+      createElement('summary', {}, 'Inspect original image labels and marked observations'),
+      createElement('p', {}, 'Publisher annotation locations and native pixel insets. Boxes are not tissue boundaries; signal panels do not identify valve leaflet morphology.'));
+    let loaded = false;
+    details.addEventListener('toggle', () => {
+      if (!details.open || loaded) return;
+      loaded = true;
+      details.append(createElement('iframe', { src: locator.src, title: 'Original image label correspondence',
+        loading: 'lazy', style: 'width:100%;height:760px;border:1px solid currentColor;display:block' }));
+    });
+    figure.append(details);
+  }
   if (derived && onExploreSource) figure.append(btn({ class: 'btn ghost small',
     onclick: () => onExploreSource(asset) }, 'Explore this source knee in 3D'));
   if (asset.source_caption_full && asset.source_caption_full !== asset.caption) {
     figure.append(createElement('details', { class: 'rad-source-caption' },
-      createElement('summary', {}, 'Complete source-figure caption'), createElement('p', {}, asset.source_caption_full)));
+      createElement('summary', {}, tableArtwork ? 'Complete source-table context' : 'Complete source-figure caption'), createElement('p', {}, asset.source_caption_full)));
   }
   return figure;
 }
@@ -2205,15 +2536,16 @@ function sourceMotionReference(asset) {
   const slider = el('input', { type: 'range', min: 1, max: asset.frames, step: 1, value: 1,
     'aria-label': 'Published movie frame' });
   const status = el('output', { 'aria-live': 'polite', style: 'flex-basis:100%;white-space:normal;overflow-wrap:anywhere' });
+  const hasPresentedFrameCallback = typeof video.requestVideoFrameCallback === 'function';
   let ordinal = 0, requested = null;
   const previous = btn({ class: 'btn ghost small', onclick: () => seek((requested ?? ordinal) - 1) }, 'Previous frame');
   const next = btn({ class: 'btn ghost small', onclick: () => seek((requested ?? ordinal) + 1) }, 'Next frame');
-  function update(index) {
+  function update(index, presented = false) {
     requested = null;
     ordinal = Math.max(0, Math.min(asset.frames - 1, index)); slider.value = String(ordinal + 1);
     previous.disabled = ordinal === 0; next.disabled = ordinal === asset.frames - 1;
-    status.textContent = 'Published frame ' + (ordinal + 1) + ' of ' + asset.frames
-      + ' · source movie time ' + asset.source_pts_seconds[ordinal].toFixed(3) + ' s · ' + asset.modality + ' source movie';
+    status.textContent = (presented ? 'Exported frame ' : 'Approximate exported frame ') + (ordinal + 1) + ' of ' + asset.frames
+      + ' · exported movie time ' + asset.source_pts_seconds[ordinal].toFixed(3) + ' s · ' + asset.modality + ' source movie';
   }
   function nearest(time) {
     let index = 0;
@@ -2228,13 +2560,18 @@ function sourceMotionReference(asset) {
     video.currentTime = asset.transport_pts_seconds[requested] + 0.001;
   }
   slider.addEventListener('input', () => seek(Number(slider.value) - 1));
-  if (video.requestVideoFrameCallback) {
-    const displayFrame = (now, metadata) => { update(nearest(metadata.mediaTime)); video.requestVideoFrameCallback(displayFrame); };
+  if (hasPresentedFrameCallback) {
+    const displayFrame = (now, metadata) => {
+      if (!video.isConnected) return;
+      const index = nearest(metadata.mediaTime);
+      update(index, Math.abs(asset.transport_pts_seconds[index] - metadata.mediaTime) <= 0.001);
+      video.requestVideoFrameCallback(displayFrame);
+    };
     video.requestVideoFrameCallback(displayFrame);
   } else {
     video.addEventListener('timeupdate', () => update(sourceMotionFrameAtTime(asset.transport_pts_seconds, video.currentTime)));
   }
-  video.addEventListener('seeked', () => { if (video.readyState >= 2) update(sourceMotionFrameAtTime(asset.transport_pts_seconds, video.currentTime)); });
+  video.addEventListener('seeked', () => { if (!hasPresentedFrameCallback && video.readyState >= 2) update(sourceMotionFrameAtTime(asset.transport_pts_seconds, video.currentTime)); });
   video.addEventListener('error', () => { status.textContent = 'The source movie could not load. Open the original source below.'; });
   previous.disabled = true;
   status.textContent = 'Loading published source movie…';
@@ -2255,12 +2592,546 @@ function renderMskAtlasFigures(items, { onExploreSource } = {}) {
   return atlas;
 }
 
+function referenceFrameIndex(index, count) {
+  return Math.max(0, Math.min(count - 1, Math.round(Number(index) || 0)));
+}
+
+function renderAnnotatedCTStack(reference) {
+  const stack = reference.stack;
+  const panel = el('details', { class: 'rad-ct-stack' },
+    el('summary', {}, 'Open scrollable reference · ' + stack.frame_count + ' frames · ' + stack.plane));
+  const host = el('div', { class: 'rad-ct-stack-body' });
+  panel.append(host);
+  let pending = false, loaded = false;
+  async function load() {
+    if (pending || loaded) return;
+    pending = true;
+    host.replaceChildren(el('p', { role: 'status' }, 'Loading reference sequence…'));
+    try {
+      const manifest = await api.get(stack.manifest_url);
+      if (!manifest.frames?.length || manifest.frames.length !== stack.frame_count) throw new Error('Reference sequence is incomplete.');
+      if (!panel.isConnected) return;
+      const frames = manifest.frames;
+      let index = Math.floor((frames.length - 1) / 2), zoom = 100, generation = 0;
+      const image = el('img', { alt: reference.title, referrerpolicy: 'no-referrer', decoding: 'async', draggable: 'false' });
+      const stage = el('div', { class: 'rad-ct-stack-stage', tabindex: '0', role: 'group',
+        'aria-label': reference.title + ' viewer. Use arrow keys or mouse wheel to change frames.' }, image);
+      const status = el('p', { class: 'rad-ct-stack-status', role: 'status', 'aria-live': 'polite' });
+      const slider = el('input', { type: 'range', min: 1, max: frames.length, value: index + 1, step: 1,
+        'aria-label': reference.title + ' frame' });
+      const jump = el('input', { type: 'number', min: 1, max: frames.length, value: index + 1, step: 1,
+        'aria-label': reference.title + ' frame number', class: 'rad-ct-frame-number' });
+      const previous = btn({ class: 'btn ghost small', onclick: () => show(index - 1) }, 'Previous frame');
+      const next = btn({ class: 'btn ghost small', onclick: () => show(index + 1) }, 'Next frame');
+      const zoomControl = el('input', { type: 'range', min: 100, max: 300, step: 25, value: 100,
+        'aria-label': reference.title + ' zoom' });
+      const zoomLabel = el('output', {}, '100%');
+      function applyZoom() {
+        image.style.width = zoom + '%';
+        image.style.maxWidth = 'none';
+        stage.classList.toggle('is-zoomed', zoom > 100);
+        zoomControl.value = String(zoom); zoomLabel.textContent = zoom + '%';
+      }
+      function show(requested) {
+        index = referenceFrameIndex(requested, frames.length);
+        slider.value = String(index + 1); jump.value = String(index + 1);
+        previous.disabled = index === 0; next.disabled = index === frames.length - 1;
+        const attempt = ++generation;
+        status.textContent = 'Loading frame ' + (index + 1) + ' of ' + frames.length + '…';
+        image.classList.add('is-loading');
+        const candidate = new Image();
+        candidate.referrerPolicy = 'no-referrer';
+        candidate.onload = () => {
+          if (attempt !== generation || !panel.isConnected) return;
+          image.src = candidate.src;
+          image.alt = reference.title + ' — published ' + manifest.plane + ' frame ' + (index + 1) + ' of ' + frames.length;
+          image.classList.remove('is-loading');
+          status.textContent = 'Frame ' + (index + 1) + ' of ' + frames.length + ' · ' + manifest.plane;
+        };
+        candidate.onerror = () => {
+          if (attempt !== generation || !panel.isConnected) return;
+          image.removeAttribute('src'); image.classList.remove('is-loading');
+          status.textContent = 'Frame ' + (index + 1) + ' could not load. Check your connection or open the source case.';
+        };
+        candidate.src = frames[index].src;
+      }
+      slider.addEventListener('input', () => show(Number(slider.value) - 1));
+      jump.addEventListener('change', () => show(Number(jump.value) - 1));
+      jump.addEventListener('keydown', event => {
+        if (event.key === 'Enter') { event.preventDefault(); show(Number(jump.value) - 1); }
+      });
+      stage.addEventListener('keydown', event => {
+        const keys = { ArrowDown: index + 1, ArrowRight: index + 1, ArrowUp: index - 1,
+          ArrowLeft: index - 1, Home: 0, End: frames.length - 1 };
+        if (event.key in keys) { event.preventDefault(); show(keys[event.key]); }
+      });
+      stage.addEventListener('wheel', event => {
+        if (!event.deltaY || event.ctrlKey) return;
+        const target = referenceFrameIndex(index + Math.sign(event.deltaY), frames.length);
+        if (target === index) return;
+        event.preventDefault(); show(target);
+      }, { passive: false });
+      zoomControl.addEventListener('input', () => { zoom = Number(zoomControl.value); applyZoom(); });
+      const fit = btn({ class: 'btn ghost small', onclick: () => { zoom = 100; applyZoom(); stage.scrollTop = 0; stage.scrollLeft = 0; } }, 'Fit image');
+      const fullscreen = btn({ class: 'btn ghost small', onclick: async () => {
+        try {
+          if (document.fullscreenElement === panel) await document.exitFullscreen();
+          else await panel.requestFullscreen();
+        } catch (_) { status.textContent = 'Fullscreen is unavailable; the inline viewer remains usable.'; }
+      } }, 'Fullscreen');
+      host.replaceChildren(el('p', { class: 'muted' }, 'Scroll over the image, use arrow keys, or drag the frame slider. Published annotations and image windows are preserved.'),
+        stage, el('div', { class: 'rad-ct-stack-controls' }, previous, next,
+          el('label', {}, 'Frame ', jump), el('span', {}, '/ ' + frames.length), fullscreen, fit),
+        el('label', { class: 'rad-ct-stack-slider' }, 'Frame sequence ', slider),
+        el('label', { class: 'rad-ct-stack-slider' }, 'Zoom ', zoomControl, zoomLabel), status,
+        el('p', { class: 'rad-image-credit' }, manifest.contributor + ' · Radiopaedia · rID ' + manifest.source_case_id + '. ',
+          radiologySourceLink('Original case and attribution', manifest.source_url), ' · ',
+          radiologySourceLink('Non-commercial image-use terms', manifest.reuse_url)));
+      loaded = true; show(index);
+    } catch (error) {
+      host.replaceChildren(el('p', { role: 'status' }, error.message || 'The reference sequence could not load.'),
+        btn({ class: 'btn ghost small', onclick: load }, 'Retry reference'));
+    } finally { pending = false; }
+  }
+  panel.addEventListener('toggle', () => { if (panel.open) load(); });
+  return panel;
+}
+
+function renderAnnotatedAnatomy(ref) {
+  return el('section', { class: 'rad-annotated-anatomy', 'aria-label': 'Annotated CT anatomy references' },
+    el('h3', {}, 'Annotated CT anatomy'),
+    ...ref.annotated_anatomy_links.map(reference => el('article', { class: 'rad-quick-branch' },
+      el('h4', {}, radiologySourceLink(reference.title, reference.url)),
+      el('p', { class: 'muted' }, reference.publisher + ' · ' + reference.modality),
+      el('p', {}, reference.reporting_use),
+      reference.stack ? renderAnnotatedCTStack(reference) : null,
+      radiologySourceLink('Open annotated case', reference.url))));
+}
+
+function renderSpineNeurologyMap(ref) {
+  const data = ref.spine_neurology_map;
+  const root = el('section', { class: 'rad-neurology-map', 'aria-label': data.title },
+    el('h3', {}, data.title), el('p', {}, data.scope));
+  const level = el('select', { 'aria-label': 'Nerve level' },
+    ...data.levels.map(row => el('option', { value: row.root }, row.root + ' · ' + row.sensory)));
+  level.value = ref.investigation?.id === 'ra.cervical-spine-injury' ? 'C6' : 'L5';
+  const mode = el('select', { 'aria-label': 'Map type' },
+    el('option', { value: 'sensory' }, 'Dermatomes · sensory landmarks'),
+    el('option', { value: 'motor' }, 'Myotomes · motor actions'));
+  const detail = el('div', { class: 'rad-neurology-detail', role: 'status', 'aria-live': 'polite' });
+  const drawing = el('div', { class: 'rad-neurology-drawing' });
+  root.append(el('div', { class: 'rad-neurology-controls' },
+    el('label', {}, 'Nerve level ', level), el('label', {}, 'Show ', mode)), drawing, detail);
+  const ns = 'http://www.w3.org/2000/svg';
+  function svgNode(tag, attrs, text) {
+    const node = document.createElementNS(ns, tag);
+    for (const [key, value] of Object.entries(attrs || {})) node.setAttribute(key, value);
+    if (text) node.textContent = text;
+    return node;
+  }
+  function show() {
+    const selected = data.levels.find(row => row.root === level.value);
+    const motor = mode.value === 'motor';
+    const svg = svgNode('svg', { viewBox: '0 0 600 470', role: 'group', 'aria-label': motor ? 'Myotome action locations' : 'Anterior and posterior sensory landmarks' });
+    svg.append(svgNode('title', {}, 'Approximate bilateral landmarks; select a dot or use the nerve level selector'));
+    const outline = 'M135 77 L135 90 Q105 90 100 106 L75 183 L57 245 Q55 261 69 263 L88 251 L106 190 L115 158 L113 218 Q105 244 110 265 L109 309 L107 406 L99 432 Q114 443 137 432 L143 323 L150 277 L157 323 L163 432 Q186 443 201 432 L193 406 L191 309 L190 265 Q195 244 187 218 L185 158 L194 190 L212 251 L231 263 Q245 261 243 245 L225 183 L200 106 Q195 90 165 90 L165 77';
+    for (const [index, view] of ['anterior', 'posterior'].entries()) {
+      const group = svgNode('g', { transform: 'translate(' + index * 300 + ',0)' });
+      group.append(svgNode('text', { x: 150, y: 20, 'text-anchor': 'middle' }, view === 'anterior' ? 'Anterior' : 'Posterior'),
+        svgNode('ellipse', { cx: 150, cy: 56, rx: 23, ry: 29, class: 'rad-neurology-body' }),
+        svgNode('path', { d: outline, class: 'rad-neurology-body' }));
+      for (const row of data.levels) {
+        if (motor ? !row.motor_point || view !== 'anterior' : row.view !== view) continue;
+        const [x, y] = motor ? row.motor_point : row.point;
+        for (const px of [x, 300 - x]) {
+          const dot = svgNode('circle', { cx: px, cy: y, r: row === selected ? 7 : 4,
+            class: 'rad-neurology-point' + (row === selected ? ' is-selected' : ''),
+            role: 'button', tabindex: '0', 'aria-label': row.root + ': ' + (motor ? row.motor : row.sensory),
+            'aria-pressed': String(row === selected) });
+          dot.append(svgNode('title', {}, row.root + ': ' + (motor ? row.motor : row.sensory)));
+          function choose() { level.value = row.root; show(); level.focus(); }
+          dot.addEventListener('click', choose);
+          dot.addEventListener('keydown', event => {
+            if (event.key === 'Enter' || event.key === ' ') { event.preventDefault(); choose(); }
+          });
+          group.append(dot);
+        }
+      }
+      svg.append(group);
+    }
+    drawing.replaceChildren(svg);
+    detail.replaceChildren(el('h4', {}, selected.root),
+      el('p', {}, 'Sensory landmark: ' + selected.sensory),
+      el('p', {}, 'Motor action: ' + selected.motor + '. ' + selected.muscle + '.'),
+      el('p', { class: 'muted' }, motor && !selected.motor_point ? 'No isolated key-muscle marker is plotted for this level.' :
+        'Highlighted dots show the selected level on both sides. Positions are schematic.'));
+  }
+  level.addEventListener('change', show); mode.addEventListener('change', show); show();
+  const table = el('table', { class: 'rad-measurement-table' },
+    el('caption', {}, 'Sensory landmarks and representative motor actions'),
+    el('thead', {}, el('tr', {}, ...['Level', 'Sensory landmark', 'Motor action', 'Representative muscles'].map(label => el('th', { scope: 'col' }, label)))),
+    el('tbody', {}, ...data.levels.map(row => el('tr', {}, el('th', { scope: 'row' }, row.root),
+      el('td', {}, row.sensory), el('td', {}, row.motor), el('td', {}, row.muscle)))));
+  root.append(el('div', { class: 'rad-table-scroll', tabindex: '0', 'aria-label': 'Neurology reference table' }, table),
+    el('h4', {}, 'Correlate with spine MRI'), el('ul', {}, ...data.mri_notes.map(note => el('li', {}, note))),
+    el('p', { class: 'muted' }, data.limits), el('p', { class: 'rad-image-credit' },
+      'Original schematic · Reviewed ' + data.reviewed_at + ' · Clinical references: ',
+      ...data.sources.map(source => el('span', {}, radiologySourceLink(source.publisher + ' — ' + source.title, source.url), ' · '))));
+  return root;
+}
+
+function renderCancerStaging(n, { openTab, usePrompts } = {}) {
+  const ref = n.radiology_reference, systems = ref.cancer_staging;
+  const root = el('section', { class: 'rad-cancer-staging', 'aria-label': 'Cancer staging tables and illustrations' },
+    el('h3', {}, 'Staging and reporting reference'));
+  const selector = el('select', { 'aria-label': 'Cancer staging system' },
+    ...systems.map((system, index) => el('option', { value: String(index) }, system.title)));
+  const body = el('div', { class: 'rad-staging-system' });
+  if (systems.length > 1) root.append(el('label', { class: 'rad-filter-field' }, 'Choose the tumour or framework', selector));
+  root.append(body);
+  function show() {
+    const system = systems[Number(selector.value) || 0];
+    body.replaceChildren(el('h4', {}, system.title),
+      el('p', { class: 'rad-classification-version' }, system.version + ' · Reviewed ' + system.reviewed_at),
+      el('p', {}, system.scope));
+    if (system.clinical_examples?.length) body.append(renderBladderStagingExamples(system));
+    const search = el('input', { type: 'search', class: 'rad-desk-search',
+      placeholder: 'Find a category, structure or reporting feature…', 'aria-label': 'Filter staging table' });
+    const status = el('p', { class: 'muted', role: 'status', 'aria-live': 'polite' });
+    body.append(search, status);
+    const rows = [];
+    for (const table of system.tables) {
+      const wrap = el('div', { class: 'rad-table-scroll', tabindex: '0', 'aria-label': table.title });
+      const rendered = table.rows.map(row => {
+        const node = el('tr', {}, el('th', { scope: 'row' }, row.category),
+          el('td', {}, row.criteria), el('td', {}, row.report_note));
+        rows.push({ node, text: [row.category, row.criteria, row.report_note].join(' ').toLowerCase() });
+        return node;
+      });
+      wrap.append(el('table', { class: 'rad-measurement-table rad-staging-table' },
+        el('caption', {}, table.title),
+        el('thead', {}, el('tr', {}, el('th', { scope: 'col' }, 'Category / framework'),
+          el('th', { scope: 'col' }, 'Criterion'), el('th', { scope: 'col' }, 'What to report'))),
+        el('tbody', {}, ...rendered)));
+      body.append(wrap);
+    }
+    function filter() {
+      const terms = search.value.trim().toLowerCase().split(/\s+/).filter(Boolean);
+      let visible = 0;
+      for (const row of rows) {
+        row.node.hidden = !terms.every(term => row.text.includes(term));
+        if (!row.node.hidden) visible++;
+      }
+      status.textContent = visible + ' of ' + rows.length + ' reference rows';
+    }
+    search.addEventListener('input', filter); filter();
+    const figure = system.illustration;
+    const illustration = el('figure', { class: 'rad-anatomy-illustration rad-staging-illustration' },
+      el('h4', {}, figure.title), el('img', { src: figure.src, alt: figure.alt, loading: 'lazy',
+        width: 960, height: 600, dataset: { fullSrc: figure.src, sourceFigure: 'true', paperBackground: 'white' } }),
+      el('figcaption', {}, figure.caption));
+    body.append(illustration,
+      el('section', {}, el('h4', {}, 'Stage-relevant report fields'),
+        el('ul', {}, ...system.report_fields.map(field => el('li', {}, field)))),
+      el('section', { class: 'rad-quick-note' }, el('h4', {}, 'Interpretation and scope'),
+        el('ul', {}, ...system.limits.map(limit => el('li', {}, limit)))));
+    if (usePrompts) body.append(btn({ class: 'btn small', onclick: () => usePrompts(system) }, 'Add staging prompts to report'));
+    body.append(el('p', { class: 'rad-desk-source-list' }, ...system.sources.flatMap((source, index) =>
+      [index ? ' · ' : '', radiologySourceLink(source.title, source.url)])));
+    attachPictureHandlers(body);
+  }
+  selector.addEventListener('change', show); show();
+  if (ref.annotated_anatomy_links?.length) root.append(renderAnnotatedAnatomy(ref));
+  const examples = ref.key_images.filter(image => image.image_type === 'clinical').slice(0, 3);
+  if (examples.length && !systems.some(system => system.clinical_examples?.length)) {
+    const images = el('details', { class: 'rad-staging-examples' },
+      el('summary', {}, 'Illustrative clinical reporting examples'),
+      el('p', {}, 'Independent source cases illustrate reporting features. Read the case caption alongside the staging criteria.'));
+    images.append(el('div', { class: 'rad-image-grid' }, ...examples.map(asset =>
+      el('figure', { class: 'rad-image-example' },
+        el('img', { src: asset.src, alt: asset.alt, loading: 'lazy', referrerpolicy: 'no-referrer',
+          dataset: { fullSrc: asset.src, sourceFigure: 'true' } }),
+        el('figcaption', {}, el('strong', {}, asset.label), el('p', {}, asset.caption),
+          radiologySourceLink(asset.attribution || 'Source and case details', asset.source_url))))));
+    root.append(images); attachPictureHandlers(images);
+  }
+  if (openTab) root.append(btn({ class: 'btn ghost small', onclick: () => openTab('images') }, 'View all reference images'));
+  return root;
+}
+
+function renderBladderStagingExamples(system) {
+  const root = el('section', { class: 'rad-bladder-examples', 'aria-label': 'Bladder MRI staging examples' },
+    el('h3', {}, 'Compare published bladder MRI examples'),
+    el('p', {}, 'Choose a VI-RADS score to inspect the original MRI panels. These source examples illustrate imaging likelihood; they do not establish a pathological TNM stage.'));
+  const controls = el('div', { class: 'rad-report-actions', role: 'group', 'aria-label': 'Choose a VI-RADS example' });
+  const gallery = el('div', { class: 'rad-bladder-case', 'aria-live': 'polite' });
+  const buttons = system.clinical_examples.map((example, index) => {
+    const button = btn({ class: 'btn ghost small', 'aria-pressed': 'false', onclick: () => show(index) }, 'VI-RADS ' + example.score);
+    controls.append(button);
+    return button;
+  });
+  root.append(controls, gallery);
+  function show(index) {
+    const example = system.clinical_examples[index];
+    buttons.forEach((button, i) => button.setAttribute('aria-pressed', String(i === index)));
+    gallery.replaceChildren(el('h4', {}, example.title),
+      el('div', { class: 'rad-bladder-case-grid' }, ...example.figures.map(figure =>
+        el('figure', { class: 'rad-image-example' },
+          el('img', { src: figure.src, alt: figure.alt, loading: 'lazy', decoding: 'async', referrerpolicy: 'no-referrer',
+            width: figure.width, height: figure.height,
+            dataset: { fullSrc: figure.src, sourceFigure: 'true' } }),
+          el('figcaption', {}, figure.label)))),
+      el('p', {}, radiologySourceLink('Radiology Assistant · original case and sequence descriptions', example.source_url)));
+    attachPictureHandlers(gallery);
+  }
+  show(0);
+  return root;
+}
+
+function renderReportingDiagrams(ref) {
+  const root = el('section', { class: 'rad-reporting-diagrams' }, el('h3', {}, ref.source_label ? 'Reporting diagrams' : 'Classification diagrams'));
+  for (const diagram of ref.reporting_diagrams || []) {
+    root.append(el('figure', { class: 'rad-anatomy-illustration' },
+      el('h4', {}, diagram.title),
+      el('img', { src: diagram.src, alt: diagram.alt, loading: 'lazy',
+        dataset: { fullSrc: diagram.src, sourceFigure: 'true', paperBackground: 'white' } }),
+      el('figcaption', {}, el('p', {}, diagram.caption), radiologySourceLink(diagram.source.title, diagram.source.url))));
+  }
+  attachPictureHandlers(root);
+  return root;
+}
+
+function renderReportingStart(n, openTab) {
+  const ref = n.radiology_reference, guide = ref.reporting;
+  const root = el('section', { class: 'rad-reporting-start', 'aria-label': 'Practical reporting guide' },
+    el('h3', {}, 'Report this examination'),
+    el('div', { class: 'rad-checklist-actions' },
+      btn({ class: 'btn small', onclick: () => openTab('steps') }, 'Work through findings'),
+      btn({ class: 'btn ghost small', onclick: () => openTab('template') }, 'Open report editor'),
+      ref.cancer_staging?.length ? btn({ class: 'btn ghost small', onclick: () => openTab('staging') }, 'Staging tables and illustrations') : null));
+  if (ref.cancer_staging?.length) root.append(el('p', { class: 'rad-staging-summary' },
+    el('strong', {}, 'Staging reference: '), ref.cancer_staging.map(system => system.title + ' (' + system.version + ')').join(' · ')));
+  if (ref.annotated_anatomy_links?.length) root.append(renderAnnotatedAnatomy(ref));
+  if (guide.escalation.length) root.append(el('section', { class: 'rad-escalation' },
+    el('h4', {}, 'Communicate promptly'), el('ul', {}, ...guide.escalation.map(text => el('li', {}, text)))));
+  if (ref.quick_reference) {
+    root.append(renderRadiologyQuickReference(ref));
+    return root;
+  }
+  if (ref.reporting_diagrams?.length) root.append(renderReportingDiagrams(ref));
+  root.append(el('h3', {}, 'Reading sequence → reporting decisions'),
+    el('ol', { class: 'rad-reporting-sequence' }, ...ref.walkthrough.steps.map(step =>
+      el('li', {}, el('strong', {}, step.label), el('p', {}, step.detail),
+        el('details', {}, el('summary', {}, 'What to inspect and how to phrase it'),
+          step.look ? el('p', {}, step.look) : null,
+          el('ul', {}, ...step.findings.map(phrase => el('li', {}, phrase))),
+          step.tip ? el('p', { class: 'rad-quick-note' }, step.tip) : null)))));
+  // Reuse the authored clinical content, including its exact scope and version.
+  // Do not invent a classification when a module has no applicable one.
+  const guideView = renderReportingGuide(guide, n.id + '-quick');
+  for (const child of [...guideView.children]) {
+    if (!['rad-desk-checklist', 'rad-desk-draft-note', 'rad-escalation'].some(name => child.classList.contains(name))) root.append(child);
+  }
+  root.append(el('details', {}, el('summary', {}, 'Reporting sources'),
+    el('ul', {}, ...guide.sources.map(source => el('li', {}, radiologySourceLink(source.title, source.url))))));
+  return root;
+}
+
+function renderRadiologyQuickReference(ref) {
+  const quick = ref.quick_reference;
+  const section = el('section', { class: 'rad-quick-reference', 'aria-label': quick.title },
+    el('h3', {}, quick.title), el('p', { class: 'rad-quick-entry' }, quick.intro),
+    el('div', { class: 'rad-quick-branches' }, ...quick.branches.map(branch =>
+      el('section', { class: 'rad-quick-branch' }, el('h4', {}, branch.title),
+        el('p', {}, branch.lead), el('dl', {}, ...branch.rows.flatMap(([finding, interpretation]) =>
+          [el('dt', {}, finding), el('dd', {}, interpretation)])),
+        el('p', { class: 'rad-quick-note' }, branch.note)))),
+    el('p', { class: 'rad-quick-report' }, el('strong', {}, 'Impression → '), quick.report));
+  const gallery = el('div', { class: 'rad-image-grid' });
+  ref.key_images.filter(image => image.image_type === 'clinical').forEach(asset => {
+    gallery.append(el('figure', { class: 'rad-image-example' },
+      el('img', { src: asset.src, alt: asset.alt, loading: 'lazy', referrerpolicy: 'no-referrer',
+        dataset: { fullSrc: asset.src, sourceFigure: 'true' } }),
+      el('figcaption', {}, el('strong', {}, asset.label), el('p', {}, asset.caption),
+        radiologySourceLink('Source and case details', asset.source_url))));
+  });
+  section.append(el('h3', {}, 'Compare the pattern'), gallery,
+    el('details', {}, el('summary', {}, 'Sources for this quick reference'),
+      el('ul', {}, ...quick.sources.map(source => el('li', {}, radiologySourceLink(source.title, source.url))))));
+  attachPictureHandlers(section);
+  return section;
+}
+
+function renderUterineSourceStudies(nodeId) {
+  const studies = [
+    { modules: ['ra.mri-endometrial-cancer'],
+      title: 'Inspect an endometrial tumour on original MRI',
+      href: '/app/anatomy/cptac-endometrial/index.html',
+      context: 'One tumour case with post-contrast MRI, T2 MRI and original lesion contours. The two acquisitions are navigated independently.' },
+    { modules: ['ra.mri-cervical-cancer'],
+      title: 'Inspect original cervical cancer MRI contours',
+      href: '/app/anatomy/ccth-a01/index.html',
+      context: 'One cervical cancer case with 30 acquired T2 sections and the original contour stack.' },
+    { modules: ['ra.mri-cervical-cancer'],
+      title: 'Compare cervical cancer staging images across modalities',
+      href: '/app/reference-studies/cervical-staging-2024/index.html',
+      context: 'Selected publication figures for cervical stroma, parametria, vagina, adjacent organs and lymph nodes.' },
+    { modules: ['ra.mri-cervical-cancer'],
+      title: 'Explore the cervical canal and stroma on pregnancy MRI',
+      href: '/app/anatomy/kcl-cervix/055t/index.html',
+      context: 'Two pregnancy population atlases with three cervical layers. These references describe pregnancy anatomy.' },
+    { modules: [],
+      title: 'Study a uterine myoma MRI case with wall and cavity annotations',
+      href: '/app/anatomy/umd-141/index.html',
+      context: 'One myoma case with the original MRI and sampled wall, cavity, myoma and cyst labels.' },
+    { modules: ['ra.mri-endometriosis'],
+      title: 'Inspect published endometriosis cases and acquired pelvic MRI',
+      href: '/app/anatomy/endometriosis-mri-evidence/index.html?from=' + encodeURIComponent(nodeId),
+      context: 'Author-labelled MRI figures and a separate acquired sagittal stack for anatomy.' },
+    { modules: ['ra.mullerian-anomalies'],
+      title: 'Compare uterine cavity and external contour on source images',
+      href: '/app/reference-studies/mullerian-2025/index.html',
+      context: 'Published anomaly examples and a separate 3D pelvic reference.' },
+  ];
+  const shown = studies.filter(study => nodeId === 'rad.5.uterine-mr' || study.modules.includes(nodeId));
+  if (!shown.length) return null;
+  return el('section', { class: 'card', 'aria-label': 'Original MRI and anatomy studies' },
+    el('h2', {}, 'Original MRI and anatomy studies'),
+    el('ul', {}, ...shown.map(study => el('li', {},
+      el('a', { href: study.href }, study.title),
+      el('p', { class: 'muted' }, study.context)))));
+}
+
+function renderBiliaryAtlasStudy(nodeId) {
+  if (!['rad.5.biliary', 'ra.biliary-duct-pathology', 'ra.ultrasound-gallbladder'].includes(nodeId)) return null;
+  return el('section', {class:'card', 'aria-label':'Biliary source atlas'},
+    el('h2', {}, 'Biliary ducts and gallbladder in 3D'),
+    el('p', {}, 'Inspect original BodyParts3D objects for the gallbladder, hepatic ducts and selected tributaries.'),
+    el('a', {href:'/app/anatomy/bp3d-biliary-4.3/index.html?from=' + encodeURIComponent(nodeId)}, 'Explore the biliary source atlas'));
+}
+
+function renderDuralVenousAtlas(nodeId) {
+  const references = ['rad.5.venous-csf', 'ra.venous-sinus-thrombosis',
+    'rad.5.intracranial-haemorrhage', 'ra.intracranial-haemorrhage'];
+  if (!references.includes(nodeId)) return null;
+  return el('section', {class: 'card', 'aria-label': 'Dural venous anatomy'},
+    el('h2', {}, 'Dural sinuses and cerebral veins'),
+    el('p', {}, 'Compare 21 named source objects, including right-sided cortical and basal veins. The lateral sinuses represented here are right-sided.'),
+    el('a', {href: '/app/anatomy/bp3d-dural-4.3/index.html?from=' + encodeURIComponent(nodeId)},
+      'Explore named venous structures in 3D'),
+    el('p', {}, el('a', {href:'/app/anatomy/hyperpic-venous/index.html?from=' + encodeURIComponent(nodeId)},
+      'Compare left and right sinus boundaries in two MRI-derived models')));
+}
+
+function renderAneurysmCtaStudy(nodeId) {
+  if (!['rad.5.intracranial-haemorrhage', 'ra.intracranial-haemorrhage'].includes(nodeId)) return null;
+  return el('section', {class: 'card', 'aria-label': 'Source haemorrhage and aneurysm studies'},
+    el('h2', {}, 'Source haemorrhage and aneurysm studies'),
+    el('p', {}, el('a', {href: '/app/anatomy/aneurysm-cta-018/index.html?from=' + encodeURIComponent(nodeId)},
+      'Inspect a left middle cerebral artery aneurysm on CTA and in 3D')),
+    el('p', {class: 'muted'}, 'Case 018 includes the CTA and the source surface of the contrast-filled sac.'),
+    el('ul', {}, ...[
+      ['cmha-mca-005', 'Compare the aneurysm sac, parent artery and branches on CTA and in 3D'],
+      ['rhuh-sah-001', 'Inspect the expert haemorrhage mask on non-contrast CT and in 3D'],
+    ].map(([study, title]) => el('li', {}, el('a', {
+      href: '/app/anatomy/' + study + '/index.html?from=' + encodeURIComponent(nodeId),
+    }, title)))),
+    el('p', {class: 'muted'}, 'The CMHA and RHUH examples are separate patients. Each viewer describes its source and label scope.'));
+}
+
+function renderLiverRegionStudy(nodeId) {
+  if (!['rad.4.liver', 'ra.liver-masses', 'ra.liver-lirads'].includes(nodeId)) return null;
+  return el('section', {class:'card', 'aria-label':'Liver region source study'},
+    el('h2', {}, 'Source MRI with liver-region labels'),
+    el('p', {}, 'Study the eight author-defined regions on MRI and in 3D. Segment IV has one label. Lesion assessment and patient-specific vascular territories require separate evidence.'),
+    el('a', {href:'/app/anatomy/liver-regions-mri/index.html?from=' + encodeURIComponent(nodeId)}, 'Inspect liver regions on source MRI'),
+    el('p', {}, el('a', {href:'/app/anatomy/phlf-center2-24/index.html?from=' + encodeURIComponent(nodeId)}, 'Inspect a tumour across two liver regions on MRI and in 3D')),
+    el('p', {}, el('a', {href:'/app/anatomy/hva-ct-318/index.html?from=' + encodeURIComponent(nodeId)}, 'Compare portal and hepatic veins on labelled CT and in 3D')),
+    el('h3', {}, 'Vascular references from a separate CT case'),
+    el('p', {}, 'These author-labelled vessels come from a different person. They are not registered to the MRI above. The portal vein is one source label; individual portal branches, hepatic veins and bile ducts are not separately labelled in this study.'),
+    el('ul', {}, ...[
+  {
+    "title": "Common hepatic artery on source CT",
+    "href": "/app/anatomy/colonvessels-pat012/arterial/index.html?segment=1:4"
+  },
+  {
+    "title": "Right hepatic arterial branch on source CT",
+    "href": "/app/anatomy/colonvessels-pat012/arterial/index.html?segment=1:1"
+  },
+  {
+    "title": "Left hepatic arterial branch on source CT",
+    "href": "/app/anatomy/colonvessels-pat012/arterial/index.html?segment=3:2"
+  },
+  {
+    "title": "Portal vein on source CT",
+    "href": "/app/anatomy/colonvessels-pat012/venous/index.html?segment=2:7"
+  }
+].map(row => el('li', {}, el('a', {href:row.href + '&from=' + encodeURIComponent(nodeId)}, row.title)))));
+}
+
+function renderAbdominalVesselStudies(nodeId) {
+  const groups = {
+  "renal": [
+    {
+      "title": "Left renal artery",
+      "href": "/app/anatomy/colonvessels-pat012/arterial/index.html?segment=1:7"
+    },
+    {
+      "title": "Right renal arteries",
+      "href": "/app/anatomy/colonvessels-pat012/arterial/index.html?segment=1:8"
+    },
+    {
+      "title": "Left renal vein",
+      "href": "/app/anatomy/colonvessels-pat012/venous/index.html?segment=1:3"
+    },
+    {
+      "title": "Right renal vein",
+      "href": "/app/anatomy/colonvessels-pat012/venous/index.html?segment=1:4"
+    }
+  ],
+  "pancreatic": [
+    {
+      "title": "Coeliac trunk",
+      "href": "/app/anatomy/colonvessels-pat012/arterial/index.html?segment=3:4"
+    },
+    {
+      "title": "Common hepatic artery",
+      "href": "/app/anatomy/colonvessels-pat012/arterial/index.html?segment=1:4"
+    },
+    {
+      "title": "Superior mesenteric artery",
+      "href": "/app/anatomy/colonvessels-pat012/arterial/index.html?segment=3:1"
+    },
+    {
+      "title": "Portal vein",
+      "href": "/app/anatomy/colonvessels-pat012/venous/index.html?segment=2:7"
+    },
+    {
+      "title": "Superior mesenteric vein",
+      "href": "/app/anatomy/colonvessels-pat012/venous/index.html?segment=1:11"
+    }
+  ]
+};
+  let shown;
+  if (['ra.solid-renal-masses', 'rad.4.kidney'].includes(nodeId)) shown = groups.renal;
+  else if (['ra.ct-pancreatic-cancer', 'rad.5.pancreas-tumour'].includes(nodeId)) shown = groups.pancreatic;
+  else if (['ra.ct-abdominal-trauma', 'ra.ct-bowel-ischaemia'].includes(nodeId)) shown = [
+    {title:'Inspect arterial CT and vessel models',href:'/app/anatomy/colonvessels-pat012/arterial/index.html'},
+    {title:'Inspect venous CT and vessel models',href:'/app/anatomy/colonvessels-pat012/venous/index.html'},
+  ];
+  if (!shown) return null;
+  return el('section', {class:'card', 'aria-label':'Original vascular anatomy reference'},
+    el('h2', {}, 'Original vascular anatomy reference'),
+    el('p', {}, 'Study source-labelled vessels from one ColonVessels case. Arterial and venous acquisitions are independent. Lesion extent, vessel-wall invasion and injury assessment require separate case-specific evidence.'),
+    el('ul', {}, ...shown.map(row => el('li', {}, el('a', {href:row.href + (row.href.includes('?') ? '&' : '?') + 'from=' + encodeURIComponent(nodeId)}, row.title)))));
+}
+
 async function renderRadiologyDesk(page, nodeId) {
   if (!nodeId) {
     const catalog = await reportingGuard(page, () => api.get('/api/radiology/modules'));
     if (!catalog) return;
     page.append(pagehead('Radiology', 'Reporting reference',
-      'Investigations and procedures organised by Radiology Assistant topics, with reporting guides, clinical images and detailed anatomy.'));
+      'Practical reporting guides: reading sequence, measurements, classifications, impression wording and clinical image examples.'));
     const search = el('input', { type: 'search', placeholder: 'Find an exam, finding or classification…',
       'aria-label': 'Search reporting references', class: 'rad-desk-search' });
     const specialty = el('select', { 'aria-label': 'Filter reporting specialty' },
@@ -2285,7 +3156,7 @@ async function renderRadiologyDesk(page, nodeId) {
         el('span', { class: 'rad-desk-card-meta' },
           (n.step_count ? plural(n.step_count, 'step') + ' · ' : '') +
           (n.classification ? n.classification + ' · ' : '') +
-          (n.image_count ? n.image_count + ' images' : 'Source cases') + ' · Diagrams' +
+          (n.image_count ? 'Reference images' : 'Source cases') + ' · Diagrams' +
           (window.PrimerDetailedAnatomy?.supported(n.model_family) ? ' · Anatomical 3D' : '')));
       list.append(card);
       return { card, section: n.section, text: [n.title, n.summary, n.section, n.classification, ...n.topics].join(' ').toLowerCase() };
@@ -2312,7 +3183,21 @@ async function renderRadiologyDesk(page, nodeId) {
   const n = await reportingGuard(page, () => api.get('/api/radiology/modules/' + encodeURIComponent(nodeId)));
   if (!n) return;
   const ref = n.radiology_reference, guide = ref.reporting;
+  if (ref.descriptor_only && window.PrimerStructuredReporting) {
+    page.append(btn({class:'btn ghost small',onclick:()=>go('radiology')},backward('Back to references')),
+      pagehead(n.modality + ' · ' + n.topic,n.title,n.goal),
+      ...(ref.quick_report ? [el('div', { class: 'rad-report-templates' }, ...renderQuickReport(ref.quick_report, n.id))] : []),
+      window.PrimerStructuredReporting.render(ref.structured_form,{investigationId:n.id}),
+      el('details',{class:'rad-protocol'},el('summary',{},'References'),
+        el('ul',{},...(guide.sources||[]).map(source=>el('li',{},radiologySourceLink(source.title,source.url))))));
+    return;
+  }
   const motionReferences = ref.source_motion_references || [];
+  const cardiacContext = (ref.source_native_inspectors || []).filter(asset => ['totalseg-v1-s0028-cardiac-native', 'bp3d-cardiac-original-context', 'baskaran-2020-cardiac-comparisons'].includes(asset.id));
+  const hippocampalContext = (ref.source_native_inspectors || []).filter(asset => asset.id === 'hippunfold-hcp101006-registered-reference');
+  const limbicContext = (ref.source_native_inspectors || []).filter(asset => ['mosteiro-cavernous-dissection-reference', 'pandit-pituitary-case1-processed-reference', 'spl-sellar-source-interfaces-reference', 'spl-additional-native-source-reference', 'spl-nac-limbic-native-reference', 'spl-nac-reporting-native-reference', 'spl-epilepsy-temporal-ventricular-source-context', 'holiatlas-source-template-reference'].includes(asset.id));
+  const curatedModels = (ref.source_native_inspectors || []).filter(asset => asset.modality === 'Curated 3D anatomy' && asset.id !== 'bp3d-cardiac-original-context' || ['totalseg-s0028-lung-native', 'totalseg-s0028-basal-context'].includes(asset.id));
+  const studyReferences = ref.source_study_references || [];
   const atlasImages = (ref.structure_atlas || []).filter(item => item.kind === 'clinical-image');
   const atlasSchematics = (ref.structure_atlas || []).filter(item => item.kind === 'schematic' || item.contains_schematic_panels);
   const referenceImages = (ref.source_anatomy_references || []).map(source => source.source_image).filter(Boolean);
@@ -2330,20 +3215,53 @@ async function renderRadiologyDesk(page, nodeId) {
   if (!S.radiologyFilter) S.radiologyFilter = { query: '', section: n.section };
   const detailedAnatomy = window.PrimerDetailedAnatomy?.supported(ref.spatial_model.family);
   page.append(el('nav', { class: 'rad-desk-backbar', 'aria-label': 'Reference navigation' },
-      btn({ class: 'btn ghost small rad-desk-back', onclick: () => go('radiology') }, '← Back to references'),
+      btn({ class: 'btn ghost small rad-desk-back', onclick: () => go('radiology') }, backward('Back to references')),
       el('span', { class: 'rad-desk-location' }, n.section + ' / ' + n.topic)),
     pagehead(n.modality + ' · ' + n.topic, n.title, n.goal),
-    el('div', { class: 'rad-source-heading-list' }, el('span', {}, 'Radiology Assistant topics'),
+    el('div', { class: 'rad-source-heading-list' }, el('span', {}, n.source_label || 'Radiology Assistant topics'),
       el('ul', {}, ...n.source_titles.map(title => el('li', {}, title)))),
     el('p', { class: 'rad-desk-revision' }, 'Reference revision ' + guide.reviewed_at + ' · ' +
       plural(ref.walkthrough.steps.length, 'reporting step') + ' · ' +
       (ref.key_images.length + (ref.structure_atlas || []).length + referenceImages.length) + ' source figures · ' + (detailedAnatomy || ref.source_anatomy_references?.length ? 'Source-mesh 3D anatomy' : 'Illustrated reference')));
+  const sourceStudies = renderUterineSourceStudies(n.id);
+  if (sourceStudies) page.append(sourceStudies);
+  const vascularStudies = renderAbdominalVesselStudies(n.id);
+  if (vascularStudies) page.append(vascularStudies);
+  const biliaryAtlas = renderBiliaryAtlasStudy(n.id);
+  if (biliaryAtlas) page.append(biliaryAtlas);
+  const liverStudy = renderLiverRegionStudy(n.id);
+  if (liverStudy) page.append(liverStudy);
+  const aneurysmCta = renderAneurysmCtaStudy(n.id);
+  if (aneurysmCta) page.append(aneurysmCta);
+  const duralAtlas = renderDuralVenousAtlas(n.id);
+  if (duralAtlas) page.append(duralAtlas);
+  if (['rad.5.intracranial-haemorrhage', 'ra.intracranial-haemorrhage'].includes(n.id)) {
+    page.append(el('a', {class: 'btn ghost', href: '/app/anatomy/venat/index.html?from=' + encodeURIComponent(n.id)},
+      'Explore population venous anatomy in 3D'));
+  }
   const desk = el('section', { class: 'rad-reporting-desk', 'aria-label': 'Reporting reference workspace' });
   const tabs = el('div', { class: 'rad-desk-tabs', role: 'tablist', 'aria-label': 'Reference sections' });
   const legacy = renderRadiologyReference(n);
   const panels = [];
   const templates = legacy.querySelector('.rad-report-templates');
   const choices = [
+    ['quick', 'Quick reference', panel => panel.append(renderReportingStart(n,
+      key => activate(choices.findIndex(([id]) => id === key), true)))],
+    ...(ref.spine_neurology_map ? [['neurology', 'Dermatomes & myotomes', panel => panel.append(renderSpineNeurologyMap(ref))]] : []),
+    ...(ref.cancer_staging?.length ? [['staging', 'Staging', panel => panel.append(renderCancerStaging(n, {
+      openTab: key => activate(choices.findIndex(([id]) => id === key), true),
+      usePrompts: system => {
+        const editor = templates.querySelector('.rad-report-editor');
+        if (!editor) return;
+        editor.value += '\n\nSTAGING REVIEW — ' + system.title + ' (' + system.version + ')\n'
+          + system.report_fields.map(field => field + ': [ ].').join('\n')
+          + '\nImaging category / descriptor and confidence: [ ].\nUnassessed extent / required clinical or pathological inputs: [ ].';
+        templates.querySelector('.rad-template').open = true;
+        editor.dispatchEvent(new Event('input'));
+        activate(choices.findIndex(([id]) => id === 'template'), true);
+        editor.focus();
+      },
+    }))]] : []),
     ['steps', 'Step by step', panel => panel.append(renderReportWalkthrough(n, { openTemplate: text => {
       // Hand the assembled draft to the free-text editor; its own reset still
       // restores the blank template.
@@ -2357,8 +3275,13 @@ async function renderRadiologyDesk(page, nodeId) {
       editor.focus();
     } }))],
     ['guide', 'Checklist', panel => panel.append(renderReportingGuide(guide, n.id))],
+    ...(ref.annotated_anatomy_links?.length ? [['anatomy', 'Annotated anatomy', panel => panel.append(renderAnnotatedAnatomy(ref))]] : []),
     ['template', 'Report template', panel => panel.append(templates)],
-    ['images', (motionReferences.length ? 'Images and motion (' : 'Images (') + (ref.key_images.length + atlasImages.length + referenceImages.length + motionReferences.length) + ')', panel => {
+    ['images', limbicContext.length ? 'Images and MRI sources' : hippocampalContext.length ? 'Images and registered MRI' : ref.source_native_inspectors?.length ? 'Images and native source' : studyReferences.length ? 'Images and studies' : (motionReferences.length ? 'Images and motion (' : 'Images (') + (ref.key_images.length + atlasImages.length + referenceImages.length + motionReferences.length) + ')', panel => {
+      if (n.id === 'ra.mri-brain-tumours') panel.append(glioblastomaCaseViewer());
+      (ref.source_native_inspectors || []).forEach(asset => panel.append(sourceNativeInspector(asset)));
+      if (ref.source_context_documents?.length) panel.append(sourceContextDocuments(ref.source_context_documents));
+      studyReferences.forEach(asset => panel.append(sourceStudyReference(asset)));
       motionReferences.forEach(asset => panel.append(sourceMotionReference(asset)));
       referenceImages.forEach(asset => panel.append(sourceReferenceFigure(asset)));
       if (atlasImages.length) panel.append(renderMskAtlasFigures(atlasImages));
@@ -2366,6 +3289,8 @@ async function renderRadiologyDesk(page, nodeId) {
       if (images) { panel.append(images); attachPictureHandlers(images); }
     }],
     ['diagram', 'Diagram', panel => {
+      if (ref.reporting_diagrams?.length) panel.append(renderReportingDiagrams(ref));
+      if (ref.quick_reference) panel.append(renderRadiologyQuickReference(ref));
       if (atlasSchematics.length) panel.append(renderMskAtlasFigures(atlasSchematics, { onExploreSource: exploreSourceKnee }));
       const detailedDiagrams = ref.key_images.filter(image => image.image_type === 'diagram');
       if (detailedDiagrams.length) {
@@ -2380,7 +3305,12 @@ async function renderRadiologyDesk(page, nodeId) {
       if (illustrations) panel.append(el('details', { class: 'rad-protocol' },
         el('summary', {}, 'Reporting checklist overview'), illustrations));
     }],
-    ['model', detailedAnatomy || ref.source_anatomy_references?.length ? '3D anatomy' : 'Spatial guide', panel => {
+    ['model', curatedModels.length ? 'Original source models' : cardiacContext.length || hippocampalContext.length || limbicContext.length ? '3D anatomy and original source context' : ref.source_native_only ? 'Native source models' : detailedAnatomy || ref.source_anatomy_references?.length ? '3D anatomy' : 'Spatial guide', panel => {
+      if (ref.source_native_only || curatedModels.length) {
+        (curatedModels.length ? [...curatedModels, ...cardiacContext] : ref.source_native_inspectors || []).forEach(asset => panel.append(sourceNativeInspector(asset)));
+        return;
+      }
+      [...cardiacContext, ...hippocampalContext, ...limbicContext].forEach(asset => panel.append(sourceNativeInspector(asset)));
       if (ref.source_anatomy_references?.length) {
         const host = el('div', { class: 'rad-anatomy-model-host' });
         const reference = el('select', { 'aria-label': 'Anatomy reference' });
@@ -2395,6 +3325,9 @@ async function renderRadiologyDesk(page, nodeId) {
           }) : window.PrimerRadiologyReferenceModels?.render(ref.spatial_model);
           host.replaceChildren(model || el('p', { role: 'status' }, 'The anatomy reference could not load.'));
           if (source?.source_image) host.append(sourceReferenceFigure(source.source_image));
+          for (const inspector of ref.source_native_inspectors || []) {
+            if (source && inspector.bound_source_ids.includes(source.id)) host.append(sourceNativeInspector(inspector));
+          }
           if (source?.source_volume) {
             const volume = source.source_volume;
             const sourceLink = el('a', { href: volume.src, target: '_blank', rel: 'noopener noreferrer' }, volume.title);
@@ -2463,6 +3396,7 @@ async function renderRadiologyDesk(page, nodeId) {
       if (additional.length) panel.append(el('h3', {}, 'Additional measurement and spatial exercises'), renderLessonMedia(additional));
     }],
     ['sources', 'Sources', panel => {
+      if (ref.annotated_anatomy_links?.length) panel.append(renderAnnotatedAnatomy(ref));
       panel.append(el('h3', {}, 'Reporting references'), el('ul', { class: 'rad-desk-source-list' },
         ...guide.sources.map(source => el('li', {}, radiologySourceLink(source.title, source.url)))));
       const foundation = legacy.querySelector('.rad-reading');
@@ -2514,7 +3448,8 @@ async function renderRadiologyDesk(page, nodeId) {
   });
   desk.append(tabs, ...panels.map(entry => entry.panel));
   page.append(desk);
-  activate(0, false);
+  activate(ref.structured_form?.descriptor_form && window.PrimerStructuredReporting
+    ? choices.findIndex(([key]) => key === 'template') : 0, false);
 }
 
 function renderReportingGuide(guide, nodeId) {
@@ -2627,6 +3562,7 @@ function walkthroughFigure(item, { sourceRenderer = sourceAtlasFigure } = {}) {
 
 function renderReportWalkthrough(n, { openTemplate } = {}) {
   const ref = n.radiology_reference, guide = ref.reporting, walk = ref.walkthrough;
+  const assessmentPresets = walk.preset_mode === 'assessment-prompts';
   const template = ref.report_templates[0];
   const uid = 'rad-walk-' + String(n.id).replace(/[^a-z0-9-]/gi, '-');
   const bodyOf = section => Array.isArray(section.body) ? section.body.join('\n') : (section.body || '');
@@ -2639,6 +3575,14 @@ function renderReportWalkthrough(n, { openTemplate } = {}) {
   const landmarks = (window.PrimerRadiologyReferenceModels && window.PrimerRadiologyReferenceModels.landmarks(walk.spatial_model.family)) || {};
   const meshFamily = window.PrimerDetailedAnatomy?.supported(walk.spatial_model.family) ? walk.spatial_model.family : null;
   const overview = walk.spatial_model.focus[0];
+  const sourceOnly = ref.source_native_only === true;
+  const hippocampalContext = (ref.source_native_inspectors || []).some(asset => asset.id === 'hippunfold-hcp101006-registered-reference');
+  const epilepsyContext = (ref.source_native_inspectors || []).some(asset => asset.id === 'spl-epilepsy-temporal-ventricular-source-context');
+  const reportingContext = (ref.source_native_inspectors || []).some(asset => asset.id === 'spl-nac-reporting-native-reference' || asset.id === 'spl-epilepsy-temporal-ventricular-source-context');
+  const templateContext = (ref.source_native_inspectors || []).some(asset => asset.id === 'holiatlas-source-template-reference');
+  const limbicContext = (ref.source_native_inspectors || []).some(asset => asset.id === 'spl-nac-limbic-native-reference');
+  const sourceModels = (ref.source_native_inspectors || []).filter(asset => ['pandit-pituitary-case1-processed-reference', 'spl-sellar-source-interfaces-reference', 'spl-additional-native-source-reference', 'holiatlas-source-template-reference', 'spl-nac-reporting-native-reference', 'spl-epilepsy-temporal-ventricular-source-context', 'spl-nac-limbic-native-reference', 'hippunfold-hcp101006-registered-reference', 'totalseg-s0028-lung-native', 'totalseg-s0028-basal-context', 'totalseg-v1-s0028-cardiac-native', 'bp3d-cardiac-original-context', 'baskaran-2020-cardiac-comparisons'].includes(asset.id) || asset.id === 'bp3d-thoracic-original-surfaces' && asset.modality === 'Curated 3D anatomy');
+  const curatedSurface = sourceModels.some(asset => !['pandit-pituitary-case1-processed-reference', 'spl-sellar-source-interfaces-reference', 'spl-additional-native-source-reference', 'holiatlas-source-template-reference', 'spl-nac-reporting-native-reference', 'spl-epilepsy-temporal-ventricular-source-context', 'spl-nac-limbic-native-reference', 'hippunfold-hcp101006-registered-reference', 'totalseg-v1-s0028-cardiac-native', 'bp3d-cardiac-original-context', 'baskaran-2020-cardiac-comparisons'].includes(asset.id));
   const pages = [
     { kind: 'start', label: 'Before you start', sections: walk.start.sections, images: walk.start.images, landmark: overview, parts: [] },
     ...walk.steps.map(step => ({ kind: 'step', label: step.label, sections: step.sections, images: step.images,
@@ -2654,9 +3598,11 @@ function renderReportWalkthrough(n, { openTemplate } = {}) {
   const live = el('p', { class: 'rad-walk-live', role: 'status', 'aria-live': 'polite', 'aria-atomic': 'true' });
   const say = text => { live.textContent = ''; setTimeout(() => { if (root.isConnected) live.textContent = text; }, 30); };
   const intro = el('div', { class: 'rad-walk-intro' },
-    el('p', {}, 'Work through the examination in this order. Each step says where to look and what to describe, links the figures and 3D anatomy for that step, and offers phrases with blanks for your findings. Your text builds the report as you go.'),
+    el('p', {}, sourceOnly
+      ? 'Work through the actual examination fields in this order. Keep patient observations and unassessed limits in the report. The complete independent source CT and separate original annotations remain available throughout for inspection; they do not fill or highlight the current patient’s structures.'
+      : 'Work through the examination in this order. Each step says where to look and what to describe, links the figures and 3D anatomy for that step, and offers phrases with blanks for your findings. Your text builds the report as you go.'),
     el('div', { class: 'rad-walk-intro-actions' },
-      btn({ class: 'btn small', onclick: startNormal }, 'Start from normal statements'),
+      btn({ class: 'btn small', onclick: startNormal }, assessmentPresets ? 'Insert assessment prompts' : 'Start from normal statements'),
       btn({ class: 'btn ghost small', onclick: clearAll }, 'Restore all prompts')));
   const stepper = el('ol', { class: 'rad-walk-steps' });
   const stepButtons = pages.map((page, index) => {
@@ -2671,7 +3617,7 @@ function renderReportWalkthrough(n, { openTemplate } = {}) {
   const main = el('div', { class: 'rad-walk-main' });
   const visual = el('aside', { class: 'rad-walk-visual', 'aria-labelledby': uid + '-visual-title' });
   const visualTitle = el('h4', { id: uid + '-visual-title' }, 'Visual aids');
-  const modes = [['figures', 'Figures'], ['landmark', '3D landmarks'], ...(meshFamily ? [['anatomy', '3D anatomy']] : [])];
+  const modes = sourceOnly ? [['native', 'Native source']] : curatedSurface ? [['figures', 'Figures'], ['source-surfaces', 'Original 3D sources']] : [['figures', 'Figures'], ['landmark', '3D landmarks'], ...(meshFamily ? [['anatomy', '3D anatomy']] : []), ...(sourceModels.length ? [['source-surfaces', 'Original source context']] : [])];
   const modeButtons = new Map();
   const modeBar = el('div', { class: 'rad-walk-modes', role: 'group', 'aria-label': 'Choose a visual aid' },
     ...modes.map(([key, label]) => {
@@ -2684,8 +3630,8 @@ function renderReportWalkthrough(n, { openTemplate } = {}) {
   const landmarkBox = el('div', { class: 'rad-walk-model', hidden: '' });
   const anatomyBox = el('div', { class: 'rad-walk-model', hidden: '' });
   visual.append(visualTitle, modeBar, visualNote, figureBox, landmarkBox, anatomyBox);
-  const previous = btn({ class: 'btn ghost', onclick: () => show(current - 1, true) }, '← Previous');
-  const next = btn({ class: 'btn', onclick: () => show(current + 1, true) }, 'Next →');
+  const previous = btn({ class: 'btn ghost', onclick: () => show(current - 1, true) }, backward('Previous'));
+  const next = btn({ class: 'btn', onclick: () => show(current + 1, true) }, onward('Next'));
   const nav = el('div', { class: 'rad-walk-nav' }, previous, progress, next);
   root.append(intro, el('nav', { class: 'rad-walk-stepper', 'aria-label': 'Reporting steps' }, stepper),
     el('div', { class: 'rad-walk-body' }, main, visual), nav, live);
@@ -2699,8 +3645,8 @@ function renderReportWalkthrough(n, { openTemplate } = {}) {
     fit();
     const useNormal = normals.has(heading) ? btn({ class: 'btn small', onclick: () => {
       set(heading, normals.get(heading));
-      say('Normal statement placed in ' + heading.toLowerCase() + '.');
-    } }, 'Use normal statement') : null;
+      say((assessmentPresets ? 'Assessment prompts' : 'Normal statement') + ' placed in ' + heading.toLowerCase() + '.');
+    } }, assessmentPresets ? 'Use assessment prompts' : 'Use normal statement') : null;
     const restore = btn({ class: 'btn ghost small', onclick: () => {
       set(heading, originals.get(heading));
       say('Original prompts restored in ' + heading.toLowerCase() + '.');
@@ -2724,8 +3670,8 @@ function renderReportWalkthrough(n, { openTemplate } = {}) {
     normals.forEach((text, heading) => {
       if (values.get(heading) === originals.get(heading)) { set(heading, text); placed++; } else if (values.get(heading) !== text) kept++;
     });
-    say(plural(placed, 'normal statement') + ' placed' + (kept ? '; ' + plural(kept, 'edited field') + ' left unchanged.' : '.') +
-      ' Replace any statement that does not match the examination.');
+    say(plural(placed, assessmentPresets ? 'assessment prompt' : 'normal statement') + ' placed' + (kept ? '; ' + plural(kept, 'edited field') + ' left unchanged.' : '.') +
+      (assessmentPresets ? ' Fill observations from the actual source; retain unassessed or unresolved fields.' : ' Replace any statement that does not match the examination.'));
     if (pages[current].kind === 'review') show(current, false);
   }
   function clearAll() {
@@ -2775,6 +3721,55 @@ function renderReportWalkthrough(n, { openTemplate } = {}) {
     const step = page.step;
     const parts = [el('p', { class: 'rad-walk-assess' }, step.detail),
       guidance([['Where to look', step.look], ['Watch for', step.tip]])];
+    if (n.id === 'ra.venous-sinus-thrombosis') {
+      const focus = page.sections.includes('DURAL SINUSES') ? 'sinuses'
+        : page.sections.includes('DEEP AND CORTICAL VEINS') ? 'deep' : '';
+      if (focus) parts.push(el('section', {class: 'card', 'aria-label': 'Source venous anatomy for this step'},
+        el('a', {target: '_blank', rel: 'noopener',
+          href: '/app/anatomy/bp3d-dural-4.3/index.html?from=ra.venous-sinus-thrombosis&focus=' + focus},
+          focus === 'deep' ? 'Inspect the available deep venous models' : 'Inspect the named dural sinuses'),
+        el('p', {}, focus === 'deep'
+          ? 'This view shows the right internal cerebral and basal veins, the source great cerebral vein object and the straight sinus.'
+          : 'This view shows the source dural sinuses and confluence. The lateral sinuses are right-sided.'),
+        focus === 'deep' ? el('p', {}, el('a', {target: '_blank', rel: 'noopener',
+          href: '/app/anatomy/bp3d-dural-4.3/index.html?from=ra.venous-sinus-thrombosis&focus=cortical'},
+          'Inspect the available right cortical venous models')) : null,
+        el('p', {class: 'muted'}, 'The anatomical reference opens in a new tab. Assess patency and thrombus on the examination you are reporting.')));
+      if (focus === 'sinuses') parts.push(el('p', {},
+        el('a', {target: '_blank', rel: 'noopener',
+          href: '/app/anatomy/bp3d-dural-4.3/index.html?from=ra.venous-sinus-thrombosis&focus=jugular'},
+          'Inspect the right jugular bulb model'),
+        ' · ',
+        el('a', {target: '_blank', rel: 'noopener',
+          href: '/app/anatomy/bp3d-dural-4.3/figures.html?from=ra.venous-sinus-thrombosis&figure=jugular-3'},
+          'Compare jugular bulb variants on CBCT')));
+      const examples = {
+        'DURAL SINUSES': ['sadik-17', 'Compare superior sagittal sinus thrombosis on CT'],
+        'DEEP AND CORTICAL VEINS': ['oliveira-7', 'Inspect deep venous thrombosis and associated haemorrhagic infarction'],
+        'PARENCHYMAL EFFECTS': ['oliveira-7', 'Inspect the published haemorrhagic venous infarction example'],
+        'MASS EFFECT': ['zuurbier-2', 'Compare temporal horn enlargement on MRI and CT'],
+        'MIMICS AND COMPARISON': ['liu-1', 'Compare a slender left transverse sinus with thrombosis'],
+      };
+      const example = page.sections.map(section => examples[section]).find(Boolean);
+      if (example) parts.push(el('section', {class: 'card', 'aria-label': 'Published clinical example for this step'},
+        el('a', {target: '_blank', rel: 'noopener',
+          href: '/app/anatomy/bp3d-dural-4.3/figures.html?from=ra.venous-sinus-thrombosis&figure=' + example[0]}, example[1]),
+        el('p', {class: 'muted'}, 'Open the complete published figure and its source-specific panel descriptions.')));
+    }
+    if (n.id === 'ra.mri-endometriosis') {
+      const examples = {
+        'Adnexa': ['6', 'Compare endometriomas and hydrosalpinx'],
+        'Anterior central compartment': ['5', 'Inspect bladder and left ureter involvement'],
+        'Medial central compartment': ['8', 'Inspect a cystic lesion at the torus uterinum'],
+        'Posterior central compartment and bowel': ['12', 'Compare the bowel wall on MRI and pathology'],
+        'Lateral compartments, ureters and nerves': ['11', 'Inspect the right uterosacral ligament in two planes'],
+        'Uterus and superficial disease': ['8', 'Inspect the torus and separate ovarian findings'],
+        'Extra-pelvic sites and examination limits': ['13', 'Inspect abdominal wall endometriosis'],
+      };
+      const example = examples[step.label];
+      if (example) parts.push(el('p', {}, el('a', {target: '_blank', rel: 'noopener',
+        href: '/app/anatomy/endometriosis-mri-evidence/index.html?figure=' + example[0]}, example[1])));
+    }
     const rows = step.measurements.map(name => measures.get(name)).filter(Boolean);
     if (rows.length) parts.push(el('div', { class: 'rad-table-scroll', tabindex: '0', 'aria-label': 'Measurements for this step' },
       el('table', { class: 'rad-measurement-table' }, el('caption', {}, 'Measure and report'),
@@ -2862,6 +3857,16 @@ function renderReportWalkthrough(n, { openTemplate } = {}) {
   }
   function showVisual(announce) {
     const page = pages[current];
+    if (sourceOnly) {
+      figureBox.hidden = false; landmarkBox.hidden = true; anatomyBox.hidden = true;
+      modeButtons.get('native')?.setAttribute('aria-pressed', 'true');
+      if (!figureBox.querySelector('.source-native-inspector')) {
+        figureBox.replaceChildren(...(ref.source_native_inspectors || []).map(asset => sourceNativeInspector(asset)));
+      }
+      visualNote.textContent = page.step?.anatomy_note || 'One complete source CT and separate original reader annotations. No generic lobe or part highlight is assigned, and no current-patient observation is filled from this source case.';
+      if (announce) say('Showing native source for ' + page.label + '.');
+      return;
+    }
     const list = page.images.map(id => figures.get(id)).filter(Boolean);
     // Orientation: figures no step claims and the module's original reporting diagram.
     const extras = page.kind === 'start' && walk.start.module_illustrations !== false ? [
@@ -2869,18 +3874,21 @@ function renderReportWalkthrough(n, { openTemplate } = {}) {
         src: item.src, alt: item.alt, label: 'Reporting overview diagram', image_type: 'diagram', caption: item.caption,
         attribution: 'Original Primer diagram.', width: item.width, height: item.height }))] : [];
     const shown = [...list, ...extras];
-    const mode = chosenMode && modeButtons.has(chosenMode) ? chosenMode : (shown.length ? 'figures' : 'landmark');
+    const mode = chosenMode && modeButtons.has(chosenMode) ? chosenMode : (shown.length ? 'figures' : curatedSurface ? 'source-surfaces' : 'landmark');
     modeButtons.forEach((button, key) => button.setAttribute('aria-pressed', String(key === mode)));
     modeButtons.get('figures').textContent = 'Figures (' + shown.length + ')';
     figureBox.hidden = mode !== 'figures';
     landmarkBox.hidden = mode !== 'landmark';
-    anatomyBox.hidden = mode !== 'anatomy';
+    anatomyBox.hidden = !['anatomy', 'source-surfaces'].includes(mode);
     const landmarkName = landmarks[page.landmark] || page.landmark;
     if (mode === 'figures') {
       figureBox.replaceChildren(...(shown.length ? shown.map(item => walkthroughFigure(item))
         : [el('p', { class: 'rad-walk-hint' }, 'No figure is linked to this step. Use the 3D views, or the Images tab for the full gallery.')]));
       attachPictureHandlers(figureBox);
       visualNote.textContent = shown.length ? 'Published teaching examples, not one patient study. Open a figure to inspect it at full size.' : '';
+    } else if (mode === 'source-surfaces') {
+      if (!anatomyBox.querySelector('.source-native-inspector')) anatomyBox.replaceChildren(...sourceModels.map(sourceNativeInspector));
+      visualNote.textContent = epilepsyContext ? 'The focused SPL view starts with paired ventricular spaces and temporal horns, whole source white matter and selected temporal parcels. Original native MRI and exact categorical-cell boundaries share this one source case. Ependymal layers, complete sulcal and grey–white anatomy, hippocampal subdivisions and migration/dysplastic lesions remain unverified or absent. Other source references retain their own cases and label limits; no current-patient registration or complete epilepsy reporting anatomy is supplied.' : templateContext ? 'These source references stay separate. The holiAtlas population template supplies 332 present categorical regions, with 18 named regions absent; its sulcal labels are assigned CSF territories and its WMn-like contrast is synthesized. The SPL source supplies different single-subject anatomy. Neither is registered to the current patient or establishes complete reporting anatomy.' : reportingContext ? 'The grouped SPL reference links 217 source-defined classes to native T1/T2 and exact label-cell boundaries. Source components, partial labels and naming conflicts remain explicit. Capsule subdivisions, cisterns, vascular territories and other source gaps remain unfilled; diagnostic accuracy and complete reporting anatomy are unproven.' : limbicContext ? 'The SPL atlas provides original MRI, twelve label classes and exact label-cell boundaries, with differing publisher surfaces shown separately. The HippUnfold reference, where present, is a distinct registered training source. Their grids and anatomical meanings are not interchangeable; complete reporting anatomy and clinical validation remain unproven.' : hippocampalContext ? 'Published registered T2 crops and eight research classes show hippocampal source context. The upsampled grids do not establish native volume, pathology, patient laterality or complete reporting anatomy.' : curatedSurface ? 'Original curated surfaces and separate CT sources in their own coordinates. Shared case identifiers do not establish identical source images. Reporting anatomy remains incomplete; no ultrasound or current-patient registration is supplied.' : 'Independent cardiac source contexts: original CT labels, curated wall/cusp/papillary objects, and published manual-annotation/prediction PNGs. No current-patient registration or clinical completeness is supplied. Ventricular source defects and missing coronary arteries, masses, annuli, chordae, pericardium, MRI signal and function remain explicit. Source image predictions are not manual ground truth.';
     } else if (mode === 'landmark') {
       if (!landmarkModel && window.PrimerRadiologyReferenceModels) {
         landmarkModel = window.PrimerRadiologyReferenceModels.render(walk.spatial_model, { state: { focus: page.landmark, labels: 'focus' } });
@@ -2896,7 +3904,7 @@ function renderReportWalkthrough(n, { openTemplate } = {}) {
       visualNote.textContent = page.step?.anatomy_note || (page.parts.length ? 'Structures for this step are highlighted in the registered source anatomy.'
         : 'Registered source anatomy for orientation. Select a structure to highlight it.');
     }
-    if (announce) say('Showing ' + ({ figures: 'figures', landmark: '3D landmarks', anatomy: '3D anatomy' })[mode] + ' for ' + page.label + '.');
+    if (announce) say('Showing ' + ({ figures: 'figures', landmark: '3D landmarks', anatomy: '3D anatomy', 'source-surfaces': 'original source surfaces' })[mode] + ' for ' + page.label + '.');
   }
   function show(index, moveFocus) {
     current = Math.max(0, Math.min(pages.length - 1, index));
@@ -2907,7 +3915,7 @@ function renderReportWalkthrough(n, { openTemplate } = {}) {
     main.replaceChildren(el('p', { class: 'kicker' }, 'Step ' + (current + 1) + ' of ' + pages.length), heading, ...body.filter(Boolean));
     previous.disabled = current === 0;
     next.disabled = current === pages.length - 1;
-    next.textContent = current === pages.length - 2 ? 'Review report →' : 'Next →';
+    next.replaceChildren(onward(current === pages.length - 2 ? 'Review report' : 'Next'));
     refreshMarks();
     showVisual(false);
     root.dataset.step = String(current);
@@ -2960,13 +3968,19 @@ function renderTeachingLesson(n) {
 }
 
 async function renderNode(page, nodeId) {
-  const n = await guard(page, () => api.get('/api/curriculum/node/' + nodeId));
+  const n = await reportingGuard(page, () => api.get('/api/curriculum/node/' + nodeId));
   if (!n) return;
   const d = domainById(n.domain);
-  // pagehead's kicker is also its spoken text, so it stays a string: the
-  // fallback contributes no mark here rather than a character to mispronounce.
-  page.append(pagehead((d.icon ? d.icon + ' ' : '') + d.name + ' · ' + stageLabel(n.stage), n.title, n.goal || ''));
+  // pagehead's kicker is also its spoken text, so it stays a string — and the
+  // field's drawn mark is set into it afterwards, where it is seen but never
+  // read out as a character to mispronounce.
+  const nodeHead = pagehead(d.name + ' · ' + stageLabel(n.stage), n.title, n.goal || '');
+  const nodeKicker = nodeHead.querySelector('.kicker');
+  if (nodeKicker) nodeKicker.prepend(el('span', { class: 'kicker-mark', 'aria-hidden': 'true' }, domainMark(d, 14)), ' ');
+  page.append(nodeHead);
   page.append(el('nav', { class: 'lesson-pathway-links', 'aria-label': 'Explore this learning pathway' },
+    el('a', { class: 'btn ghost small', href: hashFor('maps', ['module', n.id]) },
+      glyph('atlas', 16), ' Module map'),
     el('a', { class: 'btn ghost small', href: hashFor('atlas', { domain: n.domain, stage: n.stage }) },
       glyph('path', 16), ' ', d.name, ' pathway'),
     el('a', { class: 'btn ghost small', href: hashFor('math-images', { domain: n.domain, stage: n.stage }) },
@@ -2992,7 +4006,7 @@ async function renderNode(page, nodeId) {
   }
   if (n.proven) {
     page.append(el('div', { class: 'card', style: 'border-color:var(--green);background:var(--tint-green)' },
-      el('b', { style: 'color:var(--green-ink)' }, n.music_grade ? '✓ Written-knowledge checks proved. Continue the practical, listening and composition work with musical feedback.' : '✓ You have proved this one. Revisit it any time, or push further in the Atlas.')));
+      el('b', { style: 'color:var(--green-ink)' }, glyph('known', 15), ' ', n.music_grade ? 'Written-knowledge checks proved. Continue the practical, listening and composition work with musical feedback.' : 'You have proved this one. Revisit it any time, or push further in the Atlas.')));
   } else if (n.mastered) {
     // Placement credit — honest about the difference.
     const d = n.mastery_detail || {};
@@ -3003,7 +4017,7 @@ async function renderNode(page, nodeId) {
       : ' Pass it ' + need + ' times, with a gap between passes, to prove it' +
         (d.passes ? ' — ' + d.passes + ' of ' + need + ' passes so far.' : '.');
     page.append(el('div', { class: 'card', style: 'border-color:var(--gold)' },
-      el('b', {}, '◐ Assumed, not yet proved'), el('p', { class: 'muted', style: 'margin:6px 0 0' }, line)));
+      el('b', {}, glyph('half', 15), ' Assumed, not yet proved'), el('p', { class: 'muted', style: 'margin:6px 0 0' }, line)));
   }
   else if (!n.unlocked && n.unlock_requirements && n.unlock_requirements.length) {
     const box = el('div', { class: 'card' }, el('b', {}, glyph('lock', 16), ' Not yet open'), el('p', { class: 'muted', style: 'margin:4px 0 6px' }, 'To unlock this lesson:'));
@@ -3024,7 +4038,7 @@ async function renderNode(page, nodeId) {
     // mastery_detail nulls ready_at once it has elapsed, which means ready NOW.
     const ready = readyNow(md.ready_at);
     page.append(el('div', { class: 'card', style: 'border-color:var(--gold)' },
-      el('b', {}, '◐ You started this one — ' + md.passes + ' of ' + need + ' passes'),
+      el('b', {}, glyph('half', 15), ' You started this one — ' + md.passes + ' of ' + need + ' passes'),
       el('p', { class: 'muted', style: 'margin:6px 0 0' }, ready
         ? 'The waiting is over: ' + (need - md.passes) + ' more spaced passes will seal it.'
         : 'The passes sit a little apart, so the book can tell it stuck. The next can count after ' + whenReady(md.ready_at) + '.')));
@@ -3043,7 +4057,7 @@ async function renderNode(page, nodeId) {
            && (n.mastery_detail.attempts | 0) >= 2) {
     const tries = n.mastery_detail.attempts | 0;
     const card = el('div', { class: 'card', style: 'border-color:var(--accent-2)' },
-      el('b', {}, '◑ You have sat this one ' + tries + ' times'),
+      el('b', {}, glyph('halfAlt', 15), ' You have sat this one ' + tries + ' times'),
       el('p', { class: 'muted', style: 'margin:6px 0 10px' },
         'That is not a verdict on you — it is the book telling you this one wants a '
         + 'different approach before the next paper. Papers you have seen the answers '
@@ -3083,6 +4097,89 @@ async function renderNode(page, nodeId) {
   const radiologyReference = renderRadiologyReference(n);
   if (radiologyReference) page.append(radiologyReference);
 
+  const sourceStudies = renderUterineSourceStudies(n.id);
+  if (sourceStudies) page.append(sourceStudies);
+  const vascularStudies = renderAbdominalVesselStudies(n.id);
+  if (vascularStudies) page.append(vascularStudies);
+  if (n.id === 'math.3.euclid') page.append(el('a', { class: 'btn ghost', href: '/app/math/intersecting-chords/index.html' },
+    'Prove the intersecting-chords theorem'));
+  if (n.id === 'math.4.int-calc') page.append(el('a', { class: 'btn ghost', href: '/app/math/volume-by-slices/index.html' },
+    'Build volume from horizontal cross-sections'));
+  if (n.id === 'math.3.precalc') page.append(el('a', { class: 'btn ghost', href: '/app/math/limits-approach/index.html' },
+    'Compare limits from the left and right'));
+  if (n.id === 'math.4.diff-calc') page.append(el('a', { class: 'btn ghost', href: '/app/math/derivative-signs/index.html' },
+    'Explore derivative signs and optimization'));
+  if (n.id === 'math.3.probability') page.append(el('a', { class: 'btn ghost', href: '/app/math/marble-draws/index.html' },
+    'Explore replacement and conditional probability'));
+  if (n.id === 'math.3.statistics') page.append(el('div', { class: 'model-button-row', style: 'margin:1rem 0' },
+    el('a', { class: 'btn ghost', href: '/app/math/sampling-mean/index.html' },
+      'Compare population spread and sampling uncertainty'),
+    el('a', { class: 'btn ghost', href: '/app/math/grouped-rates/index.html' },
+      'Compare grouped and overall success rates')));
+  if (n.id === 'phys.5.condensed') page.append(el('a', { class: 'btn ghost', href: '/app/physics/ising/index.html' },
+    'Explore spin order and temperature'));
+  if (n.id === 'phys.5.frontier') page.append(el('a', { class: 'btn ghost', href: '/app/physics/sparc/index.html' },
+    'Explore observed galaxy rotation curves'));
+  if (n.id === 'phys.4.classical') page.append(el('a', { class: 'btn ghost', href: '/app/physics/driven-oscillator/index.html' },
+    'Compare resonance and phase in a driven oscillator'));
+  if (n.id === 'phys.3.optics-waves') page.append(el('a', { class: 'btn ghost', href: '/app/physics/polariser-bench/index.html' },
+    'Compare two and three polarisers'));
+  if (n.id === 'phys.3.nuclear') page.append(el('a', { class: 'btn ghost', href: '/app/physics/nuclear-balance/index.html' },
+    'Balance nucleons and charge in nuclear reactions'));
+  if (n.id === 'phys.2.waves') page.append(el('a', { class: 'btn ghost', href: '/app/physics/wave-reflection/index.html' },
+    'Compare reflection at fixed and free ends'));
+  if (n.id === 'phys.2.gravity') page.append(el('a', { class: 'btn ghost', href: '/app/physics/gravity-orbit/index.html' },
+    'Compare gravity at different orbital distances'));
+  if (n.id === 'phys.1.sound') page.append(el('a', { class: 'btn ghost', href: '/app/physics/longitudinal-sound/index.html' },
+    'Explore a longitudinal sound wave'));
+  if (n.id === 'lang.1.spelling') page.append(el('a', { class: 'btn ghost', href: '/app/language/spelling-endings/index.html' },
+    'Practise adding -ing and -ed'));
+  if (n.id === 'lang.3.linguistics-intro') page.append(el('div', { class: 'model-button-row', style: 'margin:1rem 0' },
+    el('a', { class: 'btn ghost', href: '/app/language/plural-sounds/index.html' },
+      'Predict English plural sounds'),
+    el('a', { class: 'btn ghost', href: '/app/language/phrase-attachment/index.html' },
+      'Compare two meanings of the same sentence')));
+  if (n.id === 'lang.4.linguistics') page.append(el('a', { class: 'btn ghost', href: '/app/language/quantifier-scope/index.html' },
+    'Explore every child and a tree: two scope orders'));
+  if (n.id === 'lang.3.rhetoric') page.append(el('a', { class: 'btn ghost', href: '/app/language/argument-repair/index.html' },
+    'Inspect evidence and repair an argument'));
+  if (n.id === 'lang.5.philology') page.append(el('a', { class: 'btn ghost', href: '/app/language/stemma/index.html' },
+    'Compare manuscript families'));
+  if (n.id === 'lang.5.narratology') page.append(el('a', { class: 'btn ghost', href: '/app/language/narrative-order/index.html' },
+    'Retell the archive story in a different order'));
+  if (n.id === 'lang.3.second-language') page.append(el('a', { class: 'btn ghost', href: '/app/language/french-phrase-practice/index.html' },
+    'Practise French phrases in conversation'));
+  if (n.id === 'lang.4.creative') page.append(el('a', { class: 'btn ghost', href: '/app/language/scene-revision/index.html' },
+    'Revise a scene against a writing brief'));
+  if (n.id === 'lang.3.media') page.append(el('a', { class: 'btn ghost', href: '/app/language/headline-editor/index.html' },
+    'Edit a headline using counts and rates'));
+  if (n.id === 'rad.5.adrenal') page.append(el('a', { class: 'btn ghost', href: '/app/anatomy/kidney-adrenal-s0028/index.html' },
+    'Inspect kidneys and adrenal glands on CT and in 3D'));
+  if (n.id === 'rad.4.kidney') page.append(el('a', { class: 'btn ghost', href: '/app/anatomy/cptac-renal-contours/index.html' },
+    'Inspect renal lesion CT and original contours'));
+  if (n.id === 'rad.5.pancreas-tumour') page.append(el('a', { class: 'btn ghost', href: '/app/anatomy/msd-pancreas/index.html' },
+    'Inspect a pancreatic mass on CT and in 3D'));
+  const biliaryAtlas = renderBiliaryAtlasStudy(n.id);
+  if (biliaryAtlas) page.append(biliaryAtlas);
+  const liverStudy = renderLiverRegionStudy(n.id);
+  if (liverStudy) page.append(liverStudy);
+  const aneurysmCta = renderAneurysmCtaStudy(n.id);
+  if (aneurysmCta) page.append(aneurysmCta);
+  const duralAtlas = renderDuralVenousAtlas(n.id);
+  if (duralAtlas) page.append(duralAtlas);
+  if (['rad.5.intracranial-haemorrhage', 'ra.intracranial-haemorrhage'].includes(n.id)) {
+    page.append(el('a', {class: 'btn ghost', href: '/app/anatomy/venat/index.html?from=' + encodeURIComponent(n.id)},
+      'Explore population venous anatomy in 3D'));
+  }
+  if (n.id === 'rad.4.liver') page.append(el('a', { class: 'btn ghost', href: '/app/anatomy/liver-s0028/index.html' },
+    'Inspect liver CT in three planes'));
+  if (n.id === 'math.2.data') page.append(el('a', { class: 'btn ghost', href: '/app/math/bar-scales/index.html' },
+    'Compare the same scores on two scales'));
+  if (n.id === 'lang.1.dictionary') page.append(el('a', { class: 'btn ghost', href: '/app/language/dictionary/index.html' },
+    'Play the guide-word hunt'));
+  if (n.id === 'phys.4.experiment') page.append(el('a', { class: 'btn ghost', href: '/app/physics/lab-comparison/index.html' },
+    'Compare two laboratory measurements'));
+  if (n.id === 'rad.5.brain-tumour') page.append(glioblastomaCaseViewer());
   const lessonMedia = renderLessonMedia(n.lesson_media);
   if (lessonMedia) {
     if (n.domain === 'radiology' || n.strand === 'music') lessonMedia.setAttribute('tabindex', '-1');
@@ -3288,10 +4385,10 @@ function openLessonNavigator(data, articleTitle) {
       const next = here >= 0 && here + 1 < lessons.length ? lessons[here + 1] : null;
       if (previous) currentActions.append(btn({ class: 'btn ghost small',
         'aria-label': 'Previous lesson: ' + previous.title + ' — ' + lessonNavigationState(previous),
-        onclick: () => { close(); go('node', previous.id); } }, '← ' + previous.title));
+        onclick: () => { close(); go('node', previous.id); } }, backward(previous.title)));
       if (next) currentActions.append(btn({ class: 'btn ghost small',
         'aria-label': 'Next lesson: ' + next.title + ' — ' + lessonNavigationState(next),
-        onclick: () => { close(); go('node', next.id); } }, next.title + ' →'));
+        onclick: () => { close(); go('node', next.id); } }, onward(next.title)));
       modal.append(currentActions);
 
       const reading = el('section', { class: 'lesson-nav-readings', 'aria-labelledby': 'lesson-readings-title' },
@@ -3382,7 +4479,7 @@ async function renderReader(page, arg) {
   // and is withdrawn: the book does not ask questions no person wrote. Read
   // aloud and the tutor already cover "check what I just read".
   const bar = el('div', { class: 'reader-toolbar' },
-    btn({ class: 'btn ghost small', onclick: () => history.length > 1 ? history.back() : go(nodeId ? 'node' : 'today', nodeId) }, '← Back'),
+    btn({ class: 'btn ghost small', onclick: () => history.length > 1 ? history.back() : go(nodeId ? 'node' : 'today', nodeId) }, backward('Back')),
     nodeId ? btn({ class: 'btn gold small', onclick: () => startQuiz(nodeId) }, glyph('quill', 14), ' Quiz me on this') : null,
     readAloudControls());
   page.append(bar);
@@ -4252,7 +5349,7 @@ function runQuestions({ title, questions, nodeId, kind, stage, isRetry = false, 
         chosen.length = 0; tray.querySelectorAll('button').forEach(b => b.disabled = false); redraw();
         const first = tray.querySelector('.order-chip:not(:disabled)');
         if (first) first.focus();
-      } }, '↺ Start over');
+      } }, glyph('restart', 15), ' Start over');
       const redraw = () => {
         slot.innerHTML = '';
         chosen.forEach(v => slot.append(el('span', { class: 'order-chip placed' }, v)));
@@ -4335,7 +5432,7 @@ function runQuestions({ title, questions, nodeId, kind, stage, isRetry = false, 
             refresh(true);
           } },
           el('span', { class: 'tk-face', 'aria-hidden': 'true' }, String(it)),
-          el('span', { class: 'tk-mark', 'aria-hidden': 'true' }, '✓'));
+          el('span', { class: 'tk-mark', 'aria-hidden': 'true' }, glyph('known', 14)));
         tokens.push(t); tray.append(t);
       });
       if (confidenceRow) card.append(el('p', { class: 'muted', style: 'margin:2px 0 6px' }, 'How sure are you?'), confidenceRow);
@@ -4506,7 +5603,7 @@ function runQuestions({ title, questions, nodeId, kind, stage, isRetry = false, 
     if (q.explain) tell(card, unmarked ? q.explain
                                        : (ok ? '✓ ' : 'The answer: ') + q.explain, true);
     const nextBtn = btn({ class: 'btn gold', style: 'width:100%;margin-top:16px', onclick: () => next(modal, close) },
-      i + 1 < questions.length ? 'Next →' : 'See results');
+      i + 1 < questions.length ? onward('Next') : 'See results');
     card.append(nextBtn);
     setTimeout(() => nextBtn.focus(), 20);   // disabling the choices must not blank focus
     if (ok && !young) toast(praise());
@@ -4541,7 +5638,10 @@ function runQuestions({ title, questions, nodeId, kind, stage, isRetry = false, 
     // The splash is drawn before the submit returns, so it still opens on the
     // local tally — and is corrected the moment the server's own {right,total,
     // score} arrives, which it has always sent and nothing has ever read.
-    const starsFor = v => v >= 0.9 ? '★★★' : v >= 0.7 ? '★★☆' : v >= 0.4 ? '★☆☆' : '☆☆☆';
+    // Three drawn stars, filled to the score; the score itself is said in
+    // words beside them, so the row is decoration and hidden from the tree.
+    const starsFor = v => { const n = v >= 0.9 ? 3 : v >= 0.7 ? 2 : v >= 0.4 ? 1 : 0;
+      return frag(...[0, 1, 2].map(i => glyph(i < n ? 'starFill' : 'star', 34))); };
     const splash = el('div', { class: 'result-splash' });
     const starsEl = el('div', { class: 'stars', style: 'color:var(--gold)' }, starsFor(score));
     const scoreEl = young ? null : el('div', { class: 'score' }, Math.round(score * 100) + '%');
@@ -4551,7 +5651,7 @@ function runQuestions({ title, questions, nodeId, kind, stage, isRetry = false, 
     splash.append(tallyEl);
     const showServerScore = res => {
       if (!res || typeof res.score !== 'number') return;
-      starsEl.textContent = starsFor(res.score);
+      starsEl.replaceChildren(starsFor(res.score));
       if (scoreEl) scoreEl.textContent = Math.round(res.score * 100) + '%';
       const whole = Math.abs(res.right - Math.round(res.right)) < 0.01;
       tallyEl.textContent = whole
@@ -4931,8 +6031,14 @@ async function renderVisualGallery(page, selection = {}) {
           visual.append(longDescription.node);
         }
       } else {
+        // What kind of model it is (sliders to work, or a solid to turn) in
+        // the field's colour, with the field's own mark set into the ring.
         visual = el('div', { class: 'visual-model-preview' },
-          el('div', { class: 'visual-model-mark', 'aria-hidden': 'true' }, glyph('path', 34)),
+          el('div', { class: 'visual-model-mark', 'aria-hidden': 'true',
+            // The gallery's own field list carries no colour; the curriculum's does.
+            style: `--dc:color-mix(in srgb, ${(domainById(domain.id) || domain).color || 'var(--gold)'}, white var(--domain-lift, 0%))` },
+            glyph(isSpatialModel(item) ? 'cube' : 'interact', 34),
+            el('span', { class: 'visual-model-field' }, domainMark(domain, 14))),
           el('div', {}, el('h5', {}, item.title), el('p', {}, item.instructions)));
       }
       const card = el('article', { class: 'card math-image-card',
@@ -4948,7 +6054,7 @@ async function renderVisualGallery(page, selection = {}) {
           el('p', { class: 'math-image-goal' },
             el('span', {}, 'Lesson aim'), item.goal),
           btn({ class: 'btn ghost small math-image-lesson',
-            onclick: () => go('node', item.lesson_id) }, isImage ? 'Open lesson →' : 'Open model →')));
+            onclick: () => go('node', item.lesson_id) }, onward(isImage ? 'Open lesson' : 'Open model'))));
       card._visual = { domain: item.domain, stage: item.stage, kind: item.kind, renderer: item.renderer };
       card._visualSearch = [item.domain_name, item.lesson_title, item.goal, stageLabel(item.stage),
         item.alt, item.caption, item.title, item.instructions]
@@ -5062,6 +6168,7 @@ async function renderAtlas(page, selection = {}) {
       el('label', { for: 'atlas-lesson-search' }, 'Search lessons', search)),
     stageChoices,
     el('div', { class: 'pathway-actions' },
+      el('a', { class: 'btn gold small', href: hashFor('maps') }, glyph('atlas', 16), ' Explore knowledge maps'),
       btn({ class: 'btn ghost small', onclick: () => { selectedStage = null; paint(); } }, 'Show all stages'),
       btn({ class: 'btn ghost small', onclick: () => go('math-images', { domain: fieldFilter.value, stage: selectedStage }) },
         glyph('gallery', 16), ' Explore these visuals'), clearPathway),
@@ -5112,7 +6219,7 @@ async function renderAtlas(page, selection = {}) {
           x.classList.remove('picked'); x.setAttribute('aria-checked', 'false'); x.setAttribute('tabindex', '-1'); });
         b.classList.add('picked'); b.setAttribute('aria-checked', 'true'); b.setAttribute('tabindex', '0');
         activeFilter = k; paint();
-      } }, label, el('span', { class: 'filter-mark' }, '✓ Showing'));
+      } }, label, el('span', { class: 'filter-mark' }, glyph('known', 12), ' Showing'));
     bar.append(b);
   });
   // Mounted empty, filled after it has landed in the document: a live region
@@ -5195,14 +6302,14 @@ async function renderAtlas(page, selection = {}) {
             : !n.unlocked ? 'locked'
             : pct > 0 ? pct + '% mastered'
             : 'open, not started');
-    if (n.faded) { marks.push('◐'); said.push('faded — proved once, and it has slipped since'); }
+    if (n.faded) { marks.push('half'); said.push('faded — proved once, and it has slipped since'); }
     if (n.assumed) {
-      marks.push('◇');
+      marks.push('assumed');
       said.push(n.assumed_stale ? 'assumed from your placement, and that credit has expired'
                                 : 'assumed from your placement, not yet proved');
     }
     if (n.access_basis === 'assumed_prerequisites') {
-      marks.push('◇'); said.push('open on assumed foundations');
+      marks.push('assumed'); said.push('open on assumed foundations');
     }
     if (frontier) said.push('the frontier of this field');
     if (cls === 'locked') said.push('open it to see what unlocks it');
@@ -5217,7 +6324,7 @@ async function renderAtlas(page, selection = {}) {
       'aria-label': said.join(' — '),
       onclick: () => { if (n.unlocked || n.mastered) go('node', n.id); else lockedPeek(n); } },
       n.title,
-      marks.length ? el('span', { class: 'dot-mark', 'aria-hidden': 'true' }, ' ' + marks.join('')) : null);
+      marks.length ? el('span', { class: 'dot-mark', 'aria-hidden': 'true' }, ...marks.map(m => glyph(m, 12))) : null);
   }
 
   function domainBlock(d, dnodes, i) {
@@ -5236,7 +6343,7 @@ async function renderAtlas(page, selection = {}) {
         frontierTile.focus({ preventScroll: true });
         frontierTile.scrollIntoView({ block: 'center',
           behavior: reducedMotion() ? 'auto' : 'smooth' });
-      } }, '→ My frontier');
+      } }, glyph('onward', 16), ' My frontier');
     block.append(el('div', { class: 'domain-head' },
       // Same daylight-hex lift as the lesson-card domain tag: themed via
       // --domain-lift so the ten curriculum colours survive the night palette.
@@ -5244,6 +6351,7 @@ async function renderAtlas(page, selection = {}) {
       el('div', { class: 'dh-text' }, el('h3', {}, d.name),
         el('div', { class: 'tag' }, d.mastered + ' / ' + total + ' mastered — ' + (d.tagline || '')),
         stageStrip(d)),
+      el('a', { class: 'btn ghost small', href: hashFor('maps', ['subject', d.id]) }, 'Subject map'),
       jump));
     for (const stage of stages) {
       const s = stage.i;
@@ -5329,7 +6437,7 @@ function quickAccess(page, g) {
       el('span', { class: 'qa-n' }, String(sec.nodes.length)));
     wrap.append(sum);
     const rows = sec.nodes.map(n => {
-      const state = n.mastered ? ['mastered', '✓ mastered'] : (n.unlocked ? ['available', 'open'] : ['locked', 'locked']);
+      const state = n.mastered ? ['mastered', frag(glyph('known', 12), ' mastered')] : (n.unlocked ? ['available', 'open'] : ['locked', 'locked']);
       const row = el('div', { class: 'qa-row' });
       const referenceMeta = [];
       if (n.reference_count) referenceMeta.push(plural(n.reference_count, 'foundation article'));
@@ -5446,7 +6554,7 @@ function lockedPeek(n) {
     jumps.forEach(p => box.append(btn({ class: 'req-chip req-jump',
       onclick: () => { close(); go('node', p); } },
       'Master “' + byId.get(p).title + '”',
-      el('span', { class: 'go-mark', 'aria-hidden': 'true' }, '→'))));
+      el('span', { class: 'go-mark', 'aria-hidden': 'true' }, glyph('onward', 14)))));
     // Prose requirements with no lesson behind them — "Master 4 more Seedling
     // topics" is a statement about the stage gate, not a tile — stay inert.
     // The "Master “X”" strings the server writes are exactly the prereqs
@@ -5995,7 +7103,7 @@ async function renderJourney(page) {
       tl.append(el('div', { class: 'tl-year' }, el('div', { class: 'yr' }, 'Chapter ' + (it.number || '')), el('div', { class: 'ms' }, el('span', { class: 'jbadge' }, glyph('story', 15)), it.title || 'A chapter of your story')));
     } else {
       const d = it.domain ? domainById(it.domain) : { icon: '✓', name: '' };
-      tl.append(el('div', { class: 'tl-year' }, el('div', { class: 'yr' }, d.name || 'Mastered'), el('div', { class: 'ms' }, el('span', { class: 'jbadge' }, '✓'), it.title || it.node_id)));
+      tl.append(el('div', { class: 'tl-year' }, el('div', { class: 'yr' }, d.name || 'Mastered'), el('div', { class: 'ms' }, el('span', { class: 'jbadge' }, glyph('known', 15)), it.title || it.node_id)));
     }
   });
   page.append(tl);
@@ -6223,7 +7331,7 @@ async function renderLibrary(page) {
     const meta = el('div', { class: 'meta' }, el('b', {}, item.title),
       el('p', {}, String(item.blurb).replace(/\s*~[\d.]+\s*GB\.?\s*$/, '')));
     const right = el('div', {});
-    if (item.installed) right.append(el('span', { class: 'badge installed' }, '✓ On your shelf'));
+    if (item.installed) right.append(el('span', { class: 'badge installed' }, glyph('known', 12), ' On your shelf'));
     else if (item.download && item.download.status === 'downloading') {
       const pct = item.download.total ? Math.round(100 * item.download.bytes / item.download.total) : 0;
       right.append(el('span', { class: 'badge big' }, 'Copying in — ' + pct + '%'), el('div', { class: 'bar', style: 'width:120px;margin-top:6px' }, el('span', { style: `width:${pct}%` })));
@@ -6320,8 +7428,8 @@ function openModal({ label, build, dismissable = false, dismissLabel = 'Close', 
 // Node QA imports the same functions without starting a reader session. Browser
 // scripts have no CommonJS module object and retain the normal bootstrap path.
 if (typeof module !== 'undefined' && module.exports) {
-  module.exports = Object.freeze({ attachPictureHandlers, pictureCaptionElement, reportingGuard,
-    walkthroughPrompts, walkthroughFirstPrompt, walkthroughInsert, walkthroughReport, walkthroughFigure, sourceAtlasFigure, sourceMotionFrameAtTime });
+  module.exports = Object.freeze({ histologyFigure, radiologyPresentation, attachPictureHandlers, pictureCaptionElement, reportingGuard, renderRadiologyReference,
+    walkthroughPrompts, walkthroughFirstPrompt, walkthroughInsert, walkthroughReport, walkthroughFigure, sourceAtlasFigure, sourceMotionFrameAtTime, lessonSourceGallery, sourceStudyReference, referenceFrameIndex });
 } else boot().catch(e => {
   // A boot that fails only because there is no reader yet is not an error at
   // all — send them to the first page instead of the error card. This needs

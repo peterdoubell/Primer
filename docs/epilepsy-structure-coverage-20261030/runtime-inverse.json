@@ -1,0 +1,250 @@
+{
+  "base_commit": "9a940214cb5aeff900710e45ccbf28d1acb4b597",
+  "scope": "exact_spl_unmarked_comparison",
+  "files": {
+    "data/radiology/spl-limbic-reference.json": {
+      "before_sha256": "2ae83c4be670c4966604361dfc49595d6f5afc4bb8b911bdf6cdf6ec62cecd97",
+      "after_sha256": "b39194d1d98f6223816df1af5eb6754006d0810b5e814c03a6e0a1f4d01a8895",
+      "changes": [
+        {
+          "start": 24,
+          "end": 25,
+          "before": "      \"sha256\": \"d632ae1692299b30c7254d21f3a8fd51dc94ec0ef80f292b8ca6d7bd0fc5ae9f\",\n",
+          "after": "      \"sha256\": \"622fc28b2263342c9c67b11858461a08cbedcfa948ee910b97a438b983dc0852\",\n"
+        },
+        {
+          "start": 89,
+          "end": 91,
+          "before": "      \"sha256\": \"d632ae1692299b30c7254d21f3a8fd51dc94ec0ef80f292b8ca6d7bd0fc5ae9f\",\n      \"bytes\": 5958\n",
+          "after": "      \"sha256\": \"622fc28b2263342c9c67b11858461a08cbedcfa948ee910b97a438b983dc0852\",\n      \"bytes\": 6373\n"
+        },
+        {
+          "start": 405,
+          "end": 407,
+          "before": "      \"sha256\": \"f4d99fa08e891623aec272fc0b5a47b25224cf89c3cbb021cc02247d03383710\",\n      \"bytes\": 2117\n",
+          "after": "      \"sha256\": \"1c5e95a59811597cf47ee392dbf5db9a94f21b5536f37a2c9fa4935f4dfc3c72\",\n      \"bytes\": 2508\n"
+        },
+        {
+          "start": 409,
+          "end": 411,
+          "before": "      \"sha256\": \"4ae3fe18806838d865c970945ed4c6e9f7c4079bfb341a447ee390d026f58e0b\",\n      \"bytes\": 28041\n",
+          "after": "      \"sha256\": \"400ca6f9d1d09fa4018d538fe2d50b3b164d5262f0cf67a706a2d747c1773545\",\n      \"bytes\": 29010\n"
+        }
+      ]
+    },
+    "primer/spl_limbic_reference.py": {
+      "before_sha256": "731b5913ec313e0bc56df1f9d5e6ebc560943c43c7581b84706f8ac04ca41d75",
+      "after_sha256": "343b835ad0c567fff8143c1f8e18a2ce95efd243724cdab8bafa06495ca8acf5",
+      "changes": [
+        {
+          "start": 12,
+          "end": 13,
+          "before": "REGISTRY_SHA256 = '2ae83c4be670c4966604361dfc49595d6f5afc4bb8b911bdf6cdf6ec62cecd97'\n",
+          "after": "REGISTRY_SHA256 = 'b39194d1d98f6223816df1af5eb6754006d0810b5e814c03a6e0a1f4d01a8895'\n"
+        }
+      ]
+    },
+    "web/anatomy/spl-nac-limbic/index.html": {
+      "before_sha256": "d632ae1692299b30c7254d21f3a8fd51dc94ec0ef80f292b8ca6d7bd0fc5ae9f",
+      "after_sha256": "622fc28b2263342c9c67b11858461a08cbedcfa948ee910b97a438b983dc0852",
+      "changes": [
+        {
+          "start": 30,
+          "end": 31,
+          "before": "",
+          "after": "        <label><input id=\"compare-unmarked\" type=\"checkbox\">Compare with unmarked MRI</label>\n"
+        },
+        {
+          "start": 35,
+          "end": 37,
+          "before": "",
+          "after": "      <div id=\"mri-pair\" class=\"mri-pair\">\n        <div><p>Current display</p>\n"
+        },
+        {
+          "start": 38,
+          "end": 41,
+          "before": "",
+          "after": "        </div>\n        <div id=\"unmarked-panel\" hidden><p>Unmarked MRI \u00b7 same slice and window</p><canvas id=\"mri-unmarked\" role=\"img\" aria-label=\"Unmarked native MRI at the same slice and display window\" hidden></canvas></div>\n      </div>\n"
+        }
+      ]
+    },
+    "web/anatomy/spl-nac-limbic/viewer.css": {
+      "before_sha256": "f4d99fa08e891623aec272fc0b5a47b25224cf89c3cbb021cc02247d03383710",
+      "after_sha256": "1c5e95a59811597cf47ee392dbf5db9a94f21b5536f37a2c9fa4935f4dfc3c72",
+      "changes": [
+        {
+          "start": 1,
+          "end": 3,
+          "before": "",
+          "after": "\n.mri-pair.paired{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:14px}.mri-pair>div{min-width:0}.mri-pair p{font-size:.85rem}#mri-unmarked{border:0;outline:1px solid #526473;image-rendering:pixelated;width:min(100%,calc(65vh * var(--physical-ratio,1)));height:auto;aspect-ratio:var(--physical-ratio,1)}@media(max-width:750px){.mri-pair.paired{grid-template-columns:1fr}}\n"
+        }
+      ]
+    },
+    "web/anatomy/spl-nac-limbic/viewer.js": {
+      "before_sha256": "4ae3fe18806838d865c970945ed4c6e9f7c4079bfb341a447ee390d026f58e0b",
+      "after_sha256": "400ca6f9d1d09fa4018d538fe2d50b3b164d5262f0cf67a706a2d747c1773545",
+      "changes": [
+        {
+          "start": 4,
+          "end": 6,
+          "before": "",
+          "after": "  const unmarked=$('mri-unmarked'),unmarkedContext=unmarked.getContext('2d');\n  function hideComparison(){unmarked.hidden=true;unmarked.dataset.ready='false';delete unmarked.dataset.state;$('unmarked-panel').hidden=true;}\n"
+        },
+        {
+          "start": 78,
+          "end": 79,
+          "before": "      canvas.hidden = true; canvas.dataset.ready = 'false'; delete canvas.dataset.state;\n",
+          "after": "      canvas.hidden = true; canvas.dataset.ready = 'false'; hideComparison(); delete canvas.dataset.state;\n"
+        },
+        {
+          "start": 85,
+          "end": 86,
+          "before": "    const rgba = new Uint8ClampedArray(spec.width*spec.height*4), palette = new Map(manifest.labels.map(row => [row.code, row.color]));\n",
+          "after": "    const rgba = new Uint8ClampedArray(spec.width*spec.height*4), plain=new Uint8ClampedArray(spec.width*spec.height*4), palette = new Map(manifest.labels.map(row => [row.code, row.color]));\n"
+        },
+        {
+          "start": 94,
+          "end": 95,
+          "before": "      rgba[offset+3] = 255;\n",
+          "after": "      rgba[offset+3] = 255;plain[offset]=plain[offset+1]=plain[offset+2]=grey;plain[offset+3]=255;\n"
+        },
+        {
+          "start": 99,
+          "end": 101,
+          "before": "",
+          "after": "    const compare=$('compare-unmarked').checked;$('mri-pair').classList.toggle('paired',compare);\n    if(compare){unmarked.width=spec.width;unmarked.height=spec.height;unmarked.style.setProperty('--physical-ratio',canvas.style.getPropertyValue('--physical-ratio'));unmarkedContext.putImageData(new ImageData(plain,spec.width,spec.height),0,0);unmarked.hidden=false;unmarked.dataset.ready='true';unmarked.dataset.state=JSON.stringify({...JSON.parse(canvas.dataset.state),overlay:'off'});$('unmarked-panel').hidden=false;}else hideComparison();\n"
+        },
+        {
+          "start": 250,
+          "end": 251,
+          "before": "    const id = ++loadID; image = null; imageRow = null; canvas.hidden = true; canvas.dataset.ready = 'false';\n",
+          "after": "    const id = ++loadID; image = null; imageRow = null; canvas.hidden = true; canvas.dataset.ready = 'false'; hideComparison();\n"
+        },
+        {
+          "start": 281,
+          "end": 282,
+          "before": "",
+          "after": "  $('compare-unmarked').onchange=drawMRI;\n"
+        }
+      ]
+    },
+    "docs/radiology-fidelity-scope.json": {
+      "before_sha256": "678cd68db2fe50b0511da493f02e07a46ceeb39a64fabdc10f4e6154ca1f1623",
+      "after_sha256": "573960f5a322fa95391ba9151426d3a5de35f5b8f22f3e6aab260611884ab84c",
+      "changes": [
+        {
+          "start": 105574,
+          "end": 105575,
+          "before": "            \"sha256\": \"d632ae1692299b30c7254d21f3a8fd51dc94ec0ef80f292b8ca6d7bd0fc5ae9f\",\n",
+          "after": "            \"sha256\": \"622fc28b2263342c9c67b11858461a08cbedcfa948ee910b97a438b983dc0852\",\n"
+        },
+        {
+          "start": 110111,
+          "end": 110112,
+          "before": "            \"sha256\": \"d632ae1692299b30c7254d21f3a8fd51dc94ec0ef80f292b8ca6d7bd0fc5ae9f\",\n",
+          "after": "            \"sha256\": \"622fc28b2263342c9c67b11858461a08cbedcfa948ee910b97a438b983dc0852\",\n"
+        },
+        {
+          "start": 111880,
+          "end": 111881,
+          "before": "            \"sha256\": \"d632ae1692299b30c7254d21f3a8fd51dc94ec0ef80f292b8ca6d7bd0fc5ae9f\",\n",
+          "after": "            \"sha256\": \"622fc28b2263342c9c67b11858461a08cbedcfa948ee910b97a438b983dc0852\",\n"
+        }
+      ]
+    }
+  },
+  "bindings": [
+    "ra.brain-anatomy",
+    "ra.mri-dementia",
+    "ra.mri-epilepsy"
+  ],
+  "descriptor": {
+    "before": {
+      "id": "spl-nac-limbic-native-reference",
+      "modality": "Native T1/T2 MRI and limbic source-label boundaries",
+      "coordinate_context": "source-native-mri-and-separate-label-grid-in-declared-RAS",
+      "title": "Limbic anatomy in original MRI and source-label boundaries",
+      "src": "/app/anatomy/spl-nac-limbic/index.html",
+      "manifest_url": "/app/anatomy/spl-nac-limbic/manifest.json",
+      "sha256": "d632ae1692299b30c7254d21f3a8fd51dc94ec0ef80f292b8ca6d7bd0fc5ae9f",
+      "manifest_sha256": "204f87b6d88a9570eb34664497a1462a5d8bba1afa0c2f7abe1cdf11082de2e6",
+      "caption": "Explore the SPL atlas\u2019s original T1/T2 MRI and twelve left/right labels for the hippocampus, amygdala, fornix, mammillary body, parahippocampal gyrus and mammillothalamic tract. The default surfaces follow every exposed categorical voxel face, retaining small components. Separately selectable original publisher surfaces can differ substantially, especially at the fornices. This single-subject research atlas supplies source anatomy context; it does not supply separate CA fields or subiculum, patient registration, diagnostic validation or complete reporting anatomy.",
+      "attribution": "SPL-PNL/NAC Brain Atlas: Michael Halle, Florin Talos, Marianna Jakab, Nikos Makris, Dominic Meier, Laurence Wald, Bruce Fischl, Ron Kikinis and collaborators. Source commit bec24db25aad5f7600e2df3becfb1f883e61ff56. Original MRI/label sample bytes and original VTK coordinate, normal and strip bits are preserved. Primer\u2019s marked adaptations are lossless transport, display windowing and exact categorical cell boundaries; full source notices and 3D Slicer Agreement terms accompany the viewer.",
+      "source_url": "https://www.openanatomy.org/atlas-pages/atlas-spl-nac-brain.html",
+      "publication_url": "https://github.com/mhalle/spl-brain-atlas/tree/bec24db25aad5f7600e2df3becfb1f883e61ff56",
+      "license": "3D Slicer Contribution and Software License Agreement v1.0, Part B and applicable Part C",
+      "license_url": "https://www.openanatomy.org/atlas-pages/slicer-license.html",
+      "source_grain": {
+        "kind": "single-subject anatomical research atlas",
+        "subject_count": 1,
+        "MRI": "native 0.75 mm T1/T2",
+        "categorical_labels": "separate native 1 mm Int16 source grid",
+        "selected_label_classes": 12,
+        "original_producer_surfaces": 12,
+        "default_surface": "exact categorical voxel-cell boundaries",
+        "separately_labelled_CA_fields_or_subiculum": false
+      },
+      "source_grant": {
+        "publisher_explicitly_applies_license_to_data": true,
+        "terms_url": "/app/anatomy/spl-nac-limbic/LICENSE.txt",
+        "attribution_url": "/app/anatomy/spl-nac-limbic/ATTRIBUTION.txt",
+        "marked_derived_version": true,
+        "reuse_terms": "Part B permits proprietary incorporation subject to all license conditions; retain the full terms, required Brigham notice, applicable third-party notices and research-use/clinical-application language. No institutional endorsement is implied."
+      },
+      "bound_source_ids": [
+        "spl-nac-limbic-native-reference"
+      ],
+      "clinical_approval": false,
+      "fine_anatomical_approval": false,
+      "current_patient_registration": false,
+      "normal_anatomical_atlas_approval": false,
+      "complete_reporting_anatomy_approved": false
+    },
+    "after": {
+      "id": "spl-nac-limbic-native-reference",
+      "modality": "Native T1/T2 MRI and limbic source-label boundaries",
+      "coordinate_context": "source-native-mri-and-separate-label-grid-in-declared-RAS",
+      "title": "Limbic anatomy in original MRI and source-label boundaries",
+      "src": "/app/anatomy/spl-nac-limbic/index.html",
+      "manifest_url": "/app/anatomy/spl-nac-limbic/manifest.json",
+      "sha256": "622fc28b2263342c9c67b11858461a08cbedcfa948ee910b97a438b983dc0852",
+      "manifest_sha256": "204f87b6d88a9570eb34664497a1462a5d8bba1afa0c2f7abe1cdf11082de2e6",
+      "caption": "Explore the SPL atlas\u2019s original T1/T2 MRI and twelve left/right labels for the hippocampus, amygdala, fornix, mammillary body, parahippocampal gyrus and mammillothalamic tract. The default surfaces follow every exposed categorical voxel face, retaining small components. Separately selectable original publisher surfaces can differ substantially, especially at the fornices. This single-subject research atlas supplies source anatomy context; it does not supply separate CA fields or subiculum, patient registration, diagnostic validation or complete reporting anatomy.",
+      "attribution": "SPL-PNL/NAC Brain Atlas: Michael Halle, Florin Talos, Marianna Jakab, Nikos Makris, Dominic Meier, Laurence Wald, Bruce Fischl, Ron Kikinis and collaborators. Source commit bec24db25aad5f7600e2df3becfb1f883e61ff56. Original MRI/label sample bytes and original VTK coordinate, normal and strip bits are preserved. Primer\u2019s marked adaptations are lossless transport, display windowing and exact categorical cell boundaries; full source notices and 3D Slicer Agreement terms accompany the viewer.",
+      "source_url": "https://www.openanatomy.org/atlas-pages/atlas-spl-nac-brain.html",
+      "publication_url": "https://github.com/mhalle/spl-brain-atlas/tree/bec24db25aad5f7600e2df3becfb1f883e61ff56",
+      "license": "3D Slicer Contribution and Software License Agreement v1.0, Part B and applicable Part C",
+      "license_url": "https://www.openanatomy.org/atlas-pages/slicer-license.html",
+      "source_grain": {
+        "kind": "single-subject anatomical research atlas",
+        "subject_count": 1,
+        "MRI": "native 0.75 mm T1/T2",
+        "categorical_labels": "separate native 1 mm Int16 source grid",
+        "selected_label_classes": 12,
+        "original_producer_surfaces": 12,
+        "default_surface": "exact categorical voxel-cell boundaries",
+        "separately_labelled_CA_fields_or_subiculum": false
+      },
+      "source_grant": {
+        "publisher_explicitly_applies_license_to_data": true,
+        "terms_url": "/app/anatomy/spl-nac-limbic/LICENSE.txt",
+        "attribution_url": "/app/anatomy/spl-nac-limbic/ATTRIBUTION.txt",
+        "marked_derived_version": true,
+        "reuse_terms": "Part B permits proprietary incorporation subject to all license conditions; retain the full terms, required Brigham notice, applicable third-party notices and research-use/clinical-application language. No institutional endorsement is implied."
+      },
+      "bound_source_ids": [
+        "spl-nac-limbic-native-reference"
+      ],
+      "clinical_approval": false,
+      "fine_anatomical_approval": false,
+      "current_patient_registration": false,
+      "normal_anatomical_atlas_approval": false,
+      "complete_reporting_anatomy_approved": false
+    }
+  },
+  "sourcePayloadsChanged": false,
+  "sourceManifestChanged": false,
+  "clinicalApproval": false,
+  "extendsHistoricalApproval": false,
+  "wholeGoalComplete": false
+}

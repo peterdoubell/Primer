@@ -1,0 +1,112 @@
+{
+  "base_commit": "97acb71e612b47f87699ce0be7a4570c1c20b8ce",
+  "scope": "spine_neurology_and_cardiology_reference_additions_only",
+  "files": {
+    "web/app.js": {
+      "before_sha256": "53f89890c69548bfcaa0f6e71c07c1a56f0c28f0c8201d5080df8d7aa5b632cb",
+      "after_sha256": "e474ddb1ef541c32dcd91948de592df01a8fa69934de4defa4c35d806d7492f7",
+      "changes": [
+        {
+          "start": 2301,
+          "end": 2302,
+          "before": "    el('h2', {}, 'Radiology Assistant foundation'),\n",
+          "after": "    el('h2', {}, ref.source_label || 'Radiology Assistant foundation'),\n"
+        },
+        {
+          "start": 2304,
+          "end": 2305,
+          "before": "      radiologySourceLink('The Radiology Assistant', 'https://radiologyassistant.nl/'),\n",
+          "after": "      ref.source_label ? 'Society guidelines and original reporting worksheets' : radiologySourceLink('The Radiology Assistant', 'https://radiologyassistant.nl/'),\n"
+        },
+        {
+          "start": 2308,
+          "end": 2309,
+          "before": "",
+          "after": "  if (ref.spine_neurology_map && !ref.investigation) section.append(renderSpineNeurologyMap(ref));\n"
+        },
+        {
+          "start": 2624,
+          "end": 2696,
+          "before": "",
+          "after": "function renderSpineNeurologyMap(ref) {\n  const data = ref.spine_neurology_map;\n  const root = el('section', { class: 'rad-neurology-map', 'aria-label': data.title },\n    el('h3', {}, data.title), el('p', {}, data.scope));\n  const level = el('select', { 'aria-label': 'Nerve level' },\n    ...data.levels.map(row => el('option', { value: row.root }, row.root + ' \u00b7 ' + row.sensory)));\n  level.value = ref.investigation?.id === 'ra.cervical-spine-injury' ? 'C6' : 'L5';\n  const mode = el('select', { 'aria-label': 'Map type' },\n    el('option', { value: 'sensory' }, 'Dermatomes \u00b7 sensory landmarks'),\n    el('option', { value: 'motor' }, 'Myotomes \u00b7 motor actions'));\n  const detail = el('div', { class: 'rad-neurology-detail', role: 'status', 'aria-live': 'polite' });\n  const drawing = el('div', { class: 'rad-neurology-drawing' });\n  root.append(el('div', { class: 'rad-neurology-controls' },\n    el('label', {}, 'Nerve level ', level), el('label', {}, 'Show ', mode)), drawing, detail);\n  const ns = 'http://www.w3.org/2000/svg';\n  function svgNode(tag, attrs, text) {\n    const node = document.createElementNS(ns, tag);\n    for (const [key, value] of Object.entries(attrs || {})) node.setAttribute(key, value);\n    if (text) node.textContent = text;\n    return node;\n  }\n  function show() {\n    const selected = data.levels.find(row => row.root === level.value);\n    const motor = mode.value === 'motor';\n    const svg = svgNode('svg', { viewBox: '0 0 600 470', role: 'group', 'aria-label': motor ? 'Myotome action locations' : 'Anterior and posterior sensory landmarks' });\n    svg.append(svgNode('title', {}, 'Approximate bilateral landmarks; select a dot or use the nerve level selector'));\n    const outline = 'M135 77 L135 90 Q105 90 100 106 L75 183 L57 245 Q55 261 69 263 L88 251 L106 190 L115 158 L113 218 Q105 244 110 265 L109 309 L107 406 L99 432 Q114 443 137 432 L143 323 L150 277 L157 323 L163 432 Q186 443 201 432 L193 406 L191 309 L190 265 Q195 244 187 218 L185 158 L194 190 L212 251 L231 263 Q245 261 243 245 L225 183 L200 106 Q195 90 165 90 L165 77';\n    for (const [index, view] of ['anterior', 'posterior'].entries()) {\n      const group = svgNode('g', { transform: 'translate(' + index * 300 + ',0)' });\n      group.append(svgNode('text', { x: 150, y: 20, 'text-anchor': 'middle' }, view === 'anterior' ? 'Anterior' : 'Posterior'),\n        svgNode('ellipse', { cx: 150, cy: 56, rx: 23, ry: 29, class: 'rad-neurology-body' }),\n        svgNode('path', { d: outline, class: 'rad-neurology-body' }));\n      for (const row of data.levels) {\n        if (motor ? !row.motor_point || view !== 'anterior' : row.view !== view) continue;\n        const [x, y] = motor ? row.motor_point : row.point;\n        for (const px of [x, 300 - x]) {\n          const dot = svgNode('circle', { cx: px, cy: y, r: row === selected ? 7 : 4,\n            class: 'rad-neurology-point' + (row === selected ? ' is-selected' : ''),\n            role: 'button', tabindex: '0', 'aria-label': row.root + ': ' + (motor ? row.motor : row.sensory),\n            'aria-pressed': String(row === selected) });\n          dot.append(svgNode('title', {}, row.root + ': ' + (motor ? row.motor : row.sensory)));\n          function choose() { level.value = row.root; show(); level.focus(); }\n          dot.addEventListener('click', choose);\n          dot.addEventListener('keydown', event => {\n            if (event.key === 'Enter' || event.key === ' ') { event.preventDefault(); choose(); }\n          });\n          group.append(dot);\n        }\n      }\n      svg.append(group);\n    }\n    drawing.replaceChildren(svg);\n    detail.replaceChildren(el('h4', {}, selected.root),\n      el('p', {}, 'Sensory landmark: ' + selected.sensory),\n      el('p', {}, 'Motor action: ' + selected.motor + '. ' + selected.muscle + '.'),\n      el('p', { class: 'muted' }, motor && !selected.motor_point ? 'No isolated key-muscle marker is plotted for this level.' :\n        'Highlighted dots show the selected level on both sides. Positions are schematic.'));\n  }\n  level.addEventListener('change', show); mode.addEventListener('change', show); show();\n  const table = el('table', { class: 'rad-measurement-table' },\n    el('caption', {}, 'Sensory landmarks and representative motor actions'),\n    el('thead', {}, el('tr', {}, ...['Level', 'Sensory landmark', 'Motor action', 'Representative muscles'].map(label => el('th', { scope: 'col' }, label)))),\n    el('tbody', {}, ...data.levels.map(row => el('tr', {}, el('th', { scope: 'row' }, row.root),\n      el('td', {}, row.sensory), el('td', {}, row.motor), el('td', {}, row.muscle)))));\n  root.append(el('div', { class: 'rad-table-scroll', tabindex: '0', 'aria-label': 'Neurology reference table' }, table),\n    el('h4', {}, 'Correlate with spine MRI'), el('ul', {}, ...data.mri_notes.map(note => el('li', {}, note))),\n    el('p', { class: 'muted' }, data.limits), el('p', { class: 'rad-image-credit' },\n      'Original schematic \u00b7 Reviewed ' + data.reviewed_at + ' \u00b7 Clinical references: ',\n      ...data.sources.map(source => el('span', {}, radiologySourceLink(source.publisher + ' \u2014 ' + source.title, source.url), ' \u00b7 '))));\n  return root;\n}\n\n"
+        },
+        {
+          "start": 2805,
+          "end": 2806,
+          "before": "  const root = el('section', { class: 'rad-reporting-diagrams' }, el('h3', {}, 'Classification diagrams'));\n",
+          "after": "  const root = el('section', { class: 'rad-reporting-diagrams' }, el('h3', {}, ref.source_label ? 'Reporting diagrams' : 'Classification diagrams'));\n"
+        },
+        {
+          "start": 2961,
+          "end": 2962,
+          "before": "    el('div', { class: 'rad-source-heading-list' }, el('span', {}, 'Radiology Assistant topics'),\n",
+          "after": "    el('div', { class: 'rad-source-heading-list' }, el('span', {}, n.source_label || 'Radiology Assistant topics'),\n"
+        },
+        {
+          "start": 2974,
+          "end": 2975,
+          "before": "",
+          "after": "    ...(ref.spine_neurology_map ? [['neurology', 'Dermatomes & myotomes', panel => panel.append(renderSpineNeurologyMap(ref))]] : []),\n"
+        }
+      ]
+    },
+    "web/styles.css": {
+      "before_sha256": "677085893dee6d4d95b3573e2f1dc07944760d5782b1ff266791fd2ff51f508c",
+      "after_sha256": "86fe8fc56fd90137ad989c0b000ab50655ef32a2de5047e344bde741f39c1afa",
+      "changes": [
+        {
+          "start": 5073,
+          "end": 5087,
+          "before": "",
+          "after": "\n/* Shared spine sensory / motor reference. */\n.rad-neurology-controls { display: flex; flex-wrap: wrap; gap: 1rem; margin: 1rem 0; }\n.rad-neurology-controls label { display: grid; gap: .4rem; min-width: 0; max-width: 100%; }\n.rad-neurology-controls select { max-width: 100%; padding: .55rem; }\n.rad-neurology-drawing { max-width: 680px; margin: auto; }\n.rad-neurology-drawing svg { display: block; width: 100%; height: auto; color: var(--ink, #263238); }\n.rad-neurology-drawing text { fill: currentColor; font-size: 16px; }\n.rad-neurology-body { fill: #e6edf0; stroke: #69818c; stroke-width: 1.5; }\n.rad-neurology-point { fill: #437589; stroke: white; stroke-width: 1; cursor: pointer; }\n.rad-neurology-point.is-selected { fill: #b54418; stroke: #fff; stroke-width: 2; }\n.rad-neurology-point:focus { outline: none; stroke: #121212; stroke-width: 3; }\n.rad-neurology-detail { border-left: 4px solid #b54418; padding: .5rem 1rem; margin-bottom: 1rem; }\n.rad-neurology-map .rad-image-credit span { display: inline; }\n"
+        }
+      ]
+    },
+    "primer/radiology_catalog.py": {
+      "before_sha256": "ce452b17638149658aa25a4f21008948c4572595a4c438fa65ddad38546f9290",
+      "after_sha256": "f3ad245dd99dd04e6420099785fdfd65ae0deb5531c5a7a551eddde3a99812e6",
+      "changes": [
+        {
+          "start": 915,
+          "end": 919,
+          "before": "",
+          "after": "    from .cardiology import investigations as cardiology_investigations\n    cardiology = next((item for item in cardiology_investigations() if item['id'] == identifier), None)\n    if cardiology:\n        return cardiology\n"
+        },
+        {
+          "start": 988,
+          "end": 991,
+          "before": "",
+          "after": "    if item['id'].startswith('cardiology.'):\n        from .cardiology import detail as cardiology_detail\n        return cardiology_detail(item)\n"
+        },
+        {
+          "start": 1101,
+          "end": 1103,
+          "before": "",
+          "after": "    if item['module_id'] == 'rad.4.spine-imaging':\n        ref['spine_neurology_map'] = _read('spine-neurology-map.json')\n"
+        },
+        {
+          "start": 1136,
+          "end": 1137,
+          "before": "",
+          "after": "    from .cardiology import investigations as cardiology_investigations\n"
+        },
+        {
+          "start": 1138,
+          "end": 1139,
+          "before": "    for item in catalogue()['investigations']:\n",
+          "after": "    for item in [*catalogue()['investigations'], *cardiology_investigations()]:\n"
+        },
+        {
+          "start": 1145,
+          "end": 1146,
+          "before": "            'topics': list(dict.fromkeys([item['topic'], item['modality'], *item['source_titles'],\n",
+          "after": "            'topics': list(dict.fromkeys([item['topic'], item['modality'], *item['source_titles'], *item.get('aliases', []),\n"
+        }
+      ]
+    }
+  },
+  "clinical_approval": false,
+  "fine_anatomical_approval": false,
+  "extends_historical_approval": false,
+  "native_decoder_mesh_CT_renderer_code_touched": false
+}

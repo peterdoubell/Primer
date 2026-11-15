@@ -1,0 +1,280 @@
+{
+  "schema_version": 1,
+  "reviewed_at_utc": "2026-10-11T18:17:32.492188+00:00",
+  "reviewer": "Independent QFT science reviewer",
+  "workspace": "/Users/peter/.codex/worktrees/quantum-field-fidelity/Primer",
+  "decision": "GO for the pinned scoped educational formulas, semantic claims and calibrated adapter quantities",
+  "educational_model_go": true,
+  "whole_continuum_qft_approved": false,
+  "clinical_approved": false,
+  "full_goal_complete": false,
+  "browser_reader_approval": false,
+  "browser_scope_note": "This receipt independently checks emitted model coordinates and source semantics. It does not certify authenticated reader flow, viewport screenshots, actual GPU pixels, deployment or production. The implementation owner is producing that separate proof.",
+  "pins": {
+    "web/physics-qft-lab.js": {
+      "sha256": "3f7fbf315e7a274038eb5951a464fd5a31b44167d738d25ec876d20c0bebdadb",
+      "bytes": 43036
+    },
+    "web/physics-qft-lab.css": {
+      "sha256": "7277c40849e9df88991fbd255f5436bfa720e72c25190adaa5677547f922497d",
+      "bytes": 1916
+    },
+    "web/spatial-qft.js": {
+      "sha256": "a9f482abc816ddebbfaa1a6ae55f234019aa70765f815daf22b267d8f324076f",
+      "bytes": 6697
+    },
+    "data/curriculum/03-physics.json": {
+      "sha256": "51ff41e05c596878310bde8d669387735e206abafb82ea606ad8d1b34032c9da",
+      "bytes": 289980
+    },
+    "tools/check_physics_qft_independent.js": {
+      "sha256": "0e22d171c4486c8cc87a785f9a5d292068382295ecf19e77f6e5000309f807f8",
+      "bytes": 19778
+    },
+    "web/illustrations/forest/physics/phys-5-qft-1600.webp": {
+      "sha256": "44cfea1f52cf343ef5bb2602a798c7cf6046fcde151867bd7c4d79f00332e4b2",
+      "bytes": 53396
+    }
+  },
+  "curriculum_node": {
+    "id": "phys.5.qft",
+    "canonicalization": "UTF-8 JSON, sorted keys, ensure_ascii=False, compact separators",
+    "sha256": "77a62ed6bd7b452c773744cc6f097d65a057993f20f191dbf6514bdfc006ed43",
+    "goal": "Fields as the deepest known description of matter.",
+    "questions": 10,
+    "stations": 9,
+    "retained_narrow_example": "phys-5-qft-concept-lab",
+    "retained_static_schematic": "phys-qft-field-quanta-amplitudes"
+  },
+  "independent_command": [
+    "node",
+    "tools/check_physics_qft_independent.js"
+  ],
+  "independent_exit_code": 0,
+  "independent_result": {
+    "review": "independent analytic/numerical QFT oracles",
+    "status": "pass",
+    "counts": {
+      "bosonic_operator_states": 729,
+      "fermionic_operator_states": 4,
+      "elastic_com_states": 72,
+      "dirac_states": 75,
+      "compton_states": 4,
+      "radial_quadrature_states": 48,
+      "continuum_comparisons": 3,
+      "casimir_integral_states": 12,
+      "perturbative_interference_states": 100,
+      "yukawa_green_function_states": 20,
+      "magnetic_vertex_states": 16,
+      "station_chart_states": 9,
+      "actual_spatial_adapter_states": 27,
+      "inverse_log_physical_chart_states": 9
+    },
+    "comparisons": 39469,
+    "sampledPoints": 1839,
+    "markers": 25,
+    "spatialPoints": 5517,
+    "spatialMarkers": 75,
+    "standingVertices": 1275,
+    "standingFaces": 1152,
+    "runtime_sha256": "3f7fbf315e7a274038eb5951a464fd5a31b44167d738d25ec876d20c0bebdadb",
+    "spatial_sha256": "a9f482abc816ddebbfaa1a6ae55f234019aa70765f815daf22b267d8f324076f",
+    "check_sha256": "0e22d171c4486c8cc87a785f9a5d292068382295ecf19e77f6e5000309f807f8",
+    "scope": "Declared finite free modes, COM kinematics, free Dirac branches, Compton scales, scalar subtraction toy, ideal EM Casimir, illustrative amplitude/rate expansions, scalar static Green function and leading electron anomaly. No continuum QFT, clinical or full-project approval."
+  },
+  "source_review": [
+    {
+      "title": "Tong, Free Fields (sections 2.1–2.4)",
+      "url": "https://davidtong.org/pdfs/teaching/quantum-field-theory/qft2.pdf",
+      "supports": [
+        "free-mode dispersion and oscillator occupation",
+        "regulated Casimir differences rather than finite mode counts"
+      ]
+    },
+    {
+      "title": "Tong, Interacting Fields (sections 3.4–3.5)",
+      "url": "https://davidtong.org/pdfs/teaching/quantum-field-theory/qft3.pdf",
+      "supports": [
+        "propagators and conservation at vertices",
+        "tree momenta fixed versus integrated independent loop momenta",
+        "amplitudes and rates"
+      ]
+    },
+    {
+      "title": "Tong, Dirac Equation and Quantizing the Dirac Field",
+      "url": "https://davidtong.org/pdfs/teaching/quantum-field-theory/qft5.pdf",
+      "supports": [
+        "fermionic anticommutation and occupied-mode exclusion",
+        "positive-energy quantum antiparticle excitations",
+        "negative classical-Hamiltonian branch is not a negative-energy observable particle"
+      ]
+    },
+    {
+      "title": "Casimir (1948), On the attraction between two perfectly conducting plates",
+      "url": "https://dwc.knaw.nl/DL/publications/PU00018547.pdf",
+      "supports": [
+        "ideal EM interaction energy and attractive pressure"
+      ]
+    },
+    {
+      "title": "Schwinger (1948), On Quantum-Electrodynamics and the Magnetic Moment of the Electron",
+      "url": "https://journals.aps.org/pr/abstract/10.1103/PhysRev.73.416",
+      "readable_original": "https://physics.umd.edu/grt/taj/624c/Schwinger_AnomalousMoment.pdf",
+      "supports": [
+        "leading radiative magnetic anomaly"
+      ]
+    },
+    {
+      "title": "Yukawa (1935), On the Interaction of Elementary Particles. I",
+      "url": "https://www.jstage.jst.go.jp/article/ppmsj1919/17/0/17_0_48/_article",
+      "doi": "10.11429/ppmsj1919.17.0_48",
+      "access_note": "Original publisher metadata was read; original PDF retrieval timed out. Runtime static Green-function expression was independently tested by its radial differential equation.",
+      "supports": [
+        "original mediator-range source identification"
+      ]
+    },
+    {
+      "title": "NIST CODATA 2022 extensive constants",
+      "url": "https://physics.nist.gov/cuu/pdf/all.pdf",
+      "supports": [
+        "exact SI constants",
+        "electron rest energy",
+        "Compton lengths",
+        "Bohr magneton",
+        "fine-structure constant"
+      ]
+    },
+    {
+      "title": "PDG 2024 Quantum Chromodynamics (section 9.2.1)",
+      "url": "https://pdg.lbl.gov/2024/reviews/rpp2024-rev-qcd.pdf",
+      "supports": [
+        "residual unphysical scale dependence at finite perturbative order"
+      ]
+    },
+    {
+      "title": "Penco (2020), An Introduction to Effective Field Theories",
+      "url": "https://arxiv.org/abs/2006.16285",
+      "supports": [
+        "matching and effective-theory qualifications"
+      ]
+    },
+    {
+      "title": "Fan et al. (2023), Measurement of the Electron Magnetic Moment",
+      "url": "https://arxiv.org/pdf/2209.13084",
+      "supports": [
+        "precision comparison requires independent alpha and additional Standard Model contributions",
+        "measurement is a constraint on structure, not a proof of literal structurelessness"
+      ]
+    }
+  ],
+  "question_by_question_review": [
+    {
+      "question": 1,
+      "station": "modes",
+      "review": "Shared field parameters are separated from the spin-statistics theorem hypotheses. Nine 1D periodic momenta and one fermionic spin-mode example are explicit finite models."
+    },
+    {
+      "question": 2,
+      "station": "scattering",
+      "review": "External mass shells, four-momentum conservation and fixed tree transfers are checked. Loop integration and diagram sums are distinguished. No spinor amplitude or differential cross section is claimed."
+    },
+    {
+      "question": 3,
+      "station": "antiparticle",
+      "review": "Free Dirac eigenvalues and eigenvectors are checked. Equal positive rest mass and opposite charge refer to physical quantum excitations; neutral self-conjugacy is separately qualified."
+    },
+    {
+      "question": 4,
+      "station": "compton",
+      "review": "Ordinary and reduced conventions are separated; rounded quiz answer 2.43 is preserved. Pair threshold is an invariant-energy necessary condition with permitted-interaction and conservation qualifications."
+    },
+    {
+      "question": 5,
+      "station": "renormalization",
+      "review": "A declared Euclidean radial scalar example illustrates subtraction and matching. It is not presented as the QED electron self-energy."
+    },
+    {
+      "question": 6,
+      "station": "casimir",
+      "review": "Zero-temperature perfect-conductor idealization, signed attraction and area approximation are explicit. The shown sine factor is not the full vector EM field or a pressure mode-count approximation."
+    },
+    {
+      "question": 7,
+      "station": "perturbation",
+      "review": "Declared rate correction and amplitude interference are separately computed; coefficient and phase are inputs. Rounded quiz answer 0.7 is preserved."
+    },
+    {
+      "question": 8,
+      "station": "mediator",
+      "review": "The scalar static unit-coupling Green-function model has an exponential e-fold scale, no hard range endpoint and no energy-borrowing particle trajectory. Rounded quiz answer 1 is preserved."
+    },
+    {
+      "question": 9,
+      "station": "magnetic",
+      "review": "Schwinger one-loop anomaly and signed electron Zeeman energies are checked. No full precision prediction or literal point-particle proof is claimed."
+    },
+    {
+      "question": 10,
+      "station": "renormalization",
+      "review": "Allowed counterterms, enough measured inputs, a permitted continuum limit and finite cutoff/order/EFT remainders are explicit."
+    }
+  ],
+  "resolved_findings": [
+    {
+      "id": "qft-constant-precision",
+      "finding": "Rounded ħc decimal used beside exact h,c,e gave a 3.0e−10 relative SI consistency mismatch.",
+      "initial_observation": {
+        "exit_code": 1,
+        "context": "periodic relativistic energy",
+        "actual": 49.59368036656875,
+        "independent_expected": 49.59368038147309
+      },
+      "resolution": "ħc is now derived from exact SI h,c,e. This was a numerical consistency issue, not a material experimental discrepancy."
+    },
+    {
+      "id": "qft-quiz-claims",
+      "finding": "Historical quiz text overstated identity-to-statistics, integrated all internal momenta, absolute Compton localization, literal finite mode-count Casimir reasoning and precision/structure claims.",
+      "resolution": "Bounded amendments now state the scientific conditions, model limits and precision inputs; all ten current questions were reread, and numerical answers 2.43, 0.7 and 1 are preserved."
+    },
+    {
+      "id": "qft-complex-chart",
+      "finding": "Equal-unit amplitude coordinates had independent display gains.",
+      "resolution": "Amplitude-circle charts now use a shared physical gain in 2D and in the actual spatial adapter."
+    },
+    {
+      "id": "qft-scattering-angle",
+      "finding": "The default 60-degree scattering vector appeared at approximately 70.9 degrees due to anisotropic display gains.",
+      "initial_observation": {
+        "exit_code": 1,
+        "assertion": "momentum component diagram preserves physical scattering angles",
+        "actual_equalScale": "undefined",
+        "expected_equalScale": true
+      },
+      "resolution": "Momentum diagrams and other same-unit dispersion/Dirac branch charts now use equal gains. The independent check requires the scattering and amplitude flags and verifies adapter gains."
+    },
+    {
+      "id": "qft-log-charts",
+      "finding": "Broad inverse-mass and steep power-law ranges compressed selected quantities on the original linear charts.",
+      "resolution": "Explicitly labelled log coordinates are independently inverted to recover physical lengths and signed attractive pressure/potential magnitudes. Exact signed selected values remain in the ledger."
+    },
+    {
+      "id": "qft-primary-links",
+      "finding": "Old Cambridge Tong URLs failed to fetch, and the Yukawa DOI identified a later supplement location beside a 1935 label.",
+      "resolution": "Runtime links use the reachable author site and original 1935 publisher page; primary source access limitations are disclosed above."
+    }
+  ],
+  "static_visual_inspection": {
+    "path": "web/illustrations/forest/physics/phys-5-qft-1600.webp",
+    "inspected": true,
+    "finding": "The retained diagram correctly labels the bosonic spatial mode as distinct from mean field, shows E=(n+1/2)ħω, and identifies the exchange contribution as amplitude bookkeeping rather than a photographed trajectory."
+  },
+  "limitations": [
+    "Float64 arithmetic and finite chart sampling are disclosed; line interpolation is not a theorem or extra allowed discrete state.",
+    "The scalar loop is a subtraction illustration, not an interacting QED solver.",
+    "Ideal plates omit material, thermal, roughness and electrostatic measurement corrections.",
+    "The static scalar mediator model omits gauge structure, spin, screening, composite interactions and strong coupling.",
+    "The leading magnetic anomaly omits higher QED, hadronic and weak contributions.",
+    "The plotted diagram is categorical topology; emitted coordinate graphs are calibrated plots rather than photographed fields."
+  ],
+  "remaining_substantive_science_findings": []
+}

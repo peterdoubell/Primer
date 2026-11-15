@@ -1,0 +1,7 @@
+{
+  "exit_code": 1,
+  "assertion": "accepted-degree endpoint invariant t",
+  "cause": "The independent checker applied a relative ratio to expected underflowed zero (0/0), outside its representable-magnitude assumption.",
+  "repair": "Apply relative endpoint accuracy only for normal representable invariant magnitudes; underflow classification/logarithms have separate checks.",
+  "product_source_changed": false
+}

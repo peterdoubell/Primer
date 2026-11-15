@@ -1,0 +1,48 @@
+{
+  "cases": [
+    {
+      "fault": "wrong-range",
+      "rejected": true,
+      "recoveredNativePixels": true
+    },
+    {
+      "fault": "ignored-range",
+      "rejected": true,
+      "recoveredNativePixels": true
+    },
+    {
+      "fault": "corruption",
+      "rejected": true,
+      "recoveredNativePixels": true
+    },
+    {
+      "fault": "missing",
+      "rejected": true,
+      "recoveredNativePixels": true
+    },
+    {
+      "fault": "empty MRI window",
+      "schematicIndependent": true,
+      "mriRejectsRetainedInvalidDraft": true,
+      "recoveredNativePixels": true
+    },
+    {
+      "fault": "delayed MRI after mode change",
+      "staleResponseDidNotOverwriteSchematic": true
+    }
+  ],
+  "runtimeBound": true,
+  "clinicalApproval": false,
+  "sourceSHA256": {
+    "web/anatomy/schirmer-vascular/index.html": "b7d53774159fef0f46a89ca227e65d54a73a7706027cfd5e38fbabc913eadd0e",
+    "web/anatomy/schirmer-vascular/viewer.js": "2213f13d20c743483c03141fdd2362cb8fd33f5c88a7616389daa4971bba17b7",
+    "web/anatomy/schirmer-vascular/viewer.css": "956949497cdcdd7839def227c587fd3caf9f41dc0ac0d3f9948481be6d382add",
+    "web/anatomy/schirmer-vascular/schematic.js": "d801339a924efd507afbdf6f66e2b5f47d1df9ba465467b45465bbe1ae4a0ec5",
+    "web/anatomy/schirmer-vascular/config.json": "b4f6ad9e841243868a777855e1d7f9ac0b8facd52594ad08bb61802b00e64c0c",
+    "web/anatomy/schirmer-vascular/manifest.json": "85277d7ec002de3f5641f1bc6145a911dd8497b85cce272f23256faa1425d091",
+    "web/anatomy/schirmer-vascular/labels.json": "e5e0bafa066253d43153c2404c2872a69613cf12bc68badf00b140154e7ae67b",
+    "web/anatomy/schirmer-vascular/hierarchy.json": "1bb48c8428d33db411cb6a54634c3d22a485f176d45bc873442e065a3cbb56ba",
+    "tools/check_schirmer_recovery.cjs": "9304a45aafa05df6da9b4c0a0241a79913ed3b937a4a45f35777a6eb235787aa"
+  },
+  "allPassed": true
+}

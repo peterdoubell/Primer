@@ -5,7 +5,6 @@ import hashlib
 import json
 from pathlib import Path
 import numpy as np
-import nibabel as nib
 from scipy import ndimage
 
 CORNERS=np.array([(x,y,z) for x in (0,1) for y in (0,1) for z in (0,1)])
@@ -20,6 +19,8 @@ def cube_components():
 
 
 def localize(root,output):
+    # Native volume I/O is separate from the reusable numerical cube lookup.
+    import nibabel as nib
     output.mkdir(parents=True,exist_ok=True);acquisition=json.loads((root/'acquisition.json').read_text());name='1_CT_HR_label_airways.nii.gz'
     source=next(e for e in acquisition['files'] if e['name']==name);path=root/name
     if hashlib.sha256(path.read_bytes()).hexdigest()!=source['sha256']:raise ValueError('Source label changed')

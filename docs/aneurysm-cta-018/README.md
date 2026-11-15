@@ -1,0 +1,9 @@
+# Middle cerebral artery aneurysm CTA
+
+The Intracranial Haemorrhage lesson and the Non-traumatic Intracranial Haemorrhage reporting reference link to case 018 of the [CTA dataset by Evgenia Blagosklonova and colleagues](https://doi.org/10.5281/zenodo.15697196). The dataset is distributed under [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/). The [published data descriptor](https://doi.org/10.3390/data11040074) describes the source defacing, aneurysm annotation and metadata. The source metadata identifies a left middle cerebral artery aneurysm and records a positive rupture flag.
+
+The reader retains the full 512 × 512 × 334 stored sample array as signed little-endian integers and applies the original per-section linear rescale. Its in-plane spacing is 0.625 mm and the section centres are spaced 0.8 mm apart. The acquisition receipt lists SHA-256 and validated ZIP member CRCs for the original 334 DICOMs and STL. It records verification at the member level.
+
+The original 1,456 triangles retain their winding and order. The model renderer uses an LPS-to-RAS sign conversion and Float32 positions with a maximum absolute coordinate difference of 0.000015 mm from the converted text coordinates. The reader package includes the original STL in gzip. Plane intersections use the original text coordinates and are drawn in native row and column order. Median attenuation inside the contour was higher with the LPS interpretation on all 12 intersecting sections. This supports the orientation used by the reader. Reviewers can inspect the per-section values in `alignment-proof.json`.
+
+The surface represents the contrast-opacified sac lumen. The parent arteries, wall, thrombus, calcification, haemorrhage extent and rupture location require separate source annotations. Independent specialist review of the Primer rendition remains open.

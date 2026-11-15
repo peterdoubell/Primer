@@ -1,0 +1,2184 @@
+{
+  "schema_version": 1,
+  "base_commit": "4a2cd9bd856beae68e85d4d9050cd10cce5f9651",
+  "module_id": "math.4.linalg",
+  "quiz_index": 8,
+  "files": {
+    "data/curriculum/01-mathematics.json": {
+      "before_sha256": "f57ab18d5a4657547b7f9bdaf725bad6486d109be640fe5acc683e3759f62d4c",
+      "after_sha256": "545477aedd91455cd2a27f46ef1f5bb1f4d8da5e1adf08918a4a18476f31c215",
+      "before_bytes": 397399,
+      "after_bytes": 398337,
+      "changes": [
+        {
+          "start": 5674,
+          "end": 5684,
+          "before": "",
+          "after": "        },\n        {\n          \"id\": \"explore-linear-maps-and-kernels\",\n          \"kind\": \"model\",\n          \"renderer\": \"linear-algebra-lab\",\n          \"title\": \"Explore linear maps, spaces and powers\",\n          \"instructions\": \"Compare matrix action, solution constraints, span, kernels and repeated application. Read exact coordinates alongside each drawing, including all four coordinates in the higher-dimensional example.\",\n          \"props\": {\n            \"scenario\": \"math.4.linalg\"\n          }\n"
+        },
+        {
+          "start": 5768,
+          "end": 5770,
+          "before": "          \"prompt\": \"Suppose a 2-by-2 matrix A has eigenvalues 0.5 and 0.9. Predict what repeatedly applying A does to a typical starting vector.\",\n          \"answer\": \"It shrinks toward the origin\",\n",
+          "after": "          \"prompt\": \"A real 2-by-2 matrix A has eigenvalues 0.5 and 0.9. For any fixed starting vector v, what happens to A^n v as n grows without bound?\",\n          \"answer\": \"It converges to the zero vector; its length need not decrease at every step.\",\n"
+        },
+        {
+          "start": 5771,
+          "end": 5775,
+          "before": "            \"It shrinks toward the origin\",\n            \"It grows without any bound\",\n            \"It settles onto the eigenvector with eigenvalue 0.9\",\n            \"It settles onto a nonzero fixed vector\"\n",
+          "after": "            \"It converges to the zero vector; its length need not decrease at every step.\",\n            \"Its length grows without bound for every nonzero starting vector.\",\n            \"It converges to a nonzero vector in the 0.9-eigenspace.\",\n            \"It always reaches the zero vector after finitely many steps.\"\n"
+        },
+        {
+          "start": 5776,
+          "end": 5777,
+          "before": "          \"explain\": \"Both eigenvalues have magnitude below one, so every component decays and the vector collapses to the origin. Its direction does line up with the 0.9-eigenvector, but the length still goes to zero, so nothing nonzero survives.\"\n",
+          "after": "          \"explain\": \"The distinct real eigenvalues give an eigenbasis. Each coefficient in that basis is multiplied by 0.5^n or 0.9^n, so the vector tends to zero. This is an eventual limit, not a guarantee that Euclidean length decreases at every step: a matrix with nonorthogonal eigenvectors can have transient growth. If the starting vector has a nonzero component in the 0.9-eigendirection, its direction eventually approaches that eigenline; a vector entirely in the 0.5-eigendirection stays on that line.\"\n"
+        }
+      ]
+    },
+    "primer/curriculum.py": {
+      "before_sha256": "61ef976bf2cadc742f07a9c7945a5a10446a0764bd89be31358de26d007c3dc5",
+      "after_sha256": "134440510e6f2efdb14efcdade33b36b8b552ed340bca67b8f9f69b266dd03c8",
+      "before_bytes": 82537,
+      "after_bytes": 82856,
+      "changes": [
+        {
+          "start": 181,
+          "end": 182,
+          "before": "    \"truth-table-lab\", \"stack-queue-lab\", \"matrix-transform-lab\",\n",
+          "after": "    \"truth-table-lab\", \"stack-queue-lab\", \"matrix-transform-lab\", \"linear-algebra-lab\",\n"
+        },
+        {
+          "start": 600,
+          "end": 604,
+          "before": "",
+          "after": "                        node.get(\"id\")))\n            elif renderer == \"linear-algebra-lab\":\n                if props != {\"scenario\": \"math.4.linalg\"} or node.get(\"id\") != \"math.4.linalg\":\n                    raise ValueError(\"{} linear algebra lab has an unknown or cross-lesson scenario\".format(\n"
+        }
+      ]
+    },
+    "web/index.html": {
+      "before_sha256": "47deb2001c09688960602b87e534e38c346c3fe10255a06e8f6f9f674f6ab3d6",
+      "after_sha256": "962634640436a074fcf1aac7be949cfbfedac16329579f35f5547c65c1d22184",
+      "before_bytes": 5955,
+      "after_bytes": 6008,
+      "changes": [
+        {
+          "start": 108,
+          "end": 109,
+          "before": "",
+          "after": "  <script src=\"/app/linear-algebra-lab.js\"></script>\n"
+        }
+      ]
+    },
+    "web/lesson-models.js": {
+      "before_sha256": "25d0b22415fbecaafb1381182a3c8bffbabf335a8aa2453df8f81e31d0bcec8b",
+      "after_sha256": "d687673d197f40be1b8dbeb3c0beac5f7821050503c8d7ddfd77a34718fffd3d",
+      "before_bytes": 338052,
+      "after_bytes": 338180,
+      "changes": [
+        {
+          "start": 6213,
+          "end": 6214,
+          "before": "",
+          "after": "    'linear-algebra-lab': (item, hooks) => window.PrimerLinearAlgebraLab?.render(item, hooks, modelFrame(item, hooks)) || null,\n"
+        }
+      ]
+    }
+  },
+  "before_quiz": {
+    "kind": "choice",
+    "prompt": "Suppose a 2-by-2 matrix A has eigenvalues 0.5 and 0.9. Predict what repeatedly applying A does to a typical starting vector.",
+    "answer": "It shrinks toward the origin",
+    "choices": [
+      "It shrinks toward the origin",
+      "It grows without any bound",
+      "It settles onto the eigenvector with eigenvalue 0.9",
+      "It settles onto a nonzero fixed vector"
+    ],
+    "explain": "Both eigenvalues have magnitude below one, so every component decays and the vector collapses to the origin. Its direction does line up with the 0.9-eigenvector, but the length still goes to zero, so nothing nonzero survives."
+  },
+  "after_quiz": {
+    "kind": "choice",
+    "prompt": "A real 2-by-2 matrix A has eigenvalues 0.5 and 0.9. For any fixed starting vector v, what happens to A^n v as n grows without bound?",
+    "answer": "It converges to the zero vector; its length need not decrease at every step.",
+    "choices": [
+      "It converges to the zero vector; its length need not decrease at every step.",
+      "Its length grows without bound for every nonzero starting vector.",
+      "It converges to a nonzero vector in the 0.9-eigenspace.",
+      "It always reaches the zero vector after finitely many steps."
+    ],
+    "explain": "The distinct real eigenvalues give an eigenbasis. Each coefficient in that basis is multiplied by 0.5^n or 0.9^n, so the vector tends to zero. This is an eventual limit, not a guarantee that Euclidean length decreases at every step: a matrix with nonorthogonal eigenvectors can have transient growth. If the starting vector has a nonzero component in the 0.9-eigendirection, its direction eventually approaches that eigenline; a vector entirely in the 0.5-eigendirection stays on that line."
+  },
+  "added_media": {
+    "id": "explore-linear-maps-and-kernels",
+    "kind": "model",
+    "renderer": "linear-algebra-lab",
+    "title": "Explore linear maps, spaces and powers",
+    "instructions": "Compare matrix action, solution constraints, span, kernels and repeated application. Read exact coordinates alongside each drawing, including all four coordinates in the higher-dimensional example.",
+    "props": {
+      "scenario": "math.4.linalg"
+    }
+  },
+  "derived_duration": {
+    "current_corpus_sha256": {
+      "data/curriculum/01-mathematics.json": "545477aedd91455cd2a27f46ef1f5bb1f4d8da5e1adf08918a4a18476f31c215",
+      "data/curriculum/02-language.json": "a9c6603b03958b12a131c82afc37286fb822cd67e4fc8b5538aec9c04e16bed9",
+      "data/curriculum/03-physics.json": "645563ea298e33d44ed9122d38193d428fd9bb9238cc469ea437d77e9cc1dd20",
+      "data/curriculum/04-life-sciences.json": "31d8366ef9a9de92e7883a2fc096fc132bc2c3ebd964fca3554ebe100030bde8",
+      "data/curriculum/05-chemistry.json": "bb3d1e258e40138b7e285f432495defee2a6954907d4d4c5b7b2b46689389352",
+      "data/curriculum/06-computer-science.json": "64e9ba12b63ca74ba661f8c6aa869bd2fa329ce718165ddb3dcdc8533f913e80",
+      "data/curriculum/07-history.json": "449271309a30e9bf36ce1ecc542a2770766044f1923e11f051f2898896547996",
+      "data/curriculum/08-earth-space.json": "e352bf7d13848556dfc4a500346f6ae54dc373fa6fa9e90f05eb36e944051739",
+      "data/curriculum/09-arts.json": "fd04e95504d40d59df93220113fd49b55a706324aec13d7b6e2379a4541b4c2f",
+      "data/curriculum/10-mind-society.json": "e4cd4de15b5591c518919246faa24e98f3eb4a5a627f0b8850bd969c2489c309",
+      "data/curriculum/11-radiology.json": "1abdaa39641e7daf7bb92b572a702131cbc61839631cd80db42500acdc8533ab",
+      "data/curriculum/12-engineering.json": "cd67d2aa149e82a08c2a3907f27d223189bfcf5fc1f7f90ecdddc3bc4162075b",
+      "data/curriculum/13-health.json": "91ce33a65f66f452bb41e68b68331d0d3b8a56a6ba6a89960e170fc193c501d5",
+      "data/curriculum/14-environment-agriculture.json": "038d09430fc7b666c5c1b72e75db391fcbbdc05e68451c03644c72422b725380",
+      "data/curriculum/15-architecture-design.json": "b870c655b6179c28305424f814382959e764cfa87c5b36c1c7562cac4d664395",
+      "data/curriculum/16-business-economics.json": "7bcc85831babc3d4a7ea6653a64ef9a72b65508d9f0c34a0bdb7625b4581f791",
+      "data/curriculum/17-law-civics.json": "22135806ba92ad38c87e4abbcee2aaaa538046efd67541aff300033ebf80f356",
+      "data/curriculum/18-education.json": "faa8ede479ff5bd144d4d5a7b2207e84a7a72c505496c91877cf2b1c1d961767",
+      "data/curriculum/19-communication-media.json": "3a4d50038a695089dd35bc733dce41cfb544fe9412e15a0941c6c9efcb048bad"
+    },
+    "current": {
+      "pool_count": 84,
+      "pool_character_sum": 307230,
+      "rows": [
+        {
+          "id": "arts.4.aesthetics",
+          "file": "data/curriculum/09-arts.json",
+          "characters": 4118,
+          "authored_minutes": null,
+          "unrounded_numerator": 395328,
+          "unrounded_denominator": 209,
+          "minutes": 1890
+        },
+        {
+          "id": "arts.4.art-theory",
+          "file": "data/curriculum/09-arts.json",
+          "characters": 4270,
+          "authored_minutes": null,
+          "unrounded_numerator": 409920,
+          "unrounded_denominator": 209,
+          "minutes": 1960
+        },
+        {
+          "id": "arts.4.composition",
+          "file": "data/curriculum/09-arts.json",
+          "characters": 3265,
+          "authored_minutes": null,
+          "unrounded_numerator": 313440,
+          "unrounded_denominator": 209,
+          "minutes": 1500
+        },
+        {
+          "id": "arts.4.world-arts",
+          "file": "data/curriculum/09-arts.json",
+          "characters": 3756,
+          "authored_minutes": null,
+          "unrounded_numerator": 360576,
+          "unrounded_denominator": 209,
+          "minutes": 1725
+        },
+        {
+          "id": "bio.4.biochem",
+          "file": "data/curriculum/04-life-sciences.json",
+          "characters": 3813,
+          "authored_minutes": null,
+          "unrounded_numerator": 366048,
+          "unrounded_denominator": 209,
+          "minutes": 1750
+        },
+        {
+          "id": "bio.4.ethology",
+          "file": "data/curriculum/04-life-sciences.json",
+          "characters": 8490,
+          "authored_minutes": null,
+          "unrounded_numerator": 2520,
+          "unrounded_denominator": 1,
+          "minutes": 2520
+        },
+        {
+          "id": "bio.4.evo-bio",
+          "file": "data/curriculum/04-life-sciences.json",
+          "characters": 4201,
+          "authored_minutes": null,
+          "unrounded_numerator": 403296,
+          "unrounded_denominator": 209,
+          "minutes": 1930
+        },
+        {
+          "id": "bio.4.genomics",
+          "file": "data/curriculum/04-life-sciences.json",
+          "characters": 3922,
+          "authored_minutes": null,
+          "unrounded_numerator": 376512,
+          "unrounded_denominator": 209,
+          "minutes": 1800
+        },
+        {
+          "id": "bio.4.molecular",
+          "file": "data/curriculum/04-life-sciences.json",
+          "characters": 4452,
+          "authored_minutes": null,
+          "unrounded_numerator": 427392,
+          "unrounded_denominator": 209,
+          "minutes": 2045
+        },
+        {
+          "id": "bio.4.neuro",
+          "file": "data/curriculum/04-life-sciences.json",
+          "characters": 3498,
+          "authored_minutes": null,
+          "unrounded_numerator": 30528,
+          "unrounded_denominator": 19,
+          "minutes": 1605
+        },
+        {
+          "id": "bio.4.physiology",
+          "file": "data/curriculum/04-life-sciences.json",
+          "characters": 3569,
+          "authored_minutes": null,
+          "unrounded_numerator": 342624,
+          "unrounded_denominator": 209,
+          "minutes": 1640
+        },
+        {
+          "id": "business.4.evidence",
+          "file": "data/curriculum/16-business-economics.json",
+          "characters": 1981,
+          "authored_minutes": null,
+          "unrounded_numerator": 190176,
+          "unrounded_denominator": 209,
+          "minutes": 910
+        },
+        {
+          "id": "business.4.incentives",
+          "file": "data/curriculum/16-business-economics.json",
+          "characters": 1862,
+          "authored_minutes": null,
+          "unrounded_numerator": 9408,
+          "unrounded_denominator": 11,
+          "minutes": 855
+        },
+        {
+          "id": "chem.4.analytical",
+          "file": "data/curriculum/05-chemistry.json",
+          "characters": 3434,
+          "authored_minutes": null,
+          "unrounded_numerator": 329664,
+          "unrounded_denominator": 209,
+          "minutes": 1575
+        },
+        {
+          "id": "chem.4.electrochem",
+          "file": "data/curriculum/05-chemistry.json",
+          "characters": 2868,
+          "authored_minutes": null,
+          "unrounded_numerator": 275328,
+          "unrounded_denominator": 209,
+          "minutes": 1315
+        },
+        {
+          "id": "chem.4.inorganic",
+          "file": "data/curriculum/05-chemistry.json",
+          "characters": 3067,
+          "authored_minutes": null,
+          "unrounded_numerator": 294432,
+          "unrounded_denominator": 209,
+          "minutes": 1410
+        },
+        {
+          "id": "chem.4.organic",
+          "file": "data/curriculum/05-chemistry.json",
+          "characters": 3343,
+          "authored_minutes": null,
+          "unrounded_numerator": 320928,
+          "unrounded_denominator": 209,
+          "minutes": 1535
+        },
+        {
+          "id": "chem.4.physical",
+          "file": "data/curriculum/05-chemistry.json",
+          "characters": 2836,
+          "authored_minutes": null,
+          "unrounded_numerator": 272256,
+          "unrounded_denominator": 209,
+          "minutes": 1305
+        },
+        {
+          "id": "chem.4.quantum-chem",
+          "file": "data/curriculum/05-chemistry.json",
+          "characters": 2862,
+          "authored_minutes": null,
+          "unrounded_numerator": 274752,
+          "unrounded_denominator": 209,
+          "minutes": 1315
+        },
+        {
+          "id": "civics.4.comparative",
+          "file": "data/curriculum/17-law-civics.json",
+          "characters": 2080,
+          "authored_minutes": null,
+          "unrounded_numerator": 199680,
+          "unrounded_denominator": 209,
+          "minutes": 955
+        },
+        {
+          "id": "civics.4.policy-evaluation",
+          "file": "data/curriculum/17-law-civics.json",
+          "characters": 1928,
+          "authored_minutes": null,
+          "unrounded_numerator": 185088,
+          "unrounded_denominator": 209,
+          "minutes": 885
+        },
+        {
+          "id": "cs.4.algorithms-adv",
+          "file": "data/curriculum/06-computer-science.json",
+          "characters": 4064,
+          "authored_minutes": null,
+          "unrounded_numerator": 390144,
+          "unrounded_denominator": 209,
+          "minutes": 1865
+        },
+        {
+          "id": "cs.4.databases-adv",
+          "file": "data/curriculum/06-computer-science.json",
+          "characters": 3942,
+          "authored_minutes": null,
+          "unrounded_numerator": 378432,
+          "unrounded_denominator": 209,
+          "minutes": 1810
+        },
+        {
+          "id": "cs.4.ml",
+          "file": "data/curriculum/06-computer-science.json",
+          "characters": 3662,
+          "authored_minutes": null,
+          "unrounded_numerator": 351552,
+          "unrounded_denominator": 209,
+          "minutes": 1680
+        },
+        {
+          "id": "cs.4.networks",
+          "file": "data/curriculum/06-computer-science.json",
+          "characters": 4196,
+          "authored_minutes": null,
+          "unrounded_numerator": 402816,
+          "unrounded_denominator": 209,
+          "minutes": 1925
+        },
+        {
+          "id": "cs.4.os",
+          "file": "data/curriculum/06-computer-science.json",
+          "characters": 4049,
+          "authored_minutes": null,
+          "unrounded_numerator": 388704,
+          "unrounded_denominator": 209,
+          "minutes": 1860
+        },
+        {
+          "id": "cs.4.security",
+          "file": "data/curriculum/06-computer-science.json",
+          "characters": 3768,
+          "authored_minutes": null,
+          "unrounded_numerator": 361728,
+          "unrounded_denominator": 209,
+          "minutes": 1730
+        },
+        {
+          "id": "cs.4.systems",
+          "file": "data/curriculum/06-computer-science.json",
+          "characters": 3700,
+          "authored_minutes": null,
+          "unrounded_numerator": 355200,
+          "unrounded_denominator": 209,
+          "minutes": 1700
+        },
+        {
+          "id": "cs.4.theory",
+          "file": "data/curriculum/06-computer-science.json",
+          "characters": 4303,
+          "authored_minutes": null,
+          "unrounded_numerator": 413088,
+          "unrounded_denominator": 209,
+          "minutes": 1975
+        },
+        {
+          "id": "design.4.evaluation",
+          "file": "data/curriculum/15-architecture-design.json",
+          "characters": 2498,
+          "authored_minutes": null,
+          "unrounded_numerator": 239808,
+          "unrounded_denominator": 209,
+          "minutes": 1145
+        },
+        {
+          "id": "design.4.performance",
+          "file": "data/curriculum/15-architecture-design.json",
+          "characters": 2569,
+          "authored_minutes": null,
+          "unrounded_numerator": 246624,
+          "unrounded_denominator": 209,
+          "minutes": 1180
+        },
+        {
+          "id": "earth.4.astrophysics",
+          "file": "data/curriculum/08-earth-space.json",
+          "characters": 3923,
+          "authored_minutes": null,
+          "unrounded_numerator": 376608,
+          "unrounded_denominator": 209,
+          "minutes": 1800
+        },
+        {
+          "id": "earth.4.climatology",
+          "file": "data/curriculum/08-earth-space.json",
+          "characters": 3875,
+          "authored_minutes": null,
+          "unrounded_numerator": 372000,
+          "unrounded_denominator": 209,
+          "minutes": 1780
+        },
+        {
+          "id": "earth.4.geophysics",
+          "file": "data/curriculum/08-earth-space.json",
+          "characters": 3788,
+          "authored_minutes": null,
+          "unrounded_numerator": 363648,
+          "unrounded_denominator": 209,
+          "minutes": 1740
+        },
+        {
+          "id": "earth.4.oceanatmos",
+          "file": "data/curriculum/08-earth-space.json",
+          "characters": 4269,
+          "authored_minutes": null,
+          "unrounded_numerator": 409824,
+          "unrounded_denominator": 209,
+          "minutes": 1960
+        },
+        {
+          "id": "earth.4.planetary",
+          "file": "data/curriculum/08-earth-space.json",
+          "characters": 3818,
+          "authored_minutes": null,
+          "unrounded_numerator": 366528,
+          "unrounded_denominator": 209,
+          "minutes": 1755
+        },
+        {
+          "id": "education.4.measurement",
+          "file": "data/curriculum/18-education.json",
+          "characters": 2144,
+          "authored_minutes": null,
+          "unrounded_numerator": 205824,
+          "unrounded_denominator": 209,
+          "minutes": 985
+        },
+        {
+          "id": "education.4.research-design",
+          "file": "data/curriculum/18-education.json",
+          "characters": 2064,
+          "authored_minutes": null,
+          "unrounded_numerator": 198144,
+          "unrounded_denominator": 209,
+          "minutes": 950
+        },
+        {
+          "id": "eng.4.control",
+          "file": "data/curriculum/12-engineering.json",
+          "characters": 2464,
+          "authored_minutes": null,
+          "unrounded_numerator": 21504,
+          "unrounded_denominator": 19,
+          "minutes": 1130
+        },
+        {
+          "id": "eng.4.reliability",
+          "file": "data/curriculum/12-engineering.json",
+          "characters": 2600,
+          "authored_minutes": null,
+          "unrounded_numerator": 249600,
+          "unrounded_denominator": 209,
+          "minutes": 1195
+        },
+        {
+          "id": "env.4.agroecology",
+          "file": "data/curriculum/14-environment-agriculture.json",
+          "characters": 2508,
+          "authored_minutes": null,
+          "unrounded_numerator": 1152,
+          "unrounded_denominator": 1,
+          "minutes": 1150
+        },
+        {
+          "id": "env.4.field-methods",
+          "file": "data/curriculum/14-environment-agriculture.json",
+          "characters": 2660,
+          "authored_minutes": null,
+          "unrounded_numerator": 13440,
+          "unrounded_denominator": 11,
+          "minutes": 1220
+        },
+        {
+          "id": "health.4.appraisal",
+          "file": "data/curriculum/13-health.json",
+          "characters": 2844,
+          "authored_minutes": null,
+          "unrounded_numerator": 273024,
+          "unrounded_denominator": 209,
+          "minutes": 1305
+        },
+        {
+          "id": "health.4.causal-inference",
+          "file": "data/curriculum/13-health.json",
+          "characters": 2873,
+          "authored_minutes": null,
+          "unrounded_numerator": 275808,
+          "unrounded_denominator": 209,
+          "minutes": 1320
+        },
+        {
+          "id": "hist.4.economics",
+          "file": "data/curriculum/07-history.json",
+          "characters": 4216,
+          "authored_minutes": null,
+          "unrounded_numerator": 404736,
+          "unrounded_denominator": 209,
+          "minutes": 1935
+        },
+        {
+          "id": "hist.4.geopolitics",
+          "file": "data/curriculum/07-history.json",
+          "characters": 5194,
+          "authored_minutes": null,
+          "unrounded_numerator": 498624,
+          "unrounded_denominator": 209,
+          "minutes": 2385
+        },
+        {
+          "id": "hist.4.historiography",
+          "file": "data/curriculum/07-history.json",
+          "characters": 4527,
+          "authored_minutes": null,
+          "unrounded_numerator": 434592,
+          "unrounded_denominator": 209,
+          "minutes": 2080
+        },
+        {
+          "id": "hist.4.law",
+          "file": "data/curriculum/07-history.json",
+          "characters": 5353,
+          "authored_minutes": null,
+          "unrounded_numerator": 513888,
+          "unrounded_denominator": 209,
+          "minutes": 2460
+        },
+        {
+          "id": "hist.4.political-sci",
+          "file": "data/curriculum/07-history.json",
+          "characters": 5622,
+          "authored_minutes": null,
+          "unrounded_numerator": 2520,
+          "unrounded_denominator": 1,
+          "minutes": 2520
+        },
+        {
+          "id": "hist.4.social-history",
+          "file": "data/curriculum/07-history.json",
+          "characters": 5433,
+          "authored_minutes": null,
+          "unrounded_numerator": 521568,
+          "unrounded_denominator": 209,
+          "minutes": 2495
+        },
+        {
+          "id": "img.4.inverse-problems",
+          "file": "data/curriculum/11-radiology.json",
+          "characters": 1757,
+          "authored_minutes": null,
+          "unrounded_numerator": 840,
+          "unrounded_denominator": 1,
+          "minutes": 840
+        },
+        {
+          "id": "img.4.validation",
+          "file": "data/curriculum/11-radiology.json",
+          "characters": 2017,
+          "authored_minutes": null,
+          "unrounded_numerator": 193632,
+          "unrounded_denominator": 209,
+          "minutes": 925
+        },
+        {
+          "id": "lang.4.classics",
+          "file": "data/curriculum/02-language.json",
+          "characters": 4698,
+          "authored_minutes": null,
+          "unrounded_numerator": 451008,
+          "unrounded_denominator": 209,
+          "minutes": 2160
+        },
+        {
+          "id": "lang.4.comp-lit",
+          "file": "data/curriculum/02-language.json",
+          "characters": 5237,
+          "authored_minutes": null,
+          "unrounded_numerator": 502752,
+          "unrounded_denominator": 209,
+          "minutes": 2405
+        },
+        {
+          "id": "lang.4.creative",
+          "file": "data/curriculum/02-language.json",
+          "characters": 4134,
+          "authored_minutes": null,
+          "unrounded_numerator": 396864,
+          "unrounded_denominator": 209,
+          "minutes": 1900
+        },
+        {
+          "id": "lang.4.history-english",
+          "file": "data/curriculum/02-language.json",
+          "characters": 4528,
+          "authored_minutes": null,
+          "unrounded_numerator": 434688,
+          "unrounded_denominator": 209,
+          "minutes": 2080
+        },
+        {
+          "id": "lang.4.linguistics",
+          "file": "data/curriculum/02-language.json",
+          "characters": 4938,
+          "authored_minutes": null,
+          "unrounded_numerator": 474048,
+          "unrounded_denominator": 209,
+          "minutes": 2270
+        },
+        {
+          "id": "lang.4.lit-theory",
+          "file": "data/curriculum/02-language.json",
+          "characters": 5103,
+          "authored_minutes": null,
+          "unrounded_numerator": 489888,
+          "unrounded_denominator": 209,
+          "minutes": 2345
+        },
+        {
+          "id": "math.4.analysis",
+          "file": "data/curriculum/01-mathematics.json",
+          "characters": 3713,
+          "authored_minutes": null,
+          "unrounded_numerator": 356448,
+          "unrounded_denominator": 209,
+          "minutes": 1705
+        },
+        {
+          "id": "math.4.diff-calc",
+          "file": "data/curriculum/01-mathematics.json",
+          "characters": 2675,
+          "authored_minutes": null,
+          "unrounded_numerator": 256800,
+          "unrounded_denominator": 209,
+          "minutes": 1230
+        },
+        {
+          "id": "math.4.diffeq",
+          "file": "data/curriculum/01-mathematics.json",
+          "characters": 2559,
+          "authored_minutes": null,
+          "unrounded_numerator": 245664,
+          "unrounded_denominator": 209,
+          "minutes": 1175
+        },
+        {
+          "id": "math.4.discrete",
+          "file": "data/curriculum/01-mathematics.json",
+          "characters": 2621,
+          "authored_minutes": null,
+          "unrounded_numerator": 251616,
+          "unrounded_denominator": 209,
+          "minutes": 1205
+        },
+        {
+          "id": "math.4.int-calc",
+          "file": "data/curriculum/01-mathematics.json",
+          "characters": 2209,
+          "authored_minutes": null,
+          "unrounded_numerator": 212064,
+          "unrounded_denominator": 209,
+          "minutes": 1015
+        },
+        {
+          "id": "math.4.linalg",
+          "file": "data/curriculum/01-mathematics.json",
+          "characters": 2954,
+          "authored_minutes": null,
+          "unrounded_numerator": 283584,
+          "unrounded_denominator": 209,
+          "minutes": 1355
+        },
+        {
+          "id": "math.4.multivar",
+          "file": "data/curriculum/01-mathematics.json",
+          "characters": 2769,
+          "authored_minutes": null,
+          "unrounded_numerator": 265824,
+          "unrounded_denominator": 209,
+          "minutes": 1270
+        },
+        {
+          "id": "math.4.numtheory",
+          "file": "data/curriculum/01-mathematics.json",
+          "characters": 2340,
+          "authored_minutes": null,
+          "unrounded_numerator": 224640,
+          "unrounded_denominator": 209,
+          "minutes": 1075
+        },
+        {
+          "id": "math.4.prob-theory",
+          "file": "data/curriculum/01-mathematics.json",
+          "characters": 2700,
+          "authored_minutes": null,
+          "unrounded_numerator": 259200,
+          "unrounded_denominator": 209,
+          "minutes": 1240
+        },
+        {
+          "id": "media.4.methods",
+          "file": "data/curriculum/19-communication-media.json",
+          "characters": 1853,
+          "authored_minutes": null,
+          "unrounded_numerator": 177888,
+          "unrounded_denominator": 209,
+          "minutes": 850
+        },
+        {
+          "id": "media.4.theory",
+          "file": "data/curriculum/19-communication-media.json",
+          "characters": 2035,
+          "authored_minutes": null,
+          "unrounded_numerator": 17760,
+          "unrounded_denominator": 19,
+          "minutes": 935
+        },
+        {
+          "id": "mind.4.cognitive-sci",
+          "file": "data/curriculum/10-mind-society.json",
+          "characters": 3878,
+          "authored_minutes": null,
+          "unrounded_numerator": 372288,
+          "unrounded_denominator": 209,
+          "minutes": 1780
+        },
+        {
+          "id": "mind.4.economics-behav",
+          "file": "data/curriculum/10-mind-society.json",
+          "characters": 3754,
+          "authored_minutes": null,
+          "unrounded_numerator": 360384,
+          "unrounded_denominator": 209,
+          "minutes": 1725
+        },
+        {
+          "id": "mind.4.epistemology",
+          "file": "data/curriculum/10-mind-society.json",
+          "characters": 4323,
+          "authored_minutes": null,
+          "unrounded_numerator": 37728,
+          "unrounded_denominator": 19,
+          "minutes": 1985
+        },
+        {
+          "id": "mind.4.ethics-adv",
+          "file": "data/curriculum/10-mind-society.json",
+          "characters": 4041,
+          "authored_minutes": null,
+          "unrounded_numerator": 387936,
+          "unrounded_denominator": 209,
+          "minutes": 1855
+        },
+        {
+          "id": "mind.4.metaphysics",
+          "file": "data/curriculum/10-mind-society.json",
+          "characters": 4247,
+          "authored_minutes": null,
+          "unrounded_numerator": 407712,
+          "unrounded_denominator": 209,
+          "minutes": 1950
+        },
+        {
+          "id": "mind.4.philsci",
+          "file": "data/curriculum/10-mind-society.json",
+          "characters": 4043,
+          "authored_minutes": null,
+          "unrounded_numerator": 388128,
+          "unrounded_denominator": 209,
+          "minutes": 1855
+        },
+        {
+          "id": "phys.4.classical",
+          "file": "data/curriculum/03-physics.json",
+          "characters": 4585,
+          "authored_minutes": null,
+          "unrounded_numerator": 440160,
+          "unrounded_denominator": 209,
+          "minutes": 2105
+        },
+        {
+          "id": "phys.4.em-maxwell",
+          "file": "data/curriculum/03-physics.json",
+          "characters": 4197,
+          "authored_minutes": null,
+          "unrounded_numerator": 402912,
+          "unrounded_denominator": 209,
+          "minutes": 1930
+        },
+        {
+          "id": "phys.4.experiment",
+          "file": "data/curriculum/03-physics.json",
+          "characters": 4224,
+          "authored_minutes": null,
+          "unrounded_numerator": 36864,
+          "unrounded_denominator": 19,
+          "minutes": 1940
+        },
+        {
+          "id": "phys.4.fluids",
+          "file": "data/curriculum/03-physics.json",
+          "characters": 8686,
+          "authored_minutes": null,
+          "unrounded_numerator": 2520,
+          "unrounded_denominator": 1,
+          "minutes": 2520
+        },
+        {
+          "id": "phys.4.particles",
+          "file": "data/curriculum/03-physics.json",
+          "characters": 3293,
+          "authored_minutes": null,
+          "unrounded_numerator": 316128,
+          "unrounded_denominator": 209,
+          "minutes": 1515
+        },
+        {
+          "id": "phys.4.quantum",
+          "file": "data/curriculum/03-physics.json",
+          "characters": 4634,
+          "authored_minutes": null,
+          "unrounded_numerator": 444864,
+          "unrounded_denominator": 209,
+          "minutes": 2130
+        },
+        {
+          "id": "phys.4.relativity",
+          "file": "data/curriculum/03-physics.json",
+          "characters": 4163,
+          "authored_minutes": null,
+          "unrounded_numerator": 399648,
+          "unrounded_denominator": 209,
+          "minutes": 1910
+        },
+        {
+          "id": "phys.4.solid-state",
+          "file": "data/curriculum/03-physics.json",
+          "characters": 4056,
+          "authored_minutes": null,
+          "unrounded_numerator": 389376,
+          "unrounded_denominator": 209,
+          "minutes": 1865
+        },
+        {
+          "id": "phys.4.statmech",
+          "file": "data/curriculum/03-physics.json",
+          "characters": 3725,
+          "authored_minutes": null,
+          "unrounded_numerator": 357600,
+          "unrounded_denominator": 209,
+          "minutes": 1710
+        }
+      ]
+    },
+    "before": {
+      "pool_count": 84,
+      "pool_character_sum": 306909,
+      "rows": [
+        {
+          "id": "arts.4.aesthetics",
+          "file": "data/curriculum/09-arts.json",
+          "characters": 4118,
+          "authored_minutes": null,
+          "unrounded_numerator": 64570240,
+          "unrounded_denominator": 34101,
+          "minutes": 1895
+        },
+        {
+          "id": "arts.4.art-theory",
+          "file": "data/curriculum/09-arts.json",
+          "characters": 4270,
+          "authored_minutes": null,
+          "unrounded_numerator": 66953600,
+          "unrounded_denominator": 34101,
+          "minutes": 1965
+        },
+        {
+          "id": "arts.4.composition",
+          "file": "data/curriculum/09-arts.json",
+          "characters": 3265,
+          "authored_minutes": null,
+          "unrounded_numerator": 51195200,
+          "unrounded_denominator": 34101,
+          "minutes": 1500
+        },
+        {
+          "id": "arts.4.world-arts",
+          "file": "data/curriculum/09-arts.json",
+          "characters": 3756,
+          "authored_minutes": null,
+          "unrounded_numerator": 19631360,
+          "unrounded_denominator": 11367,
+          "minutes": 1725
+        },
+        {
+          "id": "bio.4.biochem",
+          "file": "data/curriculum/04-life-sciences.json",
+          "characters": 3813,
+          "authored_minutes": null,
+          "unrounded_numerator": 19929280,
+          "unrounded_denominator": 11367,
+          "minutes": 1755
+        },
+        {
+          "id": "bio.4.ethology",
+          "file": "data/curriculum/04-life-sciences.json",
+          "characters": 8490,
+          "authored_minutes": null,
+          "unrounded_numerator": 2520,
+          "unrounded_denominator": 1,
+          "minutes": 2520
+        },
+        {
+          "id": "bio.4.evo-bio",
+          "file": "data/curriculum/04-life-sciences.json",
+          "characters": 4201,
+          "authored_minutes": null,
+          "unrounded_numerator": 65871680,
+          "unrounded_denominator": 34101,
+          "minutes": 1930
+        },
+        {
+          "id": "bio.4.genomics",
+          "file": "data/curriculum/04-life-sciences.json",
+          "characters": 3922,
+          "authored_minutes": null,
+          "unrounded_numerator": 61496960,
+          "unrounded_denominator": 34101,
+          "minutes": 1805
+        },
+        {
+          "id": "bio.4.molecular",
+          "file": "data/curriculum/04-life-sciences.json",
+          "characters": 4452,
+          "authored_minutes": null,
+          "unrounded_numerator": 23269120,
+          "unrounded_denominator": 11367,
+          "minutes": 2045
+        },
+        {
+          "id": "bio.4.neuro",
+          "file": "data/curriculum/04-life-sciences.json",
+          "characters": 3498,
+          "authored_minutes": null,
+          "unrounded_numerator": 18282880,
+          "unrounded_denominator": 11367,
+          "minutes": 1610
+        },
+        {
+          "id": "bio.4.physiology",
+          "file": "data/curriculum/04-life-sciences.json",
+          "characters": 3569,
+          "authored_minutes": null,
+          "unrounded_numerator": 55961920,
+          "unrounded_denominator": 34101,
+          "minutes": 1640
+        },
+        {
+          "id": "business.4.evidence",
+          "file": "data/curriculum/16-business-economics.json",
+          "characters": 1981,
+          "authored_minutes": null,
+          "unrounded_numerator": 31062080,
+          "unrounded_denominator": 34101,
+          "minutes": 910
+        },
+        {
+          "id": "business.4.incentives",
+          "file": "data/curriculum/16-business-economics.json",
+          "characters": 1862,
+          "authored_minutes": null,
+          "unrounded_numerator": 29196160,
+          "unrounded_denominator": 34101,
+          "minutes": 855
+        },
+        {
+          "id": "chem.4.analytical",
+          "file": "data/curriculum/05-chemistry.json",
+          "characters": 3434,
+          "authored_minutes": null,
+          "unrounded_numerator": 53845120,
+          "unrounded_denominator": 34101,
+          "minutes": 1580
+        },
+        {
+          "id": "chem.4.electrochem",
+          "file": "data/curriculum/05-chemistry.json",
+          "characters": 2868,
+          "authored_minutes": null,
+          "unrounded_numerator": 14990080,
+          "unrounded_denominator": 11367,
+          "minutes": 1320
+        },
+        {
+          "id": "chem.4.inorganic",
+          "file": "data/curriculum/05-chemistry.json",
+          "characters": 3067,
+          "authored_minutes": null,
+          "unrounded_numerator": 48090560,
+          "unrounded_denominator": 34101,
+          "minutes": 1410
+        },
+        {
+          "id": "chem.4.organic",
+          "file": "data/curriculum/05-chemistry.json",
+          "characters": 3343,
+          "authored_minutes": null,
+          "unrounded_numerator": 52418240,
+          "unrounded_denominator": 34101,
+          "minutes": 1535
+        },
+        {
+          "id": "chem.4.physical",
+          "file": "data/curriculum/05-chemistry.json",
+          "characters": 2836,
+          "authored_minutes": null,
+          "unrounded_numerator": 44468480,
+          "unrounded_denominator": 34101,
+          "minutes": 1305
+        },
+        {
+          "id": "chem.4.quantum-chem",
+          "file": "data/curriculum/05-chemistry.json",
+          "characters": 2862,
+          "authored_minutes": null,
+          "unrounded_numerator": 1662080,
+          "unrounded_denominator": 1263,
+          "minutes": 1315
+        },
+        {
+          "id": "civics.4.comparative",
+          "file": "data/curriculum/17-law-civics.json",
+          "characters": 2080,
+          "authored_minutes": null,
+          "unrounded_numerator": 32614400,
+          "unrounded_denominator": 34101,
+          "minutes": 955
+        },
+        {
+          "id": "civics.4.policy-evaluation",
+          "file": "data/curriculum/17-law-civics.json",
+          "characters": 1928,
+          "authored_minutes": null,
+          "unrounded_numerator": 30231040,
+          "unrounded_denominator": 34101,
+          "minutes": 885
+        },
+        {
+          "id": "cs.4.algorithms-adv",
+          "file": "data/curriculum/06-computer-science.json",
+          "characters": 4064,
+          "authored_minutes": null,
+          "unrounded_numerator": 63723520,
+          "unrounded_denominator": 34101,
+          "minutes": 1870
+        },
+        {
+          "id": "cs.4.databases-adv",
+          "file": "data/curriculum/06-computer-science.json",
+          "characters": 3942,
+          "authored_minutes": null,
+          "unrounded_numerator": 2289280,
+          "unrounded_denominator": 1263,
+          "minutes": 1815
+        },
+        {
+          "id": "cs.4.ml",
+          "file": "data/curriculum/06-computer-science.json",
+          "characters": 3662,
+          "authored_minutes": null,
+          "unrounded_numerator": 57420160,
+          "unrounded_denominator": 34101,
+          "minutes": 1685
+        },
+        {
+          "id": "cs.4.networks",
+          "file": "data/curriculum/06-computer-science.json",
+          "characters": 4196,
+          "authored_minutes": null,
+          "unrounded_numerator": 65793280,
+          "unrounded_denominator": 34101,
+          "minutes": 1930
+        },
+        {
+          "id": "cs.4.os",
+          "file": "data/curriculum/06-computer-science.json",
+          "characters": 4049,
+          "authored_minutes": null,
+          "unrounded_numerator": 63488320,
+          "unrounded_denominator": 34101,
+          "minutes": 1860
+        },
+        {
+          "id": "cs.4.security",
+          "file": "data/curriculum/06-computer-science.json",
+          "characters": 3768,
+          "authored_minutes": null,
+          "unrounded_numerator": 19694080,
+          "unrounded_denominator": 11367,
+          "minutes": 1735
+        },
+        {
+          "id": "cs.4.systems",
+          "file": "data/curriculum/06-computer-science.json",
+          "characters": 3700,
+          "authored_minutes": null,
+          "unrounded_numerator": 58016000,
+          "unrounded_denominator": 34101,
+          "minutes": 1700
+        },
+        {
+          "id": "cs.4.theory",
+          "file": "data/curriculum/06-computer-science.json",
+          "characters": 4303,
+          "authored_minutes": null,
+          "unrounded_numerator": 67471040,
+          "unrounded_denominator": 34101,
+          "minutes": 1980
+        },
+        {
+          "id": "design.4.evaluation",
+          "file": "data/curriculum/15-architecture-design.json",
+          "characters": 2498,
+          "authored_minutes": null,
+          "unrounded_numerator": 39168640,
+          "unrounded_denominator": 34101,
+          "minutes": 1150
+        },
+        {
+          "id": "design.4.performance",
+          "file": "data/curriculum/15-architecture-design.json",
+          "characters": 2569,
+          "authored_minutes": null,
+          "unrounded_numerator": 40281920,
+          "unrounded_denominator": 34101,
+          "minutes": 1180
+        },
+        {
+          "id": "earth.4.astrophysics",
+          "file": "data/curriculum/08-earth-space.json",
+          "characters": 3923,
+          "authored_minutes": null,
+          "unrounded_numerator": 61512640,
+          "unrounded_denominator": 34101,
+          "minutes": 1805
+        },
+        {
+          "id": "earth.4.climatology",
+          "file": "data/curriculum/08-earth-space.json",
+          "characters": 3875,
+          "authored_minutes": null,
+          "unrounded_numerator": 60760000,
+          "unrounded_denominator": 34101,
+          "minutes": 1780
+        },
+        {
+          "id": "earth.4.geophysics",
+          "file": "data/curriculum/08-earth-space.json",
+          "characters": 3788,
+          "authored_minutes": null,
+          "unrounded_numerator": 59395840,
+          "unrounded_denominator": 34101,
+          "minutes": 1740
+        },
+        {
+          "id": "earth.4.oceanatmos",
+          "file": "data/curriculum/08-earth-space.json",
+          "characters": 4269,
+          "authored_minutes": null,
+          "unrounded_numerator": 22312640,
+          "unrounded_denominator": 11367,
+          "minutes": 1965
+        },
+        {
+          "id": "earth.4.planetary",
+          "file": "data/curriculum/08-earth-space.json",
+          "characters": 3818,
+          "authored_minutes": null,
+          "unrounded_numerator": 59866240,
+          "unrounded_denominator": 34101,
+          "minutes": 1755
+        },
+        {
+          "id": "education.4.measurement",
+          "file": "data/curriculum/18-education.json",
+          "characters": 2144,
+          "authored_minutes": null,
+          "unrounded_numerator": 33617920,
+          "unrounded_denominator": 34101,
+          "minutes": 985
+        },
+        {
+          "id": "education.4.research-design",
+          "file": "data/curriculum/18-education.json",
+          "characters": 2064,
+          "authored_minutes": null,
+          "unrounded_numerator": 10787840,
+          "unrounded_denominator": 11367,
+          "minutes": 950
+        },
+        {
+          "id": "eng.4.control",
+          "file": "data/curriculum/12-engineering.json",
+          "characters": 2464,
+          "authored_minutes": null,
+          "unrounded_numerator": 38635520,
+          "unrounded_denominator": 34101,
+          "minutes": 1135
+        },
+        {
+          "id": "eng.4.reliability",
+          "file": "data/curriculum/12-engineering.json",
+          "characters": 2600,
+          "authored_minutes": null,
+          "unrounded_numerator": 40768000,
+          "unrounded_denominator": 34101,
+          "minutes": 1195
+        },
+        {
+          "id": "env.4.agroecology",
+          "file": "data/curriculum/14-environment-agriculture.json",
+          "characters": 2508,
+          "authored_minutes": null,
+          "unrounded_numerator": 13108480,
+          "unrounded_denominator": 11367,
+          "minutes": 1155
+        },
+        {
+          "id": "env.4.field-methods",
+          "file": "data/curriculum/14-environment-agriculture.json",
+          "characters": 2660,
+          "authored_minutes": null,
+          "unrounded_numerator": 41708800,
+          "unrounded_denominator": 34101,
+          "minutes": 1225
+        },
+        {
+          "id": "health.4.appraisal",
+          "file": "data/curriculum/13-health.json",
+          "characters": 2844,
+          "authored_minutes": null,
+          "unrounded_numerator": 4954880,
+          "unrounded_denominator": 3789,
+          "minutes": 1310
+        },
+        {
+          "id": "health.4.causal-inference",
+          "file": "data/curriculum/13-health.json",
+          "characters": 2873,
+          "authored_minutes": null,
+          "unrounded_numerator": 45048640,
+          "unrounded_denominator": 34101,
+          "minutes": 1320
+        },
+        {
+          "id": "hist.4.economics",
+          "file": "data/curriculum/07-history.json",
+          "characters": 4216,
+          "authored_minutes": null,
+          "unrounded_numerator": 66106880,
+          "unrounded_denominator": 34101,
+          "minutes": 1940
+        },
+        {
+          "id": "hist.4.geopolitics",
+          "file": "data/curriculum/07-history.json",
+          "characters": 5194,
+          "authored_minutes": null,
+          "unrounded_numerator": 81441920,
+          "unrounded_denominator": 34101,
+          "minutes": 2390
+        },
+        {
+          "id": "hist.4.historiography",
+          "file": "data/curriculum/07-history.json",
+          "characters": 4527,
+          "authored_minutes": null,
+          "unrounded_numerator": 7887040,
+          "unrounded_denominator": 3789,
+          "minutes": 2080
+        },
+        {
+          "id": "hist.4.law",
+          "file": "data/curriculum/07-history.json",
+          "characters": 5353,
+          "authored_minutes": null,
+          "unrounded_numerator": 83935040,
+          "unrounded_denominator": 34101,
+          "minutes": 2460
+        },
+        {
+          "id": "hist.4.political-sci",
+          "file": "data/curriculum/07-history.json",
+          "characters": 5622,
+          "authored_minutes": null,
+          "unrounded_numerator": 2520,
+          "unrounded_denominator": 1,
+          "minutes": 2520
+        },
+        {
+          "id": "hist.4.social-history",
+          "file": "data/curriculum/07-history.json",
+          "characters": 5433,
+          "authored_minutes": null,
+          "unrounded_numerator": 28396480,
+          "unrounded_denominator": 11367,
+          "minutes": 2500
+        },
+        {
+          "id": "img.4.inverse-problems",
+          "file": "data/curriculum/11-radiology.json",
+          "characters": 1757,
+          "authored_minutes": null,
+          "unrounded_numerator": 840,
+          "unrounded_denominator": 1,
+          "minutes": 840
+        },
+        {
+          "id": "img.4.validation",
+          "file": "data/curriculum/11-radiology.json",
+          "characters": 2017,
+          "authored_minutes": null,
+          "unrounded_numerator": 31626560,
+          "unrounded_denominator": 34101,
+          "minutes": 925
+        },
+        {
+          "id": "lang.4.classics",
+          "file": "data/curriculum/02-language.json",
+          "characters": 4698,
+          "authored_minutes": null,
+          "unrounded_numerator": 909440,
+          "unrounded_denominator": 421,
+          "minutes": 2160
+        },
+        {
+          "id": "lang.4.comp-lit",
+          "file": "data/curriculum/02-language.json",
+          "characters": 5237,
+          "authored_minutes": null,
+          "unrounded_numerator": 82116160,
+          "unrounded_denominator": 34101,
+          "minutes": 2410
+        },
+        {
+          "id": "lang.4.creative",
+          "file": "data/curriculum/02-language.json",
+          "characters": 4134,
+          "authored_minutes": null,
+          "unrounded_numerator": 21607040,
+          "unrounded_denominator": 11367,
+          "minutes": 1900
+        },
+        {
+          "id": "lang.4.history-english",
+          "file": "data/curriculum/02-language.json",
+          "characters": 4528,
+          "authored_minutes": null,
+          "unrounded_numerator": 70999040,
+          "unrounded_denominator": 34101,
+          "minutes": 2080
+        },
+        {
+          "id": "lang.4.linguistics",
+          "file": "data/curriculum/02-language.json",
+          "characters": 4938,
+          "authored_minutes": null,
+          "unrounded_numerator": 25809280,
+          "unrounded_denominator": 11367,
+          "minutes": 2270
+        },
+        {
+          "id": "lang.4.lit-theory",
+          "file": "data/curriculum/02-language.json",
+          "characters": 5103,
+          "authored_minutes": null,
+          "unrounded_numerator": 987840,
+          "unrounded_denominator": 421,
+          "minutes": 2345
+        },
+        {
+          "id": "math.4.analysis",
+          "file": "data/curriculum/01-mathematics.json",
+          "characters": 3713,
+          "authored_minutes": null,
+          "unrounded_numerator": 58219840,
+          "unrounded_denominator": 34101,
+          "minutes": 1705
+        },
+        {
+          "id": "math.4.diff-calc",
+          "file": "data/curriculum/01-mathematics.json",
+          "characters": 2675,
+          "authored_minutes": null,
+          "unrounded_numerator": 41944000,
+          "unrounded_denominator": 34101,
+          "minutes": 1230
+        },
+        {
+          "id": "math.4.diffeq",
+          "file": "data/curriculum/01-mathematics.json",
+          "characters": 2559,
+          "authored_minutes": null,
+          "unrounded_numerator": 13375040,
+          "unrounded_denominator": 11367,
+          "minutes": 1175
+        },
+        {
+          "id": "math.4.discrete",
+          "file": "data/curriculum/01-mathematics.json",
+          "characters": 2621,
+          "authored_minutes": null,
+          "unrounded_numerator": 41097280,
+          "unrounded_denominator": 34101,
+          "minutes": 1205
+        },
+        {
+          "id": "math.4.int-calc",
+          "file": "data/curriculum/01-mathematics.json",
+          "characters": 2209,
+          "authored_minutes": null,
+          "unrounded_numerator": 34637120,
+          "unrounded_denominator": 34101,
+          "minutes": 1015
+        },
+        {
+          "id": "math.4.linalg",
+          "file": "data/curriculum/01-mathematics.json",
+          "characters": 2633,
+          "authored_minutes": null,
+          "unrounded_numerator": 41285440,
+          "unrounded_denominator": 34101,
+          "minutes": 1210
+        },
+        {
+          "id": "math.4.multivar",
+          "file": "data/curriculum/01-mathematics.json",
+          "characters": 2769,
+          "authored_minutes": null,
+          "unrounded_numerator": 14472640,
+          "unrounded_denominator": 11367,
+          "minutes": 1275
+        },
+        {
+          "id": "math.4.numtheory",
+          "file": "data/curriculum/01-mathematics.json",
+          "characters": 2340,
+          "authored_minutes": null,
+          "unrounded_numerator": 4076800,
+          "unrounded_denominator": 3789,
+          "minutes": 1075
+        },
+        {
+          "id": "math.4.prob-theory",
+          "file": "data/curriculum/01-mathematics.json",
+          "characters": 2700,
+          "authored_minutes": null,
+          "unrounded_numerator": 1568000,
+          "unrounded_denominator": 1263,
+          "minutes": 1240
+        },
+        {
+          "id": "media.4.methods",
+          "file": "data/curriculum/19-communication-media.json",
+          "characters": 1853,
+          "authored_minutes": null,
+          "unrounded_numerator": 29055040,
+          "unrounded_denominator": 34101,
+          "minutes": 850
+        },
+        {
+          "id": "media.4.theory",
+          "file": "data/curriculum/19-communication-media.json",
+          "characters": 2035,
+          "authored_minutes": null,
+          "unrounded_numerator": 31908800,
+          "unrounded_denominator": 34101,
+          "minutes": 935
+        },
+        {
+          "id": "mind.4.cognitive-sci",
+          "file": "data/curriculum/10-mind-society.json",
+          "characters": 3878,
+          "authored_minutes": null,
+          "unrounded_numerator": 60807040,
+          "unrounded_denominator": 34101,
+          "minutes": 1785
+        },
+        {
+          "id": "mind.4.economics-behav",
+          "file": "data/curriculum/10-mind-society.json",
+          "characters": 3754,
+          "authored_minutes": null,
+          "unrounded_numerator": 58862720,
+          "unrounded_denominator": 34101,
+          "minutes": 1725
+        },
+        {
+          "id": "mind.4.epistemology",
+          "file": "data/curriculum/10-mind-society.json",
+          "characters": 4323,
+          "authored_minutes": null,
+          "unrounded_numerator": 22594880,
+          "unrounded_denominator": 11367,
+          "minutes": 1990
+        },
+        {
+          "id": "mind.4.ethics-adv",
+          "file": "data/curriculum/10-mind-society.json",
+          "characters": 4041,
+          "authored_minutes": null,
+          "unrounded_numerator": 7040320,
+          "unrounded_denominator": 3789,
+          "minutes": 1860
+        },
+        {
+          "id": "mind.4.metaphysics",
+          "file": "data/curriculum/10-mind-society.json",
+          "characters": 4247,
+          "authored_minutes": null,
+          "unrounded_numerator": 66592960,
+          "unrounded_denominator": 34101,
+          "minutes": 1955
+        },
+        {
+          "id": "mind.4.philsci",
+          "file": "data/curriculum/10-mind-society.json",
+          "characters": 4043,
+          "authored_minutes": null,
+          "unrounded_numerator": 63394240,
+          "unrounded_denominator": 34101,
+          "minutes": 1860
+        },
+        {
+          "id": "phys.4.classical",
+          "file": "data/curriculum/03-physics.json",
+          "characters": 4585,
+          "authored_minutes": null,
+          "unrounded_numerator": 71892800,
+          "unrounded_denominator": 34101,
+          "minutes": 2110
+        },
+        {
+          "id": "phys.4.em-maxwell",
+          "file": "data/curriculum/03-physics.json",
+          "characters": 4197,
+          "authored_minutes": null,
+          "unrounded_numerator": 21936320,
+          "unrounded_denominator": 11367,
+          "minutes": 1930
+        },
+        {
+          "id": "phys.4.experiment",
+          "file": "data/curriculum/03-physics.json",
+          "characters": 4224,
+          "authored_minutes": null,
+          "unrounded_numerator": 22077440,
+          "unrounded_denominator": 11367,
+          "minutes": 1940
+        },
+        {
+          "id": "phys.4.fluids",
+          "file": "data/curriculum/03-physics.json",
+          "characters": 8686,
+          "authored_minutes": null,
+          "unrounded_numerator": 2520,
+          "unrounded_denominator": 1,
+          "minutes": 2520
+        },
+        {
+          "id": "phys.4.particles",
+          "file": "data/curriculum/03-physics.json",
+          "characters": 3293,
+          "authored_minutes": null,
+          "unrounded_numerator": 51634240,
+          "unrounded_denominator": 34101,
+          "minutes": 1515
+        },
+        {
+          "id": "phys.4.quantum",
+          "file": "data/curriculum/03-physics.json",
+          "characters": 4634,
+          "authored_minutes": null,
+          "unrounded_numerator": 72661120,
+          "unrounded_denominator": 34101,
+          "minutes": 2130
+        },
+        {
+          "id": "phys.4.relativity",
+          "file": "data/curriculum/03-physics.json",
+          "characters": 4163,
+          "authored_minutes": null,
+          "unrounded_numerator": 65275840,
+          "unrounded_denominator": 34101,
+          "minutes": 1915
+        },
+        {
+          "id": "phys.4.solid-state",
+          "file": "data/curriculum/03-physics.json",
+          "characters": 4056,
+          "authored_minutes": null,
+          "unrounded_numerator": 21199360,
+          "unrounded_denominator": 11367,
+          "minutes": 1865
+        },
+        {
+          "id": "phys.4.statmech",
+          "file": "data/curriculum/03-physics.json",
+          "characters": 3725,
+          "authored_minutes": null,
+          "unrounded_numerator": 58408000,
+          "unrounded_denominator": 34101,
+          "minutes": 1715
+        }
+      ]
+    },
+    "lesson_semantics": {
+      "arts.4.aesthetics": {
+        "current_sha256": "10108b348cac0b7b0b8d7524a9f569f36f52105a51691d5f66fb59485d1f3174",
+        "before_sha256": "4d0efd42a1b7ddae61752a0712fb8d56e8a13933eecd9b9af0db3ddd7a9f4af1"
+      },
+      "arts.4.art-theory": {
+        "current_sha256": "373037990f571eb0dbe307b4912ceadd1dea7edcff5524c133c5bf44d9a6c082",
+        "before_sha256": "019adbb5606cb812b54b0acab8d66252b4b78bf05d46f4f487ee88fde9a79d60"
+      },
+      "arts.4.composition": {
+        "current_sha256": "b17d4e17e62df529872aa4131bc4c7306f642670d1ee887d5281a55776382c49",
+        "before_sha256": "b17d4e17e62df529872aa4131bc4c7306f642670d1ee887d5281a55776382c49"
+      },
+      "arts.4.world-arts": {
+        "current_sha256": "07a5282fae77daa3b500b1a837d51c052db5be3189645a45845443d4bd4c8ed1",
+        "before_sha256": "07a5282fae77daa3b500b1a837d51c052db5be3189645a45845443d4bd4c8ed1"
+      },
+      "bio.4.biochem": {
+        "current_sha256": "abf861a1c85ed39c46bb855dee6f9c5b3ce77cd6703cecd4d97aed7f485a1c6f",
+        "before_sha256": "7936ac26510472bbe633c35d750fb25f51d5e206678d0c02b8591f7447dafffd"
+      },
+      "bio.4.ethology": {
+        "current_sha256": "bb609ba9a9be6549855f98fc2b51b2ff44811c6363725fdfa97923684c9c255e",
+        "before_sha256": "bb609ba9a9be6549855f98fc2b51b2ff44811c6363725fdfa97923684c9c255e"
+      },
+      "bio.4.evo-bio": {
+        "current_sha256": "b4ecc248b9b744a5a16ebbe7a7efad611349b6e891151989d291a5e0350ddb33",
+        "before_sha256": "b4ecc248b9b744a5a16ebbe7a7efad611349b6e891151989d291a5e0350ddb33"
+      },
+      "bio.4.genomics": {
+        "current_sha256": "5ae12b97c18e946fa384ee70bb8d67e359f9b2d4be7f93fc882349012223ac61",
+        "before_sha256": "007295a8b9c0f75c2433c41f8fd92ae720048563dfd994065d28acab00af41ca"
+      },
+      "bio.4.molecular": {
+        "current_sha256": "88ace6ca7d84869a1188c33800c590ed557b86431ebda6ad9c2fe2037702bf7d",
+        "before_sha256": "88ace6ca7d84869a1188c33800c590ed557b86431ebda6ad9c2fe2037702bf7d"
+      },
+      "bio.4.neuro": {
+        "current_sha256": "09a957b489524071521066f429e0f407d477000b2b5bb38aa6c823fdc86aa34d",
+        "before_sha256": "84e1fceeabf594877f6f28a4eaeb14bc1a25495d3e899e25f3f1ce2b6615bc3d"
+      },
+      "bio.4.physiology": {
+        "current_sha256": "b7149774de14d91c3abe49265ad2ab9b5313e995a584a170452af917aad0bdec",
+        "before_sha256": "b7149774de14d91c3abe49265ad2ab9b5313e995a584a170452af917aad0bdec"
+      },
+      "business.4.evidence": {
+        "current_sha256": "d87d6dab4aa2e7f7d57621b20c81612a9207d45d4fe78e7fc75985bb8997e0ea",
+        "before_sha256": "d87d6dab4aa2e7f7d57621b20c81612a9207d45d4fe78e7fc75985bb8997e0ea"
+      },
+      "business.4.incentives": {
+        "current_sha256": "01d94d1aeb0927062fcf0b39cb4c95447b9c9f5cb38665283eb50b7515cf0953",
+        "before_sha256": "01d94d1aeb0927062fcf0b39cb4c95447b9c9f5cb38665283eb50b7515cf0953"
+      },
+      "chem.4.analytical": {
+        "current_sha256": "63857b1310d09450bcd286d5e68745a826ade18b7331e9201795df8eb2be695f",
+        "before_sha256": "af561847983c2df9c552d828dab7cf74e9bd057c037faea259683813487519fa"
+      },
+      "chem.4.electrochem": {
+        "current_sha256": "9e3b4297aaf2185e1aa807f7ea8833290006a6c10876f1f9966528e6e463c6a9",
+        "before_sha256": "37991d511091f02bbb402a62d2065529a438e6ef2a8e0dcbe31681862f66ef36"
+      },
+      "chem.4.inorganic": {
+        "current_sha256": "9f38ddf9585b54d6a0238c1351d4525f78af7303bb82c62b2b3fa8bd3007472d",
+        "before_sha256": "9f38ddf9585b54d6a0238c1351d4525f78af7303bb82c62b2b3fa8bd3007472d"
+      },
+      "chem.4.organic": {
+        "current_sha256": "85a9b6a9e107d88097160daf808008d963c75ffbad05d76a3e62066d838143b2",
+        "before_sha256": "85a9b6a9e107d88097160daf808008d963c75ffbad05d76a3e62066d838143b2"
+      },
+      "chem.4.physical": {
+        "current_sha256": "af173fd25a29ffd27546d8e86cbc718b9fcb94133d284dba4886a09df86001d1",
+        "before_sha256": "af173fd25a29ffd27546d8e86cbc718b9fcb94133d284dba4886a09df86001d1"
+      },
+      "chem.4.quantum-chem": {
+        "current_sha256": "d2fc5627535b0770d2eae46f1307232ea6900929323ff49c84e33b14571294e2",
+        "before_sha256": "d2fc5627535b0770d2eae46f1307232ea6900929323ff49c84e33b14571294e2"
+      },
+      "civics.4.comparative": {
+        "current_sha256": "973d4b477a5a57e0e0f951fb49c00d73bd66cfaabe9c5757fe5e42a0eaf7cd2f",
+        "before_sha256": "973d4b477a5a57e0e0f951fb49c00d73bd66cfaabe9c5757fe5e42a0eaf7cd2f"
+      },
+      "civics.4.policy-evaluation": {
+        "current_sha256": "dcf6d946f68c5af573e6ffc3751c37562451a601f72e6b7fdbf556172d0405e7",
+        "before_sha256": "dcf6d946f68c5af573e6ffc3751c37562451a601f72e6b7fdbf556172d0405e7"
+      },
+      "cs.4.algorithms-adv": {
+        "current_sha256": "5fd7c9ba326809dbc3a8646b135b6dfd936bfc21a38797004d87aaeb42b9bd3b",
+        "before_sha256": "842e120a781028ec65714e3d837ff873e38e6e609760c54061634f8370f5220c"
+      },
+      "cs.4.databases-adv": {
+        "current_sha256": "f76ed3e2940478ad28d326262ea949dbb728648cd63d9f707801ad3e304e5210",
+        "before_sha256": "a6df2f32d1b8adc209bb9462c78d7ce0ef453928e96c83d96aa825544797785a"
+      },
+      "cs.4.ml": {
+        "current_sha256": "ecd7bc85ee07eb0034c321b341330ce8f3a7422720ec7cee235cf2ecf6a33d55",
+        "before_sha256": "3cbc5c37580f389b754bb4ab360007fc31b822d3aff7bc1c4d43a63d066c3367"
+      },
+      "cs.4.networks": {
+        "current_sha256": "fbb33ede99975fe7c9e60ef0569f40d1a172e2bf7a4684f42969dfc1facf5c0a",
+        "before_sha256": "cb041e26264bba18c013ac67651c4f587d3c311dc054a0ae9668b5124f05f7bb"
+      },
+      "cs.4.os": {
+        "current_sha256": "4c74129574ca24e758207ea94c88a36a5a731fcf9cca66ca640a63298deb4d40",
+        "before_sha256": "4c74129574ca24e758207ea94c88a36a5a731fcf9cca66ca640a63298deb4d40"
+      },
+      "cs.4.security": {
+        "current_sha256": "539af3137d574e0b348f46acad5aab740b38a7297970f8ec9bf1dc882e93828d",
+        "before_sha256": "54d9c3d64c650e7df5f8968d4b2ab50790b9d393841faf632f4c4bd11296b537"
+      },
+      "cs.4.systems": {
+        "current_sha256": "906fad4b79411f2f1f97d18ee1bc6511208883d83cb7ff03464e198ef1b3d4c4",
+        "before_sha256": "906fad4b79411f2f1f97d18ee1bc6511208883d83cb7ff03464e198ef1b3d4c4"
+      },
+      "cs.4.theory": {
+        "current_sha256": "4974de4029b3adca9c4db2382ae5fbcc2c349aaeb9b042d782745e9a334e0f2d",
+        "before_sha256": "ee0039d194b1bcd90335b29bfc6309ec7b5123d24f4c89b873c7a46391b0f95b"
+      },
+      "design.4.evaluation": {
+        "current_sha256": "87dda3584acf9c6a912b847f24debf40c0677204dee52f33a663c22e21a55511",
+        "before_sha256": "eb88d206e019f457e556e6dece87365f183068f5f5e93005db9fe13a104cb884"
+      },
+      "design.4.performance": {
+        "current_sha256": "2bde295aa8ae81b2c38e43cf4d7b80bbd23c7d5582634ed524cfc0d13d4ac148",
+        "before_sha256": "2bde295aa8ae81b2c38e43cf4d7b80bbd23c7d5582634ed524cfc0d13d4ac148"
+      },
+      "earth.4.astrophysics": {
+        "current_sha256": "b475961a64537249c683d54f9540a1b029aad95540e66623a0e81dd1aadb965c",
+        "before_sha256": "916d6a8da255502b336441291d93e45065e1d16a9e2a8bf8d60ce026e443ad84"
+      },
+      "earth.4.climatology": {
+        "current_sha256": "04bc51ee530ec3ac40d5bd5069b263649dae8d2b6399e19f7e82c0943a8f24a0",
+        "before_sha256": "04bc51ee530ec3ac40d5bd5069b263649dae8d2b6399e19f7e82c0943a8f24a0"
+      },
+      "earth.4.geophysics": {
+        "current_sha256": "0ea6d7fc2019e575d05d33fcafec41a660c2693dbf350cf0b69fa7e9eabc19a7",
+        "before_sha256": "0ea6d7fc2019e575d05d33fcafec41a660c2693dbf350cf0b69fa7e9eabc19a7"
+      },
+      "earth.4.oceanatmos": {
+        "current_sha256": "68641f07c7c4b8c026fb481baf3866a11022f5cf677bc2bec83878778a541fd7",
+        "before_sha256": "ac35cfbd6117c5ea787df689db7aa7baad09bd4ceb33d4fcc9fa17a53ee6cc96"
+      },
+      "earth.4.planetary": {
+        "current_sha256": "ac799f8a89fe9bd546de8c145948dd57a1aeea1f2f480426601364f8bdeb0819",
+        "before_sha256": "ac799f8a89fe9bd546de8c145948dd57a1aeea1f2f480426601364f8bdeb0819"
+      },
+      "education.4.measurement": {
+        "current_sha256": "81ba30348e45dbcd53d927e6f88ec41c998b7ea549dea5209ce8e0cfe98bf9b2",
+        "before_sha256": "81ba30348e45dbcd53d927e6f88ec41c998b7ea549dea5209ce8e0cfe98bf9b2"
+      },
+      "education.4.research-design": {
+        "current_sha256": "ed6c7cdc314486529bfcc07a945e316d1f4c437371cd41c0dcf29359491afc78",
+        "before_sha256": "ed6c7cdc314486529bfcc07a945e316d1f4c437371cd41c0dcf29359491afc78"
+      },
+      "eng.4.control": {
+        "current_sha256": "97e56181f3d7b41c98c504d49a230de641a8e8941ad3fee6bd00f228af54af14",
+        "before_sha256": "fea4e6ceb567f4bbd53c58382820b2262f6ca08e71b2117e2ab6bf5013895a11"
+      },
+      "eng.4.reliability": {
+        "current_sha256": "8f190df66d2c6a558e920b8484a5eb8845fbcc54f7cc9bd4f3c02bb54ad4684f",
+        "before_sha256": "8f190df66d2c6a558e920b8484a5eb8845fbcc54f7cc9bd4f3c02bb54ad4684f"
+      },
+      "env.4.agroecology": {
+        "current_sha256": "553c41a268f759a8651bc26f02e6c207ea4f9770189ffc24e4b4c6b5a6cd1e5f",
+        "before_sha256": "6e6181a7f9699dc3241a912940e7ec16ab32c9e02a3b54e73253c86ac8cb1d87"
+      },
+      "env.4.field-methods": {
+        "current_sha256": "f47ca313290b6582582dbdce5f534e49fa7c15156cca0cbe0d2e0feb4e678bee",
+        "before_sha256": "b0269a91db8776cc3106083f609862d7ae641eb995d8d7a33a11eedbb516be17"
+      },
+      "health.4.appraisal": {
+        "current_sha256": "1442eefd8c7e6126f58b9861c01468e6220190a01595b7be5726107e4ec60abe",
+        "before_sha256": "b6638a0225ae34c5d55115568d46ea4f0412fe6a7a21ab80a994cac7c39cc4cb"
+      },
+      "health.4.causal-inference": {
+        "current_sha256": "94d9868dd196067d0e4d374d82497ee94c7ffe461b9938297dd91c7a36a2d520",
+        "before_sha256": "94d9868dd196067d0e4d374d82497ee94c7ffe461b9938297dd91c7a36a2d520"
+      },
+      "hist.4.economics": {
+        "current_sha256": "c2b4a1b8fab2dc4b85758e75fcf220bd81b44c66320d67bbe86885a33c7b35b9",
+        "before_sha256": "22e3b0fa15469be78135b012c8b0dd06c03cab3673b46ab937dac85bc52e47f9"
+      },
+      "hist.4.geopolitics": {
+        "current_sha256": "ee772f7a5102aec65861ddd7e74e3411a8a6b1574db8362d0cd9033533890839",
+        "before_sha256": "e835e6fb4bba57089bf447795df5a23d69e66dc5aac53582646d25c1db91a29f"
+      },
+      "hist.4.historiography": {
+        "current_sha256": "6435a4c26ca0e55e9834070625bc7d5a33ca3143a21956fb12e0cb57a333d4f5",
+        "before_sha256": "6435a4c26ca0e55e9834070625bc7d5a33ca3143a21956fb12e0cb57a333d4f5"
+      },
+      "hist.4.law": {
+        "current_sha256": "cb27abb1952d9c143c57e045181da56defb83314f6ad0f066cd6ca16b26428b8",
+        "before_sha256": "cb27abb1952d9c143c57e045181da56defb83314f6ad0f066cd6ca16b26428b8"
+      },
+      "hist.4.political-sci": {
+        "current_sha256": "65ebbfc2e5510f8e62455948e261d34ef0bef1ff56f1e1874b9faecec088147e",
+        "before_sha256": "65ebbfc2e5510f8e62455948e261d34ef0bef1ff56f1e1874b9faecec088147e"
+      },
+      "hist.4.social-history": {
+        "current_sha256": "cc10d9057fbcd8ee2dcb6ffce339bce3c75f4b87bfb3ec444a30cd2fe1368340",
+        "before_sha256": "25849450ff532ffe0578398bb131ce6c17cdbcbb300581d965265d83c12f89a6"
+      },
+      "img.4.inverse-problems": {
+        "current_sha256": "de4317fd3c69440a0d2d9013aeaa81430733c3e66913461ee494bf74f2edf894",
+        "before_sha256": "de4317fd3c69440a0d2d9013aeaa81430733c3e66913461ee494bf74f2edf894"
+      },
+      "img.4.validation": {
+        "current_sha256": "8e56504efe1239ca45749f8f0a75c374e7ba684459d574ef9177945e9d96bd8c",
+        "before_sha256": "8e56504efe1239ca45749f8f0a75c374e7ba684459d574ef9177945e9d96bd8c"
+      },
+      "lang.4.classics": {
+        "current_sha256": "75d572fac223a4fa71bf327fb10a013e37a166d6134e228be9be45ace3f1a76a",
+        "before_sha256": "75d572fac223a4fa71bf327fb10a013e37a166d6134e228be9be45ace3f1a76a"
+      },
+      "lang.4.comp-lit": {
+        "current_sha256": "9a0eaf783e69b90c454117d02ba8f5bb55a61b5d7359b18b11b96ac586054d67",
+        "before_sha256": "53fcbf02159b85c14ef9312712197ab6b254824bbc308a6740f14cbcb67e43f1"
+      },
+      "lang.4.creative": {
+        "current_sha256": "052517dfad9ca615d9aabcbc21e34b5a55992218308a291411a568667f4b790f",
+        "before_sha256": "052517dfad9ca615d9aabcbc21e34b5a55992218308a291411a568667f4b790f"
+      },
+      "lang.4.history-english": {
+        "current_sha256": "8811a7bdbff411d96e1cb3eb4ff99a8e9dacc724e259ea1b1686283768905896",
+        "before_sha256": "8811a7bdbff411d96e1cb3eb4ff99a8e9dacc724e259ea1b1686283768905896"
+      },
+      "lang.4.linguistics": {
+        "current_sha256": "bfe809abf7fcbed788f28cc61e21ff92cc3de145d00929d1d5e91d1363d91851",
+        "before_sha256": "bfe809abf7fcbed788f28cc61e21ff92cc3de145d00929d1d5e91d1363d91851"
+      },
+      "lang.4.lit-theory": {
+        "current_sha256": "c1e2eaebbeb5603634a7c81ccb96a4c9eb845d11e1ec7320bc2bb8edf63514be",
+        "before_sha256": "c1e2eaebbeb5603634a7c81ccb96a4c9eb845d11e1ec7320bc2bb8edf63514be"
+      },
+      "math.4.analysis": {
+        "current_sha256": "e138dde4612f910c85a52613f6376ac17b13a6af442d59d86e67a79e6bec20df",
+        "before_sha256": "e138dde4612f910c85a52613f6376ac17b13a6af442d59d86e67a79e6bec20df"
+      },
+      "math.4.diff-calc": {
+        "current_sha256": "7a2cef1a52372c45239f31f19339d95fcecd89aa32bbde3ca0c38f9fc1e22f1c",
+        "before_sha256": "7a2cef1a52372c45239f31f19339d95fcecd89aa32bbde3ca0c38f9fc1e22f1c"
+      },
+      "math.4.diffeq": {
+        "current_sha256": "c0ab568846f32be11f7b30f22261fec293bbc675109cc09e0e59fd962a421939",
+        "before_sha256": "c0ab568846f32be11f7b30f22261fec293bbc675109cc09e0e59fd962a421939"
+      },
+      "math.4.discrete": {
+        "current_sha256": "f2d0c4b009968937c7fa6f2315f829975a4001fce103af33d3928ba4560bbabe",
+        "before_sha256": "f2d0c4b009968937c7fa6f2315f829975a4001fce103af33d3928ba4560bbabe"
+      },
+      "math.4.int-calc": {
+        "current_sha256": "a50c18f92ac6eb84a198fff022a1d4d0787775f1559204f20208b087fb7d4777",
+        "before_sha256": "a50c18f92ac6eb84a198fff022a1d4d0787775f1559204f20208b087fb7d4777"
+      },
+      "math.4.linalg": {
+        "current_sha256": "6c449089defcf3542e4600f945e04064e621d7d8c3db6f2953c4df89fd7578b9",
+        "before_sha256": "ac7ad2d4a9ebc6eb4d2b796d3d849e4ef609e899b10edcc76fd304f393b56802"
+      },
+      "math.4.multivar": {
+        "current_sha256": "d225b86d26ca4d45a41975fd583ba12aa3dd6750dfa2a676e17018f30cd5d9f0",
+        "before_sha256": "a74dd14e78c8071f0da69e093247e91841af564fb99100de29d14b0dacc9828b"
+      },
+      "math.4.numtheory": {
+        "current_sha256": "375b25d147185007fb6bbaaa04f5ef0a5ddeaa45bc179b3cd8fbee9470bbd86e",
+        "before_sha256": "375b25d147185007fb6bbaaa04f5ef0a5ddeaa45bc179b3cd8fbee9470bbd86e"
+      },
+      "math.4.prob-theory": {
+        "current_sha256": "6747544934a82957821a2de4db929ee108dee1ca801cf39fd21e072267c56a7e",
+        "before_sha256": "6747544934a82957821a2de4db929ee108dee1ca801cf39fd21e072267c56a7e"
+      },
+      "media.4.methods": {
+        "current_sha256": "fd0620eecbd1180119d385c7460427f8644df9dd57b009febe3d1bd325e2e5be",
+        "before_sha256": "fd0620eecbd1180119d385c7460427f8644df9dd57b009febe3d1bd325e2e5be"
+      },
+      "media.4.theory": {
+        "current_sha256": "eafb112e86469e1b6e621c5a629b0aa28de59f42af2d4ba192be672f4845722b",
+        "before_sha256": "eafb112e86469e1b6e621c5a629b0aa28de59f42af2d4ba192be672f4845722b"
+      },
+      "mind.4.cognitive-sci": {
+        "current_sha256": "1451f9aa4af9e451dd48b6b070a3e5b1ef8860576d54677097d9b956a3d8c186",
+        "before_sha256": "69a1738056b8a40e5492bc541691550139d3402dfbaa37a8636616a829241eba"
+      },
+      "mind.4.economics-behav": {
+        "current_sha256": "0f568ffa457982fbf1c4480b3ca978e9d6b6f67a69effde45a7cea1afbb3a104",
+        "before_sha256": "0f568ffa457982fbf1c4480b3ca978e9d6b6f67a69effde45a7cea1afbb3a104"
+      },
+      "mind.4.epistemology": {
+        "current_sha256": "9fd2c6dcd826a0c7e2d61ee6174f2c100cbc8873184e47b01d8bdd768fdfead0",
+        "before_sha256": "4152f494ef2731a0edc71b6d37bbd9483a342232d870a6766a7ea169e7cf0969"
+      },
+      "mind.4.ethics-adv": {
+        "current_sha256": "8650ff2d22871cf5c73639c4f80882c6d1c85453b945bc60a21c30f2a7e80ff2",
+        "before_sha256": "f7ae02325d5b5a57774ebf1f385cfa3fb1fae3c52a077b3bf581488769143634"
+      },
+      "mind.4.metaphysics": {
+        "current_sha256": "2f517edf03fd38ec4a976140e425e875b7304bda2fe21e12593316f7045cfa3e",
+        "before_sha256": "f1a4eeca817a98ccfed7d4c9335a316a03aeb816338d9d45e6fb8019110ce1d7"
+      },
+      "mind.4.philsci": {
+        "current_sha256": "3ac99a38cfa30678bed0a43a2debcfa46f45f280e869e2fb0b3b1975332fcbcf",
+        "before_sha256": "d57559e29a988c653ca21f6b7b951d13ff8a400e19ff303af6005fbb27c2161a"
+      },
+      "phys.4.classical": {
+        "current_sha256": "80954bffb210ed9122994a0e0b36ddfb6aa41db4293091e95ac31abd7b7fa1dc",
+        "before_sha256": "5b581f8d0ee02e4536f681ab49b373377c969108ffe92916f1bf1e7c1576bb0a"
+      },
+      "phys.4.em-maxwell": {
+        "current_sha256": "e6d45b5b4cef3fc3384b11a36a75111b0cf62aa3d526e9dea07909e2177d3a24",
+        "before_sha256": "e6d45b5b4cef3fc3384b11a36a75111b0cf62aa3d526e9dea07909e2177d3a24"
+      },
+      "phys.4.experiment": {
+        "current_sha256": "e930e9cad67ea47f2aeb8b591c8f9d79123790172d17cc5cae714c99ade930d3",
+        "before_sha256": "e930e9cad67ea47f2aeb8b591c8f9d79123790172d17cc5cae714c99ade930d3"
+      },
+      "phys.4.fluids": {
+        "current_sha256": "59c1d9c5f265d619ae59d72dc863acf72218f3d111583a47d06c326049fd9431",
+        "before_sha256": "59c1d9c5f265d619ae59d72dc863acf72218f3d111583a47d06c326049fd9431"
+      },
+      "phys.4.particles": {
+        "current_sha256": "b4be67e54b2bc6354435bafc64169bb8802a27d2eddb105e8972f0e5797ba51b",
+        "before_sha256": "b4be67e54b2bc6354435bafc64169bb8802a27d2eddb105e8972f0e5797ba51b"
+      },
+      "phys.4.quantum": {
+        "current_sha256": "6c0d309dcd6ff288d43c6dc78d18cb9b32bd6b577ffcb0b805ed0d50bc33ff56",
+        "before_sha256": "6c0d309dcd6ff288d43c6dc78d18cb9b32bd6b577ffcb0b805ed0d50bc33ff56"
+      },
+      "phys.4.relativity": {
+        "current_sha256": "9670fd8a40fd3840ec192a524dbb3917ac6e5808bf6a905e8f8057c43bdc1887",
+        "before_sha256": "c4b3e14d8d6d397bdc66ccd862e1f690ba2d8d66389d8a51f2972be683760891"
+      },
+      "phys.4.solid-state": {
+        "current_sha256": "068b4d2f7fd0ff5ede1e9d6853821a2cd800806cdef73ef6bd9894397c4caea6",
+        "before_sha256": "068b4d2f7fd0ff5ede1e9d6853821a2cd800806cdef73ef6bd9894397c4caea6"
+      },
+      "phys.4.statmech": {
+        "current_sha256": "963fa16d2d80d7ddf9ee74b95b025a7573de3f1404f9e9399a6e0ce538e551fd",
+        "before_sha256": "b6689f6d1c3a060c3e0eac8ead3e1ef20f62010cac5f89007c94b673d80a9a20"
+      }
+    },
+    "changed_minutes": [
+      {
+        "id": "arts.4.aesthetics",
+        "before": 1895,
+        "after": 1890
+      },
+      {
+        "id": "arts.4.art-theory",
+        "before": 1965,
+        "after": 1960
+      },
+      {
+        "id": "bio.4.biochem",
+        "before": 1755,
+        "after": 1750
+      },
+      {
+        "id": "bio.4.genomics",
+        "before": 1805,
+        "after": 1800
+      },
+      {
+        "id": "bio.4.neuro",
+        "before": 1610,
+        "after": 1605
+      },
+      {
+        "id": "chem.4.analytical",
+        "before": 1580,
+        "after": 1575
+      },
+      {
+        "id": "chem.4.electrochem",
+        "before": 1320,
+        "after": 1315
+      },
+      {
+        "id": "cs.4.algorithms-adv",
+        "before": 1870,
+        "after": 1865
+      },
+      {
+        "id": "cs.4.databases-adv",
+        "before": 1815,
+        "after": 1810
+      },
+      {
+        "id": "cs.4.ml",
+        "before": 1685,
+        "after": 1680
+      },
+      {
+        "id": "cs.4.networks",
+        "before": 1930,
+        "after": 1925
+      },
+      {
+        "id": "cs.4.security",
+        "before": 1735,
+        "after": 1730
+      },
+      {
+        "id": "cs.4.theory",
+        "before": 1980,
+        "after": 1975
+      },
+      {
+        "id": "design.4.evaluation",
+        "before": 1150,
+        "after": 1145
+      },
+      {
+        "id": "earth.4.astrophysics",
+        "before": 1805,
+        "after": 1800
+      },
+      {
+        "id": "earth.4.oceanatmos",
+        "before": 1965,
+        "after": 1960
+      },
+      {
+        "id": "eng.4.control",
+        "before": 1135,
+        "after": 1130
+      },
+      {
+        "id": "env.4.agroecology",
+        "before": 1155,
+        "after": 1150
+      },
+      {
+        "id": "env.4.field-methods",
+        "before": 1225,
+        "after": 1220
+      },
+      {
+        "id": "health.4.appraisal",
+        "before": 1310,
+        "after": 1305
+      },
+      {
+        "id": "hist.4.economics",
+        "before": 1940,
+        "after": 1935
+      },
+      {
+        "id": "hist.4.geopolitics",
+        "before": 2390,
+        "after": 2385
+      },
+      {
+        "id": "hist.4.social-history",
+        "before": 2500,
+        "after": 2495
+      },
+      {
+        "id": "lang.4.comp-lit",
+        "before": 2410,
+        "after": 2405
+      },
+      {
+        "id": "math.4.linalg",
+        "before": 1210,
+        "after": 1355
+      },
+      {
+        "id": "math.4.multivar",
+        "before": 1275,
+        "after": 1270
+      },
+      {
+        "id": "mind.4.cognitive-sci",
+        "before": 1785,
+        "after": 1780
+      },
+      {
+        "id": "mind.4.epistemology",
+        "before": 1990,
+        "after": 1985
+      },
+      {
+        "id": "mind.4.ethics-adv",
+        "before": 1860,
+        "after": 1855
+      },
+      {
+        "id": "mind.4.metaphysics",
+        "before": 1955,
+        "after": 1950
+      },
+      {
+        "id": "mind.4.philsci",
+        "before": 1860,
+        "after": 1855
+      },
+      {
+        "id": "phys.4.classical",
+        "before": 2110,
+        "after": 2105
+      },
+      {
+        "id": "phys.4.relativity",
+        "before": 1915,
+        "after": 1910
+      },
+      {
+        "id": "phys.4.statmech",
+        "before": 1715,
+        "after": 1710
+      }
+    ],
+    "actual_Curriculum_current_and_counterfactual_match_all_independent_values": true,
+    "only_counterfactual_corpus_file": "data/curriculum/01-mathematics.json"
+  },
+  "extends_historical_approval": false,
+  "product_pacing_overridden": false,
+  "new_linear_algebra_science_and_reader_validated_by_this_inverse": false
+}

@@ -8,6 +8,7 @@ import gzip
 import struct
 import hashlib
 import json
+import os
 from datetime import date
 import re
 from functools import lru_cache
@@ -45,13 +46,32 @@ SOURCE_REFERENCE_ATLASES['totalseg-v3-s0358'] = 'thyroid-source'
 SOURCE_REFERENCE_ATLASES['totalseg-v3-esophagus-s0358'] = 'esophagus-source'
 SOURCE_REFERENCE_ATLASES['wt9fc-sub007'] = 'tongue-source'
 SOURCE_REFERENCE_ATLASES['ispy1-expert1002'] = 'breast-tumour-source'
+SOURCE_REFERENCE_ATLASES['prostate-biopsy0001'] = 'prostate-source'
 SOURCE_REFERENCE_ATLASES['larynx-jasa19629778-phase01'] = 'larynx-phonation-source'
+SOURCE_REFERENCE_ATLASES['hra-bladder-female-v1.1'] = 'bladder-source'
+SOURCE_REFERENCE_ATLASES['hra-female-pelvis-v1.10'] = 'female-pelvis-source'
+SOURCE_REFERENCE_ATLASES['hra-bladder-male-v1.1'] = 'bladder-source'
+SOURCE_REFERENCE_ATLASES['bp3d-sella-4.3'] = 'sella-gross-default'
+SOURCE_REFERENCE_ATLASES['bp3d-carotid-4.3'] = 'carotid-right-source'
+SOURCE_REFERENCE_FAMILY_REGIONS = {'bp3d-sella-4.3': frozenset((
+    'sella-gross-default', 'gland-source-2011', 'gland-source-2014',
+    'optic-reduced-source', 'optic-elongated-source',
+    'right-ICA-source-2011', 'right-ICA-source-2014'))}
+for _source_case in ['center1-001', 'center2-01', 'center3-01', 'center4-01']:
+    SOURCE_REFERENCE_ATLASES['fedbca-' + _source_case] = 'bladder-tumour-source'
 
 
 @lru_cache(maxsize=1)
 def _source_motion_references():
     return validate_motion_references(_read('source-motion-references.json',{}),
         {i['id'] for i in catalogue()['investigations']},DATA.parents[1]/'web')
+
+
+@lru_cache(maxsize=1)
+def _source_study_references():
+    from .source_study import validate_study_references
+    return validate_study_references(_read('source-study-references.json', {}),
+        {i['id'] for i in catalogue()['investigations']}, DATA.parents[1] / 'web')
 
 
 @lru_cache(maxsize=1)
@@ -74,7 +94,8 @@ def _source_anatomy_references():
             if entry['id'] in seen:
                 raise ValueError('Duplicate source anatomy reference')
             seen.add(entry['id'])
-            if SOURCE_REFERENCE_ATLASES.get(entry['atlas']) != entry['family']:
+            if (SOURCE_REFERENCE_ATLASES.get(entry['atlas']) != entry['family']
+                    and entry['family'] not in SOURCE_REFERENCE_FAMILY_REGIONS.get(entry['atlas'], ())):
                 raise ValueError('Unknown source anatomy atlas/family')
             expected_url = '/app/anatomy/' + entry['atlas'] + '/manifest.json'
             if entry['manifest_url'] != expected_url or not isinstance(entry.get('initial_cropped'), bool):
@@ -94,12 +115,13 @@ def _source_anatomy_references():
                 raise ValueError('Source anatomy initial layer is unavailable')
             volume = entry.get('source_volume')
             if volume:
-                if not isinstance(volume, dict) or volume.get('src') != '/app/anatomy/' + entry['atlas'] + ('/mri-reference.html' if entry['atlas']=='ispy1-expert1002' else '/ct-reference.html'):
+                from .source_volume_integrity import verified_volume_identity, CDN_VOLUME_FILES
+                filename = CDN_VOLUME_FILES.get(entry['atlas'], 'ct-reference.html')
+                if not isinstance(volume, dict) or volume.get('src') != '/app/anatomy/' + entry['atlas'] + '/' + filename:
                     raise ValueError('Source volume must use its registered local viewer')
-                if entry['atlas']=='ispy1-expert1002' and volume.get('modality')!='MRI':
+                if filename=='mri-reference.html' and volume.get('modality')!='MRI':
                     raise ValueError('Registered source MRI viewer needs its actual MRI modality')
                 volume_path = web / volume['src'].removeprefix('/app/')
-                from .source_volume_integrity import verified_volume_identity
                 verified_volume_identity(volume, web, DATA)
                 expected_levels = {part_id: manifest['parts'][part_id]['name'].split(' · ')[0] for part_id in manifest['parts']}
                 if volume.get('level_by_part') != expected_levels:
@@ -172,7 +194,8 @@ def _steps():
                 raise ValueError('Duplicate step guide: ' + identifier)
             if sections[identifier] != data['section']:
                 raise ValueError('Step guide filed under the wrong specialty: ' + identifier)
-            merged[identifier], reviewed[identifier] = entry, stamp
+            entry_stamp = date.fromisoformat(entry.get('walkthrough_reviewed_at', stamp)).isoformat()
+            merged[identifier], reviewed[identifier] = entry, entry_stamp
     return {'investigations': merged, 'reviewed_at': reviewed}
 
 
@@ -273,11 +296,19 @@ def _walkthrough(item, ref):
     module_illustrations = introduction.get('module_illustrations', True)
     if not isinstance(module_illustrations, bool):
         raise ValueError('Reporting introduction illustration choice must be boolean: ' + item['id'])
-    return {'reviewed_at': _steps()['reviewed_at'].get(item['id'], guide['reviewed_at']),
+    result = {'reviewed_at': _steps()['reviewed_at'].get(item['id'], guide['reviewed_at']),
             'complete': complete, 'template_id': template['id'],
             'start': {'sections': headings[:first], 'images': introductory_images,
                       **({'module_illustrations': False} if not module_illustrations else {})},
             'steps': steps, 'finish': {'sections': headings[last + 1:]}}
+    if 'preset_mode' in authored:
+        if authored['preset_mode'] != 'assessment-prompts':
+            raise ValueError('Unknown report preset mode: ' + item['id'])
+        if any(not re.search(r'\[(?:\s|_)*\]', text)
+               for step in steps for text in step['normal'].values()):
+            raise ValueError('Assessment presets require explicit unfilled observations: ' + item['id'])
+        result['preset_mode'] = 'assessment-prompts'
+    return result
 
 
 @lru_cache(maxsize=1)
@@ -322,6 +353,10 @@ def _overrides():
     for override in overrides.values():
         if 'reporting' in override:
             validate_reporting_guide(override['reporting'])
+    for identifier, override in overrides.items():
+        if 'source_native_only' in override and (identifier != 'ra.ct-pulmonary-nodules'
+                or override['source_native_only'] is not True):
+            raise ValueError('Native-only reference requires its reviewed pulmonary source binding')
     return overrides
 
 
@@ -334,12 +369,107 @@ def _visuals():
     return merged
 
 
+@lru_cache(maxsize=1)
+def cancer_staging_catalog():
+    """Versioned, source-linked oncology reporting tables and original diagrams."""
+    catalog = _read('cancer-staging.json')
+    date.fromisoformat(catalog['reviewed_at'])
+    known = {item['id'] for item in catalogue()['investigations']}
+    if not set(catalog['bindings']).issubset(known):
+        raise ValueError('Cancer staging assigned to an unknown investigation')
+    root = DATA.parents[1] / 'web/reference-media/reporting-diagrams/cancer'
+    for identifier, system in catalog['systems'].items():
+        if system.get('id') != identifier or system.get('kind') not in {'staging', 'response'}:
+            raise ValueError('Invalid cancer staging identity or scope')
+        for field in ('title', 'version', 'scope'):
+            _text(system.get(field), 'Cancer staging needs ' + field)
+        date.fromisoformat(system['reviewed_at'])
+        for field in ('tables', 'report_fields', 'limits', 'sources'):
+            if not isinstance(system.get(field), list) or not system[field]:
+                raise ValueError('Cancer staging needs ' + field)
+        for table in system['tables']:
+            _text(table.get('title'), 'Staging table needs a title')
+            if not table.get('rows'):
+                raise ValueError('Staging table needs criteria')
+            for row in table['rows']:
+                for field in ('category', 'criteria', 'report_note'):
+                    _text(row.get(field), 'Staging row needs ' + field)
+        for source in system['sources']:
+            from .radiology import _source
+            _source(source)
+        figure = system['illustration']
+        if figure['src'] != '/app/reference-media/reporting-diagrams/cancer/' + identifier + '.svg':
+            raise ValueError('Cancer staging diagram must use its registered local SVG')
+        path = (root / (identifier + '.svg')).resolve()
+        if not path.is_relative_to(root.resolve()) or not path.is_file():
+            raise ValueError('Missing cancer staging illustration')
+        _text(figure.get('alt'), 'Cancer staging diagram needs accessible text')
+    for selection in catalog['bindings'].values():
+        if (not selection or len(selection) != len(set(selection))
+                or not set(selection).issubset(catalog['systems'])):
+            raise ValueError('Cancer staging binding needs distinct known systems')
+    return catalog
+
+
+@lru_cache(maxsize=1)
+def annotated_anatomy_links():
+    """External annotated case references, distinct from licensed local images."""
+    from .radiology import _source
+    data = _read('annotated-anatomy-links.json')
+    known = {item['id'] for item in catalogue()['investigations']}
+    if not set(data['bindings']).issubset(known):
+        raise ValueError('Annotated anatomy link has an unknown investigation')
+    for reference in data['references'].values():
+        _source(reference)
+        _text(reference.get('reporting_use'), 'Anatomy reference needs its reporting use')
+        if reference.get('stack'):
+            stack = reference['stack']
+            expected = '/app/reference-media/annotated-ct/' + reference['id'] + '.json'
+            if stack.get('manifest_url') != expected:
+                raise ValueError('Annotated CT stack must use its registered manifest')
+            manifest = _read('../../web/reference-media/annotated-ct/' + reference['id'] + '.json')
+            frames = manifest.get('frames', [])
+            if (len(frames) != stack['frame_count'] or not frames
+                    or len({frame['src'] for frame in frames}) != len(frames)
+                    or [frame['index'] for frame in frames] != list(range(len(frames)))
+                    or manifest['source_url'] != reference['url']):
+                raise ValueError('Annotated CT stack identity, count or order differs')
+            for frame in frames:
+                if not re.fullmatch(r'https://prod-images-static\.radiopaedia\.org/images/[0-9]+/[a-zA-Z0-9]+_big_gallery\.jpeg', frame['source_image_url']):
+                    raise ValueError('Annotated CT stack has an unreviewed image host or path')
+                expected_frame = '/app/reference-media/annotated-ct/' + reference['id'] + '/' + str(frame['index'] + 1).zfill(3) + '.jpeg'
+                if frame['src'] != expected_frame:
+                    raise ValueError('Annotated CT stack has an unregistered local frame')
+                if (not re.fullmatch(r'[0-9a-f]{64}', frame.get('sha256', ''))
+                        or any(type(frame.get(key)) is not int or frame[key] <= 0 for key in ('width', 'height'))):
+                    raise ValueError('Annotated CT frame needs its reviewed hash and dimensions')
+                frame_path = DATA.parents[1] / 'web' / frame['src'].removeprefix('/app/')
+                if not os.environ.get('VERCEL') and hashlib.sha256(frame_path.read_bytes()).hexdigest() != frame['sha256']:
+                    raise ValueError('Preserved annotated CT frame changed after acquisition')
+    return {identifier: [copy.deepcopy(data['references'][key]) for key in selection]
+            for identifier, selection in data['bindings'].items()}
+
+
+@lru_cache(maxsize=1)
+def annotated_ct_frames():
+    """Registered public-source rasters; hosted builds deliver bytes on the CDN."""
+    frames, seen = {}, set()
+    for references in annotated_anatomy_links().values():
+        for reference in references:
+            if not reference.get('stack') or reference['id'] in seen:
+                continue
+            seen.add(reference['id'])
+            manifest = _read('../../web/reference-media/annotated-ct/' + reference['id'] + '.json')
+            frames.update({frame['src']: frame for frame in manifest['frames']})
+    return frames
+
+
 def _validate_native_volume_figure(image, root):
     """Validate packaged section provenance without approving clinical anatomy."""
-    if (image.get('kind') != 'clinical-image' or image.get('modality') != 'CT'
+    if (image.get('kind') != 'clinical-image' or image.get('modality') not in {'CT','MRI'}
             or not isinstance(image.get('figure_title'), str) or not image['figure_title'].strip()
             or any(key in image for key in ('figure_number', 'source_panel'))):
-        raise ValueError('Native volume figure needs explicit CT section title')
+        raise ValueError('Native volume figure needs an explicit source section title')
     derivation = image.get('derivation', {})
     prefix = '/app/reference-media/radiology-open/'
     url = derivation.get('evidence_url', '') if isinstance(derivation, dict) else ''
@@ -354,7 +484,25 @@ def _validate_native_volume_figure(image, root):
     evidence = json.loads(raw)
     source = evidence.get('source', {})
     doi = source.get('dataset_doi')
-    if doi == '10.5281/zenodo.10069289':
+    if image['modality'] != ('MRI' if doi=='10.7937/TCIA.2020.A61IOC1A' else 'CT'):
+        raise ValueError('Native section modality differs from its registered source')
+    if doi == '10.7937/TCIA.2020.A61IOC1A':
+        verified_source = (source.get('data_license')=='CC BY 4.0'
+            and source.get('case_id')=='Prostate-MRI-US-Biopsy-0001'
+            and source.get('source_role')=='T2'
+            and source.get('source_series_UID')=='1.3.6.1.4.1.14519.5.2.1.266717969984343981963002258381778490221'
+            and source.get('whole_object_md5_and_scalar_readback_verified') is True
+            and source.get('source_MRI_stored_sample_count')==3932160
+            and all(re.fullmatch(r'[0-9a-f]{64}',source.get(k,'')) for k in ('source_T2_payload_sha256','source_object_sha256','source_plane_stored_samples_sha256'))
+            and evidence.get('source_shape')==[60,256,256]
+            and evidence.get('source_dtype')=='<u2'
+            and evidence.get('source_sampling_zyx_mm')==[1.5,.6640625,.6640625]
+            and evidence.get('source_display_adaptation')=='original_DICOM_LINEAR_VOI_to_8bit'
+            and len(evidence.get('planes',[]))==1
+            and evidence['planes'][0].get('axis')==0
+            and evidence['planes'][0].get('index') in [15,25,35]
+            and evidence.get('clinical_approval') is False)
+    elif doi == '10.5281/zenodo.10069289':
         verified_source = (source.get('data_license') == 'CC BY 4.0'
             and source.get('mirror_repository') == 'andreped/AeroPath'
             and re.fullmatch(r'[0-9a-f]{40}', source.get('mirror_revision', ''))
@@ -567,6 +715,23 @@ def _validate_source_panel_roles(image):
                 or any(types.get(panel) != entry.get('kind') for panel in panels)):
             raise ValueError('Source ancillary panel roles overlap or contradict the declared source types')
         occupied.update(panels)
+    if image.get('panel_identifier_scheme') == 'descriptive_source_positions':
+        if (not types or len(types) > 32
+                or context.get('panel_identifier_scheme') != 'descriptive_source_positions'
+                or any(not isinstance(panel, str)
+                       or not re.fullmatch(r'[A-Za-z][A-Za-z0-9_]{0,63}', panel)
+                       for panel in types)):
+            raise ValueError('Descriptive source positions need explicit complete panel roles')
+        schematics = image.get('schematic_panels', [])
+        if (not isinstance(schematics, list)
+                or any(not isinstance(panel, str) or types.get(panel) != 'Schematic'
+                       for panel in schematics)
+                or len(schematics) != len(set(schematics))
+                or occupied.intersection(schematics)):
+            raise ValueError('Descriptive source schematic roles overlap or contradict source types')
+        occupied.update(schematics)
+        if occupied != set(types):
+            raise ValueError('Descriptive source positions must partition every source role')
 
 
 @lru_cache(maxsize=1)
@@ -587,8 +752,14 @@ def _structure_atlases():
         for image in images:
             if image['id'] in seen or image.get('kind') not in {'clinical-image', 'schematic'}:
                 raise ValueError('Invalid or duplicated MSK atlas figure')
-            if image.get('modality') not in {'MRI', 'MR arthrography', 'CT', 'CT arthrography', 'Ultrasound', 'Radiography', 'Nuclear medicine', 'Schematic'}:
+            if image.get('modality') not in {'MRI', 'MR arthrography', 'CT', 'CT arthrography', 'Ultrasound', 'Radiography', 'Nuclear medicine', 'Histology', 'Schematic'}:
                 raise ValueError('MSK atlas figure needs its actual source modality')
+            if 'source_table' in image:
+                if (type(image['source_table']) is not int or image['source_table'] < 1
+                        or image.get('kind') != 'schematic'
+                        or not isinstance(image.get('source_table_panel'), str)
+                        or not re.fullmatch(r'[a-z]', image['source_table_panel'])):
+                    raise ValueError('Source table artwork requires a positive table number and original panel identifier')
             _validate_source_panel_roles(image)
             if 'source_panel' in image and image['source_panel'] not in tuple('abcdefABCDEF'):
                 raise ValueError('MSK source panel needs an explicit publication panel identifier')
@@ -598,7 +769,11 @@ def _structure_atlases():
             ancillary = image.get('ancillary_panels', [])
             position_panels = image.get('panel_identifier_scheme') == 'position_unlettered'
             grid_panels = image.get('panel_identifier_scheme') == 'grid_unlettered'
+            descriptive_panels = image.get('panel_identifier_scheme') == 'descriptive_source_positions'
             grid_positions = set()
+            descriptive_positions = set()
+            if descriptive_panels:
+                descriptive_positions = set(image['source_context']['panel_types'])
             if grid_panels:
                 context = image.get('source_context', {})
                 rows, columns = context.get('panel_grid_rows'), context.get('panel_grid_columns')
@@ -622,11 +797,11 @@ def _structure_atlases():
             if not isinstance(ancillary, list):
                 raise ValueError('Ancillary anatomical panels must be explicit records')
             for entry in ancillary:
-                if (not isinstance(entry, dict) or entry.get('kind') not in {'Dissection', 'Histology', 'Endoscopy', 'Ultrasound', 'MRI', 'CT', 'PET-CT', 'Radiography', 'Nuclear medicine', 'Haemodynamic tracing', 'Anatomical specimen photograph', 'Clinical photograph', 'Segmentation mask', 'Masked ultrasound', 'MRI-derived plot', 'Ultrasound-derived display'}
+                if (not isinstance(entry, dict) or entry.get('kind') not in {'Dissection', 'Histology', 'Endoscopy', 'Ultrasound', 'MRI', 'CT', 'PET-CT', 'Radiography', 'Nuclear medicine', 'Haemodynamic tracing', 'Anatomical specimen photograph', 'Clinical photograph', 'Segmentation mask', 'Masked ultrasound', 'Masked histology', 'MRI-derived plot', 'Ultrasound-derived display'}
                         or entry.get('kind') == image.get('modality')
                         or not isinstance(entry.get('panels'), list) or not entry['panels']
                         or any(not isinstance(panel, str) or
-                               (panel not in grid_positions if grid_panels else panel not in {'left', 'middle', 'right'} if position_panels else
+                               (panel not in descriptive_positions if descriptive_panels else panel not in grid_positions if grid_panels else panel not in {'left', 'middle', 'right'} if position_panels else
                                 len(panel) != 1 or panel not in 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ')
                                for panel in entry['panels'])
                         or not isinstance(entry.get('structures_visible'), list) or not entry['structures_visible']
@@ -738,6 +913,12 @@ def _structure_atlases():
 
 
 def resolve(identifier):
+    from .cardiology import investigations as cardiology_investigations
+    cardiology = next((item for item in cardiology_investigations() if item['id'] == identifier), None)
+    if cardiology:
+        return cardiology
+    if identifier == 'ra.hrct-cystic-lung':
+        identifier = 'ra.hrct-lung'
     investigations = catalogue()['investigations']
     exact = next((item for item in investigations if item['id'] == identifier), None)
     if exact:
@@ -771,7 +952,43 @@ def _template(item, guide, base):
     return template
 
 
+def reporting_image(image):
+    """Keep diagnostic images and teaching diagrams out of research-figure clutter.
+
+    Preserve original source records/bytes for provenance; exclude whole mixed
+    figures rather than silently cropping licensed publisher panels.
+    """
+    if image.get('origin') == 'source-derived' and image.get('kind') != 'schematic':
+        return False
+    excluded = ('dissection', 'histology', 'photograph', 'specimen', 'experimental')
+    # Explicit tissue references retain complete mixed artwork: ancillary
+    # workstation photographs remain separate from the primary ex-vivo slide.
+    # This does not make them MRI, acquired 3D or diagnostic approval.
+    context = image.get('source_context', {})
+    panels = image.get('clinical_panels', [])
+    tissue = (image.get('source_tissue_evidence') is True
+              and image.get('kind') == 'clinical-image'
+              and image.get('modality') == 'Histology'
+              and context.get('setting') == 'ex_vivo'
+              and bool(panels)
+              and all(context.get('panel_types', {}).get(p) == 'Histology' for p in panels))
+    clinical = image.get('kind') == 'clinical-image' and image.get('modality') in {
+        'CT', 'MRI', 'MR arthrography', 'Ultrasound', 'Radiography', 'CT arthrography'}
+    if (not (clinical or tissue)
+            and any(any(term in panel.get('kind', '').lower() for term in excluded)
+                    for panel in image.get('ancillary_panels', []))):
+        return False
+    description = ' '.join(str(image.get(key, '')) for key in
+                           ('id', 'caption', 'alt', 'title', 'source_url')).lower()
+    return not any(term in description for term in
+                   ('synchrotron', 'hipct-lung', 'phase-contrast tomography', 's41597-022-01353',
+                    'micro-ct', 'microct', 'experimental setup'))
+
+
 def detail(curriculum, item):
+    if item['id'].startswith('cardiology.'):
+        from .cardiology import detail as cardiology_detail
+        return cardiology_detail(item)
     node = curriculum.node(item['module_id'])
     if not node:
         raise ValueError('Investigation backing content is missing')
@@ -783,6 +1000,11 @@ def detail(curriculum, item):
     override = copy.deepcopy(_overrides().get(item['id'], {}))
     for key, value in override.items():
         ref[key] = value
+    if 'source_context_documents' in ref:
+        if item['id'] != 'ra.ct-traumatic-haemorrhage':
+            raise ValueError('Source-context documents have an unreviewed investigation binding')
+        from .source_blob_delivery import validate_context_documents
+        validate_context_documents(ref['source_context_documents'])
     walkthrough_model = _step_model(item, _steps()['investigations'].get(item['id'], {})) or copy.deepcopy(ref['spatial_model'])
     model_binding = _read('investigation-model-bindings.json', {}).get(item['id'])
     has_source_binding = bool(model_binding)
@@ -851,7 +1073,8 @@ def detail(curriculum, item):
     if 'reporting' in override and 'report_templates' not in override:
         ref['report_templates'] = [_template(item, ref['reporting'], ref['report_templates'][0])]
     assigned_urls = {article['url'].rstrip('/') for article in ref['reading']}
-    candidates = list(_visuals().get(item['id'], [])) + ref['key_images']
+    # A scoped source-only review can explicitly suppress the visual fallback.
+    candidates = ([] if override.get('suppress_visual_fallback') is True else list(_visuals().get(item['id'], []))) + ref['key_images']
     selected, seen = [], set()
     for image in candidates:
         if image.get('source_url', '').rstrip('/') not in assigned_urls:
@@ -862,9 +1085,31 @@ def detail(curriculum, item):
         selected.append(copy.deepcopy(image))
     ref['key_images'] = selected
     ref['structure_atlas'] = copy.deepcopy(_structure_atlases().get(item['id'], []))
+    from .thoracic_source_labels import bind_images as bind_source_labels
+    bind_source_labels(item['id'], ref['structure_atlas'])
     ref['source_anatomy_references'] = copy.deepcopy(_source_anatomy_references().get(item['id'], []))
     ref['source_motion_references'] = copy.deepcopy(_source_motion_references().get(item['id'], []))
+    ref['source_study_references'] = copy.deepcopy(_source_study_references().get(item['id'], []))
+    ref['annotated_anatomy_links'] = copy.deepcopy(annotated_anatomy_links().get(item['id'], []))
+    from .source_native_inspectors import references as native_inspectors
+    inspectors = native_inspectors().get(item['id'], [])
+    if inspectors:
+        ref['source_native_inspectors'] = copy.deepcopy(inspectors)
+    if ref.get('source_native_only') is True and (item['id'] != 'ra.ct-pulmonary-nodules'
+            or not inspectors or ref['key_images'] or ref['source_anatomy_references']):
+        raise ValueError('Native-only pulmonary reference has a missing source or unreviewed fallback')
     ref['investigation'] = copy.deepcopy(item)
+    if item['module_id'] == 'rad.4.spine-imaging':
+        ref['spine_neurology_map'] = _read('spine-neurology-map.json')
+    if item['id'] == 'ra.hrct-lung':
+        ref['quick_reference'] = _read('hrct-quick-reference.json')
+    if item['module_id'] == 'rad.5.aorta':
+        ref['reporting_diagrams'] = _read('aortic-reporting-diagrams.json')
+    cancer = cancer_staging_catalog()
+    if item['id'] in cancer['bindings']:
+        ref['cancer_staging'] = [copy.deepcopy(cancer['systems'][key])
+                                 for key in cancer['bindings'][item['id']]]
+        ref['cancer_staging_reviewed_at'] = cancer['reviewed_at']
     corrected = _step_model(item, _steps()['investigations'].get(item['id'], {}))
     if corrected and not has_source_binding:
         ref['spatial_model'] = corrected
@@ -877,6 +1122,11 @@ def detail(curriculum, item):
     validate_reference(ref)
     ref['walkthrough'] = _walkthrough(item, dict(ref, spatial_model=walkthrough_model))
     ref['walkthrough']['spatial_model'] = walkthrough_model
+    for collection in ('key_images', 'structure_atlas'):
+        ref[collection] = [image for image in ref[collection] if reporting_image(image)]
+    visible = {image['id'] for key in ('key_images', 'structure_atlas') for image in ref[key]}
+    for step in [ref['walkthrough']['start'], *ref['walkthrough']['steps']]:
+        step['images'] = [identifier for identifier in step['images'] if identifier in visible]
     return {'id': item['id'], 'module_id': node['id'], 'title': item['title'],
             'section': item['section'], 'topic': item['topic'], 'modality': item['modality'],
             'source_titles': item['source_titles'], 'goal': item['summary'],
@@ -884,17 +1134,19 @@ def detail(curriculum, item):
 
 
 def index(curriculum):
+    from .cardiology import investigations as cardiology_investigations
     modules = []
-    for item in catalogue()['investigations']:
+    for item in [*catalogue()['investigations'], *cardiology_investigations()]:
         reference = detail(curriculum, item)['radiology_reference']
         classification = reference['reporting']['classification']
         modules.append({
             'id': item['id'], 'module_id': item['module_id'], 'title': item['title'],
             'section': item['section'], 'topic': item['topic'], 'modality': item['modality'],
             'source_titles': item['source_titles'], 'summary': item['summary'],
-            'topics': list(dict.fromkeys([item['topic'], item['modality'], *item['source_titles'],
+            'topics': list(dict.fromkeys([item['topic'], item['modality'], *item['source_titles'], *item.get('aliases', []),
                 *[heading for article in reference['reading'] for heading in article.get('headings', [])],
                 *[point['label'] for point in reference['reporting']['checklist']],
+                *[system['title'] for system in reference.get('cancer_staging', [])],
                 *({'Musculoskeletal': ['MSK'], 'Head/Neck': ['ENT'], 'Pediatrics': ['paediatric', 'pediatric']}.get(item['section'], [])),
                 *({'ra.ct-coronary': ['CCTA', 'CTCA'], 'ra.mri-prostate': ['mpMRI', 'PI-RADS']}.get(item['id'], []))])),
             'image_count': len(reference['key_images']) + len(reference.get('structure_atlas', []))
@@ -902,6 +1154,7 @@ def index(curriculum):
             'motion_count': len(reference.get('source_motion_references',[])),
             'template_count': len(reference['report_templates']),
             'classification': classification['name'] if classification else '',
+            'staging_systems': [system['title'] for system in reference.get('cancer_staging', [])],
             'model_family': reference['spatial_model']['family'],
             'step_count': len(reference['walkthrough']['steps']),
             'reviewed_at': reference['reporting']['reviewed_at'],

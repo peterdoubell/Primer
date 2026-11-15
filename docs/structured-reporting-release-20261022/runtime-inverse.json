@@ -1,0 +1,94 @@
+{
+  "base_commit": "79622fbc2003022c5c882b7cc26893e02468c60e",
+  "scope": "structured_reporting_forms_and_calculator_bridge_only",
+  "clinical_approval": false,
+  "fine_anatomical_approval": false,
+  "extends_historical_approval": false,
+  "native_decoder_mesh_CT_renderer_code_touched": false,
+  "new_reporting_workflow_validated_by_this_inverse": false,
+  "files": {
+    "primer/server.py": {
+      "before_sha256": "9119d95f4093af45cce49b6bd77ed77e4a3801d3558fe2d528e9e3413b37b584",
+      "after_sha256": "22f307e273c643892719ec890fa089098e6ac61cc782d1685d284b51b6edc8c4",
+      "changes": [
+        {
+          "start": 80,
+          "end": 82,
+          "before": "",
+          "after": "from .reporting_bridge import router as reporting_router\napp.include_router(reporting_router)\n"
+        },
+        {
+          "start": 1447,
+          "end": 1449,
+          "before": "    return detail(curr, investigation)\n",
+          "after": "    from .reporting_bridge import with_structured_form\n    return with_structured_form(detail(curr, investigation))\n"
+        },
+        {
+          "start": 3537,
+          "end": 3538,
+          "before": "",
+          "after": "                     \"radiology-structured.js\", \"radiology-structured.css\",\n"
+        }
+      ]
+    },
+    "web/app.js": {
+      "before_sha256": "e474ddb1ef541c32dcd91948de592df01a8fa69934de4defa4c35d806d7492f7",
+      "after_sha256": "693f001b3e49c0cb29e67a57abfa05706d2b36d3684915ac3280520c4b6d47e6",
+      "changes": [
+        {
+          "start": 2339,
+          "end": 2340,
+          "before": "",
+          "after": "    ref.structured_form && window.PrimerStructuredReporting ? window.PrimerStructuredReporting.render(ref.structured_form) : null,\n"
+        },
+        {
+          "start": 7016,
+          "end": 7017,
+          "before": "  module.exports = Object.freeze({ histologyFigure, radiologyPresentation, attachPictureHandlers, pictureCaptionElement, reportingGuard,\n",
+          "after": "  module.exports = Object.freeze({ histologyFigure, radiologyPresentation, attachPictureHandlers, pictureCaptionElement, reportingGuard, renderRadiologyReference,\n"
+        }
+      ]
+    },
+    "web/index.html": {
+      "before_sha256": "962634640436a074fcf1aac7be949cfbfedac16329579f35f5547c65c1d22184",
+      "after_sha256": "fb3bb1f2826760efa0fcc1c71d7752ad1a33887ac4e8e687c42334599fd70bf3",
+      "changes": [
+        {
+          "start": 20,
+          "end": 21,
+          "before": "",
+          "after": "  <link rel=\"stylesheet\" href=\"/app/radiology-structured.css\">\n"
+        },
+        {
+          "start": 113,
+          "end": 114,
+          "before": "",
+          "after": "  <script src=\"/app/radiology-structured.js\"></script>\n"
+        }
+      ]
+    }
+  },
+  "added_files_sha256": {
+    "primer/reporting_bridge.py": "e75d73bf4800ed8542932aaa9ddab8a36cea80b36e9247bddd1c586d7b018400",
+    "web/radiology-structured.js": "12db53b35890ce6ad4e6a1f82fc81fd88f3600c2f36d75bc4f0e971f036e03d2",
+    "web/radiology-structured.css": "3b98aff2b3dceb04fcc634ba87d09ac058da9ec0c4478cd5303655c710ab3806",
+    "data/radiology/structured-reporting.json": "cb7080efc4813b264437985f0e539be122cd7106770f222bbe52752b41fd0f2d"
+  },
+  "structured_form_count": 98,
+  "structured_schema_hash": "c89532b864c35117d9d5b3856cfdd71b6d436c2667c23556071ec848a802539d",
+  "guarded_paths_sha256": {
+    "data/radiology/source-anatomy-references.json": "7d40217e0d19e7181ac2305eb278d7fc917e103614753d07bdd1278c46b2aa53",
+    "web/anatomy/liu-lumbosacral-sub03/manifest.json": "4cff725f9f0d3a2bf0f29782889fb16fd6ea92d3e210cdcca2d80fbf4370c12b",
+    "web/anatomy/verse521/ct-reference.html": "ba233548f596f627b4fe56ce103962f2bc2bff0fcf692f1348abfdd9aa134e45",
+    "web/anatomy/verse521/ct-reference.js": "30f82f5a0ef534ce44bfbe40961220abc6487fd426f9af914622ef79c0177890",
+    "web/anatomy/verse521/manifest.json": "bec358ea3b471e16492d59b6ffffe45f56ed1f4c946dc5315842dcf626c7c0f0",
+    "web/radiology-detailed-anatomy.js": "a79e9d10587c9daf702300a5b4b98880cab26313290b4106b9ac9f6340ed8160",
+    "web/speech-chunks.js": "e742231ae27413d51e969f1391af355403453d1365da2ec9eeb94c4a5794dc50"
+  },
+  "canonical_lesson_data_changed": false,
+  "canonical_contract_files_sha256": {
+    "primer/radiology.py": "46291fe72247d0dfb25bf86155e2c1d0412b08d77f5e9d535c00f8acb532fdce",
+    "primer/radiology_catalog.py": "f3ad245dd99dd04e6420099785fdfd65ae0deb5531c5a7a551eddde3a99812e6",
+    "docs/radiology-fidelity-scope.json": "a5d3f4dbeafb88e0fbf6e9f0de72bcd3d027a22533f4ee37a3883bdefc290790"
+  }
+}

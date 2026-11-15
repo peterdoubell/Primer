@@ -1,0 +1,60 @@
+{
+  "scope": "Tooling/test-only amendment for two actual CI failures; no current runtime, source bytes or reader/science changes",
+  "base_head": "37b3eda1187552c7341719a6434296e7ba2cf71f",
+  "base_tree": "60dd320f667a238097c817ae1c744f2862b0bbbf",
+  "changes": {
+    "tools/anatomy_sources/pulmonary_nodule_intake.py": {
+      "before_sha256": "a25dd936f1eabed1e402b16334ad288c1b33029dd89d46b339278af2ffd5b499",
+      "after_sha256": "9e78bd1c29c6e17805652382bcd840b47012861957cfa57047341a96d959a018",
+      "before_bytes": 4829,
+      "after_bytes": 4943
+    },
+    "tests/test_pulmonary_source_delivery.py": {
+      "before_sha256": "d0dc1f9c2cf2bf6a10363a4d8d5cf915c256336d116bfa92651c3ef2ccde2bcb",
+      "after_sha256": "a47b6a2a392f6872eacc119a41b2023d1ab2fbb70f1b078836fec5613e8e8ef0",
+      "before_bytes": 13450,
+      "after_bytes": 13268
+    }
+  },
+  "added_code_pins": {
+    "tools/pulmonary_release_baselines.py": "0ac34fef84938736e0ab1f8eedbee1b056fce6b0263fa6d96e469bf376e59afc",
+    "tests/test_pulmonary_intake_diagnostics.py": "dd5140e78922004cf48987d66055ab4a34fb46db125d77575d2d7f67a2e68306",
+    "tests/test_pulmonary_release_baselines.py": "6adc77112a252f16a547751cc3d15f608214d004ad0739ce6df3d4556cde550e"
+  },
+  "baseline_manifest_sha256": "cd2aaa0588f536085366fe31e341286bca19ec91352d95408abb15eafcdbb653",
+  "baseline_source_commit": "bca576f8d03c5a6ed3c49ea7c7370bde7fb7327e",
+  "baseline_source_files": 7,
+  "baseline_bytes": 103827,
+  "old_CodeQL_check": 114694250861,
+  "old_CodeQL_conclusion": "failure",
+  "old_CodeQL_annotation": {
+    "path": "tools/anatomy_sources/pulmonary_nodule_intake.py",
+    "line": 97,
+    "severity": "high",
+    "title": "Clear-text logging of sensitive information"
+  },
+  "old_CI_Python312_job": 114693935493,
+  "old_CI_Python312_failed_tests": 2,
+  "old_CI_Python312_log_truncated": true,
+  "complete_old_CI_log_not_claimed": true,
+  "focused_exit_code": 0,
+  "focused_passed": 89,
+  "focused_log_sha256": "2a2ac995bd1292170679cdb6da7fa044f417344673ce0f29aecfc8a1827b1dbd",
+  "seven_runtime_pins_unchanged": {
+    "primer/server.py": "b90ad60a33233321a0151ab454276018001e8a4496b6bc23861b9321adc3ce45",
+    "primer/module_media.py": "5876b7a8e0ce3a42f44bfc408dab37c1f790170bd9e0d56a98c6d183901bb2d7",
+    "primer/source_native_inspectors.py": "cf3086ae256ded8ee5443db8569ae53c7c0f9e75983fe675c70718a1fb5bc252",
+    "web/app.js": "7e67a08f5a87983957418daf855069293ad6079c5375304c0dee83e1132029dc",
+    "web/lesson-models.js": "1fe0aa5426059fbddf0c75988bb88305d6f04ba5b03222ecaff99a354e6f0b98",
+    "api/index.py": "21061058fb865328b355af225619124d66669607a7d2b68551d8df03306d5428",
+    "primer/compression.py": "7044e0341853878514fb63a7931aaf454cca27e1550e149620f643fab12e8b11"
+  },
+  "existing_pub_source_receipt_sha256": "ef58428eaa54c070e3772ea7150866d7b23e449acdf9b7bc5e9e0673aec5ba82",
+  "old_reader_and_science_proofs_unchanged": true,
+  "root_tooling_and_baseline_review_accepted": true,
+  "scan_alerts_dismissed": false,
+  "scanner_exclusions_added": false,
+  "clinical_approval": false,
+  "fine_anatomical_approval": false,
+  "whole_goal_complete": false
+}

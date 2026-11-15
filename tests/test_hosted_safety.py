@@ -122,8 +122,17 @@ def test_curriculum_visual_gallery_stays_behind_the_hosted_gate(monkeypatch):
     assert allowed.status_code == 200
     assert allowed.json()["counts"] == {
         "lessons": 558, "illustrations": 561,
-        "models": 817, "items": 1378,
+        "models": 854, "items": 1415,  # Includes the computational-linguistics studio.
     }
+    assert [(item['lesson_id'], item['media_id']) for item in allowed.json()['items']
+            if item.get('renderer') == 'fluids-concept-lab'] == [
+        ('phys.4.fluids', 'explore-fluid-forces-and-flow')]
+    assert [(item['lesson_id'], item['media_id']) for item in allowed.json()['items']
+            if item.get('renderer') == 'linear-algebra-lab'] == [
+        ('math.4.linalg', 'explore-linear-maps-and-kernels')]
+    assert [(item['lesson_id'], item['media_id']) for item in allowed.json()['items']
+            if item.get('renderer') == 'math-systems-lab'] == [
+        ('math.3.systems', 'math.3.systems.general-form.model')]
     assert allowed.headers["vary"] == "Authorization, Cookie"
 
 
@@ -579,6 +588,8 @@ def test_hosted_source_media_redirects_only_after_access_gate(monkeypatch):
         '/app/anatomy/verse521/ct-reference.html',
         '/app/anatomy/ispy1-expert1002/mri-reference.html',
         '/app/anatomy/ispy1-expert1002/ispy1-expert1002-expert-structural-tumour.bin.gz',
+        '/app/anatomy/prostate-biopsy0001/mri-reference.html',
+        '/app/anatomy/prostate-biopsy0001/prostate-biopsy0001-prostate.bin.gz',
         '/app/anatomy/totalseg-v3-esophagus-s0358/ct-reference.html',
         '/app/anatomy/totalseg-v3-esophagus-s0358/totalseg-v3-esophagus-s0358-esophagus.bin.gz',
         '/app/reference-media/prenatal-development/prenatal-development.gif',
@@ -683,7 +694,7 @@ def test_registered_radiology_images_keep_access_gate_and_exact_local_bytes(monk
         assert response.headers['location'] == path.replace('/app/', '/source-media/', 1) + '?v=original'
         assert client.get('/app/reference-media/radiology-open/unknown.jpg', auth=('reader', 'secret')).status_code == 404
     config = json.loads((Path(srv.ROOT) / 'vercel.json').read_text())
-    assert 'web/reference-media/radiology-open/**/*.{jpg,jpeg,png,webp,gif}' in config['builds'][0]['config']['excludeFiles']
+    assert 'web/reference-media/radiology-open/**/*.{jpg,jpeg,png,webp,gif,pdf}' in config['builds'][0]['config']['excludeFiles']
     assert {'src': 'web/reference-media/radiology-open/**', 'use': '@vercel/static'} in config['builds']
 
 

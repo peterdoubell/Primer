@@ -1,0 +1,217 @@
+{
+  "schema_version": 1,
+  "date": "2026-10-11",
+  "node_id": "phys.4.em-maxwell",
+  "scenario": "phys.4.em-maxwell.fields-flux-radiation",
+  "review_scope": "Author-owned dedicated lesson science, quantitative SVG and actual SI coordinated spatial geometry. Independent Python equation oracles; parent independent review and authenticated-reader verification are separate.",
+  "files_sha256": {
+    "web/physics-maxwell-lab.js": "93407f17ad6c6564af51ff373a70c24051021f5f60b334a34ca56617979eaf2d",
+    "web/physics-maxwell-lab.css": "7361049dc72e04cf3fa433ec6432b07c23d8fdcb5aa91d884c366a441540df62",
+    "web/spatial-maxwell.js": "bb43e1c4651ed174895da17588727a4981153018954f41cc26131a0c4c123c6c",
+    "tools/check_physics_maxwell_lab.js": "5f21ae8e82bfac989f6821ab0c016a6cdb9c8c2b24a9337ea716b41da58f287d",
+    "tests/test_physics_maxwell_lab.py": "cfcb2a62f3457f92ca09a75283241622a8d7f66e76539bd2bf7f1e6c5f01059f"
+  },
+  "browser_proof": {
+    "path": "docs/physics-maxwell-browser-proof-20261011.json",
+    "sha256": "367c98a38fe0a490ee796890bafd4f8b7de40305d921a42c99335d5176eef762",
+    "scope": "Isolated loopback HTTP test host serving exact real source files; real Chromium; actual lesson state bus and spatial renderer. No production credentials or user browser profile.",
+    "authenticated_primer_reader_verified": false,
+    "passed": true,
+    "errors": [],
+    "widths": [
+      {
+        "width": 1440,
+        "stations": 7,
+        "numericStates": 62,
+        "rangeStates": 62,
+        "exactDrafts": 31,
+        "keyboardStates": 31,
+        "presets": 11,
+        "choices": 4,
+        "speechStates": 363,
+        "spatialStates": 363,
+        "cameraStates": 84
+      },
+      {
+        "width": 390,
+        "stations": 7,
+        "numericStates": 62,
+        "rangeStates": 62,
+        "exactDrafts": 31,
+        "keyboardStates": 31,
+        "presets": 11,
+        "choices": 4,
+        "speechStates": 363,
+        "spatialStates": 363,
+        "cameraStates": 84
+      }
+    ],
+    "captures": 42,
+    "visually_inspected_current_captures": "All14 lesson screenshots and14 spatial canvas screenshots, including repeated changed-colour and wave framing captures. Remaining14 full spatial screenshots captured and mechanically exercised.",
+    "handles_closed": true
+  },
+  "node_verifier": {
+    "log": ".research/maxwell-lab-qa-20261011/js-final.log",
+    "sha256": "3c68f8e131b8843254b549be829f34a92efefd410b48efd2603d5c80c4882d64",
+    "result": "Verified 272 analytic fixtures across 7 Maxwell stations; 116 mounted control/preset states, 382 calibrated SVG curves, 4079 exact field arrows, 31 exact draft/blur/Enter/Escape controls, current complete speech, units and station scope; 76 actual 3D states, 4374 SI field endpoints, 24545 calibrated surface vertices.",
+    "analytic_fixtures": 272,
+    "mounted_states": 116,
+    "calibrated_curves": 382,
+    "exact_svg_field_arrows": 4079,
+    "exact_drafts": 31,
+    "spatial_states": 76,
+    "si_field_endpoints": 4374,
+    "calibrated_surface_vertices": 24545
+  },
+  "python_oracles": {
+    "log": ".research/maxwell-lab-qa-20261011/python-final.log",
+    "sha256": "ec919cdd57d0eda259bcf0faf7707999c631cacdc0c5441d0fd3fac274c04639",
+    "passed": 8,
+    "skipped": 0,
+    "cases": {
+      "magnetic_caps": 27,
+      "gauss_surfaces": 45,
+      "faraday_loops": 45,
+      "capacitor_surfaces": 135,
+      "vacuum_waves": 108,
+      "coax_currents": 252,
+      "dipole_spheres": 72
+    },
+    "methods": [
+      "Quadrature of exterior magnetic normal flux and cut-disk flux",
+      "Cartesian finite-difference magnetic divergence and normal boundary continuity",
+      "Electric volume-charge and closed-surface flux quadratures; Cartesian divergence",
+      "Oriented Faraday line integral and independent curl stencil",
+      "Capacitor displacement-density surface quadrature and charge/capacitance identity",
+      "Vacuum-wave curl equations, cross-product energy flux and cycle-averaged intensity",
+      "Coax uniform-current-density volume integral",
+      "Full anisotropic radiation angular surface-power integral"
+    ]
+  },
+  "coverage": [
+    {
+      "quiz": 1,
+      "station": "magnetic",
+      "evidence": "Exact uniformly magnetized sphere cap plus cut-disk flux; universal closed magnetic flux, not a bar-specific field solution."
+    },
+    {
+      "quiz": 2,
+      "station": "wave",
+      "evidence": "Hypothetical epsilonFactor=4 and muFactor=1 gives v=c0/2; exact SI c0 remains unchanged."
+    },
+    {
+      "quiz": 3,
+      "station": "wave",
+      "evidence": "At default origin E=+x, B=+y, Poynting=+z; reverse propagation and rotate polarization without losing orthogonality."
+    },
+    {
+      "quiz": 4,
+      "station": "wave",
+      "evidence": "600 V/m gives Bpeak=2.001384571188912 microtesla using exact SI c0; rounded quiz c gives exactly2 microtesla."
+    },
+    {
+      "quiz": 5,
+      "station": "capacitor",
+      "evidence": "Same-boundary gap disk and wire-spanning annulus/cylinder/lower disk; both full and partial plate loops retain displacement contribution."
+    },
+    {
+      "quiz": 6,
+      "station": "radiation",
+      "evidence": "True Hertzian sin-squared angular pattern, 1/r field and1/r-squared intensity, integrated constant power over complete spheres."
+    },
+    {
+      "quiz": 7,
+      "station": "capacitor",
+      "evidence": "5 A conduction equals5 A total gap displacement; partial radius a/2 correctly yields1.25 A enclosed displacement."
+    },
+    {
+      "quiz": 8,
+      "station": "wave",
+      "evidence": "500 THz gives599.584916 nm with exact SI c0; rounded quiz c gives600 nm."
+    },
+    {
+      "quiz": 9,
+      "station": "coax",
+      "evidence": "Radial signed enclosed-current integral under cylindrical symmetry; exact equal-opposite cancellation outside, nonzero imbalance comparison."
+    },
+    {
+      "quiz": 10,
+      "station": "radiation",
+      "evidence": "Perfectly steady DC source has exactly zero radiative term; static fields and turn-on/off transients distinguished."
+    }
+  ],
+  "current_curriculum_scoped_review": {
+    "quiz2": {
+      "prompt": "A hypothetical nondispersive wave model has speed v=1/√(με). Its ε is four times a reference value while μ is unchanged. What happens to the model speed?",
+      "explanation": "The product με increases by four, so its square root doubles and the reciprocal speed halves. This is a hypothetical parameter comparison; the SI vacuum speed of light is exactly 299792458 m/s.",
+      "scientifically_consistent": true
+    },
+    "quiz10": {
+      "prompt": "An antenna carries a perfectly steady direct current after all turn-on transients have ended. What radiative far-field term does that time-independent source produce?",
+      "explanation": "Time-independent charge and current distributions have static electric and magnetic fields, not a time-dependent radiative far field. Switching the source on or off is a different problem and can produce transient radiation.",
+      "scientifically_consistent": true
+    }
+  },
+  "preserved_observations": [
+    {
+      "kind": "oracle_tolerance",
+      "observation": "First run: Poynting equality differed by3e-12 at7644.725941791 W/m²; absolute2e-12 excluded float64 rounding.",
+      "resolution": "Added3e-15 relative tolerance while retaining2e-12 absolute floor."
+    },
+    {
+      "kind": "oracle_tolerance",
+      "observation": "Second run: orthogonal E dot B yielded−8.67e-19 against an absolute5e-19 bound.",
+      "resolution": "Bound residual by8 machine epsilons times |E||B|, with1e-30 floor."
+    },
+    {
+      "kind": "presentation",
+      "observation": "Inherited7-digit formatter displayed exact c0 as299792500.",
+      "resolution": "Preserve all safe integers exactly; other values use10 significant digits."
+    },
+    {
+      "kind": "presentation",
+      "observation": "Default18-degree camera nearly hid the meridian plane; long captions crowded mobile graphics.",
+      "resolution": "Family-specific50-degree pitch, short captions, explicit field gains and centred two-wavelength wave chart."
+    },
+    {
+      "kind": "legend",
+      "observation": "Initial Gauss/Faraday E arrows used blue while the common legend identified blue as B.",
+      "resolution": "All3D E fields consistently coral; all3D B fields blue. Added verifier assertions."
+    }
+  ],
+  "prior_browser_receipts": [
+    {
+      "path": ".research/maxwell-lab-qa-20261011/proof-coordinated-before-axis-limit-disclosure.json",
+      "sha256": "a024f52bfaf2a8dad3ab5fdd3ea9f7ec8be1f134a7be6d3a69413542263ac7cb"
+    },
+    {
+      "path": ".research/maxwell-lab-qa-20261011/proof-coordinated-before-exact-integer-format.json",
+      "sha256": "e03979797dcf3c6f492d5fa17043a975ebdc1a66d3b4e0f45e18172320ad7b44"
+    },
+    {
+      "path": ".research/maxwell-lab-qa-20261011/proof-coordinated-before-field-legend-colour.json",
+      "sha256": "b4b9f42cfd51cc39314434b81f40b3a2104b7c72f3eabeea1b4972ae7d56d09f"
+    },
+    {
+      "path": ".research/maxwell-lab-qa-20261011/proof-coordinated-before-mobile-framing.json",
+      "sha256": "75482c855b49b4db9432cffea202407909b34c7a4d25a894e012eeaea2f12719"
+    },
+    {
+      "path": ".research/maxwell-lab-qa-20261011/proof-coordinated-before-wave-framing.json",
+      "sha256": "9d131f4ec034c34df685ed763ea5a61cb2ce25a6686272fa5825ab9d83f18c6f"
+    },
+    {
+      "path": ".research/maxwell-lab-qa-20261011/proof-standalone-before-spatial.json",
+      "sha256": "203f45aee199a218b770765682a954fca42500af31cc9810db473501b3504f1c"
+    }
+  ],
+  "limitations": [
+    "Prescribed ideal spherical magnet is not a constitutive bar-magnet material calculation.",
+    "Solenoid and thin capacitor fields are explicitly quasistatic with end/fringe/retardation limits.",
+    "Coax is ideal infinite concentric DC geometry, uniform conductor current density; no skin effect, bends or connectors.",
+    "Plane wave is infinite monochromatic linear polarization; hypothetical epsilon/mu exercise does not alter exact SI c.",
+    "Hertzian effective-length model includes only radiative far field at r>=5lambda, not full antenna near fields or half-wave currents.",
+    "Finite analytic field samples, float64 underflow and separate coordinate/field/chart gains are explicit; no phase or nonzero field inferred from an unresolved glyph.",
+    "Whole Primer fidelity goal remains incomplete; this review covers one physics lesson only."
+  ]
+}

@@ -1,0 +1,77 @@
+{
+  "module_id": "math.4.linalg",
+  "quiz_index": 8,
+  "indexing": "zero-based authored quiz index (ninth question)",
+  "source_file": "data/curriculum/01-mathematics.json",
+  "before_sha256": "f57ab18d5a4657547b7f9bdaf725bad6486d109be640fe5acc683e3759f62d4c",
+  "after_sha256": "545477aedd91455cd2a27f46ef1f5bb1f4d8da5e1adf08918a4a18476f31c215",
+  "before_quiz": {
+    "kind": "choice",
+    "prompt": "Suppose a 2-by-2 matrix A has eigenvalues 0.5 and 0.9. Predict what repeatedly applying A does to a typical starting vector.",
+    "answer": "It shrinks toward the origin",
+    "choices": [
+      "It shrinks toward the origin",
+      "It grows without any bound",
+      "It settles onto the eigenvector with eigenvalue 0.9",
+      "It settles onto a nonzero fixed vector"
+    ],
+    "explain": "Both eigenvalues have magnitude below one, so every component decays and the vector collapses to the origin. Its direction does line up with the 0.9-eigenvector, but the length still goes to zero, so nothing nonzero survives."
+  },
+  "after_quiz": {
+    "kind": "choice",
+    "prompt": "A real 2-by-2 matrix A has eigenvalues 0.5 and 0.9. For any fixed starting vector v, what happens to A^n v as n grows without bound?",
+    "answer": "It converges to the zero vector; its length need not decrease at every step.",
+    "choices": [
+      "It converges to the zero vector; its length need not decrease at every step.",
+      "Its length grows without bound for every nonzero starting vector.",
+      "It converges to a nonzero vector in the 0.9-eigenspace.",
+      "It always reaches the zero vector after finitely many steps."
+    ],
+    "explain": "The distinct real eigenvalues give an eigenbasis. Each coefficient in that basis is multiplied by 0.5^n or 0.9^n, so the vector tends to zero. This is an eventual limit, not a guarantee that Euclidean length decreases at every step: a matrix with nonorthogonal eigenvectors can have transient growth. If the starting vector has a nonzero component in the 0.9-eigendirection, its direction eventually approaches that eigenline; a vector entirely in the 0.5-eigendirection stays on that line."
+  },
+  "unchanged_quiz_indices": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    9
+  ],
+  "unchanged_original_media": [
+    {
+      "id": "determinant-area-collapse-plate",
+      "kind": "illustration",
+      "src": "/app/illustrations/grove/math/math-4-linalg-800.webp",
+      "srcset": "/app/illustrations/grove/math/math-4-linalg-800.webp 800w, /app/illustrations/grove/math/math-4-linalg-1600.webp 1600w",
+      "alt": "The same marked unit square remains a square under identity, shears into an equal-area parallelogram, and projects to a line as distinct vertices merge.",
+      "caption": "Determinant tracks signed area scaling: identity and shear have determinant one, while projection has determinant zero, collapses area, and cannot be inverted.",
+      "width": 1600,
+      "height": 1000
+    },
+    {
+      "id": "transform-the-plane",
+      "kind": "model",
+      "renderer": "matrix-transform-lab",
+      "title": "Transform the plane",
+      "instructions": "Choose a fixed 2-by-2 matrix. Compare the grid, basis vectors and v with their images, then inspect area scaling, eigenvectors, column space and kernel. Rotate the unit probe to distinguish an eigenvector from a general vector.",
+      "props": {
+        "start_transform": "x-shear"
+      }
+    }
+  ],
+  "added_media": {
+    "id": "explore-linear-maps-and-kernels",
+    "kind": "model",
+    "renderer": "linear-algebra-lab",
+    "title": "Explore linear maps, spaces and powers",
+    "instructions": "Compare matrix action, solution constraints, span, kernels and repeated application. Read exact coordinates alongside each drawing, including all four coordinates in the higher-dimensional example.",
+    "props": {
+      "scenario": "math.4.linalg"
+    }
+  },
+  "all_other_authored_fields_and_nodes_unchanged": true,
+  "whole_module_complete": false
+}

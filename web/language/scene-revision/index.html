@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="en">
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Revise a scene · Primer</title>
+<link rel="stylesheet" href="style.css">
+<script type="module" src="activity.js"></script>
+</head>
+<body><main>
+<a href="/app/#/node/lang.4.creative">Return to Creative Writing</a>
+<h1>Revise a scene</h1>
+<p>Ananda needs the last ferry. Compare how the same scene changes as you revise its opening, the gatekeeper’s dialogue, and Ananda’s decision.</p>
+<div class="editor">
+<section aria-labelledby="brief-heading">
+<h2 id="brief-heading">Revision brief</h2>
+<ol>
+<li>Show the deadline through a detail Ananda can see.</li>
+<li>Let the gatekeeper name a concrete consequence.</li>
+<li>Make Ananda’s final decision follow from the information given.</li>
+</ol>
+<div id="controls"></div>
+<button type="button" id="review">Review against the brief</button>
+<button type="button" id="reset">Restore the draft</button>
+<p id="result" role="status"></p>
+</section>
+<section aria-labelledby="scene-heading">
+<h2 id="scene-heading">Your revision</h2>
+<div class="scene" id="scene"></div>
+<h3>Earlier draft</h3>
+<details><summary>Read the original three passages</summary><div id="original" class="scene"></div></details>
+</section>
+</div>
+<section aria-labelledby="map-heading">
+<h2 id="map-heading">What the reader can follow</h2>
+<ol id="map"></ol>
+<table><caption>Each passage against the brief</caption>
+<thead><tr><th scope="col">Passage</th><th scope="col">Effect of your choice</th></tr></thead><tbody id="effects"></tbody></table>
+</section>
+<p>The check uses this scene’s specific brief. A different scene can call for a different rhythm or level of detail.</p>
+</main></body></html>

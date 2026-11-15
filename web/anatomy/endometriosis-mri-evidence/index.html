@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Endometriosis on pelvic MRI · Primer</title>
+<link rel="stylesheet" href="viewer.css">
+<script type="module" src="viewer.js"></script>
+</head>
+<body><main>
+<a id="return" href="/app/#/radiology/ra.mri-endometriosis">Return to Endometriosis MRI</a>
+<h1>Endometriosis on pelvic MRI</h1>
+<section aria-labelledby="figures-heading">
+<h2 id="figures-heading">Published clinical figures</h2>
+<p>Compare the authors’ markers and MRI sequences. Each figure retains its complete published panels and case context.</p>
+<label for="figure">Finding</label>
+<select id="figure" disabled></select>
+<label for="zoom">Image size</label>
+<select id="zoom"><option value="fit">Fit width</option><option value="1">Original pixels</option><option value="2">Double size</option></select>
+<p id="figure-status" role="status">Verifying the figure inventory…</p>
+<button id="retry-figure" type="button" hidden>Retry figure</button>
+<figure><div class="clinical-image" tabindex="0" role="region" aria-label="Published figure. Scroll to inspect enlarged panels."><img id="image" hidden></div>
+<figcaption id="caption"></figcaption></figure>
+<table><caption>Author markers and panels</caption><thead><tr><th scope="col">Mark</th><th scope="col">Finding</th></tr></thead><tbody id="figure-key"></tbody></table>
+<p>Yesim Yekta Yuruk, Merve Sam Ozdemir, Mehmet Simsar and Hilal Sahin (2025). Primer displays the complete figures and adds reading controls and panel descriptions. <a href="https://doi.org/10.1007/s00261-025-05002-x">Source article</a> · <a href="https://creativecommons.org/licenses/by/4.0/">CC BY 4.0</a></p>
+</section>
+<section aria-labelledby="acquired-heading">
+<h2 id="acquired-heading">Acquired sagittal MRI of the pelvis</h2>
+<p>This separate study provides anatomical context. The source supplies neither a diagnosis nor lesion annotations for the examination.</p>
+<button type="button" id="load-stack">Load the 25 acquired slices</button>
+<p id="stack-status" role="status"></p>
+<div id="acquired" hidden>
+<fieldset><legend>Acquired slice and display</legend>
+<label for="slice">Slice</label><input id="slice" type="range" min="0" max="24" value="14">
+<output id="slice-number" for="slice"></output>
+<label for="low">Window low</label><input id="low" type="number" value="0">
+<label for="high">Window high</label><input id="high" type="number" value="1200">
+</fieldset>
+<figure><div class="acquired-frame">
+<canvas id="plane" width="320" height="320" tabindex="0" role="img"></canvas>
+<div class="orientation" aria-hidden="true"><span>Anterior</span><span>Posterior</span></div>
+<div class="ruler" aria-hidden="true"><span></span>20 mm</div>
+</div>
+<figcaption>Superior is at the top. Select a pixel or use the arrow keys in the image to inspect its source value and coordinates.</figcaption></figure>
+<p id="sample"></p>
+<details id="geometry">
+<summary>View the acquired slice positions in 3D</summary>
+<p>Each outline marks an acquired slice centre. The selected image appears in its original position. The view leaves the spaces between acquired slices empty.</p>
+<fieldset id="geometry-controls" disabled><legend>Stack orientation</legend>
+<label for="stack-yaw">Rotation</label><input id="stack-yaw" type="range" min="-180" max="180" value="35">
+<label for="stack-pitch">Tilt</label><input id="stack-pitch" type="range" min="-70" max="70" value="22">
+<button id="stack-reset" type="button">Reset rotation</button>
+</fieldset>
+<p id="geometry-status" role="status"></p>
+<canvas id="slice-geometry" width="720" height="460" role="img" aria-label="Spatial positions of the acquired sagittal MRI slices"></canvas>
+</details>
+<p>Acquired sagittal spin echo, TR 4050 ms and TE 79 ms. Pixel spacing is 0.71875 mm. Slice thickness is 4 mm and slices are 4.8 mm apart centre to centre.</p>
+</div>
+<p>Oluwayemisi Boye Fatade, <cite>Anonymised Pelvic MRI Dataset for Endometriosis Research</cite>. Primer preserves the acquired pixels and positions and adds windowing. <a href="https://doi.org/10.5281/zenodo.21445496">Source dataset</a> · <a href="https://creativecommons.org/licenses/by/4.0/">CC BY 4.0</a></p>
+</section>
+</main></body></html>

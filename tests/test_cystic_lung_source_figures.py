@@ -24,7 +24,7 @@ def test_actual_panels_patient_groups_and_source_chronology_are_distinct():
     assert rows[3]['source_context']['source_time_groups']['eight_month_follow_up']==['C']
     assert rows[8]['source_context']['source_time_groups']['January_2018']==['C','D']
     assert rows[9]['source_context']['cross_panel_same_patient_identity_verified'] is False
-    assert 'low PET uptake' in rows[11]['limits'] and not ref['key_images']
+    assert 'low PET uptake' in rows[11]['limits'] and ref['key_images']
 def test_rights_clearance_cannot_supply_full_anatomical_requirement_bindings():
     assets=[a for a in json.loads((ROOT/'data/radiology/radiology-asset-evidence.json').read_text())['assets'] if a['id'].startswith(PREFIX)]
     assert len(assets)==11
@@ -32,12 +32,13 @@ def test_rights_clearance_cannot_supply_full_anatomical_requirement_bindings():
         l=a['source']['license'];assert l['name']=='CC BY 4.0' and l['commercial_use'] and sha((ROOT/l['evidence_path']).read_bytes())==l['evidence_sha256']
         assert not a['structure_ids'] and not a['requirement_coverage'] and a['anatomical_review']['status']=='pending'
 def test_full_structure_scope_requires_actual_sites_and_current_contract():
-    item=build();stored=next(i for i in json.loads((ROOT/'data/radiology/non-msk-structure-requirements.json').read_text())['investigations'] if i['investigation_id']=='ra.hrct-cystic-lung')
-    assert item==stored and len(item['structures'])==75 and len(requirements_for(item))==565
+    item=build();stored=next(i for i in json.loads((ROOT/'data/radiology/non-msk-structure-requirements.json').read_text())['investigations'] if i['investigation_id']=='ra.hrct-lung')
+    assert item['structures']==[s for s in stored['structures'] if s['id'].startswith('cystic_lung.')]
+    assert len(item['structures'])==75 and len(requirements_for(item))==565
     assert all(s['requires_site_instantiation'] and s['report_refs'] for s in item['structures'])
     ids={s['id'] for s in item['structures']}
     for key in ['right_lower_medial_basal_region','left_additional_region','right_cyst','left_cystic_mass','right_artery','left_vein','nodes','renal','acquisition','comparison','clinical_context']:assert 'cystic_lung.'+key in ids
     ref=detail(Curriculum(),resolve('ra.hrct-cystic-lung'))['radiology_reference']
     assert all(not s['normal'] for s in ref['walkthrough']['steps']) and ref['reporting']['classification'] is None
     assert 'Partial thoracic orientation' in ref['spatial_model']['reporting_aim']
-    assert 'four-cysts/age-forty' in ref['walkthrough']['steps'][1]['tip']
+    assert 'four-cysts/age-forty' in ref['walkthrough']['steps'][5]['tip']

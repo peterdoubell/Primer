@@ -1,0 +1,25 @@
+<!doctype html>
+<html lang="en">
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Light through polarisers · Primer</title>
+<link rel="stylesheet" href="style.css">
+<script type="module" src="activity.js"></script>
+</head>
+<body><main>
+<a href="/app/#/node/phys.3.optics-waves">Return to Waves and Optics</a>
+<h1>Light through polarisers</h1>
+<p>Start with unpolarised light. Turn the final polariser and then add a middle one to compare the transmitted intensity.</p>
+<fieldset><legend>Filter angles</legend>
+<label for="final">Final axis</label><input type="range" id="final" min="0" max="180" step="1" value="90"><output id="final-value"></output>
+<label for="include">Use a middle polariser</label><input type="checkbox" id="include"><span></span>
+<label for="middle">Middle axis</label><input type="range" id="middle" min="0" max="180" step="1" value="45" disabled><output id="middle-value"></output>
+</fieldset>
+<div class="layout">
+<section aria-labelledby="filters-heading"><h2 id="filters-heading">Transmission axes</h2><canvas id="filters" width="480" height="240" role="img"></canvas><p>The diagrams show each filter face-on. The line marks the direction it transmits.</p></section>
+<section aria-labelledby="curve-heading"><h2 id="curve-heading">Final transmitted intensity</h2><canvas id="curve" width="480" height="270" role="img"></canvas><p id="curve-explanation"></p></section>
+</div>
+<table><caption>Intensity along the optical path</caption><thead><tr><th scope="col">Location</th><th scope="col">Fraction of input intensity</th><th scope="col">Transmission factor</th></tr></thead><tbody id="path"></tbody></table>
+<p id="result" role="status"></p>
+<details><summary>Equations and assumptions</summary><p>The first ideal polariser transmits half the intensity of an unpolarised beam. Each later filter multiplies the incoming intensity by cos² Δθ, where Δθ is the angle between its axis and the incoming polarisation. The transmitted field is polarised along the filter axis whenever its intensity is positive.</p>
+<p>Each filter is ideal and the light travels along the same axis. The model ignores reflection, finite extinction ratio, wavelength dependence and material losses apart from the rejected polarisation component.</p></details>
+</main></body></html>

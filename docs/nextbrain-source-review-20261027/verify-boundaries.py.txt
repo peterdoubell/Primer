@@ -1,0 +1,30 @@
+from pathlib import Path
+import gzip,hashlib,json,struct,time
+import nibabel as nib
+import numpy as np
+D=Path(__file__).resolve().parent;B=D/'boundaries';sha=lambda b:hashlib.sha256(b).hexdigest();source=D/'sub-001_ses-01_desc-manual_dseg.nii.gz';assert sha(source.read_bytes())=='4b09afa6b6863bc2c374a826edff8f0bcb944775b9f0310bf8ceefa5cc957155';v=nib.load(source);a=np.asanyarray(v.dataobj);aff=v.affine;inv=np.linalg.inv(aff);counts=np.bincount(a.ravel(),minlength=256);pairs=np.zeros(256,np.int64)
+for axis in range(3):
+ left=[slice(None)]*3;right=left.copy();left[axis]=slice(None,-1);right[axis]=slice(1,None);x=a[tuple(left)];y=a[tuple(right)];pairs+=np.bincount(x[x==y],minlength=256)
+expected=6*counts-2*pairs;build=json.loads((B/'boundary-build-proof.json').read_bytes());assert build['allPassed'];assert sorted(r['code']for r in build['rows'])==np.flatnonzero(counts[1:]).astype(int).__add__(1).tolist();result={'allPassed':False,'sourceLabelSHA256':sha(source.read_bytes()),'oracleSHA256':sha(Path(__file__).read_bytes()),'rows':[],'clinicalApproval':False,'runtimeBound':False};cellvol=abs(np.linalg.det(aff[:3,:3]))
+def save():(B/'boundary-independent-proof.json').write_text(json.dumps(result,indent=2)+'\n')
+for row in build['rows']:
+ start=time.monotonic();code=row['code'];raws={}
+ for key in ['mesh','facesPayload']:
+  m=row[key];packed=(B/m['file']).read_bytes();assert len(packed)==m['gzipBytes']and sha(packed)==m['gzipSHA256'];raw=gzip.decompress(packed);assert len(raw)==m['bytes']and sha(raw)==m['sha256'];raws[key]=raw
+ faces=np.frombuffer(raws['facesPayload'],dtype='<i2').reshape(-1,5);F=len(faces);assert F==int(expected[code]);cell=faces[:,:3].astype(np.int64);assert np.all(cell>=0)and np.all(cell<np.array(a.shape));assert np.all(a[tuple(cell.T)]==code);axis=faces[:,3].astype(int);sign=faces[:,4].astype(int);assert np.isin(axis,[0,1,2]).all()and np.isin(sign,[-1,1]).all();keys=np.ravel_multi_index(tuple(cell.T),a.shape)*6+axis*2+(sign>0);assert len(np.unique(keys))==F
+ neighbor=cell.copy();neighbor[np.arange(F),axis]+=sign;inside=np.all((neighbor>=0)&(neighbor<np.array(a.shape)),axis=1);assert not np.any(a[tuple(neighbor[inside].T)]==code)
+ magic,V,T,reserved=struct.unpack_from('<4sIII',raws['mesh']);assert magic==b'HVX1'and reserved==0 and T==2*F;assert len(raws['mesh'])==16+V*12+T*12;p=np.frombuffer(raws['mesh'],dtype='<f4',count=V*3,offset=16).reshape(-1,3);tri=np.frombuffer(raws['mesh'],dtype='<u4',offset=16+V*12).reshape(-1,3);assert np.isfinite(p).all()and tri.max()<V;assert len(np.unique(tri))==V
+ q=np.rint(nib.affines.apply_affine(inv,p.astype(float))*2).astype(np.int32);assert len(np.unique(q,axis=0))==V;exact=nib.affines.apply_affine(aff,q.astype(float)/2);assert np.array_equal(p,exact.astype('<f4'));maxerr=float(np.max(np.abs(exact-p)));assert maxerr<1e-5
+ volume=0.0
+ for first in range(0,F,65536):
+  last=min(F,first+65536);cells=cell[first:last];axes=axis[first:last];sgn=sign[first:last];tris=tri[2*first:2*last].reshape(-1,2,3);points=q[tris];xyz=p[tris].astype(float);centers=2*cells
+  # All six triangle corners must be the four corners of the declared cell face.
+  expected_corners=np.repeat(centers[:,None,:],4,axis=1)
+  for ax in range(3):
+   use=axes==ax;other=[i for i in range(3)if i!=ax];expected_corners[use,:,ax]+=sgn[use,None]
+   for j,(u,w)in enumerate([(-1,-1),(-1,1),(1,-1),(1,1)]):expected_corners[use,j,other[0]]+=u;expected_corners[use,j,other[1]]+=w
+  membership=(points[:,:,:,None,:]==expected_corners[:,None,None,:,:]).all(-1);assert membership.any(-1).all();assert membership.any((1,2)).all();shared=(tris[:,0,:,None]==tris[:,1,None,:]);assert(shared.sum((1,2))==2).all();shared_points=points[:,0][shared.any(2)].reshape(-1,2,3);delta=np.abs(shared_points[:,1]-shared_points[:,0]);assert np.all(delta.sum(1)==4)and np.all((delta==2).sum(1)==2)
+  normal=np.cross(xyz[:,:,1]-xyz[:,:,0],xyz[:,:,2]-xyz[:,:,0]);directions=np.linalg.inv(aff[:3,:3]).T[:,axes].T*sgn[:,None];assert np.all(np.einsum('fij,fj->fi',normal,directions)>0);volume+=float(np.einsum('fij,fij->fi',xyz[:,:,0],np.cross(xyz[:,:,1],xyz[:,:,2])).sum()/6)
+ edges=tri[:,[0,1,1,2,2,0]].reshape(-1,2).astype(np.int64);low=edges.min(1);high=edges.max(1);edgekeys=low*V+high;unique,inverse,degree=np.unique(edgekeys,return_inverse=True,return_counts=True);balance=np.bincount(inverse,weights=np.where(edges[:,0]<edges[:,1],1,-1));assert np.all(balance==0);expectedvol=float(counts[code]*cellvol);assert abs(volume-expectedvol)<max(.0001,expectedvol*3e-6)
+ result['rows'].append({'code':code,'faces':F,'triangles':T,'allFacesSourceValidUniqueAndComplete':True,'allCornersAreDeclaredSourceCellCorners':True,'bothTrianglesCoverEveryFaceWithOutwardWinding':True,'closedOrientedEdgeBalance':True,'nonmanifoldEdgeCount':int(np.count_nonzero(degree>2)),'sourceCellVolumeMm3':expectedvol,'exportedSignedVolumeMm3':volume,'maxPositionRoundoffMm':maxerr,'seconds':round(time.monotonic()-start,2)});save();print(code,F,flush=True)
+result.update(allPassed=True,classes=len(result['rows']),triangles=sum(r['triangles']for r in result['rows']));save();print(json.dumps({'allPassed':True,'classes':result['classes'],'triangles':result['triangles']}),flush=True)
