@@ -99,6 +99,12 @@ def before_combined_source_release_bytes(path, raw):
     if str(path) == 'web/app.js':
         from tools.report_layout_compatibility import before_template_editor_bytes
         raw = before_template_editor_bytes(path, raw)
+    if str(path) in {'primer/server.py', 'vercel.json'}:
+        raw = _restore(path, raw, Path(__file__).resolve().parents[1] / 'docs/illinois-uterus/runtime-inverse.json', '2821fafd1094314b846af964e123c33cb651b54d362f0d3cf2ccbd9a659baab9')
+    if str(path) == 'web/app.js' and hashlib.sha256(raw).hexdigest() == '8db21ea495138956ba51885aa651f29ac774ed2c6d608e7f836b08a34326f96f':
+        raw = raw.replace(b"  if (n.id === 'phys.4.classical') page.append(el('a', { class: 'btn ghost', href: '/app/physics/driven-oscillator/index.html' },\n    'Compare resonance and phase in a driven oscillator'));\n", b'', 1)
+        if hashlib.sha256(raw).hexdigest() != 'ea590424dcfff901a668a27547f746bae9516321a1dd72d15464532fdd9db5e6':
+            raise ValueError('Driven oscillator link changed unrelated reader bytes')
     if str(path) == 'web/app.js' and hashlib.sha256(raw).hexdigest() == 'ea590424dcfff901a668a27547f746bae9516321a1dd72d15464532fdd9db5e6':
         raw = raw.replace(b"  if (n.id === 'phys.2.waves') page.append(el('a', { class: 'btn ghost', href: '/app/physics/wave-reflection/index.html' },\n    'Compare reflection at fixed and free ends'));\n", b"", 1)
         raw = raw.replace(b"  if (n.id === 'lang.5.narratology') page.append(el('a', { class: 'btn ghost', href: '/app/language/narrative-order/index.html' },\n    'Retell the archive story in a different order'));\n", b"", 1)
