@@ -96,6 +96,10 @@ def before_endometrial_delivery_bytes(path, raw):
     return restored
 
 def before_combined_source_release_bytes(path, raw):
+    if str(path) == 'web/app.js' and hashlib.sha256(raw).hexdigest() == 'b201d942b1d5b53e1d5f9f1c2ec4a55f21a80fe91b7a7e703708cd964b1719a7':
+        raw = raw.replace(b"  if (n.id === 'lang.4.creative') page.append(el('a', { class: 'btn ghost', href: '/app/language/scene-revision/index.html' },\n    'Revise a scene against a writing brief'));\n", b'', 1)
+        if hashlib.sha256(raw).hexdigest() != 'ea590424dcfff901a668a27547f746bae9516321a1dd72d15464532fdd9db5e6':
+            raise ValueError('Scene revision link changed unrelated reader bytes')
     if str(path) == 'web/app.js' and hashlib.sha256(raw).hexdigest() == 'ea590424dcfff901a668a27547f746bae9516321a1dd72d15464532fdd9db5e6':
         raw = raw.replace(b"  if (n.id === 'phys.2.waves') page.append(el('a', { class: 'btn ghost', href: '/app/physics/wave-reflection/index.html' },\n    'Compare reflection at fixed and free ends'));\n", b"", 1)
         raw = raw.replace(b"  if (n.id === 'lang.5.narratology') page.append(el('a', { class: 'btn ghost', href: '/app/language/narrative-order/index.html' },\n    'Retell the archive story in a different order'));\n", b"", 1)
