@@ -96,6 +96,8 @@ def before_endometrial_delivery_bytes(path, raw):
     return restored
 
 def before_combined_source_release_bytes(path, raw):
+    if str(path) in {'primer/server.py', 'vercel.json'}:
+        raw = _restore(path, raw, Path(__file__).resolve().parents[1] / 'docs/ccth-a01-roi/runtime-inverse.json', '279db3d15f4b1dc552471d4d59c01e17cb70697ec01997fa8a167d7bb24ec156')
     if str(path) == 'web/app.js' and hashlib.sha256(raw).hexdigest() == '3901f09942244c5474786899331b8c05aa9cea0ebedad475ee312e04a0e3e110':
         raw = raw.replace(b"  if (n.id === 'phys.3.optics-waves') page.append(el('a', { class: 'btn ghost', href: '/app/physics/polariser-bench/index.html' },\n    'Compare two and three polarisers'));\n", b'', 1)
         if hashlib.sha256(raw).hexdigest() != '12269ddede106aa8057e923a485ab830932216a1b246ce71d952c7016be422a9':
