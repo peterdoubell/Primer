@@ -96,6 +96,10 @@ def before_endometrial_delivery_bytes(path, raw):
     return restored
 
 def before_combined_source_release_bytes(path, raw):
+    if str(path) == 'web/app.js' and hashlib.sha256(raw).hexdigest() == '50ff4eb3fa17e02f6227ab85c71bd1b936a380d582da09b19a58360eb46bffee':
+        raw = raw.replace(b"  if (n.id === 'math.3.euclid') page.append(el('a', { class: 'btn ghost', href: '/app/math/intersecting-chords/index.html' },\n    'Prove the intersecting-chords theorem'));\n", b'', 1)
+        if hashlib.sha256(raw).hexdigest() != '8db21ea495138956ba51885aa651f29ac774ed2c6d608e7f836b08a34326f96f':
+            raise ValueError('Intersecting chords link changed unrelated reader bytes')
     if str(path) in {'primer/server.py', 'vercel.json'}:
         raw = _restore(path, raw, Path(__file__).resolve().parents[1] / 'docs/illinois-uterus/runtime-inverse.json', '2821fafd1094314b846af964e123c33cb651b54d362f0d3cf2ccbd9a659baab9')
     if str(path) == 'web/app.js' and hashlib.sha256(raw).hexdigest() == '8db21ea495138956ba51885aa651f29ac774ed2c6d608e7f836b08a34326f96f':
