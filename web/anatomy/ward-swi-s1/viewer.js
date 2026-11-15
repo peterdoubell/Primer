@@ -1,5 +1,7 @@
 import { planeGeometry, pixelToVoxel, voxelToWorld } from '../bonn-fcd-case4/native-core.js';
 
+import { installTracingMesh } from './mesh.js';
+
 const metadataHash = '8fe939414aa7f48131295f5ed7998c726cd38821aa2ed741e3e791f8fbd5955e';
 const get = id => document.getElementById(id);
 const points = [114, 70, 43];
@@ -10,7 +12,10 @@ const high = get('high');
 const status = get('status');
 const retry = get('retry');
 const cache = new Map();
+const pending = new Map();
+const showMesh = get('show-mesh');
 let metadata;
+let mesh;
 
 const planes = ['Sagittal', 'Coronal', 'Axial'].map((name, axis) => {
   const section = document.createElement('section');
@@ -61,8 +66,7 @@ async function readBounded(stream, bytes) {
   return buffer;
 }
 
-async function sourceVolume(role) {
-  if (cache.has(role)) return cache.get(role);
+async function loadVolume(role) {
   const source = metadata.sources[role];
   const response = await fetch(source.name, { signal: AbortSignal.timeout(90000) });
   if (!response.ok) throw Error(role + ' returned HTTP ' + response.status);
@@ -84,6 +88,12 @@ async function sourceVolume(role) {
   const result = (i, j, k) => samples[methods[role]]((i + shape[0] * (j + shape[1] * k)) * source.sampleBytes, true);
   cache.set(role, result);
   return result;
+}
+
+function sourceVolume(role) {
+  if (cache.has(role)) return Promise.resolve(cache.get(role));
+  if (!pending.has(role)) pending.set(role, loadVolume(role).finally(() => pending.delete(role)));
+  return pending.get(role);
 }
 
 function render() {
@@ -144,6 +154,7 @@ function render() {
   get('cursor').textContent = 'Voxel ' + points.join(', ') + ' · image RAS ' + world.join(', ') +
     ' mm · ' + source + ' value ' + (source === 'SWI' ? value : value.toPrecision(8)) +
     (role === 'mri' ? '' : ' · source tracing ' + (vein(...points) === 1 ? 'marked' : 'unmarked'));
+  mesh?.refreshSection();
   status.textContent = 'Verified ' + source + (role === 'mri' ? '' : ' and vein tracing') + '.';
 }
 
@@ -168,6 +179,7 @@ async function prepare() {
     const wanted = mode.value === 'mri' ? [sequence.value] : [sequence.value, 'Vein'];
     await Promise.all(wanted.map(sourceVolume));
     get('controls').disabled = false;
+    showMesh.disabled = false;
     for (const { slider } of planes) slider.disabled = false;
     render();
   } catch (error) {
@@ -175,6 +187,20 @@ async function prepare() {
     retry.hidden = false;
   }
 }
+
+showMesh.addEventListener('click', async () => {
+  const meshStatus = get('mesh-status');
+  showMesh.disabled = true;
+  meshStatus.textContent = 'Verifying vein tracing…';
+  try {
+    const sample = await sourceVolume('Vein');
+    mesh = installTracingMesh(metadata.shape, metadata.sources.SWI.affine, sample, points);
+    showMesh.hidden = true;
+  } catch (error) {
+    meshStatus.textContent = '3D unavailable. ' + error.message;
+    showMesh.disabled = false;
+  }
+});
 
 sequence.addEventListener('change', () => {
   [low.value, high.value] = sequence.value === 'SWI' ? [0, 360] : [-0.12, 0.12];
