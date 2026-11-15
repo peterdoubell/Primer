@@ -96,6 +96,10 @@ def before_endometrial_delivery_bytes(path, raw):
     return restored
 
 def before_combined_source_release_bytes(path, raw):
+    if str(path) == 'web/app.js' and hashlib.sha256(raw).hexdigest() == '2f586dbe3498302db2520e6049936d5b07ceb4dfe180bf6ef896fc1f5e936785':
+        raw = raw.replace(b"  if (n.id === 'lang.3.second-language') page.append(el('a', { class: 'btn ghost', href: '/app/language/french-phrase-practice/index.html' },\n    'Practise French phrases in conversation'));\n", b'', 1)
+        if hashlib.sha256(raw).hexdigest() != '2249eba3aa4326e67bc354923f9d4312b793c646d2abe43a531ca0eeab1a5a11':
+            raise ValueError('French practice link changed unrelated reader bytes')
     if str(path) in {'web/app.js', 'primer/server.py', 'vercel.json'}:
         raw = _restore(path, raw, Path(__file__).resolve().parents[1] / 'docs/bp3d-dural-4.3/runtime-inverse.json', '19e2c0a483adc144fb98bb407f5e1bfd20728813e26d078ee2ebfb9743fed313')
     if str(path) == 'web/app.js' and hashlib.sha256(raw).hexdigest() == 'a49349951dfbea9697fbceb9d3932c8526ac27b3e7ae3b2ad011a58e9984c4a9':

@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>French phrases in conversation · Primer</title>
+<link rel="stylesheet" href="style.css">
+<script type="module" src="practice.js"></script>
+</head>
+<body><main>
+<a href="/app/#/node/lang.3.second-language">Return to A Second Language</a>
+<h1>French phrases in conversation</h1>
+<p>Practise what to say in eight everyday exchanges. Read the phrase and its meaning after you answer. Play it aloud when a French system voice is available.</p>
+<div class="layout">
+<section aria-labelledby="prompt">
+<h2 id="prompt" tabindex="-1"></h2>
+<p id="situation"></p>
+<div id="answers" class="answers"></div>
+<div id="result" aria-live="polite" aria-atomic="true"></div>
+<div class="actions">
+<button id="speak" type="button" hidden>Hear the French</button>
+<button id="next" type="button" hidden>Next exchange</button>
+<button id="restart" type="button" hidden>Practise again</button>
+</div>
+<p id="audio-status" role="status"></p>
+</section>
+<section aria-labelledby="practice-title">
+<h2 id="practice-title">This practice session</h2>
+<p id="progress"></p>
+<table><caption>Exchange progress</caption>
+<thead><tr><th scope="col">Exchange</th><th scope="col">Practice status</th></tr></thead>
+<tbody id="progress-rows"></tbody></table>
+<details><summary>How missed phrases return</summary>
+<p>A missed exchange goes back into the queue after up to two other exchanges. Near the end, it returns sooner. An exchange leaves the queue after a correct answer.</p>
+</details>
+</section>
+</div>
+</main></body></html>
