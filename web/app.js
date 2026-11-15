@@ -4095,6 +4095,8 @@ async function renderNode(page, nodeId) {
     'Retell the archive story in a different order'));
   if (n.id === 'lang.3.second-language') page.append(el('a', { class: 'btn ghost', href: '/app/language/french-phrase-practice/index.html' },
     'Practise French phrases in conversation'));
+  if (n.id === 'lang.4.creative') page.append(el('a', { class: 'btn ghost', href: '/app/language/scene-revision/index.html' },
+    'Revise a scene against a writing brief'));
   if (n.id === 'lang.3.media') page.append(el('a', { class: 'btn ghost', href: '/app/language/headline-editor/index.html' },
     'Edit a headline using counts and rates'));
   if (n.id === 'rad.5.adrenal') page.append(el('a', { class: 'btn ghost', href: '/app/anatomy/kidney-adrenal-s0028/index.html' },
