@@ -57,3 +57,12 @@
 
 .rad-report-main-heading { font-weight: 400; }
 .rad-report-text { font: 12pt/1.4 Arial, sans-serif !important; }
+.rad-report-rich {
+  font: 12pt/1.4 Arial, sans-serif; white-space: pre-wrap; overflow-wrap: anywhere;
+  overflow: auto; height: 60vh; max-height: 90vh; cursor: text;
+}
+.rad-report-rich:focus-visible { outline: 2px solid currentColor; outline-offset: 1px; }
+.rad-report-format { display: flex; gap: 6px; margin: 0 0 8px; }
+.rad-report-format .btn { min-width: 34px; font: 600 14px/1.2 Arial, sans-serif; }
+.rad-report-format-italic { font-style: italic !important; }
+.rad-report-format-underline { text-decoration: underline; }

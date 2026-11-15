@@ -55,7 +55,7 @@ The study name runs straight into Protocol or Technique, and Findings runs strai
 
 Copy text puts both rich text and plain text on the clipboard. The plain text has the same lines without the underline and italics.
 
-The report draft in the click checklist shows the same formatting as the copied text: Arial 12 pt, underlined main headings that are not bold, and italic subheadings. The editable box in the Report template tab is plain text, so it cannot show underline or italics; its copied text is formatted.
+The report draft in the click checklist shows the same formatting as the copied text: Arial 12 pt, underlined main headings that are not bold, and italic subheadings. The Report template tab is a rich-text editor. It shows the template as it is copied and has Bold, Italic and Underline controls; the usual keyboard shortcuts also work. Copy text puts the formatting shown on the clipboard, with a plain-text alternative. Pasted and dropped content arrives as plain text. Download .txt saves the text without formatting.
 
 ## Checklist normals
 

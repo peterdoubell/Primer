@@ -312,9 +312,32 @@ def test_a_checklist_normal_reads_as_label_colon_normal_with_an_exact_inverse():
 
 def test_the_on_screen_report_draft_matches_the_copied_text_with_an_exact_inverse():
     from tools.report_layout_compatibility import PREVIEW, PREVIEW_PATH, before_preview_match_bytes
-    raw = (ROOT / PREVIEW_PATH).read_bytes()
+    from tools.report_layout_compatibility import before_template_editor_bytes
+    raw = before_template_editor_bytes(PREVIEW_PATH, (ROOT / PREVIEW_PATH).read_bytes())
     assert b'.rad-report-main-heading { font-weight: 400; }' in raw
     assert b'.rad-report-text { font: 12pt/1.4 Arial, sans-serif !important; }' in raw
     assert hashlib.sha256(raw).hexdigest() == PREVIEW[1]
     assert hashlib.sha256(before_preview_match_bytes(PREVIEW_PATH, raw)).hexdigest() == PREVIEW[0]
     assert before_preview_match_bytes(PREVIEW_PATH, raw + b'\n') == raw + b'\n'
+
+
+def test_the_report_template_tab_is_a_rich_text_editor_with_an_exact_inverse():
+    from tools.report_layout_compatibility import TEMPLATE_EDITOR, before_template_editor_bytes
+    source = (ROOT / 'web/app.js').read_text()
+    assert "contenteditable: 'true', role: 'textbox'" in source and "el('textarea', { id: uid, class: 'rad-report-editor'" not in source
+    # Formatting is limited to bold, italic and underline; pasted and dropped content is plain text.
+    assert "format('bold', 'B', 'Bold'), format('italic', 'I', 'Italic'), format('underline', 'U', 'Underline')" in source
+    assert "document.execCommand('insertText', false, (event.clipboardData || window.clipboardData).getData('text/plain'))" in source
+    assert "editor.addEventListener('drop', event => event.preventDefault());" in source
+    # The copy carries the formatting shown and a plain-text alternative.
+    assert "'text/html': new Blob([html], { type: 'text/html' })" in source and "'text/plain': new Blob([text], { type: 'text/plain' })" in source
+    assert set(TEMPLATE_EDITOR) == {'web/app.js', 'web/radiology-structured.css'}
+    for path, (before, after, _) in TEMPLATE_EDITOR.items():
+        raw = (ROOT / path).read_bytes()
+        assert hashlib.sha256(raw).hexdigest() == after
+        assert hashlib.sha256(before_template_editor_bytes(path, raw)).hexdigest() == before
+        assert before_template_editor_bytes(path, raw + b'\n') == raw + b'\n'
+    from tools.source_studies_compatibility import before_combined_source_release_bytes
+    reader = (ROOT / 'web/app.js').read_bytes()
+    assert hashlib.sha256(before_combined_source_release_bytes('web/app.js', reader)).hexdigest() not in (
+        TEMPLATE_EDITOR['web/app.js'][0], TEMPLATE_EDITOR['web/app.js'][1])
