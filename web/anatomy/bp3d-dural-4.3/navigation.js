@@ -27,7 +27,7 @@ if (Object.hasOwn(layers, focus)) {
   }
 }
 
-for (const id of ['atlas-link', 'mrv-link']) {
+for (const id of ['atlas-link', 'mrv-link', 'swi-link']) {
   const link = document.getElementById(id);
   if (link) link.search = location.search;
 }

@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Cerebral veins on susceptibility MRI · Primer</title>
+<link rel="stylesheet" href="viewer.css">
+<script type="module" src="viewer.js"></script>
+</head>
+<body>
+<main>
+<a id="return" href="../bp3d-dural-4.3/index.html">Return to the venous atlas</a>
+<h1>Cerebral veins on susceptibility MRI</h1>
+<p>Inspect all native slices from Ward subject S1, a healthy research volunteer. Select a point in any plane to locate it in the other two.</p>
+<fieldset id="controls" disabled>
+<legend>Display</legend>
+<label>Source <select id="sequence">
+<option value="SWI">Susceptibility-weighted image</option>
+<option value="QSM">Quantitative susceptibility map</option>
+</select></label>
+<label>Vein tracing <select id="mode">
+<option value="mri">Hide</option>
+<option value="overlay">Overlay at matching voxel indices</option>
+<option value="mask">Show tracing alone</option>
+</select></label>
+<label>Window low <input id="low" type="number" value="0" step="any"></label>
+<label>Window high <input id="high" type="number" value="360" step="any"></label>
+</fieldset>
+<p id="status" role="status">Verifying source files…</p>
+<button id="retry" type="button" hidden>Retry</button>
+<p id="cursor"></p>
+<div id="planes"></div>
+<details>
+<summary>Source and alignment</summary>
+<p>The author traced veins on the native gradient-echo images. The released tracing and scan headers declare different spatial coordinates. This reader pairs matching voxel indices. All 187,819 tracing voxels fall inside the companion brain mask with this pairing. Applying the headers places the tracing outside it.</p>
+<p>The tracing marks vein voxels as one class. Vessel names and thrombosis findings require other evidence. Left and right follow the image header.</p>
+<p>Phillip G. D. Ward, healthy young subject S1. <a href="https://doi.org/10.4225/03/57C1698020D1D">Original dataset</a> · <a href="https://creativecommons.org/publicdomain/zero/1.0/">CC0 1.0</a>.</p>
+</details>
+</main>
+</body>
+</html>
