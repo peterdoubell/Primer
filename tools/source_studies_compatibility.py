@@ -96,6 +96,10 @@ def before_endometrial_delivery_bytes(path, raw):
     return restored
 
 def before_combined_source_release_bytes(path, raw):
+    if str(path) == 'web/app.js' and hashlib.sha256(raw).hexdigest() == '3901f09942244c5474786899331b8c05aa9cea0ebedad475ee312e04a0e3e110':
+        raw = raw.replace(b"  if (n.id === 'phys.3.optics-waves') page.append(el('a', { class: 'btn ghost', href: '/app/physics/polariser-bench/index.html' },\n    'Compare two and three polarisers'));\n", b'', 1)
+        if hashlib.sha256(raw).hexdigest() != '12269ddede106aa8057e923a485ab830932216a1b246ce71d952c7016be422a9':
+            raise ValueError('Polariser link changed unrelated reader bytes')
     if str(path) == 'web/app.js' and hashlib.sha256(raw).hexdigest() == '12269ddede106aa8057e923a485ab830932216a1b246ce71d952c7016be422a9':
         raw = raw.replace(b"  if (n.id === 'math.3.euclid') page.append(el('a', { class: 'btn ghost', href: '/app/math/intersecting-chords/index.html' },\n    'Prove the intersecting-chords theorem'));\n", b'', 1)
         if hashlib.sha256(raw).hexdigest() != 'cc8e9b7ca2217341c1ad38421f5de8aeab22c047fda7f0f47055f8f366d49e4e':
