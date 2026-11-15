@@ -25,6 +25,8 @@ async function showFigure(){
       const manifest=JSON.parse(new TextDecoder().decode(raw));
       figures=manifest.figures;
       selection.replaceChildren(...figures.map(item=>new Option(item.title,item.id)));
+      const requested=new URLSearchParams(location.search).get('figure');
+      if(figures.some(item=>item.id===requested))selection.value=requested;
     }
     const item=figures.find(item=>item.id===selection.value);
     if(!cache.has(item.id)){

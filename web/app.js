@@ -3684,6 +3684,16 @@ function renderReportWalkthrough(n, { openTemplate } = {}) {
           href: '/app/anatomy/bp3d-dural-4.3/index.html?from=ra.venous-sinus-thrombosis&focus=cortical'},
           'Inspect the available right cortical venous models')) : null,
         el('p', {class: 'muted'}, 'The anatomical reference opens in a new tab. Assess patency and thrombus on the examination you are reporting.')));
+      const examples = {
+        'DURAL SINUSES': ['sadik-17', 'Compare superior sagittal sinus thrombosis on CT'],
+        'DEEP AND CORTICAL VEINS': ['oliveira-7', 'Inspect deep venous thrombosis and associated haemorrhagic infarction'],
+        'PARENCHYMAL EFFECTS': ['oliveira-7', 'Inspect the published haemorrhagic venous infarction example'],
+      };
+      const example = page.sections.map(section => examples[section]).find(Boolean);
+      if (example) parts.push(el('section', {class: 'card', 'aria-label': 'Published clinical example for this step'},
+        el('a', {target: '_blank', rel: 'noopener',
+          href: '/app/anatomy/bp3d-dural-4.3/figures.html?from=ra.venous-sinus-thrombosis&figure=' + example[0]}, example[1]),
+        el('p', {class: 'muted'}, 'Open the complete published figure and its source-specific panel descriptions.')));
     }
     const rows = step.measurements.map(name => measures.get(name)).filter(Boolean);
     if (rows.length) parts.push(el('div', { class: 'rad-table-scroll', tabindex: '0', 'aria-label': 'Measurements for this step' },

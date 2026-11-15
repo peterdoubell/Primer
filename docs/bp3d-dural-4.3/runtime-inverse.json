@@ -1,7 +1,7 @@
 {
   "web/app.js": {
     "before": "52e3bdefd2026d182abffa5c18f5236ba872c0fb03c576df3018f1d6f1fb5364",
-    "after": "34f91a51d88ec048e49ac06b2ed08f40510af8f35ca84c0a3c1eb60d69e46e2e",
+    "after": "de6b1652e7c5c4f2ca3a9cfe7b4a6a91685c1d036e5ff8975ba919f7f68b13b4",
     "changes": [
       {
         "start": 2967,
@@ -17,13 +17,13 @@
       },
       {
         "start": 3672,
-        "end": 3687,
+        "end": 3697,
         "before": "",
-        "after": "    if (n.id === 'ra.venous-sinus-thrombosis') {\n      const focus = page.sections.includes('DURAL SINUSES') ? 'sinuses'\n        : page.sections.includes('DEEP AND CORTICAL VEINS') ? 'deep' : '';\n      if (focus) parts.push(el('section', {class: 'card', 'aria-label': 'Source venous anatomy for this step'},\n        el('a', {target: '_blank', rel: 'noopener',\n          href: '/app/anatomy/bp3d-dural-4.3/index.html?from=ra.venous-sinus-thrombosis&focus=' + focus},\n          focus === 'deep' ? 'Inspect the available deep venous models' : 'Inspect the named dural sinuses'),\n        el('p', {}, focus === 'deep'\n          ? 'This view shows the right internal cerebral and basal veins, the source great cerebral vein object and the straight sinus.'\n          : 'This view shows the source dural sinuses and confluence. The lateral sinuses are right-sided.'),\n        focus === 'deep' ? el('p', {}, el('a', {target: '_blank', rel: 'noopener',\n          href: '/app/anatomy/bp3d-dural-4.3/index.html?from=ra.venous-sinus-thrombosis&focus=cortical'},\n          'Inspect the available right cortical venous models')) : null,\n        el('p', {class: 'muted'}, 'The anatomical reference opens in a new tab. Assess patency and thrombus on the examination you are reporting.')));\n    }\n"
+        "after": "    if (n.id === 'ra.venous-sinus-thrombosis') {\n      const focus = page.sections.includes('DURAL SINUSES') ? 'sinuses'\n        : page.sections.includes('DEEP AND CORTICAL VEINS') ? 'deep' : '';\n      if (focus) parts.push(el('section', {class: 'card', 'aria-label': 'Source venous anatomy for this step'},\n        el('a', {target: '_blank', rel: 'noopener',\n          href: '/app/anatomy/bp3d-dural-4.3/index.html?from=ra.venous-sinus-thrombosis&focus=' + focus},\n          focus === 'deep' ? 'Inspect the available deep venous models' : 'Inspect the named dural sinuses'),\n        el('p', {}, focus === 'deep'\n          ? 'This view shows the right internal cerebral and basal veins, the source great cerebral vein object and the straight sinus.'\n          : 'This view shows the source dural sinuses and confluence. The lateral sinuses are right-sided.'),\n        focus === 'deep' ? el('p', {}, el('a', {target: '_blank', rel: 'noopener',\n          href: '/app/anatomy/bp3d-dural-4.3/index.html?from=ra.venous-sinus-thrombosis&focus=cortical'},\n          'Inspect the available right cortical venous models')) : null,\n        el('p', {class: 'muted'}, 'The anatomical reference opens in a new tab. Assess patency and thrombus on the examination you are reporting.')));\n      const examples = {\n        'DURAL SINUSES': ['sadik-17', 'Compare superior sagittal sinus thrombosis on CT'],\n        'DEEP AND CORTICAL VEINS': ['oliveira-7', 'Inspect deep venous thrombosis and associated haemorrhagic infarction'],\n        'PARENCHYMAL EFFECTS': ['oliveira-7', 'Inspect the published haemorrhagic venous infarction example'],\n      };\n      const example = page.sections.map(section => examples[section]).find(Boolean);\n      if (example) parts.push(el('section', {class: 'card', 'aria-label': 'Published clinical example for this step'},\n        el('a', {target: '_blank', rel: 'noopener',\n          href: '/app/anatomy/bp3d-dural-4.3/figures.html?from=ra.venous-sinus-thrombosis&figure=' + example[0]}, example[1]),\n        el('p', {class: 'muted'}, 'Open the complete published figure and its source-specific panel descriptions.')));\n    }\n"
       },
       {
-        "start": 4054,
-        "end": 4056,
+        "start": 4064,
+        "end": 4066,
         "before": "",
         "after": "  const duralAtlas = renderDuralVenousAtlas(n.id);\n  if (duralAtlas) page.append(duralAtlas);\n"
       }
