@@ -96,6 +96,10 @@ def before_endometrial_delivery_bytes(path, raw):
     return restored
 
 def before_combined_source_release_bytes(path, raw):
+    if str(path) == 'web/app.js' and hashlib.sha256(raw).hexdigest() == 'bdfa7a4b422adf9901e264451dd225ad83de6370b92485b5bd5d1a7618e0a272':
+        raw = raw.replace(b"  if (n.id === 'math.3.statistics') page.append(el('div', { class: 'model-button-row', style: 'margin:1rem 0' },\n    el('a', { class: 'btn ghost', href: '/app/math/sampling-mean/index.html' },\n      'Compare population spread and sampling uncertainty'),\n    el('a', { class: 'btn ghost', href: '/app/math/grouped-rates/index.html' },\n      'Compare grouped and overall success rates')));\n", b"  if (n.id === 'math.3.statistics') page.append(el('a', { class: 'btn ghost', href: '/app/math/sampling-mean/index.html' },\n    'Compare population spread and sampling uncertainty'));\n", 1)
+        if hashlib.sha256(raw).hexdigest() != 'ea590424dcfff901a668a27547f746bae9516321a1dd72d15464532fdd9db5e6':
+            raise ValueError('Grouped rates navigation changed unrelated reader bytes')
     if str(path) == 'web/app.js' and hashlib.sha256(raw).hexdigest() == 'ea590424dcfff901a668a27547f746bae9516321a1dd72d15464532fdd9db5e6':
         raw = raw.replace(b"  if (n.id === 'phys.2.waves') page.append(el('a', { class: 'btn ghost', href: '/app/physics/wave-reflection/index.html' },\n    'Compare reflection at fixed and free ends'));\n", b"", 1)
         raw = raw.replace(b"  if (n.id === 'lang.5.narratology') page.append(el('a', { class: 'btn ghost', href: '/app/language/narrative-order/index.html' },\n    'Retell the archive story in a different order'));\n", b"", 1)

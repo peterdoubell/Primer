@@ -4044,8 +4044,11 @@ async function renderNode(page, nodeId) {
     'Explore derivative signs and optimization'));
   if (n.id === 'math.3.probability') page.append(el('a', { class: 'btn ghost', href: '/app/math/marble-draws/index.html' },
     'Explore replacement and conditional probability'));
-  if (n.id === 'math.3.statistics') page.append(el('a', { class: 'btn ghost', href: '/app/math/sampling-mean/index.html' },
-    'Compare population spread and sampling uncertainty'));
+  if (n.id === 'math.3.statistics') page.append(el('div', { class: 'model-button-row', style: 'margin:1rem 0' },
+    el('a', { class: 'btn ghost', href: '/app/math/sampling-mean/index.html' },
+      'Compare population spread and sampling uncertainty'),
+    el('a', { class: 'btn ghost', href: '/app/math/grouped-rates/index.html' },
+      'Compare grouped and overall success rates')));
   if (n.id === 'phys.5.condensed') page.append(el('a', { class: 'btn ghost', href: '/app/physics/ising/index.html' },
     'Explore spin order and temperature'));
   if (n.id === 'phys.5.frontier') page.append(el('a', { class: 'btn ghost', href: '/app/physics/sparc/index.html' },
