@@ -1,0 +1,29 @@
+<!doctype html>
+<html lang="en">
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Driven oscillator · Primer</title>
+<link rel="stylesheet" href="style.css">
+<script type="module" src="activity.js"></script>
+</head>
+<body><main>
+<a href="/app/#/node/phys.4.classical">Return to Classical Mechanics</a>
+<h1>Driven oscillator</h1>
+<p>Change the driving frequency and damping. Compare the response after transients have decayed.</p>
+<fieldset><legend>Drive and response</legend>
+<label for="frequency">Drive frequency</label><input id="frequency" type="range" min=".1" max="2.5" step=".01" value="1"><output id="frequency-value" for="frequency"></output>
+<label for="damping">Damping ratio</label><input id="damping" type="range" min=".05" max="1" step=".01" value=".15"><output id="damping-value" for="damping"></output>
+<label for="phase">Time in one drive period</label><input id="phase" type="range" min="0" max="100" step="1" value="0"><output id="phase-value" for="phase"></output>
+</fieldset>
+<div class="plots">
+<section><h2>Spring and mass</h2><canvas id="spring" width="380" height="225" role="img"></canvas><p>The dashed mark is equilibrium. Positive displacement is to the right. The sketch scale adjusts with damping.</p></section>
+<section><h2>Displacement and drive</h2><canvas id="traces" width="380" height="225" role="img"></canvas><p>Each trace is shown as a fraction of its own amplitude.</p></section>
+<section><h2>Response versus frequency</h2><canvas id="response" width="380" height="295" role="img"></canvas><p>Both graphs mark the current drive frequency. The amplitude scale adjusts with damping.</p></section>
+</div>
+<table><caption>Steady-state measurements</caption><tbody id="measurements"></tbody></table>
+<p id="peak"></p>
+<details><summary>Equations and assumptions</summary>
+<p>A 1 kg mass is attached to a linear spring with stiffness 4π² N/m. The undamped natural frequency is 1 Hz. A sinusoidal force with amplitude 1 N drives the mass against linear viscous damping.</p>
+<p>The equation is <var>m</var>ẍ + <var>b</var>ẋ + <var>k</var><var>x</var> = <var>F</var>₀ cos(ω<var>t</var>). The damping ratio is ζ = <var>b</var> / (2√(<var>mk</var>)).</p>
+<p>Steady-state displacement is <var>A</var> cos(ω<var>t</var> − δ), where <var>A</var> = <var>F</var>₀ / √((<var>k</var> − <var>m</var>ω²)² + (<var>b</var>ω)²) and δ = atan2(<var>b</var>ω, <var>k</var> − <var>m</var>ω²).</p>
+</details>
+</main></body></html>

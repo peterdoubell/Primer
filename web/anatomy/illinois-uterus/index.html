@@ -1,0 +1,25 @@
+<!doctype html>
+<html lang="en">
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Uterine shape in three dimensions · Primer</title>
+<link rel="stylesheet" href="viewer.css">
+<script type="module" src="viewer.js"></script>
+</head>
+<body><main>
+<a href="/app/reference-studies/mullerian-2025/index.html">Return to uterine imaging</a>
+<h1>Uterine shape in three dimensions</h1>
+<p>Rotate the teaching surfaces to compare the outer contours of a unicornuate, didelphys and bicornuate uterus. Switching models keeps the current view and scale.</p>
+<fieldset><legend>Model and view</legend>
+<div><label for="model">Uterine form</label><select id="model" disabled></select></div>
+<div><label for="yaw">Rotation</label><input id="yaw" type="range" min="-180" max="180" value="0" disabled></div>
+<div><label for="pitch">Tilt</label><input id="pitch" type="range" min="-90" max="90" value="0" disabled></div>
+<button id="reset" type="button" disabled>Reset view</button>
+</fieldset>
+<p id="status" role="status">Verifying the model inventory…</p>
+<button id="retry" type="button" hidden>Retry model</button>
+<figure><canvas width="760" height="520" id="surface" role="img"></canvas>
+<figcaption id="caption"></figcaption></figure>
+<p>These are authored teaching surfaces in the coordinates of the original print files. To compare the cavities and fundal outline on clinical images, return to the published MRI figures. Patient measurements require an acquired examination.</p>
+<p>University of Illinois and Knox College, <cite>The Female Reproductive System and Women’s Health through a Multidisciplinary Lens</cite>. Primer preserves the source triangles and adds viewing controls and surface colour.</p>
+<p><a href="https://med.libretexts.org/Courses/University_of_Illinois/The_Female_Reproductive_System_and_Women%27s_Health_through_a_Multidisciplinary_Lens/10%3A_Models_for_3D_Printing/10.03%3A_Pathological_Models_for_3D_Printing">Original teaching models</a> · <a href="https://creativecommons.org/licenses/by/4.0/">CC BY 4.0</a></p>
+</main></body></html>
