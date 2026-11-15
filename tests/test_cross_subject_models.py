@@ -38,12 +38,17 @@ def test_cross_subject_model_invariants_and_interactions():
         check=False,
     )
     assert result.returncode == 0, result.stdout + result.stderr
+    assert "RATIO_BINDING math.2.ratio = ratio-workbench; 17 exact presets and invalid-draft recovery" in result.stdout
+    assert "DECIMAL_BINDING math.2.decimals = decimal-workbench; 17 exact presets and invalid-draft recovery" in result.stdout
+    assert "PERCENTAGE_BINDING math.2.percent = percentage-workbench; 13 exact presets and invalid-draft recovery" in result.stdout
+    assert "FRACTIONS_BINDING math.2.fractions = build-equivalent-fractions" in result.stdout
     assert "FLUIDS_BINDING phys.4.fluids = explore-fluid-forces-and-flow" in result.stdout
+    assert "INTEGRAL_BINDING math.4.int-calc = math-integral-lab;" in result.stdout
     assert f"Verified {len(CONCEPT_LESSONS) + 2} cross-subject models" in result.stdout
     assert {
         line.removeprefix("COVER ") for line in result.stdout.splitlines()
         if line.startswith("COVER ")
-    } == CROSS_SUBJECT_LESSONS - {'math.4.numtheory'}  # Current dedicated binding is checked explicitly in the JS harness.
+    } == CROSS_SUBJECT_LESSONS - {'math.2.coordinates', 'math.4.numtheory', 'math.3.linear', 'math.3.slope', 'math.3.quadratics', 'math.3.polynomials'}  # Current dedicated binding is checked explicitly in the JS harness.
 
 
 def concept_node(node_id, props):

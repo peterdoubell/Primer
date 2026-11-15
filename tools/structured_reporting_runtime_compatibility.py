@@ -68,14 +68,15 @@ def validate_refresh(step):
                 'reopens_or_extends_any_review', 'native_presentation_code_touched',
                 'native_decoder_mesh_CT_renderer_code_touched'))):
         raise ValueError('Structured reporting refresh leaves its exact scope')
+    from tools.holiatlas_runtime_compatibility import before_holiatlas_bytes
     for path in PATHS:
         from tools.descriptor_report_compatibility import before_descriptor_bytes
-        raw = before_descriptor_bytes(path, (ROOT / path).read_bytes(), allow_older=True)
+        raw = before_descriptor_bytes(path, before_holiatlas_bytes(path, (ROOT / path).read_bytes(), allow_older=True), allow_older=True)
         row = proof['files'][path]
         if sha(raw) != row['after_sha256'] or sha(before_structured_bytes(path, raw)) != row['before_sha256']:
             raise ValueError('Structured reporting current runtime differs')
     for path, expected in {**proof['added_files_sha256'], **proof['guarded_paths_sha256'], **proof['canonical_contract_files_sha256']}.items():
         from tools.simple_report_sheet_compatibility import before_simple_asset
-        if sha(before_simple_asset(path, (ROOT / path).read_bytes())) != expected:
+        if sha(before_simple_asset(path, before_holiatlas_bytes(path, (ROOT / path).read_bytes(), allow_older=True))) != expected:
             raise ValueError('Structured reporting refresh changes a pinned or guarded file')
     return proof

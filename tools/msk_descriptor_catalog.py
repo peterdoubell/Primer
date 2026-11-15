@@ -7,7 +7,9 @@ from pathlib import Path
 def apply_anatomic_reports(forms, root, compile_statement, digest, slug):
     coverage = []
     changed = set()
-    for path in sorted((root / 'data/radiology').glob('msk-anatomic-*.json')):
+    paths = sorted({* (root / 'data/radiology').glob('msk-anatomic-*.json'),
+                    * (root / 'data/radiology').glob('anatomic-*.json')})
+    for path in paths:
         authored = json.loads(path.read_text())
         sources = {source['id']: source for source in authored['sources']}
         for identifier, definition in authored['investigations'].items():
@@ -15,6 +17,11 @@ def apply_anatomic_reports(forms, root, compile_statement, digest, slug):
             if guide_id not in forms:
                 raise ValueError(f'Unknown anatomical report guide: {guide_id}')
             form = forms[guide_id]
+            if definition.get('calculator_ids'):
+                form['calculator_ids'] = list(dict.fromkeys(form.get('calculator_ids', []) + definition['calculator_ids']))
+            # The imported source catalogue is immutable; authored references
+            # belong to the compiled form, not the caller's guide dictionary.
+            form['sources'] = copy.deepcopy(form['sources'])
             structure_ids = {row['id'] for row in definition['sections']}
             seen = set()
             sections = []
@@ -58,6 +65,8 @@ def apply_anatomic_reports(forms, root, compile_statement, digest, slug):
                         result['requires_any'] = [identifier + ':' + row['id'] + ':' + key for key in dependencies]
                     if item.get('exclusive_group'):
                         result['exclusive_group'] = item['exclusive_group']
+                    if item.get('report') is False:
+                        result['report'] = False
                     invalidates = item.get('invalidates_normal', [])
                     if any(key not in structure_ids for key in invalidates):
                         raise ValueError(f'Unknown related anatomy: {result["id"]}')
@@ -82,12 +91,30 @@ def apply_anatomic_reports(forms, root, compile_statement, digest, slug):
                                  'source_sections':[group], 'report_section_id':'anatomic-'+slug(group),
                                  'report_section_label':group.upper(),'normal':normal,'findings':findings,
                                  'exclude_from_bulk_normal':bool(row.get('exclude_from_bulk_normal'))})
+                if row.get('repeatable'):
+                    sections[-1].update(repeatable=True, repeat_label=row.get('repeat_label', row['label']))
             investigation = {'id':identifier,'title':definition['title'],'modality':definition['modality'],
                              'sections':sections,'presentation':'anatomic_rows','content_revision':authored['version'],
                              'sources':[sources[key] for key in sorted({key for row in definition['sections'] for key in row['source_ids']})],
                              'clinical_approval':False}
             if definition.get('base_investigation_id'):
                 investigation['base_investigation_id'] = definition['base_investigation_id']
+            raw_sections = {row['id']:row for row in definition['sections']}
+            for raw_row, section in zip(definition['sections'], sections):
+                scope = raw_row.get('requires_scope')
+                if not scope:
+                    continue
+                control = raw_sections.get(scope.get('section_id'))
+                if not control or control.get('repeatable') or control.get('requires_scope'):
+                    raise ValueError('Scope control must be an unscoped, non-repeated section')
+                control_row = next(row for row in sections if row['anatomy_id'] == control['id'])
+                control_id = identifier + ':' + control['id'] + ':' + scope['finding_id']
+                control_finding = next((f for f in control_row['findings'] if f['id'] == control_id), None)
+                slot = next((s for s in control_finding['slots'] if s['id'] == scope['slot_id']), None) if control_finding else None
+                if (not slot or slot['kind'] != 'choice' or not scope.get('values')
+                        or not set(scope['values']) <= {option['value'] for option in slot['options']}):
+                    raise ValueError('Scope needs explicit finite acquisition choices')
+                section['requires_scope'] = dict(scope, section_id=control_row['id'], finding_id=control_id)
             previous = next((i for i,x in enumerate(form['investigations']) if x['id'] == identifier), None)
             if previous is None:
                 if not investigation.get('base_investigation_id'):
@@ -106,6 +133,13 @@ def apply_anatomic_reports(forms, root, compile_statement, digest, slug):
                              'anatomy_ids':[row['anatomy_id'] for row in sections],
                              'source_file':str(path.relative_to(root))})
             changed.add(guide_id)
+    binding_path = root / 'data/radiology/descriptor-calculation-bindings.json'
+    if binding_path.exists():
+        try:
+            from tools.descriptor_calculation_binding_compiler import attach_calculation_bindings
+        except ModuleNotFoundError:
+            from descriptor_calculation_binding_compiler import attach_calculation_bindings
+        changed.update(attach_calculation_bindings(forms, json.loads(binding_path.read_text())))
     for guide_id in changed:
         form = forms[guide_id]
         form['provenance']['anatomic_expansion'] = 'Original structure-specific reporting choices; references retained; no clinical approval implied.'

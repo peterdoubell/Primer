@@ -27,6 +27,8 @@ def reviewed():
 
 
 def before_shapes_bytes(path, raw, allow_older=False):
+    from tools.holiatlas_runtime_compatibility import before_holiatlas_bytes
+    raw = before_holiatlas_bytes(path, raw, allow_older=True)
     path = str(path)
     if path not in PATHS:
         return raw

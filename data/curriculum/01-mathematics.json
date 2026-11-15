@@ -668,6 +668,16 @@
             "first": 8,
             "second": 5
           }
+        },
+        {
+          "id": "math.1.addition-whole-number-workbench",
+          "kind": "model",
+          "renderer": "base-ten-lab",
+          "title": "Addition: units, places and groups",
+          "instructions": "Choose a worked example or edit the labelled whole-number inputs. Compare each exact ledger with the diagram; diagrams can be enlarged and scrolled.",
+          "props": {
+            "scenario": "math.1.addition"
+          }
         }
       ],
       "prereqs": [
@@ -766,7 +776,20 @@
           "speak_choices": true,
           "explain": "Swapping the two numbers round never changes the answer, so 6 + 3 is 9 as well."
         }
-      ]
+      ],
+      "learning_outcomes": [
+        "Combine quantities and check addition by counting equal units.",
+        "Align equal places and follow carries from smaller to larger places.",
+        "Explain that exchanging ten units for one unit of the next place preserves the sum.",
+        "Swap addends and verify that the total stays the same.",
+        "Inspect fixed-volume pieces before and after regrouping."
+      ],
+      "lesson": {
+        "overview": "Adding combines quantities. Ones add to ones and tens add to tens. Ten ones can be exchanged for one ten without changing how many unit values there are.",
+        "worked_example": "For 8 + 5, combine thirteen ones, exchange ten for one ten and retain three ones: the total is 13. For 20 + 30, two tens and three tens make five tens, or 50. For 99 + 1, ten ones exchange to a ten, and ten tens exchange to a hundred.",
+        "activity": "Use the original friendly-ten activity and all seven quiz examples in the new workbench. Follow the carry ledger from ones upwards. Swap the addends and compare the total. In the independent 3D companion, switch between combined equal-place pieces and the usual digits of the sum.",
+        "reflection": "A carry changes the pieces, not the total value. The incoming carry is measured in the current place; an outgoing carry goes to the next larger place. The workbench and 3D companion support addends through 999, including challenges beyond the lesson goal of adding through 100. Their controls are independent."
+      }
     },
     {
       "id": "math.1.subtraction",
@@ -895,8 +918,31 @@
           "props": {
             "scenario": "math.1.subtraction"
           }
+        },
+        {
+          "id": "math.1.subtraction-whole-number-workbench",
+          "kind": "model",
+          "renderer": "base-ten-lab",
+          "title": "Subtraction: units, places and groups",
+          "instructions": "Choose a worked example or edit the labelled whole-number inputs. Compare each exact ledger with the diagram; diagrams can be enlarged and scrolled.",
+          "props": {
+            "scenario": "math.1.subtraction"
+          }
         }
-      ]
+      ],
+      "learning_outcomes": [
+        "Interpret subtraction as removing an amount or comparing two amounts.",
+        "Relate the difference to inverse addition.",
+        "Regroup across one or more zero places to calculate a gap.",
+        "Distinguish a nonnegative gap from a signed subtraction result and a physical shortfall.",
+        "Inspect equal-sized retained, removed and comparison counters."
+      ],
+      "lesson": {
+        "overview": "Subtraction can ask what stays after taking some away, or how far apart two quantities are. Addition checks the answer: removed plus retained gives the starting amount.",
+        "worked_example": "From nine counters, remove four and five stay: 9 − 4 = 5. Comparing ten with six also leaves a gap of four. For 12 − 5, exchange a ten into ten ones to leave seven. In 100 − 1, regroup across the empty tens place; the difference is 99.",
+        "activity": "Explore both meanings and the original quiz examples. Read the borrowing ledger from ones towards larger places. Swap the comparison amounts and observe the signed equation. In the independent 3D companion, compare the groups or move available counters into the removed group.",
+        "reflection": "The ledger finds the nonnegative gap by subtracting the smaller amount from the larger. The equation A − B also states its sign. If more objects are requested than are available, the missing amount is a shortfall, rather than negative physical cubes. The workbench supports amounts through 999; the independent counter companion shows amounts through 100."
+      }
     },
     {
       "id": "math.1.place-value",
@@ -1026,9 +1072,32 @@
           "props": {
             "scenario": "math.1.place-value"
           }
+        },
+        {
+          "id": "math.1.place-value-whole-number-workbench",
+          "kind": "model",
+          "renderer": "base-ten-lab",
+          "title": "Place Value: units, places and groups",
+          "instructions": "Choose a worked example or edit the labelled whole-number inputs. Compare each exact ledger with the diagram; diagrams can be enlarged and scrolled.",
+          "props": {
+            "scenario": "math.1.place-value"
+          }
         }
       ],
-      "practice": "know:math.1.place-value"
+      "practice": "know:math.1.place-value",
+      "learning_outcomes": [
+        "Read ones, tens, hundreds and thousands as positional units, including zero placeholders.",
+        "Write a whole number as the sum of its digit contributions.",
+        "Exchange ten smaller pieces for one larger piece, or reverse an exchange, without changing value.",
+        "Distinguish the number of pieces from the value they represent.",
+        "Compare calibrated 3D unit, ten, hundred and thousand volumes."
+      ],
+      "lesson": {
+        "overview": "A digit gets its value from its place. In 47, four tens contribute 40 and seven ones contribute 7. A zero keeps an empty place, so 101 and 11 mean different numbers.",
+        "worked_example": "Four ten pieces and seven one pieces make 47. Exchange one ten for ten ones: three tens and seventeen ones still make 47. Reverse the exchange to return to four tens and seven ones. In 1001, one thousand and one one contribute value while the hundreds and tens places are empty.",
+        "activity": "Try the original worked examples, then read every place in 9999. Use the exchange investigation to apply and reverse an exchange. Compare the total before and after. In the independent 3D companion, unbundle one ten, hundred or thousand and inspect the differently sized pieces.",
+        "reflection": "One hundred piece is worth one hundred one pieces. Counting unequal pieces alone does not tell their value: use the place unit or calibrated volume. The number reader covers 0 to 9999; the repeatable exchange ledger covers totals through 200. The 3D companion has independent controls and uses a fixed volume per unit."
+      }
     },
     {
       "id": "math.1.multiplication",
@@ -1158,8 +1227,31 @@
           "props": {
             "scenario": "math.1.multiplication"
           }
+        },
+        {
+          "id": "math.1.multiplication-whole-number-workbench",
+          "kind": "model",
+          "renderer": "base-ten-lab",
+          "title": "Multiplication: units, places and groups",
+          "instructions": "Choose a worked example or edit the labelled whole-number inputs. Compare each exact ledger with the diagram; diagrams can be enlarged and scrolled.",
+          "props": {
+            "scenario": "math.1.multiplication"
+          }
         }
-      ]
+      ],
+      "learning_outcomes": [
+        "Interpret multiplication as equal groups or equal rows.",
+        "Build and count every product through 12 × 12.",
+        "Relate multiplication to repeated addition.",
+        "Swap rows and columns to explain why the product is unchanged.",
+        "Explain zero products with no invented counters."
+      ],
+      "lesson": {
+        "overview": "Multiplication counts equal groups. Four rows with three counters in each row contain twelve counters. Each row must have the same number.",
+        "worked_example": "Four groups of three give 3 + 3 + 3 + 3 = 12. Turning the array makes three groups of four, still twelve. Twelve rows of twelve contain 144 counters. Zero rows or zero counters in every row give zero counters.",
+        "activity": "Try all seven quiz examples, then edit rows and counters per row from zero through twelve. Swap the factors and compare the array. Rotate the independent 3D array and turn it using its labelled orientation control.",
+        "reflection": "The same unit counter is used throughout each array. Row colors identify groups and do not change the amount represented. Turning the array changes the grouping description without adding or removing counters. The 3D companion has its own controls."
+      }
     },
     {
       "id": "math.1.division",
@@ -1288,8 +1380,31 @@
           "props": {
             "scenario": "math.1.division"
           }
+        },
+        {
+          "id": "math.1.division-whole-number-workbench",
+          "kind": "model",
+          "renderer": "base-ten-lab",
+          "title": "Division: units, places and groups",
+          "instructions": "Choose a worked example or edit the labelled whole-number inputs. Compare each exact ledger with the diagram; diagrams can be enlarged and scrolled.",
+          "props": {
+            "scenario": "math.1.division"
+          }
         }
-      ]
+      ],
+      "learning_outcomes": [
+        "Distinguish sharing into a given number of groups from making groups of a given size.",
+        "Use multiplication facts to calculate quotients.",
+        "Keep whole-counter remainders and verify dividend = divisor × quotient + remainder.",
+        "Explain zero dividends and undefined division by zero.",
+        "Inspect every counter in equal groups and the remainder."
+      ],
+      "lesson": {
+        "overview": "Division asks about equal groups. Sharing twelve among three groups gives four in each group. Making groups of three from twelve gives four groups. The quotient has a different role in these two questions.",
+        "worked_example": "For 12 ÷ 3, each of three equal sharing groups receives four counters. For 17 ÷ 5, the quotient is three and two counters remain: 5 × 3 + 2 = 17. A remainder is smaller than the nonzero divisor.",
+        "activity": "Try every original quiz example in both sharing and grouping contexts. Explore a remainder, zero counters, and division by zero. Compare the ledger with every counter in the diagram. Rotate the independent 3D companion to inspect the complete groups and the separate gold remainder.",
+        "reflection": "Whole counters are not silently split or discarded. A continuously divisible amount may have an exact fractional quotient, which the workbench states separately. Dividing by zero is undefined; zero divided by zero does not determine a unique quotient. The controls cover totals through 144 and group counts or group sizes through twelve. The 3D companion has independent controls."
+      }
     },
     {
       "id": "math.1.measurement",
@@ -1706,13 +1821,11 @@
         {
           "id": "build-equivalent-fractions",
           "kind": "model",
-          "renderer": "fraction-equivalence-lab",
-          "title": "Build equivalent fractions",
-          "instructions": "Multiply the numerator and denominator by the same factor. Watch the partitions change while the fraction's value stays the same.",
+          "renderer": "fraction-arithmetic-lab",
+          "title": "Fractions: equal units, exact operations",
+          "instructions": "Keep the same whole while adding, subtracting, comparing, multiplying, dividing or simplifying fractions. Inspect exact partitions and quantities, including signed and improper fractions.",
           "props": {
-            "numerator": 2,
-            "denominator": 3,
-            "max_factor": 4
+            "scenario": "math.2.fractions"
           }
         }
       ],
@@ -1818,7 +1931,21 @@
         "math.1.addition",
         "math.1.fractions-intro",
         "math.1.multiplication"
-      ]
+      ],
+      "learning_outcomes": [
+        "Use equivalent partitions of the same whole to add, subtract and compare rational numbers.",
+        "Simplify a fraction by a common factor while preserving its exact value.",
+        "Interpret multiplication as taking a fraction of another fraction and distinguish its signed value from geometric area.",
+        "Find a fraction of a divisible quantity using equal shares of that full quantity.",
+        "Interpret division by a nonzero fraction as measuring in groups, including a partial final group.",
+        "Explain negative and improper fractions, negative denominator normalization and undefined zero-denominator or zero-divisor cases."
+      ],
+      "lesson": {
+        "overview": "A fraction names a number relative to a chosen whole. Equivalent fractions change the partition without changing that number. Addition and subtraction require pieces of the same size; multiplication, division and simplification follow different operations and should not be confused.",
+        "worked_example": "For two thirds plus one quarter, split the same whole into twelfths. The operands become eight twelfths and three twelfths, so their sum is eleven twelfths. To simplify eighteen twenty-fourths, group six original pieces into each new piece: the shaded amount becomes three quarters. Three quarters of a twenty-unit quantity means three of four equal five-unit shares, giving fifteen units.",
+        "activity": "Use the worked examples, then change the two signed numerators and denominators. Compare a common-denominator calculation with the equal-unit strips. In multiplication, inspect the equal-scale magnitude rectangle and its separately stated sign. In division, compare complete groups with the fraction of a final group. Follow an endpoint or change the magnified partition crop; the exact ledger always describes the complete value. Try a negative denominator, an improper fraction and division by zero.",
+        "reflection": "A bigger denominator means smaller pieces only when the whole stays fixed, and it does not by itself order two fractions. Simplification preserves the number, while an operation can change it. Negative lengths and areas are not physical objects: the diagrams use nonnegative geometric magnitudes with an explicit algebraic sign. The quantity example assumes a divisible amount, such as litres; a fractional answer is not automatically a permissible count of indivisible objects. The separate rotatable disk is an illustration of one partitioned whole, not the arithmetic state of this workbench."
+      }
     },
     {
       "id": "math.2.decimals",
@@ -1936,13 +2063,29 @@
           "id": "math.2.decimals-concept-model",
           "kind": "model",
           "renderer": "concept-lab",
-          "title": "Add hundredths, regroup a whole",
-          "instructions": "Change two amounts in hundredths. Follow their coloured cells into the sum; a full grid is one whole.",
+          "title": "Decimals: place, operation and value",
+          "instructions": "Compare place values, align addition and subtraction, multiply and divide exactly, round on a number line, and work out totals and change. Keep the same unit and track the operation being performed.",
           "props": {
             "scenario": "math.2.decimals"
           }
         }
-      ]
+      ],
+      "learning_outcomes": [
+        "Compare decimals by aligned place values and explain why trailing zeros preserve an exact value.",
+        "Add decimals with aligned places and explicit carry steps.",
+        "Subtract decimals with explicit borrowing, including negative results and signed operands.",
+        "Multiply integer coefficients, restore decimal places and interpret a magnitude rectangle with its sign stated separately.",
+        "Divide by measuring divisor-sized groups, including partial groups, and explain why division by zero is undefined.",
+        "Round to a selected decimal place with an explicit halfway rule, including negative ties.",
+        "Compute exact-cent item totals and change, and identify a shortfall when the tender is insufficient.",
+        "Compose decimal quantities as fixed-unit 3D volumes and explain the ten-to-one regrouping of adjacent places."
+      ],
+      "lesson": {
+        "overview": "A decimal digit names a number of units at a particular place. Ten hundredths make one tenth, and ten tenths make one whole. Align equal places before adding or subtracting; multiplication, division and rounding use different operations. A longer written decimal need not be larger, and trailing zeros leave the exact value unchanged.",
+        "worked_example": "Adding 0.75 and 1.60 gives 2.35: the tenths column regroups thirteen tenths as one whole and three tenths. In 3.00 minus 0.85, borrow across the zero tenths to obtain 2.15. For 0.4 times 0.3, multiply the integer coefficients 4 and 3 and restore two decimal places, giving 0.12. Multiplying both operands in 1.8 divided by 0.6 by ten gives the equivalent quotient 18 divided by 6, or three groups. The number 3.478 lies above the halfway point 3.475 between 3.47 and 3.48, so it rounds to 3.48 at two decimal places.",
+        "activity": "Try all worked examples and edit their inputs. Follow the carry and borrow ledger from the smallest displayed place; compare the shared-scale bars and the multiplication rectangle. Inspect complete and partial division groups, moving the displayed group window when needed. Compare 0.089 with 0.7, then 1.2 with 1.20. Work out four pens at 1.45 each and the change from 10 after paying 3.40 plus 2.75. In the separate rotatable companion, make 0.089 from eight hundredths and nine thousandths, then compare one tenth with ten hundredths. Enlarge diagrams for closer inspection; wide ledgers and diagrams also scroll with a pointer or focused arrow keys.",
+        "reflection": "The fixed whole determines the sizes of all decimal places. Counting unequal blocks does not compare their represented amounts: use their volumes. Physical lengths and areas show nonnegative magnitudes; signed arithmetic states its algebraic sign separately. The division ledger keeps a nonterminating answer as an exact fraction and labels any cropped group window. Rounding uses nearest marks with ties away from zero; mathematical zero is shown without a sign. The money activity uses nonnegative whole-cent prices and tender with whole-number quantities. The three-place 3D companion has independent controls and illustrates place-value volumes; it does not copy the arithmetic workbench state or make claims about measurement uncertainty."
+      }
     },
     {
       "id": "math.2.percent",
@@ -2065,13 +2208,27 @@
           "id": "math.2.percent-concept-model",
           "kind": "model",
           "renderer": "concept-lab",
-          "title": "Percent means out of one hundred",
-          "instructions": "Change the percent and the whole amount. Compare the hundred-grid, decimal and resulting part of the whole.",
+          "title": "Percentages and changing bases",
+          "instructions": "Compare exact fractions, decimals and percentages. Investigate a part of a whole, percentage change, successive changes and mixed-format discounts; keep track of the reference amount.",
           "props": {
             "scenario": "math.2.percent"
           }
         }
-      ]
+      ],
+      "learning_outcomes": [
+        "Convert between fractions, terminating decimals and percentages without rounding an exact equality.",
+        "Find a percentage of a quantity and express a part as a percentage of a nonzero whole.",
+        "Calculate percentage change using the original amount as the denominator.",
+        "Compose successive changes by multiplying their factors and using the new base at each step.",
+        "Compare discounts expressed as fractions, decimals and percentages on the same original price.",
+        "Explain why percentage change from zero is undefined and why a fractional percentage shades part of one hundredth cell."
+      ],
+      "lesson": {
+        "overview": "Percent means per hundred: p% is the ratio p/100. A percentage describes a number relative to a specified whole. Keep that whole fixed when comparing diagrams, and identify the reference amount before calculating a percentage change.",
+        "worked_example": "Three eighths is exactly 0.375, or 37.5%. In a hundred-grid it fills 37 complete cells and half of the next cell. A 25% discount on 80 removes 20 and leaves 60. Two successive 10% discounts on 200 give 200 × 0.9 × 0.9 = 162: the second discount removes 18 from the new price of 180. A rise from 40 to 50 is a change of 10 divided by the original 40, or 25%.",
+        "activity": "Choose each worked example, then edit the amounts and formats. Compare the shared-scale bars with the exact ledger. Investigate up 20% followed by down 20%, the discounts 0.35, 3/8 and 30%, a recurring fraction such as one third, and a zero original amount. Enlarge the diagrams and use the arrow keys to scroll a focused diagram. Invalid drafts keep the last accepted result; Escape restores its inputs.",
+        "reflection": "Successive percentage rates generally cannot be added: the base changes after the first step. Equal upward and downward rates need not cancel. Percentage change from zero is undefined even though the absolute change is defined. Exact rational results remain fractions when their decimal expansions do not terminate. Amounts in the workbench are divisible mathematical quantities; a fractional result is not automatically a count of whole objects or an amount rounded to currency cents. The separate rotatable partitioned disk illustrates one independently controlled whole; it does not track this workbench’s inputs or successive changes."
+      }
     },
     {
       "id": "math.2.negatives",
@@ -2583,13 +2740,30 @@
           "id": "math.2.ratio-concept-model",
           "kind": "model",
           "renderer": "concept-lab",
-          "title": "Scale both parts together",
-          "instructions": "Set scoops of ingredients A and B in one batch. Scale the number of batches; keep each batch in the same ratio.",
+          "title": "Ratios, rates and scale",
+          "instructions": "Explore recipes, shares, unit rates, maps and model lengths. Track units and use exact values to check each result.",
           "props": {
             "scenario": "math.2.ratio"
           }
         }
-      ]
+      ],
+      "learning_outcomes": [
+        "Scale both parts by the same positive factor and distinguish multiplicative scaling from adding equal amounts.",
+        "Compare ratios with exact cross-products and distinguish part-to-part from part-to-whole ratios.",
+        "Divide a total in a stated ratio, or recover one amount from a known amount of the other.",
+        "Find a constant unit rate and use it to scale identical quantities or recipe servings.",
+        "Convert map centimetres to ground kilometres and express the corresponding dimensionless scale.",
+        "Convert actual metres to centimetres before applying a model scale of 1 : n.",
+        "Compare drawing sizes for the same ground distance at two map scales.",
+        "Relate equal recipe batches to calibrated 3D volumes, and linear similarity to square area and cubic volume factors.",
+        "Identify zero and undefined cases, proportionality assumptions, and whole-object constraints."
+      ],
+      "lesson": {
+        "overview": "A ratio A : B compares two ordered quantities. Multiplying both by the same positive factor preserves their relative amounts. If the ratio is 3 : 4, A is three sevenths of the total, not three quarters. Proportional models need a constant relationship and consistent units.",
+        "worked_example": "A 2 : 3 recipe scaled by three becomes 6 : 9. A total of 40 litres shared as 3 : 5 has eight equal parts: one part is five litres, so the amounts are 15 and 25 litres. Nine eggs for twelve people scale by 20/12 to fifteen eggs for twenty. Six identical books weighing 2.4 kg have mass 0.4 kg each; ten weigh 4 kg. On a map, eight centimetres at five kilometres per centimetre represents forty kilometres. For a 1 : 24 model of a 4.8 m car, convert 4.8 m to 480 cm, then divide by 24 to obtain 20 cm.",
+        "activity": "Explore all nine investigations and the worked-example menu. Compare equivalent ratios with the result of adding three to each part. Share 450 ml as 2 : 7, and find the other amount in 7 : 3 when the first is 91. Compare maps with one centimetre representing 200 m and 50 m: the latter draws the same park four times as large. Read the exact ledgers, check chart units, enlarge diagrams and scroll with the focused arrow keys. In the separate 3D companion, change ingredient parts and batch count, then compare similar prisms as the linear scale factor changes.",
+        "reflection": "A positive common multiplier preserves a ratio; a zero multiplier produces 0 : 0, which does not determine relative parts. The amounts can be fractional when they are divisible, but complete books, people or eggs may impose practical whole-count constraints. Recipes assume ingredients scale with servings, while cooking time need not. Maps assume a fixed local linear scale. The two rulers for different units have separate labelled axes. The 3D companion uses fixed volume per ingredient part and independent controls; its similar shapes scale lengths by k, corresponding areas by k squared and volumes by k cubed. Camera motion and inspection gaps change the view, not the amounts."
+      }
     },
     {
       "id": "math.2.geometry",
@@ -2710,6 +2884,16 @@
           "caption": "Length uses units, area square units, and volume cubic units.",
           "width": 1600,
           "height": 1000
+        },
+        {
+          "id": "math-2-geometry-measures-lab",
+          "kind": "model",
+          "renderer": "geometry-measures-lab",
+          "title": "Measure shapes and solids",
+          "instructions": "Trace perimeter, count square units, compare equal perimeters and scaled shapes, then inspect volume and capacity.",
+          "props": {
+            "scenario": "math.2.geometry"
+          }
         },
         {
           "id": "math-2-geometry-spatial-3d",
@@ -2976,14 +3160,28 @@
         {
           "id": "math.2.coordinates-concept-model",
           "kind": "model",
-          "renderer": "concept-lab",
-          "title": "Across first, then up or down",
-          "instructions": "Change x and y. Follow the dashed path from the origin to P; keep the order of the coordinates.",
+          "renderer": "coordinate-plane-lab",
+          "title": "Explore the coordinate plane",
+          "instructions": "Plot ordered pairs, then compare movements, reflections, distances and rectangles.",
           "props": {
             "scenario": "math.2.coordinates"
           }
         }
-      ]
+      ],
+      "learning_outcomes": [
+        "Plot an ordered pair with horizontal x first and vertical y second.",
+        "Distinguish the origin, the axes and the four quadrants.",
+        "Apply signed horizontal and vertical movements to a point.",
+        "Exchange coordinates and compare reflections with a half-turn.",
+        "Find missing corners, side lengths, area and perimeter of an axis-aligned rectangle.",
+        "Distinguish horizontal-plus-vertical path length from straight-line distance."
+      ],
+      "lesson": {
+        "overview": "An ordered pair (x, y) locates a point: x gives horizontal position and y gives vertical position relative to the origin (0, 0). Positive x is right and positive y is up. Negative coordinates move left or down. The axes divide the plane into four quadrants, numbered anticlockwise from the upper right. A point on either axis is not inside a quadrant. Coordinates may be fractions as well as integers.",
+        "worked_example": "To plot (−3, 2), move three units left from the origin and then two units up: the point lies in Quadrant II. Exchanging the coordinates gives (2, −3), a different point in Quadrant IV. From (3, 5), moving four left and two down gives (3 − 4, 5 − 2) = (−1, 3). A rectangle with opposite corners (2, 1) and (6, 4) has other corners (6, 1) and (2, 4); its width is 4, height is 3, area is 12 square units and perimeter is 14 units. The straight distance between its opposite corners is √(4² + 3²) = 5 units, while following two sides travels 7 units.",
+        "activity": "Choose each worked example and follow its exact point table. Try points on both axes and at the origin. Compare a point with its exchanged coordinates. Change the horizontal and vertical movements separately, then move across both axes. Reflect a point across x, y or y = x, and compare a half-turn about the origin. Use opposite corners to complete a rectangle; swap their order and check its measurements. Compare the stepped path and the straight distance. The flat graph and rotatable chart share accepted inputs; turning the camera does not move a mathematical point.",
+        "reflection": "Reflecting across the x-axis reverses y alone; reflecting across the y-axis reverses x alone. Exchanging coordinates reflects across y = x. Reversing both coordinates is a half-turn about the origin, not reflection across a line. For two points, signed differences tell direction, while absolute differences give nonnegative horizontal and vertical distances. The straight distance is √((Δx)² + (Δy)²). If a rectangle has zero width or height, its corners collapse to a segment or point, so it is not a positive-area rectangle. Always read the grid spacing: the view resizes to fit the points, but the exact coordinates stay the same."
+      }
     },
     {
       "id": "math.2.data",
@@ -3369,16 +3567,30 @@
           "height": 1000
         },
         {
-          "id": "math.3.linear.model",
+          "id": "math.3.linear-algebra-functions",
           "kind": "model",
-          "renderer": "concept-lab",
-          "title": "Keep both sides equal",
-          "instructions": "Apply the same operation on both sides to isolate x.",
+          "renderer": "algebra-functions-lab",
+          "title": "Linear Equations · equations and graphs",
+          "instructions": "Choose a worked example or enter exact integers, fractions and decimals. Inspect the calculation ledger, then compare the same accepted state in the coordinate graph and linked 3D chart.",
           "props": {
             "scenario": "math.3.linear"
           }
         }
-      ]
+      ],
+      "learning_outcomes": [
+        "Translate an affine equality, including parentheses and terms on both sides, into coefficients.",
+        "Apply the same addition, subtraction or nonzero division to both sides.",
+        "Distinguish one solution, no solutions and an identity.",
+        "Verify a solution by substituting it into the original equality.",
+        "Rearrange a linear formula while keeping its parameters explicit.",
+        "Relate a solution to an intersection of the two sides as functions of x."
+      ],
+      "lesson": {
+        "overview": "An equation states that two expressions have equal values. Its solutions are the values of x that make that statement true. Both sides can contain x, constants, fractions and outside factors. Expanding parentheses changes the form without changing values; adding or subtracting the same expression on both sides preserves the solution set. Dividing both sides requires a nonzero divisor.",
+        "worked_example": "For 2(x + 3) = x + 10, expand to 2x + 6 = x + 10. Subtract x from both sides to get x + 6 = 10, then subtract 6: x = 4. Substitution gives 14 on each original side. For 5x + 2 = 3x + 14, the same steps give 2x = 12 and x = 6; both sides are then 32. By contrast, 4x + 9 = 4x + 2 reduces to 9 = 2, so no x works. If the two sides are identical, every x works. From C = 5(F − 32)/9, multiply both sides by 9/5 and then add 32 to obtain F = 9C/5 + 32. This identity follows algebraically for any C, not just one selected temperature.",
+        "activity": "Choose the worked examples for parentheses, fractions, the taxi fare and the phone-plan fee. Move through the equivalent-equation stages and compare their exact ledgers with the plotted sides. Try equal x coefficients with unequal constants, then identical expressions. Change the outside factors and check the resulting equality. The workbench and its 3D chart share accepted inputs. Rotate the chart to inspect the same coordinate plane; camera motion does not change the equation.",
+        "reflection": "An equation is not solved by changing only part of one side. In 3x + 5 = 20, subtracting 5 gives 3x = 15 and hence x = 5. If dividing first, the entire equality becomes x + 5/3 = 20/3, which still gives 5. When collecting x terms leaves a zero coefficient, classify the remaining statement rather than dividing by zero. A graph is a finite view of the relation; the exact algebra establishes its solution set."
+      }
     },
     {
       "id": "math.3.slope",
@@ -3511,16 +3723,30 @@
           "height": 1000
         },
         {
-          "id": "math.3.slope.model",
+          "id": "math.3.slope-algebra-functions",
           "kind": "model",
-          "renderer": "concept-lab",
-          "title": "Rise, run and intercept",
-          "instructions": "Change rise, run and intercept to explore a straight line.",
+          "renderer": "algebra-functions-lab",
+          "title": "Slope and Lines · equations and graphs",
+          "instructions": "Choose a worked example or enter exact integers, fractions and decimals. Inspect the calculation ledger, then compare the same accepted state in the coordinate graph and linked 3D chart.",
           "props": {
             "scenario": "math.3.slope"
           }
         }
-      ]
+      ],
+      "learning_outcomes": [
+        "Compute signed rise and run from two distinct points.",
+        "Construct a line from a slope and a point or from Ax + By = C.",
+        "Find intercepts and evaluate a relation at a chosen x.",
+        "Distinguish horizontal and vertical lines without division by zero.",
+        "Construct parallel and perpendicular lines through a chosen point.",
+        "Separate a mathematical line from the physical domain and units of an application."
+      ],
+      "lesson": {
+        "overview": "Slope measures change in y divided by change in x. For two distinct points, m = (y₂ − y₁)/(x₂ − x₁) when the denominator is nonzero. The signs matter: a negative slope falls as x increases. A horizontal line has slope zero, while a vertical line has no finite slope. The form Ax + By = C includes both cases without pretending that every relation is a function y(x).",
+        "worked_example": "The line through (1, 2) and (4, 11) has rise 9 and run 3, so its slope is 3. A line of slope 4 through (2, 3) satisfies y − 3 = 4(x − 2), or y = 4x − 5; at x = 5 it has y = 15. For 2x + 3y = 12, rearranging gives y = −2x/3 + 4, with slope −2/3 and intercepts (0, 4) and (6, 0). A perpendicular to a line of slope 3 has slope −1/3. Horizontal and vertical lines form a perpendicular pair and require their own classification, not a numerical reciprocal of zero.",
+        "activity": "Choose two points, a slope and point, or a general equation. Read the exact signed rise/run and intercepts, then evaluate the relation at another x. Try horizontal and vertical cases. Construct a parallel or perpendicular relation through a specified point, including a parallel that is actually the same line. Use the tank example to distinguish a rate from a starting value. Changes update both coordinate views together.",
+        "reflection": "For V = 200 − 8t, the coefficient −8 means a loss of 8 litres per minute; 200 litres is the initial amount. A mathematical line extends indefinitely, but this simple draining model only describes nonnegative volume for 0 ≤ t ≤ 25. The 2D graph uses equal coordinate scales. The 3D chart retains the same coordinates in its plane, but an oblique camera view changes apparent angles. Use the 2D graph or exact equations to judge perpendicularity. The equation 0x + 0y = 0 describes every point, and 0x + 0y = 1 describes none; neither defines a unique line or a slope. One repeated point alone does not determine a line."
+      }
     },
     {
       "id": "math.3.systems",
@@ -3790,16 +4016,30 @@
           "height": 1000
         },
         {
-          "id": "math.3.quadratics.model",
+          "id": "math.3.quadratics-algebra-functions",
           "kind": "model",
-          "renderer": "concept-lab",
-          "title": "Vertex, turning point and roots",
-          "instructions": "Move the vertex and change the opening direction to explore real roots.",
+          "renderer": "algebra-functions-lab",
+          "title": "Quadratic Equations · equations and graphs",
+          "instructions": "Choose a worked example or enter exact integers, fractions and decimals. Inspect the calculation ledger, then compare the same accepted state in the coordinate graph and linked 3D chart.",
           "props": {
             "scenario": "math.3.quadratics"
           }
         }
-      ]
+      ],
+      "learning_outcomes": [
+        "Relate general coefficients ax² + bx + c to a parabola and its opening direction.",
+        "Compute the exact vertex and completed-square form.",
+        "Classify real roots using the discriminant, including repeated and irrational roots.",
+        "Connect root sums and products to the coefficients.",
+        "Apply algebraic roots to the physical constraints of a problem.",
+        "Classify the lower-degree relation when a is zero."
+      ],
+      "lesson": {
+        "overview": "A quadratic function has the form f(x) = ax² + bx + c with a nonzero. Its graph is a parabola. Completing the square gives a(x − h)² + k, where h = −b/(2a) and k = c − b²/(4a). These coordinates need not be integers. The vertex is a minimum when a is positive and a maximum when a is negative.",
+        "worked_example": "For x² − 5x + 6, the factorization (x − 2)(x − 3) gives roots 2 and 3. Its vertex is (5/2, −1/4), so the displayed parabola needs fractional coordinates. The discriminant b² − 4ac tells whether there are two, one repeated, or no real roots. For x² + kx + 9, a repeated root requires k² − 36 = 0, so k = 6 or k = −6. Completing the square in x² + 6x + 1 gives (x + 3)² − 8. A ball with h(t) = −5t² + 30t has roots 0 and 6: launch and return to the ground, with its highest point at t = 3. Expanding a(x − r₁)(x − r₂) shows that r₁ + r₂ = −b/a and r₁r₂ = c/a, counting multiplicity. Thus the roots of x² − 7x + 10 sum to 7 and multiply to 10. These coefficient identities also hold for complex roots; a negative discriminant still means no real x-axis crossings.",
+        "activity": "Reproduce the illustrated quadratic and inspect its exact fractional vertex. Compare positive, zero and negative discriminants; distinguish a repeated root from two distinct roots. Try the irrational-root example and compare its exact radical expressions with approximate plot markers. Work through the projectile and rectangle examples. Set a to zero and observe the explicit change to a linear or constant relation.",
+        "reflection": "The quadratic formula solves an algebraic equation; the context decides which roots are physically meaningful. A rectangle with width x, length x + 3 and area 40 satisfies x² + 3x − 40 = 0. Its roots are 5 and −8, but only 5 is a positive width. A negative discriminant means no real roots, not that the function has no values. When a = 0, the quadratic formula no longer applies; solve the lower-degree relation instead. The chart is sampled with a stated error bound, while the ledger preserves exact expressions."
+      }
     },
     {
       "id": "math.3.functions",
@@ -4076,16 +4316,30 @@
           "height": 1000
         },
         {
-          "id": "math.3.polynomials.model",
+          "id": "math.3.polynomials-algebra-functions",
           "kind": "model",
-          "renderer": "concept-lab",
-          "title": "Factors, multiplicity and coefficients",
-          "instructions": "Move cubic roots, merge them, and compare factors with expanded coefficients.",
+          "renderer": "algebra-functions-lab",
+          "title": "Polynomials · equations and graphs",
+          "instructions": "Choose a worked example or enter exact integers, fractions and decimals. Inspect the calculation ledger, then compare the same accepted state in the coordinate graph and linked 3D chart.",
           "props": {
             "scenario": "math.3.polynomials"
           }
         }
-      ]
+      ],
+      "learning_outcomes": [
+        "Expand and add polynomials by collecting coefficients of equal powers.",
+        "Derive quadratic factors from coefficients where real factors exist.",
+        "Distinguish supplied roots from roots that have been solved for.",
+        "Divide polynomials and verify P = Q × quotient + remainder.",
+        "Use the remainder theorem for division by a linear factor.",
+        "Relate degree, leading sign and root multiplicity to graph behavior."
+      ],
+      "lesson": {
+        "overview": "A polynomial is a finite sum of coefficients times nonnegative integer powers of x. Its degree is the largest power with a nonzero coefficient; the zero polynomial has no ordinary finite degree. Multiplication distributes every term and collects equal powers. Division by a nonzero polynomial produces a quotient and a remainder that is zero or has lower degree than the divisor.",
+        "worked_example": "Expanding (x + 3)(x − 2) gives x² + x − 6. The degree of (x³ + 1)(x² − x) is 5 because its leading product is x⁵. From coefficients, x² − 9 factors as (x − 3)(x + 3), and x² + 7x + 12 factors as (x + 3)(x + 4). If the roots 1, 2 and 3 are given with leading coefficient 1, expanding their factors yields x³ − 6x² + 11x − 6. Dividing x³ − 2x + 5 by x − 2 gives quotient x² + 2x + 2 and remainder 9; substituting x = 2 into the original polynomial also gives 9.",
+        "activity": "Use separate investigations for expansion from given roots, quadratic factoring from coefficients, addition, multiplication and division. Inspect the exact coefficient and division ledgers, and compare the resulting polynomial with its graph. Try repeated roots, positive even-degree leading terms and negative odd-degree leading terms. Change a highest coefficient to zero and watch the degree change. Attempt a zero divisor to see why division cannot proceed.",
+        "reflection": "Far from the origin, the leading nonzero term determines end behavior. A positive degree-four polynomial rises at both ends; a negative degree-three polynomial rises to the left and falls to the right. A supplied factor (x − r) guarantees a root at r, and its multiplicity determines crossing or touching. Coefficient-driven factoring here is explicitly limited to degree at most two; expansion from supplied roots is a different operation. P and Q accept degree at most four each, so multiplication may produce degree eight. Visible graph bounds do not establish global end behavior—the leading-term argument does."
+      }
     },
     {
       "id": "math.3.euclid",
@@ -5055,6 +5309,16 @@
           "caption": "Vectors add component by component; direction determines whether magnitudes combine, cancel, or form a right triangle.",
           "width": 1600,
           "height": 1000
+        },
+        {
+          "id": "math-3-vector-components-lab",
+          "kind": "model",
+          "renderer": "vector-components-lab",
+          "title": "Vector components and geometry",
+          "instructions": "Enter components to inspect addition, scalar combinations and exact projections. Compare the separate cross-product area view and use the worked examples.",
+          "props": {
+            "scenario": "math.3.vectors"
+          }
         },
         {
           "id": "math-3-vectors-spatial-3d",

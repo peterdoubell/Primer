@@ -1,0 +1,20 @@
+"""Fixed-source FCD geometry audit; original affines are retained without fitted registration."""
+from pathlib import Path
+import json,hashlib,nibabel as nib,numpy as np,sys
+from scipy import ndimage
+ROOT=Path(__file__).resolve().parents[2];sys.path.insert(0,str(ROOT));from tools.anatomy_sources.soop_stroke_native import cell_boundary
+D=ROOT/'.research/fcd-source-20261028';S=D/'sub-00004';rows=[];loaded={}
+receipt=(D/'sub-00004-acquisition.json').read_bytes();assert hashlib.sha256(receipt).hexdigest()=='b8d9916742bc35986cab9776760ede2d909a513e9f9d2b42f5d59e188fe5578e'
+for entry in json.loads(receipt)['files']:
+ assert hashlib.sha256((D/entry['file']).read_bytes()).hexdigest()==entry['sha256']
+for f in sorted(S.glob('*.nii.gz')):
+ im=nib.load(f);a=np.asarray(im.dataobj);role='roi'if'_roi'in f.name else'flair'if'FLAIR'in f.name else't1';loaded[role]=(im,a,f);r={'role':role,'file':f.name,'sha256':hashlib.sha256(f.read_bytes()).hexdigest(),'shape':list(im.shape),'dtype':str(im.get_data_dtype()),'zooms':list(map(float,im.header.get_zooms())),'affine':im.affine.tolist(),'units':list(im.header.get_xyzt_units()),'axisCodes':list(nib.aff2axcodes(im.affine)),'qformCode':int(im.header['qform_code']),'sformCode':int(im.header['sform_code']),'slope':float(im.dataobj.slope),'intercept':float(im.dataobj.inter),'finite':bool(np.isfinite(a).all()),'range':[float(a.min()),float(a.max())]}
+ if role=='roi':r['values']={str(v):int(n)for v,n in zip(*np.unique(a,return_counts=True))}
+ assert r['units'][0]=='mm';rows.append(r)
+roi,mask,_=loaded['roi'];flair=loaded['flair'][0];assert roi.shape==flair.shape and set(np.unique(mask))=={0,1};corners=np.array([[i,j,k]for i in [-.5,roi.shape[0]-.5]for j in [-.5,roi.shape[1]-.5]for k in [-.5,roi.shape[2]-.5]]);mapping=np.linalg.inv(flair.affine)@roi.affine;delta=nib.affines.apply_affine(mapping,corners)-corners;worldDelta=nib.affines.apply_affine(roi.affine,corners)-nib.affines.apply_affine(flair.affine,corners);bound=float(np.max(np.abs(delta)));assert bound<.0001
+cc,n=ndimage.label(mask!=0,structure=np.ones((3,3,3),bool));coords=np.argwhere(mask);world,triangles,faces,voxel=cell_boundary(mask!=0,roi.affine);N=len(coords);pairs=0
+for axis in range(3):
+ a=[slice(None)]*3;b=a.copy();a[axis]=slice(None,-1);b[axis]=slice(1,None);pairs+=int(np.count_nonzero(mask[tuple(a)]*mask[tuple(b)]))
+assert len(faces)==6*N-2*pairs;xyz=world[triangles];volume=float(np.einsum('ij,ij->i',xyz[:,0],np.cross(xyz[:,1],xyz[:,2])).sum()/6);expected=N*abs(np.linalg.det(roi.affine[:3,:3]));assert abs(volume-expected)<1e-6
+np.savez_compressed(D/'sub-00004-source-boundary.npz',world=world,triangles=triangles,voxelCorners=voxel,sourceFaces=faces)
+proof={'sourceVolumes':rows,'ROIReference':'FLAIR per primary publication and supplied filename','ROIToFLAIRShapeMatches':True,'ROIToFLAIRIndexTransform':mapping.tolist(),'ROIToFLAIRMaximumIndexDifferenceOverCompleteCellExtent':bound,'ROIToFLAIRMaximumWorldDifferenceMm':float(np.linalg.norm(worldDelta,axis=1).max()),'coordinateBoundMethod':'Affine differences attain coordinate extrema at box corners; includes complete source-cell extent.','nearestFLAIRGridAssignmentUnchangedEverywhere':bool(bound<.5),'newFittedTransform':False,'sourceAffinesPreserved':True,'ROIComponents26':sorted(map(int,np.bincount(cc.ravel())[1:]),reverse=True),'ROIVoxels':N,'ROIBoundsIJK':[coords.min(0).tolist(),coords.max(0).tolist()],'sourceCellVolumeMm3':float(abs(np.linalg.det(roi.affine[:3,:3]))),'mesh':{'vertices':len(world),'triangles':len(triangles),'exposedFaces':len(faces),'signedVolumeMm3':volume,'sourceVoxelVolumeMm3':expected,'allSourceFacesRetained':True,'allComponentsRetained':True,'smoothing':False},'T1ToFLAIRRegistrationVerified':False,'diagnosisByPrimer':False,'clinicalApproval':False,'independentCompleteBoundaryAuditPending':True,'wholeGoalComplete':False};(D/'sub-00004-grid-audit.json').write_text(json.dumps(proof,indent=2)+'\n');print(json.dumps({k:proof[k]for k in ['ROIVoxels','ROIComponents26','ROIToFLAIRMaximumWorldDifferenceMm','nearestFLAIRGridAssignmentUnchangedEverywhere','mesh']}))

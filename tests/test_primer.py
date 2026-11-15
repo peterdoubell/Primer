@@ -431,7 +431,20 @@ def test_young_nodes_have_child_voiced_lessons(curr):
 
 def test_the_interactive_lesson_media_cohorts_are_local_and_complete(curr):
     """The bounded-model cohorts keep both their authored plate and model."""
+    base_ten = {nid: [m for m in n.get('lesson_media', []) if m.get('renderer') == 'base-ten-lab']
+                for nid, n in curr.nodes.items() if any(m.get('renderer') == 'base-ten-lab' for m in n.get('lesson_media', []))}
+    assert set(base_ten) == {'math.1.addition', 'math.1.division', 'math.1.subtraction', 'math.1.place-value', 'math.1.multiplication'}
+    for nid, models in base_ten.items():
+        assert len(models) == 1 and models[0]['props'] == {'scenario': nid}
+        assert curr.nodes[nid]['stage'] == 1
     expected = {
+        'math.3.vectors': (3, 'vector-components-lab'),
+        'math.2.geometry': (2, 'geometry-measures-lab'),
+        'math.2.coordinates': (2, 'coordinate-plane-lab'),
+        'math.3.linear': (3, 'algebra-functions-lab'),
+        'math.3.slope': (3, 'algebra-functions-lab'),
+        'math.3.quadratics': (3, 'algebra-functions-lab'),
+        'math.3.polynomials': (3, 'algebra-functions-lab'),
         'math.0.counting': (0, 'counter'),
         'math.0.shapes': (0, 'shape-explorer'),
         'phys.0.light-shadow': (0, 'shadow-lab'),
@@ -448,7 +461,7 @@ def test_the_interactive_lesson_media_cohorts_are_local_and_complete(curr):
         'hist.1.timelines': (1, 'timeline-order-lab'),
         'earth.1.seasons': (1, 'seasons-tilt-lab'),
         'arts.1.elements': (1, 'art-elements-composer'),
-        'math.2.fractions': (2, 'fraction-equivalence-lab'),
+        'math.2.fractions': (2, 'fraction-arithmetic-lab'),
         'math.2.negatives': (2, 'integer-number-line-lab'),
         'chem.2.atoms': (2, 'atom-element-builder'),
         'bio.2.cells': (2, 'cell-microscope'),
@@ -483,13 +496,15 @@ def test_the_interactive_lesson_media_cohorts_are_local_and_complete(curr):
     expected['math.4.numtheory'] = (4, 'math-number-theory-lab')
     expected['math.3.systems'] = (3, 'math-systems-lab')
     expected['phys.0.float-sink'] = (0, 'physics-buoyancy-lab')
+    expected['phys.4.particles'] = (4, 'physics-particle-lab')
+    expected['lang.5.comp-ling'] = (5, 'language-computation-lab')
     expected.update({
         node_id: (curr.nodes[node_id]['stage'], 'physics-concept-lab')
         for node_id in PHYSICS_MODEL_SCENARIOS
     })
     with_models = {
         nid: node for nid, node in curr.nodes.items()
-        if any(item['kind'] == 'model' and (nid in expected or item['renderer'] not in {'spatial-3d', 'concept-lab', 'radiology-anatomy', 'math-measure-lab', 'physics-cycle-lab', 'math-operator-lab', 'physics-ensemble-lab', 'math-curvature-lab', 'physics-constraints-lab', 'math-complex-lab', 'physics-quantum-lab', 'math-topology-lab', 'physics-relativity-lab', 'math-algebra-lab', 'physics-quantum-info-lab', 'math-logic-lab', 'physics-maxwell-lab', 'physics-cosmology-lab', 'physics-qft-lab'})
+        if any(item['kind'] == 'model' and (nid in expected or item['renderer'] not in {'base-ten-lab', 'spatial-3d', 'concept-lab', 'radiology-anatomy', 'math-measure-lab', 'physics-cycle-lab', 'math-operator-lab', 'physics-ensemble-lab', 'math-curvature-lab', 'physics-constraints-lab', 'math-complex-lab', 'physics-quantum-lab', 'math-topology-lab', 'physics-relativity-lab', 'math-algebra-lab', 'physics-quantum-info-lab', 'math-logic-lab', 'physics-maxwell-lab', 'physics-cosmology-lab', 'physics-qft-lab'})
                for item in node.get('lesson_media', []))
     }
     assert set(with_models) == set(expected)
@@ -508,7 +523,7 @@ def test_the_interactive_lesson_media_cohorts_are_local_and_complete(curr):
         assert node['stage'] == expected[nid][0], nid
         base_media = [entry for entry in node['lesson_media'] if entry not in linear_algebra
                       if entry['kind'] in {'illustration', 'model'} and (entry.get('renderer') == expected[nid][1]
-                           or entry.get('renderer') not in {'spatial-3d', 'concept-lab', 'radiology-anatomy', 'math-wave-lab', 'math-convergence-lab', 'physics-thermal-lab', 'math-numerical-lab', 'math-measure-lab', 'physics-cycle-lab', 'math-operator-lab', 'physics-ensemble-lab', 'math-curvature-lab', 'physics-constraints-lab', 'math-complex-lab', 'physics-quantum-lab', 'math-topology-lab', 'physics-relativity-lab', 'math-algebra-lab', 'physics-quantum-info-lab', 'math-logic-lab', 'physics-maxwell-lab', 'physics-cosmology-lab', 'physics-qft-lab', 'physics-phase-lab', 'fluids-concept-lab'})]
+                           or entry.get('renderer') not in {'base-ten-lab', 'spatial-3d', 'concept-lab', 'radiology-anatomy', 'math-wave-lab', 'math-convergence-lab', 'physics-thermal-lab', 'math-numerical-lab', 'math-measure-lab', 'physics-cycle-lab', 'math-operator-lab', 'physics-ensemble-lab', 'math-curvature-lab', 'physics-constraints-lab', 'math-complex-lab', 'physics-quantum-lab', 'math-topology-lab', 'physics-relativity-lab', 'math-algebra-lab', 'physics-quantum-info-lab', 'math-logic-lab', 'physics-maxwell-lab', 'physics-cosmology-lab', 'physics-qft-lab', 'physics-phase-lab', 'fluids-concept-lab'})]
         kinds = [entry['kind'] for entry in base_media]
         assert kinds == ['illustration', 'model'], nid
         model = base_media[-1]
@@ -589,6 +604,9 @@ def test_every_physics_lesson_has_explanatory_responsive_media(curr):
         'phys.0.light-shadow': 'shadow-lab',
         'phys.1.light': 'light-paths',
         'phys.4.fluids': 'venturi-flow-lab',
+        'phys.5.frontier': 'spatial-3d',
+        'phys.5.condensed': 'spatial-3d',
+        'phys.4.particles': 'physics-particle-lab',
     }
     for nid, node in physics.items():
         companions = [item for item in node['lesson_media']
@@ -597,6 +615,9 @@ def test_every_physics_lesson_has_explanatory_responsive_media(curr):
             [('explore-fluid-forces-and-flow', 'model', {'scenario': 'phys.4.fluids'})]
             if nid == 'phys.4.fluids' else []), nid
         base_media = [item for item in node.get('lesson_media', []) if item.get('renderer') not in {'spatial-3d', 'physics-thermal-lab', 'math-measure-lab', 'physics-cycle-lab', 'math-operator-lab', 'physics-ensemble-lab', 'math-curvature-lab', 'physics-constraints-lab', 'math-complex-lab', 'physics-quantum-lab', 'math-topology-lab', 'physics-relativity-lab', 'math-algebra-lab', 'physics-quantum-info-lab', 'math-logic-lab', 'physics-maxwell-lab', 'physics-cosmology-lab', 'physics-qft-lab', 'physics-phase-lab', 'fluids-concept-lab'}]
+        if nid in {'phys.5.frontier','phys.5.condensed'}:
+            base_media = [item for item in node['lesson_media'] if item['kind']=='illustration' or item.get('props',{}).get('family')in {'rotation-density-geometry','type-i-field-geometry'}]
+            assert base_media[1]['props']['scenario']=='module.'+nid
         assert [item['kind'] for item in base_media] == [
             'illustration', 'model'], nid
         plate, model = base_media
@@ -654,7 +675,7 @@ def test_physics_visual_copy_keeps_scientific_boundaries(curr):
     sound = str(curr.nodes['phys.1.sound']).lower()
     forces = str(curr.nodes['phys.2.forces']).lower()
     all_physics = (' '.join(str(node).lower() for nid, node in curr.nodes.items()
-                            if nid.startswith('phys.')) + ' ' + _web('lesson-models.js').lower())
+                            if nid.startswith('phys.')) + ' ' + _web('lesson-models.js').lower() + ' ' + _web('physics-rotation-lab.js').lower() + ' ' + _web('physics-condensed-lab.js').lower())
     assert 'slow big wiggles' not in sound
     assert 'vibration frequency changes pitch' in sound
     assert 'different from how fast the sound travels' in sound
@@ -675,8 +696,11 @@ def test_physics_visual_copy_keeps_scientific_boundaries(curr):
         'two phases can coexist',
         'one free bosonic mode',
         'a finite mock fluctuation above it is not an experimental bell proof',
-        'outer disk and excludes the galactic center',
-        'makes the field transition abrupt',
+        'not measured galaxy data',
+        'not total or virial mass',
+        'no p-value or unique physical conclusion is inferred',
+        'not the edge of the disk',
+        'no sloped line joins the jump',
         'the density integrates to one',
         'gravity and acceleration require additional treatment',
         'absolute temperatures in kelvin',
@@ -2231,7 +2255,7 @@ def test_lesson_models_are_local_explanations_not_assessments():
                      'morphogen-gradient-lab', 'ct-window-lab',
                      'alphabet-explorer', 'inclusive-family-timeline',
                      'day-night-rotation-lab', 'classroom-paint-mixer',
-                     'physics-concept-lab'):
+                     'physics-concept-lab', 'physics-particle-lab', 'language-computation-lab'):
         assert renderer in js
     _assert_models_stay_local(js)
     assert "role: 'status'" in js and "'aria-live': 'polite'" in js
@@ -2253,12 +2277,12 @@ def test_physics_scenario_registry_matches_python_and_curriculum_exactly(curr):
         any(media.get('renderer') == 'physics-concept-lab' for media in node['lesson_media'])
     }
     assert scenario_keys == set(PHYSICS_MODEL_SCENARIOS) == expected
-    assert len(scenario_keys) == 35
-    assert registry.count('controls: [') == 35
-    assert registry.count('caveat:') == 35
-    assert registry.count('compute(state)') == 35
-    assert registry.count('readout:') >= 35
-    assert registry.count('visual:') == 35
+    assert len(scenario_keys) == 32
+    assert registry.count('controls: [') == 32
+    assert registry.count('caveat:') == 32
+    assert registry.count('compute(state)') == 32
+    assert registry.count('readout:') >= 32
+    assert registry.count('visual:') == 32
 
 
 def test_physics_model_has_native_controls_resets_live_copy_and_fail_closed_lookup():
@@ -2287,7 +2311,8 @@ def test_every_physics_model_control_changes_readout_and_svg_geometry():
         cwd=root, capture_output=True, text=True, timeout=30, check=False,
     )
     assert result.returncode == 0, result.stdout + result.stderr
-    assert '35 scenarios, 68 independently exercised controls' in result.stdout
+    assert '32 scenarios, 79 independently exercised legacy range controls' in result.stdout
+    assert 'Dedicated circuits: 2 lesson bindings and 10 station mounts verified.' in result.stdout
 
 
 @pytest.mark.skipif(shutil.which('node') is None, reason='Node.js is required')

@@ -1443,15 +1443,16 @@ def radiology_reference_index():
 def radiology_reporting_reference(node_id: str):
     """Reporting content without quiz keys, mastery gating or live wiki fetching."""
     from .radiology_catalog import detail, resolve
+    from .report_templates import with_quick_report
     investigation = resolve(node_id)
     if not investigation:
         from .reporting_bridge import descriptor_variant, descriptor_variant_detail, with_structured_form
         variant = descriptor_variant(node_id)
-        if variant and resolve(variant['base_investigation_id']):
-            return with_structured_form(descriptor_variant_detail(variant, resolve(variant['base_investigation_id'])))
+        if variant and (not variant.get('base_investigation_id') or resolve(variant['base_investigation_id'])):
+            return with_quick_report(with_structured_form(descriptor_variant_detail(variant, resolve(variant['base_investigation_id']) if variant.get('base_investigation_id') else None)))
         return JSONResponse({"error": "no such radiology module"}, status_code=404)
     from .reporting_bridge import with_structured_form
-    return with_structured_form(detail(curr, investigation))
+    return with_quick_report(with_structured_form(detail(curr, investigation)))
 
 
 @app.get("/api/curriculum/node/{node_id}")
@@ -3541,9 +3542,18 @@ def app_shell():
                      "radiology-reference-models.js", "radiology-detailed-anatomy.js", "concept-models.js",
                      "review-game.js", "review-game.css", "prenatal-sequence.js", "prenatal-sequence.css",
                      "radiology-structured.js", "radiology-structured.css",
+                     "math-integral-lab.js", "math-integral-lab.css",
+                     "energy-momentum-lab.js", "energy-momentum-lab.css",
+                     "fractions-lab.js", "fractions-lab.css",
+                     "percentage-core.js", "percentage-lab.js", "percentage-lab.css",
+                     "circuits-induction-core.js", "circuits-induction-lab.js", "circuits-induction-lab.css",
                      "math-ode-lab.js", "math-ode-lab.css", "math-eigenspace.js", "math-eigenspace.css",
                      "math-field-lab.js", "math-field-lab.css", "math-wave-lab.js", "math-wave-lab.css",
-                     "math-probability-lab.js", "math-probability-lab.css", "speech-chunks.js", "physics-buoyancy-lab.js", "physics-buoyancy-lab.css", "physics-thermal-lab.js", "physics-thermal-lab.css", "physics-phase-lab.js", "physics-phase-lab.css", "math-measure-lab.js", "math-measure-lab.css", "physics-cycle-lab.js", "physics-cycle-lab.css", "math-operator-lab.js", "math-operator-lab.css", "physics-ensemble-lab.js", "physics-ensemble-lab.css", "math-curvature-lab.js", "math-curvature-lab.css", "physics-constraints-lab.js", "physics-constraints-lab.css", "spatial-fidelity.js", "spatial-quantum-information.js", "spatial-algebra.js", "spatial-logic.js", "spatial-number-theory.js", "math-systems-lab.js", "math-systems-lab.css", "math-number-theory-lab.js", "math-number-theory-lab.css", "number-theory-diagrams.js", "number-theory-diagrams.css", "spatial-number-theory-relations.js", "spatial-maxwell.js", "spatial-cosmology.js", "math-logic-lab.js", "math-logic-lab.css", "physics-maxwell-lab.js", "physics-maxwell-lab.css", "physics-cosmology-lab.js", "physics-cosmology-lab.css", "lesson-state.js", "math-topology-lab.js", "math-topology-lab.css", "math-algebra-lab.js", "math-algebra-lab.css", "physics-qft-lab.js", "physics-qft-lab.css", "spatial-qft.js", "physics-quantum-info-lab.js", "physics-quantum-info-lab.css", "physics-relativity-lab.js", "physics-relativity-lab.css", "math-complex-lab.js", "math-complex-lab.css", "physics-quantum-lab.js", "physics-quantum-lab.css", "math-convergence-lab.js", "math-convergence-lab.css", "math-numerical-lab.js", "math-numerical-lab.css"):
+                     "math-probability-lab.js", "math-probability-lab.css", "speech-chunks.js", "physics-buoyancy-lab.js", "physics-buoyancy-lab.css", "physics-thermal-lab.js", "physics-thermal-lab.css", "physics-phase-lab.js", "physics-phase-lab.css", "math-measure-lab.js", "math-measure-lab.css", "physics-cycle-lab.js", "physics-cycle-lab.css", "math-operator-lab.js", "math-operator-lab.css", "physics-ensemble-lab.js", "physics-ensemble-lab.css", "math-curvature-lab.js", "math-curvature-lab.css", "physics-constraints-lab.js", "physics-constraints-lab.css", "spatial-fidelity.js", "spatial-quantum-information.js", "spatial-algebra.js", "spatial-logic.js", "spatial-number-theory.js", "math-systems-lab.js", "math-systems-lab.css", "math-number-theory-lab.js", "math-number-theory-lab.css", "number-theory-diagrams.js", "number-theory-diagrams.css", "spatial-number-theory-relations.js", "spatial-maxwell.js", "spatial-cosmology.js", "math-logic-lab.js", "math-logic-lab.css", "physics-maxwell-lab.js", "physics-maxwell-lab.css", "physics-cosmology-lab.js", "physics-cosmology-lab.css", "lesson-state.js", "math-topology-lab.js", "math-topology-lab.css", "math-algebra-lab.js", "math-algebra-lab.css", "physics-qft-lab.js", "physics-qft-lab.css", "spatial-qft.js", "physics-quantum-info-lab.js", "physics-quantum-info-lab.css", "physics-relativity-lab.js", "physics-relativity-lab.css", "math-complex-lab.js", "math-complex-lab.css", "physics-quantum-lab.js", "physics-quantum-lab.css", "math-convergence-lab.js", "math-convergence-lab.css", "math-numerical-lab.js", "math-numerical-lab.css",
+                     "decimal-core.js", "decimal-lab.js", "decimal-lab.css", "decimal-spatial.js",
+                     "ratio-core.js", "ratio-lab.js", "ratio-lab.css", "ratio-spatial.js",
+                     "base-ten-core.js", "base-ten-lab.js", "base-ten-lab.css", "base-ten-spatial.js",
+                     "algebra-functions-core.js", "algebra-functions-lab.js", "algebra-functions-lab.css", "algebra-functions-spatial.js", "coordinate-plane-core.js", "coordinate-plane-spatial.js", "coordinate-plane-lab.js", "coordinate-plane-lab.css", "geometry-measures-core.js", "geometry-measures-lab.js", "geometry-measures-lab.css", "vector-components-core.js", "vector-components-scene.js", "vector-components-lab.js", "vector-components-lab.css"):
         html = html.replace("/app/" + filename, "/app/" + filename + "?v=" + _asset_tag(filename))
     html = html.replace("/app/app.js", "/app/app.js?v=" + _asset_tag("app.js"))
     return HTMLResponse(html, headers={"Cache-Control": "no-cache"})
@@ -3777,6 +3787,13 @@ async def native_pulmonary_payload_delivery(asset: str, request: Request):
                         media_type=row['content_type'], headers={'Cache-Control': 'private, no-store'})
 
 
+@app.api_route("/app/anatomy/glioblastoma-ba2/index.html", methods=["GET", "HEAD"], include_in_schema=False)
+async def glioblastoma_viewer(request: Request):
+    response = await app.state.source_static.get_response("anatomy/glioblastoma-ba2/index.html", request.scope)
+    response.headers["Content-Security-Policy"] = CSP.replace("frame-ancestors 'none';", "frame-ancestors 'self';")
+    return response
+
+
 @app.api_route("/app/anatomy/bp3d-thoracic-4.3/{asset:path}", methods=["GET", "HEAD"], include_in_schema=False)
 async def thoracic_source_delivery(asset: str, request: Request):
     from .thoracic_native_inspectors import AUTHORED, PREFIX, registry, references, validate_file
@@ -3900,6 +3917,244 @@ async def spl_reporting_reference_delivery(asset: str, request: Request):
         response.headers['Content-Security-Policy'] = CSP.replace("frame-ancestors 'none';", "frame-ancestors 'self';")
     return response
 
+@app.api_route("/app/anatomy/spl-epilepsy-context/{asset:path}", methods=["GET", "HEAD"], include_in_schema=False)
+async def epilepsy_context_reference_delivery(asset: str, request: Request):
+    from .spl_epilepsy_reference import ATLAS, AUTHORED, PREFIX, references, validate_file, manifest_bytes
+    from . import spl_reporting_reference as source
+    src = PREFIX + asset
+    if (not src.isascii() or request.scope.get('raw_path', b'') != src.encode('ascii') or
+            asset not in AUTHORED and asset not in set(source.registry()['files']) - source.AUTHORED):
+        return JSONResponse({'detail': 'Unknown epilepsy source context resource'}, status_code=404, headers={'Cache-Control': 'private, no-store'})
+    references()
+    if asset not in AUTHORED:
+        return RedirectResponse(source.PREFIX + asset, status_code=307, headers={'Cache-Control': 'private, no-store'})
+    validate_file(asset)
+    if asset == 'manifest.json':
+        return Response(manifest_bytes(), media_type='application/json', headers={'Cache-Control': 'private, no-store'})
+    response = await app.state.source_static.get_response('anatomy/' + ATLAS + '/' + asset, request.scope)
+    response.headers['Cache-Control'] = 'private, no-store'
+    response.headers['Content-Security-Policy'] = CSP.replace("frame-ancestors 'none';", "frame-ancestors 'self';")
+    return response
+
+
+@app.api_route("/app/anatomy/spl-additional-source/{asset:path}", methods=["GET", "HEAD"], include_in_schema=False)
+async def spl_additional_reference_delivery(asset: str, request: Request):
+    from .spl_additional_reference import ATLAS, PREFIX, registry, references, validate_file, manifest_bytes
+    src = PREFIX + asset
+    if not src.isascii() or request.scope.get('raw_path', b'') != src.encode('ascii') or asset not in registry()['files']:
+        return JSONResponse({'detail': 'Unknown additional SPL source resource'}, status_code=404, headers={'Cache-Control': 'private, no-store'})
+    references()
+    validate_file(asset)
+    if asset == 'manifest.json':
+        return Response(manifest_bytes(), media_type='application/json', headers={'Cache-Control': 'private, no-store'})
+    if asset.endswith('.gz') and os.environ.get('VERCEL'):
+        return RedirectResponse('/source-media/anatomy/' + ATLAS + '/' + asset, status_code=307, headers={'Cache-Control': 'private, no-store'})
+    response = await app.state.source_static.get_response('anatomy/' + ATLAS + '/' + asset, request.scope)
+    response.headers['Cache-Control'] = 'private, no-store'
+    if asset == 'index.html':
+        response.headers['Content-Security-Policy'] = CSP.replace("frame-ancestors 'none';", "frame-ancestors 'self';")
+    return response
+
+
+@app.api_route("/app/anatomy/spl-sellar-interfaces/{asset:path}", methods=["GET", "HEAD"], include_in_schema=False)
+async def sellar_interface_delivery(asset: str, request: Request):
+    from .sellar_interface_reference import ATLAS, PREFIX, registry, references, validate_file, metadata_bytes
+    src = PREFIX + asset
+    if not src.isascii() or request.scope.get('raw_path', b'') != src.encode('ascii') or asset not in registry()['files']:
+        return JSONResponse({'detail': 'Unknown sellar source resource'}, status_code=404, headers={'Cache-Control': 'private, no-store'})
+    references()
+    validate_file(asset)
+    if asset in registry()['virtual_metadata']:
+        return Response(metadata_bytes(asset), media_type='application/json', headers={'Cache-Control': 'private, no-store'})
+    if asset.endswith(('.svg', '.mesh.gz')) and os.environ.get('VERCEL'):
+        return RedirectResponse('/source-media/anatomy/' + ATLAS + '/' + asset, status_code=307, headers={'Cache-Control': 'private, no-store'})
+    response = await app.state.source_static.get_response('anatomy/' + ATLAS + '/' + asset, request.scope)
+    response.headers['Cache-Control'] = 'private, no-store'
+    if asset == 'viewer/index.html':
+        response.headers['Content-Security-Policy'] = CSP.replace("frame-ancestors 'none';", "frame-ancestors 'self';")
+    return response
+
+
+@app.api_route("/app/anatomy/cavernous-source-photographs/{asset:path}", methods=["GET", "HEAD"], include_in_schema=False)
+async def cavernous_photo_delivery(asset: str, request: Request):
+    from .cavernous_photo_reference import ATLAS, PREFIX, registry, references, validate_file
+    src = PREFIX + asset
+    if not src.isascii() or request.scope.get('raw_path', b'') != src.encode('ascii') or asset not in registry()['files']:
+        return JSONResponse({'detail': 'Unknown dissection resource'}, status_code=404, headers={'Cache-Control': 'private, no-store'})
+    references()
+    validate_file(asset)
+    response = await app.state.source_static.get_response('anatomy/' + ATLAS + '/' + asset, request.scope)
+    response.headers['Cache-Control'] = 'private, no-store'
+    if asset == 'viewer/index.html':
+        response.headers['Content-Security-Policy'] = CSP.replace("frame-ancestors 'none';", "frame-ancestors 'self';").replace("img-src 'self' data:", "img-src 'self' blob: data:")
+    return response
+
+
+@app.api_route("/app/anatomy/pituitary-pandit-case1/{asset:path}", methods=["GET", "HEAD"], include_in_schema=False)
+async def pituitary_case_delivery(asset: str, request: Request):
+    from .pituitary_case_reference import ATLAS, PREFIX, registry, references, validate_file, metadata_bytes, local_payload
+    src = PREFIX + asset
+    data = registry()
+    if (not src.isascii() or request.scope.get('raw_path', b'') != src.encode('ascii') or
+            asset not in set(data['files']) | set(data['payloads']) | set(data['originals'])):
+        return JSONResponse({'detail': 'Unknown processed pituitary source resource'}, status_code=404, headers={'Cache-Control': 'private, no-store'})
+    references()
+    if asset in data['payloads'] or asset in data['originals']:
+        row = data['payloads'].get(asset, data['originals'].get(asset))
+        requested_range = request.headers.get('range')
+        if requested_range:
+            import re
+            match = re.fullmatch(r'bytes=(\d+)-(\d+)', requested_range)
+            if not match or not 0 <= int(match[1]) <= int(match[2]) < row['bytes']:
+                return Response(status_code=416, headers={'Content-Range': 'bytes */' + str(row['bytes']), 'Cache-Control': 'private, no-store'})
+        path = local_payload(asset) if asset in data['payloads'] else None
+        if path is not None:
+            return FileResponse(path, media_type='application/octet-stream', headers={'Cache-Control': 'private, no-store'})
+        if requested_range:
+            from .pituitary_case_reference import remote_range
+            start, end = int(match[1]), int(match[2])
+            if end - start + 1 > 2 * 1024 * 1024:
+                return Response(status_code=416, headers={'Content-Range': 'bytes */' + str(row['bytes']), 'Cache-Control': 'private, no-store'})
+            if request.method == 'HEAD':
+                return Response(status_code=206, headers={'Content-Range': f'bytes {start}-{end}/{row["bytes"]}', 'Content-Length': str(end-start+1), 'Cache-Control': 'private, no-store'})
+            try:
+                content = await remote_range(asset, start, end)
+            except (ValueError, OSError):
+                return JSONResponse({'detail': 'Source range temporarily unavailable'}, status_code=502, headers={'Cache-Control': 'private, no-store'})
+            return Response(content, status_code=206, media_type='application/octet-stream', headers={'Content-Range': f'bytes {start}-{end}/{row["bytes"]}', 'Accept-Ranges': 'bytes', 'Cache-Control': 'private, no-store'})
+        if asset.startswith('source-models/'):
+            from .pituitary_case_reference import remote_range
+            if request.method == 'HEAD':
+                return Response(headers={'Content-Length': str(row['bytes']), 'Cache-Control': 'private, no-store'})
+            try:
+                content = await remote_range(asset, 0, row['bytes'] - 1)
+            except (ValueError, OSError):
+                return JSONResponse({'detail': 'Source model temporarily unavailable'}, status_code=502, headers={'Cache-Control': 'private, no-store'})
+            return Response(content, media_type='application/octet-stream', headers={'Cache-Control': 'private, no-store'})
+        return RedirectResponse(row['url'], status_code=307, headers={'Cache-Control': 'private, no-store'})
+    validate_file(asset)
+    if asset in data['virtual_metadata']:
+        return Response(metadata_bytes(asset), media_type='application/json', headers={'Cache-Control': 'private, no-store'})
+    response = await app.state.source_static.get_response('anatomy/' + ATLAS + '/' + asset, request.scope)
+    response.headers['Cache-Control'] = 'private, no-store'
+    if asset == 'provided-plane-viewer/index.html':
+        response.headers['Content-Security-Policy'] = CSP.replace("frame-ancestors 'none';", "frame-ancestors 'self';").replace("connect-src 'self';", "connect-src 'self' https://ja2lsnp9uca4bivw.public.blob.vercel-storage.com;")
+    return response
+
+
+@app.api_route("/app/anatomy/holiatlas/{asset:path}", methods=["GET", "HEAD"], include_in_schema=False)
+async def holiatlas_reference_delivery(asset: str, request: Request):
+    from .holiatlas_reference import AUTHORED, ATLAS, PREFIX, registry, references, validate_file, metadata_bytes
+    src = PREFIX + asset
+    if not src.isascii() or request.scope.get('raw_path', b'') != src.encode('ascii') or asset not in registry()['files']:
+        return JSONResponse({'detail': 'Unknown holiAtlas asset'}, status_code=404, headers={'Cache-Control': 'private, no-store'})
+    references()
+    validate_file(asset)
+    if asset in {'manifest.json', 'labels.json', 'hierarchy.json'}:
+        return Response(metadata_bytes(asset), media_type='application/json', headers={'Cache-Control': 'private, no-store'})
+    if asset not in AUTHORED and os.environ.get('VERCEL'):
+        return RedirectResponse('/source-media/anatomy/' + ATLAS + '/' + asset, status_code=307, headers={'Cache-Control': 'private, no-store'})
+    response = await app.state.source_static.get_response('anatomy/' + ATLAS + '/' + asset, request.scope)
+    response.headers['Cache-Control'] = 'private, no-store'
+    if asset == 'index.html':
+        response.headers['Content-Security-Policy'] = CSP.replace("frame-ancestors 'none';", "frame-ancestors 'self';")
+    return response
+
+
+
+@app.api_route("/app/anatomy/schirmer-vascular/{asset:path}", methods=["GET", "HEAD"], include_in_schema=False)
+async def schirmer_vascular_reference_delivery(asset: str, request: Request):
+    from .schirmer_vascular_reference import AUTHORED, ATLAS, PREFIX, registry, references, validate_file, metadata_bytes
+    src = PREFIX + asset
+    if not src.isascii() or request.scope.get('raw_path', b'') != src.encode('ascii') or asset not in registry()['files']:
+        return JSONResponse({'detail': 'Unknown vascular template asset'}, status_code=404, headers={'Cache-Control': 'private, no-store'})
+    references()
+    validate_file(asset)
+    if asset in {'manifest.json', 'labels.json', 'hierarchy.json'}:
+        return Response(metadata_bytes(asset), media_type='application/json', headers={'Cache-Control': 'private, no-store'})
+    if asset not in AUTHORED and os.environ.get('VERCEL'):
+        return RedirectResponse('/source-media/anatomy/' + ATLAS + '/' + asset, status_code=307, headers={'Cache-Control': 'private, no-store'})
+    response = await app.state.source_static.get_response('anatomy/' + ATLAS + '/' + asset, request.scope)
+    response.headers['Cache-Control'] = 'private, no-store'
+    if asset == 'index.html':
+        response.headers['Content-Security-Policy'] = CSP.replace("frame-ancestors 'none';", "frame-ancestors 'self';")
+    return response
+
+
+@app.api_route("/app/anatomy/nextbrain/{asset:path}", methods=["GET", "HEAD"], include_in_schema=False)
+async def nextbrain_reference_delivery(asset: str, request: Request):
+    from .nextbrain_reference import AUTHORED, PREFIX, BLOB_HOST, references, validate_file
+    src = PREFIX + asset
+    if not src.isascii() or request.scope.get('raw_path', b'') != src.encode('ascii') or asset not in AUTHORED:
+        return JSONResponse({'detail': 'Unknown NextBrain reference asset'}, status_code=404, headers={'Cache-Control': 'private, no-store'})
+    references()
+    validate_file(asset)
+    response = await app.state.source_static.get_response('anatomy/nextbrain/' + asset, request.scope)
+    response.headers['Cache-Control'] = 'private, no-store'
+    if asset == 'index.html':
+        response.headers['Content-Security-Policy'] = CSP.replace("frame-ancestors 'none';", "frame-ancestors 'self';").replace("connect-src 'self';", "connect-src 'self' " + BLOB_HOST + ";")
+    return response
+
+
+@app.api_route("/app/anatomy/openear-zeta-native/{asset:path}", methods=["GET", "HEAD"], include_in_schema=False)
+async def openear_native_reference_delivery(asset: str, request: Request):
+    from .openear_native_reference import AUTHORED, ATLAS, PREFIX, BLOB_HOST, references, validate_file
+    src = PREFIX + asset
+    if not src.isascii() or request.scope.get('raw_path', b'') != src.encode('ascii') or asset not in AUTHORED:
+        return JSONResponse({'detail': 'Unknown OpenEar native reference asset'}, status_code=404, headers={'Cache-Control': 'private, no-store'})
+    references()
+    validate_file(asset)
+    response = await app.state.source_static.get_response('anatomy/' + ATLAS + '/' + asset, request.scope)
+    response.headers['Cache-Control'] = 'private, no-store'
+    if asset == 'index.html':
+        response.headers['Content-Security-Policy'] = CSP.replace("frame-ancestors 'none';", "frame-ancestors 'self';").replace("connect-src 'self';", "connect-src 'self' " + BLOB_HOST + ";")
+    return response
+
+
+@app.api_route("/app/anatomy/dryad-hippocampal-case10/{asset:path}", methods=["GET", "HEAD"], include_in_schema=False)
+async def hippocampal_rater_reference_delivery(asset: str, request: Request):
+    from .hippocampal_rater_reference import AUTHORED, ATLAS, PREFIX, BLOB_HOST, references, validate_file
+    src = PREFIX + asset
+    if not src.isascii() or request.scope.get('raw_path', b'') != src.encode('ascii') or asset not in AUTHORED:
+        return JSONResponse({'detail': 'Unknown hippocampal reference asset'}, status_code=404, headers={'Cache-Control': 'private, no-store'})
+    references()
+    validate_file(asset)
+    response = await app.state.source_static.get_response('anatomy/' + ATLAS + '/' + asset, request.scope)
+    response.headers['Cache-Control'] = 'private, no-store'
+    if asset == 'index.html':
+        response.headers['Content-Security-Policy'] = CSP.replace("frame-ancestors 'none';", "frame-ancestors 'self';").replace("connect-src 'self';", "connect-src 'self' " + BLOB_HOST + ";")
+    return response
+
+
+@app.api_route("/app/anatomy/bonn-fcd-case4/{asset:path}", methods=["GET", "HEAD"], include_in_schema=False)
+async def bonn_fcd_reference_delivery(asset: str, request: Request):
+    from .bonn_fcd_reference import AUTHORED, ATLAS, PREFIX, BLOB_HOST, references, validate_file
+    src = PREFIX + asset
+    if not src.isascii() or request.scope.get('raw_path', b'') != src.encode('ascii') or asset not in AUTHORED:
+        return JSONResponse({'detail': 'Unknown FCD reference asset'}, status_code=404, headers={'Cache-Control': 'private, no-store'})
+    references()
+    validate_file(asset)
+    response = await app.state.source_static.get_response('anatomy/' + ATLAS + '/' + asset, request.scope)
+    response.headers['Cache-Control'] = 'private, no-store'
+    if asset == 'index.html':
+        response.headers['Content-Security-Policy'] = CSP.replace("frame-ancestors 'none';", "frame-ancestors 'self';").replace("connect-src 'self';", "connect-src 'self' " + BLOB_HOST + ";")
+    return response
+
+
+@app.api_route("/app/anatomy/spl-source-contacts/{asset:path}", methods=["GET", "HEAD"], include_in_schema=False)
+async def cortical_contact_reference_delivery(asset: str, request: Request):
+    from .cortical_contact_reference import AUTHORED, ATLAS, PREFIX, BLOB_HOST, references, validate_file
+    src = PREFIX + asset
+    if not src.isascii() or request.scope.get('raw_path', b'') != src.encode('ascii') or asset not in AUTHORED:
+        return JSONResponse({'detail': 'Unknown source contact reference asset'}, status_code=404, headers={'Cache-Control': 'private, no-store'})
+    references()
+    validate_file(asset)
+    response = await app.state.source_static.get_response('anatomy/' + ATLAS + '/' + asset, request.scope)
+    response.headers['Cache-Control'] = 'private, no-store'
+    if asset == 'index.html':
+        response.headers['Content-Security-Policy'] = CSP.replace("frame-ancestors 'none';", "frame-ancestors 'self';").replace("connect-src 'self';", "connect-src 'self' " + BLOB_HOST + ";")
+    return response
+
 
 async def cardiac_wall_context_delivery(identifier: str, asset: str, request: Request):
     from .cardiac_wall_context import registry, references, validate_file
@@ -3949,8 +4204,86 @@ async def thoracic_source_label_delivery(asset: str, request: Request):
     return response
 
 
+@app.api_route("/app/anatomy/cptac-endometrial/{asset}", methods=["GET", "HEAD"], include_in_schema=False)
+async def endometrial_source_delivery(asset: str, request: Request):
+    directory = os.path.join(WEB_DIR, "anatomy", "cptac-endometrial")
+    with open(os.path.join(directory, "source.json"), encoding="utf-8") as source:
+        manifest = json.load(source)
+    chunks = {chunk["file"] for sequence in manifest["sequences"].values() for chunk in sequence["chunks"]}
+    if asset not in chunks | {"index.html", "viewer.js", "viewer.css", "source.json"}:
+        return JSONResponse({"detail": "Unknown endometrial source asset"}, status_code=404)
+    if asset in chunks and os.environ.get("VERCEL"):
+        return RedirectResponse("/source-media/anatomy/cptac-endometrial/" + asset, status_code=307)
+    return await app.state.source_static.get_response("anatomy/cptac-endometrial/" + asset, request.scope)
+
+
+@app.api_route("/app/anatomy/colonvessels-pat012/{asset:path}", methods=["GET", "HEAD"], include_in_schema=False)
+async def colonvessels_source_delivery(asset: str, request: Request):
+    with open(os.path.join(WEB_DIR, "anatomy", "colonvessels-pat012", "delivery.json"), encoding="utf-8") as source:
+        files = json.load(source)["files"]
+    if asset not in files and asset != "delivery.json":
+        return JSONResponse({"detail": "Unknown vessel source asset"}, status_code=404)
+    if asset.endswith(".gz") and os.environ.get("VERCEL"):
+        return RedirectResponse("/source-media/anatomy/colonvessels-pat012/" + asset, status_code=307)
+    return await app.state.source_static.get_response("anatomy/colonvessels-pat012/" + asset, request.scope)
+
+
+@app.api_route("/app/anatomy/liver-regions-mri/{asset}", methods=["GET", "HEAD"], include_in_schema=False)
+async def liver_region_delivery(asset: str, request: Request):
+    with open(os.path.join(WEB_DIR, "anatomy", "liver-regions-mri", "delivery.json"), encoding="utf-8") as source:
+        files = json.load(source)["files"]
+    if asset not in files and asset != "delivery.json":
+        return JSONResponse({"detail": "Unknown liver source asset"}, status_code=404)
+    if asset.endswith(".gz") and os.environ.get("VERCEL"):
+        return RedirectResponse("/source-media/anatomy/liver-regions-mri/" + asset, status_code=307)
+    return await app.state.source_static.get_response("anatomy/liver-regions-mri/" + asset, request.scope)
+
+
+@app.api_route("/app/anatomy/bp3d-biliary-4.3/{asset}", methods=["GET", "HEAD"], include_in_schema=False)
+async def biliary_source_delivery(asset: str, request: Request):
+    with open(os.path.join(WEB_DIR, "anatomy", "bp3d-biliary-4.3", "delivery.json"), encoding="utf-8") as source:
+        files = json.load(source)["files"]
+    if asset not in files and asset != "delivery.json":
+        return JSONResponse({"detail": "Unknown biliary source asset"}, status_code=404)
+    if asset.endswith(".gz") and os.environ.get("VERCEL"):
+        return RedirectResponse("/source-media/anatomy/bp3d-biliary-4.3/" + asset, status_code=307)
+    return await app.state.source_static.get_response("anatomy/bp3d-biliary-4.3/" + asset, request.scope)
+
+
+@app.api_route("/app/anatomy/phlf-center2-24/{asset}", methods=["GET", "HEAD"], include_in_schema=False)
+async def phlf_tumour_delivery(asset: str, request: Request):
+    with open(os.path.join(WEB_DIR, "anatomy", "phlf-center2-24", "delivery.json"), encoding="utf-8") as source:
+        files = json.load(source)["files"]
+    if asset not in files and asset != "delivery.json":
+        return JSONResponse({"detail": "Unknown PHLF source asset"}, status_code=404)
+    if asset.endswith(".gz") and os.environ.get("VERCEL"):
+        return RedirectResponse("/source-media/anatomy/phlf-center2-24/" + asset, status_code=307)
+    return await app.state.source_static.get_response("anatomy/phlf-center2-24/" + asset, request.scope)
+
+
+@app.api_route("/app/anatomy/hva-ct-318/{asset}", methods=["GET", "HEAD"], include_in_schema=False)
+async def hva_ct_delivery(asset: str, request: Request):
+    with open(os.path.join(WEB_DIR, "anatomy", "hva-ct-318", "delivery.json"), encoding="utf-8") as source:
+        files = json.load(source)["files"]
+    if asset not in files and asset != "delivery.json":
+        return JSONResponse({"detail": "Unknown HVA-CT source asset"}, status_code=404)
+    if asset.endswith(".gz") and os.environ.get("VERCEL"):
+        return RedirectResponse("/source-media/anatomy/hva-ct-318/" + asset, status_code=307)
+    return await app.state.source_static.get_response("anatomy/hva-ct-318/" + asset, request.scope)
+
+
 @app.api_route("/app/anatomy/{atlas}/{asset:path}", methods=["GET", "HEAD"], include_in_schema=False)
 async def source_mesh_delivery(atlas: str, asset: str, request: Request):
+    if atlas in {"aneurysm-cta-018", "cmha-mca-005", "rhuh-sah-001", "bp3d-dural-4.3", "ward-swi-s1", "illinois-uterus", "endometriosis-mri-evidence", "hyperpic-venous", "venat", "ccth-a01-roi"}:
+        directory = "anatomy/" + atlas
+        with open(os.path.join(WEB_DIR, directory, "delivery.json"), encoding="utf-8") as source:
+            files = json.load(source)["files"]
+        if asset not in files and asset != "delivery.json":
+            return JSONResponse({"detail": "Unknown source study asset"}, status_code=404)
+        if asset.endswith(".gz") and os.environ.get("VERCEL"):
+            return RedirectResponse("/source-media/" + directory + "/" + asset, status_code=307)
+        return await app.state.source_static.get_response(directory + "/" + asset, request.scope)
+
     allowed = {"bodyparts3d", "hra-female-pelvis-v1.10", "bp3d-carotid-4.3", "bp3d-sella-4.3", "msk-atlas", "msk-cervical", "msk-mri-knee", "msk-mri-ankle", "liu-lumbosacral-sub03", "verse521", "hvsmr2-pat7", "openear-zeta", "totalseg-v3-s0358", "totalseg-v3-esophagus-s0358", "ispy1-expert1002", "prostate-biopsy0001"}
     mri_atlases = {"ispy1-expert1002", "prostate-biopsy0001", "fedbca-center1-001", "fedbca-center2-01", "fedbca-center3-01", "fedbca-center4-01"}
     allowed |= mri_atlases
@@ -4032,7 +4365,7 @@ async def stroke_publication_blob_delivery(asset: str, request: Request):
     return FileResponse(os.path.join(WEB_DIR, src.removeprefix('/app/')), media_type=row['content_type'], headers={'Cache-Control': 'private, no-store'})
 
 
-@app.api_route("/app/reference-media/radiology-open/{asset}", methods=["GET", "HEAD"], include_in_schema=False)
+@app.api_route("/app/reference-media/radiology-open/{asset:path}", methods=["GET", "HEAD"], include_in_schema=False)
 async def radiology_image_delivery(asset: str, request: Request):
     import json
     url = "/app/reference-media/radiology-open/" + asset
@@ -4043,7 +4376,7 @@ async def radiology_image_delivery(asset: str, request: Request):
         return JSONResponse({"detail": "Unknown source image"}, status_code=404)
     if os.environ.get("VERCEL"):
         from urllib.parse import quote, urlencode
-        target = "/source-media/reference-media/radiology-open/" + quote(asset, safe="")
+        target = "/source-media/reference-media/radiology-open/" + quote(asset, safe="/")
         query = urlencode(request.query_params.multi_items())
         if query:
             target += "?" + query

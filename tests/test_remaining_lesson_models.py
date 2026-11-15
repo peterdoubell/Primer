@@ -24,6 +24,7 @@ def test_every_remaining_curriculum_model_interacts_and_resets():
         "29 models, 31 exercised control changes, 29 verified resets"
         in result.stdout
     )
+    assert "COVER math.2.fractions = fraction-arithmetic-lab" in result.stdout
     assert "Preserved 28 base model interactions plus one independently checked fluids companion." in result.stdout
     fluid_bindings = [line.split(" [", 1)[0] for line in result.stdout.splitlines()
                       if line.startswith("COVER phys.4.fluids = ")]

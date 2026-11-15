@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Observed galaxy rotation · Primer</title>
+<link rel="stylesheet" href="viewer.css">
+<script src="viewer.js" defer></script>
+</head>
+<body>
+<main>
+  <a href="/app/#/node/phys.5.frontier">Return to Open Problems</a>
+  <h1>What do real galaxy rotation curves show?</h1>
+  <p>Compare observed rotation speeds from SPARC with the Newtonian contribution estimated from the galaxy’s stars and gas. Change the stellar mass per unit light to see which parts of the discrepancy depend on that assumption.</p>
+  <p id="status" role="status">Loading 175 galaxy profiles…</p>
+  <button type="button" id="retry" hidden>Retry loading</button>
+  <section id="explorer" hidden>
+    <div class="controls">
+      <label>Galaxy <select id="galaxy"></select></label>
+      <label>Disk mass per unit light <input id="disk" type="range" min="0" max="1.5" step="0.05" value="0.5"><output id="disk-value" for="disk"></output></label>
+      <label>Bulge mass per unit light <input id="bulge" type="range" min="0" max="1.5" step="0.05" value="0.7"><output id="bulge-value" for="bulge"></output></label>
+      <label>Show <select id="quantity"><option value="speed">Rotation speed</option><option value="difference">Acceleration difference</option></select></label>
+    </div>
+    <p>Mass per unit light uses solar units in the 3.6 µm band.</p>
+    <p id="metadata"></p>
+    <div class="scroll plot" role="region" tabindex="0" aria-label="Galaxy chart. Scroll sideways on small screens.">
+      <svg id="chart" viewBox="0 0 640 340" role="img" aria-labelledby="chart-title"></svg>
+    </div>
+    <p id="legend"></p>
+    <label for="radius">Inspect a published radius</label>
+    <select id="radius"></select>
+    <p id="sample" role="status"></p>
+    <details>
+      <summary>Show original velocity columns</summary>
+      <div class="scroll" role="region" tabindex="0" aria-label="Original velocity data table">
+        <table>
+          <caption id="table-caption"></caption>
+          <thead><tr><th scope="col">Radius (kpc)</th><th scope="col">Observed</th><th scope="col">Velocity error</th><th scope="col">Gas</th><th scope="col">Disk</th><th scope="col">Bulge</th></tr></thead>
+          <tbody id="source-rows"></tbody>
+        </table>
+      </div>
+    </details>
+  </section>
+  <details>
+    <summary>How the comparison works</summary>
+    <p>The source stores each component as a signed speed term V. The inward acceleration budget uses V|V|, so a negative gas term contributes outward. Add the gas term to the disk and bulge terms after scaling each stellar term by its mass per unit light. The square root gives a baryonic circular speed where the sum is nonnegative.</p>
+    <p>The acceleration difference is (V<sub>obs</sub>² − V<sub>bar</sub>²)/R. The units shown are 10<sup>−10</sup> m/s². Positive values indicate a shortfall in the chosen baryonic model. Negative values indicate that it exceeds the observed circular acceleration. The difference uses the source distances and inclinations and does not assume a halo shape.</p>
+    <p>Published velocity errors include fitting uncertainty and rotation asymmetry. Inclination, distance, correlated errors and uncertainty in the baryonic model can change the comparison. SPARC flagged Q3 curves as unsuitable for detailed dynamical analysis.</p>
+  </details>
+  <p>Source measurements and mass models by Federico Lelli, Stacy S. McGaugh and James M. Schombert (2016). Primer preserves the source values and calculates the chosen baryonic contribution and acceleration difference. <a href="https://doi.org/10.3847/0004-6256/152/6/157">SPARC paper</a> · <a href="https://doi.org/10.5281/zenodo.16284118">Data archive</a> · <a href="https://creativecommons.org/licenses/by/4.0/">CC BY 4.0</a> · <a href="source.json">Source values and file hashes</a></p>
+</main>
+</body>
+</html>

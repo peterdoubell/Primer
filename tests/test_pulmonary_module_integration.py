@@ -1,3 +1,4 @@
+from tools.current_labs_runtime_compatibility import before_current_labs_bytes
 """Actual whole-module questions, report scope and exclusive source bindings."""
 import copy
 import json
@@ -41,7 +42,7 @@ def test_all_other_effective_contracts_and_original_inventory_entries_preserved(
     assert len(base['investigations'])==len(lookup)==136
     assert [r['id'] for r in base['investigations'] if r['sha256']!=lookup[r['id']]]==['ra.thoracic-ultrasound','ra.ct-pulmonary-nodules']
     original=json.loads((REVIEW/'baseline/data/radiology/non-msk-structure-requirements.json').read_text())
-    actual=json.loads((ROOT/'data/radiology/non-msk-structure-requirements.json').read_text())
+    actual=json.loads(before_current_labs_bytes('data/radiology/non-msk-structure-requirements.json',(ROOT/'data/radiology/non-msk-structure-requirements.json').read_bytes()))
     actual['investigations']=[r for r in actual['investigations'] if r['investigation_id']!='ra.ct-pulmonary-nodules']
     assert actual['scope']['catalog_investigation_ids'].pop()=='ra.ct-pulmonary-nodules'
     assert actual==original

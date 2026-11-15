@@ -4,13 +4,15 @@ import json
 from pathlib import Path
 
 from tools.anatomy_sources import ui_refresh
+from tools.schirmer_runtime_compatibility import before_schirmer_bytes
 
 ROOT = Path(__file__).resolve().parents[1]
 REVIEW = ROOT / 'docs/native-source-presentation-review-20261011'
 
 
 def sha(path):
-    return hashlib.sha256((ROOT / path).read_bytes()).hexdigest()
+    # The frozen ledger ends before the separately verified vascular integration.
+    return hashlib.sha256(before_schirmer_bytes(path, (ROOT / path).read_bytes())).hexdigest()
 
 
 def reviewed():
@@ -69,6 +71,13 @@ def test_only_the_two_shared_ui_files_are_refreshable_and_nothing_is_approved():
         elif step['id']=='2026-10-16-spl-native-limbic-reference':
             from tools.spl_limbic_runtime_compatibility import validate_refresh
             assert len(validate_refresh(step)['cases']) == 24
+        elif step['id']=='2026-10-25-integrals-energy-and-atlas-hierarchy':
+            from tools.fidelity_continuation_runtime_compatibility import validate_refresh
+            assert len(validate_refresh(step)) == 3
+            assert step['native_decoder_mesh_CT_renderer_code_touched'] is True
+        elif step['id']=='2026-10-23-holiatlas-source-template':
+            from tools.holiatlas_runtime_compatibility import validate_refresh
+            assert len(validate_refresh(step)['cases']) == 8
         elif step['id']=='2026-10-16-spl-reporting-relationships':
             from tools.spl_reporting_runtime_compatibility import validate_refresh
             assert len(validate_refresh(step)['cases']) == 8
@@ -86,6 +95,14 @@ def test_every_refresh_left_the_native_files_exactly_as_reviewed():
             continue
         if step['id']=='2026-10-23-descriptor-reporting':
             from tools.descriptor_report_compatibility import validate_refresh
+            validate_refresh(step)
+            continue
+        if step['id']=='2026-10-25-integrals-energy-and-atlas-hierarchy':
+            from tools.fidelity_continuation_runtime_compatibility import validate_refresh
+            validate_refresh(step)
+            continue
+        if step['id']=='2026-10-23-holiatlas-source-template':
+            from tools.holiatlas_runtime_compatibility import validate_refresh
             validate_refresh(step)
             continue
         if step['id']=='2026-10-22-structured-reporting':
@@ -145,7 +162,7 @@ def test_every_refresh_left_the_native_files_exactly_as_reviewed():
             assert not row['page_errors'] and not row['failed_requests'] and not row['horizontal_overflow']
 
 
-def test_the_chain_runs_unbroken_from_the_reviewed_files_to_the_current_ones():
+def test_the_chain_runs_unbroken_to_the_exact_pre_vascular_integration_view():
     ledger, bound = ui_refresh.load(), reviewed()
     for path in ledger['refreshable_paths']:
         current = bound[path]

@@ -48,23 +48,49 @@ class Element {
     this.attributes.set(key, text);
     if (['id', 'value', 'type', 'min', 'max', 'step'].includes(key)) this[key] = text;
     if (key === 'checked') this.checked = true;
+    if (key.startsWith('data-')) this.dataset[key.slice(5).replace(/-([a-z])/g, (_, c) => c.toUpperCase())] = text;
   }
   getAttribute(key) { return this.attributes.has(key) ? this.attributes.get(key) : null; }
   removeAttribute(key) { this.attributes.delete(key); }
   set className(value) { this.setAttribute('class', value); }
   get className() { return this.getAttribute('class') || ''; }
-  append(...children) { this.children.push(...children.map(child => child && child.nodeType ? child : new TextNode(child))); }
-  prepend(...children) { this.children.unshift(...children); }
+  append(...children) { for (const child of children) { const node = child && child.nodeType ? child : new TextNode(child); node.parentElement = this; this.children.push(node); } }
+  prepend(...children) { for (const child of children) child.parentElement = this; this.children.unshift(...children); }
   replaceChildren(...children) { this.children = []; this.append(...children); }
+  // DOM behavior for the shipped dedicated integral renderer, rather than a
+  // substitute renderer or a fallback to the legacy concept calculation.
+  matches(selector) {
+    const attribute = selector.match(/^\[([^=\]]+)(?:=["']?([^"'\]]+)["']?)?\]$/);
+    if (attribute) return this.getAttribute(attribute[1]) !== null && (attribute[2] === undefined || this.getAttribute(attribute[1]) === attribute[2]);
+    if (selector.startsWith('.')) return this.classList.contains(selector.slice(1));
+    return this.tagName === selector.toLowerCase();
+  }
+  querySelectorAll(selector) {
+    const selections = selector.split(',').map(s => s.trim()), found = [];
+    const visit = (parent, direct) => { for (const child of parent.children) if (child.nodeType === 1) { if (selections.some(s => s.startsWith(':scope > ') ? direct && child.matches(s.slice(9).trim()) : child.matches(s))) found.push(child); visit(child, false); } };
+    visit(this, true); return found;
+  }
+  querySelector(selector) { return this.querySelectorAll(selector)[0] || null; }
+  closest(selector) { for (let node = this; node; node = node.parentElement) if (node.matches(selector)) return node; return null; }
+  focus() { document.activeElement = this; }
+  dispatchEvent(event) { this.dispatch(event.type, event); return true; }
+  get valueAsNumber() { return String(this.value).trim() === '' ? NaN : Number(this.value); }
+  get validity() {
+    if (this.type !== 'number' || String(this.value).trim() === '') return { valid: true };
+    const value = this.valueAsNumber, minimum = this.min === undefined ? -Infinity : Number(this.min), maximum = this.max === undefined ? Infinity : Number(this.max);
+    const step = this.step === undefined ? 1 : this.step === 'any' ? null : Number(this.step), origin = Number.isFinite(minimum) ? minimum : 0, steps = step ? (value - origin) / step : 0;
+    return { valid: Number.isFinite(value) && value >= minimum && value <= maximum && (step === null || Math.abs(steps - Math.round(steps)) < 1e-8) };
+  }
   get textContent() { return this.children.map(child => child.textContent).join(''); }
   set textContent(value) { this.children = value === '' ? [] : [new TextNode(value)]; }
   addEventListener(type, listener) {
     if (!this.listeners.has(type)) this.listeners.set(type, []);
     this.listeners.get(type).push(listener);
   }
-  dispatch(type) {
-    const event = { type, target: this, currentTarget: this, preventDefault() {} };
+  dispatch(type, extra = {}) {
+    const event = { type, target: this, currentTarget: this, preventDefault() {}, ...extra };
     (this.listeners.get(type) || []).forEach(listener => listener.call(this, event));
+    if (typeof this['on' + type] === 'function') this['on' + type](event);
   }
 }
 const attributeProbe = new Element('input');
@@ -86,6 +112,13 @@ require('../web/spatial-physical.js');
 require('../web/spatial-molecular.js');
 require('../web/spatial-cross-subject.js');
 require('../web/concept-models.js');
+require('../web/math-integral-lab.js');
+require('../web/percentage-core.js');
+require('../web/percentage-lab.js');
+require('../web/decimal-core.js');
+require('../web/decimal-lab.js');
+require('../web/ratio-core.js');
+require('../web/ratio-lab.js');
 require('../web/lesson-models.js');
 const spatial = context.window.PrimerSpatial;
 const concepts = context.window.PrimerConceptModels;
@@ -1205,19 +1238,134 @@ assert.deepEqual(linearAlgebraEntries.map(({ node, item }) => [node.id, item.id,
 ]);
 console.log('LINALG_BINDING math.4.linalg = explore-linear-maps-and-kernels');
 
+const fractionsEntries = nodes.flatMap(node => (node.lesson_media || [])
+  .filter(item => item.renderer === 'fraction-arithmetic-lab').map(item => ({ node, item })));
+assert.deepEqual(fractionsEntries.map(({ node, item }) => [node.id, item.id, item.kind, item.props]), [
+  ['math.2.fractions', 'build-equivalent-fractions', 'model', { scenario: 'math.2.fractions' }],
+]);
+console.log('FRACTIONS_BINDING math.2.fractions = build-equivalent-fractions');
 
+
+
+const vectorEntries=nodes.flatMap(node=>(node.lesson_media||[]).filter(item=>item.renderer==='vector-components-lab').map(item=>({node,item})));
+assert.equal(vectorEntries.length,1);assert.equal(vectorEntries[0].node.id,'math.3.vectors');assert.deepEqual(vectorEntries[0].item.props,{scenario:'math.3.vectors'});
+const geometryEntries=nodes.flatMap(node=>(node.lesson_media||[]).filter(item=>item.renderer==='geometry-measures-lab').map(item=>({node,item})));
+assert.equal(geometryEntries.length,1);assert.equal(geometryEntries[0].node.id,'math.2.geometry');assert.deepEqual(geometryEntries[0].item.props,{scenario:'math.2.geometry'});
+const coordinateEntries = nodes.flatMap(node => (node.lesson_media || []).filter(item => item.renderer === 'coordinate-plane-lab').map(item => ({node,item})));
+assert.equal(coordinateEntries.length,1);assert.equal(coordinateEntries[0].node.id,'math.2.coordinates');assert.deepEqual(coordinateEntries[0].item.props,{scenario:'math.2.coordinates'});
+const baseTenEntries = nodes.flatMap(node => (node.lesson_media || []).filter(item => item.renderer === 'base-ten-lab').map(item => ({node,item})));
+assert.deepEqual(baseTenEntries.map(r=>r.node.id).sort(), ["math.1.addition", "math.1.division", "math.1.multiplication", "math.1.place-value", "math.1.subtraction"]);
+for(const {node,item}of baseTenEntries){assert.equal(node.stage,1);assert.equal(item.kind,'model');assert.deepEqual(item.props,{scenario:node.id});}
+const algebraEntries = nodes.flatMap(node => (node.lesson_media || []).filter(item => item.renderer === 'algebra-functions-lab').map(item => ({node,item})));
+assert.deepEqual(algebraEntries.map(r=>r.node.id).sort(), ['math.3.linear','math.3.polynomials','math.3.quadratics','math.3.slope']);
+for(const {node,item}of algebraEntries)assert.deepEqual(item.props,{scenario:node.id});
 const entries = nodes.flatMap(node => (node.lesson_media || [])
   .filter(item => item.kind === 'model').map(item => ({ node, item })));
 const crossEntries = entries.filter(({ node, item }) =>
   CROSS_SPATIAL.includes(node.id) && item.renderer === 'spatial-3d' || item.renderer === 'concept-lab');
-equal(crossEntries.map(({ node }) => node.id).sort(), [...CROSS_SPATIAL, ...CONCEPTS.filter(id => id !== 'math.4.numtheory')].sort(),
-  'Legacy concept bindings remain exact except the separately verified full number-theory replacement');
+equal(crossEntries.map(({ node }) => node.id).sort(), [...CROSS_SPATIAL, ...CONCEPTS.filter(id => !['math.2.coordinates','math.4.numtheory','math.3.linear','math.3.slope','math.3.quadratics','math.3.polynomials'].includes(id))].sort(),
+  'Legacy concept bindings remain exact except separately verified number-theory and algebra replacements');
+
+function exercisePercentageRenderer(root, speak) {
+  assert.ok(root.classList.contains('percentage-workbench'));
+  assert.equal(typeof root.percentage?.getModel, 'function');
+  assert.equal(typeof speak, 'function');
+  const preset = root.querySelector('[data-percent-preset]');
+  let checked = 0;
+  for (const option of preset.children.filter(e => e.value)) {
+    preset.value = option.value; preset.dispatch('change'); checked++;
+    const model = root.percentage.getModel();
+    assert.ok(speak().includes('Accepted inputs:'));
+    assertAccessibleReferences(root);
+    if (option.value === 'fractional') {
+      assert.equal(model.part.exact, '30'); assert.equal(model.percent.exact, '37.5');
+      const cells = root.querySelectorAll('[data-percent-cell]');
+      assert.equal(cells.length, 38); assert.equal(Number(cells[37].getAttribute('width')), 12);
+    }
+    if (option.value === 'twice') { assert.equal(model.middle.exact, '180'); assert.equal(model.last.exact, '162'); assert.equal(model.composedPercent.exact, '-19'); }
+    if (option.value === 'opposite') { assert.equal(model.last.exact, '96'); assert.equal(model.composedPercent.exact, '-4'); }
+    if (option.value === 'third') { assert.equal(model.percent.fraction, '100/3'); assert.equal(model.percent.decimal, null); }
+    if (option.value === 'compare') equal(model.largest, ['B']);
+    if (option.value === 'zero') { assert.equal(model.status, 'undefined'); assert.equal(root.querySelectorAll('[data-percent-plot]').length, 0); }
+  }
+  assert.equal(checked, 13);
+  root.querySelector('[data-percent-reset]').dispatch('click');
+  const format = root.querySelector('[data-percent-control="format"]');
+  format.value = 'fraction'; format.dispatch('change');
+  const value = root.querySelector('[data-percent-control="value"]');
+  value.value = '3/8'; value.dispatch('change');
+  assert.equal(root.percentage.getModel().percent.exact, '37.5');
+  const accepted = JSON.stringify(root.percentage.getModel()), narration = speak();
+  value.value = '3/0'; value.dispatch('change');
+  assert.equal(value.getAttribute('aria-invalid'), 'true');
+  assert.equal(JSON.stringify(root.percentage.getModel()), accepted); assert.equal(speak(), narration);
+  value.dispatch('keydown', { key: 'Escape' });
+  assert.equal(root.querySelector('[data-percent-control="value"]').value, '3/8');
+  root.querySelector('[data-percent-zoom]').dispatch('click');
+  assert.equal(root.querySelector('[data-percent-zoom]').getAttribute('aria-pressed'), 'true');
+  root.querySelector('[data-percent-reset]').dispatch('click');
+  assert.equal(root.querySelector('[data-percent-zoom]').getAttribute('aria-pressed'), 'false');
+  interactionChecks += checked + 7;
+  console.log('PERCENTAGE_BINDING math.2.percent = percentage-workbench; 13 exact presets and invalid-draft recovery');
+}
+
+function exerciseRatioRenderer(root, speak) {
+  assert.ok(root.classList.contains('ratio-workbench'));
+  assert.equal(typeof root.ratioModel, 'function');
+  const preset=root.querySelector('[data-ratio-preset]');
+  const expected={flour:['resultB','9'],map:['groundKm','40'],eggs:['result','15'],car:['modelCm','20'],paint:['resultA','15'],missing:['resultB','39'],drink:['resultA','100'],books:['result','4'],maps:['secondToFirst','4'],class:['fractionA','3/7'],equal:['equivalent',true],addition:['equivalent',false],third:['result','2/3'],half:['resultB','1.5'],zero:['equivalent',false],absent:['resultA','0']};
+  let checked=0;
+  for(const option of preset.children.filter(e=>e.value)) {
+    preset.value=option.value;preset.dispatch('change');checked++;
+    const model=root.ratioModel();assert.ok(speak().includes('Accepted inputs:'));assertAccessibleReferences(root);
+    if(option.value==='undefined'){assert.equal(model.status,'undefined');assert.equal(root.querySelectorAll('[data-ratio-plot]').length,0);}
+    else{const[key,value]=expected[option.value];assert.equal(typeof model[key]==='object'?model[key].exact:model[key],value);}
+  }
+  assert.equal(checked,17);root.querySelector('[data-ratio-reset]').dispatch('click');
+  const accepted=JSON.stringify(root.ratioModel()),narration=speak(),input=root.querySelector('[data-ratio-control="a"]');
+  input.value='1e2';input.dispatch('change');assert.equal(input.getAttribute('aria-invalid'),'true');assert.equal(JSON.stringify(root.ratioModel()),accepted);assert.equal(speak(),narration);
+  input.dispatch('keydown',{key:'Escape'});assert.equal(root.querySelector('[data-ratio-control="a"]').value,'2');
+  root.querySelector('[data-ratio-zoom]').dispatch('click');assert.equal(root.querySelector('[data-ratio-zoom]').getAttribute('aria-pressed'),'true');
+  root.querySelector('[data-ratio-reset]').dispatch('click');assert.equal(root.querySelector('[data-ratio-zoom]').getAttribute('aria-pressed'),'false');
+  interactionChecks+=checked+5;
+  console.log('RATIO_BINDING math.2.ratio = ratio-workbench; 17 exact presets and invalid-draft recovery');
+}
+
+function exerciseDecimalRenderer(root, speak) {
+  assert.ok(root.classList.contains('decimal-workbench'));
+  assert.equal(typeof root.decimal?.getModel, 'function');
+  assert.equal(typeof speak, 'function');
+  const preset=root.querySelector('[data-decimal-preset]');
+  const expected={add:['result','2.35'],multiply:['result','0.12'],compare:['relation',-1],pens:['totalMoney','5.80'],subtract:['result','2.15'],ribbon:['quotient','3'],multiply2:['result','1'],round:['formatted','3.48'],change:['balance','3.85'],trailing:['relation',0],place:['a','1.2'],carry:['result','1'],negative:['result','0.1'],third:['quotient','1/3'],tie:['formatted','-1.3'],owed:['balance','-1.15']};
+  let checked=0;
+  for(const option of preset.children.filter(e=>e.value)){
+    preset.value=option.value;preset.dispatch('change');checked++;
+    const model=root.decimal.getModel();assert.ok(speak().includes('Accepted inputs:'));assertAccessibleReferences(root);
+    if(option.value==='zero'){assert.equal(model.status,'undefined');assert.equal(root.querySelectorAll('[data-decimal-plot]').length,0);}
+    else{const [key,value]=expected[option.value];assert.equal(typeof model[key]==='object'?model[key].exact:model[key],value);}
+  }
+  assert.equal(checked,17);
+  root.querySelector('[data-decimal-reset]').dispatch('click');
+  const accepted=JSON.stringify(root.decimal.getModel()),narration=speak(),input=root.querySelector('[data-decimal-control="a"]');
+  input.value='1e2';input.dispatch('change');assert.equal(input.getAttribute('aria-invalid'),'true');assert.equal(JSON.stringify(root.decimal.getModel()),accepted);assert.equal(speak(),narration);
+  input.dispatch('keydown',{key:'Escape'});assert.equal(root.querySelector('[data-decimal-control="a"]').value,'0.75');
+  root.querySelector('[data-decimal-zoom]').dispatch('click');assert.equal(root.querySelector('[data-decimal-zoom]').getAttribute('aria-pressed'),'true');
+  root.querySelector('[data-decimal-reset]').dispatch('click');assert.equal(root.querySelector('[data-decimal-zoom]').getAttribute('aria-pressed'),'false');
+  interactionChecks+=checked+5;
+  console.log('DECIMAL_BINDING math.2.decimals = decimal-workbench; 17 exact presets and invalid-draft recovery');
+}
+
 for (const { node, item } of crossEntries) {
   equal(item.props, { scenario: node.id });
   assert.equal(item.renderer, CROSS_SPATIAL.includes(node.id) ? 'spatial-3d' : 'concept-lab');
 }
-assert.equal(entries.filter(({ item }) => !['spatial-3d', 'concept-lab', 'music-listening-lab', 'doppler-angle-lab', 'prenatal-sequence', 'math-ode-lab', 'math-field-lab', 'math-wave-lab', 'math-probability-lab', 'math-convergence-lab', 'physics-thermal-lab', 'math-numerical-lab', 'math-measure-lab', 'physics-cycle-lab', 'math-operator-lab', 'physics-ensemble-lab', 'math-curvature-lab', 'physics-constraints-lab', 'math-complex-lab', 'physics-quantum-lab', 'math-topology-lab', 'physics-relativity-lab', 'math-algebra-lab', 'physics-quantum-info-lab', 'math-logic-lab', 'physics-maxwell-lab', 'physics-cosmology-lab', 'physics-qft-lab', 'math-number-theory-lab', 'math-systems-lab', 'physics-phase-lab', 'fluids-concept-lab', 'linear-algebra-lab'].includes(item.renderer)).length,
-  70, 'All 70 earlier lesson models remain reachable');
+assert.equal(entries.filter(({ item }) => !['vector-components-lab', 'geometry-measures-lab', 'coordinate-plane-lab', 'algebra-functions-lab', 'base-ten-lab', 'fraction-arithmetic-lab', 'spatial-3d', 'concept-lab', 'music-listening-lab', 'doppler-angle-lab', 'prenatal-sequence', 'math-ode-lab', 'math-field-lab', 'math-wave-lab', 'math-probability-lab', 'math-convergence-lab', 'physics-thermal-lab', 'math-numerical-lab', 'math-measure-lab', 'physics-cycle-lab', 'math-operator-lab', 'physics-ensemble-lab', 'math-curvature-lab', 'physics-constraints-lab', 'math-complex-lab', 'physics-quantum-lab', 'math-topology-lab', 'physics-relativity-lab', 'math-algebra-lab', 'physics-quantum-info-lab', 'math-logic-lab', 'physics-maxwell-lab', 'physics-cosmology-lab', 'physics-qft-lab', 'math-number-theory-lab', 'math-systems-lab', 'physics-phase-lab', 'fluids-concept-lab', 'linear-algebra-lab', 'language-computation-lab'].includes(item.renderer)).length,
+  67, 'Earlier models remain except the dedicated fractions, rotation and transition replacements');
+
+const languageComputationEntries=nodes.flatMap(node=>(node.lesson_media||[]).filter(item=>item.renderer==='language-computation-lab').map(item=>({node,item})));
+assert.deepEqual(languageComputationEntries.map(({node,item})=>[node.id,item.id,item.kind,item.props]),[['lang.5.comp-ling','lang-5-comp-ling-computation-studio','model',{scenario:'lang.5.comp-ling'}]],'The independently checked language studio is bound exactly once');
+console.log('LANGUAGE_COMPUTATION_BINDING lang.5.comp-ling = lang-5-comp-ling-computation-studio');
+
 assert.equal(entries.filter(({ item }) => item.renderer === 'math-ode-lab').length,
   1, 'The separately checked second-order ODE activity remains reachable');
 assert.equal(entries.filter(({ item }) => item.renderer === 'math-field-lab').length,
@@ -1244,7 +1392,7 @@ assert.equal(entries.filter(({ item }) => item.renderer === 'prenatal-sequence')
   1, 'The separately checked prenatal sequence remains reachable');
 const page = fs.readFileSync(path.join(ROOT, 'web/index.html'), 'utf8');
 const scripts = [...page.matchAll(/<script\b[^>]*\bsrc=["']([^"']+)["']/g)].map(match => match[1]);
-for (const file of ['spatial-cross-subject.js', 'concept-models.js']) {
+for (const file of ['spatial-cross-subject.js', 'concept-models.js', 'math-integral-lab.js', 'percentage-core.js', 'percentage-lab.js', 'decimal-core.js', 'decimal-lab.js', 'ratio-core.js', 'ratio-lab.js']) {
   assert.equal(scripts.filter(src => src === '/app/' + file).length, 1, file + ': loaded exactly once');
   assert.ok(scripts.indexOf('/app/' + file) < scripts.indexOf('/app/lesson-models.js'), file + ': loaded before registry');
 }
@@ -1525,6 +1673,107 @@ function assertAccessibleReferences(root) {
     }
   }
 }
+// Exercise the actual dedicated lesson through the registry. Geometry is
+// inverse-projected and checked with independent degree-two Simpson quadrature;
+// no teaching functions from math-integral-lab.js are used as the oracle.
+function exerciseIntegralRenderer(root, speak) {
+  assert.equal(root.getAttribute('data-renderer'), 'math-integral-lab');
+  assert.equal(typeof root.integral?.getModel, 'function');
+  assert.equal(typeof speak, 'function');
+  assert.equal(root.querySelector('.model-canvas'), null, 'The obsolete single-canvas integral toy is not rendered');
+  const coefficients = { square: [0, 0, 3], linear: [0, 2, 0], signed: [-1, 0, 1], velocity: [0, 6, 0], inflow: [1, 4, 0], increasing: [1, 0, 1], between: [0, 1, -1] };
+  const value = (id, x) => coefficients[id][0] + coefficients[id][1] * x + coefficients[id][2] * x * x;
+  const area = (id, a, b) => (b - a) * (value(id, a) + 4 * value(id, (a + b) / 2) + value(id, b)) / 6;
+  let geometryChecks = 0, changes = 0;
+  const check = label => {
+    const state = root.integral.getState(), model = root.integral.getModel();
+    finiteNumbers(model, label); assertAccessibleReferences(root);
+    const readout = root.querySelector('.integral-readout').textContent;
+    assert.ok(speak().includes(readout), label + ': speech follows visible explanation');
+    assert.equal(root.querySelector('.integral-live').getAttribute('aria-live'), 'polite');
+    if (state.station === 'proper') {
+      near(model.exact, area(state.example, state.a, state.b));
+      near(model.cursor.slope, value(state.example, state.cursor));
+      near(model.splitAtProbe.before, area(state.example, state.a, state.cursor));
+      near(model.splitAtProbe.after, area(state.example, state.cursor, state.b));
+      assert.equal(root.querySelectorAll('[data-integral-plot]').length, 2);
+    }
+    for (const plot of root.querySelectorAll('[data-integral-plot]')) {
+      const domain = JSON.parse(plot.getAttribute('data-domain'));
+      equal(JSON.parse(plot.getAttribute('data-transform')), { x0: 82, x1: 644, y0: 322, y1: 28 });
+      const X = x => 82 + (x - domain.x[0]) * 562 / (domain.x[1] - domain.x[0]), Y = y => 322 - (y - domain.y[0]) * 294 / (domain.y[1] - domain.y[0]);
+      for (const line of plot.querySelectorAll('[data-integral-series]')) for (const pair of line.getAttribute('points').split(' ')) {
+        const [px, py] = pair.split(',').map(Number), x = domain.x[0] + (px - 82) * (domain.x[1] - domain.x[0]) / 562, y = domain.y[0] + (322 - py) * (domain.y[1] - domain.y[0]) / 294;
+        assert.ok(px >= 82 - 1e-7 && px <= 644 + 1e-7 && py >= 28 - 1e-7 && py <= 322 + 1e-7, label + ': all actual curve points fit the calibrated plot');
+        const key = line.getAttribute('data-integral-series'); let expected;
+        if (key === 'integrand') expected = value(state.example, x);
+        else if (key === 'upper') expected = x;
+        else if (key === 'lower') expected = x * x;
+        else if (key === 'accumulation') expected = area(state.example, state.a, x);
+        else if (key === 'antiderivative') expected = area(state.example, 0, x) + state.constant;
+        else if (key === 'tangent') expected = area(state.example, state.a, state.cursor) + (x - state.cursor) * value(state.example, state.cursor);
+        else if (key === 'left-limit') expected = -x * Math.LN10;
+        else if (key === 'right-limit') expected = (state.path === 'equal' ? x : state.path === 'half' ? x + Math.log(2) / Math.LN10 : state.path === 'square' ? 2 * x : state.rightExponent) * Math.LN10;
+        else if (key === 'combined-limit') expected = state.path === 'equal' ? 0 : state.path === 'half' ? Math.log(2) : state.path === 'square' ? x * Math.LN10 : (state.rightExponent - x) * Math.LN10;
+        else if (key === 'power-limit') expected = state.power === 1 ? x * Math.LN10 : (1 - 10 ** (-x * (1 - state.power))) / (1 - state.power);
+        else if (key === 'finite-limit') expected = 1 / (1 - state.power);
+        else assert.fail('Unexpected integral series ' + key);
+        near(y, expected, 1e-7 * Math.max(1, Math.abs(expected))); geometryChecks++;
+      }
+      if (plot.getAttribute('data-integral-plot') === 'integrand') {
+        const rectangles = plot.querySelectorAll('[data-integral-rectangle]'), width = (state.b - state.a) / state.count;
+        assert.equal(rectangles.length, state.count); let sum = 0;
+        rectangles.forEach((rectangle, i) => {
+          const start = state.a + i * width, end = start + width, x = state.method === 'left' ? Math.min(start, end) : state.method === 'right' ? Math.max(start, end) : (start + end) / 2, height = value(state.example, x);
+          near(Number(rectangle.getAttribute('x')), X(Math.min(start, end)));
+          near(Number(rectangle.getAttribute('y')), Math.min(Y(0), Y(height)));
+          near(Number(rectangle.getAttribute('width')), Math.abs(X(end) - X(start)));
+          near(Number(rectangle.getAttribute('height')), Math.abs(Y(height) - Y(0)));
+          sum += width * height; geometryChecks += 4;
+        }); near(model.sum, sum);
+      }
+    }
+    return model;
+  };
+  const set = (key, value) => {
+    const input = root.querySelector('[data-integral-' + key + ']'); assert.ok(input, key + ': current control exists');
+    assert.ok(input.getAttribute('aria-label'), key + ': accessible name');
+    input.value = String(value); input.dispatch('change');
+    assert.equal(input.getAttribute('aria-invalid'), null, key + ': accepts valid change');
+    if (key !== 'preset') assert.equal(root.integral.getState()[key], value, key + ': changes applied state');
+    changes++; return check(key + '=' + value);
+  };
+  const initial = check('initial dedicated integral reader'); near(initial.exact, 8);
+  for (const [preset, exact] of [['constant', 4], ['signed', 4 / 3], ['velocity', 48], ['between', 1 / 6], ['inflow', 21], ['increasing', 12], ['power', 8]]) near(set('preset', preset).exact, exact);
+  set('example', 'signed'); set('a', 4); set('b', -3); set('cursor', -3); set('constant', -10);
+  for (const method of ['left', 'right', 'midpoint']) { set('method', method); set('count', 1); set('count', 128); }
+  const empty = set('a', -3); near(empty.exact, 0); assert.equal(empty.average, null); assert.equal(empty.regions.length, 0);
+  const count = root.querySelector('[data-integral-count]'), accepted = root.integral.getState();
+  for (const value of ['', '0', '129', '1.5']) { count.value = value; count.dispatch('change'); assert.equal(count.getAttribute('aria-invalid'), 'true'); equal(root.integral.getState(), accepted); }
+  count.dispatch('keydown', { key: 'Escape' }); assert.equal(String(count.value), String(accepted.count)); assert.equal(count.getAttribute('aria-invalid'), null);
+  set('station', 'improper'); set('leftExponent', 6);
+  for (const path of ['equal', 'half', 'square', 'independent']) {
+    const model = set('path', path); assert.equal(model.reciprocalConverges, false);
+    if (path === 'equal') near(model.combined, 0);
+    if (path === 'half') near(model.combined, Math.log(2));
+    if (path === 'square') near(model.combined, 6 * Math.LN10);
+  }
+  set('rightExponent', .5); set('singular', 'power');
+  for (const p of [.25, .5, .95, 1, 1.05, 2]) {
+    const model = set('power', p); assert.equal(model.powerConverges, p < 1);
+    assert.equal(root.querySelectorAll('[data-integral-series="finite-limit"]').length, p < 1 ? 1 : 0);
+    if (p < 1) near(model.powerIntegral + model.powerRemainder, 1 / (1 - p));
+  }
+  const zoom = root.querySelector('[data-integral-enlarge]'), beforeZoom = root.integral.getState();
+  zoom.dispatch('click'); assert.equal(zoom.getAttribute('aria-pressed'), 'true'); assert.ok(root.querySelectorAll('[data-integral-plot]').every(p => p.style.width === '900px'));
+  zoom.dispatch('click'); assert.equal(zoom.getAttribute('aria-pressed'), 'false'); equal(root.integral.getState(), beforeZoom);
+  set('station', 'proper'); root.querySelector('[data-integral-reset]').dispatch('click'); equal(check('reset'), initial);
+  assert.ok(geometryChecks > 20000, 'Dedicated integral coverage checks actual rendered geometry, not merely presence');
+  assert.ok(changes >= 35, 'All dedicated stations and controls were exercised');
+  interactionChecks += changes;
+  console.log('INTEGRAL_BINDING math.4.int-calc = math-integral-lab; ' + changes + ' control changes; ' + geometryChecks + ' independent rendered coordinate checks');
+}
+
 for (const { node, item } of crossEntries) {
   const api = item.renderer === 'concept-lab' ? concepts : spatial;
   let speak;
@@ -1533,6 +1782,26 @@ for (const { node, item } of crossEntries) {
     return document.createElement('button');
   } });
   assert.ok(root, node.id + ': renderer is reachable through the shipped registry');
+  if (node.id === 'math.2.ratio') {
+    exerciseRatioRenderer(root, speak);
+    console.log('COVER ' + node.id);
+    continue;
+  }
+  if (node.id === 'math.2.decimals') {
+    exerciseDecimalRenderer(root, speak);
+    console.log('COVER ' + node.id);
+    continue;
+  }
+  if (node.id === 'math.2.percent') {
+    exercisePercentageRenderer(root, speak);
+    console.log('COVER ' + node.id);
+    continue;
+  }
+  if (node.id === 'math.4.int-calc') {
+    exerciseIntegralRenderer(root, speak);
+    console.log('COVER ' + node.id);
+    continue;
+  }
   assert.equal(root.getAttribute('data-renderer'), item.renderer);
   assert.equal(root.getAttribute('data-scenario'), node.id);
   const canvas = classElement(root, 'model-canvas');

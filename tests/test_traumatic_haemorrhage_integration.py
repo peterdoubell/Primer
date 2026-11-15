@@ -1,3 +1,4 @@
+from tools.current_labs_runtime_compatibility import before_current_labs_bytes
 """Patient reporting, source modality/case limits and the unreconciled fine-anatomy floor."""
 import copy
 import hashlib
@@ -157,7 +158,7 @@ def test_unrelated_value_tokens_and_nontraumatic_source_contract_are_preserved(s
     *_,rows,assets,receipt=state
     ids={r['id'] for r in rows}
     for path in integration.DATA_PATHS:
-        raw=(ROOT/path).read_text()
+        raw=before_current_labs_bytes(str(path),(ROOT/path).read_bytes()).decode()
         actual=integration.unrelated_tokens(raw,path,ids)
         data,actual=restore_prior_view(path,json.loads(raw),actual)
         _,actual=stroke_amendment.restore_prior_view(path,data,actual)

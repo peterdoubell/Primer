@@ -18,7 +18,10 @@ REVIEW=ROOT/'docs/linear-algebra-fidelity-review-20261016/integration'
 
 
 def authored():
-    data=json.loads((ROOT/bridge.MATH).read_bytes())
+    # This frozen linear-algebra counterfactual compares its complete historical
+    # corpus only after the separately verified current lesson delta is removed.
+    from tools.current_labs_runtime_compatibility import before_current_labs_bytes
+    data=json.loads(before_current_labs_bytes(bridge.MATH,(ROOT/bridge.MATH).read_bytes()))
     return data,next(node for node in data['nodes'] if node['id']==bridge.MODULE)
 
 
@@ -90,11 +93,32 @@ def test_all_stage4_duration_effects_follow_only_the_exact_quiz_counterfactual(t
     now=Curriculum();corpus=bridge.source_corpus()
     for path,raw in corpus.items():
         (tmp_path/Path(path).name).write_bytes(bridge.before_linear_algebra_bytes(path,raw))
-    monkeypatch.setattr(curriculum,'CURRICULUM_DIR',str(tmp_path));before=Curriculum()
+    # The frozen corpus predates the rotation replacement. Pair it with its
+    # byte-verified historical scenario registry only for this counterfactual.
+    import ast
+    from tools.rotation_runtime_compatibility import before_rotation_bytes
+    historical_source=before_rotation_bytes('primer/curriculum.py',(ROOT/'primer/curriculum.py').read_bytes())
+    assignment=next(n for n in ast.parse(historical_source).body if isinstance(n,ast.Assign) and any(isinstance(t,ast.Name)and t.id=='PHYSICS_MODEL_SCENARIOS'for t in n.targets))
+    assert isinstance(assignment.value,ast.Call)and assignment.value.func.id=='frozenset'
+    historical_scenarios=frozenset(ast.literal_eval(assignment.value.args[0]))
+    assert historical_scenarios-curriculum.PHYSICS_MODEL_SCENARIOS=={'phys.5.frontier','phys.5.condensed','phys.4.particles'}
+    assert not curriculum.PHYSICS_MODEL_SCENARIOS-historical_scenarios
+    with monkeypatch.context()as historical:
+        historical.setattr(curriculum,'CURRICULUM_DIR',str(tmp_path))
+        historical.setattr(curriculum,'PHYSICS_MODEL_SCENARIOS',historical_scenarios)
+        before=Curriculum()
     for row in current['rows']:
         ident=row['id'];old=next(r for r in prior['rows'] if r['id']==ident)
         assert now.node(ident)['minutes']==row['minutes'] and before.node(ident)['minutes']==old['minutes']
-        assert bridge.semantic(now.node(ident))==proof['lesson_semantics'][ident]['current_sha256']
+        current_fields=copy.deepcopy(now.node(ident))
+        if ident=='phys.4.particles':
+            from tools.particle_runtime_compatibility import before_particle_bytes
+            path='data/curriculum/03-physics.json';raw=(ROOT/path).read_bytes()
+            authored=next(n for n in json.loads(raw)['nodes']if n['id']==ident)
+            historical=next(n for n in json.loads(before_particle_bytes(path,raw))['nodes']if n['id']==ident)
+            assert current_fields['lesson_media'][1]==authored['lesson_media'][1]
+            current_fields['lesson_media'][1]=historical['lesson_media'][1]
+        assert bridge.semantic(current_fields)==proof['lesson_semantics'][ident]['current_sha256']
         assert bridge.semantic(before.node(ident))==proof['lesson_semantics'][ident]['before_sha256']
     for ident in [bridge.MODULE,'math.4.numtheory','math.4.multivar','phys.4.classical']:
         original=copy.deepcopy(now.node(ident))

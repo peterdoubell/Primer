@@ -28,11 +28,17 @@
         <label>Display centre <input id="centre" type="number" value="500" step="10"></label>
         <label>Display width <input id="width" type="number" min="0.001" value="1000" step="10"></label>
         <label>Label overlay <select id="overlay"><option value="selected">Selected structure</option><option value="all">All twelve structures</option><option value="off">MRI only</option></select></label>
+        <label><input id="compare-unmarked" type="checkbox">Compare with unmarked MRI</label>
         <button id="reset-window" type="button">Reset window</button>
         <button id="enlarge-mri" type="button" aria-pressed="false">Enlarge image</button>
       </div>
       <p id="orientation"></p>
+      <div id="mri-pair" class="mri-pair">
+        <div><p>Current display</p>
       <canvas id="mri" width="208" height="288" tabindex="0" aria-label="Native MRI slice. Arrow keys move through slices; move the pointer to inspect a source sample." hidden></canvas>
+        </div>
+        <div id="unmarked-panel" hidden><p>Unmarked MRI · same slice and window</p><canvas id="mri-unmarked" role="img" aria-label="Unmarked native MRI at the same slice and display window" hidden></canvas></div>
+      </div>
       <p id="cursor">Load a contrast to inspect its original sample values and source coordinates.</p>
       <p id="status" role="status" aria-live="polite">Loading source metadata…</p>
     </section>

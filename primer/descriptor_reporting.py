@@ -6,6 +6,106 @@ measurement or normal statement is inferred from an unanswered control.
 import math
 import re
 
+MAX_REPEAT_INSTANCES = 50
+ABSENT_LABEL = re.compile(r'(?:fracture|complications?|fistula|effusion|mass|lesion|collection|haematoma|haemorrhage|thrombosis|stenosis|foreign bod(?:y|ies)|hernia|aneurysm|tumour|spread|invasion|ossification|osteolysis|coalition|gas|air|blood|loose bodies|injury|mass effect|herniation)$|\b(?:fistula|fracture|foreign bod(?:y|ies))\b', re.I)
+ABSENT_TAIL = r'(?:[.,]| (?:is|are|in|on|at|of|or|and|to|within|either|seen|identified)\b|$)'
+
+
+def normal_line(label, text, group=''):
+    """'Supraspinatus tendon: normal.' A heading that names a finding reads 'Fracture: none.'
+
+    A label used twice in one study carries its group: 'Medial meniscus, anterior horn: normal.'
+    A group that names the kind of structure gives 'Supraspinatus tendon' and 'Supraspinatus muscle'.
+    """
+    lowered = text.lower()
+    absent = lowered.startswith('no ') and (
+        re.match(re.escape(label.lower()) + '(?:e?s)?' + ABSENT_TAIL, lowered[3:]) or ABSENT_LABEL.search(label))
+    kind = re.search(r' · ([a-z]+)s$', group)
+    if kind:
+        label += ' ' + kind.group(1)
+    elif group:
+        label = group + ', ' + re.sub(r'\b[A-Z][a-z]+\b', lambda word: word.group().lower(), label)
+    return label + (': none.' if absent else ': normal.')
+
+
+def section_scope_active(section, selections):
+    """A scoped region exists only after its explicit acquisition choice."""
+    scope = section.get('requires_scope')
+    if not scope:
+        return True
+    control = selections.get(scope['section_id'], {})
+    if not isinstance(control, dict) or control.get('normal') or control.get('not_assessed'):
+        return False
+    findings = control.get('findings', {})
+    payload = findings.get(scope['finding_id'], {}) if isinstance(findings, dict) else {}
+    return isinstance(payload, dict) and payload.get(scope['slot_id']) in scope['values']
+
+
+def expand_repeated_sections(investigation, selections):
+    """Expand explicit records without mutating the saved schema or selections."""
+    expanded, values, issues = [], dict(selections), []
+    for section in investigation['sections']:
+        expanded.append(section)
+        selected = selections.get(section['id'], {})
+        if not isinstance(selected, dict) or 'instances' not in selected:
+            continue
+        location = {'section_id': section['id'], 'severity': 'error'}
+        instances = selected['instances']
+        if (not section.get('repeatable') or not isinstance(instances, list)
+                or len(instances) > MAX_REPEAT_INSTANCES
+                or set(selected) - {'normal', 'not_assessed', 'findings', 'instances'}
+                or not isinstance(selected.get('findings', {}), dict)
+                or any(type(selected.get(flag, False)) is not bool for flag in ('normal', 'not_assessed'))
+                or selected.get('normal') or selected.get('not_assessed') or selected.get('findings')):
+            issues.append({'code': 'invalid_repeat_instances', **location})
+            values[section['id']] = {}
+            continue
+        values[section['id']] = {}
+        for index, instance in enumerate(instances):
+            key = section['id'] + '@' + str(index + 1)
+            label = section.get('repeat_label', section['label']) + ' ' + str(index + 1)
+            expanded.append(dict(section, id=key, label=label, normal=None, repeat_instance_label=label))
+            values[key] = instance
+            if isinstance(instance, dict) and not instance.get('not_assessed') and not instance.get('findings'):
+                issues.append({'code': 'empty_repeat_instance', 'instance_index': index, **location})
+    return dict(investigation, sections=expanded), values, issues
+
+
+
+REPORT_FIELDS = ('clinical_history', 'comparison', 'protocol', 'impression', 'recommendation')
+
+
+def format_study_report(investigation, fields, sections, assessments=()):
+    """Compose the document in reading order using only supplied observations."""
+    acquisition = investigation.get('report_protocol')
+    standard = (acquisition or {}).get('standard_text', '')
+    protocol = [fields.get('protocol', standard if not fields.get('protocol_options') else ''), *fields.get('protocol_options', [])]
+    findings = []
+    examination = []
+    for section in sections:
+        if section['label'].casefold() in ('technique', 'protocol'):
+            if acquisition:
+                protocol.append(section['text'])
+            else:
+                examination.append(section['text'])
+        else:
+            label = section['label'].capitalize() if section['label'].isupper() else section['label']
+            findings.append(label + ':\n' + section['text'])
+    findings.extend(assessments)
+    if not any(fields.values()) and 'protocol' not in fields and not sections and not assessments:
+        return ''
+    def block(label, body):
+        return label + ':\n' + (body or '[]')
+    study = [investigation['title']]
+    if acquisition:
+        study.extend((block('Protocol' if investigation['modality'] == 'MRI' else 'Technique',
+                            '\n'.join(filter(None, protocol))), block('Findings', '\n\n'.join(findings))))
+    else:
+        study.extend(examination + findings)
+    return '\n\n'.join((block('Clinical history', fields.get('clinical_history')),
+                        block('Comparison', fields.get('comparison')), '\n\n'.join(study),
+                        block('Impression', fields.get('impression')),
+                        block('Recommendation', fields.get('recommendation'))))
 
 def render_descriptors(form, state):
     issues = []
@@ -13,18 +113,58 @@ def render_descriptors(form, state):
     def problem(code, **location):
         issues.append({'code': code, 'severity': 'error', **location})
 
-    if not isinstance(state, dict) or set(state) - {'investigation_id', 'selections'}:
+    if not isinstance(state, dict) or set(state) - {'investigation_id', 'selections', 'report_fields'}:
         return {'valid': False, 'text': '', 'sections': [], 'issues': [{'code': 'invalid_descriptor_state', 'severity': 'error'}]}
     investigation = next((x for x in form['investigations'] if x['id'] == state.get('investigation_id')), None)
     if investigation is None:
         return {'valid': False, 'text': '', 'sections': [], 'issues': [{'code': 'unknown_investigation', 'severity': 'error'}]}
+    fields = state.get('report_fields', {})
+    if 'report_fields' in state:
+        protocol = investigation.get('report_protocol')
+        valid_keys = set(REPORT_FIELDS) | {'protocol_options'}
+        if investigation.get('report_format') != 3 or not isinstance(fields, dict) or set(fields) - valid_keys:
+            problem('invalid_report_fields')
+            fields = {}
+        else:
+            options = fields.get('protocol_options', [])
+            if (not isinstance(options, list) or any(not isinstance(value, str) for value in options)
+                    or len(options) != len(set(options))
+                    or set(options) - set((protocol or {}).get('options', []))
+                    or (not protocol and ('protocol' in fields or 'protocol_options' in fields))):
+                problem('invalid_report_protocol')
+                fields = {}
+            elif any(not isinstance(value, str) or len(value) > 4000
+                     or re.search(r'[\x00-\x08\x0b\x0c\x0e-\x1f\x7f]', value)
+                     for key, value in fields.items() if key != 'protocol_options'):
+                problem('invalid_report_fields')
+                fields = {}
+            else:
+                fields = {key: value.strip() for key, value in fields.items() if key != 'protocol_options' and (value.strip() or key == 'protocol')}
+                if options:
+                    fields['protocol_options'] = [item for item in protocol['options'] if item in options]
     selections = state.get('selections', {})
     if not isinstance(selections, dict) or len(selections) > 1000:
         return {'valid': False, 'text': '', 'sections': [], 'issues': [{'code': 'invalid_descriptor_selections', 'severity': 'error'}]}
-    sections = {x['id']: x for x in investigation['sections']}
+    original_ids = {section['id'] for section in investigation['sections']}
     for key in selections:
-        if key not in sections:
+        if key not in original_ids:
             problem('unknown_descriptor_section', section_id=key)
+    scoped_sections = []
+    for section in investigation['sections']:
+        if section_scope_active(section, selections):
+            scoped_sections.append(section)
+        else:
+            selected = selections.get(section['id'], {})
+            if (not isinstance(selected, dict) or set(selected) - {'normal','not_assessed','findings','instances'}
+                    or any(type(selected.get(flag, False)) is not bool for flag in ('normal','not_assessed'))
+                    or not isinstance(selected.get('findings', {}), dict)
+                    or ('instances' in selected and not isinstance(selected['instances'], list))
+                    or selected.get('normal') or selected.get('not_assessed')
+                    or selected.get('findings') or selected.get('instances')):
+                problem('inactive_descriptor_section', section_id=section['id'])
+    investigation = dict(investigation, sections=scoped_sections)
+    investigation, selections, repeated_issues = expand_repeated_sections(investigation, selections)
+    issues.extend(repeated_issues)
 
     def active(finding, chosen, definitions, chain=None):
         chain = set() if chain is None else chain
@@ -87,8 +227,23 @@ def render_descriptors(form, state):
             return None
         return ''.join(part.get('text', '') if 'text' in part else rendered[part['slot']] for part in descriptor['segments'])
 
+    compact = investigation.get('report_format') in (2, 3)
+    normal_summaries = {}
+    if compact:
+        active_sections = {section['id'] for section in investigation['sections']}
+        for summary in investigation.get('normal_summaries', []):
+            members = summary['section_ids']
+            if all(key in active_sections and key not in blocked_normals
+                   and isinstance(selections.get(key), dict)
+                   and selections[key].get('normal') is True for key in members):
+                normal_summaries.update({
+                    key: summary['text'] if index == 0 else ''
+                    for index, key in enumerate(members)
+                })
+
     grouped = {}
     selected_count = 0
+    normal_labels = [section['label'] for section in investigation['sections'] if section.get('normal')]
     for section in investigation['sections']:
         key = section['id']
         selection = selections.get(key, {})
@@ -115,7 +270,10 @@ def render_descriptors(form, state):
                 problem('normal_not_available', section_id=key)
             else:
                 line = statement(section['normal'], {}, key)
-                if line: lines.append(line)
+                if line:
+                    line = normal_line(section['label'], line, section.get('group', '')
+                                       if normal_labels.count(section['label']) > 1 else '')
+                    if line: lines.append(line)
         elif unassessed:
             lines.append(section['label'] + ': not assessed.')
         else:
@@ -134,17 +292,22 @@ def render_descriptors(form, state):
                     if group in exclusive:
                         problem('conflicting_descriptor_findings', section_id=key, finding_id=descriptor['id'])
                     exclusive[group] = descriptor['id']
-                selected_count += 1
+                if descriptor.get('report') is not False:
+                    selected_count += 1
                 line = statement(descriptor, chosen[descriptor['id']], key)
-                if line: lines.append(line)
+                if line and descriptor.get('report') is not False: lines.append(line)
         if lines:
+            if section.get('repeat_instance_label') and not unassessed:
+                lines = [section['repeat_instance_label'] + ':\n' + '\n'.join(lines)]
             report_id = section.get('report_section_id') or key
             group = grouped.setdefault(report_id, {'section_id': report_id, 'label': section.get('report_section_label') or section['label'], 'lines': [], 'status': 'not_assessed' if unassessed else 'provided'})
             if not unassessed: group['status'] = 'provided'
             for line in lines:
                 if line not in group['lines']: group['lines'].append(line)
-    rendered_sections = [{'section_id': x['section_id'], 'label': x['label'], 'text': '\n'.join(x['lines']), 'status': x['status']} for x in grouped.values()]
+    rendered_sections = [{'section_id': x['section_id'], 'label': x['label'], 'text': '\n'.join(('• ' + line if compact else line) for line in x['lines']), 'status': x['status']} for x in grouped.values()]
     valid = not issues
+    text = ('\n\n'.join(x['label'] + (':\n' if compact else '\n') + x['text'] for x in rendered_sections)
+            if investigation.get('report_format') != 3 else format_study_report(investigation, fields, rendered_sections))
     return {'valid': valid, 'issues': issues, 'sections': rendered_sections,
-            'text': '\n\n'.join(x['label'] + '\n' + x['text'] for x in rendered_sections) if valid else '',
+            'text': text if valid else '',
             'investigation_id': investigation['id'], 'selected_finding_count': selected_count}

@@ -65,7 +65,8 @@ def validate_refresh(step):
         if (hashlib.sha256(raw).hexdigest()!=row['after_sha256']
                 or hashlib.sha256(before_descriptor_bytes(path,raw)).hexdigest()!=row['before_sha256']):
             raise ValueError('Descriptor reporting current runtime differs')
+    from tools.holiatlas_runtime_compatibility import before_holiatlas_bytes
     for path,expected in {**prior['guarded_paths_sha256'], **prior['canonical_contract_files_sha256']}.items():
-        if hashlib.sha256((ROOT/path).read_bytes()).hexdigest()!=expected:
+        if hashlib.sha256(before_holiatlas_bytes(path,(ROOT/path).read_bytes(),allow_older=True)).hexdigest()!=expected:
             raise ValueError('Descriptor reporting refresh changes a guarded source file')
     return proof

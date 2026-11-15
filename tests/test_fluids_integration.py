@@ -56,7 +56,8 @@ def test_historical_view_is_exact_and_rejects_unreviewed_changes(path):
 
 def test_only_reviewed_teaching_fields_and_companion_change_the_authored_node():
     path = 'data/curriculum/03-physics.json'
-    current = json.loads((ROOT / path).read_bytes())
+    from tools.fidelity_continuation_runtime_compatibility import before_continuation_bytes
+    current = json.loads(before_continuation_bytes(path, (ROOT / path).read_bytes()))
     original = json.loads(before_fluids_bytes(path, (ROOT / path).read_bytes()))
     corrections = json.loads((ROOT / 'docs/fluids-fidelity-review-20261016/teaching-corrections.json').read_text())
     assert corrections['unchanged_quiz_indices'] == [0, 1, 3, 5, 6, 7]

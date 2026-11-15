@@ -1,2 +1,4 @@
 # Tool-only dependency for the deterministic mathematics plate generator.
-Pillow==13.0.0
+# Pillow 13 requires Python 3.11 or newer.
+Pillow==12.3.0; python_version < "3.11"
+Pillow==13.0.0; python_version >= "3.11"

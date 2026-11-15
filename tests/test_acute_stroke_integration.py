@@ -1,3 +1,4 @@
+from tools.current_labs_runtime_compatibility import before_current_labs_bytes
 """Current stroke source/report requirements, zero anatomy credit and scope invariants."""
 import copy
 import hashlib
@@ -95,7 +96,7 @@ def test_every_named_scope_and_current_quiz_remains_unfulfilled(state):
 def test_all_unrelated_values_and_effective_nonstroke_reports_are_unchanged(state):
     c,ref,inventory,scope,rows,assets,receipt=state;ids={r['id'] for r in rows}
     for p in integration.DATA_PATHS:
-        raw=(ROOT/p).read_text()
+        raw=before_current_labs_bytes(str(p),(ROOT/p).read_bytes()).decode()
         _,tokens=restore_prior_view(p,json.loads(raw),integration.unrelated_tokens(raw,p,ids))
         assert tokens==receipt['unrelated_token_fingerprints'][str(p)]
     assert restore_prior_contracts(integration.nonstroke_contracts(c))==receipt['nonstroke_effective_contract_digests']

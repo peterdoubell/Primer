@@ -15,7 +15,7 @@ const path = require('path');
 
 const ROOT = path.resolve(__dirname, '..');
 const CURRICULUM_PATH = path.join(ROOT, 'data', 'curriculum', '03-physics.json');
-const EXPECTED_SCENARIO_COUNT = 35;
+const EXPECTED_SCENARIO_COUNT = 32;
 
 class FakeStyle {
   constructor() {
@@ -92,7 +92,9 @@ class FakeElement {
     const found = [];
     const visit = parent => parent.children.forEach(child => {
       if (child.nodeType !== 1) return;
-      if (selector.startsWith('.') ? child.classList.contains(selector.slice(1)) : child.tagName === selector) found.push(child);
+      const attribute = /^\[([\w-]+)(?:="([^"]*)")?\]$/.exec(selector);
+      const matches = attribute ? child.hasAttribute(attribute[1]) && (attribute[2] === undefined || child.getAttribute(attribute[1]) === attribute[2]) : selector.startsWith('.') ? child.classList.contains(selector.slice(1)) : child.tagName === selector;
+      if (matches) found.push(child);
       visit(child);
     });
     visit(this);
@@ -106,6 +108,7 @@ class FakeElement {
     this.parentNode = null;
     this.children = [];
     this.attributes = new Map();
+    this.dataset = {};
     this.listeners = new Map();
     this.style = new FakeStyle();
     this._className = '';
@@ -274,11 +277,14 @@ function collectPhysicsModels(curriculum) {
 
 function loadRenderer() {
   const document = new FakeDocument();
-  const window = {};
+  const window = { document };
   global.document = document;
   global.window = window;
   // Load the repository-owned module through Node's normal module boundary;
   // never evaluate file contents as dynamically supplied code.
+  require('../web/energy-momentum-lab.js');
+  require('../web/circuits-induction-core.js');
+  require('../web/circuits-induction-lab.js');
   require('../web/lesson-models.js');
   if (!window.PrimerLessonModels || typeof window.PrimerLessonModels.render !== 'function') {
     throw new Error('lesson model registry did not initialize');
@@ -298,6 +304,17 @@ function alternateValue(input) {
   return Math.abs(start - minimum) > Number.EPSILON ? minimum : maximum;
 }
 
+function checkCircuitsScenario(root, lessonId) {
+  try {
+    if(!root.hasAttribute('data-circuits-induction-lab'))throw Error('Shipped circuits renderer did not mount');
+    const expected=lessonId==='phys.2.electricity'?['dc','charge','material','spark']:['finite','induction','pipe','wires','transformer','dc'];
+    if(JSON.stringify(root.circuitsInduction.allowedStations)!==JSON.stringify(expected))throw Error('Station binding changed');
+    const selector=one(root,n=>n.getAttribute('data-ci-role')==='station','station selector');
+    for(const station of expected){selector.value=station;selector.dispatch('change');const m=root.circuitsInduction.getModel();if(!m||root.dataset.station!==station)throw Error('Current station did not render');if(/NaN|Infinity/.test(serializeGeometry(root)))throw Error('Nonfinite geometry');}
+    return [];
+  }catch(e){return [lessonId+': '+e.message];}
+}
+
 function checkScenario(renderer, lessonId, item) {
   const failures = [];
   let root;
@@ -307,6 +324,8 @@ function checkScenario(renderer, lessonId, item) {
     return [lessonId + ': render threw: ' + error.message];
   }
   if (!root) return [lessonId + ': renderer returned no model'];
+  if (['phys.2.electricity','phys.3.em'].includes(lessonId)) return checkCircuitsScenario(root, lessonId);
+  if (lessonId === 'phys.3.energy-work') return checkEnergyMomentumScenario(renderer, item, root);
 
   let summary;
   let readout;
@@ -389,6 +408,94 @@ function checkScenario(renderer, lessonId, item) {
     }
   });
 
+  return failures;
+}
+
+// The dedicated mechanics workbench has four dimensioned plots rather than
+// the former one-slider percentage ledger. Its adaptive axes can preserve the
+// same pixel shape when a physical scale changes, so inspect calibrated SVG
+// coordinates and their visible tick labels together, not arbitrary metadata.
+function checkEnergyMomentumScenario(renderer, item, firstRoot) {
+  const failures = [], api = window.PrimerEnergyMomentumLab;
+  const demand = (condition, message) => { if (!condition) throw new Error(message); };
+  const near = (actual, expected, message) => demand(Number.isFinite(actual) &&
+    Math.abs(actual - expected) <= 1e-9 * Math.max(1, Math.abs(actual), Math.abs(expected)), message);
+  const attribute = (root, name, value) => one(root, n => n.getAttribute(name) === value, name + '=' + value);
+  const tickFormat = value => value === 0 ? '0' : Math.abs(value) >= 10000 || Math.abs(value) < .001 ?
+    value.toExponential(2) : String(Number(value.toPrecision(4)));
+  const plots = root => descendants(root, n => n.tagName === 'svg' && !n.parentNode.hidden);
+  const inspect = root => {
+    demand(root.hasAttribute('data-energy-momentum-lab'), 'dedicated shipped mechanics renderer must mount');
+    demand(descendants(root, n => hasClass(n, 'physics-concept-svg')).length === 0, 'old percentage-ledger fallback must not mount');
+    const readout = attribute(root, 'data-energy-readout', '').textContent;
+    demand(readout.trim() && !/NaN|Infinity/.test(readout), 'finite, nonempty mechanics readout');
+    const ledger = {};
+    for (const row of descendants(root, n => n.hasAttribute('data-energy-row'))) {
+      ledger[row.getAttribute('data-energy-row')] = Number(row.getAttribute('data-value'));
+      demand(Number(row.children[1].textContent) === Number(ledger[row.getAttribute('data-energy-row')].toPrecision(6)), 'visible ledger rounds its actual value to six significant figures');
+    }
+    const geometry = [];
+    for (const plot of plots(root)) {
+      const a = JSON.parse(plot.getAttribute('data-energy-axes'));
+      const X = x => a.x0 + (x - a.xmin) / (a.xmax - a.xmin) * (a.x1 - a.x0);
+      const Y = y => a.y0 - (y - a.ymin) / (a.ymax - a.ymin) * (a.y0 - a.y1);
+      const ticks = descendants(plot, n => n.tagName === 'text' && Number(n.getAttribute('y')) === 296);
+      demand(ticks.length === 5, 'all five numerical x-axis ticks are rendered');
+      ticks.forEach((tick, i) => {
+        demand(tick.textContent === tickFormat(a.xmin + (a.xmax - a.xmin) * i / 4), 'visible x-axis scale agrees with coordinate calibration');
+        near(Number(tick.getAttribute('x')), a.x0 + (a.x1 - a.x0) * i / 4, 'physical tick location');
+      });
+      for (const curve of descendants(plot, n => n.hasAttribute('data-energy-series'))) {
+        const values = JSON.parse(curve.getAttribute('data-energy-values'));
+        const pixels = curve.getAttribute('points').split(' ').map(pair => pair.split(',').map(Number));
+        demand(values.length === pixels.length && values.length > 1, 'every physical sample is plotted');
+        pixels.forEach(([x, y], i) => {
+          near(x, X(values[i][0]), 'actual curve x coordinate'); near(y, Y(values[i][1]), 'actual curve y coordinate');
+          demand(x >= a.x0 - 1e-8 && x <= a.x1 + 1e-8 && y >= a.y1 - 1e-8 && y <= a.y0 + 1e-8, 'all physical samples lie inside the calibrated axes');
+        });
+      }
+      for (const cart of descendants(plot, n => n.hasAttribute('data-energy-cart'))) {
+        const position = Number(cart.getAttribute('data-position'));
+        near(Number(cart.getAttribute('x')), X(position - .3), 'cart left edge is 0.30 m from centre');
+        near(Number(cart.getAttribute('width')), X(position + .3) - X(position - .3), 'cart body has physical 0.60 m width');
+      }
+      // The rendered coordinates plus numerical axis labels express physical
+      // geometry even when auto-scaling leaves a curve's pixel shape unchanged.
+      geometry.push([descendants(plot, n => ['rect','line','polyline','circle'].includes(n.tagName)).map(n =>
+        [n.tagName, ...['x','y','x1','x2','y1','y2','cx','cy','width','height','r','points'].map(k => n.getAttribute(k))]),
+        descendants(plot, n => n.tagName === 'text' && (Number(n.getAttribute('y')) === 296 || Number(n.getAttribute('x')) === 70)).map(n => n.textContent)]);
+    }
+    demand(geometry.length >= 2, 'dedicated station has multiple physical diagrams');
+    return {readout, ledger, geometry: JSON.stringify(geometry)};
+  };
+  try {
+    demand(api && api.controls.length === 22 && api.modes.length === 4, 'all 22 shipped mechanics controls and four stations must load');
+    inspect(firstRoot);
+    for (const control of api.controls) {
+      const root = renderer.render(item, {}), select = attribute(root, 'data-energy-control', 'mode');
+      select.value = control.active[0]; select.dispatch('change');
+      const start = inspect(root), slider = attribute(root, 'data-energy-range', control.key);
+      demand(!slider.disabled && !slider.parentNode.hidden, control.key + ' is active in its station');
+      slider.value = String(alternateValue(slider)); slider.dispatch('input'); slider.dispatch('change');
+      const changed = inspect(root);
+      demand(changed.readout !== start.readout, control.key + ' changes the physical readout');
+      demand(changed.geometry !== start.geometry, control.key + ' changes physical geometry or its calibrated axis scale');
+      attribute(root, 'data-energy-action', 'reset').dispatch('click');
+      const restored = inspect(root), expected = inspect(firstRoot);
+      demand(restored.readout === expected.readout && restored.geometry === expected.geometry, control.key + ' reset restores authored state');
+    }
+    const root = renderer.render(item, {}), preset = key => { attribute(root, 'data-energy-preset', key).dispatch('click'); return inspect(root); };
+    const sticking = preset('stick').ledger;
+    near(sticking['p-before'], 8, 'unequal-mass initial momentum'); near(sticking['p-after'], 8, 'unequal-mass final momentum');
+    near(sticking['K-before'], 16, 'initial collision kinetic energy'); near(sticking['K-after'], 32 / 3, 'sticking kinetic energy'); near(sticking.internal, 16 / 3, 'internal-energy transfer');
+    attribute(root, 'data-energy-action', 'com').dispatch('click'); near(inspect(root).ledger['p-before'], 0, 'centre-of-mass frame has zero total momentum');
+    const short = preset('short').ledger, long = preset('long').ledger;
+    near(short.J, .24, 'fixed stopping impulse'); near(long.J, short.J, 'longer contact preserves impulse'); near(short['F-peak'] / long['F-peak'], 20, 'duration changes peak force at fixed impulse');
+    const staticCase = preset('static').ledger; near(staticCase.W, 0, '50 N static push does zero mechanical work'); near(staticCase.K, 0, 'static holding preserves rest');
+    const crane = preset('crane').ledger; near(crane.W, 20000, '250 kg crane lifted 8 m'); near(crane['delta-K'], 0, 'steady lift preserves kinetic energy');
+    near(preset('car').ledger.K, 300000, '1500 kg car at 20 m/s');
+    near(preset('lamp').ledger.input, 18000, '60 W for five minutes');
+  } catch (error) { failures.push('phys.3.energy-work: ' + error.message); }
   return failures;
 }
 
@@ -836,24 +943,11 @@ function checkPhysicsFidelity(renderer, models) {
       }
     }
   });
-  audit('current gauge retains the complete Ohmic range without false saturation', () => {
-    const lab = scenario('phys.2.electricity');
-    for (const voltage of [1, 6, 12]) {
-      lab.set('Battery voltage', voltage);
-      for (const resistance of [1, 6, 20]) {
-        lab.set('Resistance', resistance);
-        for (const closed of [0, 1]) {
-          lab.set('Switch', closed);
-          const gauge = one(lab.svg(), candidate => candidate.hasAttribute('data-current-gauge'), 'current gauge');
-          const current = closed ? voltage / resistance : 0;
-          requireClose(Number(gauge.getAttribute('width')) / 340 * 12, current, 1e-12, 'entire physical current scale');
-          if (closed) {
-            const reported = lab.readout().match(/load power V × I = ([\d.]+) W/);
-            if (!reported) throw new Error('load power missing');
-            requireClose(Number(reported[1]), voltage * current, .005, 'P=VI');
-          }
-        }
-      }
+  audit('shipped circuit solver retains complete Ohmic range and open branches', () => {
+    for(const voltage of [1,6,12])for(const resistance of [1,6,20])for(const closed of [false,true]){
+      const m=window.CircuitsInduction.dc({topology:'single',cells:[voltage,0,0],resistance:[resistance,6,6,3,6],status:[closed?'normal':'open','normal','normal','normal','normal']});
+      requireClose(m.sourceCurrent,closed?voltage/resistance:0,1e-12,'Ohmic current');
+      requireClose(m.sourcePower,closed?voltage*voltage/resistance:0,1e-12,'source power');
     }
   });
   audit('ideal ramp uses metres and newtons on one shared curve scale', () => {
@@ -962,8 +1056,9 @@ function main() {
     const root = renderer.render(media, {});
     return total + descendants(root, node => node.tagName === 'input' && node.type === 'range').length;
   }, 0);
+  console.log('Dedicated circuits: 2 lesson bindings and 10 station mounts verified.');
   console.log('Physics model DOM smoke check passed: ' + models.length +
-    ' scenarios, ' + controls + ' independently exercised controls; ' + fidelity.checks +
+    ' scenarios, ' + controls + ' independently exercised legacy range controls; ' + fidelity.checks +
     ' equation/geometry assertions across eighteen targeted scenarios.');
 }
 

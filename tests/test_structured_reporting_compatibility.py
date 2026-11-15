@@ -26,7 +26,8 @@ def test_only_the_exact_shared_file_additions_have_an_inverse(path):
 
 
 def test_historical_shell_excludes_only_the_two_new_asset_includes():
-    raw = (ROOT / 'web/index.html').read_bytes()
+    from tools.fidelity_continuation_runtime_compatibility import before_continuation_bytes
+    raw = before_continuation_bytes('web/index.html', (ROOT / 'web/index.html').read_bytes())
     previous = bridge.before_structured_bytes('web/index.html', raw)
     assert b'/app/radiology-structured.js' in raw and b'/app/radiology-structured.css' in raw
     assert b'/app/radiology-structured.js' not in previous and b'/app/radiology-structured.css' not in previous
@@ -41,7 +42,8 @@ def test_refresh_keeps_canonical_source_and_all_native_guards_exact():
     assert set(proof['canonical_contract_files_sha256']) == {
         'primer/radiology.py', 'primer/radiology_catalog.py', 'docs/radiology-fidelity-scope.json'}
     for path, expected in proof['canonical_contract_files_sha256'].items():
-        assert hashlib.sha256((ROOT / path).read_bytes()).hexdigest() == expected
+        from tools.holiatlas_runtime_compatibility import before_holiatlas_bytes
+        assert hashlib.sha256(before_holiatlas_bytes(path, (ROOT / path).read_bytes(), allow_older=True)).hexdigest() == expected
     for key in ['clinical_approval', 'fine_anatomical_approval', 'native_decoder_mesh_CT_renderer_code_touched']:
         changed = copy.deepcopy(step)
         changed[key] = True

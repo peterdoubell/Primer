@@ -1,0 +1,353 @@
+{
+  "schema_version": 1,
+  "atlas": "schirmer-vascular",
+  "source_record": "https://zenodo.org/records/3379848",
+  "source_record_sha256": "34b40b0bc1dd10688b9930091a09902dc8851c52448bd4ef8267fdec7b7f54df",
+  "source_inputs": [
+    {
+      "file": "mni_vascular_territories.nii.gz",
+      "url": "https://zenodo.org/api/records/3379848/files/mni_vascular_territories.nii.gz/content",
+      "bytes": 161909,
+      "publisherChecksum": "md5:b9a4edb2a2063fc4c846e94f580bc713",
+      "sha256": "780e3f5194c8ade355cc965c90076b872cb24a43226991da3210927aba7e7a1f"
+    },
+    {
+      "file": "caa_t1_in_mni_template_smooth.nii.gz",
+      "url": "https://zenodo.org/api/records/3379848/files/caa_t1_in_mni_template_smooth.nii.gz/content",
+      "bytes": 29061657,
+      "publisherChecksum": "md5:2dcb7532308941f40e8c21f189b8b5e8",
+      "sha256": "3658328d55646173fde001de7645b848361d7ca1924fb3d2a5e088dd08e4378c"
+    },
+    {
+      "file": "caa_t2_in_mni_template_smooth.nii.gz",
+      "url": "https://zenodo.org/api/records/3379848/files/caa_t2_in_mni_template_smooth.nii.gz/content",
+      "bytes": 29091487,
+      "publisherChecksum": "md5:4a4f88b51b5675b27e31037e51088586",
+      "sha256": "11fdeb2ce2c12e5400275fc6965e4a36275ed7187a903dbda41d7379dbef54fb"
+    },
+    {
+      "file": "caa_flair_in_mni_template_smooth.nii.gz",
+      "url": "https://zenodo.org/api/records/3379848/files/caa_flair_in_mni_template_smooth.nii.gz/content",
+      "bytes": 29344624,
+      "publisherChecksum": "md5:e69c9cf0c9af5eeae17018e188930943",
+      "sha256": "e1281c640814592f8f54fd366c121c9492e271f50c6259a731c4d3b3719475e4"
+    }
+  ],
+  "bindings": {
+    "ra.brain-anatomy": [
+      "schirmer-vascular-template-reference"
+    ],
+    "ra.acute-stroke": [
+      "schirmer-vascular-template-reference"
+    ]
+  },
+  "inspectors": {
+    "schirmer-vascular-template-reference": {
+      "id": "schirmer-vascular-template-reference",
+      "modality": "Processed T1, T2 and FLAIR study templates, categorical regions and source-cell boundaries",
+      "coordinate_context": "single-study-template-in-author-declared-MNI-source-world-mm",
+      "title": "Vascular territories and posterior regions in matched template MRI",
+      "src": "/app/anatomy/schirmer-vascular/index.html",
+      "manifest_url": "/app/anatomy/schirmer-vascular/manifest.json",
+      "sha256": "b7d53774159fef0f46a89ca227e65d54a73a7706027cfd5e38fbabc913eadd0e",
+      "manifest_sha256": "85277d7ec002de3f5641f1bc6145a911dd8497b85cce272f23256faa1425d091",
+      "caption": "Explore ten named source regions and one uninterpreted single cell in paired template MRI, source-label schematics and exact cell-boundary models. The source combines 16 older adults, including 12 with cerebral amyloid angiopathy and four controls. Names were associated with original numeric labels using the published figure. Pons/medulla remains combined; cerebellar and cerebral territories do not delineate individual arterial branches or all fine reporting anatomy. This reference is separate from the clinical source case.",
+      "attribution": "Markus D. Schirmer, Anne-Katrin Giese, Panagiotis Fotiadis, Mark R. Etherton, Lisa Cloonan, Anand Viswanathan, Steven M. Greenberg, Ona Wu and Natalia S. Rost. Vascular Territory template and atlases in MNI space, version 1.0.0. Zenodo DOI 10.5281/zenodo.3379848. https://zenodo.org/records/3379848\nPublication: Spatial Signature of White Matter Hyperintensities in Stroke Patients. Frontiers in Neurology 10:208 (2019), https://doi.org/10.3389/fneur.2019.00208 . Figure 1 is reproduced without image modification.\nDataset and publication: Creative Commons Attribution 4.0, https://creativecommons.org/licenses/by/4.0/ .\nPrimer derivations: lossless source-plane packs, exact source-cell boundary meshes, native-label schematics, component navigation and publication-figure-derived numeric/name associations. Original source values, components and label 19 are retained. No patient registration, normal-population status, fine-anatomy completeness or clinical approval is asserted. No endorsement by the source authors or publisher is implied.\n",
+      "source_url": "https://zenodo.org/records/3379848",
+      "publication_url": "https://doi.org/10.3389/fneur.2019.00208",
+      "license": "CC BY 4.0",
+      "license_url": "https://creativecommons.org/licenses/by/4.0/",
+      "source_grain": {
+        "kind": "processed older-adult study template",
+        "subject_count": 16,
+        "CAA_subject_count": 12,
+        "control_count": 4,
+        "supplied_grid_mm": [
+          1,
+          1,
+          1
+        ],
+        "supplied_grid_is_acquisition_resolution": false,
+        "present_source_values": 11,
+        "figure_named_source_values": 10,
+        "uninterpreted_source_values": [
+          19
+        ],
+        "pons_medulla_combined": true,
+        "numeric_name_mapping_derived_from_figure": true
+      },
+      "source_grant": {
+        "publisher_explicitly_applies_license_to_data": true,
+        "terms_url": "https://creativecommons.org/licenses/by/4.0/legalcode",
+        "attribution_url": "/app/anatomy/schirmer-vascular/ATTRIBUTION.txt",
+        "marked_derived_version": true
+      },
+      "bound_source_ids": [
+        "schirmer-vascular-template-reference"
+      ],
+      "clinical_approval": false,
+      "fine_anatomical_approval": false,
+      "current_patient_registration": false,
+      "normal_anatomical_atlas_approval": false,
+      "complete_reporting_anatomy_approved": false
+    }
+  },
+  "files": {
+    "ATTRIBUTION.txt": {
+      "bytes": 1044,
+      "sha256": "7064fc412392d8369b57b1f2c9c830149d36175af296ece7fcaa6969823532ea"
+    },
+    "FLAIR-axis-0-part-0.pack": {
+      "bytes": 16629827,
+      "sha256": "58f0df6d76652b0dd9555ad248ca170d49dde968abcbde344f726d5a0700d9e4"
+    },
+    "FLAIR-axis-0-part-1.pack": {
+      "bytes": 12021729,
+      "sha256": "e64b3c6782a91484f5365c122e7a0d1a0eda5eba7fcb3e9f9343b8b24611bed8"
+    },
+    "FLAIR-axis-1-part-0.pack": {
+      "bytes": 16680564,
+      "sha256": "f921f8fcc4a26aad811ba61ff83c6868008376b708c38b8ea2172fbea0ec5932"
+    },
+    "FLAIR-axis-1-part-1.pack": {
+      "bytes": 12270378,
+      "sha256": "fd4c9cd0bf71ab76b1aaa532388ef8a6205c22f71ea802a643af8e42c043f3f5"
+    },
+    "FLAIR-axis-2-part-0.pack": {
+      "bytes": 16760390,
+      "sha256": "90b6affa28690dd2199f04cdd02bb7166af1cd70e7e16f4e4dd5e814a87bef08"
+    },
+    "FLAIR-axis-2-part-1.pack": {
+      "bytes": 12156660,
+      "sha256": "25a0e87e05e242536960ea56cf0e79a98db04e476dc93eac53f1c99b98b98374"
+    },
+    "LICENSE.txt": {
+      "bytes": 274,
+      "sha256": "48bfc6175721758e5b8a9f89651e67b8581af2772ba0bbe968dc7a26c5bd6d60"
+    },
+    "T1-axis-0-part-0.pack": {
+      "bytes": 16685726,
+      "sha256": "636dddabf4e16aefacf7238926e654c540bad2b7fdcc7f590b2c4184a9c5e1cb"
+    },
+    "T1-axis-0-part-1.pack": {
+      "bytes": 11777190,
+      "sha256": "d13e8bdc03493f13a5d95e1cb0ea0b553fb84ce8daa4c23338c8d5b0d3ee5840"
+    },
+    "T1-axis-1-part-0.pack": {
+      "bytes": 16707279,
+      "sha256": "f8d1db75e7f2fafbbd65ad4f1c5c697e2b412649727bba939bcf58e84b09b4c1"
+    },
+    "T1-axis-1-part-1.pack": {
+      "bytes": 12020734,
+      "sha256": "26748d57792bad5829504f2fc080288caa4fb5cd9c2e25b957f21f289f20a2da"
+    },
+    "T1-axis-2-part-0.pack": {
+      "bytes": 16725346,
+      "sha256": "53c4a10ad0e38ce9ecdbac7aa8a79fe0a5ac2584f9ca0e7f133387477de211ca"
+    },
+    "T1-axis-2-part-1.pack": {
+      "bytes": 11964353,
+      "sha256": "7782abdd6e1f31592b7068ddba7c5a71cb3bf1979729a7260e57415ed533f2dc"
+    },
+    "T2-axis-0-part-0.pack": {
+      "bytes": 16727108,
+      "sha256": "0f3ee0d2ee6e90531c5df3d6c781265091d55533790684e6ffd68f6b274f3487"
+    },
+    "T2-axis-0-part-1.pack": {
+      "bytes": 12087821,
+      "sha256": "6bf95bc6529841f628331938b5c84a184f750c4063d206de060437df1ca52711"
+    },
+    "T2-axis-1-part-0.pack": {
+      "bytes": 16769204,
+      "sha256": "3066832b8d7d036e3fbd9178a633a083e2d66867ce0b90fda4d63d1c2347dcfb"
+    },
+    "T2-axis-1-part-1.pack": {
+      "bytes": 12014100,
+      "sha256": "358dcc0526947fc29abf6501d405081849a8e78403b44e0ca6d27346e905a792"
+    },
+    "T2-axis-2-part-0.pack": {
+      "bytes": 16637753,
+      "sha256": "63cfbfb2625785b040768011ddc31210f486d4cd015d208c1ab878007b11657b"
+    },
+    "T2-axis-2-part-1.pack": {
+      "bytes": 12094936,
+      "sha256": "bc332438f29771b27ef4d462bf3773c16eb875314357fcbcf2cb79800a76db52"
+    },
+    "config.json": {
+      "bytes": 505,
+      "sha256": "b4f6ad9e841243868a777855e1d7f9ac0b8facd52594ad08bb61802b00e64c0c"
+    },
+    "hierarchy.json": {
+      "bytes": 97,
+      "sha256": "1bb48c8428d33db411cb6a54634c3d22a485f176d45bc873442e065a3cbb56ba"
+    },
+    "index.html": {
+      "bytes": 6056,
+      "sha256": "b7d53774159fef0f46a89ca227e65d54a73a7706027cfd5e38fbabc913eadd0e"
+    },
+    "labels-axis-0-part-0.pack": {
+      "bytes": 97297,
+      "sha256": "498e9eee284041c66eadb931dd88d0e0ace2a762ab27285d80b262707a8c53f5"
+    },
+    "labels-axis-1-part-0.pack": {
+      "bytes": 127033,
+      "sha256": "c004c42b386ebd2bcdfb74768920d6e3b6e6b8c17a3d4611cb7143c1a3d73cd3"
+    },
+    "labels-axis-2-part-0.pack": {
+      "bytes": 112039,
+      "sha256": "e8bcffc4ec78b4c65e53b53cbbbd3a63086a4d4405c1eaa7e6ff4fafc6dcf7a5"
+    },
+    "labels.json": {
+      "bytes": 21251,
+      "sha256": "e5e0bafa066253d43153c2404c2872a69613cf12bc68badf00b140154e7ae67b"
+    },
+    "manifest.json": {
+      "bytes": 1520589,
+      "sha256": "85277d7ec002de3f5641f1bc6145a911dd8497b85cce272f23256faa1425d091"
+    },
+    "publication-figure1.webp": {
+      "bytes": 382442,
+      "sha256": "29fb529da4181e7827f4248fcaa9d256b5db88c8b9f123e320c525f754e21e07"
+    },
+    "schematic.js": {
+      "bytes": 1922,
+      "sha256": "d801339a924efd507afbdf6f66e2b5f47d1df9ba465467b45465bbe1ae4a0ec5"
+    },
+    "semantic-mapping.json": {
+      "bytes": 3506,
+      "sha256": "9ad607420848ca0900dcc0efc9e88896f86810619f4c7d947213a2e7a0f291cf"
+    },
+    "territory-10.faces.gz": {
+      "bytes": 48509,
+      "sha256": "a371837433d3315bd0dbcf7d40e1c08db04259c0b9075eb2e9f0e1a4a44c5f68"
+    },
+    "territory-10.mesh.gz": {
+      "bytes": 192866,
+      "sha256": "5b31b097831dd36f6966052211c949ab34d0080ed447cc7571f0fbee7630d970"
+    },
+    "territory-12.faces.gz": {
+      "bytes": 104248,
+      "sha256": "6288568022c2fd7c043cfe027411836aec4b3b15947d323a44b3badf30bf41f0"
+    },
+    "territory-12.mesh.gz": {
+      "bytes": 415144,
+      "sha256": "fad9ddeae4fe90dd2c0f18b284fde74b2e66db48007f10290fcb9bb571f90170"
+    },
+    "territory-14.faces.gz": {
+      "bytes": 187585,
+      "sha256": "4a0cb8059208c0506f804b73672222582343b59f5f0980198eabf2be1fef8043"
+    },
+    "territory-14.mesh.gz": {
+      "bytes": 750383,
+      "sha256": "06b0de3235a4fbfe5f309ed142bef3555da263f123e7fb1d7cffe1bcc99143d5"
+    },
+    "territory-16.faces.gz": {
+      "bytes": 126193,
+      "sha256": "4cac7229b6f36499bb8c36bcc9ec382143f67d62ca618cf1f8e51ecd7f1e30af"
+    },
+    "territory-16.mesh.gz": {
+      "bytes": 511443,
+      "sha256": "47a84287e433ecb80cf9caf0ba2dba0723480d73d6b64d77bd529b23bd0b5c47"
+    },
+    "territory-18.faces.gz": {
+      "bytes": 21660,
+      "sha256": "f96f877eff9c589471a16de7a6c52c0ee8c416dbbc850b5c50d75e6eb5389d16"
+    },
+    "territory-18.mesh.gz": {
+      "bytes": 86963,
+      "sha256": "31a1c1ea691447bc42d4d6370381eb87fac5fbee7d5d48522c71139a34bed652"
+    },
+    "territory-19.faces.gz": {
+      "bytes": 48,
+      "sha256": "d7bb1f52a16000fc52fa8d1518bdeaaa0dd01aef43b63c4d40965069c98cc690"
+    },
+    "territory-19.mesh.gz": {
+      "bytes": 111,
+      "sha256": "c5c5bfceec4d59819caeed39246946eb824e42d0773ef9c2400d3eb56fd72265"
+    },
+    "territory-2.faces.gz": {
+      "bytes": 105514,
+      "sha256": "3942d0ed6aaf118600a2c6ea67f284fdb66d39a7ee35a9791ebad8b44d641e61"
+    },
+    "territory-2.mesh.gz": {
+      "bytes": 420016,
+      "sha256": "72ad02796043fe5e8a24ae1eb0bbeefb723f49c17bd1d317411723c7c84a6d86"
+    },
+    "territory-20.faces.gz": {
+      "bytes": 51135,
+      "sha256": "a8b932786fad0706deb34085d490c2cccae170ba4f686635abca65cf8c9a5c03"
+    },
+    "territory-20.mesh.gz": {
+      "bytes": 199757,
+      "sha256": "be068c7f6f07805c2196f8e251f0fb5ca2ddf627e1ac374a52c0844cab05dd7e"
+    },
+    "territory-4.faces.gz": {
+      "bytes": 183176,
+      "sha256": "384aa9ebab522c17cd28c2033954ad4a741905f58fe7c988c6a7ca587434e978"
+    },
+    "territory-4.mesh.gz": {
+      "bytes": 731604,
+      "sha256": "2fa9fc16efdac97307b06cf37b8e3b763afe2d6e7c74f6b31adaf3d26dfc1f8e"
+    },
+    "territory-6.faces.gz": {
+      "bytes": 123153,
+      "sha256": "ff429af9c473b99320e18a29fad2b810059070e9a1ff58c2f553fc9c78294e64"
+    },
+    "territory-6.mesh.gz": {
+      "bytes": 500399,
+      "sha256": "069be9330fc73d37b02f88b8b3ec6a52b928e744ecc7928e19caed9094dc29c8"
+    },
+    "territory-8.faces.gz": {
+      "bytes": 21561,
+      "sha256": "135edd4c5c732a08bf654ecdfbeed5f10e497c6780d37b4c6236d3ad3c2f3a25"
+    },
+    "territory-8.mesh.gz": {
+      "bytes": 85473,
+      "sha256": "50ff59a4525eb60ab173829da5402e327c3e083be41a8f58221fc790c26aa6a6"
+    },
+    "viewer.css": {
+      "bytes": 2141,
+      "sha256": "956949497cdcdd7839def227c587fd3caf9f41dc0ac0d3f9948481be6d382add"
+    },
+    "viewer.js": {
+      "bytes": 19031,
+      "sha256": "2213f13d20c743483c03141fdd2362cb8fd33f5c88a7616389daa4971bba17b7"
+    }
+  },
+  "runtime_metadata": {
+    "manifest.json": {
+      "path": "data/radiology/schirmer-vascular-manifest.json.gz",
+      "bytes": 218070,
+      "sha256": "8929390dfbd6b7cf46ba5ea33539395be9ca3ce8c4ecdf776d2fbe65164307d7",
+      "decoded_bytes": 1520589,
+      "decoded_sha256": "85277d7ec002de3f5641f1bc6145a911dd8497b85cce272f23256faa1425d091"
+    },
+    "labels.json": {
+      "path": "data/radiology/schirmer-vascular-labels.json.gz",
+      "bytes": 4065,
+      "sha256": "148d593f2166e2cbbccfeba5a96953419569970251cddbd5b8fb3b1916892ddb",
+      "decoded_bytes": 21251,
+      "decoded_sha256": "e5e0bafa066253d43153c2404c2872a69613cf12bc68badf00b140154e7ae67b"
+    },
+    "hierarchy.json": {
+      "path": "data/radiology/schirmer-vascular-hierarchy.json.gz",
+      "bytes": 104,
+      "sha256": "4543fff6daf76992974db6b553ef3368ea65c4fd1406fce3bc487fb6fc13e84f",
+      "decoded_bytes": 97,
+      "decoded_sha256": "1bb48c8428d33db411cb6a54634c3d22a485f176d45bc873442e065a3cbb56ba"
+    }
+  },
+  "source_classes": 11,
+  "named_source_classes": 10,
+  "uninterpreted_values": [
+    19
+  ],
+  "components26": 15,
+  "triangles": 754024,
+  "planes": 2328,
+  "clinical_approval": false,
+  "fine_anatomical_approval": false,
+  "current_patient_registration": false,
+  "normal_anatomical_atlas_approval": false,
+  "complete_reporting_anatomy_approved": false
+}

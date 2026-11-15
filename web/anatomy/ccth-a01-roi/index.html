@@ -1,0 +1,27 @@
+<!doctype html>
+<html lang="en">
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Cervical MRI sampled ROI surfaces · Primer</title>
+<link rel="stylesheet" href="/app/anatomy/bp3d-dural-4.3/viewer.css">
+<script defer src="/app/anatomy/bp3d-dural-4.3/surface-viewer.js"></script>
+</head>
+<body><main data-source-axes="xyz" data-surfaces-sha256="5904378ef4c9138d656b1edf5bb0e46abfbb9f573ae39c041e6abecbf9e299c5">
+<p><a href="/app/anatomy/ccth-a01/index.html">Return to the acquired MRI and original contours</a></p>
+<h1>Sampled ROI surfaces</h1>
+<p>Compare the two regions drawn on the acquired sagittal MRI of case CCTH-A01, study MR1. Each surface follows the MRI sampling cells within its original contours. The step edges show the 4 mm acquisition spacing.</p>
+<figure><canvas id="surface" width="640" height="480" aria-label="Voxel boundary surfaces derived from CCTH-A01 contours"></canvas></figure>
+<label>Rotation <input id="rotation" type="range" min="-180" max="180" value="35"></label>
+<label>Tilt <input id="tilt" type="range" min="-90" max="90" value="20"></label>
+<p id="surface-status" role="status">Verifying contour-derived surfaces…</p>
+<fieldset><legend>Original ROI identifiers</legend>
+<label><input class="layer" type="checkbox" checked>ROI 1</label>
+<label><input class="layer" type="checkbox" checked>ROI 2</label></fieldset>
+<p>Both ROIs share the source name Ut-MRT2-Sag-1. Their clinical roles are unspecified. Use the acquired MRI and original outlines for the tissue interfaces.</p>
+<table class="mrv-key"><caption>Sampled display geometry</caption>
+<thead><tr><th scope="col">Original ROI</th><th scope="col">Occupied cells</th><th scope="col">Display volume</th></tr></thead><tbody>
+<tr><th scope="row">ROI 1</th><td>20,234</td><td>111.15 mL</td></tr>
+<tr><th scope="row">ROI 2</th><td>7,657</td><td>42.06 mL</td></tr>
+</tbody></table>
+<p>The display volumes count the selected sampled cells. They may overlap because the two source regions are kept separate.</p>
+<p>Mayr and colleagues, The Cancer Imaging Archive. Primer rasterizes the outlines at acquired pixel centres and displays the resulting voxel faces. <a href="https://www.cancerimagingarchive.net/collection/cc-tumor-heterogeneity/">Source collection</a> · <a href="https://creativecommons.org/licenses/by/4.0/">CC BY 4.0</a></p>
+</main></body></html>
