@@ -28,6 +28,8 @@ def before_rich_report_bytes(path, raw):
  return raw
 
 def before_compartments_bytes(path,raw,allow_older=False, *, retain_compartments=False):
+ from tools.report_layout_compatibility import before_protocol_alignment_bytes
+ raw = before_protocol_alignment_bytes(path, raw)
  if str(path) not in ('web/radiology-structured.js','web/radiology-structured.css','primer/descriptor_reporting.py'):return raw
  raw = before_rich_report_bytes(path, raw)
  proof = _report_proof()

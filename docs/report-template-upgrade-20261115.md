@@ -24,7 +24,7 @@ Sources, in order of preference:
 
 The knee MRI protocol is unchanged.
 
-The click builder's selectable acquisition choices are unchanged. Its default text can differ in wording from the protocol line in the template.
+The click builder uses the same default acquisition wording as the template: when no acquisition choice is selected, its Protocol or Technique line is the template's protocol line (140 studies). Its selectable acquisition choices are unchanged; selecting any of them replaces the default line, as before. The wording is applied when the builder catalogue is loaded (`align_builder_protocols` in `primer/report_templates.py`), so the browser and the server render the same text.
 
 ## Content rules
 

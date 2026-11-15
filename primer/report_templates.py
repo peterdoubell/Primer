@@ -190,6 +190,22 @@ def quick_report(identifier):
             'template': render(item, heading=heading), 'normal': render(item, normal=True, heading=heading)}
 
 
+def align_builder_protocols(catalogue):
+    """Give the click builder the same default acquisition wording as the report template.
+
+    The builder's selectable acquisition choices are unchanged; only the text used when
+    none is chosen is replaced, and only for studies whose template has a Protocol or Technique.
+    """
+    templates = library()
+    for form in catalogue.get('forms', {}).values():
+        for investigation in form.get('investigations', []):
+            item = templates.get(investigation.get('id'))
+            acquisition = investigation.get('report_protocol')
+            if acquisition and item and acquisition_heading(investigation['id'], item):
+                acquisition['standard_text'] = item['technique']['normal']
+    return catalogue
+
+
 def with_quick_report(detail):
     """Attach the fast template and the normal report to a module response."""
     if not isinstance(detail, dict) or not isinstance(detail.get('radiology_reference'), dict):
