@@ -1,0 +1,2352 @@
+{
+  "case_id": "C3L-02112",
+  "original_image_doi": "10.7937/K9/TCIA.2018.SC20FO18",
+  "annotation_doi": "10.7937/BW9V-BX61",
+  "annotation_version": 2,
+  "source_selection_sha256": "17ee2ba3d4e227ca5ce588ed54eecd3c887840474397731c8d6e64b053332442",
+  "records": [
+    {
+      "source_role": "arterial-labelled",
+      "original_ct_series_uid": "1.3.6.1.4.1.14519.5.2.1.1078.3273.100695794070451892455483306265",
+      "ct_archive_sha256": "e228860b6eecf4c8ea8912112285832b380598d20c9c05ea7949772ff7df3b6c",
+      "annotation_archive_sha256": "caed65d16998a757267c661db41afb7788e15197a0645bb8c51921bec4b374b5",
+      "ct_objects": 365,
+      "source_shape_zyx": [
+        365,
+        512,
+        512
+      ],
+      "source_orientation_lps": [
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0,
+        0.0
+      ],
+      "source_pixel_spacing_mm": [
+        0.703125,
+        0.703125
+      ],
+      "source_slice_thicknesses_mm": [
+        0.625
+      ],
+      "original_spacing_between_slices_values_mm": [
+        -0.625
+      ],
+      "observed_increasing_position_steps_mm": [
+        0.625,
+        0.625
+      ],
+      "original_instance_order_signed_steps_mm": [
+        -0.625,
+        -0.625
+      ],
+      "native_index_zyx_to_lps_mm": [
+        [
+          0.0,
+          0.0,
+          0.703125,
+          -180.0
+        ],
+        [
+          0.0,
+          0.703125,
+          0.0,
+          -180.0
+        ],
+        [
+          0.625,
+          0.0,
+          0.0,
+          -300.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "acquisitions": [
+        {
+          "source_acquisition_number": "1",
+          "source_acquisition_time": "114104.584535",
+          "images": 365,
+          "observed_interplane_step_mm_min_max": [
+            0.625,
+            0.625
+          ],
+          "uniform_interplane_step": true,
+          "position_extent_lps_mm": [
+            [
+              -180.0,
+              -180.0,
+              -300.0
+            ],
+            [
+              -180.0,
+              -180.0,
+              -72.5
+            ]
+          ],
+          "phase_identity_verified": false
+        }
+      ],
+      "frame_of_reference_uids": [
+        "1.3.6.1.4.1.14519.5.2.1.1078.3273.192810287316128613257771978063"
+      ],
+      "source_contrast_agents": [
+        ""
+      ],
+      "source_contrast_start_times": [
+        "not_reported"
+      ],
+      "source_contrast_stop_times": [
+        "not_reported"
+      ],
+      "source_rescale_types": [
+        "HU"
+      ],
+      "metadata_tracking_uid": "2.25.213034165703120324893647141780714047966",
+      "dicom_tracking_uids_match_metadata": false,
+      "rois": [
+        {
+          "roi_number": 1,
+          "source_name": "pancreas V2",
+          "source_tracking_id": "PANCREAS - 2",
+          "source_tracking_uid": "2.25.165084154860889254540124087221208413343",
+          "original_roi_volume_cm3": "12.411718",
+          "generation_algorithm": "MANUAL"
+        }
+      ],
+      "source_roi_observations": [
+        {
+          "roi_number": 1,
+          "source_observation_label": "PANCREAS2",
+          "source_codes": {
+            "AnatomicRegionSequence": [
+              {
+                "scheme": "SCT",
+                "code": "40133006",
+                "meaning": "Pancreas"
+              }
+            ],
+            "SegmentedPropertyCategoryCodeSequence": [
+              {
+                "scheme": "SCT",
+                "code": "49755003",
+                "meaning": "Morphologically Abnormal Structure"
+              }
+            ],
+            "RTROIIdentificationCodeSequence": [
+              {
+                "scheme": "SCT",
+                "code": "6219000",
+                "meaning": "Neoplasm, Malignant"
+              }
+            ]
+          }
+        }
+      ],
+      "contours": [
+        {
+          "source_roi_number": 1,
+          "source_contour_index": 0,
+          "referenced_ct_sop": "1.3.6.1.4.1.14519.5.2.1.1078.3273.755621198089819891752095821511",
+          "native_sorted_plane_index": 135,
+          "source_plane_position_lps": [
+            -180.0,
+            -180.0,
+            -215.625
+          ],
+          "source_contour_points": 73,
+          "maximum_referenced_plane_error_mm": 0.0,
+          "source_column_bounds": [
+            184.81453509875055,
+            215.42318958502972
+          ],
+          "source_row_bounds": [
+            238.16948738812158,
+            264.6235150528886
+          ],
+          "points_in_source_extent": true
+        },
+        {
+          "source_roi_number": 1,
+          "source_contour_index": 1,
+          "referenced_ct_sop": "1.3.6.1.4.1.14519.5.2.1.1078.3273.206380129273346279312335590653",
+          "native_sorted_plane_index": 134,
+          "source_plane_position_lps": [
+            -180.0,
+            -180.0,
+            -216.25
+          ],
+          "source_contour_points": 73,
+          "maximum_referenced_plane_error_mm": 0.0,
+          "source_column_bounds": [
+            186.01131000813794,
+            215.67314890154665
+          ],
+          "source_row_bounds": [
+            237.7945484133447,
+            262.8737998372661
+          ],
+          "points_in_source_extent": true
+        },
+        {
+          "source_roi_number": 1,
+          "source_contour_index": 2,
+          "referenced_ct_sop": "1.3.6.1.4.1.14519.5.2.1.1078.3273.962411064936458201451269551794",
+          "native_sorted_plane_index": 133,
+          "source_plane_position_lps": [
+            -180.0,
+            -180.0,
+            -216.875
+          ],
+          "source_contour_points": 62,
+          "maximum_referenced_plane_error_mm": 0.0,
+          "source_column_bounds": [
+            187.17778681855287,
+            215.92310821806365
+          ],
+          "source_row_bounds": [
+            237.37794955248214,
+            261.12408462164365
+          ],
+          "points_in_source_extent": true
+        },
+        {
+          "source_roi_number": 1,
+          "source_contour_index": 3,
+          "referenced_ct_sop": "1.3.6.1.4.1.14519.5.2.1.1078.3273.229467602583589798925957706974",
+          "native_sorted_plane_index": 138,
+          "source_plane_position_lps": [
+            -180.0,
+            -180.0,
+            -213.75
+          ],
+          "source_contour_points": 73,
+          "maximum_referenced_plane_error_mm": 0.0,
+          "source_column_bounds": [
+            180.92880390561567,
+            214.67331163547735
+          ],
+          "source_row_bounds": [
+            239.04434499593248,
+            269.87266069975595
+          ],
+          "points_in_source_extent": true
+        },
+        {
+          "source_roi_number": 1,
+          "source_contour_index": 4,
+          "referenced_ct_sop": "1.3.6.1.4.1.14519.5.2.1.1078.3273.126566443005935013639249581754",
+          "native_sorted_plane_index": 137,
+          "source_plane_position_lps": [
+            -180.0,
+            -180.0,
+            -214.375
+          ],
+          "source_contour_points": 73,
+          "maximum_referenced_plane_error_mm": 0.0,
+          "source_column_bounds": [
+            182.22404763666063,
+            214.9232709519943
+          ],
+          "source_row_bounds": [
+            238.75272579332835,
+            268.12294548413354
+          ],
+          "points_in_source_extent": true
+        },
+        {
+          "source_roi_number": 1,
+          "source_contour_index": 5,
+          "referenced_ct_sop": "1.3.6.1.4.1.14519.5.2.1.1078.3273.166479773003507317444679274356",
+          "native_sorted_plane_index": 136,
+          "source_plane_position_lps": [
+            -180.0,
+            -180.0,
+            -215.0
+          ],
+          "source_contour_points": 73,
+          "maximum_referenced_plane_error_mm": 0.0,
+          "source_column_bounds": [
+            183.5192913677056,
+            215.1732302685113
+          ],
+          "source_row_bounds": [
+            238.46110659072426,
+            266.37323026851107
+          ],
+          "points_in_source_extent": true
+        },
+        {
+          "source_roi_number": 1,
+          "source_contour_index": 6,
+          "referenced_ct_sop": "1.3.6.1.4.1.14519.5.2.1.1078.3273.125166625388414909093368866310",
+          "native_sorted_plane_index": 141,
+          "source_plane_position_lps": [
+            -180.0,
+            -180.0,
+            -211.875
+          ],
+          "source_contour_points": 85,
+          "maximum_referenced_plane_error_mm": 0.0,
+          "source_column_bounds": [
+            180.09560618389048,
+            216.13140764849493
+          ],
+          "source_row_bounds": [
+            239.6692432872263,
+            271.4557363710333
+          ],
+          "points_in_source_extent": true
+        },
+        {
+          "source_roi_number": 1,
+          "source_contour_index": 7,
+          "referenced_ct_sop": "1.3.6.1.4.1.14519.5.2.1.1078.3273.220283850077118371778466063565",
+          "native_sorted_plane_index": 140,
+          "source_plane_position_lps": [
+            -180.0,
+            -180.0,
+            -212.5
+          ],
+          "source_contour_points": 85,
+          "maximum_referenced_plane_error_mm": 0.0,
+          "source_column_bounds": [
+            180.37333875779842,
+            215.64537564415573
+          ],
+          "source_row_bounds": [
+            239.460943856795,
+            270.87249796582586
+          ],
+          "points_in_source_extent": true
+        },
+        {
+          "source_roi_number": 1,
+          "source_contour_index": 8,
+          "referenced_ct_sop": "1.3.6.1.4.1.14519.5.2.1.1078.3273.315796078409992463480870466422",
+          "native_sorted_plane_index": 139,
+          "source_plane_position_lps": [
+            -180.0,
+            -180.0,
+            -213.125
+          ],
+          "source_contour_points": 85,
+          "maximum_referenced_plane_error_mm": 0.0,
+          "source_column_bounds": [
+            180.6510713317063,
+            215.15934363981654
+          ],
+          "source_row_bounds": [
+            239.25264442636373,
+            270.2892595606184
+          ],
+          "points_in_source_extent": true
+        },
+        {
+          "source_roi_number": 1,
+          "source_contour_index": 9,
+          "referenced_ct_sop": "1.3.6.1.4.1.14519.5.2.1.1078.3273.300048659292404556655148102957",
+          "native_sorted_plane_index": 144,
+          "source_plane_position_lps": [
+            -180.0,
+            -180.0,
+            -210.0
+          ],
+          "source_contour_points": 85,
+          "maximum_referenced_plane_error_mm": 0.0,
+          "source_column_bounds": [
+            179.26240846216533,
+            217.58950366151396
+          ],
+          "source_row_bounds": [
+            240.2941415785202,
+            273.2054515866557
+          ],
+          "points_in_source_extent": true
+        },
+        {
+          "source_roi_number": 1,
+          "source_contour_index": 10,
+          "referenced_ct_sop": "1.3.6.1.4.1.14519.5.2.1.1078.3273.269363888445146227561503989616",
+          "native_sorted_plane_index": 143,
+          "source_plane_position_lps": [
+            -180.0,
+            -180.0,
+            -210.625
+          ],
+          "source_contour_points": 85,
+          "maximum_referenced_plane_error_mm": 0.0,
+          "source_column_bounds": [
+            179.54014103607324,
+            217.10347165717474
+          ],
+          "source_row_bounds": [
+            240.08584214808891,
+            272.6222131814483
+          ],
+          "points_in_source_extent": true
+        },
+        {
+          "source_roi_number": 1,
+          "source_contour_index": 11,
+          "referenced_ct_sop": "1.3.6.1.4.1.14519.5.2.1.1078.3273.195228384753833773782930132390",
+          "native_sorted_plane_index": 142,
+          "source_plane_position_lps": [
+            -180.0,
+            -180.0,
+            -211.25
+          ],
+          "source_contour_points": 85,
+          "maximum_referenced_plane_error_mm": 0.0,
+          "source_column_bounds": [
+            179.81787360998118,
+            216.61743965283554
+          ],
+          "source_row_bounds": [
+            239.87754271765758,
+            272.03897477624093
+          ],
+          "points_in_source_extent": true
+        },
+        {
+          "source_roi_number": 1,
+          "source_contour_index": 12,
+          "referenced_ct_sop": "1.3.6.1.4.1.14519.5.2.1.1078.3273.214895882182159747979688675699",
+          "native_sorted_plane_index": 147,
+          "source_plane_position_lps": [
+            -180.0,
+            -180.0,
+            -208.125
+          ],
+          "source_contour_points": 85,
+          "maximum_referenced_plane_error_mm": 0.0,
+          "source_column_bounds": [
+            178.63751017087148,
+            215.4023596419854
+          ],
+          "source_row_bounds": [
+            239.35679414157937,
+            272.16395443449954
+          ],
+          "points_in_source_extent": true
+        },
+        {
+          "source_roi_number": 1,
+          "source_contour_index": 13,
+          "referenced_ct_sop": "1.3.6.1.4.1.14519.5.2.1.1078.3273.216484618500248583144151800419",
+          "native_sorted_plane_index": 146,
+          "source_plane_position_lps": [
+            -180.0,
+            -180.0,
+            -208.75
+          ],
+          "source_contour_points": 85,
+          "maximum_referenced_plane_error_mm": 0.0,
+          "source_column_bounds": [
+            178.84580960130276,
+            216.13140764849493
+          ],
+          "source_row_bounds": [
+            239.6692432872263,
+            272.3722538649307
+          ],
+          "points_in_source_extent": true
+        },
+        {
+          "source_roi_number": 1,
+          "source_contour_index": 14,
+          "referenced_ct_sop": "1.3.6.1.4.1.14519.5.2.1.1078.3273.340636207469861675540216182209",
+          "native_sorted_plane_index": 145,
+          "source_plane_position_lps": [
+            -180.0,
+            -180.0,
+            -209.375
+          ],
+          "source_contour_points": 85,
+          "maximum_referenced_plane_error_mm": 0.0,
+          "source_column_bounds": [
+            179.05410903173404,
+            216.86045565500447
+          ],
+          "source_row_bounds": [
+            239.98169243287322,
+            272.6847030105776
+          ],
+          "points_in_source_extent": true
+        },
+        {
+          "source_roi_number": 1,
+          "source_contour_index": 15,
+          "referenced_ct_sop": "1.3.6.1.4.1.14519.5.2.1.1078.3273.117734043630312632872384750552",
+          "native_sorted_plane_index": 150,
+          "source_plane_position_lps": [
+            -180.0,
+            -180.0,
+            -206.25
+          ],
+          "source_contour_points": 86,
+          "maximum_referenced_plane_error_mm": 0.0,
+          "source_column_bounds": [
+            179.76579875237402,
+            215.92310821806365
+          ],
+          "source_row_bounds": [
+            237.7945484133447,
+            271.12245728234325
+          ],
+          "points_in_source_extent": true
+        },
+        {
+          "source_roi_number": 1,
+          "source_contour_index": 16,
+          "referenced_ct_sop": "1.3.6.1.4.1.14519.5.2.1.1078.3273.113468693991122701538332661642",
+          "native_sorted_plane_index": 149,
+          "source_plane_position_lps": [
+            -180.0,
+            -180.0,
+            -206.875
+          ],
+          "source_contour_points": 86,
+          "maximum_referenced_plane_error_mm": 0.0,
+          "source_column_bounds": [
+            179.15825874694968,
+            215.29820992676977
+          ],
+          "source_row_bounds": [
+            238.41944670463857,
+            271.5390561432058
+          ],
+          "points_in_source_extent": true
+        },
+        {
+          "source_roi_number": 1,
+          "source_contour_index": 17,
+          "referenced_ct_sop": "1.3.6.1.4.1.14519.5.2.1.1078.3273.248789494382055122607200096718",
+          "native_sorted_plane_index": 148,
+          "source_plane_position_lps": [
+            -180.0,
+            -180.0,
+            -207.5
+          ],
+          "source_contour_points": 82,
+          "maximum_referenced_plane_error_mm": 0.0,
+          "source_column_bounds": [
+            178.42921074044017,
+            214.67331163547735
+          ],
+          "source_row_bounds": [
+            239.04434499593248,
+            271.95565500406826
+          ],
+          "points_in_source_extent": true
+        },
+        {
+          "source_roi_number": 1,
+          "source_contour_index": 18,
+          "referenced_ct_sop": "1.3.6.1.4.1.14519.5.2.1.1078.3273.120303788845044857152407261724",
+          "native_sorted_plane_index": 152,
+          "source_plane_position_lps": [
+            -180.0,
+            -180.0,
+            -205.0
+          ],
+          "source_contour_points": 86,
+          "maximum_referenced_plane_error_mm": 0.0,
+          "source_column_bounds": [
+            180.92880390561567,
+            217.1729048006514
+          ],
+          "source_row_bounds": [
+            236.54475183075698,
+            270.2892595606184
+          ],
+          "points_in_source_extent": true
+        },
+        {
+          "source_roi_number": 1,
+          "source_contour_index": 19,
+          "referenced_ct_sop": "1.3.6.1.4.1.14519.5.2.1.1078.3273.196645481145595111468261486337",
+          "native_sorted_plane_index": 151,
+          "source_plane_position_lps": [
+            -180.0,
+            -180.0,
+            -205.625
+          ],
+          "source_contour_points": 86,
+          "maximum_referenced_plane_error_mm": 0.0,
+          "source_column_bounds": [
+            180.34730132899415,
+            216.5480065093575
+          ],
+          "source_row_bounds": [
+            237.16965012205085,
+            270.7058584214808
+          ],
+          "points_in_source_extent": true
+        },
+        {
+          "source_roi_number": 1,
+          "source_contour_index": 20,
+          "referenced_ct_sop": "1.3.6.1.4.1.14519.5.2.1.1078.3273.176682026797412207056612021509",
+          "native_sorted_plane_index": 155,
+          "source_plane_position_lps": [
+            -180.0,
+            -180.0,
+            -203.125
+          ],
+          "source_contour_points": 87,
+          "maximum_referenced_plane_error_mm": 0.0,
+          "source_column_bounds": [
+            183.42839707078969,
+            216.96923424645263
+          ],
+          "source_row_bounds": [
+            228.796013018715,
+            268.53954434499593
+          ],
+          "points_in_source_extent": true
+        },
+        {
+          "source_roi_number": 1,
+          "source_contour_index": 21,
+          "referenced_ct_sop": "1.3.6.1.4.1.14519.5.2.1.1078.3273.314645192004802130330414645981",
+          "native_sorted_plane_index": 154,
+          "source_plane_position_lps": [
+            -180.0,
+            -180.0,
+            -203.75
+          ],
+          "source_contour_points": 87,
+          "maximum_referenced_plane_error_mm": 0.0,
+          "source_column_bounds": [
+            182.59519934906453,
+            216.9312774613518
+          ],
+          "source_row_bounds": [
+            231.37892595606328,
+            269.12278275020344
+          ],
+          "points_in_source_extent": true
+        },
+        {
+          "source_roi_number": 1,
+          "source_contour_index": 22,
+          "referenced_ct_sop": "1.3.6.1.4.1.14519.5.2.1.1078.3273.498333550978799854018470822994",
+          "native_sorted_plane_index": 153,
+          "source_plane_position_lps": [
+            -180.0,
+            -180.0,
+            -204.375
+          ],
+          "source_contour_points": 87,
+          "maximum_referenced_plane_error_mm": 0.0,
+          "source_column_bounds": [
+            181.76200162733937,
+            216.98960130187237
+          ],
+          "source_row_bounds": [
+            233.96183889341015,
+            269.7060211554109
+          ],
+          "points_in_source_extent": true
+        },
+        {
+          "source_roi_number": 1,
+          "source_contour_index": 23,
+          "referenced_ct_sop": "1.3.6.1.4.1.14519.5.2.1.1078.3273.237016812243446103542903798973",
+          "native_sorted_plane_index": 158,
+          "source_plane_position_lps": [
+            -180.0,
+            -180.0,
+            -201.25
+          ],
+          "source_contour_points": 94,
+          "maximum_referenced_plane_error_mm": 0.0,
+          "source_column_bounds": [
+            185.57804719284056,
+            217.53951179821084
+          ],
+          "source_row_bounds": [
+            223.37381861425922,
+            267.53970707892597
+          ],
+          "points_in_source_extent": true
+        },
+        {
+          "source_roi_number": 1,
+          "source_contour_index": 24,
+          "referenced_ct_sop": "1.3.6.1.4.1.14519.5.2.1.1078.3273.281216950340819440849337556171",
+          "native_sorted_plane_index": 157,
+          "source_plane_position_lps": [
+            -180.0,
+            -180.0,
+            -201.875
+          ],
+          "source_contour_points": 87,
+          "maximum_referenced_plane_error_mm": 0.0,
+          "source_column_bounds": [
+            185.09479251423997,
+            217.1729048006514
+          ],
+          "source_row_bounds": [
+            223.6301871440199,
+            267.37306753458097
+          ],
+          "points_in_source_extent": true
+        },
+        {
+          "source_roi_number": 1,
+          "source_contour_index": 25,
+          "referenced_ct_sop": "1.3.6.1.4.1.14519.5.2.1.1078.3273.338143844594103149167434299557",
+          "native_sorted_plane_index": 156,
+          "source_plane_position_lps": [
+            -180.0,
+            -180.0,
+            -202.5
+          ],
+          "source_contour_points": 87,
+          "maximum_referenced_plane_error_mm": 0.0,
+          "source_column_bounds": [
+            184.26159479251484,
+            217.0710695235513
+          ],
+          "source_row_bounds": [
+            226.21310008136817,
+            267.9563059397885
+          ],
+          "points_in_source_extent": true
+        },
+        {
+          "source_roi_number": 1,
+          "source_contour_index": 26,
+          "referenced_ct_sop": "1.3.6.1.4.1.14519.5.2.1.1078.3273.832873434382032993096487524863",
+          "native_sorted_plane_index": 161,
+          "source_plane_position_lps": [
+            -180.0,
+            -180.0,
+            -199.375
+          ],
+          "source_contour_points": 94,
+          "maximum_referenced_plane_error_mm": 0.0,
+          "source_column_bounds": [
+            186.17794955248215,
+            219.9906280050304
+          ],
+          "source_row_bounds": [
+            222.0471114727424,
+            268.039625711961
+          ],
+          "points_in_source_extent": true
+        },
+        {
+          "source_roi_number": 1,
+          "source_contour_index": 27,
+          "referenced_ct_sop": "1.3.6.1.4.1.14519.5.2.1.1078.3273.175678434985973611188691574797",
+          "native_sorted_plane_index": 160,
+          "source_plane_position_lps": [
+            -180.0,
+            -180.0,
+            -200.0
+          ],
+          "source_contour_points": 94,
+          "maximum_referenced_plane_error_mm": 0.0,
+          "source_column_bounds": [
+            186.01131000813794,
+            219.05896146164767
+          ],
+          "source_row_bounds": [
+            222.5470301057778,
+            267.872986167616
+          ],
+          "points_in_source_extent": true
+        },
+        {
+          "source_roi_number": 1,
+          "source_contour_index": 28,
+          "referenced_ct_sop": "1.3.6.1.4.1.14519.5.2.1.1078.3273.260147916534105539243709531571",
+          "native_sorted_plane_index": 159,
+          "source_plane_position_lps": [
+            -180.0,
+            -180.0,
+            -200.625
+          ],
+          "source_contour_points": 94,
+          "maximum_referenced_plane_error_mm": 0.0,
+          "source_column_bounds": [
+            185.84467046379237,
+            218.2060699755904
+          ],
+          "source_row_bounds": [
+            223.02131188583678,
+            267.706346623271
+          ],
+          "points_in_source_extent": true
+        },
+        {
+          "source_roi_number": 1,
+          "source_contour_index": 29,
+          "referenced_ct_sop": "1.3.6.1.4.1.14519.5.2.1.1078.3273.115013656775479964168362110128",
+          "native_sorted_plane_index": 164,
+          "source_plane_position_lps": [
+            -180.0,
+            -180.0,
+            -197.5
+          ],
+          "source_contour_points": 104,
+          "maximum_referenced_plane_error_mm": 0.0,
+          "source_column_bounds": [
+            186.5112286411719,
+            221.53886086249102
+          ],
+          "source_row_bounds": [
+            219.88079739625812,
+            268.339576891782
+          ],
+          "points_in_source_extent": true
+        },
+        {
+          "source_roi_number": 1,
+          "source_contour_index": 30,
+          "referenced_ct_sop": "1.3.6.1.4.1.14519.5.2.1.1078.3273.128612791020952538762969618120",
+          "native_sorted_plane_index": 163,
+          "source_plane_position_lps": [
+            -180.0,
+            -180.0,
+            -198.125
+          ],
+          "source_contour_points": 104,
+          "maximum_referenced_plane_error_mm": 0.0,
+          "source_column_bounds": [
+            186.42790886900053,
+            221.18891781936642
+          ],
+          "source_row_bounds": [
+            220.71399511798327,
+            268.18703761657395
+          ],
+          "points_in_source_extent": true
+        },
+        {
+          "source_roi_number": 1,
+          "source_contour_index": 31,
+          "referenced_ct_sop": "1.3.6.1.4.1.14519.5.2.1.1078.3273.119940079496948800368900543331",
+          "native_sorted_plane_index": 162,
+          "source_plane_position_lps": [
+            -180.0,
+            -180.0,
+            -198.75
+          ],
+          "source_contour_points": 94,
+          "maximum_referenced_plane_error_mm": 0.0,
+          "source_column_bounds": [
+            186.34458909682775,
+            220.9222945484146
+          ],
+          "source_row_bounds": [
+            221.54719283970843,
+            268.206265256306
+          ],
+          "points_in_source_extent": true
+        },
+        {
+          "source_roi_number": 1,
+          "source_contour_index": 32,
+          "referenced_ct_sop": "1.3.6.1.4.1.14519.5.2.1.1078.3273.288802590155931150979163317179",
+          "native_sorted_plane_index": 166,
+          "source_plane_position_lps": [
+            -180.0,
+            -180.0,
+            -196.25
+          ],
+          "source_contour_points": 104,
+          "maximum_referenced_plane_error_mm": 0.0,
+          "source_column_bounds": [
+            186.6778681855175,
+            222.50537021969208
+          ],
+          "source_row_bounds": [
+            218.21440195280783,
+            268.80616761594797
+          ],
+          "points_in_source_extent": true
+        },
+        {
+          "source_roi_number": 1,
+          "source_contour_index": 33,
+          "referenced_ct_sop": "1.3.6.1.4.1.14519.5.2.1.1078.3273.143704053665790392658006395567",
+          "native_sorted_plane_index": 165,
+          "source_plane_position_lps": [
+            -180.0,
+            -180.0,
+            -196.875
+          ],
+          "source_contour_points": 104,
+          "maximum_referenced_plane_error_mm": 0.0,
+          "source_column_bounds": [
+            186.5945484133447,
+            222.0054515866567
+          ],
+          "source_row_bounds": [
+            219.047599674533,
+            268.57287225386494
+          ],
+          "points_in_source_extent": true
+        },
+        {
+          "source_roi_number": 1,
+          "source_contour_index": 34,
+          "referenced_ct_sop": "1.3.6.1.4.1.14519.5.2.1.1078.3273.178185200457456224682401733765",
+          "native_sorted_plane_index": 169,
+          "source_plane_position_lps": [
+            -180.0,
+            -180.0,
+            -194.375
+          ],
+          "source_contour_points": 104,
+          "maximum_referenced_plane_error_mm": 0.0,
+          "source_column_bounds": [
+            186.97327465049315,
+            220.3390561432064
+          ],
+          "source_row_bounds": [
+            218.42270138323912,
+            266.03995117982106
+          ],
+          "points_in_source_extent": true
+        },
+        {
+          "source_roi_number": 1,
+          "source_contour_index": 35,
+          "referenced_ct_sop": "1.3.6.1.4.1.14519.5.2.1.1078.3273.203302536665551839222668833446",
+          "native_sorted_plane_index": 168,
+          "source_plane_position_lps": [
+            -180.0,
+            -180.0,
+            -195.0
+          ],
+          "source_contour_points": 104,
+          "maximum_referenced_plane_error_mm": 0.0,
+          "source_column_bounds": [
+            186.86723130409104,
+            221.67217249796693
+          ],
+          "source_row_bounds": [
+            217.90195280716085,
+            267.53970707892597
+          ],
+          "points_in_source_extent": true
+        },
+        {
+          "source_roi_number": 1,
+          "source_contour_index": 36,
+          "referenced_ct_sop": "1.3.6.1.4.1.14519.5.2.1.1078.3273.113727590815302310013023323373",
+          "native_sorted_plane_index": 167,
+          "source_plane_position_lps": [
+            -180.0,
+            -180.0,
+            -195.625
+          ],
+          "source_contour_points": 104,
+          "maximum_referenced_plane_error_mm": 0.0,
+          "source_column_bounds": [
+            186.7611879576903,
+            223.00528885272604
+          ],
+          "source_row_bounds": [
+            217.38120423108268,
+            269.03946297803094
+          ],
+          "points_in_source_extent": true
+        },
+        {
+          "source_roi_number": 1,
+          "source_contour_index": 37,
+          "referenced_ct_sop": "1.3.6.1.4.1.14519.5.2.1.1078.3273.207234348199504964795007411880",
+          "native_sorted_plane_index": 172,
+          "source_plane_position_lps": [
+            -180.0,
+            -180.0,
+            -192.5
+          ],
+          "source_contour_points": 85,
+          "maximum_referenced_plane_error_mm": 0.0,
+          "source_column_bounds": [
+            187.17778681855287,
+            216.3397070789262
+          ],
+          "source_row_bounds": [
+            219.46419853539555,
+            261.54068348250615
+          ],
+          "points_in_source_extent": true
+        },
+        {
+          "source_roi_number": 1,
+          "source_contour_index": 38,
+          "referenced_ct_sop": "1.3.6.1.4.1.14519.5.2.1.1078.3273.176208662496319261996568760879",
+          "native_sorted_plane_index": 171,
+          "source_plane_position_lps": [
+            -180.0,
+            -180.0,
+            -193.125
+          ],
+          "source_contour_points": 104,
+          "maximum_referenced_plane_error_mm": 0.0,
+          "source_column_bounds": [
+            187.17778681855287,
+            217.67282343368674
+          ],
+          "source_row_bounds": [
+            219.2142392188786,
+            263.0404393816111
+          ],
+          "points_in_source_extent": true
+        },
+        {
+          "source_roi_number": 1,
+          "source_contour_index": 39,
+          "referenced_ct_sop": "1.3.6.1.4.1.14519.5.2.1.1078.3273.202384334150240165571357241948",
+          "native_sorted_plane_index": 170,
+          "source_plane_position_lps": [
+            -180.0,
+            -180.0,
+            -193.75
+          ],
+          "source_contour_points": 104,
+          "maximum_referenced_plane_error_mm": 0.0,
+          "source_column_bounds": [
+            187.07931799689388,
+            219.00593978844728
+          ],
+          "source_row_bounds": [
+            218.86013018714453,
+            264.5401952807161
+          ],
+          "points_in_source_extent": true
+        },
+        {
+          "source_roi_number": 1,
+          "source_contour_index": 40,
+          "referenced_ct_sop": "1.3.6.1.4.1.14519.5.2.1.1078.3273.309723081548135767601782337202",
+          "native_sorted_plane_index": 175,
+          "source_plane_position_lps": [
+            -180.0,
+            -180.0,
+            -190.625
+          ],
+          "source_contour_points": 86,
+          "maximum_referenced_plane_error_mm": 0.0,
+          "source_column_bounds": [
+            188.42758340113917,
+            215.0899104963399
+          ],
+          "source_row_bounds": [
+            216.5480065093575,
+            261.54068348250615
+          ],
+          "points_in_source_extent": true
+        },
+        {
+          "source_roi_number": 1,
+          "source_contour_index": 41,
+          "referenced_ct_sop": "1.3.6.1.4.1.14519.5.2.1.1078.3273.879300137946088715705586609128",
+          "native_sorted_plane_index": 174,
+          "source_plane_position_lps": [
+            -180.0,
+            -180.0,
+            -191.25
+          ],
+          "source_contour_points": 86,
+          "maximum_referenced_plane_error_mm": 0.0,
+          "source_column_bounds": [
+            188.01098454027806,
+            215.50650935720105
+          ],
+          "source_row_bounds": [
+            217.5200705180373,
+            261.2629509085978
+          ],
+          "points_in_source_extent": true
+        },
+        {
+          "source_roi_number": 1,
+          "source_contour_index": 42,
+          "referenced_ct_sop": "1.3.6.1.4.1.14519.5.2.1.1078.3273.183584368058266602933754996150",
+          "native_sorted_plane_index": 173,
+          "source_plane_position_lps": [
+            -180.0,
+            -180.0,
+            -191.875
+          ],
+          "source_contour_points": 86,
+          "maximum_referenced_plane_error_mm": 0.0,
+          "source_column_bounds": [
+            187.59438567941547,
+            215.92310821806365
+          ],
+          "source_row_bounds": [
+            218.49213452671574,
+            261.401817195552
+          ],
+          "points_in_source_extent": true
+        }
+      ],
+      "all_contours_in_source_extent": true,
+      "maximum_contour_plane_error_mm": 0.0,
+      "clinical_approval": false
+    },
+    {
+      "source_role": "venous-labelled",
+      "original_ct_series_uid": "1.3.6.1.4.1.14519.5.2.1.1078.3273.509194190879524769161030308306",
+      "ct_archive_sha256": "1c262fc56cb4b8d763ad28d3275a12db46f5ed4da6dabe937e629f5582b6891c",
+      "annotation_archive_sha256": "bf751cd33c964ab7ca146f186171272760d3d70657f70aae717627b3f7ef6f28",
+      "ct_objects": 713,
+      "source_shape_zyx": [
+        713,
+        512,
+        512
+      ],
+      "source_orientation_lps": [
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0,
+        0.0
+      ],
+      "source_pixel_spacing_mm": [
+        0.703125,
+        0.703125
+      ],
+      "source_slice_thicknesses_mm": [
+        0.625
+      ],
+      "original_spacing_between_slices_values_mm": [
+        -0.625
+      ],
+      "observed_increasing_position_steps_mm": [
+        0.625,
+        0.625
+      ],
+      "original_instance_order_signed_steps_mm": [
+        -0.625,
+        -0.625
+      ],
+      "native_index_zyx_to_lps_mm": [
+        [
+          0.0,
+          0.0,
+          0.703125,
+          -180.0
+        ],
+        [
+          0.0,
+          0.703125,
+          0.0,
+          -180.0
+        ],
+        [
+          0.625,
+          0.0,
+          0.0,
+          -520.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "acquisitions": [
+        {
+          "source_acquisition_number": "2",
+          "source_acquisition_time": "114147.324919",
+          "images": 713,
+          "observed_interplane_step_mm_min_max": [
+            0.625,
+            0.625
+          ],
+          "uniform_interplane_step": true,
+          "position_extent_lps_mm": [
+            [
+              -180.0,
+              -180.0,
+              -520.0
+            ],
+            [
+              -180.0,
+              -180.0,
+              -75.0
+            ]
+          ],
+          "phase_identity_verified": false
+        }
+      ],
+      "frame_of_reference_uids": [
+        "1.3.6.1.4.1.14519.5.2.1.1078.3273.192810287316128613257771978063"
+      ],
+      "source_contrast_agents": [
+        ""
+      ],
+      "source_contrast_start_times": [
+        "not_reported"
+      ],
+      "source_contrast_stop_times": [
+        "not_reported"
+      ],
+      "source_rescale_types": [
+        "HU"
+      ],
+      "metadata_tracking_uid": "2.25.213034165703120324893647141780714047966",
+      "dicom_tracking_uids_match_metadata": false,
+      "rois": [
+        {
+          "roi_number": 1,
+          "source_name": "PANCREAS - V2",
+          "source_tracking_id": "PANCREAS - 2",
+          "source_tracking_uid": "2.25.165084154860889254540124087221208413343",
+          "original_roi_volume_cm3": "12.117638",
+          "generation_algorithm": "MANUAL"
+        }
+      ],
+      "source_roi_observations": [
+        {
+          "roi_number": 1,
+          "source_observation_label": "PANCREAS2",
+          "source_codes": {
+            "AnatomicRegionSequence": [
+              {
+                "scheme": "SCT",
+                "code": "40133006",
+                "meaning": "Pancreas"
+              }
+            ],
+            "SegmentedPropertyCategoryCodeSequence": [
+              {
+                "scheme": "SCT",
+                "code": "49755003",
+                "meaning": "Morphologically Abnormal Structure"
+              }
+            ],
+            "RTROIIdentificationCodeSequence": [
+              {
+                "scheme": "SCT",
+                "code": "6219000",
+                "meaning": "Neoplasm, Malignant"
+              }
+            ]
+          }
+        }
+      ],
+      "contours": [
+        {
+          "source_roi_number": 1,
+          "source_contour_index": 0,
+          "referenced_ct_sop": "1.3.6.1.4.1.14519.5.2.1.1078.3273.105821032664714355784446608669",
+          "native_sorted_plane_index": 526,
+          "source_plane_position_lps": [
+            -180.0,
+            -180.0,
+            -191.25
+          ],
+          "source_contour_points": 87,
+          "maximum_referenced_plane_error_mm": 0.0,
+          "source_column_bounds": [
+            184.081896230437,
+            208.00118242683308
+          ],
+          "source_row_bounds": [
+            214.39819381222966,
+            254.6784813554489
+          ],
+          "points_in_source_extent": true
+        },
+        {
+          "source_roi_number": 1,
+          "source_contour_index": 1,
+          "referenced_ct_sop": "1.3.6.1.4.1.14519.5.2.1.1078.3273.332644738170111195485587177293",
+          "native_sorted_plane_index": 536,
+          "source_plane_position_lps": [
+            -180.0,
+            -180.0,
+            -185.0
+          ],
+          "source_contour_points": 99,
+          "maximum_referenced_plane_error_mm": 0.0,
+          "source_column_bounds": [
+            187.9592832589867,
+            221.3624485387292
+          ],
+          "source_row_bounds": [
+            215.51163265488782,
+            259.525215141137
+          ],
+          "points_in_source_extent": true
+        },
+        {
+          "source_roi_number": 1,
+          "source_contour_index": 2,
+          "referenced_ct_sop": "1.3.6.1.4.1.14519.5.2.1.1078.3273.310842798454906191517662458261",
+          "native_sorted_plane_index": 533,
+          "source_plane_position_lps": [
+            -180.0,
+            -180.0,
+            -186.875
+          ],
+          "source_contour_points": 83,
+          "maximum_referenced_plane_error_mm": 0.0,
+          "source_column_bounds": [
+            187.9592832589867,
+            211.14500974727966
+          ],
+          "source_row_bounds": [
+            213.93971899466524,
+            252.05862525507683
+          ],
+          "points_in_source_extent": true
+        },
+        {
+          "source_roi_number": 1,
+          "source_contour_index": 3,
+          "referenced_ct_sop": "1.3.6.1.4.1.14519.5.2.1.1078.3273.347864781454111576640488614356",
+          "native_sorted_plane_index": 532,
+          "source_plane_position_lps": [
+            -180.0,
+            -180.0,
+            -187.5
+          ],
+          "source_contour_points": 87,
+          "maximum_referenced_plane_error_mm": 0.0,
+          "source_column_bounds": [
+            187.56630484393102,
+            209.57309608705566
+          ],
+          "source_row_bounds": [
+            214.5946830197575,
+            254.6784813554489
+          ],
+          "points_in_source_extent": true
+        },
+        {
+          "source_roi_number": 1,
+          "source_contour_index": 4,
+          "referenced_ct_sop": "1.3.6.1.4.1.14519.5.2.1.1078.3273.144354970703769018365073506670",
+          "native_sorted_plane_index": 531,
+          "source_plane_position_lps": [
+            -180.0,
+            -180.0,
+            -188.125
+          ],
+          "source_contour_points": 87,
+          "maximum_referenced_plane_error_mm": 0.0,
+          "source_column_bounds": [
+            187.17332642887538,
+            209.311110477019
+          ],
+          "source_row_bounds": [
+            215.2496470448512,
+            257.2983374558208
+          ],
+          "points_in_source_extent": true
+        },
+        {
+          "source_roi_number": 1,
+          "source_contour_index": 5,
+          "referenced_ct_sop": "1.3.6.1.4.1.14519.5.2.1.1078.3273.272431809355296036481091470121",
+          "native_sorted_plane_index": 530,
+          "source_plane_position_lps": [
+            -180.0,
+            -180.0,
+            -188.75
+          ],
+          "source_contour_points": 87,
+          "maximum_referenced_plane_error_mm": 0.0,
+          "source_column_bounds": [
+            186.78034801381975,
+            209.57309608705566
+          ],
+          "source_row_bounds": [
+            215.90461106994346,
+            259.91819355619276
+          ],
+          "points_in_source_extent": true
+        },
+        {
+          "source_roi_number": 1,
+          "source_contour_index": 6,
+          "referenced_ct_sop": "1.3.6.1.4.1.14519.5.2.1.1078.3273.581830077741943204755556652081",
+          "native_sorted_plane_index": 529,
+          "source_plane_position_lps": [
+            -180.0,
+            -180.0,
+            -189.375
+          ],
+          "source_contour_points": 87,
+          "maximum_referenced_plane_error_mm": 0.0,
+          "source_column_bounds": [
+            185.71785081755735,
+            209.04912486698097
+          ],
+          "source_row_bounds": [
+            215.15140244108656,
+            257.56032306585803
+          ],
+          "points_in_source_extent": true
+        },
+        {
+          "source_roi_number": 1,
+          "source_contour_index": 7,
+          "referenced_ct_sop": "1.3.6.1.4.1.14519.5.2.1.1078.3273.228540869054852763612151192607",
+          "native_sorted_plane_index": 528,
+          "source_plane_position_lps": [
+            -180.0,
+            -180.0,
+            -190.0
+          ],
+          "source_contour_points": 87,
+          "maximum_referenced_plane_error_mm": 0.0,
+          "source_column_bounds": [
+            184.55347032850347,
+            208.5251536469077
+          ],
+          "source_row_bounds": [
+            214.39819381222966,
+            255.20245257552327
+          ],
+          "points_in_source_extent": true
+        },
+        {
+          "source_roi_number": 1,
+          "source_contour_index": 8,
+          "referenced_ct_sop": "1.3.6.1.4.1.14519.5.2.1.1078.3273.203649193752725362824085698380",
+          "native_sorted_plane_index": 527,
+          "source_plane_position_lps": [
+            -180.0,
+            -180.0,
+            -190.625
+          ],
+          "source_contour_points": 81,
+          "maximum_referenced_plane_error_mm": 0.0,
+          "source_column_bounds": [
+            183.2435422783175,
+            208.00118242683308
+          ],
+          "source_row_bounds": [
+            213.54674057960958,
+            252.84458208518842
+          ],
+          "points_in_source_extent": true
+        },
+        {
+          "source_roi_number": 1,
+          "source_contour_index": 9,
+          "referenced_ct_sop": "1.3.6.1.4.1.14519.5.2.1.1078.3273.275418759218179664364693123184",
+          "native_sorted_plane_index": 523,
+          "source_plane_position_lps": [
+            -180.0,
+            -180.0,
+            -193.125
+          ],
+          "source_contour_points": 98,
+          "maximum_referenced_plane_error_mm": 0.0,
+          "source_column_bounds": [
+            186.24982715349478,
+            210.94852053975183
+          ],
+          "source_row_bounds": [
+            216.59232329629154,
+            260.4487144165181
+          ],
+          "points_in_source_extent": true
+        },
+        {
+          "source_roi_number": 1,
+          "source_contour_index": 10,
+          "referenced_ct_sop": "1.3.6.1.4.1.14519.5.2.1.1078.3273.222581742346649150053098230347",
+          "native_sorted_plane_index": 525,
+          "source_plane_position_lps": [
+            -180.0,
+            -180.0,
+            -191.875
+          ],
+          "source_contour_points": 87,
+          "maximum_referenced_plane_error_mm": 0.0,
+          "source_column_bounds": [
+            184.84165449954418,
+            208.00118242683308
+          ],
+          "source_row_bounds": [
+            215.15140244108656,
+            256.6761216319824
+          ],
+          "points_in_source_extent": true
+        },
+        {
+          "source_roi_number": 1,
+          "source_contour_index": 11,
+          "referenced_ct_sop": "1.3.6.1.4.1.14519.5.2.1.1078.3273.253022158550810593620545466555",
+          "native_sorted_plane_index": 524,
+          "source_plane_position_lps": [
+            -180.0,
+            -180.0,
+            -192.5
+          ],
+          "source_contour_points": 87,
+          "maximum_referenced_plane_error_mm": 0.0,
+          "source_column_bounds": [
+            185.6014127686528,
+            208.00118242683308
+          ],
+          "source_row_bounds": [
+            215.90461106994346,
+            258.73925831102537
+          ],
+          "points_in_source_extent": true
+        },
+        {
+          "source_roi_number": 1,
+          "source_contour_index": 12,
+          "referenced_ct_sop": "1.3.6.1.4.1.14519.5.2.1.1078.3273.294825532610210011939740734844",
+          "native_sorted_plane_index": 522,
+          "source_plane_position_lps": [
+            -180.0,
+            -180.0,
+            -193.75
+          ],
+          "source_contour_points": 98,
+          "maximum_referenced_plane_error_mm": 0.0,
+          "source_column_bounds": [
+            186.81964585532586,
+            213.89585865266915
+          ],
+          "source_row_bounds": [
+            217.28003552263965,
+            262.236766205022
+          ],
+          "points_in_source_extent": true
+        },
+        {
+          "source_roi_number": 1,
+          "source_contour_index": 13,
+          "referenced_ct_sop": "1.3.6.1.4.1.14519.5.2.1.1078.3273.316599288339261766633289289382",
+          "native_sorted_plane_index": 521,
+          "source_plane_position_lps": [
+            -180.0,
+            -180.0,
+            -194.375
+          ],
+          "source_contour_points": 98,
+          "maximum_referenced_plane_error_mm": 0.0,
+          "source_column_bounds": [
+            187.38946455715555,
+            216.84319676558792
+          ],
+          "source_row_bounds": [
+            217.9677477489863,
+            264.02481799352586
+          ],
+          "points_in_source_extent": true
+        },
+        {
+          "source_roi_number": 1,
+          "source_contour_index": 14,
+          "referenced_ct_sop": "1.3.6.1.4.1.14519.5.2.1.1078.3273.334047519783552370563908295716",
+          "native_sorted_plane_index": 520,
+          "source_plane_position_lps": [
+            -180.0,
+            -180.0,
+            -195.0
+          ],
+          "source_contour_points": 98,
+          "maximum_referenced_plane_error_mm": 0.0,
+          "source_column_bounds": [
+            187.9592832589867,
+            219.79053487850666
+          ],
+          "source_row_bounds": [
+            218.65545997533442,
+            265.8128697820298
+          ],
+          "points_in_source_extent": true
+        },
+        {
+          "source_roi_number": 1,
+          "source_contour_index": 15,
+          "referenced_ct_sop": "1.3.6.1.4.1.14519.5.2.1.1078.3273.103752716671959191024925831702",
+          "native_sorted_plane_index": 519,
+          "source_plane_position_lps": [
+            -180.0,
+            -180.0,
+            -195.625
+          ],
+          "source_contour_points": 98,
+          "maximum_referenced_plane_error_mm": 0.0,
+          "source_column_bounds": [
+            188.22702679452019,
+            219.79677263112677
+          ],
+          "source_row_bounds": [
+            219.6659758997632,
+            265.700590234871
+          ],
+          "points_in_source_extent": true
+        },
+        {
+          "source_roi_number": 1,
+          "source_contour_index": 16,
+          "referenced_ct_sop": "1.3.6.1.4.1.14519.5.2.1.1078.3273.701193807777659386821430639681",
+          "native_sorted_plane_index": 518,
+          "source_plane_position_lps": [
+            -180.0,
+            -180.0,
+            -196.25
+          ],
+          "source_contour_points": 98,
+          "maximum_referenced_plane_error_mm": 0.0,
+          "source_column_bounds": [
+            188.49477033005226,
+            219.80301038374685
+          ],
+          "source_row_bounds": [
+            220.67649182419345,
+            265.5883106877122
+          ],
+          "points_in_source_extent": true
+        },
+        {
+          "source_roi_number": 1,
+          "source_contour_index": 17,
+          "referenced_ct_sop": "1.3.6.1.4.1.14519.5.2.1.1078.3273.409697583569169352495991323400",
+          "native_sorted_plane_index": 517,
+          "source_plane_position_lps": [
+            -180.0,
+            -180.0,
+            -196.875
+          ],
+          "source_contour_points": 98,
+          "maximum_referenced_plane_error_mm": 0.0,
+          "source_column_bounds": [
+            188.6385745192974,
+            219.84667465208605
+          ],
+          "source_row_bounds": [
+            221.68700774862222,
+            265.47603114055335
+          ],
+          "points_in_source_extent": true
+        },
+        {
+          "source_roi_number": 1,
+          "source_contour_index": 18,
+          "referenced_ct_sop": "1.3.6.1.4.1.14519.5.2.1.1078.3273.197547210255737248721571119117",
+          "native_sorted_plane_index": 516,
+          "source_plane_position_lps": [
+            -180.0,
+            -180.0,
+            -197.5
+          ],
+          "source_contour_points": 98,
+          "maximum_referenced_plane_error_mm": 0.0,
+          "source_column_bounds": [
+            188.6891003155186,
+            220.12737351998294
+          ],
+          "source_row_bounds": [
+            222.69752367305102,
+            265.36375159339457
+          ],
+          "points_in_source_extent": true
+        },
+        {
+          "source_roi_number": 1,
+          "source_contour_index": 19,
+          "referenced_ct_sop": "1.3.6.1.4.1.14519.5.2.1.1078.3273.327389213656240873556599653838",
+          "native_sorted_plane_index": 515,
+          "source_plane_position_lps": [
+            -180.0,
+            -180.0,
+            -198.125
+          ],
+          "source_contour_points": 98,
+          "maximum_referenced_plane_error_mm": 0.0,
+          "source_column_bounds": [
+            188.57682076835982,
+            220.40807238787983
+          ],
+          "source_row_bounds": [
+            223.7080395974798,
+            265.2514720462358
+          ],
+          "points_in_source_extent": true
+        },
+        {
+          "source_roi_number": 1,
+          "source_contour_index": 20,
+          "referenced_ct_sop": "1.3.6.1.4.1.14519.5.2.1.1078.3273.324254012263331250330388960790",
+          "native_sorted_plane_index": 514,
+          "source_plane_position_lps": [
+            -180.0,
+            -180.0,
+            -198.75
+          ],
+          "source_contour_points": 98,
+          "maximum_referenced_plane_error_mm": 0.0,
+          "source_column_bounds": [
+            188.46454122120105,
+            220.6887712557767
+          ],
+          "source_row_bounds": [
+            224.66241574833066,
+            265.139192499077
+          ],
+          "points_in_source_extent": true
+        },
+        {
+          "source_roi_number": 1,
+          "source_contour_index": 21,
+          "referenced_ct_sop": "1.3.6.1.4.1.14519.5.2.1.1078.3273.194825202673481514337918175186",
+          "native_sorted_plane_index": 513,
+          "source_plane_position_lps": [
+            -180.0,
+            -180.0,
+            -199.375
+          ],
+          "source_contour_points": 91,
+          "maximum_referenced_plane_error_mm": 0.0,
+          "source_column_bounds": [
+            188.3522616740423,
+            220.9694701236736
+          ],
+          "source_row_bounds": [
+            225.33609303128318,
+            265.0269129519182
+          ],
+          "points_in_source_extent": true
+        },
+        {
+          "source_roi_number": 1,
+          "source_contour_index": 22,
+          "referenced_ct_sop": "1.3.6.1.4.1.14519.5.2.1.1078.3273.125206209130271403151273163194",
+          "native_sorted_plane_index": 512,
+          "source_plane_position_lps": [
+            -180.0,
+            -180.0,
+            -200.0
+          ],
+          "source_contour_points": 99,
+          "maximum_referenced_plane_error_mm": 0.0,
+          "source_column_bounds": [
+            188.74524008909793,
+            221.62443414876728
+          ],
+          "source_row_bounds": [
+            224.078562103104,
+            264.6339345368624
+          ],
+          "points_in_source_extent": true
+        },
+        {
+          "source_roi_number": 1,
+          "source_contour_index": 23,
+          "referenced_ct_sop": "1.3.6.1.4.1.14519.5.2.1.1078.3273.354465603310093789486344344762",
+          "native_sorted_plane_index": 511,
+          "source_plane_position_lps": [
+            -180.0,
+            -180.0,
+            -200.625
+          ],
+          "source_contour_points": 99,
+          "maximum_referenced_plane_error_mm": 0.0,
+          "source_column_bounds": [
+            189.13821850415505,
+            222.27939817385956
+          ],
+          "source_row_bounds": [
+            222.58524412589225,
+            264.24095612180656
+          ],
+          "points_in_source_extent": true
+        },
+        {
+          "source_roi_number": 1,
+          "source_contour_index": 24,
+          "referenced_ct_sop": "1.3.6.1.4.1.14519.5.2.1.1078.3273.210544638987612086818379237764",
+          "native_sorted_plane_index": 510,
+          "source_plane_position_lps": [
+            -180.0,
+            -180.0,
+            -201.25
+          ],
+          "source_contour_points": 99,
+          "maximum_referenced_plane_error_mm": 0.0,
+          "source_column_bounds": [
+            189.5311969192107,
+            222.93436219895327
+          ],
+          "source_row_bounds": [
+            221.0133304656697,
+            263.8479777067508
+          ],
+          "points_in_source_extent": true
+        },
+        {
+          "source_roi_number": 1,
+          "source_contour_index": 25,
+          "referenced_ct_sop": "1.3.6.1.4.1.14519.5.2.1.1078.3273.271217594018178210072694496457",
+          "native_sorted_plane_index": 509,
+          "source_plane_position_lps": [
+            -180.0,
+            -180.0,
+            -201.875
+          ],
+          "source_contour_points": 99,
+          "maximum_referenced_plane_error_mm": 0.0,
+          "source_column_bounds": [
+            190.12066454179416,
+            222.06653486570525
+          ],
+          "source_row_bounds": [
+            225.43433763504638,
+            264.0514843859761
+          ],
+          "points_in_source_extent": true
+        },
+        {
+          "source_roi_number": 1,
+          "source_contour_index": 26,
+          "referenced_ct_sop": "1.3.6.1.4.1.14519.5.2.1.1078.3273.779600558850402225708031087124",
+          "native_sorted_plane_index": 508,
+          "source_plane_position_lps": [
+            -180.0,
+            -180.0,
+            -202.5
+          ],
+          "source_contour_points": 99,
+          "maximum_referenced_plane_error_mm": 0.0,
+          "source_column_bounds": [
+            190.71013216437763,
+            221.19870753245726
+          ],
+          "source_row_bounds": [
+            229.85534480442453,
+            264.25499106520147
+          ],
+          "points_in_source_extent": true
+        },
+        {
+          "source_roi_number": 1,
+          "source_contour_index": 27,
+          "referenced_ct_sop": "1.3.6.1.4.1.14519.5.2.1.1078.3273.285863865095651147764810416620",
+          "native_sorted_plane_index": 507,
+          "source_plane_position_lps": [
+            -180.0,
+            -180.0,
+            -203.125
+          ],
+          "source_contour_points": 99,
+          "maximum_referenced_plane_error_mm": 0.0,
+          "source_column_bounds": [
+            191.23708049365757,
+            220.3308801992078
+          ],
+          "source_row_bounds": [
+            234.27635197380266,
+            264.5707772915855
+          ],
+          "points_in_source_extent": true
+        },
+        {
+          "source_roi_number": 1,
+          "source_contour_index": 28,
+          "referenced_ct_sop": "1.3.6.1.4.1.14519.5.2.1.1078.3273.680132993422468670723851897562",
+          "native_sorted_plane_index": 506,
+          "source_plane_position_lps": [
+            -180.0,
+            -180.0,
+            -203.75
+          ],
+          "source_contour_points": 74,
+          "maximum_referenced_plane_error_mm": 0.0,
+          "source_column_bounds": [
+            191.49608899448887,
+            220.18351329356233
+          ],
+          "source_row_bounds": [
+            238.6973591431808,
+            265.0269129519182
+          ],
+          "points_in_source_extent": true
+        },
+        {
+          "source_roi_number": 1,
+          "source_contour_index": 29,
+          "referenced_ct_sop": "1.3.6.1.4.1.14519.5.2.1.1078.3273.316486839816988632818229239490",
+          "native_sorted_plane_index": 505,
+          "source_plane_position_lps": [
+            -180.0,
+            -180.0,
+            -204.375
+          ],
+          "source_contour_points": 102,
+          "maximum_referenced_plane_error_mm": 0.0,
+          "source_column_bounds": [
+            188.1164746250098,
+            220.41930034259627
+          ],
+          "source_row_bounds": [
+            238.77595482619165,
+            266.321121865502
+          ],
+          "points_in_source_extent": true
+        },
+        {
+          "source_roi_number": 1,
+          "source_contour_index": 30,
+          "referenced_ct_sop": "1.3.6.1.4.1.14519.5.2.1.1078.3273.948657707617200917122904681190",
+          "native_sorted_plane_index": 504,
+          "source_plane_position_lps": [
+            -180.0,
+            -180.0,
+            -205.0
+          ],
+          "source_contour_points": 102,
+          "maximum_referenced_plane_error_mm": 0.0,
+          "source_column_bounds": [
+            184.73686025552925,
+            220.65508739163022
+          ],
+          "source_row_bounds": [
+            238.85455050920248,
+            267.74632358410423
+          ],
+          "points_in_source_extent": true
+        },
+        {
+          "source_roi_number": 1,
+          "source_contour_index": 31,
+          "referenced_ct_sop": "1.3.6.1.4.1.14519.5.2.1.1078.3273.123664434906904036234215440434",
+          "native_sorted_plane_index": 503,
+          "source_plane_position_lps": [
+            -180.0,
+            -180.0,
+            -205.625
+          ],
+          "source_contour_points": 102,
+          "maximum_referenced_plane_error_mm": 0.0,
+          "source_column_bounds": [
+            181.35724588605015,
+            220.89087444066277
+          ],
+          "source_row_bounds": [
+            238.93314619221334,
+            269.19772386371034
+          ],
+          "points_in_source_extent": true
+        },
+        {
+          "source_roi_number": 1,
+          "source_contour_index": 32,
+          "referenced_ct_sop": "1.3.6.1.4.1.14519.5.2.1.1078.3273.207985150825978994371920382275",
+          "native_sorted_plane_index": 502,
+          "source_plane_position_lps": [
+            -180.0,
+            -180.0,
+            -206.25
+          ],
+          "source_contour_points": 102,
+          "maximum_referenced_plane_error_mm": 0.0,
+          "source_column_bounds": [
+            177.9776315165696,
+            221.12666148969672
+          ],
+          "source_row_bounds": [
+            239.0117418752256,
+            270.6491241433165
+          ],
+          "points_in_source_extent": true
+        },
+        {
+          "source_roi_number": 1,
+          "source_contour_index": 33,
+          "referenced_ct_sop": "1.3.6.1.4.1.14519.5.2.1.1078.3273.198333039682369036860730952479",
+          "native_sorted_plane_index": 501,
+          "source_plane_position_lps": [
+            -180.0,
+            -180.0,
+            -206.875
+          ],
+          "source_contour_points": 102,
+          "maximum_referenced_plane_error_mm": 0.0,
+          "source_column_bounds": [
+            174.5980171470905,
+            221.3624485387292
+          ],
+          "source_row_bounds": [
+            239.09033755823646,
+            272.10052442292255
+          ],
+          "points_in_source_extent": true
+        },
+        {
+          "source_roi_number": 1,
+          "source_contour_index": 34,
+          "referenced_ct_sop": "1.3.6.1.4.1.14519.5.2.1.1078.3273.109331502340186660681409233398",
+          "native_sorted_plane_index": 500,
+          "source_plane_position_lps": [
+            -180.0,
+            -180.0,
+            -207.5
+          ],
+          "source_contour_points": 102,
+          "maximum_referenced_plane_error_mm": 0.0,
+          "source_column_bounds": [
+            176.56290922236872,
+            221.17381889950295
+          ],
+          "source_row_bounds": [
+            238.98316162685725,
+            271.94333305690026
+          ],
+          "points_in_source_extent": true
+        },
+        {
+          "source_roi_number": 1,
+          "source_contour_index": 35,
+          "referenced_ct_sop": "1.3.6.1.4.1.14519.5.2.1.1078.3273.359720076196771381366442668401",
+          "native_sorted_plane_index": 499,
+          "source_plane_position_lps": [
+            -180.0,
+            -180.0,
+            -208.125
+          ],
+          "source_contour_points": 102,
+          "maximum_referenced_plane_error_mm": 0.0,
+          "source_column_bounds": [
+            178.52780129764838,
+            220.98518926027663
+          ],
+          "source_row_bounds": [
+            238.87598569547805,
+            271.78614169087786
+          ],
+          "points_in_source_extent": true
+        },
+        {
+          "source_roi_number": 1,
+          "source_contour_index": 36,
+          "referenced_ct_sop": "1.3.6.1.4.1.14519.5.2.1.1078.3273.286408303222120119932867057555",
+          "native_sorted_plane_index": 498,
+          "source_plane_position_lps": [
+            -180.0,
+            -180.0,
+            -208.75
+          ],
+          "source_contour_points": 102,
+          "maximum_referenced_plane_error_mm": 0.0,
+          "source_column_bounds": [
+            180.49269337292657,
+            220.79655962104889
+          ],
+          "source_row_bounds": [
+            238.76880976409885,
+            271.6289503248556
+          ],
+          "points_in_source_extent": true
+        },
+        {
+          "source_roi_number": 1,
+          "source_contour_index": 37,
+          "referenced_ct_sop": "1.3.6.1.4.1.14519.5.2.1.1078.3273.835834501303002541415583569684",
+          "native_sorted_plane_index": 497,
+          "source_plane_position_lps": [
+            -180.0,
+            -180.0,
+            -209.375
+          ],
+          "source_contour_points": 102,
+          "maximum_referenced_plane_error_mm": 0.0,
+          "source_column_bounds": [
+            182.30039408218312,
+            220.65508739163022
+          ],
+          "source_row_bounds": [
+            238.5401677771577,
+            271.4717589588332
+          ],
+          "points_in_source_extent": true
+        },
+        {
+          "source_roi_number": 1,
+          "source_contour_index": 38,
+          "referenced_ct_sop": "1.3.6.1.4.1.14519.5.2.1.1078.3273.178113938532548200464679957328",
+          "native_sorted_plane_index": 496,
+          "source_plane_position_lps": [
+            -180.0,
+            -180.0,
+            -210.0
+          ],
+          "source_contour_points": 89,
+          "maximum_referenced_plane_error_mm": 0.0,
+          "source_column_bounds": [
+            184.0294991084288,
+            220.57649170861797
+          ],
+          "source_row_bounds": [
+            238.30438072812515,
+            271.31456759281093
+          ],
+          "points_in_source_extent": true
+        },
+        {
+          "source_roi_number": 1,
+          "source_contour_index": 39,
+          "referenced_ct_sop": "1.3.6.1.4.1.14519.5.2.1.1078.3273.104346602625032852437564176663",
+          "native_sorted_plane_index": 495,
+          "source_plane_position_lps": [
+            -180.0,
+            -180.0,
+            -210.625
+          ],
+          "source_contour_points": 89,
+          "maximum_referenced_plane_error_mm": 0.0,
+          "source_column_bounds": [
+            184.8087293458062,
+            219.80090602140874
+          ],
+          "source_row_bounds": [
+            238.59886258592,
+            269.2827962959692
+          ],
+          "points_in_source_extent": true
+        },
+        {
+          "source_roi_number": 1,
+          "source_contour_index": 40,
+          "referenced_ct_sop": "1.3.6.1.4.1.14519.5.2.1.1078.3273.251190147585227150325058982988",
+          "native_sorted_plane_index": 494,
+          "source_plane_position_lps": [
+            -180.0,
+            -180.0,
+            -211.25
+          ],
+          "source_contour_points": 89,
+          "maximum_referenced_plane_error_mm": 0.0,
+          "source_column_bounds": [
+            185.58795958318365,
+            219.02532033419803
+          ],
+          "source_row_bounds": [
+            238.89334444371485,
+            267.25102499912737
+          ],
+          "points_in_source_extent": true
+        },
+        {
+          "source_roi_number": 1,
+          "source_contour_index": 41,
+          "referenced_ct_sop": "1.3.6.1.4.1.14519.5.2.1.1078.3273.331041166793903412088845659978",
+          "native_sorted_plane_index": 493,
+          "source_plane_position_lps": [
+            -180.0,
+            -180.0,
+            -211.875
+          ],
+          "source_contour_points": 89,
+          "maximum_referenced_plane_error_mm": 0.0,
+          "source_column_bounds": [
+            186.36718982056107,
+            218.24973464698738
+          ],
+          "source_row_bounds": [
+            239.18782630150966,
+            265.2192537022855
+          ],
+          "points_in_source_extent": true
+        },
+        {
+          "source_roi_number": 1,
+          "source_contour_index": 42,
+          "referenced_ct_sop": "1.3.6.1.4.1.14519.5.2.1.1078.3273.142450125113980504448859009840",
+          "native_sorted_plane_index": 492,
+          "source_plane_position_lps": [
+            -180.0,
+            -180.0,
+            -212.5
+          ],
+          "source_contour_points": 89,
+          "maximum_referenced_plane_error_mm": 0.0,
+          "source_column_bounds": [
+            187.1464200579385,
+            217.47414895977815
+          ],
+          "source_row_bounds": [
+            239.46208931403092,
+            263.1874824054437
+          ],
+          "points_in_source_extent": true
+        },
+        {
+          "source_roi_number": 1,
+          "source_contour_index": 43,
+          "referenced_ct_sop": "1.3.6.1.4.1.14519.5.2.1.1078.3273.824778134399733523737758675370",
+          "native_sorted_plane_index": 491,
+          "source_plane_position_lps": [
+            -180.0,
+            -180.0,
+            -213.125
+          ],
+          "source_contour_points": 89,
+          "maximum_referenced_plane_error_mm": 0.0,
+          "source_column_bounds": [
+            187.9256502953159,
+            216.83759127164302
+          ],
+          "source_row_bounds": [
+            239.58375785720605,
+            261.1557111086019
+          ],
+          "points_in_source_extent": true
+        },
+        {
+          "source_roi_number": 1,
+          "source_contour_index": 44,
+          "referenced_ct_sop": "1.3.6.1.4.1.14519.5.2.1.1078.3273.248171966222736654053173269160",
+          "native_sorted_plane_index": 490,
+          "source_plane_position_lps": [
+            -180.0,
+            -180.0,
+            -213.75
+          ],
+          "source_contour_points": 62,
+          "maximum_referenced_plane_error_mm": 0.0,
+          "source_column_bounds": [
+            188.70488053269332,
+            216.3118075432533
+          ],
+          "source_row_bounds": [
+            239.68244191700052,
+            259.12393981176007
+          ],
+          "points_in_source_extent": true
+        },
+        {
+          "source_roi_number": 1,
+          "source_contour_index": 45,
+          "referenced_ct_sop": "1.3.6.1.4.1.14519.5.2.1.1078.3273.297362047214791740760867210806",
+          "native_sorted_plane_index": 489,
+          "source_plane_position_lps": [
+            -180.0,
+            -180.0,
+            -214.375
+          ],
+          "source_contour_points": 62,
+          "maximum_referenced_plane_error_mm": 0.0,
+          "source_column_bounds": [
+            189.48254044848355,
+            215.30438447052373
+          ],
+          "source_row_bounds": [
+            239.895083300224,
+            258.8323173433387
+          ],
+          "points_in_source_extent": true
+        },
+        {
+          "source_roi_number": 1,
+          "source_contour_index": 46,
+          "referenced_ct_sop": "1.3.6.1.4.1.14519.5.2.1.1078.3273.283244460047206982027827025307",
+          "native_sorted_plane_index": 488,
+          "source_plane_position_lps": [
+            -180.0,
+            -180.0,
+            -215.0
+          ],
+          "source_contour_points": 62,
+          "maximum_referenced_plane_error_mm": 0.0,
+          "source_column_bounds": [
+            190.26020036427377,
+            214.36765775377637
+          ],
+          "source_row_bounds": [
+            240.10772468344746,
+            258.5406948749172
+          ],
+          "points_in_source_extent": true
+        },
+        {
+          "source_roi_number": 1,
+          "source_contour_index": 47,
+          "referenced_ct_sop": "1.3.6.1.4.1.14519.5.2.1.1078.3273.171081233945422599939217916019",
+          "native_sorted_plane_index": 487,
+          "source_plane_position_lps": [
+            -180.0,
+            -180.0,
+            -215.625
+          ],
+          "source_contour_points": 62,
+          "maximum_referenced_plane_error_mm": 0.0,
+          "source_column_bounds": [
+            191.03786028006402,
+            213.58999783798612
+          ],
+          "source_row_bounds": [
+            240.32036606667236,
+            258.2490724064958
+          ],
+          "points_in_source_extent": true
+        },
+        {
+          "source_roi_number": 1,
+          "source_contour_index": 48,
+          "referenced_ct_sop": "1.3.6.1.4.1.14519.5.2.1.1078.3273.311441618740353401781642641106",
+          "native_sorted_plane_index": 486,
+          "source_plane_position_lps": [
+            -180.0,
+            -180.0,
+            -216.25
+          ],
+          "source_contour_points": 49,
+          "maximum_referenced_plane_error_mm": 0.0,
+          "source_column_bounds": [
+            191.81552019585422,
+            212.8123379221959
+          ],
+          "source_row_bounds": [
+            240.46010183279077,
+            257.95744993807443
+          ],
+          "points_in_source_extent": true
+        }
+      ],
+      "all_contours_in_source_extent": true,
+      "maximum_contour_plane_error_mm": 0.0,
+      "clinical_approval": false
+    }
+  ],
+  "shared_declared_frame_of_reference_uids": [
+    "1.3.6.1.4.1.14519.5.2.1.1078.3273.192810287316128613257771978063"
+  ],
+  "difference_between_acquisition_time_fields_seconds": 42.74038399999699,
+  "source_dicom_tracking_uid_sets_match_each_other": true,
+  "cross_metadata_dicom_tracking_identity_reconciled": false,
+  "same_declared_frame_is_anatomical_registration": false,
+  "named_pancreatic_or_portal_phase_adequacy_verified": false,
+  "contrast_timing_relative_to_injection_verified": false,
+  "source_rois_merged_or_averaged": false,
+  "source_values_or_geometry_changed": false,
+  "clinical_approval": false,
+  "runtime_promoted": false,
+  "limits": [
+    "Source-labelled series and recorded acquisition times remain source facts; absent injection timing/agent information cannot be supplied by labels alone.",
+    "The original negative spacing tag and descending instance-order geometry are preserved separately from increasing-position analysis indices.",
+    "CSV and DICOM tracking UIDs differ, while each representation agrees internally across the two source roles; both identities remain unchanged and unresolved. Tracking/frame correspondence does not prove motion-free anatomy, phase adequacy, tumour extent or source histological identity.",
+    "Lesion selection/RTSTRUCT codes do not supply whole pancreas, ducts, vessels, neural tissue or all source reporting structures."
+  ]
+}

@@ -1,0 +1,10 @@
+{
+  "path": "web/lesson-models.js",
+  "before_sha256": "a815b5c92ebd3293f9145750592736d77435d5f76505b040c8c5d46a1c5de485",
+  "after_sha256": "d1fcf0dd9efd54cec4bc085e085bd19c361f761e2111ce40dca74ebabaff594a",
+  "before_literal": "    frame.controls.append(sliderGroup, presetRow);\n    refresh(false);\n    return frame.root;",
+  "after_literal": "    frame.controls.append(sliderGroup, presetRow);\n    refresh(false);\n    if (scenarioId === 'phys.3.optics-waves' && window.PrimerConceptModels?.optics) {\n      frame.root.append(window.PrimerConceptModels.optics.render());\n    }\n    return frame.root;",
+  "clinical_approval": false,
+  "extends_historical_approval": false,
+  "scope": "Only append the new optics renderer to phys.3.optics-waves; preserve existing interference and every other scenario."
+}

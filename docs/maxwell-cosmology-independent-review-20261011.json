@@ -1,0 +1,1341 @@
+{
+  "date": "2026-10-11",
+  "reviewer": "/root/maxwell_cosmology_independent",
+  "independent_of_implementation_authors": true,
+  "scope": "Independent scientific and actual-engine review of the frozen full Maxwell and general-relativity/cosmology lesson models, with current curriculum question/lesson mapping. The reviewer did not implement or mutate these six runtime files. Agent review is not independent human expert certification.",
+  "nodes": [
+    "phys.4.em-maxwell",
+    "phys.5.gr-cosmo"
+  ],
+  "stations": {
+    "maxwell": [
+      "magnetic",
+      "gauss",
+      "faraday",
+      "capacitor",
+      "wave",
+      "coax",
+      "radiation"
+    ],
+    "cosmology": [
+      "geometry",
+      "expansion",
+      "horizons",
+      "redshift",
+      "causality",
+      "blackhole",
+      "inflation",
+      "distances"
+    ],
+    "blackhole_views": [
+      "radius",
+      "lensing",
+      "infall",
+      "cones"
+    ]
+  },
+  "files": {
+    "web/physics-maxwell-lab.js": {
+      "bytes": 40555,
+      "sha256": "93407f17ad6c6564af51ff373a70c24051021f5f60b334a34ca56617979eaf2d"
+    },
+    "web/physics-maxwell-lab.css": {
+      "bytes": 2642,
+      "sha256": "7361049dc72e04cf3fa433ec6432b07c23d8fdcb5aa91d884c366a441540df62"
+    },
+    "web/spatial-maxwell.js": {
+      "bytes": 14035,
+      "sha256": "bb43e1c4651ed174895da17588727a4981153018954f41cc26131a0c4c123c6c"
+    },
+    "web/physics-cosmology-lab.js": {
+      "bytes": 58041,
+      "sha256": "c8263d281cc9e0bd5dc20daa3caa7ec91af2becb52f964f482ea8b38251e05d1"
+    },
+    "web/physics-cosmology-lab.css": {
+      "bytes": 2547,
+      "sha256": "34ba728a1bf758d93ec728a5a0101e725fd9000bbeafed0d63bc24e618ac7eb8"
+    },
+    "web/spatial-cosmology.js": {
+      "bytes": 9693,
+      "sha256": "676435f6c75247f60501e02c6b570bc036f12419414a73eb94206a1608b6377c"
+    },
+    "web/spatial-models.js": {
+      "bytes": 22236,
+      "sha256": "21dd37ae78eef1a15a25d75e3eca4211bd1e7383482f0b4feb51f6da54d3bffb"
+    },
+    "web/lesson-state.js": {
+      "bytes": 1341,
+      "sha256": "837cea8445bb6d0ac4c943e0b78cd919ac07a5569cad5ac58e99086da3a4674f"
+    },
+    "web/styles.css": {
+      "bytes": 309270,
+      "sha256": "b2bd335332cb0c2fbad671d9542000c544603817acbd29f55683b120f9cd3660"
+    },
+    "web/spatial-module-objects.js": {
+      "bytes": 117277,
+      "sha256": "3ff2e3a28e38d65b755f2977c2c25167f7c5cd4c8a4e95491b45a0ed8b1b362d"
+    },
+    "primer/module_media.py": {
+      "bytes": 6889,
+      "sha256": "c561382a38b38d4c259e4a32a1a785e801d20d45ce69d2263f6b7ca56a64475f"
+    },
+    "data/curriculum/03-physics.json": {
+      "bytes": 319423,
+      "sha256": "366985f456bedffe10684e05a70db9e3e5e4b8ba37edba6f0dd9be94aeb2fadc"
+    },
+    "data/module-models.json": {
+      "bytes": 245175,
+      "sha256": "b5a30978115e78482fca0eefc8a3d39bd4a20f7f151e606b2cc582156a6e96d3"
+    },
+    "tools/check_maxwell_cosmology_independent.js": {
+      "bytes": 15244,
+      "sha256": "2b623e498ef909b8dac419e50a86928c478b8839d513fd7cd0bb84ea423f8dd7"
+    },
+    "tests/test_maxwell_cosmology_independent.py": {
+      "bytes": 7358,
+      "sha256": "baac9998d93d3ad7922f7082886b8984561449709a9cced4734e7b96ee91d461"
+    },
+    "docs/physics-maxwell-fidelity-review-20261011.json": {
+      "bytes": 10466,
+      "sha256": "446eda058fd40bb459ee401832b533deb850ffa73c93e43b6c969de45b97232c"
+    },
+    "docs/physics-maxwell-browser-proof-20261011.json": {
+      "bytes": 14251,
+      "sha256": "367c98a38fe0a490ee796890bafd4f8b7de40305d921a42c99335d5176eef762"
+    },
+    "docs/physics-cosmology-review-20261011/review.json": {
+      "bytes": 6120,
+      "sha256": "bd71e155f93186a0f3f6f0b97541f40eee8bb6f5cb4472cdba3643e135b8efcb"
+    },
+    "docs/physics-cosmology-review-20261011/browser-proof.json": {
+      "bytes": 6576,
+      "sha256": "425d90fa09158b0d40836e27539d412fab2942b7d0708e7b36d280cd124de33b"
+    },
+    "web/illustrations/grove/physics/phys-4-em-maxwell-1600.webp": {
+      "bytes": 60812,
+      "sha256": "191fe30872c2b3fbac9db8623693bcf45eddce12bb6bbd20878b2cfaed94afd8"
+    },
+    "web/illustrations/forest/physics/phys-5-gr-cosmo-1600.webp": {
+      "bytes": 74962,
+      "sha256": "10b43bb8041b716a576dd01df0cd5bacd09ef705e301fd4932adf0dfbc59e0f2"
+    }
+  },
+  "quiz_mapping": {
+    "phys.4.em-maxwell": [
+      {
+        "question": 1,
+        "evidence": "M 1: closed cap and cut-face magnetic flux; the sphere is an exact alternative to the bar-magnet geometry"
+      },
+      {
+        "question": 2,
+        "evidence": "M 5: hypothetical epsilon factor 4 gives half model speed; exact SI c retained"
+      },
+      {
+        "question": 3,
+        "evidence": "M 5: signed E/B transverse components and E cross B propagation"
+      },
+      {
+        "question": 4,
+        "evidence": "M 5: Bpeak for 600 V/m; quiz rounded 2 microtesla versus exactSI 2.001384571"
+      },
+      {
+        "question": 5,
+        "evidence": "M 4: same loop with conduction plus oriented displacement contributions"
+      },
+      {
+        "question": 6,
+        "evidence": "M 7: full anisotropic surface power, not local intensity times 4 pi r squared"
+      },
+      {
+        "question": 7,
+        "evidence": "M 4:5 A whole-plate displacement current; partial loop distinguished"
+      },
+      {
+        "question": 8,
+        "evidence": "M 5:500 THz; quiz rounded 600 nm versus exactSI 599.584916 nm"
+      },
+      {
+        "question": 9,
+        "evidence": "M 6: coax volume current integral, exact balanced exterior cancellation under stated symmetry"
+      },
+      {
+        "question": 10,
+        "evidence": "M 7: steady DC has no radiative term after transients; no fabricated DC frequency"
+      }
+    ],
+    "phys.5.gr-cosmo": [
+      {
+        "question": 1,
+        "evidence": "C 5: one-AU null travel bound with conserved-source and weak-field caveats"
+      },
+      {
+        "question": 2,
+        "evidence": "C 4: simultaneous proper Hubble rate, not an exact observed SR Doppler velocity"
+      },
+      {
+        "question": 3,
+        "evidence": "C 4: free blackbody redshift and temperature/peak scaling, independent physical spectrum points"
+      },
+      {
+        "question": 4,
+        "evidence": "C 6 radius:10 solar masses and quiz rounded 30 km; nominal conversion constants declared"
+      },
+      {
+        "question": 5,
+        "evidence": "C 6 lensing: GR versus Newtonian leading deflection with coordinate-description caveat"
+      },
+      {
+        "question": 6,
+        "evidence": "C 7: specified primordial statistics constrain models; no unique inflation proof or fabricated CMB map"
+      },
+      {
+        "question": 7,
+        "evidence": "C 4:7000/70=100 Mpc explicitly low-redshift approximation"
+      },
+      {
+        "question": 8,
+        "evidence": "C 4:500 to 600 nm givesz=.2; independent cosmological scale-factor relation"
+      },
+      {
+        "question": 9,
+        "evidence": "C 6 infall/cones: finite proper and regular EF crossing, unavailable horizon/interior Schwarzschild t and outgoing-to-infinity signal"
+      },
+      {
+        "question": 10,
+        "evidence": "C 8: negative q 0 means acceleration; open matter-only dimming counterexample preserves inference limits"
+      }
+    ]
+  },
+  "requirements": [
+    {
+      "id": "M1",
+      "status": "passed_with_declared_model_scope",
+      "evidence": "Independent dipole tensor field at all drawn meridian positions; real cap/disk faces and outward normals; author SciPy oriented flux quadrature."
+    },
+    {
+      "id": "M2",
+      "status": "passed_with_declared_model_scope",
+      "evidence": "Independent enclosed volume charge gives every actual drawn radial E; source/Gaussian sphere faces and boundary limits."
+    },
+    {
+      "id": "M3",
+      "status": "passed_with_declared_model_scope",
+      "evidence": "Oriented Faraday integral yields every actual E glyph; positive loop normal and solenoid/flux disk geometry."
+    },
+    {
+      "id": "M4",
+      "status": "passed_with_declared_model_scope",
+      "evidence": "Shared red boundary and all alternative surface seams checked on source vertices and actual polygons; gap/annulus/lower normal signs; independent annular flux correction for partial loops."
+    },
+    {
+      "id": "M5",
+      "status": "passed_with_declared_model_scope",
+      "evidence": "Actual 12 segment shafts and 6 arrowhead tips checked against independent E/B/cross product; full 121 point endpoint curves retain SI positions, gains and translation."
+    },
+    {
+      "id": "M6",
+      "status": "passed_with_declared_model_scope",
+      "evidence": "Signed core/sheath area integrals give all actual B fields, including reversal and over-return; exact exterior balance."
+    },
+    {
+      "id": "M7",
+      "status": "passed_with_declared_model_scope",
+      "evidence": "Hertzian Etheta/Bphi at selected angle and all physical Poynting vectors; actual observation circles and anisotropic power-chart faces; DC/axis zero maintained."
+    },
+    {
+      "id": "C1",
+      "status": "passed_with_declared_model_scope",
+      "evidence": "80-digit metric Ricci-component route verifies FLRW Einstein tensor at 20 contents/epoch combinations; all 48 actual component spheres use categorical indices and declared gain."
+    },
+    {
+      "id": "C2",
+      "status": "passed_with_declared_model_scope",
+      "evidence": "Author numerical age/continuity/branch oracles rerun; actual complete expansion charts and selected epoch markers; Euclidean galaxies drawn only exact computedOmegaK=0; tiny nonzero curvature case excluded from galaxy geometry."
+    },
+    {
+      "id": "C3",
+      "status": "passed_with_declared_model_scope",
+      "evidence": "Every plotted horizon point in matter/radiation/deSitter exact limits checked; actual angular-ring radii and all absent horizon kinds; branch barrier and infiniteendpoint quadrature retained."
+    },
+    {
+      "id": "C4",
+      "status": "passed_with_declared_model_scope",
+      "evidence": "All 362 blackbody emitted/observed points perstate at 4 redshifts verified in physical wavelength and logarithmic radiance; actual current rate marker."
+    },
+    {
+      "id": "C5",
+      "status": "passed_with_declared_model_scope",
+      "evidence": "Actual 2+1 null cone front/generator coordinates satisfy radius=ct and receiver worldline; actual firstarrival sphere is at the correct distance/time."
+    },
+    {
+      "id": "C6-radius",
+      "status": "passed_with_declared_model_scope",
+      "evidence": "Two actual areal 2-sphere circle sets and area 4 pi r²; independent 48 GM²/(c⁴r⁶)tidal log-curve at 3 masses; no radial spatial embedding claim."
+    },
+    {
+      "id": "C6-lensing",
+      "status": "passed_with_declared_model_scope",
+      "evidence": "Weakfield transverse ray obtained by independent geodesic-acceleration quadrature from past infinity at 3 mass/impact pairs; actual chart uses separate Rsun/km gains."
+    },
+    {
+      "id": "C6-infall",
+      "status": "passed_with_declared_model_scope",
+      "evidence": "Independent author SciPy proper/EF/Schwarzschild integrals rerun; all actual exterior/infall chartpoints; chosen t/arrival markers omitted at/inside the horizon."
+    },
+    {
+      "id": "C6-cones",
+      "status": "passed_with_declared_model_scope",
+      "evidence": "Author solve_ivp outgoing EF null-ray oracle rerun; actual calibrated ingoing/outgoing/horizon curves at every source point; finite singularity exclusion."
+    },
+    {
+      "id": "C7",
+      "status": "passed_with_declared_model_scope",
+      "evidence": "All 161 primordial log-axis points at 9 tilt/running combinations plus explicit constantH logscale/comovingHubble/curvature histories; no invented observations."
+    },
+    {
+      "id": "C8",
+      "status": "passed_with_declared_model_scope",
+      "evidence": "Author SciPy curved-distance quadrature/reciprocity rerun; all actual distance/magnitude curves and current markers; present q 0 and one-comparator dimming limitations inspected."
+    },
+    {
+      "id": "state-coordination",
+      "status": "passed",
+      "evidence": "Reviewer realWeakRef bus 9 simultaneouslyconnected keys acceptsfull state exactly and isolates all keys; root authenticated reader receipts control/camera/reset synchronization at 1440/390."
+    }
+  ],
+  "actual_engine_checker": {
+    "passed": true,
+    "maxwellStates": 77,
+    "cosmologyStates": 114,
+    "fieldVectors": 4428,
+    "engineArrowShafts": 42336,
+    "surfaceFaces": 19616,
+    "chartPoints": 55440,
+    "markers": 220,
+    "stateKeys": 9,
+    "wholeGoalComplete": false
+  },
+  "verification": {
+    "reviewer_pytest_count": 6,
+    "author_science_pytest_rerun_count": 15,
+    "reviewer_oracles": [
+      "80-digit FLRW Ricci components from metric H² and its derivative",
+      "Every plotted exact-limit matter/radiation/deSitter horizon point",
+      "Independent physical Planck radiance at all plotted wavelengths",
+      "Independent primordial log-power expression at every point",
+      "Weak-field transverse geodesic acceleration integrated from past infinity",
+      "Independent Schwarzschild tidal invariant"
+    ],
+    "runtime_mutations_by_reviewer": false
+  },
+  "reader_evidence": {
+    "source_receipt": {
+      "path": ".research/physics-reader-final-20261011-oye7_cn1/physics-reader/proof.json",
+      "bytes": 30389,
+      "sha256": "722b8bd6af352fade67abac0dbc36e688d94864fdfe96f9a2c6bccfb8b72f459"
+    },
+    "capture_count": 60,
+    "captures": [
+      {
+        "node": "phys.4.em-maxwell",
+        "width": 1440,
+        "mode": "magnetic",
+        "path": ".research/physics-reader-final-20261011-oye7_cn1/physics-reader/maxwell-1440-magnetic.png",
+        "sha256": "f0a72b6f25e82b16522bf7a360b2e7b8195e762c9b8355cc3b9e40ec8dd9f545",
+        "native_dimensions": [
+          960,
+          1670
+        ],
+        "visually_inspected": true
+      },
+      {
+        "node": "phys.4.em-maxwell",
+        "width": 1440,
+        "mode": "magnetic",
+        "spatial": true,
+        "path": ".research/physics-reader-final-20261011-oye7_cn1/physics-reader/maxwell-spatial-1440-magnetic.png",
+        "sha256": "ab13c9099092bf172b51a438d6b9db253a60f920df47c93d016bef90e15d0ea3",
+        "native_dimensions": [
+          916,
+          642
+        ],
+        "visually_inspected": true
+      },
+      {
+        "node": "phys.4.em-maxwell",
+        "width": 1440,
+        "mode": "gauss",
+        "path": ".research/physics-reader-final-20261011-oye7_cn1/physics-reader/maxwell-1440-gauss.png",
+        "sha256": "5c1dbbec4a7429d5bb4a54b09f176d34e0cda59c43ff4e1a8093bfc57967e356",
+        "native_dimensions": [
+          960,
+          1609
+        ],
+        "visually_inspected": true
+      },
+      {
+        "node": "phys.4.em-maxwell",
+        "width": 1440,
+        "mode": "gauss",
+        "spatial": true,
+        "path": ".research/physics-reader-final-20261011-oye7_cn1/physics-reader/maxwell-spatial-1440-gauss.png",
+        "sha256": "4eac9a224c2abc0ebee5dbe6dc78f13af3f9b3e06de1ce930db2fe0d929ef796",
+        "native_dimensions": [
+          916,
+          642
+        ],
+        "visually_inspected": true
+      },
+      {
+        "node": "phys.4.em-maxwell",
+        "width": 1440,
+        "mode": "faraday",
+        "path": ".research/physics-reader-final-20261011-oye7_cn1/physics-reader/maxwell-1440-faraday.png",
+        "sha256": "1b70f0bc68419f3f3e8987702ca056e6a12a2f78a018654a5acb517875bc86b5",
+        "native_dimensions": [
+          960,
+          1600
+        ],
+        "visually_inspected": true
+      },
+      {
+        "node": "phys.4.em-maxwell",
+        "width": 1440,
+        "mode": "faraday",
+        "spatial": true,
+        "path": ".research/physics-reader-final-20261011-oye7_cn1/physics-reader/maxwell-spatial-1440-faraday.png",
+        "sha256": "90c62df867578576e8e5c41e4c697387429086ebecee2ef1275b4fe722d0dee7",
+        "native_dimensions": [
+          916,
+          642
+        ],
+        "visually_inspected": true
+      },
+      {
+        "node": "phys.4.em-maxwell",
+        "width": 1440,
+        "mode": "capacitor",
+        "path": ".research/physics-reader-final-20261011-oye7_cn1/physics-reader/maxwell-1440-capacitor.png",
+        "sha256": "8d22929b247c97ec6d8c499eb683174ebd32a6e0efb143b59ca4453f270490b4",
+        "native_dimensions": [
+          960,
+          2112
+        ],
+        "visually_inspected": true
+      },
+      {
+        "node": "phys.4.em-maxwell",
+        "width": 1440,
+        "mode": "capacitor",
+        "spatial": true,
+        "path": ".research/physics-reader-final-20261011-oye7_cn1/physics-reader/maxwell-spatial-1440-capacitor.png",
+        "sha256": "5062ff25cdde85244cf82972a07b3caef30077f08d5a8df0dbf070b811c00b7d",
+        "native_dimensions": [
+          916,
+          643
+        ],
+        "visually_inspected": true
+      },
+      {
+        "node": "phys.4.em-maxwell",
+        "width": 1440,
+        "mode": "wave",
+        "path": ".research/physics-reader-final-20261011-oye7_cn1/physics-reader/maxwell-1440-wave.png",
+        "sha256": "516f459d44dd6a46a9ad510e05c485544a13951b733526a8c5f8eef4365e6477",
+        "native_dimensions": [
+          960,
+          2298
+        ],
+        "visually_inspected": true
+      },
+      {
+        "node": "phys.4.em-maxwell",
+        "width": 1440,
+        "mode": "wave",
+        "spatial": true,
+        "path": ".research/physics-reader-final-20261011-oye7_cn1/physics-reader/maxwell-spatial-1440-wave.png",
+        "sha256": "80f75e9869e2baa78801d402c8f2c33cce8e5b5e8da3c8fd8eba1ca3cb9b12f1",
+        "native_dimensions": [
+          916,
+          643
+        ],
+        "visually_inspected": true
+      },
+      {
+        "node": "phys.4.em-maxwell",
+        "width": 1440,
+        "mode": "coax",
+        "path": ".research/physics-reader-final-20261011-oye7_cn1/physics-reader/maxwell-1440-coax.png",
+        "sha256": "104fc8990a02348f09b1cbf43ee39140aa1bfdfd1b600da0aa5e4c38903c574d",
+        "native_dimensions": [
+          960,
+          1824
+        ],
+        "visually_inspected": true
+      },
+      {
+        "node": "phys.4.em-maxwell",
+        "width": 1440,
+        "mode": "coax",
+        "spatial": true,
+        "path": ".research/physics-reader-final-20261011-oye7_cn1/physics-reader/maxwell-spatial-1440-coax.png",
+        "sha256": "80c94ffad8c5fd7d895122a51b406750a641f04fe44ed6fa58d55b23540651ba",
+        "native_dimensions": [
+          916,
+          642
+        ],
+        "visually_inspected": true
+      },
+      {
+        "node": "phys.4.em-maxwell",
+        "width": 1440,
+        "mode": "radiation",
+        "path": ".research/physics-reader-final-20261011-oye7_cn1/physics-reader/maxwell-1440-radiation.png",
+        "sha256": "1d1ae2daef079976b75bf202caa3839179aea50a55a29090d67d13b09e518185",
+        "native_dimensions": [
+          960,
+          1933
+        ],
+        "visually_inspected": true
+      },
+      {
+        "node": "phys.4.em-maxwell",
+        "width": 1440,
+        "mode": "radiation",
+        "spatial": true,
+        "path": ".research/physics-reader-final-20261011-oye7_cn1/physics-reader/maxwell-spatial-1440-radiation.png",
+        "sha256": "b0086174379bb7708c33671ec55a3229ee65c7be4c9fa95fef04cbe937533369",
+        "native_dimensions": [
+          916,
+          642
+        ],
+        "visually_inspected": true
+      },
+      {
+        "node": "phys.4.em-maxwell",
+        "width": 390,
+        "mode": "magnetic",
+        "path": ".research/physics-reader-final-20261011-oye7_cn1/physics-reader/maxwell-390-magnetic.png",
+        "sha256": "1c1ebc641b982724469d8ca5421499ecc4e54072c81d0f9490af650141088c14",
+        "native_dimensions": [
+          366,
+          2613
+        ],
+        "visually_inspected": true
+      },
+      {
+        "node": "phys.4.em-maxwell",
+        "width": 390,
+        "mode": "magnetic",
+        "spatial": true,
+        "path": ".research/physics-reader-final-20261011-oye7_cn1/physics-reader/maxwell-spatial-390-magnetic.png",
+        "sha256": "32624bf7bdb696c402cc42a5432d17178c67c384982ea883027464f534316e10",
+        "native_dimensions": [
+          336,
+          235
+        ],
+        "visually_inspected": true
+      },
+      {
+        "node": "phys.4.em-maxwell",
+        "width": 390,
+        "mode": "gauss",
+        "path": ".research/physics-reader-final-20261011-oye7_cn1/physics-reader/maxwell-390-gauss.png",
+        "sha256": "262dca864a6b0ae8a2dfd765ea98972cafd078be8321a34614fee732eff91684",
+        "native_dimensions": [
+          366,
+          2466
+        ],
+        "visually_inspected": true
+      },
+      {
+        "node": "phys.4.em-maxwell",
+        "width": 390,
+        "mode": "gauss",
+        "spatial": true,
+        "path": ".research/physics-reader-final-20261011-oye7_cn1/physics-reader/maxwell-spatial-390-gauss.png",
+        "sha256": "63a715532f1abda99744d9b08ee9db3c291fc7cc9671ed577629d6a7ea734a87",
+        "native_dimensions": [
+          336,
+          236
+        ],
+        "visually_inspected": true
+      },
+      {
+        "node": "phys.4.em-maxwell",
+        "width": 390,
+        "mode": "faraday",
+        "path": ".research/physics-reader-final-20261011-oye7_cn1/physics-reader/maxwell-390-faraday.png",
+        "sha256": "92c602f24ff980240ef780637fc75a2c994773c874613d02df06963b2dc0e220",
+        "native_dimensions": [
+          366,
+          2513
+        ],
+        "visually_inspected": true
+      },
+      {
+        "node": "phys.4.em-maxwell",
+        "width": 390,
+        "mode": "faraday",
+        "spatial": true,
+        "path": ".research/physics-reader-final-20261011-oye7_cn1/physics-reader/maxwell-spatial-390-faraday.png",
+        "sha256": "bce1a77723871669db2034bcca943e4deca6235c68f241bdcc3cd28e4c2fa414",
+        "native_dimensions": [
+          336,
+          236
+        ],
+        "visually_inspected": true
+      },
+      {
+        "node": "phys.4.em-maxwell",
+        "width": 390,
+        "mode": "capacitor",
+        "path": ".research/physics-reader-final-20261011-oye7_cn1/physics-reader/maxwell-390-capacitor.png",
+        "sha256": "09bb20c03eab0a826666f13ab8b4ec566e73d95c883a073ca3d448b5836ec2f1",
+        "native_dimensions": [
+          366,
+          3435
+        ],
+        "visually_inspected": true
+      },
+      {
+        "node": "phys.4.em-maxwell",
+        "width": 390,
+        "mode": "capacitor",
+        "spatial": true,
+        "path": ".research/physics-reader-final-20261011-oye7_cn1/physics-reader/maxwell-spatial-390-capacitor.png",
+        "sha256": "79ef894b7ad027be12a2123fff8f0c71e1e4502d4b0df56241a39652f3c5a5fa",
+        "native_dimensions": [
+          336,
+          235
+        ],
+        "visually_inspected": true
+      },
+      {
+        "node": "phys.4.em-maxwell",
+        "width": 390,
+        "mode": "wave",
+        "path": ".research/physics-reader-final-20261011-oye7_cn1/physics-reader/maxwell-390-wave.png",
+        "sha256": "1a04e2dfc4c98ea26aeda4108a0e7055d6082d1e2fec387dfd67004914a63f82",
+        "native_dimensions": [
+          366,
+          3556
+        ],
+        "visually_inspected": true
+      },
+      {
+        "node": "phys.4.em-maxwell",
+        "width": 390,
+        "mode": "wave",
+        "spatial": true,
+        "path": ".research/physics-reader-final-20261011-oye7_cn1/physics-reader/maxwell-spatial-390-wave.png",
+        "sha256": "b873a553bea1c987175a2fb201bfa60f2afdded1415464d76f20160f555454ff",
+        "native_dimensions": [
+          336,
+          236
+        ],
+        "visually_inspected": true
+      },
+      {
+        "node": "phys.4.em-maxwell",
+        "width": 390,
+        "mode": "coax",
+        "path": ".research/physics-reader-final-20261011-oye7_cn1/physics-reader/maxwell-390-coax.png",
+        "sha256": "dc0a039860c33b49f82fca0b83bd81f3bacc48e06525611e5f2a6e076ecdc49c",
+        "native_dimensions": [
+          366,
+          3206
+        ],
+        "visually_inspected": true
+      },
+      {
+        "node": "phys.4.em-maxwell",
+        "width": 390,
+        "mode": "coax",
+        "spatial": true,
+        "path": ".research/physics-reader-final-20261011-oye7_cn1/physics-reader/maxwell-spatial-390-coax.png",
+        "sha256": "98759ff9763a315ceef1be3745d0005b74e286afb561e2dc238a5f745475a400",
+        "native_dimensions": [
+          336,
+          235
+        ],
+        "visually_inspected": true
+      },
+      {
+        "node": "phys.4.em-maxwell",
+        "width": 390,
+        "mode": "radiation",
+        "path": ".research/physics-reader-final-20261011-oye7_cn1/physics-reader/maxwell-390-radiation.png",
+        "sha256": "a559a4a5f1605d18043e4cfbc88b1a019ed8fa90ba0de4c867b6cceb0047ce1e",
+        "native_dimensions": [
+          366,
+          3222
+        ],
+        "visually_inspected": true
+      },
+      {
+        "node": "phys.4.em-maxwell",
+        "width": 390,
+        "mode": "radiation",
+        "spatial": true,
+        "path": ".research/physics-reader-final-20261011-oye7_cn1/physics-reader/maxwell-spatial-390-radiation.png",
+        "sha256": "3eba5d7eda9249c168f0a694617d12e8d80639d431b13313c1347ceb8ba40435",
+        "native_dimensions": [
+          336,
+          235
+        ],
+        "visually_inspected": true
+      },
+      {
+        "node": "phys.5.gr-cosmo",
+        "width": 1440,
+        "mode": "geometry",
+        "path": ".research/physics-reader-final-20261011-oye7_cn1/physics-reader/cosmology-1440-geometry.png",
+        "sha256": "fc2f42488cb7c33c0129d16b2ef92e9793bcf362d5526a6f4fd6527ef10ab766",
+        "native_dimensions": [
+          960,
+          2089
+        ],
+        "visually_inspected": true
+      },
+      {
+        "node": "phys.5.gr-cosmo",
+        "width": 1440,
+        "mode": "geometry",
+        "spatial": true,
+        "path": ".research/physics-reader-final-20261011-oye7_cn1/physics-reader/cosmology-spatial-1440-geometry.png",
+        "sha256": "f38914def461cf518d087d0d117123a7b89644cc9ce3183cf2af8052ebb0a3a0",
+        "native_dimensions": [
+          916,
+          643
+        ],
+        "visually_inspected": true
+      },
+      {
+        "node": "phys.5.gr-cosmo",
+        "width": 1440,
+        "mode": "expansion",
+        "path": ".research/physics-reader-final-20261011-oye7_cn1/physics-reader/cosmology-1440-expansion.png",
+        "sha256": "666cb4f384513de2bcff2a07f947f40bab3d4a61df2f0504feb16ec181aa0ad1",
+        "native_dimensions": [
+          960,
+          2232
+        ],
+        "visually_inspected": true
+      },
+      {
+        "node": "phys.5.gr-cosmo",
+        "width": 1440,
+        "mode": "expansion",
+        "spatial": true,
+        "path": ".research/physics-reader-final-20261011-oye7_cn1/physics-reader/cosmology-spatial-1440-expansion.png",
+        "sha256": "bd75a2d8fc48330ef5af6c058f9956bec702c4074ba2fc9355bf03885811bffa",
+        "native_dimensions": [
+          916,
+          642
+        ],
+        "visually_inspected": true
+      },
+      {
+        "node": "phys.5.gr-cosmo",
+        "width": 1440,
+        "mode": "horizons",
+        "path": ".research/physics-reader-final-20261011-oye7_cn1/physics-reader/cosmology-1440-horizons.png",
+        "sha256": "93aef532383e243101c08f0b1dc467a1e9b62469bbb67c226f2c3e2fe1af446b",
+        "native_dimensions": [
+          960,
+          1856
+        ],
+        "visually_inspected": true
+      },
+      {
+        "node": "phys.5.gr-cosmo",
+        "width": 1440,
+        "mode": "horizons",
+        "spatial": true,
+        "path": ".research/physics-reader-final-20261011-oye7_cn1/physics-reader/cosmology-spatial-1440-horizons.png",
+        "sha256": "51f967c0c1cdbdc3e20e6f74197570883cf11cfb02d30792e07684584e3367e4",
+        "native_dimensions": [
+          916,
+          642
+        ],
+        "visually_inspected": true
+      },
+      {
+        "node": "phys.5.gr-cosmo",
+        "width": 1440,
+        "mode": "redshift",
+        "path": ".research/physics-reader-final-20261011-oye7_cn1/physics-reader/cosmology-1440-redshift.png",
+        "sha256": "cae9cc9ae54524472e87b46106fedb7000190c2cdcfd75a64d1b48d280a64512",
+        "native_dimensions": [
+          960,
+          2018
+        ],
+        "visually_inspected": true
+      },
+      {
+        "node": "phys.5.gr-cosmo",
+        "width": 1440,
+        "mode": "redshift",
+        "spatial": true,
+        "path": ".research/physics-reader-final-20261011-oye7_cn1/physics-reader/cosmology-spatial-1440-redshift.png",
+        "sha256": "3b46c4406748b122a85b08446dbef8fade7465b51a5608770121ab85a8e69b75",
+        "native_dimensions": [
+          916,
+          643
+        ],
+        "visually_inspected": true
+      },
+      {
+        "node": "phys.5.gr-cosmo",
+        "width": 1440,
+        "mode": "causality",
+        "path": ".research/physics-reader-final-20261011-oye7_cn1/physics-reader/cosmology-1440-causality.png",
+        "sha256": "679d8e3fae27a0839a9a21dd2789705d6a968f26e5f0d677b4cc1f37ad45d41c",
+        "native_dimensions": [
+          960,
+          1522
+        ],
+        "visually_inspected": true
+      },
+      {
+        "node": "phys.5.gr-cosmo",
+        "width": 1440,
+        "mode": "causality",
+        "spatial": true,
+        "path": ".research/physics-reader-final-20261011-oye7_cn1/physics-reader/cosmology-spatial-1440-causality.png",
+        "sha256": "d6236c2172240c1dc0781bf098d739dfaf8fabcf36e11f855924e8c8528f6c5c",
+        "native_dimensions": [
+          916,
+          642
+        ],
+        "visually_inspected": true
+      },
+      {
+        "node": "phys.5.gr-cosmo",
+        "width": 1440,
+        "mode": "blackhole",
+        "path": ".research/physics-reader-final-20261011-oye7_cn1/physics-reader/cosmology-1440-blackhole.png",
+        "sha256": "a50896d461527244fc81a44f8de0a0923f176f95ea805dbef995ba01e5550511",
+        "native_dimensions": [
+          960,
+          2170
+        ],
+        "visually_inspected": true
+      },
+      {
+        "node": "phys.5.gr-cosmo",
+        "width": 1440,
+        "mode": "blackhole",
+        "spatial": true,
+        "path": ".research/physics-reader-final-20261011-oye7_cn1/physics-reader/cosmology-spatial-1440-blackhole.png",
+        "sha256": "d60cb4966311ef68913564bf510a94d9a27db42427e7578c8fb3690c482f1057",
+        "native_dimensions": [
+          916,
+          642
+        ],
+        "visually_inspected": true
+      },
+      {
+        "node": "phys.5.gr-cosmo",
+        "width": 1440,
+        "mode": "inflation",
+        "path": ".research/physics-reader-final-20261011-oye7_cn1/physics-reader/cosmology-1440-inflation.png",
+        "sha256": "060605693a3fe8fc32a52630ebbc7824bad99a55c5d6ae2aaa78dae316f63ad0",
+        "native_dimensions": [
+          960,
+          1897
+        ],
+        "visually_inspected": true
+      },
+      {
+        "node": "phys.5.gr-cosmo",
+        "width": 1440,
+        "mode": "inflation",
+        "spatial": true,
+        "path": ".research/physics-reader-final-20261011-oye7_cn1/physics-reader/cosmology-spatial-1440-inflation.png",
+        "sha256": "0b5718de669686992562943b56a8429889e2b682b2588963b4963b3662f0aee4",
+        "native_dimensions": [
+          916,
+          642
+        ],
+        "visually_inspected": true
+      },
+      {
+        "node": "phys.5.gr-cosmo",
+        "width": 1440,
+        "mode": "distances",
+        "path": ".research/physics-reader-final-20261011-oye7_cn1/physics-reader/cosmology-1440-distances.png",
+        "sha256": "8059be56a0d8c466942e6ed5c0ed827d9eea44c8bbdfd7c58c092a7e4b70dee1",
+        "native_dimensions": [
+          960,
+          1968
+        ],
+        "visually_inspected": true
+      },
+      {
+        "node": "phys.5.gr-cosmo",
+        "width": 1440,
+        "mode": "distances",
+        "spatial": true,
+        "path": ".research/physics-reader-final-20261011-oye7_cn1/physics-reader/cosmology-spatial-1440-distances.png",
+        "sha256": "807ce67476e92365d820a7d8208456e33d668fa6d8b71af902305862106790f2",
+        "native_dimensions": [
+          916,
+          642
+        ],
+        "visually_inspected": true
+      },
+      {
+        "node": "phys.5.gr-cosmo",
+        "width": 390,
+        "mode": "geometry",
+        "path": ".research/physics-reader-final-20261011-oye7_cn1/physics-reader/cosmology-390-geometry.png",
+        "sha256": "962503ad3a260eb127ece13fedb86ad31ef0227c607f73b96e095751ac3b5b5a",
+        "native_dimensions": [
+          366,
+          3163
+        ],
+        "visually_inspected": true
+      },
+      {
+        "node": "phys.5.gr-cosmo",
+        "width": 390,
+        "mode": "geometry",
+        "spatial": true,
+        "path": ".research/physics-reader-final-20261011-oye7_cn1/physics-reader/cosmology-spatial-390-geometry.png",
+        "sha256": "3fde90d463c230496db50fbbd454a15eb561acdf2015363a1c060bb3ac9f1269",
+        "native_dimensions": [
+          336,
+          236
+        ],
+        "visually_inspected": true
+      },
+      {
+        "node": "phys.5.gr-cosmo",
+        "width": 390,
+        "mode": "expansion",
+        "path": ".research/physics-reader-final-20261011-oye7_cn1/physics-reader/cosmology-390-expansion.png",
+        "sha256": "eca0e0f4b31ccca8d61ffdaa84371d2a57cbfc4d53415d097c384e9fec8a861f",
+        "native_dimensions": [
+          366,
+          3494
+        ],
+        "visually_inspected": true
+      },
+      {
+        "node": "phys.5.gr-cosmo",
+        "width": 390,
+        "mode": "expansion",
+        "spatial": true,
+        "path": ".research/physics-reader-final-20261011-oye7_cn1/physics-reader/cosmology-spatial-390-expansion.png",
+        "sha256": "3d4ca61e7a776c49e7816b920c4d0d8b32f3c5efd254389b8b8370375c0cffbf",
+        "native_dimensions": [
+          336,
+          235
+        ],
+        "visually_inspected": true
+      },
+      {
+        "node": "phys.5.gr-cosmo",
+        "width": 390,
+        "mode": "horizons",
+        "path": ".research/physics-reader-final-20261011-oye7_cn1/physics-reader/cosmology-390-horizons.png",
+        "sha256": "d68f366fe00f1a81243e0ae3d7bbc2e7b6cbae834e58ab8d27bbd91668983ec5",
+        "native_dimensions": [
+          366,
+          3160
+        ],
+        "visually_inspected": true
+      },
+      {
+        "node": "phys.5.gr-cosmo",
+        "width": 390,
+        "mode": "horizons",
+        "spatial": true,
+        "path": ".research/physics-reader-final-20261011-oye7_cn1/physics-reader/cosmology-spatial-390-horizons.png",
+        "sha256": "eae27fa3b425115b4c51099373aba483fd42f414783154d826f5b57d5df0dfb2",
+        "native_dimensions": [
+          336,
+          235
+        ],
+        "visually_inspected": true
+      },
+      {
+        "node": "phys.5.gr-cosmo",
+        "width": 390,
+        "mode": "redshift",
+        "path": ".research/physics-reader-final-20261011-oye7_cn1/physics-reader/cosmology-390-redshift.png",
+        "sha256": "e4a1be7b455727f4e31c04d63be15654e5aedccdf13d62223c681ba654f2aa0b",
+        "native_dimensions": [
+          366,
+          3285
+        ],
+        "visually_inspected": true
+      },
+      {
+        "node": "phys.5.gr-cosmo",
+        "width": 390,
+        "mode": "redshift",
+        "spatial": true,
+        "path": ".research/physics-reader-final-20261011-oye7_cn1/physics-reader/cosmology-spatial-390-redshift.png",
+        "sha256": "29c773da07ae19352bbf848b8253de7c8675ab171d64d1cee3928167ba1c95be",
+        "native_dimensions": [
+          336,
+          235
+        ],
+        "visually_inspected": true
+      },
+      {
+        "node": "phys.5.gr-cosmo",
+        "width": 390,
+        "mode": "causality",
+        "path": ".research/physics-reader-final-20261011-oye7_cn1/physics-reader/cosmology-390-causality.png",
+        "sha256": "47c5bbbbe9966e23f4f61606c3c891abea129ce4a0e57899fa39a7c1a582ec3a",
+        "native_dimensions": [
+          366,
+          2496
+        ],
+        "visually_inspected": true
+      },
+      {
+        "node": "phys.5.gr-cosmo",
+        "width": 390,
+        "mode": "causality",
+        "spatial": true,
+        "path": ".research/physics-reader-final-20261011-oye7_cn1/physics-reader/cosmology-spatial-390-causality.png",
+        "sha256": "08c7a73395cc570ae04f67cffe87861b4af0267cb130c89bf19af9174f3f7775",
+        "native_dimensions": [
+          336,
+          236
+        ],
+        "visually_inspected": true
+      },
+      {
+        "node": "phys.5.gr-cosmo",
+        "width": 390,
+        "mode": "blackhole",
+        "path": ".research/physics-reader-final-20261011-oye7_cn1/physics-reader/cosmology-390-blackhole.png",
+        "sha256": "ef295cbd50a483a63fb5ac1a48e615f6b92022358d375cf19c33b4ee8850492b",
+        "native_dimensions": [
+          366,
+          3400
+        ],
+        "visually_inspected": true
+      },
+      {
+        "node": "phys.5.gr-cosmo",
+        "width": 390,
+        "mode": "blackhole",
+        "spatial": true,
+        "path": ".research/physics-reader-final-20261011-oye7_cn1/physics-reader/cosmology-spatial-390-blackhole.png",
+        "sha256": "0f53d47433e9eba90850cc9b5e84aae74e892acfb16cce09b3af1486dd236686",
+        "native_dimensions": [
+          336,
+          236
+        ],
+        "visually_inspected": true
+      },
+      {
+        "node": "phys.5.gr-cosmo",
+        "width": 390,
+        "mode": "inflation",
+        "path": ".research/physics-reader-final-20261011-oye7_cn1/physics-reader/cosmology-390-inflation.png",
+        "sha256": "b710ca66c290bfc3a5b662933ed8e7ef41dd152660e09b5186a202995243502b",
+        "native_dimensions": [
+          366,
+          3112
+        ],
+        "visually_inspected": true
+      },
+      {
+        "node": "phys.5.gr-cosmo",
+        "width": 390,
+        "mode": "inflation",
+        "spatial": true,
+        "path": ".research/physics-reader-final-20261011-oye7_cn1/physics-reader/cosmology-spatial-390-inflation.png",
+        "sha256": "4de97c7171484c4d0b4ae03e560c0377071fdb0e56704c4a49c4da3a0728c46a",
+        "native_dimensions": [
+          336,
+          236
+        ],
+        "visually_inspected": true
+      },
+      {
+        "node": "phys.5.gr-cosmo",
+        "width": 390,
+        "mode": "distances",
+        "path": ".research/physics-reader-final-20261011-oye7_cn1/physics-reader/cosmology-390-distances.png",
+        "sha256": "027fe3d8290a24b2a186eea233b78ae255f19dd9944eeb47e7a13e40688f6a8f",
+        "native_dimensions": [
+          366,
+          3261
+        ],
+        "visually_inspected": true
+      },
+      {
+        "node": "phys.5.gr-cosmo",
+        "width": 390,
+        "mode": "distances",
+        "spatial": true,
+        "path": ".research/physics-reader-final-20261011-oye7_cn1/physics-reader/cosmology-spatial-390-distances.png",
+        "sha256": "801d5d925d94713e0fc013087a8a6c1989e37f54c6ac2e99d38bb64df4964a51",
+        "native_dimensions": [
+          336,
+          236
+        ],
+        "visually_inspected": true
+      }
+    ],
+    "results": [
+      {
+        "node": "phys.4.em-maxwell",
+        "width": 1440,
+        "lab_states": 73,
+        "spatial_states": 62,
+        "camera_keyboard": 49,
+        "resets": 2,
+        "speech": 137,
+        "modes": [
+          "magnetic",
+          "gauss",
+          "faraday",
+          "capacitor",
+          "wave",
+          "coax",
+          "radiation"
+        ],
+        "passed": true,
+        "errors": []
+      },
+      {
+        "node": "phys.4.em-maxwell",
+        "width": 390,
+        "lab_states": 73,
+        "spatial_states": 62,
+        "camera_keyboard": 49,
+        "resets": 2,
+        "speech": 137,
+        "modes": [
+          "magnetic",
+          "gauss",
+          "faraday",
+          "capacitor",
+          "wave",
+          "coax",
+          "radiation"
+        ],
+        "passed": true,
+        "errors": []
+      },
+      {
+        "node": "phys.5.gr-cosmo",
+        "width": 1440,
+        "lab_states": 84,
+        "spatial_states": 72,
+        "camera_keyboard": 56,
+        "resets": 2,
+        "speech": 158,
+        "modes": [
+          "geometry",
+          "expansion",
+          "horizons",
+          "redshift",
+          "causality",
+          "blackhole",
+          "inflation",
+          "distances"
+        ],
+        "passed": true,
+        "errors": []
+      },
+      {
+        "node": "phys.5.gr-cosmo",
+        "width": 390,
+        "lab_states": 84,
+        "spatial_states": 72,
+        "camera_keyboard": 56,
+        "resets": 2,
+        "speech": 158,
+        "modes": [
+          "geometry",
+          "expansion",
+          "horizons",
+          "redshift",
+          "causality",
+          "blackhole",
+          "inflation",
+          "distances"
+        ],
+        "passed": true,
+        "errors": []
+      }
+    ],
+    "served_body_count": 20,
+    "errors": [],
+    "fresh_server_action_by_reviewer": false,
+    "historical_server_scope": "The root receipt pins the server at capture time. Stroke delivery may change server/CSP afterward. This review does not extend the historical server hash or establish hosted/production delivery."
+  },
+  "additional_inspected_captures": [
+    {
+      "path": "docs/physics-cosmology-review-20261011/captures/1440-blackhole-radius.png",
+      "bytes": 2484479,
+      "sha256": "27111135748a39aafb992f8555f21238c0c442da450e4b7176acd19ef9bceed3",
+      "native_dimensions": [
+        1200,
+        2025
+      ],
+      "visually_inspected": true
+    },
+    {
+      "path": "docs/physics-cosmology-review-20261011/captures/1440-blackhole-lensing.png",
+      "bytes": 2518391,
+      "sha256": "22f8ed1df93507ff5c9d43fcb25a9a88fb84f5f84ca4d341fce564f806c3f6bd",
+      "native_dimensions": [
+        1200,
+        2045
+      ],
+      "visually_inspected": true
+    },
+    {
+      "path": "docs/physics-cosmology-review-20261011/captures/1440-blackhole-infall.png",
+      "bytes": 2533492,
+      "sha256": "a86ade2b4fcd77c56b1a082af5292bb7c4d725a465af6a2a3d87506a5615d6cd",
+      "native_dimensions": [
+        1200,
+        2064
+      ],
+      "visually_inspected": true
+    },
+    {
+      "path": "docs/physics-cosmology-review-20261011/captures/1440-blackhole-cones.png",
+      "bytes": 2712318,
+      "sha256": "bf28f02b78a15f7436dd4c5c0b9c6b27acd4f3926cf653f1cdde7703ba949d62",
+      "native_dimensions": [
+        1200,
+        2215
+      ],
+      "visually_inspected": true
+    },
+    {
+      "path": "docs/physics-cosmology-review-20261011/captures/390-blackhole-radius.png",
+      "bytes": 1294427,
+      "sha256": "691a8396f0f4d24d7dcb3cfe75446e7393d19cb2d3b416e73d4a78dede016ea0",
+      "native_dimensions": [
+        358,
+        2974
+      ],
+      "visually_inspected": true
+    },
+    {
+      "path": "docs/physics-cosmology-review-20261011/captures/390-blackhole-lensing.png",
+      "bytes": 1311335,
+      "sha256": "b63ee65d814e3f047e29cfcf66db573a45739c352ef6b51250625ce2f730071b",
+      "native_dimensions": [
+        358,
+        2993
+      ],
+      "visually_inspected": true
+    },
+    {
+      "path": "docs/physics-cosmology-review-20261011/captures/390-blackhole-infall.png",
+      "bytes": 1418585,
+      "sha256": "d356da0a0603abbd3aa82fed7e07d5c6022a56dcee26a11e44caaa28e40fb61d",
+      "native_dimensions": [
+        358,
+        3221
+      ],
+      "visually_inspected": true
+    },
+    {
+      "path": "docs/physics-cosmology-review-20261011/captures/390-blackhole-cones.png",
+      "bytes": 1425812,
+      "sha256": "ac1b0112070a89584edaaa23ccf87516961e21e876be8366b90b19fba9330ff1",
+      "native_dimensions": [
+        358,
+        3314
+      ],
+      "visually_inspected": true
+    },
+    {
+      "path": ".research/maxwell-lab-qa-20261011/390-capacitor.png",
+      "bytes": 1420411,
+      "sha256": "fd757f306e3f0565c6194be81394d0f89b67ce94668fc831d091b312f555fe59",
+      "native_dimensions": [
+        358,
+        3315
+      ],
+      "visually_inspected": true
+    },
+    {
+      "path": ".research/maxwell-lab-qa-20261011/390-wave.png",
+      "bytes": 1441399,
+      "sha256": "2f3e94c19cb9f018164e4ffeedd8a994c6e35966f30f1b0b0dadc0a66a4195f1",
+      "native_dimensions": [
+        358,
+        3455
+      ],
+      "visually_inspected": true
+    }
+  ],
+  "original_static_illustrations_inspected": true,
+  "presentation_findings": [
+    "All 60 root reader captures were inspected at their original full dimensions, including 30 spatial canvases and 30 full lab cards. Native card widths are 960/366 and canvas widths 916/336; viewport 1440/390 is recorded separately.",
+    "Rootphone tall element captures contain a stickyPrimer header strip obscuring a band of controls. This is a captured viewport overlay, not proof that those controls are absent. Separate author standalone capacitor/wave and 8 blackholecaptures show the model controls unobscured. No fresh authenticated browser operation is claimed by this reviewer.",
+    "Tables have explicit horizontal scrolling on phones; long cosmology ledgers additionally have bounded vertical scrolling. The screenshot shows only a scrollviewport, so missing offscreen rows are not claimed visually inspected from that screenshot; complete data and speech are independently checked by the retained numerical/mounted tests.",
+    "Spatiallabels can overlap geometry at chosen camera angles and phone field glyphs can be small. These canvases supplement the calibrated labplots, stated gains, exact ledgers and camera/enlarge controls; they do not replace a numerical axis or define a metric from scene angles."
+  ],
+  "failed_review_oracle_observations": [
+    {
+      "id": "phase-node-roundoff",
+      "result": "initial reviewer checker failed comparing two algebraically equivalent phase expressions at an exact cosine node",
+      "resolution": "Error bound now uses the physically specified peak of that named wave field; it never substitutes arbitrarySI 1. Sourcearrays and runtime unchanged."
+    },
+    {
+      "id": "early-dust-tensor-cancellation",
+      "result": "initial float 64 metric-route oracle produced a 6.26 e-53 residual for an exactlyzero dust spatialEinstein component",
+      "resolution": "Reviewer oracle replaced with 80 digit Decimal metric/Ricci arithmetic. No runtime repair, tolerance weakening or zero product state was used."
+    }
+  ],
+  "primary_sources_checked": [
+    {
+      "url": "https://physics.nist.gov/cuu/pdf/all.pdf",
+      "use": "2022 CODATA c,mu 0,epsilon 0,G,h,kB; exact versus measured constants"
+    },
+    {
+      "url": "https://farside.ph.utexas.edu/teaching/jk1/lectures/node61.html",
+      "use": "Uniform magnetization sphere fields and boundary condition"
+    },
+    {
+      "url": "https://www.feynmanlectures.caltech.edu/II_18.html",
+      "use": "Maxwell equations, charge continuity and identical loop boundaries"
+    },
+    {
+      "url": "https://www.ocw.mit.edu/courses/6-013-electromagnetics-and-applications-spring-2009/015b9db53add91f7384c71335ae0b436_MIT6_013S09_lec19.pdf",
+      "use": "Hertzian field/power and short dipole hypotheses"
+    },
+    {
+      "url": "https://web.mit.edu/sahughes/www/8.962/index.html",
+      "use": "FLRW symmetry/field equations, conserved source and regular blackhole coordinates; course-summary and linked lecture scopes checked"
+    },
+    {
+      "url": "https://arxiv.org/abs/astro-ph/9905116",
+      "use": "Hogg distance/redshift conventions and sourcePDF equations; historical observational text is not used ascurrent parameters"
+    },
+    {
+      "url": "https://arxiv.org/abs/1807.06211",
+      "use": "Historical Planck 2018 model dependent scalar tilt context; no claim of current universal best fit"
+    }
+  ],
+  "decision": "PASS for these stated educational model hypotheses and frozen source-to-engine mappings; no outstanding substantive science finding in this scoped review.",
+  "gaps": [
+    "The models are finite sampled analytic teaching examples, not general material electrodynamics, arbitrary Einstein-equation solutions or observational inference pipelines.",
+    "Near-field antenna/fringing/skin effects and general GR numerical metrics,CMB transfer/likelihoods,recombination/nonlinear structure are explicitly outside these models.",
+    "Independent human specialist review, production delivery and the full radiology clinical/commercial grade are not established by this review.",
+    "Legacy conceptlabs/static schematics remain supplements and do not independently provide quantitative fullmodule approval."
+  ],
+  "production_verification": false,
+  "clinical_commercial_grade_verified": false,
+  "certification_expected_verified": false,
+  "whole_goal_complete": false
+}

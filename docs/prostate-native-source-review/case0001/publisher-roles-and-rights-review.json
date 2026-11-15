@@ -1,0 +1,72 @@
+{
+  "reviewed_on": "2026-10-08",
+  "source_collection": "https://www.cancerimagingarchive.net/collection/prostate-mri-us-biopsy/",
+  "publisher_snapshots": [
+    {
+      "file": "tcia-collection.html",
+      "url": "https://www.cancerimagingarchive.net/collection/prostate-mri-us-biopsy/",
+      "bytes": 353799,
+      "sha256": "72332e080af5a8fa47c80d9612537911e6582bb4afb947528b83a0ddfd583820"
+    },
+    {
+      "file": "tcia-wiki.html",
+      "url": "https://wiki.cancerimagingarchive.net/pages/viewpage.action?pageId=68550661",
+      "bytes": 128571,
+      "sha256": "3c6448472cd87fce90dfb5d31e94ce4665f9c9f32e99ea7351bb608eeffa68f1"
+    },
+    {
+      "file": "idc-conversion-readme.md",
+      "url": "https://raw.githubusercontent.com/ImagingDataCommons/idc-dicom-seg-conversions/main/README.md",
+      "bytes": 3202,
+      "sha256": "72217b502b27d9f6004ddbabbcbc3d382edb72e6692eaa8afef21a222a74d282"
+    },
+    {
+      "file": "idc-conversion-notebook.json",
+      "url": "https://raw.githubusercontent.com/ImagingDataCommons/idc-dicom-seg-conversions/main/main_stl_seg_to_dcm.ipynb",
+      "bytes": 239087,
+      "sha256": "aed636caa38882dee246381127bb2716a4c2c00818686c6f9ddd4c4cf1834a29"
+    }
+  ],
+  "commercial_reuse_grant": "CC BY 4.0",
+  "rights_apply_to": "Acquired source collection objects and surfaces; not new patient approval or unpublished data",
+  "source_annotation_roles": {
+    "prostate": "Semi-automatic Profuse MRI outline, user-adjustable; accuracy user-dependent.",
+    "target": "Radiologist-traced suspicious MRI ROI; proximity does not guarantee cancer or a complete histological boundary.",
+    "derived_SEG": "Producer Slicer rasterization of source STL in reference MRI grid; not an independent native manual voxel mask.",
+    "US": "Separate source US; publisher-applied axis permutation and nonrigid registration do not provide actor-verified MRI/US native registration.",
+    "scores": "Source Likert-like scores comparable to older PI-RADS2 context; not current PI-RADS2.1 assignment."
+  },
+  "conversion_repository": "https://github.com/ImagingDataCommons/idc-dicom-seg-conversions",
+  "conversion_notebook_sha256": "aed636caa38882dee246381127bb2716a4c2c00818686c6f9ddd4c4cf1834a29",
+  "conversion_script_sha256": "f26f84acdff06e403f01a23a09a794ebc4b23dcb826b97818ffa28a0442bba0f",
+  "source_US_transform": [
+    0,
+    1,
+    0,
+    0,
+    0,
+    1,
+    1,
+    0,
+    0
+  ],
+  "source_US_inverse_transform": [
+    0,
+    0,
+    1,
+    1,
+    0,
+    0,
+    0,
+    1,
+    0
+  ],
+  "source_US_registration_average_accuracy_mm": [
+    3,
+    4
+  ],
+  "source_MRI_registration_independently_approved": false,
+  "clinical_anatomical_or_full_reporting_approval_granted": false,
+  "runtime_promoted": false,
+  "attribution": "Natarajan, S., Priester, A., Margolis, D., Huang, J., and Marks, L. (2020). Prostate MRI and Ultrasound With Pathology and Coordinates of Tracked Biopsy (Prostate-MRI-US-Biopsy), version 2. The Cancer Imaging Archive. DOI: 10.7937/TCIA.2020.A61IOC1A. CC BY4.0. No endorsement implied."
+}

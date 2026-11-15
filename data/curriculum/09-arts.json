@@ -14,7 +14,31 @@
     "Color",
     "Primary color"
    ],
-   "kid_text": "Red, yellow, and blue are special colors called primaries, because you can't mix any other colors to make them. But you can mix THEM to make new colors! Swirl blue and yellow paint together and watch them turn into green, like fresh grass. Try mixing two colors yourself and see what surprise pops out.",
+   "lesson_media": [
+    {
+     "id": "blue-yellow-paint-plate",
+     "kind": "illustration",
+     "src": "/app/illustrations/seedling/arts/arts-0-colors-800.webp",
+     "srcset": "/app/illustrations/seedling/arts/arts-0-colors-800.webp 800w, /app/illustrations/seedling/arts/arts-0-colors-1600.webp 1600w",
+     "alt": "Equal dabs of classroom blue and yellow paint are shown before mixing and as an approximate green mixture, with separate brushes and a clean palette.",
+     "caption": "Equal parts of these classroom blue and yellow paints make an approximate green. Real pigment mixtures vary; screens add colored light instead and follow different mixing rules.",
+     "width": 1600,
+     "height": 1000
+    },
+    {
+     "id": "classroom-paint-mixer",
+     "kind": "model",
+     "renderer": "classroom-paint-mixer",
+     "title": "Mix two classroom paints",
+     "instructions": "Choose two classroom paint colors and combine equal parts. Compare the model's approximate recipe with the two starting swatches; real paints can mix differently.",
+     "props": {
+      "scenario": "equal-parts-classroom-ryb",
+      "start_first": "blue",
+      "start_second": "yellow"
+     }
+    }
+   ],
+   "kid_text": "In many classrooms, red, yellow and blue paints are a handy set for learning to mix colors. Equal parts of classroom blue and yellow often look green, but real results depend on the pigments and amounts. Red, yellow and blue are one teaching model, not the only possible set of primaries. Phone and television screens mix red, green and blue light instead, so their recipes are different.",
    "quiz": [
     {
      "kind": "choice",
@@ -31,29 +55,29 @@
     },
     {
      "kind": "choice",
-     "prompt": "Mix blue 🔵 and yellow 🟡. What color?",
+     "prompt": "Mix equal parts classroom blue 🔵 and yellow 🟡 paint. About what color?",
      "choices": [
       "Green",
       "Purple",
       "Black"
      ],
      "answer": "Green",
-     "say": "If you swirl blue paint and yellow paint together, what color do you get? Green, purple, or black?",
+     "say": "If you swirl equal parts classroom blue and yellow paint together, about what color do you get? Green, purple, or black?",
      "speak_choices": true,
-     "explain": "Blue and yellow swirl together to make green, like fresh grass!"
+     "explain": "These classroom blue and yellow paints make an approximate green. The exact result depends on the pigments and amounts."
     },
     {
      "kind": "choice",
-     "prompt": "Mix red 🔴 and yellow 🟡. What color?",
+     "prompt": "Mix equal parts classroom red 🔴 and yellow 🟡 paint. About what color?",
      "choices": [
       "Orange",
       "Purple",
       "Green"
      ],
      "answer": "Orange",
-     "say": "Now swirl red paint and yellow paint together. What color pops out? Orange, purple, or green?",
+     "say": "Now swirl equal parts classroom red and yellow paint together. About what color appears? Orange, purple, or green?",
      "speak_choices": true,
-     "explain": "Red and yellow make orange, just like a juicy orange!"
+     "explain": "These classroom red and yellow paints make an approximate orange. Different pigments can shift the result."
     },
     {
      "kind": "choice",
@@ -70,45 +94,45 @@
     },
     {
      "kind": "choice",
-     "prompt": "Mix red 🔴 and blue 🔵. What color?",
+     "prompt": "Mix equal parts classroom red 🔴 and blue 🔵 paint. About what color?",
      "choices": [
       "Purple",
       "Brown",
       "Green"
      ],
      "answer": "Purple",
-     "say": "If you swirl red paint and blue paint together, what do you get? Purple, brown, or green?",
+     "say": "If you swirl equal parts classroom red and blue paint together, about what color do you get? Purple, brown, or green?",
      "speak_choices": true,
-     "explain": "Red and blue make purple, like a juicy grape!"
+     "explain": "These classroom red and blue paints make an approximate purple. The pigments used can make it brighter or duller."
     },
     {
      "kind": "choice",
-     "prompt": "What color is the grass outside?",
+     "prompt": "Do screen lights mix just like classroom paints?",
      "choices": [
-      "Green",
-      "Brown",
-      "Orange"
+      "No — screens add colored light",
+      "Yes — both use the same recipes"
      ],
-     "answer": "Green",
-     "say": "Look at the grass outside. What color is it? Green, brown, or orange?",
+     "answer": "No — screens add colored light",
+     "say": "Do screen lights mix just like classroom paints? No, screens add colored light, or yes, both use the same recipes?",
      "speak_choices": true,
-     "explain": "Grass is green, and green comes from blue and yellow!"
+     "explain": "No. Screens usually add red, green and blue light, while paints contain pigments that absorb some light. Their mixing recipes are different."
     },
     {
      "kind": "choice",
-     "prompt": "Mix white ⚪ and red 🔴. What color?",
+     "prompt": "Mix equal parts classroom white ⚪ and red 🔴 paint. About what color?",
      "choices": [
       "Pink",
       "Purple",
       "Orange"
      ],
      "answer": "Pink",
-     "say": "Now stir white paint into red paint. What color do you get? Pink, purple, or orange?",
+     "say": "Now stir equal parts classroom white and red paint. About what color do you get? Pink, purple, or orange?",
      "speak_choices": true,
-     "explain": "White makes red lighter, and it turns into soft pink!"
+     "explain": "These classroom white and red paints make an approximate pink. More white would usually make the mixture lighter."
     }
    ],
-   "prereqs": []
+   "prereqs": [],
+   "practice": "know:arts.0.colors"
   },
   {
    "id": "arts.0.drawing",
@@ -213,7 +237,20 @@
      "explain": "A zigzag line turns sharp corners, just like lightning!"
     }
    ],
-   "prereqs": []
+   "prereqs": [],
+   "lesson_media": [
+    {
+     "id": "observe-mark-compare-cycle-plate",
+     "kind": "illustration",
+     "src": "/app/illustrations/seedling/arts/arts-0-drawing-800.webp",
+     "srcset": "/app/illustrations/seedling/arts/arts-0-drawing-800.webp 800w, /app/illustrations/seedling/arts/arts-0-drawing-1600.webp 1600w",
+     "alt": "Three panels show a wide cup with an oval rim and open handle, a first outline that is too narrow beside dashed width guides, and a revised wider outline with the same height.",
+     "caption": "Observation drawing is a repeated comparison between subject and mark. Imaginative drawing enters the same loop through memory, play and deliberate choices.",
+     "width": 1600,
+     "height": 1000
+    }
+   ],
+   "practice": "know:arts.0.drawing"
   },
   {
    "id": "arts.0.singing",
@@ -318,7 +355,21 @@
      "explain": "Singing is talking with a tune that goes up and down!"
     }
    ],
-   "prereqs": []
+   "prereqs": [],
+   "lesson_media": [
+    {
+     "id": "beat-pitch-phrase-plate",
+     "kind": "illustration",
+     "src": "/app/illustrations/seedling/arts/arts-0-singing-800.webp",
+     "srcset": "/app/illustrations/seedling/arts/arts-0-singing-800.webp 800w, /app/illustrations/seedling/arts/arts-0-singing-1600.webp 1600w",
+     "alt": "A worked four-beat phrase aligns four numbered pulse dots with the syllables HEL-, LO, MY and FRIEND while colored notes and a connecting line rise and fall above the steady beat.",
+     "caption": "A song combines a steady pulse, changing rhythm and a pitch contour. Singers listen and breathe together so separate voices can coordinate.",
+     "width": 1600,
+     "height": 1000
+    }
+   ],
+   "practice": "know:arts.0.singing",
+   "strand": "music"
   },
   {
    "id": "arts.0.dance",
@@ -423,7 +474,21 @@
      "explain": "Fast drums make your body move fast, run, run, run!"
     }
    ],
-   "prereqs": []
+   "prereqs": [],
+   "lesson_media": [
+    {
+     "id": "four-count-movement-plate",
+     "kind": "illustration",
+     "src": "/app/illustrations/seedling/arts/arts-0-dance-800.webp",
+     "srcset": "/app/illustrations/seedling/arts/arts-0-dance-800.webp 800w, /app/illustrations/seedling/arts/arts-0-dance-1600.webp 1600w",
+     "alt": "Four numbered panels show solid figures bending low, stepping sideways, reaching upward and changing direction, with arrows distinguishing level, travel, reach and turn on successive counts.",
+     "caption": "Counting connects musical time to movement. A dancer can change shape, level, direction and energy while keeping the same four-beat phrase.",
+     "width": 1600,
+     "height": 1000
+    }
+   ],
+   "practice": "know:arts.0.dance",
+   "strand": "music"
   },
   {
    "id": "arts.1.elements",
@@ -435,7 +500,33 @@
     "Line (art)",
     "Texture (visual arts)"
    ],
-   "kid_text": "Every picture is built from a few simple building blocks, just like a house is built from bricks. A line can be straight, wiggly, or zigzag, and when lines join up they make a shape, like a circle or a square. Texture is how something would feel, bumpy tree bark or soft fur, and a pattern is when shapes or colors repeat, like the stripes on a bee.",
+   "lesson_media": [
+    {
+     "id": "five-art-elements-plate",
+     "kind": "illustration",
+     "src": "/app/illustrations/sprout/arts/arts-1-elements-800.webp",
+     "srcset": "/app/illustrations/sprout/arts/arts-1-elements-800.webp 800w, /app/illustrations/sprout/arts/arts-1-elements-1600.webp 1600w",
+     "alt": "Five cards show straight, wavy and zigzag lines; geometric and organic shapes; color swatches; texture marks; and a repeating leaf pattern, with a pencil and paintbrush below.",
+     "caption": "Artists combine line, shape, color, visual texture and pattern. Marks can suggest how a surface might feel without being physically rough, and the meanings or moods associated with colors depend on context and the viewer.",
+     "width": 1600,
+     "height": 1000
+    },
+    {
+     "id": "art-elements-composer",
+     "kind": "model",
+     "renderer": "art-elements-composer",
+     "title": "Compose a garden from five elements",
+     "instructions": "Turn line, shape, color, visual texture and pattern on or off to compare what each adds to a garden composition. You can clear the board, show all five, or reset to line and shape.",
+     "props": {
+      "scenario": "garden-five-elements",
+      "start_elements": [
+       "line",
+       "shape"
+      ]
+     }
+    }
+   ],
+   "kid_text": "Every picture is built from a few simple elements. A line can be straight, wiggly or zigzag, and joined lines can enclose a shape such as a circle or square. An object's actual texture can be touched, while artists also make visual texture: marks that suggest bumpy bark or soft fur even on smooth paper. A pattern repeats shapes, lines or colors, like the stripes on a bee. Artists combine these elements in many ways, and viewers can respond differently.",
    "prereqs": [
     "arts.0.colors",
     "arts.0.drawing",
@@ -457,16 +548,16 @@
     },
     {
      "kind": "choice",
-     "prompt": "Which one feels soft? 🐑 🪨 🧱",
+     "prompt": "Which picture suggests a soft texture? 🐑 🪨 🧱",
      "choices": [
       "🐑",
       "🪨",
       "🧱"
      ],
      "answer": "🐑",
-     "say": "Which one feels soft when you touch it? Is it the sheep, the rock, or the brick?",
+     "say": "Which picture suggests a soft texture — the sheep, the rock, or the brick?",
      "speak_choices": true,
-     "explain": "How something feels, soft or bumpy, is called texture."
+     "explain": "The sheep's wool suggests softness. Artists can use marks to suggest texture even when the picture itself is smooth."
     },
     {
      "kind": "choice",
@@ -496,16 +587,16 @@
     },
     {
      "kind": "choice",
-     "prompt": "Which feels rough? 🧱 🎈 🐑",
+     "prompt": "Which picture suggests a rough texture? 🧱 🎈 🐑",
      "choices": [
       "🧱",
       "🎈",
       "🐑"
      ],
      "answer": "🧱",
-     "say": "Which one feels rough and scratchy when you touch it? The brick, the balloon, or the sheep?",
+     "say": "Which picture suggests a rough texture — the brick, the balloon, or the sheep?",
      "speak_choices": true,
-     "explain": "The brick feels rough, and rough is a kind of texture!"
+     "explain": "The brick's uneven surface suggests roughness. In a drawing, small irregular marks can create that visual texture."
     },
     {
      "kind": "choice",
@@ -522,16 +613,16 @@
     },
     {
      "kind": "choice",
-     "prompt": "Dark gray storm clouds ⛈. How does it feel?",
+     "prompt": "A sky changes from pale blue to dark gray. Which element changed?",
      "choices": [
-      "Gloomy",
-      "Cheerful",
-      "Silly"
+      "Color",
+      "Shape",
+      "Pattern"
      ],
-     "answer": "Gloomy",
-     "say": "A picture full of dark gray storm clouds. How does it make you feel? Gloomy, cheerful, or silly?",
+     "answer": "Color",
+     "say": "An artist changes a sky from pale blue to dark gray. Which art element changed — color, shape, or pattern?",
      "speak_choices": true,
-     "explain": "Dark colors can feel gloomy, and bright colors can feel cheerful."
+     "explain": "The artist changed the sky's color. Colors can suggest different moods, but their meaning depends on the picture, culture and viewer."
     }
    ],
    "practice": "patterns"
@@ -643,7 +734,20 @@
      "speak_choices": true,
      "explain": "Clay squishes into any shape your hands want to make!"
     }
-   ]
+   ],
+   "lesson_media": [
+    {
+     "id": "craft-processes-materials-plate",
+     "kind": "illustration",
+     "src": "/app/illustrations/sprout/arts/arts-1-crafts-800.webp",
+     "srcset": "/app/illustrations/sprout/arts/arts-1-crafts-800.webp 800w, /app/illustrations/sprout/arts/arts-1-crafts-1600.webp 1600w",
+     "alt": "Three before-and-after drawings show loose clay coils joined into a hollow pot, a rectangular soap block rounded by removing chips, and a paper square, triangle and door arranged into a house before gluing.",
+     "caption": "Making methods change material in different ways. Planning joins, cuts and order helps a maker choose what can still be revised.",
+     "width": 1600,
+     "height": 1000
+    }
+   ],
+   "practice": "know:arts.1.crafts"
   },
   {
    "id": "arts.1.instruments",
@@ -657,7 +761,6 @@
    ],
    "kid_text": "Instruments belong to families, and each family makes its sound in its own way. You hit or shake a drum to make a boom or a rattle, so drums are the percussion family. You pluck a guitar's strings or pull a bow across a violin to make them sing, so those are the string family. Listen closely to a sound and guess: was it hit, plucked, or blown?",
    "prereqs": [
-    "arts.0.colors",
     "arts.0.singing"
    ],
    "quiz": [
@@ -752,7 +855,21 @@
      "speak_choices": true,
      "explain": "A piano has keys to press, a drum you hit, and a guitar you pluck!"
     }
-   ]
+   ],
+   "lesson_media": [
+    {
+     "id": "instrument-vibration-families-plate",
+     "kind": "illustration",
+     "src": "/app/illustrations/sprout/arts/arts-1-instruments-800.webp",
+     "srcset": "/app/illustrations/sprout/arts/arts-1-instruments-800.webp 800w, /app/illustrations/sprout/arts/arts-1-instruments-1600.webp 1600w",
+     "alt": "Four columns trace how a plucked string, blown air column, struck membrane and struck solid body begin vibrating, how the instrument reinforces that vibration and the resulting sound.",
+     "caption": "Instrument families can be compared by what first vibrates. Resonators and player technique then shape loudness, pitch and tone color.",
+     "width": 1600,
+     "height": 1000
+    }
+   ],
+   "practice": "know:arts.1.instruments",
+   "strand": "music"
   },
   {
    "id": "arts.1.beat",
@@ -765,7 +882,6 @@
    ],
    "kid_text": "A beat is the steady tick-tock that stays the same the whole way through a song, like feet marching in a line. The melody is the tune that dances up and down on top of the beat, and it is the part you hum after the song ends. Try tapping the steady beat with your foot while your voice follows the melody at the same time.",
    "prereqs": [
-    "arts.0.colors",
     "arts.0.singing",
     "arts.0.dance"
    ],
@@ -861,7 +977,29 @@
      "speak_choices": true,
      "explain": "Lullabies have a slow, gentle beat for sleepy time!"
     }
-   ]
+   ],
+   "lesson_media": [
+    {
+     "id": "beat-duration-melody-plate",
+     "kind": "illustration",
+     "src": "/app/illustrations/sprout/arts/arts-1-beat-800.webp",
+     "srcset": "/app/illustrations/sprout/arts/arts-1-beat-800.webp 800w, /app/illustrations/sprout/arts/arts-1-beat-1600.webp 1600w",
+     "alt": "A worked measure aligns four numbered beat dots to a quarter note, two eighth notes and a half note totaling four beats, while a red contour connects their changing pitches.",
+     "caption": "The beat is the steady reference; rhythm divides its duration; melody arranges pitches through time. One bar can make all three relationships visible.",
+     "width": 1600,
+     "height": 1000
+    },
+    {
+     "id": "beat-and-subdivision",
+     "kind": "model",
+     "renderer": "concept-lab",
+     "title": "More notes do not mean a faster beat",
+     "instructions": "Change beat tempo and equal subdivisions independently. Compare four beats and their notes on a fixed time ruler, then clap and count them.",
+     "props": {"scenario": "arts.1.beat"}
+    }
+   ],
+   "practice": "know:arts.1.beat",
+   "strand": "music"
   },
   {
    "id": "arts.2.art-history-intro",
@@ -987,6 +1125,18 @@
     "arts.1.elements",
     "arts.1.crafts",
     "hist.1.timelines"
+   ],
+   "lesson_media": [
+    {
+     "id": "art-media-time-plate",
+     "kind": "illustration",
+     "src": "/app/illustrations/sapling/arts/arts-2-art-history-intro-800.webp",
+     "srcset": "/app/illustrations/sapling/arts/arts-2-art-history-intro-800.webp 800w, /app/illustrations/sapling/arts/arts-2-art-history-intro-1600.webp 1600w",
+     "alt": "A selected timeline connects early rock art and ancient public objects with East Asian woodblock printing from the 600s onward, photography from the 1800s onward, and modern to digital practices. Older media continue; these are overlapping examples, not a universal sequence of progress.",
+     "caption": "Art history follows changing materials, patrons, audiences and purposes. New media add possibilities without making earlier practices obsolete or less complex.",
+     "width": 1600,
+     "height": 1000
+    }
    ]
   },
   {
@@ -1112,6 +1262,28 @@
      ],
      "explain": "A colour's complement darkens and calms it while leaving it recognisably orange, where black just drains it."
     }
+   ],
+   "lesson_media": [
+    {
+     "id": "color-balance-perspective-plate",
+     "kind": "illustration",
+     "src": "/app/illustrations/sapling/arts/arts-2-color-theory-800.webp",
+     "srcset": "/app/illustrations/sapling/arts/arts-2-color-theory-800.webp 800w, /app/illustrations/sapling/arts/arts-2-color-theory-1600.webp 1600w",
+     "alt": "Three worked panels show blue and orange as a simplified complementary pair, one large form balancing two smaller forms at a distance, and receding rectangles whose parallel edges converge at a vanishing point.",
+     "caption": "Color relations, visual balance and perspective guide attention in different ways. They are compositional tools, not universal formulas for beauty.",
+     "width": 1600,
+     "height": 1000
+    },
+    {
+     "id": "arts-2-color-theory-spatial-3d",
+     "kind": "model",
+     "renderer": "spatial-3d",
+     "title": "From depth to a perspective drawing",
+     "instructions": "Move a fixed-size cube in depth and change the focal distance. Follow the rays to the picture plane and compare the projected size.",
+     "props": {
+      "scenario": "arts.2.color-theory"
+     }
+    }
    ]
   },
   {
@@ -1219,6 +1391,61 @@
       "Which finger should play it"
      ],
      "explain": "Vertical position on a staff means pitch; loudness comes from separate markings and length comes from the note's shape."
+    }
+   ],
+   "lesson_media": [
+    {
+     "id": "four-four-measure-plate",
+     "kind": "illustration",
+     "src": "/app/illustrations/sapling/arts/arts-2-music-reading-800.webp",
+     "srcset": "/app/illustrations/sapling/arts/arts-2-music-reading-800.webp 800w, /app/illustrations/sapling/arts/arts-2-music-reading-1600.webp 1600w",
+     "alt": "Engraved treble and bass clefs locate G4 and F3 on their reference lines; ledger lines locate middle C in both clefs. A crotchet, two beamed quavers and a minim make four crotchet beats.",
+     "caption": "Notation coordinates pitch and duration. In this worked 4/4 measure, one quarter plus two eighths plus one half fills all four beats.",
+     "width": 1600,
+     "height": 1000
+    }
+   ],
+   "strand": "music",
+   "music_path": [
+    {
+     "grade": 1,
+     "id": "arts.2.music-grade-1",
+     "title": "Music Grade 1: Pitch, Pulse and Major Keys"
+    },
+    {
+     "grade": 2,
+     "id": "arts.2.music-grade-2",
+     "title": "Music Grade 2: Minor Keys and Subdivision"
+    },
+    {
+     "grade": 3,
+     "id": "arts.2.music-grade-3",
+     "title": "Music Grade 3: Compound Metre and Key Fluency"
+    },
+    {
+     "grade": 4,
+     "id": "arts.3.music-grade-4",
+     "title": "Music Grade 4: Clefs, Intervals and Primary Harmony"
+    },
+    {
+     "grade": 5,
+     "id": "arts.3.music-grade-5",
+     "title": "Music Grade 5: Fluent Notation and Harmonic Reading"
+    },
+    {
+     "grade": 6,
+     "id": "arts.3.music-grade-6",
+     "title": "Music Grade 6: Four-Part Harmony and Modulation"
+    },
+    {
+     "grade": 7,
+     "id": "arts.3.music-grade-7",
+     "title": "Music Grade 7: Chromatic Harmony and Decorated Lines"
+    },
+    {
+     "grade": 8,
+     "id": "arts.3.music-grade-8",
+     "title": "Music Grade 8: Counterpoint, Style and Complete Scores"
     }
    ]
   },
@@ -1352,6 +1579,18 @@
     "arts.1.elements",
     "lang.1.writing-stories",
     "lang.2.speaking"
+   ],
+   "lesson_media": [
+    {
+     "id": "script-to-live-event-plate",
+     "kind": "illustration",
+     "src": "/app/illustrations/sapling/arts/arts-2-theatre-800.webp",
+     "srcset": "/app/illustrations/sapling/arts/arts-2-theatre-800.webp 800w, /app/illustrations/sapling/arts/arts-2-theatre-1600.webp 1600w",
+     "alt": "Two overhead stage plans keep the same line of dialogue. Initially actor B stands between one audience seat and actor A; moving B sideways clears that seat's sightline to A. Other seats and performance choices still need rehearsal.",
+     "caption": "Theatre is a live collaboration. Text, bodies, space, light, sound and audience attention combine differently in every production and performance.",
+     "width": 1600,
+     "height": 1000
+    }
    ]
   },
   {
@@ -1478,6 +1717,735 @@
     "arts.1.elements",
     "arts.2.color-theory",
     "phys.1.light"
+   ],
+   "lesson_media": [
+    {
+     "id": "framing-editing-selection-plate",
+     "kind": "illustration",
+     "src": "/app/illustrations/sapling/arts/arts-2-photography-800.webp",
+     "srcset": "/app/illustrations/sapling/arts/arts-2-photography-800.webp 800w, /app/illustrations/sapling/arts/arts-2-photography-1600.webp 1600w",
+     "alt": "A wide camera frame emphasizes a person in place while a close frame emphasizes a face; beside them, three shots of a door opening, a reacting face and an empty chair are connected by editing arrows.",
+     "caption": "Photography selects a frame from space; film editing selects a sequence through time. Both choices guide what viewers notice and infer.",
+     "width": 1600,
+     "height": 1000
+    }
+   ]
+  },
+  {
+   "id": "arts.2.music-grade-1",
+   "title": "Music Grade 1: Pitch, Pulse and Major Keys",
+   "stage": 2,
+   "strand": "music",
+   "music_grade": 1,
+   "music_path": [
+    {
+     "grade": 1,
+     "id": "arts.2.music-grade-1",
+     "title": "Music Grade 1: Pitch, Pulse and Major Keys"
+    },
+    {
+     "grade": 2,
+     "id": "arts.2.music-grade-2",
+     "title": "Music Grade 2: Minor Keys and Subdivision"
+    },
+    {
+     "grade": 3,
+     "id": "arts.2.music-grade-3",
+     "title": "Music Grade 3: Compound Metre and Key Fluency"
+    },
+    {
+     "grade": 4,
+     "id": "arts.3.music-grade-4",
+     "title": "Music Grade 4: Clefs, Intervals and Primary Harmony"
+    },
+    {
+     "grade": 5,
+     "id": "arts.3.music-grade-5",
+     "title": "Music Grade 5: Fluent Notation and Harmonic Reading"
+    },
+    {
+     "grade": 6,
+     "id": "arts.3.music-grade-6",
+     "title": "Music Grade 6: Four-Part Harmony and Modulation"
+    },
+    {
+     "grade": 7,
+     "id": "arts.3.music-grade-7",
+     "title": "Music Grade 7: Chromatic Harmony and Decorated Lines"
+    },
+    {
+     "grade": 8,
+     "id": "arts.3.music-grade-8",
+     "title": "Music Grade 8: Counterpoint, Style and Complete Scores"
+    }
+   ],
+   "goal": "Read treble and bass notation, organise simple metre, and use C, G, D and F major in short musical phrases.",
+   "articles": [
+    "Musical notation",
+    "Clef",
+    "Note value",
+    "Major scale",
+    "Key signature"
+   ],
+   "prereqs": [
+    "arts.2.music-reading"
+   ],
+   "practice": null,
+   "quiz": [
+    {
+     "kind": "choice",
+     "prompt": "A note is on the treble staff’s second line from the bottom. What pitch is it?",
+     "choices": [
+      "E4",
+      "B4",
+      "D5",
+      "G4"
+     ],
+     "answer": "G4",
+     "explain": "The treble clef loops around the G4 line. Count lines from the bottom; spaces are separate positions."
+    },
+    {
+     "kind": "choice",
+     "prompt": "The bass clef’s two dots lie on either side of its reference line. Which note belongs on that line?",
+     "choices": [
+      "C4",
+      "A2",
+      "F3",
+      "G3"
+     ],
+     "answer": "F3",
+     "explain": "The bass clef identifies F3 on the fourth line from the bottom. The dots bracket that line."
+    },
+    {
+     "kind": "choice",
+     "prompt": "A 4/4 bar already contains a minim and one crotchet. Which addition completes it?",
+     "choices": [
+      "Three quavers",
+      "One crotchet",
+      "One minim",
+      "One semibreve"
+     ],
+     "answer": "One crotchet",
+     "explain": "A minim lasts two crotchet beats and a crotchet lasts one. One further crotchet brings the bar to four."
+    },
+    {
+     "kind": "choice",
+     "prompt": "A crotchet tied to a quaver has which total duration, in crotchet beats?",
+     "choices": [
+      "One and a half",
+      "One",
+      "Two",
+      "Two and a half"
+     ],
+     "answer": "One and a half",
+     "explain": "The tie adds durations of the same pitch: one plus one-half is one and a half beats."
+    },
+    {
+     "kind": "choice",
+     "prompt": "A melody in G major needs its seventh degree before returning to G. Which spelling fits the key?",
+     "choices": [
+      "F-natural",
+      "G-flat",
+      "E-sharp",
+      "F-sharp"
+     ],
+     "answer": "F-sharp",
+     "explain": "G major has one sharp, F-sharp. The seventh degree keeps the letter F and lies a semitone below G."
+    },
+    {
+     "kind": "choice",
+     "prompt": "Which three notes form the root-position tonic triad in F major?",
+     "choices": [
+      "A–C–F",
+      "C–E–G",
+      "F–A–C",
+      "F–B–D"
+     ],
+     "answer": "F–A–C",
+     "explain": "Stack scale degrees 1, 3 and 5: F, A and C, with F in the bass. A–C–F is an inversion of the same triad."
+    },
+    {
+     "kind": "choice",
+     "prompt": "A phrase marked piano is played more slowly but just as loudly. What was misread?",
+     "choices": [
+      "Note length",
+      "Dynamic level",
+      "Time signature",
+      "Key signature"
+     ],
+     "answer": "Dynamic level",
+     "explain": "Piano asks for a quiet dynamic, not a slower tempo. Tempo and loudness are different decisions."
+    },
+    {
+     "kind": "choice",
+     "prompt": "You write D major but use both F-natural and F-sharp as separate scale degrees. What should you repair?",
+     "choices": [
+      "Use each letter once",
+      "Remove both sharps",
+      "Start on C instead",
+      "Use only white notes"
+     ],
+     "answer": "Use each letter once",
+     "explain": "A seven-note diatonic scale uses each letter once. D major requires F-sharp and C-sharp, not two versions of F as separate degrees."
+    },
+    {
+     "kind": "short",
+     "prompt": "Explain how a treble clef helps you name a note on the staff.",
+     "answer": "The treble clef identifies G on the second line from the bottom; adjacent lines and spaces continue the letter sequence.",
+     "keywords": [
+      "G",
+      "second",
+      "line"
+     ],
+     "explain": "The treble clef identifies G on the second line from the bottom; adjacent lines and spaces continue the letter sequence."
+    },
+    {
+     "kind": "short",
+     "prompt": "Explain why tying two crotchets is different from playing two separate crotchets.",
+     "answer": "A tie joins the same pitch into one sustained sound with the combined duration; separate notes are attacked again.",
+     "keywords": [
+      "same",
+      "pitch",
+      "duration"
+     ],
+     "explain": "A tie joins the same pitch into one sustained sound with the combined duration; separate notes are attacked again."
+    }
+   ],
+   "music_study": {
+    "scope": "General musicianship and theory, benchmarked to ABRSM Grade 1. Instrument-specific technique and repertoire require the current instrument syllabus and practical tuition.",
+    "units": [
+     {
+      "title": "Read pitch and duration",
+      "explanation": "A clef fixes the pitch of a staff line; it does not change the duration of a note. Work in both treble and bass clefs, including middle C. Distinguish a note head, a stem, a flag, a beam and a rest.",
+      "task": "Name and write notes on both staves; add sharps, flats and naturals. Build bars with semibreves, minims, crotchets, quavers, semiquavers and equivalent rests; include ties and single dots."
+     },
+     {
+      "title": "Make the beat visible",
+      "explanation": "In 2/4, 3/4 and 4/4 the lower number names the crotchet unit. Beam and group notes so that another player can see where the beat falls. A tie joins durations of the same pitch; a slur groups different notes into a phrase.",
+      "task": "Clap a bar, count its subdivisions and rewrite it with correct grouping. Compare a dotted crotchet plus quaver with two crotchets: equal time, different articulation."
+     },
+     {
+      "title": "Build the first major keys",
+      "explanation": "A major scale follows tone–tone–semitone–tone–tone–tone–semitone. Use every letter name once. Start with C, G, D and F; spell their key signatures and tonic triads rather than memorising keyboard shapes.",
+      "task": "Write and sing each scale, label degrees 1–8, build the tonic triad from 1–3–5, and identify intervals above the tonic by number. Apply common tempo, dynamic and articulation signs to a short melody."
+     }
+    ],
+    "aural": "Echo a short rhythm after a count-in, match a comfortable starting pitch, and describe whether a short melody rises, falls or repeats. Clap the pulse without following every note.",
+    "practical": "Choose an instrument or voice with a teacher. Prepare short contrasting pieces with a reliable pulse and comfortable coordination; apply one dynamic contrast and a clear phrase ending.",
+    "sight_reading": "Before an unfamiliar short piece, identify the clef, key, metre and starting note. Count one bar silently, then keep going at a manageable tempo.",
+    "composition": "Write two original four-bar phrases in C or G major, one ending away from the tonic and the other returning home.",
+    "checkpoint": "Read a new treble and bass example, group a complete bar correctly and explain its key. Separately demonstrate steady playing or singing to a teacher; the Primer quiz checks written understanding only.",
+    "routine": [
+     "Begin with pulse, listening and singing in a comfortable range.",
+     "Alternate a short notation task with making the same idea audible.",
+     "Work on technical patterns and contrasting repertoire with a teacher.",
+     "Sight-read something unfamiliar slowly enough to preserve continuity.",
+     "Record one attempt, identify one improvement and revisit it next session."
+    ],
+    "source": {
+     "title": "ABRSM Music Theory: syllabus and specifications",
+     "url": "https://www.abrsm.org/en-gb/music-theory/about-music-theory"
+    }
+   },
+   "lesson_media": [
+    {
+     "id": "arts-2-music-grade-1-engraved",
+     "kind": "illustration",
+     "src": "/app/illustrations/sapling/arts/arts-2-music-grade-1-800.webp",
+     "srcset": "/app/illustrations/sapling/arts/arts-2-music-grade-1-800.webp 800w, /app/illustrations/sapling/arts/arts-2-music-grade-1-1600.webp 1600w",
+     "alt": "An engraved G-major scale carries an F-sharp key signature and numbered degrees.",
+     "caption": "Each letter occurs once; the signature supplies F-sharp, and degrees 1–3–5 form the tonic triad.",
+     "width": 1600,
+     "height": 1000
+    },
+    {
+     "id": "arts-2-music-grade-1-listening",
+     "kind": "model",
+     "renderer": "music-listening-lab",
+     "title": "Listen, compare and explain",
+     "instructions": "Play both examples, describe the difference, then reveal the explanation. This is listening practice, not an exam.",
+     "props": {
+      "grade": 1
+     }
+    }
+   ]
+  },
+  {
+   "id": "arts.2.music-grade-2",
+   "title": "Music Grade 2: Minor Keys and Subdivision",
+   "stage": 2,
+   "strand": "music",
+   "music_grade": 2,
+   "music_path": [
+    {
+     "grade": 1,
+     "id": "arts.2.music-grade-1",
+     "title": "Music Grade 1: Pitch, Pulse and Major Keys"
+    },
+    {
+     "grade": 2,
+     "id": "arts.2.music-grade-2",
+     "title": "Music Grade 2: Minor Keys and Subdivision"
+    },
+    {
+     "grade": 3,
+     "id": "arts.2.music-grade-3",
+     "title": "Music Grade 3: Compound Metre and Key Fluency"
+    },
+    {
+     "grade": 4,
+     "id": "arts.3.music-grade-4",
+     "title": "Music Grade 4: Clefs, Intervals and Primary Harmony"
+    },
+    {
+     "grade": 5,
+     "id": "arts.3.music-grade-5",
+     "title": "Music Grade 5: Fluent Notation and Harmonic Reading"
+    },
+    {
+     "grade": 6,
+     "id": "arts.3.music-grade-6",
+     "title": "Music Grade 6: Four-Part Harmony and Modulation"
+    },
+    {
+     "grade": 7,
+     "id": "arts.3.music-grade-7",
+     "title": "Music Grade 7: Chromatic Harmony and Decorated Lines"
+    },
+    {
+     "grade": 8,
+     "id": "arts.3.music-grade-8",
+     "title": "Music Grade 8: Counterpoint, Style and Complete Scores"
+    }
+   ],
+   "goal": "Extend staff reading, distinguish minor from major, and organise triplets and a wider range of simple metres.",
+   "articles": [
+    "Minor scale",
+    "Relative key",
+    "Tuplet",
+    "Ledger line",
+    "Time signature"
+   ],
+   "prereqs": [
+    "arts.2.music-grade-1"
+   ],
+   "practice": null,
+   "quiz": [
+    {
+     "kind": "choice",
+     "prompt": "Three triplet quavers fill the space of two ordinary quavers. How many crotchet beats does that group occupy?",
+     "choices": [
+      "Two beats",
+      "Three beats",
+      "One beat",
+      "Half a beat"
+     ],
+     "answer": "One beat",
+     "explain": "A standard quaver triplet divides one crotchet beat into three equal parts. It does not add an extra beat."
+    },
+    {
+     "kind": "choice",
+     "prompt": "A harmonic A minor scale approaches its tonic. Which seventh degree creates the leading-note semitone?",
+     "choices": [
+      "A-flat",
+      "G-sharp",
+      "G-natural",
+      "F-sharp"
+     ],
+     "answer": "G-sharp",
+     "explain": "Raise the seventh of A natural minor from G to G-sharp. A-flat may sound equivalent on a piano but gives the wrong letter degree."
+    },
+    {
+     "kind": "choice",
+     "prompt": "A piece has one sharp but repeatedly settles on E. Which relative minor is the strongest starting hypothesis?",
+     "choices": [
+      "E minor",
+      "G minor",
+      "B minor",
+      "D minor"
+     ],
+     "answer": "E minor",
+     "explain": "G major and E minor share a one-sharp key signature. Cadences and tonic emphasis distinguish them; the signature alone cannot."
+    },
+    {
+     "kind": "choice",
+     "prompt": "In 2/2, what note value normally receives one main beat?",
+     "choices": [
+      "A crotchet",
+      "A quaver",
+      "A semibreve",
+      "A minim"
+     ],
+     "answer": "A minim",
+     "explain": "The lower 2 identifies minims as the counting unit; the upper 2 gives two of them per bar."
+    },
+    {
+     "kind": "choice",
+     "prompt": "A 3/8 bar contains a crotchet. What single note completes the bar?",
+     "choices": [
+      "A crotchet",
+      "A semiquaver",
+      "A quaver",
+      "A minim"
+     ],
+     "answer": "A quaver",
+     "explain": "Three quavers fit the bar. A crotchet uses two of them, leaving one quaver."
+    },
+    {
+     "kind": "choice",
+     "prompt": "Which signature belongs to E-flat major?",
+     "choices": [
+      "Four flats",
+      "Three flats",
+      "Two flats",
+      "Three sharps"
+     ],
+     "answer": "Three flats",
+     "explain": "E-flat major uses B-flat, E-flat and A-flat. The tonic name alone does not give the total number of flats."
+    },
+    {
+     "kind": "choice",
+     "prompt": "The first ledger line below a treble staff carries which pitch?",
+     "choices": [
+      "Middle C",
+      "Low E",
+      "Middle D",
+      "High A"
+     ],
+     "answer": "Middle C",
+     "explain": "The bottom staff line is E4, the space below is D4, and the first ledger line below is C4."
+    },
+    {
+     "kind": "choice",
+     "prompt": "A D harmonic-minor tune reaches C before its final D. Which alteration gives the intended leading-note pull?",
+     "choices": [
+      "Lower C to C-flat",
+      "Raise D to D-sharp",
+      "Leave C unaltered",
+      "Raise C to C-sharp"
+     ],
+     "answer": "Raise C to C-sharp",
+     "explain": "In D harmonic minor, degree seven is C-sharp. B-flat remains part of the key signature."
+    },
+    {
+     "kind": "short",
+     "prompt": "Explain how relative major and minor keys can share a signature but sound centred differently.",
+     "answer": "They share the key signature but use a different tonic; cadence and phrase emphasis establish which tonic is home.",
+     "keywords": [
+      "signature",
+      "tonic",
+      "cadence"
+     ],
+     "explain": "They share the key signature but use a different tonic; cadence and phrase emphasis establish which tonic is home."
+    },
+    {
+     "kind": "short",
+     "prompt": "Explain how to count a triplet without changing the underlying pulse.",
+     "answer": "Keep the beat steady and divide its duration into three equal parts; the group takes the same total time as the ordinary division it replaces.",
+     "keywords": [
+      "beat",
+      "three",
+      "equal"
+     ],
+     "explain": "Keep the beat steady and divide its duration into three equal parts; the group takes the same total time as the ordinary division it replaces."
+    }
+   ],
+   "music_study": {
+    "scope": "General musicianship and theory, benchmarked to ABRSM Grade 2. Instrument-specific technique and repertoire require the current instrument syllabus and practical tuition.",
+    "units": [
+     {
+      "title": "Extend the staff",
+      "explanation": "Ledger lines continue the same alternating line-and-space pattern; their spacing must match the staff. Read two ledger lines above and below either clef without counting from the bottom every time.",
+      "task": "Write the same short phrase in a convenient register in treble and bass. Check octave labels: middle C stays C4 regardless of clef."
+     },
+     {
+      "title": "Share a beat unequally",
+      "explanation": "Three triplet quavers occupy the time of two ordinary quavers. A triplet bracket applies to the group, including a rest if one replaces a note. In cut time, count the minim pulse rather than mistaking it for 4/4.",
+      "task": "Fill and group bars in 2/2, 3/2, 4/2 and 3/8 as well as earlier metres; alternate ordinary divisions and triplets while keeping the pulse steady."
+     },
+     {
+      "title": "Hear relative major and minor",
+      "explanation": "Relative keys share a signature but have different tonics. In harmonic minor, the seventh degree is raised from the natural minor form, often requiring an accidental not in the signature.",
+      "task": "Add A, B-flat and E-flat major, and A, E and D minor. Spell harmonic minor scales and tonic triads; compare C major with A minor, then perform a phrase with additional expression terms."
+     }
+    ],
+    "aural": "Echo a longer rhythm with a rest, distinguish major from minor in short examples, and sing back a brief phrase after hearing its opening pitch.",
+    "practical": "Extend technical patterns and pieces gradually in the selected instrument syllabus. Keep a steady pulse through rests and triplets, and shape a phrase without rushing its ending.",
+    "sight_reading": "Scan for ledger notes, accidentals, rests and a change in note length. Establish the pulse before beginning and recover after a slip.",
+    "composition": "Compose an eight-bar melody in A or D minor using a raised seventh where the harmonic direction needs it; explain the accidentals.",
+    "checkpoint": "Account for every duration in a triplet bar and spell a relative-major/minor pair. Demonstrate the rhythm aloud and discuss tone and coordination with a teacher.",
+    "routine": [
+     "Begin with pulse, listening and singing in a comfortable range.",
+     "Alternate a short notation task with making the same idea audible.",
+     "Work on technical patterns and contrasting repertoire with a teacher.",
+     "Sight-read something unfamiliar slowly enough to preserve continuity.",
+     "Record one attempt, identify one improvement and revisit it next session."
+    ],
+    "source": {
+     "title": "ABRSM Music Theory: syllabus and specifications",
+     "url": "https://www.abrsm.org/en-gb/music-theory/about-music-theory"
+    }
+   },
+   "lesson_media": [
+    {
+     "id": "arts-2-music-grade-2-engraved",
+     "kind": "illustration",
+     "src": "/app/illustrations/sapling/arts/arts-2-music-grade-2-800.webp",
+     "srcset": "/app/illustrations/sapling/arts/arts-2-music-grade-2-800.webp 800w, /app/illustrations/sapling/arts/arts-2-music-grade-2-1600.webp 1600w",
+     "alt": "Two engraved E–F–G–A fragments compare G with G-sharp in A harmonic minor; a beamed triplet equals the duration of two ordinary quavers.",
+     "caption": "Harmonic minor changes the seventh degree with an accidental; the relative-major key signature stays the same.",
+     "width": 1600,
+     "height": 1000
+    },
+    {
+     "id": "arts-2-music-grade-2-listening",
+     "kind": "model",
+     "renderer": "music-listening-lab",
+     "title": "Listen, compare and explain",
+     "instructions": "Play both examples, describe the difference, then reveal the explanation. This is listening practice, not an exam.",
+     "props": {
+      "grade": 2
+     }
+    }
+   ]
+  },
+  {
+   "id": "arts.2.music-grade-3",
+   "title": "Music Grade 3: Compound Metre and Key Fluency",
+   "stage": 2,
+   "strand": "music",
+   "music_grade": 3,
+   "music_path": [
+    {
+     "grade": 1,
+     "id": "arts.2.music-grade-1",
+     "title": "Music Grade 1: Pitch, Pulse and Major Keys"
+    },
+    {
+     "grade": 2,
+     "id": "arts.2.music-grade-2",
+     "title": "Music Grade 2: Minor Keys and Subdivision"
+    },
+    {
+     "grade": 3,
+     "id": "arts.2.music-grade-3",
+     "title": "Music Grade 3: Compound Metre and Key Fluency"
+    },
+    {
+     "grade": 4,
+     "id": "arts.3.music-grade-4",
+     "title": "Music Grade 4: Clefs, Intervals and Primary Harmony"
+    },
+    {
+     "grade": 5,
+     "id": "arts.3.music-grade-5",
+     "title": "Music Grade 5: Fluent Notation and Harmonic Reading"
+    },
+    {
+     "grade": 6,
+     "id": "arts.3.music-grade-6",
+     "title": "Music Grade 6: Four-Part Harmony and Modulation"
+    },
+    {
+     "grade": 7,
+     "id": "arts.3.music-grade-7",
+     "title": "Music Grade 7: Chromatic Harmony and Decorated Lines"
+    },
+    {
+     "grade": 8,
+     "id": "arts.3.music-grade-8",
+     "title": "Music Grade 8: Counterpoint, Style and Complete Scores"
+    }
+   ],
+   "goal": "Read compound metre, transpose by octaves, and use major and minor keys through four sharps or flats.",
+   "articles": [
+    "Metre (music)",
+    "Minor scale",
+    "Transposition (music)",
+    "Interval (music)",
+    "Key signature"
+   ],
+   "prereqs": [
+    "arts.2.music-grade-2"
+   ],
+   "practice": null,
+   "quiz": [
+    {
+     "kind": "choice",
+     "prompt": "A 6/8 melody has six quavers in each bar. How should you normally feel its main pulse?",
+     "choices": [
+      "Four quaver beats",
+      "Two dotted-crotchet beats",
+      "Six crotchet beats",
+      "Three minim beats"
+     ],
+     "answer": "Two dotted-crotchet beats",
+     "explain": "The six quavers normally group 3+3. Each group lasts a dotted crotchet, giving two main beats."
+    },
+    {
+     "kind": "choice",
+     "prompt": "An ascending A melodic-minor scale reaches its last three notes. Which spelling fits the conventional form?",
+     "choices": [
+      "F-sharp–G-sharp–A",
+      "F–G-sharp–A",
+      "F–G–A",
+      "F-sharp–G–A"
+     ],
+     "answer": "F-sharp–G-sharp–A",
+     "explain": "Ascending melodic minor raises both sixth and seventh degrees. In the conventional descending scale they return to the natural-minor form."
+    },
+    {
+     "kind": "choice",
+     "prompt": "A phrase is moved down exactly one octave. What remains unchanged?",
+     "choices": [
+      "Its sounding register",
+      "Every written staff position",
+      "Its lowest frequency",
+      "Its interval pattern"
+     ],
+     "answer": "Its interval pattern",
+     "explain": "Octave transposition changes register but preserves the intervals and pitch classes of the melody."
+    },
+    {
+     "kind": "choice",
+     "prompt": "What is the interval from C up to E-flat?",
+     "choices": [
+      "A perfect fourth",
+      "An augmented second",
+      "A minor third",
+      "A major third"
+     ],
+     "answer": "A minor third",
+     "explain": "C–D–E spans three letter names, so it is a third. Three semitones make it minor."
+    },
+    {
+     "kind": "choice",
+     "prompt": "Which key has four sharps and tonic E?",
+     "choices": [
+      "B major",
+      "E major",
+      "E minor",
+      "A major"
+     ],
+     "answer": "E major",
+     "explain": "E major uses F-sharp, C-sharp, G-sharp and D-sharp. Its relative minor is C-sharp minor."
+    },
+    {
+     "kind": "choice",
+     "prompt": "A 9/8 bar is grouped as three equal compound beats. What fills one such beat?",
+     "choices": [
+      "Three quavers",
+      "Two quavers",
+      "Four quavers",
+      "Six quavers"
+     ],
+     "answer": "Three quavers",
+     "explain": "Compound beats divide into three. Three groups of three quavers account for the nine quavers in 9/8."
+    },
+    {
+     "kind": "choice",
+     "prompt": "The score contains a demisemiquaver. Relative to a crotchet, what is its duration?",
+     "choices": [
+      "One quarter",
+      "One half",
+      "One sixteenth",
+      "One eighth"
+     ],
+     "answer": "One eighth",
+     "explain": "A demisemiquaver is a thirty-second note: eight of them have the duration of a crotchet."
+    },
+    {
+     "kind": "choice",
+     "prompt": "Two bars contain six quavers each, one in 3/4 and one in 6/8. What differs in the usual grouping?",
+     "choices": [
+      "Six pairs versus three threes",
+      "Two pairs versus four singles",
+      "Three pairs versus two threes",
+      "Three threes versus two pairs"
+     ],
+     "answer": "Three pairs versus two threes",
+     "explain": "3/4 has three crotchet beats, each normally dividing into two quavers. 6/8 has two dotted-crotchet beats, each dividing into three."
+    },
+    {
+     "kind": "short",
+     "prompt": "Explain how to distinguish an interval’s number from its quality.",
+     "answer": "Count letter names inclusively to get the interval number, then compare semitone distance to determine its quality.",
+     "keywords": [
+      "letter",
+      "number",
+      "semitone"
+     ],
+     "explain": "Count letter names inclusively to get the interval number, then compare semitone distance to determine its quality."
+    },
+    {
+     "kind": "short",
+     "prompt": "Compare the conventional ascending and descending melodic-minor scales.",
+     "answer": "Ascending melodic minor raises degrees six and seven; descending uses the natural-minor form, lowering those degrees again.",
+     "keywords": [
+      "ascending",
+      "six",
+      "seven"
+     ],
+     "explain": "Ascending melodic minor raises degrees six and seven; descending uses the natural-minor form, lowering those degrees again."
+    }
+   ],
+   "music_study": {
+    "scope": "General musicianship and theory, benchmarked to ABRSM Grade 3. Instrument-specific technique and repertoire require the current instrument syllabus and practical tuition.",
+    "units": [
+     {
+      "title": "Feel compound beats",
+      "explanation": "In 6/8, six quavers normally form two dotted-crotchet beats; 9/8 has three and 12/8 has four. Counting every quaver is a subdivision strategy, not the main pulse.",
+      "task": "Clap the same six quavers as two groups of three and three groups of two. Add demisemiquavers and rests, preserving clear beat grouping."
+     },
+     {
+      "title": "Read register and interval",
+      "explanation": "Ledger lines can extend beyond two. Octave transposition changes register but preserves the pitch-class pattern; it differs from rewriting at the same sounding pitch in a new clef.",
+      "task": "Move a melody an octave between treble and bass. Name intervals above a tonic by number and quality, counting letter names before semitones."
+     },
+     {
+      "title": "Compare minor forms",
+      "explanation": "Harmonic minor raises degree seven; the conventional ascending melodic minor raises six and seven, then uses the natural-minor form descending. These are useful patterns, not a claim that every minor melody obeys one formula.",
+      "task": "Work through major and minor keys with up to four sharps or flats. Write both minor forms, sing their differences and construct tonic triads."
+     }
+    ],
+    "aural": "Identify simple versus compound pulse, echo a phrase with a dotted rhythm, and compare the raised-sixth and raised-seventh sounds in minor.",
+    "practical": "Prepare contrasting pieces with secure subdivision, controlled articulation and phrasing. Select scales and arpeggios from the current instrument-specific Grade 3 syllabus.",
+    "sight_reading": "Mark the main beats of an unfamiliar compound-time phrase before playing. Keep the dotted beat stable even when the subdivisions change.",
+    "composition": "Write an eight-bar melody in 6/8 with a clear two-phrase shape and a deliberate cadence. Annotate the two main beats in each bar.",
+    "checkpoint": "Explain why 6/8 and 3/4 can contain equal written durations yet feel different; transpose a phrase without changing its intervals, then perform it with the intended pulse.",
+    "routine": [
+     "Begin with pulse, listening and singing in a comfortable range.",
+     "Alternate a short notation task with making the same idea audible.",
+     "Work on technical patterns and contrasting repertoire with a teacher.",
+     "Sight-read something unfamiliar slowly enough to preserve continuity.",
+     "Record one attempt, identify one improvement and revisit it next session."
+    ],
+    "source": {
+     "title": "ABRSM Music Theory: syllabus and specifications",
+     "url": "https://www.abrsm.org/en-gb/music-theory/about-music-theory"
+    }
+   },
+   "lesson_media": [
+    {
+     "id": "arts-2-music-grade-3-engraved",
+     "kind": "illustration",
+     "src": "/app/illustrations/sapling/arts/arts-2-music-grade-3-800.webp",
+     "srcset": "/app/illustrations/sapling/arts/arts-2-music-grade-3-800.webp 800w, /app/illustrations/sapling/arts/arts-2-music-grade-3-1600.webp 1600w",
+     "alt": "Six engraved quavers are beamed in three pairs for 3/4 and two groups of three for 6/8.",
+     "caption": "Equal total note values can organise different pulses: three simple beats versus two compound beats.",
+     "width": 1600,
+     "height": 1000
+    },
+    {
+     "id": "arts-2-music-grade-3-listening",
+     "kind": "model",
+     "renderer": "music-listening-lab",
+     "title": "Listen, compare and explain",
+     "instructions": "Play both examples, describe the difference, then reveal the explanation. This is listening practice, not an exam.",
+     "props": {
+      "grade": 3
+     }
+    }
    ]
   },
   {
@@ -1604,6 +2572,18 @@
      ],
      "explain": "The readymade shifts the artist's work from craft to selection, and puts the question to the gallery rather than the object."
     }
+   ],
+   "lesson_media": [
+    {
+     "id": "same-subject-art-movements-plate",
+     "kind": "illustration",
+     "src": "/app/illustrations/tree/arts/arts-3-art-history-800.webp",
+     "srcset": "/app/illustrations/tree/arts/arts-3-art-history-800.webp 800w, /app/illustrations/tree/arts/arts-3-art-history-1600.webp 1600w",
+     "alt": "The same apple-and-blue-vase still life stays in the same positions across three panels: a linear-perspective modeled study, an Impressionist treatment with broken light marks, and a Cubist treatment with faceted shapes and multiple implied viewpoints.",
+     "caption": "These invented schematic studies isolate perspective, broken brushwork and faceting; they are not reproductions or comprehensive portraits of Renaissance, Impressionist or Cubist art. Compare the shared subject, then study actual works: each movement contains varied practices, not a single recipe or a ladder of improvement.",
+     "width": 1600,
+     "height": 1000
+    }
    ]
   },
   {
@@ -1618,7 +2598,7 @@
     "Harmony"
    ],
    "prereqs": [
-    "arts.2.music-reading",
+    "arts.2.music-grade-3",
     "math.2.ratio"
    ],
    "quiz": [
@@ -1729,6 +2709,61 @@
       "It has been augmented"
      ],
      "explain": "Transposition shifts every pitch by the same interval; inversion flips the direction of each step and augmentation stretches the rhythm."
+    }
+   ],
+   "lesson_media": [
+    {
+     "id": "scale-triad-resolution-plate",
+     "kind": "illustration",
+     "src": "/app/illustrations/tree/arts/arts-3-music-theory-800.webp",
+     "srcset": "/app/illustrations/tree/arts/arts-3-music-theory-800.webp 800w, /app/illustrations/tree/arts/arts-3-music-theory-1600.webp 1600w",
+     "alt": "Eight labeled notes C through C rise through the whole-step and half-step pattern of a major scale; highlighted scale degrees one, three and five form C–E–G, while G–B–D points to C–E–G as dominant-to-tonic motion.",
+     "caption": "A scale orders intervals, a chord combines scale degrees, and harmonic function describes how chords create expectation and resolution within a tonal context.",
+     "width": 1600,
+     "height": 1000
+    }
+   ],
+   "strand": "music",
+   "music_path": [
+    {
+     "grade": 1,
+     "id": "arts.2.music-grade-1",
+     "title": "Music Grade 1: Pitch, Pulse and Major Keys"
+    },
+    {
+     "grade": 2,
+     "id": "arts.2.music-grade-2",
+     "title": "Music Grade 2: Minor Keys and Subdivision"
+    },
+    {
+     "grade": 3,
+     "id": "arts.2.music-grade-3",
+     "title": "Music Grade 3: Compound Metre and Key Fluency"
+    },
+    {
+     "grade": 4,
+     "id": "arts.3.music-grade-4",
+     "title": "Music Grade 4: Clefs, Intervals and Primary Harmony"
+    },
+    {
+     "grade": 5,
+     "id": "arts.3.music-grade-5",
+     "title": "Music Grade 5: Fluent Notation and Harmonic Reading"
+    },
+    {
+     "grade": 6,
+     "id": "arts.3.music-grade-6",
+     "title": "Music Grade 6: Four-Part Harmony and Modulation"
+    },
+    {
+     "grade": 7,
+     "id": "arts.3.music-grade-7",
+     "title": "Music Grade 7: Chromatic Harmony and Decorated Lines"
+    },
+    {
+     "grade": 8,
+     "id": "arts.3.music-grade-8",
+     "title": "Music Grade 8: Counterpoint, Style and Complete Scores"
     }
    ]
   },
@@ -1856,6 +2891,18 @@
     "math.2.geometry",
     "arts.2.color-theory",
     "arts.1.crafts"
+   ],
+   "lesson_media": [
+    {
+     "id": "design-test-revision-cycle-plate",
+     "kind": "illustration",
+     "src": "/app/illustrations/tree/arts/arts-3-design-800.webp",
+     "srcset": "/app/illustrations/tree/arts/arts-3-design-800.webp 800w, /app/illustrations/tree/arts/arts-3-design-1600.webp 1600w",
+     "alt": "Two carry-box handle openings are drawn at the same scale: a 30 mm circular test gauge cannot fit through a 22 mm opening but fits through a revised 36 mm opening.",
+     "caption": "This invented clearance test shows how evidence can change a prototype. The gauge is not a human-hand standard: real testing must also examine grip comfort, load, strength and the trade-off from removing more material.",
+     "width": 1600,
+     "height": 1000
+    }
    ]
   },
   {
@@ -1979,9 +3026,62 @@
     }
    ],
    "prereqs": [
-    "arts.2.art-history-intro",
-    "arts.2.music-reading",
     "arts.3.music-theory"
+   ],
+   "lesson_media": [
+    {
+     "id": "music-periods-overlap-plate",
+     "kind": "illustration",
+     "src": "/app/illustrations/tree/arts/arts-3-music-history-800.webp",
+     "srcset": "/app/illustrations/tree/arts/arts-3-music-history-800.webp 800w, /app/illustrations/tree/arts/arts-3-music-history-1600.webp 1600w",
+     "alt": "An overlapping timeline marks Baroque around 1600 to 1750, Classical around 1750 to 1820, Romantic in the long nineteenth century, jazz from the early twentieth century and electronic and global popular practices from the later twentieth century, with a warning that labels center particular histories.",
+     "caption": "Period names help organize some European art-music histories; jazz and later genres grow from different communities and exchanges. Styles overlap, borrow and persist beyond textbook dates.",
+     "width": 1600,
+     "height": 1000
+    }
+   ],
+   "strand": "music",
+   "music_path": [
+    {
+     "grade": 1,
+     "id": "arts.2.music-grade-1",
+     "title": "Music Grade 1: Pitch, Pulse and Major Keys"
+    },
+    {
+     "grade": 2,
+     "id": "arts.2.music-grade-2",
+     "title": "Music Grade 2: Minor Keys and Subdivision"
+    },
+    {
+     "grade": 3,
+     "id": "arts.2.music-grade-3",
+     "title": "Music Grade 3: Compound Metre and Key Fluency"
+    },
+    {
+     "grade": 4,
+     "id": "arts.3.music-grade-4",
+     "title": "Music Grade 4: Clefs, Intervals and Primary Harmony"
+    },
+    {
+     "grade": 5,
+     "id": "arts.3.music-grade-5",
+     "title": "Music Grade 5: Fluent Notation and Harmonic Reading"
+    },
+    {
+     "grade": 6,
+     "id": "arts.3.music-grade-6",
+     "title": "Music Grade 6: Four-Part Harmony and Modulation"
+    },
+    {
+     "grade": 7,
+     "id": "arts.3.music-grade-7",
+     "title": "Music Grade 7: Chromatic Harmony and Decorated Lines"
+    },
+    {
+     "grade": 8,
+     "id": "arts.3.music-grade-8",
+     "title": "Music Grade 8: Counterpoint, Style and Complete Scores"
+    }
    ]
   },
   {
@@ -2107,6 +3207,1213 @@
       "Distance"
      ],
      "explain": "Looking up at someone puts the viewer in the position of a smaller person, which reads as dominance."
+    }
+   ],
+   "lesson_media": [
+    {
+     "id": "editing-context-meaning-plate",
+     "kind": "illustration",
+     "src": "/app/illustrations/tree/arts/arts-3-film-studies-800.webp",
+     "srcset": "/app/illustrations/tree/arts/arts-3-film-studies-800.webp 800w, /app/illustrations/tree/arts/arts-3-film-studies-1600.webp 1600w",
+     "alt": "Two editing rows reuse an identical neutral face shot: when followed by a bowl of soup the viewer may infer hunger, while an empty hospital bed prompts worry or grief, showing how adjacent images alter interpretation.",
+     "caption": "A shot gains meaning from sequence as well as content. Editing can suggest a relation that no single shot establishes, while viewers may still interpret it differently.",
+     "width": 1600,
+     "height": 1000
+    }
+   ]
+  },
+  {
+   "id": "arts.3.music-grade-4",
+   "title": "Music Grade 4: Clefs, Intervals and Primary Harmony",
+   "stage": 3,
+   "strand": "music",
+   "music_grade": 4,
+   "music_path": [
+    {
+     "grade": 1,
+     "id": "arts.2.music-grade-1",
+     "title": "Music Grade 1: Pitch, Pulse and Major Keys"
+    },
+    {
+     "grade": 2,
+     "id": "arts.2.music-grade-2",
+     "title": "Music Grade 2: Minor Keys and Subdivision"
+    },
+    {
+     "grade": 3,
+     "id": "arts.2.music-grade-3",
+     "title": "Music Grade 3: Compound Metre and Key Fluency"
+    },
+    {
+     "grade": 4,
+     "id": "arts.3.music-grade-4",
+     "title": "Music Grade 4: Clefs, Intervals and Primary Harmony"
+    },
+    {
+     "grade": 5,
+     "id": "arts.3.music-grade-5",
+     "title": "Music Grade 5: Fluent Notation and Harmonic Reading"
+    },
+    {
+     "grade": 6,
+     "id": "arts.3.music-grade-6",
+     "title": "Music Grade 6: Four-Part Harmony and Modulation"
+    },
+    {
+     "grade": 7,
+     "id": "arts.3.music-grade-7",
+     "title": "Music Grade 7: Chromatic Harmony and Decorated Lines"
+    },
+    {
+     "grade": 8,
+     "id": "arts.3.music-grade-8",
+     "title": "Music Grade 8: Counterpoint, Style and Complete Scores"
+    }
+   ],
+   "goal": "Use alto clef, chromatic spelling, intervals and primary harmony in increasingly varied metres and keys.",
+   "articles": [
+    "Clef",
+    "Chromatic scale",
+    "Interval (music)",
+    "Triad (music)",
+    "Ornament (music)"
+   ],
+   "prereqs": [
+    "arts.3.music-theory"
+   ],
+   "practice": null,
+   "quiz": [
+    {
+     "kind": "choice",
+     "prompt": "A note is on the middle line of an alto-clef staff. What pitch is it?",
+     "choices": [
+      "C4",
+      "G4",
+      "F3",
+      "A3"
+     ],
+     "answer": "C4",
+     "explain": "The C clef centres on middle C. In alto clef its centre is on the third, middle staff line."
+    },
+    {
+     "kind": "choice",
+     "prompt": "A double-dotted minim occurs in simple time. How many crotchet beats does it occupy?",
+     "choices": [
+      "Two and a half",
+      "Three",
+      "Four",
+      "Three and a half"
+     ],
+     "answer": "Three and a half",
+     "explain": "The minim contributes two beats, its first dot one, and its second dot half a beat."
+    },
+    {
+     "kind": "choice",
+     "prompt": "A duplet replaces the usual three equal subdivisions of a compound beat. How many notes now share that beat?",
+     "choices": [
+      "Four equal notes",
+      "Six equal notes",
+      "Two equal notes",
+      "Three equal notes"
+     ],
+     "answer": "Two equal notes",
+     "explain": "A duplet fits two notes into the time normally occupied by three at that level of subdivision."
+    },
+    {
+     "kind": "choice",
+     "prompt": "What is the written interval from C to F-sharp?",
+     "choices": [
+      "A major third",
+      "An augmented fourth",
+      "A diminished fifth",
+      "A perfect fourth"
+     ],
+     "answer": "An augmented fourth",
+     "explain": "C–D–E–F makes a fourth. Raising the perfect fourth by a semitone makes it augmented; G-flat would instead spell a diminished fifth."
+    },
+    {
+     "kind": "choice",
+     "prompt": "In A harmonic minor, which notes form the dominant triad?",
+     "choices": [
+      "E–G-sharp–B",
+      "E–G–B",
+      "A–C–E",
+      "D–F–A"
+     ],
+     "answer": "E–G-sharp–B",
+     "explain": "The dominant root is E. The raised seventh of the key, G-sharp, supplies its major third and leading-note function."
+    },
+    {
+     "kind": "choice",
+     "prompt": "Which key signature fits D-flat major?",
+     "choices": [
+      "Four flats",
+      "Five sharps",
+      "Six flats",
+      "Five flats"
+     ],
+     "answer": "Five flats",
+     "explain": "D-flat major uses B-flat, E-flat, A-flat, D-flat and G-flat."
+    },
+    {
+     "kind": "choice",
+     "prompt": "An F-double-sharp is cancelled later in the same bar to ordinary F-sharp. Which sign is needed?",
+     "choices": [
+      "A double sharp",
+      "No sign",
+      "A sharp",
+      "A flat"
+     ],
+     "answer": "A sharp",
+     "explain": "A new sharp explicitly replaces the double sharp with a single sharp. A natural would restore F-natural instead."
+    },
+    {
+     "kind": "choice",
+     "prompt": "A trill sign appears above a sustained note. Which reading is the best starting point?",
+     "choices": [
+      "Leap repeatedly to the tonic",
+      "Alternate with its upper neighbour",
+      "Repeat one pitch without change",
+      "Slide continuously between pitches"
+     ],
+     "answer": "Alternate with its upper neighbour",
+     "explain": "A trill alternates the written pitch with the note above. Starting note and execution depend on period, context and editorial conventions."
+    },
+    {
+     "kind": "short",
+     "prompt": "Explain why F-sharp and G-flat can sound alike but form different written intervals above C.",
+     "answer": "The letter names give a fourth to F and a fifth to G; equal semitone distance does not erase the difference in interval spelling.",
+     "keywords": [
+      "letter",
+      "fourth",
+      "fifth"
+     ],
+     "explain": "The letter names give a fourth to F and a fifth to G; equal semitone distance does not erase the difference in interval spelling."
+    },
+    {
+     "kind": "short",
+     "prompt": "Explain how I, IV and V are built from a major scale.",
+     "answer": "Use tonic, subdominant and dominant roots on degrees one, four and five, then stack alternate scale notes to make each triad.",
+     "keywords": [
+      "tonic",
+      "subdominant",
+      "dominant"
+     ],
+     "explain": "Use tonic, subdominant and dominant roots on degrees one, four and five, then stack alternate scale notes to make each triad."
+    }
+   ],
+   "music_study": {
+    "scope": "General musicianship and theory, benchmarked to ABRSM Grade 4. Instrument-specific technique and repertoire require the current instrument syllabus and practical tuition.",
+    "units": [
+     {
+      "title": "Read a third clef",
+      "explanation": "The alto clef locates middle C on its centre line. Double sharps and flats alter a named note by two semitones; enharmonic equivalence does not make the written intervals identical.",
+      "task": "Rewrite a short phrase at the same pitch in treble, alto and bass. Practise octave transposition separately and cancel accidentals correctly."
+     },
+     {
+      "title": "Control metre and interval",
+      "explanation": "Simple and compound duple, triple and quadruple metres organise different beat units. A second dot adds half the first dot; a duplet fits two notes into the time normally occupied by three.",
+      "task": "Use breves, rests, double dots and duplets in complete bars. Name all intervals within an octave in the set keys, using both letter distance and semitone distance."
+     },
+     {
+      "title": "Connect keys to harmony and instruments",
+      "explanation": "Work through keys with up to five sharps or flats. Tonic, subdominant and dominant triads come from scale degrees 1, 4 and 5; harmonic-minor spelling matters to the dominant.",
+      "task": "Write chromatic scales, name scale degrees, and build I, IV and V. Recognise trills, turns, mordents, acciaccaturas and appoggiaturas; relate common orchestral instruments to their sound production and clefs."
+     }
+    ],
+    "aural": "Identify changes in rhythm or pitch in a repeated phrase, distinguish basic cadential arrival from an unfinished ending, and describe articulation and dynamic shape.",
+    "practical": "Develop contrasting character as well as correct notes. Use current instrument requirements for technical work; practise controlled changes of articulation and phrase direction.",
+    "sight_reading": "Read ahead by a beat, spot a key change or ornament before starting, and use a slow enough pulse to keep continuity.",
+    "composition": "Set an eight-bar tune over I, IV and V, comparing two different harmonic rhythms. Sing the bass roots and explain the cadence.",
+    "checkpoint": "Read alto-clef notes fluently, justify an interval spelling and construct the primary chords in a five-accidental key. Have performance fluency assessed separately.",
+    "routine": [
+     "Begin with pulse, listening and singing in a comfortable range.",
+     "Alternate a short notation task with making the same idea audible.",
+     "Work on technical patterns and contrasting repertoire with a teacher.",
+     "Sight-read something unfamiliar slowly enough to preserve continuity.",
+     "Record one attempt, identify one improvement and revisit it next session."
+    ],
+    "source": {
+     "title": "ABRSM Music Theory: syllabus and specifications",
+     "url": "https://www.abrsm.org/en-gb/music-theory/about-music-theory"
+    }
+   },
+   "lesson_media": [
+    {
+     "id": "arts-3-music-grade-4-engraved",
+     "kind": "illustration",
+     "src": "/app/illustrations/tree/arts/arts-3-music-grade-4-800.webp",
+     "srcset": "/app/illustrations/tree/arts/arts-3-music-grade-4-800.webp 800w, /app/illustrations/tree/arts/arts-3-music-grade-4-1600.webp 1600w",
+     "alt": "Proper treble, alto and bass clefs locate middle C on matching staves with ledger lines where needed.",
+     "caption": "A change of clef changes the notation position; a change of octave changes the sounding register.",
+     "width": 1600,
+     "height": 1000
+    },
+    {
+     "id": "arts-3-music-grade-4-listening",
+     "kind": "model",
+     "renderer": "music-listening-lab",
+     "title": "Listen, compare and explain",
+     "instructions": "Play both examples, describe the difference, then reveal the explanation. This is listening practice, not an exam.",
+     "props": {
+      "grade": 4
+     }
+    }
+   ]
+  },
+  {
+   "id": "arts.3.music-grade-5",
+   "title": "Music Grade 5: Fluent Notation and Harmonic Reading",
+   "stage": 3,
+   "strand": "music",
+   "music_grade": 5,
+   "music_path": [
+    {
+     "grade": 1,
+     "id": "arts.2.music-grade-1",
+     "title": "Music Grade 1: Pitch, Pulse and Major Keys"
+    },
+    {
+     "grade": 2,
+     "id": "arts.2.music-grade-2",
+     "title": "Music Grade 2: Minor Keys and Subdivision"
+    },
+    {
+     "grade": 3,
+     "id": "arts.2.music-grade-3",
+     "title": "Music Grade 3: Compound Metre and Key Fluency"
+    },
+    {
+     "grade": 4,
+     "id": "arts.3.music-grade-4",
+     "title": "Music Grade 4: Clefs, Intervals and Primary Harmony"
+    },
+    {
+     "grade": 5,
+     "id": "arts.3.music-grade-5",
+     "title": "Music Grade 5: Fluent Notation and Harmonic Reading"
+    },
+    {
+     "grade": 6,
+     "id": "arts.3.music-grade-6",
+     "title": "Music Grade 6: Four-Part Harmony and Modulation"
+    },
+    {
+     "grade": 7,
+     "id": "arts.3.music-grade-7",
+     "title": "Music Grade 7: Chromatic Harmony and Decorated Lines"
+    },
+    {
+     "grade": 8,
+     "id": "arts.3.music-grade-8",
+     "title": "Music Grade 8: Counterpoint, Style and Complete Scores"
+    }
+   ],
+   "goal": "Use four clefs, transposing instruments, irregular metre, inversions and cadences to read and explain real scores.",
+   "articles": [
+    "Clef",
+    "Transposing instrument",
+    "Inversion (music)",
+    "Cadence",
+    "Time signature"
+   ],
+   "prereqs": [
+    "arts.3.music-grade-4"
+   ],
+   "practice": null,
+   "quiz": [
+    {
+     "kind": "choice",
+     "prompt": "The middle-C marker of a tenor clef sits on which line from the bottom?",
+     "choices": [
+      "The third line",
+      "The second line",
+      "The fifth line",
+      "The fourth line"
+     ],
+     "answer": "The fourth line",
+     "explain": "Tenor clef places C4 on the fourth line. Alto clef places the same pitch on the third."
+    },
+    {
+     "kind": "choice",
+     "prompt": "A B-flat clarinet sounds a major second below written pitch. Which concert pitch results from its written C5?",
+     "choices": [
+      "C5",
+      "B4",
+      "B-flat4",
+      "D5"
+     ],
+     "answer": "B-flat4",
+     "explain": "Transpose down a major second: C5 becomes B-flat4. Written and sounding octave labels must both be checked."
+    },
+    {
+     "kind": "choice",
+     "prompt": "A horn in F sounds a perfect fifth below written pitch. Which written note produces concert C4?",
+     "choices": [
+      "G3",
+      "G4",
+      "F4",
+      "C5"
+     ],
+     "answer": "G4",
+     "explain": "Reverse the sounding transposition: write a perfect fifth above concert C4, which is G4."
+    },
+    {
+     "kind": "choice",
+     "prompt": "A C-major chord has E in the bass and G on top. Which inversion is it?",
+     "choices": [
+      "First inversion",
+      "Root position",
+      "Second inversion",
+      "Third inversion"
+     ],
+     "answer": "First inversion",
+     "explain": "The bass determines inversion. E is the third of C major; a triad has no third inversion."
+    },
+    {
+     "kind": "choice",
+     "prompt": "In C major, an ending moves from F major to C major. Which cadence is it?",
+     "choices": [
+      "Perfect",
+      "Imperfect",
+      "Interrupted",
+      "Plagal"
+     ],
+     "answer": "Plagal",
+     "explain": "IV–I is a plagal cadence. A perfect cadence would move V–I."
+    },
+    {
+     "kind": "choice",
+     "prompt": "A bar of 5/8 is intended to feel long-short. Which quaver grouping communicates that?",
+     "choices": [
+      "2 + 2 + 1",
+      "1 + 1 + 3",
+      "3 + 2",
+      "2 + 3"
+     ],
+     "answer": "3 + 2",
+     "explain": "A group of three followed by two expresses long-short. The beam grouping should reflect that intended pulse."
+    },
+    {
+     "kind": "choice",
+     "prompt": "What interval lies from C4 up to E5?",
+     "choices": [
+      "A major sixth",
+      "A major tenth",
+      "A minor tenth",
+      "A perfect eleventh"
+     ],
+     "answer": "A major tenth",
+     "explain": "C up to E is a major third; adding an octave makes a major tenth."
+    },
+    {
+     "kind": "choice",
+     "prompt": "Which major key has six flats?",
+     "choices": [
+      "G-flat major",
+      "D-flat major",
+      "C-flat major",
+      "F-flat major"
+     ],
+     "answer": "G-flat major",
+     "explain": "G-flat major has six flats. C-flat major has seven and lies beyond the Grade 5 six-accidental range."
+    },
+    {
+     "kind": "short",
+     "prompt": "Explain why the highest note alone cannot tell you a chord’s inversion.",
+     "answer": "Inversion depends on the bass note in relation to the chord root; the upper notes may change spacing without changing that bass relationship.",
+     "keywords": [
+      "bass",
+      "root",
+      "spacing"
+     ],
+     "explain": "Inversion depends on the bass note in relation to the chord root; the upper notes may change spacing without changing that bass relationship."
+    },
+    {
+     "kind": "short",
+     "prompt": "Explain how you would transpose a written melody for a transposing instrument to concert pitch.",
+     "answer": "Use the instrument’s stated interval and direction, change key signature and every note consistently, then check accidentals and register.",
+     "keywords": [
+      "interval",
+      "direction",
+      "key"
+     ],
+     "explain": "Use the instrument’s stated interval and direction, change key signature and every note consistently, then check accidentals and register."
+    }
+   ],
+   "music_study": {
+    "scope": "General musicianship and theory, benchmarked to ABRSM Grade 5. Instrument-specific technique and repertoire require the current instrument syllabus and practical tuition.",
+    "units": [
+     {
+      "title": "Read four clefs and transpose",
+      "explanation": "Tenor clef places middle C on the fourth line. First decide whether the task asks for the same sounding pitch, an octave change or transposition between written and concert pitch.",
+      "task": "Read treble, bass, alto and tenor; transpose short melodies at the octave and to/from concert pitch for B-flat, A and F instruments, using the stated direction."
+     },
+     {
+      "title": "Make complex rhythm legible",
+      "explanation": "Irregular metres need their internal grouping made visible. A 5/8 bar may group 2+3 or 3+2; the time signature alone does not choose between them. Compound intervals extend beyond an octave.",
+      "task": "Write and group bars in 5/4, 7/4, 5/8 and 7/8, including irregular divisions. Name simple and compound intervals from any note; work in keys with up to six sharps or flats."
+     },
+     {
+      "title": "Read harmony in context",
+      "explanation": "An inversion is determined by the bass, not by the top note or the spacing. At this level connect I, ii, IV and V in root position and both inversions to melodic cadence points.",
+      "task": "Choose and explain perfect, plagal and imperfect cadences in C, G, D and F major. Recognise ornaments, voice types, instruments, their clefs and families in a short score."
+     }
+    ],
+    "aural": "Echo and sight-sing short phrases within a comfortable range, hear a cadence in context and identify changes of metre, texture or articulation.",
+    "practical": "Sustain contrasting pieces with reliable technique and a considered interpretation. Record a run-through, then compare rhythm, pitch, tone, phrasing and recovery with your teacher.",
+    "sight_reading": "Scan a complete short score for key, metre, texture and accidentals; keep going without correcting every slip. Practise written-to-sounding transposition separately.",
+    "composition": "Write a short melody and a chord plan with two different cadential endings. Explain the bass note of each inversion and its function in the phrase.",
+    "checkpoint": "Complete unfamiliar notation and score-reading tasks without relying on one clef or one key. Passing this Primer node is not an ABRSM Grade 5 certificate or proof of instrumental performance.",
+    "routine": [
+     "Begin with pulse, listening and singing in a comfortable range.",
+     "Alternate a short notation task with making the same idea audible.",
+     "Work on technical patterns and contrasting repertoire with a teacher.",
+     "Sight-read something unfamiliar slowly enough to preserve continuity.",
+     "Record one attempt, identify one improvement and revisit it next session."
+    ],
+    "source": {
+     "title": "ABRSM Music Theory: syllabus and specifications",
+     "url": "https://www.abrsm.org/en-gb/music-theory/about-music-theory"
+    }
+   },
+   "lesson_media": [
+    {
+     "id": "arts-3-music-grade-5-engraved",
+     "kind": "illustration",
+     "src": "/app/illustrations/tree/arts/arts-3-music-grade-5-800.webp",
+     "srcset": "/app/illustrations/tree/arts/arts-3-music-grade-5-800.webp 800w, /app/illustrations/tree/arts/arts-3-music-grade-5-1600.webp 1600w",
+     "alt": "Treble, bass, alto and tenor clefs locate C4; C-major chord tones then appear over C, E and G in three engraved bass-clef inversions.",
+     "caption": "The bass identifies root position, first inversion or second inversion; upper spacing is a separate choice.",
+     "width": 1600,
+     "height": 1000
+    },
+    {
+     "id": "arts-3-music-grade-5-listening",
+     "kind": "model",
+     "renderer": "music-listening-lab",
+     "title": "Listen, compare and explain",
+     "instructions": "Play both examples, describe the difference, then reveal the explanation. This is listening practice, not an exam.",
+     "props": {
+      "grade": 5
+     }
+    }
+   ]
+  },
+  {
+   "id": "arts.3.music-grade-6",
+   "title": "Music Grade 6: Four-Part Harmony and Modulation",
+   "stage": 3,
+   "strand": "music",
+   "music_grade": 6,
+   "music_path": [
+    {
+     "grade": 1,
+     "id": "arts.2.music-grade-1",
+     "title": "Music Grade 1: Pitch, Pulse and Major Keys"
+    },
+    {
+     "grade": 2,
+     "id": "arts.2.music-grade-2",
+     "title": "Music Grade 2: Minor Keys and Subdivision"
+    },
+    {
+     "grade": 3,
+     "id": "arts.2.music-grade-3",
+     "title": "Music Grade 3: Compound Metre and Key Fluency"
+    },
+    {
+     "grade": 4,
+     "id": "arts.3.music-grade-4",
+     "title": "Music Grade 4: Clefs, Intervals and Primary Harmony"
+    },
+    {
+     "grade": 5,
+     "id": "arts.3.music-grade-5",
+     "title": "Music Grade 5: Fluent Notation and Harmonic Reading"
+    },
+    {
+     "grade": 6,
+     "id": "arts.3.music-grade-6",
+     "title": "Music Grade 6: Four-Part Harmony and Modulation"
+    },
+    {
+     "grade": 7,
+     "id": "arts.3.music-grade-7",
+     "title": "Music Grade 7: Chromatic Harmony and Decorated Lines"
+    },
+    {
+     "grade": 8,
+     "id": "arts.3.music-grade-8",
+     "title": "Music Grade 8: Counterpoint, Style and Complete Scores"
+    }
+   ],
+   "goal": "Realise figured harmony, harmonise a melody, compose an instrumental phrase and explain modulation in a score.",
+   "articles": [
+    "Four-part harmony",
+    "Figured bass",
+    "Seventh chord",
+    "Modulation (music)",
+    "Nonchord tone"
+   ],
+   "prereqs": [
+    "arts.3.music-grade-5"
+   ],
+   "practice": null,
+   "quiz": [
+    {
+     "kind": "choice",
+     "prompt": "In C major, a bass E with figures 6 and 3 supports E–G–C. Which chord is this?",
+     "choices": [
+      "V in root position",
+      "ii in second inversion",
+      "I in first inversion",
+      "IV in first inversion"
+     ],
+     "answer": "I in first inversion",
+     "explain": "The pitches form C major over its third E. Figured intervals are measured above the bass, not from the tonic."
+    },
+    {
+     "kind": "choice",
+     "prompt": "Which pitch is the chordal seventh of G7 in C major?",
+     "choices": [
+      "G",
+      "F",
+      "B",
+      "D"
+     ],
+     "answer": "F",
+     "explain": "G7 contains G, B, D and F. F is the seventh above the root and commonly resolves down to E in a tonic resolution."
+    },
+    {
+     "kind": "choice",
+     "prompt": "What bass note places G7 in third inversion?",
+     "choices": [
+      "F",
+      "G",
+      "B",
+      "D"
+     ],
+     "answer": "F",
+     "explain": "A seventh chord has four bass positions: root position plus three inversions. The chordal seventh F in the bass makes third inversion."
+    },
+    {
+     "kind": "choice",
+     "prompt": "Which chord is ii7 in C major?",
+     "choices": [
+      "D–F-sharp–A–C",
+      "G–B–D–F",
+      "F–A–C–E",
+      "D–F–A–C"
+     ],
+     "answer": "D–F–A–C",
+     "explain": "The supertonic seventh is built by stacking diatonic thirds on degree two: D, F, A and C."
+    },
+    {
+     "kind": "choice",
+     "prompt": "A passage in C major includes F-sharp in D7, then cadences G major as a new tonic. What supports calling this a modulation?",
+     "choices": [
+      "Every dominant changes key",
+      "The bass rises by step",
+      "The new key is confirmed",
+      "One sharp is sufficient"
+     ],
+     "answer": "The new key is confirmed",
+     "explain": "The altered chord points towards G, but sustained harmonic emphasis and a cadence establish it as a local tonic."
+    },
+    {
+     "kind": "choice",
+     "prompt": "In C harmony, a weak-beat D connects melody notes C and E by step. What is its likely function?",
+     "choices": [
+      "Pedal bass",
+      "Passing note",
+      "Prepared suspension",
+      "Chord root"
+     ],
+     "answer": "Passing note",
+     "explain": "The D links two chord tones by step on a weak subdivision. Its function follows from the harmony and movement."
+    },
+    {
+     "kind": "choice",
+     "prompt": "Two upper voices move in parallel perfect fifths in a conventional four-part exercise. Which revision best addresses the problem?",
+     "choices": [
+      "Change one voice’s motion",
+      "Add louder dynamics",
+      "Move the bar line",
+      "Rename the key signature"
+     ],
+     "answer": "Change one voice’s motion",
+     "explain": "Alter the voice-leading so that independence is restored while preserving the intended harmony. Dynamics do not repair parallel perfect intervals."
+    },
+    {
+     "kind": "choice",
+     "prompt": "A flute melody continues above a supplied accompaniment. Which constraint belongs in the compositional plan?",
+     "choices": [
+      "Only the number of bars",
+      "Only the printed clef",
+      "The longest possible note",
+      "Range and breath phrasing"
+     ],
+     "answer": "Range and breath phrasing",
+     "explain": "An instrumental line must fit its range and practical phrasing as well as its harmony and motif."
+    },
+    {
+     "kind": "short",
+     "prompt": "Explain the difference between a passing note and a suspension.",
+     "answer": "A passing note connects chord tones by step; a suspension is prepared, held into dissonance over a changed harmony, and resolved.",
+     "keywords": [
+      "step",
+      "prepared",
+      "resolved"
+     ],
+     "explain": "A passing note connects chord tones by step; a suspension is prepared, held into dissonance over a changed harmony, and resolved."
+    },
+    {
+     "kind": "short",
+     "prompt": "Explain how to check a four-part realisation before polishing its dynamics.",
+     "answer": "Check the bass and figures against the chord, then inspect each voice for range and resolution and pairs of voices for parallel fifths or octaves.",
+     "keywords": [
+      "bass",
+      "figures",
+      "parallel"
+     ],
+     "explain": "Check the bass and figures against the chord, then inspect each voice for range and resolution and pairs of voices for parallel fifths or octaves."
+    }
+   ],
+   "music_study": {
+    "scope": "General musicianship and theory, benchmarked to ABRSM Grade 6. Instrument-specific technique and repertoire require the current instrument syllabus and practical tuition.",
+    "units": [
+     {
+      "title": "Turn figures into voices",
+      "explanation": "In any major or minor key, build diatonic triads and their inversions. Recognise every inversion of V7 and root-position/first-inversion ii7. Figures describe intervals above the bass, not chord roots.",
+      "task": "Realise a four-bar figured bass for four voices or keyboard. Check range, spacing, doubling and voice leading; resolve the leading note and chordal seventh in context."
+     },
+     {
+      "title": "Harmonise and modulate",
+      "explanation": "Chord choice must support both the melody and the bass line. A passing accidental or a single applied chord does not automatically establish a new key; look for harmonic confirmation.",
+      "task": "Harmonise an eight-bar diatonic melody or supply a figured bass. Plan a cadence in the dominant, subdominant or relative key, then return convincingly to the tonic."
+     },
+     {
+      "title": "Compose and read a complete phrase",
+      "explanation": "Passing, auxiliary, anticipation, appoggiatura and changing-note figures depend on the chord and rhythmic position. Instrumental range and breath or bowing influence a playable line.",
+      "task": "Continue an original opening for a chosen instrument. Analyse a short keyboard or open score: harmony, ornaments, phrase structure, style, voices and instrumentation."
+     }
+    ],
+    "aural": "Compare root-position and inverted chords by singing bass and upper parts; identify perfect, imperfect, plagal and interrupted cadential effects in musical context.",
+    "practical": "Maintain a balanced programme of repertoire, technique, sight-reading and aural work at the selected instrument level. Shape a longer phrase and discuss how harmony informs timing and tone.",
+    "sight_reading": "Read a short open-score excerpt slowly, reducing it to outer voices and harmonic rhythm before adding detail; also maintain daily instrumental sight-reading.",
+    "composition": "Submit a four-bar realisation, an eight-bar harmonic plan and a melodic continuation with a related-key cadence. Revise the notation and voice leading after teacher feedback.",
+    "checkpoint": "Explain every figure, non-chord note and cadence in your work. A teacher should review written harmony and composition; automatic quizzes cannot judge complete voice-leading quality.",
+    "routine": [
+     "Begin with pulse, listening and singing in a comfortable range.",
+     "Alternate a short notation task with making the same idea audible.",
+     "Work on technical patterns and contrasting repertoire with a teacher.",
+     "Sight-read something unfamiliar slowly enough to preserve continuity.",
+     "Record one attempt, identify one improvement and revisit it next session."
+    ],
+    "source": {
+     "title": "ABRSM Music Theory: syllabus and specifications",
+     "url": "https://www.abrsm.org/en-gb/music-theory/about-music-theory"
+    }
+   },
+   "lesson_media": [
+    {
+     "id": "arts-3-music-grade-6-engraved",
+     "kind": "illustration",
+     "src": "/app/illustrations/tree/arts/arts-3-music-grade-6-800.webp",
+     "srcset": "/app/illustrations/tree/arts/arts-3-music-grade-6-800.webp 800w, /app/illustrations/tree/arts/arts-3-music-grade-6-1600.webp 1600w",
+     "alt": "Two engraved treble staves show B4 rising to C5 and F4 falling to E4 in a dominant-seventh resolution.",
+     "caption": "Hear the leading note and chordal seventh resolve in context, then check a complete four-part setting.",
+     "width": 1600,
+     "height": 1000
+    },
+    {
+     "id": "arts-3-music-grade-6-listening",
+     "kind": "model",
+     "renderer": "music-listening-lab",
+     "title": "Listen, compare and explain",
+     "instructions": "Play both examples, describe the difference, then reveal the explanation. This is listening practice, not an exam.",
+     "props": {
+      "grade": 6
+     }
+    }
+   ]
+  },
+  {
+   "id": "arts.3.music-grade-7",
+   "title": "Music Grade 7: Chromatic Harmony and Decorated Lines",
+   "stage": 3,
+   "strand": "music",
+   "music_grade": 7,
+   "music_path": [
+    {
+     "grade": 1,
+     "id": "arts.2.music-grade-1",
+     "title": "Music Grade 1: Pitch, Pulse and Major Keys"
+    },
+    {
+     "grade": 2,
+     "id": "arts.2.music-grade-2",
+     "title": "Music Grade 2: Minor Keys and Subdivision"
+    },
+    {
+     "grade": 3,
+     "id": "arts.2.music-grade-3",
+     "title": "Music Grade 3: Compound Metre and Key Fluency"
+    },
+    {
+     "grade": 4,
+     "id": "arts.3.music-grade-4",
+     "title": "Music Grade 4: Clefs, Intervals and Primary Harmony"
+    },
+    {
+     "grade": 5,
+     "id": "arts.3.music-grade-5",
+     "title": "Music Grade 5: Fluent Notation and Harmonic Reading"
+    },
+    {
+     "grade": 6,
+     "id": "arts.3.music-grade-6",
+     "title": "Music Grade 6: Four-Part Harmony and Modulation"
+    },
+    {
+     "grade": 7,
+     "id": "arts.3.music-grade-7",
+     "title": "Music Grade 7: Chromatic Harmony and Decorated Lines"
+    },
+    {
+     "grade": 8,
+     "id": "arts.3.music-grade-8",
+     "title": "Music Grade 8: Counterpoint, Style and Complete Scores"
+    }
+   ],
+   "goal": "Use secondary sevenths, diminished sevenths and the Neapolitan sixth while controlling suspensions and melodic continuation.",
+   "articles": [
+    "Seventh chord",
+    "Diminished seventh chord",
+    "Neapolitan chord",
+    "Nonchord tone",
+    "Figured bass"
+   ],
+   "prereqs": [
+    "arts.3.music-grade-6"
+   ],
+   "practice": null,
+   "quiz": [
+    {
+     "kind": "choice",
+     "prompt": "Which notes spell a Neapolitan-sixth chord in C minor?",
+     "choices": [
+      "D–F–A-flat",
+      "F–A-flat–D-flat",
+      "C–E-flat–G",
+      "F–A–D"
+     ],
+     "answer": "F–A-flat–D-flat",
+     "explain": "The lowered-supertonic major triad is D-flat–F–A-flat. First inversion puts F in the bass."
+    },
+    {
+     "kind": "choice",
+     "prompt": "Which pitch completes B–D–F as a fully diminished seventh chord?",
+     "choices": [
+      "A-flat",
+      "A-natural",
+      "G-sharp",
+      "B-flat"
+     ],
+     "answer": "A-flat",
+     "explain": "Stack another minor third above F to obtain A-flat. G-sharp is an enharmonic pitch but does not spell the seventh above B."
+    },
+    {
+     "kind": "choice",
+     "prompt": "A tied note is consonant before a chord change, dissonant after it, then resolves down by step. What process is demonstrated?",
+     "choices": [
+      "Unprepared appoggiatura",
+      "Repeated tonic pedal",
+      "Octave transposition",
+      "Prepared suspension"
+     ],
+     "answer": "Prepared suspension",
+     "explain": "Preparation, suspension and resolution define this dissonance treatment. The tie alone would not be enough."
+    },
+    {
+     "kind": "choice",
+     "prompt": "In a 4–3 suspension above a held bass, what do the figures indicate?",
+     "choices": [
+      "Four beats becoming three",
+      "Fourth voice above third voice",
+      "Fourth resolving to third",
+      "Chord IV moving to iii"
+     ],
+     "answer": "Fourth resolving to third",
+     "explain": "The figures name intervals above the bass. They do not number chords or voices."
+    },
+    {
+     "kind": "choice",
+     "prompt": "Which diatonic seventh chord lies on degree six of C major?",
+     "choices": [
+      "B–D–F–A",
+      "A–C–E–G",
+      "A–C-sharp–E–G",
+      "F–A–C–E"
+     ],
+     "answer": "A–C–E–G",
+     "explain": "Stacking diatonic thirds from A produces the minor-seventh chord A–C–E–G."
+    },
+    {
+     "kind": "choice",
+     "prompt": "A supplied melody has a long dissonant note over a new harmony. What should you inspect before labelling it a suspension?",
+     "choices": [
+      "Preparation and resolution",
+      "Only the note’s duration",
+      "Only the printed dynamic",
+      "Whether the bar has four beats"
+     ],
+     "answer": "Preparation and resolution",
+     "explain": "A long duration alone is not enough. Check whether it was prepared as a consonance and how it resolves."
+    },
+    {
+     "kind": "choice",
+     "prompt": "You continue a solo line over a fixed accompaniment. Which choice best preserves musical coherence?",
+     "choices": [
+      "Ignore the bass at cadences",
+      "Copy pitches without their rhythm",
+      "Keep every bar on one note",
+      "Develop the motif with the harmony"
+     ],
+     "answer": "Develop the motif with the harmony",
+     "explain": "A continuation should transform recognisable material while responding to the harmonic plan and phrase structure."
+    },
+    {
+     "kind": "choice",
+     "prompt": "In C minor, which likely harmonic destination follows a Neapolitan sixth in a conventional cadential progression?",
+     "choices": [
+      "A permanent F-major tonic",
+      "The same chord without motion",
+      "The dominant region",
+      "An unrelated tonic by rule"
+     ],
+     "answer": "The dominant region",
+     "explain": "The Neapolitan often functions as a predominant leading towards V, sometimes through a cadential six-four."
+    },
+    {
+     "kind": "short",
+     "prompt": "Explain the three stages you check in a prepared suspension.",
+     "answer": "Check consonant preparation, dissonance against the changed bass or harmony, and a convincing stepwise resolution.",
+     "keywords": [
+      "preparation",
+      "dissonance",
+      "resolution"
+     ],
+     "explain": "Check consonant preparation, dissonance against the changed bass or harmony, and a convincing stepwise resolution."
+    },
+    {
+     "kind": "short",
+     "prompt": "Explain why a figured bass must be interpreted with the melody rather than as isolated chord labels.",
+     "answer": "The figures describe intervals above the bass, while the melody constrains chord membership, dissonance and the movement of inner voices.",
+     "keywords": [
+      "intervals",
+      "membership",
+      "inner"
+     ],
+     "explain": "The figures describe intervals above the bass, while the melody constrains chord membership, dissonance and the movement of inner voices."
+    }
+   ],
+   "music_study": {
+    "scope": "General musicianship and theory, benchmarked to ABRSM Grade 7. Instrument-specific technique and repertoire require the current instrument syllabus and practical tuition.",
+    "units": [
+     {
+      "title": "Expand harmonic vocabulary",
+      "explanation": "Recognise diatonic secondary seventh chords and their inversions, plus the diminished seventh and Neapolitan sixth. The Neapolitan sixth is normally a first-inversion major triad on the lowered second degree.",
+      "task": "Spell the chords in several keys; identify the bass, chord members and intended resolution. Read the commonly used figures of Baroque thoroughbass."
+     },
+     {
+      "title": "Make dissonance accountable",
+      "explanation": "A suspension is prepared as a consonance, held to become dissonant against a new harmony, then resolved. Writing a tie over a bar line alone does not establish that function.",
+      "task": "Add appropriate suspensions and melodic decoration to a plain passage. Figure a supplied bass beneath a melody so that inner-part movement is unambiguous."
+     },
+     {
+      "title": "Continue with a harmonic plan",
+      "explanation": "A convincing continuation develops the opening and responds to its accompaniment. Sequence, cadence, range and rhythm create direction without merely copying a motif at random pitches.",
+      "task": "Complete an instrumental line over a given keyboard accompaniment, or write to a chord sequence or motif. Analyse notation, ornaments, harmony, phrasing, style and instrumentation in open score."
+     }
+    ],
+    "aural": "Follow the bass under decorated upper parts, compare consonance and prepared dissonance, and identify a related-key modulation from its cadence rather than one chromatic note.",
+    "practical": "Develop tonal control and stylistic contrast over longer works; use current Grade 7 requirements for the chosen instrument and seek feedback on independence and balance.",
+    "sight_reading": "Read a short texture with independent voices. Prioritise pulse and harmonic direction; practise separate slow score-reading to decode figures and ornaments accurately.",
+    "composition": "Produce a figured passage and two melodic continuations, revising suspensions and register after feedback. Keep an annotated first draft to show why changes improve the music.",
+    "checkpoint": "Account for the preparation and resolution of each suspension, and distinguish a Neapolitan sixth from a tonic first inversion. Written and performed work need an experienced listener or teacher.",
+    "routine": [
+     "Begin with pulse, listening and singing in a comfortable range.",
+     "Alternate a short notation task with making the same idea audible.",
+     "Work on technical patterns and contrasting repertoire with a teacher.",
+     "Sight-read something unfamiliar slowly enough to preserve continuity.",
+     "Record one attempt, identify one improvement and revisit it next session."
+    ],
+    "source": {
+     "title": "ABRSM Music Theory: syllabus and specifications",
+     "url": "https://www.abrsm.org/en-gb/music-theory/about-music-theory"
+    }
+   },
+   "lesson_media": [
+    {
+     "id": "arts-3-music-grade-7-engraved",
+     "kind": "illustration",
+     "src": "/app/illustrations/tree/arts/arts-3-music-grade-7-800.webp",
+     "srcset": "/app/illustrations/tree/arts/arts-3-music-grade-7-800.webp 800w, /app/illustrations/tree/arts/arts-3-music-grade-7-1600.webp 1600w",
+     "alt": "Paired engraved staves show C5 over F3, a tied C5 over G3, and its downward resolution to B4 over G3.",
+     "caption": "A suspension needs preparation, dissonance and resolution, not merely a note tied across a bar line.",
+     "width": 1600,
+     "height": 1000
+    },
+    {
+     "id": "arts-3-music-grade-7-listening",
+     "kind": "model",
+     "renderer": "music-listening-lab",
+     "title": "Listen, compare and explain",
+     "instructions": "Play both examples, describe the difference, then reveal the explanation. This is listening practice, not an exam.",
+     "props": {
+      "grade": 7
+     }
+    }
+   ]
+  },
+  {
+   "id": "arts.3.music-grade-8",
+   "title": "Music Grade 8: Counterpoint, Style and Complete Scores",
+   "stage": 3,
+   "strand": "music",
+   "music_grade": 8,
+   "music_path": [
+    {
+     "grade": 1,
+     "id": "arts.2.music-grade-1",
+     "title": "Music Grade 1: Pitch, Pulse and Major Keys"
+    },
+    {
+     "grade": 2,
+     "id": "arts.2.music-grade-2",
+     "title": "Music Grade 2: Minor Keys and Subdivision"
+    },
+    {
+     "grade": 3,
+     "id": "arts.2.music-grade-3",
+     "title": "Music Grade 3: Compound Metre and Key Fluency"
+    },
+    {
+     "grade": 4,
+     "id": "arts.3.music-grade-4",
+     "title": "Music Grade 4: Clefs, Intervals and Primary Harmony"
+    },
+    {
+     "grade": 5,
+     "id": "arts.3.music-grade-5",
+     "title": "Music Grade 5: Fluent Notation and Harmonic Reading"
+    },
+    {
+     "grade": 6,
+     "id": "arts.3.music-grade-6",
+     "title": "Music Grade 6: Four-Part Harmony and Modulation"
+    },
+    {
+     "grade": 7,
+     "id": "arts.3.music-grade-7",
+     "title": "Music Grade 7: Chromatic Harmony and Decorated Lines"
+    },
+    {
+     "grade": 8,
+     "id": "arts.3.music-grade-8",
+     "title": "Music Grade 8: Counterpoint, Style and Complete Scores"
+    }
+   ],
+   "goal": "Integrate chromatic harmony, two-part counterpoint, keyboard texture and instrumental writing before undergraduate study.",
+   "articles": [
+    "Counterpoint",
+    "Trio sonata",
+    "Chromaticism",
+    "Musical form",
+    "Musical analysis"
+   ],
+   "prereqs": [
+    "arts.3.music-grade-7"
+   ],
+   "practice": null,
+   "quiz": [
+    {
+     "kind": "choice",
+     "prompt": "A trio-sonata exercise gives two treble parts and a continuo bass. What does “trio” primarily count here?",
+     "choices": [
+      "Three musical parts",
+      "Exactly three performers",
+      "Three movements in each work",
+      "Three bars per phrase"
+     ],
+     "answer": "Three musical parts",
+     "explain": "The texture contains three principal parts. The continuo bass may be realised by more than one performer."
+    },
+    {
+     "kind": "choice",
+     "prompt": "An augmented-sixth sonority in C has A-flat below and F-sharp above. Where do those notes normally resolve?",
+     "choices": [
+      "Both down to F",
+      "Both up to A",
+      "Inwards to E and F",
+      "Outwards to G octaves"
+     ],
+     "answer": "Outwards to G octaves",
+     "explain": "The augmented sixth expands outwards by semitone: A-flat descends to G and F-sharp rises to G."
+    },
+    {
+     "kind": "choice",
+     "prompt": "Why can A-flat–C–E-flat–F-sharp and A-flat–C–E-flat–G-flat demand different analyses?",
+     "choices": [
+      "One contains only three notes",
+      "Only the loudness distinguishes them",
+      "Spelling shows different resolutions",
+      "Their piano keys always differ"
+     ],
+     "answer": "Spelling shows different resolutions",
+     "explain": "Enharmonic spellings can indicate different harmonic functions and voice-leading even when equal-tempered pitches coincide."
+    },
+    {
+     "kind": "choice",
+     "prompt": "Two imitative treble lines arrive at a cadence above a given bass. What takes priority over mechanically repeating the opening motif?",
+     "choices": [
+      "Avoiding every repeated pitch",
+      "Coherent cadence and voice leading",
+      "Identical rhythm at all costs",
+      "Maximum loudness in both lines"
+     ],
+     "answer": "Coherent cadence and voice leading",
+     "explain": "The motif must be adapted to the harmonic destination and the independence of the parts."
+    },
+    {
+     "kind": "choice",
+     "prompt": "You complete a Classical keyboard outline. Which choice best respects the given style?",
+     "choices": [
+      "Develop its texture and phrase plan",
+      "Replace every chord with a cluster",
+      "Keep only the top notes unchanged",
+      "Add ornaments to every beat"
+     ],
+     "answer": "Develop its texture and phrase plan",
+     "explain": "Style emerges from texture, harmonic rhythm, phrasing and articulation; it is not supplied by decorative signs alone."
+    },
+    {
+     "kind": "choice",
+     "prompt": "A chromatic chord tonicises D minor briefly inside C major. What distinguishes tonicisation from an established modulation?",
+     "choices": [
+      "The presence of any accidental",
+      "A change of printed instrument",
+      "The use of a seventh chord",
+      "Lack of a sustained new tonic"
+     ],
+     "answer": "Lack of a sustained new tonic",
+     "explain": "A temporary applied harmony may colour a local chord without establishing a new tonal centre for the passage."
+    },
+    {
+     "kind": "choice",
+     "prompt": "A written melody is theoretically correct but exceeds the chosen instrument’s comfortable range. What is the best revision?",
+     "choices": [
+      "Remove the key signature",
+      "Increase the dynamic marking",
+      "Reshape its register and contour",
+      "Change only the title"
+     ],
+     "answer": "Reshape its register and contour",
+     "explain": "Instrumental writing must fit the performer and instrument. Adjust the line while preserving its musical purpose."
+    },
+    {
+     "kind": "choice",
+     "prompt": "An analysis calls a passage “Romantic” without pointing to the score. What would strengthen the claim?",
+     "choices": [
+      "Counting the pages alone",
+      "Evidence from harmony and texture",
+      "Repeating the period label",
+      "Naming any famous composer"
+     ],
+     "answer": "Evidence from harmony and texture",
+     "explain": "Connect a stylistic inference to observable harmonic, textural, formal or expressive details, and acknowledge counter-evidence."
+    },
+    {
+     "kind": "short",
+     "prompt": "Explain how independent contrapuntal parts still produce a coherent whole.",
+     "answer": "Each voice has a singable melodic line, while shared harmony, controlled dissonance and coordinated cadences connect the parts.",
+     "keywords": [
+      "voice",
+      "harmony",
+      "cadences"
+     ],
+     "explain": "Each voice has a singable melodic line, while shared harmony, controlled dissonance and coordinated cadences connect the parts."
+    },
+    {
+     "kind": "short",
+     "prompt": "Explain how you would review an instrumental composition before calling it complete.",
+     "answer": "Check range and phrasing, harmonic direction and form, then test the notation in sound and revise after performer feedback.",
+     "keywords": [
+      "range",
+      "phrasing",
+      "harmony"
+     ],
+     "explain": "Check range and phrasing, harmonic direction and form, then test the notation in sound and revise after performer feedback."
+    }
+   ],
+   "music_study": {
+    "scope": "General musicianship and theory, benchmarked to ABRSM Grade 8. Instrument-specific technique and repertoire require the current instrument syllabus and practical tuition.",
+    "units": [
+     {
+      "title": "Hear chromatic harmony as motion",
+      "explanation": "Use standard diatonic and chromatic chords in context, including applied dominants, mixture and augmented-sixth sonorities. Spelling should reveal voice-leading and destination, not merely a keyboard shape.",
+      "task": "Analyse a passage in which chromatic harmony leads to a cadence. Compare enharmonically equivalent spellings and explain which reading matches the resolution."
+     },
+     {
+      "title": "Sustain independent lines",
+      "explanation": "In a Baroque trio-sonata texture, two treble lines interact above a continuo bass. Independence requires control of imitation, dissonance, rhythm and cadence; it is not a tally of simultaneous notes.",
+      "task": "Continue two original treble parts over a supplied, fully figured bass. Check consonance, suspensions and voice crossing at structural points; the figured bass need not be realised at a keyboard for this task."
+     },
+     {
+      "title": "Complete and interpret a score",
+      "explanation": "A keyboard continuation needs consistent texture and style as well as correct chords. Instrumental melody needs range, phrasing and a convincing ending. Analysis connects these choices to sound.",
+      "task": "Complete a short keyboard outline in a Classical or later style, continue an instrumental melody, and annotate an open score for harmony, form, ornaments and instrumentation."
+     }
+    ],
+    "aural": "Describe musical features with evidence: cadence, modulation, bass motion, texture, articulation, dynamics and style. Sing or play an inner part to test what you heard.",
+    "practical": "Prepare a sustained, contrasting programme at the chosen instrument level with technical control, stylistic awareness and independent musical decisions. Use teacher feedback and repeated recorded performances.",
+    "sight_reading": "Maintain fluent instrumental sight-reading while separately studying open scores and reductions; explain what you prioritise when a texture cannot all be played at once.",
+    "composition": "Build a portfolio containing a two-treble continuo continuation, a keyboard completion and an instrumental melody, each revised after detailed musical feedback.",
+    "checkpoint": "Complete new score-analysis and writing tasks, defend the musical choices, and demonstrate practical musicianship separately. This is a pre-undergraduate study benchmark, not a substitute for an externally examined Grade 8 qualification.",
+    "routine": [
+     "Begin with pulse, listening and singing in a comfortable range.",
+     "Alternate a short notation task with making the same idea audible.",
+     "Work on technical patterns and contrasting repertoire with a teacher.",
+     "Sight-read something unfamiliar slowly enough to preserve continuity.",
+     "Record one attempt, identify one improvement and revisit it next session."
+    ],
+    "source": {
+     "title": "ABRSM Music Theory: syllabus and specifications",
+     "url": "https://www.abrsm.org/en-gb/music-theory/about-music-theory"
+    }
+   },
+   "lesson_media": [
+    {
+     "id": "arts-3-music-grade-8-engraved",
+     "kind": "illustration",
+     "src": "/app/illustrations/tree/arts/arts-3-music-grade-8-800.webp",
+     "srcset": "/app/illustrations/tree/arts/arts-3-music-grade-8-800.webp 800w, /app/illustrations/tree/arts/arts-3-music-grade-8-1600.webp 1600w",
+     "alt": "Two engraved treble parts and a bass-clef continuo part present a short original consonant phrase skeleton.",
+     "caption": "A complete continuation develops independent melodic lines within a harmonic and stylistic plan.",
+     "width": 1600,
+     "height": 1000
+    },
+    {
+     "id": "arts-3-music-grade-8-listening",
+     "kind": "model",
+     "renderer": "music-listening-lab",
+     "title": "Listen, compare and explain",
+     "instructions": "Play both examples, describe the difference, then reveal the explanation. This is listening practice, not an exam.",
+     "props": {
+      "grade": 8
+     }
     }
    ]
   },
@@ -2244,6 +4551,18 @@
    "prereqs": [
     "arts.3.art-history",
     "mind.3.philosophy-intro"
+   ],
+   "lesson_media": [
+    {
+     "id": "aesthetic-judgment-lenses-plate",
+     "kind": "illustration",
+     "src": "/app/illustrations/grove/arts/arts-4-aesthetics-800.webp",
+     "srcset": "/app/illustrations/grove/arts/arts-4-aesthetics-800.webp 800w, /app/illustrations/grove/arts/arts-4-aesthetics-1600.webp 1600w",
+     "alt": "A reciprocal network places one artwork at the center and connects formal organization, maker and historical context, viewer experience and institutional framing, each with a different question about aesthetic judgment.",
+     "caption": "Aesthetic judgments can cite formal qualities, experience, context and institutions. Disagreement becomes more informative when people identify the evidence and value behind a response.",
+     "width": 1600,
+     "height": 1000
+    }
    ]
   },
   {
@@ -2382,6 +4701,18 @@
      ],
      "explain": "Selection and arrangement carry an argument even when nothing depicted is false, which is why documentary status settles less than it seems to."
     }
+   ],
+   "lesson_media": [
+    {
+     "id": "critical-reading-evidence-chain-plate",
+     "kind": "illustration",
+     "src": "/app/illustrations/grove/arts/arts-4-art-theory-800.webp",
+     "srcset": "/app/illustrations/grove/arts/arts-4-art-theory-800.webp 800w, /app/illustrations/grove/arts/arts-4-art-theory-1600.webp 1600w",
+     "alt": "An invented gold circle overlaps a coral diagonal on blue. Four annotations distinguish a visible overlap, a possible movement reading, a stability counter-reading and contextual facts that still require research.",
+     "caption": "Critical interpretation separates what is visible from what is inferred, then uses context and counterevidence. Symbols do not carry one universal meaning across cultures.",
+     "width": 1600,
+     "height": 1000
+    }
    ]
   },
   {
@@ -2395,7 +4726,7 @@
     "Musical analysis"
    ],
    "prereqs": [
-    "arts.3.music-theory",
+    "arts.3.music-grade-8",
     "arts.3.music-history"
    ],
    "quiz": [
@@ -2506,6 +4837,61 @@
       "It needs no development of its material at all"
      ],
      "explain": "The recurring refrain makes a finale feel conclusive and easy to follow after the weight of a sonata-form first movement."
+    }
+   ],
+   "lesson_media": [
+    {
+     "id": "counterpoint-form-analysis-plate",
+     "kind": "illustration",
+     "src": "/app/illustrations/grove/arts/arts-4-composition-800.webp",
+     "srcset": "/app/illustrations/grove/arts/arts-4-composition-800.webp 800w, /app/illustrations/grove/arts/arts-4-composition-1600.webp 1600w",
+     "alt": "Four one-beat blue notes C4, D4, E4, D4 sound above coral notes A3, B3, C4, B3. Their intervals are minor third, minor third, major third and minor third; a separate A, B, A-prime diagram shows return with variation.",
+     "caption": "Read each voice through time and both voices at each beat. This original parallel-thirds example uses a semitone pitch grid and equal one-beat durations, not a claim to satisfy every rule of strict counterpoint. The separate form diagram describes larger sections, not these four notes.",
+     "width": 1600,
+     "height": 1000
+    }
+   ],
+   "strand": "music",
+   "music_path": [
+    {
+     "grade": 1,
+     "id": "arts.2.music-grade-1",
+     "title": "Music Grade 1: Pitch, Pulse and Major Keys"
+    },
+    {
+     "grade": 2,
+     "id": "arts.2.music-grade-2",
+     "title": "Music Grade 2: Minor Keys and Subdivision"
+    },
+    {
+     "grade": 3,
+     "id": "arts.2.music-grade-3",
+     "title": "Music Grade 3: Compound Metre and Key Fluency"
+    },
+    {
+     "grade": 4,
+     "id": "arts.3.music-grade-4",
+     "title": "Music Grade 4: Clefs, Intervals and Primary Harmony"
+    },
+    {
+     "grade": 5,
+     "id": "arts.3.music-grade-5",
+     "title": "Music Grade 5: Fluent Notation and Harmonic Reading"
+    },
+    {
+     "grade": 6,
+     "id": "arts.3.music-grade-6",
+     "title": "Music Grade 6: Four-Part Harmony and Modulation"
+    },
+    {
+     "grade": 7,
+     "id": "arts.3.music-grade-7",
+     "title": "Music Grade 7: Chromatic Harmony and Decorated Lines"
+    },
+    {
+     "grade": 8,
+     "id": "arts.3.music-grade-8",
+     "title": "Music Grade 8: Counterpoint, Style and Complete Scores"
     }
    ]
   },
@@ -2633,6 +5019,18 @@
     "arts.3.art-history",
     "arts.3.music-history",
     "hist.3.world-religions"
+   ],
+   "lesson_media": [
+    {
+     "id": "world-practices-structure-context-plate",
+     "kind": "illustration",
+     "src": "/app/illustrations/grove/arts/arts-4-world-arts-800.webp",
+     "srcset": "/app/illustrations/grove/arts/arts-4-world-arts-800.webp 800w, /app/illustrations/grove/arts/arts-4-world-arts-1600.webp 1600w",
+     "alt": "Three parallel rows compare West African ensemble polyrhythm, North Indian raga performance and Javanese gamelan interlocking through structure, social setting and transmission, without ranking them against one canon.",
+     "caption": "World arts require comparison without flattening traditions. Musical structure, social function and ways of learning belong together, and every named tradition contains regional and historical variation.",
+     "width": 1600,
+     "height": 1000
+    }
    ]
   },
   {
@@ -2771,6 +5169,18 @@
      ],
      "explain": "The gain in interpretive freedom is paid for in interpretive discipline, which is why the essay is still argued over."
     }
+   ],
+   "lesson_media": [
+    {
+     "id": "art-meaning-semiotic-network-plate",
+     "kind": "illustration",
+     "src": "/app/illustrations/forest/arts/arts-5-theory-advanced-800.webp",
+     "srcset": "/app/illustrations/forest/arts/arts-5-theory-advanced-800.webp 800w, /app/illustrations/forest/arts/arts-5-theory-advanced-1600.webp 1600w",
+     "alt": "A plain red triangle is visibly centered between four connected cards for signifier, possible referent, interpretant and frame or context; examples show how the same form can function differently in a street, gallery, protest or market.",
+     "caption": "Meaning emerges through signs, conventions, contexts and interpreters. Competing readings remain answerable to the work's form, circulation and historical evidence.",
+     "width": 1600,
+     "height": 1000
+    }
    ]
   },
   {
@@ -2908,6 +5318,18 @@
     "arts.4.aesthetics",
     "arts.4.art-theory",
     "mind.3.psychology"
+   ],
+   "lesson_media": [
+    {
+     "id": "creative-practice-feedback-loop-plate",
+     "kind": "illustration",
+     "src": "/app/illustrations/forest/arts/arts-5-creative-practice-800.webp",
+     "srcset": "/app/illustrations/forest/arts/arts-5-creative-practice-800.webp 800w, /app/illustrations/forest/arts/arts-5-creative-practice-1600.webp 1600w",
+     "alt": "Two versions of an invented river-cleanup poster preserve the wording while changing title size, spacing and emphasis. A critique identifies weak hierarchy, and the revised version remains subject to a reader test.",
+     "caption": "This fictional critique illustrates a specific practice decision, not measured evidence of improved readership. Keep versions, test whether readers find the event and time, then revise again. The poster is an example, not an announcement of a real event.",
+     "width": 1600,
+     "height": 1000
+    }
    ]
   },
   {
@@ -3034,6 +5456,18 @@
     "cs.2.programming",
     "arts.4.art-theory",
     "arts.3.design"
+   ],
+   "lesson_media": [
+    {
+     "id": "generative-system-authorship-plate",
+     "kind": "illustration",
+     "src": "/app/illustrations/forest/arts/arts-5-frontier-800.webp",
+     "srcset": "/app/illustrations/forest/arts/arts-5-frontier-800.webp 800w, /app/illustrations/forest/arts/arts-5-frontier-1600.webp 1600w",
+     "alt": "Three reproducible 5-by-5 disk fields apply one threshold rule: seeds 7 and 19 at density 0.35 yield 12 and 13 disks; seed 7 at density 0.70 retains the first field and adds nine disks.",
+     "caption": "At each grid site, a seeded value r is compared with density; passing sites receive a disk whose size and colour also depend on r. Changing the seed changes the arrangement; increasing density with the same seed preserves existing disks. These are static snapshots of a possible audience-controlled parameter, not a live sensor.",
+     "width": 1600,
+     "height": 1000
+    }
    ]
   }
  ]

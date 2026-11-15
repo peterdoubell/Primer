@@ -1,0 +1,55 @@
+# Ankle and foot source-image additions
+
+Acquired and visually reviewed on 26 September 2026. Eight complete figures were added to `data/radiology/msk-open-images.json`, under `ra.mri-ankle`, bringing the collection to 30 visual entries. All previous 22 records and image files are preserved. The source-acquisition task did not edit the evidence ledger. Subsequent integration added nine representation records (including the separately identified spring schematic panel), with narrow candidate bindings and all clinical-fidelity approvals still pending.
+
+The additions provide four MRI figures, one anatomical schematic and three ultrasound figures. One MRI figure also contains a schematic; another mixes normal-anatomy panels with pathology. No AI imagery, inferred source anatomy or enlarged pixel data was used. Source acquisition and visual inspection are not independent MSK-radiologist validation.
+
+## Sources and rights
+
+| Primary publication | Rights verified | Selected figures |
+| --- | --- | --- |
+| Szaro, P.; Ghali Gataa, K.; Ciszek, B. [Anatomical variants of the medioplantar oblique ligament and inferoplantar longitudinal ligament: an MRI study](https://link.springer.com/article/10.1007/s00276-021-02860-0), 2021/2022 | CC BY 4.0; publisher includes images unless a contrary figure credit states otherwise. No exclusion was found for figure 2. | 2: normal two-component spring example with corresponding drawing. |
+| González-Gutiérrez, O., et al. [Imaging Anatomy of the Ankle in Normal and Pathological States: A Clinically Focused Pictorial Review](https://doi.org/10.7759/cureus.93882), 2025 | CC BY 4.0. Each selected caption explicitly says the images belong to the authors and that patient consent was obtained. | 2: lateral ligaments; 3: deltoid/syndesmosis; 4: tendon compartments with explicitly identified pathological panels. |
+| Bianchi, S.; Bortolotto, C.; Draghi, F. [Os peroneum imaging: normal appearance and pathological findings](https://link.springer.com/article/10.1007/s13244-016-0540-3), 2017 | CC BY 4.0; no separate restriction or third-party credit on selected schematic. | 1: peroneal tendon courses and os peroneum relationship. |
+| Hung, C.-Y.; Chang, K.-V.; Mezian, K.; Naňka, O.; Wu, W.-T.; Hsu, P.-C.; Özçakar, L. [Advanced Ankle and Foot Sonoanatomy: Imaging Beyond the Basics](https://doi.org/10.3390/diagnostics10030160), 2020 | CC BY 4.0 in the primary article/PDF, confirmed by PMC archive metadata. No courtesy credit or reuse exclusion was found for selected figures. | 9: deltoid ultrasound; 11: superomedial spring ultrasound; 18: peroneal/flexor retinacula ultrasound. All selected panels are ultrasound, not cadaver photographs. |
+
+Article license links, author attribution, exact full captions and source URLs are in each manifest record and `web/reference-media/msk-open/ATTRIBUTION.md`. The PDF and caption retrieval through the NLM PMC Open Access dataset is recorded as a dated 26 September 2026 snapshot, not a promise of the most current NLM data or an endorsement by NLM.
+
+## Observed structures and possible evidence bindings
+
+These are specific source observations for root review, not new evidence-ledger approvals. Complete ligament origins/insertions, bundle geometry, tendon entheses or entire anatomical courses must not be inferred from a named structure in a single panel.
+
+| New ID | Modality and source pixels | Physically visible markers / structures | Scope for a candidate binding |
+| --- | --- | --- | --- |
+| `open-ankle-spring-components-szaro-fig2` | MRI plus schematic, 943 × 835 | Panel a has markers 1 = inferoplantar longitudinal spring component, 2 = medioplantar oblique component, 3 = tibialis posterior tendon. Panel b draws components 1 and 2. | Local `ankle.spring_ligament_complex.inferoplantar_longitudinal_component` and `.medioplantar_oblique_component`, with imaging and schematic evidence kept distinct. No superomedial component or complete attachment footprint. |
+| `open-ankle-lateral-ligaments-cube-fig2` | MRI, 2892 × 1174 | A: ATFL arrow/1; B–C: CFL arrow/2; D: PTFL arrow/arrowhead/3. Numbered peroneus longus/brevis (4/5), posterior tibial (6), FDL (7), FHL (8) and Achilles (9) also remain visible. | Selected ligament/tendon segments and relationships. Do not mark full origin/course/insertion sets complete from these static reconstructions. |
+| `open-ankle-deltoid-syndesmosis-cube-fig3` | MRI, 2892 × 1469 | A: superficial deltoid (1), deep deltoid (2). B: anterior (3) and posterior (4) distal tibiofibular ligaments. C–D: distal interosseous ligament (5). | Broad deltoid layers and selected AITFL/PITFL/interosseous-ligament views. The image does not individually resolve all five named deltoid bands and does not establish complete interosseous-membrane coverage. |
+| `open-ankle-tendon-compartments-fig4` | MRI, 2221 × 4449; **mixed normal and pathological examples** | A: numbered TA, EHL, EDL, PL, PB, Achilles, FHL, FDL and TP. B: compartment overlays. C: TP/FDL tenosynovitis and edema. D: PL/PB segments. E–F: Achilles appearance. | Local anterior, retromalleolar and posterior tendon identification only. Preserve mixed-state warning. Do not treat panel C as normal. The source's DP/DPFS expansion is retained as quoted caption terminology, not endorsed as a protocol instruction. |
+| `open-ankle-peroneal-course-bianchi-fig1` | Schematic, 988 × 845 | Peroneus brevis (1) and longus (2), peroneal tubercle (*), and os peroneum (arrow). Source bone labels remain present. | Schematic lateral tendon paths and relationship to the tubercle. Os peroneum is a variant; neither full plantar PL insertion nor clinical tendon integrity is supplied. |
+| `open-ankle-deltoid-ultrasound-hung-fig9` | Ultrasound, 3512 × 1736 | A: filled arrowheads delimit tibionavicular ligament. B: open arrowheads mark tibiospring ligament. C: thin arrows mark tibiocalcaneal ligament. D: thick arrows mark tibiotalar ligament. TP/FDL labels remain visible. | Ultrasound examples for the first three named deltoid components; tibiotalar is not split into separately verified anterior/posterior or deep/superficial leaves. **Not MRI validation.** |
+| `open-ankle-superomedial-spring-ultrasound-hung-fig11` | Ultrasound, 2972 × 3236 | Arrowheads outline the superomedial spring ligament; TP/FDL and bony landmarks are labeled, with asterisks on talar cartilage. | Normal sonographic superomedial spring/TP relationship, not an MRI depiction or a view of the other spring components. |
+| `open-ankle-retinacula-ultrasound-hung-fig18` | Ultrasound, 2182 × 3477 | A: superior peroneal retinaculum (filled arrowheads); B: inferior peroneal retinaculum (open arrowheads); C: flexor retinaculum (arrows). PL/PB, TP/FDL, PTA/PTV labels are present. | Local sonographic retinacular/tendon relationships. Do not infer full tendon courses, dynamic stability or MRI visibility. Source peripheral nerve markers are preserved but not used to claim unreviewed nerve subdivisions. |
+
+The three Hung images are complete native ultrasound-only composites. The article contains cadaveric models elsewhere, but none of those models is present in figures 9, 11 or 18, and no dissection photograph was relabeled as a schematic.
+
+## Native-resolution and annotation verification
+
+The original Springer spring-ligament JPEG was copied byte-for-byte. The other seven images were extracted from original embedded PDF JPEGs. Their pixel dimensions, modes and decoded bytes were verified against the embedded sources; matching decoded-pixel SHA-256 values are recorded. Source-file SHA-256 hashes are also recorded for all eight.
+
+The selected Cureus PDF images were much larger than its 750-pixel web previews. The preserved files are the original 2892-pixel ligament composites and 2221 × 4449 tendon plate. Hung's preserved originals range from 2182 to 3512 pixels wide; Bianchi's 988 × 845 schematic comes from the original PDF rather than the 394-pixel web GIF. None was rescaled, reconstructed, cropped, enhanced or recomposed.
+
+Each extracted original was opened for inspection. Numbers, arrows, open/filled arrowheads, panel letters and text labels are embedded in these rasters and remain visible. No missing PDF vector labels were asserted to have survived. This increases source-pixel availability, not the spatial resolution of the underlying clinical acquisition.
+
+Validation: the base manifest contains 30 unique entries. The application `_structure_atlases()` loader accepts 41 entries after its 11 explicit shared wrist placements, including the supported `Ultrasound` modality; sharing creates no new source images. Every file matches its recorded dimensions and SHA-256. The eight new images total 4,648,640 bytes. The previous 22 records were checked for deep equality before appending.
+
+One source-caption error was corrected after browser review: Bianchi figure 1 expands the foot label `V met` as “fifth metacarpal bone.” This was verified directly on the [primary figure page](https://link.springer.com/article/10.1007/s13244-016-0540-3/figures/1). The curated display caption says **fifth metatarsal bone**, while `source_caption_full` preserves the publisher wording verbatim. The limits text explicitly identifies the correction. No image pixels or source labels were changed.
+
+## Rejected or unfilled candidates
+
+- Kimura et al., [normal superomedial spring MRI example](https://pmc.ncbi.nlm.nih.gov/articles/PMC7739123/): article/archive license is CC BY-NC. Not acquired into the project.
+- Najefi et al., [Turf toe: a clinical update](https://pmc.ncbi.nlm.nih.gov/articles/PMC6174855/): normal first-MTP MRI is useful, but the license is CC BY-NC. Not acquired.
+- Bilyy et al., [Deltoid-Spring Ligament Complex review](https://pmc.ncbi.nlm.nih.gov/articles/PMC12050096/): license is compatible, but actual inspection found that figure 2 is a geometric-outline/morphometry illustration and figure 3 a text taxonomy. Neither physically depicts the detailed anatomical attachments requested; neither was added or counted as structure coverage.
+- Mann et al., [plantar-plate MRI study](https://pmc.ncbi.nlm.nih.gov/articles/PMC9000981/), and Palka et al., [metatarsalgia review](https://link.springer.com/article/10.1186/s13244-025-01945-3): the inspected figure descriptions principally show tears/degenerative injury. They were not substituted for normal plantar-plate anatomy.
+- A [2026 normal plantar-plate MRI study](https://www.ijmradiol.ac.cn/EN/10.19300/j.2026.L22501) is a possible follow-up source, but explicit commercial reuse terms were not verified here. No image from it was shipped.
+
+No cleared, inspected **normal plantar-plate** figure was acquired in this bounded search. Full deltoid sub-band courses/entheses, deep anterior versus posterior tibiotalar separation, full interosseous membrane, complete spring attachment surfaces, and complete tendon course/insertion coverage also remain open. The source-labeled images support partial candidate coverage; they do not close these requirements or establish clinical/commercial-grade completeness.

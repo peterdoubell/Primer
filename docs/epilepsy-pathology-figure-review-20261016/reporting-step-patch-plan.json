@@ -1,0 +1,57 @@
+[
+  {
+    "file": "data/radiology/reporting-steps/neuroradiology.json",
+    "json_pointer": "/investigations/ra.mri-epilepsy/steps/0/images",
+    "expected_step_label": "Hippocampi",
+    "expected_before": [
+      "epilepsy-mri-image-1"
+    ],
+    "proposed_after": [
+      "epilepsy-mri-image-1",
+      "open-epilepsy-pmc4557590-fig1",
+      "open-epilepsy-pmc8353251-fig4"
+    ],
+    "operation": "replace",
+    "role": "Selected publication example only; preserve existing clinical text and image bindings."
+  },
+  {
+    "file": "data/radiology/reporting-steps/neuroradiology.json",
+    "json_pointer": "/investigations/ra.mri-epilepsy/steps/1/images",
+    "expected_step_label": "Cortex and neuronal migration",
+    "expected_before": [
+      "epilepsy-mri-image-2"
+    ],
+    "proposed_after": [
+      "epilepsy-mri-image-2",
+      "open-epilepsy-pmc8353251-fig3"
+    ],
+    "operation": "replace",
+    "role": "Selected publication example only; preserve existing clinical text and image bindings."
+  },
+  {
+    "file": "data/radiology/reporting-steps/neuroradiology.json",
+    "json_pointer": "/investigations/ra.mri-epilepsy/steps/2/images",
+    "expected_step_label": "Focal lesions",
+    "expected_before": [
+      "epilepsy-mri-image-3"
+    ],
+    "proposed_after": [
+      "epilepsy-mri-image-3",
+      "open-epilepsy-pmc4557590-fig6",
+      "open-epilepsy-pmc4557590-fig7"
+    ],
+    "operation": "replace",
+    "role": "Selected publication example only; preserve existing clinical text and image bindings."
+  },
+  {
+    "file": "data/radiology/reporting-steps/neuroradiology.json",
+    "json_pointer": "/investigations/ra.mri-epilepsy/steps/3/images",
+    "expected_step_label": "Temporal encephalocele and dual pathology",
+    "expected_before": null,
+    "proposed_after": [
+      "open-epilepsy-pmc8353251-fig2"
+    ],
+    "operation": "add",
+    "role": "Selected publication example only; preserve existing clinical text and image bindings."
+  }
+]

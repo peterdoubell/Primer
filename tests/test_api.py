@@ -29,7 +29,7 @@ def test_a_specialist_field_is_a_library_not_a_ladder():
     """
     import primer.server as srv
 
-    rad = [n for n in srv.curr.nodes.values() if n["domain"] == "radiology"]
+    rad = [n for n in srv.curr.nodes.values() if n.get("radiology_reference")]
     assert len(rad) >= 25, "only %d radiology modules" % len(rad)
     inside = [(n["id"], p) for n in rad for p in n["prereqs"]
               if srv.curr.nodes.get(p, {}).get("domain") == "radiology"]
@@ -76,7 +76,7 @@ def test_opening_a_specialist_field_opens_all_of_it(tmp_path):
             assert body["credited"], "nothing was credited"
 
             after = client.get("/api/curriculum").json()
-            rad = [n for n in after["nodes"] if n["domain"] == "radiology"]
+            rad = [n for n in after["nodes"] if n["id"].startswith("rad.")]
             assert all(n["unlocked"] for n in rad)
             # Opened, not passed off as earned: the field itself is untouched,
             # and the groundwork it stands on says out loud that it was assumed.
@@ -85,6 +85,10 @@ def test_opening_a_specialist_field_opens_all_of_it(tmp_path):
             grounding = [n for n in after["nodes"] if n["id"] in credited]
             assert grounding and all(n["assumed"] for n in grounding)
             assert not any(n["proven"] for n in grounding)
+            foundations = [n for n in after["nodes"] if n["id"].startswith("img.")]
+            assert len(foundations) == 10
+            assert not any(n["mastered"] or n["assumed"] for n in foundations)
+            assert body["total"] == 96
     finally:
         srv.learner, srv.wiki, srv.BACKUP_DIR = orig
 
@@ -145,6 +149,18 @@ def test_the_general_spine_cannot_be_opened_by_asserting_it(client, onboarded):
     assert client.post("/api/domain/open",
                        json={"domain": "phrenology"}).status_code == 404
 
+
+
+def test_article_overload_is_temporary_not_missing(client, monkeypatch):
+    import primer.server as srv
+    monkeypatch.setattr(srv.wiki, "get_article", lambda *args, **kwargs: None)
+    monkeypatch.setattr(srv.wiki, "_live_fetch_blocked_until", time.time() + 120)
+    response = client.get("/api/article?title=Genetics")
+    assert response.status_code == 503
+    assert response.json()["error"] == "article temporarily unavailable"
+    assert 1 <= int(response.headers["Retry-After"]) <= 120
+    monkeypatch.setattr(srv.wiki, "_live_fetch_blocked_until", 0)
+    assert client.get("/api/article?title=Missing").status_code == 404
 
 
 def _domain_file_count():
@@ -328,7 +344,7 @@ def test_today_returns_a_stable_daily_quest(client, onboarded):
     a = client.get("/api/today").json()
     b = client.get("/api/today").json()
     assert [l["id"] for l in a["lessons"]] == [l["id"] for l in b["lessons"]]
-    assert set(a["quest"]) == {"review", "learn", "read"}
+    assert set(a["quest"]) == {"review", "practice", "learn", "read"}
     assert a["quest"]["review"]["done"] is False
 
 
@@ -372,8 +388,9 @@ def test_the_daily_quest_is_completable_on_a_day_with_nothing_due(tmp_path):
             assert review["excused"] is True and review["hint"], \
                 "with nothing due there must be no outstanding task, and a reason given"
 
-            # An honest first day: one lesson, one article.
+            # An honest first day: one lesson, one practice sitting, one article.
             srv.learner.record_attempt("math.2.fractions", 0.9)
+            srv.learner.log_event("practice", {"node_id": "math.2.fractions"})
             with srv.learner._conn() as conn:
                 conn.execute("INSERT INTO events(kind,payload,at,xp) VALUES('read',?,?,0)",
                              (json.dumps({"title": "Fractions"}), time.time()))
@@ -494,8 +511,8 @@ def test_a_focused_reader_can_still_ascend(tmp_path):
                     assert srv.learner.get_profile()["stage"] == 5, \
                         "and the promotion must actually take effect"
                 else:
-                    assert rose is None, \
-                        "one strong domain out of ten must not promote a broad reader"
+                    assert rose and rose["stage"] == 2, \
+                        "advanced evidence preserves the stage-2 floor, without promoting the broad reader to stage 5"
     finally:
         srv.learner, srv.wiki, srv.BACKUP_DIR = orig_learner, orig_wiki, orig_backup_dir
 
@@ -691,6 +708,153 @@ def test_placement_is_scored_server_side(client, onboarded):
         "answers": ["definitely wrong"] * len(p["questions"])}).json()
     assert bad["passed"] is False
     assert bad["credited_through_stage"] == -1, "the client cannot assert a pass"
+
+
+def test_the_unmarked_reflection_item_is_not_marked_wrong(client, onboarded,
+                                                          open_assessment_gate):
+    """An item the book declines to grade cannot be graded wrong.
+
+    Every paper from Sapling up closes with a written reflection whose key is
+    the node's own published goal. It is deliberately `ungraded` — the reader
+    can read that goal on the lesson page, so it is worth writing but not worth
+    marks. But `/api/quiz/check` marked it anyway: `score_quiz` skips ungraded
+    items and floors the denominator at 1, so it returned 0.0 and the endpoint
+    reported `correct: false` for every answer any reader ever wrote there,
+    then burned the item for a week for having been missed. Every lesson quiz
+    from Sapling up was capped at five of six.
+    """
+    paper = client.get("/api/quiz/math.2.fractions?n=6").json()
+    reflection = next((q for q in paper["questions"] if q.get("ungraded")), None)
+    assert reflection is not None, "no reflection item on a Sapling paper"
+
+    # The model answer itself — the best any reader could write.
+    node = next(n for n in json.loads(
+        open(os.path.join(os.path.dirname(os.path.dirname(
+            os.path.abspath(__file__))), "data", "curriculum",
+            "01-mathematics.json")).read())["nodes"]
+        if n["id"] == "math.2.fractions")
+    r = client.post("/api/quiz/check", json={
+        "token": paper["token"], "id": reflection["id"], "answer": node["goal"]})
+    assert r.status_code == 200
+    body = r.json()
+    assert body["ungraded"] is True, "the flag must reach the reader's client"
+    assert body["correct"] is None, (
+        "the book reported a verdict on an item it did not grade: %r" % body["correct"])
+
+
+def test_placement_round_trips_at_the_rung_the_book_served(tmp_path):
+    """The first thing the book does for a grown reader must not end in an error.
+
+    Every new profile is stored at stage 0 whatever the reader's age, but the
+    placement rung is chosen from age — 4 for an adult. The web client used to
+    keep sending its own stage (0) to /api/placement/submit, which the server
+    correctly refuses as "not the rung this check is on": five answered
+    questions dropped, and a toast blaming the network. It was the opening beat
+    of the product for every reader over six.
+
+    The suite never caught it because every placement test here submits
+    `p["stage"]` — the value the server just handed back — while the client sent
+    its own. So this drives the contract the client actually depends on: the
+    rung `next` serves is the rung `submit` accepts, all the way down a real
+    staircase, and a reader who answers correctly ends up credited rather than
+    stranded on counting.
+    """
+    import primer.server as srv
+    from primer.learner import LearnerStore
+    from primer.wiki import WikiService
+    from fastapi.testclient import TestClient
+
+    orig = srv.learner, srv.wiki, srv.BACKUP_DIR
+    try:
+        db = str(tmp_path / "test.db")
+        srv.learner = LearnerStore(db)
+        srv.wiki = WikiService(db)
+        srv.BACKUP_DIR = str(tmp_path / "backups")
+        with TestClient(srv.app) as c:
+            prof = c.post("/api/profile", json={
+                "name": "Grown Reader", "age": 30, "hours_per_week": 8,
+                "breadth": "balanced", "domains": ["math"]}).json()
+            assert prof["stage"] == 0, "a new profile is stored at stage 0 whatever the age"
+
+            settled, rungs = False, []
+            for _ in range(8):
+                p = c.get("/api/placement/next?domain=math&n=4").json()
+                assert p.get("questions"), "the book served an empty paper"
+                rungs.append(p["stage"])
+                r = c.post("/api/placement/submit", json={
+                    "domain": "math", "stage": p["stage"], "token": p["token"],
+                    "answers": answer_key(p)})
+                assert r.status_code == 200, (
+                    "the rung the book served was refused by its own submit: %s"
+                    % r.json())
+                body = r.json()
+                if body["settled"]:
+                    settled = True
+                    break
+            assert settled, "the staircase never settled: rungs %s" % rungs
+            # It started where age said to start, not at Seedling...
+            assert rungs[0] > 0, "an adult was measured from preschool"
+            # ...and a reader who answered correctly is credited for it.
+            after = c.get("/api/state").json()["profile"]
+            assert after["settings"]["placed"]["math"] > 0
+            assert after["stage"] > 0, "placement never reached the reader's level"
+    finally:
+        srv.learner, srv.wiki, srv.BACKUP_DIR = orig
+
+
+def test_one_strong_field_does_not_promote_a_reader_across_the_book(tmp_path):
+    """Round 5's rule, kept: a second field measured low pulls the level back.
+
+    The first measurement the book takes is allowed to set the reading level,
+    because with nothing else measured a stage of 0 is not neutrality — it is a
+    claim the reader is a preschooler. But that must not become "your best
+    subject is your level": as soon as a second field is measured, the lower
+    median governs, so a reader who is strong in mathematics and a beginner in
+    language is not handed graduate register across the whole book.
+    """
+    import primer.server as srv
+    from primer.learner import LearnerStore
+    from primer.wiki import WikiService
+    from fastapi.testclient import TestClient
+
+    orig = srv.learner, srv.wiki, srv.BACKUP_DIR
+    try:
+        db = str(tmp_path / "test.db")
+        srv.learner = LearnerStore(db)
+        srv.wiki = WikiService(db)
+        srv.BACKUP_DIR = str(tmp_path / "backups")
+        with TestClient(srv.app) as c:
+            c.post("/api/profile", json={
+                "name": "Lopsided", "age": 30, "hours_per_week": 8,
+                "breadth": "balanced", "domains": ["math", "language"]})
+
+            def sit(domain, correct):
+                for _ in range(8):
+                    p = c.get("/api/placement/next?domain=%s&n=4" % domain).json()
+                    if not p.get("questions"):
+                        return None
+                    answers = (answer_key(p) if correct
+                               else ["definitely wrong"] * len(p["questions"]))
+                    r = c.post("/api/placement/submit", json={
+                        "domain": domain, "stage": p["stage"],
+                        "token": p["token"], "answers": answers}).json()
+                    if r["settled"]:
+                        return r
+                return None
+
+            assert sit("math", True) is not None
+            strong_only = c.get("/api/state").json()["profile"]["stage"]
+            assert strong_only > 0, "the first measurement should set the level"
+
+            assert sit("language", False) is not None
+            both = c.get("/api/state").json()["profile"]
+            placed = both["settings"]["placed"]
+            assert placed["language"] < placed["math"], "the second field measured lower"
+            assert both["stage"] <= strong_only, (
+                "a strong first field kept promoting the reader after a weak second: "
+                "placed=%s stage=%s" % (placed, both["stage"]))
+    finally:
+        srv.learner, srv.wiki, srv.BACKUP_DIR = orig
 
 
 def test_story_will_not_advance_without_proof(tmp_path):
@@ -987,6 +1151,289 @@ def test_curriculum_graph_shape(client, onboarded):
         "every locked node must explain itself"
 
 
+def test_mathematics_illustration_dashboard_is_complete_minimal_and_ordered(
+        client, onboarded):
+    import primer.server as srv
+    from primer.learner import STAGE_NAMES
+
+    response = client.get('/api/curriculum/mathematics/illustrations')
+    assert response.status_code == 200
+    body = response.json()
+    assert set(body) == {'domain', 'count', 'illustrations'}
+    assert body['domain'] == 'math'
+    items = body['illustrations']
+    assert body['count'] == len(items) == 59
+    assert {stage: sum(item['stage'] == stage for item in items)
+            for stage in range(6)} == {0: 5, 1: 8, 2: 12, 3: 15, 4: 9, 5: 10}
+
+    public_keys = {'lesson_id', 'title', 'stage', 'stage_name', 'goal', 'media_id',
+                   'src', 'srcset', 'alt', 'caption', 'width', 'height'}
+    assert all(set(item) == public_keys for item in items)
+    ranked = [(index, node) for index, node in enumerate(srv.curr.nodes.values())
+              if node['domain'] == 'math']
+    expected = [node for _, node in sorted(
+        ranked, key=lambda pair: (pair[1]['stage'], pair[0]))]
+    assert [item['lesson_id'] for item in items] == [node['id'] for node in expected]
+    assert len({item['lesson_id'] for item in items}) == 59
+
+    for item, node in zip(items, expected):
+        plates = [entry for entry in node['lesson_media']
+                  if entry['kind'] == 'illustration']
+        assert len(plates) == 1
+        plate = plates[0]
+        assert item == {
+            'lesson_id': node['id'], 'title': node['title'], 'stage': node['stage'],
+            'stage_name': STAGE_NAMES[node['stage']], 'goal': node['goal'],
+            'media_id': plate['id'], 'src': plate['src'], 'srcset': plate['srcset'],
+            'alt': plate['alt'], 'caption': plate['caption'],
+            'width': plate['width'], 'height': plate['height'],
+        }
+
+
+def test_curriculum_visual_gallery_catalogues_every_plate_and_model_without_answers(
+        client, onboarded):
+    import primer.server as srv
+
+    response = client.get('/api/curriculum/visuals')
+    assert response.status_code == 200
+    body = response.json()
+    assert set(body) == {'counts', 'domains', 'items'}
+    assert body['counts'] == {
+        'lessons': 558, 'illustrations': 561,
+        'models': 854, 'items': 1415,  # Includes the computational-linguistics studio.
+    }
+
+    expected_domain_counts = {
+        'math': (59, 137), 'language': (40, 62), 'physics': (39, 91),
+        'biology': (37, 74), 'chemistry': (29, 55), 'cs': (34, 67),
+        'history': (29, 32), 'earth': (27, 53), 'arts': (33, 44),
+        'mind': (29, 32), 'radiology': (109, 111),
+        'engineering': (12, 12), 'health': (12, 12), 'environment': (12, 12),
+        'design': (12, 12), 'business': (12, 12), 'civics': (12, 12),
+        'education': (12, 12), 'media': (12, 12),
+    }
+    assert [domain['id'] for domain in body['domains']] == [
+        domain['id'] for domain in srv.curr.domains
+    ]
+    assert {
+        domain['id']: (domain['illustrations'], domain['models'])
+        for domain in body['domains']
+    } == expected_domain_counts
+    assert all(domain['items'] == domain['illustrations'] + domain['models']
+               for domain in body['domains'])
+    assert all('photographs' not in domain for domain in body['domains'])
+
+    expected_order = []
+    for node in srv.curr.nodes.values():
+        expected_order.extend(
+            (node['id'], entry['id'], 'illustration')
+            for entry in node['lesson_media'] if entry['kind'] == 'illustration'
+        )
+        expected_order.extend(
+            (node['id'], entry['id'], 'model')
+            for entry in node['lesson_media'] if entry['kind'] == 'model'
+        )
+    assert [(item['lesson_id'], item['media_id'], item['kind'])
+            for item in body['items']] == expected_order
+    assert [(item['media_id'], item['renderer'], item['title']) for item in body['items']
+            if item['lesson_id']=='phys.5.frontier' and item['kind']=='model'] == [
+        ('module-object-phys.5.frontier','spatial-3d','Calibrated Galaxy Rotation Lab')]
+
+    assert [(item['lesson_id'], item['renderer']) for item in body['items']
+            if item.get('renderer') == 'prenatal-sequence'] == [
+        ('bio.2.reproduction', 'prenatal-sequence'),
+    ]
+
+    assert [(item['lesson_id'], item['media_id'], item['stage']) for item in body['items']
+            if item.get('renderer') == 'math-systems-lab'] == [
+        ('math.3.systems', 'math.3.systems.general-form.model', 3)]
+
+    assert [(item['lesson_id'], item['media_id'], item['stage']) for item in body['items']
+            if item.get('renderer') == 'fluids-concept-lab'] == [
+        ('phys.4.fluids', 'explore-fluid-forces-and-flow', 4)]
+
+    common = {
+        'kind', 'lesson_id', 'lesson_title', 'domain', 'domain_name',
+        'stage', 'stage_name', 'goal', 'media_id',
+    }
+    illustration_keys = common | {
+        'src', 'srcset', 'alt', 'caption', 'long_description', 'width', 'height',
+    }
+    model_keys = common | {'title', 'instructions', 'renderer'}
+    for item in body['items']:
+        if item['kind'] == 'illustration':
+            assert set(item) == illustration_keys
+            assert item['src'].startswith('/app/illustrations/')
+            assert item['src'] in item['srcset']
+        else:
+            assert item['kind'] == 'model'
+            assert set(item) == model_keys
+            # Renderer props can encode starting state.  The catalogue needs
+            # only enough metadata to find the real model inside its lesson.
+            assert 'props' not in item
+
+
+def test_reader_navigation_is_small_exact_and_selected_by_node_id(client, onboarded):
+    import primer.server as srv
+
+    response = client.get('/api/curriculum/node/bio.3.genetics/navigation')
+    assert response.status_code == 200
+    body = response.json()
+    assert set(body) == {'domain', 'current', 'lessons'}
+    assert body['domain'] == {'id': 'biology', 'name': 'Life Sciences', 'icon': '⚘'}
+    assert body['current']['id'] == 'bio.3.genetics'
+    assert body['current']['title'] == 'Genetics'
+    assert body['current']['stage_name'] == 'Tree'
+    assert body['current']['articles'] == ['Genetics', 'DNA', 'Gene']
+    assert [lesson['id'] for lesson in body['lessons']] == [
+        node['id'] for node in srv.curr.nodes.values() if node['domain'] == 'biology']
+    assert all(set(lesson) == {
+        'id', 'title', 'stage', 'stage_name', 'section', 'unlocked', 'mastered'
+    } for lesson in body['lessons'])
+
+    # The projection is navigation, not a disguised node-detail or answer-key
+    # endpoint. Its compact size is part of the contract: the reader starts it
+    # beside the article request on every contextual page turn.
+    blob = json.dumps(body)
+    assert 'lesson_media' not in blob and 'question_count' not in blob
+    assert not any(key in blob for key in ('"quiz"', '"answer"', '"explain"'))
+    assert len(blob) < 12000
+
+    # Astrobiology belongs to two different lessons. The article title cannot
+    # decide which context the reader came from; the route's node id must.
+    biology = client.get('/api/curriculum/node/bio.5.frontier/navigation').json()
+    earth = client.get('/api/curriculum/node/earth.5.astrobiology/navigation').json()
+    assert biology['current']['id'] == 'bio.5.frontier'
+    assert earth['current']['id'] == 'earth.5.astrobiology'
+    assert biology['domain']['id'] != earth['domain']['id']
+    assert client.get('/api/curriculum/node/not.a.lesson/navigation').status_code == 404
+
+
+def test_lesson_media_travels_only_with_the_open_lesson(client, onboarded, monkeypatch):
+    import primer.server as srv
+
+    def authored_media(payload):
+        media = payload['lesson_media']
+        assert not any(item['kind'] == 'photograph' for item in media)
+        assert any(item.get('renderer') in {'spatial-3d', 'radiology-anatomy'} for item in media)
+        return [item for item in media
+                if not item.get('props', {}).get('scenario', '').startswith('module.')
+                and item.get('renderer') != 'radiology-anatomy']
+
+    # This contract checks authored media, not Wikipedia availability. Article
+    # fetching has its own tests; external summaries should not slow this sweep.
+    monkeypatch.setattr(srv.wiki, 'get_summary', lambda title: {'extract': '', 'thumbnail': ''})
+    detail = client.get('/api/curriculum/node/math.0.counting')
+    assert detail.status_code == 200
+    media = authored_media(detail.json())
+    assert media and [entry['kind'] for entry in media] == ['illustration', 'model']
+    for node_id in ('lang.0.alphabet', 'hist.0.family', 'earth.0.sky', 'arts.0.colors'):
+        second_seedling = client.get('/api/curriculum/node/' + node_id)
+        assert second_seedling.status_code == 200
+        assert [entry['kind'] for entry in authored_media(second_seedling.json())] == [
+            'illustration', 'model']
+    for node_id in ('bio.1.lifecycles', 'lang.1.reading', 'hist.1.timelines',
+                    'earth.1.seasons', 'arts.1.elements'):
+        sprout = client.get('/api/curriculum/node/' + node_id)
+        assert sprout.status_code == 200
+        sprout_media = authored_media(sprout.json())
+        expected_kinds = ['illustration', 'model']
+        if node_id == 'earth.1.seasons':
+            expected_kinds.append('model')
+            assert sprout_media[-1]['renderer'] == 'spatial-3d'
+            assert sprout_media[-1]['props'] == {'scenario': node_id}
+        assert [entry['kind'] for entry in sprout_media] == expected_kinds
+    sapling = client.get('/api/curriculum/node/chem.2.atoms')
+    assert sapling.status_code == 200
+    assert [entry['kind'] for entry in authored_media(sapling.json())] == ['illustration', 'model']
+    tree = client.get('/api/curriculum/node/math.3.functions')
+    assert tree.status_code == 200
+    assert [entry['kind'] for entry in authored_media(tree.json())] == ['illustration', 'model']
+    grove = client.get('/api/curriculum/node/math.4.linalg')
+    assert grove.status_code == 200
+    assert [entry['kind'] for entry in authored_media(grove.json())] == ['illustration', 'model', 'model']
+    assert [entry['renderer'] for entry in authored_media(grove.json()) if entry['kind'] == 'model'] == [
+        'matrix-transform-lab', 'linear-algebra-lab']
+    forest = client.get('/api/curriculum/node/math.5.pde')
+    assert forest.status_code == 200
+    assert [entry['kind'] for entry in authored_media(forest.json())] == ['illustration', 'model', 'model']
+    assert [entry['renderer'] for entry in authored_media(forest.json()) if entry['kind'] == 'model'] == [
+        'heat-equation-lab', 'math-wave-lab']
+    for node_id in ('phys.0.push-pull', 'phys.2.waves', 'phys.5.quantum-info',
+                    'phys.0.light-shadow', 'phys.4.fluids'):
+        physics = client.get('/api/curriculum/node/' + node_id)
+        assert physics.status_code == 200
+        payload = physics.json()
+        expected_kinds = ['illustration', 'model']
+        if node_id == 'phys.5.quantum-info':
+            expected_kinds.append('model')
+            assert authored_media(payload)[-1]['renderer'] == 'physics-quantum-info-lab'
+            assert authored_media(payload)[-1]['props'] == {'scenario': 'phys.5.quantum-info.qubits-circuits-resources'}
+        if node_id == 'phys.4.fluids':
+            expected_kinds.append('model')
+            assert [(entry['id'], entry['renderer'], entry['props'])
+                    for entry in authored_media(payload) if entry['kind'] == 'model'] == [
+                ('compare-venturi-sections', 'venturi-flow-lab',
+                 {'scenario': 'horizontal-water-venturi', 'start_throat': 'half-area'}),
+                ('explore-fluid-forces-and-flow', 'fluids-concept-lab',
+                 {'scenario': 'phys.4.fluids'}),
+            ]
+        assert [entry['kind'] for entry in authored_media(payload)] == expected_kinds
+        assert all('answer' not in question for question in payload.get('quiz', []))
+    for node_id in ('math.0.compare', 'math.2.decimals', 'math.3.slope',
+                    'math.4.diff-calc', 'math.5.frontier', 'math.5.diffgeo',
+                    'math.5.complex-analysis', 'math.5.logic', 'bio.0.plants',
+                    'bio.1.plants-parts', 'bio.2.photosynthesis', 'bio.1.food-chains'):
+        illustrated = client.get('/api/curriculum/node/' + node_id)
+        assert illustrated.status_code == 200
+        media = authored_media(illustrated.json())
+        expected_kinds = ['illustration', 'model']
+        if node_id == 'math.5.diffgeo':
+            expected_kinds.append('model')
+            assert media[-1]['renderer'] == 'math-curvature-lab'
+            assert media[-1]['props'] == {'scenario': 'math.5.diffgeo.curvature-transport'}
+        if node_id == 'math.5.complex-analysis':
+            expected_kinds.append('model')
+            assert media[-1]['renderer'] == 'math-complex-lab'
+            assert media[-1]['props'] == {'scenario': 'math.5.complex-analysis.holomorphy-contours'}
+        if node_id == 'math.5.logic':
+            expected_kinds.append('model')
+            assert media[-1]['renderer'] == 'math-logic-lab'
+            assert media[-1]['props'] == {'scenario': 'math.5.logic.diagonal-models-proof'}
+        assert [entry['kind'] for entry in media] == expected_kinds
+        model = authored_media(illustrated.json())[1]
+        assert model['renderer'] == ('algebra-functions-lab' if node_id=='math.3.slope' else 'concept-lab')
+        assert model['props'] == {'scenario': node_id}
+
+    graph = client.get('/api/curriculum').json()
+    assert all('lesson_media' not in node for node in graph['nodes'])
+    today = client.get('/api/today').json()
+    assert all('lesson_media' not in node for node in today['lessons'])
+
+    plate = media[0]
+    image = client.get(plate['src'])
+    assert image.status_code == 200
+    assert image.headers['content-type'].startswith('image/webp')
+    assert len(image.content) < 300_000
+
+
+def test_webp_static_type_does_not_depend_on_the_host_mime_database(
+        client, onboarded, monkeypatch):
+    """Serverless images may omit WebP from their MIME database.
+
+    Primer sends ``nosniff``, so the static response must remain explicit.
+    """
+    import starlette.responses
+
+    monkeypatch.setattr(starlette.responses, 'guess_type', lambda _path: (None, None))
+    image = client.get(
+        '/app/illustrations/forest/math/math-5-frontier-800.webp')
+
+    assert image.status_code == 200
+    assert image.headers['content-type'] == 'image/webp'
+    assert image.headers['x-content-type-options'] == 'nosniff'
+
+
 def test_search_and_article(client, onboarded, monkeypatch):
     """The HTTP contract is testable without an ignored ZIM or live Wikipedia."""
     import primer.server as srv
@@ -1078,7 +1525,8 @@ def test_locked_lessons_cannot_issue_or_redeem_assessments(tmp_path):
 # ---------------- security ----------------
 
 @pytest.mark.parametrize("path", ["/", "/app/index.html", "/app/", "/app/app.js",
-                                  "/api/state", "/healthz", "/no-such-route"])
+                                  "/app/lesson-models.js", "/api/state", "/healthz",
+                                  "/no-such-route"])
 def test_security_headers_cover_every_route(client, path):
     """Regression: the headers used to live on the `/` handler only, so the
     static mount served a byte-identical, unprotected copy of the app shell."""
@@ -1528,12 +1976,15 @@ def test_the_shell_stamps_its_assets(client):
     for path in ("/", "/app/", "/app/index.html"):
         r = client.get(path)
         assert r.status_code == 200, path
-        found = set(re.findall(r"/app/(?:styles\.css|app\.js)\?v=([0-9a-f]{10})", r.text))
-        assert len(found) == 2, "{} did not stamp both assets".format(path)
+        found = set(re.findall(
+            r"/app/(?:styles\.css|lesson-models\.js|app\.js)\?v=([0-9a-f]{10})", r.text))
+        assert len(found) == 3, "{} did not stamp all three assets".format(path)
         stamps[path] = found
     assert len(set(map(frozenset, stamps.values()))) == 1, "entry points disagree"
 
     assert "immutable" in client.get("/app/styles.css?v=deadbeef00").headers["cache-control"]
+    assert "immutable" in client.get(
+        "/app/lesson-models.js?v=deadbeef00").headers["cache-control"]
     assert client.get("/app/styles.css").headers["cache-control"] == "no-cache"
 
 
@@ -1740,8 +2191,18 @@ def test_the_answer_key_is_not_simply_published(client, onboarded):
     n = client.get("/api/curriculum/node/math.3.linear").json()
     assert "quiz" not in n, "the bank must not ship with the lesson"
     assert n.get("question_count", 0) > 0, "the count is fine to publish"
-    blob = json.dumps(n)
     import primer.server as srv
+    # Authored teaching may explain the same mathematics as an assessment.
+    # The bank, keys and explanations must still be absent from the payload.
+    assert n['lesson'] == srv.curr.nodes['math.3.linear']['lesson']
+    def no_bank_fields(value):
+        if isinstance(value, dict):
+            assert not {'quiz', 'answer', 'explain'} & set(value)
+            for child in value.values(): no_bank_fields(child)
+        elif isinstance(value, list):
+            for child in value: no_bank_fields(child)
+    no_bank_fields(n)
+    blob = json.dumps({k:v for k,v in n.items() if k != 'lesson'})
     for item in srv.curr.nodes["math.3.linear"]["quiz"]:
         assert str(item.get("answer", "")) not in blob or len(str(item.get("answer", ""))) < 2
         assert item.get("explain", "zzz") not in blob
@@ -1833,7 +2294,8 @@ def test_no_route_publishes_the_answer_key(client, onboarded):
             for i, v in enumerate(o):
                 yield from answer_bearing(v, "{}[{}]".format(path, i))
 
-    routes = ["/api/today", "/api/curriculum", "/api/state", "/api/roadmap",
+    routes = ["/api/today", "/api/curriculum",
+              "/api/curriculum/mathematics/illustrations", "/api/state", "/api/roadmap",
               "/api/journal", "/api/story", "/api/review/due"]
     routes += ["/api/curriculum/node/" + n for n in list(srv.curr.nodes)[:10]]
     for r in routes:
@@ -2462,7 +2924,8 @@ def test_roadmap_assumed_count_never_goes_negative_when_proven_nodes_fade(tmp_pa
             assert r.status_code == 200
 
             node = "math.0.counting"
-            for _ in range(2):
+            # Three spaced passes for a stage 0-1 lesson (server._evidence_bar).
+            for _ in range(3):
                 paper = client.get("/api/quiz/{}?n=5".format(node)).json()
                 served = srv._SERVED[paper["token"]]["questions"]
                 answers = [q.get("answer", "") for q in served]

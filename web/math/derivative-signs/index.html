@@ -1,0 +1,98 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Derivative signs and optimization · Primer</title>
+<link rel="stylesheet" href="viewer.css">
+<script src="core.js" defer></script>
+<script src="viewer.js" defer></script>
+</head>
+<body>
+<main>
+  <a href="/app/#/node/math.4.diff-calc">Return to Differential Calculus</a>
+  <h1>Use derivative signs to understand a curve</h1>
+  <label for="station">Activity</label>
+  <select id="station">
+    <option value="cubic">Stationary points and turning points</option>
+    <option value="pen">Enclose the most area with 40 m of fencing</option>
+  </select>
+
+  <section id="cubic-panel">
+    <h2>One family, three kinds of behaviour</h2>
+    <p>Change a in f(x) = x³ − 3ax. Compare the function with its derivative f′(x) = 3(x² − a). Both graphs use the same horizontal scale.</p>
+    <div class="controls">
+      <label>a <input id="parameter" type="range" min="-1" max="4" step="0.25" value="1"><output id="parameter-value" for="parameter"></output></label>
+      <label>Probe x <input id="probe" type="range" min="-3" max="3" step="0.05" value="0"><output id="probe-value" for="probe"></output></label>
+    </div>
+    <div class="presets" aria-label="Examples">
+      <button type="button" data-a="-1">a = −1</button>
+      <button type="button" data-a="0">a = 0</button>
+      <button type="button" data-a="1">a = 1</button>
+      <button type="button" data-a="4">a = 4</button>
+    </div>
+    <p class="scroll-hint">On a narrow screen, scroll the diagrams sideways to see the full horizontal range. The controls and tables give the same values in text.</p>
+    <div class="plot-scroll" tabindex="0" role="region" aria-label="Linked function and derivative graphs. Scroll horizontally on narrow screens.">
+      <svg id="cubic-chart" viewBox="0 0 600 600" role="img" aria-labelledby="cubic-chart-title cubic-chart-description"></svg>
+    </div>
+    <p>Blue shows f. Gold shows f′. The coral line is the tangent to f at the shared probe. Circled points mark derivative zeros. Select a horizontal position on either graph or use the probe slider.</p>
+    <p id="cubic-readout" role="status"></p>
+    <div class="table-scroll" tabindex="0" role="region" aria-label="Derivative sign table">
+      <table id="signs">
+        <caption>Exact sign intervals across the full real line</caption>
+        <thead><tr><th scope="col">Interval</th><th scope="col">Sign of f′</th><th scope="col">Behaviour of f</th></tr></thead>
+        <tbody></tbody>
+      </table>
+    </div>
+    <p id="stationary-note"></p>
+    <details>
+      <summary>Why these intervals and point types follow</summary>
+      <p>When a is positive, x² − a factors as (x − √a)(x + √a). Its roots divide the line into positive, negative and positive derivative intervals. At −√a, f changes from increasing to decreasing. At √a, it changes from decreasing to increasing.</p>
+      <p>At a = 0, f′(x) = 3x² is positive on either side of zero. The function keeps increasing through its horizontal tangent. Its second derivative, f″(x) = 6x, changes sign there.</p>
+      <p>When a is negative, x² − a is positive for every real x. The graphs show the window −3 ≤ x ≤ 3. The sign table describes the whole polynomial.</p>
+    </details>
+    <form id="prediction">
+      <fieldset>
+        <legend>Classify the stationary points for the current a</legend>
+        <label><input type="radio" name="classification" value="none" required> No stationary points</label>
+        <label><input type="radio" name="classification" value="flat"> One stationary inflection</label>
+        <label><input type="radio" name="classification" value="two"> A local maximum and a local minimum</label>
+        <button type="submit">Check classification</button>
+      </fieldset>
+    </form>
+    <p id="feedback" role="status"></p>
+  </section>
+
+  <section id="pen-panel" hidden>
+    <h2>Enclose the most area with 40 m of fencing</h2>
+    <p>Use all 40 m for the four sides of a rectangle. If its width is w, its length is 20 − w. Change the width and compare the plan, area and rate of area change.</p>
+    <div class="controls">
+      <label>Width w (m) <input id="width" type="range" min="0" max="20" step="0.1" value="6"><output id="width-value" for="width"></output></label>
+      <button id="show-maximum" type="button">Show maximum area</button>
+      <button id="pen-reset" type="button">Reset to 6 m</button>
+    </div>
+    <p class="scroll-hint">On a narrow screen, scroll each diagram sideways to see its full width.</p>
+    <div class="pen-plots">
+      <div class="plot-scroll" tabindex="0" role="region" aria-label="Rectangle plan at equal horizontal and vertical scale">
+        <svg id="pen-plan" viewBox="0 0 480 470" role="img" aria-labelledby="pen-plan-title pen-plan-description"></svg>
+      </div>
+      <div class="plot-scroll" tabindex="0" role="region" aria-label="Linked area and derivative graphs">
+        <svg id="pen-chart" viewBox="0 0 600 600" role="img" aria-labelledby="pen-chart-title pen-chart-description"></svg>
+      </div>
+    </div>
+    <p id="pen-readout" role="status"></p>
+    <table>
+      <caption>Area changes as the width increases</caption>
+      <thead><tr><th scope="col">Width</th><th scope="col">dA/dw</th><th scope="col">Area behaviour</th></tr></thead>
+      <tbody>
+        <tr><th scope="row">0 &lt; w &lt; 10 m</th><td>Positive</td><td>Increasing</td></tr>
+        <tr><th scope="row">w = 10 m</th><td>Zero</td><td>Maximum</td></tr>
+        <tr><th scope="row">10 &lt; w &lt; 20 m</th><td>Negative</td><td>Decreasing</td></tr>
+      </tbody>
+    </table>
+    <p>A(w) = w(20 − w) m². Its derivative is 20 − 2w m² per metre of width, and its second derivative is −2. The closed comparison domain includes w = 0 and w = 20 m, where the rectangle collapses to a line and has zero area.</p>
+    <p>The identity A(w) = 100 − (w − 10)² proves that every allowed width gives area at most 100 m². Equality occurs at w = 10 m, with length 10 m. The deficit from the maximum is (w − 10)² m².</p>
+  </section>
+</main>
+</body>
+</html>

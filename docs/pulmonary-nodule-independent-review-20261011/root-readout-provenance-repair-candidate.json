@@ -1,0 +1,36 @@
+{
+  "scope": "SEG readout provenance only; source arrays, maskAt, overlays, mesh decoding and source coordinates unchanged",
+  "file": "web/anatomy/lidc-idri-0525/reference.js",
+  "original_commit": "aafe94142f517e1b7714f518c69f24b4171306fc",
+  "original_sha256": "8444e3d0384bb9d0450ac414a52abd4bef61df851096de63004e37e531b02e04",
+  "current_sha256": "dcdd38c3eb1234b70c233b1cd739beaa9e6b4752c4576ee1671c6f4b2c8d3da5",
+  "reversible_literal_blocks": [
+    {
+      "original_literal": "",
+      "current_literal": "function maskReadout(raw,p,m){const f=m.source_CT_slice_indices.indexOf(p[2]);return f<0?'no released SEG frame for this CT section \u00b7 overlay background 0 is display padding':'selected released SEG cell '+raw[p[0]+512*(p[1]+512*f)]+' \u00b7 original released frame index '+f;}\n",
+      "occurrences": 1
+    },
+    {
+      "original_literal": "const api={axes,flat,valid,gray,point,read,world,maskAt,decodeMesh};root.PrimerLidcNative=api;if(typeof module==='object'&&module.exports)module.exports=api;if(!root.document)return;\n",
+      "current_literal": "const api={axes,flat,valid,gray,point,read,world,maskAt,maskReadout,decodeMesh};root.PrimerLidcNative=api;if(typeof module==='object'&&module.exports)module.exports=api;if(!root.document)return;\n",
+      "occurrences": 1
+    },
+    {
+      "original_literal": "const raw=read(ct,p,manifest.ct),where=world(p,manifest.ct);$('position').textContent='Original CT index ['+p.join(', ')+'] \u00b7 exact LPS ['+where.map(String).join(', ')+'] mm \u00b7 SOP '+manifest.ct.slices[p[2]].sop_uid;$('values').textContent='Stored integer '+raw+' \u00b7 original HU '+(raw*manifest.ct.slope+manifest.ct.intercept)+' = raw \u00d7 '+manifest.ct.slope+' + '+manifest.ct.intercept+' \u00b7 selected released SEG cell '+maskAt(mask,p,a);$('status').textContent='All '+manifest.ct.source_samples.toLocaleString()+' original CT values and all eight complete released SEG arrays verified. '+($('overlay').checked?'Selected original SEG cells tinted.':'CT samples displayed without SEG tint.');}\n",
+      "current_literal": "const raw=read(ct,p,manifest.ct),where=world(p,manifest.ct);$('position').textContent='Original CT index ['+p.join(', ')+'] \u00b7 exact LPS ['+where.map(String).join(', ')+'] mm \u00b7 SOP '+manifest.ct.slices[p[2]].sop_uid;$('values').textContent='Stored integer '+raw+' \u00b7 original HU '+(raw*manifest.ct.slope+manifest.ct.intercept)+' = raw \u00d7 '+manifest.ct.slope+' + '+manifest.ct.intercept+' \u00b7 '+maskReadout(mask,p,a);$('status').textContent='All '+manifest.ct.source_samples.toLocaleString()+' original CT values and all eight complete released SEG arrays verified. '+($('overlay').checked?'Selected original SEG cells tinted.':'CT samples displayed without SEG tint.');}\n",
+      "occurrences": 1
+    }
+  ],
+  "reconstructs_exact_original": true,
+  "actual_native_helper_probe": {
+    "file": ".research/root-seg-padding-readout-helper-proof-20261011.json",
+    "sha256": "39ce49cfbf2f1ab71aa1422e15b656902eeb40334fc0c23b7ff685ca6e9c33ff",
+    "annotations": 8,
+    "cases": 24,
+    "passed": true
+  },
+  "actual_browser_amendment_pending": true,
+  "clinical_approval": false,
+  "fine_anatomical_approval": false,
+  "whole_goal_complete": false
+}

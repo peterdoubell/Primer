@@ -24,7 +24,7 @@ cannot carry comments:
   reader works from the linked articles themselves — learning to read the
   real literature is part of the curriculum, so a simplified shadow text
   would work against the goal, not toward it.
-- Domain node counts are uneven by design (math 59, arts 25). Node count
+- Domain node counts are uneven by design (math 59, arts 33). Node count
   tracks how much *gated, sequential* structure a field has, not how big or
   worthy the field is: mathematics is a long dependency chain where each rung
   must be held before the next, while arts and earth science branch shallow
@@ -45,10 +45,74 @@ and feeds the spaced-repetition deck, so the curriculum is a spine, not a cage.
 
 import json
 import os
+import re
 from typing import Dict, List, Optional
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 CURRICULUM_DIR = os.path.join(ROOT, "data", "curriculum")
+ILLUSTRATION_ROOT = os.path.join(ROOT, "web", "illustrations")
+ILLUSTRATION_MANIFEST = os.path.join(ROOT, "data", "lesson-illustrations.json")
+
+
+def _webp_dimensions(path: str):
+    """Read dimensions from the small WebP header without an image dependency."""
+    with open(path, "rb") as image:
+        header = image.read(30)
+    if len(header) < 25 or header[:4] != b"RIFF" or header[8:12] != b"WEBP":
+        raise ValueError("lesson illustration is not a WebP: {}".format(path))
+    chunk = header[12:16]
+    if chunk == b"VP8X" and len(header) >= 30:
+        width = 1 + int.from_bytes(header[24:27], "little")
+        height = 1 + int.from_bytes(header[27:30], "little")
+    elif chunk == b"VP8 " and len(header) >= 30 and header[23:26] == b"\x9d\x01\x2a":
+        width = int.from_bytes(header[26:28], "little") & 0x3FFF
+        height = int.from_bytes(header[28:30], "little") & 0x3FFF
+    elif chunk == b"VP8L" and header[20] == 0x2F:
+        packed = int.from_bytes(header[21:25], "little")
+        width = 1 + (packed & 0x3FFF)
+        height = 1 + ((packed >> 14) & 0x3FFF)
+    else:
+        raise ValueError("lesson illustration has an unsupported WebP header: {}".format(path))
+    if width <= 0 or height <= 0:
+        raise ValueError("lesson illustration has invalid dimensions: {}".format(path))
+    return width, height
+
+
+def _discover_lesson_illustrations():
+    """Build URL metadata from the trusted static tree, never authored input."""
+    # Hosted illustration bytes are published by the static builder. CI checks
+    # this manifest against every original; clinical source images stay local.
+    if os.environ.get("VERCEL") and not os.path.isdir(ILLUSTRATION_ROOT):
+        with open(ILLUSTRATION_MANIFEST, encoding="utf-8") as manifest:
+            records = json.load(manifest)
+        if not isinstance(records, dict) or not records:
+            raise ValueError("Hosted lesson illustration manifest is empty")
+        images = {}
+        for url, record in records.items():
+            if (len(url) > 256 or not url.startswith("/app/illustrations/")
+                    or not url.endswith(("-800.webp", "-1600.webp"))
+                    or not re.fullmatch(r"[a-z0-9/-]+", url.removeprefix("/app/illustrations/").removesuffix(".webp"))
+                    or any(part in ("", ".", "..") for part in url.split("/")[1:])
+                    or not isinstance(record, dict)
+                    or set(record) != {"width", "height", "sha256"}
+                    or any(type(record.get(key)) is not int or record[key] <= 0 for key in ("width", "height"))
+                    or not re.fullmatch(r"[0-9a-f]{64}", record.get("sha256", ""))):
+                raise ValueError("Invalid hosted lesson illustration manifest entry")
+            images[url] = (record["width"], record["height"])
+        return images
+    images = {}
+    for directory, _, filenames in os.walk(ILLUSTRATION_ROOT):
+        for filename in filenames:
+            if not filename.endswith(".webp") or re.search(r"-(?:800|1600) (?:[2-9]|[1-9][0-9]+)\.webp$", filename):
+                continue
+            disk_path = os.path.join(directory, filename)
+            relative = os.path.relpath(disk_path, ILLUSTRATION_ROOT).replace(os.sep, "/")
+            images["/app/illustrations/" + relative] = _webp_dimensions(disk_path)
+    return images
+
+
+LESSON_ILLUSTRATION_DIMENSIONS = _discover_lesson_illustrations()
+LESSON_ILLUSTRATION_URLS = frozenset(LESSON_ILLUSTRATION_DIMENSIONS)
 
 # Total minutes to *master* a node — spread over many sessions of reading,
 # practice, quizzing and spaced review across weeks — not a single sitting.
@@ -68,7 +132,14 @@ CURRICULUM_DIR = os.path.join(ROOT, "data", "curriculum")
 # more. One-to-one adaptive tutoring is genuinely faster than a classroom — no
 # waiting for the group, no re-teaching for the median, nothing repeated that
 # the reader has already shown they know — so the Primer prices its curriculum
-# at roughly a third of the classroom equivalent: 6,496 hours.
+# at roughly a third of the classroom equivalent: about 6,500 hours across the
+# ten general fields. (Measured live rather than quoted: the general spine
+# currently prices at ~6,630 h and the whole book, radiology included, at
+# ~10,400 h. The figure written here was 6,496 for a long time after the
+# specialist field arrived, when the ten fields had in fact been pushed down to
+# ~5,490 by a shared density pool — see the pricing block below. Nothing the
+# reader sees was read off this comment; `pacing.roadmap` computes its hours,
+# years and weekly figure from `total_minutes` every time.)
 #
 # That is a real number with a real consequence, which the roadmap now states
 # plainly: the promise holds at 15-30 hours a week, and not at six.
@@ -79,6 +150,838 @@ DEFAULT_MINUTES = [180, 360, 660, 1080, 1680, 2700]
 # demand a much fuller foundation.
 STAGE_GATE = 0.6
 STAGE_GATE_BY_STAGE = {0: 0.0, 1: 0.75, 2: 0.75, 3: 0.78, 4: 0.85, 5: 0.85}
+LESSON_MODEL_RENDERERS = frozenset({
+    "prenatal-sequence",
+    "music-listening-lab",
+    "spatial-3d",
+    "concept-lab",
+    "math-ode-lab",
+    "math-field-lab",
+    "math-wave-lab",
+    "math-probability-lab",
+    "math-convergence-lab",
+    "math-numerical-lab",
+    "math-logic-lab",
+    "math-number-theory-lab",
+    "math-systems-lab",
+    "physics-maxwell-lab",
+    "physics-cosmology-lab",
+    "physics-buoyancy-lab",
+    "physics-thermal-lab",
+    "physics-phase-lab",
+    "math-measure-lab", "physics-cycle-lab",
+    "math-operator-lab", "physics-ensemble-lab",
+    "math-curvature-lab", "physics-constraints-lab",
+    "math-complex-lab", "physics-quantum-lab",
+    "math-topology-lab", "physics-relativity-lab", "math-algebra-lab", "physics-quantum-info-lab", "physics-qft-lab",
+    "counter", "shape-explorer", "shadow-lab", "sequence-runner",
+    "make-ten", "light-paths", "algorithm-tracer", "life-cycle",
+    "vector-components-lab", "geometry-measures-lab", "coordinate-plane-lab", "algebra-functions-lab", "base-ten-lab", "fraction-equivalence-lab", "fraction-arithmetic-lab", "atom-element-builder", "cell-microscope",
+    "counterexample-lab", "function-composition-lab", "circulation-route-lab",
+    "allele-segregation-lab",
+    "truth-table-lab", "stack-queue-lab", "matrix-transform-lab", "linear-algebra-lab",
+    "venturi-flow-lab", "fluids-concept-lab", "gene-expression-stepper", "tcp-packet-tracer",
+    "heat-equation-lab", "complexity-certificate-lab",
+    "morphogen-gradient-lab", "ct-window-lab", "doppler-angle-lab",
+    "alphabet-explorer", "inclusive-family-timeline",
+    "day-night-rotation-lab", "classroom-paint-mixer",
+    "reading-path-lab", "timeline-order-lab", "seasons-tilt-lab",
+    "art-elements-composer", "integer-number-line-lab", "physics-concept-lab", "physics-particle-lab",
+    "radiology-anatomy", "language-computation-lab",
+})
+
+# Each 3D scene teaches a specific lesson. Camera state stays local to the UI.
+SPATIAL_MODEL_SCENARIOS = frozenset({
+    "rad.3.ct-image", "rad.5.tavi-ct", "rad.3.fracture-description",
+    "arts.2.color-theory", "cs.5.quantum",
+    "math.2.geometry", "math.3.vectors", "math.4.multivar", "math.5.topology",
+    "chem.2.molecules", "chem.4.organic", "chem.4.quantum-chem", "bio.3.cell-bio",
+    "phys.4.em-maxwell", "phys.4.solid-state", "earth.1.seasons", "earth.3.earth-science",
+})
+
+CONCEPT_MODEL_SCENARIOS = frozenset({
+    "arts.1.beat", "lang.2.etymology", "lang.2.poetry", "lang.2.novels", "lang.2.research", "lang.2.speaking", "lang.2.grammar", "lang.2.paragraphs", "lang.0.phonics", "lang.1.handwriting", "lang.0.speaking", "lang.1.childrens-lit", "lang.1.writing-stories", "lang.1.dictionary", "lang.1.vocabulary", "lang.1.spelling", "lang.1.sentences", "lang.0.rhymes", "lang.0.stories", "earth.5.frontier", "earth.5.earth-systems", "earth.5.cosmology", "earth.5.astrobiology", "earth.4.planetary", "earth.4.climatology", "earth.4.oceanatmos", "earth.4.geophysics", "earth.4.astrophysics", "earth.3.astronomy", "earth.3.ecology-earth", "earth.3.climate-sci", "earth.3.space-exploration", "earth.2.geology", "earth.2.oceans", "earth.2.atmosphere", "earth.2.environment", "earth.2.planets", "earth.2.stars", "earth.0.weather", "earth.1.solar-system", "earth.0.land-water", "earth.1.water-cycle", "earth.1.rocks", "cs.4.security", "cs.4.systems", "cs.5.deep-learning", "cs.5.distributed", "cs.5.pl-theory", "cs.5.frontier", "cs.4.algorithms-adv", "cs.4.ml", "cs.4.theory", "cs.3.web", "cs.2.internet", "cs.4.os", "cs.4.databases-adv", "cs.3.versioncontrol", "cs.3.oop", "cs.3.hardware", "cs.2.bigo-intro", "cs.3.algorithms", "cs.1.blocks", "cs.2.programming", "cs.1.parts", "cs.3.databases", "cs.2.data-types", "cs.2.debugging", "cs.2.functions", "cs.0.sorting", "cs.0.patterns", "chem.3.bonding", "chem.4.inorganic", "chem.3.organic-intro", "chem.2.reactions-intro", "chem.3.reactions", "chem.2.periodic", "chem.2.acids", "chem.0.materials", "chem.1.materials-props", "chem.5.materials", "chem.1.changes", "chem.4.electrochem", "chem.5.biochem", "chem.5.frontier", "chem.4.analytical", "chem.5.compchem", "chem.2.mixtures", "chem.3.atomic-structure", "chem.3.gases", "chem.3.energy", "chem.4.physical", "chem.3.stoichiometry", "chem.0.mixing", "chem.0.water-states", "chem.1.matter", "bio.1.health", "bio.3.microbiology", "bio.5.immunology", "bio.5.frontier", "bio.4.neuro", "bio.4.physiology", "bio.4.ethology", "bio.4.genomics", "bio.5.comp-bio", "bio.5.systems-bio", "bio.3.ecology", "bio.3.botany", "bio.4.biochem", "bio.3.evolution", "bio.4.evo-bio", "bio.1.human-body", "bio.2.digestion", "bio.2.reproduction", "bio.0.animals", "bio.1.habitats", "bio.0.body", "bio.0.seasons", "bio.0.living", "bio.2.classification", "bio.2.ecosystems", "bio.2.microbes", "bio.0.plants", "bio.1.plants-parts", "bio.2.photosynthesis", "bio.1.food-chains", "math.5.diffgeo", "math.5.complex-analysis", "math.5.logic", "math.5.frontier", "math.5.abstract", "math.5.measure", "math.5.functional", "math.5.numerical", "math.4.diffeq", "math.4.discrete", "math.4.numtheory", "math.4.analysis", "math.4.prob-theory", "math.3.euclid", "math.4.complex", "math.4.diff-calc", "math.4.int-calc", "math.3.probability", "math.3.statistics", "math.3.precalc", "math.3.polynomials", "math.3.trig", "math.3.expo-logs", "math.3.sequences", "math.3.systems", "math.3.quadratics", "math.3.linear", "math.3.slope", "math.2.primes", "math.2.ratio", "math.2.exponents", "math.2.data", "math.2.prealgebra",
+    "math.2.decimals", "math.2.order-ops",
+    "math.2.percent", "math.2.coordinates",
+    "math.1.measurement", "math.1.time", "math.1.fractions-intro",
+    "math.1.multiplication", "math.1.division",
+    "math.1.subtraction", "math.1.place-value",
+    "math.0.compare", "math.0.patterns", "math.0.numbers20",
+    "cs.1.binary",
+    "hist.3.economics-intro", "lang.4.linguistics", "mind.5.logic-advanced",
+})
+
+# These scenarios intentionally exclude the seven physics lessons with bespoke
+# renderers.  A scenario is bound to the matching node id below, so authored
+# curriculum data cannot silently reuse a scientific model in the wrong lesson.
+PHYSICS_MODEL_SCENARIOS = frozenset({
+    "phys.0.push-pull", "phys.0.hot-cold",
+    "phys.1.motion", "phys.1.machines", "phys.1.magnets", "phys.1.sound",
+    "phys.1.energy", "phys.2.forces", "phys.2.gravity", "phys.2.electricity",
+    "phys.2.heat", "phys.2.waves", "phys.2.matter", "phys.2.units",
+    "phys.3.mechanics", "phys.3.energy-work", "phys.3.em",
+    "phys.3.optics-waves", "phys.3.thermo", "phys.3.nuclear",
+    "phys.3.relativity-intro", "phys.3.modern", "phys.4.classical",
+    "phys.4.em-maxwell", "phys.4.quantum", "phys.4.statmech",
+    "phys.4.relativity", "phys.4.solid-state",
+    "phys.4.experiment", "phys.5.qft", "phys.5.gr-cosmo",
+    "phys.5.quantum-info",
+})
+
+
+def _validate_lesson_media(node: Dict) -> None:
+    """Fail closed when authored lesson media does not match its small schema.
+
+    Media is executable UI at the last inch of the pipeline. Keeping the
+    curriculum format deliberately narrow prevents a future data edit from
+    smuggling HTML, remote URLs, or an unbounded renderer into that UI.
+    """
+    media = node.get("lesson_media", [])
+    if not isinstance(media, list):
+        raise ValueError("{} lesson_media must be a list".format(node.get("id")))
+    seen = set()
+    illustration_required_keys = {
+        "id", "kind", "src", "srcset", "alt", "caption", "width", "height"
+    }
+    illustration_optional_keys = {"long_description"}
+    model_keys = {"id", "kind", "renderer", "title", "instructions", "props"}
+    static_prefix = "/app/illustrations/"
+
+    def text(entry: Dict, key: str) -> str:
+        value = entry.get(key)
+        if not isinstance(value, str) or not value.strip():
+            raise ValueError("{} lesson media {} needs {}".format(node.get("id"), entry.get("id"), key))
+        return value
+
+    def local_image(path: str):
+        if not path.startswith(static_prefix) or not path.endswith(".webp"):
+            raise ValueError("{} lesson image must be a local WebP".format(node.get("id")))
+        # The requested value is compared with a manifest produced solely from
+        # the trusted illustration directory above. It never participates in
+        # a filesystem expression, so traversal and arbitrary-file probes are
+        # impossible even if this validator is reused with untrusted data.
+        if path not in LESSON_ILLUSTRATION_URLS:
+            raise ValueError("{} lesson image is not in the illustration manifest: {}".format(
+                node.get("id"), path))
+        return LESSON_ILLUSTRATION_DIMENSIONS[path]
+
+    for entry in media:
+        if not isinstance(entry, dict):
+            raise ValueError("{} lesson media entries must be objects".format(node.get("id")))
+        media_id = text(entry, "id")
+        if media_id in seen:
+            raise ValueError("{} repeats lesson media id {}".format(node.get("id"), media_id))
+        seen.add(media_id)
+        kind = entry.get("kind")
+        if kind == "illustration":
+            if (not illustration_required_keys.issubset(entry)
+                    or set(entry) - illustration_required_keys - illustration_optional_keys):
+                raise ValueError("{} illustration {} has unexpected fields".format(node.get("id"), media_id))
+            source = text(entry, "src")
+            local_image(source)
+            if any(isinstance(entry.get(key), bool) or not isinstance(entry.get(key), int)
+                   or entry[key] <= 0 for key in ("width", "height")):
+                raise ValueError("{} illustration {} needs positive integer dimensions".format(node.get("id"), media_id))
+            widths = set()
+            sources = set()
+            for candidate in text(entry, "srcset").split(","):
+                parts = candidate.strip().split()
+                if len(parts) != 2 or not parts[1].endswith("w") or not parts[1][:-1].isdigit():
+                    raise ValueError("{} illustration {} has an invalid srcset".format(node.get("id"), media_id))
+                width = int(parts[1][:-1])
+                if width <= 0 or width in widths:
+                    raise ValueError("{} illustration {} has an invalid srcset".format(node.get("id"), media_id))
+                widths.add(width)
+                sources.add(parts[0])
+                actual_width, actual_height = local_image(parts[0])
+                if actual_width != width or actual_width * entry["height"] != actual_height * entry["width"]:
+                    raise ValueError("{} illustration {} has an invalid srcset".format(node.get("id"), media_id))
+            if source not in sources:
+                raise ValueError("{} illustration {} src is missing from srcset".format(node.get("id"), media_id))
+            text(entry, "alt")
+            text(entry, "caption")
+            if "long_description" in entry:
+                description = entry["long_description"]
+                required = {"title", "mode", "items", "takeaway"}
+                if not isinstance(description, dict) or set(description) != required:
+                    raise ValueError("{} illustration {} has an invalid long description".format(
+                        node.get("id"), media_id))
+                for key in ("title", "mode", "takeaway"):
+                    if not isinstance(description[key], str) or not description[key].strip():
+                        raise ValueError("{} illustration {} long description needs {}".format(
+                            node.get("id"), media_id, key))
+                if description["mode"] not in {"flow", "compare", "map", "scale", "physics"}:
+                    raise ValueError("{} illustration {} has an unknown description mode".format(
+                        node.get("id"), media_id))
+                description_items = description["items"]
+                if not isinstance(description_items, list) or not description_items:
+                    raise ValueError("{} illustration {} long description needs items".format(
+                        node.get("id"), media_id))
+                for description_item in description_items:
+                    if (not isinstance(description_item, dict)
+                            or set(description_item) != {"heading", "label", "detail"}
+                            or any(not isinstance(description_item[key], str)
+                                   or not description_item[key].strip()
+                                   for key in ("heading", "label", "detail"))):
+                        raise ValueError("{} illustration {} has an invalid description item".format(
+                            node.get("id"), media_id))
+        elif kind in {"source-gallery", "source-studies", "source-native-inspectors"}:
+            if set(entry) != {"id", "kind", "title", "instructions", "investigation_ids"}:
+                raise ValueError("{} source gallery has unexpected fields".format(node.get("id")))
+            text(entry, "title")
+            text(entry, "instructions")
+            identifiers = entry.get("investigation_ids")
+            if (not isinstance(identifiers, list) or not 1 <= len(identifiers) <= 4
+                    or any(not isinstance(identifier, str) for identifier in identifiers)
+                    or len(set(identifiers)) != len(identifiers)):
+                raise ValueError("Source gallery needs explicit unique investigation bindings")
+            from . import radiology_catalog
+            from .source_native_inspectors import references as native_inspectors
+            source_sets = (radiology_catalog._structure_atlases() if kind == 'source-gallery'
+                           else radiology_catalog._source_study_references() if kind == 'source-studies'
+                           else native_inspectors())
+            for identifier in identifiers:
+                investigation = radiology_catalog.resolve(identifier)
+                if (not investigation or investigation['id'] != identifier
+                        or investigation['module_id'] != node.get('id')
+                        or not source_sets.get(identifier)):
+                    raise ValueError("Source gallery has an unknown or cross-lesson binding")
+        elif kind == "model":
+            if set(entry) != model_keys:
+                raise ValueError("{} model {} has unexpected fields".format(node.get("id"), media_id))
+            renderer = text(entry, "renderer")
+            if renderer not in LESSON_MODEL_RENDERERS:
+                raise ValueError("{} model {} has unknown renderer {}".format(node.get("id"), media_id, renderer))
+            text(entry, "title")
+            text(entry, "instructions")
+            props = entry.get("props")
+            if not isinstance(props, dict):
+                raise ValueError("{} model {} props must be an object".format(node.get("id"), media_id))
+            if renderer == "prenatal-sequence":
+                if node.get("id") != "bio.2.reproduction" or props:
+                    raise ValueError("Prenatal sequence needs its own reproduction lesson and no props")
+            elif renderer == "music-listening-lab":
+                grade = props.get("grade")
+                if set(props) != {"grade"} or isinstance(grade, bool) or not isinstance(grade, int) or not 1 <= grade <= 8 or grade != node.get("music_grade"):
+                    raise ValueError("Music listening model needs its own lesson grade")
+            elif renderer == "spatial-3d":
+                scenario = props.get("scenario")
+                if isinstance(scenario, str) and scenario.startswith("module."):
+                    from .module_media import model_props
+                    if props != model_props(node):
+                        raise ValueError("{} module spatial model has an unknown or cross-lesson scenario".format(node.get("id")))
+                elif set(props) != {"scenario"} or not isinstance(scenario, str) \
+                        or scenario not in SPATIAL_MODEL_SCENARIOS or scenario != node.get("id"):
+                    raise ValueError("{} spatial model has an unknown or cross-lesson scenario".format(node.get("id")))
+            elif renderer == "radiology-anatomy":
+                from .module_media import radiology_model_props
+                reference = node.get("radiology_reference", {}).get("spatial_model", {})
+                if not reference or props != radiology_model_props(node):
+                    raise ValueError("{} anatomy model has an unknown or cross-lesson binding".format(node.get("id")))
+            elif renderer == "concept-lab":
+                scenario = props.get("scenario")
+                if set(props) != {"scenario"} or not isinstance(scenario, str) \
+                        or scenario not in CONCEPT_MODEL_SCENARIOS or scenario != node.get("id"):
+                    raise ValueError("{} concept model has an unknown or cross-lesson scenario".format(node.get("id")))
+            elif renderer == "math-ode-lab":
+                if node.get("id") != "math.4.diffeq" or props != {
+                        "scenario": "math.4.diffeq.second-order"}:
+                    raise ValueError("{} second-order ODE model has an unknown or cross-lesson scenario".format(
+                        node.get("id")))
+            elif renderer == "math-field-lab":
+                if node.get("id") != "math.4.multivar" or props != {
+                        "scenario": "math.4.multivar.integral-flux"}:
+                    raise ValueError("{} integral/flux model has an unknown or cross-lesson scenario".format(
+                        node.get("id")))
+            elif renderer == "math-measure-lab":
+                if node.get("id") != "math.5.measure" or props != {"scenario": "math.5.measure.integration-norms"}:
+                    raise ValueError("{} math-measure-lab has an unknown or cross-lesson scenario".format(node.get("id")))
+            elif renderer == "physics-cycle-lab":
+                if node.get("id") != "phys.3.thermo" or props != {"scenario": "phys.3.thermo.cycle-entropy"}:
+                    raise ValueError("{} physics-cycle-lab has an unknown or cross-lesson scenario".format(node.get("id")))
+            elif renderer == "math-operator-lab":
+                if node.get("id") != "math.5.functional" or props != {"scenario": "math.5.functional.operators-truncation"}:
+                    raise ValueError("{} math-operator-lab has an unknown or cross-lesson scenario".format(node.get("id")))
+            elif renderer == "physics-ensemble-lab":
+                if node.get("id") != "phys.4.statmech" or props != {"scenario": "phys.4.statmech.ensembles-entropy"}:
+                    raise ValueError("{} physics-ensemble-lab has an unknown or cross-lesson scenario".format(node.get("id")))
+            elif renderer == "math-curvature-lab":
+                if node.get("id") != "math.5.diffgeo" or props != {"scenario": "math.5.diffgeo.curvature-transport"}:
+                    raise ValueError("{} math-curvature-lab has an unknown or cross-lesson scenario".format(node.get("id")))
+            elif renderer == "physics-constraints-lab":
+                if node.get("id") != "phys.4.classical" or props != {"scenario": "phys.4.classical.constraints-energy"}:
+                    raise ValueError("{} physics-constraints-lab has an unknown or cross-lesson scenario".format(node.get("id")))
+            elif renderer == "math-topology-lab":
+                if node.get("id") != "math.5.topology" or props != {"scenario": "math.5.topology.opens-covers-surfaces"}:
+                    raise ValueError("{} math-topology-lab has an unknown or cross-lesson scenario".format(node.get("id")))
+            elif renderer == "math-systems-lab":
+                if node.get("id") != "math.3.systems" or props != {"scenario": "math.3.systems.general-form"}:
+                    raise ValueError("Systems lab must bind the original systems lesson and its general-form scenario")
+            elif renderer == "math-number-theory-lab":
+                if node.get("id") != "math.4.numtheory" or props != {"scenario": "math.4.numtheory.exact-integers"}:
+                    raise ValueError("{} math-number-theory-lab has an unknown or cross-lesson scenario".format(node.get("id")))
+            elif renderer == "math-logic-lab":
+                if node.get("id") != "math.5.logic" or props != {"scenario": "math.5.logic.diagonal-models-proof"}:
+                    raise ValueError("{} math-logic-lab has an unknown or cross-lesson scenario".format(node.get("id")))
+            elif renderer == "physics-maxwell-lab":
+                if node.get("id") != "phys.4.em-maxwell" or props != {"scenario": "phys.4.em-maxwell.fields-flux-radiation"}:
+                    raise ValueError("{} physics-maxwell-lab has an unknown or cross-lesson scenario".format(node.get("id")))
+            elif renderer == "physics-cosmology-lab":
+                if node.get("id") != "phys.5.gr-cosmo" or props != {"scenario": "phys.5.gr-cosmo.geometry-history"}:
+                    raise ValueError("{} physics-cosmology-lab has an unknown or cross-lesson scenario".format(node.get("id")))
+            elif renderer == "math-algebra-lab":
+                if node.get("id") != "math.5.abstract" or props != {"scenario": "math.5.abstract.groups-rings-fields"}:
+                    raise ValueError("{} math-algebra-lab has an unknown or cross-lesson scenario".format(node.get("id")))
+            elif renderer == "physics-qft-lab":
+                if node.get("id") != "phys.5.qft" or props != {"scenario": "phys.5.qft.fields-observables"}:
+                    raise ValueError("{} physics-qft-lab has an unknown or cross-lesson scenario".format(node.get("id")))
+            elif renderer == "physics-quantum-info-lab":
+                if node.get("id") != "phys.5.quantum-info" or props != {"scenario": "phys.5.quantum-info.qubits-circuits-resources"}:
+                    raise ValueError("{} physics-quantum-info-lab has an unknown or cross-lesson scenario".format(node.get("id")))
+            elif renderer == "physics-relativity-lab":
+                if node.get("id") != "phys.4.relativity" or props != {"scenario": "phys.4.relativity.events-clocks"}:
+                    raise ValueError("{} physics-relativity-lab has an unknown or cross-lesson scenario".format(node.get("id")))
+            elif renderer == "math-complex-lab":
+                if node.get("id") != "math.5.complex-analysis" or props != {"scenario": "math.5.complex-analysis.holomorphy-contours"}:
+                    raise ValueError("{} math-complex-lab has an unknown or cross-lesson scenario".format(node.get("id")))
+            elif renderer == "physics-quantum-lab":
+                if node.get("id") != "phys.4.quantum" or props != {"scenario": "phys.4.quantum.states-measurement"}:
+                    raise ValueError("{} physics-quantum-lab has an unknown or cross-lesson scenario".format(node.get("id")))
+            elif renderer == "physics-phase-lab":
+                expected = {"phys.0.hot-cold": "phys.0.hot-cold.melting-ice",
+                            "phys.2.matter": "phys.2.matter.phase-change"}
+                if node.get("id") not in expected or props != {"scenario": expected[node["id"]]}:
+                    raise ValueError("{} phase model has an unknown or cross-lesson scenario".format(node.get("id")))
+            elif renderer == "physics-thermal-lab":
+                expected = {"phys.0.hot-cold": "phys.0.hot-cold.energy-balance",
+                            "phys.2.heat": "phys.2.heat.transport"}
+                if node.get("id") not in expected or props != {"scenario": expected[node["id"]]}:
+                    raise ValueError("{} thermal model has an unknown or cross-lesson scenario".format(node.get("id")))
+            elif renderer == "physics-buoyancy-lab":
+                if node.get("id") != "phys.0.float-sink" or props != {"scenario": "phys.0.float-sink.hydrostatics"}:
+                    raise ValueError("{} buoyancy model has an unknown or cross-lesson scenario".format(node.get("id")))
+            elif renderer == "math-numerical-lab":
+                if node.get("id") != "math.5.numerical" or props != {"scenario": "math.5.numerical.error-accounting"}:
+                    raise ValueError("{} numerical error model has an unknown or cross-lesson scenario".format(node.get("id")))
+            elif renderer == "math-convergence-lab":
+                if node.get("id") != "math.4.analysis" or props != {"scenario": "math.4.analysis.convergence"}:
+                    raise ValueError("{} convergence model has an unknown or cross-lesson scenario".format(node.get("id")))
+            elif renderer == "math-wave-lab":
+                if node.get("id") != "math.5.pde" or props != {"scenario": "math.5.pde.wave-field"}:
+                    raise ValueError("{} wave-field model has an unknown or cross-lesson scenario".format(
+                        node.get("id")))
+            elif renderer == "math-probability-lab":
+                if node.get("id") != "math.4.prob-theory" or props != {
+                        "scenario": "math.4.prob-theory.large-numbers"}:
+                    raise ValueError("{} large-numbers model has an unknown or cross-lesson scenario".format(
+                        node.get("id")))
+            elif renderer == "counter":
+                if set(props) != {"total"} or isinstance(props.get("total"), bool) \
+                        or not isinstance(props.get("total"), int) or not 1 <= props["total"] <= 20:
+                    raise ValueError("{} counter model needs total 1..20".format(node.get("id")))
+            elif renderer == "shape-explorer" and props:
+                raise ValueError("{} shape explorer takes no props".format(node.get("id")))
+            elif renderer == "shadow-lab":
+                start = props.get("start_position")
+                if set(props) != {"start_position"} or isinstance(start, bool) \
+                        or not isinstance(start, int) or not 0 <= start <= 100:
+                    raise ValueError("{} shadow lab needs start_position 0..100".format(node.get("id")))
+            elif renderer == "sequence-runner":
+                if props != {"scenario": "pack-bag"}:
+                    raise ValueError("{} sequence runner has an unknown scenario".format(node.get("id")))
+            elif renderer == "make-ten":
+                if set(props) != {"first", "second"} or any(
+                        isinstance(props.get(key), bool) or not isinstance(props.get(key), int)
+                        or not 1 <= props[key] <= 9 for key in ("first", "second")) \
+                        or not 11 <= props["first"] + props["second"] <= 18:
+                    raise ValueError("{} make-ten model needs two addends 1..9 with a sum 11..18".format(
+                        node.get("id")))
+            elif renderer in {"light-paths", "life-cycle"} and props:
+                raise ValueError("{} {} model takes no props".format(node.get("id"), renderer))
+            elif renderer == "algorithm-tracer":
+                if props != {"scenario": "jam-sandwich"}:
+                    raise ValueError("{} algorithm tracer has an unknown scenario".format(node.get("id")))
+            elif renderer == "vector-components-lab":
+                if node.get("id") != "math.3.vectors" or props != {"scenario": "math.3.vectors"}:
+                    raise ValueError("{} vector model has an unknown or cross-lesson scenario".format(node.get("id")))
+            elif renderer == "geometry-measures-lab":
+                if node.get("id") != "math.2.geometry" or props != {"scenario": "math.2.geometry"}:
+                    raise ValueError("{} geometry model has an unknown or cross-lesson scenario".format(node.get("id")))
+            elif renderer == "coordinate-plane-lab":
+                if node.get("id") != "math.2.coordinates" or props != {"scenario": "math.2.coordinates"}:
+                    raise ValueError("{} coordinate model has an unknown or cross-lesson scenario".format(node.get("id")))
+            elif renderer == "algebra-functions-lab":
+                if node.get("id") not in {"math.3.linear", "math.3.slope", "math.3.quadratics", "math.3.polynomials"} or props != {"scenario": node.get("id")}:
+                    raise ValueError("{} algebra model has an unknown or cross-lesson scenario".format(node.get("id")))
+            elif renderer == "base-ten-lab":
+                if node.get("id") not in {"math.1.place-value", "math.1.addition", "math.1.subtraction", "math.1.multiplication", "math.1.division"} or props != {"scenario": node.get("id")}:
+                    raise ValueError("{} base-ten model has an unknown or cross-lesson scenario".format(node.get("id")))
+            elif renderer == "fraction-arithmetic-lab":
+                if node.get("id") != "math.2.fractions" or props != {"scenario": "math.2.fractions"}:
+                    raise ValueError("{} fraction arithmetic model has an unknown or cross-lesson scenario".format(
+                        node.get("id")))
+            elif renderer == "fraction-equivalence-lab":
+                keys = {"numerator", "denominator", "max_factor"}
+                if set(props) != keys or any(
+                        isinstance(props.get(key), bool) or not isinstance(props.get(key), int)
+                        for key in keys) or not 2 <= props["denominator"] <= 8 \
+                        or not 1 <= props["numerator"] < props["denominator"] \
+                        or not 2 <= props["max_factor"] <= 4 \
+                        or props["denominator"] * props["max_factor"] > 24:
+                    raise ValueError("{} fraction equivalence lab needs a bounded proper fraction".format(
+                        node.get("id")))
+            elif renderer == "atom-element-builder":
+                keys = {"protons", "neutrons", "electrons"}
+                if set(props) != keys or any(
+                        isinstance(props.get(key), bool) or not isinstance(props.get(key), int)
+                        for key in keys) or not 1 <= props["protons"] <= 10 \
+                        or not 0 <= props["neutrons"] <= 12 \
+                        or not 0 <= props["electrons"] <= 10 \
+                        or abs(props["protons"] - props["electrons"]) > 2:
+                    raise ValueError("{} atom builder needs bounded particle counts".format(node.get("id")))
+            elif renderer == "cell-microscope":
+                magnification = props.get("start_magnification")
+                if set(props) != {"start_specimen", "start_magnification"} \
+                        or props.get("start_specimen") not in {"onion", "leaf", "cheek"} \
+                        or isinstance(magnification, bool) or not isinstance(magnification, int) \
+                        or magnification not in {40, 100, 400}:
+                    raise ValueError("{} cell microscope has unknown starting settings".format(node.get("id")))
+            elif renderer == "counterexample-lab":
+                if props != {"scenario": "squares-and-rectangles"}:
+                    raise ValueError("{} counterexample lab has an unknown scenario".format(node.get("id")))
+            elif renderer == "integer-number-line-lab":
+                expected = {
+                    "min": -12, "max": 12,
+                    "start_value": -2, "start_delta": -7,
+                }
+                integer_keys = {"min", "max", "start_value", "start_delta"}
+                if props != expected or set(props) != integer_keys \
+                        or any(type(props.get(key)) is not int for key in integer_keys) \
+                        or not props["min"] < props["max"] \
+                        or not props["min"] <= props["start_value"] <= props["max"] \
+                        or not props["min"] <= props["start_value"] + props["start_delta"] <= props["max"]:
+                    raise ValueError("{} integer number line lab has unknown settings".format(
+                        node.get("id")))
+            elif renderer == "function-composition-lab":
+                keys = {
+                    "f_slope", "f_intercept", "g_slope", "g_intercept",
+                    "x_min", "x_max", "start_x",
+                }
+                if set(props) != keys or any(
+                        isinstance(props.get(key), bool) or not isinstance(props.get(key), int)
+                        for key in keys) or any(
+                        props[key] == 0 or not -3 <= props[key] <= 3
+                        for key in ("f_slope", "g_slope")) or any(
+                        not -5 <= props[key] <= 5
+                        for key in ("f_intercept", "g_intercept")) \
+                        or not -8 <= props["x_min"] < props["x_max"] <= 8 \
+                        or not props["x_min"] <= props["start_x"] <= props["x_max"]:
+                    raise ValueError("{} function composition lab needs bounded integer rules".format(
+                        node.get("id")))
+            elif renderer == "circulation-route-lab":
+                start_step = props.get("start_step")
+                if set(props) != {"route", "start_step", "show_oxygenation"} \
+                        or props.get("route") != "cardiopulmonary" \
+                        or isinstance(start_step, bool) or not isinstance(start_step, int) \
+                        or not 0 <= start_step <= 8 \
+                        or not isinstance(props.get("show_oxygenation"), bool):
+                    raise ValueError("{} circulation route lab has unknown starting settings".format(
+                        node.get("id")))
+            elif renderer == "allele-segregation-lab":
+                if set(props) != {"scenario", "start_cross"} \
+                        or props.get("scenario") != "pea-flower-complete-dominance" \
+                        or props.get("start_cross") not in {
+                            "heterozygous", "test-cross", "pure-lines"
+                        }:
+                    raise ValueError("{} allele segregation lab has unknown starting settings".format(
+                        node.get("id")))
+            elif renderer == "truth-table-lab":
+                if set(props) != {"start_operator", "start_p", "start_q"} \
+                        or props.get("start_operator") not in {"and", "or", "implies"} \
+                        or not isinstance(props.get("start_p"), bool) \
+                        or not isinstance(props.get("start_q"), bool):
+                    raise ValueError("{} truth table lab has unknown starting settings".format(
+                        node.get("id")))
+            elif renderer == "stack-queue-lab":
+                capacity = props.get("capacity")
+                initial_count = props.get("initial_count")
+                if set(props) != {"start_mode", "capacity", "initial_count"} \
+                        or props.get("start_mode") not in {"stack", "queue"} \
+                        or isinstance(capacity, bool) or not isinstance(capacity, int) \
+                        or not 3 <= capacity <= 8 \
+                        or isinstance(initial_count, bool) or not isinstance(initial_count, int) \
+                        or not 0 <= initial_count <= capacity:
+                    raise ValueError("{} stack and queue lab has unknown starting settings".format(
+                        node.get("id")))
+            elif renderer == "matrix-transform-lab":
+                if set(props) != {"start_transform"} or props.get("start_transform") not in {
+                        "identity", "x-stretch", "x-shear", "y-reflection", "x-projection"}:
+                    raise ValueError("{} matrix transform lab has an unknown starting transform".format(
+                        node.get("id")))
+            elif renderer == "linear-algebra-lab":
+                if props != {"scenario": "math.4.linalg"} or node.get("id") != "math.4.linalg":
+                    raise ValueError("{} linear algebra lab has an unknown or cross-lesson scenario".format(
+                        node.get("id")))
+            elif renderer == "venturi-flow-lab":
+                if set(props) != {"scenario", "start_throat"} \
+                        or props.get("scenario") != "horizontal-water-venturi" \
+                        or props.get("start_throat") not in {"full-area", "half-area", "quarter-area"}:
+                    raise ValueError("{} Venturi flow lab has unknown starting settings".format(
+                        node.get("id")))
+            elif renderer == "fluids-concept-lab":
+                if props != {"scenario": "phys.4.fluids"} or node.get("id") != "phys.4.fluids":
+                    raise ValueError("{} fluids concept lab has an unknown or cross-lesson scenario".format(
+                        node.get("id")))
+            elif renderer == "gene-expression-stepper":
+                if set(props) != {"scenario", "start_gene_state"} \
+                        or props.get("scenario") != "eukaryotic-met-glu-phe" \
+                        or props.get("start_gene_state") not in {"off", "on"}:
+                    raise ValueError("{} gene expression stepper has unknown starting settings".format(
+                        node.get("id")))
+            elif renderer == "tcp-packet-tracer":
+                if props != {"scenario": "tcp-four-segment-loss-two"}:
+                    raise ValueError("{} TCP packet tracer has an unknown scenario".format(
+                        node.get("id")))
+            elif renderer == "heat-equation-lab":
+                expected = {
+                    "cells": 9, "hot_cell": 4, "diffusion_percent": 20,
+                    "max_steps": 10,
+                }
+                if props != expected or any(
+                        type(props.get(key)) is not int for key in expected):
+                    raise ValueError("{} heat equation lab has unknown settings".format(
+                        node.get("id")))
+            elif renderer == "complexity-certificate-lab":
+                expected = {
+                    "scenario": "sat-certificate", "start_n": 4, "max_n": 20,
+                }
+                if props != expected or any(
+                        type(props.get(key)) is not int for key in ("start_n", "max_n")):
+                    raise ValueError("{} complexity certificate lab has unknown settings".format(
+                        node.get("id")))
+            elif renderer == "morphogen-gradient-lab":
+                expected = {
+                    "cells": 11, "source": 100, "decay_percent": 20,
+                    "low_threshold": 30, "high_threshold": 65,
+                }
+                if props != expected or any(
+                        type(props.get(key)) is not int for key in expected):
+                    raise ValueError("{} morphogen gradient lab has unknown settings".format(
+                        node.get("id")))
+            elif renderer == "doppler-angle-lab":
+                if props != {"scenario": "ideal-single-speed-flow"}:
+                    raise ValueError("{} Doppler angle lab has unknown settings".format(node.get("id")))
+            elif renderer == "ct-window-lab":
+                expected = {
+                    "phantom": "synthetic-hu-reference", "level": 40, "width": 400,
+                }
+                if props != expected or any(
+                        type(props.get(key)) is not int for key in ("level", "width")):
+                    raise ValueError("{} CT window lab has unknown settings".format(
+                        node.get("id")))
+            elif renderer == "alphabet-explorer":
+                start_letter = props.get("start_letter")
+                if set(props) != {"alphabet", "start_letter", "example_set"} \
+                        or props.get("alphabet") != "english-basic-latin" \
+                        or props.get("example_set") != "common-words-v1" \
+                        or not isinstance(start_letter, str) or len(start_letter) != 1 \
+                        or not "A" <= start_letter <= "Z":
+                    raise ValueError("{} alphabet explorer has unknown settings".format(
+                        node.get("id")))
+            elif renderer == "inclusive-family-timeline":
+                if props != {
+                        "scenario": "fictional-family-three-times", "start_time": "today"}:
+                    raise ValueError("{} inclusive family timeline has unknown settings".format(
+                        node.get("id")))
+            elif renderer == "day-night-rotation-lab":
+                start_hour = props.get("start_hour")
+                step_hours = props.get("step_hours")
+                if set(props) != {"scenario", "start_hour", "step_hours"} \
+                        or props.get("scenario") != "earth-rotation-equinox-equator" \
+                        or type(start_hour) is not int or start_hour not in {0, 6, 12, 18} \
+                        or type(step_hours) is not int or step_hours != 6:
+                    raise ValueError("{} day and night rotation lab has unknown settings".format(
+                        node.get("id")))
+            elif renderer == "classroom-paint-mixer":
+                colors = {"red", "yellow", "blue", "white"}
+                first = props.get("start_first")
+                second = props.get("start_second")
+                if set(props) != {"scenario", "start_first", "start_second"} \
+                        or props.get("scenario") != "equal-parts-classroom-ryb" \
+                        or not isinstance(first, str) or first not in colors \
+                        or not isinstance(second, str) or second not in colors:
+                    raise ValueError("{} classroom paint mixer has unknown settings".format(
+                        node.get("id")))
+            elif renderer == "reading-path-lab":
+                start_phase = props.get("start_phase")
+                if set(props) != {"scenario", "start_phase"} \
+                        or props.get("scenario") != "simple-english-cat-sat" \
+                        or not isinstance(start_phase, str) \
+                        or start_phase not in {"sounds", "blend", "sentence", "meaning"}:
+                    raise ValueError("{} reading path lab has unknown settings".format(
+                        node.get("id")))
+            elif renderer == "timeline-order-lab":
+                start_order = props.get("start_order")
+                event_ids = {"roof-restored", "opened", "reading-room"}
+                if set(props) != {"scenario", "start_order"} \
+                        or props.get("scenario") != "fictional-library-three-dates" \
+                        or not isinstance(start_order, list) or len(start_order) != 3 \
+                        or any(not isinstance(event_id, str) for event_id in start_order) \
+                        or set(start_order) != event_ids:
+                    raise ValueError("{} timeline order lab has unknown settings".format(
+                        node.get("id")))
+            elif renderer == "seasons-tilt-lab":
+                start_position = props.get("start_position")
+                start_hemisphere = props.get("start_hemisphere")
+                if set(props) != {"scenario", "start_position", "start_hemisphere"} \
+                        or props.get("scenario") != "earth-tilt-four-positions" \
+                        or not isinstance(start_position, str) \
+                        or start_position not in {
+                            "march-equinox", "june-solstice",
+                            "september-equinox", "december-solstice",
+                        } \
+                        or not isinstance(start_hemisphere, str) \
+                        or start_hemisphere not in {"north", "south"}:
+                    raise ValueError("{} seasons tilt lab has unknown settings".format(
+                        node.get("id")))
+            elif renderer == "art-elements-composer":
+                start_elements = props.get("start_elements")
+                allowed_elements = {"line", "shape", "color", "texture", "pattern"}
+                if set(props) != {"scenario", "start_elements"} \
+                        or props.get("scenario") != "garden-five-elements" \
+                        or not isinstance(start_elements, list) or not start_elements \
+                        or any(not isinstance(element, str) or element not in allowed_elements
+                               for element in start_elements) \
+                        or len(start_elements) != len(set(start_elements)):
+                    raise ValueError("{} art elements composer has unknown settings".format(
+                        node.get("id")))
+            elif renderer == "language-computation-lab":
+                if set(props) != {"scenario"} or props.get("scenario") != "lang.5.comp-ling" \
+                        or node.get("id") != "lang.5.comp-ling":
+                    raise ValueError("Language computation studio requires its matching lesson")
+            elif renderer == "physics-particle-lab":
+                if set(props) != {"scenario"} or props.get("scenario") != "phys.4.particles" \
+                        or node.get("id") != "phys.4.particles":
+                    raise ValueError("Particle conservation activity requires its matching lesson")
+            elif renderer == "physics-concept-lab":
+                scenario = props.get("scenario")
+                if set(props) != {"scenario"} or not isinstance(scenario, str) \
+                        or scenario not in PHYSICS_MODEL_SCENARIOS \
+                        or scenario != node.get("id"):
+                    raise ValueError("{} physics concept lab has an unknown or cross-lesson scenario".format(
+                        node.get("id")))
+        else:
+            raise ValueError("{} lesson media {} has unknown kind".format(node.get("id"), media_id))
+
+
+# Sources an authored reference block may send the reader to. A specialist
+# field is a reference work, and a reference work cites: every framework here
+# carries the page it was taken from, so a threshold can be checked against
+# its source rather than trusted because the book said it. The list is a
+# whitelist for the same reason lesson images must be local — authored data is
+# still data, and a link is the one thing in a node that leaves the book.
+REFERENCE_HOSTS = (
+    "pmc.ncbi.nlm.nih.gov",
+    "asecho.org",
+    "radiologyassistant.nl",
+    "radiopaedia.org",
+    "acr.org",
+    "rsna.org",
+    "pubs.rsna.org",
+    "scct.org",
+    "acsearch.acr.org",
+    "nice.org.uk",
+    "escardio.org",
+    "uroweb.org",
+)
+
+
+def framework_digest(ref: Dict) -> Dict:
+    """The one line about a reporting framework that an index needs.
+
+    The blocks themselves come to 300 KB across the specialist field, which is
+    heavier than the rest of the Atlas payload put together, so the graph
+    carries this instead. `terms` is the part that earns its bytes: a
+    radiologist searches for the eponym — Fazekas, Lauge-Hansen, Bosniak — and
+    the eponym is as likely to sit in a row label or a measurement as in the
+    table's own name. Without it the filter box invites a search it cannot
+    answer.
+    """
+    classify = ref.get("classify") or {}
+    terms = [classify.get("name") or "", ref["source"]["title"]]
+    terms += [s["title"] for s in ref.get("also") or []]
+    terms += [str(row[0]) for row in classify.get("rows") or [] if row]
+    terms += [m.get("what", "") for m in ref.get("measure") or []]
+    terms += [m.get("code", "") for m in ref.get("modifiers") or []]
+    joined = " ".join(t for t in terms if t)
+    return {
+        "name": classify.get("name") or ref["source"]["title"],
+        "source": ref["source"]["title"],
+        "template": bool(ref.get("template")),
+        # Capped: this rides on every node of the graph, and a filter does not
+        # need the whole table to match a word in it.
+        "terms": joined[:600],
+    }
+
+
+def _validate_music_study(node: Dict) -> None:
+    """Grade study plans are authored tasks, never practical exam certificates."""
+    strand = node.get("strand")
+    if strand is not None and (strand != "music" or node.get("domain") != "arts"):
+        raise ValueError("Unsupported curriculum strand")
+    study = node.get("music_study")
+    grade = node.get("music_grade")
+    if study is None:
+        if grade is not None:
+            raise ValueError("Music grade needs a study plan")
+        return
+    if isinstance(grade, bool) or not isinstance(grade, int) or not 1 <= grade <= 8:
+        raise ValueError("Music study needs grade 1..8")
+    if strand != "music" or node.get("stage") not in (2, 3):
+        raise ValueError("Music grades belong to the pre-undergraduate music strand")
+    fields = {"scope", "units", "aural", "practical", "sight_reading", "composition", "checkpoint", "routine", "source"}
+    if not isinstance(study, dict) or set(study) != fields:
+        raise ValueError("Music study has unexpected fields")
+    for field in fields - {"units", "routine", "source"}:
+        if not isinstance(study[field], str) or not study[field].strip():
+            raise ValueError("Music study needs " + field)
+    if not isinstance(study["units"], list) or len(study["units"]) < 3:
+        raise ValueError("Music study needs at least three teaching units")
+    for unit in study["units"]:
+        if not isinstance(unit, dict) or set(unit) != {"title", "explanation", "task"} or any(
+                not isinstance(v, str) or not v.strip() for v in unit.values()):
+            raise ValueError("Music study unit is incomplete")
+    if not isinstance(study["routine"], list) or not study["routine"] or any(
+            not isinstance(v, str) or not v.strip() for v in study["routine"]):
+        raise ValueError("Music study needs a practice routine")
+    source = study["source"]
+    if not isinstance(source, dict) or set(source) != {"title", "url"} or not source["title"] or not source["url"].startswith("https://www.abrsm.org/"):
+        raise ValueError("Music study needs an ABRSM syllabus source")
+
+
+def _validate_reference(node: Dict) -> None:
+    """Fail closed when an authored reporting framework does not match its schema.
+
+    `reference` is what makes a specialist module usable at the moment of
+    dictation rather than at the moment of study: the search pattern, what to
+    measure, the classification table, the words to say, and the traps. It is
+    authored medical content, so the schema insists on two things the rest of
+    the node does not — a citable source, and no empty scaffolding. A block
+    with a heading and nothing under it reads as authoritative and says
+    nothing, which is worse than no block at all.
+    """
+    ref = node.get("reference")
+    if ref is None:
+        return
+    nid = node.get("id")
+    if not isinstance(ref, dict):
+        raise ValueError("{} reference must be an object".format(nid))
+    allowed = {"source", "also", "approach", "measure", "classify", "modifiers",
+               "template", "pitfalls"}
+    unknown = set(ref) - allowed
+    if unknown:
+        raise ValueError("{} reference has unknown keys: {}".format(nid, sorted(unknown)))
+
+    def text(container: Dict, key: str, where: str) -> str:
+        value = container.get(key)
+        if not isinstance(value, str) or not value.strip():
+            raise ValueError("{} reference {} needs {}".format(nid, where, key))
+        return value
+
+    def cited(entry: Dict, where: str) -> None:
+        if not isinstance(entry, dict):
+            raise ValueError("{} reference needs a {}".format(nid, where))
+        if set(entry) - {"title", "url", "publisher"}:
+            raise ValueError("{} reference {} has unknown keys".format(nid, where))
+        text(entry, "title", where)
+        text(entry, "publisher", where)
+        url = text(entry, "url", where)
+        if not url.startswith("https://"):
+            raise ValueError("{} reference {} must be https".format(nid, where))
+        host = url[len("https://"):].split("/", 1)[0].split("@")[-1].split(":")[0].lower()
+        if host.startswith("www."):
+            host = host[4:]
+        if host not in REFERENCE_HOSTS:
+            raise ValueError("{} reference {} host {} is not a cited source".format(nid, where, host))
+
+    source = ref.get("source")
+    cited(source, "source")
+
+    # A module often spans several articles — the elbow and the hip are one
+    # module here but two pages there, and a staging module may take its T from
+    # one page and its nodes from another. With only one citation allowed, the
+    # honest move was to drop the un-citable half, and an author did exactly
+    # that rather than file it under the wrong URL. `also` is where the rest of
+    # the provenance goes, held to the same standard as the first.
+    also = ref.get("also")
+    if also is not None:
+        if not isinstance(also, list) or not also:
+            raise ValueError("{} reference also must be a non-empty list".format(nid))
+        seen = {source["url"]}
+        for entry in also:
+            cited(entry, "also")
+            if entry["url"] in seen:
+                raise ValueError("{} reference cites {} twice".format(nid, entry["url"]))
+            seen.add(entry["url"])
+
+    body = 0
+    for key, keys in (("approach", ("step", "detail")), ("measure", ("what", "how", "cutoff"))):
+        rows = ref.get(key)
+        if rows is None:
+            continue
+        if not isinstance(rows, list) or not rows:
+            raise ValueError("{} reference {} must be a non-empty list".format(nid, key))
+        for row in rows:
+            if not isinstance(row, dict) or set(row) - set(keys):
+                raise ValueError("{} reference {} row has unknown keys".format(nid, key))
+            for k in keys[:2]:
+                text(row, k, key)
+        body += 1
+
+    classify = ref.get("classify")
+    if classify is not None:
+        if not isinstance(classify, dict) or set(classify) - {"name", "columns", "rows", "note"}:
+            raise ValueError("{} reference classify has unknown keys".format(nid))
+        text(classify, "name", "classify")
+        columns = classify.get("columns")
+        if not isinstance(columns, list) or len(columns) < 2 \
+                or not all(isinstance(c, str) and c.strip() for c in columns):
+            raise ValueError("{} reference classify needs at least two named columns".format(nid))
+        rows = classify.get("rows")
+        if not isinstance(rows, list) or not rows:
+            raise ValueError("{} reference classify needs rows".format(nid))
+        for row in rows:
+            # A ragged table renders as a table with holes in it, and a hole in
+            # a grading table is the cell a reader most needs.
+            if not isinstance(row, list) or len(row) != len(columns) \
+                    or not all(isinstance(c, str) and c.strip() for c in row):
+                raise ValueError("{} reference classify row does not fill its columns".format(nid))
+        body += 1
+
+    modifiers = ref.get("modifiers")
+    if modifiers is not None:
+        if not isinstance(modifiers, list) or not modifiers:
+            raise ValueError("{} reference modifiers must be a non-empty list".format(nid))
+        for row in modifiers:
+            if not isinstance(row, dict) or set(row) - {"code", "meaning"}:
+                raise ValueError("{} reference modifier has unknown keys".format(nid))
+            text(row, "code", "modifiers")
+            text(row, "meaning", "modifiers")
+        body += 1
+
+    if "template" in ref:
+        text(ref, "template", "reference")
+        body += 1
+
+    pitfalls = ref.get("pitfalls")
+    if pitfalls is not None:
+        if not isinstance(pitfalls, list) or not pitfalls \
+                or not all(isinstance(p, str) and p.strip() for p in pitfalls):
+            raise ValueError("{} reference pitfalls must be non-empty strings".format(nid))
+        body += 1
+
+    if not body:
+        raise ValueError("{} reference cites a source and says nothing".format(nid))
 
 
 def _content_chars(node: Dict) -> int:
@@ -88,6 +991,21 @@ def _content_chars(node: Dict) -> int:
     for q in node.get("quiz") or []:
         total += len(q.get("prompt", "")) + len(q.get("explain", "")) + len(q.get("answer", ""))
     return total
+
+
+def _validate_authored_lesson(node: Dict) -> None:
+    """New pathways carry real teaching content, not only catalogue entries."""
+    if "lesson" not in node:
+        return
+    lesson = node["lesson"]
+    fields = {"overview", "worked_example", "activity", "reflection"}
+    if not isinstance(lesson, dict) or set(lesson) != fields or any(
+            not isinstance(value, str) or not value.strip() for value in lesson.values()):
+        raise ValueError("{} needs four authored teaching sections".format(node.get("id")))
+    outcomes = node.get("learning_outcomes")
+    if not isinstance(outcomes, list) or len(outcomes) < 3 or any(
+            not isinstance(value, str) or not value.strip() for value in outcomes):
+        raise ValueError("{} needs learning outcomes".format(node.get("id")))
 
 
 class Curriculum:
@@ -107,22 +1025,20 @@ class Curriculum:
             with open(os.path.join(CURRICULUM_DIR, name), "r") as f:
                 data = json.load(f)
             domain_id = data["id"]
+            if domain_id == "radiology":
+                from .radiology import attach_references
+                attach_references(data["nodes"])
             self.domains.append({
                 "id": domain_id, "name": data["name"],
                 "icon": data.get("icon", "✦"), "color": data.get("color", "#4a6fa5"),
                 "tagline": data.get("tagline", ""),
                 "node_count": len(data["nodes"]),
-                # The stage a domain starts at. The ten general fields start at
-                # 0 and run the whole book, which is what makes them fields a
-                # reader travels rather than subjects they are handed. A
-                # specialist domain declares a later entry and begins where the
-                # general spine ends — radiology is postgraduate by nature, and
-                # preschool radiology is not a thing anyone should invent to
-                # satisfy a structural rule. The stage gate already allows this:
-                # stage_gate_open returns True when the previous stage is empty,
-                # so entry is governed by the cross-domain prereqs the nodes
-                # declare, not by a ladder that does not exist.
+                # Entry levels describe learning pathways. Introductory imaging
+                # literacy and advanced clinical radiology remain distinct
+                # lessons with different prerequisites and teaching material.
                 "entry_stage": int(data.get("entry_stage", 0)),
+                **({"reference_stage": int(data["reference_stage"])}
+                   if "reference_stage" in data else {}),
             })
             for node in data["nodes"]:
                 node = dict(node)
@@ -137,8 +1053,15 @@ class Curriculum:
                 # — their stages ARE their filing — and leave this empty.
                 node.setdefault("section", "")
                 node.setdefault("kid_text", "")
+                node.setdefault("lesson_media", [])
+                _validate_authored_lesson(node)
+                from .module_media import attach_module_media
+                attach_module_media(node)
+                _validate_lesson_media(node)
+                _validate_reference(node)
+                _validate_music_study(node)
                 # Provenance, recorded once, where authored items enter the
-                # app. A human wrote these: fixed prompt, fixed answer, the
+                # app. These are authored items: fixed prompt, fixed answer, the
                 # same tomorrow as today. The generators in practice.py stamp
                 # the opposite on every item they mint, so downstream code can
                 # ask what an item *is* instead of guessing from how its text
@@ -157,10 +1080,34 @@ class Curriculum:
         # stage's average, clamped so density never swings the estimate more
         # than ±50%. This is a real, measurable proxy (more explaining, more
         # worked cases, more to teach) — not an invented per-node number.
-        by_stage: Dict[int, List[Dict]] = {}
+        # The pool a node is measured against is its own kind of field, not the
+        # whole book. This averaged every domain together at each stage, which
+        # was harmless while the book held ten general fields of comparable
+        # authored depth — and stopped being harmless the moment a specialist
+        # field arrived. Radiology's 84 modules carry 3.7x the content of a
+        # general node, and at stage 5 they made up enough of the pool to pull
+        # the average up past every general node's density: 49 of the 52
+        # general graduate nodes landed on the 0.5 clamp floor, nine of the ten
+        # general domains had their ENTIRE graduate tier priced at half, and
+        # the tier the 6,496-hour instructional-time anchor is built on was
+        # quietly costing half what it claims.
+        #
+        # So the ten general fields are normalised against each other, and a
+        # specialist field against itself. Note what this deliberately does not
+        # do: fall back to the stage-wide pool for a small group. There are
+        # seven (stage, domain) groups below four nodes and one of them —
+        # (5, arts), three nodes — is a general graduate group, so a
+        # "too small, use the stage average" guard would put exactly the nodes
+        # this fixes straight back on the floor.
+        specialist = {d["id"]: d.get("reference_stage", d.get("entry_stage", 0))
+                      for d in self.domains
+                      if d.get("reference_stage", d.get("entry_stage", 0)) > 0}
+        by_stage: Dict[tuple, List[Dict]] = {}
         for node in raw_nodes:
-            by_stage.setdefault(node["stage"], []).append(node)
-        for stage, nodes in by_stage.items():
+            pool = (node["domain"] if node["domain"] in specialist
+                    and node["stage"] >= specialist[node["domain"]] else "*general*")
+            by_stage.setdefault((node["stage"], pool), []).append(node)
+        for (stage, _pool), nodes in by_stage.items():
             lens = [_content_chars(n) for n in nodes]
             avg = sum(lens) / len(lens) if lens else 0
             for node, length in zip(nodes, lens):
@@ -206,22 +1153,58 @@ class Curriculum:
         curriculum node actually links it — see load()'s index."""
         return self._domain_by_article.get(title)
 
-    def stage_gate_open(self, domain: str, stage: int, mastery: Dict[str, float]) -> bool:
+    # The decision the board asked for, written down. Placement credit is
+    # ASSUMED: a six-question interview at each rung, never a proof at the
+    # page. It is what lets a reader skip the nursery, and it opens every rung
+    # up to undergraduate work on that basis. It does not open the graduate
+    # gate. Measured before this: acing the maths interview seeded 49 assumed
+    # rows and 0 proven, and opened 4 of 10 graduate maths nodes with nothing
+    # ever demonstrated. An interview and a proof are interchangeable
+    # everywhere except at the one gate where they are not.
+    GRADUATE_GATE_NEEDS_PROOF = 5
+
+    def stage_gate_open(self, domain: str, stage: int, mastery: Dict[str, float],
+                        proven: Optional[set] = None, strand: Optional[str] = None) -> bool:
         if stage == 0:
             return True
-        prev = self._by_domain_stage.get(domain, {}).get(stage - 1, [])
-        if not prev:
+        # Clinical reference modules retain their professional entry route.
+        # Their own cross-field prerequisites still apply in unlocked(); the
+        # new imaging-literacy ladder must not gate existing clinician access.
+        reference_stage = next((d.get("reference_stage") for d in self.domains
+                                if d["id"] == domain), None)
+        if reference_stage is not None and stage >= reference_stage:
             return True
-        done = sum(1 for n in prev if mastery.get(n["id"], 0) >= 0.8)
+        prev = self._by_domain_stage.get(domain, {}).get(stage - 1, [])
+        if strand is not None:
+            prev = [n for n in prev if n.get("strand") == strand]
+        if not prev:
+            # A stage with nothing below it in its own field has no gate of
+            # its own. In this corpus that is radiology — a specialist field
+            # that is graduate work end to end, entered from the general spine
+            # by `POST /api/domain/open`, which credits that grounding as
+            # ASSUMED. So yes: assumed credit opens all of radiology, and that
+            # is the stated exception to the graduate-gate rule below, not an
+            # oversight. The rule below is about a field's OWN ladder — an
+            # interview at maths stage 4 must not open maths stage 5. A
+            # library has no ladder; its modules are labelled assumed on
+            # every surface until proved at the page, and the roadmap counts
+            # them as assumed, not proven.
+            return True
+        if stage >= self.GRADUATE_GATE_NEEDS_PROOF and proven is not None:
+            done = sum(1 for n in prev if n["id"] in proven)
+        else:
+            done = sum(1 for n in prev if mastery.get(n["id"], 0) >= 0.8)
         return done / len(prev) >= STAGE_GATE_BY_STAGE.get(stage, STAGE_GATE)
 
-    def unlocked(self, node: Dict, mastery: Dict[str, float]) -> bool:
+    def unlocked(self, node: Dict, mastery: Dict[str, float],
+                 proven: Optional[set] = None) -> bool:
         for p in node["prereqs"]:
             if mastery.get(p, 0) < 0.8:
                 return False
-        return self.stage_gate_open(node["domain"], node["stage"], mastery)
+        return self.stage_gate_open(node["domain"], node["stage"], mastery, proven, node.get("strand"))
 
-    def unlock_requirements(self, node: Dict, mastery: Dict[str, float]) -> List[str]:
+    def unlock_requirements(self, node: Dict, mastery: Dict[str, float],
+                            proven: Optional[set] = None) -> List[str]:
         """Human-readable list of what still stands between the reader and this
         node — so every locked tile is a legible quest marker, not a blank lock."""
         reqs = []
@@ -246,9 +1229,13 @@ class Curriculum:
                         title, self._domain_names.get(pn["domain"], pn["domain"]))
                 reqs.append("Master “{}”".format(title))
         stage = node["stage"]
-        if stage > 0 and not self.stage_gate_open(node["domain"], stage, mastery):
+        if stage > 0 and not self.stage_gate_open(node["domain"], stage, mastery, proven, node.get("strand")):
             prev = self._by_domain_stage.get(node["domain"], {}).get(stage - 1, [])
-            done = sum(1 for n in prev if mastery.get(n["id"], 0) >= 0.8)
+            if node.get("strand"):
+                prev = [n for n in prev if n.get("strand") == node["strand"]]
+            done = (sum(1 for n in prev if n["id"] in proven)
+                    if stage >= self.GRADUATE_GATE_NEEDS_PROOF and proven is not None
+                    else sum(1 for n in prev if mastery.get(n["id"], 0) >= 0.8))
             gate = STAGE_GATE_BY_STAGE.get(stage, STAGE_GATE)
             import math as _m
             need = max(0, _m.ceil(gate * len(prev)) - done)
@@ -258,17 +1245,31 @@ class Curriculum:
                     need, STAGE_NAMES[stage - 1], "s" if need != 1 else ""))
         return reqs
 
-    def annotated_graph(self, mastery: Dict[str, float]) -> Dict:
+    def annotated_graph(self, mastery: Dict[str, float], proven: Optional[set] = None) -> Dict:
         nodes = []
         for node in self.nodes.values():
             n = dict(node)
             level = mastery.get(node["id"], 0)
             n["mastery"] = round(level, 2)
             n["mastered"] = level >= 0.8
-            n["unlocked"] = self.unlocked(node, mastery)
+            n["unlocked"] = self.unlocked(node, mastery, proven)
             if not n["unlocked"] and not n["mastered"]:
-                n["unlock_requirements"] = self.unlock_requirements(node, mastery)
+                n["unlock_requirements"] = self.unlock_requirements(node, mastery, proven)
             n.pop("quiz", None)  # keep the graph payload light
+            n.pop("music_study", None)
+            n.pop("music_path", None)
+            n.pop("lesson_media", None)  # detail-only; plates and model copy are much larger
+            n.pop("radiology_reference", None)
+            for field in ("lesson", "learning_outcomes", "visual_spec", "model_family", "model_context"):
+                n.pop(field, None)
+            # The reporting frameworks come to 300 KB across the specialist
+            # field — heavier than everything else on this route put together.
+            # The Atlas gets the one line it needs to file and find a module by
+            # the name a radiologist thinks in; the block itself travels with
+            # the lesson that was actually opened.
+            ref = n.pop("reference", None)
+            if ref:
+                n["framework"] = framework_digest(ref)
             nodes.append(n)
         domains = []
         for d in self.domains:
@@ -279,7 +1280,8 @@ class Curriculum:
                     continue
                 done = sum(1 for n in ns if mastery.get(n["id"], 0) >= 0.8)
                 stages.append({"stage": s, "total": len(ns), "mastered": done,
-                               "open": self.stage_gate_open(d["id"], s, mastery)})
+                               "open": self.stage_gate_open(d["id"], s, mastery, proven) or any(
+                                   n.get("strand") and self.unlocked(n, mastery, proven) for n in ns)})
             dd = dict(d)
             dd["stages"] = stages
             dd["mastered"] = sum(1 for n in self.nodes.values()
@@ -288,12 +1290,36 @@ class Curriculum:
         return {"domains": domains, "nodes": nodes}
 
     def next_lessons(self, mastery: Dict[str, float], domains: Optional[List[str]] = None,
+                     proven: Optional[set] = None,
                      per_domain: int = 2) -> List[Dict]:
         """The frontier: unlocked, unmastered nodes, lowest stage first."""
         picks: List[Dict] = []
         for d in self.domains:
             if domains and d["id"] not in domains:
                 continue
+            # Credit that cannot open the rung above it is not finished work.
+            # `stage_gate_open` counts PROVEN nodes at the rung below graduate,
+            # never assumed ones — so a reader placed straight into stage 5
+            # holds assumed credit for the whole of stage 4, is filtered off
+            # the frontier BY that credit, and can never sit the thing the gate
+            # is asking to see. The field goes silent, permanently: a simulated
+            # 17-year-old who aced every placement was offered nothing at all
+            # for fourteen days (tools/simulate_readers.py). While that gate is
+            # shut, stage-4 nodes standing on assumed credit stay on the
+            # frontier; once it opens they drop off again, so this cannot hold
+            # a graduate reader down on work they have already proved.
+            # ...but only while there is something up there to open. A reader
+            # credited with the graduate rung too has nothing left to unlock,
+            # and offering them the rung below would be revision with no door
+            # behind it — an exhausted frontier is supposed to read as
+            # exhausted (see the quest-step excusal in server.py).
+            owed = None
+            if proven is not None and not self.stage_gate_open(
+                    d["id"], self.GRADUATE_GATE_NEEDS_PROOF, mastery, proven):
+                above = self._by_domain_stage.get(d["id"], {}).get(
+                    self.GRADUATE_GATE_NEEDS_PROOF, [])
+                if any(mastery.get(n["id"], 0) < 0.8 for n in above):
+                    owed = self.GRADUATE_GATE_NEEDS_PROOF - 1
             count = 0
             for s in range(6):
                 if count >= per_domain:
@@ -301,9 +1327,11 @@ class Curriculum:
                 for node in self._by_domain_stage.get(d["id"], {}).get(s, []):
                     if count >= per_domain:
                         break
-                    if mastery.get(node["id"], 0) >= 0.8:
+                    if (mastery.get(node["id"], 0) >= 0.8
+                            and not (node["stage"] == owed
+                                     and node["id"] not in proven)):
                         continue
-                    if self.unlocked(node, mastery):
+                    if self.unlocked(node, mastery, proven):
                         n = dict(node)
                         n["mastery"] = round(mastery.get(node["id"], 0), 2)
                         picks.append(n)

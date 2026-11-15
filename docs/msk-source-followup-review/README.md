@@ -1,0 +1,11 @@
+# Bounded source follow-up preservation
+
+Consolidated 27 September 2026 from two completed source passes and the already downloaded Leeds documentation. These are review records, not runtime assets, evidence bindings or clinical approvals. No new searches, contacts or denied-route retries were made.
+
+- [Wrist decisions](../msk-wrist-fine-source-review.md): no additional accepted asset. The [source-quality review](wrist/source-quality-review.json) qualifies the unchanged prior acquisition log, especially the saved NCBI challenge page and primary files not available for independent rechecking.
+- [Open Knee(s) ancestry review](../msk-openknee-tibial-history-review.md): the selected `oks003` tibial `_02` surfaces remain explicitly chosen by the assembly, while their exact input-mask ancestry remains unresolved. [Provenance record](openknee/provenance-review.json), [stopped 403 request](openknee/history-protocol-attempt.json), small original ODT author documents and existing text extractions are preserved here.
+- [Leeds baseline suitability](leeds/suitability.md): separates image-derived bone/cartilage/meniscal geometry from contact-driven edits, root springs and experimental constraints. It does not approve the selected mesh or MRI or credit missing structures.
+
+The [preservation manifest](preservation-manifest.json) gives the original staging path, byte count and SHA-256 for each unchanged copied file. The wrist acquisition hashes and OpenKnee author-document hashes were checked against the staged originals before copying. Original ODT XML was also read to confirm the `oks003` review question and simulation notes. Derived evidence extracts identify their source file, hash and extraction method; they are not represented as full originals.
+
+The unchanged `provenance-review.json` fingerprints the runtime/assembly state inspected by the earlier pass, not an assertion about any later runtime state. The unchanged wrist acquisition log records the previous pass's conclusions; the newer source-quality review must be read with it. No enormous imaging/mesh archives, full PDF review renders, source-image binaries or Python dependencies were copied. No catalog, ledger, requirement or runtime file was edited by this consolidation.

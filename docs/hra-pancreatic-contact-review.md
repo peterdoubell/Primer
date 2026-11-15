@@ -1,0 +1,26 @@
+# Complete original pancreatic mesh contact review
+
+Both HRA pancreatic v1.3 models have now undergone a complete numerical triangle-contact check, retaining each original region and source face identity. The [source acquisition and boundary review](hra-pancreatic-source-review.md) remains authoritative for versioned model rights, source Float32 geometry, five-region labels, region-cut comparisons and nonmanifold elements. This contact check adds evidence; it does not repair or approve those models.
+
+| Model | Original triangles | Testable triangles | Held invalid faces | Conservative AABB candidate pairs | Explicit intersection tests | Shared-edge pairs resolved geometrically | Contacts beyond ordinary adjacency |
+|---|---:|---:|---:|---:|---:|---:|---:|
+| Female v1.3 | 12,894 | 12,886 | 8 | 81,987 | 62,660 | 19,327 | 17 |
+| Male v1.3 | 38,930 | 38,930 | 0 | 241,271 | 182,909 | 58,362 | 41 |
+
+All five source regions are included independently for each model. Original GLB and every position/index accessor must match the preceding inventory before inspection. Exact-coordinate indexing permits ordinary shared-vertex/shared-edge adjacency without changing source vertices or exported faces. The analysis uses the declared metre-to-millimetre unit conversion, conservative axis-aligned box candidates, explicit coplanar polygon/noncoplanar segment contact tests and a **1e-9 mm numerical tolerance**. Noncoplanar pairs sharing an exact edge are resolved geometrically; all other candidate pairs receive the explicit contact test. This is a numerical source-geometry check, not a measurement of acquisition resolution or clinical accuracy.
+
+The female model has **17 within-head contacts** beyond shared adjacency. Its eight zero-area head triangles remain separately identified as original source face indices 3407, 3443, 3481, 3485, 3517, 3530, 3531 and 3533. They cannot enter the nondegenerate triangle test, and are not deleted from the model or described as passing. Exact opposing boundary pairs between female regions do not resolve these within-head findings or the preceding nonmanifold edge findings.
+
+The male model has **33 between-region body/neck contacts** and **eight within-head contacts**. Its preceding 106-edge body and 56-edge neck unmatched boundary cycles remain unchanged. Geometric contacts do not turn those unmatched boundaries into corresponding region cuts, nor prove an intentional biological interface, natural variation, full-organ topology or lesion invasion.
+
+[Complete numerical evidence summary](hra-pancreatic-source-review/complete-contact-summary.json) binds the gzip containers and exact decompressed JSON with separate SHA-256 fingerprints and byte counts. Gzip decompression was verified losslessly; no contact records are dropped or summarized away. Every contact retains numerical points, analysis face indices, shared vertex count, original source part/face identities and within/between-part category.
+
+- [Female complete contact evidence](hra-pancreatic-source-review/pancreas-female-v1.3-complete-contacts.json.gz) and [every affected/invalid source face location](hra-pancreatic-source-review/pancreas-female-v1.3-held-contact-locations.png)
+- [Male complete contact evidence](hra-pancreatic-source-review/pancreas-male-v1.3-complete-contacts.json.gz) and [every affected source face location](hra-pancreatic-source-review/pancreas-male-v1.3-held-contact-locations.png)
+- [Location-view provenance](hra-pancreatic-source-review/held-contact-location-review.json)
+
+The location figures display all source triangles as faint context, every affected original face in magenta, all numerical contact points in blue and original invalid faces in black. Native glTF X–Y/X–Z/Y–Z model projections use millimetres; no clinical patient-plane orientation, registration or fitting is inferred. Detail panels crop to the union of held original faces. Every highlighted source face ID is recorded. Projected overlap can obscure individual contacts visually, so the complete 3D numerical evidence remains available. Both figures were directly inspected on 4 October 2026 for readable axes, separate model labels, retained invalid faces and source context.
+
+Nineteen scientific contact/source regressions passed, including shared-adjacency versus cross-part overlap, invalid-face preservation, large-index widening, numerical intersection tests and actual complete-evidence/figure fingerprint checks. Seven local source/evidence checks also passed. Candidate accounting, original versus testable/invalid face counts, every affected original-face reference and full highlighted face coverage are tested. These tests establish software/source evidence contracts, not independent anatomical approval.
+
+No source mesh is welded, fused, pruned, bridged, capped, fitted, smoothed or promoted into runtime. Neither source gains clinical fidelity credit. Anatomical accuracy against original reference acquisition, clinical suitability of source-defined region divisions, independent reviewer interpretation, complete fine reporting anatomy and additional patient/pathology exemplars remain outstanding. These findings inform further source selection and modelling within the unchanged full all-radiology goal.

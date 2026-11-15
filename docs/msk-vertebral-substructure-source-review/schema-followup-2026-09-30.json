@@ -1,0 +1,138 @@
+{
+  "reviewed_at_utc": "2026-09-30T06:33:10.376700+00:00",
+  "purpose": "Seek an authoritative original LumASe numeric label dictionary without assigning anatomical names from shape, figure colors or list order.",
+  "original_dataset": {
+    "doi": "10.5281/zenodo.7181338",
+    "version": "0.1",
+    "numeric_values": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7
+    ],
+    "numeric_to_anatomical_mapping": null,
+    "mapping_status": "unproved"
+  },
+  "new_primary_publication": {
+    "doi": "10.13976/j.cnki.xk.2024.0643",
+    "title": "A Fusion Swin Transformer Network for Automated Segmentation of Lumbar Spine Anatomical Regions",
+    "journal": "Information and Control",
+    "year": 2025,
+    "volume": 54,
+    "issue": 3,
+    "pages": "390–400",
+    "publisher_landing_url": "https://xk.sia.cn/en/article/doi/10.13976/j.cnki.xk.2024.0643",
+    "publisher_pdf_url": "https://xk.sia.cn/en/article/pdf/preview/10.13976/j.cnki.xk.2024.0643.pdf",
+    "pdf_http_status": 200,
+    "pdf_content_type": "application/pdf",
+    "pdf": {
+      "path": ".research/lumase-schema-followup/publisher-2025.pdf",
+      "bytes": 1606070,
+      "sha256": "bbb4d890775551255f9b759bf80b0f1368f0d9a5e65c8b87b2f0375c4f8b002b"
+    },
+    "landing_html": {
+      "path": ".research/lumase-schema-followup/publisher-en.html",
+      "bytes": 311449,
+      "sha256": "816337b3d1da893e0cbf6633f1a020ca9894a2571a670eacc0604fb64c6cdbc7"
+    },
+    "cn_html": {
+      "path": ".research/lumase-schema-followup/publisher-cn-fulltext.html",
+      "bytes": 366937,
+      "sha256": "67a255d5463ef5f0458ee4dd0051c3c124f081c8a7edac0c5b547273630a029e"
+    },
+    "decoded_public_metadata": {
+      "path": ".research/lumase-schema-followup/article-meta-decoded.json",
+      "bytes": 92372,
+      "sha256": "615c6f9c3f8eff02c77d6f1d04f9f22742632f6736b7386761b0443b6ae10364"
+    },
+    "metadata_declares": {
+      "htmlAccess": true,
+      "pdfAccess": true,
+      "supplements": [],
+      "appendixList": []
+    },
+    "source_inspection": [
+      "Full PDF text extraction, with Unicode normalization for search only",
+      "Visual inspection of p.395 (§2.1 and Figure 5)",
+      "Visual inspection of p.397 (Figure 6)"
+    ],
+    "source_findings": [
+      {
+        "location": "§2.1, p.395",
+        "finding": "Explicit link to original Zenodo record 7181338 connects this author publication to the original dataset."
+      },
+      {
+        "location": "§2.1, p.395",
+        "finding": "Reports 663 L1–L5 crops, manual voxel annotation by three physicians and further senior review; training/validation/test counts are 545/58/60."
+      },
+      {
+        "location": "Figure 5, p.395",
+        "finding": "Named anatomy-to-color legend is present, but it contains no NIfTI label values."
+      },
+      {
+        "location": "§2.1 and Figure 5, p.395",
+        "finding": "Prose enumeration and figure-legend order differ, so neither list order establishes the original numeric schema."
+      },
+      {
+        "location": "Figure 6, p.397",
+        "finding": "Qualitative comparisons use colors and named methods without numeric annotation values."
+      }
+    ],
+    "prose_enumeration_not_a_numeric_mapping": [
+      "SAP",
+      "VB",
+      "TP",
+      "L",
+      "P",
+      "SP",
+      "IAP"
+    ],
+    "figure5_legend_order_not_a_numeric_mapping": [
+      "IAP",
+      "L",
+      "P",
+      "SAP",
+      "SP",
+      "TP",
+      "VB"
+    ],
+    "rights": "Public source was read only. No article figure is being redistributed or adapted into runtime; no article reuse licence was established."
+  },
+  "existing_evidence_rechecked": [
+    {
+      "path": "docs/msk-vertebral-substructure-source-review/lumase-record.json",
+      "bytes": 5903,
+      "sha256": "050e5ad4ebbb414acda6c703546450427cdea2fe255c4308126c5430c331888b"
+    },
+    {
+      "path": "docs/msk-vertebral-substructure-source-review/lumase-archive-inventory.json",
+      "bytes": 603356,
+      "sha256": "2b69efe4a2c74ddcebc2fb70c063273f4a705914ba3f317bb0b11783768dafd1"
+    },
+    {
+      "path": "docs/msk-vertebral-substructure-source-review/lumase-case-audit.json",
+      "bytes": 7410,
+      "sha256": "a81491ae0ea8e6640f7297083e5d84af68cd82bb341031329b382f4a0a7b03d6"
+    },
+    {
+      "path": "docs/msk-vertebral-substructure-source-review/lumase-original-paper-metadata.json",
+      "bytes": 7155,
+      "sha256": "52ed6aa09a1143010769d9e7a01fdd6abe2fcec167dc58e4d31fa4047edf003f"
+    }
+  ],
+  "decision": {
+    "rename_numeric_regions": false,
+    "runtime_promotion": false,
+    "clinical_approval": false,
+    "complete_structure_binding": false,
+    "remaining_required_evidence": "Original numeric dictionary or annotation configuration explicitly binding mask values 1–7 to anatomy, followed by case-native anatomical and crop-endpoint review."
+  },
+  "access_constraints": {
+    "ieee_automated_access_challenge_not_retried_or_bypassed": true,
+    "messages_sent": false,
+    "shape_based_naming_used": false
+  }
+}

@@ -171,8 +171,8 @@ def test_an_appointment_that_has_come_due_leads_the_ones_that_have_not(tmp_path)
         second = before[1]["id"]
 
         # That one's proving window opened a month ago.
-        _sql(srv, "UPDATE mastery SET first_pass_at=? WHERE node_id=?",
-             time.time() - 30 * DAY, second)
+        _sql(srv, "UPDATE mastery SET first_pass_at=?, last_pass_at=? WHERE node_id=?",
+             time.time() - 30 * DAY, time.time() - 30 * DAY, second)
 
         after = client.get("/api/today").json()["lessons"]
         assert after[0]["id"] == second, "an appointment already open comes first"
@@ -233,7 +233,7 @@ def test_an_appointment_past_tomorrow_is_not_tomorrows_news(tmp_path):
 # ---------------- rank 2: the page turns where it was earned ----------------
 
 
-def test_mastery_hands_over_the_page_without_turning_it(tmp_path):
+def test_mastery_hands_over_the_page_without_turning_it(tmp_path, monkeypatch):
     """The chapter arrives with the confetti — and `/api/story/advance` is
     still the only thing that moves the reader forward.
 
@@ -246,12 +246,20 @@ def test_mastery_hands_over_the_page_without_turning_it(tmp_path):
         target = srv.STORY["chapters"][0]["leads_to"]
         assert target == "math.0.counting", "setup: the first chapter's lesson"
 
+        # A stage 0-1 lesson takes three spaced passes now (see
+        # server._evidence_bar): the first two hand nothing over.
         first = _pass_paper(client, srv, target)
+        _pass_paper(client, srv, target)
         assert first["mastery"]["newly_mastered"] is False, \
             "one pass is not proof — the gap has to be kept"
         assert first["story_unlocked"] is None
 
-        _age_the_proving_gap(srv, target)
+        now = [time.time()]
+        monkeypatch.setattr(srv.time, "time", lambda: now[0])
+        now[0] += 8 * DAY
+        middle = _pass_paper(client, srv, target)
+        assert not middle["mastery"]["newly_mastered"]
+        now[0] += 8 * DAY
         second = _pass_paper(client, srv, target)
         assert second["mastery"]["newly_mastered"] is True
 
@@ -281,9 +289,13 @@ def test_mastering_some_other_lesson_does_not_turn_the_page(tmp_path):
         _pass_paper(client, srv, target)
         _age_the_proving_gap(srv, target)
         _pass_paper(client, srv, target)
+        _age_the_proving_gap(srv, target)
+        _pass_paper(client, srv, target)   # third: a stage 0-1 lesson takes three
 
         other = next(n for n in _frontier(srv, ["math"]) if n != target)
         _pass_paper(client, srv, other)
+        _age_the_proving_gap(srv, other)
+        _pass_paper(client, srv, other)   # three spaced passes for a stage 0-1 lesson
         _age_the_proving_gap(srv, other)
         result = _pass_paper(client, srv, other)
 
@@ -357,6 +369,7 @@ def test_an_empty_deck_is_still_excused_and_still_yields_the_crown(tmp_path):
         _sql(srv, "INSERT INTO events(kind,payload,at,xp) VALUES('read',?,?,0)",
              json.dumps({"title": "Fractions"}), time.time())
 
+        srv.learner.log_event("practice", {"node_id": "math.0.counting"})
         today = client.get("/api/today").json()
         assert today["quest_done"] == today["quest_total"], \
             "an honest day with nothing due still completes"

@@ -1,0 +1,103 @@
+{
+  "schema_version": 1,
+  "base_commit": "6881f3238f26c4c3fba36d4970faa8e01045ad36",
+  "scope": "Exact measurement-script inclusion, phys.4.experiment renderer mount and three fields of one uncertainty quiz. No figure/radiology data or new measurement-script implementation is included.",
+  "clinical_approval": false,
+  "fine_anatomical_approval": false,
+  "extends_historical_approval": false,
+  "files": {
+    "web/index.html": {
+      "before_sha256": "1f2e0a773d8e9f5dea1f1001f2c41bf82087e33fdff74c1cede0b137320d9f46",
+      "after_sha256": "2fc8639ea36086ceaa7ae68bc089f5473cddf657b16f02904e9bb351cea7af14",
+      "before_bytes": 5860,
+      "after_bytes": 5910,
+      "changes": [
+        {
+          "start": 106,
+          "end": 107,
+          "before": "",
+          "after": "  <script src=\"/app/measurement-lab.js\"></script>\n"
+        }
+      ],
+      "inverse_recovers_base_bytes": true
+    },
+    "web/lesson-models.js": {
+      "before_sha256": "d1fcf0dd9efd54cec4bc085e085bd19c361f761e2111ce40dca74ebabaff594a",
+      "after_sha256": "61979ba971e959a685e6654e9f4075865a353c0b756c371d515ab76507b5cb52",
+      "before_bytes": 337761,
+      "after_bytes": 337931,
+      "changes": [
+        {
+          "start": 5952,
+          "end": 5955,
+          "before": "",
+          "after": "    if (scenarioId === 'phys.4.experiment' && window.PrimerMeasurementLab) {\n      return window.PrimerMeasurementLab.render(item, hooks, modelFrame(item, hooks));\n    }\n"
+        }
+      ],
+      "inverse_recovers_base_bytes": true
+    },
+    "data/curriculum/03-physics.json": {
+      "before_sha256": "5fec2b6e611cd32b64a0532daa507ec1bee2d157e8a8e1b9e879702fd60060ea",
+      "after_sha256": "1b84924ecc6ace5ffdadacef0db97ebf4ec18a8fb8dc8b2f1bf7c88447a33edf",
+      "before_bytes": 324120,
+      "after_bytes": 324472,
+      "changes": [
+        {
+          "start": 4749,
+          "end": 4752,
+          "before": "          \"prompt\": \"A length carries a 1.0 percent uncertainty and a time carries 2.0 percent. For speed = length / time, what is the percentage uncertainty in the speed?\",\n          \"answer\": \"3\",\n          \"explain\": \"For a quotient, fractional uncertainties add: 1.0 + 2.0 = 3.0 percent.\"\n",
+          "after": "          \"prompt\": \"Independent measurements of length L and time t have relative standard uncertainties u(L)/L = 1.0% and u(t)/t = 2.0%. For speed v = L/t, use first-order uncertainty propagation to find the relative standard uncertainty u(v)/v as a percentage. Give the percentage to one decimal place.\",\n          \"answer\": \"2.2\",\n          \"explain\": \"For independent inputs, first-order propagation for v = L/t gives [u(v)/v]^2 = [u(L)/L]^2 + [u(t)/t]^2. Therefore u(v)/v is sqrt(1.0^2 + 2.0^2)% = sqrt(5)% ≈ 2.2%. Adding the percentages gives a first-order worst-case bound estimate, not the independent combined standard uncertainty.\"\n"
+        }
+      ],
+      "inverse_recovers_base_bytes": true
+    }
+  },
+  "module_id": "phys.4.experiment",
+  "script_include_literal": "  <script src=\"/app/measurement-lab.js\"></script>\n",
+  "renderer_mount_literal": "    if (scenarioId === 'phys.4.experiment' && window.PrimerMeasurementLab) {\n      return window.PrimerMeasurementLab.render(item, hooks, modelFrame(item, hooks));\n    }\n",
+  "curriculum_changes": [
+    {
+      "path": [
+        "nodes",
+        33,
+        "quiz",
+        7,
+        "prompt"
+      ],
+      "before": "A length carries a 1.0 percent uncertainty and a time carries 2.0 percent. For speed = length / time, what is the percentage uncertainty in the speed?",
+      "after": "Independent measurements of length L and time t have relative standard uncertainties u(L)/L = 1.0% and u(t)/t = 2.0%. For speed v = L/t, use first-order uncertainty propagation to find the relative standard uncertainty u(v)/v as a percentage. Give the percentage to one decimal place."
+    },
+    {
+      "path": [
+        "nodes",
+        33,
+        "quiz",
+        7,
+        "answer"
+      ],
+      "before": "3",
+      "after": "2.2"
+    },
+    {
+      "path": [
+        "nodes",
+        33,
+        "quiz",
+        7,
+        "explain"
+      ],
+      "before": "For a quotient, fractional uncertainties add: 1.0 + 2.0 = 3.0 percent.",
+      "after": "For independent inputs, first-order propagation for v = L/t gives [u(v)/v]^2 = [u(L)/L]^2 + [u(t)/t]^2. Therefore u(v)/v is sqrt(1.0^2 + 2.0^2)% = sqrt(5)% ≈ 2.2%. Adding the percentages gives a first-order worst-case bound estimate, not the independent combined standard uncertainty."
+    }
+  ],
+  "curriculum_correction": {
+    "path": "docs/measurement-fidelity-review-20261016/curriculum-correction.json",
+    "sha256": "608b9e53e77d6b44ccc803a5808590d70b882f646b5d332fa1a42b2c5e4f1e66"
+  },
+  "all_other_curriculum_values_and_bytes_unchanged": true,
+  "new_measurement_script_science_and_reader_validated_by_this_inverse": false,
+  "figure_inverse_unchanged": {
+    "path": "docs/epilepsy-pathology-figure-review-20261016/runtime-inverse.json",
+    "sha256": "796b0ddf3c1dedf0a5f053b09478f2046a3c6748168d58c22282f9fef1928340"
+  }
+}

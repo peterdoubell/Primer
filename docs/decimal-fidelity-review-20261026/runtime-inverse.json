@@ -1,0 +1,105 @@
+{
+  "base_commit": "aafeeb0dd029257cf1b4da28775686c420bb5836",
+  "scope": "exact_decimal_workbench_and_base_ten_integration",
+  "clinical_approval": false,
+  "extends_historical_approval": false,
+  "whole_goal_complete": false,
+  "files": {
+    "data/curriculum/01-mathematics.json": {
+      "before_sha256": "14227193944a7ea276946b9910c3302e60b5644595ef11b67ebf0a75cfdbc7cf",
+      "after_sha256": "abf3898e8666fbc8ba9422e4815208ab25628fc414cded232b98f9938bfd4c9d",
+      "changes": [
+        {
+          "start": 1950,
+          "end": 1952,
+          "before": "          \"title\": \"Add hundredths, regroup a whole\",\n          \"instructions\": \"Change two amounts in hundredths. Follow their coloured cells into the sum; a full grid is one whole.\",\n",
+          "after": "          \"title\": \"Decimals: place, operation and value\",\n          \"instructions\": \"Compare place values, align addition and subtraction, multiply and divide exactly, round on a number line, and work out totals and change. Keep the same unit and track the operation being performed.\",\n"
+        },
+        {
+          "start": 1956,
+          "end": 1973,
+          "before": "      ]\n",
+          "after": "      ],\n      \"learning_outcomes\": [\n        \"Compare decimals by aligned place values and explain why trailing zeros preserve an exact value.\",\n        \"Add decimals with aligned places and explicit carry steps.\",\n        \"Subtract decimals with explicit borrowing, including negative results and signed operands.\",\n        \"Multiply integer coefficients, restore decimal places and interpret a magnitude rectangle with its sign stated separately.\",\n        \"Divide by measuring divisor-sized groups, including partial groups, and explain why division by zero is undefined.\",\n        \"Round to a selected decimal place with an explicit halfway rule, including negative ties.\",\n        \"Compute exact-cent item totals and change, and identify a shortfall when the tender is insufficient.\",\n        \"Compose decimal quantities as fixed-unit 3D volumes and explain the ten-to-one regrouping of adjacent places.\"\n      ],\n      \"lesson\": {\n        \"overview\": \"A decimal digit names a number of units at a particular place. Ten hundredths make one tenth, and ten tenths make one whole. Align equal places before adding or subtracting; multiplication, division and rounding use different operations. A longer written decimal need not be larger, and trailing zeros leave the exact value unchanged.\",\n        \"worked_example\": \"Adding 0.75 and 1.60 gives 2.35: the tenths column regroups thirteen tenths as one whole and three tenths. In 3.00 minus 0.85, borrow across the zero tenths to obtain 2.15. For 0.4 times 0.3, multiply the integer coefficients 4 and 3 and restore two decimal places, giving 0.12. Multiplying both operands in 1.8 divided by 0.6 by ten gives the equivalent quotient 18 divided by 6, or three groups. The number 3.478 lies above the halfway point 3.475 between 3.47 and 3.48, so it rounds to 3.48 at two decimal places.\",\n        \"activity\": \"Try all worked examples and edit their inputs. Follow the carry and borrow ledger from the smallest displayed place; compare the shared-scale bars and the multiplication rectangle. Inspect complete and partial division groups, moving the displayed group window when needed. Compare 0.089 with 0.7, then 1.2 with 1.20. Work out four pens at 1.45 each and the change from 10 after paying 3.40 plus 2.75. In the separate rotatable companion, make 0.089 from eight hundredths and nine thousandths, then compare one tenth with ten hundredths. Enlarge diagrams for closer inspection; wide ledgers and diagrams also scroll with a pointer or focused arrow keys.\",\n        \"reflection\": \"The fixed whole determines the sizes of all decimal places. Counting unequal blocks does not compare their represented amounts: use their volumes. Physical lengths and areas show nonnegative magnitudes; signed arithmetic states its algebraic sign separately. The division ledger keeps a nonterminating answer as an exact fraction and labels any cropped group window. Rounding uses nearest marks with ties away from zero; mathematical zero is shown without a sign. The money activity uses nonnegative whole-cent prices and tender with whole-number quantities. The three-place 3D companion has independent controls and illustrates place-value volumes; it does not copy the arithmetic workbench state or make claims about measurement uncertainty.\"\n      }\n"
+        }
+      ]
+    },
+    "data/module-models.json": {
+      "before_sha256": "5371fa8c024de8ba80825b02f4ac8b4a1ee5ba67c1a339ef0b383546efa2c91c",
+      "after_sha256": "9e3650135c856c75d71e5de61075f561b59415fd1c4194e9015e4b7d0ec2fb2d",
+      "changes": [
+        {
+          "start": 117,
+          "end": 121,
+          "before": "      \"family\": \"fraction-disk\",\n      \"title\": \"Partitioned disk \u00b7 3D study\",\n      \"instructions\": \"Drag or use the camera buttons to inspect the object from different sides. Change the labeled controls, then compare the geometry with the explanation below.\",\n      \"context\": \"Decimals: Compare equal parts with the fixed whole; relate the selected fraction to its decimal and percentage.\",\n",
+          "after": "      \"family\": \"decimal-base-ten\",\n      \"title\": \"Base-ten volumes \u00b7 3D study\",\n      \"instructions\": \"Rotate the fixed whole and its decimal blocks. Compose whole units, tenths, hundredths and thousandths; compare the represented volumes and try regrouping ten pieces into the next place.\",\n      \"context\": \"Decimals: Keep the same unit cube while composing quantities from whole, tenth, hundredth and thousandth blocks. The volumes, rather than counts of unequal pieces, determine the represented amount.\",\n"
+        }
+      ]
+    },
+    "primer/server.py": {
+      "before_sha256": "9bbfdc9be63dbc4ed6fcae35c3d7278ff1350db2f68a2709cf049c64e8d8b4ab",
+      "after_sha256": "2d1054762d4964bb73868eddb1a0e00542479b44531755d94dea5e0b1f4d1fed",
+      "changes": [
+        {
+          "start": 3550,
+          "end": 3552,
+          "before": "                     \"math-probability-lab.js\", \"math-probability-lab.css\", \"speech-chunks.js\", \"physics-buoyancy-lab.js\", \"physics-buoyancy-lab.css\", \"physics-thermal-lab.js\", \"physics-thermal-lab.css\", \"physics-phase-lab.js\", \"physics-phase-lab.css\", \"math-measure-lab.js\", \"math-measure-lab.css\", \"physics-cycle-lab.js\", \"physics-cycle-lab.css\", \"math-operator-lab.js\", \"math-operator-lab.css\", \"physics-ensemble-lab.js\", \"physics-ensemble-lab.css\", \"math-curvature-lab.js\", \"math-curvature-lab.css\", \"physics-constraints-lab.js\", \"physics-constraints-lab.css\", \"spatial-fidelity.js\", \"spatial-quantum-information.js\", \"spatial-algebra.js\", \"spatial-logic.js\", \"spatial-number-theory.js\", \"math-systems-lab.js\", \"math-systems-lab.css\", \"math-number-theory-lab.js\", \"math-number-theory-lab.css\", \"number-theory-diagrams.js\", \"number-theory-diagrams.css\", \"spatial-number-theory-relations.js\", \"spatial-maxwell.js\", \"spatial-cosmology.js\", \"math-logic-lab.js\", \"math-logic-lab.css\", \"physics-maxwell-lab.js\", \"physics-maxwell-lab.css\", \"physics-cosmology-lab.js\", \"physics-cosmology-lab.css\", \"lesson-state.js\", \"math-topology-lab.js\", \"math-topology-lab.css\", \"math-algebra-lab.js\", \"math-algebra-lab.css\", \"physics-qft-lab.js\", \"physics-qft-lab.css\", \"spatial-qft.js\", \"physics-quantum-info-lab.js\", \"physics-quantum-info-lab.css\", \"physics-relativity-lab.js\", \"physics-relativity-lab.css\", \"math-complex-lab.js\", \"math-complex-lab.css\", \"physics-quantum-lab.js\", \"physics-quantum-lab.css\", \"math-convergence-lab.js\", \"math-convergence-lab.css\", \"math-numerical-lab.js\", \"math-numerical-lab.css\"):\n",
+          "after": "                     \"math-probability-lab.js\", \"math-probability-lab.css\", \"speech-chunks.js\", \"physics-buoyancy-lab.js\", \"physics-buoyancy-lab.css\", \"physics-thermal-lab.js\", \"physics-thermal-lab.css\", \"physics-phase-lab.js\", \"physics-phase-lab.css\", \"math-measure-lab.js\", \"math-measure-lab.css\", \"physics-cycle-lab.js\", \"physics-cycle-lab.css\", \"math-operator-lab.js\", \"math-operator-lab.css\", \"physics-ensemble-lab.js\", \"physics-ensemble-lab.css\", \"math-curvature-lab.js\", \"math-curvature-lab.css\", \"physics-constraints-lab.js\", \"physics-constraints-lab.css\", \"spatial-fidelity.js\", \"spatial-quantum-information.js\", \"spatial-algebra.js\", \"spatial-logic.js\", \"spatial-number-theory.js\", \"math-systems-lab.js\", \"math-systems-lab.css\", \"math-number-theory-lab.js\", \"math-number-theory-lab.css\", \"number-theory-diagrams.js\", \"number-theory-diagrams.css\", \"spatial-number-theory-relations.js\", \"spatial-maxwell.js\", \"spatial-cosmology.js\", \"math-logic-lab.js\", \"math-logic-lab.css\", \"physics-maxwell-lab.js\", \"physics-maxwell-lab.css\", \"physics-cosmology-lab.js\", \"physics-cosmology-lab.css\", \"lesson-state.js\", \"math-topology-lab.js\", \"math-topology-lab.css\", \"math-algebra-lab.js\", \"math-algebra-lab.css\", \"physics-qft-lab.js\", \"physics-qft-lab.css\", \"spatial-qft.js\", \"physics-quantum-info-lab.js\", \"physics-quantum-info-lab.css\", \"physics-relativity-lab.js\", \"physics-relativity-lab.css\", \"math-complex-lab.js\", \"math-complex-lab.css\", \"physics-quantum-lab.js\", \"physics-quantum-lab.css\", \"math-convergence-lab.js\", \"math-convergence-lab.css\", \"math-numerical-lab.js\", \"math-numerical-lab.css\",\n                     \"decimal-core.js\", \"decimal-lab.js\", \"decimal-lab.css\", \"decimal-spatial.js\"):\n"
+        }
+      ]
+    },
+    "web/index.html": {
+      "before_sha256": "cc850f3d1584e5e6b8f4c15e90ac05252fe38de8d68783170492a5534cfb581e",
+      "after_sha256": "ae8ad8cfc9a67501090a7666c99ed8345819ce29831c29da1304e4aa8802d8c7",
+      "changes": [
+        {
+          "start": 32,
+          "end": 33,
+          "before": "",
+          "after": "  <link rel=\"stylesheet\" href=\"/app/decimal-lab.css\">\n"
+        },
+        {
+          "start": 78,
+          "end": 79,
+          "before": "",
+          "after": "  <script src=\"/app/decimal-spatial.js\"></script>\n"
+        },
+        {
+          "start": 120,
+          "end": 122,
+          "before": "",
+          "after": "  <script src=\"/app/decimal-core.js\"></script>\n  <script src=\"/app/decimal-lab.js\"></script>\n"
+        }
+      ]
+    },
+    "web/lesson-models.js": {
+      "before_sha256": "94de63749dbe0329a4b372a9a8ce8be14ab3c8a63c674940e7200e2f807a55c3",
+      "after_sha256": "8750891583b45206ef3a1528f0e69c02bca6569bb62c0bd8398598ceb5acb502",
+      "changes": [
+        {
+          "start": 6170,
+          "end": 6173,
+          "before": "",
+          "after": "      if (item.props?.scenario === 'math.2.decimals') {\n        return window.PrimerDecimalLab?.render(item, hooks) || null;\n      }\n"
+        }
+      ]
+    },
+    "web/spatial-module-objects.js": {
+      "before_sha256": "a2f22cd77fd67b5169824742f962aff5736f916ee072e0343891ba1eb820a020",
+      "after_sha256": "6f59cfc6e32f86d330702689b507c18d0081a8e613b6fe94d665d57a90551bd4",
+      "changes": [
+        {
+          "start": 73,
+          "end": 75,
+          "before": "",
+          "after": "\n  if (window.PrimerDecimalSpatialFamily) families['decimal-base-ten'] = window.PrimerDecimalSpatialFamily;\n"
+        },
+        {
+          "start": 971,
+          "end": 973,
+          "before": "",
+          "after": "    if ((p.scenario === 'module.math.2.decimals' || p.family === 'decimal-base-ten')\n        && (p.scenario !== 'module.math.2.decimals' || p.family !== 'decimal-base-ten' || p.mode !== 'model' || p.lesson !== 'Decimals')) return false;\n"
+        }
+      ]
+    }
+  }
+}

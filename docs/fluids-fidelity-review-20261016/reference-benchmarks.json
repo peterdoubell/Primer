@@ -1,0 +1,85 @@
+{
+  "current_Venturi_scalar_checks": [
+    {
+      "state": "full-area",
+      "Q_m3_s": 0.0004,
+      "drop_kPa": 0.0,
+      "throat_radius_ratio": 1.0,
+      "inlet_head_m": 1.6819571865443426,
+      "throat_head_m": 1.6819571865443426
+    },
+    {
+      "state": "half-area",
+      "Q_m3_s": 0.0004,
+      "drop_kPa": 1.5,
+      "throat_radius_ratio": 0.7071067811865476,
+      "inlet_head_m": 1.6819571865443426,
+      "throat_head_m": 1.529051987767584
+    },
+    {
+      "state": "quarter-area",
+      "Q_m3_s": 0.0004,
+      "drop_kPa": 7.5,
+      "throat_radius_ratio": 0.5,
+      "inlet_head_m": 1.6819571865443426,
+      "throat_head_m": 0.9174311926605505
+    }
+  ],
+  "piston": {
+    "A_in_m2": 0.001,
+    "A_out_m2": 0.02,
+    "F_in_N": 50,
+    "pressure_Pa": 50000,
+    "F_out_N": 1000,
+    "input_stroke_m": 0.2,
+    "output_stroke_m": 0.01,
+    "input_work_J": 10,
+    "output_work_J": 10,
+    "work_scope": "Fluid gravitational energy changes omitted in this ideal work benchmark; evolving retained heights need that extra ledger."
+  },
+  "hull_density_counterexample": {
+    "M_kg": 600,
+    "V_total_m3": 1,
+    "rho_water_kg_m3": 1000,
+    "V_sub_m3": 0.6,
+    "average_object_density_kg_m3": 600,
+    "M_over_current_displacement_kg_m3": 1000
+  },
+  "suction": {
+    "assumptions": "Static wide tube, rho1000,g9.81,patm101325; capillarity/losses omitted; p_top2350 is a declared illustrative pressure, not a temperature property fit.",
+    "ideal_zero_top_pressure_height_m": 10.32874617737003,
+    "illustrative_top_pressure_2350Pa_height_m": 10.089194699286443
+  },
+  "pipe": {
+    "R_m": 0.005,
+    "L_m": 1,
+    "mu_Pa_s": 0.001,
+    "delta_p_Pa": 1,
+    "Q_m3_s": 2.4543692606170256e-07,
+    "mean_speed_m_s": 0.0031249999999999997,
+    "center_speed_m_s": 0.0062499999999999995,
+    "Re_D": 31.249999999999996,
+    "wall_shear_magnitude_Pa": 0.0025,
+    "pressure_power_W": 2.4543692606170256e-07
+  },
+  "plume_counterexample_scaling": {
+    "height_factor": 8,
+    "mean_speed_factor": 0.5,
+    "width_factor": 8,
+    "Re_factor": 4,
+    "predicts_transition": false
+  },
+  "scope": "Research calculations of stated models; no product renderer/browser verified by this arithmetic.",
+  "quasi_steady_settling": {
+    "scope": "Declared memoryless particle-inertia approximation only; not validation of a real honey/water transient or full unsteady Stokes solution.",
+    "radius_m": 1e-05,
+    "particle_density_kg_m3": 7800,
+    "fluid_density_kg_m3": 1000,
+    "dynamic_viscosity_Pa_s": 0.001,
+    "g_m_s2": 9.81,
+    "terminal_speed_m_s": 0.0014824000000000003,
+    "terminal_Re_D": 0.029648000000000004,
+    "relaxation_time_s": 0.00017333333333333334,
+    "time_to_95_percent_s": 0.0005192602607493584
+  }
+}

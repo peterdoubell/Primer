@@ -1,0 +1,47 @@
+"""Independent geometry review via factored evaluation and quadratic extrema.
+This does not review or reuse the algebra core's solution algorithms.
+"""
+from pathlib import Path
+from fractions import Fraction as F
+import json, subprocess, hashlib
+R=Path.cwd();O=R/'.research/algebra-functions/independent-review';source=R/'web/algebra-functions-spatial.js';before=hashlib.sha256(source.read_bytes()).hexdigest()
+def rat(x):
+ x=F(x);return {'n':x.numerator,'d':x.denominator}
+def model(coeff,case):return {'lessonId':'math.3.polynomials','state':{},'summary':case,'graph':{'curves':[{'id':case,'label':case,'coefficients':[rat(v)for v in coeff]}],'points':[],'lines':[],'segments':[]}}
+cases=[
+ {'id':'parabola','coeff':[0,0,1],'bounds':{'xmin':-3,'xmax':3,'ymin':-1,'ymax':4}},
+ {'id':'concave','coeff':[2,-3,-2],'bounds':{'xmin':-3,'xmax':3,'ymin':-5,'ymax':4}},
+ {'id':'rational-quadratic','coeff':[F(1,7),F(2,3),F(-5,11)],'bounds':{'xmin':-4,'xmax':4,'ymin':-3,'ymax':3}},
+ {'id':'tiny-root','coeff':[F(1,1000),1000,F(1,1000)],'bounds':{'xmin':-2e-6,'xmax':0,'ymin':-.001,'ymax':.001}},
+ {'id':'large-root','coeff':[F(1,1000),1000,F(1,1000)],'bounds':{'xmin':-1000001,'xmax':-999999,'ymin':-1000,'ymax':1000}},
+ {'id':'shifted-fourth-power','coeff':[10**12,-4*10**9,6*10**6,-4000,1],'bounds':{'xmin':999,'xmax':1001,'ymin':-.1,'ymax':1}},
+ {'id':'eighth-power','coeff':[0]*8+[1],'bounds':{'xmin':-2,'xmax':2,'ymin':-.1,'ymax':2}},
+ {'id':'thin-visible-cap','coeff':[F(3231,500),F(-34,25),1],'bounds':{'xmin':-6,'xmax':6,'ymin':-6,'ymax':6}},
+]
+requests=[{'model':model(c['coeff'],c['id']),'options':{'bounds':c['bounds']}}for c in cases]
+script="const fs=require('fs'),s=require('./web/algebra-functions-spatial.js');console.log(JSON.stringify(JSON.parse(fs.readFileSync(0,'utf8')).map(r=>s.scene(r.model,r.options))));"
+scenes=json.loads(subprocess.check_output(['node','-e',script],input=json.dumps(requests),text=True,cwd=R))
+counts={'scenes':len(cases),'endpointChecks':0,'sampledChordChecks':0,'analyticQuadraticEnvelopes':0};findings=[]
+for case,scene in zip(cases,scenes):
+ coeff=list(map(F,case['coeff']))
+ def value(x):
+  if case['id']=='shifted-fourth-power':return(x-1000)**4
+  return sum((v*x**i for i,v in enumerate(coeff)),F(0))
+ curve=scene['curves'][0]
+ for segment in curve['segments']:
+  x0,x1=map(F,segment['sourceInterval']);y0,y1=map(F,[segment['sourceFrom'][1],segment['sourceTo'][1]]);bound=F(segment['chordErrorBound']);roundoff=F(segment['endpointRoundoffBound'])
+  assert abs(value(x0)-y0)<=roundoff and abs(value(x1)-y1)<=roundoff;counts['endpointChecks']+=2
+  for t in [F(0),F(1,7),F(1,3),F(1,2),F(2,3),F(6,7),F(1)]:
+   assert abs(value(x0+t*(x1-x0))-(y0+t*(y1-y0)))<=bound,(case['id'],segment,t);counts['sampledChordChecks']+=1
+  if len(coeff)==3:
+   h=x1-x0;d2=coeff[2]*h*h;d1=(2*coeff[2]*x0+coeff[1])*h-(y1-y0);d0=value(x0)-y0;ts=[F(0),F(1)]
+   if d2:
+    stationary=-d1/(2*d2)
+    if 0<stationary<1:ts.append(stationary)
+   maximum=max(abs(d2*t*t+d1*t+d0)for t in ts);assert maximum<=bound,(case['id'],maximum,bound);counts['analyticQuadraticEnvelopes']+=1
+ if case['id']=='thin-visible-cap':
+  inside=value(F(17,25));assert inside==F(14999,2500) and F(scene['bounds']['ymin'])<inside<F(scene['bounds']['ymax'])
+  if curve['status']=='outside-window':findings.append({'id':'false-outside-window','point':[str(F(17,25)),str(inside)],'status':curve['status'],'segments':len(curve['segments']),'omitted':curve['omittedIntervals']})
+after=hashlib.sha256(source.read_bytes()).hexdigest();assert before==after,'Geometry changed during review; rerun against stable bytes.'
+proof={'sourceSHA256':before,'methods':['Exact Fraction power sums','Exact shifted quartic evaluation','Analytic quadratic chord-error extrema'],'counts':counts,'allReportedChordBoundsCheckedPassed':True,'categoricalFindings':findings,'noAlgebraCoreReviewClaimed':True}
+(O/'geometry-proof.json').write_text(json.dumps(proof,indent=2)+'\n');print(json.dumps({**counts,'findings':len(findings),'sourceSHA256':before}))

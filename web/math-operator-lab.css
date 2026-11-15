@@ -1,0 +1,17 @@
+.math-operator-lab { min-width: 0; }
+.math-operator-lab .model-range-control select, .math-operator-lab input[type="number"] { width: 100%; min-height: 44px; min-width: 0; }
+.operator-summary { display: grid; grid-template-columns: repeat(4,minmax(0,1fr)); gap: 10px; margin: 16px 0; }
+.operator-summary p { display: grid; gap: 4px; padding: 10px; margin: 0; border: 1px solid var(--line,#d5cfbf); border-radius: 8px; }
+.operator-summary strong { overflow-wrap: anywhere; font-size: 20px; font-variant-numeric: tabular-nums; }
+.operator-panels { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: 12px; }
+.operator-viewport { min-width: 0; overflow: auto; background: #f5efdf; border-radius: 10px; }
+.operator-viewport:last-child { max-width: 660px; width: 100%; grid-column: 1/-1; justify-self: center; }
+.operator-viewport svg { display: block; width: 100%; height: auto; font-family: var(--sans,sans-serif); }
+.math-operator-lab.is-enlarged .operator-viewport svg { width: 660px; min-width: 660px; max-width: none; }
+.operator-entries, .operator-proof { border-left: 3px solid #317e78; padding: 12px; overflow-wrap: anywhere; }
+.operator-table-region { max-width: 100%; overflow: auto; margin: 16px 0; }
+.operator-ledger { width: 100%; min-width: 550px; border-collapse: collapse; font-size: 14px; }
+.operator-ledger caption { text-align: left; margin: 8px 0; }
+.operator-ledger th, .operator-ledger td { text-align: left; padding: 9px 7px; border-bottom: 1px solid var(--line,#d5cfbf); overflow-wrap: anywhere; }
+.operator-sources { overflow-wrap: anywhere; }
+@media (max-width:760px) { .operator-panels, .math-operator-lab .concept-controls { grid-template-columns: minmax(0,1fr); } .operator-summary { grid-template-columns: repeat(2,minmax(0,1fr)); } }

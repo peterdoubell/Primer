@@ -1,0 +1,199 @@
+{
+  "schema_version": 1,
+  "reviewed_at": "2026-09-30T07:33:40.634972+00:00",
+  "status": "proposed_additive_scope_correction_not_applied",
+  "clinical_validation_status": "draft_requires_msk_radiologist_review",
+  "scope": {
+    "catalog_investigations_preserved": 22,
+    "investigation_id": "ra.hip-arthroplasty",
+    "parent_id": "hip_arthroplasty.femoral_host_bone"
+  },
+  "source_file_sha256": {
+    "data/radiology/msk-structure-requirements.json": "43b2f7fca6b2b94d8e3379a35641a4e5d572091c93eb6465423fc1ea08ed77ae",
+    "data/radiology/reporting-steps/musculoskeletal.json": "4db8c08361df56e28a03fcf27c29cf4f62d9aea1c09887f6dafc5afa7cbdf510",
+    "data/radiology/investigation-overrides.json": "2fbb8b3bd962dbabc0fce2acba678637ddf171b73c8fd2868774db2b21880ab8",
+    "data/radiology/msk-asset-evidence.json": "4f36d709c7cc02b860a0de421978c4d0be4a5e96f727280b1fbeddfb5f7e76ca",
+    "web/anatomy/bodyparts3d/manifest.json": "01ac96ea0d59c5c03a1dce23a44cfd0971860cea298be99c8905c2abe9a4a250",
+    "web/anatomy/msk-atlas/manifest.json": "ef50083f82c062154d13b91cb3f672cf28fabd02bdc835c67dc1c5814f1d335c",
+    "tools/check_msk_fidelity.py": "de760df093173c436bd4ca6fb87d7328f20d320f4ccf496f1ed0a763faf6ebe8"
+  },
+  "effective_walkthrough_evidence": {
+    "path": "data/radiology/reporting-steps/musculoskeletal.json",
+    "json_pointer": "/investigations/ra.hip-arthroplasty/steps/1/look",
+    "value": "AP and lateral views: acetabular zones 1–3 and femoral zones 1–7 on AP and 8–14 on the lateral.",
+    "section": "INTERFACES",
+    "measurement": "Lucency map"
+  },
+  "preserve_parent_scope": {
+    "id": "hip_arthroplasty.femoral_host_bone",
+    "name": "Femoral host bone",
+    "tissue_class": "bone",
+    "laterality": "examined_side",
+    "modality_scope": [
+      "Radiography"
+    ],
+    "image_visibility": "direct_when_supported_by_acquisition",
+    "condition": "Within the acquired anatomical coverage.",
+    "requirement_basis": "anatomical_decomposition_of_report_field",
+    "report_refs": [
+      {
+        "checklist_index": 1,
+        "label": "Interfaces",
+        "detail": "Assess lucencies and osteolysis with named zones and serial change."
+      },
+      {
+        "checklist_index": 3,
+        "label": "Bone And Alignment",
+        "detail": "Assess periprosthetic fracture, bone stock and dislocation."
+      }
+    ],
+    "source_urls": [
+      "https://radiologyassistant.nl/musculoskeletal/hip/arthroplasty"
+    ],
+    "requires_site_instantiation": false
+  },
+  "preserve_existing_required_parts": [
+    {
+      "id": "hip_arthroplasty.femoral_host_bone.gruen_zone_1",
+      "name": "Gruen zone 1"
+    },
+    {
+      "id": "hip_arthroplasty.femoral_host_bone.gruen_zone_2",
+      "name": "Gruen zone 2"
+    },
+    {
+      "id": "hip_arthroplasty.femoral_host_bone.gruen_zone_3",
+      "name": "Gruen zone 3"
+    },
+    {
+      "id": "hip_arthroplasty.femoral_host_bone.gruen_zone_4",
+      "name": "Gruen zone 4"
+    },
+    {
+      "id": "hip_arthroplasty.femoral_host_bone.gruen_zone_5",
+      "name": "Gruen zone 5"
+    },
+    {
+      "id": "hip_arthroplasty.femoral_host_bone.gruen_zone_6",
+      "name": "Gruen zone 6"
+    },
+    {
+      "id": "hip_arthroplasty.femoral_host_bone.gruen_zone_7",
+      "name": "Gruen zone 7"
+    },
+    {
+      "id": "hip_arthroplasty.femoral_host_bone.greater_trochanter",
+      "name": "Greater trochanter"
+    },
+    {
+      "id": "hip_arthroplasty.femoral_host_bone.lesser_trochanter",
+      "name": "Lesser trochanter"
+    },
+    {
+      "id": "hip_arthroplasty.femoral_host_bone.stem_tip_adjacent_diaphysis",
+      "name": "Stem-tip adjacent diaphysis"
+    }
+  ],
+  "append_required_parts": [
+    {
+      "id": "hip_arthroplasty.femoral_host_bone.gruen_zone_8",
+      "name": "Gruen zone 8 (lateral)"
+    },
+    {
+      "id": "hip_arthroplasty.femoral_host_bone.gruen_zone_9",
+      "name": "Gruen zone 9 (lateral)"
+    },
+    {
+      "id": "hip_arthroplasty.femoral_host_bone.gruen_zone_10",
+      "name": "Gruen zone 10 (lateral)"
+    },
+    {
+      "id": "hip_arthroplasty.femoral_host_bone.gruen_zone_11",
+      "name": "Gruen zone 11 (lateral)"
+    },
+    {
+      "id": "hip_arthroplasty.femoral_host_bone.gruen_zone_12",
+      "name": "Gruen zone 12 (lateral)"
+    },
+    {
+      "id": "hip_arthroplasty.femoral_host_bone.gruen_zone_13",
+      "name": "Gruen zone 13 (lateral)"
+    },
+    {
+      "id": "hip_arthroplasty.femoral_host_bone.gruen_zone_14",
+      "name": "Gruen zone 14 (lateral)"
+    }
+  ],
+  "source_interpretation_by_new_id": {
+    "hip_arthroplasty.femoral_host_bone.gruen_zone_8": {
+      "projection": "Lateral",
+      "schematic_location": "anterior proximal",
+      "limitation": "Projection-local periprosthetic reference zone; exact source stem, projection and zoning convention must be documented. No universal 3D boundary or clinical fidelity inferred."
+    },
+    "hip_arthroplasty.femoral_host_bone.gruen_zone_9": {
+      "projection": "Lateral",
+      "schematic_location": "anterior middle",
+      "limitation": "Projection-local periprosthetic reference zone; exact source stem, projection and zoning convention must be documented. No universal 3D boundary or clinical fidelity inferred."
+    },
+    "hip_arthroplasty.femoral_host_bone.gruen_zone_10": {
+      "projection": "Lateral",
+      "schematic_location": "anterior distal",
+      "limitation": "Projection-local periprosthetic reference zone; exact source stem, projection and zoning convention must be documented. No universal 3D boundary or clinical fidelity inferred."
+    },
+    "hip_arthroplasty.femoral_host_bone.gruen_zone_11": {
+      "projection": "Lateral",
+      "schematic_location": "distal to the stem tip",
+      "limitation": "Projection-local periprosthetic reference zone; exact source stem, projection and zoning convention must be documented. No universal 3D boundary or clinical fidelity inferred."
+    },
+    "hip_arthroplasty.femoral_host_bone.gruen_zone_12": {
+      "projection": "Lateral",
+      "schematic_location": "posterior distal",
+      "limitation": "Projection-local periprosthetic reference zone; exact source stem, projection and zoning convention must be documented. No universal 3D boundary or clinical fidelity inferred."
+    },
+    "hip_arthroplasty.femoral_host_bone.gruen_zone_13": {
+      "projection": "Lateral",
+      "schematic_location": "posterior middle",
+      "limitation": "Projection-local periprosthetic reference zone; exact source stem, projection and zoning convention must be documented. No universal 3D boundary or clinical fidelity inferred."
+    },
+    "hip_arthroplasty.femoral_host_bone.gruen_zone_14": {
+      "projection": "Lateral",
+      "schematic_location": "posterior proximal",
+      "limitation": "Projection-local periprosthetic reference zone; exact source stem, projection and zoning convention must be documented. No universal 3D boundary or clinical fidelity inferred."
+    }
+  },
+  "primary_sources": [
+    {
+      "url": "https://qims.amegroups.org/article/view/47101/html#figure6",
+      "doi": "10.21037/qims-19-1018",
+      "basis": "Original cadaveric study, Image assessment and Figure 6; fourteen-zone diagram viewed directly in publisher browser viewer. Not a commercially cleared media source; no figure integrated.",
+      "scope_limitation": "The experimental RLL analysis excludes zones 4 and 11; their diagram and clinical reporting obligations remain."
+    },
+    {
+      "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC10322230/",
+      "doi": "10.1302/2633-1462.47.BJO-2023-0008.R1",
+      "basis": "Original clinical RSA study; Fig. 3 caption in primary-source indexed text specifies lateral anterior-to-posterior numbering and stem/cement boundaries.",
+      "scope_limitation": "Modified zones for this study and stem; do not infer universal metric boundaries."
+    }
+  ],
+  "current_asset_evidence": {
+    "structure_atlas_entries": 0,
+    "source_anatomy_reference_entries": 0,
+    "explicit_hip_arthroplasty_ledger_bindings": 0,
+    "existing_zone_figure_id": "ra-hip-arthroplasty-detail-2",
+    "existing_zone_figure_url": "https://radiologyassistant.nl/assets/hip-arthroplasty/a5097976d7f36b_Gruen-zones.jpg",
+    "existing_zone_figure_direct_visual_inspection": "Acetabular I–III and AP femoral 1–7 only; no lateral 8–14 map. Original image 370x248.",
+    "bodyparts3d_hip_inventory_parts": 7,
+    "z_anatomy_hip_inventory_parts": 61,
+    "model_limitation": "Both hip inventories describe native anatomy, not implanted stem/interface or Gruen zones; neither is positive zone-coverage evidence."
+  },
+  "additive_validation": {
+    "all_existing_parent_fields_preserved": true,
+    "all_existing_parts_preserved": true,
+    "extra_parts": 7,
+    "extra_representation_requirements": 21,
+    "representation_requirements_before": 5229,
+    "representation_requirements_after_if_applied": 5250,
+    "new_asset_bindings_assigned": 0,
+    "clinical_approvals_assigned": 0
+  }
+}

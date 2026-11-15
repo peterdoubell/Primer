@@ -1,0 +1,330 @@
+{
+  "reviewed_at": "2026-10-11",
+  "module_id": "rad.4.stroke",
+  "source_file": "data/curriculum/11-radiology.json",
+  "before_file_sha256": "405bb212c5b8dd2407b2157438989bbfa201ae67118052fa764f9440dbbc4b89",
+  "after_file_sha256": "59808fe7a7ca20799338155aa5abcaa08c0e3e8335502f571171ca7c45e85e0a",
+  "original_quiz": [
+    {
+      "kind": "choice",
+      "prompt": "A 62-year-old presents with sudden dysphasia and right arm weakness. On the unenhanced CT the left middle cerebral artery looks dense - but so do the right middle cerebral artery, the basilar artery and the superior sagittal sinus, and the brain parenchyma looks unremarkable. The haemoglobin is 197 g/L. What best accounts for the dense vessels?",
+      "choices": [
+        "A high haematocrit raising attenuation throughout the vessels",
+        "Thrombus filling the left middle cerebral artery trunk",
+        "Mural calcification of the intracranial vessel walls",
+        "Iodinated contrast retained from a recent study"
+      ],
+      "answer": "A high haematocrit raising attenuation throughout the vessels",
+      "explain": "The discriminator is symmetry and company. A thrombus is one clot in one artery, so the sign is unilateral and is judged by comparing the vessel with its fellow on the same slice; a raised haematocrit raises the attenuation of blood itself, so arteries, veins and dural sinuses rise together, and a dense superior sagittal sinus alongside dense arteries is the giveaway that the finding is in the blood rather than in one lumen. Mural calcification is denser still and sits as a rim in the wall, following the vessel rather than filling it, and it is usually bilateral and irregular. Retained contrast would opacify the vessels far more brightly and would come with a history. The trap in the last sentence of the stem is the normal-looking parenchyma: at ninety minutes a normal brain is entirely compatible with a large ischaemic core, so it argues for proceeding to CT angiography rather than for reassurance.",
+      "ephemeral": false
+    },
+    {
+      "kind": "numeric",
+      "prompt": "An unenhanced CT two hours after onset of a right hemiplegia shows early ischaemic change in the left insular ribbon, the left lentiform nucleus, and the cortical regions M1, M2 and M5. Every other region of the scoring template is normal. What ASPECTS does this study score? Answer with the number alone.",
+      "answer": "5",
+      "explain": "ASPECTS starts at 10 and subtracts one point for each of ten regions showing early ischaemic change: caudate, lentiform, internal capsule, insular ribbon and the cortical regions M1 to M3 at the ganglionic level, and M4 to M6 at the level just above the ganglia. Five involved regions leaves 5. The score matters because it stands in for core volume when perfusion imaging is unavailable, and the early-window thrombectomy trials enrolled largely at 6 or above, which is still where the guideline recommendation is strongest. Since 2023, SELECT2, ANGEL-ASPECT and RESCUE-Japan LIMIT have shown benefit in large cores down to an ASPECTS of about 3, so a low score is now a reason for discussion rather than an automatic exclusion. Two cautions in scoring: count established hypoattenuation or focal swelling rather than a subjective impression, and do not count an old infarct as new.",
+      "ephemeral": false
+    },
+    {
+      "kind": "short",
+      "prompt": "Ninety minutes after a middle cerebral artery occlusion the diffusion-weighted images are unmistakably abnormal while the unenhanced CT of the same territory looks close to normal. Account for the difference in terms of where the water is.",
+      "answer": "Arterial occlusion causes energy failure within minutes, the sodium-potassium ATPase stops, and sodium and water move from the extracellular space into the intracellular compartment. This is cytotoxic oedema: total tissue water is barely changed, but water has been redistributed into a compartment where its Brownian motion is hindered, so the apparent diffusion coefficient (ADC) falls and the DWI signal rises. CT attenuation tracks total tissue water content, which has hardly altered at this stage; it falls only later, once ionic oedema and then breakdown of the blood-brain barrier draw new water into the tissue from the vasculature, which is why frank hypoattenuation lags the diffusion change by hours.",
+      "keywords": [
+        "cytotoxic",
+        "intracellular",
+        "ADC",
+        "water",
+        "sodium"
+      ],
+      "explain": "The two studies are sensitive to different physical quantities, and that is the whole answer: diffusion imaging is sensitive to where water is, CT to how much of it there is. Knowing the time course keeps the reader out of two traps. The ADC falls immediately, reaches its nadir over the first days, pseudonormalises at around a week to ten days as cell lysis and vasogenic oedema raise diffusivity again, and then rises above normal; so a bright DWI with a normal or high ADC late on is T2 shine-through rather than new ischaemia, and a subacute infarct can look deceptively unimpressive on diffusion alone. At the front door the corollary is blunter: a normal CT does not exclude infarction and is not a reason to withhold treatment, whereas a normal DWI in the first hours makes infarction unlikely, with small brainstem lesions and profound hypoperfusion imaged before a core has formed as the exceptions worth remembering.",
+      "ephemeral": false
+    },
+    {
+      "kind": "choice",
+      "prompt": "A 68-year-old wakes at 07:00 unable to speak, having been well at 22:00 the night before. MRI at 08:30 shows a left middle cerebral artery territory lesion that is bright on diffusion-weighted imaging with a low apparent diffusion coefficient, and no corresponding signal change on FLAIR. What does the discrepancy between the two sequences allow you to say?",
+      "choices": [
+        "The lesion is probably less than about 4.5 hours old",
+        "The lesion is probably more than twelve hours old",
+        "The lesion is an artefact of a poor diffusion trace",
+        "The lesion is chronic and unrelated to the symptoms"
+      ],
+      "answer": "The lesion is probably less than about 4.5 hours old",
+      "explain": "Diffusion turns positive within minutes, while FLAIR signal follows the rise in tissue water and becomes visible at roughly 4.5 to 6 hours; a lesion that is bright on diffusion but invisible on FLAIR therefore dates itself to the first hours. That mismatch is what the WAKE-UP trial used to select patients with an unknown onset time for thrombolysis, and it found benefit. Here the clock reads nine hours since last seen well and the tissue reads under four and a half - the tissue wins. The near-miss is 'more than twelve hours old', which runs the logic backwards: by twelve hours the FLAIR abnormality would be conspicuous, and a DWI lesion with matching FLAIR change is the appearance that argues against a hyperacute onset. A low ADC is what separates a true diffusion lesion from T2 shine-through, so it is quoted in the stem deliberately.",
+      "ephemeral": false
+    },
+    {
+      "kind": "order",
+      "prompt": "A patient with a suspected large-vessel occlusion arrives nine hours after last being seen well, and the hyperacute protocol runs from the scanner to the angiography suite. Put these acquisitions in the order the protocol performs them.",
+      "items": [
+        "CT-perfusion",
+        "digital-subtraction-angiography",
+        "unenhanced-CT",
+        "CT-angiography"
+      ],
+      "answer": "unenhanced-CT CT-angiography CT-perfusion digital-subtraction-angiography",
+      "explain": "The unenhanced study comes first and answers one question - is there blood? - because everything downstream, thrombolysis above all, depends on that answer, and the same images supply the ASPECTS. CT angiography is second, because finding the occlusion, and seeing the aortic arch and cervical vessels the catheter must travel through, decides whether thrombectomy is possible at all. Perfusion is third and is a selection tool rather than a diagnostic one: in the late window it separates a small core with a large penumbra from a completed infarct. Catheter angiography is last and is part of the treatment. Running perfusion before angiography spends contrast and minutes on a question that only matters once a target exists, and leaving the unenhanced study until last is how a haemorrhage gets thrombolysed.",
+      "ephemeral": false
+    },
+    {
+      "kind": "numeric",
+      "prompt": "CT perfusion nine hours after onset gives an ischaemic core, defined as relative cerebral blood flow below 30 per cent of the contralateral side, of 25 mL, and a Tmax greater than 6 s volume of 90 mL. What is the mismatch ratio? Give it to one decimal place.",
+      "answer": "3.6",
+      "explain": "The mismatch ratio is the whole critically hypoperfused volume divided by the core, 90 over 25, which is 3.6; the mismatch volume - tissue at risk but not yet lost - is the difference, 65 mL. DEFUSE 3 selected patients 6 to 16 hours from last seen well with a core under 70 mL, a ratio of at least 1.8 and a mismatch volume of at least 15 mL, and this patient clears each criterion comfortably. DAWN worked out to 24 hours using a clinical-core mismatch instead, pairing age and NIHSS against core volume. Two cautions travel with these maps: Tmax above 6 s marks critically delayed tissue rather than tissue certain to die, and in very early presentations the core map overstates the damage, so a large core in the first couple of hours deserves scepticism rather than an automatic exclusion.",
+      "ephemeral": false
+    },
+    {
+      "kind": "choice",
+      "prompt": "A 74-year-old is found with weakness of the left leg much worse than the left arm, with the face spared, and is apathetic and incontinent of urine. Before the images are reviewed, which arterial territory should be scrutinised first?",
+      "choices": [
+        "The right anterior cerebral artery territory",
+        "The right middle cerebral artery territory",
+        "The right posterior cerebral artery territory",
+        "The right anterior choroidal artery territory"
+      ],
+      "answer": "The right anterior cerebral artery territory",
+      "explain": "The homunculus does the work. Leg and perineum lie on the medial surface of the hemisphere in the paracentral lobule, supplied by the anterior cerebral artery; face and hand lie on the convexity, which belongs to the middle cerebral artery. A leg-dominant deficit that spares the face is anterior cerebral until proved otherwise, and the apathy and incontinence fit the same vessel, since the medial frontal cortex and anterior cingulate share its supply. Middle cerebral occlusion gives face-and-arm weakness with aphasia or neglect; posterior cerebral gives a homonymous hemianopia and, when the thalamus goes, hemisensory loss; the anterior choroidal artery gives hemiplegia, hemianaesthesia and hemianopia from the posterior limb of the internal capsule and the optic tract, without cortical signs. One corollary: isolated anterior cerebral infarction is uncommon, and bilateral medial frontal infarction should prompt a look for an azygos anterior cerebral artery or for vasospasm after subarachnoid haemorrhage.",
+      "ephemeral": false
+    },
+    {
+      "kind": "choice",
+      "prompt": "A 69-year-old smoker has repeated brief episodes of right arm weakness, worse on standing up. MRI shows a chain of small acute infarcts in a line through the left corona radiata between the lateral ventricle and the cortex, and CT angiography shows a 90 per cent stenosis of the left internal carotid artery. Which mechanism does the pattern of the infarcts favour?",
+      "choices": [
+        "Failure of perfusion in the internal borderzone",
+        "Artery-to-artery embolism to cortical branches",
+        "Lipohyalinosis of a single lenticulostriate vessel",
+        "Cardioembolism to the middle cerebral trunk"
+      ],
+      "answer": "Failure of perfusion in the internal borderzone",
+      "explain": "Geometry is the argument. The internal borderzone lies in the corona radiata and centrum semiovale, at the far end of the deep perforators and the penetrating pial arterioles - the last field the water reaches. When perfusion pressure falls behind a tight carotid stenosis, infarcts appear there as a rosary of lesions strung in a line, and the postural trigger for the symptoms is the clinical half of the same observation. Embolic infarcts scatter across different territories, sit at the grey-white junction and take wedge or scattered cortical shapes rather than a straight line; a single lacune from lipohyalinosis is one lesion, not a chain. The distinction changes treatment: a haemodynamic pattern behind a symptomatic 90 per cent stenosis argues for prompt revascularisation and for caution about dropping the blood pressure, whereas an embolic pattern shifts attention to the plaque surface and to the heart.",
+      "ephemeral": false
+    },
+    {
+      "kind": "choice",
+      "prompt": "A 29-year-old taking a combined oral contraceptive has had three days of worsening headache and then a seizure. Unenhanced CT shows patchy haemorrhage with disproportionate surrounding oedema in both high parietal lobes, and the superior sagittal sinus looks dense. What does this combination point to?",
+      "choices": [
+        "Venous infarction from dural sinus thrombosis",
+        "Bilateral anterior cerebral artery infarction",
+        "Haemorrhagic contusions from unwitnessed trauma",
+        "Posterior reversible encephalopathy syndrome"
+      ],
+      "answer": "Venous infarction from dural sinus thrombosis",
+      "explain": "The pattern breaks the rules that arterial infarcts obey. Parasagittal lesions on both sides correspond to no single arterial territory; they are haemorrhagic early rather than late; and the oedema is out of proportion to the lesion because the mechanism is back-pressure rather than absent supply. Add a dense sinus and the diagnosis is venous. Confirm with CT or MR venography, where the empty delta sign is a filling defect within the enhancing sinus wall, and remember that a dense sinus alone can be nothing more than a high haematocrit. Bilateral anterior cerebral infarction, possible with an azygos vessel, would follow the medial surface forward from the genu of the corpus callosum and would not be haemorrhagic at three days. Contusions cluster at the skull base against the orbital roofs and sphenoid ridges. PRES sits posteriorly, parieto-occipital, and is predominantly vasogenic oedema. The management consequence is the striking part: the treatment is anticoagulation, in the presence of intracranial haemorrhage.",
+      "ephemeral": false
+    },
+    {
+      "kind": "short",
+      "prompt": "A patient with a large right middle cerebral artery infarct has a routine CT at sixteen days. The territory that was clearly hypoattenuating on day two now looks close to normal, and the report concludes that the infarct has resolved. Explain what has happened to the tissue, and how you would answer the report.",
+      "answer": "This is the fogging phase. Between roughly the second and fourth week, macrophages infiltrate the infarct and new capillaries proliferate within it, so its attenuation rises back towards that of normal brain and the lesion becomes inconspicuous on unenhanced CT. The tissue is not recovering; it is being cleared, and the encephalomalacic cavity will appear later. The report should be answered by saying that a transiently normal-looking CT in this window is not evidence of resolution: the infarct remains demonstrable on MRI, where it stays abnormal on T2 and FLAIR, and it will enhance on contrast-enhanced CT or MRI because the blood-brain barrier is broken.",
+      "keywords": [
+        "fogging",
+        "macrophage",
+        "week",
+        "MRI",
+        "enhance"
+      ],
+      "explain": "Fogging is worth knowing because it appears exactly when the follow-up scan tends to be booked, and because it can hide a subacute infarct in a patient scanned late for the first time: a normal CT two weeks after an event is not evidence that no stroke occurred. The mechanism is the one that also produces gyriform cortical enhancement and, on MRI, cortical T1 hyperintensity from laminar necrosis at around two weeks - reperfused, infarcted cortex packed with macrophages. The trap on the other side is calling that subacute infarct a tumour, since it enhances and can show mass effect. What keeps the reader right is the shape and the history: a wedge that respects a vascular territory and reaches the cortical surface, in a patient whose deficit began on a known day.",
+      "ephemeral": false
+    },
+    {
+      "kind": "choice",
+      "prompt": "A 77-year-old with atrial fibrillation was last seen well fourteen hours ago and has an NIHSS of 18. There is no haemorrhage, the ASPECTS is 8, CT angiography shows an occluded left M1 segment, and perfusion gives a core of 12 mL with 95 mL of critically delayed tissue. The on-call team proposes medical management because the six-hour window has passed. What is the strongest response?",
+      "choices": [
+        "Imaging, not the clock, selects patients out to 24 hours",
+        "The scan should be repeated after twelve more hours",
+        "Intravenous thrombolysis alone is the option left",
+        "The core is too large for an endovascular approach"
+      ],
+      "answer": "Imaging, not the clock, selects patients out to 24 hours",
+      "explain": "DAWN and DEFUSE 3 replaced the clock with a tissue clock, and guidelines followed: thrombectomy is recommended out to 24 hours from last seen well in patients who meet imaging criteria. This patient meets them with room to spare - an ASPECTS of 8, a 12 mL core and 95 mL of penumbra fourteen hours in, which is the imaging signature of a slow progressor with good collaterals. 'The core is too large' inverts the numbers on the screen. A repeat scan buys nothing except infarct. Intravenous thrombolysis is outside its own window here (4.5 hours, extended to 9 hours only in perfusion-selected patients in trials such as EXTEND), and in any case thrombolysis is not a prerequisite for thrombectomy. The practical lesson is that in the late window the question is never 'how long has it been?' but 'how much brain is still alive?'.",
+      "ephemeral": false
+    },
+    {
+      "kind": "short",
+      "prompt": "Two patients each have an occluded M1 segment, an NIHSS of 16, and presented three hours after onset. On multiphase CT angiography the first fills the pial vessels of the affected hemisphere almost as well and almost as fast as the normal side; the second shows sparse and delayed pial filling. Explain what the difference predicts and how it should change what you do next.",
+      "answer": "Collateral supply through the pial or leptomeningeal anastomoses determines how fast penumbra converts into core. The first patient is a slow progressor: at three hours the core will still be small and the penumbra large, the chance of a good outcome after successful thrombectomy is high, and there is time to complete the imaging properly and to transfer if the centre cannot treat. The second is a fast progressor whose core is already growing quickly, may already be large despite the short time from onset, and for whom every minute of delay costs tissue, so imaging should be curtailed to what is needed to get the patient onto the angiography table. Collateral status is also why time from onset predicts core volume so poorly, and why a late presenter with good collaterals can be a better candidate than an early one with poor collaterals.",
+      "keywords": [
+        "collateral",
+        "core",
+        "penumbra",
+        "progressor",
+        "time"
+      ],
+      "explain": "Collaterals are the variable that makes the same occlusion a different disease in two patients. They are graded on the extent and the timing of pial filling relative to the normal hemisphere, and multiphase CT angiography exists because a single-phase study confuses a slow-filling good collateral bed with an absent one - the phase was simply caught too early. Good collaterals predict a smaller final infarct, a better functional outcome and a lower risk of haemorrhagic transformation after reperfusion; poor collaterals predict the opposite and are the reason some patients arrive early and are already beyond help. Two things follow for practice: report collateral status rather than only the occlusion site, and treat a poor collateral pattern as a reason to compress the workflow rather than as a reason to give up, since the tissue that remains is exactly the tissue that will be lost during any delay.",
+      "ephemeral": false
+    }
+  ],
+  "current_quiz": [
+    {
+      "kind": "choice",
+      "prompt": "A 62-year-old presents with sudden dysphasia and right arm weakness. On the unenhanced CT the left middle cerebral artery looks dense - but so do the right middle cerebral artery, the basilar artery and the superior sagittal sinus, and the brain parenchyma looks unremarkable. The haemoglobin is 197 g/L. What best accounts for the dense vessels?",
+      "choices": [
+        "A high haematocrit raising attenuation throughout the vessels",
+        "Thrombus filling the left middle cerebral artery trunk",
+        "Mural calcification of the intracranial vessel walls",
+        "Iodinated contrast retained from a recent study"
+      ],
+      "answer": "A high haematocrit raising attenuation throughout the vessels",
+      "explain": "Widespread vascular hyperattenuation involving arteries and a dural sinus, together with the high haemoglobin, favours a systemic blood-attenuation effect rather than one focal clot. This is a differential observation: focal or multiple thrombi, mural calcification and retained contrast require their own source/context checks. An early normal-looking CT neither excludes ischaemic stroke nor establishes tissue viability or core size. The acute neurological deficit still requires prompt assessment, including vascular imaging when indicated.",
+      "ephemeral": false
+    },
+    {
+      "kind": "numeric",
+      "prompt": "An unenhanced CT two hours after onset of a right hemiplegia shows early ischaemic change in the left insular ribbon, the left lentiform nucleus, and the cortical regions M1, M2 and M5. Every other region of the scoring template is normal. What ASPECTS does this study score? Answer with the number alone.",
+      "answer": "5",
+      "explain": "ASPECTS starts at 10 and subtracts one for each affected named MCA region. The insula, lentiform nucleus and M1, M2 and M5 give five deductions, so the score is 5. Record the modality, side and actual regions; distinguish acute change from old injury. ASPECTS is a regional imaging score, not a direct histological volume. Current pathways include eligible large predicted-core strokes, so the score alone neither mandates nor excludes reperfusion treatment.",
+      "ephemeral": false
+    },
+    {
+      "kind": "short",
+      "prompt": "Ninety minutes after a middle cerebral artery occlusion the diffusion-weighted images are unmistakably abnormal while the unenhanced CT of the same territory looks close to normal. Account for the difference in terms of where the water is.",
+      "answer": "Early energy failure and sodium-potassium ion-pump dysfunction can redistribute water into swollen intracellular compartments (cytotoxic oedema) and reduce its measured apparent diffusion. DWI with a corresponding low ADC can therefore detect change before a large alteration in bulk attenuation becomes visible on CT. Diffusion and CT attenuation measure different properties; acquisition, composition, partial volume and tissue evolution also matter. Neither image alone defines an irreversible tissue boundary.",
+      "keywords": [
+        "cytotoxic",
+        "intracellular",
+        "ADC",
+        "water",
+        "sodium"
+      ],
+      "explain": "Read DWI together with ADC and conventional sequences. Bright DWI can include T2 shine-through, and sequence evolution varies with tissue and time. An initially negative DWI can occur, particularly in small or posterior-circulation lesions, and does not exclude a clinically consistent stroke. Avoid a fixed patient-specific ADC nadir, pseudonormalisation date, or normal-CT viability inference.",
+      "ephemeral": false
+    },
+    {
+      "kind": "choice",
+      "prompt": "A 68-year-old wakes at 07:00 unable to speak, having been well at 22:00 the night before. MRI at 08:30 shows a left middle cerebral artery territory lesion that is bright on diffusion-weighted imaging with a low apparent diffusion coefficient, and no corresponding signal change on FLAIR. What does the discrepancy between the two sequences allow you to say?",
+      "choices": [
+        "The pattern supports assessment under a DWI–FLAIR mismatch pathway for unknown-onset stroke",
+        "The lesion is probably more than twelve hours old",
+        "The lesion is an artefact of a poor diffusion trace",
+        "The lesion is chronic and unrelated to the symptoms"
+      ],
+      "answer": "The pattern supports assessment under a DWI–FLAIR mismatch pathway for unknown-onset stroke",
+      "explain": "Abnormal DWI without visible corresponding FLAIR signal change was the WAKE-UP imaging criterion; THAWS used no marked FLAIR change. This is a probabilistic selection pattern under a specified unknown-onset pathway, not proof of a particular onset time, viability or treatment eligibility. Read DWI with ADC and conventional sequences and assess the actual clinical criteria and exclusions.",
+      "ephemeral": false
+    },
+    {
+      "kind": "order",
+      "prompt": "For this case the local stroke protocol specifies noncontrast CT, then arch-to-vertex CTA, then CTP when required, followed by catheter angiography if the stroke team proceeds to thrombectomy. Arrange these acquisitions in that specified order.",
+      "items": [
+        "CT-perfusion",
+        "digital-subtraction-angiography",
+        "unenhanced-CT",
+        "CT-angiography"
+      ],
+      "answer": "unenhanced-CT CT-angiography CT-perfusion digital-subtraction-angiography",
+      "explain": "The answer follows the explicitly specified local sequence. Source protocols and CTA/CTP order vary. Rapid haemorrhage and vessel assessment are important, but perfusion is not compulsory for every early-window patient and should not create avoidable delay. Catheter angiography, when undertaken, is part of the treatment pathway rather than an automatic next examination.",
+      "ephemeral": false
+    },
+    {
+      "kind": "numeric",
+      "prompt": "For this example, CT perfusion software estimates 25 mL with relative CBF below 30% of the contralateral reference and 90 mL with Tmax above 6 s. Define the mismatch ratio as the second volume divided by the first. Give it to one decimal place.",
+      "answer": "3.6",
+      "explain": "The specified ratio is 90/25=3.6, and the difference is 65 mL. These are threshold- and software-defined estimates, not measured histological volumes or guaranteed viable tissue. Check motion, bolus, coverage, reference and processing. Clinical trial profiles and current pathway eligibility are separate from this arithmetic.",
+      "ephemeral": false
+    },
+    {
+      "kind": "choice",
+      "prompt": "A 74-year-old is found with weakness of the left leg much worse than the left arm, with the face spared, and is apathetic and incontinent of urine. Before the images are reviewed, which arterial territory should be scrutinised first?",
+      "choices": [
+        "The right anterior cerebral artery territory",
+        "The right middle cerebral artery territory",
+        "The right posterior cerebral artery territory",
+        "The right anterior choroidal artery territory"
+      ],
+      "answer": "The right anterior cerebral artery territory",
+      "explain": "The homunculus does the work. Leg and perineum lie on the medial surface of the hemisphere in the paracentral lobule, supplied by the anterior cerebral artery; face and hand lie on the convexity, which belongs to the middle cerebral artery. A leg-dominant deficit that spares the face is anterior cerebral until proved otherwise, and the apathy and incontinence fit the same vessel, since the medial frontal cortex and anterior cingulate share its supply. Middle cerebral occlusion gives face-and-arm weakness with aphasia or neglect; posterior cerebral gives a homonymous hemianopia and, when the thalamus goes, hemisensory loss; the anterior choroidal artery gives hemiplegia, hemianaesthesia and hemianopia from the posterior limb of the internal capsule and the optic tract, without cortical signs. One corollary: isolated anterior cerebral infarction is uncommon, and bilateral medial frontal infarction should prompt a look for an azygos anterior cerebral artery or for vasospasm after subarachnoid haemorrhage.",
+      "ephemeral": false
+    },
+    {
+      "kind": "choice",
+      "prompt": "A 69-year-old smoker has repeated brief episodes of right arm weakness, worse on standing up. MRI shows a chain of small acute infarcts in a line through the left corona radiata between the lateral ventricle and the cortex, and CT angiography shows a 90 per cent stenosis of the left internal carotid artery. Which mechanism does the pattern of the infarcts favour?",
+      "choices": [
+        "Failure of perfusion in the internal borderzone",
+        "Artery-to-artery embolism to cortical branches",
+        "Lipohyalinosis of a single lenticulostriate vessel",
+        "Cardioembolism to the middle cerebral trunk"
+      ],
+      "answer": "Failure of perfusion in the internal borderzone",
+      "explain": "A chain of deep white-matter lesions in an internal borderzone, severe ipsilateral carotid stenosis and postural symptoms supports a haemodynamic contribution. The region lies between terminal deep and pial supply. Embolic injury and haemodynamic compromise can coexist, so the distribution does not prove one exclusive mechanism. Assess the actual vascular lesion, other lesions and clinical state; imaging alone does not prescribe revascularisation or blood-pressure targets.",
+      "ephemeral": false
+    },
+    {
+      "kind": "choice",
+      "prompt": "A 29-year-old taking a combined oral contraceptive has three days of worsening headache and a seizure. Noncontrast CT shows bilateral high-parietal haemorrhagic lesions with oedema and a dense superior sagittal sinus. Which condition needs urgent venographic assessment?",
+      "choices": [
+        "Venous infarction from dural sinus thrombosis",
+        "Bilateral anterior cerebral artery infarction",
+        "Haemorrhagic contusions from unwitnessed trauma",
+        "Posterior reversible encephalopathy syndrome"
+      ],
+      "answer": "Venous infarction from dural sinus thrombosis",
+      "explain": "The parasagittal pattern and dense sinus raise cerebral venous thrombosis; CT/CTV or MRI/MRV evaluates actual venous obstruction and extent. A dense sinus alone can also reflect high haematocrit, and arterial infarcts can undergo haemorrhagic transformation, so appearance or day three is not definitive. Haemorrhage caused by confirmed CVT does not by itself preclude anticoagulation, but management depends on the confirmed diagnosis and the clinical pathway.",
+      "ephemeral": false
+    },
+    {
+      "kind": "short",
+      "prompt": "A patient with a large right middle cerebral artery infarct has a routine CT at sixteen days. The territory that was clearly hypoattenuating on day two now looks close to normal, and the report concludes that the infarct has resolved. Explain what has happened to the tissue, and how you would answer the report.",
+      "answer": "This can be subacute fogging: changes in oedema, vascularity and inflammatory cell content, including macrophages, can transiently reduce infarct/background attenuation contrast. Reduced CT conspicuity does not prove resolution. Review the prior infarct, neurological course and timeline, and use appropriate follow-up imaging. Tissue evolution, enhancement and later volume loss vary; the sixteen-day scan does not guarantee recovery or a particular later cavity or MRI appearance.",
+      "keywords": [
+        "fogging",
+        "attenuation",
+        "prior",
+        "timeline",
+        "follow-up"
+      ],
+      "explain": "Fogging can temporarily make a subacute infarct resemble surrounding tissue on CT. The source mechanism and timing vary, and interpretation depends on prior scans, anatomy and clinical history. Neither a near-normal CT nor one fixed MRI/enhancement appearance determines the final tissue outcome.",
+      "ephemeral": false
+    },
+    {
+      "kind": "choice",
+      "prompt": "A 77-year-old with atrial fibrillation was last seen well fourteen hours ago and has an NIHSS of 18. There is no haemorrhage, the ASPECTS is 8, CT angiography shows an occluded left M1 segment, and perfusion gives a core of 12 mL with 95 mL of critically delayed tissue. The on-call team proposes medical management because the six-hour window has passed. What is the strongest response?",
+      "choices": [
+        "Urgent stroke-team assessment is warranted because eligible patients can benefit from thrombectomy up to 24 hours",
+        "The scan should be repeated after twelve more hours",
+        "Intravenous thrombolysis alone is the option left",
+        "The core is too large for an endovascular approach"
+      ],
+      "answer": "Urgent stroke-team assessment is warranted because eligible patients can benefit from thrombectomy up to 24 hours",
+      "explain": "A six-hour cutoff alone is not a reason to abandon assessment. Integrate actual time, occlusion, imaging, clinical state, disability, risk and the applicable pathway. A favourable mismatch or low software-estimated core does not independently prove benefit for every patient; neither does a clock-only slogan decide eligibility.",
+      "ephemeral": false
+    },
+    {
+      "kind": "short",
+      "prompt": "Two patients each have an occluded M1 segment, an NIHSS of 16, and presented three hours after onset. On multiphase CT angiography the first fills the pial vessels of the affected hemisphere almost as well and almost as fast as the normal side; the second shows sparse and delayed pial filling. Explain what the difference predicts and how it should change what you do next.",
+      "answer": "Greater and earlier collateral filling is associated with slower injury progression and better outcomes on average; sparse delayed filling suggests greater risk. Neither determines individual viability, core size or outcome. Describe actual phase, extent and coverage, obtain the required vessel and tissue assessment, and expedite the stroke workflow for both patients.",
+      "keywords": [
+        "collateral",
+        "filling",
+        "phase",
+        "viability",
+        "expedite"
+      ],
+      "explain": "Multiphase imaging can distinguish delayed filling from apparent absence. Collaterals inform urgent clinical assessment; they are not an independent exclusion rule or permission for extra delay. Report the observed extent and timing without assigning a deterministic tissue fate from the filling pattern.",
+      "ephemeral": false
+    }
+  ],
+  "changed_quiz_indices": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    7,
+    8,
+    9,
+    10,
+    11
+  ],
+  "unrelated_node_values_unchanged": true,
+  "sources": [
+    "https://www.ahajournals.org/doi/10.1161/STR.0000000000000513",
+    "https://doi.org/10.1056/NEJMoa1804355",
+    "https://www.ahajournals.org/doi/10.1161/STR.0000000000000456",
+    "https://pubmed.ncbi.nlm.nih.gov/12792168/",
+    "https://pmc.ncbi.nlm.nih.gov/articles/PMC6522841/"
+  ],
+  "independent_source_recommendation": "docs/acute-stroke-source-review-20261011/independent-curriculum-correction-recommendations.json",
+  "clinical_approval": false,
+  "grader_reference_answer_precision_repair": "Quiz2 names sodium-potassium pump, intracellular compartment and cytotoxic oedema explicitly, retaining conditional physical explanation.",
+  "short_answer_rubric_amendment": "Quiz9/11 keyword rubrics now match the current conditional interpretation rather than requiring old fixed-clock or deterministic collateral language."
+}

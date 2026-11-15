@@ -11,7 +11,6 @@ from primer.wiki import WikiService
 @pytest.fixture(autouse=True)
 def isolated_stores(tmp_path, monkeypatch):
     """Never let an app lifespan in this module touch the reader's real DB."""
-    shutdown_was_set = srv._shutdown.is_set()
     db_path = str(tmp_path / "primer.db")
     monkeypatch.setattr(srv, "learner", LearnerStore(db_path))
     monkeypatch.setattr(srv, "wiki", WikiService(db_path))
@@ -19,12 +18,8 @@ def isolated_stores(tmp_path, monkeypatch):
     # Capture a no-op as the thread target.  Merely swapping the stores is not
     # enough: the real maintenance thread can outlive fixture teardown and
     # look the module globals up again after they have been restored.
-    monkeypatch.setattr(srv, "_maintenance_loop", lambda: None)
-    try:
-        yield
-    finally:
-        if not shutdown_was_set:
-            srv._shutdown.clear()
+    monkeypatch.setattr(srv, "_maintenance_loop", lambda *_args: None)
+    yield
 
 
 def test_vercel_fails_closed_without_an_access_password(monkeypatch):
@@ -97,6 +92,50 @@ def test_hosted_access_password_protects_html_and_api(monkeypatch):
     assert allowed.headers["vary"] == "Authorization, Cookie"
 
 
+def test_mathematics_illustration_dashboard_stays_behind_the_hosted_gate(monkeypatch):
+    monkeypatch.setenv("VERCEL", "1")
+    monkeypatch.setenv(srv.ACCESS_USERNAME_ENV, "reader")
+    monkeypatch.setenv(srv.ACCESS_PASSWORD_ENV, "secret")
+    path = "/api/curriculum/mathematics/illustrations"
+
+    with TestClient(srv.app) as client:
+        denied = client.get(path)
+        allowed = client.get(path, auth=("reader", "secret"))
+
+    assert denied.status_code == 401
+    assert allowed.status_code == 200
+    assert allowed.json()["count"] == 59
+    assert allowed.headers["vary"] == "Authorization, Cookie"
+
+
+def test_curriculum_visual_gallery_stays_behind_the_hosted_gate(monkeypatch):
+    monkeypatch.setenv("VERCEL", "1")
+    monkeypatch.setenv(srv.ACCESS_USERNAME_ENV, "reader")
+    monkeypatch.setenv(srv.ACCESS_PASSWORD_ENV, "secret")
+    path = "/api/curriculum/visuals"
+
+    with TestClient(srv.app) as client:
+        denied = client.get(path)
+        allowed = client.get(path, auth=("reader", "secret"))
+
+    assert denied.status_code == 401
+    assert allowed.status_code == 200
+    assert allowed.json()["counts"] == {
+        "lessons": 558, "illustrations": 561,
+        "models": 854, "items": 1415,  # Includes the computational-linguistics studio.
+    }
+    assert [(item['lesson_id'], item['media_id']) for item in allowed.json()['items']
+            if item.get('renderer') == 'fluids-concept-lab'] == [
+        ('phys.4.fluids', 'explore-fluid-forces-and-flow')]
+    assert [(item['lesson_id'], item['media_id']) for item in allowed.json()['items']
+            if item.get('renderer') == 'linear-algebra-lab'] == [
+        ('math.4.linalg', 'explore-linear-maps-and-kernels')]
+    assert [(item['lesson_id'], item['media_id']) for item in allowed.json()['items']
+            if item.get('renderer') == 'math-systems-lab'] == [
+        ('math.3.systems', 'math.3.systems.general-form.model')]
+    assert allowed.headers["vary"] == "Authorization, Cookie"
+
+
 def test_challenge_never_asks_the_browser_to_draw_its_own_dialog(monkeypatch):
     """WWW-Authenticate is what summons the unstyleable native credential box."""
     monkeypatch.setenv("VERCEL", "1")
@@ -152,6 +191,115 @@ def test_signing_in_opens_the_book_and_keeps_it_open(monkeypatch):
     assert after.status_code == 200
     assert signed_out.status_code == 303
     assert locked.status_code == 401
+
+
+def test_the_unsuffixed_account_still_resolves_to_reader_one(monkeypatch):
+    """Slot 1 (PRIMER_ACCESS_USERNAME/PASSWORD, unsuffixed) is the original
+    single-tenant credential — signing in with it must land on reader_id=1,
+    the profile every deployment already had, exactly as before this
+    existed."""
+    monkeypatch.setenv("VERCEL", "1")
+    monkeypatch.setenv(srv.ACCESS_USERNAME_ENV, "reader")
+    monkeypatch.setenv(srv.ACCESS_PASSWORD_ENV, "secret")
+
+    with TestClient(srv.app, base_url="https://testserver") as client:
+        client.post(srv.SIGN_IN_PATH, data={"username": "reader", "password": "secret"})
+        account = client.get("/api/account").json()
+
+    assert account["reader_id"] == 1
+
+
+def test_a_second_account_opens_its_own_separate_profile(monkeypatch):
+    monkeypatch.setenv("VERCEL", "1")
+    monkeypatch.setenv(srv.ACCESS_USERNAME_ENV, "reader")
+    monkeypatch.setenv(srv.ACCESS_PASSWORD_ENV, "secret")
+    monkeypatch.setenv(srv.ACCESS_USERNAME_ENV + "2", "reader2")
+    monkeypatch.setenv(srv.ACCESS_PASSWORD_ENV + "2", "secret2")
+
+    with TestClient(srv.app, base_url="https://testserver") as client:
+        client.post(srv.SIGN_IN_PATH, data={"username": "reader", "password": "secret"})
+        client.post("/api/profile", json={
+            "name": "First", "age": 8, "hours_per_week": 6,
+            "breadth": "balanced", "domains": ["math"]})
+        first_account = client.get("/api/account").json()
+
+        client.cookies.clear()
+        client.post(srv.SIGN_IN_PATH, data={"username": "reader2", "password": "secret2"})
+        client.post("/api/profile", json={
+            "name": "Second", "age": 10, "hours_per_week": 6,
+            "breadth": "balanced", "domains": ["math"]})
+        second_account = client.get("/api/account").json()
+
+    assert first_account["reader_id"] != second_account["reader_id"]
+    assert second_account["reader_id"] != 1, \
+        "the second account must not land on the first account's profile"
+
+    with TestClient(srv.app, base_url="https://testserver") as client:
+        client.post(srv.SIGN_IN_PATH, data={"username": "reader", "password": "secret"})
+        assert client.get("/api/state").json()["profile"]["name"] == "First"
+        client.cookies.clear()
+        client.post(srv.SIGN_IN_PATH, data={"username": "reader2", "password": "secret2"})
+        assert client.get("/api/state").json()["profile"]["name"] == "Second"
+
+
+def test_switching_accounts_on_one_browser_switches_the_active_reader(monkeypatch):
+    """Signing in again — even on the same cookie jar, without an explicit
+    sign-out first — must move the active reader to the new account, not
+    leave it pinned to whichever session cookie was set first."""
+    monkeypatch.setenv("VERCEL", "1")
+    monkeypatch.setenv(srv.ACCESS_USERNAME_ENV, "reader")
+    monkeypatch.setenv(srv.ACCESS_PASSWORD_ENV, "secret")
+    monkeypatch.setenv(srv.ACCESS_USERNAME_ENV + "2", "reader2")
+    monkeypatch.setenv(srv.ACCESS_PASSWORD_ENV + "2", "secret2")
+
+    with TestClient(srv.app, base_url="https://testserver") as client:
+        client.post(srv.SIGN_IN_PATH, data={"username": "reader", "password": "secret"})
+        first_reader_id = client.get("/api/account").json()["reader_id"]
+
+        client.post(srv.SIGN_IN_PATH, data={"username": "reader2", "password": "secret2"})
+        second_reader_id = client.get("/api/account").json()["reader_id"]
+
+    assert first_reader_id != second_reader_id
+
+
+def test_a_static_account_is_not_google_signed_in_or_claimable(monkeypatch):
+    """A static account already has its own permanent, password-backed
+    identity — it must never read as a Google sign-in, and must never be
+    offered the "claim the legacy profile" action meant for an ambiguous
+    Google identity."""
+    monkeypatch.setenv("VERCEL", "1")
+    monkeypatch.setenv(srv.ACCESS_USERNAME_ENV, "reader")
+    monkeypatch.setenv(srv.ACCESS_PASSWORD_ENV, "secret")
+    monkeypatch.setenv(srv.ACCESS_USERNAME_ENV + "2", "reader2")
+    monkeypatch.setenv(srv.ACCESS_PASSWORD_ENV + "2", "secret2")
+
+    with TestClient(srv.app, base_url="https://testserver") as client:
+        client.post(srv.SIGN_IN_PATH, data={"username": "reader2", "password": "secret2"})
+        account = client.get("/api/account").json()
+        claim = client.post("/api/account/claim", json={"password": "secret"})
+
+    assert account["signed_in"] is False
+    assert account["claimable"] is False
+    assert claim.status_code == 400
+
+
+def test_rotating_one_accounts_password_does_not_sign_the_other_out(monkeypatch):
+    monkeypatch.setenv("VERCEL", "1")
+    monkeypatch.setenv(srv.ACCESS_USERNAME_ENV, "reader")
+    monkeypatch.setenv(srv.ACCESS_PASSWORD_ENV, "secret")
+    monkeypatch.setenv(srv.ACCESS_USERNAME_ENV + "2", "reader2")
+    monkeypatch.setenv(srv.ACCESS_PASSWORD_ENV + "2", "secret2")
+
+    with TestClient(srv.app, base_url="https://testserver") as first:
+        first.post(srv.SIGN_IN_PATH, data={"username": "reader", "password": "secret"})
+        with TestClient(srv.app, base_url="https://testserver") as second:
+            second.post(srv.SIGN_IN_PATH, data={"username": "reader2", "password": "secret2"})
+            monkeypatch.setenv(srv.ACCESS_PASSWORD_ENV + "2", "a new secret")
+            second_after_rotation = second.get("/api/state")
+        first_after_rotation = first.get("/api/state")
+
+    assert second_after_rotation.status_code == 401
+    assert first_after_rotation.status_code == 200
 
 
 def test_a_wrong_word_is_refused_without_saying_which_half_was_wrong(monkeypatch):
@@ -338,3 +486,232 @@ def test_the_error_banner_renders_and_swallows_hostile_markup(monkeypatch):
     body = forged.body.decode()
     assert "<script>" not in body
     assert "&lt;script&gt;alert(&quot;xss&quot;)&lt;/script&gt;" in body
+
+
+def test_another_origins_page_cannot_drive_this_book(tmp_path):
+    """The book answers its own pages, not whatever else the reader has open.
+
+    Every state-changing route here is a plain same-site call with no token —
+    right for a local book, and it means any page in another tab could drive
+    this API through the reader's own browser: read the whole profile from
+    GET /api/state, re-open a settled placement with recheck=true, spend quiz
+    items. On 127.0.0.1 the way in is DNS rebinding; on the hosted copy it is
+    an ordinary cross-origin page. Nothing looked at where a request came from.
+
+    An absent header still passes: curl, this test client and older browsers
+    send none, and a guard that cannot tell them from an attacker must not
+    pretend otherwise.
+    """
+    import primer.server as srv
+    from primer.learner import LearnerStore
+    from primer.wiki import WikiService
+    from fastapi.testclient import TestClient
+
+    orig = srv.learner, srv.wiki, srv.BACKUP_DIR
+    try:
+        db = str(tmp_path / "test.db")
+        srv.learner = LearnerStore(db)
+        srv.wiki = WikiService(db)
+        srv.BACKUP_DIR = str(tmp_path / "backups")
+        with TestClient(srv.app) as c:
+            c.post("/api/profile", json={
+                "name": "Ada", "age": 11, "hours_per_week": 6,
+                "breadth": "balanced", "domains": ["math"]})
+
+            assert c.get("/api/state").status_code == 200, "no header must still work"
+            for site in ("same-origin", "none"):
+                r = c.get("/api/state", headers={"Sec-Fetch-Site": site})
+                assert r.status_code == 200, "%s is the book talking to itself" % site
+            for site in ("cross-site", "same-site"):
+                r = c.get("/api/state", headers={"Sec-Fetch-Site": site})
+                assert r.status_code == 403, "%s reached the record" % site
+                w = c.post("/api/profile/settings", json={"theme": "dark"},
+                           headers={"Sec-Fetch-Site": site})
+                assert w.status_code == 403, "%s wrote to the record" % site
+
+            # The book's own pages are not API routes and must keep loading.
+            assert c.get("/", headers={"Sec-Fetch-Site": "cross-site"}).status_code == 200
+    finally:
+        srv.learner, srv.wiki, srv.BACKUP_DIR = orig
+
+
+def test_repeat_static_login_handles_http_constraint_error_shape(monkeypatch):
+    """Turso HTTP may return an error envelope the client reads as KeyError."""
+    from contextlib import contextmanager
+    import sqlite3
+
+    monkeypatch.setenv("VERCEL", "1")
+    monkeypatch.setenv(srv.ACCESS_USERNAME_ENV, "reader")
+    monkeypatch.setenv(srv.ACCESS_PASSWORD_ENV, "secret")
+    monkeypatch.setenv(srv.ACCESS_USERNAME_ENV + "2", "reader2")
+    monkeypatch.setenv(srv.ACCESS_PASSWORD_ENV + "2", "secret2")
+    reader_id = srv.learner.reader_for_static_account("static:2", "reader2")
+    original_conn = srv.learner._conn
+
+    class HttpErrorConnection:
+        def __init__(self, connection):
+            self.connection = connection
+
+        def execute(self, *args, **kwargs):
+            try:
+                return self.connection.execute(*args, **kwargs)
+            except sqlite3.IntegrityError:
+                raise KeyError("result")
+
+        def __getattr__(self, name):
+            return getattr(self.connection, name)
+
+    @contextmanager
+    def http_connection():
+        with original_conn() as connection:
+            yield HttpErrorConnection(connection)
+
+    monkeypatch.setattr(srv.learner, "_conn", http_connection)
+    with TestClient(srv.app, base_url="https://testserver") as client:
+        for _ in range(2):
+            response = client.post(srv.SIGN_IN_PATH, follow_redirects=False,
+                                   data={"username": "reader2", "password": "secret2"})
+            assert response.status_code == 303
+            assert client.get("/api/account").json()["reader_id"] == reader_id
+
+
+def test_hosted_source_media_redirects_only_after_access_gate(monkeypatch):
+    monkeypatch.setenv('VERCEL', '1')
+    monkeypatch.setenv(srv.ACCESS_USERNAME_ENV, 'reader')
+    monkeypatch.setenv(srv.ACCESS_PASSWORD_ENV, 'secret')
+    paths = [
+        '/app/anatomy/msk-atlas/meshes/example.bin',
+        '/app/anatomy/msk-mri-knee/example.bin.gz',
+        '/app/anatomy/liu-lumbosacral-sub03/cord-open-envelope.bin.gz',
+        '/app/anatomy/verse521/verse521-t1.bin.gz',
+        '/app/anatomy/hvsmr2-pat7/hvsmr2-pat7-label7.bin.gz',
+        '/app/anatomy/verse521/ct-reference.html',
+        '/app/anatomy/ispy1-expert1002/mri-reference.html',
+        '/app/anatomy/ispy1-expert1002/ispy1-expert1002-expert-structural-tumour.bin.gz',
+        '/app/anatomy/prostate-biopsy0001/mri-reference.html',
+        '/app/anatomy/prostate-biopsy0001/prostate-biopsy0001-prostate.bin.gz',
+        '/app/anatomy/totalseg-v3-esophagus-s0358/ct-reference.html',
+        '/app/anatomy/totalseg-v3-esophagus-s0358/totalseg-v3-esophagus-s0358-esophagus.bin.gz',
+        '/app/reference-media/prenatal-development/prenatal-development.gif',
+        '/app/reference-media/prenatal-development/day-005.webp',
+    ]
+    with TestClient(srv.app, follow_redirects=False) as client:
+        for path in paths:
+            assert client.get(path).status_code == 401
+            response = client.get(path, auth=('reader', 'secret'))
+            assert response.status_code == 307
+            assert response.headers['location'] == path.replace('/app/', '/source-media/', 1)
+            assert client.head(path, auth=('reader', 'secret')).status_code == 307
+        assert client.get('/app/anatomy/msk-atlas/manifest.json', auth=('reader', 'secret')).status_code == 200
+        assert client.get('/app/anatomy/unregistered/missing.bin', auth=('reader', 'secret')).status_code == 404
+
+
+def test_local_source_media_remains_served_without_cdn(monkeypatch):
+    monkeypatch.delenv('VERCEL', raising=False)
+    with TestClient(srv.app) as client:
+        response = client.get('/app/anatomy/bodyparts3d/FJ1394.bin')
+    assert response.status_code == 200
+    assert response.content[:4] == b'BP3D'
+
+
+@pytest.mark.parametrize('method', ['get', 'head'])
+@pytest.mark.parametrize('query', [
+    'level=T12',
+    'level=L5&note=left%26right%3Dvalue&tag=a&tag=b&note=%0D%0ALocation%3A%20https%3A%2F%2Fexample.com',
+])
+def test_hosted_source_ct_redirect_preserves_encoded_selection(monkeypatch, method, query):
+    from urllib.parse import parse_qsl, urlsplit
+
+    monkeypatch.setenv('VERCEL', '1')
+    monkeypatch.setenv(srv.ACCESS_USERNAME_ENV, 'reader')
+    monkeypatch.setenv(srv.ACCESS_PASSWORD_ENV, 'secret')
+    with TestClient(srv.app, follow_redirects=False) as client:
+        response = getattr(client, method)(
+            '/app/anatomy/verse521/ct-reference.html?' + query,
+            auth=('reader', 'secret'))
+
+    assert response.status_code == 307
+    location = response.headers['location']
+    target = urlsplit(location)
+    assert target.scheme == target.netloc == target.fragment == ''
+    assert target.path == '/source-media/anatomy/verse521/ct-reference.html'
+    assert parse_qsl(target.query) == parse_qsl(query)
+    assert '\r' not in location and '\n' not in location
+
+
+def test_prenatal_cdn_frames_preserve_local_bytes_manifest_and_query(monkeypatch):
+    from pathlib import Path
+    monkeypatch.setenv(srv.ACCESS_USERNAME_ENV, 'reader')
+    monkeypatch.setenv(srv.ACCESS_PASSWORD_ENV, 'secret')
+    path = '/app/reference-media/prenatal-development/day-005.webp'
+    with TestClient(srv.app, follow_redirects=False) as client:
+        monkeypatch.delenv('VERCEL', raising=False)
+        local = client.get(path, auth=('reader', 'secret'))
+        assert local.status_code == 200
+        assert local.content == (Path(srv.WEB_DIR) / 'reference-media/prenatal-development/day-005.webp').read_bytes()
+        monkeypatch.setenv('VERCEL', '1')
+        redirected = client.get(path + '?v=original', auth=('reader', 'secret'))
+        assert redirected.status_code == 307
+        assert redirected.headers['location'] == '/source-media/reference-media/prenatal-development/day-005.webp?v=original'
+        assert client.get('/app/reference-media/prenatal-development/sequence.json', auth=('reader', 'secret')).status_code == 200
+        assert client.get('/app/reference-media/prenatal-development/unknown.webp', auth=('reader', 'secret')).status_code == 404
+
+
+def test_hosted_bundle_excludes_only_cdn_meshes_and_offline_fidelity_files():
+    import json
+    from pathlib import Path
+    root = Path(__file__).resolve().parents[1]
+    config = json.loads((root / 'vercel.json').read_text())
+    excluded = config['builds'][0]['config']['excludeFiles']
+    for atlas in ['liu-lumbosacral-sub03', 'verse521']:
+        assert atlas in excluded
+        assert atlas in config['builds'][1]['src']
+    assert 'web/reference-media/prenatal-development/day-*.webp' in excluded
+    assert any(b['src'] == 'web/reference-media/prenatal-development/day-*.webp' and b['use'] == '@vercel/static' for b in config['builds'])
+    rules = (root / '.vercelignore').read_text().splitlines()
+    for name in ['msk-asset-evidence.json', 'msk-structure-requirements.json', 'non-msk-structure-requirements.json', 'radiology-asset-evidence.json']:
+        assert 'data/radiology/' + name in rules
+    assert 'data/radiology/radiology-open-images.json' not in rules
+    assert 'data/radiology/source-anatomy-references.json' not in rules
+
+
+def test_registered_radiology_images_keep_access_gate_and_exact_local_bytes(monkeypatch):
+    import json
+    from pathlib import Path
+    registry = json.loads((Path(srv.ROOT) / 'data/radiology/radiology-open-images.json').read_text())
+    path = registry['ra.ct-cardiovascular-pearls'][0]['src']
+    monkeypatch.setenv(srv.ACCESS_USERNAME_ENV, 'reader')
+    monkeypatch.setenv(srv.ACCESS_PASSWORD_ENV, 'secret')
+    with TestClient(srv.app, follow_redirects=False) as client:
+        monkeypatch.delenv('VERCEL', raising=False)
+        response = client.get(path, auth=('reader', 'secret'))
+        assert response.status_code == 200
+        assert response.content == (Path(srv.WEB_DIR) / path.removeprefix('/app/')).read_bytes()
+        monkeypatch.setenv('VERCEL', '1')
+        assert client.get(path).status_code == 401
+        response = client.get(path + '?v=original', auth=('reader', 'secret'))
+        assert response.status_code == 307
+        assert response.headers['location'] == path.replace('/app/', '/source-media/', 1) + '?v=original'
+        assert client.get('/app/reference-media/radiology-open/unknown.jpg', auth=('reader', 'secret')).status_code == 404
+    config = json.loads((Path(srv.ROOT) / 'vercel.json').read_text())
+    assert 'web/reference-media/radiology-open/**/*.{jpg,jpeg,png,webp,gif,pdf}' in config['builds'][0]['config']['excludeFiles']
+    assert {'src': 'web/reference-media/radiology-open/**', 'use': '@vercel/static'} in config['builds']
+
+
+def test_registered_motion_keeps_reader_gate_ranges_and_CDN_contract(monkeypatch):
+    import json
+    from pathlib import Path
+    row=json.loads((Path(srv.ROOT)/'data/radiology/source-motion-references.json').read_text())['ra.swallowing'][0]
+    monkeypatch.setenv(srv.ACCESS_USERNAME_ENV,'reader');monkeypatch.setenv(srv.ACCESS_PASSWORD_ENV,'secret')
+    with TestClient(srv.app,follow_redirects=False) as client:
+        monkeypatch.delenv('VERCEL',raising=False)
+        assert client.get(row['src']).status_code==401
+        response=client.get(row['src'],auth=('reader','secret'),headers={'Range':'bytes=0-127'})
+        assert response.status_code==206
+        assert response.content==(Path(srv.WEB_DIR)/row['src'].removeprefix('/app/')).read_bytes()[:128]
+        monkeypatch.setenv('VERCEL','1')
+        response=client.get(row['src']+'?v=reviewed',auth=('reader','secret'))
+        assert response.status_code==307 and response.headers['location']==row['src'].replace('/app/','/source-media/',1)+'?v=reviewed'
+        assert client.get('/app/reference-media/radiology-motion/unknown.webm',auth=('reader','secret')).status_code==404
+    config=json.loads((Path(srv.ROOT)/'vercel.json').read_text())
+    assert {'src':'web/reference-media/radiology-motion/**','use':'@vercel/static'} in config['builds']

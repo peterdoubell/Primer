@@ -1,0 +1,87 @@
+{
+  "reviewed_on": "2026-10-08",
+  "all_27_complete_surfaces_visually_inspected": true,
+  "all_source_triangles_retained": 686252,
+  "neutral_illustrative_shading_not_photographic_colour": true,
+  "source_grid_not_current_patient_registration": true,
+  "source_grid_pitch_declared_mm": 1.5,
+  "source_fine_tissue_resolution_independently_verified": false,
+  "source_study_type": "ct pelvis; trauma/abdomen",
+  "source_population": {
+    "age_years": 90,
+    "sex": "female"
+  },
+  "spinal_cord_original_open_boundary_edges": 40,
+  "all_surface_nonmanifold_edge_counts": {
+    "esophagus.nii.gz": 0,
+    "trachea.nii.gz": 0,
+    "aorta.nii.gz": 0,
+    "heart.nii.gz": 0,
+    "stomach.nii.gz": 0,
+    "lung_upper_lobe_left.nii.gz": 0,
+    "lung_lower_lobe_left.nii.gz": 0,
+    "lung_upper_lobe_right.nii.gz": 0,
+    "lung_middle_lobe_right.nii.gz": 0,
+    "lung_lower_lobe_right.nii.gz": 0,
+    "pulmonary_vein.nii.gz": 0,
+    "atrial_appendage_left.nii.gz": 0,
+    "superior_vena_cava.nii.gz": 0,
+    "inferior_vena_cava.nii.gz": 0,
+    "spinal_cord.nii.gz": 0,
+    "vertebrae_T1.nii.gz": 0,
+    "vertebrae_T2.nii.gz": 0,
+    "vertebrae_T3.nii.gz": 0,
+    "vertebrae_T4.nii.gz": 0,
+    "vertebrae_T5.nii.gz": 0,
+    "vertebrae_T6.nii.gz": 0,
+    "vertebrae_T7.nii.gz": 0,
+    "vertebrae_T8.nii.gz": 0,
+    "vertebrae_T9.nii.gz": 0,
+    "vertebrae_T10.nii.gz": 0,
+    "vertebrae_T11.nii.gz": 0,
+    "vertebrae_T12.nii.gz": 0
+  },
+  "held_fidelity_questions": [
+    "Left upper lung lobe:261 six-connected mask components and137 surface components, all retained; source assignment requires source-plane/anatomical review.",
+    "Heart:two six-connected mask components and47 surface components.45 interfaces have opposite signed-volume orientation to the largest; do not equate all surface components with disconnected organ fragments. Source chamber/myocardial tissue identity unresolved.",
+    "Pulmonary veins:four original disconnected source components retained; missing continuity/branches are not bridged.",
+    "T6,T8,T11 and lower lung labels contain additional source components; no component deleted or boundary repaired.",
+    "Esophageal mask is one organ envelope; no separate wall layers,lumen,mucosa,glands,plexuses,hiatal attachments or lesion tissue are supplied.",
+    "Whole-heart label is not a separately labelled left atrium. Atrial appendage is not the entire left atrium."
+  ],
+  "runtime_promoted": false,
+  "full_anatomical_requirement_coverage_granted": false,
+  "clinical_approval": false,
+  "plots": [
+    {
+      "filename": "source-surface-review-1.png",
+      "sha256": "2280bba90614839990fdf33e4ee25216263930f6d3e7a53aa3bfb3e852f1471e"
+    },
+    {
+      "filename": "source-surface-review-2.png",
+      "sha256": "bb1645a0500137e478c303b7511c57592e475191f90f76333891f39fcb7707bb"
+    },
+    {
+      "filename": "source-surface-review-3.png",
+      "sha256": "666faad24ec4855a5c0d96e77035ac6028922459afce12e1b51070db44c1a963"
+    }
+  ],
+  "source_plane_review": {
+    "file": "left-upper-lobe-source-plane-review.json",
+    "indices": [
+      373,
+      385,
+      415
+    ],
+    "original_full_native_CT_and_mask_planes_reviewed": true,
+    "rendered_original_source_value_window": [
+      -160,
+      240
+    ],
+    "largest_component_foreground_voxels": 282502,
+    "other_component_foreground_voxels": 1329,
+    "source_left_right_labels_independently_verified_against_original_DICOM": false,
+    "anatomical_assignment_or_cause_approved": false
+  },
+  "candidate_disposition": "held_for_source_plane_and_anatomical_suitability_review"
+}

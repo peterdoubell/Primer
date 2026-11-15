@@ -1,0 +1,273 @@
+{
+  "base_commit": "c37a84cc8626688b4970be58863d034d2bce0714",
+  "lesson": "phys.5.condensed",
+  "files": {
+    "data/curriculum/03-physics.json": {
+      "before_sha256": "cad21a8ebd177e82c7a81d0167ec6956be0743a90dcb9f40e276749059db663c",
+      "after_sha256": "2cd41997425843cc87105366a1c0b6f76be4f0fcb03203e1ea36ecfaec9f5866",
+      "changes": [
+        {
+          "start": 5325,
+          "end": 5325,
+          "before": "        },\n        {\n          \"id\": \"phys-5-condensed-concept-lab\",\n          \"kind\": \"model\",\n          \"renderer\": \"physics-concept-lab\",\n          \"title\": \"Meissner Transition Lab\",\n          \"instructions\": \"Vary temperature and applied field around a lead-like type-I phase boundary, then inspect whether the Meissner state persists.\",\n          \"props\": {\n            \"scenario\": \"phys.5.condensed\"\n          }\n",
+          "after": ""
+        }
+      ]
+    },
+    "data/module-models.json": {
+      "before_sha256": "af8c30a688822bcd0de2823b3f31b522e2b163af671087046243d64e32c87974",
+      "after_sha256": "e77d449f620e4b92f68cb57eab1dc967185bd41eec67f40dcce4878f1a11e5d8",
+      "changes": [
+        {
+          "start": 1085,
+          "end": 1090,
+          "before": "      \"family\": \"lattice\",\n      \"title\": \"Crystal lattice \u00b7 3D study\",\n      \"instructions\": \"Drag or use the camera buttons to inspect the object from different sides. Change the labeled controls, then compare the geometry with the explanation below.\",\n      \"context\": \"Condensed Matter: Inspect a repeated three-dimensional arrangement as a concrete structural example. Quantum states, elementary particles and material properties require models beyond these visible sites.\",\n      \"mode\": \"context\"\n",
+          "after": "      \"family\": \"type-i-field-geometry\",\n      \"title\": \"Type-I Transition and Field Lab\",\n      \"instructions\": \"Inspect the exact model transition, compare the separate phase branches and energy difference, then rotate the ideal-cylinder field and surface-current samples.\",\n      \"context\": \"Condensed Matter: calibrated bulk type-I phase and ideal infinite-cylinder field model. Coexistence has no assigned unique homogeneous field; finite-sample end effects and intermediate domains are not solved.\",\n      \"mode\": \"model\"\n"
+        }
+      ]
+    },
+    "primer/curriculum.py": {
+      "before_sha256": "f918d09c7ed1b7a974833ba3ce854ddbab60f0c273196905a4305fc3ac6f742b",
+      "after_sha256": "c25726a18a454c26a7eb6121e6867edbca6cdc0757515cf8d6584c452b85a2c5",
+      "changes": [
+        {
+          "start": 213,
+          "end": 214,
+          "before": "# These scenarios intentionally exclude the five physics lessons with bespoke\n",
+          "after": "# These scenarios intentionally exclude the six physics lessons with bespoke\n"
+        },
+        {
+          "start": 227,
+          "end": 228,
+          "before": "    \"phys.5.condensed\", \"phys.5.quantum-info\",\n",
+          "after": "    \"phys.5.quantum-info\",\n"
+        }
+      ]
+    },
+    "tests/test_api.py": {
+      "before_sha256": "047697f178cef1a1f883433de7eb1af333034bb819f85e2dfecec5ae07e2b503",
+      "after_sha256": "f22e7ea2ba7d776e622db3288df1d3c5e25f6bcc4567a8e3b0f20ac8ccf4a80d",
+      "changes": [
+        {
+          "start": 1202,
+          "end": 1203,
+          "before": "        'models': 854, 'items': 1415,  # Rotation now combines its chart and density companion.\n",
+          "after": "        'models': 853, 'items': 1414,  # Rotation and transition each combine chart and spatial companion.\n"
+        },
+        {
+          "start": 1206,
+          "end": 1207,
+          "before": "        'math': (59, 137), 'language': (40, 61), 'physics': (39, 92),\n",
+          "after": "        'math': (59, 137), 'language': (40, 61), 'physics': (39, 91),\n"
+        }
+      ]
+    },
+    "tests/test_hosted_safety.py": {
+      "before_sha256": "8188bb75e314fdf2de82a33bafea5779d7603373f4964a11ab1b29937ccf5621",
+      "after_sha256": "26db8caf0ebd6562e4fc18a64e2fe5020ba46ca23ffa4e7d8ffb2e6c4a693064",
+      "changes": [
+        {
+          "start": 124,
+          "end": 125,
+          "before": "        \"models\": 854, \"items\": 1415,  # Rotation combines its chart and spatial companion.\n",
+          "after": "        \"models\": 853, \"items\": 1414,  # Two calibrated activities combine chart and spatial companions.\n"
+        }
+      ]
+    },
+    "tests/test_module_models.py": {
+      "before_sha256": "5afdf60bb5e5e18588d64ad73e9c16fa7122b5aac1e0a838c5c6e8ff36182f30",
+      "after_sha256": "19941e6f748b2c612efcfefd7be45d523b769043c1d990fdcc4668850b323869",
+      "changes": [
+        {
+          "start": 34,
+          "end": 35,
+          "before": "    assert '462 lesson bindings, 77 object families' in result.stdout\n",
+          "after": "    assert '462 lesson bindings, 78 object families' in result.stdout\n"
+        }
+      ]
+    },
+    "tests/test_primer.py": {
+      "before_sha256": "2f5af5968212f9e07d22b279c43ad0dccdcd35e7a2aa51d99ab8c7ed339b0940",
+      "after_sha256": "1736c99e1bfd7a6cc6932f3783e49792f6b8cc5941697fc193d9d98772d8d075",
+      "changes": [
+        {
+          "start": 605,
+          "end": 606,
+          "before": "",
+          "after": "        'phys.5.condensed': 'spatial-3d',\n"
+        },
+        {
+          "start": 614,
+          "end": 617,
+          "before": "        if nid == 'phys.5.frontier':\n            base_media = [item for item in node['lesson_media'] if item['kind']=='illustration' or item.get('props',{}).get('family')=='rotation-density-geometry']\n            assert base_media[1]['props']['scenario']=='module.phys.5.frontier'\n",
+          "after": "        if nid in {'phys.5.frontier','phys.5.condensed'}:\n            base_media = [item for item in node['lesson_media'] if item['kind']=='illustration' or item.get('props',{}).get('family')in {'rotation-density-geometry','type-i-field-geometry'}]\n            assert base_media[1]['props']['scenario']=='module.'+nid\n"
+        },
+        {
+          "start": 674,
+          "end": 675,
+          "before": "                            if nid.startswith('phys.')) + ' ' + _web('lesson-models.js').lower() + ' ' + _web('physics-rotation-lab.js').lower())\n",
+          "after": "                            if nid.startswith('phys.')) + ' ' + _web('lesson-models.js').lower() + ' ' + _web('physics-rotation-lab.js').lower() + ' ' + _web('physics-condensed-lab.js').lower())\n"
+        },
+        {
+          "start": 699,
+          "end": 700,
+          "before": "        'makes the field transition abrupt',\n",
+          "after": "        'no sloped line joins the jump',\n"
+        },
+        {
+          "start": 2276,
+          "end": 2282,
+          "before": "    assert len(scenario_keys) == 34\n    assert registry.count('controls: [') == 34\n    assert registry.count('caveat:') == 34\n    assert registry.count('compute(state)') == 34\n    assert registry.count('readout:') >= 34\n    assert registry.count('visual:') == 34\n",
+          "after": "    assert len(scenario_keys) == 33\n    assert registry.count('controls: [') == 33\n    assert registry.count('caveat:') == 33\n    assert registry.count('compute(state)') == 33\n    assert registry.count('readout:') >= 33\n    assert registry.count('visual:') == 33\n"
+        },
+        {
+          "start": 2310,
+          "end": 2311,
+          "before": "    assert '34 scenarios, 82 independently exercised legacy range controls' in result.stdout\n",
+          "after": "    assert '33 scenarios, 80 independently exercised legacy range controls' in result.stdout\n"
+        }
+      ]
+    },
+    "tests/test_linear_algebra_integration.py": {
+      "before_sha256": "1c736f5b8c6e0b1757cc8ce2f0239a20e139345309dce4bcf3c66c7dbf41a427",
+      "after_sha256": "0d857bd06b9d4b34f208539c6b6157eb4d18f503be6548c3f334d1f67f79a8ee",
+      "changes": [
+        {
+          "start": 103,
+          "end": 104,
+          "before": "    assert historical_scenarios-curriculum.PHYSICS_MODEL_SCENARIOS=={'phys.5.frontier'}\n",
+          "after": "    assert historical_scenarios-curriculum.PHYSICS_MODEL_SCENARIOS=={'phys.5.frontier','phys.5.condensed'}\n"
+        }
+      ]
+    },
+    "tests/test_rotation_lesson.py": {
+      "before_sha256": "895dcf2ca50b7e1ee66a18b0935552193cbd3054fd232d961d87caa88ca55ded",
+      "after_sha256": "5595d19cfb92c8e8d4bd00d12b1948ef62be4986590ca32fa0fb3030ac9d977b",
+      "changes": [
+        {
+          "start": 24,
+          "end": 26,
+          "before": "    for name,digest in p['sourceSHA256'].items():assert hashlib.sha256((R/name).read_bytes()).hexdigest()==digest,name\n",
+          "after": "    from tools.condensed_runtime_compatibility import before_condensed_bytes\n    for name,digest in p['sourceSHA256'].items():assert hashlib.sha256(before_condensed_bytes(name,(R/name).read_bytes())).hexdigest()==digest,name\n"
+        }
+      ]
+    },
+    "tools/check_cross_subject_models.js": {
+      "before_sha256": "7924a5c3601365315770d2d277c78c8cb7bbbcc5bea969881f412b0d90b1a723",
+      "after_sha256": "82d40e542a22ecbca2ae2d6d3d148ec5ec81b82c7572b61e722c2ce6f3d469cf",
+      "changes": [
+        {
+          "start": 1362,
+          "end": 1363,
+          "before": "  68, 'Earlier models remain except the dedicated fractions and calibrated rotation replacements');\n",
+          "after": "  67, 'Earlier models remain except the dedicated fractions, rotation and transition replacements');\n"
+        }
+      ]
+    },
+    "tools/check_module_models.js": {
+      "before_sha256": "630561fab5b2c01c74343f8564807e4085895b45608bbb18afd51302d263b825",
+      "after_sha256": "edc7c991cb60dadfedabb9db489e3f3b7b6e22fac1550ac6b1f5f17e2de7d413",
+      "changes": [
+        {
+          "start": 56,
+          "end": 59,
+          "before": "",
+          "after": "require('../web/physics-condensed-core.js');\nrequire('../web/physics-condensed-field.js');\nrequire('../web/physics-condensed-geometry.js');\n"
+        }
+      ]
+    },
+    "tools/check_physics_models.js": {
+      "before_sha256": "117147171e3d262aeea370b3cc2e8e223151a86b088dcadd01b12ae22511950b",
+      "after_sha256": "ea16bdf94c2dcb218d21e7d34f98e8c58a56a4a7544b956635c15ea00db499c6",
+      "changes": [
+        {
+          "start": 17,
+          "end": 18,
+          "before": "const EXPECTED_SCENARIO_COUNT = 34;\n",
+          "after": "const EXPECTED_SCENARIO_COUNT = 33;\n"
+        }
+      ]
+    },
+    "tools/check_spatial_models.js": {
+      "before_sha256": "b4ae3fde5ac4f064af2b02c67ae0a2292fab5632ca35930b10d6d89de0525c1b",
+      "after_sha256": "4430b44ab57a5e2b0061f0f06d903dd7a63534273b8f787ec6e5c22738a45745",
+      "changes": [
+        {
+          "start": 67,
+          "end": 68,
+          "before": "  68, 'The earlier models remain except the dedicated fractions and calibrated rotation replacements');\n",
+          "after": "  67, 'The earlier models remain except the dedicated fractions, rotation and transition replacements');\n"
+        }
+      ]
+    },
+    "web/index.html": {
+      "before_sha256": "d582f76a3f9ea5c425bdbc3306884c3f5042f6a3d588ff7ce4ac86c7ab165893",
+      "after_sha256": "23903ad13e324b507b27df3640d218b73af470a57dde3ecc113a563f7c4d8b0b",
+      "changes": [
+        {
+          "start": 43,
+          "end": 44,
+          "before": "",
+          "after": "  <link rel=\"stylesheet\" href=\"/app/physics-condensed-lab.css\">\n"
+        },
+        {
+          "start": 110,
+          "end": 114,
+          "before": "",
+          "after": "  <script src=\"/app/physics-condensed-core.js\"></script>\n  <script src=\"/app/physics-condensed-field.js\"></script>\n  <script src=\"/app/physics-condensed-geometry.js\"></script>\n  <script src=\"/app/physics-condensed-lab.js\"></script>\n"
+        }
+      ]
+    },
+    "web/lesson-models.js": {
+      "before_sha256": "a86e70786d1db5b40d5ff37fbbd694676a0a096caf17fc79ea249d14d6d18282",
+      "after_sha256": "0835237ee008d3b56cb4a4da4da072d4c31c161a6b94df777fa23f3cdfb48f18",
+      "changes": [
+        {
+          "start": 5847,
+          "end": 5847,
+          "before": "    'phys.5.condensed': {\n      controls: [\n        physicsControl('temperature', 'Temperature', 0.5, 10, 0.5, 5, 'K', '0.5 K', '10 K'),\n        physicsControl('field', 'Applied magnetic field', 0, 100, 5, 30, 'mT', 'no field', '100 mT'),\n      ],\n      caveat: 'This lead-like bulk type-I teaching model uses Tc = 7.2 K and Hc(0) = 80 mT, and makes the field transition abrupt. Demagnetization can create an intermediate state; real samples add shape and history effects.',\n      compute(state) {\n        const critical = 7.2;\n        const criticalField = state.temperature < critical\n          ? 80 * (1 - (state.temperature / critical) ** 2) : 0;\n        const inMeissnerState = state.temperature < critical && state.field < criticalField;\n        const order = inMeissnerState ? Math.sqrt(1 - state.temperature / critical) : 0;\n        const curve = physicsGraphPoints(x => {\n          const temp = 10 * x;\n          const hc = temp < critical ? 80 * (1 - (temp / critical) ** 2) : 0;\n          return temp < critical && state.field < hc ? Math.sqrt(1 - temp / critical) : 0;\n        });\n        return {\n          readout: 'In the lead-like type-I example, at ' + physicsFixed(state.temperature, 1) +\n            ' K with Tc = 7.2 K, order-parameter index = ' + physicsFixed(order, 3) +\n            '. Hc(T) \u2248 ' + physicsFixed(criticalField, 1) + ' mT, so applied field ' + state.field + ' mT' +\n            (inMeissnerState ? ' remains in the Meissner regime.' :\n              ' drives or leaves the sample normal; the ideal field transition is abrupt.'),\n          visual: { kind: 'graph', xLabel: 'temperature', yLabel: 'superconducting order',\n            curves: [{ points: curve, label: 'bulk order; jump where H = Hc(T)', tone: 'primary' }],\n            marker: [state.temperature / 10, order],\n            note: physicsFixed(state.temperature, 1) + ' K, H=' + state.field + ' mT: ' +\n              (inMeissnerState ? 'Meissner state' : 'normal state') },\n        };\n      },\n    },\n",
+          "after": ""
+        },
+        {
+          "start": 6057,
+          "end": 6058,
+          "before": "",
+          "after": "      if (item.props?.scenario === 'module.phys.5.condensed' && item.props?.family === 'type-i-field-geometry') return window.PrimerCondensedLab?.render({ ...item, props: { scenario: 'phys.5.condensed.transition' } }, hooks) || null;\n"
+        }
+      ]
+    },
+    "web/spatial-module-objects.js": {
+      "before_sha256": "d6db2dde20db26ac588a01a134e01a80ece6e11fdb6ddbefefc75e8d441b8b12",
+      "after_sha256": "4ba282eab0f0f583d8419c47723ee85b10c623fa9db1fdb09892da047d83eb4c",
+      "changes": [
+        {
+          "start": 1010,
+          "end": 1021,
+          "before": "",
+          "after": "  define('type-i-field-geometry','Ideal type-I cylinder field',{temperature:5,appliedMilliTesla:30},[\n    range('temperature','Temperature (K)',0,10,.1),range('appliedMilliTesla','Applied mu0 H (mT)',0,100,1)\n  ],(state,g)=>{\n    const model=window.CondensedGeometry.geometry(state);\n    for(const ring of model.rings)g.line(ring,g.colors.ink);\n    for(let i=0;i<8;i++){const t=i*Math.PI/4;g.line([[Math.cos(t),Math.sin(t),-2],[Math.cos(t),Math.sin(t),2]],g.colors.ink);}\n    for(const glyph of [...model.fieldGlyphs,...model.currentGlyphs]){const color=glyph.kind==='surface-K'?g.colors.gold:g.colors.blue;if(glyph.zero)g.sphere(glyph.originMM,.025,g.colors.ink);else g.arrow(glyph.originMM,glyph.endpointMM,color);}\n    return result(model.uniqueHomogeneousState?'Field and sheet-current samples at '+state.temperature+' K and mu0 H = '+state.appliedMilliTesla+' mT.':model.note,'Ideal infinite cylinder; rings bound the display window, not physical ends. Positions in mm; vector glyphs encode separate T and A/m scales, not trajectories.',[['Blue: magnetic field',g.colors.blue],['Gold: sheet current',g.colors.gold]],g);\n  });\n  families['type-i-field-geometry'].requires='CondensedGeometry';\n\n"
+        },
+        {
+          "start": 1038,
+          "end": 1039,
+          "before": "",
+          "after": "    if ((p.scenario === 'module.phys.5.condensed' || p.family === 'type-i-field-geometry') && (p.scenario !== 'module.phys.5.condensed' || p.family !== 'type-i-field-geometry' || p.mode !== 'model' || p.lesson !== 'Condensed Matter')) return false;\n"
+        }
+      ]
+    },
+    "tools/rotation_runtime_compatibility.py": {
+      "before_sha256": "e2c61630200a9f6aab365cb16f214127b18fa507aee1f6da857bfed9e9464c6a",
+      "after_sha256": "75571201408ac853f32397d3fe8e61c204125beb85ef1c7b483125bf95fbd8c6",
+      "changes": [
+        {
+          "start": 16,
+          "end": 18,
+          "before": "",
+          "after": " from tools.condensed_runtime_compatibility import before_condensed_bytes\n raw=before_condensed_bytes(path,raw,allow_older=True)\n"
+        }
+      ]
+    }
+  },
+  "clinicalApproval": false,
+  "extendsHistoricalApproval": false,
+  "wholeGoalComplete": false
+}

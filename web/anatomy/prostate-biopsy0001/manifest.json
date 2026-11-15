@@ -1,0 +1,146 @@
+{
+  "dataset": "Original prostate and suspicious biopsy ROI source surfaces",
+  "source_url": "https://www.cancerimagingarchive.net/collection/prostate-mri-us-biopsy/",
+  "license": "CC BY 4.0",
+  "license_url": "https://creativecommons.org/licenses/by/4.0/",
+  "coordinate_system": {
+    "basis": "LPS",
+    "units": "MRI-grid-corresponding inferred source millimetres; original model unit code absent",
+    "unit_meters": 0.001,
+    "display_basis": "native-lps-to-x-left-y-superior-z-anterior",
+    "registration": "Delivered source frame association and numeric raster correspondence; clinical/fine anatomical registration not independently approved"
+  },
+  "parts": {
+    "prostate-biopsy0001-prostate": {
+      "id": "prostate-biopsy0001-prostate",
+      "name": "source prostate outline \u00b7 complete original surface",
+      "file": "/app/anatomy/prostate-biopsy0001/prostate-biopsy0001-prostate.bin.gz",
+      "sha256": "8cec22ca1728479359e1f0de988f508992e71672ed9ec0d185ea06b41f0ebab4",
+      "decoded_sha256": "08fafa8c50482ea97040e50153671a87ef9bdb420091e35479a7e5301d6e42ee",
+      "vertices": 3594,
+      "triangles": 1198,
+      "bounds": [
+        [
+          -50.31718826293945,
+          6.661283016204834,
+          -60.48846435546875
+        ],
+        [
+          1.2986669540405273,
+          45.8022346496582,
+          -5.33062744140625
+        ]
+      ],
+      "source_STL_sha256": "31e7b0ac3f5a8ff69aa68c223de5dad1acbd8d9afb7018c012e33f01f9adcdc2",
+      "source_face_corners_sha256": "0b4dc227ae558fac079765329a0bc5a45ed801c64a94c21b87db37402c9ace2d",
+      "source_components": 1,
+      "source_boundary_edges": 0,
+      "source_normals_and_attributes_retained_in_original_STL": true,
+      "transport_normals": "Illustrative geometric face normals; source positions unchanged",
+      "color": "#809cad",
+      "layer": "gland",
+      "regions": [
+        "prostate-source"
+      ],
+      "clinical_fidelity": "unverified"
+    },
+    "prostate-biopsy0001-suspicious-target1": {
+      "id": "prostate-biopsy0001-suspicious-target1",
+      "name": "suspicious source target ROI \u00b7 complete original surface",
+      "file": "/app/anatomy/prostate-biopsy0001/prostate-biopsy0001-suspicious-target1.bin.gz",
+      "sha256": "1c7edae855839e92d4e60ef591f2682002aa1423a7e3e31227685640fb2fdb18",
+      "decoded_sha256": "c22d3688cf525260580979d1d75cbb28d6413a017a2de70e57bbf893d7fd6ecb",
+      "vertices": 12840,
+      "triangles": 4280,
+      "bounds": [
+        [
+          -39.61437225341797,
+          21.346893310546875,
+          -54.54092788696289
+        ],
+        [
+          -28.90869903564453,
+          38.21332550048828,
+          -44.234397888183594
+        ]
+      ],
+      "source_STL_sha256": "cf759c6621947ac2dc4e649943e073882971adf5fe8442e68565ae202673fc7a",
+      "source_face_corners_sha256": "caaf867206cf8aa28ad7a7134e4adc9fbedaa37cb0d90c004f4b0d243563af28",
+      "source_components": 1,
+      "source_boundary_edges": 0,
+      "source_normals_and_attributes_retained_in_original_STL": true,
+      "transport_normals": "Illustrative geometric face normals; source positions unchanged",
+      "color": "#c19a77",
+      "layer": "target",
+      "regions": [
+        "prostate-source"
+      ],
+      "clinical_fidelity": "unverified"
+    }
+  },
+  "regions": {
+    "prostate-source": {
+      "title": "Source prostate outline and suspicious ROI \u00b7 partial reporting anatomy",
+      "side": "midline",
+      "parts": [
+        {
+          "id": "prostate-biopsy0001-prostate",
+          "layer": "gland"
+        },
+        {
+          "id": "prostate-biopsy0001-suspicious-target1",
+          "layer": "target"
+        }
+      ],
+      "layers": [
+        [
+          "all",
+          "Both original source surfaces"
+        ],
+        [
+          "gland",
+          "Source prostate outline"
+        ],
+        [
+          "target",
+          "Suspicious source target ROI"
+        ]
+      ],
+      "source_coordinate_cameras": true,
+      "source_up_range": [
+        -61.48846435546875,
+        -4.33062744140625
+      ],
+      "focus_bounds": [
+        [
+          -50.31718826293945,
+          6.661283016204834,
+          -60.48846435546875
+        ],
+        [
+          1.2986669540405273,
+          45.8022346496582,
+          -5.33062744140625
+        ]
+      ],
+      "uncropped_label": "Complete original source surfaces"
+    }
+  },
+  "viewer_notes": [
+    "Source case Prostate-MRI-US-Biopsy-0001,source64-year-old male. These are operator source references,not a normal whole-prostate atlas or the current patient.",
+    "All1,198 original prostate faces and4,280 suspicious-target faces remain. The prostate was outlined semi-automatically in Profuse with user-adjustable contours/vertices; accuracy is user-dependent. A suspicious MRI biopsy-target ROI is not proven complete tumour or histological extent.",
+    "The delivered model/MRI/SEG frame identifiers and independent all-voxel comparison support the source DICOM LPS association. No fitting,axis flip,resampling,smoothing,capping or component deletion was applied. Original mesh and producer-derived mask differ at480 gland and5 ROI voxel centres; every original value remains. This numeric correspondence is not independent anatomical accuracy.",
+    "The source encapsulated models omit the required measurement-units code. Display millimetre scale is inferred from the matching producer MRI/SEG grids and numeric correspondence; full DICOM model conformance and independent clinical registration are not claimed.",
+    "The source supplies complete T2,producer ADC and calculated-DWI grids. ADC and calculated DWI use their own coarser source grid. They have no supplied rescale/physical ADC calibration,original native high-b series or DCE. Source study description and private diffusion metadata do not supply missing acquisitions or current assessment.",
+    "Only the original T2 grid has the two producer-derived masks. They were rasterized from source STL and are not independent native manual voxel annotations. No mask is fitted or resampled onto ADC/DWI.",
+    "The41 idealized PI-RADS regions,zones,outer fibromuscular boundary,pseudocapsule,ducts,nerves,vessels,seminal vesicles,sphincter,nodes,bone and actual extension/treatment interfaces still require faithful source coverage and independent review. The whole-gland outline and one suspicious ROI do not meet full reporting coverage.",
+    "Source ultrasound has different private voxel-size tags and lacks standard patient orientation/position. Publisher nonrigid MRI-to-US target mapping is not this viewer's native registration. Source Likert-like scores do not assign current PI-RADS2.1. Source clinical/pathology/biopsy results are not inferred.",
+    "Natarajan,S.,Priester,A.,Margolis,D.,Huang,J.,and Marks,L.(2020). Prostate MRI and Ultrasound With Pathology and Coordinates of Tracked Biopsy,version2. TCIA DOI10.7937/TCIA.2020.A61IOC1A. CC BY4.0. Adaptation: complete source arrays/face transport,illustrative lighting and overlays; no endorsement implied."
+  ],
+  "total_triangles": 5478,
+  "complete_prostate_reporting_geometry_verified": false,
+  "clinical_approval": false,
+  "anatomical_approval": false,
+  "status": "Original partial source reference; independent fine anatomical review pending",
+  "runtime_promoted": true
+}

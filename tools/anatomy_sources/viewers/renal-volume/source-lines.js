@@ -1,0 +1,21 @@
+'use strict';
+function contourDisplayPoints(strings,meta){
+ const size=meta.texture_shape_xyz.map((n,a)=>n*meta.source_spacing_xyz_mm[a]);const scale=Math.max(...size);
+ const centre=meta.origin_lps_mm.map((v,a)=>v+(meta.texture_shape_xyz[a]-1)*meta.source_spacing_xyz_mm[a]/2);
+ return strings.map((v,i)=>(Number(v)-centre[i%3])/scale);
+}
+function sourcePointDisplayError(strings,meta){
+ const values=contourDisplayPoints(strings,meta),floats=new Float32Array(values);const scale=Math.max(...meta.texture_shape_xyz.map((n,a)=>n*meta.source_spacing_xyz_mm[a]));
+ return Math.max(...values.map((v,i)=>Math.abs(v-floats[i])*scale));
+}
+class SourceContourRenderer{
+ constructor(gl,meta){this.gl=gl;this.meta=meta;this.records=[];this.loaded=false;}
+ async load(){const r=await fetch('original-source-polylines.json');if(!r.ok)throw Error('Missing original source contour export');const bytes=await r.arrayBuffer();if(await hash(bytes)!=='8b6d46ddb11973320a52c803de04893530733a1660edac55e76eb532a37c9ab2')throw Error('Pinned original contour export differs');const source=JSON.parse(new TextDecoder().decode(bytes));if(source.source_volume_uncompressed_sha256!==this.meta.uncompressed_sha256||source.source_contours!==75||source.source_points!==5341||source.whole_kidney_segmentation||source.surface_or_voxel_mask_created)throw Error('Unreviewed source contour scope');const gl=this.gl;let count=0,error=0;for(const c of source.contours){const frame=this.meta.frames[c.native_acquisition1_plane_index];if(c.geometric_type!=='CLOSED_PLANAR'||frame.source_sop_instance_uid!==c.source_ct_sop||c.source_decimal_lps_xyz_mm.length!==c.points*3)throw Error('Contour source reference differs');for(let i=2;i<c.source_decimal_lps_xyz_mm.length;i+=3)if(Number(c.source_decimal_lps_xyz_mm[i])!==frame.source_position_lps_mm[2])throw Error('Contour source plane differs');const buffer=gl.createBuffer();gl.bindBuffer(gl.ARRAY_BUFFER,buffer);const displayed=new Float32Array(contourDisplayPoints(c.source_decimal_lps_xyz_mm,this.meta));gl.bufferData(gl.ARRAY_BUFFER,displayed,gl.STATIC_DRAW);const readback=new Float32Array(displayed.length);gl.getBufferSubData(gl.ARRAY_BUFFER,0,readback);if(gl.getError()!==gl.NO_ERROR||readback.some((v,i)=>v!==displayed[i]))throw Error('Original contour GPU buffer differs');this.records.push({buffer,points:c.points,nativePlaneIndex:c.native_acquisition1_plane_index});count+=c.points;error=Math.max(error,sourcePointDisplayError(c.source_decimal_lps_xyz_mm,this.meta));}
+ const vs=`#version 300 es
+ in vec3 p;uniform mat3 rotation;uniform float aspect,zoom;void main(){vec3 q=transpose(rotation)*p;gl_Position=vec4(q.x*zoom/(aspect*.8),q.y*zoom/.8,0,1);}`;
+ const fs=`#version 300 es
+ precision highp float;out vec4 color;void main(){color=vec4(1.,.72,.2,1.);}`;
+ this.program=gl.createProgram();gl.attachShader(this.program,shader(gl.VERTEX_SHADER,vs));gl.attachShader(this.program,shader(gl.FRAGMENT_SHADER,fs));gl.linkProgram(this.program);if(!gl.getProgramParameter(this.program,gl.LINK_STATUS))throw Error(gl.getProgramInfoLog(this.program));this.loaded=true;this.source=source;window.sourceContourState={verified:true,contours:this.records.length,points:count,allGPUPointBuffersVerified:true,maximumFloat32DisplayErrorMm:error,sourceCoordinatesChanged:false,surfaceCreated:false,wholeKidney:false,clinicalApproval:false};return source;}
+ draw(rotation,aspect,zoom,plane=null){if(!this.loaded)return;const gl=this.gl;gl.useProgram(this.program);gl.uniformMatrix3fv(gl.getUniformLocation(this.program,'rotation'),false,rotation);gl.uniform1f(gl.getUniformLocation(this.program,'aspect'),aspect);gl.uniform1f(gl.getUniformLocation(this.program,'zoom'),zoom);const loc=gl.getAttribLocation(this.program,'p');gl.enableVertexAttribArray(loc);gl.lineWidth(1);let drawn=0;for(const r of this.records){if(plane!==null&&r.nativePlaneIndex!==plane)continue;drawn++;gl.bindBuffer(gl.ARRAY_BUFFER,r.buffer);gl.vertexAttribPointer(loc,3,gl.FLOAT,false,0,0);gl.drawArrays(gl.LINE_LOOP,0,r.points);}window.sourceContourState.drawnContours=drawn;window.sourceContourState.displayedPlane=plane;if(gl.getError()!==gl.NO_ERROR)throw Error('Original contour line draw failed');}
+}
+if(typeof module!=='undefined')module.exports={contourDisplayPoints,sourcePointDisplayError};

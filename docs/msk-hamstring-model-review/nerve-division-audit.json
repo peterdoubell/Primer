@@ -1,0 +1,116 @@
+{
+  "coordinate_system": {
+    "units": "centimeters",
+    "unit_meters": 0.01,
+    "x_positive": "patient left",
+    "y_positive": "superior",
+    "z_positive": "anterior",
+    "registration": "Source FBX geometry_to_world evaluated by ufbx; no fit or translation to BodyParts3D",
+    "display_basis": "native-x-left-y-superior-z-anterior"
+  },
+  "parts": [
+    {
+      "id": "za-nerves-809851269",
+      "name": "Sciatic nerve.r",
+      "sha256": "07b4ea57630d20b3ba16aaca2ea18e61d50aa63d39d1a270298068e23286ebb0",
+      "bounds": [
+        [
+          -7.977850437164307,
+          53.97515106201172,
+          -7.181491851806641
+        ],
+        [
+          -1.624647855758667,
+          97.81444549560547,
+          -1.6236811876296997
+        ]
+      ],
+      "triangles": 4896,
+      "regions": [
+        "hip"
+      ]
+    },
+    {
+      "id": "za-nerves-85997353",
+      "name": "Tibial nerve.r",
+      "sha256": "4c2bcd67994e8c18d289f05aae85705e2984cf57e0f1a6a46ac82385b1e77073",
+      "bounds": [
+        [
+          -9.613086700439453,
+          5.752908229827881,
+          -6.589593887329102
+        ],
+        [
+          -5.6341233253479,
+          54.049903869628906,
+          -3.7826149463653564
+        ]
+      ],
+      "triangles": 2592,
+      "regions": [
+        "ankle",
+        "knee"
+      ]
+    },
+    {
+      "id": "za-nerves-713806063",
+      "name": "Common fibular nerve.r",
+      "sha256": "053a5b5822c5ac986b1a4ad90484ffcab09f58adf684a09b59331689fb6a549e",
+      "bounds": [
+        [
+          -12.322078704833984,
+          38.50104522705078,
+          -6.164841651916504
+        ],
+        [
+          -7.604893207550049,
+          54.021663665771484,
+          -3.9299252033233643
+        ]
+      ],
+      "triangles": 2016,
+      "regions": [
+        "knee"
+      ]
+    }
+  ],
+  "comparisons": [
+    {
+      "branch_id": "za-nerves-85997353",
+      "minimum_vertex_distance_cm": 0.039021640580892455,
+      "parent_vertex": [
+        -7.459127902984619,
+        54.01919937133789,
+        -4.019268989562988
+      ],
+      "branch_vertex": [
+        -7.454902648925781,
+        54.011940002441406,
+        -3.9811620712280273
+      ],
+      "superior_axis_bounds_overlap_cm": 0.0747528076171875
+    },
+    {
+      "branch_id": "za-nerves-713806063",
+      "minimum_vertex_distance_cm": 0.15126625689268955,
+      "parent_vertex": [
+        -7.788236141204834,
+        54.04013442993164,
+        -4.125332832336426
+      ],
+      "branch_vertex": [
+        -7.680343151092529,
+        54.020362854003906,
+        -4.0211710929870605
+      ],
+      "superior_axis_bounds_overlap_cm": 0.046512603759765625
+    }
+  ],
+  "limitations": [
+    "Nearest exported-vertex distances are not surface distances, registration validation or proof of continuous nerve fascicles.",
+    "No joining, stretching or synthetic bridging performed.",
+    "Entire tibial object extends to distal leg; full-object framing would substantially change the hamstring view."
+  ],
+  "runtime_changed": false,
+  "clinical_approval": false
+}

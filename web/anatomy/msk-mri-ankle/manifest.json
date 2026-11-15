@@ -1,0 +1,2390 @@
+{
+  "schema_version": 1,
+  "status": "MRI-derived source anatomy; clinical fidelity validation incomplete",
+  "dataset": "Universiti Malaya MRI-derived lower extremity, 2026",
+  "provider": "malaya-mri",
+  "source_doi": "10.22452/RD/5T6TZ7",
+  "source_url": "https://researchdata.um.edu.my/dataset.xhtml?persistentId=doi:10.22452/RD/5T6TZ7",
+  "source_datafile_url": "https://researchdata.um.edu.my/api/access/datafile/596",
+  "source_archive_sha256": "0c6c7fa81329dba949e00c7d99de37afef0352368eb5b386eb8034ec0b66ec86",
+  "license": "CC0 1.0",
+  "license_url": "https://creativecommons.org/publicdomain/zero/1.0/",
+  "attribution": "Jeevaraaj N Vivekanandan; Juliana Binti Usman (2026), A Three-Dimensional Lower Extremity Musculoskeletal Geometry Model of An Asian Male, Universiti Malaya Research Data Repository, doi:10.22452/RD/5T6TZ7.",
+  "sampling_limits": {
+    "segmentation_grid_mm": [
+      1.1538461446761996,
+      1.1538461446761996,
+      1.199999956403474
+    ],
+    "effective_spatial_resolution": "Not established by the STL facet count or exported voxel grid.",
+    "author_processing": "MRI semi-automatic segmentation, opening/closing/median and joint smoothing, then surface export."
+  },
+  "author_review_claim": {
+    "statement": "The dataset README reports inspection by a radiologist and radiographer at Universiti Malaya Medical Centre and acknowledges residual inaccuracies and omitted small structures.",
+    "evidence_file": "/app/anatomy/msk-mri-ankle/SOURCE-README.txt",
+    "evidence_sha256": "deb6b13e74e499015a79a84c0bc5c4faa15cc8a763de43ebb8ec088824fc2967",
+    "independent_clinical_approval": false
+  },
+  "coordinate_system": {
+    "basis": "LPS",
+    "x_positive": "patient left",
+    "y_positive": "posterior",
+    "z_positive": "superior",
+    "basis_evidence": "Every native STL header explicitly contains SPACE=LPS",
+    "units": "millimeters",
+    "registration": "Identity: all geometries from the same final segmented MRI model; no registration to another atlas",
+    "display_basis": "native-lps-to-x-left-y-superior-z-anterior",
+    "unit_meters": 0.001,
+    "units_evidence": "Public DICOM ImagePositionPatient/PixelSpacing fields (millimeters by DICOM definition) match the segmentation source grid; no rescaling applied."
+  },
+  "adaptations": "Converted retained native STL triangle corners and facet normals to indexed binary. Only exactly zero-area repeated-vertex facets omitted, with source facet indices retained in evidence; now-unused render vertices dropped. Equal position/normal pairs deduplicated exactly. All nonzero-area components preserved. No smoothing, decimation, spatial fitting or synthetic anatomy.",
+  "parts": {
+    "um-ankle-bone-calcaneus": {
+      "source_name": "Bone_Calcaneus",
+      "source_member": "Final Model STL files/Segmentation_Bone_Calcaneus.stl",
+      "source_sha256": "4a8c20983189e6f95a60555a4929e9077bcc9d9b89ed40c5db681c1a90b45326",
+      "source_bytes": 945484,
+      "triangles": 18908,
+      "bounds": [
+        [
+          -79.66389465332031,
+          35.1635856628418,
+          -755.924072265625
+        ],
+        [
+          -25.386356353759766,
+          105.26387786865234,
+          -703.5166015625
+        ]
+      ],
+      "source_header": "3D Slicer output. SPACE=LPS",
+      "detected_exact_empty_facets_not_omitted": [],
+      "source_triangles": 18908,
+      "omitted_source_facet_indices": [],
+      "source_bounds_including_empty_facets": [
+        [
+          -79.66389465332031,
+          35.1635856628418,
+          -755.924072265625
+        ],
+        [
+          -25.386356353759766,
+          105.26387786865234,
+          -703.5166015625
+        ]
+      ],
+      "id": "um-ankle-bone-calcaneus",
+      "name": "Calcaneus",
+      "layer": "bone",
+      "regions": [
+        "ankle"
+      ],
+      "bytes": 512016,
+      "sha256": "6546b66d071c8a6f3b41b6dcd16be93c0416fbcbba3c1ba96fc9fb1129e32bbf",
+      "export_vertices": 56724,
+      "source_unique_positions": 9456,
+      "normals_preserved_exactly": true,
+      "geometry_transform": "identity; native LPS positions retained",
+      "world_transform_columns": [
+        [
+          1,
+          0,
+          0
+        ],
+        [
+          0,
+          1,
+          0
+        ],
+        [
+          0,
+          0,
+          1
+        ],
+        [
+          0,
+          0,
+          0
+        ]
+      ],
+      "component_count": 1,
+      "component_triangles": [
+        18908
+      ],
+      "watertight": true,
+      "winding_consistent": true,
+      "volume_native_units_cubed": 52588.8191806116,
+      "degenerate_triangles": 0,
+      "normal_length_min": 0.9999999403953552,
+      "normal_length_max": 1.0,
+      "license": "CC0 1.0",
+      "omission_evidence_sha256": "cc0d93f1ad03c21d958ee0f3b909f56788295e199224f14129103dec2499e7ac",
+      "source_segmentation": {
+        "name": "Bone_Calcaneus",
+        "id": "2.25.194515507436525656423068283585740607554",
+        "layer": 0,
+        "label_value": 6
+      },
+      "mesh_to_voxel_extent_difference_mm": 0.4690826535293695,
+      "file": "/app/anatomy/msk-mri-ankle/um-ankle-bone-calcaneus.bin.gz",
+      "vertices": 56724,
+      "decoded_bytes": 1588284,
+      "decoded_sha256": "e5ef51f6007074b26614a604a8bdf3a2846d44afdc3a3ca0e718e06f878b6328",
+      "content_encoding": "gzip",
+      "color": "#e7d5ad",
+      "fidelity_review": "pending"
+    },
+    "um-ankle-bone-cuboid": {
+      "source_name": "Bone_Cuboid",
+      "source_member": "Final Model STL files/Segmentation_Bone_Cuboid.stl",
+      "source_sha256": "de719a5aa44ec5990d5dd2a842573cf05640586b8eb3eeee382dbcf3d545d9f4",
+      "source_bytes": 268284,
+      "triangles": 5364,
+      "bounds": [
+        [
+          -81.91979217529297,
+          24.36490821838379,
+          -777.7750244140625
+        ],
+        [
+          -55.37699890136719,
+          48.68055725097656,
+          -742.3596801757812
+        ]
+      ],
+      "source_header": "3D Slicer output. SPACE=LPS",
+      "detected_exact_empty_facets_not_omitted": [],
+      "source_triangles": 5364,
+      "omitted_source_facet_indices": [],
+      "source_bounds_including_empty_facets": [
+        [
+          -81.91979217529297,
+          24.36490821838379,
+          -777.7750244140625
+        ],
+        [
+          -55.37699890136719,
+          48.68055725097656,
+          -742.3596801757812
+        ]
+      ],
+      "id": "um-ankle-bone-cuboid",
+      "name": "Cuboid",
+      "layer": "bone",
+      "regions": [
+        "ankle"
+      ],
+      "bytes": 143781,
+      "sha256": "c1b94d903fe247912b35b2d7b7d16fcc04cdaf143ab01a7fe86e3f183dfa4ff5",
+      "export_vertices": 16092,
+      "source_unique_positions": 2684,
+      "normals_preserved_exactly": true,
+      "geometry_transform": "identity; native LPS positions retained",
+      "world_transform_columns": [
+        [
+          1,
+          0,
+          0
+        ],
+        [
+          0,
+          1,
+          0
+        ],
+        [
+          0,
+          0,
+          1
+        ],
+        [
+          0,
+          0,
+          0
+        ]
+      ],
+      "component_count": 1,
+      "component_triangles": [
+        5364
+      ],
+      "watertight": true,
+      "winding_consistent": true,
+      "volume_native_units_cubed": 10456.466405825602,
+      "degenerate_triangles": 0,
+      "normal_length_min": 0.9999999403953552,
+      "normal_length_max": 1.0,
+      "license": "CC0 1.0",
+      "omission_evidence_sha256": "cc0d93f1ad03c21d958ee0f3b909f56788295e199224f14129103dec2499e7ac",
+      "source_segmentation": {
+        "name": "Bone_Cuboid",
+        "id": "2.25.248089241230959901658716693356123834031",
+        "layer": 0,
+        "label_value": 56
+      },
+      "mesh_to_voxel_extent_difference_mm": 0.3931197524008212,
+      "file": "/app/anatomy/msk-mri-ankle/um-ankle-bone-cuboid.bin.gz",
+      "vertices": 16092,
+      "decoded_bytes": 450588,
+      "decoded_sha256": "9aae69436471a2c466d26b293200ec04e9837e1e46c4440221abc149162f938c",
+      "content_encoding": "gzip",
+      "color": "#e7d5ad",
+      "fidelity_review": "pending"
+    },
+    "um-ankle-bone-fibula": {
+      "source_name": "Bone_Fibula",
+      "source_member": "Final Model STL files/Segmentation_Bone_Fibula.stl",
+      "source_sha256": "1f4c41852cf7e9bd1f553632dbaf84e3cdb433247d23a28409203430c86f2f9c",
+      "source_bytes": 1274284,
+      "triangles": 25484,
+      "bounds": [
+        [
+          -98.58615112304688,
+          44.18109130859375,
+          -711.0271606445312
+        ],
+        [
+          -66.4682388305664,
+          75.77053833007812,
+          -351.1623840332031
+        ]
+      ],
+      "source_header": "3D Slicer output. SPACE=LPS",
+      "detected_exact_empty_facets_not_omitted": [],
+      "source_triangles": 25484,
+      "omitted_source_facet_indices": [],
+      "source_bounds_including_empty_facets": [
+        [
+          -98.58615112304688,
+          44.18109130859375,
+          -711.0271606445312
+        ],
+        [
+          -66.4682388305664,
+          75.77053833007812,
+          -351.1623840332031
+        ]
+      ],
+      "id": "um-ankle-bone-fibula",
+      "name": "Fibula",
+      "layer": "bone",
+      "regions": [
+        "ankle"
+      ],
+      "bytes": 798214,
+      "sha256": "21189fbb787babb2ab156ebf353a5a1ba5ba3f4b8c74e4037cd3f69d806f803b",
+      "export_vertices": 76452,
+      "source_unique_positions": 12744,
+      "normals_preserved_exactly": true,
+      "geometry_transform": "identity; native LPS positions retained",
+      "world_transform_columns": [
+        [
+          1,
+          0,
+          0
+        ],
+        [
+          0,
+          1,
+          0
+        ],
+        [
+          0,
+          0,
+          1
+        ],
+        [
+          0,
+          0,
+          0
+        ]
+      ],
+      "component_count": 1,
+      "component_triangles": [
+        25484
+      ],
+      "watertight": true,
+      "winding_consistent": true,
+      "volume_native_units_cubed": 34273.55861110104,
+      "degenerate_triangles": 0,
+      "normal_length_min": 0.9999999403953552,
+      "normal_length_max": 1.0,
+      "license": "CC0 1.0",
+      "omission_evidence_sha256": "cc0d93f1ad03c21d958ee0f3b909f56788295e199224f14129103dec2499e7ac",
+      "source_segmentation": {
+        "name": "Bone_Fibula",
+        "id": "2.25.100852170703307366602736123531559768571",
+        "layer": 0,
+        "label_value": 5
+      },
+      "mesh_to_voxel_extent_difference_mm": 3.6794455647411723,
+      "file": "/app/anatomy/msk-mri-knee/um-knee-bone-fibula.bin.gz",
+      "vertices": 76452,
+      "decoded_bytes": 2140668,
+      "decoded_sha256": "94a6e324e385dd159e5986d29b397c3ca56dc9585a9dd00999688710176bc498",
+      "content_encoding": "gzip",
+      "color": "#e7d5ad",
+      "fidelity_review": "pending",
+      "shared_binary_from": "um-knee-bone-fibula"
+    },
+    "um-ankle-bone-intermediate-cuneiform": {
+      "source_name": "Bone_Intermediate Cuneiform",
+      "source_member": "Final Model STL files/Segmentation_Bone_Intermediate Cuneiform.stl",
+      "source_sha256": "31795e0a33e77899e56f34b9627651a163baf8269273470de55255ce57bb8b3c",
+      "source_bytes": 111884,
+      "triangles": 2236,
+      "bounds": [
+        [
+          -73.64720153808594,
+          -2.3668711185455322,
+          -760.9811401367188
+        ],
+        [
+          -55.40565490722656,
+          16.827722549438477,
+          -743.4649658203125
+        ]
+      ],
+      "source_header": "3D Slicer output. SPACE=LPS",
+      "detected_exact_empty_facets_not_omitted": [],
+      "source_triangles": 2236,
+      "omitted_source_facet_indices": [],
+      "source_bounds_including_empty_facets": [
+        [
+          -73.64720153808594,
+          -2.3668711185455322,
+          -760.9811401367188
+        ],
+        [
+          -55.40565490722656,
+          16.827722549438477,
+          -743.4649658203125
+        ]
+      ],
+      "id": "um-ankle-bone-intermediate-cuneiform",
+      "name": "Intermediate cuneiform",
+      "layer": "bone",
+      "regions": [
+        "ankle"
+      ],
+      "bytes": 60344,
+      "sha256": "f6521c3a29e7f7b1d80450a638a34132837e0e3d7ca9d9875d357985ad95f730",
+      "export_vertices": 6708,
+      "source_unique_positions": 1120,
+      "normals_preserved_exactly": true,
+      "geometry_transform": "identity; native LPS positions retained",
+      "world_transform_columns": [
+        [
+          1,
+          0,
+          0
+        ],
+        [
+          0,
+          1,
+          0
+        ],
+        [
+          0,
+          0,
+          1
+        ],
+        [
+          0,
+          0,
+          0
+        ]
+      ],
+      "component_count": 1,
+      "component_triangles": [
+        2236
+      ],
+      "watertight": true,
+      "winding_consistent": true,
+      "volume_native_units_cubed": 2725.571695221765,
+      "degenerate_triangles": 0,
+      "normal_length_min": 0.9999999403953552,
+      "normal_length_max": 1.0,
+      "license": "CC0 1.0",
+      "omission_evidence_sha256": "cc0d93f1ad03c21d958ee0f3b909f56788295e199224f14129103dec2499e7ac",
+      "source_segmentation": {
+        "name": "Bone_Intermediate Cuneiform",
+        "id": "2.25.250498708210603661142063035360478866732",
+        "layer": 0,
+        "label_value": 58
+      },
+      "mesh_to_voxel_extent_difference_mm": 0.559088289730937,
+      "file": "/app/anatomy/msk-mri-ankle/um-ankle-bone-intermediate-cuneiform.bin.gz",
+      "vertices": 6708,
+      "decoded_bytes": 187836,
+      "decoded_sha256": "c7d17e905fdeadce4012b346b71fe4081d5b61bbb06ec5e518ce0723206c23f2",
+      "content_encoding": "gzip",
+      "color": "#e7d5ad",
+      "fidelity_review": "pending"
+    },
+    "um-ankle-bone-lateral-cuneiform": {
+      "source_name": "Bone_Lateral Cuneiform",
+      "source_member": "Final Model STL files/Segmentation_Bone_Lateral Cuneiform.stl",
+      "source_sha256": "f392e5164ce68d340df3153718d7acb09ad864b4a51ad471fd73157531782106",
+      "source_bytes": 139284,
+      "triangles": 2784,
+      "bounds": [
+        [
+          -80.90923309326172,
+          9.562186241149902,
+          -768.6134643554688
+        ],
+        [
+          -59.02093505859375,
+          25.730609893798828,
+          -746.94189453125
+        ]
+      ],
+      "source_header": "3D Slicer output. SPACE=LPS",
+      "detected_exact_empty_facets_not_omitted": [],
+      "source_triangles": 2784,
+      "omitted_source_facet_indices": [],
+      "source_bounds_including_empty_facets": [
+        [
+          -80.90923309326172,
+          9.562186241149902,
+          -768.6134643554688
+        ],
+        [
+          -59.02093505859375,
+          25.730609893798828,
+          -746.94189453125
+        ]
+      ],
+      "id": "um-ankle-bone-lateral-cuneiform",
+      "name": "Lateral cuneiform",
+      "layer": "bone",
+      "regions": [
+        "ankle"
+      ],
+      "bytes": 73936,
+      "sha256": "43612b2ec130fd846b4bfa697d57f8d9769c152a207236cc7870cb4c8e672a49",
+      "export_vertices": 8352,
+      "source_unique_positions": 1394,
+      "normals_preserved_exactly": true,
+      "geometry_transform": "identity; native LPS positions retained",
+      "world_transform_columns": [
+        [
+          1,
+          0,
+          0
+        ],
+        [
+          0,
+          1,
+          0
+        ],
+        [
+          0,
+          0,
+          1
+        ],
+        [
+          0,
+          0,
+          0
+        ]
+      ],
+      "component_count": 1,
+      "component_triangles": [
+        2784
+      ],
+      "watertight": true,
+      "winding_consistent": true,
+      "volume_native_units_cubed": 3927.9399690127298,
+      "degenerate_triangles": 0,
+      "normal_length_min": 0.9999999403953552,
+      "normal_length_max": 1.0,
+      "license": "CC0 1.0",
+      "omission_evidence_sha256": "cc0d93f1ad03c21d958ee0f3b909f56788295e199224f14129103dec2499e7ac",
+      "source_segmentation": {
+        "name": "Bone_Lateral Cuneiform",
+        "id": "2.25.154892057225393073658726937027936025892",
+        "layer": 0,
+        "label_value": 59
+      },
+      "mesh_to_voxel_extent_difference_mm": 0.3239106535850169,
+      "file": "/app/anatomy/msk-mri-ankle/um-ankle-bone-lateral-cuneiform.bin.gz",
+      "vertices": 8352,
+      "decoded_bytes": 233868,
+      "decoded_sha256": "8265e64c7405d8041fc6b82bcd3156c549ed81595eac426f2848a0dc3fc9e975",
+      "content_encoding": "gzip",
+      "color": "#e7d5ad",
+      "fidelity_review": "pending"
+    },
+    "um-ankle-bone-medial-cuneiform": {
+      "source_name": "Bone_Medial Cuneiform",
+      "source_member": "Final Model STL files/Segmentation_Bone_Medial Cuneiform.stl",
+      "source_sha256": "1a759dc668f3c4d3f612f964b9239d0f03e0e204b720151f1ed70d9b52013419",
+      "source_bytes": 228084,
+      "triangles": 4560,
+      "bounds": [
+        [
+          -62.70044708251953,
+          -11.08774471282959,
+          -769.9091186523438
+        ],
+        [
+          -35.38567352294922,
+          19.544761657714844,
+          -746.0711669921875
+        ]
+      ],
+      "source_header": "3D Slicer output. SPACE=LPS",
+      "detected_exact_empty_facets_not_omitted": [],
+      "source_triangles": 4560,
+      "omitted_source_facet_indices": [],
+      "source_bounds_including_empty_facets": [
+        [
+          -62.70044708251953,
+          -11.08774471282959,
+          -769.9091186523438
+        ],
+        [
+          -35.38567352294922,
+          19.544761657714844,
+          -746.0711669921875
+        ]
+      ],
+      "id": "um-ankle-bone-medial-cuneiform",
+      "name": "Medial cuneiform",
+      "layer": "bone",
+      "regions": [
+        "ankle"
+      ],
+      "bytes": 122559,
+      "sha256": "86eb524b5dbc76b630169e6757bd7f2fe687df5ec507ce176c63f214bf6b88f0",
+      "export_vertices": 13680,
+      "source_unique_positions": 2282,
+      "normals_preserved_exactly": true,
+      "geometry_transform": "identity; native LPS positions retained",
+      "world_transform_columns": [
+        [
+          1,
+          0,
+          0
+        ],
+        [
+          0,
+          1,
+          0
+        ],
+        [
+          0,
+          0,
+          1
+        ],
+        [
+          0,
+          0,
+          0
+        ]
+      ],
+      "component_count": 1,
+      "component_triangles": [
+        4560
+      ],
+      "watertight": true,
+      "winding_consistent": true,
+      "volume_native_units_cubed": 7196.202633504647,
+      "degenerate_triangles": 0,
+      "normal_length_min": 0.9999999403953552,
+      "normal_length_max": 1.0,
+      "license": "CC0 1.0",
+      "omission_evidence_sha256": "cc0d93f1ad03c21d958ee0f3b909f56788295e199224f14129103dec2499e7ac",
+      "source_segmentation": {
+        "name": "Bone_Medial Cuneiform",
+        "id": "2.25.154003436765805313669700017086061783186",
+        "layer": 0,
+        "label_value": 57
+      },
+      "mesh_to_voxel_extent_difference_mm": 0.3715980649059816,
+      "file": "/app/anatomy/msk-mri-ankle/um-ankle-bone-medial-cuneiform.bin.gz",
+      "vertices": 13680,
+      "decoded_bytes": 383052,
+      "decoded_sha256": "75156daf8b3e78132ce2b9b7cecdcc528e882211f80d5fe233e54b1b1e640608",
+      "content_encoding": "gzip",
+      "color": "#e7d5ad",
+      "fidelity_review": "pending"
+    },
+    "um-ankle-bone-navicular": {
+      "source_name": "Bone_Navicular",
+      "source_member": "Final Model STL files/Segmentation_Bone_Navicular.stl",
+      "source_sha256": "abd567070ab45d0cf9799e90711cac64467b142e97a8344281fafdd943d83d22",
+      "source_bytes": 220084,
+      "triangles": 4400,
+      "bounds": [
+        [
+          -74.8072509765625,
+          5.13781213760376,
+          -748.7401123046875
+        ],
+        [
+          -38.58940505981445,
+          27.809667587280273,
+          -728.4566040039062
+        ]
+      ],
+      "source_header": "3D Slicer output. SPACE=LPS",
+      "detected_exact_empty_facets_not_omitted": [],
+      "source_triangles": 4400,
+      "omitted_source_facet_indices": [],
+      "source_bounds_including_empty_facets": [
+        [
+          -74.8072509765625,
+          5.13781213760376,
+          -748.7401123046875
+        ],
+        [
+          -38.58940505981445,
+          27.809667587280273,
+          -728.4566040039062
+        ]
+      ],
+      "id": "um-ankle-bone-navicular",
+      "name": "Navicular",
+      "layer": "bone",
+      "regions": [
+        "ankle"
+      ],
+      "bytes": 117102,
+      "sha256": "41f7269ae7d736fb51b3ed0c42ab3972c2b40381df69dbd89ce21e5cc70cd6eb",
+      "export_vertices": 13200,
+      "source_unique_positions": 2202,
+      "normals_preserved_exactly": true,
+      "geometry_transform": "identity; native LPS positions retained",
+      "world_transform_columns": [
+        [
+          1,
+          0,
+          0
+        ],
+        [
+          0,
+          1,
+          0
+        ],
+        [
+          0,
+          0,
+          1
+        ],
+        [
+          0,
+          0,
+          0
+        ]
+      ],
+      "component_count": 1,
+      "component_triangles": [
+        4400
+      ],
+      "watertight": true,
+      "winding_consistent": true,
+      "volume_native_units_cubed": 7139.519505325884,
+      "degenerate_triangles": 0,
+      "normal_length_min": 0.9999999403953552,
+      "normal_length_max": 1.0,
+      "license": "CC0 1.0",
+      "omission_evidence_sha256": "cc0d93f1ad03c21d958ee0f3b909f56788295e199224f14129103dec2499e7ac",
+      "source_segmentation": {
+        "name": "Bone_Navicular",
+        "id": "2.25.218297650300097504985473457486395402385",
+        "layer": 0,
+        "label_value": 55
+      },
+      "mesh_to_voxel_extent_difference_mm": 0.5818782448708362,
+      "file": "/app/anatomy/msk-mri-ankle/um-ankle-bone-navicular.bin.gz",
+      "vertices": 13200,
+      "decoded_bytes": 369612,
+      "decoded_sha256": "98712548ff068df14acfb4b29d68378bb26cb5d18f477d22b02d08b9e63df92b",
+      "content_encoding": "gzip",
+      "color": "#e7d5ad",
+      "fidelity_review": "pending"
+    },
+    "um-ankle-bone-talus": {
+      "source_name": "Bone_Talus",
+      "source_member": "Final Model STL files/Segmentation_Bone_Talus.stl",
+      "source_sha256": "fc3bf4777febb156b8fc25838032cbfde5a148cdf7360d2885705873206c8272",
+      "source_bytes": 619484,
+      "triangles": 12388,
+      "bounds": [
+        [
+          -79.51644897460938,
+          16.047500610351562,
+          -735.5235595703125
+        ],
+        [
+          -38.55894470214844,
+          66.60476684570312,
+          -693.219970703125
+        ]
+      ],
+      "source_header": "3D Slicer output. SPACE=LPS",
+      "detected_exact_empty_facets_not_omitted": [],
+      "source_triangles": 12388,
+      "omitted_source_facet_indices": [],
+      "source_bounds_including_empty_facets": [
+        [
+          -79.51644897460938,
+          16.047500610351562,
+          -735.5235595703125
+        ],
+        [
+          -38.55894470214844,
+          66.60476684570312,
+          -693.219970703125
+        ]
+      ],
+      "id": "um-ankle-bone-talus",
+      "name": "Talus",
+      "layer": "bone",
+      "regions": [
+        "ankle"
+      ],
+      "bytes": 335909,
+      "sha256": "81176f6c2bf390aceab976cb2968ebc05aa5240042b94bc7876b9007038844b4",
+      "export_vertices": 37164,
+      "source_unique_positions": 6196,
+      "normals_preserved_exactly": true,
+      "geometry_transform": "identity; native LPS positions retained",
+      "world_transform_columns": [
+        [
+          1,
+          0,
+          0
+        ],
+        [
+          0,
+          1,
+          0
+        ],
+        [
+          0,
+          0,
+          1
+        ],
+        [
+          0,
+          0,
+          0
+        ]
+      ],
+      "component_count": 1,
+      "component_triangles": [
+        12388
+      ],
+      "watertight": true,
+      "winding_consistent": true,
+      "volume_native_units_cubed": 29998.627608984418,
+      "degenerate_triangles": 0,
+      "normal_length_min": 0.9999999403953552,
+      "normal_length_max": 1.0,
+      "license": "CC0 1.0",
+      "omission_evidence_sha256": "cc0d93f1ad03c21d958ee0f3b909f56788295e199224f14129103dec2499e7ac",
+      "source_segmentation": {
+        "name": "Bone_Talus",
+        "id": "2.25.38724732609686024265074779527424370741",
+        "layer": 0,
+        "label_value": 7
+      },
+      "mesh_to_voxel_extent_difference_mm": 0.4364412427004254,
+      "file": "/app/anatomy/msk-mri-ankle/um-ankle-bone-talus.bin.gz",
+      "vertices": 37164,
+      "decoded_bytes": 1040604,
+      "decoded_sha256": "98d0d44cad88d1ef3091c5e7cb61b7fe339261560a2426e78bb5d60691b2ca2b",
+      "content_encoding": "gzip",
+      "color": "#e7d5ad",
+      "fidelity_review": "pending"
+    },
+    "um-ankle-bone-tibia": {
+      "source_name": "Bone_Tibia",
+      "source_member": "Final Model STL files/Segmentation_Bone_Tibia.stl",
+      "source_sha256": "70b44bc56b556d91c729e6073a32f05d0fb3a3e7f4ec0c93a4f5b40680d6811d",
+      "source_bytes": 3703284,
+      "triangles": 74064,
+      "bounds": [
+        [
+          -93.89885711669922,
+          0.0468815416097641,
+          -697.2589111328125
+        ],
+        [
+          -21.11252784729004,
+          66.94017028808594,
+          -336.22979736328125
+        ]
+      ],
+      "source_header": "3D Slicer output. SPACE=LPS",
+      "detected_exact_empty_facets_not_omitted": [],
+      "source_triangles": 74064,
+      "omitted_source_facet_indices": [],
+      "source_bounds_including_empty_facets": [
+        [
+          -93.89885711669922,
+          0.0468815416097641,
+          -697.2589111328125
+        ],
+        [
+          -21.11252784729004,
+          66.94017028808594,
+          -336.22979736328125
+        ]
+      ],
+      "id": "um-ankle-bone-tibia",
+      "name": "Tibia",
+      "layer": "bone",
+      "regions": [
+        "ankle"
+      ],
+      "bytes": 2446952,
+      "sha256": "c58cbf1d9c6017bdbd0a151a1472a425bb3186206a50aae19fa8b67b23ed1e1d",
+      "export_vertices": 222192,
+      "source_unique_positions": 37034,
+      "normals_preserved_exactly": true,
+      "geometry_transform": "identity; native LPS positions retained",
+      "world_transform_columns": [
+        [
+          1,
+          0,
+          0
+        ],
+        [
+          0,
+          1,
+          0
+        ],
+        [
+          0,
+          0,
+          1
+        ],
+        [
+          0,
+          0,
+          0
+        ]
+      ],
+      "component_count": 1,
+      "component_triangles": [
+        74064
+      ],
+      "watertight": true,
+      "winding_consistent": true,
+      "volume_native_units_cubed": 245572.43376610382,
+      "degenerate_triangles": 0,
+      "normal_length_min": 0.9999999403953552,
+      "normal_length_max": 1.0,
+      "license": "CC0 1.0",
+      "omission_evidence_sha256": "cc0d93f1ad03c21d958ee0f3b909f56788295e199224f14129103dec2499e7ac",
+      "source_segmentation": {
+        "name": "Bone_Tibia",
+        "id": "2.25.302098637030448659245340198411715614251",
+        "layer": 0,
+        "label_value": 4
+      },
+      "mesh_to_voxel_extent_difference_mm": 4.755387485021743,
+      "file": "/app/anatomy/msk-mri-knee/um-knee-bone-tibia.bin.gz",
+      "vertices": 222192,
+      "decoded_bytes": 6221388,
+      "decoded_sha256": "b4577f8dbcb07c5669c57dc2aee9124cf05aa213c62c19b8db32a3e15404dd71",
+      "content_encoding": "gzip",
+      "color": "#e7d5ad",
+      "fidelity_review": "pending",
+      "shared_binary_from": "um-knee-bone-tibia"
+    },
+    "um-ankle-muscle-extensor-digitorum-longus": {
+      "source_name": "Muscle_Extensor Digitorum Longus",
+      "source_member": "Final Model STL files/Segmentation_Muscle_Extensor Digitorum Longus.stl",
+      "source_sha256": "e21ce0c81994f008f2dda5bf6979892588645deb26b643196cc2a172a7d724a8",
+      "source_bytes": 1696684,
+      "triangles": 33926,
+      "bounds": [
+        [
+          -109.19632720947266,
+          28.944744110107422,
+          -704.9935913085938
+        ],
+        [
+          -75.0572509765625,
+          64.90635681152344,
+          -358.68243408203125
+        ]
+      ],
+      "source_header": "3D Slicer output. SPACE=LPS",
+      "detected_exact_empty_facets_not_omitted": [],
+      "source_triangles": 33932,
+      "omitted_source_facet_indices": [
+        14448,
+        14449,
+        14450,
+        14451,
+        16162,
+        16170
+      ],
+      "source_bounds_including_empty_facets": [
+        [
+          -109.19632720947266,
+          28.944744110107422,
+          -704.9935913085938
+        ],
+        [
+          -75.0572509765625,
+          64.90635681152344,
+          -358.68243408203125
+        ]
+      ],
+      "id": "um-ankle-muscle-extensor-digitorum-longus",
+      "name": "Extensor digitorum longus source muscle unit",
+      "layer": "muscle",
+      "regions": [
+        "ankle"
+      ],
+      "bytes": 1023351,
+      "sha256": "9d6ec2e2cddda06307540430c69a6e9df885fce06bb5ed5c6afa6067fcccbd7a",
+      "export_vertices": 101778,
+      "source_unique_positions": 16967,
+      "normals_preserved_exactly": true,
+      "geometry_transform": "identity; native LPS positions retained",
+      "world_transform_columns": [
+        [
+          1,
+          0,
+          0
+        ],
+        [
+          0,
+          1,
+          0
+        ],
+        [
+          0,
+          0,
+          1
+        ],
+        [
+          0,
+          0,
+          0
+        ]
+      ],
+      "component_count": 2,
+      "component_triangles": [
+        33924,
+        2
+      ],
+      "watertight": true,
+      "winding_consistent": true,
+      "volume_native_units_cubed": 52149.67698319,
+      "degenerate_triangles": 0,
+      "normal_length_min": 0.9999999403953552,
+      "normal_length_max": 1.0,
+      "license": "CC0 1.0",
+      "omission_evidence_sha256": "cc0d93f1ad03c21d958ee0f3b909f56788295e199224f14129103dec2499e7ac",
+      "source_segmentation": {
+        "name": "Muscle_Extensor Digitorum Longus",
+        "id": "2.25.330780533600439958524059033475517336768",
+        "layer": 0,
+        "label_value": 24
+      },
+      "mesh_to_voxel_extent_difference_mm": 0.5142865777045245,
+      "file": "/app/anatomy/msk-mri-ankle/um-ankle-muscle-extensor-digitorum-longus.bin.gz",
+      "vertices": 101778,
+      "decoded_bytes": 2849796,
+      "decoded_sha256": "24bc0b679a321a98551fa60c262112385a072f7306f429088a8de1b26835484f",
+      "content_encoding": "gzip",
+      "color": "#b97074",
+      "fidelity_review": "pending"
+    },
+    "um-ankle-muscle-extensor-hallucis-longus": {
+      "source_name": "Muscle_Extensor Hallucis Longus",
+      "source_member": "Final Model STL files/Segmentation_Muscle_Extensor Hallucis Longus.stl",
+      "source_sha256": "ec2ee0812d0e05a3c5aacd117a07f1cebe286c82acc0c71f0185bcf2bd8aacf9",
+      "source_bytes": 1066484,
+      "triangles": 21322,
+      "bounds": [
+        [
+          -93.34796142578125,
+          12.194591522216797,
+          -717.5908203125
+        ],
+        [
+          -67.34539794921875,
+          63.378292083740234,
+          -447.6007385253906
+        ]
+      ],
+      "source_header": "3D Slicer output. SPACE=LPS",
+      "detected_exact_empty_facets_not_omitted": [],
+      "source_triangles": 21328,
+      "omitted_source_facet_indices": [
+        112,
+        113,
+        412,
+        413,
+        414,
+        415
+      ],
+      "source_bounds_including_empty_facets": [
+        [
+          -93.34796142578125,
+          12.194591522216797,
+          -717.5908203125
+        ],
+        [
+          -67.34539794921875,
+          63.378292083740234,
+          -447.6007385253906
+        ]
+      ],
+      "id": "um-ankle-muscle-extensor-hallucis-longus",
+      "name": "Extensor hallucis longus source muscle unit",
+      "layer": "muscle",
+      "regions": [
+        "ankle"
+      ],
+      "bytes": 612240,
+      "sha256": "ee51653c3b01a9b604b27a6e499997bc7c94cae23f97723f9fc2aee28f92210c",
+      "export_vertices": 63966,
+      "source_unique_positions": 10665,
+      "normals_preserved_exactly": true,
+      "geometry_transform": "identity; native LPS positions retained",
+      "world_transform_columns": [
+        [
+          1,
+          0,
+          0
+        ],
+        [
+          0,
+          1,
+          0
+        ],
+        [
+          0,
+          0,
+          1
+        ],
+        [
+          0,
+          0,
+          0
+        ]
+      ],
+      "component_count": 2,
+      "component_triangles": [
+        21320,
+        2
+      ],
+      "watertight": true,
+      "winding_consistent": true,
+      "volume_native_units_cubed": 26487.94663654846,
+      "degenerate_triangles": 0,
+      "normal_length_min": 0.9999999403953552,
+      "normal_length_max": 1.0,
+      "license": "CC0 1.0",
+      "omission_evidence_sha256": "cc0d93f1ad03c21d958ee0f3b909f56788295e199224f14129103dec2499e7ac",
+      "source_segmentation": {
+        "name": "Muscle_Extensor Hallucis Longus",
+        "id": "2.25.88135178721432737187785418434567876554",
+        "layer": 1,
+        "label_value": 11
+      },
+      "mesh_to_voxel_extent_difference_mm": 1.1076267569389415,
+      "file": "/app/anatomy/msk-mri-ankle/um-ankle-muscle-extensor-hallucis-longus.bin.gz",
+      "vertices": 63966,
+      "decoded_bytes": 1791060,
+      "decoded_sha256": "cac49ddd4f5efc5751b2bf432fca0b55a7a3a6c6c11d250b066fb29170ec1bab",
+      "content_encoding": "gzip",
+      "color": "#b97074",
+      "fidelity_review": "pending"
+    },
+    "um-ankle-muscle-flexor-digitorum-longus": {
+      "source_name": "Muscle_Flexor Digitorum Longus",
+      "source_member": "Final Model STL files/Segmentation_Muscle_Flexor Digitorum Longus.stl",
+      "source_sha256": "38b287543e6cd1646e6cdd6e33c4437f2f8818778801b837007ede3475b52b03",
+      "source_bytes": 1031084,
+      "triangles": 20538,
+      "bounds": [
+        [
+          -55.134586334228516,
+          29.347858428955078,
+          -674.3216552734375
+        ],
+        [
+          -32.9066162109375,
+          61.08834457397461,
+          -435.2218933105469
+        ]
+      ],
+      "source_header": "3D Slicer output. SPACE=LPS",
+      "detected_exact_empty_facets_not_omitted": [],
+      "source_triangles": 20620,
+      "omitted_source_facet_indices": [
+        2782,
+        2783,
+        2784,
+        2785,
+        2786,
+        2787,
+        2788,
+        2789,
+        2790,
+        2791,
+        2792,
+        2793,
+        4392,
+        4393,
+        4394,
+        4395,
+        4396,
+        4397,
+        4398,
+        4399,
+        4400,
+        4401,
+        4402,
+        4403,
+        4404,
+        4405,
+        4406,
+        4409,
+        4410,
+        4412,
+        4413,
+        4414,
+        4415,
+        4416,
+        4417,
+        4418,
+        4419,
+        4420,
+        4421,
+        4422,
+        4423,
+        4424,
+        4425,
+        4426,
+        4427,
+        5870,
+        5871,
+        5872,
+        5873,
+        5874,
+        5876,
+        5877,
+        5879,
+        5880,
+        5882,
+        5897,
+        5899,
+        5900,
+        5901,
+        5902,
+        5903,
+        5904,
+        5905,
+        5906,
+        5907,
+        5908,
+        5909,
+        5910,
+        5911,
+        5912,
+        5915,
+        5916,
+        5917,
+        5918,
+        5920,
+        5921,
+        7186,
+        7190,
+        7191,
+        7192,
+        7195,
+        7197
+      ],
+      "source_bounds_including_empty_facets": [
+        [
+          -55.134586334228516,
+          29.347858428955078,
+          -685.6917724609375
+        ],
+        [
+          -32.9066162109375,
+          61.08834457397461,
+          -435.2218933105469
+        ]
+      ],
+      "id": "um-ankle-muscle-flexor-digitorum-longus",
+      "name": "Flexor digitorum longus source muscle unit",
+      "layer": "muscle",
+      "regions": [
+        "ankle"
+      ],
+      "bytes": 589125,
+      "sha256": "2b30f0d398886f679c15938cc88ec7bab6d14c9ad09dca451a17e62813069208",
+      "export_vertices": 61516,
+      "source_unique_positions": 10268,
+      "normals_preserved_exactly": true,
+      "geometry_transform": "identity; native LPS positions retained",
+      "world_transform_columns": [
+        [
+          1,
+          0,
+          0
+        ],
+        [
+          0,
+          1,
+          0
+        ],
+        [
+          0,
+          0,
+          1
+        ],
+        [
+          0,
+          0,
+          0
+        ]
+      ],
+      "component_count": 3,
+      "component_triangles": [
+        20492,
+        40,
+        6
+      ],
+      "watertight": false,
+      "winding_consistent": true,
+      "volume_native_units_cubed": 33947.095561678674,
+      "degenerate_triangles": 0,
+      "normal_length_min": 0.9999999403953552,
+      "normal_length_max": 1.0,
+      "license": "CC0 1.0",
+      "omission_evidence_sha256": "cc0d93f1ad03c21d958ee0f3b909f56788295e199224f14129103dec2499e7ac",
+      "source_segmentation": {
+        "name": "Muscle_Flexor Digitorum Longus",
+        "id": "2.25.80960260620612837625069791840579492904",
+        "layer": 0,
+        "label_value": 22
+      },
+      "mesh_to_voxel_extent_difference_mm": 12.692643463606146,
+      "file": "/app/anatomy/msk-mri-ankle/um-ankle-muscle-flexor-digitorum-longus.bin.gz",
+      "vertices": 61516,
+      "decoded_bytes": 1722852,
+      "decoded_sha256": "2bef1716bac5ed232ef42be168de98880700fdaf839bd3d8375390934d055ca2",
+      "content_encoding": "gzip",
+      "color": "#b97074",
+      "fidelity_review": "pending"
+    },
+    "um-ankle-muscle-flexor-hallucis-longus": {
+      "source_name": "Muscle_Flexor Hallucis Longus",
+      "source_member": "Final Model STL files/Segmentation_Muscle_Flexor Hallucis Longus.stl",
+      "source_sha256": "236bfe78de5fdeb41c02c05265b42957fc38515d79b2bd27118681892d946a27",
+      "source_bytes": 1812084,
+      "triangles": 36240,
+      "bounds": [
+        [
+          -79.92220306396484,
+          56.049442291259766,
+          -692.6053466796875
+        ],
+        [
+          -37.57343673706055,
+          84.38196563720703,
+          -456.6326904296875
+        ]
+      ],
+      "source_header": "3D Slicer output. SPACE=LPS",
+      "detected_exact_empty_facets_not_omitted": [],
+      "source_triangles": 36240,
+      "omitted_source_facet_indices": [],
+      "source_bounds_including_empty_facets": [
+        [
+          -79.92220306396484,
+          56.049442291259766,
+          -692.6053466796875
+        ],
+        [
+          -37.57343673706055,
+          84.38196563720703,
+          -456.6326904296875
+        ]
+      ],
+      "id": "um-ankle-muscle-flexor-hallucis-longus",
+      "name": "Flexor hallucis longus source muscle unit",
+      "layer": "muscle",
+      "regions": [
+        "ankle"
+      ],
+      "bytes": 1065379,
+      "sha256": "33bdb0a55b173efea5459a4bedf2c8791925ee33e5f6d98e2a9f041632c156c8",
+      "export_vertices": 108720,
+      "source_unique_positions": 18122,
+      "normals_preserved_exactly": true,
+      "geometry_transform": "identity; native LPS positions retained",
+      "world_transform_columns": [
+        [
+          1,
+          0,
+          0
+        ],
+        [
+          0,
+          1,
+          0
+        ],
+        [
+          0,
+          0,
+          1
+        ],
+        [
+          0,
+          0,
+          0
+        ]
+      ],
+      "component_count": 1,
+      "component_triangles": [
+        36240
+      ],
+      "watertight": true,
+      "winding_consistent": true,
+      "volume_native_units_cubed": 98170.06470030884,
+      "degenerate_triangles": 0,
+      "normal_length_min": 0.9999999403953552,
+      "normal_length_max": 1.0,
+      "license": "CC0 1.0",
+      "omission_evidence_sha256": "cc0d93f1ad03c21d958ee0f3b909f56788295e199224f14129103dec2499e7ac",
+      "source_segmentation": {
+        "name": "Muscle_Flexor Hallucis Longus",
+        "id": "2.25.338778142090907217794204586046017572190",
+        "layer": 0,
+        "label_value": 23
+      },
+      "mesh_to_voxel_extent_difference_mm": 0.7155676051566502,
+      "file": "/app/anatomy/msk-mri-ankle/um-ankle-muscle-flexor-hallucis-longus.bin.gz",
+      "vertices": 108720,
+      "decoded_bytes": 3044172,
+      "decoded_sha256": "8845ba63318bc6f4cf8c8159552820d29a62cf0f10ba7240688b8449e17f6714",
+      "content_encoding": "gzip",
+      "color": "#b97074",
+      "fidelity_review": "pending"
+    },
+    "um-ankle-muscle-gastrocnemius-lateral": {
+      "source_name": "Muscle_Gastrocnemius Lateral",
+      "source_member": "Final Model STL files/Segmentation_Muscle_Gastrocnemius Lateral.stl",
+      "source_sha256": "e27c9683921db997b38490c6a73414eb84215145a7079a2ba8087236f79c00f2",
+      "source_bytes": 2813684,
+      "triangles": 56272,
+      "bounds": [
+        [
+          -104.33130645751953,
+          55.38725280761719,
+          -506.3931579589844
+        ],
+        [
+          -25.84583282470703,
+          105.2083511352539,
+          -292.4245300292969
+        ]
+      ],
+      "source_header": "3D Slicer output. SPACE=LPS",
+      "detected_exact_empty_facets_not_omitted": [],
+      "source_triangles": 56272,
+      "omitted_source_facet_indices": [],
+      "source_bounds_including_empty_facets": [
+        [
+          -104.33130645751953,
+          55.38725280761719,
+          -506.3931579589844
+        ],
+        [
+          -25.84583282470703,
+          105.2083511352539,
+          -292.4245300292969
+        ]
+      ],
+      "id": "um-ankle-muscle-gastrocnemius-lateral",
+      "name": "Lateral gastrocnemius",
+      "layer": "muscle",
+      "regions": [
+        "ankle"
+      ],
+      "bytes": 1648892,
+      "sha256": "b1c8e61a3ce672bfe3ff050f1800705e108aa52534984b5dfc027f13bd629aaa",
+      "export_vertices": 168816,
+      "source_unique_positions": 28138,
+      "normals_preserved_exactly": true,
+      "geometry_transform": "identity; native LPS positions retained",
+      "world_transform_columns": [
+        [
+          1,
+          0,
+          0
+        ],
+        [
+          0,
+          1,
+          0
+        ],
+        [
+          0,
+          0,
+          1
+        ],
+        [
+          0,
+          0,
+          0
+        ]
+      ],
+      "component_count": 1,
+      "component_triangles": [
+        56272
+      ],
+      "watertight": true,
+      "winding_consistent": true,
+      "volume_native_units_cubed": 182436.82742381401,
+      "degenerate_triangles": 0,
+      "normal_length_min": 0.9999999403953552,
+      "normal_length_max": 1.0,
+      "license": "CC0 1.0",
+      "omission_evidence_sha256": "cc0d93f1ad03c21d958ee0f3b909f56788295e199224f14129103dec2499e7ac",
+      "source_segmentation": {
+        "name": "Muscle_Gastrocnemius Lateral",
+        "id": "2.25.141020960461563399468451644484223848864",
+        "layer": 0,
+        "label_value": 19
+      },
+      "mesh_to_voxel_extent_difference_mm": 0.6211422085721097,
+      "file": "/app/anatomy/msk-mri-knee/um-knee-muscle-gastrocnemius-lateral.bin.gz",
+      "vertices": 168816,
+      "decoded_bytes": 4726860,
+      "decoded_sha256": "4e9d66e88e7a98b7c4a5b90fe026376f66eaac7fbce132d728077db140ef4033",
+      "content_encoding": "gzip",
+      "color": "#b97074",
+      "fidelity_review": "pending",
+      "shared_binary_from": "um-knee-muscle-gastrocnemius-lateral"
+    },
+    "um-ankle-muscle-gastrocnemius-medial": {
+      "source_name": "Muscle_Gastrocnemius Medial",
+      "source_member": "Final Model STL files/Segmentation_Muscle_Gastrocnemius Medial.stl",
+      "source_sha256": "51b3b4b33a857d8daf1eab3995302a250aa19c5e63997bd1028cc33b028afbfb",
+      "source_bytes": 3103884,
+      "triangles": 62076,
+      "bounds": [
+        [
+          -50.79821014404297,
+          24.610498428344727,
+          -530.9364624023438
+        ],
+        [
+          -4.869778633117676,
+          99.349853515625,
+          -275.00537109375
+        ]
+      ],
+      "source_header": "3D Slicer output. SPACE=LPS",
+      "detected_exact_empty_facets_not_omitted": [],
+      "source_triangles": 62076,
+      "omitted_source_facet_indices": [],
+      "source_bounds_including_empty_facets": [
+        [
+          -50.79821014404297,
+          24.610498428344727,
+          -530.9364624023438
+        ],
+        [
+          -4.869778633117676,
+          99.349853515625,
+          -275.00537109375
+        ]
+      ],
+      "id": "um-ankle-muscle-gastrocnemius-medial",
+      "name": "Medial gastrocnemius",
+      "layer": "muscle",
+      "regions": [
+        "ankle"
+      ],
+      "bytes": 1842667,
+      "sha256": "d75f00ca2e64290e23cd84d11ddd69dbcb122990a7280c01d7d81558e9c17b5a",
+      "export_vertices": 186228,
+      "source_unique_positions": 31040,
+      "normals_preserved_exactly": true,
+      "geometry_transform": "identity; native LPS positions retained",
+      "world_transform_columns": [
+        [
+          1,
+          0,
+          0
+        ],
+        [
+          0,
+          1,
+          0
+        ],
+        [
+          0,
+          0,
+          1
+        ],
+        [
+          0,
+          0,
+          0
+        ]
+      ],
+      "component_count": 1,
+      "component_triangles": [
+        62076
+      ],
+      "watertight": true,
+      "winding_consistent": true,
+      "volume_native_units_cubed": 208718.74294603537,
+      "degenerate_triangles": 0,
+      "normal_length_min": 0.9999999403953552,
+      "normal_length_max": 1.0,
+      "license": "CC0 1.0",
+      "omission_evidence_sha256": "cc0d93f1ad03c21d958ee0f3b909f56788295e199224f14129103dec2499e7ac",
+      "source_segmentation": {
+        "name": "Muscle_Gastrocnemius Medial",
+        "id": "2.25.314198346985494712377113232884654698258",
+        "layer": 1,
+        "label_value": 8
+      },
+      "mesh_to_voxel_extent_difference_mm": 0.3086068034128857,
+      "file": "/app/anatomy/msk-mri-knee/um-knee-muscle-gastrocnemius-medial.bin.gz",
+      "vertices": 186228,
+      "decoded_bytes": 5214396,
+      "decoded_sha256": "796320d4c074fc08f0093262606989633aba728420a9c7111a84fa18e6bc9a66",
+      "content_encoding": "gzip",
+      "color": "#b97074",
+      "fidelity_review": "pending",
+      "shared_binary_from": "um-knee-muscle-gastrocnemius-medial"
+    },
+    "um-ankle-muscle-peroneus-longus": {
+      "source_name": "Muscle_Peroneus Longus",
+      "source_member": "Final Model STL files/Segmentation_Muscle_Peroneus Longus.stl",
+      "source_sha256": "d56a562bf1a3a558f2870faf43598771f15576773cba5f824339bfc697996910",
+      "source_bytes": 2671084,
+      "triangles": 53420,
+      "bounds": [
+        [
+          -116.7969970703125,
+          39.45059585571289,
+          -707.9342651367188
+        ],
+        [
+          -57.48371887207031,
+          89.1172866821289,
+          -361.9487609863281
+        ]
+      ],
+      "source_header": "3D Slicer output. SPACE=LPS",
+      "detected_exact_empty_facets_not_omitted": [],
+      "source_triangles": 53420,
+      "omitted_source_facet_indices": [],
+      "source_bounds_including_empty_facets": [
+        [
+          -116.7969970703125,
+          39.45059585571289,
+          -707.9342651367188
+        ],
+        [
+          -57.48371887207031,
+          89.1172866821289,
+          -361.9487609863281
+        ]
+      ],
+      "id": "um-ankle-muscle-peroneus-longus",
+      "name": "Fibularis longus source muscle unit",
+      "layer": "muscle",
+      "regions": [
+        "ankle"
+      ],
+      "bytes": 1566277,
+      "sha256": "0b38ea8c1059240747a40dad5c07f905d23e1f9445131c0e367758a3a1c1d42c",
+      "export_vertices": 160260,
+      "source_unique_positions": 26712,
+      "normals_preserved_exactly": true,
+      "geometry_transform": "identity; native LPS positions retained",
+      "world_transform_columns": [
+        [
+          1,
+          0,
+          0
+        ],
+        [
+          0,
+          1,
+          0
+        ],
+        [
+          0,
+          0,
+          1
+        ],
+        [
+          0,
+          0,
+          0
+        ]
+      ],
+      "component_count": 1,
+      "component_triangles": [
+        53420
+      ],
+      "watertight": true,
+      "winding_consistent": true,
+      "volume_native_units_cubed": 148710.35471465602,
+      "degenerate_triangles": 0,
+      "normal_length_min": 0.9999999403953552,
+      "normal_length_max": 1.0,
+      "license": "CC0 1.0",
+      "omission_evidence_sha256": "cc0d93f1ad03c21d958ee0f3b909f56788295e199224f14129103dec2499e7ac",
+      "source_segmentation": {
+        "name": "Muscle_Peroneus Longus",
+        "id": "2.25.157970360868404056627364216811586559355",
+        "layer": 0,
+        "label_value": 21
+      },
+      "mesh_to_voxel_extent_difference_mm": 0.8459473310182943,
+      "file": "/app/anatomy/msk-mri-ankle/um-ankle-muscle-peroneus-longus.bin.gz",
+      "vertices": 160260,
+      "decoded_bytes": 4487292,
+      "decoded_sha256": "928920bc55dd8a3c5e112bc6522a0e0dfe18e73389dd2cacb3acc3a34094c1cc",
+      "content_encoding": "gzip",
+      "color": "#b97074",
+      "fidelity_review": "pending"
+    },
+    "um-ankle-muscle-soleus": {
+      "source_name": "Muscle_Soleus",
+      "source_member": "Final Model STL files/Segmentation_Muscle_Soleus.stl",
+      "source_sha256": "3531f5b7acb8e1f67239d2216bb914681f0edcf90cc6800018a431278e1157a5",
+      "source_bytes": 5234684,
+      "triangles": 104692,
+      "bounds": [
+        [
+          -111.93111419677734,
+          27.740562438964844,
+          -653.6866455078125
+        ],
+        [
+          -18.492664337158203,
+          100.64877319335938,
+          -350.5084533691406
+        ]
+      ],
+      "source_header": "3D Slicer output. SPACE=LPS",
+      "detected_exact_empty_facets_not_omitted": [],
+      "source_triangles": 104692,
+      "omitted_source_facet_indices": [],
+      "source_bounds_including_empty_facets": [
+        [
+          -111.93111419677734,
+          27.740562438964844,
+          -653.6866455078125
+        ],
+        [
+          -18.492664337158203,
+          100.64877319335938,
+          -350.5084533691406
+        ]
+      ],
+      "id": "um-ankle-muscle-soleus",
+      "name": "Soleus",
+      "layer": "muscle",
+      "regions": [
+        "ankle"
+      ],
+      "bytes": 3263664,
+      "sha256": "8e43b4dea8dd72098b52b6d41aa5d31da7d97ee473d3834c3c561e2f8f8a32e5",
+      "export_vertices": 314076,
+      "source_unique_positions": 52348,
+      "normals_preserved_exactly": true,
+      "geometry_transform": "identity; native LPS positions retained",
+      "world_transform_columns": [
+        [
+          1,
+          0,
+          0
+        ],
+        [
+          0,
+          1,
+          0
+        ],
+        [
+          0,
+          0,
+          1
+        ],
+        [
+          0,
+          0,
+          0
+        ]
+      ],
+      "component_count": 1,
+      "component_triangles": [
+        104692
+      ],
+      "watertight": true,
+      "winding_consistent": true,
+      "volume_native_units_cubed": 405799.98849640414,
+      "degenerate_triangles": 0,
+      "normal_length_min": 0.9999999403953552,
+      "normal_length_max": 1.0,
+      "license": "CC0 1.0",
+      "omission_evidence_sha256": "cc0d93f1ad03c21d958ee0f3b909f56788295e199224f14129103dec2499e7ac",
+      "source_segmentation": {
+        "name": "Muscle_Soleus",
+        "id": "2.25.259022253306727390735664024092013488267",
+        "layer": 0,
+        "label_value": 18
+      },
+      "mesh_to_voxel_extent_difference_mm": 1.0199611782975353,
+      "file": "/app/anatomy/msk-mri-knee/um-knee-muscle-soleus.bin.gz",
+      "vertices": 314076,
+      "decoded_bytes": 8794140,
+      "decoded_sha256": "c784cdaeac82af807a2bbc0550bdab961bc85460cc472412e9c81c90a8c3ed07",
+      "content_encoding": "gzip",
+      "color": "#b97074",
+      "fidelity_review": "pending",
+      "shared_binary_from": "um-knee-muscle-soleus"
+    },
+    "um-ankle-muscle-tibialis-anterior": {
+      "source_name": "Muscle_Tibialis Anterior",
+      "source_member": "Final Model STL files/Segmentation_Muscle_Tibialis Anterior.stl",
+      "source_sha256": "9c88a593d7c7bbb457fba14a13c05e193798d83ae77039c00d831099789d6747",
+      "source_bytes": 2455484,
+      "triangles": 49010,
+      "bounds": [
+        [
+          -107.97010803222656,
+          1.8099758625030518,
+          -749.898193359375
+        ],
+        [
+          -41.637874603271484,
+          56.6898193359375,
+          -363.8607177734375
+        ]
+      ],
+      "source_header": "3D Slicer output. SPACE=LPS",
+      "detected_exact_empty_facets_not_omitted": [],
+      "source_triangles": 49108,
+      "omitted_source_facet_indices": [
+        0,
+        1,
+        2,
+        3,
+        7,
+        8,
+        10,
+        11,
+        13,
+        15,
+        18,
+        19,
+        21,
+        23,
+        24,
+        27,
+        29,
+        32,
+        35,
+        38,
+        42,
+        43,
+        44,
+        45,
+        46,
+        47,
+        48,
+        49,
+        50,
+        51,
+        52,
+        54,
+        55,
+        56,
+        57,
+        58,
+        59,
+        60,
+        61,
+        62,
+        63,
+        64,
+        65,
+        66,
+        67,
+        68,
+        69,
+        70,
+        71,
+        72,
+        73,
+        74,
+        75,
+        77,
+        78,
+        79,
+        81,
+        83,
+        86,
+        88,
+        89,
+        90,
+        91,
+        94,
+        95,
+        100,
+        101,
+        102,
+        103,
+        104,
+        105,
+        106,
+        107,
+        108,
+        109,
+        110,
+        111,
+        113,
+        114,
+        115,
+        118,
+        119,
+        120,
+        121,
+        122,
+        123,
+        124,
+        125,
+        126,
+        127,
+        978,
+        979,
+        980,
+        981,
+        1820,
+        1821,
+        1822,
+        1823
+      ],
+      "source_bounds_including_empty_facets": [
+        [
+          -107.97010803222656,
+          1.8099758625030518,
+          -749.898193359375
+        ],
+        [
+          -40.43788146972656,
+          56.6898193359375,
+          -363.8607177734375
+        ]
+      ],
+      "id": "um-ankle-muscle-tibialis-anterior",
+      "name": "Tibialis anterior source muscle unit",
+      "layer": "muscle",
+      "regions": [
+        "ankle"
+      ],
+      "bytes": 1487617,
+      "sha256": "4102738a783cd29da5039d9c96d2f8ca166cfa1d674765bf779306587fb8e70a",
+      "export_vertices": 146997,
+      "source_unique_positions": 24518,
+      "normals_preserved_exactly": true,
+      "geometry_transform": "identity; native LPS positions retained",
+      "world_transform_columns": [
+        [
+          1,
+          0,
+          0
+        ],
+        [
+          0,
+          1,
+          0
+        ],
+        [
+          0,
+          0,
+          1
+        ],
+        [
+          0,
+          0,
+          0
+        ]
+      ],
+      "component_count": 9,
+      "component_triangles": [
+        48972,
+        8,
+        8,
+        8,
+        4,
+        4,
+        2,
+        2,
+        2
+      ],
+      "watertight": false,
+      "winding_consistent": true,
+      "volume_native_units_cubed": 137834.19681333812,
+      "degenerate_triangles": 0,
+      "normal_length_min": 0.9999999403953552,
+      "normal_length_max": 1.0,
+      "license": "CC0 1.0",
+      "omission_evidence_sha256": "cc0d93f1ad03c21d958ee0f3b909f56788295e199224f14129103dec2499e7ac",
+      "source_segmentation": {
+        "name": "Muscle_Tibialis Anterior",
+        "id": "2.25.242121391224028626781779590542896030515",
+        "layer": 1,
+        "label_value": 9
+      },
+      "mesh_to_voxel_extent_difference_mm": 1.8001024518681135,
+      "file": "/app/anatomy/msk-mri-ankle/um-ankle-muscle-tibialis-anterior.bin.gz",
+      "vertices": 146997,
+      "decoded_bytes": 4116060,
+      "decoded_sha256": "030070f3b2e572087db850ab6ea618827fc3fb86eab2b4aea589ae924864d600",
+      "content_encoding": "gzip",
+      "color": "#b97074",
+      "fidelity_review": "pending"
+    },
+    "um-ankle-muscle-tibialis-posterior": {
+      "source_name": "Muscle_Tibialis Posterior",
+      "source_member": "Final Model STL files/Segmentation_Muscle_Tibialis Posterior.stl",
+      "source_sha256": "7258187a81dfb810dba27a9ebed9d0f9fbef1cea8d7f5dc7b20405f8e91fc755",
+      "source_bytes": 2080884,
+      "triangles": 41578,
+      "bounds": [
+        [
+          -86.83556365966797,
+          20.583356857299805,
+          -750.7410278320312
+        ],
+        [
+          -35.028316497802734,
+          64.53136444091797,
+          -365.1827392578125
+        ]
+      ],
+      "source_header": "3D Slicer output. SPACE=LPS",
+      "detected_exact_empty_facets_not_omitted": [],
+      "source_triangles": 41616,
+      "omitted_source_facet_indices": [
+        80,
+        82,
+        84,
+        87,
+        90,
+        91,
+        92,
+        93,
+        94,
+        95,
+        96,
+        97,
+        98,
+        99,
+        100,
+        101,
+        102,
+        103,
+        228,
+        229,
+        230,
+        231,
+        234,
+        235,
+        238,
+        239,
+        240,
+        241,
+        242,
+        243,
+        244,
+        245,
+        246,
+        247,
+        248,
+        249,
+        250,
+        251
+      ],
+      "source_bounds_including_empty_facets": [
+        [
+          -86.83556365966797,
+          20.583356857299805,
+          -750.7410278320312
+        ],
+        [
+          -35.028316497802734,
+          64.53136444091797,
+          -365.1827392578125
+        ]
+      ],
+      "id": "um-ankle-muscle-tibialis-posterior",
+      "name": "Tibialis posterior source muscle unit",
+      "layer": "muscle",
+      "regions": [
+        "ankle"
+      ],
+      "bytes": 1213879,
+      "sha256": "cefad8ff151af27a155c0a140a971678bc6b6d7a8df1466b979be3a2e4f78ee3",
+      "export_vertices": 124716,
+      "source_unique_positions": 20794,
+      "normals_preserved_exactly": true,
+      "geometry_transform": "identity; native LPS positions retained",
+      "world_transform_columns": [
+        [
+          1,
+          0,
+          0
+        ],
+        [
+          0,
+          1,
+          0
+        ],
+        [
+          0,
+          0,
+          1
+        ],
+        [
+          0,
+          0,
+          0
+        ]
+      ],
+      "component_count": 4,
+      "component_triangles": [
+        41536,
+        32,
+        6,
+        4
+      ],
+      "watertight": false,
+      "winding_consistent": true,
+      "volume_native_units_cubed": 98983.42315868723,
+      "degenerate_triangles": 0,
+      "normal_length_min": 0.9999999403953552,
+      "normal_length_max": 1.0,
+      "license": "CC0 1.0",
+      "omission_evidence_sha256": "cc0d93f1ad03c21d958ee0f3b909f56788295e199224f14129103dec2499e7ac",
+      "source_segmentation": {
+        "name": "Muscle_Tibialis Posterior",
+        "id": "2.25.255427571849565717130790172050109705302",
+        "layer": 0,
+        "label_value": 20
+      },
+      "mesh_to_voxel_extent_difference_mm": 1.1905441284167324,
+      "file": "/app/anatomy/msk-mri-ankle/um-ankle-muscle-tibialis-posterior.bin.gz",
+      "vertices": 124716,
+      "decoded_bytes": 3492132,
+      "decoded_sha256": "a8d2ab3cfab365d854336675010e7957ddf44caf14103166f89ccfd6f31ac6e1",
+      "content_encoding": "gzip",
+      "color": "#b97074",
+      "fidelity_review": "pending"
+    },
+    "um-ankle-tendon-archilles": {
+      "source_name": "Tendon_Archilles",
+      "source_member": "Final Model STL files/Segmentation_Tendon_Archilles .stl",
+      "source_sha256": "30c8770721c391641d6f0d9a0ce5576991651837bda24d36bb448617f0a78b52",
+      "source_bytes": 1702084,
+      "triangles": 34004,
+      "bounds": [
+        [
+          -73.94389343261719,
+          60.75132751464844,
+          -736.5415649414062
+        ],
+        [
+          -18.766233444213867,
+          108.65481567382812,
+          -479.8904724121094
+        ]
+      ],
+      "source_header": "3D Slicer output. SPACE=LPS",
+      "detected_exact_empty_facets_not_omitted": [],
+      "source_triangles": 34040,
+      "omitted_source_facet_indices": [
+        13442,
+        13443,
+        13444,
+        13445,
+        14640,
+        14641,
+        14650,
+        14651,
+        29506,
+        29507,
+        29509,
+        29510,
+        30160,
+        30161,
+        30162,
+        30163,
+        30694,
+        30695,
+        30697,
+        30698,
+        31174,
+        31175,
+        31176,
+        31177,
+        33733,
+        33734,
+        33810,
+        33812,
+        33813,
+        33815,
+        33882,
+        33887,
+        33888,
+        33889,
+        33942,
+        33945
+      ],
+      "source_bounds_including_empty_facets": [
+        [
+          -73.94389343261719,
+          60.75132751464844,
+          -736.5415649414062
+        ],
+        [
+          -18.766233444213867,
+          108.65481567382812,
+          -479.8904724121094
+        ]
+      ],
+      "id": "um-ankle-tendon-archilles",
+      "name": "Achilles tendon",
+      "layer": "tendon",
+      "regions": [
+        "ankle"
+      ],
+      "bytes": 988943,
+      "sha256": "6395b5f23708c0cfd68c0bb9ee1922f22d7b7dc7007d29f374831051e6b7112e",
+      "export_vertices": 101992,
+      "source_unique_positions": 17006,
+      "normals_preserved_exactly": true,
+      "geometry_transform": "identity; native LPS positions retained",
+      "world_transform_columns": [
+        [
+          1,
+          0,
+          0
+        ],
+        [
+          0,
+          1,
+          0
+        ],
+        [
+          0,
+          0,
+          1
+        ],
+        [
+          0,
+          0,
+          0
+        ]
+      ],
+      "component_count": 2,
+      "component_triangles": [
+        33992,
+        12
+      ],
+      "watertight": false,
+      "winding_consistent": true,
+      "volume_native_units_cubed": 22545.595089889965,
+      "degenerate_triangles": 0,
+      "normal_length_min": 0.9999999403953552,
+      "normal_length_max": 1.0,
+      "license": "CC0 1.0",
+      "omission_evidence_sha256": "cc0d93f1ad03c21d958ee0f3b909f56788295e199224f14129103dec2499e7ac",
+      "source_segmentation": {
+        "name": "Tendon_Archilles",
+        "id": "2.25.288344550692353252627561274295812951871",
+        "layer": 0,
+        "label_value": 15
+      },
+      "mesh_to_voxel_extent_difference_mm": 1.241964161390115,
+      "file": "/app/anatomy/msk-mri-ankle/um-ankle-tendon-archilles.bin.gz",
+      "vertices": 101992,
+      "decoded_bytes": 2855868,
+      "decoded_sha256": "122cbe7252cb4e1e630465ff37c6679ae148240bf28fab73bbcba818514d1b56",
+      "content_encoding": "gzip",
+      "color": "#eadac1",
+      "fidelity_review": "pending"
+    }
+  },
+  "regions": {
+    "ankle": {
+      "title": "MRI-derived right ankle and Achilles",
+      "side": "right",
+      "parts": [
+        {
+          "id": "um-ankle-bone-calcaneus",
+          "layer": "bone"
+        },
+        {
+          "id": "um-ankle-bone-cuboid",
+          "layer": "bone"
+        },
+        {
+          "id": "um-ankle-bone-fibula",
+          "layer": "bone"
+        },
+        {
+          "id": "um-ankle-bone-intermediate-cuneiform",
+          "layer": "bone"
+        },
+        {
+          "id": "um-ankle-bone-lateral-cuneiform",
+          "layer": "bone"
+        },
+        {
+          "id": "um-ankle-bone-medial-cuneiform",
+          "layer": "bone"
+        },
+        {
+          "id": "um-ankle-bone-navicular",
+          "layer": "bone"
+        },
+        {
+          "id": "um-ankle-bone-talus",
+          "layer": "bone"
+        },
+        {
+          "id": "um-ankle-bone-tibia",
+          "layer": "bone"
+        },
+        {
+          "id": "um-ankle-muscle-extensor-digitorum-longus",
+          "layer": "muscle"
+        },
+        {
+          "id": "um-ankle-muscle-extensor-hallucis-longus",
+          "layer": "muscle"
+        },
+        {
+          "id": "um-ankle-muscle-flexor-digitorum-longus",
+          "layer": "muscle"
+        },
+        {
+          "id": "um-ankle-muscle-flexor-hallucis-longus",
+          "layer": "muscle"
+        },
+        {
+          "id": "um-ankle-muscle-gastrocnemius-lateral",
+          "layer": "muscle"
+        },
+        {
+          "id": "um-ankle-muscle-gastrocnemius-medial",
+          "layer": "muscle"
+        },
+        {
+          "id": "um-ankle-muscle-peroneus-longus",
+          "layer": "muscle"
+        },
+        {
+          "id": "um-ankle-muscle-soleus",
+          "layer": "muscle"
+        },
+        {
+          "id": "um-ankle-muscle-tibialis-anterior",
+          "layer": "muscle"
+        },
+        {
+          "id": "um-ankle-muscle-tibialis-posterior",
+          "layer": "muscle"
+        },
+        {
+          "id": "um-ankle-tendon-archilles",
+          "layer": "tendon"
+        }
+      ],
+      "focus_bounds": [
+        [
+          -79.66389465332031,
+          16.047500610351562,
+          -755.924072265625
+        ],
+        [
+          -25.386356353759766,
+          105.26387786865234,
+          -693.219970703125
+        ]
+      ],
+      "focus_bounds_source_objects": [
+        "Bone_Calcaneus",
+        "Bone_Talus"
+      ],
+      "layers": [
+        [
+          "bone",
+          "Bones"
+        ],
+        [
+          "tendon",
+          "Tendons"
+        ],
+        [
+          "muscle",
+          "Muscles"
+        ]
+      ],
+      "source_up_range": [
+        -795.924072265625,
+        -653.219970703125
+      ],
+      "lazy_layers": true
+    }
+  },
+  "limitations": [
+    "Single adult male right lower-extremity segmentation, not a generic population atlas.",
+    "This selection contains bones, a separately segmented Achilles tendon and source muscle units. It has no separate ankle cartilage, ankle ligament, nerve, vascular or bursal segmentation.",
+    "Source muscle units cannot prove a separately delineated distal tendon or tendon sheath.",
+    "Author-reported radiologist/radiographer inspection is not independent clinical certification of these exported surfaces."
+  ],
+  "clinical_image_pair": {
+    "available": false,
+    "source_datafile": 595,
+    "registration_status": "Same LPS world frame; source segmentation names matched to all selected STL objects. No additional image/mesh fit was performed.",
+    "metadata_caveat": "The repository derivative DICOM labels Modality as CT although its T1 VIBE DIXON description and the dataset authors describe MRI. Do not call it validated original acquisition DICOM."
+  },
+  "omission_evidence": {
+    "file": "/app/anatomy/msk-mri-ankle/omitted-empty-facets.json",
+    "sha256": "cc0d93f1ad03c21d958ee0f3b909f56788295e199224f14129103dec2499e7ac",
+    "total_facets": 266
+  },
+  "registration_validation": {
+    "source_segment_matches": 20,
+    "extent_checks_within_2_5_mm": 17,
+    "maximum_mesh_to_voxel_extent_difference_mm": 12.692643463606146,
+    "evidence_file": "/app/anatomy/msk-mri-ankle/registration-evidence.json",
+    "clinical_alignment_approval": false
+  },
+  "viewer_notes": [
+    "MRI-derived right ankle bones, Achilles tendon and source muscle units from one adult male. Native LPS millimeter coordinates are preserved; this source is not fitted to or combined with the broader atlas.",
+    "The Achilles tendon is a separate source segmentation. Other muscle units are not separately labelled distal tendons or tendon sheaths. Ankle ligaments, cartilage, nerves, vessels and bursae are not supplied by this source subset.",
+    "Source sampling is approximately 1.154 \u00d7 1.154 \u00d7 1.2 mm with morphological processing and smoothing. Small disconnected/non-manifold source components are retained; detailed accuracy and reporting completeness remain unverified.",
+    "The initial view focuses on the ankle. Full structures removes the view crop, including the complete Achilles and available muscle-unit geometry. No ankle-specific MRI image stack is offered by this viewer.",
+    "Jeevaraaj N Vivekanandan; Juliana Binti Usman (2026), A Three-Dimensional Lower Extremity Musculoskeletal Geometry Model of An Asian Male, Universiti Malaya Research Data Repository, doi:10.22452/RD/5T6TZ7. Source data: CC0 1.0. Original coordinates and nonempty surfaces are preserved; exact empty-facet omissions are recorded in the manifest."
+  ]
+}

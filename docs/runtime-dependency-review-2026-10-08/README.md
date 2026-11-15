@@ -1,0 +1,7 @@
+# Runtime dependency security update
+
+The previous pins have open critical/high GitHub advisories affecting AnyIO, Starlette, aiohttp and the tool-only Pillow dependency. The updated pinned runtime uses FastAPI 0.143.0, Starlette 1.7.0, AnyIO 4.15.1, aiohttp 3.14.4 and its required Yarl 1.25.1. The illustration tool uses Pillow 12.3.0. Intent and lock files agree; the fresh Python3.12 environment passes pip check. The package metadata requires Python3.10+, so CI now verifies 3.10 and the existing production3.12 runtime. The launcher refuses an older environment and allows an explicit first-run interpreter; it does not replace virtual environments or reader records.
+
+The loopback TLS regression checks both the IDNA2003 alias certificate and the proper IDNA2008 hostname certificate for a non-ASCII hostname. Both cases fail under the old AnyIO environment and pass under the patched one, with certificate verification enabled throughout. The launcher tests also verify that refusing an unsupported environment preserves an existing reader record and that supported environments retain launch arguments.
+
+The recorded high/critical advisory list has patched versions covered by the new pins. Actual closure must be observed from GitHub after merge; this record does not claim all security advisories are resolved, a deployed runtime version audit, or clinical/commercial certification. Source anatomical coverage remains a separate, unfinished requirement.

@@ -1,0 +1,18 @@
+{
+  "scope": "Q3 actual singleton curve glyph emission; no numerical core or lesson data change",
+  "original_adapter_sha256": "c7819307d9f6ea5392a7527b93c4b39fabe43bc5d23b95f1a63dda9d530b9deb",
+  "current_adapter_sha256": "382105db94655504c9e9ab6cfccaa6b7c0049e15e55760ef8f541af8529c9a46",
+  "changes": [
+    {
+      "old": "if(!discrete)line(pts,color,'qft_curve',{panel:i,key:c.key});else pts.forEach",
+      "new": "if(pts.length===1){g.sphere(pts[0],j%2?.085:.055,color,{opacity:j%2?.55:1,fidelity_kind:'qft_singleton_curve',panel:i,key:c.key,label:c.label,index:0});g.label([pts[0][0],pts[0][1]+(j%2?-.22:.22),pts[0][2]],c.label);}else if(!discrete)line(pts,color,'qft_curve',{panel:i,key:c.key});else pts.forEach"
+    },
+    {
+      "old": "note:m.note+' Chart depth and origins separate displays.",
+      "new": "note:m.note+(m.panels.some(p=>p.curves.some(c=>c.points.length===1))?' Single-point markers show excitation coordinates; marker sizes and label offsets distinguish series, including coincident values, and do not encode particle size or uncertainty.':'')+' Chart depth and origins separate displays."
+    }
+  ],
+  "original_path": "docs/physics-qft-integrated-reader-review-20261011/original-spatial-qft.js",
+  "independent_scientific_GO_pending": true,
+  "whole_goal_complete": false
+}

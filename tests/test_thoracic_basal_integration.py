@@ -1,0 +1,44 @@
+"""A source CT companion preserves its original arrays, case context and access gate."""
+import hashlib,json
+from pathlib import Path
+import pytest
+from primer.curriculum import Curriculum
+from primer.radiology_catalog import detail,resolve
+from primer import thoracic_basal_context as lung
+ROOT=Path(__file__).resolve().parents[1]
+REVIEW=ROOT/'docs/thoracic-basal-context-review-s0028'
+
+
+def test_runtime_files_are_exact_preserved_review_resources():
+    data=lung.registry();assert len(data['files'])==21
+    for name,record in data['files'].items():
+        actual=lung.validate_file(name).read_bytes()
+        assert actual==(REVIEW/name).read_bytes()
+        assert hashlib.sha256(actual).hexdigest()==record['sha256'] and len(actual)==record['bytes']
+    assert lung.references()['ra.thoracic-ultrasound'][0]['manifest_sha256']==data['files']['viewer-manifest.json']['sha256']
+
+
+@pytest.mark.parametrize('asset',['../index.html','originals/../viewer.css','originals%2Fct.nii.gz','missing.nii.gz','/index.html'])
+def test_unregistered_source_path_is_rejected(asset):
+    with pytest.raises(ValueError,match='Unknown'):lung.validate_file(asset)
+
+
+def test_present_corrupt_source_never_falls_back_to_hosted_copy(tmp_path,monkeypatch):
+    lung.registry();p=tmp_path/'web/anatomy/totalseg-s0028-basal-context/originals/ct.nii.gz';p.parent.mkdir(parents=True);p.write_bytes(b'corrupt source')
+    monkeypatch.setattr(lung,'ROOT',tmp_path);monkeypatch.setenv('VERCEL','1')
+    with pytest.raises(ValueError,match='bytes changed'):lung.validate_file('originals/ct.nii.gz')
+
+
+def test_hosted_metadata_only_applies_to_registered_payloads(tmp_path,monkeypatch):
+    lung.registry();monkeypatch.setattr(lung,'ROOT',tmp_path);monkeypatch.delenv('VERCEL',raising=False)
+    with pytest.raises(ValueError,match='missing'):lung.validate_file('originals/ct.nii.gz')
+    monkeypatch.setenv('VERCEL','1');lung.validate_file('originals/ct.nii.gz')
+    with pytest.raises(ValueError,match='missing'):lung.validate_file('index.html')
+
+
+@pytest.mark.parametrize('path',['primer/server.py','primer/source_native_inspectors.py','web/app.js','vercel.json','tools/thoracic_lung_runtime_compatibility.py'])
+def test_basal_integration_inverse_rejects_unreviewed_shared_changes(path):
+    from tools.thoracic_basal_runtime_compatibility import before_basal_bytes,reviewed
+    raw=(ROOT/path).read_bytes();restored=before_basal_bytes(path,raw)
+    assert hashlib.sha256(restored).hexdigest()==reviewed()['files'][path]['before_sha256']
+    with pytest.raises(ValueError,match='Unreviewed'):before_basal_bytes(path,raw+b'\n')

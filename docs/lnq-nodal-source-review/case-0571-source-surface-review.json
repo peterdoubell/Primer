@@ -1,0 +1,83 @@
+{
+  "case_id": "case_0571",
+  "source_doi": "10.7937/QVAZ-JA09",
+  "source_review_sha256": "ba836ddb7497c340ff06be4c02d0894008187dbdad38edcd9b8ec4fe0f833151",
+  "source_selection_sha256": "e70748189ab620215727214d726cdd95e242f8a17e765a708fc91c5c3bb4d715",
+  "mesh_sha256": "4b85e3393941d4f455b10474746cb041d08335d827b8b1c56bd85c4d62094b5f",
+  "mesh_file": "case-0571-source-annotation.npz",
+  "index_axes": "z,y,x",
+  "world_coordinates": "RAS millimetres",
+  "native_seg_affine_zyx_to_ras": [
+    [
+      0.0,
+      0.0,
+      -0.833984,
+      229.399994
+    ],
+    [
+      0.0,
+      -0.833984,
+      0.0,
+      186.199997
+    ],
+    [
+      2.5,
+      0.0,
+      0.0,
+      -392.0
+    ],
+    [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+    ]
+  ],
+  "source_ct_to_seg_position_difference_preserved_mm": [
+    6.000000013273166e-06,
+    2.999999992425728e-06,
+    0.0
+  ],
+  "source_coordinate_registration_fitted": false,
+  "vertices": 9537,
+  "triangles": 19074,
+  "native_selected_voxels": 9423,
+  "selected_voxel_volume_mm3": 16384.93177347072,
+  "surface_signed_volume_mm3": 16131.063574496255,
+  "source_components_6_connected": 5,
+  "source_components_26_connected": 5,
+  "boundary_edges": 0,
+  "nonmanifold_edges": 0,
+  "exact_duplicate_vertex_positions": 0,
+  "coincident_position_boundary_edges": 0,
+  "coincident_position_nonmanifold_edges": 0,
+  "world_bounds_mm": [
+    [
+      -51.23562199999998,
+      -79.42390699999999,
+      -235.75
+    ],
+    [
+      72.19400999999999,
+      -11.87120299999998,
+      -160.75
+    ]
+  ],
+  "removed_components": 0,
+  "smoothing_or_decimation": false,
+  "clinical_approval": false,
+  "compared_voxel_centres": 439280,
+  "complete_source_positive_voxels_compared": 9423,
+  "false_positive_voxel_interiors": 0,
+  "false_negative_voxel_interiors": 0,
+  "exact_native_voxel_centre_match": true,
+  "named_station_identity_verified": false,
+  "individual_node_count_verified": false,
+  "runtime_promoted": false,
+  "limitations": [
+    "Native 2.5 mm slice sampling remains anisotropic; mesh interpolation is derived, not a finer measured boundary.",
+    "All five connected source components retained; no node or station identities invented.",
+    "This check proves source-export consistency at voxel centres, not anatomical accuracy or continuous self-contact absence.",
+    "Annotation coverage and node malignancy remain source/case review obligations."
+  ]
+}

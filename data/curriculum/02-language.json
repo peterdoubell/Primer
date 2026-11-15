@@ -14,8 +14,32 @@
     "Alphabet",
     "Letter (alphabet)"
    ],
+   "lesson_media": [
+    {
+     "id": "alphabet-blocks-plate",
+     "kind": "illustration",
+     "src": "/app/illustrations/seedling/language/lang-0-alphabet-800.webp",
+     "srcset": "/app/illustrations/seedling/language/lang-0-alphabet-800.webp 800w, /app/illustrations/seedling/language/lang-0-alphabet-1600.webp 1600w",
+     "alt": "Three wooden blocks show A, B and C above an apple, a blue ball and a cat.",
+     "caption": "The basic English alphabet has 26 letters, each with an uppercase and lowercase form. A letter has a name and can represent different sounds in different words.",
+     "width": 1600,
+     "height": 1000
+    },
+    {
+     "id": "alphabet-explorer",
+     "kind": "model",
+     "renderer": "alphabet-explorer",
+     "title": "Meet the 26 letters",
+     "instructions": "Choose a letter or move one step at a time. Compare its uppercase and lowercase forms and explore one common word that begins with it. Use Read aloud to hear the current letter and word.",
+     "props": {
+      "alphabet": "english-basic-latin",
+      "start_letter": "A",
+      "example_set": "common-words-v1"
+     }
+    }
+   ],
    "practice": "letters",
-   "kid_text": "The alphabet is a little parade of 26 letters, and each one has its very own name. When you sing \"A, B, C, D...\" you are calling out their names in order, just like calling friends in a line. Let's find the letter that starts YOUR name — point to it and say hello!",
+   "kid_text": "The English alphabet is a little parade of 26 letters, and each one has a name. When you sing \"A, B, C, D...\" you are saying those names in order. Letters help us write the sounds in words, but the same letter can sound different in different words. Find the letter that starts your name, or the name of someone you know, and say hello!",
    "quiz": [
     {
      "kind": "choice",
@@ -54,7 +78,7 @@
      "answer": "A",
      "say": "Apple! Which letter does apple start with? Is it A, P, or S?",
      "speak_choices": true,
-     "explain": "Apple starts with A, the very first letter of all."
+     "explain": "Apple starts with A, the first letter in the English alphabet. The letter A can represent other sounds in other words too."
     },
     {
      "kind": "choice",
@@ -106,7 +130,7 @@
      "answer": "B",
      "say": "Bee! Which letter does bee start with? Is it E, D, or B?",
      "speak_choices": true,
-     "explain": "Bee starts with B, the letter that says buh."
+     "explain": "Bee begins with the /b/ sound. The letter B represents that sound at the start of this word."
     }
    ],
    "prereqs": []
@@ -214,7 +238,27 @@
      "explain": "Balloon starts with buh, the sound the letter B makes."
     }
    ],
-   "prereqs": []
+   "prereqs": [],
+   "lesson_media": [
+    {
+     "id": "sound-blending-plate",
+     "kind": "illustration",
+     "src": "/app/illustrations/seedling/language/lang-0-phonics-800.webp",
+     "srcset": "/app/illustrations/seedling/language/lang-0-phonics-800.webp 800w, /app/illustrations/seedling/language/lang-0-phonics-1600.webp 1600w",
+     "alt": "The written word cat is separated into C, A and T, matched to three speech sounds, then blended back into the spoken word cat.",
+     "caption": "Phonics links graphemes with phonemes and blends the phonemes in sequence. English mappings are useful but not perfectly one-to-one: the same letter can represent different sounds.",
+     "width": 1600,
+     "height": 1000
+    },
+    {
+     "id": "lang-0-phonics-blending-model",
+     "kind": "model",
+     "renderer": "concept-lab",
+     "title": "Blend the sounds in their written order",
+     "instructions": "Choose a word. With an adult, say its sounds rather than its letter names. Move one step at a time, join the sounds, then say the whole word.",
+     "props": { "scenario": "lang.0.phonics" }
+    }
+   ]
   },
   {
    "id": "lang.0.rhymes",
@@ -317,7 +361,28 @@
      "explain": "Bed and red rhyme, and your ears can feel the match."
     }
    ],
-   "prereqs": []
+   "prereqs": [],
+   "lesson_media": [
+    {
+     "id": "rhyme-rhythm-plate",
+     "kind": "illustration",
+     "src": "/app/illustrations/seedling/language/lang-0-rhymes-800.webp",
+     "srcset": "/app/illustrations/seedling/language/lang-0-rhymes-800.webp 800w, /app/illustrations/seedling/language/lang-0-rhymes-1600.webp 1600w",
+     "alt": "Cat, hat and sun are split into beginning and ending sound groups; cat and hat share the ending at while four beat marks show a steady pulse.",
+     "caption": "A rhyme repeats a final stressed vowel and following sounds, as cat and hat do. Rhythm is a separate pattern of beats, so a poem can have rhythm without every line rhyming.",
+     "width": 1600,
+     "height": 1000
+    },
+    {
+     "id": "lang-0-rhymes-sound-model",
+     "kind": "model",
+     "renderer": "concept-lab",
+     "title": "Rhyme is a sound match, not a spelling match",
+     "instructions": "Say the two words aloud. Change either word and listen to the ending. Can different letters make the same ending sound?",
+     "props": { "scenario": "lang.0.rhymes" }
+    }
+   ],
+   "practice": "know:lang.0.rhymes"
   },
   {
    "id": "lang.0.stories",
@@ -422,7 +487,28 @@
      "explain": "The mouse hid, so the mouse is the who in this story."
     }
    ],
-   "prereqs": []
+   "prereqs": [],
+   "lesson_media": [
+    {
+     "id": "story-clues-plate",
+     "kind": "illustration",
+     "src": "/app/illustrations/seedling/language/lang-0-stories-800.webp",
+     "srcset": "/app/illustrations/seedling/language/lang-0-stories-800.webp 800w, /app/illustrations/seedling/language/lang-0-stories-1600.webp 1600w",
+     "alt": "A story map follows Mina in a garden from a missing key through searching under leaves to finding the key, with who and where identified first.",
+     "caption": "Listeners can reconstruct a story by tracking its character and setting, then arranging events causally: Mina loses a key, searches, and finds it under the leaves.",
+     "width": 1600,
+     "height": 1000
+    },
+    {
+     "id": "lang-0-stories-clues-model",
+     "kind": "model",
+     "renderer": "concept-lab",
+     "title": "Keep track of who, where and what happens",
+     "instructions": "Choose a tiny story. Move through its three events, then highlight who, where or what to find that kind of story clue.",
+     "props": { "scenario": "lang.0.stories" }
+    }
+   ],
+   "practice": "know:lang.0.stories"
   },
   {
    "id": "lang.0.speaking",
@@ -523,23 +609,67 @@
      "explain": "Yes, looking at them shows your ears are listening too."
     }
    ],
-   "prereqs": []
+   "prereqs": [],
+   "lesson_media": [
+    {
+     "id": "conversation-turns-plate",
+     "kind": "illustration",
+     "src": "/app/illustrations/seedling/language/lang-0-speaking-800.webp",
+     "srcset": "/app/illustrations/seedling/language/lang-0-speaking-800.webp 800w, /app/illustrations/seedling/language/lang-0-speaking-1600.webp 1600w",
+     "alt": "Four linked stages form a conversation loop: one person asks, the other listens, answers the question, and checks whether the message was understood.",
+     "caption": "Conversation is coordinated turn-taking. A relevant response depends on listening to the previous turn, and a check or follow-up question repairs misunderstandings.",
+     "width": 1600,
+     "height": 1000
+    },
+    {
+     "id": "lang-0-speaking-replies-model",
+     "kind": "model",
+     "renderer": "concept-lab",
+     "title": "A reply connects to the question you heard",
+     "instructions": "Change the question and choose a reply. Watch how a follow-up can continue the conversation or clear up what was meant.",
+     "props": { "scenario": "lang.0.speaking" }
+    }
+   ],
+   "practice": "know:lang.0.speaking"
   },
   {
    "id": "lang.1.reading",
    "title": "Learning to Read",
    "stage": 1,
-   "goal": "Read whole sentences and short books alone.",
+   "goal": "Read and understand whole sentences and short books.",
    "articles": [
     "Reading",
     "Literacy"
+   ],
+   "lesson_media": [
+    {
+     "id": "reading-path-plate",
+     "kind": "illustration",
+     "src": "/app/illustrations/sprout/language/lang-1-reading-800.webp",
+     "srcset": "/app/illustrations/sprout/language/lang-1-reading-800.webp 800w, /app/illustrations/sprout/language/lang-1-reading-1600.webp 1600w",
+     "alt": "An open book shows the words 'THE CAT SAT.' beside a drawing of an orange cat while a finger points along the sentence.",
+     "caption": "Readers connect speech sounds to written words, then use the whole sentence to make meaning. English lines usually run from left to right; other writing systems may use other directions.",
+     "width": 1600,
+     "height": 1000
+    },
+    {
+     "id": "reading-path-lab",
+     "kind": "model",
+     "renderer": "reading-path-lab",
+     "title": "Build meaning from sounds",
+     "instructions": "Follow one simple English sentence from individual sounds through blending, words and meaning. Move between phases or reset to the beginning; reading with another person or an accessibility support is valid too.",
+     "props": {
+      "scenario": "simple-english-cat-sat",
+      "start_phase": "sounds"
+     }
+    }
    ],
    "prereqs": [
     "lang.0.alphabet",
     "lang.0.phonics",
     "lang.0.stories"
    ],
-   "kid_text": "Reading is turning letters into words and words into whole ideas, all by yourself. Slide your finger under each word and say its sounds, then let them blend together — \"the cat sat.\" At the end of the line, your brain sees a picture of what happened! Read a short book to the very last page, and you'll have gone on a whole adventure with just your eyes.",
+   "kid_text": "Reading connects written words with language and ideas. You might follow print with a finger, read braille, listen while following the words, or read with help from a person or tool. For many English words, saying the sounds and blending them can reveal the word — \"the cat sat.\" English lines usually run from left to right, while other writing systems may use other directions. However you access the words, a sentence can open a whole adventure!",
    "quiz": [
     {
      "kind": "choice",
@@ -563,22 +693,22 @@
       "big"
      ],
      "answer": "pig",
-     "say": "Let's blend these sounds together: puh, ih, guh. What word do they make? Pig, pug, or big?",
+     "say": "Listen for the first sound in pan, the short i sound in sit, and the first sound in go. What word do they make — pig, pug, or big?",
      "speak_choices": true,
-     "explain": "Puh, ih, guh slides together into pig. That is reading!"
+     "explain": "Those three sounds blend into pig. Keeping them close together helps the word emerge."
     },
     {
      "kind": "choice",
-     "prompt": "Which side do we start reading? 📖",
+     "prompt": "In English, where does a line usually start? 📖",
      "choices": [
       "left",
       "right",
       "middle"
      ],
      "answer": "left",
-     "say": "When you read a line of words, which side do you start on? The left, the right, or the middle?",
+     "say": "When you read a line of English words, which side does it usually start on? The left, the right, or the middle?",
      "speak_choices": true,
-     "explain": "We start at the left and slide our finger across to the right."
+     "explain": "English lines usually begin on the left and continue to the right. Other writing systems can use other directions."
     },
     {
      "kind": "choice",
@@ -589,9 +719,9 @@
       "cat"
      ],
      "answer": "cat",
-     "say": "Let's blend these sounds together: kuh, ah, tuh. What word do they make? Cot, bat, or cat?",
+     "say": "Listen for the first sound in cup, the short a sound in map, and the first sound in top. What word do they make — cot, bat, or cat?",
      "speak_choices": true,
-     "explain": "Kuh, ah, tuh slides together into cat. That is reading!"
+     "explain": "Those three sounds blend into cat. Keeping them close together helps the word emerge."
     },
     {
      "kind": "choice",
@@ -604,7 +734,7 @@
      "answer": "Red",
      "say": "Read with me: Sam has a red hat. What colour is the hat? Red, blue, or green?",
      "speak_choices": true,
-     "explain": "The words told you the hat is red. You read it yourself!"
+     "explain": "The words tell you the hat is red. You used the sentence to find the answer."
     },
     {
      "kind": "choice",
@@ -631,7 +761,8 @@
      "speak_choices": true,
      "explain": "Yes! You read the sentence and knew exactly what it meant."
     }
-   ]
+   ],
+   "practice": "know:lang.1.reading"
   },
   {
    "id": "lang.1.spelling",
@@ -738,6 +869,26 @@
      "say": "The word is bed. Which letter belongs in the middle? A, e, or o?",
      "speak_choices": true,
      "explain": "Bed is b, e, d, with a little e humming in the middle."
+    }
+   ],
+   "lesson_media": [
+    {
+     "id": "sound-to-spelling-plate",
+     "kind": "illustration",
+     "src": "/app/illustrations/sprout/language/lang-1-spelling-800.webp",
+     "srcset": "/app/illustrations/sprout/language/lang-1-spelling-800.webp 800w, /app/illustrations/sprout/language/lang-1-spelling-1600.webp 1600w",
+     "alt": "The spoken word ship is segmented into three ordered phonemes, mapped to the graphemes SH, I and P, then checked against the complete written word.",
+     "caption": "Segmenting speech helps select graphemes in order. Ship has three phonemes but four letters because the digraph SH represents one phoneme; English spellings still need visual or dictionary checks.",
+     "width": 1600,
+     "height": 1000
+    },
+    {
+     "id": "lang-1-spelling-sound-map-model",
+     "kind": "model",
+     "renderer": "concept-lab",
+     "title": "One sound can need two letters",
+     "instructions": "Choose a word and inspect each sound in order. Follow its connection to the letters that spell it. Count sounds separately from letters.",
+     "props": { "scenario": "lang.1.spelling" }
     }
    ]
   },
@@ -847,6 +998,26 @@
      "speak_choices": true,
      "explain": "Quiet is soft and hushed, like a little whisper."
     }
+   ],
+   "lesson_media": [
+    {
+     "id": "precise-word-scale-plate",
+     "kind": "illustration",
+     "src": "/app/illustrations/sprout/language/lang-1-vocabulary-800.webp",
+     "srcset": "/app/illustrations/sprout/language/lang-1-vocabulary-800.webp 800w, /app/illustrations/sprout/language/lang-1-vocabulary-1600.webp 1600w",
+     "alt": "Three word choices climb an intensity scale from big through huge to enormous, then the strongest word is used in the sentence An enormous wave crossed the wall.",
+     "caption": "Vocabulary adds distinctions, not just substitutes. Choosing enormous rather than big encodes greater scale, while context determines whether that stronger word is accurate.",
+     "width": 1600,
+     "height": 1000
+    },
+    {
+     "id": "lang-1-vocabulary-precision-model",
+     "kind": "model",
+     "renderer": "concept-lab",
+     "title": "A more precise word adds a different picture",
+     "instructions": "Change the movement word, then change the scene. Compare what the verb tells you with the scene clues. Explain your choice: more than one wording may be useful.",
+     "props": { "scenario": "lang.1.vocabulary" }
+    }
    ]
   },
   {
@@ -939,7 +1110,28 @@
      "speak_choices": true,
      "explain": "Yes! It tells us who and what they do, so it is a sentence."
     }
-   ]
+   ],
+   "lesson_media": [
+    {
+     "id": "complete-sentence-plate",
+     "kind": "illustration",
+     "src": "/app/illustrations/sprout/language/lang-1-sentences-800.webp",
+     "srcset": "/app/illustrations/sprout/language/lang-1-sentences-800.webp 800w, /app/illustrations/sprout/language/lang-1-sentences-1600.webp 1600w",
+     "alt": "The sentence The dog ran fast is assembled from a capitalized subject, a predicate that completes the thought, and a full stop at the end.",
+     "caption": "A written English sentence expresses a complete clause and marks its boundary. Here The dog is the subject, ran fast is the predicate, and capitalization plus punctuation show the limits.",
+     "width": 1600,
+     "height": 1000
+    },
+    {
+     "id": "lang-1-sentences-builder-model",
+     "kind": "model",
+     "renderer": "concept-lab",
+     "title": "A full stop cannot finish an incomplete idea",
+     "instructions": "Build a short statement. Add or remove its action, capital letter and full stop. Notice the difference between a complete clause and its written boundaries.",
+     "props": { "scenario": "lang.1.sentences" }
+    }
+   ],
+   "practice": "know:lang.1.sentences"
   },
   {
    "id": "lang.1.handwriting",
@@ -1043,7 +1235,28 @@
      "speak_choices": true,
      "explain": "Yes! Slow hands make tidy letters that everyone can read."
     }
-   ]
+   ],
+   "lesson_media": [
+    {
+     "id": "legible-letter-process-plate",
+     "kind": "illustration",
+     "src": "/app/illustrations/sprout/language/lang-1-handwriting-800.webp",
+     "srcset": "/app/illustrations/sprout/language/lang-1-handwriting-800.webp 800w, /app/illustrations/sprout/language/lang-1-handwriting-1600.webp 1600w",
+     "alt": "Baseline and midline guides align a two-stroke single-storey lowercase a with three repeated forms and equal spacing; a pencil-angle inset accompanies the specimen.",
+     "caption": "Legibility comes from repeatable letter formation, alignment, spacing, and a comfortable grip. Checking the result matters more than writing quickly.",
+     "width": 1600,
+     "height": 1000
+    },
+    {
+     "id": "lang-1-handwriting-strokes-model",
+     "kind": "model",
+     "renderer": "concept-lab",
+     "title": "Build a letter with ordered strokes and guides",
+     "instructions": "Choose lowercase i or t. Follow the numbered strokes, lifting between them. Toggle the guides to compare where the stem begins and where it rests.",
+     "props": { "scenario": "lang.1.handwriting" }
+    }
+   ],
+   "practice": "know:lang.1.handwriting"
   },
   {
    "id": "lang.1.childrens-lit",
@@ -1152,7 +1365,28 @@
      "speak_choices": true,
      "explain": "He became a beautiful swan. He was never ugly at all."
     }
-   ]
+   ],
+   "lesson_media": [
+    {
+     "id": "reading-response-plate",
+     "kind": "illustration",
+     "src": "/app/illustrations/sprout/language/lang-1-childrens-lit-800.webp",
+     "srcset": "/app/illustrations/sprout/language/lang-1-childrens-lit-800.webp 800w, /app/illustrations/sprout/language/lang-1-childrens-lit-1600.webp 1600w",
+     "alt": "A passage detail about a character returning a lost purse branches into an inference about honesty, a question about motive, and a personal response supported by the detail.",
+     "caption": "Talking about literature becomes stronger when a response points back to the text. One detail can support an inference, invite a question, and lead readers to compare interpretations.",
+     "width": 1600,
+     "height": 1000
+    },
+    {
+     "id": "lang-1-childrens-lit-evidence-model",
+     "kind": "model",
+     "renderer": "concept-lab",
+     "title": "What the story says is not everything we infer",
+     "instructions": "Read the tiny passage. Change the extra detail and the claim you want to discuss. Ask which part of the text supports the claim, and what remains unknown.",
+     "props": { "scenario": "lang.1.childrens-lit" }
+    }
+   ],
+   "practice": "know:lang.1.childrens-lit"
   },
   {
    "id": "lang.1.writing-stories",
@@ -1260,7 +1494,28 @@
      "speak_choices": true,
      "explain": "You write it down so other people can read your story too."
     }
-   ]
+   ],
+   "lesson_media": [
+    {
+     "id": "story-arc-plate",
+     "kind": "illustration",
+     "src": "/app/illustrations/sprout/language/lang-1-writing-stories-800.webp",
+     "srcset": "/app/illustrations/sprout/language/lang-1-writing-stories-800.webp 800w, /app/illustrations/sprout/language/lang-1-writing-stories-1600.webp 1600w",
+     "alt": "A three-part story arc introduces Leo and a kite, creates the problem of the kite catching in a tree, and resolves it when a neighbor brings a ladder.",
+     "caption": "A beginning establishes the character and situation, a middle changes that situation with a problem, and an ending shows the consequence or resolution.",
+     "width": 1600,
+     "height": 1000
+    },
+    {
+     "id": "lang-1-writing-stories-planning-model",
+     "kind": "model",
+     "renderer": "concept-lab",
+     "title": "An action connects a problem to its ending",
+     "instructions": "Change what Leo does when the kite gets stuck, then choose whether the ending resolves the problem. Follow the resulting beginning, middle and end.",
+     "props": { "scenario": "lang.1.writing-stories" }
+    }
+   ],
+   "practice": "know:lang.1.writing-stories"
   },
   {
    "id": "lang.1.dictionary",
@@ -1367,7 +1622,28 @@
      "speak_choices": true,
      "explain": "Tiger starts with T, so you flip to the T pages."
     }
-   ]
+   ],
+   "lesson_media": [
+    {
+     "id": "dictionary-search-plate",
+     "kind": "illustration",
+     "src": "/app/illustrations/sprout/language/lang-1-dictionary-800.webp",
+     "srcset": "/app/illustrations/sprout/language/lang-1-dictionary-800.webp 800w, /app/illustrations/sprout/language/lang-1-dictionary-1600.webp 1600w",
+     "alt": "A lookup for cater narrows alphabetically from the C section to CA, then CAT, and finally compares cat, catch, cater and cattle in order.",
+     "caption": "Dictionary guide words support repeated alphabetical decisions. When first letters match, compare the second, third, and later letters until the target position is determined.",
+     "width": 1600,
+     "height": 1000
+    },
+    {
+     "id": "lang-1-dictionary-order-model",
+     "kind": "model",
+     "renderer": "concept-lab",
+     "title": "The first different letter decides the order",
+     "instructions": "Choose two words. Reveal their letters from left to right. If all letters so far match, keep looking; a shorter matching word comes first.",
+     "props": { "scenario": "lang.1.dictionary" }
+    }
+   ],
+   "practice": "know:lang.1.dictionary"
   },
   {
    "id": "lang.2.grammar",
@@ -1492,6 +1768,26 @@
    "prereqs": [
     "lang.1.reading",
     "lang.1.sentences"
+   ],
+   "lesson_media": [
+    {
+     "id": "clause-structure-plate",
+     "kind": "illustration",
+     "src": "/app/illustrations/sapling/language/lang-2-grammar-800.webp",
+     "srcset": "/app/illustrations/sapling/language/lang-2-grammar-800.webp 800w, /app/illustrations/sapling/language/lang-2-grammar-1600.webp 1600w",
+     "alt": "A clause diagram places The fox jumps over logs at the root, then separates the noun phrase The fox from the verb phrase jumps over logs and labels their roles.",
+     "caption": "Grammar describes relationships inside a sentence. This clause divides into a noun phrase functioning as subject and a verb phrase functioning as predicate; words form nested constituents.",
+     "width": 1600,
+     "height": 1000
+    },
+    {
+     "id": "lang-2-grammar-constituents-model",
+     "kind": "model",
+     "renderer": "concept-lab",
+     "title": "The subject controls agreement inside a nested clause",
+     "instructions": "Change the subject and verb independently. Inspect the subject, predicate or prepositional phrase. Notice that logs is plural but does not control this verb.",
+     "props": { "scenario": "lang.2.grammar" }
+    }
    ]
   },
   {
@@ -1630,6 +1926,26 @@
     "lang.1.reading",
     "lang.1.sentences",
     "lang.1.writing-stories"
+   ],
+   "lesson_media": [
+    {
+     "id": "paragraph-logic-plate",
+     "kind": "illustration",
+     "src": "/app/illustrations/sapling/language/lang-2-paragraphs-800.webp",
+     "srcset": "/app/illustrations/sapling/language/lang-2-paragraphs-800.webp 800w, /app/illustrations/sapling/language/lang-2-paragraphs-1600.webp 1600w",
+     "alt": "A paragraph plan connects a topic sentence about street trees to temperature evidence, explains the shade mechanism, and links the result back to the claim.",
+     "caption": "This fictional example uses an illustrative four-degree sensor difference, not a reported study. A paragraph connects evidence to its claim and acknowledges limits; one shaded reading alone does not establish neighbourhood-wide cooling.",
+     "width": 1600,
+     "height": 1000
+    },
+    {
+     "id": "lang-2-paragraphs-relevance-model",
+     "kind": "model",
+     "renderer": "concept-lab",
+     "title": "Evidence must connect to the paragraph’s claim",
+     "instructions": "Choose a supporting detail and toggle the explanation. Rearrange the same sentences. Does changing the order repair evidence that is unrelated to the claim?",
+     "props": { "scenario": "lang.2.paragraphs" }
+    }
    ]
   },
   {
@@ -1756,6 +2072,26 @@
     "lang.1.reading",
     "lang.0.rhymes",
     "arts.1.beat"
+   ],
+   "lesson_media": [
+    {
+     "id": "poetic-patterns-plate",
+     "kind": "illustration",
+     "src": "/app/illustrations/sapling/language/lang-2-poetry-800.webp",
+     "srcset": "/app/illustrations/sapling/language/lang-2-poetry-800.webp 800w, /app/illustrations/sapling/language/lang-2-poetry-1600.webp 1600w",
+     "alt": "A four-line poem marks sea/me and stone/alone as ABAB rhymes; separate panels suggest spoken stresses and evoke silver light on water.",
+     "caption": "This invented poem separates ABAB rhyme, one possible stressed reading and imagery. The marked phrases are not a claim of regular metrical feet; readers may vary their spoken emphasis.",
+     "width": 1600,
+     "height": 1000
+    },
+    {
+     "id": "lang-2-poetry-meter-model",
+     "kind": "model",
+     "renderer": "concept-lab",
+     "title": "A metrical foot is a pattern, not a syllable count",
+     "instructions": "Choose a foot pattern and repeat it. Compare patterns with the same number of syllables but different stress positions, then count feet separately from syllables.",
+     "props": { "scenario": "lang.2.poetry" }
+    }
    ]
   },
   {
@@ -1882,11 +2218,9 @@
      "prompt": "The Greeks told of Prometheus stealing fire from the gods and giving it to people, and being punished terribly for it. What does this story try to explain, and what does it suggest about the gods?",
      "answer": "It explains where human fire and craft came from, and it suggests the gods guarded their powers jealously and punished anyone who shared them with people.",
      "keywords": [
-      "fire",
-      "humans",
-      "punished",
-      "gods",
-      "explain"
+      "craft",
+      "guarded",
+      "jealously"
      ],
      "explain": "Prometheus is an origin myth for human technology, and a warning story about defying divine power."
     }
@@ -1895,6 +2229,18 @@
     "lang.1.reading",
     "lang.1.childrens-lit",
     "hist.1.ancient"
+   ],
+   "lesson_media": [
+    {
+     "id": "myth-comparison-plate",
+     "kind": "illustration",
+     "src": "/app/illustrations/sapling/language/lang-2-mythology-800.webp",
+     "srcset": "/app/illustrations/sapling/language/lang-2-mythology-800.webp 800w, /app/illustrations/sapling/language/lang-2-mythology-1600.webp 1600w",
+     "alt": "Three traditions are compared without merging them: Gilgamesh confronts mortality, the Odyssey centers homecoming, and Sundiata connects a founder to communal history.",
+     "caption": "Comparative reading can trace recurring questions while preserving cultural differences. These works arise from distinct languages, genres, performance histories, and communities.",
+     "width": 1600,
+     "height": 1000
+    }
    ]
   },
   {
@@ -2033,6 +2379,26 @@
     "lang.1.reading",
     "lang.1.childrens-lit",
     "lang.1.vocabulary"
+   ],
+   "lesson_media": [
+    {
+     "id": "novel-tracking-plate",
+     "kind": "illustration",
+     "src": "/app/illustrations/sapling/language/lang-2-novels-800.webp",
+     "srcset": "/app/illustrations/sapling/language/lang-2-novels-800.webp 800w, /app/illustrations/sapling/language/lang-2-novels-1600.webp 1600w",
+     "alt": "A fictional four-chapter tracker aligns four plot events, a changing attitude to help, and settings from village through road to city.",
+     "caption": "Long-form reading becomes manageable when character, plot, and setting are tracked together. An event matters because it changes a goal, relationship, or later possibility.",
+     "width": 1600,
+     "height": 1000
+    },
+    {
+     "id": "lang-2-novels-knowledge-model",
+     "kind": "model",
+     "renderer": "concept-lab",
+     "title": "Readers and characters can know different things",
+     "instructions": "Move through four invented chapters. Switch between the reader’s information and Mina’s information. Track when the setting, goal and knowledge change.",
+     "props": { "scenario": "lang.2.novels" }
+    }
    ]
   },
   {
@@ -2172,6 +2538,26 @@
     "lang.1.reading",
     "lang.1.dictionary",
     "mind.1.thinking"
+   ],
+   "lesson_media": [
+    {
+     "id": "source-corroboration-plate",
+     "kind": "illustration",
+     "src": "/app/illustrations/sapling/language/lang-2-research-800.webp",
+     "srcset": "/app/illustrations/sapling/language/lang-2-research-800.webp 800w, /app/illustrations/sapling/language/lang-2-research-1600.webp 1600w",
+     "alt": "A bridge-date question compares an archive plan, a newspaper report, and a dated museum photograph before separating construction from opening dates.",
+     "caption": "These fictional sources show works visible in 1929 and an opening reported in 1930. A 1928 plan does not establish a construction start date. Check provenance and independence rather than assuming different formats mean independent evidence.",
+     "width": 1600,
+     "height": 1000
+    },
+    {
+     "id": "lang-2-research-origins-model",
+     "kind": "model",
+     "renderer": "concept-lab",
+     "title": "Three agreeing pages may repeat just one source",
+     "instructions": "Trace where each page gets its claim. Change the third source from a copy to an independent record, then ask whether any source answers your actual question.",
+     "props": { "scenario": "lang.2.research" }
+    }
    ]
   },
   {
@@ -2310,6 +2696,26 @@
     "lang.1.reading",
     "lang.1.dictionary",
     "lang.1.vocabulary"
+   ],
+   "lesson_media": [
+    {
+     "id": "word-family-history-plate",
+     "kind": "illustration",
+     "src": "/app/illustrations/sapling/language/lang-2-etymology-800.webp",
+     "srcset": "/app/illustrations/sapling/language/lang-2-etymology-800.webp 800w, /app/illustrations/sapling/language/lang-2-etymology-1600.webp 1600w",
+     "alt": "The Latin verb portare, meaning to carry, branches through historical borrowing and word formation into portable, import and export, with prefixes changing direction.",
+     "caption": "Etymology traces attested forms and pathways, not just visual resemblance. The English family around port reflects a borrowed Latin root, while im- and ex- contribute inward and outward senses.",
+     "width": 1600,
+     "height": 1000
+    },
+    {
+     "id": "lang-2-etymology-routes-model",
+     "kind": "model",
+     "renderer": "concept-lab",
+     "title": "Related words can travel by different routes",
+     "instructions": "Compare import, export and portable. Follow the recorded language route and notice the French step for portable. Treat the shared root as history, not a complete modern definition.",
+     "props": { "scenario": "lang.2.etymology" }
+    }
    ]
   },
   {
@@ -2447,6 +2853,26 @@
     "lang.0.speaking",
     "lang.1.reading",
     "lang.2.paragraphs"
+   ],
+   "lesson_media": [
+    {
+     "id": "speech-argument-plate",
+     "kind": "illustration",
+     "src": "/app/illustrations/sapling/language/lang-2-speaking-800.webp",
+     "srcset": "/app/illustrations/sapling/language/lang-2-speaking-800.webp 800w, /app/illustrations/sapling/language/lang-2-speaking-1600.webp 1600w",
+     "alt": "A short talk moves from a clear claim through one concrete example and an explanation to a concise takeaway directed to the audience.",
+     "caption": "This fictional talk uses an illustrative 30-degree water reading to practise claim, example, reason and takeaway. The reading alone does not establish a pond's needs; real recommendations require ecological context and relevant evidence.",
+     "width": 1600,
+     "height": 1000
+    },
+    {
+     "id": "lang-2-speaking-audience-model",
+     "kind": "model",
+     "renderer": "concept-lab",
+     "title": "Help listeners follow the steps in your explanation",
+     "instructions": "Prepare a short talk about sorting a book list. Change the audience, add or omit the explanation, and compare the talk with and without spoken signposts.",
+     "props": { "scenario": "lang.2.speaking" }
+    }
    ]
   },
   {
@@ -2585,6 +3011,18 @@
     "lang.2.grammar",
     "lang.2.novels",
     "lang.2.poetry"
+   ],
+   "lesson_media": [
+    {
+     "id": "close-reading-plate",
+     "kind": "illustration",
+     "src": "/app/illustrations/tree/language/lang-3-literature-800.webp",
+     "srcset": "/app/illustrations/tree/language/lang-3-literature-800.webp 800w, /app/illustrations/tree/language/lang-3-literature-1600.webp 1600w",
+     "alt": "A repeated locked-door image connects two quoted details to a pattern of exclusion and then to a qualified thematic interpretation about belonging.",
+     "caption": "This invented passage models movement from observable language to pattern and interpretation. Mara is the character, not the narrator. A theme is an argued meaning supported by details, not a hidden label attached to one symbol.",
+     "width": 1600,
+     "height": 1000
+    }
    ]
   },
   {
@@ -2724,6 +3162,18 @@
     "lang.2.poetry",
     "lang.3.literature",
     "arts.2.theatre"
+   ],
+   "lesson_media": [
+    {
+     "id": "comic-tragic-shapes-plate",
+     "kind": "illustration",
+     "src": "/app/illustrations/tree/language/lang-3-shakespeare-800.webp",
+     "srcset": "/app/illustrations/tree/language/lang-3-shakespeare-800.webp 800w, /app/illustrations/tree/language/lang-3-shakespeare-1600.webp 1600w",
+     "alt": "Two dramatic structures are contrasted: a comedy moves from blocked relationships through recognition to social reunion, while a tragedy moves from choice through reversal to irreversible loss.",
+     "caption": "Shakespearean comedies and tragedies vary, but genre expectations shape audience inference. Comic recognition often enables renewed social order; tragic action makes loss difficult or impossible to undo.",
+     "width": 1600,
+     "height": 1000
+    }
    ]
   },
   {
@@ -2863,6 +3313,18 @@
     "lang.2.grammar",
     "lang.2.mythology",
     "hist.2.civilizations"
+   ],
+   "lesson_media": [
+    {
+     "id": "world-text-context-plate",
+     "kind": "illustration",
+     "src": "/app/illustrations/tree/language/lang-3-world-lit-800.webp",
+     "srcset": "/app/illustrations/tree/language/lang-3-world-lit-800.webp 800w, /app/illustrations/tree/language/lang-3-world-lit-1600.webp 1600w",
+     "alt": "An epic comparison aligns the Epic of Gilgamesh, Mahabharata and Sundiata by transmission form, central question and cultural setting rather than treating them as interchangeable.",
+     "caption": "World literature requires both comparison and context. Translation and circulation make texts travel, but form, performance, and historical setting continue to shape what each work means.",
+     "width": 1600,
+     "height": 1000
+    }
    ]
   },
   {
@@ -3000,6 +3462,18 @@
     "lang.2.grammar",
     "lang.2.speaking",
     "mind.2.logic-intro"
+   ],
+   "lesson_media": [
+    {
+     "id": "rhetorical-appeals-plate",
+     "kind": "illustration",
+     "src": "/app/illustrations/tree/language/lang-3-rhetoric-800.webp",
+     "srcset": "/app/illustrations/tree/language/lang-3-rhetoric-800.webp 800w, /app/illustrations/tree/language/lang-3-rhetoric-1600.webp 1600w",
+     "alt": "One proposal to add a crossing is supported three ways: ethos cites an engineer, pathos evokes a child's risky walk, and logos compares traffic counts and stopping distance.",
+     "caption": "Ethos concerns credibility, pathos addresses emotion, and logos develops reasoning. They can work together, but none excuses false evidence or an invalid inference.",
+     "width": 1600,
+     "height": 1000
+    }
    ]
   },
   {
@@ -3139,6 +3613,18 @@
      ],
      "explain": "An argument earns belief by being checkable and by surviving the best case against it."
     }
+   ],
+   "lesson_media": [
+    {
+     "id": "argument-structure-plate",
+     "kind": "illustration",
+     "src": "/app/illustrations/tree/language/lang-3-essays-800.webp",
+     "srcset": "/app/illustrations/tree/language/lang-3-essays-800.webp 800w, /app/illustrations/tree/language/lang-3-essays-1600.webp 1600w",
+     "alt": "A five-step essay map links a qualified thesis to source evidence, an explicit warrant, a cost counterargument, and a bounded pilot-study conclusion.",
+     "caption": "An argument earns its conclusion by making warrants visible and confronting relevant objections. Qualification is a strength when the evidence supports a limited claim.",
+     "width": 1600,
+     "height": 1000
+    }
    ]
   },
   {
@@ -3263,6 +3749,18 @@
    "prereqs": [
     "lang.2.grammar",
     "lang.2.etymology"
+   ],
+   "lesson_media": [
+    {
+     "id": "language-levels-plate",
+     "kind": "illustration",
+     "src": "/app/illustrations/tree/language/lang-3-linguistics-intro-800.webp",
+     "srcset": "/app/illustrations/tree/language/lang-3-linguistics-intro-800.webp 800w, /app/illustrations/tree/language/lang-3-linguistics-intro-1600.webp 1600w",
+     "alt": "The utterance Cats sleep is analyzed from contrasting speech sounds to the plural morpheme cat plus s, then the noun phrase and verb phrase, and finally its compositional meaning.",
+     "caption": "Language is organized at interacting levels. Phonemes distinguish forms, morphemes contribute meaning or grammar, syntax combines constituents, and semantics interprets the result.",
+     "width": 1600,
+     "height": 1000
+    }
    ]
   },
   {
@@ -3401,6 +3899,18 @@
     "mind.2.logic-intro",
     "lang.2.research",
     "lang.3.rhetoric"
+   ],
+   "lesson_media": [
+    {
+     "id": "framing-same-data-plate",
+     "kind": "illustration",
+     "src": "/app/illustrations/tree/language/lang-3-media-800.webp",
+     "srcset": "/app/illustrations/tree/language/lang-3-media-800.webp 800w, /app/illustrations/tree/language/lang-3-media-1600.webp 1600w",
+     "alt": "The same outcome of 90 successes among 100 trials is framed as a 90 percent success headline and a 10 percent failure headline, both pointing back to one data table.",
+     "caption": "Framing changes emphasis without necessarily changing the underlying numbers. A critical reader returns to the denominator, method, source, and omitted comparison before judging either headline.",
+     "width": 1600,
+     "height": 1000
+    }
    ]
   },
   {
@@ -3539,6 +4049,18 @@
     "lang.2.grammar",
     "lang.1.vocabulary",
     "mind.2.study-skills"
+   ],
+   "lesson_media": [
+    {
+     "id": "language-practice-loop-plate",
+     "kind": "illustration",
+     "src": "/app/illustrations/tree/language/lang-3-second-language-800.webp",
+     "srcset": "/app/illustrations/tree/language/lang-3-second-language-800.webp 800w, /app/illustrations/tree/language/lang-3-second-language-1600.webp 1600w",
+     "alt": "A daily learning loop connects comprehensible input, noticing a useful phrase, retrieving it from memory, using it in conversation and receiving corrective feedback.",
+     "caption": "The loop illustrates input, noticing, retrieval, use and feedback with spaced return. The rising bars are a conceptual sketch, not measured scores or a guarantee of steady improvement; learners and practice conditions differ.",
+     "width": 1600,
+     "height": 1000
+    }
    ]
   },
   {
@@ -3676,6 +4198,28 @@
       "It is memorised sentence by sentence from adult speech"
      ],
      "explain": "Question formation is structure-dependent: it picks the auxiliary of the main clause, so the auxiliary inside the relative clause is skipped even though it comes earlier in the string."
+    }
+   ],
+   "lesson_media": [
+    {
+     "id": "formal-linguistic-analysis-plate",
+     "kind": "illustration",
+     "src": "/app/illustrations/grove/language/lang-4-linguistics-800.webp",
+     "srcset": "/app/illustrations/grove/language/lang-4-linguistics-800.webp 800w, /app/illustrations/grove/language/lang-4-linguistics-1600.webp 1600w",
+     "alt": "Four branches analyze Those dogs bark as a sound phrase, plural-agreement morphology, the syntax noun phrase plus verb phrase, and a compositional proposition.",
+     "caption": "Formal analysis separates but connects phonological form, morphosyntactic features, constituent structure, and semantic composition. Evidence determines which representation is appropriate.",
+     "width": 1600,
+     "height": 1000
+    },
+    {
+     "id": "lang-4-linguistics-concept-lab",
+     "kind": "model",
+     "renderer": "concept-lab",
+     "title": "Two trees, two meanings",
+     "instructions": "Attach “with the telescope” to the seeing event or to the person. Compare the changed branch, interpretation and bracketed parse.",
+     "props": {
+      "scenario": "lang.4.linguistics"
+     }
     }
    ]
   },
@@ -3815,6 +4359,18 @@
     "lang.3.literature",
     "lang.3.linguistics-intro",
     "mind.3.philosophy-intro"
+   ],
+   "lesson_media": [
+    {
+     "id": "reading-lenses-plate",
+     "kind": "illustration",
+     "src": "/app/illustrations/grove/language/lang-4-lit-theory-800.webp",
+     "srcset": "/app/illustrations/grove/language/lang-4-lit-theory-800.webp 800w, /app/illustrations/grove/language/lang-4-lit-theory-1600.webp 1600w",
+     "alt": "Four critical approaches ask different questions of the same unnamed text: formal pattern, historical conditions, reader response and instability in its oppositions.",
+     "caption": "A critical lens foregrounds particular evidence and questions; it is not a machine that guarantees one answer. Interpretations remain accountable to the text and their stated assumptions.",
+     "width": 1600,
+     "height": 1000
+    }
    ]
   },
   {
@@ -3953,6 +4509,18 @@
     "lang.3.literature",
     "lang.2.poetry",
     "lang.3.essays"
+   ],
+   "lesson_media": [
+    {
+     "id": "revision-cycle-plate",
+     "kind": "illustration",
+     "src": "/app/illustrations/grove/language/lang-4-creative-800.webp",
+     "srcset": "/app/illustrations/grove/language/lang-4-creative-800.webp 800w, /app/illustrations/grove/language/lang-4-creative-1600.webp 1600w",
+     "alt": "A revision cycle turns The storm was bad into Rain hammered the tin roof by identifying vague language, selecting sensory evidence and checking whether the new verb fits the scene.",
+     "caption": "Revision is a sequence of decisions, not mere polishing. A writer diagnoses what the draft fails to convey, changes specific language, then rereads for accuracy, rhythm, and consequence.",
+     "width": 1600,
+     "height": 1000
+    }
    ]
   },
   {
@@ -4086,6 +4654,18 @@
     "lang.2.etymology",
     "lang.3.linguistics-intro",
     "hist.2.middle-ages"
+   ],
+   "lesson_media": [
+    {
+     "id": "knight-word-history-plate",
+     "kind": "illustration",
+     "src": "/app/illustrations/grove/language/lang-4-history-english-800.webp",
+     "srcset": "/app/illustrations/grove/language/lang-4-history-english-800.webp 800w, /app/illustrations/grove/language/lang-4-history-english-1600.webp 1600w",
+     "alt": "A timeline follows Old English cniht with pronounced initial consonants through Middle English knyght to present-day knight, where the k and gh are no longer pronounced.",
+     "caption": "English changes in sound, spelling, meaning, and grammar at different rates. Knight preserves letters associated with earlier pronunciations; spelling is historical evidence, not a phonetic transcript.",
+     "width": 1600,
+     "height": 1000
+    }
    ]
   },
   {
@@ -4225,6 +4805,18 @@
     "lang.3.literature",
     "lang.2.mythology",
     "lang.3.world-lit"
+   ],
+   "lesson_media": [
+    {
+     "id": "epic-reception-plate",
+     "kind": "illustration",
+     "src": "/app/illustrations/grove/language/lang-4-classics-800.webp",
+     "srcset": "/app/illustrations/grove/language/lang-4-classics-800.webp 800w, /app/illustrations/grove/language/lang-4-classics-1600.webp 1600w",
+     "alt": "A chain links Homeric epic conventions to Virgil's selective Roman adaptation and then to later readers who translate, imitate, contest and reinterpret both traditions.",
+     "caption": "Classical reception is active transformation. The Aeneid draws on Homeric forms while redirecting them toward Roman history; later works inherit choices, not an unchanged universal template.",
+     "width": 1600,
+     "height": 1000
+    }
    ]
   },
   {
@@ -4363,6 +4955,18 @@
     "lang.3.literature",
     "lang.3.world-lit",
     "lang.3.second-language"
+   ],
+   "lesson_media": [
+    {
+     "id": "comparative-method-plate",
+     "kind": "illustration",
+     "src": "/app/illustrations/grove/language/lang-4-comp-lit-800.webp",
+     "srcset": "/app/illustrations/grove/language/lang-4-comp-lit-800.webp 800w, /app/illustrations/grove/language/lang-4-comp-lit-1600.webp 1600w",
+     "alt": "Three columns compare Text A's form and setting, two translation priorities, and Text B's different tradition and stakes before limiting the comparison.",
+     "caption": "Comparative literature distinguishes textual evidence, translation decisions, and context. A productive comparison names a shared problem while showing how each work handles it differently.",
+     "width": 1600,
+     "height": 1000
+    }
    ]
   },
   {
@@ -4501,6 +5105,18 @@
     "lang.4.linguistics",
     "lang.4.classics",
     "lang.4.history-english"
+   ],
+   "lesson_media": [
+    {
+     "id": "manuscript-stemma-plate",
+     "kind": "illustration",
+     "src": "/app/illustrations/forest/language/lang-5-philology-800.webp",
+     "srcset": "/app/illustrations/forest/language/lang-5-philology-800.webp 800w, /app/illustrations/forest/language/lang-5-philology-1600.webp 1600w",
+     "alt": "A hypothetical manuscript stemma connects a lost archetype to two inferred intermediate copies and three surviving witnesses; B and C share sea while D reads see, without establishing which reading is correct.",
+     "caption": "Textual critics compare variants and shared errors to infer relationships among witnesses. A stemma is a revisable historical hypothesis, and the oldest surviving manuscript is not automatically best.",
+     "width": 1600,
+     "height": 1000
+    }
    ]
   },
   {
@@ -4633,6 +5249,18 @@
     "lang.4.linguistics",
     "lang.4.history-english",
     "mind.3.social-science"
+   ],
+   "lesson_media": [
+    {
+     "id": "register-variation-plate",
+     "kind": "illustration",
+     "src": "/app/illustrations/forest/language/lang-5-socioling-800.webp",
+     "srcset": "/app/illustrations/forest/language/lang-5-socioling-800.webp 800w, /app/illustrations/forest/language/lang-5-socioling-1600.webp 1600w",
+     "alt": "One speaker expresses the same request differently to a close friend, in a seminar and in a formal application, while audience, purpose and identity shift together.",
+     "caption": "Register varies with situation, relationship, medium, and purpose. Variation is systematic social meaning, not evidence that one community's everyday variety lacks grammar.",
+     "width": 1600,
+     "height": 1000
+    }
    ]
   },
   {
@@ -4765,6 +5393,18 @@
     "lang.4.linguistics",
     "mind.3.psychology",
     "mind.4.cognitive-sci"
+   ],
+   "lesson_media": [
+    {
+     "id": "incremental-reanalysis-plate",
+     "kind": "illustration",
+     "src": "/app/illustrations/forest/language/lang-5-psycholing-800.webp",
+     "srcset": "/app/illustrations/forest/language/lang-5-psycholing-800.webp 800w, /app/illustrations/forest/language/lang-5-psycholing-1600.webp 1600w",
+     "alt": "An incremental parser first treats the baby as the object in While Anna dressed the baby, then reaches played, detects a conflict and revises to two clauses.",
+     "caption": "Comprehension is incremental and prediction can produce a garden path. In While Anna dressed the baby played, played forces reanalysis: Anna dressed herself, and the baby played.",
+     "width": 1600,
+     "height": 1000
+    }
    ]
   },
   {
@@ -4892,6 +5532,28 @@
     "cs.3.algorithms",
     "math.3.probability",
     "cs.4.ml"
+   ],
+   "lesson_media": [
+    {
+     "id": "corpus-to-analysis-plate",
+     "kind": "illustration",
+     "src": "/app/illustrations/forest/language/lang-5-comp-ling-800.webp",
+     "srcset": "/app/illustrations/forest/language/lang-5-comp-ling-800.webp 800w, /app/illustrations/forest/language/lang-5-comp-ling-1600.webp 1600w",
+     "alt": "A computational pipeline moves from a documented corpus through tokenization and representation to a dependency parser or next-token model, then evaluates held-out predictions and errors.",
+     "caption": "The bars are illustrative metric placeholders, not measured performance or comparable scales. Held-out evaluation supports claims about a task and dataset, not proof of human-like understanding; training and evaluation data remain separate.",
+     "width": 1600,
+     "height": 1000
+    },
+    {
+     "id": "lang-5-comp-ling-computation-studio",
+     "kind": "model",
+     "renderer": "language-computation-lab",
+     "title": "Language from rules and data",
+     "instructions": "Step through a parse chart, inspect alternative trees, compare exact next-token probabilities and audit classifier metrics. Practice with the same calculated values.",
+     "props": {
+      "scenario": "lang.5.comp-ling"
+     }
+    }
    ]
   },
   {
@@ -5030,6 +5692,18 @@
     "lang.4.linguistics",
     "lang.4.lit-theory",
     "lang.4.comp-lit"
+   ],
+   "lesson_media": [
+    {
+     "id": "story-discourse-plate",
+     "kind": "illustration",
+     "src": "/app/illustrations/forest/language/lang-5-narratology-800.webp",
+     "srcset": "/app/illustrations/forest/language/lang-5-narratology-800.webp 800w, /app/illustrations/forest/language/lang-5-narratology-1600.webp 1600w",
+     "alt": "Three panels distinguish chronological story events A then B then C, narrated discourse ordered C then A then B, and focalization that limits which character's knowledge reaches the reader.",
+     "caption": "Narratology separates what happens from how it is presented. Reordering, duration, narration, and focalization guide inference without altering the underlying event chronology.",
+     "width": 1600,
+     "height": 1000
+    }
    ]
   }
  ]

@@ -1,0 +1,721 @@
+{
+  "schema_version": 1,
+  "review_id": "math-logic-independent-review-20261011",
+  "reviewed_at": "2026-10-11T16:14:02.526767+00:00",
+  "reviewer": "/root/logic_independent_review",
+  "implementation_owner": "/root",
+  "node_id": "math.5.logic",
+  "result": "pass_for_scoped_logic_lesson",
+  "whole_goal_complete": false,
+  "mechanical_verification_of_infinite_theorems": false,
+  "scope": "Full authored math.5.logic lesson and all ten quizzes; eight-station activity; exact companion categorical 3D view; scoped original plate and earlier finite Cantor activity. This is an educational mathematical review, not formal verification of infinite metatheorems or a claim about other modules.",
+  "reviewed_runtime_sha256": {
+    "web/math-logic-lab.js": "ed46bb7ffe34e8ff971480eeec99befc61d5e4aa0131f4d2bb8e88b47802899b",
+    "web/math-logic-lab.css": "d98197d7fcca48552ee0beda78c7c5e0f1e6f4a55ecc7e7f6d1fea9183a90395",
+    "web/spatial-logic.js": "00f4e6e15084d2e0475c015f9a6230aaed09a244f1ce37dac62030f60e42edbc",
+    "web/lesson-state.js": "837cea8445bb6d0ac4c943e0b78cd919ac07a5569cad5ac58e99086da3a4674f",
+    "web/spatial-module-objects.js": "3ff2e3a28e38d65b755f2977c2c25167f7c5cd4c8a4e95491b45a0ed8b1b362d",
+    "web/spatial-models.js": "21dd37ae78eef1a15a25d75e3eca4211bd1e7383482f0b4feb51f6da54d3bffb",
+    "web/lesson-models.js": "d7268996aa06b8675f2ff831046f5067b876da1c5ac83f5f98a9119456a945be",
+    "web/illustrations/forest/math/math-5-logic-800.webp": "52dbda527e00741d6be6a4f110da70ac5034d177e913221f75336dc98bc088d8",
+    "web/illustrations/forest/math/math-5-logic-1600.webp": "02da02b39284da1a6fd032e7ca26b3456622d79bcf2377ffe6bb1fd730711f68"
+  },
+  "reviewed_curriculum_file_sha256": "88df43b1ee853d690b5aa56fd711628e170cb91fcb1bc621764a3fbe23751916",
+  "reviewed_lesson_semantic_sha256": "d39b099e11d3d270574c3e0007f8a9a10d159b702a96db006a493b02e692866a",
+  "module_binding": {
+    "node_id": "math.5.logic",
+    "family": "logic-witness-geometry",
+    "title": "Logical witnesses and proof dependencies · 3D study",
+    "instructions": "Rotate the exact finite tables and directed proof-dependency graphs. Compare complete membership witnesses and theorem hypotheses with the eight-station logic activity; categorical spacing does not measure proof strength or infinite cardinality.",
+    "context": "Logic and Set Theory: Inspect exact finite memberships, ordered relations and directed theorem dependencies while retaining infinite proof hypotheses and categorical layout.",
+    "mode": "model"
+  },
+  "station_mapping": [
+    {
+      "station": "powerset",
+      "quiz_numbers": [
+        2
+      ],
+      "controls": [
+        "size",
+        "rows"
+      ],
+      "requirement": "Complete finite memberships and complementary diagonal D; quantified contradiction for arbitrary S.",
+      "evidence_boundary": "Computed finite table; arbitrary-set proof explained.",
+      "sources": [
+        "marks-set.pdf"
+      ],
+      "status": "pass"
+    },
+    {
+      "station": "decimal",
+      "quiz_numbers": [
+        4
+      ],
+      "controls": [
+        "decimalRows"
+      ],
+      "requirement": "Canonical listed decimals and constructed digits only 1/2 exclude eventual-0/9 ambiguity.",
+      "evidence_boundary": "Eight editable prefixes; infinite continuation is a theorem construction.",
+      "sources": [
+        "marks-set.pdf"
+      ],
+      "status": "pass"
+    },
+    {
+      "station": "relations",
+      "quiz_numbers": [
+        9
+      ],
+      "controls": [
+        "relationSize",
+        "relationMask"
+      ],
+      "requirement": "Each ordered pair has an independent bit; full property predicates and counterexample sets.",
+      "evidence_boundary": "All encodings through n=4 audited; UI supports n=1–4.",
+      "sources": [
+        "schlicht.pdf"
+      ],
+      "status": "pass"
+    },
+    {
+      "station": "incomplete",
+      "quiz_numbers": [
+        1,
+        7
+      ],
+      "controls": [
+        "theory",
+        "extension"
+      ],
+      "requirement": "Effective enumeration, consistency and enough arithmetic remain explicit; independent true finite extensions retain effectiveness.",
+      "evidence_boundary": "Conditional theorem schema; no consistency oracle or Rosser-sentence generator.",
+      "sources": [
+        "marks-computability.pdf",
+        "kabanets.pdf"
+      ],
+      "status": "pass"
+    },
+    {
+      "station": "consistency",
+      "quiz_numbers": [
+        3
+      ],
+      "controls": [
+        "proofView",
+        "ordinalDepth"
+      ],
+      "requirement": "Usual Con(PA) and derivability conditions; external PRA with required ε₀ induction need not contain all PA.",
+      "evidence_boundary": "Finite ordinal notation list and dependency graph; no well-foundedness test.",
+      "sources": [
+        "marks-computability.pdf",
+        "burris.pdf",
+        "hancock.pdf"
+      ],
+      "status": "pass"
+    },
+    {
+      "station": "skolem",
+      "quiz_numbers": [
+        5
+      ],
+      "controls": [
+        "viewpoint"
+      ],
+      "requirement": "Consistent ZFC forces infinite models; internal function elements and external bijections over ω^M and A^M differ.",
+      "evidence_boundary": "Conditional model-theory diagrams; neither an actual ZFC model nor identification of ω^M with N.",
+      "sources": [
+        "schlicht.pdf"
+      ],
+      "status": "pass"
+    },
+    {
+      "station": "independence",
+      "quiz_numbers": [
+        6,
+        8
+      ],
+      "controls": [
+        "statement"
+      ],
+      "requirement": "AC/WOT equivalence, finite-family choice in ZF, CH in ZFC; proof use alone does not establish necessity.",
+      "evidence_boundary": "Known conditional dependencies; unknown theorem stays unknown; no forcing computation.",
+      "sources": [
+        "marks-set.pdf",
+        "shani-forcing"
+      ],
+      "status": "pass"
+    },
+    {
+      "station": "compactness",
+      "quiz_numbers": [
+        10
+      ],
+      "controls": [
+        "bound",
+        "witness"
+      ],
+      "requirement": "Every finite PA-plus-inequality fragment has a standard witness; full theory has nonstandard c by compactness.",
+      "evidence_boundary": "All 483 displayed K/c combinations checked; no largest natural or numerical infinity.",
+      "sources": [
+        "schlicht.pdf"
+      ],
+      "status": "pass"
+    }
+  ],
+  "quiz_mapping": [
+    {
+      "number": 1,
+      "kind": "choice",
+      "requirement": "Effective infinite axiom enumeration does not evade incompleteness.",
+      "stations": [
+        "incomplete"
+      ],
+      "status": "pass"
+    },
+    {
+      "number": 2,
+      "kind": "choice",
+      "requirement": "No map S→P(S) is onto; singleton injection gives strict comparison.",
+      "stations": [
+        "powerset"
+      ],
+      "status": "pass"
+    },
+    {
+      "number": 3,
+      "kind": "choice",
+      "requirement": "Usual internal Con(PA) differs from Gentzen’s external induction argument.",
+      "stations": [
+        "consistency"
+      ],
+      "status": "pass_after_scoped_precision_repairs"
+    },
+    {
+      "number": 4,
+      "kind": "short",
+      "requirement": "Canonical decimals and output digits1/2 defeat an infinite enumeration without dual-expansion ambiguity.",
+      "stations": [
+        "decimal"
+      ],
+      "status": "pass_after_scoped_precision_repairs"
+    },
+    {
+      "number": 5,
+      "kind": "choice",
+      "requirement": "Completeness and downward LS give a countable ZFC model under consistency; internal/external bijection domains differ.",
+      "stations": [
+        "skolem"
+      ],
+      "status": "pass_after_scoped_precision_repairs"
+    },
+    {
+      "number": 6,
+      "kind": "choice",
+      "requirement": "A known proof using AC does not determine a theorem’s ZF status.",
+      "stations": [
+        "independence"
+      ],
+      "status": "pass"
+    },
+    {
+      "number": 7,
+      "kind": "choice",
+      "requirement": "Unprovability is relative to the fixed theory; a consistent finite independent extension remains incomplete.",
+      "stations": [
+        "incomplete"
+      ],
+      "status": "pass"
+    },
+    {
+      "number": 8,
+      "kind": "choice",
+      "requirement": "Con(ZFC) and relative consistency of ZFC+CH exclude a ZFC proof of ¬CH.",
+      "stations": [
+        "independence"
+      ],
+      "status": "pass"
+    },
+    {
+      "number": 9,
+      "kind": "numeric",
+      "requirement": "Nine pair slots yield exactly 2⁹=512 binary relations.",
+      "stations": [
+        "relations"
+      ],
+      "status": "pass"
+    },
+    {
+      "number": 10,
+      "kind": "short",
+      "requirement": "Standard witnesses for every finite fragment justify compactness; the resulting c is nonstandard.",
+      "stations": [
+        "compactness"
+      ],
+      "status": "pass"
+    }
+  ],
+  "core_to_spatial_mapping": {
+    "tables": "Every Boolean/string source cell is retained once with row, column, exact value and categorical ordinal. Three axes mean row slot, column slot and value slot; the readout gives the exact slot→value key.",
+    "graphs": "Every source node, full name, directed endpoint pair and edge label is retained. Compact node numbers are keyed in the readout; self-loops and all other directed edges have arrow primitives.",
+    "metric_boundary": "Distances, heights, panel planes and display gains do not measure cardinality, ordinal magnitude, physical depth or proof strength.",
+    "independent_relational_check": "For all512 three-element relations, primitive memberships and directed edges/arrows equal independently decoded bit sets.",
+    "root_checker": {
+      "states": 550,
+      "table_cells": 4994,
+      "directed_edges": 2378,
+      "state_bus_keys": 9
+    }
+  },
+  "state_bus": {
+    "allowed_keys": [
+      "math.5.complex-analysis",
+      "phys.4.quantum",
+      "math.5.topology",
+      "phys.4.relativity",
+      "math.5.abstract",
+      "phys.5.quantum-info",
+      "math.5.logic",
+      "phys.4.em-maxwell",
+      "phys.5.gr-cosmo"
+    ],
+    "isolation": "Root checker verifies one delivery only to matching key and no untrusted-key messages.",
+    "browser": "Independent supplement compares all accepted controls, complete readout and the entire projected SVG against a fresh same-state companion render; edited membership/decimal arrays are therefore checked beyond station synchronization.",
+    "reset": "Keyboard activation of 3D Reset model restores the full 2D initial state and initial camera; Home/camera keys preserve mathematical state."
+  },
+  "tests": [
+    {
+      "command": "node tools/check_math_logic_lab.js",
+      "exit_code": 0,
+      "result": "66066 finite maps;66066 relations;80 decimal cases;39 mounted states."
+    },
+    {
+      "command": "node tools/check_math_logic_spatial.js",
+      "exit_code": 0,
+      "result": "550 states;4994 cells;2378 edges;nine-key isolation."
+    },
+    {
+      "command": "python -m pytest tests/test_math_logic_lab.py -q",
+      "exit_code": 0,
+      "result": "5 passed in4.47s; independent finite oracles and strict binding."
+    },
+    {
+      "command": "python -m pytest tests/test_math_logic_independent_review.py -k 'not review_pins' -q",
+      "exit_code": 0,
+      "result": "2 passed in1.68s;complete counterexample sets for all66066 encodings via set composition/differences;512 independent spatial relations.",
+      "log": ".research/logic-independent-finite-tests-20261011.log",
+      "log_sha256": "c64c713ddd085725b9a18189c49223b33f99d0cba9e2974b118e5a8ae5f5c995"
+    }
+  ],
+  "reader_evidence": {
+    "root": {
+      "proof": ".research/logic-reader-final-20261011-j3ojcixy/logic-reader-proof.json",
+      "sha256": "0bf3a45ce59341edac08e6113b4a22fa9db3ddecfebfb4e0ba775427c34e0163",
+      "author": "/root",
+      "passed": true,
+      "results": [
+        {
+          "width": 1440,
+          "api_quiz_count": 10,
+          "lab_states": 36,
+          "spatial_states": 36,
+          "cameras": 56,
+          "invalid_drafts": 2,
+          "table_toggles": 36,
+          "speech": 126,
+          "stations": [
+            "powerset",
+            "decimal",
+            "relations",
+            "incomplete",
+            "consistency",
+            "skolem",
+            "independence",
+            "compactness"
+          ],
+          "console_errors": [],
+          "failed_requests": [],
+          "passed": true
+        },
+        {
+          "width": 390,
+          "api_quiz_count": 10,
+          "lab_states": 36,
+          "spatial_states": 36,
+          "cameras": 56,
+          "invalid_drafts": 2,
+          "table_toggles": 36,
+          "speech": 126,
+          "stations": [
+            "powerset",
+            "decimal",
+            "relations",
+            "incomplete",
+            "consistency",
+            "skolem",
+            "independence",
+            "compactness"
+          ],
+          "console_errors": [],
+          "failed_requests": [],
+          "passed": true
+        }
+      ],
+      "screenshots": 32,
+      "boundary": "Owner-authored fresh authenticated reader proof at1440/390; independently inspected receipt, harness and current bytes. Quizzes are mathematically mapped, but this is not a run through every answer-grading flow."
+    },
+    "independent": {
+      "proof": ".research/logic-independent-browser-supplement-20261011/proof.json",
+      "sha256": "4b0fda11338a33e172b303d74aae2867fd29a82bc766290d53f5b80cb5511bf3",
+      "author": "/root/logic_independent_review",
+      "passed": true,
+      "results": [
+        {
+          "width": 1440,
+          "full_state_and_svg_checks": 51,
+          "keyboard_table_activations": 2,
+          "numeric_enter_escape_checks": 2,
+          "camera_keyboard_checks": 7,
+          "three_dimensional_reset_checks": 1,
+          "console_errors": [],
+          "passed": true
+        },
+        {
+          "width": 390,
+          "full_state_and_svg_checks": 51,
+          "keyboard_table_activations": 2,
+          "numeric_enter_escape_checks": 2,
+          "camera_keyboard_checks": 7,
+          "three_dimensional_reset_checks": 1,
+          "console_errors": [],
+          "passed": true
+        }
+      ],
+      "served_static_bodies": [
+        {
+          "width": 1440,
+          "file": "web/math-logic-lab.js",
+          "status": 200,
+          "bytes": 35259,
+          "sha256": "ed46bb7ffe34e8ff971480eeec99befc61d5e4aa0131f4d2bb8e88b47802899b"
+        },
+        {
+          "width": 1440,
+          "file": "web/math-logic-lab.css",
+          "status": 200,
+          "bytes": 2142,
+          "sha256": "d98197d7fcca48552ee0beda78c7c5e0f1e6f4a55ecc7e7f6d1fea9183a90395"
+        },
+        {
+          "width": 1440,
+          "file": "web/spatial-logic.js",
+          "status": 200,
+          "bytes": 5387,
+          "sha256": "00f4e6e15084d2e0475c015f9a6230aaed09a244f1ce37dac62030f60e42edbc"
+        },
+        {
+          "width": 1440,
+          "file": "web/lesson-state.js",
+          "status": 200,
+          "bytes": 1341,
+          "sha256": "837cea8445bb6d0ac4c943e0b78cd919ac07a5569cad5ac58e99086da3a4674f"
+        },
+        {
+          "width": 1440,
+          "file": "web/spatial-module-objects.js",
+          "status": 200,
+          "bytes": 117277,
+          "sha256": "3ff2e3a28e38d65b755f2977c2c25167f7c5cd4c8a4e95491b45a0ed8b1b362d"
+        },
+        {
+          "width": 1440,
+          "file": "web/spatial-models.js",
+          "status": 200,
+          "bytes": 22236,
+          "sha256": "21dd37ae78eef1a15a25d75e3eca4211bd1e7383482f0b4feb51f6da54d3bffb"
+        },
+        {
+          "width": 1440,
+          "file": "web/lesson-models.js",
+          "status": 200,
+          "bytes": 332665,
+          "sha256": "d7268996aa06b8675f2ff831046f5067b876da1c5ac83f5f98a9119456a945be"
+        },
+        {
+          "width": 390,
+          "file": "web/math-logic-lab.js",
+          "status": 200,
+          "bytes": 35259,
+          "sha256": "ed46bb7ffe34e8ff971480eeec99befc61d5e4aa0131f4d2bb8e88b47802899b"
+        },
+        {
+          "width": 390,
+          "file": "web/math-logic-lab.css",
+          "status": 200,
+          "bytes": 2142,
+          "sha256": "d98197d7fcca48552ee0beda78c7c5e0f1e6f4a55ecc7e7f6d1fea9183a90395"
+        },
+        {
+          "width": 390,
+          "file": "web/spatial-logic.js",
+          "status": 200,
+          "bytes": 5387,
+          "sha256": "00f4e6e15084d2e0475c015f9a6230aaed09a244f1ce37dac62030f60e42edbc"
+        },
+        {
+          "width": 390,
+          "file": "web/lesson-state.js",
+          "status": 200,
+          "bytes": 1341,
+          "sha256": "837cea8445bb6d0ac4c943e0b78cd919ac07a5569cad5ac58e99086da3a4674f"
+        },
+        {
+          "width": 390,
+          "file": "web/spatial-module-objects.js",
+          "status": 200,
+          "bytes": 117277,
+          "sha256": "3ff2e3a28e38d65b755f2977c2c25167f7c5cd4c8a4e95491b45a0ed8b1b362d"
+        },
+        {
+          "width": 390,
+          "file": "web/spatial-models.js",
+          "status": 200,
+          "bytes": 22236,
+          "sha256": "21dd37ae78eef1a15a25d75e3eca4211bd1e7383482f0b4feb51f6da54d3bffb"
+        },
+        {
+          "width": 390,
+          "file": "web/lesson-models.js",
+          "status": 200,
+          "bytes": 332665,
+          "sha256": "d7268996aa06b8675f2ff831046f5067b876da1c5ac83f5f98a9119456a945be"
+        }
+      ],
+      "screenshots": [
+        {
+          "width": 1440,
+          "station": "powerset",
+          "file": "/Users/peter/Documents/ChatGPT/Primer/.research/release-pulmonary-20261007/.research/logic-independent-browser-supplement-20261011/independent-1440-powerset.png",
+          "sha256": "7534b9cc6324905b707024c73963fc85dad789f7d1fd0cadf392c7bc2265873a"
+        },
+        {
+          "width": 1440,
+          "station": "decimal",
+          "file": "/Users/peter/Documents/ChatGPT/Primer/.research/release-pulmonary-20261007/.research/logic-independent-browser-supplement-20261011/independent-1440-decimal.png",
+          "sha256": "7ecd8d449824bfbef995c0c3307dba156afc551670d80243a99593460c21b511"
+        },
+        {
+          "width": 1440,
+          "station": "relations",
+          "file": "/Users/peter/Documents/ChatGPT/Primer/.research/release-pulmonary-20261007/.research/logic-independent-browser-supplement-20261011/independent-1440-relations.png",
+          "sha256": "c65867266f4e364756b94ea720752d4b55fdb87e087e79f3f12ee7e1434a526d"
+        },
+        {
+          "width": 1440,
+          "station": "incomplete",
+          "file": "/Users/peter/Documents/ChatGPT/Primer/.research/release-pulmonary-20261007/.research/logic-independent-browser-supplement-20261011/independent-1440-incomplete.png",
+          "sha256": "96985da63949d2cd7804ce37d113cee6c99bcd8ba9e172fbcfc23d8ef5090a40"
+        },
+        {
+          "width": 1440,
+          "station": "consistency",
+          "file": "/Users/peter/Documents/ChatGPT/Primer/.research/release-pulmonary-20261007/.research/logic-independent-browser-supplement-20261011/independent-1440-consistency.png",
+          "sha256": "31986d27ce56c266100bcd72b48945b3842a07c1f24c8f9ef644f1a8a45a4777"
+        },
+        {
+          "width": 1440,
+          "station": "skolem",
+          "file": "/Users/peter/Documents/ChatGPT/Primer/.research/release-pulmonary-20261007/.research/logic-independent-browser-supplement-20261011/independent-1440-skolem.png",
+          "sha256": "9cbb19ad237144a501b6f1425d7828c1f7214f17a4080cab1c6061cf7d0d0ade"
+        },
+        {
+          "width": 1440,
+          "station": "independence",
+          "file": "/Users/peter/Documents/ChatGPT/Primer/.research/release-pulmonary-20261007/.research/logic-independent-browser-supplement-20261011/independent-1440-independence.png",
+          "sha256": "668e8341fb2ea047723a3c8793d2067c82d9624fa1ff4f37bf22948fe0498bb5"
+        },
+        {
+          "width": 1440,
+          "station": "compactness",
+          "file": "/Users/peter/Documents/ChatGPT/Primer/.research/release-pulmonary-20261007/.research/logic-independent-browser-supplement-20261011/independent-1440-compactness.png",
+          "sha256": "7ff27d5c30afe46e6bc178fa5b69c5449d7516e48b59496ad66a3975306b91ef"
+        },
+        {
+          "width": 390,
+          "station": "powerset",
+          "file": "/Users/peter/Documents/ChatGPT/Primer/.research/release-pulmonary-20261007/.research/logic-independent-browser-supplement-20261011/independent-390-powerset.png",
+          "sha256": "b4897401aa226a254b782145bb2064d7bf354453b0445045bfe1cf35a736c7b9"
+        },
+        {
+          "width": 390,
+          "station": "decimal",
+          "file": "/Users/peter/Documents/ChatGPT/Primer/.research/release-pulmonary-20261007/.research/logic-independent-browser-supplement-20261011/independent-390-decimal.png",
+          "sha256": "b6781b668f6fb704a94e849c4cca37ca6c962dda95311b3092646ce17b96ca69"
+        },
+        {
+          "width": 390,
+          "station": "relations",
+          "file": "/Users/peter/Documents/ChatGPT/Primer/.research/release-pulmonary-20261007/.research/logic-independent-browser-supplement-20261011/independent-390-relations.png",
+          "sha256": "ed8e0d02998017439d8d9519c37ca52beff02c478e47d82729c13173bbbb5430"
+        },
+        {
+          "width": 390,
+          "station": "incomplete",
+          "file": "/Users/peter/Documents/ChatGPT/Primer/.research/release-pulmonary-20261007/.research/logic-independent-browser-supplement-20261011/independent-390-incomplete.png",
+          "sha256": "7bf5dbf2706350244a33b25fb675fe8e7ea86937ec6de5af90818c1ba81479cc"
+        },
+        {
+          "width": 390,
+          "station": "consistency",
+          "file": "/Users/peter/Documents/ChatGPT/Primer/.research/release-pulmonary-20261007/.research/logic-independent-browser-supplement-20261011/independent-390-consistency.png",
+          "sha256": "c6060ec1431dbd7ba7a2a9446689b06354a91ec03ed8884318fc82fd09236f16"
+        },
+        {
+          "width": 390,
+          "station": "skolem",
+          "file": "/Users/peter/Documents/ChatGPT/Primer/.research/release-pulmonary-20261007/.research/logic-independent-browser-supplement-20261011/independent-390-skolem.png",
+          "sha256": "6330cc28b734500a85f8773b3622ccb1af21b242760da46ef25f592efddd3875"
+        },
+        {
+          "width": 390,
+          "station": "independence",
+          "file": "/Users/peter/Documents/ChatGPT/Primer/.research/release-pulmonary-20261007/.research/logic-independent-browser-supplement-20261011/independent-390-independence.png",
+          "sha256": "153ec28975d6ce5d18c33b38e0588b9577cd10bd7f97c71a94d1678dca7585a3"
+        },
+        {
+          "width": 390,
+          "station": "compactness",
+          "file": "/Users/peter/Documents/ChatGPT/Primer/.research/release-pulmonary-20261007/.research/logic-independent-browser-supplement-20261011/independent-390-compactness.png",
+          "sha256": "6a78cc02e2e2a7b7a23d5f9299cda71f180418075dddfc4ef435b7e69e2165d0"
+        }
+      ],
+      "handles_closed": true,
+      "server_owner": "/root",
+      "boundary": "Fresh isolated browser contexts and synthetic local QA account. No production credential or production-reader proof. Normal screenshot captures include the fixed app header overlay; this is not interpreted as omitted mathematical content."
+    },
+    "text_only_followup": {
+      "path": "data/curriculum/01-mathematics.json",
+      "old_sha256": "e40bb8ec170e8f000198f35fcac876a763fef69c12898104acbea949371cb435",
+      "new_sha256": "88df43b1ee853d690b5aa56fd711628e170cb91fcb1bc621764a3fbe23751916",
+      "field": "math.5.logic.quiz[2].prompt",
+      "before": "Godel's second incompleteness theorem says a consistent system strong enough for arithmetic cannot prove its own consistency. Gentzen nonetheless published a proof that Peano arithmetic is consistent. Decide how both can stand.",
+      "after": "For a consistent effectively axiomatized arithmetic theory with the standard arithmetized provability conditions, Gödel’s second incompleteness theorem excludes an internal proof of its usual consistency sentence. Gentzen nevertheless gave an external consistency proof for PA. How can both results stand?",
+      "verification": "Replacing the one new JSON string with the old one reconstructs exactly the owner-reader curriculum hash. All browser-reviewed JS/CSS/shared runtime bytes remain unchanged."
+    }
+  },
+  "resolved_findings": [
+    {
+      "id": "L6-infinite-model-scope",
+      "problem": "A consistent countable-language theory need not have an infinite model.",
+      "repair": "Graph now specifies consistent ZFC; the infinite model conclusion uses its infinity axioms.",
+      "status": "resolved"
+    },
+    {
+      "id": "Q4-decimal-ambiguity",
+      "problem": "Merely changing digits does not handle alternate decimal expansions.",
+      "repair": "Answer and explanation require canonical listed expansions and output digits1/2.",
+      "status": "resolved"
+    },
+    {
+      "id": "Q3-Gentzen-metatheory",
+      "problem": "Calling Gentzen’s metatheory a stronger containing theory can misstate its relation to PA.",
+      "repair": "Additional induction principles are named; the metatheory need not contain every PA theorem.",
+      "status": "resolved"
+    },
+    {
+      "id": "Q5-omega-domain",
+      "problem": "External N and a model’s possibly nonstandard ω must not be silently identified.",
+      "repair": "Quiz names ω^M and A^M and separates external functions from internal witnesses.",
+      "status": "resolved"
+    },
+    {
+      "id": "Q3-standard-hypotheses",
+      "problem": "The quiz prompt omitted effectiveness and usual arithmetized provability conditions.",
+      "repair": "Prompt now expressly includes those conditions and the usual consistency sentence.",
+      "status": "resolved"
+    }
+  ],
+  "sources": [
+    {
+      "id": "schlicht.pdf",
+      "title": "Philipp Schlicht, Introduction to Mathematical Logic",
+      "url": "https://philippschlicht.github.io/teaching/files/mathematicallogic2021.pdf",
+      "locator": "§1.1; §3.1–3.2; §4.5",
+      "support": "Definitions of finite structures; completeness, compactness and conditional countable-model existence.",
+      "original_bytes": 737201,
+      "original_sha256": "d41013c8af666b716fc6fc2a0a2b940d84a986ff0539482eb8ab9ba297ef7f4a",
+      "local_original": ".research/logic-independent-review-sources-20261011/schlicht.pdf"
+    },
+    {
+      "id": "marks-set.pdf",
+      "title": "Andrew Marks, Set Theory",
+      "url": "https://math.berkeley.edu/~marks/notes/set_theory_notes_4.pdf",
+      "locator": "§1; §8; §11; introduction",
+      "support": "Cantor diagonal argument, finite choice, well-ordering, and CH relative consistency.",
+      "original_bytes": 2594888,
+      "original_sha256": "84d316ec6c979f1e6a6819a8b8e14cf1bbb327a75451c2333c0cb986af89205d",
+      "local_original": ".research/logic-independent-review-sources-20261011/marks-set.pdf"
+    },
+    {
+      "id": "marks-computability.pdf",
+      "title": "Andrew Marks, Computability Theory",
+      "url": "https://math.berkeley.edu/~marks/notes/computability_notes_v1.pdf",
+      "locator": "§12–13",
+      "support": "Gödel–Rosser, standard truth of independent Π1 sentences, and usual provability conditions.",
+      "original_bytes": 3177543,
+      "original_sha256": "3d73eae796544d98c6d49de909a61cff85dc79443e07c233bc6e195dc3f59409",
+      "local_original": ".research/logic-independent-review-sources-20261011/marks-computability.pdf"
+    },
+    {
+      "id": "burris.pdf",
+      "title": "Stanley Burris, Contributions of the Logicians, Part II",
+      "url": "https://www.math.uwaterloo.ca/~snburris/htdocs/LOGIC/LOGICIANS/notes2.pdf",
+      "locator": "Chapter13; PDF page53",
+      "support": "Gentzen’s ε₀ consistency argument and finite omega towers.",
+      "original_bytes": 525755,
+      "original_sha256": "001a78473f2e21c3e056167bf4282ef444712c7b30e09420e90ee104c9c1dc90",
+      "local_original": ".research/logic-independent-review-sources-20261011/burris.pdf"
+    },
+    {
+      "id": "hancock.pdf",
+      "title": "Peter Hancock, Ordinal-theoretic Proof Theory",
+      "url": "https://martinescardo.github.io/events/MGS08/notes/proofTheory.pdf",
+      "locator": "§1.1.3; PDF pages6–7",
+      "support": "Primitive recursive arithmetic with the required ε₀ induction; distinct formula classes.",
+      "original_bytes": 339568,
+      "original_sha256": "5066a05de8aa37ddadceac76e0810f908b0801710256b1f282a3629316b685a6",
+      "local_original": ".research/logic-independent-review-sources-20261011/hancock.pdf"
+    },
+    {
+      "id": "kabanets.pdf",
+      "title": "Valentine Kabanets, Lecture11",
+      "url": "https://www.sfu.ca/~kabanets/308/lectures/lec11.pdf",
+      "locator": "§4; PDF page5",
+      "support": "Addition-only Presburger arithmetic is complete and decidable.",
+      "original_bytes": 191266,
+      "original_sha256": "98a6d0db778c6ac2925a02d7e10e4f90ca301b0db2d1d2f0b73882372ca423ce",
+      "local_original": ".research/logic-independent-review-sources-20261011/kabanets.pdf"
+    },
+    {
+      "id": "shani-forcing",
+      "title": "Assaf Shani, 145B Set Theory II: An Introduction to Forcing",
+      "url": "https://people.math.harvard.edu/~shani/Teaching/145/145B-Notes.pdf",
+      "locator": "Introduction; PDF page1",
+      "support": "Conditional independence of AC from ZF and CH from ZFC.",
+      "retrieval": "Primary-author PDF text verified with browsing; independent local download returned HTTP403, so no local-original byte claim."
+    }
+  ],
+  "limitations": [
+    "No finite enumeration proves an infinite theorem.",
+    "Consistency hypotheses are assumed, not verified.",
+    "No model of ZFC, arithmetized Rosser sentence, forcing extension or Gentzen proof derivation is computed.",
+    "The finite geometry is categorical; no theorem-strength or infinite-size metric is asserted.",
+    "The original plate is a finite binary illustration and its caption says so.",
+    "This review does not certify all mathematics/physics modules or any radiology structure."
+  ],
+  "recommendations": [
+    "Retain the explicit theorem hypotheses and internal/external quantifier domains in future edits.",
+    "Keep schematic 3D category slots separate from physical geometry and cardinal/ordinal measurement.",
+    "Re-review any mathematical or runtime edit against this exact scoped record."
+  ]
+}

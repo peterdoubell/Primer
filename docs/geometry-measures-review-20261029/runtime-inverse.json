@@ -1,0 +1,81 @@
+{
+  "base_commit": "9a4e5ebfc78a9db7d2639a0324e962fda5966072",
+  "scope": "exact_geometry_measures_integration",
+  "lesson": "math.2.geometry",
+  "files": {
+    "data/curriculum/01-mathematics.json": {
+      "before_sha256": "f3e28e26d9b713473fb6a8e8a43b7ea107f4f7f202779b0bf154785cb733d759",
+      "after_sha256": "3b22767d7f91d424390d18905a48ce1c4547952579045dfacf13f53ac910a24a",
+      "changes": [
+        {
+          "start": 2886,
+          "end": 2896,
+          "before": "",
+          "after": "        },\n        {\n          \"id\": \"math-2-geometry-measures-lab\",\n          \"kind\": \"model\",\n          \"renderer\": \"geometry-measures-lab\",\n          \"title\": \"Measure shapes and solids\",\n          \"instructions\": \"Trace perimeter, count square units, compare equal perimeters and scaled shapes, then inspect volume and capacity.\",\n          \"props\": {\n            \"scenario\": \"math.2.geometry\"\n          }\n"
+        }
+      ]
+    },
+    "primer/curriculum.py": {
+      "before_sha256": "aeee3ac4991518f323e2c59d525e8f4c35ecf21cf1a2987d611f5b6e60889a27",
+      "after_sha256": "a89a7b60e33e78009808f66385b6969ddf665b3a5f5e0908a6d11ca0bb9a5e7c",
+      "changes": [
+        {
+          "start": 178,
+          "end": 179,
+          "before": "    \"coordinate-plane-lab\", \"algebra-functions-lab\", \"base-ten-lab\", \"fraction-equivalence-lab\", \"fraction-arithmetic-lab\", \"atom-element-builder\", \"cell-microscope\",\n",
+          "after": "    \"geometry-measures-lab\", \"coordinate-plane-lab\", \"algebra-functions-lab\", \"base-ten-lab\", \"fraction-equivalence-lab\", \"fraction-arithmetic-lab\", \"atom-element-builder\", \"cell-microscope\",\n"
+        },
+        {
+          "start": 503,
+          "end": 506,
+          "before": "",
+          "after": "            elif renderer == \"geometry-measures-lab\":\n                if node.get(\"id\") != \"math.2.geometry\" or props != {\"scenario\": \"math.2.geometry\"}:\n                    raise ValueError(\"{} geometry model has an unknown or cross-lesson scenario\".format(node.get(\"id\")))\n"
+        }
+      ]
+    },
+    "primer/server.py": {
+      "before_sha256": "963b2024dedaa0e67efe55177825b4da1771793e47579f09af04fce76b3c9924",
+      "after_sha256": "1e4d2f56efc1ca56a126101a0c762eddded51d9dff13ce53f23d408b2ea53c34",
+      "changes": [
+        {
+          "start": 3554,
+          "end": 3555,
+          "before": "                     \"algebra-functions-core.js\", \"algebra-functions-lab.js\", \"algebra-functions-lab.css\", \"algebra-functions-spatial.js\", \"coordinate-plane-core.js\", \"coordinate-plane-spatial.js\", \"coordinate-plane-lab.js\", \"coordinate-plane-lab.css\"):\n",
+          "after": "                     \"algebra-functions-core.js\", \"algebra-functions-lab.js\", \"algebra-functions-lab.css\", \"algebra-functions-spatial.js\", \"coordinate-plane-core.js\", \"coordinate-plane-spatial.js\", \"coordinate-plane-lab.js\", \"coordinate-plane-lab.css\", \"geometry-measures-core.js\", \"geometry-measures-lab.js\", \"geometry-measures-lab.css\"):\n"
+        }
+      ]
+    },
+    "web/index.html": {
+      "before_sha256": "833741f24127d1b28a2174a633742aeb8da9e5ee6423ddb4b55c1c349d9cc1d8",
+      "after_sha256": "3bdf2bd59a97c666c174fc90f5336460c0c603fa580dab6c851859fd304b6757",
+      "changes": [
+        {
+          "start": 36,
+          "end": 37,
+          "before": "",
+          "after": "  <link rel=\"stylesheet\" href=\"/app/geometry-measures-lab.css\">\n"
+        },
+        {
+          "start": 138,
+          "end": 140,
+          "before": "",
+          "after": "  <script src=\"/app/geometry-measures-core.js\"></script>\n  <script src=\"/app/geometry-measures-lab.js\"></script>\n"
+        }
+      ]
+    },
+    "web/lesson-models.js": {
+      "before_sha256": "afe457a571d97cff1a40a40f53ad96ecca08d3db7fe46358f1d2660fb3ec11c2",
+      "after_sha256": "766532c81769d2d6e5f6f7a3055df09854130c47aaa5213a00ee7084490472ec",
+      "changes": [
+        {
+          "start": 6169,
+          "end": 6170,
+          "before": "",
+          "after": "    'geometry-measures-lab': (item, hooks) => window.PrimerGeometryMeasuresLab?.render(item, hooks) || null,\n"
+        }
+      ]
+    }
+  },
+  "extends_historical_approval": false,
+  "whole_goal_complete": false
+}

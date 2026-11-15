@@ -1,0 +1,1073 @@
+{
+  "schema_version": 1,
+  "status": "source-derived schematic; clinical approval pending",
+  "source_manifest_sha256": "c2617979ffafc90349f57174a083bd42410c2ab9f601e49200353a328afafcd4",
+  "source_manifest_path": "web/anatomy/openknee-oks003/manifest.json",
+  "source_dataset": "Open Knee(s) oks003 — native left-knee source assembly",
+  "source_provider": "openknee-oks003",
+  "source_url": "https://simtk.org/svn/openknee/oks/oks003/",
+  "source_assembly": {
+    "url": "https://simtk.org/svn/openknee/oks/oks003/Model/Connectivity.xml",
+    "sha256": "ec128b6395652ec79e5d32ac175dd58fa5c4372680d25354ae6a666d310708a6",
+    "file": "/app/anatomy/openknee-oks003/SOURCE-ASSEMBLY.xml"
+  },
+  "license": "CC BY-SA 3.0 Unported",
+  "license_url": "https://creativecommons.org/licenses/by-sa/3.0/",
+  "attribution": "Open Knee(s) Development Team; Chokhandre S, Schwartz A, Klonowski E, Landis B, Erdemir A. Open Knee(s): A Free and Open Source Library of Specimen-Specific Models and Related Digital Assets for Finite Element Analysis of the Knee Joint (2022/2023), doi:10.1007/s10439-022-03074-0. Source repository revision 3413; oks003 AGS assembly.",
+  "derived_figure_license": "CC BY-SA 3.0 Unported",
+  "renderer": {
+    "script_sha256": "f58200ad2191b43c6d55ad26e1f2b65cf7b506ffcbafca65615534f37fe04ed7",
+    "numpy": "2.5.3",
+    "pillow": "12.3.0",
+    "fonts": {
+      "regular_sha256": "3fdf69cabf06049ea70a00b5919340e2ce1e6d02b0cc3c4b44fb6801bd1e0d22",
+      "bold_sha256": "b184b89e3c1075f22f6b71575b6fc20d4972b3cfd3b23322ca6fd596dcaef167"
+    },
+    "raster_size_pixels": [
+      3200,
+      2280
+    ],
+    "background": "#ffffff",
+    "depth_test": "largest camera-depth coordinate per pixel across all source parts",
+    "tie_rule": "within 1e-9 mm, smallest canonical source primitive ID wins",
+    "fragment_samples": "one exact triangle interpolation at each pixel center",
+    "shading": "source facet normals, directional diffuse plus ambient; no normal smoothing",
+    "geometry_changed": false,
+    "fitted_transform": false,
+    "raw_mri_pixels_used": false
+  },
+  "figures": [
+    {
+      "filename": "knee-patellar-cartilage-openknee.png",
+      "sha256": "b2b2ba055b21bc182503bad5a99a98c7d0d7f4dee3fddcafcf06e8e0c21421d0",
+      "bytes": 347364,
+      "width": 3200,
+      "height": 2280,
+      "figure_title": "Patella and patellar cartilage",
+      "origin": "source-derived",
+      "kind": "schematic",
+      "source_side": "left",
+      "parts": [
+        {
+          "id": "oks003-ptb",
+          "source_name": "oks003_PTB_AGS_LVTIT.stl",
+          "source_url": "https://simtk.org/svn/openknee/oks/oks003/Geometry/oks003_PTB_AGS_LVTIT.stl",
+          "source_sha256": "3a60216d6af40c44306487763cc25176ddfe9f467497a4f64cbaa36df7e246f9",
+          "triangles": 17280,
+          "retained_triangles": 17280,
+          "source_corner_count": 51840,
+          "source_unique_positions": 8642,
+          "source_positions_and_facet_normals_retained": true,
+          "raster_visibility": {
+            "id": "oks003-ptb",
+            "primitive_offset": 0,
+            "submitted_triangles": 17280,
+            "projected_zero_area_triangles": 0,
+            "off_pixel_grid_triangles": 6,
+            "triangles_with_pixel_samples": 17244,
+            "visible_pixels": 270739,
+            "visible_source_triangles": 3372
+          },
+          "display_color": "#cdc8bb"
+        },
+        {
+          "id": "oks003-ptc",
+          "source_name": "oks003_PTC_AGS_LVTIT.stl",
+          "source_url": "https://simtk.org/svn/openknee/oks/oks003/Geometry/oks003_PTC_AGS_LVTIT.stl",
+          "source_sha256": "c3f3c0e4b05a8a9d90677e8ab82b31be3b97346172ca4dcef40dd9f1d84f737f",
+          "triangles": 21756,
+          "retained_triangles": 21756,
+          "source_corner_count": 65268,
+          "source_unique_positions": 10880,
+          "source_positions_and_facet_normals_retained": true,
+          "raster_visibility": {
+            "id": "oks003-ptc",
+            "primitive_offset": 17280,
+            "submitted_triangles": 21756,
+            "projected_zero_area_triangles": 0,
+            "off_pixel_grid_triangles": 1,
+            "triangles_with_pixel_samples": 21732,
+            "visible_pixels": 647279,
+            "visible_source_triangles": 11045
+          },
+          "display_color": "#419ab0"
+        }
+      ],
+      "camera": {
+        "projection": "orthographic",
+        "native_basis": "RAS",
+        "units": "millimeters",
+        "screen_right": [
+          1,
+          0,
+          0
+        ],
+        "screen_up": [
+          0,
+          0,
+          1
+        ],
+        "eye_direction_from_target": [
+          0,
+          -1,
+          0
+        ],
+        "view_direction": [
+          -0.0,
+          1.0,
+          -0.0
+        ],
+        "view_name": "Posterior view",
+        "screen_left_anatomy": "lateral",
+        "screen_right_anatomy": "medial",
+        "screen_top_anatomy": "Superior (+Z)",
+        "pixels_per_mm": 25.3818958430629,
+        "center_uv_mm": [
+          3.778329849243164,
+          4.561753273010254
+        ],
+        "center_pixel": [
+          1600.0,
+          1000.0
+        ],
+        "native_uv_bounds_mm": [
+          [
+            -18.342439651489258,
+            -17.91095733642578
+          ],
+          [
+            25.899099349975586,
+            27.03446388244629
+          ]
+        ],
+        "viewport_pixels": [
+          610,
+          380,
+          2590,
+          1620
+        ]
+      },
+      "labels": [
+        {
+          "part_id": "oks003-ptc",
+          "text": "Patellar cartilage",
+          "source_triangle_index": 2194,
+          "barycentric_weights": [
+            0.731019496395091,
+            0.2348015717693427,
+            0.034178931835566306
+          ],
+          "world_ras_mm": [
+            14.0021524354084,
+            32.865173534056424,
+            10.018398468323877
+          ],
+          "pixel_center": [
+            1859.5,
+            861.5
+          ],
+          "source_facet_normal_ras": [
+            0.38278281688690186,
+            -0.8879084587097168,
+            0.25513893365859985
+          ],
+          "source_facet_normal_camera": [
+            0.38278281688690186,
+            0.25513893365859985,
+            0.8879084587097168
+          ],
+          "preferred_native_uv_mm": [
+            14,
+            10
+          ],
+          "visibility": "frontmost part at this pixel",
+          "label_origin_pixels": [
+            2670,
+            820
+          ],
+          "leader_polyline_pixels": [
+            [
+              2640,
+              970
+            ],
+            [
+              2610,
+              970
+            ],
+            [
+              1859.5,
+              861.5
+            ]
+          ]
+        },
+        {
+          "part_id": "oks003-ptb",
+          "text": "Patella",
+          "source_triangle_index": 11159,
+          "barycentric_weights": [
+            0.7277825474894886,
+            0.0006161402774073273,
+            0.27160131223310413
+          ],
+          "world_ras_mm": [
+            -7.509243063806321,
+            46.86783321309414,
+            -10.547441184771513
+          ],
+          "pixel_center": [
+            1313.5,
+            1383.5
+          ],
+          "source_facet_normal_ras": [
+            -0.7490900754928589,
+            -0.02175929769873619,
+            -0.6621107459068298
+          ],
+          "source_facet_normal_camera": [
+            -0.7490900754928589,
+            -0.6621107459068298,
+            0.02175929769873619
+          ],
+          "preferred_native_uv_mm": [
+            -10,
+            -13
+          ],
+          "visibility": "frontmost part at this pixel",
+          "label_origin_pixels": [
+            96,
+            1270
+          ],
+          "leader_polyline_pixels": [
+            [
+              560,
+              1353
+            ],
+            [
+              590,
+              1353
+            ],
+            [
+              1313.5,
+              1383.5
+            ]
+          ]
+        }
+      ],
+      "scale_bar": {
+        "length_mm": 10,
+        "line_pixels": [
+          [
+            690,
+            1720
+          ],
+          [
+            943.818958430629,
+            1720
+          ]
+        ],
+        "pixels_per_mm": 25.3818958430629
+      },
+      "omitted_context": "Femur and all other structures omitted to expose the posterior cartilage surface.",
+      "source_limits": [
+        "Whole cartilage object only; no separate cartilage layers, thickness measurement or interface validation.",
+        "Only named whole-source objects are labelled; no anatomical subdivisions are invented.",
+        "Source surfaces were smoothed/remeshed; render pixels are not acquisition resolution.",
+        "Single cadaveric left knee; no universal normality or independent clinical approval."
+      ],
+      "output_limits": [
+        "All selected source facets are submitted unchanged; occluded/edge-on facets do not produce visible pixels.",
+        "No transparency or exploded anatomy; opaque per-pixel occlusion is retained.",
+        "Scale bar measures source geometry, not independently validated clinical measurement accuracy."
+      ],
+      "clinical_approval": false
+    },
+    {
+      "filename": "knee-menisci-openknee.png",
+      "sha256": "384e42518c5d5937d5a4c20f6b3d8f77dfd5c70a3a93607c450331c88edef5d6",
+      "bytes": 536668,
+      "width": 3200,
+      "height": 2280,
+      "figure_title": "Medial and lateral menisci",
+      "origin": "source-derived",
+      "kind": "schematic",
+      "source_side": "left",
+      "parts": [
+        {
+          "id": "oks003-tbb",
+          "source_name": "oks003_TBB_AGS_LVTIT.stl",
+          "source_url": "https://simtk.org/svn/openknee/oks/oks003/Geometry/oks003_TBB_AGS_LVTIT.stl",
+          "source_sha256": "90e2a2de0853637a1af8829bff924e265df2d37ecb5ee81cc9f9173020f66cca",
+          "triangles": 41796,
+          "retained_triangles": 41796,
+          "source_corner_count": 125388,
+          "source_unique_positions": 20900,
+          "source_positions_and_facet_normals_retained": true,
+          "raster_visibility": {
+            "id": "oks003-tbb",
+            "primitive_offset": 31696,
+            "submitted_triangles": 41796,
+            "projected_zero_area_triangles": 0,
+            "off_pixel_grid_triangles": 211,
+            "triangles_with_pixel_samples": 41406,
+            "visible_pixels": 931046,
+            "visible_source_triangles": 12092
+          },
+          "display_color": "#d3cfc4"
+        },
+        {
+          "id": "oks003-fbb",
+          "source_name": "oks003_FBB_AGS_LVTIT.stl",
+          "source_url": "https://simtk.org/svn/openknee/oks/oks003/Geometry/oks003_FBB_AGS_LVTIT.stl",
+          "source_sha256": "2243d0afe287c20cd49cfd044356c7c75b38464c598cbc4de1a6bb97e56db712",
+          "triangles": 7584,
+          "retained_triangles": 7584,
+          "source_corner_count": 22752,
+          "source_unique_positions": 3794,
+          "source_positions_and_facet_normals_retained": true,
+          "raster_visibility": {
+            "id": "oks003-fbb",
+            "primitive_offset": 0,
+            "submitted_triangles": 7584,
+            "projected_zero_area_triangles": 0,
+            "off_pixel_grid_triangles": 13,
+            "triangles_with_pixel_samples": 7528,
+            "visible_pixels": 122508,
+            "visible_source_triangles": 1471
+          },
+          "display_color": "#bbb7ac"
+        },
+        {
+          "id": "oks003-mns-m",
+          "source_name": "oks003_MNS-M_AGS_02_LVTIT.stl",
+          "source_url": "https://simtk.org/svn/openknee/oks/oks003/Geometry/oks003_MNS-M_AGS_02_LVTIT.stl",
+          "source_sha256": "a3be9d2fef8cde2078b19637fd5a3bdc7f9f8b3ad4de4d871b7ac8b227a4b975",
+          "triangles": 11664,
+          "retained_triangles": 11664,
+          "source_corner_count": 34992,
+          "source_unique_positions": 5834,
+          "source_positions_and_facet_normals_retained": true,
+          "raster_visibility": {
+            "id": "oks003-mns-m",
+            "primitive_offset": 20032,
+            "submitted_triangles": 11664,
+            "projected_zero_area_triangles": 0,
+            "off_pixel_grid_triangles": 91,
+            "triangles_with_pixel_samples": 11519,
+            "visible_pixels": 240563,
+            "visible_source_triangles": 5587
+          },
+          "display_color": "#c4873d"
+        },
+        {
+          "id": "oks003-mns-l",
+          "source_name": "oks003_MNS-L_AGS_02_LVTIT.stl",
+          "source_url": "https://simtk.org/svn/openknee/oks/oks003/Geometry/oks003_MNS-L_AGS_02_LVTIT.stl",
+          "source_sha256": "5b2771eb28f28b5e614e05449e48d7209970b9f70ebee20878df3c28132638a0",
+          "triangles": 12448,
+          "retained_triangles": 12448,
+          "source_corner_count": 37344,
+          "source_unique_positions": 6226,
+          "source_positions_and_facet_normals_retained": true,
+          "raster_visibility": {
+            "id": "oks003-mns-l",
+            "primitive_offset": 7584,
+            "submitted_triangles": 12448,
+            "projected_zero_area_triangles": 0,
+            "off_pixel_grid_triangles": 327,
+            "triangles_with_pixel_samples": 11978,
+            "visible_pixels": 231816,
+            "visible_source_triangles": 6167
+          },
+          "display_color": "#8266b3"
+        }
+      ],
+      "camera": {
+        "projection": "orthographic",
+        "native_basis": "RAS",
+        "units": "millimeters",
+        "screen_right": [
+          1,
+          0,
+          0
+        ],
+        "screen_up": [
+          0,
+          1,
+          0
+        ],
+        "eye_direction_from_target": [
+          0,
+          0,
+          1
+        ],
+        "view_direction": [
+          -0.0,
+          -0.0,
+          -1.0
+        ],
+        "view_name": "Superior anatomical view",
+        "screen_left_anatomy": "lateral",
+        "screen_right_anatomy": "medial",
+        "screen_top_anatomy": "Anterior (+Y)",
+        "pixels_per_mm": 21.11750698438105,
+        "center_uv_mm": [
+          -9.180432319641113,
+          -1.146754264831543
+        ],
+        "center_pixel": [
+          1600.0,
+          1000.0
+        ],
+        "native_uv_bounds_mm": [
+          [
+            -49.84465026855469,
+            -28.15751838684082
+          ],
+          [
+            31.48378562927246,
+            25.864009857177734
+          ]
+        ],
+        "viewport_pixels": [
+          610,
+          380,
+          2590,
+          1620
+        ]
+      },
+      "labels": [
+        {
+          "part_id": "oks003-mns-l",
+          "text": "Lateral meniscus",
+          "source_triangle_index": 8208,
+          "barycentric_weights": [
+            0.39305810788440254,
+            0.25717795545905514,
+            0.3497639366565423
+          ],
+          "world_ras_mm": [
+            -30.986983648857933,
+            2.002291692590648,
+            -26.42053068613747
+          ],
+          "pixel_center": [
+            1139.5,
+            933.5
+          ],
+          "source_facet_normal_ras": [
+            0.29422977566719055,
+            -0.10319990664720535,
+            0.9501466155052185
+          ],
+          "source_facet_normal_camera": [
+            0.29422977566719055,
+            -0.10319990664720535,
+            0.9501466155052185
+          ],
+          "preferred_native_uv_mm": [
+            -31,
+            2
+          ],
+          "visibility": "frontmost part at this pixel",
+          "label_origin_pixels": [
+            96,
+            730
+          ],
+          "leader_polyline_pixels": [
+            [
+              560,
+              880
+            ],
+            [
+              590,
+              880
+            ],
+            [
+              1139.5,
+              933.5
+            ]
+          ]
+        },
+        {
+          "part_id": "oks003-mns-m",
+          "text": "Medial meniscus",
+          "source_triangle_index": 7688,
+          "barycentric_weights": [
+            0.0751015512144761,
+            0.08682120002841838,
+            0.8380772487571054
+          ],
+          "world_ras_mm": [
+            25.9799680320277,
+            1.007856127088904,
+            -30.54241987924777
+          ],
+          "pixel_center": [
+            2342.5,
+            954.5
+          ],
+          "source_facet_normal_ras": [
+            -0.5688806176185608,
+            -0.01306617259979248,
+            0.8223162293434143
+          ],
+          "source_facet_normal_camera": [
+            -0.5688806176185608,
+            -0.01306617259979248,
+            0.8223162293434143
+          ],
+          "preferred_native_uv_mm": [
+            26,
+            1
+          ],
+          "visibility": "frontmost part at this pixel",
+          "label_origin_pixels": [
+            2670,
+            700
+          ],
+          "leader_polyline_pixels": [
+            [
+              2640,
+              850
+            ],
+            [
+              2610,
+              850
+            ],
+            [
+              2342.5,
+              954.5
+            ]
+          ]
+        },
+        {
+          "part_id": "oks003-fbb",
+          "text": "Fibula",
+          "source_triangle_index": 4223,
+          "barycentric_weights": [
+            0.1278040012649233,
+            0.42819412891596426,
+            0.44400186981911244
+          ],
+          "world_ras_mm": [
+            -44.00935414947601,
+            -14.997821070034409,
+            -52.229489077844065
+          ],
+          "pixel_center": [
+            864.5,
+            1292.5
+          ],
+          "source_facet_normal_ras": [
+            0.01632106304168701,
+            0.4608438313007355,
+            0.8873311877250671
+          ],
+          "source_facet_normal_camera": [
+            0.01632106304168701,
+            0.4608438313007355,
+            0.8873311877250671
+          ],
+          "preferred_native_uv_mm": [
+            -44,
+            -15
+          ],
+          "visibility": "frontmost part at this pixel",
+          "label_origin_pixels": [
+            96,
+            1390
+          ],
+          "leader_polyline_pixels": [
+            [
+              560,
+              1473
+            ],
+            [
+              590,
+              1473
+            ],
+            [
+              864.5,
+              1292.5
+            ]
+          ]
+        },
+        {
+          "part_id": "oks003-tbb",
+          "text": "Tibia",
+          "source_triangle_index": 35269,
+          "barycentric_weights": [
+            0.37856848734963316,
+            0.5739399415057919,
+            0.04749157114457503
+          ],
+          "world_ras_mm": [
+            -0.017418894660760135,
+            19.99684002071745,
+            -32.075646591419506
+          ],
+          "pixel_center": [
+            1793.5,
+            553.5
+          ],
+          "source_facet_normal_ras": [
+            -0.025841224938631058,
+            0.21067853271961212,
+            0.9772137999534607
+          ],
+          "source_facet_normal_camera": [
+            -0.025841224938631058,
+            0.21067853271961212,
+            0.9772137999534607
+          ],
+          "preferred_native_uv_mm": [
+            0,
+            20
+          ],
+          "visibility": "frontmost part at this pixel",
+          "label_origin_pixels": [
+            2670,
+            370
+          ],
+          "leader_polyline_pixels": [
+            [
+              2640,
+              453
+            ],
+            [
+              2610,
+              453
+            ],
+            [
+              1793.5,
+              553.5
+            ]
+          ]
+        }
+      ],
+      "scale_bar": {
+        "length_mm": 20,
+        "line_pixels": [
+          [
+            690,
+            1720
+          ],
+          [
+            1112.3501396876209,
+            1720
+          ]
+        ],
+        "pixels_per_mm": 21.11750698438105
+      },
+      "omitted_context": "Femur, cartilage and ligaments omitted; tibia and fibula remain in unchanged native coordinates.",
+      "source_limits": [
+        "Whole menisci only; roots, horns and capsular/meniscotibial attachments are not separately delineated.",
+        "Only named whole-source objects are labelled; no anatomical subdivisions are invented.",
+        "Source surfaces were smoothed/remeshed; render pixels are not acquisition resolution.",
+        "Single cadaveric left knee; no universal normality or independent clinical approval."
+      ],
+      "output_limits": [
+        "All selected source facets are submitted unchanged; occluded/edge-on facets do not produce visible pixels.",
+        "No transparency or exploded anatomy; opaque per-pixel occlusion is retained.",
+        "Scale bar measures source geometry, not independently validated clinical measurement accuracy."
+      ],
+      "clinical_approval": false
+    },
+    {
+      "filename": "knee-tibial-cartilage-openknee.png",
+      "sha256": "8edb18d91ffab157aa988544c0cacae18c5c3dda5fbe1d1863ab5e1ffb990929",
+      "bytes": 512876,
+      "width": 3200,
+      "height": 2280,
+      "figure_title": "Medial and lateral tibial cartilage",
+      "origin": "source-derived",
+      "kind": "schematic",
+      "source_side": "left",
+      "parts": [
+        {
+          "id": "oks003-tbb",
+          "source_name": "oks003_TBB_AGS_LVTIT.stl",
+          "source_url": "https://simtk.org/svn/openknee/oks/oks003/Geometry/oks003_TBB_AGS_LVTIT.stl",
+          "source_sha256": "90e2a2de0853637a1af8829bff924e265df2d37ecb5ee81cc9f9173020f66cca",
+          "triangles": 41796,
+          "retained_triangles": 41796,
+          "source_corner_count": 125388,
+          "source_unique_positions": 20900,
+          "source_positions_and_facet_normals_retained": true,
+          "raster_visibility": {
+            "id": "oks003-tbb",
+            "primitive_offset": 7584,
+            "submitted_triangles": 41796,
+            "projected_zero_area_triangles": 0,
+            "off_pixel_grid_triangles": 161,
+            "triangles_with_pixel_samples": 41458,
+            "visible_pixels": 708140,
+            "visible_source_triangles": 10396
+          },
+          "display_color": "#d3cfc4"
+        },
+        {
+          "id": "oks003-fbb",
+          "source_name": "oks003_FBB_AGS_LVTIT.stl",
+          "source_url": "https://simtk.org/svn/openknee/oks/oks003/Geometry/oks003_FBB_AGS_LVTIT.stl",
+          "source_sha256": "2243d0afe287c20cd49cfd044356c7c75b38464c598cbc4de1a6bb97e56db712",
+          "triangles": 7584,
+          "retained_triangles": 7584,
+          "source_corner_count": 22752,
+          "source_unique_positions": 3794,
+          "source_positions_and_facet_normals_retained": true,
+          "raster_visibility": {
+            "id": "oks003-fbb",
+            "primitive_offset": 0,
+            "submitted_triangles": 7584,
+            "projected_zero_area_triangles": 0,
+            "off_pixel_grid_triangles": 19,
+            "triangles_with_pixel_samples": 7533,
+            "visible_pixels": 120212,
+            "visible_source_triangles": 1462
+          },
+          "display_color": "#bbb7ac"
+        },
+        {
+          "id": "oks003-tbc-m",
+          "source_name": "oks003_TBC-M_AGS_LVTIT_02.stl",
+          "source_url": "https://simtk.org/svn/openknee/oks/oks003/Geometry/oks003_TBC-M_AGS_LVTIT_02.stl",
+          "source_sha256": "cb45845df56e1d0c22db6eaf780282b904fdbcb65e1e2e5fe57e0235f1800b4d",
+          "triangles": 20580,
+          "retained_triangles": 20580,
+          "source_corner_count": 61740,
+          "source_unique_positions": 10292,
+          "source_positions_and_facet_normals_retained": true,
+          "raster_visibility": {
+            "id": "oks003-tbc-m",
+            "primitive_offset": 74958,
+            "submitted_triangles": 20580,
+            "projected_zero_area_triangles": 0,
+            "off_pixel_grid_triangles": 9,
+            "triangles_with_pixel_samples": 20535,
+            "visible_pixels": 367432,
+            "visible_source_triangles": 10513
+          },
+          "display_color": "#419ab0"
+        },
+        {
+          "id": "oks003-tbc-l",
+          "source_name": "oks003_TBC-L_AGS_LVTTIT_02.stl",
+          "source_url": "https://simtk.org/svn/openknee/oks/oks003/Geometry/oks003_TBC-L_AGS_LVTTIT_02.stl",
+          "source_sha256": "298f2bf3c8225a3125ed2fee2226d837b578deb3f1385c49eaf9319ac58e864e",
+          "triangles": 25578,
+          "retained_triangles": 25578,
+          "source_corner_count": 76734,
+          "source_unique_positions": 12791,
+          "source_positions_and_facet_normals_retained": true,
+          "raster_visibility": {
+            "id": "oks003-tbc-l",
+            "primitive_offset": 49380,
+            "submitted_triangles": 25578,
+            "projected_zero_area_triangles": 0,
+            "off_pixel_grid_triangles": 27,
+            "triangles_with_pixel_samples": 25464,
+            "visible_pixels": 255437,
+            "visible_source_triangles": 12924
+          },
+          "display_color": "#67aa96"
+        }
+      ],
+      "camera": {
+        "projection": "orthographic",
+        "native_basis": "RAS",
+        "units": "millimeters",
+        "screen_right": [
+          1,
+          0,
+          0
+        ],
+        "screen_up": [
+          0,
+          1,
+          0
+        ],
+        "eye_direction_from_target": [
+          0,
+          0,
+          1
+        ],
+        "view_direction": [
+          -0.0,
+          -0.0,
+          -1.0
+        ],
+        "view_name": "Superior anatomical view",
+        "screen_left_anatomy": "lateral",
+        "screen_right_anatomy": "medial",
+        "screen_top_anatomy": "Anterior (+Y)",
+        "pixels_per_mm": 20.91857224777621,
+        "center_uv_mm": [
+          -9.942399024963379,
+          -1.40362548828125
+        ],
+        "center_pixel": [
+          1600.0,
+          1000.0
+        ],
+        "native_uv_bounds_mm": [
+          [
+            -49.84465026855469,
+            -28.671260833740234
+          ],
+          [
+            29.95985221862793,
+            25.864009857177734
+          ]
+        ],
+        "viewport_pixels": [
+          610,
+          380,
+          2590,
+          1620
+        ]
+      },
+      "labels": [
+        {
+          "part_id": "oks003-tbc-l",
+          "text": "Lateral tibial cartilage",
+          "source_triangle_index": 19229,
+          "barycentric_weights": [
+            0.09458048604007127,
+            0.8396929306003513,
+            0.06572658335957737
+          ],
+          "world_ras_mm": [
+            -24.976885904603723,
+            -3.0050732163192473,
+            -27.597533462446442
+          ],
+          "pixel_center": [
+            1285.5,
+            1033.5
+          ],
+          "source_facet_normal_ras": [
+            -0.002112705959007144,
+            0.0010372918331995606,
+            0.9999972581863403
+          ],
+          "source_facet_normal_camera": [
+            -0.002112705959007144,
+            0.0010372918331995606,
+            0.9999972581863403
+          ],
+          "preferred_native_uv_mm": [
+            -25,
+            -3
+          ],
+          "visibility": "frontmost part at this pixel",
+          "label_origin_pixels": [
+            96,
+            730
+          ],
+          "leader_polyline_pixels": [
+            [
+              560,
+              880
+            ],
+            [
+              590,
+              880
+            ],
+            [
+              1285.5,
+              1033.5
+            ]
+          ]
+        },
+        {
+          "part_id": "oks003-tbc-m",
+          "text": "Medial tibial cartilage",
+          "source_triangle_index": 14111,
+          "barycentric_weights": [
+            0.22911254068562087,
+            0.3426689055394323,
+            0.4282185537749468
+          ],
+          "world_ras_mm": [
+            17.999278498565328,
+            -3.0050732163192477,
+            -31.46357586244666
+          ],
+          "pixel_center": [
+            2184.5,
+            1033.5
+          ],
+          "source_facet_normal_ras": [
+            0.003776491153985262,
+            -0.0019273112993687391,
+            0.9999909996986389
+          ],
+          "source_facet_normal_camera": [
+            0.003776491153985262,
+            -0.0019273112993687391,
+            0.9999909996986389
+          ],
+          "preferred_native_uv_mm": [
+            18,
+            -3
+          ],
+          "visibility": "frontmost part at this pixel",
+          "label_origin_pixels": [
+            2670,
+            700
+          ],
+          "leader_polyline_pixels": [
+            [
+              2640,
+              850
+            ],
+            [
+              2610,
+              850
+            ],
+            [
+              2184.5,
+              1033.5
+            ]
+          ]
+        },
+        {
+          "part_id": "oks003-fbb",
+          "text": "Fibula",
+          "source_triangle_index": 4223,
+          "barycentric_weights": [
+            0.12137172146584575,
+            0.4227076059339523,
+            0.45592067260020197
+          ],
+          "world_ras_mm": [
+            -44.00304100189102,
+            -15.003980074156216,
+            -52.22640646142193
+          ],
+          "pixel_center": [
+            887.5,
+            1284.5
+          ],
+          "source_facet_normal_ras": [
+            0.01632106304168701,
+            0.4608438313007355,
+            0.8873311877250671
+          ],
+          "source_facet_normal_camera": [
+            0.01632106304168701,
+            0.4608438313007355,
+            0.8873311877250671
+          ],
+          "preferred_native_uv_mm": [
+            -44,
+            -15
+          ],
+          "visibility": "frontmost part at this pixel",
+          "label_origin_pixels": [
+            96,
+            1390
+          ],
+          "leader_polyline_pixels": [
+            [
+              560,
+              1473
+            ],
+            [
+              590,
+              1473
+            ],
+            [
+              887.5,
+              1284.5
+            ]
+          ]
+        },
+        {
+          "part_id": "oks003-tbb",
+          "text": "Tibia",
+          "source_triangle_index": 35269,
+          "barycentric_weights": [
+            0.37046854439500687,
+            0.5694077887900207,
+            0.06012366681497239
+          ],
+          "world_ras_mm": [
+            -0.02298399308620762,
+            19.98884789371892,
+            -32.0740707227664
+          ],
+          "pixel_center": [
+            1807.5,
+            552.5
+          ],
+          "source_facet_normal_ras": [
+            -0.025841224938631058,
+            0.21067853271961212,
+            0.9772137999534607
+          ],
+          "source_facet_normal_camera": [
+            -0.025841224938631058,
+            0.21067853271961212,
+            0.9772137999534607
+          ],
+          "preferred_native_uv_mm": [
+            0,
+            20
+          ],
+          "visibility": "frontmost part at this pixel",
+          "label_origin_pixels": [
+            2670,
+            370
+          ],
+          "leader_polyline_pixels": [
+            [
+              2640,
+              453
+            ],
+            [
+              2610,
+              453
+            ],
+            [
+              1807.5,
+              552.5
+            ]
+          ]
+        }
+      ],
+      "scale_bar": {
+        "length_mm": 20,
+        "line_pixels": [
+          [
+            690,
+            1720
+          ],
+          [
+            1108.371444955524,
+            1720
+          ]
+        ],
+        "pixels_per_mm": 20.91857224777621
+      },
+      "omitted_context": "Femur and menisci omitted to expose both source-labelled cartilage objects; no source geometry moved.",
+      "source_limits": [
+        "Tibial-cartilage mask versions remain unresolved; no independent tissue-boundary or thickness validation.",
+        "Only named whole-source objects are labelled; no anatomical subdivisions are invented.",
+        "Source surfaces were smoothed/remeshed; render pixels are not acquisition resolution.",
+        "Single cadaveric left knee; no universal normality or independent clinical approval."
+      ],
+      "output_limits": [
+        "All selected source facets are submitted unchanged; occluded/edge-on facets do not produce visible pixels.",
+        "No transparency or exploded anatomy; opaque per-pixel occlusion is retained.",
+        "Scale bar measures source geometry, not independently validated clinical measurement accuracy."
+      ],
+      "clinical_approval": false,
+      "unresolved_mask_source_ids": [
+        "TBC-L",
+        "TBC-M"
+      ]
+    }
+  ]
+}

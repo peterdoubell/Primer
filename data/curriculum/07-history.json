@@ -14,7 +14,30 @@
     "Family",
     "History"
    ],
-   "kid_text": "Every day has a yesterday, a today, and a tomorrow! Yesterday already happened, today is right now, and tomorrow is coming next. Your family has a past too: your grandma was once a little kid just like you, and one day you might have kids of your own. Ask a grownup to tell you a story about when they were small.",
+   "lesson_media": [
+    {
+     "id": "family-keepsake-plate",
+     "kind": "illustration",
+     "src": "/app/illustrations/seedling/history/hist-0-family-800.webp",
+     "srcset": "/app/illustrations/seedling/history/hist-0-family-800.webp 800w, /app/illustrations/seedling/history/hist-0-family-1600.webp 1600w",
+     "alt": "A child and an older caregiver look at an album with an old photograph of a child holding a wooden rabbit; a matching rabbit sits beside the album.",
+     "caption": "Objects, pictures and stories can help a family remember its past and plan what comes next. Families take many forms, and every family's history is different.",
+     "width": 1600,
+     "height": 1000
+    },
+    {
+     "id": "inclusive-family-timeline",
+     "kind": "model",
+     "renderer": "inclusive-family-timeline",
+     "title": "Past, present and next",
+     "instructions": "Move through yesterday, today and tomorrow in one fictional family's story. Compare its keepsakes and plans at each point; real families can look very different from this example.",
+     "props": {
+      "scenario": "fictional-family-three-times",
+      "start_time": "today"
+     }
+    }
+   ],
+   "kid_text": "Every day has a yesterday, a today, and a tomorrow! Yesterday already happened, today is right now, and tomorrow is coming next. Families take many forms, and the people who care for one another have stories from before today. Pictures, objects and memories can help tell those stories. Ask a trusted grown-up to share a memory from when they were younger.",
    "quiz": [
     {
      "kind": "choice",
@@ -44,13 +67,13 @@
     },
     {
      "kind": "choice",
-     "prompt": "Was Grandma once a little kid? 👵",
+     "prompt": "Was a trusted grown-up once a child?",
      "choices": [
       "Yes",
       "No"
      ],
      "answer": "Yes",
-     "say": "Was your grandma once a little kid, just like you? Say yes, or no.",
+     "say": "Was a trusted grown-up once a child? Say yes, or no.",
      "speak_choices": true,
      "explain": "Yes! Every grownup was small once, a long time ago."
     },
@@ -69,45 +92,46 @@
     },
     {
      "kind": "choice",
-     "prompt": "You ate breakfast this morning. It is? 🥣",
+     "prompt": "Mika ate breakfast, then started school. Breakfast is? 🥣",
      "choices": [
       "Already done",
       "Happening now",
       "Still to come"
      ],
      "answer": "Already done",
-     "say": "You ate your breakfast this morning. Is that already done, happening now, or still to come?",
+     "say": "Mika ate breakfast, then started school. Is breakfast already done, happening now, or still to come?",
      "speak_choices": true,
-     "explain": "Right! Breakfast this morning is finished, so it is in the past."
+     "explain": "Right! In Mika's story, breakfast happened before school, so it is in the past."
     },
     {
      "kind": "choice",
-     "prompt": "Who was a little kid first? 👴👨👦",
+     "prompt": "Ari was born, then Bo, then Cy. Who was born first?",
      "choices": [
-      "You",
-      "Dad",
-      "Grandpa"
+      "Ari",
+      "Bo",
+      "Cy"
      ],
-     "answer": "Grandpa",
-     "say": "Who was a little kid first of all — you, your dad, or your grandpa?",
+     "answer": "Ari",
+     "say": "Ari was born, then Bo, then Cy. Who was born first — Ari, Bo, or Cy?",
      "speak_choices": true,
-     "explain": "Grandpa was little first, then your dad, and then you."
+     "explain": "Ari was born first, before Bo and Cy. A timeline puts earlier events before later ones."
     },
     {
      "kind": "choice",
-     "prompt": "Grandma, Mom, you. Who came last? 👶",
+     "prompt": "Noor joined a family, then Sam, then Jo. Who joined last?",
      "choices": [
-      "Grandma",
-      "Mom",
-      "You"
+      "Noor",
+      "Sam",
+      "Jo"
      ],
-     "answer": "You",
-     "say": "First grandma was born, then mom, then you. Who came last — grandma, mom, or you?",
+     "answer": "Jo",
+     "say": "Noor joined a family, then Sam, then Jo. Who joined last — Noor, Sam, or Jo?",
      "speak_choices": true,
-     "explain": "You came last! You are the newest one in the family story."
+     "explain": "Jo joined last in this fictional family's story. People can join families in many different ways."
     }
    ],
-   "prereqs": []
+   "prereqs": [],
+   "practice": "know:hist.0.family"
   },
   {
    "id": "hist.0.community",
@@ -211,7 +235,20 @@
      "explain": "That's right, police officers help keep our neighborhood safe."
     }
    ],
-   "prereqs": []
+   "prereqs": [],
+   "lesson_media": [
+    {
+     "id": "community-needs-helpers-plate",
+     "kind": "illustration",
+     "src": "/app/illustrations/seedling/history/hist-0-community-800.webp",
+     "srcset": "/app/illustrations/seedling/history/hist-0-community-800.webp 800w, /app/illustrations/seedling/history/hist-0-community-1600.webp 1600w",
+     "alt": "A stethoscope, a protective helmet with a radio, and a book under a magnifying glass connect three helpers to their work: health workers listen and check, firefighters protect and coordinate, and librarians find and check sources.",
+     "caption": "Community roles connect a need, relevant training and a public benefit; one person may help in several ways and helpers also rely on one another.",
+     "width": 1600,
+     "height": 1000
+    }
+   ],
+   "practice": "know:hist.0.community"
   },
   {
    "id": "hist.0.longago",
@@ -315,7 +352,20 @@
      "explain": "Right, when the sun went down and it got dark, it was bedtime."
     }
    ],
-   "prereqs": []
+   "prereqs": [],
+   "lesson_media": [
+    {
+     "id": "before-modern-tools-plate",
+     "kind": "illustration",
+     "src": "/app/illustrations/seedling/history/hist-0-longago-800.webp",
+     "srcset": "/app/illustrations/seedling/history/hist-0-longago-800.webp 800w, /app/illustrations/seedling/history/hist-0-longago-1600.webp 1600w",
+     "alt": "A schematic British stamped letter from 1840 and a present-day phone carry the same invented meeting message. A museum-record panel connects surviving stamps and letters to evidence about the past.",
+     "caption": "The Penny Black introduced prepaid adhesive postage in Britain in 1840. This bounded example compares a physical postal route with an electronic network, not a universal replacement of old tools. Drawings are schematic, the message is invented, and paper letters remain in use.",
+     "width": 1600,
+     "height": 1000
+    }
+   ],
+   "practice": "know:hist.0.longago"
   },
   {
    "id": "hist.1.timelines",
@@ -326,7 +376,34 @@
     "Timeline",
     "Chronology"
    ],
-   "kid_text": "A timeline is like a road that shows when things happened, with the oldest things first and the newest things last. If you drew your own timeline, being a baby would come first, then learning to walk, then starting school. We read a timeline from left to right, just like reading a story. Try putting three things you did today in the right order!",
+   "lesson_media": [
+    {
+     "id": "growing-tree-timeline-plate",
+     "kind": "illustration",
+     "src": "/app/illustrations/sprout/history/hist-1-timelines-800.webp",
+     "srcset": "/app/illustrations/sprout/history/hist-1-timelines-800.webp 800w, /app/illustrations/sprout/history/hist-1-timelines-1600.webp 1600w",
+     "alt": "Three cards show an acorn sprouting, a young sapling and a mature oak above an arrow pointing to the right.",
+     "caption": "Read these growth stages from left to right: sprouting acorn, sapling, mature oak. This picture shows order, not elapsed time: equal gaps do not mean equal numbers of years. A dated, scaled timeline can also show how long intervals last; always check its labels and direction.",
+     "width": 1600,
+     "height": 1000
+    },
+    {
+     "id": "timeline-order-lab",
+     "kind": "model",
+     "renderer": "timeline-order-lab",
+     "title": "Order the library's history",
+     "instructions": "Arrange three dated events from a fictional library from earliest to latest. The cards begin shuffled; compare their dates, check your order, or reset and try again.",
+     "props": {
+      "scenario": "fictional-library-three-dates",
+      "start_order": [
+       "roof-restored",
+       "opened",
+       "reading-room"
+      ]
+     }
+    }
+   ],
+   "kid_text": "A timeline arranges events from earlier to later, using dates, labels and sometimes arrows to show the order. Many English-language timelines run from left to right, but timelines can also run from right to left, from top to bottom, or in another clearly marked direction. Follow the dates and arrows instead of guessing. Try ordering three dated events from a fictional library!",
    "prereqs": [
     "hist.0.family",
     "hist.0.longago",
@@ -335,96 +412,97 @@
    "quiz": [
     {
      "kind": "choice",
-     "prompt": "On your timeline, which is first? 👶🧒🧑",
+     "prompt": "A library opened, added a reading room, then fixed its roof. First?",
      "choices": [
-      "👶",
-      "🧒",
-      "🧑"
+      "Opened",
+      "Reading room",
+      "Roof repair"
      ],
-     "answer": "👶",
-     "say": "On your own timeline, which comes first — being a baby 👶, being a big kid 🧒, or being a grownup 🧑?",
+     "answer": "Opened",
+     "say": "A fictional library opened, then added a reading room, then fixed its roof. Which event came first — opening, adding the reading room, or repairing the roof?",
      "speak_choices": true,
-     "explain": "Right! Baby comes first, because that happened the longest ago."
+     "explain": "The library opening came first in this fictional history, before the reading room and roof repair."
     },
     {
      "kind": "choice",
-     "prompt": "Which way do we read a timeline? 📜",
+     "prompt": "This timeline's arrow points right. Where do later events go? 📜",
      "choices": [
       "Left to right",
       "Right to left",
       "Top to bottom"
      ],
      "answer": "Left to right",
-     "say": "Which way do we read a timeline — left to right, right to left, or top to bottom?",
+     "say": "This timeline has an arrow pointing to the right. Do its later events go from left to right, right to left, or top to bottom?",
      "speak_choices": true,
-     "explain": "Yes, just like a story, a timeline goes from left to right."
+     "explain": "On this timeline, the arrow shows that later events go toward the right. Other timelines can declare a different direction."
     },
     {
      "kind": "choice",
-     "prompt": "A baby grows up. Which comes last? ⏳",
+     "prompt": "A bell rang, doors opened, then a story began. Last? ⏳",
      "choices": [
-      "Run",
-      "Crawl",
-      "Walk"
+      "Story began",
+      "Bell rang",
+      "Doors opened"
      ],
-     "answer": "Run",
-     "say": "A baby learns to move about. Which one comes last — run, crawl, or walk?",
+     "answer": "Story began",
+     "say": "At the library, a bell rang, the doors opened, and then a story began. Which came last — the story beginning, the bell ringing, or the doors opening?",
      "speak_choices": true,
-     "explain": "Yes! First you crawl, then you walk, then you run. Running comes last."
+     "explain": "The story began last, after the bell rang and the doors opened."
     },
     {
      "kind": "choice",
-     "prompt": "On a hen's timeline, which is first? 📅",
+     "prompt": "A laid egg hatches into a chick, then grows into a hen. First? 📅",
      "choices": [
       "Hen",
       "Egg",
       "Chick"
      ],
      "answer": "Egg",
-     "say": "On a hen's timeline, which one comes first — the hen, the egg, or the chick?",
+     "say": "In this sequence, a laid egg hatches into a chick, then grows into a hen. Which comes first — the hen, the egg, or the chick?",
      "speak_choices": true,
-     "explain": "Yes! First there is an egg, then a chick hatches out, and then it grows into a hen."
+     "explain": "In this sequence, the laid egg comes first, then the chick, then the adult hen."
     },
     {
      "kind": "choice",
-     "prompt": "Which meal comes last in the day? 🕐",
+     "prompt": "Visits are in the morning, at noon and in the afternoon. Last? 🕐",
      "choices": [
-      "Dinner",
-      "Lunch",
-      "Breakfast"
+      "3 in the afternoon",
+      "Noon",
+      "9 in the morning"
      ],
-     "answer": "Dinner",
-     "say": "Which meal comes last in the day — dinner, lunch, or breakfast?",
+     "answer": "3 in the afternoon",
+     "say": "Three library visits are scheduled at nine in the morning, noon, and three in the afternoon. Which time comes last — three in the afternoon, noon, or nine in the morning?",
      "speak_choices": true,
-     "explain": "Right! Breakfast is in the morning, lunch in the middle of the day, and dinner comes last."
+     "explain": "Three in the afternoon is later than nine in the morning and noon."
     },
     {
      "kind": "choice",
-     "prompt": "On a timeline, oldest goes where? ⬅️",
+     "prompt": "This timeline runs left to right. Earliest goes where? ⬅️",
      "choices": [
       "Left",
       "Right",
       "Middle"
      ],
      "answer": "Left",
-     "say": "On a timeline, does the oldest thing go on the left, on the right, or in the middle?",
+     "say": "This timeline runs from left to right. Does its earliest event go on the left, on the right, or in the middle?",
      "speak_choices": true,
-     "explain": "Yes! The oldest things start on the left, and newer things follow."
+     "explain": "On this left-to-right timeline, the earliest event starts on the left. Check the arrow because other timelines can use another direction."
     },
     {
      "kind": "choice",
-     "prompt": "A tree grows in three steps. Which is the middle one? ⏳",
+     "prompt": "In this simple tree sequence, which is the middle one? ⏳",
      "choices": [
       "Sprout",
       "Seed",
       "Tree"
      ],
      "answer": "Sprout",
-     "say": "A tree grows in three steps. Which one is the middle step — the sprout, the seed, or the tree?",
+     "say": "In this simple tree sequence, which one is in the middle — the sprout, the seed, or the mature tree?",
      "speak_choices": true,
-     "explain": "That's right — first a seed, then a sprout, then a tall tree. The sprout is in the middle."
+     "explain": "In this simplified sequence, the seed comes first, the sprout is in the middle, and the mature tree comes last."
     }
-   ]
+   ],
+   "practice": "know:hist.1.timelines"
   },
   {
    "id": "hist.1.ancient",
@@ -534,7 +612,20 @@
      "speak_choices": true,
      "explain": "That's right, rivers gave them water to drink and to grow food."
     }
-   ]
+   ],
+   "lesson_media": [
+    {
+     "id": "river-city-chain-plate",
+     "kind": "illustration",
+     "src": "/app/illustrations/sprout/history/hist-1-ancient-800.webp",
+     "srcset": "/app/illustrations/sprout/history/hist-1-ancient-800.webp 800w, /app/illustrations/sprout/history/hist-1-ancient-1600.webp 1600w",
+     "alt": "A schematic water channel reaches cereal plants; beside it a grain store and a marked tablet represent storage and record keeping. Opposing arrows link the two panels as interacting needs, not inevitable stages. The drawings do not reconstruct an excavated site or transcribe real writing.",
+     "caption": "Ancient Egypt and Mesopotamia developed differently, but in both regions rivers, farming, specialization and administration interacted in the growth of cities.",
+     "width": 1600,
+     "height": 1000
+    }
+   ],
+   "practice": "know:hist.1.ancient"
   },
   {
    "id": "hist.1.maps",
@@ -642,7 +733,20 @@
      "speak_choices": true,
      "explain": "A continent! It is so big that maps shrink it down onto paper."
     }
-   ]
+   ],
+   "lesson_media": [
+    {
+     "id": "map-reading-tools-plate",
+     "kind": "illustration",
+     "src": "/app/illustrations/sprout/history/hist-1-maps-800.webp",
+     "srcset": "/app/illustrations/sprout/history/hist-1-maps-800.webp 800w, /app/illustrations/sprout/history/hist-1-maps-1600.webp 1600w",
+     "alt": "An invented map shows a school south of a park, a river to their east, a north arrow and a symbol key. The straight school-to-park route spans three copies of the two-kilometre scale bar, giving six kilometres.",
+     "caption": "Read direction, symbols and scale together. The graphical scale stays proportional when the picture resizes; physical screen centimetres do not. This invented map selects a few features and is not a navigation guide to a real place.",
+     "width": 1600,
+     "height": 1000
+    }
+   ],
+   "practice": "know:hist.1.maps"
   },
   {
    "id": "hist.1.inventions",
@@ -752,7 +856,20 @@
      "speak_choices": true,
      "explain": "That's right, a brand-new helpful thing is called an invention."
     }
-   ]
+   ],
+   "lesson_media": [
+    {
+     "id": "inventions-needs-effects-plate",
+     "kind": "illustration",
+     "src": "/app/illustrations/sprout/history/hist-1-inventions-800.webp",
+     "srcset": "/app/illustrations/sprout/history/hist-1-inventions-800.webp 800w, /app/illustrations/sprout/history/hist-1-inventions-1600.webp 1600w",
+     "alt": "A timeline links controlled fire in deep prehistory, wheel-and-axle transport around the fourth millennium BCE, and early writing around 3400 to 3200 BCE to the needs they addressed and the later practices they enabled.",
+     "caption": "Controlled fire, wheel-and-axle systems and writing emerged through long collective histories; each changed what communities could cook, move or record.",
+     "width": 1600,
+     "height": 1000
+    }
+   ],
+   "practice": "know:hist.1.inventions"
   },
   {
    "id": "hist.2.civilizations",
@@ -878,6 +995,18 @@
     "hist.1.timelines",
     "hist.1.ancient",
     "hist.1.maps"
+   ],
+   "lesson_media": [
+    {
+     "id": "ancient-contemporaries-plate",
+     "kind": "illustration",
+     "src": "/app/illustrations/sapling/history/hist-2-civilizations-800.webp",
+     "srcset": "/app/illustrations/sapling/history/hist-2-civilizations-800.webp 800w, /app/illustrations/sapling/history/hist-2-civilizations-1600.webp 1600w",
+     "alt": "Four parallel rows place the Mediterranean, South Asia, East Asia and the Americas around 300 BCE, showing Hellenistic kingdoms and Rome, the Maurya Empire, the late Zhou and emerging Qin state, and varied Maya and Zapotec centers as contemporaries rather than rungs on one ladder.",
+     "caption": "Ancient societies in several regions were contemporary. Comparing their political forms, exchange networks and evidence avoids treating world history as one civilization replacing another.",
+     "width": 1600,
+     "height": 1000
+    }
    ]
   },
   {
@@ -1010,6 +1139,18 @@
     "hist.1.timelines",
     "hist.1.maps",
     "hist.2.civilizations"
+   ],
+   "lesson_media": [
+    {
+     "id": "medieval-connected-worlds-plate",
+     "kind": "illustration",
+     "src": "/app/illustrations/sapling/history/hist-2-middle-ages-800.webp",
+     "srcset": "/app/illustrations/sapling/history/hist-2-middle-ages-800.webp 800w, /app/illustrations/sapling/history/hist-2-middle-ages-1600.webp 1600w",
+     "alt": "Five peer geographic tracks around 1000 CE show the Byzantine eastern Mediterranean, Islamic polities across Southwest Asia and North Africa, West African states, Song China in East Asia, and varied European polities as concurrent histories rather than one European age.",
+     "caption": "The label Middle Ages fits European periodization best. Around 1000 CE, many connected regions had distinct states, faiths, cities and knowledge traditions.",
+     "width": 1600,
+     "height": 1000
+    }
    ]
   },
   {
@@ -1137,6 +1278,18 @@
     "hist.1.maps",
     "hist.2.civilizations",
     "mind.1.money-sense"
+   ],
+   "lesson_media": [
+    {
+     "id": "exchange-routes-consequences-plate",
+     "kind": "illustration",
+     "src": "/app/illustrations/sapling/history/hist-2-exploration-800.webp",
+     "srcset": "/app/illustrations/sapling/history/hist-2-exploration-800.webp 800w, /app/illustrations/sapling/history/hist-2-exploration-1600.webp 1600w",
+     "alt": "A conceptual network links Silk Road routes, Indian Ocean sea lanes, Atlantic crossings after 1492 and local communities to connected exchange. Labels name goods and ideas alongside disease, conquest and coerced labor. Arrows show relationships, not geographic routes or equal benefits.",
+     "caption": "Trade and exploration connected existing networks rather than empty spaces. Contact moved goods and knowledge, but also disease, violence, enslavement and imperial control.",
+     "width": 1600,
+     "height": 1000
+    }
    ]
   },
   {
@@ -1263,6 +1416,18 @@
     "hist.1.timelines",
     "hist.1.maps",
     "earth.2.geology"
+   ],
+   "lesson_media": [
+    {
+     "id": "geographic-scale-layers-plate",
+     "kind": "illustration",
+     "src": "/app/illustrations/sapling/history/hist-2-geography-800.webp",
+     "srcset": "/app/illustrations/sapling/history/hist-2-geography-800.webp 800w, /app/illustrations/sapling/history/hist-2-geography-1600.webp 1600w",
+     "alt": "An invented map shows a river crossing a political border, a mountain range east of it and a capital on one side. Adjacent definitions distinguish place, region, country and system. The river line is not a drainage-basin boundary, and the map does not depict real countries.",
+     "caption": "Countries and capitals are political geography; rivers, mountains and climates are physical geography. Their boundaries often cross and influence one another.",
+     "width": 1600,
+     "height": 1000
+    }
    ]
   },
   {
@@ -1394,6 +1559,18 @@
     "hist.1.timelines",
     "hist.0.community",
     "mind.1.rules"
+   ],
+   "lesson_media": [
+    {
+     "id": "fair-rule-review-plate",
+     "kind": "illustration",
+     "src": "/app/illustrations/sapling/history/hist-2-civics-intro-800.webp",
+     "srcset": "/app/illustrations/sapling/history/hist-2-civics-intro-800.webp 800w, /app/illustrations/sapling/history/hist-2-civics-intro-1600.webp 1600w",
+     "alt": "A shared swing stands beside an invented six-minute schedule: Ari from zero to two, Bo from two to four and Cam from four to six minutes. Equal-width blocks represent equal time, but labels require checking safety, access and usable turns before judging fairness.",
+     "caption": "A fair rule starts from a shared problem, protects relevant rights, assigns responsibilities and can be reviewed when its effects are unequal or unexpected.",
+     "width": 1600,
+     "height": 1000
+    }
    ]
   },
   {
@@ -1527,6 +1704,18 @@
     "hist.2.civilizations",
     "hist.2.middle-ages",
     "hist.2.exploration"
+   ],
+   "lesson_media": [
+    {
+     "id": "ideas-authority-revolution-plate",
+     "kind": "illustration",
+     "src": "/app/illustrations/tree/history/hist-3-early-modern-800.webp",
+     "srcset": "/app/illustrations/tree/history/hist-3-early-modern-800.webp 800w, /app/illustrations/tree/history/hist-3-early-modern-1600.webp 1600w",
+     "alt": "A dated sequence links Renaissance humanism and print, the Reformation after 1517, seventeenth-century scientific inquiry, Enlightenment debate and the American, Haitian and French Revolutions, with cautious labels such as circulated and influenced rather than a single-cause arrow.",
+     "caption": "Print, religious conflict, new inquiry and arguments about authority circulated across institutions and empires; they influenced revolutions without mechanically causing them.",
+     "width": 1600,
+     "height": 1000
+    }
    ]
   },
   {
@@ -1652,6 +1841,18 @@
     "hist.2.civilizations",
     "hist.3.early-modern",
     "phys.2.heat"
+   ],
+   "lesson_media": [
+    {
+     "id": "industrialization-branching-effects-plate",
+     "kind": "illustration",
+     "src": "/app/illustrations/tree/history/hist-3-industrial-800.webp",
+     "srcset": "/app/illustrations/tree/history/hist-3-industrial-800.webp 800w, /app/illustrations/tree/history/hist-3-industrial-1600.webp 1600w",
+     "alt": "A source card combines fossil energy, machines, capital and labor organization, then branches to greater output and cheaper goods, urbanization and wage work, pollution and extraction, and labor conflict followed by uneven reform.",
+     "caption": "Industrialization raised productive capacity while redistributing work, wealth, health and environmental costs. Its effects differed across class, gender, place and empire.",
+     "width": 1600,
+     "height": 1000
+    }
    ]
   },
   {
@@ -1786,6 +1987,18 @@
     "hist.2.exploration",
     "hist.3.early-modern",
     "hist.3.industrial"
+   ],
+   "lesson_media": [
+    {
+     "id": "modern-world-branches-plate",
+     "kind": "illustration",
+     "src": "/app/illustrations/tree/history/hist-3-modern-world-800.webp",
+     "srcset": "/app/illustrations/tree/history/hist-3-modern-world-800.webp 800w, /app/illustrations/tree/history/hist-3-modern-world-1600.webp 1600w",
+     "alt": "A selected timeline shows World War I in 1914–1918, interwar crisis, World War II in 1939–1945, a major decolonization wave in the 1940s–1970s and the overlapping Cold War around 1947–1991. Decolonization explicitly began earlier and continued later.",
+     "caption": "World war, imperial crisis, decolonization and superpower rivalry overlapped. Newly independent states had their own projects and were not merely pieces on a Cold War board.",
+     "width": 1600,
+     "height": 1000
+    }
    ]
   },
   {
@@ -1918,6 +2131,18 @@
      ],
      "explain": "Judicial review does not oppose democracy so much as enforce the higher-level democratic decision embodied in the constitution."
     }
+   ],
+   "lesson_media": [
+    {
+     "id": "law-making-feedback-plate",
+     "kind": "illustration",
+     "src": "/app/illustrations/tree/history/hist-3-civics-800.webp",
+     "srcset": "/app/illustrations/tree/history/hist-3-civics-800.webp 800w, /app/illustrations/tree/history/hist-3-civics-1600.webp 1600w",
+     "alt": "A five-step example of constitutional lawmaking runs from citizen demands and elections through a drafted bill, committee debate and amendment, legislative vote and executive action, then court review and public feedback, with a note that systems vary.",
+     "caption": "In one common constitutional pattern, citizens, legislatures, executives and courts constrain and influence lawmaking; exact powers differ by country and constitution.",
+     "width": 1600,
+     "height": 1000
+    }
    ]
   },
   {
@@ -2044,6 +2269,28 @@
     "math.2.percent",
     "mind.1.money-sense",
     "hist.2.exploration"
+   ],
+   "lesson_media": [
+    {
+     "id": "supply-demand-worked-market-plate",
+     "kind": "illustration",
+     "src": "/app/illustrations/tree/history/hist-3-economics-intro-800.webp",
+     "srcset": "/app/illustrations/tree/history/hist-3-economics-intro-800.webp 800w, /app/illustrations/tree/history/hist-3-economics-intro-1600.webp 1600w",
+     "alt": "A price-versus-quantity graph has an upward supply curve, a downward demand curve and a marked crossing; side cards explain the surplus above and shortage below that market-clearing price.",
+     "caption": "Supply and demand describe planned quantities at possible prices. Their crossing is a useful model, while real outcomes also depend on institutions, bargaining and curve shifts.",
+     "width": 1600,
+     "height": 1000
+    },
+    {
+     "id": "hist-3-economics-intro-concept-lab",
+     "kind": "model",
+     "renderer": "concept-lab",
+     "title": "Supply, demand and the posted price",
+     "instructions": "Move the posted price along the curves, then shift demand. Compare planned quantities, shortages or surpluses, and the new equilibrium.",
+     "props": {
+      "scenario": "hist.3.economics-intro"
+     }
+    }
    ]
   },
   {
@@ -2178,6 +2425,18 @@
     "hist.2.civilizations",
     "hist.2.middle-ages",
     "hist.2.exploration"
+   ],
+   "lesson_media": [
+    {
+     "id": "religious-histories-overlap-plate",
+     "kind": "illustration",
+     "src": "/app/illustrations/tree/history/hist-3-world-religions-800.webp",
+     "srcset": "/app/illustrations/tree/history/hist-3-world-religions-800.webp 800w, /app/illustrations/tree/history/hist-3-world-religions-1600.webp 1600w",
+     "alt": "An approximate origins timeline marks diverse Hindu traditions before the first millennium BCE, Israelite and Jewish traditions in the first millennium BCE, Buddhism around the fifth century BCE, Christianity in the first century CE, Islam in the seventh century CE and Sikh tradition from the fifteenth century, ending with all as living changing traditions.",
+     "caption": "Religious traditions have layered origins, internal diversity and histories of exchange. A date can orient a learner but cannot summarize beliefs or define a living community.",
+     "width": 1600,
+     "height": 1000
+    }
    ]
   },
   {
@@ -2310,6 +2569,18 @@
     "mind.3.critical",
     "hist.3.modern-world",
     "lang.2.research"
+   ],
+   "lesson_media": [
+    {
+     "id": "sources-method-interpretation-plate",
+     "kind": "illustration",
+     "src": "/app/illustrations/grove/history/hist-4-historiography-800.webp",
+     "srcset": "/app/illustrations/grove/history/hist-4-historiography-800.webp 800w, /app/illustrations/grove/history/hist-4-historiography-1600.webp 1600w",
+     "alt": "A diary, newspaper and payroll register converge on a method card labeled provenance, context, corroboration and silences, which leads to a qualified interpretation; the conclusion notes that new evidence can revise it.",
+     "caption": "Historians do not simply collect facts. They ask who produced each source, for whom, under what conditions, what agrees, and whose experience is missing.",
+     "width": 1600,
+     "height": 1000
+    }
    ]
   },
   {
@@ -2442,6 +2713,18 @@
      ],
      "explain": "The two-turnover benchmark comes from exactly this reasoning: procedures matter less than whether power actually changes hands."
     }
+   ],
+   "lesson_media": [
+    {
+     "id": "politics-levels-network-plate",
+     "kind": "illustration",
+     "src": "/app/illustrations/grove/history/hist-4-political-sci-800.webp",
+     "srcset": "/app/illustrations/grove/history/hist-4-political-sci-800.webp 800w, /app/illustrations/grove/history/hist-4-political-sci-1600.webp 1600w",
+     "alt": "A reciprocal network puts a public policy at the center and connects institutions, ideology, citizens and groups, and international constraints, showing that the same policy is shaped at several analytical levels.",
+     "caption": "Political science connects institutions, interests, ideas and international relations. No single level explains a policy outcome by itself.",
+     "width": 1600,
+     "height": 1000
+    }
    ]
   },
   {
@@ -2561,6 +2844,18 @@
       "population"
      ],
      "explain": "Aggregate and distributional measures answer different questions, and headlines routinely swap one for the other."
+    }
+   ],
+   "lesson_media": [
+    {
+     "id": "micro-macro-feedback-plate",
+     "kind": "illustration",
+     "src": "/app/illustrations/grove/history/hist-4-economics-800.webp",
+     "srcset": "/app/illustrations/grove/history/hist-4-economics-800.webp 800w, /app/illustrations/grove/history/hist-4-economics-1600.webp 1600w",
+     "alt": "A conceptual network links households, firms, policy at both micro and macro scales, and economy-wide aggregates. The footer distinguishes GDP, which includes some nonmarket production, from total wellbeing and sustainability. Arrows represent relationships, not measured flow sizes.",
+     "caption": "Microeconomics studies choices and markets; macroeconomics studies aggregates and policy. Individual decisions build aggregates, while aggregate conditions feed back into individual options.",
+     "width": 1600,
+     "height": 1000
     }
    ]
   },
@@ -2694,6 +2989,18 @@
     "hist.3.early-modern",
     "hist.3.modern-world",
     "mind.3.social-science"
+   ],
+   "lesson_media": [
+    {
+     "id": "history-from-below-evidence-plate",
+     "kind": "illustration",
+     "src": "/app/illustrations/grove/history/hist-4-social-history-800.webp",
+     "srcset": "/app/illustrations/grove/history/hist-4-social-history-800.webp 800w, /app/illustrations/grove/history/hist-4-social-history-1600.webp 1600w",
+     "alt": "Oral histories, pay records, domestic objects and official files converge through comparison and attention to power and silence, yielding an account of ordinary work, family and collective action rather than a history based only on leaders.",
+     "caption": "Social and cultural history reconstruct ordinary lives by combining evidence made for different purposes, including sources that institutions preserved unevenly.",
+     "width": 1600,
+     "height": 1000
+    }
    ]
   },
   {
@@ -2825,6 +3132,18 @@
       "reputation"
      ],
      "explain": "Institutions without sanctions can still alter behaviour by changing information and expectations, which is the standard liberal-institutionalist claim."
+    }
+   ],
+   "lesson_media": [
+    {
+     "id": "global-interdependence-network-plate",
+     "kind": "illustration",
+     "src": "/app/illustrations/grove/history/hist-4-geopolitics-800.webp",
+     "srcset": "/app/illustrations/grove/history/hist-4-geopolitics-800.webp 800w, /app/illustrations/grove/history/hist-4-geopolitics-1600.webp 1600w",
+     "alt": "A conceptual network links a hypothetical port disruption to supply chains, security, energy and climate, and international institutions. Arrows suggest possible feedback relationships, not measured magnitudes or a forecast about a named event.",
+     "caption": "Contemporary geopolitics joins territorial power to interdependence. Trade, security, climate and institutions transmit shocks, but states and communities experience them unequally.",
+     "width": 1600,
+     "height": 1000
     }
    ]
   },
@@ -2958,6 +3277,18 @@
      ],
      "explain": "Proportionality analysis is how most constitutional systems reconcile a broadly stated right with specific regulation."
     }
+   ],
+   "lesson_media": [
+    {
+     "id": "rule-of-law-contrast-plate",
+     "kind": "illustration",
+     "src": "/app/illustrations/grove/history/hist-4-law-800.webp",
+     "srcset": "/app/illustrations/grove/history/hist-4-law-800.webp 800w, /app/illustrations/grove/history/hist-4-law-1600.webp 1600w",
+     "alt": "Two comparison columns contrast rule of law, including public rules, human rights, independent review and equal protection, with rule by power, including arbitrary exceptions, weak review and unequal treatment. This is a conceptual comparison, not a depiction of a courtroom or jurisdiction-specific procedure.",
+     "caption": "Law can restrain power or become its instrument. Public rules, procedural fairness, independent review and effective remedies are central rule-of-law safeguards.",
+     "width": 1600,
+     "height": 1000
+    }
    ]
   },
   {
@@ -3083,6 +3414,18 @@
       "trends"
      ],
      "explain": "Border-county designs trade external validity for a credible control group, and their whole weight rests on the parallel-trends assumption."
+    }
+   ],
+   "lesson_media": [
+    {
+     "id": "economic-theory-toolkit-plate",
+     "kind": "illustration",
+     "src": "/app/illustrations/forest/history/hist-5-economic-theory-800.webp",
+     "srcset": "/app/illustrations/forest/history/hist-5-economic-theory-800.webp 800w, /app/illustrations/forest/history/hist-5-economic-theory-1600.webp 1600w",
+     "alt": "Three worked panels show a Prisoner's Dilemma payoff matrix with defect–defect as the Nash equilibrium, a causal graph where common cause C confounds treatment T and outcome Y, and matched sure-versus-gamble choices with expected value plus or minus fifty dollars in separate gain and loss domains.",
+     "caption": "Advanced economics asks how strategic interaction, causal evidence and psychologically realistic behavior alter predictions. Each tool answers a different kind of question.",
+     "width": 1600,
+     "height": 1000
     }
    ]
   },
@@ -3216,6 +3559,18 @@
      ],
      "explain": "The criticism is structural rather than a verdict on the policy: it holds that some questions lie outside what majorities are authorised to decide."
     }
+   ],
+   "lesson_media": [
+    {
+     "id": "veil-of-ignorance-institutions-plate",
+     "kind": "illustration",
+     "src": "/app/illustrations/forest/history/hist-5-political-theory-800.webp",
+     "srcset": "/app/illustrations/forest/history/hist-5-political-theory-800.webp 800w, /app/illustrations/forest/history/hist-5-political-theory-1600.webp 1600w",
+     "alt": "A four-step Rawlsian thought experiment removes knowledge of one's future social position, asks participants to choose equal basic liberties and rules for inequality, builds institutions from those principles, and checks the position of the least advantaged.",
+     "caption": "The veil of ignorance is a test of impartial justification: choose principles without knowing which social position you will occupy, then examine their institutional effects.",
+     "width": 1600,
+     "height": 1000
+    }
    ]
   },
   {
@@ -3348,6 +3703,18 @@
     "bio.3.evolution",
     "mind.3.social-science",
     "hist.4.historiography"
+   ],
+   "lesson_media": [
+    {
+     "id": "archaeological-context-inference-plate",
+     "kind": "illustration",
+     "src": "/app/illustrations/forest/history/hist-5-anthropology-800.webp",
+     "srcset": "/app/illustrations/forest/history/hist-5-anthropology-800.webp 800w, /app/illustrations/forest/history/hist-5-anthropology-1600.webp 1600w",
+     "alt": "An invented undisturbed stratigraphic section labels four layers, including charcoal and pottery above stone tools and bone in this example only. An upward arrow indicates generally later deposits. Adjacent steps cover context, dating, comparison and bounded inference; object type alone does not determine age.",
+     "caption": "Archaeology builds claims from provenience, association, dating and comparison. Anthropology adds biological, linguistic, social and community knowledge while respecting uncertainty and descendant communities.",
+     "width": 1600,
+     "height": 1000
+    }
    ]
   },
   {
@@ -3481,6 +3848,18 @@
      ],
      "explain": "Pomeranz's reply to the unit-of-analysis objection is exactly this move to comparably scaled core regions."
     }
+   ],
+   "lesson_media": [
+    {
+     "id": "comparative-history-tracks-plate",
+     "kind": "illustration",
+     "src": "/app/illustrations/forest/history/hist-5-world-systems-800.webp",
+     "srcset": "/app/illustrations/forest/history/hist-5-world-systems-800.webp 800w, /app/illustrations/forest/history/hist-5-world-systems-1600.webp 1600w",
+     "alt": "Three parallel tracks compare Indian Ocean exchange, Atlantic-centered empires and industrial-global networks across 1000–1500, 1500–1800 and 1800–present, with movement, coercion and ecological effects named in each phase.",
+     "caption": "Global history compares connections and divergence across a shared time axis. Systems shift as power, labor regimes, technologies and environments change.",
+     "width": 1600,
+     "height": 1000
+    }
    ]
   },
   {
@@ -3613,6 +3992,18 @@
     "hist.5.world-systems",
     "hist.5.economic-theory",
     "mind.4.philsci"
+   ],
+   "lesson_media": [
+    {
+     "id": "historical-causal-debate-plate",
+     "kind": "illustration",
+     "src": "/app/illustrations/forest/history/hist-5-frontier-800.webp",
+     "srcset": "/app/illustrations/forest/history/hist-5-frontier-800.webp 800w, /app/illustrations/forest/history/hist-5-frontier-1600.webp 1600w",
+     "alt": "Competing hypotheses about whether a railway caused town growth are tested against maps, census records and route plans, then passed through comparison, chronology and counterfactual reasoning to a qualified claim that can be revised.",
+     "caption": "A frontier debate becomes productive when rival explanations imply different evidence. Quantification can sharpen comparison, but measurement choices and archival silences remain historical problems.",
+     "width": 1600,
+     "height": 1000
+    }
    ]
   }
  ]

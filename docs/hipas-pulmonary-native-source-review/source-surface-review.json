@@ -1,0 +1,261 @@
+{
+  "case": "001",
+  "skimage_version": "0.25.2",
+  "extraction": "skimage Lewiner marching cubes, binary level0.5, unit index spacing, step1",
+  "coordinate_system": "source_array_indices_only",
+  "units": "voxel_index",
+  "patient_coordinate_transform": null,
+  "source_spacing_applied": false,
+  "source_sample_resampling_or_axis_permutation": false,
+  "source_labels_repaired_or_overlaps_removed": false,
+  "components_removed": false,
+  "geometry_smoothing_decimation_or_fitting": false,
+  "surface_is_native_lumen_wall_or_complete_tissue": false,
+  "clinical_approval": false,
+  "runtime_promoted": false,
+  "structure_coverage_granted": false,
+  "source_array_review_sha256": "1fe87d16d13bbf000abe7fad94b820bb0e95532e11bbf3a9a032c6e5a9c685fe",
+  "surfaces": [
+    {
+      "source_class": "artery",
+      "source_mask_file_sha256": "575aa27545544ac925cbabefa2bfd87500767c4f45abebb65b6287488f355a21",
+      "original_shape": [
+        512,
+        512,
+        258
+      ],
+      "source_foreground_voxels": 355762,
+      "vertices": 277236,
+      "triangles": 554428,
+      "source_vertex_samples": {
+        "original_edge_midpoint_vertices": 277186,
+        "active_cell_interior_ambiguity_vertices": 50,
+        "maximum_vertex_trilinear_level_residual": 0.125
+      },
+      "all_face_barycentre_trilinear_level_residual": {
+        "maximum": 0.20833587646484375,
+        "mean": 0.04525965079665184,
+        "barycentres_checked": 554428,
+        "not_geometric_distance_or_anatomical_accuracy": true
+      },
+      "vertices_file": "artery-vertices-f64.bin.gz",
+      "vertices_gzip_sha256": "0df6bf19d3b04f59615f2685f351851da7c1b68b31afafe6c7ce9abbba45f751",
+      "vertices_uncompressed_sha256": "f1814e052f12ee9cacb1ae1bb0d9b61269f8cd13c4e4b549733ce0cf11ce60c5",
+      "triangles_file": "artery-triangles-u32.bin.gz",
+      "triangles_gzip_sha256": "3c15262823f974c1abffdb2ad842c3152aaac9af66d58e41029f22a0bb84f4d7",
+      "triangles_uncompressed_sha256": "87574a6dfa5d146e3bcd19f7705df137514801c577e91a2a3fe91a9d8e4c2917",
+      "topology": {
+        "connected_surface_components": 75,
+        "surface_component_vertex_counts_descending": [
+          270392,
+          1548,
+          1516,
+          1202,
+          666,
+          558,
+          384,
+          334,
+          160,
+          68,
+          24,
+          6,
+          6,
+          6,
+          6,
+          6,
+          6,
+          6,
+          6,
+          6,
+          6,
+          6,
+          6,
+          6,
+          6,
+          6,
+          6,
+          6,
+          6,
+          6,
+          6,
+          6,
+          6,
+          6,
+          6,
+          6,
+          6,
+          6,
+          6,
+          6,
+          6,
+          6,
+          6,
+          6,
+          6,
+          6,
+          6,
+          6,
+          6,
+          6,
+          6,
+          6,
+          6,
+          6,
+          6,
+          6,
+          6,
+          6,
+          6,
+          6,
+          6,
+          6,
+          6,
+          6,
+          6,
+          6,
+          6,
+          6,
+          6,
+          6,
+          6,
+          6,
+          6,
+          6,
+          6
+        ],
+        "boundary_edges": 0,
+        "nonmanifold_edges": 3,
+        "nonmanifold_edge_source_vertices": [
+          [
+            55163,
+            56550
+          ],
+          [
+            56550,
+            56552
+          ],
+          [
+            56552,
+            56553
+          ]
+        ],
+        "nonmanifold_edge_incident_face_counts": [
+          4,
+          4,
+          4
+        ],
+        "nonmanifold_edge_index_positions": [
+          [
+            [
+              244.0,
+              378.0,
+              123.5
+            ],
+            [
+              244.5,
+              378.0,
+              123.0
+            ]
+          ],
+          [
+            [
+              244.5,
+              378.0,
+              123.0
+            ],
+            [
+              244.5,
+              378.0,
+              124.0
+            ]
+          ],
+          [
+            [
+              244.5,
+              378.0,
+              124.0
+            ],
+            [
+              245.0,
+              378.0,
+              123.5
+            ]
+          ]
+        ],
+        "zero_area_triangles": 0
+      },
+      "mesh_bounds_source_array_indices": [
+        [
+          163.5,
+          71.5,
+          12.5
+        ],
+        [
+          375.5,
+          436.5,
+          224.5
+        ]
+      ],
+      "source_mask_26_neighbour_components": 10
+    },
+    {
+      "source_class": "vein",
+      "source_mask_file_sha256": "0d67e41fed18e4c7a71b5c5926e9984b399ee19c0ba5c3191c2e52409f7ff088",
+      "original_shape": [
+        512,
+        512,
+        258
+      ],
+      "source_foreground_voxels": 411430,
+      "vertices": 263215,
+      "triangles": 526470,
+      "source_vertex_samples": {
+        "original_edge_midpoint_vertices": 263204,
+        "active_cell_interior_ambiguity_vertices": 11,
+        "maximum_vertex_trilinear_level_residual": 0.125
+      },
+      "all_face_barycentre_trilinear_level_residual": {
+        "maximum": 0.20833587646484375,
+        "mean": 0.040766093879938126,
+        "barycentres_checked": 526470,
+        "not_geometric_distance_or_anatomical_accuracy": true
+      },
+      "vertices_file": "vein-vertices-f64.bin.gz",
+      "vertices_gzip_sha256": "f627c512800910e6b9ac7043591666f1abef58c0645cbb6071e1edd1169a189b",
+      "vertices_uncompressed_sha256": "6f5a4937324db6ca4b1c05fd50e750f734293589b4e934698d3ed6a9b86b0069",
+      "triangles_file": "vein-triangles-u32.bin.gz",
+      "triangles_gzip_sha256": "be38b7beb21b36cc6dbf0b09daa33b0999c57373c3c23f4624e648e06fbd38a8",
+      "triangles_uncompressed_sha256": "5ed3af3a10f095e5f7f08c94953940796a59e9e67dcf30efec3b586bd8d4d2e3",
+      "topology": {
+        "connected_surface_components": 1,
+        "surface_component_vertex_counts_descending": [
+          263215
+        ],
+        "boundary_edges": 0,
+        "nonmanifold_edges": 0,
+        "nonmanifold_edge_source_vertices": [],
+        "nonmanifold_edge_incident_face_counts": [],
+        "nonmanifold_edge_index_positions": [],
+        "zero_area_triangles": 0
+      },
+      "mesh_bounds_source_array_indices": [
+        [
+          152.5,
+          71.5,
+          12.5
+        ],
+        [
+          375.5,
+          441.5,
+          229.5
+        ]
+      ],
+      "source_mask_26_neighbour_components": 1
+    }
+  ],
+  "source_checked": true,
+  "geometry_cache_directory": ".research/hipas-source-review/source-surfaces",
+  "topology_findings_not_repaired": true,
+  "extraction_manifest_sha256": "969c0d72812a3829a6d248a50f6fb5f71fa4e1b3bb03dcfaf7eafe5524ee454e",
+  "extraction_manifest_cached_path": ".research/hipas-source-review/source-surfaces/source-surface-review.json"
+}

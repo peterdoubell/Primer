@@ -1,0 +1,54 @@
+{
+  "started": "2026-10-11T17:10:11.382Z",
+  "sourceHashes": {
+    "primer/server.py": "607e717a8be8adf16b5fe4c9471770b6d07370627a097cffe58db7796c5acfe4",
+    "primer/stroke_source_delivery.py": "e37562d5d24c5b70d05e405d8d56f8db0b056751a3e1ee7d0b71a264beeaf8e0",
+    "primer/stroke_native_inspectors.py": "9a968a449890a0bb5540f1688a799d2b07e8b759d3dc75fd753d9ab6fe5804dd",
+    "primer/source_native_inspectors.py": "03c3f43f6995391b182e0b4b7b8ae947f10dbe9d2fe83b699a8b12662f8b6a09",
+    "primer/module_media.py": "c561382a38b38d4c259e4a32a1a785e801d20d45ce69d2263f6b7ca56a64475f",
+    "web/app.js": "d77de3b299fc8af358e6c5fd2c785b22f3a8f19aa89f27a713d40be7c22b11a0",
+    "web/index.html": "41b5b72f6bfaeebc8d987b38f04491d6b6744643314377b8ec2518cf18338eb9",
+    "web/styles.css": "b2bd335332cb0c2fbad671d9542000c544603817acbd29f55683b120f9cd3660",
+    "web/radiology-detailed-anatomy.js": "a79e9d10587c9daf702300a5b4b98880cab26313290b4106b9ac9f6340ed8160",
+    "data/radiology/acute-stroke-source-delivery.json": "5dd069f8237dc81aed27d421bfab395da5aefc0c3fb9a3edd915675a114234a2",
+    "data/radiology/soop-native-inspector.json": "449ac4b15f9b9104bb35da36e2441571bca458a8947b874eeb1b87034b39c13e",
+    "web/anatomy/soop-stroke-sub342/manifest.json": "6930d88bdf2741783f0e43fd80c01e2ce6686e82edaac5a12a072729432ce1a8",
+    "web/anatomy/soop-stroke-sub342/reference.js": "bebcbbc1d985c35bda8aee8a02fd92f97b21819059b06ad506f11d2f9573e1c7",
+    "web/anatomy/soop-stroke-sub342/reference.html": "c82a142483efdc8433f110b5f6f273ec7e59d0425a213931c61e84dd8dd07657",
+    "web/anatomy/brain-fine-massp2/manifest.json": "a8ccb6f7fbd86433200c2fb74fcf5f9204aded8ac071599af9c1959f7dd65492",
+    "web/anatomy/brain-fine-massp2/reference.js": "e29faee80874aefafcee4d7bf572573ceac6f88ffaa6716ab48186f1242d0a97"
+  },
+  "rows": [],
+  "captures": [],
+  "failedObservations": [
+    {
+      "mode": "local",
+      "route": "reporting",
+      "width": 1440,
+      "errors": [],
+      "failedRequests": [],
+      "redirects": [],
+      "figures": [],
+      "CSP": "default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data: https://radiologyassistant.nl/assets/ https://radiologyassistant.nl/img/ https://upload.wikimedia.org/wikipedia/commons/ https://ja2lsnp9uca4bivw.public.blob.vercel-storage.com/radiology-original/traumatic-haemorrhage/ https://ja2lsnp9uca4bivw.public.blob.vercel-storage.com/radiology-original/acute-stroke/; connect-src 'self'; object-src 'none'; base-uri 'none'; frame-ancestors 'none'; form-action 'self'",
+      "servedAppHash": "d77de3b299fc8af358e6c5fd2c785b22f3a8f19aa89f27a713d40be7c22b11a0",
+      "failure": "AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:\n\n0 !== 1\n\n    at figures (/Users/peter/Documents/ChatGPT/Primer/.research/release-pulmonary-20261007/.research/stroke-reader-qa-20261011-g2yroq61/reader.cjs:13:1882)\n    at async run (/Users/peter/Documents/ChatGPT/Primer/.research/release-pulmonary-20261007/.research/stroke-reader-qa-20261011-g2yroq61/reader.cjs:22:189)\n    at async /Users/peter/Documents/ChatGPT/Primer/.research/release-pulmonary-20261007/.research/stroke-reader-qa-20261011-g2yroq61/reader.cjs:25:288"
+    }
+  ],
+  "localPacket": [],
+  "cloudPacket": [],
+  "productionUIVerified": false,
+  "clinicalApproval": false,
+  "fineAnatomicalApproval": false,
+  "structureCoverageGranted": false,
+  "wholeGoalComplete": false,
+  "sourceCount": {
+    "CT": 83,
+    "MRI": 1,
+    "trace": 1
+  },
+  "testsScope": "Fresh isolated synthetic reader, actual reporting and shared-lesson routes; real hosted-branch HTTPS307 responses and ordinary browser Blob fetch/images under unmodified actual CSP. No intercepted response/body or synthetic clinical interpretation.",
+  "passed": false,
+  "error": "AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:\n\n0 !== 1\n\n    at figures (/Users/peter/Documents/ChatGPT/Primer/.research/release-pulmonary-20261007/.research/stroke-reader-qa-20261011-g2yroq61/reader.cjs:13:1882)\n    at async run (/Users/peter/Documents/ChatGPT/Primer/.research/release-pulmonary-20261007/.research/stroke-reader-qa-20261011-g2yroq61/reader.cjs:22:189)\n    at async /Users/peter/Documents/ChatGPT/Primer/.research/release-pulmonary-20261007/.research/stroke-reader-qa-20261011-g2yroq61/reader.cjs:25:288",
+  "browserHandlesClosed": true,
+  "finished": "2026-10-11T17:10:22.401Z"
+}
