@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Volume by horizontal slices · Primer</title>
+<link rel="stylesheet" href="style.css">
+<script type="module" src="activity.js"></script>
+</head>
+<body><main>
+<a href="/app/#/node/math.4.int-calc">Return to Integral Calculus</a>
+<h1>Volume by horizontal slices</h1>
+<p>Move the cut to see the section at height <var>z</var> and the volume accumulated below it.</p>
+<fieldset><legend>Solid and cut</legend>
+<label>Solid <select id="solid"><option value="cylinder">Cylinder</option><option value="shear">Sheared cylinder</option><option value="cone">Cone</option><option value="paraboloid">Paraboloid</option></select></label>
+<label>Top radius <input id="radius" type="range" min="1" max="4" step=".5" value="2"><output id="radius-value"></output></label>
+<label>Total height <input id="height" type="range" min="2" max="8" step=".5" value="5"><output id="height-value"></output></label>
+<label>Cut height (% of total) <input id="cut" type="range" min="0" max="100" value="60"><output id="cut-value"></output></label>
+<label>Rotate the solid <input id="rotation" type="range" min="-180" max="180" value="30"></label>
+</fieldset>
+<div class="views">
+<section><h2>Solid and cut</h2><canvas id="solid-view" width="380" height="360" role="img"></canvas><p>Blue grid lines mark the part below the cut.</p></section>
+<section><h2>Section from above</h2><canvas id="section-view" width="300" height="360" role="img"></canvas><p>The central cross marks the unsheared axis.</p></section>
+<section><h2>Cross-sectional area</h2><canvas id="area-view" width="380" height="360" role="img"></canvas><p>The shaded area under <var>A</var>(<var>z</var>) gives the accumulated volume.</p></section>
+</div>
+<table><caption>Exact measures and decimal values</caption>
+<thead><tr><th scope="col">Measure</th><th scope="col">Formula</th><th scope="col">Value</th></tr></thead>
+<tbody id="measures"></tbody></table>
+<p id="equation"></p>
+<p id="comparison"></p>
+</main></body></html>

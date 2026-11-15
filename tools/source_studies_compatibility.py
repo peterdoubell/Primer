@@ -96,8 +96,73 @@ def before_endometrial_delivery_bytes(path, raw):
     return restored
 
 def before_combined_source_release_bytes(path, raw):
+    if str(path) == 'web/app.js':
+        from tools.report_layout_compatibility import before_template_editor_bytes
+        raw = before_template_editor_bytes(path, raw)
+    if str(path) == 'web/app.js' and hashlib.sha256(raw).hexdigest() == '151d1e656067a107b9e6c32522c4989ed99110a692110ef48d6acea8a3c62fde':
+        raw = raw.replace(b"  if (n.id === 'lang.3.linguistics-intro') page.append(el('div', { class: 'model-button-row', style: 'margin:1rem 0' },\n    el('a', { class: 'btn ghost', href: '/app/language/plural-sounds/index.html' },\n      'Predict English plural sounds'),\n    el('a', { class: 'btn ghost', href: '/app/language/phrase-attachment/index.html' },\n      'Compare two meanings of the same sentence')));\n", b"  if (n.id === 'lang.3.linguistics-intro') page.append(el('a', { class: 'btn ghost', href: '/app/language/plural-sounds/index.html' },\n    'Predict English plural sounds'));\n", 1)
+        if hashlib.sha256(raw).hexdigest() != '3901f09942244c5474786899331b8c05aa9cea0ebedad475ee312e04a0e3e110':
+            raise ValueError('Phrase attachment navigation changed unrelated reader bytes')
     if str(path) == 'vercel.json':
-        raw = _restore(path, raw, Path(__file__).resolve().parents[1] / 'docs/report-catalogue-bundle/runtime-inverse.json', '8915b76c18befc76086b70da8645e73c48d734c0ba01f95801cd1c83a4fde0a9')
+        proof = Path(__file__).resolve().parents[1] / 'docs/report-catalogue-bundle/runtime-inverse.json'
+        raw = _restore(path, raw, proof, '1c58adf0ffd80c3424d6885329d63b8abfb4aceb4f2d5fc7abbd683344d11550')
+    if str(path) in {'primer/server.py', 'vercel.json'}:
+        raw = _restore(path, raw, Path(__file__).resolve().parents[1] / 'docs/ccth-a01-roi/runtime-inverse.json', '279db3d15f4b1dc552471d4d59c01e17cb70697ec01997fa8a167d7bb24ec156')
+    if str(path) == 'web/app.js' and hashlib.sha256(raw).hexdigest() == '3901f09942244c5474786899331b8c05aa9cea0ebedad475ee312e04a0e3e110':
+        raw = raw.replace(b"  if (n.id === 'phys.3.optics-waves') page.append(el('a', { class: 'btn ghost', href: '/app/physics/polariser-bench/index.html' },\n    'Compare two and three polarisers'));\n", b'', 1)
+        if hashlib.sha256(raw).hexdigest() != '12269ddede106aa8057e923a485ab830932216a1b246ce71d952c7016be422a9':
+            raise ValueError('Polariser link changed unrelated reader bytes')
+    if str(path) == 'web/app.js' and hashlib.sha256(raw).hexdigest() == '12269ddede106aa8057e923a485ab830932216a1b246ce71d952c7016be422a9':
+        raw = raw.replace(b"  if (n.id === 'math.3.euclid') page.append(el('a', { class: 'btn ghost', href: '/app/math/intersecting-chords/index.html' },\n    'Prove the intersecting-chords theorem'));\n", b'', 1)
+        if hashlib.sha256(raw).hexdigest() != 'cc8e9b7ca2217341c1ad38421f5de8aeab22c047fda7f0f47055f8f366d49e4e':
+            raise ValueError('Intersecting chords link changed unrelated reader bytes')
+    if str(path) == 'docs/radiology-fidelity-scope.json':
+        raw = _restore(path, raw, Path(__file__).resolve().parents[1] / 'docs/mullerian-reporting-inventory/scope-inverse.json', 'e7677d660fed1643bdcb1cb8d8897182947727448482d8b55ce848125a7817d3')
+    if str(path) == 'data/radiology/non-msk-structure-requirements.json':
+        from tools.anatomy_sources.reconcile_current_reporting_requirements import before_recent_reporting_inventories
+        raw = before_recent_reporting_inventories(raw)
+    if str(path) in {'web/app.js', 'primer/server.py', 'vercel.json'}:
+        raw = _restore(path, raw, Path(__file__).resolve().parents[1] / 'docs/hyperpic-venous/runtime-inverse.json', '98cba14ca58e020da7a5b488db20659e48646255bb25de8bc0443b92ea72ce84')
+    if str(path) == 'web/app.js' and hashlib.sha256(raw).hexdigest() == '961fcee7e6abff3639c468ce7313501cbb8437ca83df9fefdc570b41533e2be5':
+        raw = raw.replace(b"  if (n.id === 'lang.4.creative') page.append(el('a', { class: 'btn ghost', href: '/app/language/scene-revision/index.html' },\n    'Revise a scene against a writing brief'));\n", b'', 1)
+        if hashlib.sha256(raw).hexdigest() != 'ba81ed324ad5c9aaf343d63cf8a5fcf2df7d55307d359253384ffe9ca4fb3e74':
+            raise ValueError('Scene revision link changed unrelated reader bytes')
+    if str(path) in {'web/app.js', 'primer/server.py', 'vercel.json'}:
+        raw = _restore(path, raw, Path(__file__).resolve().parents[1] / 'docs/endometriosis-mri-evidence/runtime-inverse.json', '78b2f1e99c3122ccbcf92f69331dbf5a13ff79133f9b4f06c57e7614856fe218')
+    if str(path) in {'primer/server.py', 'vercel.json'}:
+        raw = _restore(path, raw, Path(__file__).resolve().parents[1] / 'docs/illinois-uterus/runtime-inverse.json', '2821fafd1094314b846af964e123c33cb651b54d362f0d3cf2ccbd9a659baab9')
+    if str(path) == 'web/app.js' and hashlib.sha256(raw).hexdigest() == '8db21ea495138956ba51885aa651f29ac774ed2c6d608e7f836b08a34326f96f':
+        raw = raw.replace(b"  if (n.id === 'phys.4.classical') page.append(el('a', { class: 'btn ghost', href: '/app/physics/driven-oscillator/index.html' },\n    'Compare resonance and phase in a driven oscillator'));\n", b'', 1)
+        if hashlib.sha256(raw).hexdigest() != 'ea590424dcfff901a668a27547f746bae9516321a1dd72d15464532fdd9db5e6':
+            raise ValueError('Driven oscillator link changed unrelated reader bytes')
+    if str(path) == 'web/app.js' and hashlib.sha256(raw).hexdigest() == 'ea590424dcfff901a668a27547f746bae9516321a1dd72d15464532fdd9db5e6':
+        raw = raw.replace(b"  if (n.id === 'phys.2.waves') page.append(el('a', { class: 'btn ghost', href: '/app/physics/wave-reflection/index.html' },\n    'Compare reflection at fixed and free ends'));\n", b"", 1)
+        raw = raw.replace(b"  if (n.id === 'lang.5.narratology') page.append(el('a', { class: 'btn ghost', href: '/app/language/narrative-order/index.html' },\n    'Retell the archive story in a different order'));\n", b"", 1)
+        raw = raw.replace(b"  if (n.id === 'math.4.int-calc') page.append(el('a', { class: 'btn ghost', href: '/app/math/volume-by-slices/index.html' },\n    'Build volume from horizontal cross-sections'));\n", b"", 1)
+        raw = raw.replace(b"  if (n.id === 'lang.3.second-language') page.append(el('a', { class: 'btn ghost', href: '/app/language/french-phrase-practice/index.html' },\n    'Practise French phrases in conversation'));\n", b"", 1)
+        if hashlib.sha256(raw).hexdigest() != 'dbc9f97b83302f0492e09a6c0bda994731bd80e101cb8a197e46c0cb8cc1c9ea':
+            raise ValueError('Activity links changed unrelated reader bytes')
+    if str(path) in {'primer/server.py', 'vercel.json'}:
+        raw = _restore(path, raw, Path(__file__).resolve().parents[1] / 'docs/ward-swi-s1/runtime-inverse.json', 'a878fe96f9ac04381172cb54ae0c0569d0d2e2739912ccf696a34242a9d68448')
+    if str(path) in {'web/app.js', 'primer/server.py', 'vercel.json'}:
+        raw = _restore(path, raw, Path(__file__).resolve().parents[1] / 'docs/bp3d-dural-4.3/runtime-inverse.json', '3e96a8eb3a84469fd43d90cbfeb8238aed533b8c461f71371ebe8c2f09d42b2c')
+    if str(path) == 'web/app.js' and hashlib.sha256(raw).hexdigest() == 'a49349951dfbea9697fbceb9d3932c8526ac27b3e7ae3b2ad011a58e9984c4a9':
+        raw = raw.replace(b"  if (n.id === 'lang.1.spelling') page.append(el('a', { class: 'btn ghost', href: '/app/language/spelling-endings/index.html' },\n    'Practise adding -ing and -ed'));\n", b'', 1)
+        raw = raw.replace(b"  if (n.id === 'math.3.precalc') page.append(el('a', { class: 'btn ghost', href: '/app/math/limits-approach/index.html' },\n    'Compare limits from the left and right'));\n", b'', 1)
+        raw = raw.replace(b"  if (n.id === 'phys.2.gravity') page.append(el('a', { class: 'btn ghost', href: '/app/physics/gravity-orbit/index.html' },\n    'Compare gravity at different orbital distances'));\n", b'', 1)
+        if hashlib.sha256(raw).hexdigest() != '52e3bdefd2026d182abffa5c18f5236ba872c0fb03c576df3018f1d6f1fb5364':
+            raise ValueError('Activity links changed unrelated reader bytes')
+    from tools.report_compartment_compatibility import before_rich_report_bytes
+    if str(path) == 'web/app.js':
+        raw = before_rich_report_bytes(path, raw)
+    if str(path) in {'web/app.js', 'primer/server.py', 'vercel.json'}:
+        raw = _restore(path, raw, Path(__file__).resolve().parents[1] / 'docs/rhuh-sah-001/runtime-inverse.json', 'de93240f71a01363b8236b8c7629cd1ff4a6f75b33defc170067bea6c203ac02')
+    if str(path) in {'web/app.js', 'primer/server.py', 'vercel.json'}:
+        raw = _restore(path, raw, Path(__file__).resolve().parents[1] / 'docs/phlf-center2-24/runtime-inverse.json', '438fe8a56c1f2029ffc6de80a91c29df089dd8607e8d06a9c77e481cdde4c359')
+    if str(path) == 'web/app.js' and hashlib.sha256(raw).hexdigest() == 'c98fe23e8efa2ea0e292f8d436079801d99e160bf57f74196a24957aed55cc13':
+        raw = raw.replace(b"  if (n.id === 'lang.3.linguistics-intro') page.append(el('a', { class: 'btn ghost', href: '/app/language/plural-sounds/index.html' },\n    'Predict English plural sounds'));\n", b'', 1)
+        if hashlib.sha256(raw).hexdigest() != 'c954d529f0f2a5b26583f63b61a77390e712e75863ba1e5255c2c076ba5d2a80':
+            raise ValueError('Plural sounds link changed unrelated reader bytes')
     if str(path) in {'web/app.js', 'primer/server.py', 'vercel.json'}:
         raw = _restore(path, raw, Path(__file__).resolve().parents[1] / 'docs/bp3d-biliary-4.3/runtime-inverse.json', '0a297b7ab3312d91afa29a9375c0094855944e70535959e505d567762076bd21')
     if str(path) == 'web/app.js' and hashlib.sha256(raw).hexdigest() == '05befa3f6b6d865f5dd6743a00825a2e02b821fec5656ef8c601a170d0769cb8':

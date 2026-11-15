@@ -1,6 +1,6 @@
 {
   "schema": "primer.fast-report-templates/1",
-  "revision": "2026-11-13",
+  "revision": "2026-11-15",
   "templates": {
     "ra.arthritis": {
       "title": "Hand radiographs, arthritis / Hand and foot radiographs, arthritis",
@@ -8,12 +8,12 @@
       "sections": [
         {"heading": "Distribution", "normal": "No inflammatory or degenerative arthropathy.",
          "options": ["[Symmetrical / Asymmetrical] involvement of the [MCP / PIP / DIP / wrist / MTP] joints [ ]."]},
-        {"heading": "Joint spaces", "normal": "Preserved joint spaces.",
+        {"heading": "Joint spaces", "normal": "Preserved.",
          "options": ["[Uniform / Non-uniform] joint space narrowing at [ ]."]},
         {"heading": "Erosions and bone", "normal": "No erosions. Normal bone density.",
          "options": ["[Marginal / Central / Overhanging edge / Pencil-in-cup] erosions at [ ].",
                      "[Periarticular osteopenia / Periostitis / Subchondral cysts / Osteophytes] [ ]."]},
-        {"heading": "Alignment", "normal": "Normal alignment.",
+        {"heading": "Alignment", "normal": "Normal.",
          "options": ["[Ulnar deviation / Swan-neck deformity / Boutonnière deformity / Subluxation] [ ]."]},
         {"heading": "Soft tissues", "normal": "No soft tissue swelling, tophi or calcification.",
          "options": ["[Soft tissue swelling / Tophi / Chondrocalcinosis / Calcinosis] [ ]."]}
@@ -24,7 +24,7 @@
       "title": "Sacroiliac joint radiographs",
       "radiograph": true,
       "sections": [
-        {"heading": "Sacroiliac joints", "normal": "Normal sacroiliac joints. No erosion, sclerosis or ankylosis.",
+        {"heading": "Sacroiliac joints", "normal": "Normal. No erosion, sclerosis or ankylosis.",
          "options": ["[Right / Left / Bilateral] sacroiliitis, modified New York grade [1 / 2 / 3 / 4].",
                      "[Osteitis condensans ilii / Degenerative change] [ ]."]},
         {"heading": "Spine and hips", "normal": "No syndesmophytes. Normal hip joints.",
@@ -35,7 +35,7 @@
     "msk.mri-sacroiliac": {
       "title": "MRI sacroiliac joints",
       "radiograph": false,
-      "technique": {"normal": "MRI sacroiliac joints with T1 and STIR in oblique coronal and axial planes.",
+      "technique": {"normal": "Oblique coronal T1 and STIR and oblique axial T2 fat-sat through both sacroiliac joints.",
                     "options": []},
       "sections": [
         {"heading": "Active inflammation", "normal": "No subchondral bone marrow oedema.",
@@ -54,7 +54,7 @@
       "title": "Right ankle radiographs, trauma / Left ankle radiographs, trauma",
       "radiograph": true,
       "sections": [
-        {"heading": "Fracture", "normal": "No fracture.",
+        {"heading": "Bones", "normal": "No fracture.",
          "options": ["[Lateral malleolus / Medial malleolus / Posterior malleolus / Talus / Base of fifth metatarsal] fracture [ ].",
                      "Weber [A / B / C] fibular fracture, [undisplaced / displaced] [ ].",
                      "[Unimalleolar / Bimalleolar / Trimalleolar] fracture; proximal fibula [intact / fractured]."]},
@@ -72,7 +72,7 @@
       "title": "Right ankle radiographs / Left ankle radiographs",
       "radiograph": true,
       "sections": [
-        {"heading": "Fracture", "normal": "No fracture.",
+        {"heading": "Bones", "normal": "No fracture.",
          "options": ["[Lateral malleolus / Medial malleolus / Posterior malleolus / Talus / Base of fifth metatarsal] fracture [ ].",
                      "Weber [A / B / C] fibular fracture, [undisplaced / displaced] [ ]."]},
         {"heading": "Mortise and syndesmosis", "normal": "Congruent mortise. Normal medial clear space and tibiofibular overlap.",
@@ -119,7 +119,7 @@
       "title": "Right foot radiographs / Left foot radiographs",
       "radiograph": true,
       "sections": [
-        {"heading": "Fracture", "normal": "No fracture.",
+        {"heading": "Bones", "normal": "No fracture.",
          "options": ["Fracture of the [ ] [metatarsal / phalanx / tarsal bone] [ ].",
                      "[Fifth metatarsal base avulsion / Jones fracture / Lisfranc injury / Stress fracture] [ ]."]},
         {"heading": "Alignment", "normal": "Normal tarsometatarsal and midfoot alignment.",
@@ -135,7 +135,7 @@
       "title": "Right toe radiographs / Left toe radiographs",
       "radiograph": true,
       "sections": [
-        {"heading": "Fracture", "normal": "No fracture or dislocation.",
+        {"heading": "Bones", "normal": "No fracture or dislocation.",
          "options": ["Fracture of the [proximal / middle / distal] phalanx of the [ ] toe, [intra-articular / extra-articular] [ ].",
                      "Dislocation of the [ ] joint."]},
         {"heading": "Joints and sesamoids", "normal": "Normal alignment and joint spaces. Normal sesamoids.",
@@ -153,7 +153,7 @@
         {"heading": "Calcaneus", "normal": "No calcaneal fracture. Normal Böhler angle.",
          "options": ["[Intra-articular / Extra-articular] calcaneal fracture [ ]; Böhler angle [ ] degrees.",
                      "[Avulsion fracture / Stress fracture / Plantar spur / Posterior spur] [ ]."]},
-        {"heading": "Subtalar and calcaneocuboid joints", "normal": "Normal subtalar and calcaneocuboid joints.",
+        {"heading": "Subtalar and calcaneocuboid joints", "normal": "Normal.",
          "options": ["[Joint involvement / Coalition] [ ]."]},
         {"heading": "Soft tissues", "normal": "No soft tissue swelling.",
          "options": ["[Soft tissue swelling / Achilles thickening] [ ]."]}
@@ -186,7 +186,7 @@
         {"heading": "Plantar fascia", "normal": "Normal plantar fascia thickness.",
          "options": ["Plantar fascia [ ] mm with [hypoechogenicity / tear / fibroma] [ ]."]},
         {"heading": "Forefoot", "normal": "No Morton neuroma or intermetatarsal bursitis.",
-         "options": ["[ ] mm Morton neuroma in the [second / third] intermetatarsal space.",
+         "options": ["Morton neuroma [ ] mm in the [second / third] intermetatarsal space.",
                      "[Plantar plate tear / Intermetatarsal bursitis / Stress fracture] [ ]."]},
         {"heading": "Tendons", "normal": "Normal flexor and extensor tendons.",
          "options": ["[Tenosynovitis / Tear] of the [ ] tendon."]},
@@ -198,7 +198,7 @@
     "msk.mri-foot": {
       "title": "MRI right foot / MRI left foot",
       "radiograph": false,
-      "technique": {"normal": "MRI foot with proton density, fat-suppressed and T1 imaging in three planes.",
+      "technique": {"normal": "Short-axis T1 and T2 fat-sat; long-axis T1 and STIR; sagittal STIR.",
                     "options": []},
       "sections": [
         {"heading": "Bones", "normal": "No fracture, stress reaction or bone marrow oedema.",
@@ -207,7 +207,7 @@
          "options": ["[Partial / Complete] Lisfranc ligament tear [ ]."]},
         {"heading": "Forefoot", "normal": "Intact plantar plates. No Morton neuroma.",
          "options": ["[Plantar plate tear / Morton neuroma / Sesamoiditis / Intermetatarsal bursitis] [ ]."]},
-        {"heading": "Tendons and plantar fascia", "normal": "Intact tendons and plantar fascia.",
+        {"heading": "Tendons and plantar fascia", "normal": "Intact.",
          "options": ["[Tendinosis / Tear / Plantar fasciitis] [ ]."]},
         {"heading": "Soft tissues", "normal": "No collection or mass.",
          "options": ["[Collection / Mass / Ganglion] [ ]."]}
@@ -217,7 +217,7 @@
     "ra.mri-ankle": {
       "title": "MRI right ankle / MRI left ankle",
       "radiograph": false,
-      "technique": {"normal": "MRI ankle with proton density, fat-suppressed and T1 imaging in three planes.",
+      "technique": {"normal": "Axial T1 and PD fat-sat; coronal PD fat-sat; sagittal T1 and STIR.",
                     "options": []},
       "sections": [
         {"heading": "Bones and osteochondral surfaces", "normal": "No fracture, bone marrow oedema or osteochondral lesion.",
@@ -266,7 +266,7 @@
                      "[Crossover sign / Posterior wall sign / Ischial spine sign / Coxa profunda / Protrusio] [ ]."]},
         {"heading": "Joint space", "normal": "Preserved hip joint space.",
          "options": ["Tönnis grade [1 / 2 / 3] osteoarthritis."]},
-        {"heading": "Other findings", "normal": "No other pain generator identified.",
+        {"heading": "Other pain generators", "normal": "None.",
          "options": ["[Os acetabuli / Herniation pit / Enthesopathy / Sacroiliitis] [ ]."]}
       ],
       "impression": "No femoroacetabular impingement morphology."
@@ -275,7 +275,7 @@
       "title": "Pelvis radiograph",
       "radiograph": true,
       "sections": [
-        {"heading": "Pelvic ring", "normal": "Intact pelvic ring. No fracture.",
+        {"heading": "Pelvic ring", "normal": "Intact. No fracture.",
          "options": ["[Pubic ramus / Acetabular / Sacral / Iliac wing / Avulsion] fracture [ ].",
                      "[Symphyseal / Sacroiliac] diastasis [ ] mm."]},
         {"heading": "Hips", "normal": "Normal hip joints.",
@@ -332,7 +332,7 @@
         {"heading": "Lateral structures", "normal": "Normal gluteus medius and minimus tendons. No trochanteric bursitis.",
          "options": ["[Tendinosis / Partial tear / Full-thickness tear] of the gluteus [medius / minimus].",
                      "Trochanteric bursitis [ ] mm."]},
-        {"heading": "Other findings", "normal": "No mass or collection.",
+        {"heading": "Soft tissues", "normal": "No mass or collection.",
          "options": ["[ ]."]}
       ],
       "impression": "Normal hip ultrasound."
@@ -340,8 +340,8 @@
     "msk.mri-hip": {
       "title": "MRI right hip / MRI left hip",
       "radiograph": false,
-      "technique": {"normal": "MRI hip with proton density, fluid-sensitive and oblique axial imaging.",
-                    "options": []},
+      "technique": {"normal": "Coronal T1 and STIR of the pelvis; coronal and sagittal PD fat-sat and oblique axial PD along the femoral neck.",
+                    "options": ["MR arthrogram: T1 fat-sat in three planes."]},
       "sections": [
         {"heading": "Bones", "normal": "Normal marrow signal. No fracture, stress reaction or avascular necrosis.",
          "options": ["[Stress fracture / Avascular necrosis / Bone marrow oedema / Insufficiency fracture] [ ]."]},
@@ -361,11 +361,11 @@
     "ra.mri-knee": {
       "title": "MRI right knee / MRI left knee",
       "radiograph": false,
-      "technique": {"normal": "MRI knee with proton density, fat-suppressed and T1 imaging in three planes.",
+      "technique": {"normal": "Coronal T1 and STIR, sagittal 3D fat-suppressed PD, axial fat-suppressed PD and sagittal T2.",
                     "options": []},
       "sections": [
         {"heading": "Menisci", "normal": "Intact medial and lateral menisci.",
-         "options": ["[Horizontal / Vertical / Radial / Complex / Bucket-handle / Root] tear of the [medial / lateral] meniscus, [posterior horn / body / anterior horn].",
+         "options": ["[Horizontal / Vertical / Radial / Complex / Bucket-handle / Root] tear, [medial / lateral] meniscus [posterior horn / body / anterior horn].",
                      "Meniscal extrusion [ ] mm."]},
         {"heading": "Cruciate ligaments", "normal": "Intact anterior and posterior cruciate ligaments.",
          "options": ["[Partial / Complete] tear of the [ACL / PCL] [ ]."]},
@@ -386,7 +386,7 @@
       "title": "Right knee radiographs / Left knee radiographs",
       "radiograph": true,
       "sections": [
-        {"heading": "Fracture", "normal": "No fracture.",
+        {"heading": "Bones", "normal": "No fracture.",
          "options": ["[Tibial plateau / Patellar / Distal femoral / Fibular head / Segond] fracture [ ]."]},
         {"heading": "Joint", "normal": "No effusion. Preserved joint spaces.",
          "options": ["[Small / Moderate / Large] joint effusion [ ].",
@@ -418,7 +418,7 @@
     "msk.mri-knee-postoperative": {
       "title": "MRI right knee, postoperative / MRI left knee, postoperative",
       "radiograph": false,
-      "technique": {"normal": "MRI knee with proton density, fat-suppressed and T1 imaging, with metal artefact reduction.",
+      "technique": {"normal": "Coronal T1 and STIR, sagittal 3D fat-suppressed PD, axial fat-suppressed PD and sagittal T2; metal artefact reduction.",
                     "options": []},
       "sections": [
         {"heading": "Graft", "normal": "Intact ACL graft with satisfactory tunnel position.",
@@ -475,10 +475,10 @@
     "ra.mri-diabetic-foot": {
       "title": "MRI right foot with contrast / MRI left foot with contrast",
       "radiograph": false,
-      "technique": {"normal": "MRI foot with T1, fat-suppressed T2 and post-contrast imaging.",
+      "technique": {"normal": "T1 and STIR in the short and long axis; sagittal T1 and STIR; T1 fat-sat before and after gadolinium.",
                     "options": []},
       "sections": [
-        {"heading": "Ulcer and sinus tract", "normal": "No ulcer or sinus tract.",
+        {"heading": "Ulcer and sinus tract", "normal": "None.",
          "options": ["Ulcer at the [ ] [with / without] a sinus tract to the [ ]."]},
         {"heading": "Bone marrow", "normal": "No osteomyelitis. Normal T1 marrow signal.",
          "options": ["Osteomyelitis of the [ ]: confluent low T1 and high T2 signal.",
@@ -493,16 +493,16 @@
     "ra.mri-hamstring": {
       "title": "MRI thigh, hamstrings",
       "radiograph": false,
-      "technique": {"normal": "MRI pelvis and thigh with T1 and fluid-sensitive imaging.",
+      "technique": {"normal": "Coronal T1 and STIR of the pelvis and thighs; axial T1 and T2 fat-sat from the ischial tuberosities; sagittal T2 fat-sat of the injured side.",
                     "options": []},
       "sections": [
         {"heading": "Proximal tendons", "normal": "Intact conjoint tendon and semimembranosus origin.",
          "options": ["[Partial / Complete] avulsion of the [conjoint / semimembranosus] tendon, [ ] tendons involved, retraction [ ] cm."]},
         {"heading": "Muscles", "normal": "No muscle strain.",
-         "options": ["[Myofascial / Musculotendinous / Intratendinous] injury of the [biceps femoris long head / semitendinosus / semimembranosus], [ ] cm, BAMIC grade [ ]."]},
-        {"heading": "Haematoma", "normal": "No haematoma.",
-         "options": ["[ ] mm haematoma [ ]."]},
-        {"heading": "Sciatic nerve", "normal": "Normal sciatic nerve.",
+         "options": ["[Myofascial / Musculotendinous / Intratendinous] injury of the [biceps femoris / semitendinosus / semimembranosus], [ ] cm, BAMIC grade [ ]."]},
+        {"heading": "Haematoma", "normal": "None.",
+         "options": ["Haematoma [ ] mm [ ]."]},
+        {"heading": "Sciatic nerve", "normal": "Normal.",
          "options": ["Sciatic nerve [contact / tethering / oedema] [ ]."]}
       ],
       "impression": "No hamstring injury."
@@ -513,14 +513,14 @@
       "technique": {"normal": "High-resolution ultrasound of the sciatic, common peroneal and tibial nerves.",
                     "options": []},
       "sections": [
-        {"heading": "Sciatic nerve", "normal": "Normal sciatic nerve.",
+        {"heading": "Sciatic nerve", "normal": "Normal.",
          "options": ["[Thickening / Compression / Neuroma / Mass] of the sciatic nerve at [ ]."]},
         {"heading": "Common peroneal nerve", "normal": "Normal common peroneal nerve at the fibular neck.",
          "options": ["[Compression / Intraneural ganglion / Neuroma] [ ]; cross-sectional area [ ] mm²."]},
         {"heading": "Tibial nerve", "normal": "Normal tibial nerve in the tarsal tunnel.",
          "options": ["[Compression / Mass / Varicosities] in the tarsal tunnel [ ]."]},
         {"heading": "Other nerves and muscles", "normal": "Normal sural, saphenous and femoral nerves. No denervation change.",
-         "options": ["[ ] nerve [ ].",
+         "options": ["Nerve [ ]: [ ].",
                      "Denervation of the [ ]."]}
       ],
       "impression": "No peripheral nerve abnormality."

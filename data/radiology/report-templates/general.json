@@ -1,6 +1,6 @@
 {
   "schema": "primer.fast-report-templates/1",
-  "revision": "2026-11-13",
+  "revision": "2026-11-15",
   "templates": {
     "template:modalities-report": {
       "title": "Imaging request review",
@@ -83,7 +83,7 @@
         {"heading": "Impression and recommendation", "normal": "Impression answers the clinical question. Recommendation is actionable.",
          "options": ["[ ]."]},
         {"heading": "Communication", "normal": "Urgent findings communicated and documented.",
-         "options": ["[ ] communicated to [ ] at [ ]."]}
+         "options": ["Communicated [ ] to [ ] at [ ]."]}
       ],
       "impression": "Complete structured report."
     },
@@ -109,10 +109,10 @@
                     "options": ["CT-guided procedure.", "Local anaesthetic [ ] mL [ ]; sedation [ ]."]},
       "sections": [
         {"heading": "Target", "normal": "Target identified with a safe access route.",
-         "options": ["[ ] mm lesion in the [ ]; route via [ ]."]},
+         "options": ["Lesion [ ] mm in the [ ]; route via [ ]."]},
         {"heading": "Procedure", "normal": "Needle tip confirmed in the target.",
-         "options": ["[ ] passes with a [ ] gauge [core / fine-needle] needle; [ ] cores obtained.",
-                     "[ ] Fr drain placed; [ ] mL of [ ] fluid aspirated."]},
+         "options": ["Needle [ ] gauge [core / fine-needle], [ ] passes; [ ] cores obtained.",
+                     "Drain [ ] Fr placed; [ ] mL of [ ] fluid aspirated."]},
         {"heading": "Specimens", "normal": "Specimens sent for histology.",
          "options": ["Specimens sent for [cytology / microbiology / flow cytometry] [ ]."]},
         {"heading": "Complications", "normal": "No immediate complication.",
@@ -138,8 +138,8 @@
     "template:pet-ct-report": {
       "title": "FDG PET/CT",
       "radiograph": false,
-      "technique": {"normal": "FDG PET/CT from the skull base to the mid-thighs after a 6-hour fast.",
-                    "options": ["FDG [ ] MBq; blood glucose [ ] mmol/L; uptake time [ ] minutes.", "Liver SUVmean [ ]; mediastinal blood pool SUVmean [ ]."]},
+      "technique": {"normal": "FDG after a 6-hour fast; low-dose CT for attenuation correction and localisation, skull base to mid-thigh.",
+                    "options": []},
       "sections": [
         {"heading": "Head and neck", "normal": "No abnormal FDG uptake.",
          "options": ["FDG-avid [ ] in the [ ], SUVmax [ ]."]},
@@ -158,8 +158,8 @@
     "template:theranostics-report": {
       "title": "PSMA PET/CT / SSTR PET/CT",
       "radiograph": false,
-      "technique": {"normal": "PSMA PET/CT from the skull vertex to the mid-thighs.",
-                    "options": ["SSTR PET/CT with [ ]-DOTATATE.", "Activity [ ] MBq; uptake time [ ] minutes."]},
+      "technique": {"normal": "PSMA or SSTR ligand PET with low-dose CT for attenuation correction and localisation, vertex to mid-thigh.",
+                    "options": []},
       "sections": [
         {"heading": "Primary site", "normal": "No abnormal uptake at the primary site or treatment bed.",
          "options": ["Uptake in the [ ], SUVmax [ ]; miT[ ]."]},
@@ -195,15 +195,15 @@
     "ra.recist": {
       "title": "CT chest, abdomen and pelvis, RECIST 1.1 baseline",
       "radiograph": false,
-      "technique": {"normal": "Portal venous phase CT chest, abdomen and pelvis with IV contrast.",
+      "technique": {"normal": "Portal venous phase (70 s) after IV contrast, lung apices to symphysis; sections of 5 mm or less.",
                     "options": []},
       "sections": [
         {"heading": "Target lesions", "normal": "No measurable target lesion.",
          "options": ["Target [ ]: [ ] in the [ ], [ ] mm (series [ ], image [ ]).",
                      "Sum of diameters [ ] mm."]},
-        {"heading": "Non-target lesions", "normal": "No non-target lesion.",
+        {"heading": "Non-target lesions", "normal": "None.",
          "options": ["Non-target: [ ] in the [ ]."]},
-        {"heading": "Other findings", "normal": "No other significant finding.",
+        {"heading": "Non-measurable and incidental findings", "normal": "None.",
          "options": ["[ ]."]}
       ],
       "impression": "No measurable disease."
@@ -211,7 +211,7 @@
     "oncology.recist-follow-up": {
       "title": "CT chest, abdomen and pelvis, RECIST 1.1 follow-up",
       "radiograph": false,
-      "technique": {"normal": "Portal venous phase CT chest, abdomen and pelvis with IV contrast, matched to the baseline protocol.",
+      "technique": {"normal": "Portal venous phase (70 s) after IV contrast, lung apices to symphysis; matched to the baseline protocol.",
                     "options": []},
       "sections": [
         {"heading": "Target lesions", "normal": "All target lesions resolved. Pathological nodes under 10 mm short axis.",
@@ -219,7 +219,7 @@
                      "Sum of diameters [ ] mm; [ ] percent from baseline, [ ] percent from nadir."]},
         {"heading": "Non-target lesions", "normal": "All non-target lesions resolved.",
          "options": ["Non-target: [non-CR non-PD / unequivocal progression] [ ]."]},
-        {"heading": "New lesions", "normal": "No new lesion.",
+        {"heading": "New lesions", "normal": "None.",
          "options": ["New [ ] in the [ ]."]},
         {"heading": "Overall response", "normal": "Complete response (RECIST 1.1).",
          "options": ["[Partial response / Stable disease / Progressive disease] (RECIST 1.1)."]}

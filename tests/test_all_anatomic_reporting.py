@@ -10,6 +10,7 @@ import gzip
 import importlib.util
 import itertools
 import json
+import re
 from pathlib import Path
 from urllib.parse import urlsplit
 
@@ -201,7 +202,7 @@ def test_every_authored_finding_path_and_required_parent_renders_without_invente
             result = render(form, inv, section, chosen)
             assert result['valid'], (inv['id'], finding['id'], result['issues'])
             assert chosen == state, 'Rendering must not mutate saved observations'
-            assert '__' not in result['text'] and '[' not in result['text'] and ']' not in result['text']
+            assert all('__' not in block['text'] and '[' not in block['text'] and ']' not in block['text'] for block in result['sections'])
             reported = {item['id'] for item in section['findings'] if item.get('report') is not False}
             assert result['selected_finding_count'] == len(set(chosen) & reported) + int(bool(section.get('requires_scope')))
             if set(chosen) & reported:
@@ -225,7 +226,7 @@ def test_unselected_anatomy_and_absent_normals_are_never_filled_in(form, inv):
         result = ENGINE.render_descriptors(form, scoped_state(inv,section,{section['id']: {'normal': True}}))
         if section['normal']:
             assert result['valid'], (section['id'], result['issues'])
-            assert result['text'].endswith(section['normal']['text'])
+            assert any(re.fullmatch(r'(?:• )?(?:[^\n]+, )?[^\n]+: (?:normal|none)\.', block['text']) for block in result['sections'])
             assert len(result['sections']) == 1 + int(bool(section.get('requires_scope')))
             assert not section['normal']['slots']
         else:

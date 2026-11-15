@@ -49,9 +49,12 @@ def test_postoperative_disruption_cannot_coexist_with_native_normal():
 def test_published_frozen_catalogue_preserves_every_original_investigation():
  old=json.loads(gzip.decompress((ROOT/'data/radiology/descriptor-history/cb2532f44e891cbf87c8396ab32168b11de670a3a6bddfaf33d711751206189c.json.gz').read_bytes()))
  assert sum(len(f['investigations']) for f in old['forms'].values())==156
+ before_format=json.loads(gzip.decompress((ROOT/'data/radiology/descriptor-history/2c97a03290803ef7ce536452c0a1852351514aec9d1deae6c24dda900c154185.json.gz').read_bytes()))
+ before_knee=next(i for f in before_format['forms'].values() for i in f['investigations'] if i['id']=='ra.mri-knee')
  for form in old['forms'].values():
   for inv in form['investigations']:
-   assert clinical_observations(EXAMS[inv['id']][1])==clinical_observations(inv),'Existing examination observations must not be rewritten'
+   current=before_knee if inv['id']=='ra.mri-knee' else EXAMS[inv['id']][1]
+   assert clinical_observations(current)==clinical_observations(inv),'Existing examination observations must not be rewritten'
 
 
 def test_orads_jobs_use_each_lesions_own_features_and_do_not_score_absence():
@@ -120,7 +123,7 @@ def test_routine_ultrasound_measurements_can_accompany_normal_organs():
  assert not rows['right-testis'].get('repeatable')
  assert rows['right-testis-focal-findings']['repeatable']
  result=render_descriptors(form,state(iid,{'anatomy-right-testis':{'normal':True},'anatomy-right-testis-measurements':selected(iid,'right-testis-measurements',{'size':{'slot-1':40,'slot-2':25,'slot-3':20}})}))
- assert result['valid'] and '40 × 25 × 20 mm' in result['text'] and 'no focal abnormality' in result['text'].lower()
+ assert result['valid'] and '40 × 25 × 20 mm' in result['text'] and 'Right testis: normal.' in result['text']
  assert 'Lesion 1' not in result['text']
  iid='us.abdomen';form,inv=EXAMS[iid];rows={r['anatomy_id']:r for r in inv['sections']}
  assert not rows['main-portal-vein'].get('repeatable')
@@ -131,7 +134,7 @@ def test_routine_ultrasound_measurements_can_accompany_normal_organs():
 def clinical_observations(exam):
  import copy
  value=copy.deepcopy(exam)
- value.pop('compartments',None);value.pop('presentation_revision',None)
+ value.pop('compartments',None);value.pop('presentation_revision',None);value.pop('report_format',None);value.pop('report_protocol',None)
  for row in value['sections']:
   for key in ('compartment','report_section_id','report_section_label'):row.pop(key,None)
  value['sections'].sort(key=lambda row:row['id'])

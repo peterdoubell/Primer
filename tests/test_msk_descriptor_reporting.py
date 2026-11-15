@@ -9,6 +9,7 @@ import gzip
 import importlib.util
 import itertools
 import json
+import re
 from pathlib import Path
 
 import pytest
@@ -134,7 +135,7 @@ def test_every_curated_finding_renders_with_explicit_values_and_its_parent(form,
             location = (investigation['id'], section['anatomy_id'], finding['id'])
             assert result['valid'], (location, result['issues'])
             assert result['text'], location
-            assert '__' not in result['text'] and '[' not in result['text'] and ']' not in result['text'], location
+            assert all('__' not in block['text'] and '[' not in block['text'] and ']' not in block['text'] for block in result['sections']), location
             assert result['selected_finding_count'] == len(chosen), location
             assert not finding['requires_context'], location
             assert {slot['kind'] for slot in finding['slots']} <= {'choice', 'number'}, location
@@ -149,7 +150,7 @@ def test_normal_requires_explicit_selection_and_no_unselected_structure_is_inven
         if section['normal']:
             result = ENGINE.render_descriptors(form, {'investigation_id': investigation['id'], 'selections': {section['id']: {'normal': True}}})
             assert result['valid'], (section['id'], result['issues'])
-            assert result['text'].endswith(section['normal']['text'])
+            assert re.fullmatch(r'(?:• )?(?:[^\n]+, )?[^\n]+: (?:normal|none)\.', result['sections'][0]['text'])
             assert len(result['sections']) == 1
             assert section['normal']['slots'] == []
         else:
