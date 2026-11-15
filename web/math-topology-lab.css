@@ -1,0 +1,19 @@
+.math-topology-lab { min-width: 0; }
+.math-topology-lab [hidden] { display: none !important; }
+.math-topology-lab .model-range-control select, .math-topology-lab input[type="number"] { min-width: 0; min-height: 44px; width: 100%; }
+.math-topology-lab .topology-controls { grid-template-columns: repeat(3,minmax(0,1fr)); }
+.math-topology-lab .topology-panels { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: 12px; margin-top: 18px; }
+.math-topology-lab .topology-viewport { min-width: 0; overflow: auto; background: #f5efdf; border-radius: 10px; }
+.math-topology-lab .topology-viewport svg { display: block; width: 100%; height: auto; font-family: var(--sans,sans-serif); }
+.math-topology-lab.is-enlarged .topology-viewport svg { width: 720px; min-width: 720px; max-width: none; }
+.math-topology-lab .topology-table-region { overflow: auto; max-width: 100%; margin: 18px 0; }
+.math-topology-lab .topology-ledger { min-width: 650px; width: 100%; font-size: 14px; border-collapse: collapse; }
+.math-topology-lab .topology-ledger caption { text-align: left; margin: 8px 0; }
+.math-topology-lab .topology-ledger th, .math-topology-lab .topology-ledger td { padding: 9px 7px; text-align: left; border-bottom: 1px solid var(--line,#d5cfbf); overflow-wrap: anywhere; }
+.math-topology-lab .topology-ledger td:nth-child(2) { max-width: 280px; }
+.math-topology-lab .topology-proof, .math-topology-lab .topology-proof-steps { padding: 12px; border-left: 3px solid #317e78; }
+.math-topology-lab .topology-proof-steps { padding-left: 35px; }
+.math-topology-lab .topology-proof-steps li { margin: 9px 0; }
+.math-topology-lab .topology-fixtures button { min-height: 44px; }
+@media (max-width:900px) { .math-topology-lab .topology-controls { grid-template-columns: repeat(2,minmax(0,1fr)); } }
+@media (max-width:760px) { .math-topology-lab .topology-panels, .math-topology-lab .topology-controls { grid-template-columns: minmax(0,1fr); } }

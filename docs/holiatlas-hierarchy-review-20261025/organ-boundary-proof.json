@@ -1,0 +1,99 @@
+{
+  "sourceScale": "organ",
+  "originalCoarseHeaderUnits": [
+    "unknown",
+    "unknown"
+  ],
+  "millimetreFrameBasis": "Exact voxel-index equivalence to protocol-mapped fine labels with declared millimetre source grid; numeric sforms also exactly equal. This does not fill missing coarse header units or register different subjects.",
+  "scope": "All present non-background categorical classes; research only, no clinical or runtime approval",
+  "sourceLabelSHA256": "83fbe255789c42354daec630466d218060089eab94fe31104517ff75e2c98fcf",
+  "sourceAffine": [
+    [
+      0.5,
+      0.0,
+      -0.0,
+      -90.0
+    ],
+    [
+      0.0,
+      0.5,
+      -0.0,
+      -126.0
+    ],
+    [
+      0.0,
+      0.0,
+      0.5,
+      -72.0
+    ],
+    [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+    ]
+  ],
+  "sulcalMeaning": "CSF territories assigned around labelled folds, not original traced sulcal centre-lines or independently validated gyral banks",
+  "meshMethod": "Every exposed 0.5 mm cell face; all cavities and components; two outward triangles per square; no smoothing or repair",
+  "clinicalApproval": false,
+  "runtimeBound": false,
+  "sourceClasses": 1,
+  "rows": [
+    {
+      "code": 1,
+      "sourceName": "ICV",
+      "sideAsProvided": "as provided in the source scale name",
+      "sourceVoxels": 14351157,
+      "vertices": 519256,
+      "faces": 519278,
+      "triangles": 1038556,
+      "allFaceRecordsUniqueAndSourceValid": true,
+      "faceCountEqualsSixVoxelsMinusTwiceAdjacentPairs": true,
+      "everyTriangleAreaMM2": 0.125,
+      "everyTriangleWindsOutward": true,
+      "signedEnclosedVolumeMM3": 1793894.625,
+      "volumeEqualsCompleteSourceCellVolume": true,
+      "allComponentsAndCavitiesRetained": true,
+      "componentsByConnectivity": {
+        "6": [
+          14351157
+        ],
+        "18": [
+          14351157
+        ],
+        "26": [
+          14351157
+        ]
+      },
+      "boundsSourceWorld": [
+        [
+          -70.25,
+          -105.75,
+          -72.25
+        ],
+        [
+          72.25,
+          74.25,
+          82.25
+        ]
+      ],
+      "mesh": {
+        "file": "label-1.mesh.gz",
+        "bytes": 18693760,
+        "gzipBytes": 5407044,
+        "sha256": "d145c33efa2081724c7875b6ddda3436ea7169d6ff68f36ed3b030b48ff3abf3",
+        "gzipSHA256": "1fbb344a014354137465073ff9acb3e06211d7ca052cd7d0d64c4cd2755fa8e0"
+      },
+      "facesPayload": {
+        "file": "label-1-faces.bin.gz",
+        "bytes": 5192780,
+        "gzipBytes": 1437916,
+        "sha256": "73796f9d1eeb4e6b175cc52f6d1a91dd0e546d7187509b5ec4dfc83195184ca9",
+        "gzipSHA256": "b975b0755c22a899e807b862e121239e3c6cc11d030f660be7d7aad3706dc1d3"
+      },
+      "seconds": 8.87
+    }
+  ],
+  "allPassed": true,
+  "totalTriangles": 1038556
+}

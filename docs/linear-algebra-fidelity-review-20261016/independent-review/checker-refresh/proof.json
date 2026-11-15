@@ -1,0 +1,1111 @@
+{
+  "kind": "checker-only refresh",
+  "sourceSHA256": "a8403ffb053c31afffa65f6906d6e2d256bacb9d525235a15c0be0cf04f48dad",
+  "newBrowserRun": false,
+  "reason": "Replace CodeQL-flagged polynomial regex with a bounded linear parser; product source and archived browser captures unchanged.",
+  "priorPythonSHA256": "099710c5b757965880e3bc51d688111b16467274589cfb713e27f79014727dbc",
+  "pythonSHA256": "59c26497941730dec3f3f21e4b09e266045e54f3baaec34a5de3179f20a2653d",
+  "javascriptSHA256": "8ee609bc25171046e787b886ff5bb8fe365facb43141a24e97a463698f024d06",
+  "originalRendererReviewSHA256": "89df1f23bdfe766bb064c4bc572277f083c9748811e3281a9ff1ca0666771393",
+  "snapshotArchive": {
+    "file": "renderer-snapshots.json.gz",
+    "encoding": "gzip",
+    "decodedFormat": "JSON snapshot array",
+    "decodedSHA256": "02c51e2ed87da4b4d14f1156c041ebcf254a41a358be093faee35398606ce599",
+    "decodedBytes": 3577341,
+    "storedSHA256": "52ac9130cdd687a996d12857a3f878b383a86cafe92a430e092ad993f910a6a1",
+    "storedBytes": 470905
+  },
+  "numericalReviewSHA256": "a2205ab569cdd74b684376de86eff6efb830c2ec369d25720caff1f1d289a4bf",
+  "numericalRequests": 272,
+  "states": 158,
+  "exactResultEquality": true,
+  "verification": {
+    "cases": [
+      {
+        "id": "390:maps:default",
+        "station": "maps",
+        "primitives": 14,
+        "projectedPoints": 28,
+        "exactModelAndWorldGeometry": true
+      },
+      {
+        "id": "390:systems:default",
+        "station": "systems",
+        "primitives": 2,
+        "projectedPoints": 4,
+        "exactModelAndWorldGeometry": true
+      },
+      {
+        "id": "390:planes:default",
+        "station": "planes",
+        "primitives": 7,
+        "projectedPoints": 19,
+        "exactModelAndWorldGeometry": true
+      },
+      {
+        "id": "390:space:default",
+        "station": "space",
+        "primitives": 40,
+        "projectedPoints": 73,
+        "exactModelAndWorldGeometry": true
+      },
+      {
+        "id": "390:kernel:default",
+        "station": "kernel",
+        "primitives": 16,
+        "projectedPoints": 24,
+        "exactModelAndWorldGeometry": true
+      },
+      {
+        "id": "390:spectrum:default",
+        "station": "spectrum",
+        "primitives": 8,
+        "projectedPoints": 14,
+        "exactModelAndWorldGeometry": true
+      },
+      {
+        "id": "390:orbits:default",
+        "station": "orbits",
+        "primitives": 28,
+        "projectedPoints": 52,
+        "exactModelAndWorldGeometry": true
+      },
+      {
+        "id": "390:maps:composition",
+        "station": "maps",
+        "primitives": 14,
+        "projectedPoints": 28,
+        "exactModelAndWorldGeometry": true
+      },
+      {
+        "id": "390:maps:negative",
+        "station": "maps",
+        "primitives": 14,
+        "projectedPoints": 28,
+        "exactModelAndWorldGeometry": true
+      },
+      {
+        "id": "390:maps:rank-one",
+        "station": "maps",
+        "primitives": 14,
+        "projectedPoints": 28,
+        "exactModelAndWorldGeometry": true
+      },
+      {
+        "id": "390:maps:zero",
+        "station": "maps",
+        "primitives": 14,
+        "projectedPoints": 28,
+        "exactModelAndWorldGeometry": true
+      },
+      {
+        "id": "390:maps:tiny-fraction",
+        "station": "maps",
+        "primitives": 14,
+        "projectedPoints": 28,
+        "exactModelAndWorldGeometry": true
+      },
+      {
+        "id": "390:systems:minus4",
+        "station": "systems",
+        "primitives": 2,
+        "projectedPoints": 4,
+        "exactModelAndWorldGeometry": true
+      },
+      {
+        "id": "390:systems:unique",
+        "station": "systems",
+        "primitives": 3,
+        "projectedPoints": 5,
+        "exactModelAndWorldGeometry": true
+      },
+      {
+        "id": "390:systems:distant",
+        "station": "systems",
+        "primitives": 3,
+        "projectedPoints": 5,
+        "exactModelAndWorldGeometry": true
+      },
+      {
+        "id": "390:systems:very-distant",
+        "station": "systems",
+        "primitives": 3,
+        "projectedPoints": 5,
+        "exactModelAndWorldGeometry": true
+      },
+      {
+        "id": "390:systems:infinite",
+        "station": "systems",
+        "primitives": 3,
+        "projectedPoints": 5,
+        "exactModelAndWorldGeometry": true
+      },
+      {
+        "id": "390:planes:unique",
+        "station": "planes",
+        "primitives": 7,
+        "projectedPoints": 19,
+        "exactModelAndWorldGeometry": true
+      },
+      {
+        "id": "390:planes:dependent",
+        "station": "planes",
+        "primitives": 8,
+        "projectedPoints": 22,
+        "exactModelAndWorldGeometry": true
+      },
+      {
+        "id": "390:planes:coincident",
+        "station": "planes",
+        "primitives": 7,
+        "projectedPoints": 25,
+        "exactModelAndWorldGeometry": true
+      },
+      {
+        "id": "390:planes:inconsistent",
+        "station": "planes",
+        "primitives": 6,
+        "projectedPoints": 19,
+        "exactModelAndWorldGeometry": true
+      },
+      {
+        "id": "390:planes:parallel",
+        "station": "planes",
+        "primitives": 6,
+        "projectedPoints": 18,
+        "exactModelAndWorldGeometry": true
+      },
+      {
+        "id": "390:space:positive",
+        "station": "space",
+        "primitives": 39,
+        "projectedPoints": 69,
+        "exactModelAndWorldGeometry": true
+      },
+      {
+        "id": "390:space:negative",
+        "station": "space",
+        "primitives": 39,
+        "projectedPoints": 69,
+        "exactModelAndWorldGeometry": true
+      },
+      {
+        "id": "390:space:near-plane",
+        "station": "space",
+        "primitives": 39,
+        "projectedPoints": 69,
+        "exactModelAndWorldGeometry": true
+      },
+      {
+        "id": "390:space:large-coefficients",
+        "station": "space",
+        "primitives": 39,
+        "projectedPoints": 69,
+        "exactModelAndWorldGeometry": true
+      },
+      {
+        "id": "390:space:repeated",
+        "station": "space",
+        "primitives": 40,
+        "projectedPoints": 73,
+        "exactModelAndWorldGeometry": true
+      },
+      {
+        "id": "390:space:line",
+        "station": "space",
+        "primitives": 40,
+        "projectedPoints": 71,
+        "exactModelAndWorldGeometry": true
+      },
+      {
+        "id": "390:space:zero",
+        "station": "space",
+        "primitives": 39,
+        "projectedPoints": 69,
+        "exactModelAndWorldGeometry": true
+      },
+      {
+        "id": "390:space:default",
+        "station": "space",
+        "primitives": 40,
+        "projectedPoints": 73,
+        "exactModelAndWorldGeometry": true
+      },
+      {
+        "id": "390:space:space-face",
+        "station": "space",
+        "primitives": 40,
+        "projectedPoints": 73,
+        "exactModelAndWorldGeometry": true
+      },
+      {
+        "id": "390:space:space-edge",
+        "station": "space",
+        "primitives": 40,
+        "projectedPoints": 73,
+        "exactModelAndWorldGeometry": true
+      },
+      {
+        "id": "390:kernel:4x4",
+        "station": "kernel",
+        "primitives": 16,
+        "projectedPoints": 24,
+        "exactModelAndWorldGeometry": true
+      },
+      {
+        "id": "390:kernel:3x4",
+        "station": "kernel",
+        "primitives": 14,
+        "projectedPoints": 21,
+        "exactModelAndWorldGeometry": true
+      },
+      {
+        "id": "390:kernel:2x4",
+        "station": "kernel",
+        "primitives": 12,
+        "projectedPoints": 18,
+        "exactModelAndWorldGeometry": true
+      },
+      {
+        "id": "390:spectrum:diag35",
+        "station": "spectrum",
+        "primitives": 8,
+        "projectedPoints": 14,
+        "exactModelAndWorldGeometry": true
+      },
+      {
+        "id": "390:spectrum:tri235",
+        "station": "spectrum",
+        "primitives": 14,
+        "projectedPoints": 25,
+        "exactModelAndWorldGeometry": true
+      },
+      {
+        "id": "390:spectrum:tri124",
+        "station": "spectrum",
+        "primitives": 14,
+        "projectedPoints": 25,
+        "exactModelAndWorldGeometry": true
+      },
+      {
+        "id": "390:spectrum:identity",
+        "station": "spectrum",
+        "primitives": 8,
+        "projectedPoints": 14,
+        "exactModelAndWorldGeometry": true
+      },
+      {
+        "id": "390:spectrum:shear",
+        "station": "spectrum",
+        "primitives": 5,
+        "projectedPoints": 9,
+        "exactModelAndWorldGeometry": true
+      },
+      {
+        "id": "390:spectrum:rotation",
+        "station": "spectrum",
+        "primitives": 2,
+        "projectedPoints": 4,
+        "exactModelAndWorldGeometry": true
+      },
+      {
+        "id": "390:spectrum:eigenpower",
+        "station": "spectrum",
+        "primitives": 8,
+        "projectedPoints": 14,
+        "exactModelAndWorldGeometry": true
+      },
+      {
+        "id": "390:spectrum:decay-diagonal",
+        "station": "spectrum",
+        "primitives": 8,
+        "projectedPoints": 14,
+        "exactModelAndWorldGeometry": true
+      },
+      {
+        "id": "390:spectrum:decay-nonnormal",
+        "station": "spectrum",
+        "primitives": 8,
+        "projectedPoints": 14,
+        "exactModelAndWorldGeometry": true
+      },
+      {
+        "id": "390:spectrum:reflection",
+        "station": "spectrum",
+        "primitives": 8,
+        "projectedPoints": 14,
+        "exactModelAndWorldGeometry": true
+      },
+      {
+        "id": "390:orbits:n2",
+        "station": "orbits",
+        "primitives": 8,
+        "projectedPoints": 12,
+        "exactModelAndWorldGeometry": true
+      },
+      {
+        "id": "390:orbits:n3",
+        "station": "orbits",
+        "primitives": 10,
+        "projectedPoints": 16,
+        "exactModelAndWorldGeometry": true
+      },
+      {
+        "id": "390:orbits:late",
+        "station": "orbits",
+        "primitives": 204,
+        "projectedPoints": 404,
+        "exactModelAndWorldGeometry": true
+      },
+      {
+        "id": "390:orbits:fast",
+        "station": "orbits",
+        "primitives": 204,
+        "projectedPoints": 404,
+        "exactModelAndWorldGeometry": true
+      },
+      {
+        "id": "390:orbits:slow",
+        "station": "orbits",
+        "primitives": 64,
+        "projectedPoints": 124,
+        "exactModelAndWorldGeometry": true
+      },
+      {
+        "id": "390:orbits:zero",
+        "station": "orbits",
+        "primitives": 204,
+        "projectedPoints": 404,
+        "exactModelAndWorldGeometry": true
+      },
+      {
+        "id": "390:orbits:eigenpower",
+        "station": "orbits",
+        "primitives": 10,
+        "projectedPoints": 16,
+        "exactModelAndWorldGeometry": true
+      },
+      {
+        "id": "390:orbits:eigenpower100",
+        "station": "orbits",
+        "primitives": 204,
+        "projectedPoints": 404,
+        "exactModelAndWorldGeometry": true
+      },
+      {
+        "id": "390:orbits:rotation",
+        "station": "orbits",
+        "primitives": 12,
+        "projectedPoints": 20,
+        "exactModelAndWorldGeometry": true
+      },
+      {
+        "id": "390:orbits:rotation100",
+        "station": "orbits",
+        "primitives": 204,
+        "projectedPoints": 404,
+        "exactModelAndWorldGeometry": true
+      },
+      {
+        "id": "390:orbits:identity100",
+        "station": "orbits",
+        "primitives": 204,
+        "projectedPoints": 404,
+        "exactModelAndWorldGeometry": true
+      },
+      {
+        "id": "390:orbits:shear",
+        "station": "orbits",
+        "primitives": 44,
+        "projectedPoints": 84,
+        "exactModelAndWorldGeometry": true
+      },
+      {
+        "id": "390:orbits:reflection",
+        "station": "orbits",
+        "primitives": 12,
+        "projectedPoints": 20,
+        "exactModelAndWorldGeometry": true
+      },
+      {
+        "id": "390:orbits:n0",
+        "station": "orbits",
+        "primitives": 4,
+        "projectedPoints": 4,
+        "exactModelAndWorldGeometry": true
+      },
+      {
+        "id": "390:maps:before-invalid",
+        "station": "maps",
+        "primitives": 14,
+        "projectedPoints": 28,
+        "exactModelAndWorldGeometry": true
+      },
+      {
+        "id": "390:maps:invalid",
+        "station": "maps",
+        "invalidInputRejected": true
+      },
+      {
+        "id": "390:maps:recovered",
+        "station": "maps",
+        "primitives": 14,
+        "projectedPoints": 28,
+        "exactModelAndWorldGeometry": true
+      },
+      {
+        "id": "390:systems:before-invalid",
+        "station": "systems",
+        "primitives": 2,
+        "projectedPoints": 4,
+        "exactModelAndWorldGeometry": true
+      },
+      {
+        "id": "390:systems:invalid",
+        "station": "systems",
+        "invalidInputRejected": true
+      },
+      {
+        "id": "390:systems:recovered",
+        "station": "systems",
+        "primitives": 2,
+        "projectedPoints": 4,
+        "exactModelAndWorldGeometry": true
+      },
+      {
+        "id": "390:planes:before-invalid",
+        "station": "planes",
+        "primitives": 7,
+        "projectedPoints": 25,
+        "exactModelAndWorldGeometry": true
+      },
+      {
+        "id": "390:planes:invalid",
+        "station": "planes",
+        "invalidInputRejected": true
+      },
+      {
+        "id": "390:planes:recovered",
+        "station": "planes",
+        "primitives": 7,
+        "projectedPoints": 19,
+        "exactModelAndWorldGeometry": true
+      },
+      {
+        "id": "390:space:before-invalid",
+        "station": "space",
+        "primitives": 40,
+        "projectedPoints": 73,
+        "exactModelAndWorldGeometry": true
+      },
+      {
+        "id": "390:space:invalid",
+        "station": "space",
+        "invalidInputRejected": true
+      },
+      {
+        "id": "390:space:recovered",
+        "station": "space",
+        "primitives": 40,
+        "projectedPoints": 73,
+        "exactModelAndWorldGeometry": true
+      },
+      {
+        "id": "390:kernel:before-invalid",
+        "station": "kernel",
+        "primitives": 16,
+        "projectedPoints": 24,
+        "exactModelAndWorldGeometry": true
+      },
+      {
+        "id": "390:kernel:invalid",
+        "station": "kernel",
+        "invalidInputRejected": true
+      },
+      {
+        "id": "390:kernel:recovered",
+        "station": "kernel",
+        "primitives": 16,
+        "projectedPoints": 24,
+        "exactModelAndWorldGeometry": true
+      },
+      {
+        "id": "390:orbits:before-invalid",
+        "station": "orbits",
+        "primitives": 28,
+        "projectedPoints": 52,
+        "exactModelAndWorldGeometry": true
+      },
+      {
+        "id": "390:orbits:invalid",
+        "station": "orbits",
+        "invalidInputRejected": true
+      },
+      {
+        "id": "390:orbits:recovered",
+        "station": "orbits",
+        "primitives": 28,
+        "projectedPoints": 52,
+        "exactModelAndWorldGeometry": true
+      },
+      {
+        "id": "390:orbits:enlarged",
+        "station": "orbits",
+        "primitives": 28,
+        "projectedPoints": 52,
+        "exactModelAndWorldGeometry": true
+      },
+      {
+        "id": "390:orbits:fit",
+        "station": "orbits",
+        "primitives": 28,
+        "projectedPoints": 52,
+        "exactModelAndWorldGeometry": true
+      },
+      {
+        "id": "1440:maps:default",
+        "station": "maps",
+        "primitives": 14,
+        "projectedPoints": 28,
+        "exactModelAndWorldGeometry": true
+      },
+      {
+        "id": "1440:systems:default",
+        "station": "systems",
+        "primitives": 2,
+        "projectedPoints": 4,
+        "exactModelAndWorldGeometry": true
+      },
+      {
+        "id": "1440:planes:default",
+        "station": "planes",
+        "primitives": 7,
+        "projectedPoints": 19,
+        "exactModelAndWorldGeometry": true
+      },
+      {
+        "id": "1440:space:default",
+        "station": "space",
+        "primitives": 40,
+        "projectedPoints": 73,
+        "exactModelAndWorldGeometry": true
+      },
+      {
+        "id": "1440:kernel:default",
+        "station": "kernel",
+        "primitives": 16,
+        "projectedPoints": 24,
+        "exactModelAndWorldGeometry": true
+      },
+      {
+        "id": "1440:spectrum:default",
+        "station": "spectrum",
+        "primitives": 8,
+        "projectedPoints": 14,
+        "exactModelAndWorldGeometry": true
+      },
+      {
+        "id": "1440:orbits:default",
+        "station": "orbits",
+        "primitives": 28,
+        "projectedPoints": 52,
+        "exactModelAndWorldGeometry": true
+      },
+      {
+        "id": "1440:maps:composition",
+        "station": "maps",
+        "primitives": 14,
+        "projectedPoints": 28,
+        "exactModelAndWorldGeometry": true
+      },
+      {
+        "id": "1440:maps:negative",
+        "station": "maps",
+        "primitives": 14,
+        "projectedPoints": 28,
+        "exactModelAndWorldGeometry": true
+      },
+      {
+        "id": "1440:maps:rank-one",
+        "station": "maps",
+        "primitives": 14,
+        "projectedPoints": 28,
+        "exactModelAndWorldGeometry": true
+      },
+      {
+        "id": "1440:maps:zero",
+        "station": "maps",
+        "primitives": 14,
+        "projectedPoints": 28,
+        "exactModelAndWorldGeometry": true
+      },
+      {
+        "id": "1440:maps:tiny-fraction",
+        "station": "maps",
+        "primitives": 14,
+        "projectedPoints": 28,
+        "exactModelAndWorldGeometry": true
+      },
+      {
+        "id": "1440:systems:minus4",
+        "station": "systems",
+        "primitives": 2,
+        "projectedPoints": 4,
+        "exactModelAndWorldGeometry": true
+      },
+      {
+        "id": "1440:systems:unique",
+        "station": "systems",
+        "primitives": 3,
+        "projectedPoints": 5,
+        "exactModelAndWorldGeometry": true
+      },
+      {
+        "id": "1440:systems:distant",
+        "station": "systems",
+        "primitives": 3,
+        "projectedPoints": 5,
+        "exactModelAndWorldGeometry": true
+      },
+      {
+        "id": "1440:systems:very-distant",
+        "station": "systems",
+        "primitives": 3,
+        "projectedPoints": 5,
+        "exactModelAndWorldGeometry": true
+      },
+      {
+        "id": "1440:systems:infinite",
+        "station": "systems",
+        "primitives": 3,
+        "projectedPoints": 5,
+        "exactModelAndWorldGeometry": true
+      },
+      {
+        "id": "1440:planes:unique",
+        "station": "planes",
+        "primitives": 7,
+        "projectedPoints": 19,
+        "exactModelAndWorldGeometry": true
+      },
+      {
+        "id": "1440:planes:dependent",
+        "station": "planes",
+        "primitives": 8,
+        "projectedPoints": 22,
+        "exactModelAndWorldGeometry": true
+      },
+      {
+        "id": "1440:planes:coincident",
+        "station": "planes",
+        "primitives": 7,
+        "projectedPoints": 25,
+        "exactModelAndWorldGeometry": true
+      },
+      {
+        "id": "1440:planes:inconsistent",
+        "station": "planes",
+        "primitives": 6,
+        "projectedPoints": 19,
+        "exactModelAndWorldGeometry": true
+      },
+      {
+        "id": "1440:planes:parallel",
+        "station": "planes",
+        "primitives": 6,
+        "projectedPoints": 18,
+        "exactModelAndWorldGeometry": true
+      },
+      {
+        "id": "1440:space:positive",
+        "station": "space",
+        "primitives": 39,
+        "projectedPoints": 69,
+        "exactModelAndWorldGeometry": true
+      },
+      {
+        "id": "1440:space:negative",
+        "station": "space",
+        "primitives": 39,
+        "projectedPoints": 69,
+        "exactModelAndWorldGeometry": true
+      },
+      {
+        "id": "1440:space:near-plane",
+        "station": "space",
+        "primitives": 39,
+        "projectedPoints": 69,
+        "exactModelAndWorldGeometry": true
+      },
+      {
+        "id": "1440:space:large-coefficients",
+        "station": "space",
+        "primitives": 39,
+        "projectedPoints": 69,
+        "exactModelAndWorldGeometry": true
+      },
+      {
+        "id": "1440:space:repeated",
+        "station": "space",
+        "primitives": 40,
+        "projectedPoints": 73,
+        "exactModelAndWorldGeometry": true
+      },
+      {
+        "id": "1440:space:line",
+        "station": "space",
+        "primitives": 40,
+        "projectedPoints": 71,
+        "exactModelAndWorldGeometry": true
+      },
+      {
+        "id": "1440:space:zero",
+        "station": "space",
+        "primitives": 39,
+        "projectedPoints": 69,
+        "exactModelAndWorldGeometry": true
+      },
+      {
+        "id": "1440:space:default",
+        "station": "space",
+        "primitives": 40,
+        "projectedPoints": 73,
+        "exactModelAndWorldGeometry": true
+      },
+      {
+        "id": "1440:space:space-face",
+        "station": "space",
+        "primitives": 40,
+        "projectedPoints": 73,
+        "exactModelAndWorldGeometry": true
+      },
+      {
+        "id": "1440:space:space-edge",
+        "station": "space",
+        "primitives": 40,
+        "projectedPoints": 73,
+        "exactModelAndWorldGeometry": true
+      },
+      {
+        "id": "1440:kernel:4x4",
+        "station": "kernel",
+        "primitives": 16,
+        "projectedPoints": 24,
+        "exactModelAndWorldGeometry": true
+      },
+      {
+        "id": "1440:kernel:3x4",
+        "station": "kernel",
+        "primitives": 14,
+        "projectedPoints": 21,
+        "exactModelAndWorldGeometry": true
+      },
+      {
+        "id": "1440:kernel:2x4",
+        "station": "kernel",
+        "primitives": 12,
+        "projectedPoints": 18,
+        "exactModelAndWorldGeometry": true
+      },
+      {
+        "id": "1440:spectrum:diag35",
+        "station": "spectrum",
+        "primitives": 8,
+        "projectedPoints": 14,
+        "exactModelAndWorldGeometry": true
+      },
+      {
+        "id": "1440:spectrum:tri235",
+        "station": "spectrum",
+        "primitives": 14,
+        "projectedPoints": 25,
+        "exactModelAndWorldGeometry": true
+      },
+      {
+        "id": "1440:spectrum:tri124",
+        "station": "spectrum",
+        "primitives": 14,
+        "projectedPoints": 25,
+        "exactModelAndWorldGeometry": true
+      },
+      {
+        "id": "1440:spectrum:identity",
+        "station": "spectrum",
+        "primitives": 8,
+        "projectedPoints": 14,
+        "exactModelAndWorldGeometry": true
+      },
+      {
+        "id": "1440:spectrum:shear",
+        "station": "spectrum",
+        "primitives": 5,
+        "projectedPoints": 9,
+        "exactModelAndWorldGeometry": true
+      },
+      {
+        "id": "1440:spectrum:rotation",
+        "station": "spectrum",
+        "primitives": 2,
+        "projectedPoints": 4,
+        "exactModelAndWorldGeometry": true
+      },
+      {
+        "id": "1440:spectrum:eigenpower",
+        "station": "spectrum",
+        "primitives": 8,
+        "projectedPoints": 14,
+        "exactModelAndWorldGeometry": true
+      },
+      {
+        "id": "1440:spectrum:decay-diagonal",
+        "station": "spectrum",
+        "primitives": 8,
+        "projectedPoints": 14,
+        "exactModelAndWorldGeometry": true
+      },
+      {
+        "id": "1440:spectrum:decay-nonnormal",
+        "station": "spectrum",
+        "primitives": 8,
+        "projectedPoints": 14,
+        "exactModelAndWorldGeometry": true
+      },
+      {
+        "id": "1440:spectrum:reflection",
+        "station": "spectrum",
+        "primitives": 8,
+        "projectedPoints": 14,
+        "exactModelAndWorldGeometry": true
+      },
+      {
+        "id": "1440:orbits:n2",
+        "station": "orbits",
+        "primitives": 8,
+        "projectedPoints": 12,
+        "exactModelAndWorldGeometry": true
+      },
+      {
+        "id": "1440:orbits:n3",
+        "station": "orbits",
+        "primitives": 10,
+        "projectedPoints": 16,
+        "exactModelAndWorldGeometry": true
+      },
+      {
+        "id": "1440:orbits:late",
+        "station": "orbits",
+        "primitives": 204,
+        "projectedPoints": 404,
+        "exactModelAndWorldGeometry": true
+      },
+      {
+        "id": "1440:orbits:fast",
+        "station": "orbits",
+        "primitives": 204,
+        "projectedPoints": 404,
+        "exactModelAndWorldGeometry": true
+      },
+      {
+        "id": "1440:orbits:slow",
+        "station": "orbits",
+        "primitives": 64,
+        "projectedPoints": 124,
+        "exactModelAndWorldGeometry": true
+      },
+      {
+        "id": "1440:orbits:zero",
+        "station": "orbits",
+        "primitives": 204,
+        "projectedPoints": 404,
+        "exactModelAndWorldGeometry": true
+      },
+      {
+        "id": "1440:orbits:eigenpower",
+        "station": "orbits",
+        "primitives": 10,
+        "projectedPoints": 16,
+        "exactModelAndWorldGeometry": true
+      },
+      {
+        "id": "1440:orbits:eigenpower100",
+        "station": "orbits",
+        "primitives": 204,
+        "projectedPoints": 404,
+        "exactModelAndWorldGeometry": true
+      },
+      {
+        "id": "1440:orbits:rotation",
+        "station": "orbits",
+        "primitives": 12,
+        "projectedPoints": 20,
+        "exactModelAndWorldGeometry": true
+      },
+      {
+        "id": "1440:orbits:rotation100",
+        "station": "orbits",
+        "primitives": 204,
+        "projectedPoints": 404,
+        "exactModelAndWorldGeometry": true
+      },
+      {
+        "id": "1440:orbits:identity100",
+        "station": "orbits",
+        "primitives": 204,
+        "projectedPoints": 404,
+        "exactModelAndWorldGeometry": true
+      },
+      {
+        "id": "1440:orbits:shear",
+        "station": "orbits",
+        "primitives": 44,
+        "projectedPoints": 84,
+        "exactModelAndWorldGeometry": true
+      },
+      {
+        "id": "1440:orbits:reflection",
+        "station": "orbits",
+        "primitives": 12,
+        "projectedPoints": 20,
+        "exactModelAndWorldGeometry": true
+      },
+      {
+        "id": "1440:orbits:n0",
+        "station": "orbits",
+        "primitives": 4,
+        "projectedPoints": 4,
+        "exactModelAndWorldGeometry": true
+      },
+      {
+        "id": "1440:maps:before-invalid",
+        "station": "maps",
+        "primitives": 14,
+        "projectedPoints": 28,
+        "exactModelAndWorldGeometry": true
+      },
+      {
+        "id": "1440:maps:invalid",
+        "station": "maps",
+        "invalidInputRejected": true
+      },
+      {
+        "id": "1440:maps:recovered",
+        "station": "maps",
+        "primitives": 14,
+        "projectedPoints": 28,
+        "exactModelAndWorldGeometry": true
+      },
+      {
+        "id": "1440:systems:before-invalid",
+        "station": "systems",
+        "primitives": 2,
+        "projectedPoints": 4,
+        "exactModelAndWorldGeometry": true
+      },
+      {
+        "id": "1440:systems:invalid",
+        "station": "systems",
+        "invalidInputRejected": true
+      },
+      {
+        "id": "1440:systems:recovered",
+        "station": "systems",
+        "primitives": 2,
+        "projectedPoints": 4,
+        "exactModelAndWorldGeometry": true
+      },
+      {
+        "id": "1440:planes:before-invalid",
+        "station": "planes",
+        "primitives": 7,
+        "projectedPoints": 25,
+        "exactModelAndWorldGeometry": true
+      },
+      {
+        "id": "1440:planes:invalid",
+        "station": "planes",
+        "invalidInputRejected": true
+      },
+      {
+        "id": "1440:planes:recovered",
+        "station": "planes",
+        "primitives": 7,
+        "projectedPoints": 19,
+        "exactModelAndWorldGeometry": true
+      },
+      {
+        "id": "1440:space:before-invalid",
+        "station": "space",
+        "primitives": 40,
+        "projectedPoints": 73,
+        "exactModelAndWorldGeometry": true
+      },
+      {
+        "id": "1440:space:invalid",
+        "station": "space",
+        "invalidInputRejected": true
+      },
+      {
+        "id": "1440:space:recovered",
+        "station": "space",
+        "primitives": 40,
+        "projectedPoints": 73,
+        "exactModelAndWorldGeometry": true
+      },
+      {
+        "id": "1440:kernel:before-invalid",
+        "station": "kernel",
+        "primitives": 16,
+        "projectedPoints": 24,
+        "exactModelAndWorldGeometry": true
+      },
+      {
+        "id": "1440:kernel:invalid",
+        "station": "kernel",
+        "invalidInputRejected": true
+      },
+      {
+        "id": "1440:kernel:recovered",
+        "station": "kernel",
+        "primitives": 16,
+        "projectedPoints": 24,
+        "exactModelAndWorldGeometry": true
+      },
+      {
+        "id": "1440:orbits:before-invalid",
+        "station": "orbits",
+        "primitives": 28,
+        "projectedPoints": 52,
+        "exactModelAndWorldGeometry": true
+      },
+      {
+        "id": "1440:orbits:invalid",
+        "station": "orbits",
+        "invalidInputRejected": true
+      },
+      {
+        "id": "1440:orbits:recovered",
+        "station": "orbits",
+        "primitives": 28,
+        "projectedPoints": 52,
+        "exactModelAndWorldGeometry": true
+      },
+      {
+        "id": "1440:orbits:enlarged",
+        "station": "orbits",
+        "primitives": 28,
+        "projectedPoints": 52,
+        "exactModelAndWorldGeometry": true
+      },
+      {
+        "id": "1440:orbits:fit",
+        "station": "orbits",
+        "primitives": 28,
+        "projectedPoints": 52,
+        "exactModelAndWorldGeometry": true
+      }
+    ],
+    "allPassed": true,
+    "method": "Independent Fraction algebra and prescribed fixture construction from ordinary control states only; no product API calls."
+  }
+}

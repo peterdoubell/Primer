@@ -1,0 +1,384 @@
+{
+  "reviewed_on": "2026-10-11",
+  "before_app_js_sha256": "a8dc2985ad28ed9a9b07bd17f87857b3bc389feb7d316049f66ff8f3cf22d29d",
+  "after_app_js_sha256": "d77de3b299fc8af358e6c5fd2c785b22f3a8f19aa89f27a713d40be7c22b11a0",
+  "changed_function": "sourceNativeInspector",
+  "actual_change_scope": "Source citation wrapper: explicit publication_url selects source-dataset, publication/methods and data-licence labels; existing atlas/MRI template fallback unchanged.",
+  "new_explicit_metadata_field": "publication_url",
+  "native_presentation_code_touched": true,
+  "native_decoder_mesh_CT_renderer_code_touched": false,
+  "app_bytes_outside_changed_function_identical": true,
+  "old_atlas_citation_fallback_unchanged": true,
+  "before_function_sha256": "cfa6ccdd6187b1c6ece73aefc5be47d8eb41c1a875f3036e13ed81ffd5116ab3",
+  "after_function_sha256": "44b80581e1a7a4062a0a94b0216e19aafa97120f4ed5a7dd28a410e42509c228",
+  "before_function": "function sourceNativeInspector(asset) {\n  return el('section', { class: 'rad-protocol source-native-inspector' },\n    el('h3', {}, el('a', { href: asset.src, target: '_blank', rel: 'noopener noreferrer' }, asset.title)),\n    el('p', {}, asset.caption), el('p', { class: 'rad-image-credit' }, asset.attribution),\n    radiologySourceLink('Original MRI templates', asset.source_url), ' · ',\n    radiologySourceLink('Original probabilistic atlas', asset.atlas_source_url), ' · ',\n    radiologySourceLink(asset.license, asset.license_url));\n}\n",
+  "after_function": "function sourceNativeInspector(asset) {\n  const sourceCase = Boolean(asset.publication_url);\n  return el('section', { class: 'rad-protocol source-native-inspector' },\n    el('h3', {}, el('a', { href: asset.src, target: '_blank', rel: 'noopener noreferrer' }, asset.title)),\n    el('p', {}, asset.caption), el('p', { class: 'rad-image-credit' }, asset.attribution),\n    radiologySourceLink(sourceCase ? 'Original MRI source dataset' : 'Original MRI templates', asset.source_url), ' · ',\n    radiologySourceLink(sourceCase ? 'Source publication and methods' : 'Original probabilistic atlas', asset.publication_url || asset.atlas_source_url), ' · ',\n    radiologySourceLink(sourceCase ? asset.license + ' · data' : asset.license, asset.license_url));\n}\n",
+  "clinical_approval": false,
+  "fine_anatomical_approval": false,
+  "reopens_or_extends_any_review": false,
+  "native_reader_smoke_original_sha256": "ad324efc604620ac528b467be4a3925cf1f8f750a6bd9e8aca942564430dc5bf",
+  "native_reader_smoke": {
+    "checked_on": "2026-10-11",
+    "qa_only_server": "http://127.0.0.1:56930",
+    "passed": true,
+    "rows": [
+      {
+        "width": 1440,
+        "verse_meshes": 17,
+        "levels": [
+          {
+            "level": "T1",
+            "selected": "T1 · source label 8",
+            "links": [
+              "/app/anatomy/verse521/ct-reference.html?level=T1"
+            ],
+            "ok": true
+          },
+          {
+            "level": "T2",
+            "selected": "T2 · source label 9",
+            "links": [
+              "/app/anatomy/verse521/ct-reference.html?level=T2"
+            ],
+            "ok": true
+          },
+          {
+            "level": "T3",
+            "selected": "T3 · source label 10",
+            "links": [
+              "/app/anatomy/verse521/ct-reference.html?level=T3"
+            ],
+            "ok": true
+          },
+          {
+            "level": "T4",
+            "selected": "T4 · source label 11",
+            "links": [
+              "/app/anatomy/verse521/ct-reference.html?level=T4"
+            ],
+            "ok": true
+          },
+          {
+            "level": "T5",
+            "selected": "T5 · source label 12",
+            "links": [
+              "/app/anatomy/verse521/ct-reference.html?level=T5"
+            ],
+            "ok": true
+          },
+          {
+            "level": "T6",
+            "selected": "T6 · source label 13",
+            "links": [
+              "/app/anatomy/verse521/ct-reference.html?level=T6"
+            ],
+            "ok": true
+          },
+          {
+            "level": "T7",
+            "selected": "T7 · source label 14",
+            "links": [
+              "/app/anatomy/verse521/ct-reference.html?level=T7"
+            ],
+            "ok": true
+          },
+          {
+            "level": "T8",
+            "selected": "T8 · source label 15",
+            "links": [
+              "/app/anatomy/verse521/ct-reference.html?level=T8"
+            ],
+            "ok": true
+          },
+          {
+            "level": "T9",
+            "selected": "T9 · source label 16",
+            "links": [
+              "/app/anatomy/verse521/ct-reference.html?level=T9"
+            ],
+            "ok": true
+          },
+          {
+            "level": "T10",
+            "selected": "T10 · source label 17",
+            "links": [
+              "/app/anatomy/verse521/ct-reference.html?level=T10"
+            ],
+            "ok": true
+          },
+          {
+            "level": "T11",
+            "selected": "T11 · source label 18",
+            "links": [
+              "/app/anatomy/verse521/ct-reference.html?level=T11"
+            ],
+            "ok": true
+          },
+          {
+            "level": "T12",
+            "selected": "T12 · source label 19",
+            "links": [
+              "/app/anatomy/verse521/ct-reference.html?level=T12"
+            ],
+            "ok": true
+          },
+          {
+            "level": "L1",
+            "selected": "L1 · source label 20",
+            "links": [
+              "/app/anatomy/verse521/ct-reference.html?level=L1"
+            ],
+            "ok": true
+          },
+          {
+            "level": "L2",
+            "selected": "L2 · source label 21",
+            "links": [
+              "/app/anatomy/verse521/ct-reference.html?level=L2"
+            ],
+            "ok": true
+          },
+          {
+            "level": "L3",
+            "selected": "L3 · source label 22",
+            "links": [
+              "/app/anatomy/verse521/ct-reference.html?level=L3"
+            ],
+            "ok": true
+          },
+          {
+            "level": "L4",
+            "selected": "L4 · source label 23",
+            "links": [
+              "/app/anatomy/verse521/ct-reference.html?level=L4"
+            ],
+            "ok": true
+          },
+          {
+            "level": "L5",
+            "selected": "L5 · source label 24",
+            "links": [
+              "/app/anatomy/verse521/ct-reference.html?level=L5"
+            ],
+            "ok": true
+          }
+        ],
+        "all_levels_link_their_own_ct": true,
+        "liu": {
+          "ready": true,
+          "meshes": 2,
+          "parts": [
+            "cord",
+            "dura"
+          ],
+          "ct_links_after_switch": 0
+        },
+        "served": {
+          "web/app.js": "d77de3b299fc8af358e6c5fd2c785b22f3a8f19aa89f27a713d40be7c22b11a0",
+          "web/styles.css": "b2bd335332cb0c2fbad671d9542000c544603817acbd29f55683b120f9cd3660",
+          "web/radiology-detailed-anatomy.js": "a79e9d10587c9daf702300a5b4b98880cab26313290b4106b9ac9f6340ed8160",
+          "web/anatomy/verse521/ct-reference.js": "30f82f5a0ef534ce44bfbe40961220abc6487fd426f9af914622ef79c0177890",
+          "web/anatomy/verse521/ct-reference.html": "ba233548f596f627b4fe56ce103962f2bc2bff0fcf692f1348abfdd9aa134e45",
+          "web/anatomy/verse521/manifest.json": "bec358ea3b471e16492d59b6ffffe45f56ed1f4c946dc5315842dcf626c7c0f0",
+          "web/anatomy/liu-lumbosacral-sub03/manifest.json": "4cff725f9f0d3a2bf0f29782889fb16fd6ea92d3e210cdcca2d80fbf4370c12b"
+        },
+        "native_files_served_identical_to_reviewed": true,
+        "served_app_js_is_current": true,
+        "served_styles_css_is_current": true,
+        "page_errors": [],
+        "failed_requests": [],
+        "horizontal_overflow": false
+      },
+      {
+        "width": 390,
+        "verse_meshes": 17,
+        "levels": [
+          {
+            "level": "T1",
+            "selected": "T1 · source label 8",
+            "links": [
+              "/app/anatomy/verse521/ct-reference.html?level=T1"
+            ],
+            "ok": true
+          },
+          {
+            "level": "T2",
+            "selected": "T2 · source label 9",
+            "links": [
+              "/app/anatomy/verse521/ct-reference.html?level=T2"
+            ],
+            "ok": true
+          },
+          {
+            "level": "T3",
+            "selected": "T3 · source label 10",
+            "links": [
+              "/app/anatomy/verse521/ct-reference.html?level=T3"
+            ],
+            "ok": true
+          },
+          {
+            "level": "T4",
+            "selected": "T4 · source label 11",
+            "links": [
+              "/app/anatomy/verse521/ct-reference.html?level=T4"
+            ],
+            "ok": true
+          },
+          {
+            "level": "T5",
+            "selected": "T5 · source label 12",
+            "links": [
+              "/app/anatomy/verse521/ct-reference.html?level=T5"
+            ],
+            "ok": true
+          },
+          {
+            "level": "T6",
+            "selected": "T6 · source label 13",
+            "links": [
+              "/app/anatomy/verse521/ct-reference.html?level=T6"
+            ],
+            "ok": true
+          },
+          {
+            "level": "T7",
+            "selected": "T7 · source label 14",
+            "links": [
+              "/app/anatomy/verse521/ct-reference.html?level=T7"
+            ],
+            "ok": true
+          },
+          {
+            "level": "T8",
+            "selected": "T8 · source label 15",
+            "links": [
+              "/app/anatomy/verse521/ct-reference.html?level=T8"
+            ],
+            "ok": true
+          },
+          {
+            "level": "T9",
+            "selected": "T9 · source label 16",
+            "links": [
+              "/app/anatomy/verse521/ct-reference.html?level=T9"
+            ],
+            "ok": true
+          },
+          {
+            "level": "T10",
+            "selected": "T10 · source label 17",
+            "links": [
+              "/app/anatomy/verse521/ct-reference.html?level=T10"
+            ],
+            "ok": true
+          },
+          {
+            "level": "T11",
+            "selected": "T11 · source label 18",
+            "links": [
+              "/app/anatomy/verse521/ct-reference.html?level=T11"
+            ],
+            "ok": true
+          },
+          {
+            "level": "T12",
+            "selected": "T12 · source label 19",
+            "links": [
+              "/app/anatomy/verse521/ct-reference.html?level=T12"
+            ],
+            "ok": true
+          },
+          {
+            "level": "L1",
+            "selected": "L1 · source label 20",
+            "links": [
+              "/app/anatomy/verse521/ct-reference.html?level=L1"
+            ],
+            "ok": true
+          },
+          {
+            "level": "L2",
+            "selected": "L2 · source label 21",
+            "links": [
+              "/app/anatomy/verse521/ct-reference.html?level=L2"
+            ],
+            "ok": true
+          },
+          {
+            "level": "L3",
+            "selected": "L3 · source label 22",
+            "links": [
+              "/app/anatomy/verse521/ct-reference.html?level=L3"
+            ],
+            "ok": true
+          },
+          {
+            "level": "L4",
+            "selected": "L4 · source label 23",
+            "links": [
+              "/app/anatomy/verse521/ct-reference.html?level=L4"
+            ],
+            "ok": true
+          },
+          {
+            "level": "L5",
+            "selected": "L5 · source label 24",
+            "links": [
+              "/app/anatomy/verse521/ct-reference.html?level=L5"
+            ],
+            "ok": true
+          }
+        ],
+        "all_levels_link_their_own_ct": true,
+        "liu": {
+          "ready": true,
+          "meshes": 2,
+          "parts": [
+            "cord",
+            "dura"
+          ],
+          "ct_links_after_switch": 0
+        },
+        "served": {
+          "web/app.js": "d77de3b299fc8af358e6c5fd2c785b22f3a8f19aa89f27a713d40be7c22b11a0",
+          "web/styles.css": "b2bd335332cb0c2fbad671d9542000c544603817acbd29f55683b120f9cd3660",
+          "web/radiology-detailed-anatomy.js": "a79e9d10587c9daf702300a5b4b98880cab26313290b4106b9ac9f6340ed8160",
+          "web/anatomy/verse521/ct-reference.js": "30f82f5a0ef534ce44bfbe40961220abc6487fd426f9af914622ef79c0177890",
+          "web/anatomy/verse521/ct-reference.html": "ba233548f596f627b4fe56ce103962f2bc2bff0fcf692f1348abfdd9aa134e45",
+          "web/anatomy/verse521/manifest.json": "bec358ea3b471e16492d59b6ffffe45f56ed1f4c946dc5315842dcf626c7c0f0",
+          "web/anatomy/liu-lumbosacral-sub03/manifest.json": "4cff725f9f0d3a2bf0f29782889fb16fd6ea92d3e210cdcca2d80fbf4370c12b"
+        },
+        "native_files_served_identical_to_reviewed": true,
+        "served_app_js_is_current": true,
+        "served_styles_css_is_current": true,
+        "page_errors": [],
+        "failed_requests": [],
+        "horizontal_overflow": false
+      }
+    ]
+  },
+  "guarded_paths_sha256": {
+    "data/radiology/source-anatomy-references.json": "7d40217e0d19e7181ac2305eb278d7fc917e103614753d07bdd1278c46b2aa53",
+    "web/anatomy/liu-lumbosacral-sub03/manifest.json": "4cff725f9f0d3a2bf0f29782889fb16fd6ea92d3e210cdcca2d80fbf4370c12b",
+    "web/anatomy/verse521/ct-reference.html": "ba233548f596f627b4fe56ce103962f2bc2bff0fcf692f1348abfdd9aa134e45",
+    "web/anatomy/verse521/ct-reference.js": "30f82f5a0ef534ce44bfbe40961220abc6487fd426f9af914622ef79c0177890",
+    "web/anatomy/verse521/manifest.json": "bec358ea3b471e16492d59b6ffffe45f56ed1f4c946dc5315842dcf626c7c0f0",
+    "web/radiology-detailed-anatomy.js": "a79e9d10587c9daf702300a5b4b98880cab26313290b4106b9ac9f6340ed8160",
+    "web/speech-chunks.js": "e742231ae27413d51e969f1391af355403453d1365da2ec9eeb94c4a5794dc50"
+  },
+  "uterine_compatibility_amendments": {
+    "cervical": {
+      "path": "docs/cervical-cancer-source-review/browser-compatibility-amendment-stroke-source-case-20261011.json",
+      "sha256": "cf1ec022686dec946225097f525effe362823515168fda4ad704a5caa91ff555",
+      "capture_count": 16,
+      "source_contract_sha256": "3507bb32e0d1063267f28aa0b00ba8dbd90a9adda1ca92e12b402ad8ede1084d"
+    },
+    "endometrial": {
+      "path": "docs/endometrial-cancer-source-review/browser-compatibility-amendment-stroke-source-case-20261011.json",
+      "sha256": "973279ee5d5c3a0067dee71fef8ed62fea9c2d5287f397c8fd792e24b2db5f79",
+      "capture_count": 20,
+      "source_contract_sha256": "4863d5cdbc3c69e94f2c2768cec6193468f0e90dc2b745c15b8aae376326794f"
+    }
+  }
+}

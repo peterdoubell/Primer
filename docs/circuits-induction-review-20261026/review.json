@@ -1,0 +1,30 @@
+{
+  "scope": [
+    "phys.2.electricity",
+    "phys.3.em"
+  ],
+  "baseCommit": "3f04127f67a52173a12aa141031bfac1a12cb142",
+  "originalAssessmentQuestionsPreserved": 20,
+  "reader": {
+    "path": "reader-smoke/proof.json",
+    "allPassed": true,
+    "stationCases": 20,
+    "presetSpeechCases": 126,
+    "controlBoundaryCases": 284,
+    "coordinateChecks": 3678920,
+    "productionVerified": false
+  },
+  "numericalProofs": [
+    "current-core-proof.json",
+    "current-extensions-proof.json",
+    "current-pipe-proof.json"
+  ],
+  "limits": [
+    "All stations use the explicitly declared idealized physical domains.",
+    "Pipe motion uses a low-speed resistive-current approximation; it is not the full diffusion solution.",
+    "Spark model is attachment-free with explicit coefficient-fit extrapolation diagnostics, not real-air discharge validation.",
+    "Separate existing companion models do not share the workbench state."
+  ],
+  "wholePhysicsComplete": false,
+  "wholeGoalComplete": false
+}

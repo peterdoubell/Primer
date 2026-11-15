@@ -1,0 +1,135 @@
+{
+  "schema_version": 1,
+  "bindings": [
+    "ra.mri-epilepsy"
+  ],
+  "inspector": {
+    "id": "spl-epilepsy-temporal-ventricular-source-context",
+    "modality": "Native MRI and categorical temporal/ventricular source boundaries",
+    "coordinate_context": "source-native-mri-and-separate-label-grid-in-declared-RAS",
+    "title": "Temporal and ventricular context in original SPL MRI",
+    "src": "/app/anatomy/spl-epilepsy-context/index.html",
+    "manifest_url": "/app/anatomy/spl-epilepsy-context/manifest.json",
+    "sha256": "8844b0523f24cf20681ae986aa751e270166dd2ffd910617b68952902b83487c",
+    "manifest_sha256": "3411a7ac20f249849c82a9c59cdcdf664a57bb3598277643796f55848f778779",
+    "caption": "Inspect 18 selected source classes for temporal and periventricular context, including paired lateral ventricular spaces, temporal horns, whole source white matter and selected temporal parcels. Native T1/T2, source-label overlays and original categorical-cell boundaries share the declared source affines. Ventricular-wall layers, complete sulcal/grey\u2013white anatomy, hippocampal subdivisions and migration/dysplastic lesions remain unverified or absent. Other source relationship groups remain available; their presence grants no complete reporting coverage.",
+    "attribution": "SPL-PNL/NAC Brain Atlas: Michael Halle, Florin Talos, Marianna Jakab, Nikos Makris, Dominic Meier, Laurence Wald, Bruce Fischl, Ron Kikinis and collaborators. Source commit bec24db25aad5f7600e2df3becfb1f883e61ff56. Original native MRI and categorical label samples are retained. Primer\u2019s marked adaptation derives exact label-cell boundaries and adds grouped native-image relationship controls, preserving source components without fitted registration or cleanup. Full original source notices and licensing terms accompany the reference. Additional marked adaptation, 2026-11-01: focused temporal/ventricular source-context selection and paired initial views; original sample and boundary payloads are unchanged.",
+    "source_url": "https://www.openanatomy.org/atlas-pages/atlas-spl-nac-brain.html",
+    "publication_url": "https://github.com/mhalle/spl-brain-atlas/tree/bec24db25aad5f7600e2df3becfb1f883e61ff56",
+    "license": "3D Slicer Contribution and Software License Agreement v1.0, Part B and applicable Part C",
+    "license_url": "https://www.openanatomy.org/atlas-pages/slicer-license.html",
+    "source_grain": {
+      "kind": "single-subject anatomical research atlas",
+      "subject_count": 1,
+      "MRI": "native 0.75 mm T1/T2",
+      "categorical_labels": "separate native 1 mm Int16 grid",
+      "selected_label_classes": 217,
+      "additional_source_classes": 205,
+      "generated_boundary_payload_sets": 207,
+      "reused_boundary_payload_sets": 10,
+      "default_surface": "exact categorical voxel-cell boundaries",
+      "separately_labelled_CA_fields_or_subiculum": false,
+      "initial_context_codes": [
+        4,
+        43,
+        5,
+        44,
+        2,
+        41,
+        1001,
+        2001,
+        1009,
+        2009,
+        1015,
+        2015,
+        1030,
+        2030,
+        1033,
+        2033,
+        1034,
+        2034
+      ],
+      "initial_context_label_classes": 18,
+      "all_available_source_label_classes": 217,
+      "ventricular_wall_layers_separately_labelled": false,
+      "hippocampal_subdivisions_separately_labelled": false,
+      "epilepsy_pathology_validated": false
+    },
+    "source_grant": {
+      "publisher_explicitly_applies_license_to_data": true,
+      "terms_url": "/app/anatomy/spl-nac-limbic/LICENSE.txt",
+      "attribution_url": "/app/anatomy/spl-nac-limbic/ATTRIBUTION.txt",
+      "marked_derived_version": true,
+      "reuse_terms": "Part B permits proprietary incorporation subject to all license conditions; retain the full terms, required Brigham notice, applicable third-party notices and research-use/clinical-application language. No institutional endorsement is implied."
+    },
+    "bound_source_ids": [
+      "spl-epilepsy-temporal-ventricular-source-context"
+    ],
+    "clinical_approval": false,
+    "fine_anatomical_approval": false,
+    "current_patient_registration": false,
+    "normal_anatomical_atlas_approval": false,
+    "complete_reporting_anatomy_approved": false
+  },
+  "source_manifest_sha256": "b5b1666410a9ee367bff1d4556afb128e44d41ae339b73660b2191c7a46789d3",
+  "source_payloads_changed": false,
+  "files": {
+    "index.html": {
+      "bytes": 6779,
+      "sha256": "8844b0523f24cf20681ae986aa751e270166dd2ffd910617b68952902b83487c"
+    },
+    "manifest.json": {
+      "bytes": 1276339,
+      "sha256": "3411a7ac20f249849c82a9c59cdcdf664a57bb3598277643796f55848f778779"
+    }
+  },
+  "runtime_manifest": {
+    "path": "data/radiology/spl-epilepsy-context-manifest.json.gz",
+    "bytes": 118292,
+    "sha256": "cbc349d5bf584a65921092d4c63309bf32e8d845c3c798805de8b756da92954b",
+    "decodedBytes": 1276339,
+    "decodedSHA256": "3411a7ac20f249849c82a9c59cdcdf664a57bb3598277643796f55848f778779"
+  },
+  "context_group": {
+    "id": "epilepsy-temporal-ventricular-context",
+    "title": "Temporal and ventricular source context",
+    "activity": "Compare lateral ventricular spaces and temporal horns, adjacent source white matter and selected temporal parcels in native T1/T2 and exact categorical-cell boundaries. Start with the left and right lateral ventricular classes, then choose a source class or retained component and inspect all three native planes.",
+    "codes": [
+      4,
+      43,
+      5,
+      44,
+      2,
+      41,
+      1001,
+      2001,
+      1009,
+      2009,
+      1015,
+      2015,
+      1030,
+      2030,
+      1033,
+      2033,
+      1034,
+      2034
+    ],
+    "missing_or_unresolved_structures": [
+      "Ventricular classes depict source-labelled spaces, not separately segmented ependymal or ventricular-wall layers.",
+      "Temporal-pole classes do not segment the adjacent middle-cranial-fossa floor or demonstrate an encephalocele/skull-base defect.",
+      "The selected temporal parcels are not the complete cortex, cortical ribbon or fine hippocampal head/body/tail architecture.",
+      "Source gyral labels do not delineate separately acquired sulcal curves or every grey\u2013white biological boundary.",
+      "Heterotopia, focal cortical dysplasia and transmantle lesions are not supplied or validated by these reference labels.",
+      "The same-source limbic and separate fine-architecture references retain their own subject, registration and label-granularity limits."
+    ],
+    "semantic_limits": [
+      "A whole source white-matter class supplies spatial context, not tract connectivity or a validated cortex-to-ventricle lesion path.",
+      "No normal-population range, current-patient registration, diagnostic accuracy or complete epilepsy reporting coverage is established."
+    ],
+    "clinical_approval": false,
+    "requirement_complete": false,
+    "completeReportingRequirementApproved": false
+  },
+  "clinicalApproval": false,
+  "wholeGoalComplete": false
+}

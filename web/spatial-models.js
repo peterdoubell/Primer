@@ -24,11 +24,12 @@
     return '#' + [1, 3, 5].map(i => Math.round(clamp(parseInt(hex.slice(i, i + 2), 16) * light,
       0, 255)).toString(16).padStart(2, '0')).join('');
   }
-  function geometry() {
+  function geometry(limit = 3000) {
+    if (!Number.isSafeInteger(limit) || limit < 1 || limit > 50000) throw new Error('Invalid 3D primitive budget');
     const primitives = [];
     function add(kind, points, color, options = {}) {
       if (!points.every(finitePoint)) throw new Error('Non-finite 3D geometry');
-      if (primitives.length >= 3000) throw new Error('3D scene exceeds geometry limit');
+      if (primitives.length >= limit) throw new Error('3D scene exceeds geometry limit');
       primitives.push({ kind, points, color, ...options });
     }
     const g = {
@@ -75,6 +76,7 @@
     return { g, primitives };
   }
   function normalizeState(spec, supplied = {}) {
+    if (typeof spec.normalize === 'function') return spec.normalize({...spec.initial, ...supplied});
     const state = { ...spec.initial };
     spec.controls.forEach(control => {
       const value = Object.prototype.hasOwnProperty.call(supplied, control.key) ? supplied[control.key] : state[control.key];
@@ -83,8 +85,9 @@
       } else {
         const numeric = Number(value);
         if (Number.isFinite(numeric)) {
-          const stepped = control.min + Math.round((numeric - control.min) / control.step) * control.step;
-          state[control.key] = Number(clamp(stepped, control.min, control.max).toFixed(8));
+          const stepped = control.preserveExact ? numeric : control.min + Math.round((numeric - control.min) / control.step) * control.step;
+          const clipped = clamp(stepped, control.min, control.max);
+          state[control.key] = control.preserveExact ? clipped : Number(clipped.toFixed(8));
         }
       }
     });
@@ -93,7 +96,11 @@
   function build(id, supplied) {
     if (!Object.prototype.hasOwnProperty.call(scenes, id)) return null;
     const spec = scenes[id], state = normalizeState(spec, supplied);
-    const { g, primitives } = geometry();
+    const trustedQft = id === 'module.phys.5.qft' && spec.familyId === 'qft-observable-geometry'
+      && spec.linkedStateKey === 'phys.5.qft' && state.mode === 'casimir';
+    const trustedRotation = id === 'module.phys.5.frontier' && spec.familyId === 'rotation-density-geometry';
+    const limit = trustedRotation ? 40000 : trustedQft ? 50000 : 3000;
+    const { g, primitives } = geometry(limit);
     const explanation = spec.build(state, g);
     return { state, primitives, ...explanation };
   }
@@ -119,9 +126,9 @@
     const bounds = current.primitives.filter(p => p.kind !== 'label').flatMap(p =>
       p.points.flatMap(point => p.radius ? [-1, 1].map(sign => point.map(v => v + sign * p.radius)) : [point]));
     const center = [0, 1, 2].map(axis =>
-      (Math.min(...bounds.map(p => p[axis])) + Math.max(...bounds.map(p => p[axis]))) / 2);
-    const radius = Math.max(.1, ...current.primitives.filter(p => p.kind !== 'label')
-      .flatMap(p => p.points.map(v => length(subtract(v, center)) + (p.radius || 0))));
+      (bounds.reduce((v,p)=>Math.min(v,p[axis]),Infinity) + bounds.reduce((v,p)=>Math.max(v,p[axis]),-Infinity)) / 2);
+    const radius = current.primitives.filter(p => p.kind !== 'label').reduce((r,p)=>
+      p.points.reduce((v,point)=>Math.max(v,length(subtract(point,center))+(p.radius||0)),r),.1);
     const root = element('section', { class: 'card lesson-model spatial-model',
       'data-renderer': 'spatial-3d', 'data-scenario': id, 'aria-labelledby': uid + '-title' });
     const heading = element('div', { class: 'model-heading-row' });
@@ -146,10 +153,12 @@
       const requestedScale = 175 / radius * camera.zoom;
       const extents = current.primitives.filter(p => p.kind !== 'label')
         .flatMap(p => p.points.map(point => ({ point: rotate(subtract(point, center), camera), radius: p.radius || 0 })));
-      const fitScale = Math.min(282 / Math.max(.1, ...extents.map(p => Math.abs(p.point[0]) + p.radius)),
-        192 / Math.max(.1, ...extents.map(p => Math.abs(p.point[1]) + p.radius)));
+      const fitScale = Math.min(282 / extents.reduce((v,p)=>Math.max(v,Math.abs(p.point[0])+p.radius),.1),
+        192 / extents.reduce((v,p)=>Math.max(v,Math.abs(p.point[1])+p.radius),.1));
       const scale = camera.zoom <= 1 ? Math.min(requestedScale, fitScale) : requestedScale;
       const project = p => { const r = rotate(subtract(p, center), camera); return [300 + r[0] * scale, 210 - r[1] * scale, r[2]]; };
+      const cropped = extents.some(p => (Math.abs(p.point[0]) + p.radius) * scale > 300 + 1e-8 ||
+        (Math.abs(p.point[1]) + p.radius) * scale > 210 + 1e-8);
       const group = element('g', {}, null, true);
       const labels = [];
       // A curve can pass both in front of and behind a surface. Sorting an entire
@@ -189,11 +198,15 @@
       labels.sort((a, b) => a.projected[0][1] - b.projected[0][1]).forEach(p => {
         const [anchorX, anchorY] = p.projected[0];
         const width = Math.min(560, p.text.length * 16), height = 28;
+        // Search around an on-screen origin even when zoom moves the source
+        // anchor off-screen; otherwise every candidate clamps to one edge.
+        const originX = clamp(anchorX, width / 2 + 12, 588 - width / 2);
+        const originY = clamp(anchorY, height + 12, 408);
         let best, bestScore = Infinity;
         for (const dy of [0, -34, 34, -68, 68, -102, 102, -136, 136]) {
           for (const dx of [0, -48, 48, -96, 96]) {
-            const x = clamp(anchorX + dx, width / 2 + 12, 588 - width / 2);
-            const y = clamp(anchorY + dy, height + 12, 408);
+            const x = clamp(originX + dx, width / 2 + 12, 588 - width / 2);
+            const y = clamp(originY + dy, height + 12, 408);
             const box = { left: x - width / 2, right: x + width / 2, top: y - height, bottom: y + 5 };
             const overlaps = placed.filter(other => box.left < other.right + 5 && box.right + 5 > other.left &&
               box.top < other.bottom + 5 && box.bottom + 5 > other.top).length;
@@ -212,8 +225,10 @@
       });
       svg.replaceChildren(element('title', {}, item.title, true), group);
       orientation.textContent = 'Turn ' + Math.round(camera.yaw) + '° · Tilt ' + Math.round(camera.pitch) +
-        '° · Zoom ' + Math.round(camera.zoom * 100) + '%' + (scale < requestedScale ? ' · Auto-fit' : '');
+        '° · Zoom ' + Math.round(camera.zoom * 100) + '%' + (scale < requestedScale ? ' · Auto-fit' : '') +
+        (cropped ? ' · Cropped view; zoom out to inspect all geometry.' : '');
       root.dataset.view = [camera.yaw, camera.pitch, camera.zoom].join(',');
+      root.dataset.cropped = String(cropped);
     }
     function changeView(yaw, pitch, zoom, announce = true) {
       camera = { yaw: ((yaw + 180) % 360 + 360) % 360 - 180,
@@ -221,10 +236,19 @@
       draw();
       if (announce) status.textContent = orientation.textContent + '. ' + current.readout;
     }
-    function refresh(announce) {
+    function refresh(announce, fromShared = false) {
       current = build(id, current.state);
-      parameterControls.forEach(({ input, output, control }) => {
+      parameterControls.forEach(({ input, output, control, label }) => {
+        const matches = conditions => Object.entries(conditions).every(([key, values]) => values.includes(current.state[key]));
+        const visible = (!control.visibleWhen || matches(control.visibleWhen)) &&
+          (!control.visibleWhenAny || control.visibleWhenAny.some(matches));
+        label.hidden = !visible;
+        label.style.display = visible ? '' : 'none';
+        input.disabled = !visible;
         input.value = current.state[control.key];
+        if (control.optionEnabled && input.options) Array.from(input.options).forEach(option => {
+          option.disabled = !control.optionEnabled(current.state, option.value);
+        });
         if (output) {
           output.textContent = current.state[control.key] + (control.unit || '');
           input.setAttribute('aria-valuetext', output.textContent);
@@ -240,8 +264,13 @@
       }));
       draw();
       if (announce) status.textContent = current.readout;
+      if (announce && !fromShared && spec.linkedStateKey) window.PrimerLessonStateBus?.publish(spec.linkedStateKey, root, current.state);
     }
     spec.controls.forEach(control => {
+      const exactIntegerControl = id === 'module.math.4.numtheory' && spec.familyId === 'number-theory-exact-traces'
+        && spec.linkedStateKey === 'math.4.numtheory' && control.exactInteger === true
+        && window.PrimerMathNumberTheoryLab?.controls.some(c => c.key === control.key
+          && c.min === control.min && c.max === control.max && c.exactInteger === true);
       const label = element('label', { class: 'spatial-parameter', for: uid + '-' + control.key });
       const title = element('span', {}, control.label);
       let input, output;
@@ -252,15 +281,36 @@
         output = element('output', { for: uid + '-' + control.key });
         title.append(output);
         input = element('input', { id: uid + '-' + control.key, type: 'range', min: control.min,
-          max: control.max, step: control.step, 'data-parameter': control.key });
+          max: control.max, step: control.preserveExact ? 'any' : control.step, 'data-parameter': control.key });
+        if (control.numericInput) {
+          input.type = exactIntegerControl ? 'text' : 'number';
+          input.style.width = '100%'; input.style.minWidth = '0'; input.style.minHeight = '42px';
+        }
       }
       const update = () => {
-        current.state[control.key] = control.options ? input.value : Number(input.value);
+        if (exactIntegerControl && !control.integerValidator?.(input.value)) {
+          input.setAttribute('aria-invalid', 'true');
+          status.textContent = 'Enter an exact integer from ' + control.min + ' to ' + control.max + '. The last accepted state is retained.';
+          return;
+        }
+        input.removeAttribute('aria-invalid');
+        if (control.numericInput && !exactIntegerControl && (input.value.trim() === '' || !Number.isFinite(Number(input.value)))) {
+          input.value = current.state[control.key];
+          return;
+        }
+        // Native selects stringify values; recover the authored number/string type.
+        current.state[control.key] = control.options
+          ? (control.options.find(option => String(option.value) === input.value)?.value ?? input.value)
+          : exactIntegerControl ? input.value : Number(input.value);
         refresh(true);
       };
-      input.addEventListener(control.options ? 'change' : 'input', update);
+      input.addEventListener(control.options || control.numericInput ? 'change' : 'input', update);
+      if (control.numericInput) input.addEventListener('keydown', event => {
+        if (event.key === 'Enter') {event.preventDefault(); update();}
+        if (event.key === 'Escape') {event.preventDefault(); input.value = current.state[control.key];}
+      });
       label.append(title, input); controls.append(label);
-      parameterControls.set(control.key, { input, output, control });
+      parameterControls.set(control.key, { input, output, control, label });
     });
     const cameraButtons = element('div', { class: 'model-button-row spatial-camera-controls',
       role: 'group', 'aria-label': '3D camera controls' });
@@ -320,11 +370,12 @@
     root.append(heading, instructions, canvas, help, cameraButtons, controls, legend, readout, note, status);
     refresh(false);
     // Values pass through the same validation as the visible controls.
-    root.setModelState = (values, announce = false) => {
+    root.setModelState = (values, announce = false, fromShared = false) => {
       if (!values || typeof values !== 'object') return;
       Object.assign(current.state, values);
-      refresh(announce);
+      refresh(announce, fromShared);
     };
+    if (spec.linkedStateKey) window.PrimerLessonStateBus?.join(spec.linkedStateKey, root, values => root.setModelState(values, true, true));
     return root;
   }
   window.PrimerSpatial = Object.freeze({

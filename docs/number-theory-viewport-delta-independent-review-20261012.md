@@ -1,0 +1,7 @@
+The bounded semantic viewport delta passes: **2 tests in 0.53 seconds**, covering **32 callback cases** at 390- and 1000-pixel viewport widths. The [receipt](number-theory-viewport-delta-independent-review-20261012.json) pins the current source, preserves the exact before-source, and records the initial failure.
+
+Page changes, active mathematical edits, graph shrinkage and mode changes now reveal a current source card. Actual 3D peer math/page controls are included. Identical replays, inactive inputs, null/unknown updates, invalid commits, duplicate page/peer commits and observer redraws preserve manual offsets. Home reveals the current source; End reveals a real final card. Actual emitted SVG card bounds establish visibility in this controlled fixture, and focus, graph and accepted state remain intact.
+
+The signed scientific [receipt](number-theory-semantic-diagram-independent-review-20261012.json) remains byte-identical at `d75d4b3224094124a8f0f723cf37034ffe90b8bfcac6ad8b5d874fa073a68dfc`. All thirteen other product source pins match it. The complete graph/window prefix and spatial suffix are unchanged, and exactly two inverse replacements reconstruct the reviewed before-source byte for byte. Only viewport state, first/last-card selection and scroll navigation changed.
+
+This reviewer used no server or browser and performed no release or Git mutation. Browser timing, responsive layout and whole-goal approval remain outside this bounded acceptance.

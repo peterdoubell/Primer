@@ -1,0 +1,21 @@
+.math-algebra-lab { min-width: 0; }
+.math-algebra-lab [hidden] { display: none !important; }
+.math-algebra-lab .model-range-control select, .math-algebra-lab input[type="number"] { min-width: 0; min-height: 44px; width: 100%; }
+.math-algebra-lab input[type="range"] { min-width: 0; min-height: 44px; width: 100%; }
+.math-algebra-lab .algebra-controls { grid-template-columns: repeat(3,minmax(0,1fr)); }
+.math-algebra-lab .algebra-panels { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: 12px; margin-top: 18px; }
+.math-algebra-lab .algebra-viewport { min-width: 0; overflow: auto; background: #f5efdf; border-radius: 10px; }
+.math-algebra-lab .algebra-viewport svg { display: block; width: 100%; height: auto; font-family: var(--sans,sans-serif); }
+.math-algebra-lab.is-enlarged .algebra-viewport svg { width: 920px; min-width: 920px; max-width: none; }
+.math-algebra-lab .algebra-table-region { overflow: auto; max-width: 100%; margin: 18px 0; }
+.math-algebra-lab .algebra-ledger { min-width: 660px; width: 100%; font-size: 14px; border-collapse: collapse; }
+.math-algebra-lab .algebra-ledger caption { text-align: left; margin: 8px 0; }
+.math-algebra-lab .algebra-ledger th, .math-algebra-lab .algebra-ledger td { padding: 9px 7px; text-align: left; border-bottom: 1px solid var(--line,#d5cfbf); overflow-wrap: anywhere; }
+.math-algebra-lab .algebra-ledger td:nth-child(2) { max-width: 280px; }
+.math-algebra-lab .algebra-proof, .math-algebra-lab .algebra-proof-steps { padding: 12px; border-left: 3px solid #317e78; }
+.math-algebra-lab .algebra-proof-steps { padding-left: 35px; }
+.math-algebra-lab .algebra-proof-steps li { margin: 9px 0; }
+.math-algebra-lab .algebra-proof-steps .is-highlighted { background: #ede2c8; font-weight: 600; }
+.math-algebra-lab .algebra-fixtures button { min-height: 44px; }
+@media (max-width:900px) { .math-algebra-lab .algebra-controls { grid-template-columns: repeat(2,minmax(0,1fr)); } }
+@media (max-width:760px) { .math-algebra-lab .algebra-panels, .math-algebra-lab .algebra-controls { grid-template-columns: minmax(0,1fr); } }

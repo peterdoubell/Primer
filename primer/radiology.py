@@ -86,6 +86,9 @@ def _reporting_catalog(nodes):
     for identifier in identifiers:
         validate_reporting_guide(references[identifier])
         model = models[identifier]
+        if 'source_native_only' in model and (identifier != 'rad.4.pulmonary-nodule'
+                or model['source_native_only'] is not True):
+            raise ValueError('Native-only model requires its reviewed pulmonary source binding')
         if model.get("scenario") != "radiology-reference:" + identifier or any(
                 not isinstance(model.get(key), str) or not model[key].strip()
                 for key in ("id", "title", "instructions", "family")):
@@ -97,6 +100,22 @@ def validate_image_source(url):
     """Keep image loading confined to the curated publishers and local plates."""
     if not isinstance(url, str) or not url:
         raise ValueError("Radiology image needs a source")
+    open_prefix = '/app/reference-media/radiology-open/'
+    if url.startswith(open_prefix):
+        # Reuse the already reviewed original-raster registry; a local prefix
+        # alone cannot turn an arbitrary file into a clinical source example.
+        registry = _read('radiology-static-rasters.json')
+        record = registry.get('files', {}).get(url)
+        relative = url.removeprefix(open_prefix)
+        if (registry.get('schema_version') != 1 or not record
+                or any(part in ('', '.', '..') for part in relative.split('/'))
+                or '%' in url or '\\' in url
+                or Path(relative).suffix.lower() not in ('.jpg', '.jpeg', '.png', '.webp')):
+            raise ValueError('Unknown reviewed open radiology source figure')
+        from .source_raster_integrity import verified_raster_header
+        verified_raster_header(dict(record, src=url),
+            DATA.parents[1] / 'web/reference-media/radiology-open', DATA)
+        return
     source_prefix = '/app/reference-media/source-figures/'
     if url.startswith(source_prefix):
         # A locally preserved publisher figure must be explicitly registered
@@ -298,6 +317,16 @@ def attach_references(nodes):
             placeholder.update(copy.deepcopy(asset))
             if reference["reading"] and not placeholder.get("source_url"):
                 placeholder["source_url"] = reference["reading"][0]["url"]
+        if reference['spatial_model'].get('source_native_only') is True:
+            # This reviewed case supplies actual CT/reader masks in its native
+            # inspector; legacy remote slots and generic lobes imply no coverage.
+            from .source_native_inspectors import references as native_inspectors
+            inspectors = native_inspectors().get('ra.ct-pulmonary-nodules')
+            if node['id'] != 'rad.4.pulmonary-nodule' or not inspectors:
+                raise ValueError('Native-only pulmonary lesson lacks its registered source')
+            reference['source_native_only'] = True
+            reference['source_native_inspectors'] = copy.deepcopy(inspectors)
+            reference['key_images'] = []
         validate_reference(reference)
         node["radiology_reference"] = reference
         node["reference_count"] = len(reference["reading"])

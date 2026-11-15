@@ -1,0 +1,99 @@
+{
+  "date": "2026-10-12",
+  "reviewer": "/root/number_theory_full_fidelity/number_theory_oracle",
+  "result": "pass_for_scoped_viewport_delta",
+  "whole_goal_complete": false,
+  "browser_reader_approval": false,
+  "scope": "Bounded semantic-renderer scroll correspondence and actual emitted SVG-card visibility in an independent DOM fixture; no server, browser, release, Git mutation or broader scientific reapproval.",
+  "scientific_receipt": {
+    "path": "docs/number-theory-semantic-diagram-independent-review-20261012.json",
+    "sha256": "d75d4b3224094124a8f0f723cf37034ffe90b8bfcac6ad8b5d874fa073a68dfc",
+    "immutable_historical": true
+  },
+  "baseline_diagram_source": {
+    "path": "docs/number-theory-viewport-delta-independent-review-20261012/number-theory-diagrams.before.js",
+    "sha256": "917dda2cf025b742b2a8d7e22e24c1c595ff39248c8e5afc1c8eaa1b4edfa296"
+  },
+  "unchanged_reviewed_source_sha256": {
+    "web/math-number-theory-lab.js": "9fe41fadf21a6e3f45dfa8460a2047c105f1bd9c54336fdbb7788f887ffe2dff",
+    "web/math-number-theory-lab.css": "db798a53a201da02313129d6db78f69075edfe22d96dadd457a4d42bf046f4d5",
+    "web/number-theory-diagrams.css": "1ec79ccb2f7a5f2caf275dffda8428af11fb416882f47faf9a3e3f971d006a5a",
+    "web/spatial-number-theory-relations.js": "be4f38746f52e1c543c75825a1a3a5bf997df2e2f2b2c962376a6960467f2922",
+    "web/spatial-number-theory.js": "3afdb28c7dbbad92c85fc83578275d3134d9c4f80a35f9035b337b873e9fde67",
+    "web/spatial-models.js": "3fec71f2b3d9d6a3fb6b2840181baccb06954b54b83b633344a25e9d2a5431c3",
+    "web/spatial-module-objects.js": "54ce7bdabc20ae919a211b6df6ec2e02e0ff148a58bd5e99742eb80fc78727a7",
+    "web/lesson-state.js": "aac296f9901ed929474ba2f76d781f3bca8cf2ed5b79d039c71974451cfaa8d8",
+    "web/lesson-models.js": "1bb6c0b79c2aa7ed3b8226d843e9fb15b7600ac304cbb26345a27f0e2e8a6a00",
+    "web/index.html": "9b9889fe9959d754b55e66b5ff041a05bfeaa293eaf12f6e12384760d638718d",
+    "primer/curriculum.py": "b1bb47374010b5cd4ec8802049f6368467b0a05fb671f289140ce4d869da2343",
+    "data/module-models.json": "aefa6d198d77fe3b2a3df7e6ed3acb33d4c11e2e03f5a78ed5847127ade404ed",
+    "data/curriculum/01-mathematics.json": "22e72a36850f61ee9e392c9097d53012121de530c8ec2ab9413467798005e9e5"
+  },
+  "unchanged_semantic_prefix_sha256": "660a1d4a5b67669b0753ce98018cd5dde18013036447377b3415d84419bec4ed",
+  "unchanged_spatial_suffix_sha256": "34d464fe73788be2459c1a3997f86b971e2a568232e02003cf6c21aba50509dc",
+  "current_diagram_source_sha256": "4e8a1a03726fa2fa543681564e4323027a375100c3f4e7f9af9b56ad8476ed92",
+  "viewport_oracle_sha256": "a971965fa6c02afd4f3134a8767cb3c6abb8bd350d82ed1e3c5a2927a2ed32c5",
+  "preserved_fixture": {
+    "path": "docs/number-theory-viewport-delta-independent-review-20261012/test_number_theory_diagrams.before.py",
+    "sha256": "49fe15e0765a804a5e3b17e4a6a454f58f40614b9ec7854ecaf28a17f62023d5"
+  },
+  "pre_patch_observation": {
+    "test_result": "1 failed,1 deselected in0.43s",
+    "changed_graph_cases_with_no_visible_current_source": 8,
+    "mobile_example": {
+      "change": "page17 to page16",
+      "retained_offset": [
+        660,
+        454
+      ],
+      "current_source_cards_x_bounds": [
+        28,
+        212
+      ]
+    },
+    "unchanged_graph_scroll_preservation": "Passed identical replay, null, invalid, inactive-control, page replay, peer replay and observer callback cases before first changed-graph failure."
+  },
+  "required_behavior": [
+    "Mode/page/active mathematical inputs changing the diagram restore a meaningful current-node view without moving focus.",
+    "Identical graph redraws, inactive inputs, invalid commits, null/unknown updates and duplicate peer updates preserve manual scrolling.",
+    "Home reveals the current-page source and End reveals a real final card without changing graph or accepted state."
+  ],
+  "validation": {
+    "runtime": "/Users/peter/Documents/ChatGPT/Primer/.research/runtime-grade-py312-20261008/bin/python",
+    "command": "/Users/peter/Documents/ChatGPT/Primer/.research/runtime-grade-py312-20261008/bin/python -m pytest tests/test_number_theory_diagram_viewport.py -q",
+    "status": "passed_final_bounded_viewport_delta",
+    "tests_passed": 2,
+    "elapsed_seconds": 0.53
+  },
+  "source_delta_inverse_replacements": [
+    {
+      "old_literal": "  function render(item,hooks){const lab=getLab();let view;const wrappedHooks=hooks?.speakButton?{...hooks,speakButton:(getText,label)=>hooks.speakButton(()=>getText()+(view?' '+speech(view):''),label)}:hooks,root=lab.render(item,wrappedHooks);if(!root)return null;let page=0,mathState=JSON.parse(root.getAttribute('data-nt-state'));const box=el('section',{class:'nt-semantic-view','aria-label':'Mathematical relationships'}),heading=el('h4',{},'See the mathematical relationships'),controls=el('div',{class:'nt-diagram-actions'}),label=el('label',{},'Diagram page ',el('input',{type:'number',min:0,max:10000,step:1,'data-nt-diagram-page':'','aria-label':'Diagram page (first page is zero)'})),pageInput=label.querySelector('input'),status=el('p',{class:'nt-diagram-status',role:'status','aria-live':'polite'}),svg=sn('svg',{role:'img','data-nt-semantic-svg':''}),viewport=el('div',{class:'nt-semantic-viewport',tabindex:0,role:'region','aria-label':'Exact mathematical diagram; scroll to every labeled relationship'},svg),list=el('ol',{class:'nt-semantic-relations'}),details=el('details',{open:''},el('summary',{},'Every relation on this diagram page'),list),witness=el('pre',{class:'nt-diagram-witness'}),witnessDetails=el('details',{},el('summary',{},'Exact edge witnesses and complete sets on this page'),witness),note=el('p',{class:'spatial-note'});controls.append(label);for(const[text,delta]of[['Previous diagram page',-1],['Next diagram page',1]]){const b=el('button',{type:'button',class:'btn ghost small','data-nt-diagram-next':delta},text);b.addEventListener('click',()=>setPage(view.page+delta,true));controls.append(b);}box.append(heading,controls,status,viewport,details,witnessDetails,note);root.querySelector('.nt-panels').before(box);\n    viewport.addEventListener('keydown',event=>{const actions={ArrowDown:()=>viewport.scrollBy({top:120}),ArrowUp:()=>viewport.scrollBy({top:-120}),ArrowRight:()=>viewport.scrollBy({left:120}),ArrowLeft:()=>viewport.scrollBy({left:-120}),PageDown:()=>viewport.scrollBy({top:viewport.clientHeight*.8}),PageUp:()=>viewport.scrollBy({top:-viewport.clientHeight*.8}),Home:()=>viewport.scrollTo({top:0,left:0}),End:()=>viewport.scrollTo({top:viewport.scrollHeight-viewport.clientHeight,left:viewport.scrollWidth-viewport.clientWidth})};if(actions[event.key]){event.preventDefault();actions[event.key]();}});\n",
+      "new_literal": "  function render(item,hooks){const lab=getLab();let view;const wrappedHooks=hooks?.speakButton?{...hooks,speakButton:(getText,label)=>hooks.speakButton(()=>getText()+(view?' '+speech(view):''),label)}:hooks,root=lab.render(item,wrappedHooks);if(!root)return null;let page=0,viewportSignature=null,mathState=JSON.parse(root.getAttribute('data-nt-state'));const box=el('section',{class:'nt-semantic-view','aria-label':'Mathematical relationships'}),heading=el('h4',{},'See the mathematical relationships'),controls=el('div',{class:'nt-diagram-actions'}),label=el('label',{},'Diagram page ',el('input',{type:'number',min:0,max:10000,step:1,'data-nt-diagram-page':'','aria-label':'Diagram page (first page is zero)'})),pageInput=label.querySelector('input'),status=el('p',{class:'nt-diagram-status',role:'status','aria-live':'polite'}),svg=sn('svg',{role:'img','data-nt-semantic-svg':''}),viewport=el('div',{class:'nt-semantic-viewport',tabindex:0,role:'region','aria-label':'Exact mathematical diagram; scroll to every labeled relationship'},svg),list=el('ol',{class:'nt-semantic-relations'}),details=el('details',{open:''},el('summary',{},'Every relation on this diagram page'),list),witness=el('pre',{class:'nt-diagram-witness'}),witnessDetails=el('details',{},el('summary',{},'Exact edge witnesses and complete sets on this page'),witness),note=el('p',{class:'spatial-note'});controls.append(label);for(const[text,delta]of[['Previous diagram page',-1],['Next diagram page',1]]){const b=el('button',{type:'button',class:'btn ghost small','data-nt-diagram-next':delta},text);b.addEventListener('click',()=>setPage(view.page+delta,true));controls.append(b);}box.append(heading,controls,status,viewport,details,witnessDetails,note);root.querySelector('.nt-panels').before(box);\n    function firstCurrentCard(){const current=view.nodes.filter(n=>!n.context&&(view.page===0||n.group>=view.groupStart&&n.group<view.groupEnd));const pool=current.length?current:view.nodes;return [...pool].sort((a,b)=>view.page===0?(view.position(a)[1]-a.cardHeight/2)-(view.position(b)[1]-b.cardHeight/2)||a.col-b.col:a.group-b.group||a.col-b.col||(view.position(a)[1]-a.cardHeight/2)-(view.position(b)[1]-b.cardHeight/2))[0];}\n    function showCard(n,end=false){if(!n)return;const[x,y]=view.position(n),halfWidth=n.kind==='unit_dot'?7:92,maxLeft=Math.max(0,viewport.scrollWidth-viewport.clientWidth),maxTop=Math.max(0,viewport.scrollHeight-viewport.clientHeight);viewport.scrollTo({left:Math.max(0,Math.min(maxLeft,x-halfWidth-32)),top:Math.max(0,Math.min(maxTop,end?y+n.cardHeight/2-viewport.clientHeight+24:y-n.cardHeight/2-32)),behavior:'instant'});}\n    function showLastCard(){showCard([...view.nodes].sort((a,b)=>(view.position(b)[1]+b.cardHeight/2)-(view.position(a)[1]+a.cardHeight/2)||a.col-b.col)[0],true);}\n    viewport.addEventListener('keydown',event=>{const actions={ArrowDown:()=>viewport.scrollBy({top:120}),ArrowUp:()=>viewport.scrollBy({top:-120}),ArrowRight:()=>viewport.scrollBy({left:120}),ArrowLeft:()=>viewport.scrollBy({left:-120}),PageDown:()=>viewport.scrollBy({top:viewport.clientHeight*.8}),PageUp:()=>viewport.scrollBy({top:-viewport.clientHeight*.8}),Home:()=>showCard(firstCurrentCard()),End:()=>showLastCard()};if(actions[event.key]){event.preventDefault();actions[event.key]();}});\n"
+    },
+    {
+      "old_literal": "",
+      "new_literal": "      const signature=JSON.stringify({mode:mathState.mode,page,active:Object.fromEntries(lab.controls.filter(c=>c.modes.includes(mathState.mode)).map(c=>[c.key,mathState[c.key]]))});if(signature!==viewportSignature){viewportSignature=signature;showCard(firstCurrentCard());}\n"
+    }
+  ],
+  "coverage": {
+    "viewport_widths": [
+      390,
+      1000
+    ],
+    "actual_callback_cases": 32,
+    "changed_graph_cases": 12,
+    "unchanged_graph_cases": 18,
+    "home_end_pairs": 2,
+    "native_3d_peer_math_page_and_replay": true,
+    "actual_svg_card_visibility": true,
+    "focus_preservation": true,
+    "unchanged_graph_state_during_home_end": true
+  },
+  "evidence_boundaries": [
+    "The controlled DOM executes actual event handlers and compares actual emitted card/circle bounds with the scroll window; it does not establish browser layout, native scroll timing or responsive reader approval.",
+    "The prior scientific receipt is immutable historical evidence. Exact byte correspondence covers the solver, all thirteen other pinned product files, graph/window prefix, spatial suffix and the explicitly reviewed two inverse-reconstructable renderer changes.",
+    "The preserved scientific oracle fixture supplies only the DOM harness for this bounded test; historical scroll-coordinate assertions are not carried forward as the new behavior requirement.",
+    "No arithmetic graph, solver, mathematical IDs, values, relations, lesson domain, state bus or other-family renderer change is accepted by this delta.",
+    "This is scoped viewport acceptance, not a release or whole-goal approval."
+  ]
+}

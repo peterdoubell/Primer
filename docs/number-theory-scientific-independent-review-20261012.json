@@ -1,0 +1,276 @@
+{
+  "date": "2026-10-12",
+  "reviewer": "/root/number_theory_full_fidelity/number_theory_oracle",
+  "implementation_owner": "/root/number_theory_full_fidelity",
+  "result": "pass_for_scoped_number_theory_lesson",
+  "whole_goal_complete": false,
+  "browser_reader_approval": false,
+  "mechanical_verification_of_infinite_theorems": false,
+  "scope": "Authored math.4.numtheory scientific content, integer algorithms, local DOM output and actually emitted categorical geometry. No server, browser, production delivery, RFC-compliant key generation or cryptographic security certification.",
+  "reviewed_source_sha256": {
+    "web/math-number-theory-lab.js": "a674ecf1aeab236e9696c92ee0443e116e5619e0bfa50c4e90b200355a5a86c1",
+    "web/math-number-theory-lab.css": "db798a53a201da02313129d6db78f69075edfe22d96dadd457a4d42bf046f4d5",
+    "web/spatial-number-theory.js": "3afdb28c7dbbad92c85fc83578275d3134d9c4f80a35f9035b337b873e9fde67",
+    "web/spatial-models.js": "3fec71f2b3d9d6a3fb6b2840181baccb06954b54b83b633344a25e9d2a5431c3",
+    "web/spatial-module-objects.js": "54ce7bdabc20ae919a211b6df6ec2e02e0ff148a58bd5e99742eb80fc78727a7",
+    "web/lesson-state.js": "aac296f9901ed929474ba2f76d781f3bca8cf2ed5b79d039c71974451cfaa8d8",
+    "web/lesson-models.js": "b80239d48b0d834d3e9ac7671fed7a9e784e79734f16a6ea1b1333fc22055d98",
+    "web/index.html": "940ea7c993cafda9a3a4ad4af8fdfdcbab4a9fb919d28f4464d34c10ba1b6457",
+    "primer/curriculum.py": "b1bb47374010b5cd4ec8802049f6368467b0a05fb671f289140ce4d869da2343",
+    "data/module-models.json": "055ad980303642e7746ca5d772ee93a33c10ebc3095301d2603f15265ec36e7b"
+  },
+  "reviewed_lesson_semantic_sha256": "d1b369e236411888749e592be43cf97ae462cfc006d33523adfa463e9f4dc437",
+  "oracle_source": {
+    "path": "tests/test_math_number_theory_lab.py",
+    "sha256": "9d81aca03e072c46f74851908489e6d33d33a5b70c6cb41e2b1e9f132f369cec"
+  },
+  "quiz_mapping": [
+    {
+      "number": 1,
+      "station": "division",
+      "verified_requirement": "17 mod 5 = 2"
+    },
+    {
+      "number": 2,
+      "station": "gcd",
+      "verified_requirement": "gcd(48,36) = 12"
+    },
+    {
+      "number": 3,
+      "station": "product",
+      "verified_requirement": "7×8 mod 5 = 1"
+    },
+    {
+      "number": 4,
+      "station": "powers",
+      "verified_requirement": "2^100 mod 7 = 2"
+    },
+    {
+      "number": 5,
+      "station": "inverse",
+      "verified_requirement": "3 inverse mod 7 = 5"
+    },
+    {
+      "number": 6,
+      "station": "rsa",
+      "verified_requirement": "Public factoring recovers a working private exponent"
+    },
+    {
+      "number": 7,
+      "station": "powers",
+      "verified_requirement": "7^2023 mod 10 = 3"
+    },
+    {
+      "number": 8,
+      "station": "lemma",
+      "verified_requirement": "6 divides 2×3 but neither factor"
+    },
+    {
+      "number": 9,
+      "station": "totient",
+      "verified_requirement": "All eight units below 20"
+    },
+    {
+      "number": 10,
+      "station": "theorem",
+      "verified_requirement": "5^12 mod 13 = 1 with the prime/nondivisibility hypotheses"
+    }
+  ],
+  "station_mapping": [
+    {
+      "station": "division",
+      "scope": "Unique nonnegative integer quotient/remainder, negative inputs and congruence definition"
+    },
+    {
+      "station": "product",
+      "scope": "Complete integer products and compatibility of residue representatives"
+    },
+    {
+      "station": "gcd",
+      "scope": "Signed and zero inputs, each Euclid division and each original-input Bezout coefficient pair"
+    },
+    {
+      "station": "inverse",
+      "scope": "Necessary and sufficient gcd condition, canonical inverse and nonunit absence"
+    },
+    {
+      "station": "powers",
+      "scope": "Each bit/factor/accumulator invariant, enormous exponents, declared empty-product convention, unit cycles and nonunit prefixes"
+    },
+    {
+      "station": "primes",
+      "scope": "Bounded exact prime factorization and a separate quantified infinitude argument; product-plus-one need not be prime"
+    },
+    {
+      "station": "lemma",
+      "scope": "Prime-divisor implication, composite counterexample, arbitrary integer factors and stronger gcd cancellation"
+    },
+    {
+      "station": "totient",
+      "scope": "Complete unit sets, exact counts and distinct-prime factors; disclosed first64 diagram representatives"
+    },
+    {
+      "station": "theorem",
+      "scope": "Euler coprimality, Fermat primality/nondivisibility, all-base variant and composite pseudoprimes"
+    },
+    {
+      "station": "rsa",
+      "scope": "Distinct prime factors, invertible exponent, canonical message range, every residue including nonunits, actual public factor recovery and insecurity"
+    }
+  ],
+  "independent_methods": {
+    "division": "Python arbitrary-precision divmod with canonical remainder; does not call JavaScript mod",
+    "gcd_inverse": "Python math.gcd, direct original-input coefficient substitution and exhaustive inverse candidate sets for small moduli",
+    "powers": "Python three-argument pow; trace factors independently computed as pow(a,2^i,n), accumulator invariants and complete small-period sequence enumeration",
+    "factorization": "Enumerate prime divisors of the original integer with all possible small divisor certificates, independently of shrinking odd-only runtime trial division",
+    "totient_theorems": "Complete Python gcd-based unit sets and direct modular powers, with separate checks of the theorem application text",
+    "rsa": "Python pow and public-only integer factor sets for six keys; exhaustive messages and working private exponent recovery",
+    "geometry": "Inspect actual emitted sphere/line points; reconstruct per-field stable categories and expected row/field/slot coordinates without trusting adapter panel coordinates",
+    "dom": "Execute render against an instrumented DOM and compare actual caption/header/body cells, ledgers, controls and speech with independently checked models",
+    "input_gate": "Execute actual shared spatial runtime in isolated vm instances with controlled scenes; observe actual input type and post-commit value type, rather than source-string assertions"
+  },
+  "coverage": {
+    "division_states": 7842,
+    "integer_product_states": 10573,
+    "signed_euclid_traces": 3723,
+    "inverse_states": 3161,
+    "binary_power_traces": 5819,
+    "cycle_states": 344,
+    "factorization_states": 503,
+    "totient_states": 200,
+    "euclid_infinitude_finite_lists": 6,
+    "lemma_states": 5491,
+    "theorem_states": 667,
+    "rsa_keys": [
+      [
+        5,
+        11,
+        3
+      ],
+      [
+        61,
+        53,
+        17
+      ],
+      [
+        11,
+        17,
+        7
+      ],
+      [
+        2,
+        3,
+        5
+      ],
+      [
+        3,
+        5,
+        3
+      ],
+      [
+        2,
+        251,
+        3
+      ]
+    ],
+    "rsa_all_message_round_trips": 3998,
+    "rsa_nonunit_messages": 418,
+    "invalid_rsa_states": 5,
+    "declared_control_endpoints": 44,
+    "mounted_companion_states": 54,
+    "native_enter_endpoint_commits": 44,
+    "spatial_states": 60,
+    "actual_spatial_cells": 2419,
+    "actual_spatial_directed_transitions": 230,
+    "actual_spatial_direction_arrows": 230,
+    "shared_input_gate_cases": 7,
+    "raw_or_field_invalid_normalization_cases": 336,
+    "explicit_helper_range_rejections": 10,
+    "unsafe_number_helper_argument_rejections": 13
+  },
+  "hard_regressions": [
+    "divmod(-17,5)=(-4,3)",
+    "9007199254740993 mod97=33",
+    "Complete 60-digit products, signed gcd coefficients and 200-bit exponent traces",
+    "2^340 mod341=1 although341=11×31",
+    "2^560 mod561=1 although561=3×11×17",
+    "2^phi(20) mod20=16 with failed coprimality",
+    "13^12 mod13=0 with failed Fermat nondivisibility",
+    "p=q=2 is invalid RSA without a crash",
+    "Zero/prime-divisible RSA representatives round-trip",
+    "Consecutive Fibonacci numbers below10^60 produce a long exact Euclid trace with disclosed3D omissions"
+  ],
+  "resolved_findings": [
+    {
+      "id": "NT-01",
+      "finding": "normalize(null), build(null) and snapshot(null) could throw before normalization.",
+      "resolution": "Owner added nonobject/null/array fallback; independent raw input regressions pass."
+    },
+    {
+      "id": "NT-02",
+      "finding": "inverse with modulus0/1 and cycle with modulus1 accepted undefined or noncanonical helper domains.",
+      "resolution": "Owner requires modulus>=2 in both helpers; independent direct RangeError regressions pass. Invalid p=q=2 RSA now avoids passing formula1 into inverse."
+    },
+    {
+      "id": "NT-03",
+      "finding": "Exported helpers could convert an already-rounded unsafe Number to BigInt even though the normalizer rejected that input type.",
+      "resolution": "Owner added a narrow exact conversion guard before BigInt. Independent direct tests reject unsafe Numbers in all13 argument positions across mod/euclid/inverse/power/cycle/factorize/totient, while safe Numbers and complete decimal strings retain correct behavior."
+    }
+  ],
+  "open_scientific_findings": [],
+  "preserved_review_failures": [
+    {
+      "kind": "reviewer_assertion_error",
+      "observed": "First expanded run:9 passed,1 failed,1 deselected.",
+      "reason": "The reviewer used an unjustified coverage minimum of5000 cells/500 edges. Every per-cell and per-edge reconstruction passed; actual fixture totals were2419 cells/230 edges.",
+      "correction": "Replaced the guessed minimum with exact declared fixture totals:60 states,2419 cells,230 transitions and230 arrows. Product source was not changed for this correction."
+    },
+    {
+      "kind": "assembly_timing",
+      "observed": "Owner independently ran the suite while the receipt was still being written:10 passed,1 failed.",
+      "reason": "The sole failing check could not find the pending review receipt.",
+      "correction": "Receipt was published, and the reviewer subsequently ran the then-current11 checks successfully in5.63seconds before adding the final helper precision regression."
+    }
+  ],
+  "representation_boundaries": [
+    "Only first40 rows per3D table are drawn; total/visible/omitted counts agree, full companion tables and exact ledger retain the calculations.",
+    "Only first64 positive totient representatives are diagrammed; the full unit list is retained and independently checked.",
+    "Categorical row/field/value-slot coordinates are layout indices, not integer magnitude, distance or cryptographic difficulty.",
+    "Trial factorization is exact only within its stated2..1000000 helper bound; theorem/totient UI bounds are2..10000.",
+    "The toy permits prime2 and exponents beyond the RFC public-key range for elementary round-trip arithmetic; it is not an RFC-conformance or secure-key validator.",
+    "Infinite theorem proofs were read for quantified logic and hypotheses; finite tests do not establish these theorems or security."
+  ],
+  "primary_references": [
+    {
+      "url": "https://people.csail.mit.edu/meyer/number_theory-edit.pdf",
+      "checked": "Division, gcd, Bezout and modular inverses"
+    },
+    {
+      "url": "https://people.maths.ox.ac.uk/flynn/genus2/partanumbertheory/notes.pdf",
+      "checked": "Prime definitions/divisor lemma, totient, Euler/Fermat and Fermat pseudoprimes"
+    },
+    {
+      "url": "https://tc39.es/ecma262/multipage/ecmascript-data-types-and-values.html#sec-bigint-remainder",
+      "checked": "Exact BigInt and signed/truncating remainder semantics"
+    },
+    {
+      "url": "https://people.csail.mit.edu/rivest/pubs/RSA78.pdf",
+      "checked": "SectionVI handles every message representative using the separate prime-modulus argument"
+    },
+    {
+      "url": "https://www.rfc-editor.org/rfc/rfc8017.html",
+      "checked": "Sections3,5,7:lambda-based keys, message range, primitives and encoded schemes"
+    },
+    {
+      "url": "https://cs.stanford.edu/people/dabo/pubs/abstracts/no_rsa_red.html",
+      "checked": "No asserted general RSA-inversion/factoring equivalence"
+    }
+  ],
+  "validation": {
+    "runtime": "/Users/peter/Documents/ChatGPT/Primer/.research/runtime-grade-py312-20261008/bin/python",
+    "command": "/Users/peter/Documents/ChatGPT/Primer/.research/runtime-grade-py312-20261008/bin/python -m pytest tests/test_math_number_theory_lab.py -q",
+    "status": "passed",
+    "tests_passed": 12,
+    "duration_seconds": 6.48
+  }
+}

@@ -17,8 +17,22 @@
   --ink-locked: #6d594f;  /* muted but AA: locked tiles are still operable */
   --rule: #cbb7a4;
   --shadow: rgba(48, 22, 18, 0.2);
-  --serif: "Iowan Old Style", "Palatino Linotype", Palatino, "Book Antiqua", Georgia, serif;
-  --sans: "Optima", "Segoe UI", -apple-system, system-ui, sans-serif;
+  /* One family, two cuts. The book was set in three unrelated faces — an old-
+     style serif for text and headings, Optima for captions, a mono for
+     measures — and the seams showed on every screen. It is now the
+     platform's own UI superfamily throughout: SF Pro with SF Mono on Apple
+     devices (drawn as a pair), Segoe UI or Roboto elsewhere. --serif is kept
+     as a role name — "the reading face" — so every rule that asks for it
+     still resolves, and now resolves to the same family as everything else. */
+  --sans: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  --serif: var(--sans);
+  /* The instrument face. The serif is the book's voice and the sans its
+     captions; this third face is reserved for what the book *measures* —
+     indices, counts, statuses, running heads — set uppercase and tracked, the
+     way a catalogue card or a launcher states a fact. System faces only: the
+     book has to open offline, and every platform ships a good mono. */
+  --mono: "SF Mono", ui-monospace, "JetBrains Mono", "Cascadia Mono", Menlo, Consolas, "Liberation Mono", monospace;
+  --track: 0.12em;
   --focus: #1f5fbf;
   --paper-hi: #faf5ee;
   --field: #fffaf3;
@@ -42,9 +56,13 @@
      card, sheet — nudged a hair rounder, which is where a corner stops reading
      as machined and starts reading as continuous. (Absorbed from PR #3, which
      said this first and then sat unmerged while the file moved under it.) */
-  --r-ctl: 10px;          /* buttons, inputs, choices, nav pills, tiles */
-  --r-card: 14px;         /* cards, quest items, the tutor's replies */
-  --r-sheet: 18px;        /* modals and full panels */
+  --r-ctl: 5px;           /* buttons, inputs, choices, nav pills, tiles */
+  --r-card: 6px;          /* cards, quest items, the tutor's replies */
+  --r-sheet: 10px;        /* modals and full panels */
+  /* Machined, not pillowed: the corners tightened when the book took on its
+     instrument grammar (ruled grids, indexed cards, tracked labels), because a
+     ruled table with 14px corners reads as a stack of cushions. The two
+     youngest stages keep the softer set — see the body[data-stage] rule. */
   /* One motion scale, and one spring for every press and pop. The old eases
      were flat and all slightly different; the spring overshoots by a hair and
      settles, which is what makes a control feel sprung rather than animated.
@@ -84,7 +102,8 @@
   /* The lift a hovered object takes off the page, as a token so the press can
      be its exact inverse. */
   --lift: -3px;
-  --tick-mask: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'><path d='M4.5 13l5 5L19.5 6.5'/></svg>");
+  --frontier-mask: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2.4' stroke-linejoin='round'><path d='M12 2.5l9.5 9.5-9.5 9.5L2.5 12z'/><path d='M12 8l4 4-4 4-4-4z' fill='black'/></svg>");
+  --tick-mask: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'><path d='M4.4 12.9l4.8 4.8L19.8 6.4'/></svg>");
   /* The ground of a surface that lets the page show through, blurred. Solid
      chrome stays the fallback: never translucency without the blur, which is
      just text on mud. Themed, so it carries a --dk-* partner below. */
@@ -269,8 +288,11 @@
 /* Night-reading (dark) mode — the chrome is already dark, so honor the
    viewer's preference and recolor the page to match. The theme toggle stamps
    data-theme on <html> and must win over the media query in both directions. */
+/* The operating system's preference applies only when the reader has chosen
+   nothing: a chosen palette (Day, Night, Silvertone, Slate) is never
+   overridden by it. */
 @media (prefers-color-scheme: dark) {
-  :root:not([data-theme="light"]) {
+  :root:not([data-theme]) {
     color-scheme: dark;
     --paper: var(--dk-paper); --paper-2: var(--dk-paper-2);
     --paper-edge: var(--dk-paper-edge); --paper-hi: var(--dk-paper-hi);
@@ -307,6 +329,74 @@
   }
 }
 :root[data-theme="light"] { color-scheme: light; }
+/* ---------------- Silvertone and Slate ----------------
+   Two monochrome reading palettes (first drafted in PR #101): Silvertone, a
+   light silver-grey page, and Slate, a near-black one. They change the
+   interface's paint only — no gilt, no tint, no glow, no grain, no field
+   colours — and never the source imagery, whose colours are evidence. Every
+   token the day/night palettes theme is set here, so nothing warm leaks in
+   from the parchment defaults. */
+:root[data-theme="silvertone"], :root[data-theme="slate"] {
+  --paper-grain: none; --leather-grain: none; --page-texture: none;
+  --shell-bg: none; --seam: none; --gilt: none;
+  --glow-soft: 0 0 0 transparent; --glow-strong: 0 0 0 transparent; --tile-glow: 0 0 0 transparent;
+  --hi: rgb(255 255 255 / 18%); --lo: rgb(0 0 0 / 15%);
+  --emboss: inset 0 1px 0 var(--hi), inset 0 -1px 0 var(--lo);
+  --well: inset 0 1px 3px rgb(0 0 0 / 15%);
+  --fore-edge: inset -14px 0 22px -16px rgb(0 0 0 / 18%);
+  --board-edge: inset -1px 0 0 rgb(0 0 0 / 20%);
+  --surface-light: rgb(255 255 255 / 20%); --surface-shade: rgb(0 0 0 / 10%);
+  --control-relief: inset 0 1px 0 rgb(255 255 255 / 20%), inset 0 -2px 0 rgb(0 0 0 / 18%);
+  --gold: var(--accent); --gold-ink: var(--ink); --gold-bright: var(--ink);
+  --accent-2: var(--accent); --green: var(--accent); --green-ink: var(--ink);
+  --link: var(--ink); --heading-accent: var(--ink); --focus: var(--ink);
+  --ink-locked: var(--ink-faint); --ink-place: var(--ink-faint);
+  --tint-green: var(--tint-info); --tint-gold: var(--tint-info);
+  --tint-gold-strong: var(--chrome-active); --tint-info-soft: var(--tint-info);
+  --tint-wrong: var(--tint-info); --domain-lift: 0%;
+  --btn-gold-fill: var(--btn-fill); --btn-gold-ink: var(--btn-ink);
+  --chrome-hi: var(--chrome-ink); --chrome-ink-soft: var(--chrome-ink);
+  --chrome-ink-dim: var(--ink-faint); --chrome-rule: var(--edge);
+  --panel-bg: var(--chrome-bg); --glass: var(--paper);
+  --sk-sheen: var(--paper-hi); --img-glare: none;
+}
+:root[data-theme="silvertone"] {
+  color-scheme: light;
+  --paper: #f2f2f2; --paper-2: #e5e5e5; --paper-hi: #fafafa;
+  --paper-edge: #c4c4c4; --rule: #c4c4c4; --edge: #858585;
+  --ink: #242424; --ink-soft: #454545; --ink-faint: #595959;
+  --accent: #555555; --on-fill: #ffffff;
+  --field: #ffffff; --field-hi: #fafafa;
+  --shadow: rgb(0 0 0 / 18%); --scrim: rgb(0 0 0 / 55%);
+  --shell-base: #dedede; --chrome-bg: linear-gradient(#e4e4e4, #d4d4d4);
+  --chrome-ink: #292929; --chrome-hover: rgb(0 0 0 / 7%);
+  --chrome-active: rgb(0 0 0 / 13%); --tint-info: rgb(0 0 0 / 6%);
+  --btn-fill: linear-gradient(#535353, #363636); --btn-ink: #ffffff;
+  --img-invert: none;
+}
+:root[data-theme="slate"] {
+  color-scheme: dark;
+  --paper: #121212; --paper-2: #1b1b1b; --paper-hi: #181818;
+  --paper-edge: #363636; --rule: #363636; --edge: #777777;
+  --ink: #eeeeee; --ink-soft: #cdcdcd; --ink-faint: #b0b0b0;
+  --accent: #c4c4c4; --on-fill: #202020;
+  --field: #151515; --field-hi: #232323;
+  --shadow: rgb(0 0 0 / 40%); --scrim: rgb(0 0 0 / 72%);
+  --shell-base: #080808; --chrome-bg: linear-gradient(#131313, #0c0c0c);
+  --chrome-ink: #eeeeee; --chrome-hover: rgb(255 255 255 / 8%);
+  --chrome-active: rgb(255 255 255 / 16%); --tint-info: rgb(255 255 255 / 7%);
+  --btn-fill: linear-gradient(#dddddd, #bbbbbb); --btn-ink: #202020;
+  --img-invert: invert(1) hue-rotate(180deg);
+}
+/* Field colours are inline (from the curriculum), so the monochrome palettes
+   have to say so louder: subject plates and marks turn to the palette grey. */
+:root:is([data-theme="silvertone"], [data-theme="slate"]) :is(.domain-tag, .domain-head .ic, .qa-head .ic) {
+  background: var(--accent) !important; color: var(--on-fill);
+}
+:root:is([data-theme="silvertone"], [data-theme="slate"]) :is(.visual-model-mark, .lesson-index) {
+  --dc: var(--accent) !important;
+}
+
 :root[data-theme="dark"] {
   color-scheme: dark;
     --paper: var(--dk-paper); --paper-2: var(--dk-paper-2);
@@ -481,7 +571,7 @@ button { font-family: var(--sans); cursor: pointer; }
    and left the last control hard against the bottom edge at short heights. */
 .statrow { display: flex; flex-direction: column; gap: 6px; }
 #sidebar .stat {
-  font-family: var(--sans); font-size: 13px; color: var(--chrome-ink-dim);
+  font-family: var(--mono); font-size: 13px; line-height: 1.65; color: var(--chrome-ink-dim);
   background: rgba(0,0,0,0.2); border-radius: 8px; padding: 8px 10px;
   box-shadow: inset 0 1px 3px rgba(0,0,0,.25), 0 1px 0 var(--chrome-rule);
   display: flex; justify-content: space-between; gap: 10px;
@@ -513,7 +603,7 @@ button { font-family: var(--sans); cursor: pointer; }
 }
 @keyframes fade { from { opacity: 0; transform: translateY(6px);} to {opacity:1; transform:none;} }
 .pagehead { border-bottom: 2px solid var(--rule); padding-bottom: 12px; margin-bottom: 24px; }
-.pagehead .kicker { font-family: var(--sans); font-size: 13px; text-transform: uppercase; letter-spacing: 2px; color: var(--gold-ink); font-weight: 700; }
+.pagehead .kicker { font-family: var(--mono); font-size: 12.5px; text-transform: uppercase; letter-spacing: var(--track); color: var(--gold-ink); font-weight: 600; }
 .pagehead h2 { font-size: 34px; margin: 4px 0 0; font-weight: 500; }
 .pagehead p { color: var(--ink-soft); margin: 6px 0 0; font-size: 15px; }
 .dropcap::first-letter {
@@ -544,12 +634,17 @@ button { font-family: var(--sans); cursor: pointer; }
    tactile half of the hover lift, without which a card feels like glass. */
 .lesson-card:active { transform: translateY(-1px) scale(.995);
   box-shadow: 0 3px 8px var(--shadow); transition-duration: .06s; }
-.lesson-card .domain-tag { font-family: var(--sans); font-size: 12px; letter-spacing: 1px; text-transform: uppercase; color: var(--on-fill); padding: 2px 8px; border-radius: 20px; display: inline-block; max-width: 100%; overflow-wrap: anywhere; }
+/* A machined plate in the domain's colour (the fill is inline, from the
+   curriculum), set in the instrument face. */
+.lesson-card .domain-tag { font: 600 12.5px/1.3 var(--mono); letter-spacing: var(--track); text-transform: uppercase;
+  color: var(--on-fill); padding: 3px 8px; border-radius: 3px; display: inline-block; max-width: 100%; overflow-wrap: anywhere;
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.22), inset 0 -1px 0 rgba(0,0,0,.18); }
 /* Metadata wraps as a pair; neither label can paint over its neighbour. */
 .lesson-meta { display: flex; flex-wrap: wrap; align-items: flex-start; gap: 6px 10px; margin-bottom: 10px; }
 .lesson-card > .speak-btn { display: flex; margin: 8px 0 0 auto; }
 .lesson-card .goal { color: var(--ink-soft); font-size: 14px; }
-.lesson-card .stagepill { flex: none; margin-left: auto; white-space: nowrap; font-family: var(--sans); font-size: 12px; color: var(--ink-faint); }
+.lesson-card .stagepill { flex: none; margin-left: auto; white-space: nowrap; font: 500 12px/1.25 var(--mono);
+  letter-spacing: var(--track); text-transform: uppercase; color: var(--ink-faint); }
 
 /* ---------- lesson plates and manipulatives ----------
    Authored pictures and executable explanations share one visual chapter,
@@ -706,9 +801,19 @@ button { font-family: var(--sans); cursor: pointer; }
     linear-gradient(145deg, var(--paper-2), var(--field));
 }
 .visual-model-mark {
+  position: relative;
   flex: 0 0 auto; width: 66px; height: 66px; border: 1px solid var(--edge);
   border-radius: 50%; display: grid; place-items: center;
   background: var(--paper); color: var(--gold-ink); box-shadow: 0 4px 14px var(--shadow);
+  /* The field's colour as a second ring inside the edge. */
+  outline: 2px solid var(--dc, var(--gold)); outline-offset: -6px;
+}
+/* The field's own mark, set into the ring like a maker's stamp. */
+.visual-model-field {
+  position: absolute; right: -5px; bottom: -5px; width: 26px; height: 26px;
+  display: grid; place-items: center; border-radius: 6px;
+  background: var(--dc, var(--gold)); color: var(--on-fill);
+  box-shadow: 0 0 0 2px var(--paper), 0 2px 6px var(--shadow);
 }
 .visual-model-preview > div:last-child { min-width: 0; max-width: 440px; }
 .visual-model-preview h5 { margin: 0 0 8px; color: var(--ink); font-size: 20px; }
@@ -2239,7 +2344,12 @@ button { font-family: var(--sans); cursor: pointer; }
    as leaf catching the light. The band is a second background layer, so the
    themed fill underneath still turns to phosphor at night. */
 .btn.gold { background: var(--leather-grain), var(--gilt), var(--btn-gold-fill); color: var(--btn-gold-ink); }
-.btn.ghost { background: transparent; color: var(--link); border: 1.5px solid var(--link); box-shadow: none; }
+.btn.ghost { background: transparent; color: var(--link); border: 1px solid currentColor; box-shadow: none;
+  font-family: var(--mono); font-weight: 600; text-transform: uppercase; letter-spacing: var(--track); }
+/* Lit from inside rather than lifted: an outline control has no body to
+   raise, so hover fills it faintly with its own ink. currentColor keeps that
+   right on every surface — paper, chrome, and the gold-inked story modal. */
+.btn.ghost:hover { background: color-mix(in srgb, currentColor 10%, transparent); filter: none; }
 .btn.small { padding: 6px 12px; font-size: 13px; }
 .btn:disabled { opacity: 0.5; cursor: default; }
 
@@ -2277,8 +2387,8 @@ input[type=range]::-moz-range-thumb { width: 16px; height: 16px; border-radius: 
   box-shadow: 0 1px 4px var(--shadow), var(--glow-strong); cursor: pointer; }
 .chip-row { display: flex; flex-wrap: wrap; gap: 8px; }
 .chip {
-  font-family: var(--sans); font-size: 13px; padding: 7px 13px; border-radius: 20px;
-  border: 1.5px solid var(--rule); background: var(--field); color: var(--ink-soft);
+  font-family: var(--sans); font-size: 13px; padding: 7px 13px; border-radius: var(--r-ctl);
+  border: 1px solid var(--edge); background: var(--field); color: var(--ink-soft);
   user-select: none; box-shadow: var(--emboss);
   transition: background var(--dur-fast), color var(--dur-fast), border-color var(--dur-fast),
               box-shadow var(--dur-fast), transform var(--dur-base) var(--spring);
@@ -2286,7 +2396,7 @@ input[type=range]::-moz-range-thumb { width: 16px; height: 16px; border-radius: 
 .chip:hover { transform: translateY(-1px); }
 /* A chosen chip is pressed in, not lit up: the lit edge inverts to a shaded
    one and the lift comes off, so "on" is a state the finger can read. */
-.chip.on { background: var(--link); color: var(--on-fill); border-color: var(--link);
+.chip.on { background: var(--ink); color: var(--on-fill); border-color: var(--ink);
   box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.28); transform: none; }
 
 /* ---------- reader ---------- */
@@ -2775,7 +2885,7 @@ input::placeholder, textarea::placeholder { color: var(--ink-place); opacity: 1;
 
 .result-splash { text-align: center; padding: 40px 20px; }
 .result-splash .score { font-size: 64px; color: var(--gold); }
-.result-splash .stars { font-size: 34px; letter-spacing: 6px; }
+.result-splash .stars { font-size: 34px; display: flex; justify-content: center; gap: 8px; }
 .result-msg { font-weight: 600; color: var(--ink); }
 .result-msg-good { color: var(--green); }
 .result-msg-warn { color: var(--accent); }
@@ -2849,7 +2959,10 @@ body[data-stage="0"] .grade-row .grade-btn, body[data-stage="1"] .grade-row .gra
    raised where it has been earned, not merely recoloured. */
 .node-dot.mastered { background: var(--tint-green); border-color: var(--green); color: var(--green-ink);
   box-shadow: inset 0 1px 0 var(--tint-gold-strong); }
-.node-dot.mastered::before { content: "✓ "; }
+/* Drawn, through a mask: the tick takes the dot's own text colour. */
+.node-dot.mastered::before { content: ""; display: inline-block; width: .9em; height: .9em; margin-right: 4px;
+  vertical-align: -0.08em; background: currentColor;
+  -webkit-mask: var(--tick-mask) center / contain no-repeat; mask: var(--tick-mask) center / contain no-repeat; }
 .node-dot.locked { color: var(--ink-locked); border-color: var(--rule);
   background: var(--paper); cursor: pointer; }   /* a locked tile explains itself */
 /* The padlock, drawn to match the rest and masked so it takes the tile's own
@@ -2974,9 +3087,9 @@ body[data-stage="0"] .grade-row .grade-btn, body[data-stage="1"] .grade-row .gra
 .rad-report-editor {
   display: block; width: 100%; min-width: 0; min-height: 280px; resize: vertical;
   padding: 14px; border: 1px solid var(--edge); border-radius: 6px;
-  color: var(--ink); background: var(--paper-hi); font: 14px/1.65 ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  color: var(--ink); background: var(--paper-hi); font: 14px/var(--rad-line-height) var(--sans);
 }
-.rad-report-actions { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 12px; }
+.rad-report-actions { display: flex; flex-wrap: wrap; gap: var(--rad-control-gap); margin-top: var(--rad-control-gap); }
 .rad-report-status { min-height: 21px; margin: 10px 0 0; color: var(--ink-soft); font: 12px/1.6 var(--sans); }
 .rad-template-notes, .rad-template-sources { margin-top: 18px; font: 13px/1.6 var(--sans); }
 .rad-template-notes h4, .rad-template-sources h4 { margin: 0 0 6px; font-size: 13px; }
@@ -3416,6 +3529,11 @@ h3 > .card-open { font: inherit; color: inherit; }
 .quest-item.excused .tick { color: var(--muted); border-style: dashed; }
 .quest-item .qt { font-family: var(--sans); font-size: 14px; }
 .quest-item .qt b { display: block; font-size: 15px; color: var(--ink); }
+/* The step's status — "0 of 1 · about 9 min" — is the bare text after the
+   bold label, so the instrument face is set on the line and the label is put
+   back in the book's sans. */
+.quest-item .qt { font: 500 13px/1.45 var(--mono); color: var(--ink-soft); }
+.quest-item .qt b { font-family: var(--sans); margin-bottom: 2px; }
 .quest-crown { text-align: center; font-family: var(--sans); color: var(--gold-ink); font-weight: 700; margin-top: 4px; }
 
 /* ---------------- a day with a bottom, and a day with a tomorrow ----------
@@ -3700,10 +3818,10 @@ body[data-stage="5"] .badge { background: none; border: 1px solid currentColor;
 body[data-stage="5"] .domain-tag {
   background: none !important; color: var(--ink-soft);
   border-left: 3px solid; padding-left: 7px; border-radius: 0;
-  font-weight: 600; letter-spacing: .05em;
+  font-weight: 600; letter-spacing: .05em; box-shadow: none;
 }
 body[data-stage="5"] .seal, body[data-stage="5"] .jbadge { display: none; }
-body[data-stage="5"] .kicker { font-size: 11.5px; letter-spacing: .14em; }
+body[data-stage="5"] .kicker { font-size: 12px; letter-spacing: .14em; }
 body[data-stage="5"] .lesson-card h3 { font-size: 16px; }
 
 /* Feedback region: on the page from the start, written into as the reader
@@ -3789,7 +3907,10 @@ body[data-stage="5"] .lesson-card h3 { font-size: 16px; }
 /* The small door is a secondary action in a sentence, not a stage-sized
    primary: the per-stage .btn floors (min-height 44–52px) made it the
    loudest thing on the row. Kept at a comfortable 36px touch height. */
-body .pace-row .btn.small { min-height: 36px; padding: 6px 14px; font-size: 14px; }
+body .pace-row .btn.small { min-height: 34px; padding: 5px 12px; font-size: 14px; }
+/* In the instrument face the same words run a third wider, and this is the
+   control that was already called too big: smaller type, tighter tracking. */
+body .pace-row .btn.ghost.small { font-size: 12.5px; letter-spacing: .06em; }
 
 /* ---------------- the world coming and going ---------------- */
 /* Not an alarm. A slip of paper laid across the top of the book saying where
@@ -3859,8 +3980,9 @@ body .pace-row .btn.small { min-height: 36px; padding: 6px 14px; font-size: 14px
 /* Marked AFTER the title, never instead of the padlock: every other locked
    tile in the Atlas carries 🔒, and a frontier that quietly dropped it would
    read as "open" to the one reader most likely to try it. */
-.node-dot.frontier::after { content: " ◈"; font-style: normal; font-size: 11.5px;
-  color: var(--gold); }
+.node-dot.frontier::after { content: ""; display: inline-block; width: 11px; height: 11px; margin-left: 5px;
+  vertical-align: -0.05em; background: var(--gold);
+  -webkit-mask: var(--frontier-mask) center / contain no-repeat; mask: var(--frontier-mask) center / contain no-repeat; }
 .node-dot.frontier:hover { border-style: solid; background: var(--tint-gold); }
 
 /* ---------------- phosphor ----------------
@@ -4059,10 +4181,15 @@ kbd.key-hint { font-family: var(--sans); font-size: 11.5px; font-weight: 700;
 /* ---------------- running heads ---------------- */
 .section-label {
   display: flex; align-items: center; gap: 12px;
-  margin: 30px 0 10px; font-size: 13px; font-family: var(--sans);
-  letter-spacing: .1em; text-transform: uppercase; color: var(--gold-ink);
-  font-weight: 700;
+  margin: 30px 0 12px; font-size: 13px; font-family: var(--mono);
+  letter-spacing: var(--track); text-transform: uppercase; color: var(--gold-ink);
+  font-weight: 600; counter-increment: running-head;
 }
+/* Each running head is numbered down the page — 01 / LESSONS, 02 / WAITING —
+   so a long view has a table of contents the eye can count. */
+#page { counter-reset: running-head; }
+.section-label > span:first-child::before {
+  content: counter(running-head, decimal-leading-zero) " / "; color: var(--ink-faint); font-weight: 500; }
 /* The rule runs to the margin and fades, so it frames the section without
    boxing it in. */
 .section-label::after {
@@ -4076,12 +4203,14 @@ kbd.key-hint { font-family: var(--sans); font-size: 11.5px; font-weight: 700;
    buried in a settings page: the frame story uses it on every page. */
 .pronoun-line { font-family: var(--sans); font-size: 13.5px; color: var(--ink-faint);
   margin: -6px 0 14px; display: flex; align-items: center; gap: 6px; flex-wrap: wrap; }
-.pronoun-swap { font-family: var(--sans); font-size: 13.5px; padding: 3px 10px;
-  border-radius: 20px; border: 1px solid var(--edge); background: transparent;
+.pronoun-swap { font-family: var(--mono); font-size: 13px; padding: 5px 12px;
+  border-radius: var(--r-ctl) 0 0 var(--r-ctl); border: 1px solid var(--edge); background: transparent;
   color: var(--ink-soft); cursor: pointer; }
-.pronoun-swap:hover { border-color: var(--gold); color: var(--ink); }
-.pronoun-swap.on { background: var(--tint-gold); border-color: var(--gold);
-  color: var(--ink); font-weight: 700; }
+/* Two halves of one switch, not two pills: the second butts up against the
+   first (cancelling the row's gap) and only the outer corners are rounded. */
+.pronoun-swap + .pronoun-swap { margin-left: -7px; border-radius: 0 var(--r-ctl) var(--r-ctl) 0; }
+.pronoun-swap:hover { color: var(--ink); background: color-mix(in srgb, var(--ink) 6%, transparent); }
+.pronoun-swap.on { background: var(--ink); border-color: var(--ink); color: var(--on-fill); font-weight: 700; }
 
 /* ---------------- the picture, opened ----------------
    render.py rewrites every link it cannot resolve into `<a href="#">`, and
@@ -4155,7 +4284,7 @@ kbd.key-hint { font-family: var(--sans); font-size: 11.5px; font-weight: 700;
 .node-dot.assumed-stale { border-style: dashed; border-color: var(--edge); }
 /* Full contrast, not a faded flourish: this mark is one of the two non-colour
    carriers of the tile's state (the other is the border style). */
-.dot-mark { font-size: 12px; margin-left: 3px; }
+.dot-mark { font-size: 12px; margin-left: 4px; display: inline-flex; gap: 2px; vertical-align: -0.1em; }
 
 .atlas-filters { display: flex; flex-wrap: wrap; gap: 8px; margin: 4px 0 6px; }
 .filter-opt.picked { background: var(--paper-edge); border-color: var(--gold); }
@@ -4396,7 +4525,7 @@ body[data-stage="1"] .physics-visual-summary { font-size: 16px; }
 .ref-template {
   background: var(--field); border: 1px solid var(--rule); border-radius: 6px;
   padding: 12px 14px; margin: 0; white-space: pre-wrap; overflow-x: auto;
-  font-family: "SF Mono", "Menlo", "Consolas", ui-monospace, monospace;
+  font-family: var(--mono);
   font-size: 13.5px; line-height: 1.6; color: var(--ink);
 }
 .ref-pitfalls { margin: 0; padding-left: 1.3em; }
@@ -4481,6 +4610,16 @@ body[data-stage="1"] .physics-visual-summary { font-size: 16px; }
 }
 
 /* Radiology reporting reference — practical reference access alongside lessons. */
+:is(#page:has(.rad-reporting-desk), #page:has(.rad-desk-catalog), .radiology-reference) {
+  --sans: var(--mono);
+  --serif: var(--sans);
+  --rad-line-height: 1.65;
+  --rad-control-gap: 12px;
+  --rad-section-gap: 24px;
+  font-family: var(--sans);
+  line-height: var(--rad-line-height);
+}
+:is(#page:has(.rad-reporting-desk), #page:has(.rad-desk-catalog), .radiology-reference) :is(h2, h3, h4) { line-height: 1.35; }
 .rad-open-desk { margin: 0 0 20px; }
 .rad-reporting-desk { min-width: 0; width: 100%; max-width: 100%; }
 #page:has(.rad-reporting-desk), #page:has(.rad-desk-catalog) { min-width: 0; max-width: 100%; }
@@ -4496,13 +4635,17 @@ body[data-stage="1"] .physics-visual-summary { font-size: 16px; }
 .rad-desk-card-summary { color: var(--ink-soft); }
 .rad-desk-card-meta { margin-top: auto; padding-top: 8px; color: var(--ink-faint); font-size: 12px; }
 .rad-desk-revision { margin: -10px 0 20px; color: var(--ink-soft); font: 12px/1.5 var(--sans); }
-.rad-desk-tabs { display: flex; gap: 4px; min-width: 0; max-width: 100%; overflow-x: auto; border-bottom: 1px solid var(--edge); padding: 4px 0 8px; }
+.rad-desk-tabs { display: flex; gap: var(--rad-control-gap); min-width: 0; max-width: 100%; overflow-x: auto; border-bottom: 1px solid var(--edge); padding: 4px 4px 12px; }
 .rad-desk-tab { flex: 0 0 auto; padding: 11px 14px; border: 1px solid transparent; border-radius: 6px; background: transparent; color: var(--ink-soft); font: 600 14px/1.3 var(--sans); cursor: pointer; }
 .rad-desk-tab[aria-selected="true"] { background: var(--ink); color: var(--paper); border-color: var(--ink); }
-.rad-desk-panel { padding: 24px 0; min-width: 0; }
+.rad-desk-panel { padding: var(--rad-section-gap) 0; min-width: 0; font-size: 15px; }
 .rad-desk-panel > :is(.rad-report-templates, .rad-key-images) { border: 0; padding: 0; background: none; }
 .rad-desk-panel .lesson-media { margin-top: 10px; }
-.rad-reporting-guide { font: 15px/1.65 var(--sans); }
+.rad-reporting-start > * { margin-block: 0; }
+.rad-reporting-start > * + * { margin-top: var(--rad-section-gap); }
+.rad-reporting-start > :is(h3, h4) { line-height: 1.35; }
+.rad-reporting-start > .rad-checklist-actions { margin-top: var(--rad-control-gap); }
+.rad-reporting-guide { font: 15px/var(--rad-line-height) var(--sans); }
 .rad-reporting-guide h3 { font-family: var(--serif); margin: 0 0 12px; }
 .rad-reporting-guide li + li { margin-top: 7px; }
 .rad-protocol { padding: 15px 18px; border: 1px solid var(--rule); border-radius: 7px; background: var(--paper-2); margin-bottom: 24px; }
@@ -4513,10 +4656,11 @@ body[data-stage="1"] .physics-visual-summary { font-size: 16px; }
 .rad-check-item span > strong { display: block; }
 .rad-check-item span > span { display: block; margin-top: 4px; color: var(--ink-soft); }
 .rad-check-item:has(input:checked) { opacity: .75; }
-.rad-checklist-actions { display: flex; justify-content: space-between; align-items: center; gap: 15px; margin-top: 18px; }
+/* Wraps: three actions at a young reader's 20px type are wider than a phone. */
+.rad-checklist-actions { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: var(--rad-control-gap); margin-top: 18px; }
 .rad-checklist-status { color: var(--ink-soft); font-size: 12px; }
 .rad-table-scroll { min-width: 0; max-width: 100%; overflow-x: auto; margin: 24px 0; }
-.rad-measurement-table { width: 100%; border-collapse: collapse; font: 14px/1.55 var(--sans); }
+.rad-measurement-table { width: 100%; border-collapse: collapse; font: 14px/var(--rad-line-height) var(--sans); }
 .rad-measurement-table caption { text-align: left; margin-bottom: 12px; font: 600 22px/1.35 var(--serif); }
 .rad-measurement-table :is(th, td) { padding: 12px 14px; text-align: left; vertical-align: top; border: 1px solid var(--rule); }
 .rad-measurement-table thead { background: var(--paper-2); }
@@ -4526,6 +4670,9 @@ body[data-stage="1"] .physics-visual-summary { font-size: 16px; }
 .rad-guide-columns { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; margin: 28px 0; }
 .rad-guide-columns :is(ul, ol), .rad-escalation ul { padding-left: 21px; }
 .rad-escalation { padding: 22px; border: 1px solid var(--edge); border-radius: 8px; }
+.rad-escalation :is(h3, h4) { margin: 0 0 12px; line-height: 1.35; }
+.rad-escalation ul { margin: 0; }
+.rad-escalation li + li { margin-top: 8px; }
 .rad-desk-draft-note { color: var(--ink-faint); font-size: 12px; margin-top: 24px; }
 .rad-desk-source-list { padding-left: 20px; line-height: 1.7; }
 :is(.rad-desk-card, .rad-desk-tab, .rad-desk-panel, .rad-table-scroll):focus-visible { outline: 3px solid var(--focus); outline-offset: 3px; }
@@ -4563,12 +4710,12 @@ body[data-stage="1"] .physics-visual-summary { font-size: 16px; }
 .rad-anatomy-illustration figcaption strong { display: block; color: var(--gold-ink); }
 
 /* Step-by-step reporting: stepper, guidance with report fields, and a visual column. */
-.rad-walk { min-width: 0; font: 15px/1.6 var(--sans); }
+.rad-walk { min-width: 0; font: 15px/var(--rad-line-height) var(--sans); }
 .rad-walk-intro { display: flex; flex-wrap: wrap; align-items: flex-start; justify-content: space-between; gap: 12px 24px; margin-bottom: 18px; }
 .rad-walk-intro p { flex: 1 1 360px; margin: 0; color: var(--ink-soft); }
-.rad-walk-intro-actions { display: flex; flex-wrap: wrap; gap: 8px; }
+.rad-walk-intro-actions { display: flex; flex-wrap: wrap; gap: var(--rad-control-gap); }
 .rad-walk-stepper { min-width: 0; margin: 0 0 22px; overflow-x: auto; }
-.rad-walk-steps { display: flex; gap: 6px; margin: 0; padding: 2px 2px 8px; list-style: none; }
+.rad-walk-steps { display: flex; gap: var(--rad-control-gap); margin: 0; padding: 4px 4px 12px; list-style: none; }
 .rad-walk-steps li { flex: 0 0 auto; }
 .rad-walk-step { display: flex; align-items: center; gap: 8px; min-height: 44px; max-width: 220px; padding: 7px 12px 7px 8px; border: 1px solid var(--rule); border-radius: var(--r-ctl); background: var(--paper-2); color: var(--ink); cursor: pointer; font: 600 13px/1.3 var(--sans); text-align: left; }
 .rad-walk-step:hover { border-color: var(--gold); background: var(--paper-hi); }
@@ -4595,9 +4742,9 @@ body[data-stage="1"] .physics-visual-summary { font-size: 16px; }
 .rad-walk-report h4, .rad-walk-protocol h4, .rad-walk-route h4, .rad-walk-visual h4, .rad-walk-main .rad-escalation h4 { margin: 0 0 10px; font: 600 17px/1.35 var(--serif); }
 .rad-walk-field + .rad-walk-field { margin-top: 16px; }
 .rad-walk-field label { display: block; margin-bottom: 6px; color: var(--gold-ink); font: 600 12px/1.4 var(--sans); letter-spacing: .05em; }
-.rad-walk-editor { display: block; width: 100%; min-width: 0; padding: 10px 12px; border: 1px solid var(--edge); border-radius: 7px; background: var(--field); color: var(--ink); font: 14px/1.55 ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; resize: vertical; }
+.rad-walk-editor { display: block; width: 100%; min-width: 0; padding: 10px 12px; border: 1px solid var(--edge); border-radius: 7px; background: var(--field); color: var(--ink); font: 14px/var(--rad-line-height) var(--sans); resize: vertical; }
 .rad-walk-editor:focus-visible { outline: 3px solid var(--focus); outline-offset: 2px; }
-.rad-walk-field-actions { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 8px; }
+.rad-walk-field-actions { display: flex; flex-wrap: wrap; gap: var(--rad-control-gap); margin-top: var(--rad-control-gap); }
 .rad-walk-phrases { margin: 0 0 18px; }
 .rad-walk-phrases h5 { margin: 0 0 4px; font: 600 14px/1.4 var(--sans); }
 .rad-walk-hint { margin: 0 0 10px; color: var(--ink-soft); font-size: 13px; }
@@ -4619,7 +4766,7 @@ body[data-stage="1"] .physics-visual-summary { font-size: 16px; }
 .rad-walk-check p { margin: 6px 0 0; }
 .rad-walk-preview { background: var(--paper-hi); }
 .rad-walk-visual { min-width: 0; position: sticky; top: 12px; max-height: calc(100vh - 24px); overflow: auto; padding: 16px; border: 1px solid var(--rule); border-radius: 10px; background: var(--paper-2); }
-.rad-walk-modes { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 10px; }
+.rad-walk-modes { display: flex; flex-wrap: wrap; gap: var(--rad-control-gap); margin-bottom: var(--rad-control-gap); }
 .rad-walk-mode { min-height: 40px; padding: 7px 12px; border: 1px solid var(--edge); border-radius: var(--r-ctl); background: var(--paper); color: var(--ink); cursor: pointer; font: 600 13px/1.3 var(--sans); }
 .rad-walk-mode[aria-pressed="true"] { border-color: var(--ink); background: var(--ink); color: var(--paper); }
 .rad-walk-visual-note { margin: 0 0 12px; color: var(--ink-soft); font-size: 12px; }
@@ -4717,3 +4864,224 @@ body[data-stage="1"] .physics-visual-summary { font-size: 16px; }
 .quest-item .tick .glyph svg { width: 15px; height: 15px; }
 .story-fleuron .glyph { color: var(--gold-ink); filter: drop-shadow(var(--glow-soft)); }
 .pick-mark .glyph, .conf-mark .glyph, .sel-mark .glyph, .reader-source .glyph, .tl-epoch .yr .glyph { vertical-align: -0.12em; }
+
+/* Diagnostic decision schematic: readable in all themes and stacked on mobile. */
+.rad-quick-entry, .rad-quick-report { padding: 1rem; border: 1px solid currentColor; border-radius: .65rem; }
+.rad-quick-branches { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 1rem; margin: 1.5rem 0; }
+.rad-quick-branch { position: relative; border: 1px solid var(--border, #777); border-top: 4px solid currentColor; border-radius: .65rem; padding: 1rem; }
+.rad-quick-branch::before { content: '↓'; display: block; text-align: center; font-size: 1.4rem; }
+.rad-quick-branch h4 { margin: .5rem 0; font-size: 1.1rem; }
+.rad-quick-branch dt { font-weight: 700; margin-top: 1rem; }
+.rad-quick-branch dd { margin: .3rem 0 0; }
+.rad-quick-note { border-top: 1px solid var(--border, #777); padding-top: .8rem; font-size: .9rem; }
+.rad-quick-reference .rad-image-example img { width: 100%; height: auto; max-height: 360px; object-fit: contain; background: #fff; cursor: zoom-in; }
+@media (max-width: 1050px) { .rad-quick-branches { grid-template-columns: 1fr; } }
+.rad-reporting-sequence { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--rad-section-gap) 2.5rem; padding-left: 1.5rem; }
+.rad-reporting-sequence > li { min-width: 0; padding: .8rem; border-bottom: 1px solid var(--rule); }
+.rad-reporting-sequence > li::marker { font-weight: 700; }
+.rad-reporting-sequence p { margin: .5rem 0; }
+.rad-reporting-sequence summary { cursor: pointer; }
+.rad-reporting-diagrams img { width: 100%; height: auto; }
+@media (max-width: 760px) { .rad-reporting-sequence { grid-template-columns: 1fr; } }
+
+/* Versioned cancer staging references retain semantic tables on small screens. */
+.rad-staging-table th:first-child { min-width: 8rem; }
+.rad-staging-table td { min-width: 15rem; vertical-align: top; }
+.rad-staging-table tr[hidden] { display: none; }
+.rad-staging-illustration { margin: 1.4rem 0; }
+.rad-staging-illustration img { width: 100%; height: auto; cursor: zoom-in; }
+.rad-staging-examples { margin: 1.5rem 0; }
+.rad-staging-examples img { width: 100%; height: 240px; object-fit: contain; background: white; }
+.rad-staging-summary { padding: .8rem; border-left: 3px solid currentColor; }
+.rad-bladder-examples { margin: 24px 0; }
+.rad-bladder-examples .rad-report-actions { margin-bottom: 20px; }
+.rad-bladder-examples [aria-pressed="true"] { background: var(--ink); color: var(--paper); }
+.rad-bladder-case-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 420px), 1fr)); gap: 24px; }
+.rad-bladder-case-grid img { display: block; width: 100%; height: auto; background: #000; cursor: zoom-in; }
+.rad-bladder-case-grid figcaption { margin-top: 12px; }
+.rad-annotated-anatomy { display: grid; gap: 1rem; margin: 1.25rem 0; }
+.rad-annotated-anatomy .rad-quick-branch::before { display: none; }
+
+.rad-ct-stack { margin: 1rem 0; border: 1px solid var(--border, #777); border-radius: .6rem; padding: .7rem; }
+.rad-ct-stack summary { cursor: pointer; font-weight: 700; }
+.rad-ct-stack-stage { width: 100%; height: min(68vh, 700px); min-height: 280px; overflow: auto; background: #000; position: relative; border-radius: .4rem; }
+.rad-ct-stack-stage img { display: block; width: 100%; height: 100%; object-fit: contain; margin: 0 auto; }
+.rad-ct-stack-stage.is-zoomed img { height: auto; min-height: 100%; object-fit: initial; }
+.rad-ct-stack-stage:focus-visible { outline: 3px solid currentColor; outline-offset: 3px; }
+.rad-ct-stack-stage img.is-loading { opacity: .35; }
+.rad-ct-stack-controls { display: flex; flex-wrap: wrap; gap: .5rem; align-items: center; margin: .7rem 0; }
+.rad-ct-frame-number { width: 5rem; padding: .35rem; }
+.rad-ct-stack-slider { display: flex; gap: .8rem; align-items: center; margin: .7rem 0; }
+.rad-ct-stack-slider input { flex: 1; min-width: 0; }
+.rad-ct-stack:fullscreen { overflow: auto; background: var(--paper, #202124); color: var(--ink, #ddd); padding: 1rem; }
+.rad-ct-stack:fullscreen .rad-ct-stack-stage { height: 72vh; }
+
+/* ---------------- the instrument grammar ----------------
+   Borrowed from launcher and catalogue design: what the book measures is set
+   in the tracked mono face, collections sit in ruled grids that share their
+   hairlines, and each item in a set carries an index plate in its domain's
+   colour. The paper, the gilt and the night phosphor are untouched — this is
+   a typographic and structural layer over them, built only from existing
+   tokens so the two dark blocks are unchanged. */
+.kicker { font-family: var(--mono); font-size: 12.5px; font-weight: 600;
+  letter-spacing: var(--track); text-transform: uppercase; }
+/* The two youngest stages keep round corners and a friendly face on their
+   secondary buttons: tracked capitals are a fact-sheet voice, and a five-year-
+   old's book should not sound like one. */
+body[data-stage="0"], body[data-stage="1"] { --r-ctl: 10px; --r-card: 14px; --r-sheet: 18px; }
+body[data-stage="0"] .btn.ghost, body[data-stage="1"] .btn.ghost {
+  font-family: var(--sans); text-transform: none; letter-spacing: normal; }
+
+/* Ruled grids. A grid of lesson cards shares one hairline instead of
+   floating apart with a gutter: each cell draws all four edges and overlaps
+   its neighbours by a pixel (negative margin), which keeps a single line
+   wherever the grid wraps and needs no knowledge of the column count. Keyed
+   on :has(), so an engine without it simply keeps the gapped cards. The cell
+   edge is still --edge, so the control keeps its 3:1 boundary. */
+.grid.auto:has(> .lesson-card) { gap: 0; padding: 0 1px 1px 0; counter-reset: lesson-index; }
+.grid.auto:has(> .lesson-card) > .card { margin: 0 -1px -1px 0; border-radius: 0;
+  box-shadow: var(--surface-relief); counter-increment: lesson-index; }
+.grid.auto:has(> .lesson-card) > .card:first-child { border-top-left-radius: var(--r-card); }
+.grid.auto:has(> .lesson-card) > .card:last-child { border-bottom-right-radius: var(--r-card); }
+/* A ruled cell cannot lift out of its row without tearing the line, so hover
+   lights the cell from its top edge in gilt and the press sinks it instead. */
+.grid.auto:has(> .lesson-card) > .lesson-card:hover { transform: none; z-index: 1;
+  box-shadow: inset 0 3px 0 var(--gold), var(--surface-relief); }
+.grid.auto:has(> .lesson-card) > .lesson-card:active { transform: none;
+  box-shadow: inset 0 3px 0 var(--gold), inset 0 2px 8px var(--shadow); }
+.grid.auto:has(> .lesson-card) > .card:focus-within { z-index: 2; }
+
+/* The lesson card's header strip: domain plate and stage, ruled off from the
+   body by a hairline that runs edge to edge (the card clips it). In a ruled
+   grid the plate also carries the card's index — 01, 02 — the way a launcher
+   numbers its slots. */
+.lesson-card > .lesson-meta { position: relative; align-items: center;
+  gap: 8px 10px; padding-bottom: 12px; margin-bottom: 14px; }
+.lesson-card > .lesson-meta::after { content: ""; position: absolute; left: -60px; right: -60px; bottom: 0;
+  height: 1px; background: var(--paper-edge); }
+.grid.auto:has(> .lesson-card) .lesson-meta .domain-tag::before {
+  content: counter(lesson-index, decimal-leading-zero);
+  margin-right: 8px; padding-right: 8px; font-weight: 700; letter-spacing: .04em;
+  border-right: 1px solid color-mix(in srgb, currentColor 45%, transparent); }
+/* The stage reads off the right margin when it fits and drops beneath the
+   plate when it does not; a label too long for its own line is cut with an
+   ellipsis (the full text is on its title). */
+.lesson-card > .lesson-meta .stagepill { flex: 0 1 auto; min-width: 0; overflow: hidden; text-overflow: ellipsis; }
+
+/* The quest as one ruled panel of steps rather than four loose tiles. */
+.quest { gap: 0; padding: 0 1px 1px 0; }
+.quest-item { margin: 0 -1px -1px 0; border-width: 1px; border-radius: 0; }
+.quest-item:first-child { border-top-left-radius: var(--r-card); }
+.quest-item:last-child { border-bottom-right-radius: var(--r-card); }
+/* A finished step draws its whole outline over its neighbours' hairlines,
+   with a bar of green across the top like a lit indicator. */
+.quest-item.done { position: relative; z-index: 1;
+  box-shadow: inset 0 3px 0 var(--green), inset 0 2px 4px var(--surface-shade); }
+
+/* The sidebar's record as a ruled ledger: one inset block, key and value per
+   line, keys in tracked mono. Wide screens only — the narrow layout lays the
+   stats out as a row of separate chips and keeps that. */
+#sidebar .brand .sub { font-family: var(--mono); letter-spacing: var(--track); }
+@media (min-width: 901px) {
+  /* flex: none — with overflow hidden a flex item's automatic minimum height
+     drops to zero, so on a short window the spine squeezed the ledger and
+     clipped its last line instead of scrolling. */
+  .statrow { flex: none; gap: 0; border: 1px solid var(--chrome-rule); border-radius: var(--r-ctl);
+    background: rgba(0,0,0,0.2); box-shadow: inset 0 1px 3px rgba(0,0,0,.25); overflow: hidden; }
+  #sidebar .stat { border-radius: 0; background: none; box-shadow: none; align-items: center;
+    border-top: 1px solid var(--chrome-rule); padding: 8px 11px;
+    font: 500 12px/1.65 var(--mono); letter-spacing: var(--track); text-transform: uppercase; }
+  #sidebar .stat:first-child { border-top: 0; }
+  #sidebar .stat b { font: 600 13px/1.65 var(--mono); letter-spacing: 0; text-transform: none;
+    display: inline-flex; align-items: center; gap: 4px; }
+}
+.navbtn { border-radius: var(--r-ctl); }
+.req-chip { border-radius: var(--r-ctl); }
+
+/* The Atlas filters as one segmented strip, the launcher's tab row: the
+   options butt together on a shared edge, and the chosen one is filled
+   solid — inverted — instead of tinted. The "✓ Showing" mark stays as the
+   second, non-colour carrier of the choice. Hover is restated for the picked
+   option because the ghost hover would otherwise wash its fill out. */
+.atlas-filters { gap: 8px 0; }
+.atlas-filters .filter-opt { border-radius: 0; margin-left: -1px; }
+.atlas-filters .filter-opt:first-child { margin-left: 0; border-radius: var(--r-ctl) 0 0 var(--r-ctl); }
+.atlas-filters .filter-opt:last-child { border-radius: 0 var(--r-ctl) var(--r-ctl) 0; }
+.atlas-filters .filter-opt:focus-visible { position: relative; z-index: 1; }
+.atlas-filters .filter-opt.picked, .atlas-filters .filter-opt.picked:hover {
+  background: var(--link); border-color: var(--link); color: var(--on-fill); }
+.atlas-filters .filter-opt.picked .filter-mark { color: var(--on-fill); font-family: var(--mono); letter-spacing: .06em; }
+
+/* ---------------- one family: the headings ----------------
+   An old-style serif carries a heading on its contrast alone; a UI sans set
+   at the same weight reads thin and loose. So the display sizes are set a
+   step heavier and tracked in slightly, the way the face is drawn to be
+   used large. */
+h1, h2, h3, h4 { letter-spacing: -0.01em; }
+.pagehead h2 { font-weight: 650; letter-spacing: -0.022em; }
+.card h3, .chapter-title { font-weight: 650; }
+#sidebar .brand h1 { font-weight: 650; letter-spacing: -0.012em; }
+.navbtn { letter-spacing: -0.005em; }
+
+/* ---------------- the side panel folds ----------------
+   Wide screens only: the narrow layout already puts the panel behind Menu.
+   Folded, the spine becomes a rail of icons — every label is still in the
+   accessibility tree (clipped, not removed) and on each icon's title — and
+   the page takes the width. The rail width is the only thing that moves, so
+   the seam, the grid and the transition all follow --rail. */
+#spine-toggle { display: none; }
+@media (min-width: 901px) {
+  #book { transition: grid-template-columns var(--dur-slow) var(--ease-out); }
+  #book::before { transition: left var(--dur-slow) var(--ease-out); }
+  #sidebar .brand { position: relative; }
+  #spine-toggle {
+    display: inline-grid; place-items: center; position: absolute; top: -10px; right: -8px;
+    width: 32px; height: 32px; padding: 0; border-radius: var(--r-ctl);
+    border: 1px solid transparent; background: transparent; color: var(--chrome-ink-dim); cursor: pointer;
+    transition: color var(--dur-fast), background var(--dur-fast), border-color var(--dur-fast);
+  }
+  #spine-toggle:hover { color: var(--chrome-hi); background: var(--chrome-hover); border-color: var(--chrome-rule); }
+  #spine-toggle:focus-visible { outline: 2px solid var(--focus); outline-offset: 2px; }
+
+  html[data-spine="folded"] #book { --rail: 68px; }
+  html[data-spine="folded"] #sidebar { padding: 16px 8px; overflow-x: hidden; }
+  html[data-spine="folded"] #sidebar .brand { display: flex; flex-direction: column; align-items: center; gap: 10px; padding-bottom: 12px; }
+  html[data-spine="folded"] #sidebar .brand h1,
+  html[data-spine="folded"] #sidebar .brand .sub,
+  html[data-spine="folded"] #reader-context-slot,
+  html[data-spine="folded"] .statrow { display: none; }
+  html[data-spine="folded"] #spine-toggle { position: static; }
+  html[data-spine="folded"] .navbtn { justify-content: center; padding: 10px 0; }
+  html[data-spine="folded"] .navbtn .ic { width: auto; }
+  html[data-spine="folded"] .chrome-row { flex-direction: column; align-items: stretch; }
+  html[data-spine="folded"] .chrome-row .chrome-toggle { padding: 9px 0; }
+  /* Clipped, not hidden: the name stays in the accessibility tree. */
+  html[data-spine="folded"] .navbtn .label,
+  html[data-spine="folded"] .chrome-row .tt-label {
+    position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
+}
+
+/* The reading-theme control: the chrome toggle's face (icon and the current
+   palette's name) over a real <select>, so the choice is native to the
+   keyboard, screen readers and touch, and the menu is the platform's own. */
+.theme-control { position: relative; }
+.theme-control .theme-select {
+  position: absolute; inset: 0; width: 100%; height: 100%;
+  margin: 0; padding: 0; opacity: 0; cursor: pointer; color-scheme: inherit; font-size: 16px;
+}
+.theme-control:has(.theme-select:focus-visible) { outline: 2px solid var(--chrome-hi); outline-offset: 3px; }
+.theme-select option { color: var(--ink); background: var(--paper); }
+
+/* Shared spine sensory / motor reference. */
+.rad-neurology-controls { display: flex; flex-wrap: wrap; gap: 1rem; margin: 1rem 0; }
+.rad-neurology-controls label { display: grid; gap: .4rem; min-width: 0; max-width: 100%; }
+.rad-neurology-controls select { max-width: 100%; padding: .55rem; }
+.rad-neurology-drawing { max-width: 680px; margin: auto; }
+.rad-neurology-drawing svg { display: block; width: 100%; height: auto; color: var(--ink, #263238); }
+.rad-neurology-drawing text { fill: currentColor; font-size: 16px; }
+.rad-neurology-body { fill: #e6edf0; stroke: #69818c; stroke-width: 1.5; }
+.rad-neurology-point { fill: #437589; stroke: white; stroke-width: 1; cursor: pointer; }
+.rad-neurology-point.is-selected { fill: #b54418; stroke: #fff; stroke-width: 2; }
+.rad-neurology-point:focus { outline: none; stroke: #121212; stroke-width: 3; }
+.rad-neurology-detail { border-left: 4px solid #b54418; padding: .5rem 1rem; margin-bottom: 1rem; }
+.rad-neurology-map .rad-image-credit span { display: inline; }

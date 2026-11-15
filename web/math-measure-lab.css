@@ -1,0 +1,22 @@
+.math-measure-lab { min-width: 0; }
+.math-measure-lab .model-range-control select, .math-measure-lab input[type="number"] { width: 100%; min-width: 0; min-height: 44px; }
+.math-measure-lab input[type="checkbox"] { width: 24px; height: 24px; }
+.math-measure-lab .model-range-control output { font-weight: 600; font-variant-numeric: tabular-nums; }
+.math-measure-summary { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 10px; margin: 16px 0; }
+.math-measure-summary p { display: grid; gap: 4px; margin: 0; padding: 10px; border: 1px solid var(--line, #d5cfbf); border-radius: 8px; }
+.math-measure-summary strong { font-size: 21px; overflow-wrap: anywhere; font-variant-numeric: tabular-nums; }
+.math-measure-probe, .math-measure-proof { padding: 12px; border-left: 3px solid #317e78; overflow-wrap: anywhere; }
+.math-measure-panels { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; min-width: 0; }
+.math-measure-viewport { min-width: 0; overflow: auto; background: #f5efdf; border-radius: 10px; }
+.math-measure-viewport svg { display: block; width: 100%; height: auto; font-family: var(--sans, sans-serif); }
+.math-measure-lab.is-enlarged .math-measure-viewport svg { width: 690px; min-width: 690px; max-width: none; }
+.math-measure-ledger { border-collapse: collapse; width: 100%; margin: 18px 0; font-size: 14px; table-layout: fixed; }
+.math-measure-ledger caption { text-align: left; margin-bottom: 8px; }
+.math-measure-ledger th, .math-measure-ledger td { padding: 9px 7px; text-align: left; border-bottom: 1px solid var(--line, #d5cfbf); overflow-wrap: anywhere; }
+.math-measure-sources { overflow-wrap: anywhere; }
+@media (max-width: 760px) {
+  .math-measure-panels, .math-measure-lab .concept-controls { grid-template-columns: minmax(0, 1fr); }
+  .math-measure-summary { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .math-measure-ledger { font-size: 12px; }
+  .math-measure-ledger th, .math-measure-ledger td { padding: 8px 4px; }
+}

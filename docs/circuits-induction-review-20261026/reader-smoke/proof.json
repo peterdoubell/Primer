@@ -1,0 +1,3824 @@
+{
+  "allPassed": true,
+  "productionVerified": false,
+  "scope": "Authenticated actual lesson mounting and station smoke checks; geometry and numerical equivalence require separate evidence; actual speech, preset and invalid-state checks included",
+  "sourceSHA256": {
+    "web/circuits-induction-core.js": "59dc920b14a1441c1d480c7284214653d95b3142cf1d21c5ea00cc539153c89d",
+    "web/circuits-induction-lab.js": "26a216a336ebdab4246eea50be4e660eb169836ecb9cbcf52056129f2c817005",
+    "web/circuits-induction-lab.css": "8c6798a440bcbb622cc0c7af9b7714123d23df112e31b58a443b8f1e82b2d0dc",
+    "web/index.html": "602e1ae28b06c61b2eea2e0ad994f489de269726915c4ae0a9641faa6d424782",
+    "web/lesson-models.js": "5f281b87517b731612802fea425485d2b6703702f5dc4c1719f7bfc02f2f74a1",
+    "primer/server.py": "f1b812e11d657ad684b927c119ded6d73ef1db1490b09e93d8f6c2c3e046c2ed",
+    "data/curriculum/03-physics.json": "c68682500d2237c01b6cee765b122957d038d67fe7ae2438791683d7d47ae8b0",
+    "tools/check_circuits_reader.cjs": "98f48301700a3317dc6cbc82754e17eae359fff3cd37b7fcc0506826898e4b36",
+    "tools/check_circuits_reader.py": "82f60d721ddbe0463dd1150113477022a1d3067c90c199b5f34ea35c482a6cdb",
+    "tools/check_circuits_geometry.cjs": "5c9fe5d4d0ce04e86830ae04946ba9930715796952e09f3561fd3a5c8c2a2a3a"
+  },
+  "cases": [
+    {
+      "width": 390,
+      "id": "phys.2.electricity",
+      "station": "dc",
+      "summary": "Total emf 6 V · source current 1 A · equivalent resistance 6 Ω.",
+      "speeches": [
+        {
+          "preset": "ohm",
+          "characters": 1643,
+          "geometry": {
+            "coordinateChecks": 0,
+            "finiteAttributes": true
+          }
+        },
+        {
+          "preset": "heater-low",
+          "characters": 1645,
+          "geometry": {
+            "coordinateChecks": 0,
+            "finiteAttributes": true
+          }
+        },
+        {
+          "preset": "series-cells",
+          "characters": 1689,
+          "geometry": {
+            "coordinateChecks": 0,
+            "finiteAttributes": true
+          }
+        },
+        {
+          "preset": "shared",
+          "characters": 1784,
+          "geometry": {
+            "coordinateChecks": 0,
+            "finiteAttributes": true
+          }
+        },
+        {
+          "preset": "parallel",
+          "characters": 1796,
+          "geometry": {
+            "coordinateChecks": 0,
+            "finiteAttributes": true
+          }
+        },
+        {
+          "preset": "parallel-ohms",
+          "characters": 1780,
+          "geometry": {
+            "coordinateChecks": 0,
+            "finiteAttributes": true
+          }
+        },
+        {
+          "preset": "series-ohms",
+          "characters": 1788,
+          "geometry": {
+            "coordinateChecks": 0,
+            "finiteAttributes": true
+          }
+        },
+        {
+          "preset": "heater",
+          "characters": 1654,
+          "geometry": {
+            "coordinateChecks": 0,
+            "finiteAttributes": true
+          }
+        },
+        {
+          "preset": "bridge",
+          "characters": 2038,
+          "geometry": {
+            "coordinateChecks": 0,
+            "finiteAttributes": true
+          }
+        },
+        {
+          "preset": "balanced",
+          "characters": 1932,
+          "geometry": {
+            "coordinateChecks": 0,
+            "finiteAttributes": true
+          }
+        },
+        {
+          "preset": "open",
+          "characters": 1783,
+          "geometry": {
+            "coordinateChecks": 0,
+            "finiteAttributes": true
+          }
+        },
+        {
+          "preset": "short",
+          "characters": 1676,
+          "geometry": {
+            "coordinateChecks": 0,
+            "finiteAttributes": true
+          }
+        },
+        {
+          "preset": "zero",
+          "characters": 1643,
+          "geometry": {
+            "coordinateChecks": 0,
+            "finiteAttributes": true
+          }
+        }
+      ],
+      "boundaries": [
+        {
+          "control": "cell0",
+          "value": 0,
+          "rejected": false,
+          "geometry": {
+            "coordinateChecks": 0,
+            "finiteAttributes": true
+          }
+        },
+        {
+          "control": "cell0",
+          "value": 240,
+          "rejected": false,
+          "geometry": {
+            "coordinateChecks": 0,
+            "finiteAttributes": true
+          }
+        },
+        {
+          "control": "cell1",
+          "value": 0,
+          "rejected": false,
+          "geometry": {
+            "coordinateChecks": 0,
+            "finiteAttributes": true
+          }
+        },
+        {
+          "control": "cell1",
+          "value": 240,
+          "rejected": false,
+          "geometry": {
+            "coordinateChecks": 0,
+            "finiteAttributes": true
+          }
+        },
+        {
+          "control": "cell2",
+          "value": 0,
+          "rejected": false,
+          "geometry": {
+            "coordinateChecks": 0,
+            "finiteAttributes": true
+          }
+        },
+        {
+          "control": "cell2",
+          "value": 240,
+          "rejected": false,
+          "geometry": {
+            "coordinateChecks": 0,
+            "finiteAttributes": true
+          }
+        },
+        {
+          "control": "R0",
+          "value": 0.1,
+          "rejected": false,
+          "geometry": {
+            "coordinateChecks": 0,
+            "finiteAttributes": true
+          }
+        },
+        {
+          "control": "R0",
+          "value": 1000,
+          "rejected": false,
+          "geometry": {
+            "coordinateChecks": 0,
+            "finiteAttributes": true
+          }
+        },
+        {
+          "control": "R1",
+          "value": 0.1,
+          "rejected": false,
+          "geometry": {
+            "coordinateChecks": 0,
+            "finiteAttributes": true
+          }
+        },
+        {
+          "control": "R1",
+          "value": 1000,
+          "rejected": false,
+          "geometry": {
+            "coordinateChecks": 0,
+            "finiteAttributes": true
+          }
+        },
+        {
+          "control": "R2",
+          "value": 0.1,
+          "rejected": false,
+          "geometry": {
+            "coordinateChecks": 0,
+            "finiteAttributes": true
+          }
+        },
+        {
+          "control": "R2",
+          "value": 1000,
+          "rejected": false,
+          "geometry": {
+            "coordinateChecks": 0,
+            "finiteAttributes": true
+          }
+        }
+      ],
+      "invalidDraftPreservedAcceptedState": true,
+      "resetRestoredViewport": true
+    },
+    {
+      "width": 390,
+      "id": "phys.2.electricity",
+      "station": "charge",
+      "summary": "The shell carries 20 nC; its distant transfer partner carries -20 nC. Wall attraction F_z = -0.000215701 N. Reversing charge reverses the polarization, while the attraction retains its direction.",
+      "speeches": [
+        {
+          "preset": "positive",
+          "characters": 2171,
+          "geometry": {
+            "coordinateChecks": 647,
+            "finiteAttributes": true
+          }
+        },
+        {
+          "preset": "negative",
+          "characters": 2172,
+          "geometry": {
+            "coordinateChecks": 647,
+            "finiteAttributes": true
+          }
+        },
+        {
+          "preset": "none",
+          "characters": 2115,
+          "geometry": {
+            "coordinateChecks": 647,
+            "finiteAttributes": true
+          }
+        },
+        {
+          "preset": "air",
+          "characters": 2079,
+          "geometry": {
+            "coordinateChecks": 647,
+            "finiteAttributes": true
+          }
+        }
+      ],
+      "boundaries": [
+        {
+          "control": "chargeNC",
+          "value": -100,
+          "rejected": false,
+          "geometry": {
+            "coordinateChecks": 647,
+            "finiteAttributes": true
+          }
+        },
+        {
+          "control": "chargeNC",
+          "value": 100,
+          "rejected": false,
+          "geometry": {
+            "coordinateChecks": 647,
+            "finiteAttributes": true
+          }
+        },
+        {
+          "control": "radiusCM",
+          "value": 1,
+          "rejected": false,
+          "geometry": {
+            "coordinateChecks": 647,
+            "finiteAttributes": true
+          }
+        },
+        {
+          "control": "radiusCM",
+          "value": 10,
+          "rejected": false,
+          "geometry": {
+            "coordinateChecks": 647,
+            "finiteAttributes": true
+          }
+        },
+        {
+          "control": "gapCM",
+          "value": 0,
+          "rejected": false,
+          "geometry": {
+            "coordinateChecks": 647,
+            "finiteAttributes": true
+          }
+        },
+        {
+          "control": "gapCM",
+          "value": 20,
+          "rejected": false,
+          "geometry": {
+            "coordinateChecks": 647,
+            "finiteAttributes": true
+          }
+        },
+        {
+          "control": "permittivity",
+          "value": 1,
+          "rejected": false,
+          "geometry": {
+            "coordinateChecks": 647,
+            "finiteAttributes": true
+          }
+        },
+        {
+          "control": "permittivity",
+          "value": 12,
+          "rejected": false,
+          "geometry": {
+            "coordinateChecks": 647,
+            "finiteAttributes": true
+          }
+        }
+      ],
+      "invalidDraftPreservedAcceptedState": true,
+      "resetRestoredViewport": true
+    },
+    {
+      "width": 390,
+      "id": "phys.2.electricity",
+      "station": "material",
+      "summary": "Conductivity 58000000 S/m gives 0.058 A through the sample at 0.001 V. The same geometry and voltage can be compared across conductivities.",
+      "speeches": [
+        {
+          "preset": "copper",
+          "characters": 1533,
+          "geometry": {
+            "coordinateChecks": 260,
+            "finiteAttributes": true
+          }
+        },
+        {
+          "preset": "insulator",
+          "characters": 1486,
+          "geometry": {
+            "coordinateChecks": 260,
+            "finiteAttributes": true
+          }
+        },
+        {
+          "preset": "weak",
+          "characters": 1527,
+          "geometry": {
+            "coordinateChecks": 260,
+            "finiteAttributes": true
+          }
+        }
+      ],
+      "boundaries": [
+        {
+          "control": "voltageMV",
+          "value": 0,
+          "rejected": false,
+          "geometry": {
+            "coordinateChecks": 260,
+            "finiteAttributes": true
+          }
+        },
+        {
+          "control": "voltageMV",
+          "value": 10,
+          "rejected": false,
+          "geometry": {
+            "coordinateChecks": 260,
+            "finiteAttributes": true
+          }
+        },
+        {
+          "control": "lengthM",
+          "value": 0.1,
+          "rejected": false,
+          "geometry": {
+            "coordinateChecks": 260,
+            "finiteAttributes": true
+          }
+        },
+        {
+          "control": "lengthM",
+          "value": 2,
+          "rejected": false,
+          "geometry": {
+            "coordinateChecks": 260,
+            "finiteAttributes": true
+          }
+        },
+        {
+          "control": "areaMM2",
+          "value": 0.1,
+          "rejected": false,
+          "geometry": {
+            "coordinateChecks": 260,
+            "finiteAttributes": true
+          }
+        },
+        {
+          "control": "areaMM2",
+          "value": 2,
+          "rejected": false,
+          "geometry": {
+            "coordinateChecks": 260,
+            "finiteAttributes": true
+          }
+        },
+        {
+          "control": "logConductivity",
+          "value": -14,
+          "rejected": false,
+          "geometry": {
+            "coordinateChecks": 260,
+            "finiteAttributes": true
+          }
+        },
+        {
+          "control": "logConductivity",
+          "value": 8,
+          "rejected": false,
+          "geometry": {
+            "coordinateChecks": 260,
+            "finiteAttributes": true
+          }
+        }
+      ],
+      "invalidDraftPreservedAcceptedState": true,
+      "resetRestoredViewport": true
+    },
+    {
+      "width": 390,
+      "id": "phys.2.electricity",
+      "station": "spark",
+      "summary": "Separated charges ±1500 nC give 4235.28 V across 1 mm. The state is below the predicted self-sustaining-avalanche threshold.",
+      "speeches": [
+        {
+          "preset": "none",
+          "characters": 2544,
+          "geometry": {
+            "coordinateChecks": 968,
+            "finiteAttributes": true
+          }
+        },
+        {
+          "preset": "below",
+          "characters": 2600,
+          "geometry": {
+            "coordinateChecks": 968,
+            "finiteAttributes": true
+          }
+        },
+        {
+          "preset": "above",
+          "characters": 2631,
+          "geometry": {
+            "coordinateChecks": 968,
+            "finiteAttributes": true
+          }
+        },
+        {
+          "preset": "reverse",
+          "characters": 2634,
+          "geometry": {
+            "coordinateChecks": 968,
+            "finiteAttributes": true
+          }
+        }
+      ],
+      "boundaries": [
+        {
+          "control": "chargeNC",
+          "value": -5000,
+          "rejected": false,
+          "geometry": {
+            "coordinateChecks": 968,
+            "finiteAttributes": true
+          }
+        },
+        {
+          "control": "chargeNC",
+          "value": 5000,
+          "rejected": false,
+          "geometry": {
+            "coordinateChecks": 968,
+            "finiteAttributes": true
+          }
+        },
+        {
+          "control": "gapMM",
+          "value": 0.1,
+          "rejected": false,
+          "geometry": {
+            "coordinateChecks": 968,
+            "finiteAttributes": true
+          }
+        },
+        {
+          "control": "gapMM",
+          "value": 5,
+          "rejected": false,
+          "geometry": {
+            "coordinateChecks": 968,
+            "finiteAttributes": true
+          }
+        },
+        {
+          "control": "pressureKPa",
+          "value": 20,
+          "rejected": false,
+          "geometry": {
+            "coordinateChecks": 968,
+            "finiteAttributes": true
+          }
+        },
+        {
+          "control": "pressureKPa",
+          "value": 120,
+          "rejected": false,
+          "geometry": {
+            "coordinateChecks": 968,
+            "finiteAttributes": true
+          }
+        },
+        {
+          "control": "secondary",
+          "value": 0.005,
+          "rejected": false,
+          "geometry": {
+            "coordinateChecks": 968,
+            "finiteAttributes": true
+          }
+        },
+        {
+          "control": "secondary",
+          "value": 0.05,
+          "rejected": false,
+          "geometry": {
+            "coordinateChecks": 968,
+            "finiteAttributes": true
+          }
+        }
+      ],
+      "invalidDraftPreservedAcceptedState": true,
+      "resetRestoredViewport": true
+    },
+    {
+      "width": 390,
+      "id": "phys.3.em",
+      "station": "finite",
+      "summary": "Finite magnet centre z = -0.03 m at 0.35 s. Linked flux 0.000207589 Wb·turn; induced emf -0.00292014 V; pickup current -0.000292014 A.",
+      "speeches": [
+        {
+          "preset": "approach",
+          "characters": 2182,
+          "geometry": {
+            "coordinateChecks": 7696,
+            "finiteAttributes": true
+          }
+        },
+        {
+          "preset": "centre",
+          "characters": 2109,
+          "geometry": {
+            "coordinateChecks": 7696,
+            "finiteAttributes": true
+          }
+        },
+        {
+          "preset": "leave",
+          "characters": 2180,
+          "geometry": {
+            "coordinateChecks": 7696,
+            "finiteAttributes": true
+          }
+        },
+        {
+          "preset": "hold",
+          "characters": 2127,
+          "geometry": {
+            "coordinateChecks": 2416,
+            "finiteAttributes": true
+          }
+        },
+        {
+          "preset": "reverse",
+          "characters": 2174,
+          "geometry": {
+            "coordinateChecks": 7696,
+            "finiteAttributes": true
+          }
+        },
+        {
+          "preset": "rl",
+          "characters": 2204,
+          "geometry": {
+            "coordinateChecks": 19132,
+            "finiteAttributes": true
+          }
+        }
+      ],
+      "boundaries": [
+        {
+          "control": "magnetRadiusMM",
+          "value": 2,
+          "rejected": false,
+          "geometry": {
+            "coordinateChecks": 7696,
+            "finiteAttributes": true
+          }
+        },
+        {
+          "control": "magnetRadiusMM",
+          "value": 10,
+          "rejected": false,
+          "geometry": {
+            "coordinateChecks": 7696,
+            "finiteAttributes": true
+          }
+        },
+        {
+          "control": "magnetLengthMM",
+          "value": 5,
+          "rejected": false,
+          "geometry": {
+            "coordinateChecks": 7696,
+            "finiteAttributes": true
+          }
+        },
+        {
+          "control": "magnetLengthMM",
+          "value": 40,
+          "rejected": false,
+          "geometry": {
+            "coordinateChecks": 7696,
+            "finiteAttributes": true
+          }
+        },
+        {
+          "control": "magnetizationKA",
+          "value": -1300,
+          "rejected": false,
+          "geometry": {
+            "coordinateChecks": 7696,
+            "finiteAttributes": true
+          }
+        },
+        {
+          "control": "magnetizationKA",
+          "value": 1300,
+          "rejected": false,
+          "geometry": {
+            "coordinateChecks": 7696,
+            "finiteAttributes": true
+          }
+        },
+        {
+          "control": "coilRadiusMM",
+          "value": 15,
+          "rejected": false,
+          "geometry": {
+            "coordinateChecks": 10264,
+            "finiteAttributes": true
+          }
+        },
+        {
+          "control": "coilRadiusMM",
+          "value": 50,
+          "rejected": false,
+          "geometry": {
+            "coordinateChecks": 3088,
+            "finiteAttributes": true
+          }
+        },
+        {
+          "control": "turns",
+          "value": 1,
+          "rejected": false,
+          "geometry": {
+            "coordinateChecks": 7696,
+            "finiteAttributes": true
+          }
+        },
+        {
+          "control": "turns",
+          "value": 100,
+          "rejected": false,
+          "geometry": {
+            "coordinateChecks": 7696,
+            "finiteAttributes": true
+          }
+        },
+        {
+          "control": "resistance",
+          "value": 1,
+          "rejected": false,
+          "geometry": {
+            "coordinateChecks": 7696,
+            "finiteAttributes": true
+          }
+        },
+        {
+          "control": "resistance",
+          "value": 100,
+          "rejected": false,
+          "geometry": {
+            "coordinateChecks": 7696,
+            "finiteAttributes": true
+          }
+        },
+        {
+          "control": "inductance",
+          "value": 0,
+          "rejected": false,
+          "geometry": {
+            "coordinateChecks": 7696,
+            "finiteAttributes": true
+          }
+        },
+        {
+          "control": "inductance",
+          "value": 1,
+          "rejected": false,
+          "geometry": {
+            "coordinateChecks": 11536,
+            "finiteAttributes": true
+          }
+        },
+        {
+          "control": "startMM",
+          "value": -150,
+          "rejected": false,
+          "geometry": {
+            "coordinateChecks": 7696,
+            "finiteAttributes": true
+          }
+        },
+        {
+          "control": "startMM",
+          "value": 150,
+          "rejected": false,
+          "geometry": {
+            "coordinateChecks": 7696,
+            "finiteAttributes": true
+          }
+        },
+        {
+          "control": "speed",
+          "value": -0.2,
+          "rejected": false,
+          "geometry": {
+            "coordinateChecks": 7696,
+            "finiteAttributes": true
+          }
+        },
+        {
+          "control": "speed",
+          "value": 0.2,
+          "rejected": false,
+          "geometry": {
+            "coordinateChecks": 7696,
+            "finiteAttributes": true
+          }
+        },
+        {
+          "control": "time",
+          "value": 0,
+          "rejected": false,
+          "geometry": {
+            "coordinateChecks": 7696,
+            "finiteAttributes": true
+          }
+        },
+        {
+          "control": "time",
+          "value": 1,
+          "rejected": false,
+          "geometry": {
+            "coordinateChecks": 7696,
+            "finiteAttributes": true
+          }
+        }
+      ],
+      "invalidDraftPreservedAcceptedState": true,
+      "resetRestoredViewport": true
+    },
+    {
+      "width": 390,
+      "id": "phys.3.em",
+      "station": "induction",
+      "summary": "At 0.5 s: linked flux 0.125664 Wb·turn; induced emf 0.394784 V; current 0.0388647 A.",
+      "speeches": [
+        {
+          "preset": "fast",
+          "characters": 2599,
+          "geometry": {
+            "coordinateChecks": 11802,
+            "finiteAttributes": true
+          }
+        },
+        {
+          "preset": "still",
+          "characters": 2482,
+          "geometry": {
+            "coordinateChecks": 15642,
+            "finiteAttributes": true
+          }
+        },
+        {
+          "preset": "field",
+          "characters": 2561,
+          "geometry": {
+            "coordinateChecks": 38514,
+            "finiteAttributes": true
+          }
+        },
+        {
+          "preset": "rotate",
+          "characters": 2500,
+          "geometry": {
+            "coordinateChecks": 48474,
+            "finiteAttributes": true
+          }
+        },
+        {
+          "preset": "reverse",
+          "characters": 2503,
+          "geometry": {
+            "coordinateChecks": 48474,
+            "finiteAttributes": true
+          }
+        },
+        {
+          "preset": "open",
+          "characters": 2494,
+          "geometry": {
+            "coordinateChecks": 15642,
+            "finiteAttributes": true
+          }
+        },
+        {
+          "preset": "resistive",
+          "characters": 2565,
+          "geometry": {
+            "coordinateChecks": 15642,
+            "finiteAttributes": true
+          }
+        },
+        {
+          "preset": "combined",
+          "characters": 2583,
+          "geometry": {
+            "coordinateChecks": 61386,
+            "finiteAttributes": true
+          }
+        }
+      ],
+      "boundaries": [
+        {
+          "control": "turns",
+          "value": 1,
+          "rejected": false,
+          "geometry": {
+            "coordinateChecks": 38514,
+            "finiteAttributes": true
+          }
+        },
+        {
+          "control": "turns",
+          "value": 100,
+          "rejected": false,
+          "geometry": {
+            "coordinateChecks": 38514,
+            "finiteAttributes": true
+          }
+        },
+        {
+          "control": "radius",
+          "value": 0.01,
+          "rejected": false,
+          "geometry": {
+            "coordinateChecks": 38514,
+            "finiteAttributes": true
+          }
+        },
+        {
+          "control": "radius",
+          "value": 0.5,
+          "rejected": false,
+          "geometry": {
+            "coordinateChecks": 38514,
+            "finiteAttributes": true
+          }
+        },
+        {
+          "control": "fieldBias",
+          "value": -1,
+          "rejected": false,
+          "geometry": {
+            "coordinateChecks": 38514,
+            "finiteAttributes": true
+          }
+        },
+        {
+          "control": "fieldBias",
+          "value": 1,
+          "rejected": false,
+          "geometry": {
+            "coordinateChecks": 38514,
+            "finiteAttributes": true
+          }
+        },
+        {
+          "control": "fieldAmplitude",
+          "value": 0,
+          "rejected": false,
+          "geometry": {
+            "coordinateChecks": 15642,
+            "finiteAttributes": true
+          }
+        },
+        {
+          "control": "fieldAmplitude",
+          "value": 1,
+          "rejected": false,
+          "geometry": {
+            "coordinateChecks": 38514,
+            "finiteAttributes": true
+          }
+        },
+        {
+          "control": "frequency",
+          "value": 0,
+          "rejected": false,
+          "geometry": {
+            "coordinateChecks": 6426,
+            "finiteAttributes": true
+          }
+        },
+        {
+          "control": "frequency",
+          "value": 5,
+          "rejected": false,
+          "geometry": {
+            "coordinateChecks": 99210,
+            "finiteAttributes": true
+          }
+        },
+        {
+          "control": "fieldPhase",
+          "value": -180,
+          "rejected": false,
+          "geometry": {
+            "coordinateChecks": 38514,
+            "finiteAttributes": true
+          }
+        },
+        {
+          "control": "fieldPhase",
+          "value": 180,
+          "rejected": false,
+          "geometry": {
+            "coordinateChecks": 38514,
+            "finiteAttributes": true
+          }
+        },
+        {
+          "control": "angle",
+          "value": -180,
+          "rejected": false,
+          "geometry": {
+            "coordinateChecks": 38514,
+            "finiteAttributes": true
+          }
+        },
+        {
+          "control": "angle",
+          "value": 180,
+          "rejected": false,
+          "geometry": {
+            "coordinateChecks": 38514,
+            "finiteAttributes": true
+          }
+        },
+        {
+          "control": "rotation",
+          "value": -10,
+          "rejected": false,
+          "geometry": {
+            "coordinateChecks": 63138,
+            "finiteAttributes": true
+          }
+        },
+        {
+          "control": "rotation",
+          "value": 10,
+          "rejected": false,
+          "geometry": {
+            "coordinateChecks": 63138,
+            "finiteAttributes": true
+          }
+        },
+        {
+          "control": "resistance",
+          "value": 1,
+          "rejected": false,
+          "geometry": {
+            "coordinateChecks": 37770,
+            "finiteAttributes": true
+          }
+        },
+        {
+          "control": "resistance",
+          "value": 100,
+          "rejected": false,
+          "geometry": {
+            "coordinateChecks": 38658,
+            "finiteAttributes": true
+          }
+        },
+        {
+          "control": "inductance",
+          "value": 0,
+          "rejected": false,
+          "geometry": {
+            "coordinateChecks": 15642,
+            "finiteAttributes": true
+          }
+        },
+        {
+          "control": "inductance",
+          "value": 2,
+          "rejected": false,
+          "geometry": {
+            "coordinateChecks": 37770,
+            "finiteAttributes": true
+          }
+        },
+        {
+          "control": "time",
+          "value": 0,
+          "rejected": false,
+          "geometry": {
+            "coordinateChecks": 38514,
+            "finiteAttributes": true
+          }
+        },
+        {
+          "control": "time",
+          "value": 5,
+          "rejected": false,
+          "geometry": {
+            "coordinateChecks": 38514,
+            "finiteAttributes": true
+          }
+        }
+      ],
+      "invalidDraftPreservedAcceptedState": true,
+      "resetRestoredViewport": true
+    },
+    {
+      "width": 390,
+      "id": "phys.3.em",
+      "station": "pipe",
+      "summary": "At 1 s, centre z = 0.0302244 m and velocity = -0.0500303 m/s. The full cylinder leaves the lower end at 4.57333 s, retaining its exit velocity. Low-speed parameter μ₀σ|v|R_inner ≤ 0.143829.",
+      "speeches": [
+        {
+          "preset": "copper",
+          "characters": 3702,
+          "geometry": {
+            "coordinateChecks": 19504,
+            "finiteAttributes": true
+          }
+        },
+        {
+          "preset": "plastic",
+          "characters": 3437,
+          "geometry": {
+            "coordinateChecks": 304,
+            "finiteAttributes": true
+          }
+        },
+        {
+          "preset": "unmagnetized",
+          "characters": 3187,
+          "geometry": {
+            "coordinateChecks": 304,
+            "finiteAttributes": true
+          }
+        },
+        {
+          "preset": "opposite",
+          "characters": 3693,
+          "geometry": {
+            "coordinateChecks": 19504,
+            "finiteAttributes": true
+          }
+        }
+      ],
+      "boundaries": [
+        {
+          "control": "magnetRadiusMM",
+          "value": 2,
+          "rejected": false,
+          "geometry": {
+            "coordinateChecks": 544,
+            "finiteAttributes": true
+          }
+        },
+        {
+          "control": "magnetRadiusMM",
+          "value": 10,
+          "rejected": false,
+          "geometry": {
+            "coordinateChecks": 19504,
+            "finiteAttributes": true
+          }
+        },
+        {
+          "control": "magnetLengthMM",
+          "value": 5,
+          "rejected": false,
+          "geometry": {
+            "coordinateChecks": 1984,
+            "finiteAttributes": true
+          }
+        },
+        {
+          "control": "magnetLengthMM",
+          "value": 40,
+          "rejected": false,
+          "geometry": {
+            "coordinateChecks": 38924,
+            "finiteAttributes": true
+          }
+        },
+        {
+          "control": "magnetizationKA",
+          "value": -1300,
+          "rejected": false,
+          "geometry": {
+            "coordinateChecks": 19504,
+            "finiteAttributes": true
+          }
+        },
+        {
+          "control": "magnetizationKA",
+          "value": 1300,
+          "rejected": false,
+          "geometry": {
+            "coordinateChecks": 19504,
+            "finiteAttributes": true
+          }
+        },
+        {
+          "control": "innerRadiusMM",
+          "value": 15,
+          "rejected": false,
+          "geometry": {
+            "coordinateChecks": 19504,
+            "finiteAttributes": true
+          }
+        },
+        {
+          "control": "innerRadiusMM",
+          "value": 40,
+          "rejected": false,
+          "geometry": {
+            "coordinateChecks": 1184,
+            "finiteAttributes": true
+          }
+        },
+        {
+          "control": "wallMM",
+          "value": 0.2,
+          "rejected": false,
+          "geometry": {
+            "coordinateChecks": 1924,
+            "finiteAttributes": true
+          }
+        },
+        {
+          "control": "wallMM",
+          "value": 4,
+          "rejected": false,
+          "geometry": {
+            "coordinateChecks": 24804,
+            "finiteAttributes": true
+          }
+        },
+        {
+          "control": "lengthCM",
+          "value": 15,
+          "rejected": true,
+          "geometry": {
+            "coordinateChecks": 19504,
+            "finiteAttributes": true
+          }
+        },
+        {
+          "control": "lengthCM",
+          "value": 60,
+          "rejected": false,
+          "geometry": {
+            "coordinateChecks": 22504,
+            "finiteAttributes": true
+          }
+        },
+        {
+          "control": "massG",
+          "value": 5,
+          "rejected": false,
+          "geometry": {
+            "coordinateChecks": 8084,
+            "finiteAttributes": true
+          }
+        },
+        {
+          "control": "massG",
+          "value": 100,
+          "rejected": false,
+          "geometry": {
+            "coordinateChecks": 8104,
+            "finiteAttributes": true
+          }
+        },
+        {
+          "control": "conductivityMS",
+          "value": 0,
+          "rejected": false,
+          "geometry": {
+            "coordinateChecks": 304,
+            "finiteAttributes": true
+          }
+        },
+        {
+          "control": "conductivityMS",
+          "value": 58,
+          "rejected": false,
+          "geometry": {
+            "coordinateChecks": 19504,
+            "finiteAttributes": true
+          }
+        },
+        {
+          "control": "gravity",
+          "value": 0,
+          "rejected": false,
+          "geometry": {
+            "coordinateChecks": 8084,
+            "finiteAttributes": true
+          }
+        },
+        {
+          "control": "gravity",
+          "value": 10,
+          "rejected": false,
+          "geometry": {
+            "coordinateChecks": 19264,
+            "finiteAttributes": true
+          }
+        },
+        {
+          "control": "releaseCM",
+          "value": -10,
+          "rejected": false,
+          "geometry": {
+            "coordinateChecks": 15564,
+            "finiteAttributes": true
+          }
+        },
+        {
+          "control": "releaseCM",
+          "value": 25,
+          "rejected": true,
+          "geometry": {
+            "coordinateChecks": 19504,
+            "finiteAttributes": true
+          }
+        },
+        {
+          "control": "time",
+          "value": 0,
+          "rejected": false,
+          "geometry": {
+            "coordinateChecks": 19504,
+            "finiteAttributes": true
+          }
+        },
+        {
+          "control": "time",
+          "value": 8,
+          "rejected": false,
+          "geometry": {
+            "coordinateChecks": 19504,
+            "finiteAttributes": true
+          }
+        }
+      ],
+      "invalidDraftPreservedAcceptedState": true,
+      "resetRestoredViewport": true
+    },
+    {
+      "width": 390,
+      "id": "phys.3.em",
+      "station": "wires",
+      "summary": "The selected wire segment experiences equal and opposite magnetic forces: 0.0001 N on the left wire and -0.0001 N on the right. Parallel currents attract.",
+      "speeches": [
+        {
+          "preset": "same",
+          "characters": 1628,
+          "geometry": {
+            "coordinateChecks": 484,
+            "finiteAttributes": true
+          }
+        },
+        {
+          "preset": "opposite",
+          "characters": 1626,
+          "geometry": {
+            "coordinateChecks": 484,
+            "finiteAttributes": true
+          }
+        },
+        {
+          "preset": "one",
+          "characters": 1621,
+          "geometry": {
+            "coordinateChecks": 484,
+            "finiteAttributes": true
+          }
+        }
+      ],
+      "boundaries": [
+        {
+          "control": "current1",
+          "value": -20,
+          "rejected": false,
+          "geometry": {
+            "coordinateChecks": 484,
+            "finiteAttributes": true
+          }
+        },
+        {
+          "control": "current1",
+          "value": 20,
+          "rejected": false,
+          "geometry": {
+            "coordinateChecks": 484,
+            "finiteAttributes": true
+          }
+        },
+        {
+          "control": "current2",
+          "value": -20,
+          "rejected": false,
+          "geometry": {
+            "coordinateChecks": 484,
+            "finiteAttributes": true
+          }
+        },
+        {
+          "control": "current2",
+          "value": 20,
+          "rejected": false,
+          "geometry": {
+            "coordinateChecks": 484,
+            "finiteAttributes": true
+          }
+        },
+        {
+          "control": "separationCM",
+          "value": 1,
+          "rejected": false,
+          "geometry": {
+            "coordinateChecks": 484,
+            "finiteAttributes": true
+          }
+        },
+        {
+          "control": "separationCM",
+          "value": 20,
+          "rejected": false,
+          "geometry": {
+            "coordinateChecks": 484,
+            "finiteAttributes": true
+          }
+        },
+        {
+          "control": "lengthM",
+          "value": 0.5,
+          "rejected": false,
+          "geometry": {
+            "coordinateChecks": 484,
+            "finiteAttributes": true
+          }
+        },
+        {
+          "control": "lengthM",
+          "value": 5,
+          "rejected": false,
+          "geometry": {
+            "coordinateChecks": 484,
+            "finiteAttributes": true
+          }
+        },
+        {
+          "control": "probeCM",
+          "value": -30,
+          "rejected": false,
+          "geometry": {
+            "coordinateChecks": 484,
+            "finiteAttributes": true
+          }
+        },
+        {
+          "control": "probeCM",
+          "value": 30,
+          "rejected": false,
+          "geometry": {
+            "coordinateChecks": 484,
+            "finiteAttributes": true
+          }
+        }
+      ],
+      "invalidDraftPreservedAcceptedState": true,
+      "resetRestoredViewport": true
+    },
+    {
+      "width": 390,
+      "id": "phys.3.em",
+      "station": "transformer",
+      "summary": "AC steady state: secondary voltage 20.6549 V; load power 4.26624 W. Ideal turns-ratio comparison N₂/N₁ = 2.",
+      "speeches": [
+        {
+          "preset": "stepup",
+          "characters": 2155,
+          "geometry": {
+            "coordinateChecks": 4112,
+            "finiteAttributes": true
+          }
+        },
+        {
+          "preset": "down",
+          "characters": 2150,
+          "geometry": {
+            "coordinateChecks": 4112,
+            "finiteAttributes": true
+          }
+        },
+        {
+          "preset": "open",
+          "characters": 2102,
+          "geometry": {
+            "coordinateChecks": 4112,
+            "finiteAttributes": true
+          }
+        },
+        {
+          "preset": "short",
+          "characters": 2117,
+          "geometry": {
+            "coordinateChecks": 4112,
+            "finiteAttributes": true
+          }
+        },
+        {
+          "preset": "dc",
+          "characters": 2058,
+          "geometry": {
+            "coordinateChecks": 4112,
+            "finiteAttributes": true
+          }
+        }
+      ],
+      "boundaries": [
+        {
+          "control": "primaryTurns",
+          "value": 10,
+          "rejected": false,
+          "geometry": {
+            "coordinateChecks": 4112,
+            "finiteAttributes": true
+          }
+        },
+        {
+          "control": "primaryTurns",
+          "value": 500,
+          "rejected": false,
+          "geometry": {
+            "coordinateChecks": 4112,
+            "finiteAttributes": true
+          }
+        },
+        {
+          "control": "secondaryTurns",
+          "value": 10,
+          "rejected": false,
+          "geometry": {
+            "coordinateChecks": 4112,
+            "finiteAttributes": true
+          }
+        },
+        {
+          "control": "secondaryTurns",
+          "value": 500,
+          "rejected": false,
+          "geometry": {
+            "coordinateChecks": 4112,
+            "finiteAttributes": true
+          }
+        },
+        {
+          "control": "permeanceUH",
+          "value": 10,
+          "rejected": false,
+          "geometry": {
+            "coordinateChecks": 4112,
+            "finiteAttributes": true
+          }
+        },
+        {
+          "control": "permeanceUH",
+          "value": 500,
+          "rejected": false,
+          "geometry": {
+            "coordinateChecks": 4112,
+            "finiteAttributes": true
+          }
+        },
+        {
+          "control": "coupling",
+          "value": 0,
+          "rejected": false,
+          "geometry": {
+            "coordinateChecks": 4112,
+            "finiteAttributes": true
+          }
+        },
+        {
+          "control": "coupling",
+          "value": 0.9999,
+          "rejected": false,
+          "geometry": {
+            "coordinateChecks": 4112,
+            "finiteAttributes": true
+          }
+        },
+        {
+          "control": "primaryResistance",
+          "value": 0.01,
+          "rejected": false,
+          "geometry": {
+            "coordinateChecks": 4112,
+            "finiteAttributes": true
+          }
+        },
+        {
+          "control": "primaryResistance",
+          "value": 10,
+          "rejected": false,
+          "geometry": {
+            "coordinateChecks": 4112,
+            "finiteAttributes": true
+          }
+        },
+        {
+          "control": "secondaryResistance",
+          "value": 0.01,
+          "rejected": false,
+          "geometry": {
+            "coordinateChecks": 4112,
+            "finiteAttributes": true
+          }
+        },
+        {
+          "control": "secondaryResistance",
+          "value": 10,
+          "rejected": false,
+          "geometry": {
+            "coordinateChecks": 4112,
+            "finiteAttributes": true
+          }
+        },
+        {
+          "control": "load",
+          "value": 1,
+          "rejected": false,
+          "geometry": {
+            "coordinateChecks": 4112,
+            "finiteAttributes": true
+          }
+        },
+        {
+          "control": "load",
+          "value": 1000,
+          "rejected": false,
+          "geometry": {
+            "coordinateChecks": 4112,
+            "finiteAttributes": true
+          }
+        },
+        {
+          "control": "voltage",
+          "value": 0,
+          "rejected": false,
+          "geometry": {
+            "coordinateChecks": 4112,
+            "finiteAttributes": true
+          }
+        },
+        {
+          "control": "voltage",
+          "value": 48,
+          "rejected": false,
+          "geometry": {
+            "coordinateChecks": 4112,
+            "finiteAttributes": true
+          }
+        },
+        {
+          "control": "frequency",
+          "value": 1,
+          "rejected": false,
+          "geometry": {
+            "coordinateChecks": 4112,
+            "finiteAttributes": true
+          }
+        },
+        {
+          "control": "frequency",
+          "value": 400,
+          "rejected": false,
+          "geometry": {
+            "coordinateChecks": 4112,
+            "finiteAttributes": true
+          }
+        },
+        {
+          "control": "phase",
+          "value": 0,
+          "rejected": false,
+          "geometry": {
+            "coordinateChecks": 4112,
+            "finiteAttributes": true
+          }
+        },
+        {
+          "control": "phase",
+          "value": 360,
+          "rejected": false,
+          "geometry": {
+            "coordinateChecks": 4112,
+            "finiteAttributes": true
+          }
+        }
+      ],
+      "invalidDraftPreservedAcceptedState": true,
+      "resetRestoredViewport": true
+    },
+    {
+      "width": 390,
+      "id": "phys.3.em",
+      "station": "dc",
+      "summary": "Total emf 6 V · source current 1 A · equivalent resistance 6 Ω.",
+      "speeches": [
+        {
+          "preset": "ohm",
+          "characters": 1643,
+          "geometry": {
+            "coordinateChecks": 0,
+            "finiteAttributes": true
+          }
+        },
+        {
+          "preset": "heater-low",
+          "characters": 1645,
+          "geometry": {
+            "coordinateChecks": 0,
+            "finiteAttributes": true
+          }
+        },
+        {
+          "preset": "series-cells",
+          "characters": 1689,
+          "geometry": {
+            "coordinateChecks": 0,
+            "finiteAttributes": true
+          }
+        },
+        {
+          "preset": "shared",
+          "characters": 1784,
+          "geometry": {
+            "coordinateChecks": 0,
+            "finiteAttributes": true
+          }
+        },
+        {
+          "preset": "parallel",
+          "characters": 1796,
+          "geometry": {
+            "coordinateChecks": 0,
+            "finiteAttributes": true
+          }
+        },
+        {
+          "preset": "parallel-ohms",
+          "characters": 1780,
+          "geometry": {
+            "coordinateChecks": 0,
+            "finiteAttributes": true
+          }
+        },
+        {
+          "preset": "series-ohms",
+          "characters": 1788,
+          "geometry": {
+            "coordinateChecks": 0,
+            "finiteAttributes": true
+          }
+        },
+        {
+          "preset": "heater",
+          "characters": 1654,
+          "geometry": {
+            "coordinateChecks": 0,
+            "finiteAttributes": true
+          }
+        },
+        {
+          "preset": "bridge",
+          "characters": 2038,
+          "geometry": {
+            "coordinateChecks": 0,
+            "finiteAttributes": true
+          }
+        },
+        {
+          "preset": "balanced",
+          "characters": 1932,
+          "geometry": {
+            "coordinateChecks": 0,
+            "finiteAttributes": true
+          }
+        },
+        {
+          "preset": "open",
+          "characters": 1783,
+          "geometry": {
+            "coordinateChecks": 0,
+            "finiteAttributes": true
+          }
+        },
+        {
+          "preset": "short",
+          "characters": 1676,
+          "geometry": {
+            "coordinateChecks": 0,
+            "finiteAttributes": true
+          }
+        },
+        {
+          "preset": "zero",
+          "characters": 1643,
+          "geometry": {
+            "coordinateChecks": 0,
+            "finiteAttributes": true
+          }
+        }
+      ],
+      "boundaries": [
+        {
+          "control": "cell0",
+          "value": 0,
+          "rejected": false,
+          "geometry": {
+            "coordinateChecks": 0,
+            "finiteAttributes": true
+          }
+        },
+        {
+          "control": "cell0",
+          "value": 240,
+          "rejected": false,
+          "geometry": {
+            "coordinateChecks": 0,
+            "finiteAttributes": true
+          }
+        },
+        {
+          "control": "cell1",
+          "value": 0,
+          "rejected": false,
+          "geometry": {
+            "coordinateChecks": 0,
+            "finiteAttributes": true
+          }
+        },
+        {
+          "control": "cell1",
+          "value": 240,
+          "rejected": false,
+          "geometry": {
+            "coordinateChecks": 0,
+            "finiteAttributes": true
+          }
+        },
+        {
+          "control": "cell2",
+          "value": 0,
+          "rejected": false,
+          "geometry": {
+            "coordinateChecks": 0,
+            "finiteAttributes": true
+          }
+        },
+        {
+          "control": "cell2",
+          "value": 240,
+          "rejected": false,
+          "geometry": {
+            "coordinateChecks": 0,
+            "finiteAttributes": true
+          }
+        },
+        {
+          "control": "R0",
+          "value": 0.1,
+          "rejected": false,
+          "geometry": {
+            "coordinateChecks": 0,
+            "finiteAttributes": true
+          }
+        },
+        {
+          "control": "R0",
+          "value": 1000,
+          "rejected": false,
+          "geometry": {
+            "coordinateChecks": 0,
+            "finiteAttributes": true
+          }
+        },
+        {
+          "control": "R1",
+          "value": 0.1,
+          "rejected": false,
+          "geometry": {
+            "coordinateChecks": 0,
+            "finiteAttributes": true
+          }
+        },
+        {
+          "control": "R1",
+          "value": 1000,
+          "rejected": false,
+          "geometry": {
+            "coordinateChecks": 0,
+            "finiteAttributes": true
+          }
+        },
+        {
+          "control": "R2",
+          "value": 0.1,
+          "rejected": false,
+          "geometry": {
+            "coordinateChecks": 0,
+            "finiteAttributes": true
+          }
+        },
+        {
+          "control": "R2",
+          "value": 1000,
+          "rejected": false,
+          "geometry": {
+            "coordinateChecks": 0,
+            "finiteAttributes": true
+          }
+        }
+      ],
+      "invalidDraftPreservedAcceptedState": true,
+      "resetRestoredViewport": true
+    },
+    {
+      "width": 1440,
+      "id": "phys.2.electricity",
+      "station": "dc",
+      "summary": "Total emf 6 V · source current 1 A · equivalent resistance 6 Ω.",
+      "speeches": [
+        {
+          "preset": "ohm",
+          "characters": 1643,
+          "geometry": {
+            "coordinateChecks": 0,
+            "finiteAttributes": true
+          }
+        },
+        {
+          "preset": "heater-low",
+          "characters": 1645,
+          "geometry": {
+            "coordinateChecks": 0,
+            "finiteAttributes": true
+          }
+        },
+        {
+          "preset": "series-cells",
+          "characters": 1689,
+          "geometry": {
+            "coordinateChecks": 0,
+            "finiteAttributes": true
+          }
+        },
+        {
+          "preset": "shared",
+          "characters": 1784,
+          "geometry": {
+            "coordinateChecks": 0,
+            "finiteAttributes": true
+          }
+        },
+        {
+          "preset": "parallel",
+          "characters": 1796,
+          "geometry": {
+            "coordinateChecks": 0,
+            "finiteAttributes": true
+          }
+        },
+        {
+          "preset": "parallel-ohms",
+          "characters": 1780,
+          "geometry": {
+            "coordinateChecks": 0,
+            "finiteAttributes": true
+          }
+        },
+        {
+          "preset": "series-ohms",
+          "characters": 1788,
+          "geometry": {
+            "coordinateChecks": 0,
+            "finiteAttributes": true
+          }
+        },
+        {
+          "preset": "heater",
+          "characters": 1654,
+          "geometry": {
+            "coordinateChecks": 0,
+            "finiteAttributes": true
+          }
+        },
+        {
+          "preset": "bridge",
+          "characters": 2038,
+          "geometry": {
+            "coordinateChecks": 0,
+            "finiteAttributes": true
+          }
+        },
+        {
+          "preset": "balanced",
+          "characters": 1932,
+          "geometry": {
+            "coordinateChecks": 0,
+            "finiteAttributes": true
+          }
+        },
+        {
+          "preset": "open",
+          "characters": 1783,
+          "geometry": {
+            "coordinateChecks": 0,
+            "finiteAttributes": true
+          }
+        },
+        {
+          "preset": "short",
+          "characters": 1676,
+          "geometry": {
+            "coordinateChecks": 0,
+            "finiteAttributes": true
+          }
+        },
+        {
+          "preset": "zero",
+          "characters": 1643,
+          "geometry": {
+            "coordinateChecks": 0,
+            "finiteAttributes": true
+          }
+        }
+      ],
+      "boundaries": [
+        {
+          "control": "cell0",
+          "value": 0,
+          "rejected": false,
+          "geometry": {
+            "coordinateChecks": 0,
+            "finiteAttributes": true
+          }
+        },
+        {
+          "control": "cell0",
+          "value": 240,
+          "rejected": false,
+          "geometry": {
+            "coordinateChecks": 0,
+            "finiteAttributes": true
+          }
+        },
+        {
+          "control": "cell1",
+          "value": 0,
+          "rejected": false,
+          "geometry": {
+            "coordinateChecks": 0,
+            "finiteAttributes": true
+          }
+        },
+        {
+          "control": "cell1",
+          "value": 240,
+          "rejected": false,
+          "geometry": {
+            "coordinateChecks": 0,
+            "finiteAttributes": true
+          }
+        },
+        {
+          "control": "cell2",
+          "value": 0,
+          "rejected": false,
+          "geometry": {
+            "coordinateChecks": 0,
+            "finiteAttributes": true
+          }
+        },
+        {
+          "control": "cell2",
+          "value": 240,
+          "rejected": false,
+          "geometry": {
+            "coordinateChecks": 0,
+            "finiteAttributes": true
+          }
+        },
+        {
+          "control": "R0",
+          "value": 0.1,
+          "rejected": false,
+          "geometry": {
+            "coordinateChecks": 0,
+            "finiteAttributes": true
+          }
+        },
+        {
+          "control": "R0",
+          "value": 1000,
+          "rejected": false,
+          "geometry": {
+            "coordinateChecks": 0,
+            "finiteAttributes": true
+          }
+        },
+        {
+          "control": "R1",
+          "value": 0.1,
+          "rejected": false,
+          "geometry": {
+            "coordinateChecks": 0,
+            "finiteAttributes": true
+          }
+        },
+        {
+          "control": "R1",
+          "value": 1000,
+          "rejected": false,
+          "geometry": {
+            "coordinateChecks": 0,
+            "finiteAttributes": true
+          }
+        },
+        {
+          "control": "R2",
+          "value": 0.1,
+          "rejected": false,
+          "geometry": {
+            "coordinateChecks": 0,
+            "finiteAttributes": true
+          }
+        },
+        {
+          "control": "R2",
+          "value": 1000,
+          "rejected": false,
+          "geometry": {
+            "coordinateChecks": 0,
+            "finiteAttributes": true
+          }
+        }
+      ],
+      "invalidDraftPreservedAcceptedState": true,
+      "resetRestoredViewport": true
+    },
+    {
+      "width": 1440,
+      "id": "phys.2.electricity",
+      "station": "charge",
+      "summary": "The shell carries 20 nC; its distant transfer partner carries -20 nC. Wall attraction F_z = -0.000215701 N. Reversing charge reverses the polarization, while the attraction retains its direction.",
+      "speeches": [
+        {
+          "preset": "positive",
+          "characters": 2171,
+          "geometry": {
+            "coordinateChecks": 647,
+            "finiteAttributes": true
+          }
+        },
+        {
+          "preset": "negative",
+          "characters": 2172,
+          "geometry": {
+            "coordinateChecks": 647,
+            "finiteAttributes": true
+          }
+        },
+        {
+          "preset": "none",
+          "characters": 2115,
+          "geometry": {
+            "coordinateChecks": 647,
+            "finiteAttributes": true
+          }
+        },
+        {
+          "preset": "air",
+          "characters": 2079,
+          "geometry": {
+            "coordinateChecks": 647,
+            "finiteAttributes": true
+          }
+        }
+      ],
+      "boundaries": [
+        {
+          "control": "chargeNC",
+          "value": -100,
+          "rejected": false,
+          "geometry": {
+            "coordinateChecks": 647,
+            "finiteAttributes": true
+          }
+        },
+        {
+          "control": "chargeNC",
+          "value": 100,
+          "rejected": false,
+          "geometry": {
+            "coordinateChecks": 647,
+            "finiteAttributes": true
+          }
+        },
+        {
+          "control": "radiusCM",
+          "value": 1,
+          "rejected": false,
+          "geometry": {
+            "coordinateChecks": 647,
+            "finiteAttributes": true
+          }
+        },
+        {
+          "control": "radiusCM",
+          "value": 10,
+          "rejected": false,
+          "geometry": {
+            "coordinateChecks": 647,
+            "finiteAttributes": true
+          }
+        },
+        {
+          "control": "gapCM",
+          "value": 0,
+          "rejected": false,
+          "geometry": {
+            "coordinateChecks": 647,
+            "finiteAttributes": true
+          }
+        },
+        {
+          "control": "gapCM",
+          "value": 20,
+          "rejected": false,
+          "geometry": {
+            "coordinateChecks": 647,
+            "finiteAttributes": true
+          }
+        },
+        {
+          "control": "permittivity",
+          "value": 1,
+          "rejected": false,
+          "geometry": {
+            "coordinateChecks": 647,
+            "finiteAttributes": true
+          }
+        },
+        {
+          "control": "permittivity",
+          "value": 12,
+          "rejected": false,
+          "geometry": {
+            "coordinateChecks": 647,
+            "finiteAttributes": true
+          }
+        }
+      ],
+      "invalidDraftPreservedAcceptedState": true,
+      "resetRestoredViewport": true
+    },
+    {
+      "width": 1440,
+      "id": "phys.2.electricity",
+      "station": "material",
+      "summary": "Conductivity 58000000 S/m gives 0.058 A through the sample at 0.001 V. The same geometry and voltage can be compared across conductivities.",
+      "speeches": [
+        {
+          "preset": "copper",
+          "characters": 1533,
+          "geometry": {
+            "coordinateChecks": 260,
+            "finiteAttributes": true
+          }
+        },
+        {
+          "preset": "insulator",
+          "characters": 1486,
+          "geometry": {
+            "coordinateChecks": 260,
+            "finiteAttributes": true
+          }
+        },
+        {
+          "preset": "weak",
+          "characters": 1527,
+          "geometry": {
+            "coordinateChecks": 260,
+            "finiteAttributes": true
+          }
+        }
+      ],
+      "boundaries": [
+        {
+          "control": "voltageMV",
+          "value": 0,
+          "rejected": false,
+          "geometry": {
+            "coordinateChecks": 260,
+            "finiteAttributes": true
+          }
+        },
+        {
+          "control": "voltageMV",
+          "value": 10,
+          "rejected": false,
+          "geometry": {
+            "coordinateChecks": 260,
+            "finiteAttributes": true
+          }
+        },
+        {
+          "control": "lengthM",
+          "value": 0.1,
+          "rejected": false,
+          "geometry": {
+            "coordinateChecks": 260,
+            "finiteAttributes": true
+          }
+        },
+        {
+          "control": "lengthM",
+          "value": 2,
+          "rejected": false,
+          "geometry": {
+            "coordinateChecks": 260,
+            "finiteAttributes": true
+          }
+        },
+        {
+          "control": "areaMM2",
+          "value": 0.1,
+          "rejected": false,
+          "geometry": {
+            "coordinateChecks": 260,
+            "finiteAttributes": true
+          }
+        },
+        {
+          "control": "areaMM2",
+          "value": 2,
+          "rejected": false,
+          "geometry": {
+            "coordinateChecks": 260,
+            "finiteAttributes": true
+          }
+        },
+        {
+          "control": "logConductivity",
+          "value": -14,
+          "rejected": false,
+          "geometry": {
+            "coordinateChecks": 260,
+            "finiteAttributes": true
+          }
+        },
+        {
+          "control": "logConductivity",
+          "value": 8,
+          "rejected": false,
+          "geometry": {
+            "coordinateChecks": 260,
+            "finiteAttributes": true
+          }
+        }
+      ],
+      "invalidDraftPreservedAcceptedState": true,
+      "resetRestoredViewport": true
+    },
+    {
+      "width": 1440,
+      "id": "phys.2.electricity",
+      "station": "spark",
+      "summary": "Separated charges ±1500 nC give 4235.28 V across 1 mm. The state is below the predicted self-sustaining-avalanche threshold.",
+      "speeches": [
+        {
+          "preset": "none",
+          "characters": 2544,
+          "geometry": {
+            "coordinateChecks": 968,
+            "finiteAttributes": true
+          }
+        },
+        {
+          "preset": "below",
+          "characters": 2600,
+          "geometry": {
+            "coordinateChecks": 968,
+            "finiteAttributes": true
+          }
+        },
+        {
+          "preset": "above",
+          "characters": 2631,
+          "geometry": {
+            "coordinateChecks": 968,
+            "finiteAttributes": true
+          }
+        },
+        {
+          "preset": "reverse",
+          "characters": 2634,
+          "geometry": {
+            "coordinateChecks": 968,
+            "finiteAttributes": true
+          }
+        }
+      ],
+      "boundaries": [
+        {
+          "control": "chargeNC",
+          "value": -5000,
+          "rejected": false,
+          "geometry": {
+            "coordinateChecks": 968,
+            "finiteAttributes": true
+          }
+        },
+        {
+          "control": "chargeNC",
+          "value": 5000,
+          "rejected": false,
+          "geometry": {
+            "coordinateChecks": 968,
+            "finiteAttributes": true
+          }
+        },
+        {
+          "control": "gapMM",
+          "value": 0.1,
+          "rejected": false,
+          "geometry": {
+            "coordinateChecks": 968,
+            "finiteAttributes": true
+          }
+        },
+        {
+          "control": "gapMM",
+          "value": 5,
+          "rejected": false,
+          "geometry": {
+            "coordinateChecks": 968,
+            "finiteAttributes": true
+          }
+        },
+        {
+          "control": "pressureKPa",
+          "value": 20,
+          "rejected": false,
+          "geometry": {
+            "coordinateChecks": 968,
+            "finiteAttributes": true
+          }
+        },
+        {
+          "control": "pressureKPa",
+          "value": 120,
+          "rejected": false,
+          "geometry": {
+            "coordinateChecks": 968,
+            "finiteAttributes": true
+          }
+        },
+        {
+          "control": "secondary",
+          "value": 0.005,
+          "rejected": false,
+          "geometry": {
+            "coordinateChecks": 968,
+            "finiteAttributes": true
+          }
+        },
+        {
+          "control": "secondary",
+          "value": 0.05,
+          "rejected": false,
+          "geometry": {
+            "coordinateChecks": 968,
+            "finiteAttributes": true
+          }
+        }
+      ],
+      "invalidDraftPreservedAcceptedState": true,
+      "resetRestoredViewport": true
+    },
+    {
+      "width": 1440,
+      "id": "phys.3.em",
+      "station": "finite",
+      "summary": "Finite magnet centre z = -0.03 m at 0.35 s. Linked flux 0.000207589 Wb·turn; induced emf -0.00292014 V; pickup current -0.000292014 A.",
+      "speeches": [
+        {
+          "preset": "approach",
+          "characters": 2182,
+          "geometry": {
+            "coordinateChecks": 7696,
+            "finiteAttributes": true
+          }
+        },
+        {
+          "preset": "centre",
+          "characters": 2109,
+          "geometry": {
+            "coordinateChecks": 7696,
+            "finiteAttributes": true
+          }
+        },
+        {
+          "preset": "leave",
+          "characters": 2180,
+          "geometry": {
+            "coordinateChecks": 7696,
+            "finiteAttributes": true
+          }
+        },
+        {
+          "preset": "hold",
+          "characters": 2127,
+          "geometry": {
+            "coordinateChecks": 2416,
+            "finiteAttributes": true
+          }
+        },
+        {
+          "preset": "reverse",
+          "characters": 2174,
+          "geometry": {
+            "coordinateChecks": 7696,
+            "finiteAttributes": true
+          }
+        },
+        {
+          "preset": "rl",
+          "characters": 2204,
+          "geometry": {
+            "coordinateChecks": 19132,
+            "finiteAttributes": true
+          }
+        }
+      ],
+      "boundaries": [
+        {
+          "control": "magnetRadiusMM",
+          "value": 2,
+          "rejected": false,
+          "geometry": {
+            "coordinateChecks": 7696,
+            "finiteAttributes": true
+          }
+        },
+        {
+          "control": "magnetRadiusMM",
+          "value": 10,
+          "rejected": false,
+          "geometry": {
+            "coordinateChecks": 7696,
+            "finiteAttributes": true
+          }
+        },
+        {
+          "control": "magnetLengthMM",
+          "value": 5,
+          "rejected": false,
+          "geometry": {
+            "coordinateChecks": 7696,
+            "finiteAttributes": true
+          }
+        },
+        {
+          "control": "magnetLengthMM",
+          "value": 40,
+          "rejected": false,
+          "geometry": {
+            "coordinateChecks": 7696,
+            "finiteAttributes": true
+          }
+        },
+        {
+          "control": "magnetizationKA",
+          "value": -1300,
+          "rejected": false,
+          "geometry": {
+            "coordinateChecks": 7696,
+            "finiteAttributes": true
+          }
+        },
+        {
+          "control": "magnetizationKA",
+          "value": 1300,
+          "rejected": false,
+          "geometry": {
+            "coordinateChecks": 7696,
+            "finiteAttributes": true
+          }
+        },
+        {
+          "control": "coilRadiusMM",
+          "value": 15,
+          "rejected": false,
+          "geometry": {
+            "coordinateChecks": 10264,
+            "finiteAttributes": true
+          }
+        },
+        {
+          "control": "coilRadiusMM",
+          "value": 50,
+          "rejected": false,
+          "geometry": {
+            "coordinateChecks": 3088,
+            "finiteAttributes": true
+          }
+        },
+        {
+          "control": "turns",
+          "value": 1,
+          "rejected": false,
+          "geometry": {
+            "coordinateChecks": 7696,
+            "finiteAttributes": true
+          }
+        },
+        {
+          "control": "turns",
+          "value": 100,
+          "rejected": false,
+          "geometry": {
+            "coordinateChecks": 7696,
+            "finiteAttributes": true
+          }
+        },
+        {
+          "control": "resistance",
+          "value": 1,
+          "rejected": false,
+          "geometry": {
+            "coordinateChecks": 7696,
+            "finiteAttributes": true
+          }
+        },
+        {
+          "control": "resistance",
+          "value": 100,
+          "rejected": false,
+          "geometry": {
+            "coordinateChecks": 7696,
+            "finiteAttributes": true
+          }
+        },
+        {
+          "control": "inductance",
+          "value": 0,
+          "rejected": false,
+          "geometry": {
+            "coordinateChecks": 7696,
+            "finiteAttributes": true
+          }
+        },
+        {
+          "control": "inductance",
+          "value": 1,
+          "rejected": false,
+          "geometry": {
+            "coordinateChecks": 11536,
+            "finiteAttributes": true
+          }
+        },
+        {
+          "control": "startMM",
+          "value": -150,
+          "rejected": false,
+          "geometry": {
+            "coordinateChecks": 7696,
+            "finiteAttributes": true
+          }
+        },
+        {
+          "control": "startMM",
+          "value": 150,
+          "rejected": false,
+          "geometry": {
+            "coordinateChecks": 7696,
+            "finiteAttributes": true
+          }
+        },
+        {
+          "control": "speed",
+          "value": -0.2,
+          "rejected": false,
+          "geometry": {
+            "coordinateChecks": 7696,
+            "finiteAttributes": true
+          }
+        },
+        {
+          "control": "speed",
+          "value": 0.2,
+          "rejected": false,
+          "geometry": {
+            "coordinateChecks": 7696,
+            "finiteAttributes": true
+          }
+        },
+        {
+          "control": "time",
+          "value": 0,
+          "rejected": false,
+          "geometry": {
+            "coordinateChecks": 7696,
+            "finiteAttributes": true
+          }
+        },
+        {
+          "control": "time",
+          "value": 1,
+          "rejected": false,
+          "geometry": {
+            "coordinateChecks": 7696,
+            "finiteAttributes": true
+          }
+        }
+      ],
+      "invalidDraftPreservedAcceptedState": true,
+      "resetRestoredViewport": true
+    },
+    {
+      "width": 1440,
+      "id": "phys.3.em",
+      "station": "induction",
+      "summary": "At 0.5 s: linked flux 0.125664 Wb·turn; induced emf 0.394784 V; current 0.0388647 A.",
+      "speeches": [
+        {
+          "preset": "fast",
+          "characters": 2599,
+          "geometry": {
+            "coordinateChecks": 11802,
+            "finiteAttributes": true
+          }
+        },
+        {
+          "preset": "still",
+          "characters": 2482,
+          "geometry": {
+            "coordinateChecks": 15642,
+            "finiteAttributes": true
+          }
+        },
+        {
+          "preset": "field",
+          "characters": 2561,
+          "geometry": {
+            "coordinateChecks": 38514,
+            "finiteAttributes": true
+          }
+        },
+        {
+          "preset": "rotate",
+          "characters": 2500,
+          "geometry": {
+            "coordinateChecks": 48474,
+            "finiteAttributes": true
+          }
+        },
+        {
+          "preset": "reverse",
+          "characters": 2503,
+          "geometry": {
+            "coordinateChecks": 48474,
+            "finiteAttributes": true
+          }
+        },
+        {
+          "preset": "open",
+          "characters": 2494,
+          "geometry": {
+            "coordinateChecks": 15642,
+            "finiteAttributes": true
+          }
+        },
+        {
+          "preset": "resistive",
+          "characters": 2565,
+          "geometry": {
+            "coordinateChecks": 15642,
+            "finiteAttributes": true
+          }
+        },
+        {
+          "preset": "combined",
+          "characters": 2583,
+          "geometry": {
+            "coordinateChecks": 61386,
+            "finiteAttributes": true
+          }
+        }
+      ],
+      "boundaries": [
+        {
+          "control": "turns",
+          "value": 1,
+          "rejected": false,
+          "geometry": {
+            "coordinateChecks": 38514,
+            "finiteAttributes": true
+          }
+        },
+        {
+          "control": "turns",
+          "value": 100,
+          "rejected": false,
+          "geometry": {
+            "coordinateChecks": 38514,
+            "finiteAttributes": true
+          }
+        },
+        {
+          "control": "radius",
+          "value": 0.01,
+          "rejected": false,
+          "geometry": {
+            "coordinateChecks": 38514,
+            "finiteAttributes": true
+          }
+        },
+        {
+          "control": "radius",
+          "value": 0.5,
+          "rejected": false,
+          "geometry": {
+            "coordinateChecks": 38514,
+            "finiteAttributes": true
+          }
+        },
+        {
+          "control": "fieldBias",
+          "value": -1,
+          "rejected": false,
+          "geometry": {
+            "coordinateChecks": 38514,
+            "finiteAttributes": true
+          }
+        },
+        {
+          "control": "fieldBias",
+          "value": 1,
+          "rejected": false,
+          "geometry": {
+            "coordinateChecks": 38514,
+            "finiteAttributes": true
+          }
+        },
+        {
+          "control": "fieldAmplitude",
+          "value": 0,
+          "rejected": false,
+          "geometry": {
+            "coordinateChecks": 15642,
+            "finiteAttributes": true
+          }
+        },
+        {
+          "control": "fieldAmplitude",
+          "value": 1,
+          "rejected": false,
+          "geometry": {
+            "coordinateChecks": 38514,
+            "finiteAttributes": true
+          }
+        },
+        {
+          "control": "frequency",
+          "value": 0,
+          "rejected": false,
+          "geometry": {
+            "coordinateChecks": 6426,
+            "finiteAttributes": true
+          }
+        },
+        {
+          "control": "frequency",
+          "value": 5,
+          "rejected": false,
+          "geometry": {
+            "coordinateChecks": 99210,
+            "finiteAttributes": true
+          }
+        },
+        {
+          "control": "fieldPhase",
+          "value": -180,
+          "rejected": false,
+          "geometry": {
+            "coordinateChecks": 38514,
+            "finiteAttributes": true
+          }
+        },
+        {
+          "control": "fieldPhase",
+          "value": 180,
+          "rejected": false,
+          "geometry": {
+            "coordinateChecks": 38514,
+            "finiteAttributes": true
+          }
+        },
+        {
+          "control": "angle",
+          "value": -180,
+          "rejected": false,
+          "geometry": {
+            "coordinateChecks": 38514,
+            "finiteAttributes": true
+          }
+        },
+        {
+          "control": "angle",
+          "value": 180,
+          "rejected": false,
+          "geometry": {
+            "coordinateChecks": 38514,
+            "finiteAttributes": true
+          }
+        },
+        {
+          "control": "rotation",
+          "value": -10,
+          "rejected": false,
+          "geometry": {
+            "coordinateChecks": 63138,
+            "finiteAttributes": true
+          }
+        },
+        {
+          "control": "rotation",
+          "value": 10,
+          "rejected": false,
+          "geometry": {
+            "coordinateChecks": 63138,
+            "finiteAttributes": true
+          }
+        },
+        {
+          "control": "resistance",
+          "value": 1,
+          "rejected": false,
+          "geometry": {
+            "coordinateChecks": 37770,
+            "finiteAttributes": true
+          }
+        },
+        {
+          "control": "resistance",
+          "value": 100,
+          "rejected": false,
+          "geometry": {
+            "coordinateChecks": 38658,
+            "finiteAttributes": true
+          }
+        },
+        {
+          "control": "inductance",
+          "value": 0,
+          "rejected": false,
+          "geometry": {
+            "coordinateChecks": 15642,
+            "finiteAttributes": true
+          }
+        },
+        {
+          "control": "inductance",
+          "value": 2,
+          "rejected": false,
+          "geometry": {
+            "coordinateChecks": 37770,
+            "finiteAttributes": true
+          }
+        },
+        {
+          "control": "time",
+          "value": 0,
+          "rejected": false,
+          "geometry": {
+            "coordinateChecks": 38514,
+            "finiteAttributes": true
+          }
+        },
+        {
+          "control": "time",
+          "value": 5,
+          "rejected": false,
+          "geometry": {
+            "coordinateChecks": 38514,
+            "finiteAttributes": true
+          }
+        }
+      ],
+      "invalidDraftPreservedAcceptedState": true,
+      "resetRestoredViewport": true
+    },
+    {
+      "width": 1440,
+      "id": "phys.3.em",
+      "station": "pipe",
+      "summary": "At 1 s, centre z = 0.0302244 m and velocity = -0.0500303 m/s. The full cylinder leaves the lower end at 4.57333 s, retaining its exit velocity. Low-speed parameter μ₀σ|v|R_inner ≤ 0.143829.",
+      "speeches": [
+        {
+          "preset": "copper",
+          "characters": 3702,
+          "geometry": {
+            "coordinateChecks": 19504,
+            "finiteAttributes": true
+          }
+        },
+        {
+          "preset": "plastic",
+          "characters": 3437,
+          "geometry": {
+            "coordinateChecks": 304,
+            "finiteAttributes": true
+          }
+        },
+        {
+          "preset": "unmagnetized",
+          "characters": 3187,
+          "geometry": {
+            "coordinateChecks": 304,
+            "finiteAttributes": true
+          }
+        },
+        {
+          "preset": "opposite",
+          "characters": 3693,
+          "geometry": {
+            "coordinateChecks": 19504,
+            "finiteAttributes": true
+          }
+        }
+      ],
+      "boundaries": [
+        {
+          "control": "magnetRadiusMM",
+          "value": 2,
+          "rejected": false,
+          "geometry": {
+            "coordinateChecks": 544,
+            "finiteAttributes": true
+          }
+        },
+        {
+          "control": "magnetRadiusMM",
+          "value": 10,
+          "rejected": false,
+          "geometry": {
+            "coordinateChecks": 19504,
+            "finiteAttributes": true
+          }
+        },
+        {
+          "control": "magnetLengthMM",
+          "value": 5,
+          "rejected": false,
+          "geometry": {
+            "coordinateChecks": 1984,
+            "finiteAttributes": true
+          }
+        },
+        {
+          "control": "magnetLengthMM",
+          "value": 40,
+          "rejected": false,
+          "geometry": {
+            "coordinateChecks": 38924,
+            "finiteAttributes": true
+          }
+        },
+        {
+          "control": "magnetizationKA",
+          "value": -1300,
+          "rejected": false,
+          "geometry": {
+            "coordinateChecks": 19504,
+            "finiteAttributes": true
+          }
+        },
+        {
+          "control": "magnetizationKA",
+          "value": 1300,
+          "rejected": false,
+          "geometry": {
+            "coordinateChecks": 19504,
+            "finiteAttributes": true
+          }
+        },
+        {
+          "control": "innerRadiusMM",
+          "value": 15,
+          "rejected": false,
+          "geometry": {
+            "coordinateChecks": 19504,
+            "finiteAttributes": true
+          }
+        },
+        {
+          "control": "innerRadiusMM",
+          "value": 40,
+          "rejected": false,
+          "geometry": {
+            "coordinateChecks": 1184,
+            "finiteAttributes": true
+          }
+        },
+        {
+          "control": "wallMM",
+          "value": 0.2,
+          "rejected": false,
+          "geometry": {
+            "coordinateChecks": 1924,
+            "finiteAttributes": true
+          }
+        },
+        {
+          "control": "wallMM",
+          "value": 4,
+          "rejected": false,
+          "geometry": {
+            "coordinateChecks": 24804,
+            "finiteAttributes": true
+          }
+        },
+        {
+          "control": "lengthCM",
+          "value": 15,
+          "rejected": true,
+          "geometry": {
+            "coordinateChecks": 19504,
+            "finiteAttributes": true
+          }
+        },
+        {
+          "control": "lengthCM",
+          "value": 60,
+          "rejected": false,
+          "geometry": {
+            "coordinateChecks": 22504,
+            "finiteAttributes": true
+          }
+        },
+        {
+          "control": "massG",
+          "value": 5,
+          "rejected": false,
+          "geometry": {
+            "coordinateChecks": 8084,
+            "finiteAttributes": true
+          }
+        },
+        {
+          "control": "massG",
+          "value": 100,
+          "rejected": false,
+          "geometry": {
+            "coordinateChecks": 8104,
+            "finiteAttributes": true
+          }
+        },
+        {
+          "control": "conductivityMS",
+          "value": 0,
+          "rejected": false,
+          "geometry": {
+            "coordinateChecks": 304,
+            "finiteAttributes": true
+          }
+        },
+        {
+          "control": "conductivityMS",
+          "value": 58,
+          "rejected": false,
+          "geometry": {
+            "coordinateChecks": 19504,
+            "finiteAttributes": true
+          }
+        },
+        {
+          "control": "gravity",
+          "value": 0,
+          "rejected": false,
+          "geometry": {
+            "coordinateChecks": 8084,
+            "finiteAttributes": true
+          }
+        },
+        {
+          "control": "gravity",
+          "value": 10,
+          "rejected": false,
+          "geometry": {
+            "coordinateChecks": 19264,
+            "finiteAttributes": true
+          }
+        },
+        {
+          "control": "releaseCM",
+          "value": -10,
+          "rejected": false,
+          "geometry": {
+            "coordinateChecks": 15564,
+            "finiteAttributes": true
+          }
+        },
+        {
+          "control": "releaseCM",
+          "value": 25,
+          "rejected": true,
+          "geometry": {
+            "coordinateChecks": 19504,
+            "finiteAttributes": true
+          }
+        },
+        {
+          "control": "time",
+          "value": 0,
+          "rejected": false,
+          "geometry": {
+            "coordinateChecks": 19504,
+            "finiteAttributes": true
+          }
+        },
+        {
+          "control": "time",
+          "value": 8,
+          "rejected": false,
+          "geometry": {
+            "coordinateChecks": 19504,
+            "finiteAttributes": true
+          }
+        }
+      ],
+      "invalidDraftPreservedAcceptedState": true,
+      "resetRestoredViewport": true
+    },
+    {
+      "width": 1440,
+      "id": "phys.3.em",
+      "station": "wires",
+      "summary": "The selected wire segment experiences equal and opposite magnetic forces: 0.0001 N on the left wire and -0.0001 N on the right. Parallel currents attract.",
+      "speeches": [
+        {
+          "preset": "same",
+          "characters": 1628,
+          "geometry": {
+            "coordinateChecks": 484,
+            "finiteAttributes": true
+          }
+        },
+        {
+          "preset": "opposite",
+          "characters": 1626,
+          "geometry": {
+            "coordinateChecks": 484,
+            "finiteAttributes": true
+          }
+        },
+        {
+          "preset": "one",
+          "characters": 1621,
+          "geometry": {
+            "coordinateChecks": 484,
+            "finiteAttributes": true
+          }
+        }
+      ],
+      "boundaries": [
+        {
+          "control": "current1",
+          "value": -20,
+          "rejected": false,
+          "geometry": {
+            "coordinateChecks": 484,
+            "finiteAttributes": true
+          }
+        },
+        {
+          "control": "current1",
+          "value": 20,
+          "rejected": false,
+          "geometry": {
+            "coordinateChecks": 484,
+            "finiteAttributes": true
+          }
+        },
+        {
+          "control": "current2",
+          "value": -20,
+          "rejected": false,
+          "geometry": {
+            "coordinateChecks": 484,
+            "finiteAttributes": true
+          }
+        },
+        {
+          "control": "current2",
+          "value": 20,
+          "rejected": false,
+          "geometry": {
+            "coordinateChecks": 484,
+            "finiteAttributes": true
+          }
+        },
+        {
+          "control": "separationCM",
+          "value": 1,
+          "rejected": false,
+          "geometry": {
+            "coordinateChecks": 484,
+            "finiteAttributes": true
+          }
+        },
+        {
+          "control": "separationCM",
+          "value": 20,
+          "rejected": false,
+          "geometry": {
+            "coordinateChecks": 484,
+            "finiteAttributes": true
+          }
+        },
+        {
+          "control": "lengthM",
+          "value": 0.5,
+          "rejected": false,
+          "geometry": {
+            "coordinateChecks": 484,
+            "finiteAttributes": true
+          }
+        },
+        {
+          "control": "lengthM",
+          "value": 5,
+          "rejected": false,
+          "geometry": {
+            "coordinateChecks": 484,
+            "finiteAttributes": true
+          }
+        },
+        {
+          "control": "probeCM",
+          "value": -30,
+          "rejected": false,
+          "geometry": {
+            "coordinateChecks": 484,
+            "finiteAttributes": true
+          }
+        },
+        {
+          "control": "probeCM",
+          "value": 30,
+          "rejected": false,
+          "geometry": {
+            "coordinateChecks": 484,
+            "finiteAttributes": true
+          }
+        }
+      ],
+      "invalidDraftPreservedAcceptedState": true,
+      "resetRestoredViewport": true
+    },
+    {
+      "width": 1440,
+      "id": "phys.3.em",
+      "station": "transformer",
+      "summary": "AC steady state: secondary voltage 20.6549 V; load power 4.26624 W. Ideal turns-ratio comparison N₂/N₁ = 2.",
+      "speeches": [
+        {
+          "preset": "stepup",
+          "characters": 2155,
+          "geometry": {
+            "coordinateChecks": 4112,
+            "finiteAttributes": true
+          }
+        },
+        {
+          "preset": "down",
+          "characters": 2150,
+          "geometry": {
+            "coordinateChecks": 4112,
+            "finiteAttributes": true
+          }
+        },
+        {
+          "preset": "open",
+          "characters": 2102,
+          "geometry": {
+            "coordinateChecks": 4112,
+            "finiteAttributes": true
+          }
+        },
+        {
+          "preset": "short",
+          "characters": 2117,
+          "geometry": {
+            "coordinateChecks": 4112,
+            "finiteAttributes": true
+          }
+        },
+        {
+          "preset": "dc",
+          "characters": 2058,
+          "geometry": {
+            "coordinateChecks": 4112,
+            "finiteAttributes": true
+          }
+        }
+      ],
+      "boundaries": [
+        {
+          "control": "primaryTurns",
+          "value": 10,
+          "rejected": false,
+          "geometry": {
+            "coordinateChecks": 4112,
+            "finiteAttributes": true
+          }
+        },
+        {
+          "control": "primaryTurns",
+          "value": 500,
+          "rejected": false,
+          "geometry": {
+            "coordinateChecks": 4112,
+            "finiteAttributes": true
+          }
+        },
+        {
+          "control": "secondaryTurns",
+          "value": 10,
+          "rejected": false,
+          "geometry": {
+            "coordinateChecks": 4112,
+            "finiteAttributes": true
+          }
+        },
+        {
+          "control": "secondaryTurns",
+          "value": 500,
+          "rejected": false,
+          "geometry": {
+            "coordinateChecks": 4112,
+            "finiteAttributes": true
+          }
+        },
+        {
+          "control": "permeanceUH",
+          "value": 10,
+          "rejected": false,
+          "geometry": {
+            "coordinateChecks": 4112,
+            "finiteAttributes": true
+          }
+        },
+        {
+          "control": "permeanceUH",
+          "value": 500,
+          "rejected": false,
+          "geometry": {
+            "coordinateChecks": 4112,
+            "finiteAttributes": true
+          }
+        },
+        {
+          "control": "coupling",
+          "value": 0,
+          "rejected": false,
+          "geometry": {
+            "coordinateChecks": 4112,
+            "finiteAttributes": true
+          }
+        },
+        {
+          "control": "coupling",
+          "value": 0.9999,
+          "rejected": false,
+          "geometry": {
+            "coordinateChecks": 4112,
+            "finiteAttributes": true
+          }
+        },
+        {
+          "control": "primaryResistance",
+          "value": 0.01,
+          "rejected": false,
+          "geometry": {
+            "coordinateChecks": 4112,
+            "finiteAttributes": true
+          }
+        },
+        {
+          "control": "primaryResistance",
+          "value": 10,
+          "rejected": false,
+          "geometry": {
+            "coordinateChecks": 4112,
+            "finiteAttributes": true
+          }
+        },
+        {
+          "control": "secondaryResistance",
+          "value": 0.01,
+          "rejected": false,
+          "geometry": {
+            "coordinateChecks": 4112,
+            "finiteAttributes": true
+          }
+        },
+        {
+          "control": "secondaryResistance",
+          "value": 10,
+          "rejected": false,
+          "geometry": {
+            "coordinateChecks": 4112,
+            "finiteAttributes": true
+          }
+        },
+        {
+          "control": "load",
+          "value": 1,
+          "rejected": false,
+          "geometry": {
+            "coordinateChecks": 4112,
+            "finiteAttributes": true
+          }
+        },
+        {
+          "control": "load",
+          "value": 1000,
+          "rejected": false,
+          "geometry": {
+            "coordinateChecks": 4112,
+            "finiteAttributes": true
+          }
+        },
+        {
+          "control": "voltage",
+          "value": 0,
+          "rejected": false,
+          "geometry": {
+            "coordinateChecks": 4112,
+            "finiteAttributes": true
+          }
+        },
+        {
+          "control": "voltage",
+          "value": 48,
+          "rejected": false,
+          "geometry": {
+            "coordinateChecks": 4112,
+            "finiteAttributes": true
+          }
+        },
+        {
+          "control": "frequency",
+          "value": 1,
+          "rejected": false,
+          "geometry": {
+            "coordinateChecks": 4112,
+            "finiteAttributes": true
+          }
+        },
+        {
+          "control": "frequency",
+          "value": 400,
+          "rejected": false,
+          "geometry": {
+            "coordinateChecks": 4112,
+            "finiteAttributes": true
+          }
+        },
+        {
+          "control": "phase",
+          "value": 0,
+          "rejected": false,
+          "geometry": {
+            "coordinateChecks": 4112,
+            "finiteAttributes": true
+          }
+        },
+        {
+          "control": "phase",
+          "value": 360,
+          "rejected": false,
+          "geometry": {
+            "coordinateChecks": 4112,
+            "finiteAttributes": true
+          }
+        }
+      ],
+      "invalidDraftPreservedAcceptedState": true,
+      "resetRestoredViewport": true
+    },
+    {
+      "width": 1440,
+      "id": "phys.3.em",
+      "station": "dc",
+      "summary": "Total emf 6 V · source current 1 A · equivalent resistance 6 Ω.",
+      "speeches": [
+        {
+          "preset": "ohm",
+          "characters": 1643,
+          "geometry": {
+            "coordinateChecks": 0,
+            "finiteAttributes": true
+          }
+        },
+        {
+          "preset": "heater-low",
+          "characters": 1645,
+          "geometry": {
+            "coordinateChecks": 0,
+            "finiteAttributes": true
+          }
+        },
+        {
+          "preset": "series-cells",
+          "characters": 1689,
+          "geometry": {
+            "coordinateChecks": 0,
+            "finiteAttributes": true
+          }
+        },
+        {
+          "preset": "shared",
+          "characters": 1784,
+          "geometry": {
+            "coordinateChecks": 0,
+            "finiteAttributes": true
+          }
+        },
+        {
+          "preset": "parallel",
+          "characters": 1796,
+          "geometry": {
+            "coordinateChecks": 0,
+            "finiteAttributes": true
+          }
+        },
+        {
+          "preset": "parallel-ohms",
+          "characters": 1780,
+          "geometry": {
+            "coordinateChecks": 0,
+            "finiteAttributes": true
+          }
+        },
+        {
+          "preset": "series-ohms",
+          "characters": 1788,
+          "geometry": {
+            "coordinateChecks": 0,
+            "finiteAttributes": true
+          }
+        },
+        {
+          "preset": "heater",
+          "characters": 1654,
+          "geometry": {
+            "coordinateChecks": 0,
+            "finiteAttributes": true
+          }
+        },
+        {
+          "preset": "bridge",
+          "characters": 2038,
+          "geometry": {
+            "coordinateChecks": 0,
+            "finiteAttributes": true
+          }
+        },
+        {
+          "preset": "balanced",
+          "characters": 1932,
+          "geometry": {
+            "coordinateChecks": 0,
+            "finiteAttributes": true
+          }
+        },
+        {
+          "preset": "open",
+          "characters": 1783,
+          "geometry": {
+            "coordinateChecks": 0,
+            "finiteAttributes": true
+          }
+        },
+        {
+          "preset": "short",
+          "characters": 1676,
+          "geometry": {
+            "coordinateChecks": 0,
+            "finiteAttributes": true
+          }
+        },
+        {
+          "preset": "zero",
+          "characters": 1643,
+          "geometry": {
+            "coordinateChecks": 0,
+            "finiteAttributes": true
+          }
+        }
+      ],
+      "boundaries": [
+        {
+          "control": "cell0",
+          "value": 0,
+          "rejected": false,
+          "geometry": {
+            "coordinateChecks": 0,
+            "finiteAttributes": true
+          }
+        },
+        {
+          "control": "cell0",
+          "value": 240,
+          "rejected": false,
+          "geometry": {
+            "coordinateChecks": 0,
+            "finiteAttributes": true
+          }
+        },
+        {
+          "control": "cell1",
+          "value": 0,
+          "rejected": false,
+          "geometry": {
+            "coordinateChecks": 0,
+            "finiteAttributes": true
+          }
+        },
+        {
+          "control": "cell1",
+          "value": 240,
+          "rejected": false,
+          "geometry": {
+            "coordinateChecks": 0,
+            "finiteAttributes": true
+          }
+        },
+        {
+          "control": "cell2",
+          "value": 0,
+          "rejected": false,
+          "geometry": {
+            "coordinateChecks": 0,
+            "finiteAttributes": true
+          }
+        },
+        {
+          "control": "cell2",
+          "value": 240,
+          "rejected": false,
+          "geometry": {
+            "coordinateChecks": 0,
+            "finiteAttributes": true
+          }
+        },
+        {
+          "control": "R0",
+          "value": 0.1,
+          "rejected": false,
+          "geometry": {
+            "coordinateChecks": 0,
+            "finiteAttributes": true
+          }
+        },
+        {
+          "control": "R0",
+          "value": 1000,
+          "rejected": false,
+          "geometry": {
+            "coordinateChecks": 0,
+            "finiteAttributes": true
+          }
+        },
+        {
+          "control": "R1",
+          "value": 0.1,
+          "rejected": false,
+          "geometry": {
+            "coordinateChecks": 0,
+            "finiteAttributes": true
+          }
+        },
+        {
+          "control": "R1",
+          "value": 1000,
+          "rejected": false,
+          "geometry": {
+            "coordinateChecks": 0,
+            "finiteAttributes": true
+          }
+        },
+        {
+          "control": "R2",
+          "value": 0.1,
+          "rejected": false,
+          "geometry": {
+            "coordinateChecks": 0,
+            "finiteAttributes": true
+          }
+        },
+        {
+          "control": "R2",
+          "value": 1000,
+          "rejected": false,
+          "geometry": {
+            "coordinateChecks": 0,
+            "finiteAttributes": true
+          }
+        }
+      ],
+      "invalidDraftPreservedAcceptedState": true,
+      "resetRestoredViewport": true
+    }
+  ],
+  "errors": []
+}

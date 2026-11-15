@@ -1,0 +1,68 @@
+{
+  "schema_version": 1,
+  "id": "last-digit-detective",
+  "title": "Last-Digit Detective",
+  "module_ids": [
+    "math.2.primes"
+  ],
+  "authorship": "Original Primer explanations, examples and implementation. No Brilliant lesson text, artwork or question bank is included.",
+  "knowledge": {
+    "definition": "A positive integer d divides N when N = d \u00d7 q for an integer q, leaving remainder zero.",
+    "one_digit": "Write N = 10 \u00d7 q + r. When d divides 10, the tens contribute no remainder, so only r matters. This covers 2, 5 and 10.",
+    "two_digits": "Write N = 100 \u00d7 q + r. Since 100 is a multiple of 4, divisibility by 4 depends on the final two digits.",
+    "uncertainty": "A final 0 alone does not settle divisibility by 4: 40 is divisible by 4, but 50 is not."
+  },
+  "game_model": {
+    "loop": [
+      "predict",
+      "check",
+      "explain",
+      "continue",
+      "transfer"
+    ],
+    "feedback": "Immediate explanations; mistakes can be retried without losing access.",
+    "progress": "Solved challenges in this session only.",
+    "mastery": "Practice only; no XP, streak, assessment pass or mastery write.",
+    "number_representation": "Decimal strings evaluated with BigInt; leading zeroes allowed in the sandbox.",
+    "allowed_divisors": [
+      2,
+      4,
+      5,
+      10
+    ]
+  },
+  "challenges": [
+    {
+      "kind": "exact",
+      "number": "804210",
+      "divisor": 10
+    },
+    {
+      "kind": "exact",
+      "number": "730025",
+      "divisor": 5
+    },
+    {
+      "kind": "exact",
+      "number": "9007199254740993",
+      "divisor": 2
+    },
+    {
+      "kind": "hidden",
+      "suffix": "0",
+      "prefix_digits": 4,
+      "divisor": 4
+    },
+    {
+      "kind": "hidden",
+      "suffix": "20",
+      "prefix_digits": 3,
+      "divisor": 4
+    },
+    {
+      "kind": "exact",
+      "number": "63218",
+      "divisor": 4
+    }
+  ]
+}

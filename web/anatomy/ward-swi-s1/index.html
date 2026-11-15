@@ -1,0 +1,69 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Cerebral veins on susceptibility MRI · Primer</title>
+<link rel="stylesheet" href="viewer.css">
+<script type="module" src="viewer.js"></script>
+</head>
+<body>
+<main>
+<a id="return" href="../bp3d-dural-4.3/index.html">Return to the venous atlas</a>
+<h1>Cerebral veins on susceptibility MRI</h1>
+<p>Inspect all native slices from Ward subject S1, a healthy research volunteer. Select a point in any plane to locate it in the other two.</p>
+<fieldset id="controls" disabled>
+<legend>Display</legend>
+<label>Source <select id="sequence">
+<option value="SWI">Susceptibility-weighted image</option>
+<option value="QSM">Quantitative susceptibility map</option>
+</select></label>
+<label>Vein tracing <select id="mode">
+<option value="mri">Hide</option>
+<option value="overlay">Overlay at matching voxel indices</option>
+<option value="mask">Show tracing alone</option>
+</select></label>
+<label>Window low <input id="low" type="number" value="0" step="any"></label>
+<label>Window high <input id="high" type="number" value="360" step="any"></label>
+</fieldset>
+<p id="status" role="status">Verifying source files…</p>
+<button id="retry" type="button" hidden>Retry</button>
+<p id="cursor"></p>
+<div id="planes"></div>
+<section class="mesh-panel" aria-labelledby="mesh-heading">
+<h2 id="mesh-heading">Vein tracing in 3D</h2>
+<p>Section the model at the image cursor to inspect deeper parts of the tracing. The surface follows the traced voxels and leaves boundaries open where the scan ends.</p>
+<button type="button" id="show-mesh" disabled>Load 3D tracing</button>
+<p id="mesh-status" role="status"></p>
+<div id="mesh-section" hidden>
+<div class="mesh-frame">
+<canvas id="mesh" width="860" height="580" role="img" aria-label="Three-dimensional surface of the Ward vein tracing"></canvas>
+<div class="scale-marker"><span id="mesh-scale-bar"></span>50 mm</div>
+</div>
+<p id="mesh-scale"></p>
+<fieldset id="mesh-controls" disabled>
+<legend>3D view</legend>
+<label>Rotation <input type="range" id="mesh-yaw" min="-180" max="180" value="25"></label>
+<label>Tilt <input type="range" id="mesh-pitch" min="-90" max="90" value="18"></label>
+<label>Zoom <input type="range" id="mesh-zoom" min="1" max="3" step=".05" value="1.35"></label>
+<label>Section at image cursor <select id="mesh-clip">
+<option value="-1">Whole tracing</option><option value="0">Sagittal</option>
+<option value="1">Coronal</option><option value="2">Axial</option>
+</select></label>
+<label>Keep voxel indices <select id="mesh-side" disabled>
+<option value="1">Below cursor</option><option value="-1">Above cursor</option>
+</select></label>
+<button type="button" id="mesh-reset">Reset view</button>
+</fieldset>
+<p id="mesh-clip-note"></p>
+</div>
+</section>
+<details>
+<summary>Source and alignment</summary>
+<p>The author traced veins on the native gradient-echo images. The released tracing and scan headers declare different spatial coordinates. This reader pairs matching voxel indices. All 187,819 tracing voxels fall inside the companion brain mask with this pairing. Applying the headers places the tracing outside it.</p>
+<p>The tracing marks vein voxels as one class. Vessel names and thrombosis findings require other evidence. Left and right follow the image header.</p>
+<p>Phillip G. D. Ward, healthy young subject S1. <a href="https://doi.org/10.4225/03/57C1698020D1D">Original dataset</a> · <a href="https://creativecommons.org/publicdomain/zero/1.0/">CC0 1.0</a>.</p>
+</details>
+</main>
+</body>
+</html>

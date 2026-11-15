@@ -1,0 +1,23 @@
+'use strict';
+const fs=require('fs'),path=require('path'),crypto=require('crypto'),{put}=require('/Users/peter/.npm-global/lib/node_modules/vercel/node_modules/@vercel/blob/dist/index.cjs');
+const D=__dirname,O=path.join(D,'package'),host='ja2lsnp9uca4bivw.public.blob.vercel-storage.com';process.env.BLOB_STORE_ID='store_JA2lsNp9UCA4bivw';delete process.env.BLOB_READ_WRITE_TOKEN;
+const sha=b=>crypto.createHash('sha256').update(b).digest('hex'),raw=fs.readFileSync(path.join(O,'manifest.json')),m=JSON.parse(raw),proof=JSON.parse(fs.readFileSync(path.join(D,'package-independent-proof.json')));if(!proof.allPassed||proof.manifestSHA256!==sha(raw)||proof.planes!==4800||proof.meshClasses!==98)throw Error('Package proof is missing or stale');
+const files={...m.packs};for(const mesh of Object.values(m.meshParts))for(const group of Object.values(mesh.parts))for(const p of group.chunks){if(files[p.file])throw Error('Duplicate payload name');files[p.file]={bytes:p.gzipBytes,sha256:p.gzipSHA256};}
+const target=path.join(D,'runtime-delivery.json');let receipt=fs.existsSync(target)?JSON.parse(fs.readFileSync(target)):{storeId:process.env.BLOB_STORE_ID,host,manifestSHA256:sha(raw),allRemoteHashesMatch:false,files:{},runtimeBound:false,clinicalApproval:false};if(receipt.storeId!==process.env.BLOB_STORE_ID||receipt.host!==host||receipt.manifestSHA256!==sha(raw))throw Error('Prior transfer belongs to a different package');
+function save(){fs.writeFileSync(target+'.tmp',JSON.stringify(receipt,null,2)+'\n');fs.renameSync(target+'.tmp',target);}
+async function digest(stream){const h=crypto.createHash('sha256');let bytes=0;for await(const c of stream){h.update(c);bytes+=c.length;}return{sha256:h.digest('hex'),bytes};}
+async function transfer(file){const identity=files[file],local=path.join(O,file),check=await digest(fs.createReadStream(local));if(check.bytes!==identity.bytes||check.sha256!==identity.sha256)throw Error('Local payload changed: '+file);const pathname='radiology-native/nextbrain-ds005422-v1.0.1/runtime/'+identity.sha256+'/'+file,url='https://'+host+'/'+pathname;
+ if(receipt.files[file]){const old=receipt.files[file];if(old.url!==url||old.sha256!==identity.sha256||old.bytes!==identity.bytes||!old.remoteHashVerified)throw Error('Stored transfer identity differs');return;}
+ let putError=null;
+ const head=await fetch(url,{method:'HEAD'});
+ if(head.status===404){try{const p=await put(pathname,fs.createReadStream(local),{access:'public',addRandomSuffix:false,allowOverwrite:false,multipart:true,contentType:'application/octet-stream',cacheControlMaxAge:31536000});if(p.url!==url)throw Error('Unexpected payload URL');}catch(e){putError=e;}}
+ else if(!head.ok)throw Error('Cannot establish payload state: '+head.status);
+ let verified=false,lastStatus;
+ for(let attempt=0;attempt<8&&!verified;attempt++){
+  try{const response=await fetch(url,{cache:'no-store'});lastStatus=response.status;if(response.ok){const remote=await digest(response.body);if(remote.sha256!==identity.sha256||remote.bytes!==identity.bytes)throw Error('INTEGRITY: Remote payload differs: '+file);verified=true;break;}if(![404,408,409,429,500,502,503,504].includes(response.status))throw Error('HTTP: '+response.status+' for '+file);}
+  catch(e){if(e.message.startsWith('INTEGRITY:')||e.message.startsWith('HTTP:'))throw e;lastStatus=e.message;}
+  console.log(JSON.stringify({readRetry:attempt+1,file,status:lastStatus}));await new Promise(r=>setTimeout(r,Math.min(1000*2**attempt,10000)));
+ }
+ if(!verified)throw Error('Cannot verify '+file+' after bounded reads; last status '+lastStatus+(putError?'; upload reported an error':''));
+ receipt.files[file]={url,...identity,remoteHashVerified:true};save();console.log(JSON.stringify({completed:Object.keys(receipt.files).length,total:Object.keys(files).length,file,bytes:identity.bytes}));}
+(async()=>{const pending=Object.keys(files);let next=0;async function worker(){while(next<pending.length){const file=pending[next++];await transfer(file);}}await Promise.all([worker(),worker()]);if(Object.keys(receipt.files).length!==Object.keys(files).length)throw Error('Incomplete transfer');receipt.allRemoteHashesMatch=true;receipt.fileCount=Object.keys(files).length;receipt.totalBytes=Object.values(files).reduce((s,r)=>s+r.bytes,0);save();console.log(JSON.stringify({allRemoteHashesMatch:true,fileCount:receipt.fileCount,totalBytes:receipt.totalBytes}));})().catch(e=>{console.error(e.message);process.exitCode=1;});

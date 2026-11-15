@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="en">
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Intersecting chords · Primer</title>
+<link rel="stylesheet" href="style.css">
+<script type="module" src="activity.js"></script>
+</head>
+<body><main>
+<a href="/app/#/node/math.3.euclid">Return to Euclidean Geometry and Proof</a>
+<h1>Intersecting chords</h1>
+<p>Turn two chords through the same point P. Compare the products of the two lengths on each chord.</p>
+<fieldset><legend>Construction</legend>
+<label for="offset">Distance OP</label><input type="range" id="offset" min="0" max="4.5" step=".1" value="2"><output id="offset-value"></output>
+<label for="angle-a">Direction of AB</label><input type="range" id="angle-a" min="-75" max="-15" step="1" value="-36"><output id="angle-a-value"></output>
+<label for="angle-c">Direction of CD</label><input type="range" id="angle-c" min="15" max="75" step="1" value="53"><output id="angle-c-value"></output>
+</fieldset>
+<div class="layout">
+<section><h2>Chords through P</h2><canvas width="480" height="405" id="circle" role="img"></canvas><p>O is the centre of the circle. Its radius is 5 units.</p></section>
+<section><h2>Products as areas</h2><canvas width="420" height="245" id="areas" role="img"></canvas>
+<table><caption>Segments and products</caption>
+<thead><tr><th scope="col">Chord</th><th scope="col">Segments</th><th scope="col">Product</th></tr></thead><tbody id="values"></tbody></table>
+<p>Areas use square units. The two rectangles use the same scale.</p></section>
+</div>
+<section class="proof" aria-labelledby="proof-heading">
+<h2 id="proof-heading">Why the products agree</h2>
+<label for="proof">Show the next proof idea</label>
+<select id="proof">
+<option value="0">Chords only</option>
+<option value="1">Mark vertically opposite angles</option>
+<option value="2">Find two similar triangles</option>
+<option value="3">Use corresponding lengths</option>
+</select>
+<p id="reason" aria-live="polite"></p>
+</section>
+</main></body></html>

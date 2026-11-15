@@ -31,7 +31,16 @@ def test_all_modules_have_reviewed_reporting_content_and_a_3d_companion(curricul
         assert len(guide['pitfalls']) >= 2, node['id']
         assert len(guide['impression_prompts']) >= 3, node['id']
         assert any(item['kind'] == 'illustration' for item in node['lesson_media'])
-        assert ref['key_images'] and all(image['src'] for image in ref['key_images'])
+        if node['id'] == 'rad.4.pulmonary-nodule':
+            from tools.pulmonary_reference_contract import assert_native_pulmonary_reference
+            assert_native_pulmonary_reference(ref)
+        elif node['id'] == 'rad.5.sella':
+            from primer.radiology_catalog import detail, resolve
+            sources = detail(curriculum, resolve('ra.mri-sella'))['radiology_reference']['structure_atlas']
+            assert len(sources) == 20 and all(image['src'] and image['license'] == 'CC BY 4.0' for image in sources)
+            assert not ref['key_images']
+        else:
+            assert ref['key_images'] and all(image['src'] for image in ref['key_images'])
         model = ref['spatial_model']
         assert model['scenario'] == 'radiology-reference:' + node['id']
         assert model['id'] not in model_ids
@@ -87,13 +96,20 @@ def test_reporting_endpoints_are_direct_and_do_not_fetch_wiki_or_change_progress
         index = client.get('/api/radiology/modules')
         detail = client.get('/api/radiology/modules/rad.5.prostate-mri')
         assert index.status_code == detail.status_code == 200
-        assert index.json()['count'] == 137
-        assert len(index.json()['modules']) == 137
+        assert index.json()['count'] == 333
+        assert len(index.json()['modules']) == 333
         assert 'report_templates' not in index.text
         assert 'key_images' not in index.text
+        for identifier in ('msk.mri-hip', 'msk.mri-foot', 'msk.mri-wrist', 'msk.mri-hand', 'template:modalities-report', 'template:biopsy-safety-report'):
+            variant = client.get('/api/radiology/modules/' + identifier)
+            assert variant.status_code == 200
+            ref = variant.json()['radiology_reference']
+            assert ref['descriptor_only'] is True
+            assert ref['key_images'] == ref['structure_atlas'] == []
+            assert ref['structured_form']['descriptor_form']['selected_investigation_id'] == identifier
         body = detail.json()
         assert set(body) == {'id', 'module_id', 'title', 'section', 'topic', 'modality', 'source_titles', 'goal', 'radiology_reference', 'lesson_media'}
-        assert body['radiology_reference']['spatial_model']['scenario'] == 'radiology-reference:rad.5.prostate-mri'
+        assert body['radiology_reference']['spatial_model']['scenario'] == 'radiology-investigation:ra.mri-prostate'
         assert 'quiz' not in body and 'mastery' not in body and 'unlocked' not in body
         assert client.get('/api/radiology/modules/math.0.counting').status_code == 404
         assert client.get('/api/radiology/modules/rad.missing').status_code == 404
@@ -116,3 +132,30 @@ def test_reporting_endpoints_keep_the_existing_hosted_access_gate(curriculum, tm
             assert client.get(path, auth=('reader', 'secret')).status_code == 200
     finally:
         client.close()
+
+
+def test_aortic_guides_have_classification_diagrams_and_report_fields(curriculum):
+    from primer import radiology_catalog as catalog
+    import xml.etree.ElementTree as ET
+    for identifier in ('ra.aortic-aneurysm-rupture', 'ra.ct-acute-aortic-syndrome', 'ra.thoracic-aorta-measurement'):
+        ref = catalog.detail(curriculum, catalog.resolve(identifier))['radiology_reference']
+        assert len(ref['reporting_diagrams']) == 2
+        for diagram in ref['reporting_diagrams']:
+            path = ROOT / 'web' / diagram['src'].removeprefix('/app/')
+            assert ET.parse(path).getroot().tag.endswith('svg')
+            assert diagram['source']['url'].startswith('https://')
+        assert ref['reporting']['measurements']
+    ref = catalog.detail(curriculum, catalog.resolve('ra.ct-acute-aortic-syndrome'))['radiology_reference']
+    categories = {row['category'] for row in ref['reporting']['criteria_table']['rows']}
+    assert {'DeBakey I', 'DeBakey II', 'DeBakey IIIa', 'DeBakey IIIb', 'Stanford A', 'Stanford B'} <= categories
+    assert 'DeBakey' in ref['report_templates'][0]['sections'][4]['body']
+
+
+def test_all_investigations_support_practical_reporting_start(curriculum):
+    from primer import radiology_catalog as catalog
+    for item in catalog.catalogue()['investigations']:
+        ref = catalog.detail(curriculum, item)['radiology_reference']
+        assert ref['walkthrough']['steps'], item['id']
+        assert all(step['detail'] and step['findings'] for step in ref['walkthrough']['steps']), item['id']
+        assert ref['reporting']['impression_prompts'], item['id']
+        assert ref['report_templates'], item['id']

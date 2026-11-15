@@ -1,0 +1,208 @@
+........................................................................ [ 45%]
+........................................................F.........FF..F. [ 90%]
+....F.F.........                                                         [100%]
+=================================== FAILURES ===================================
+_____ test_each_named_current_and_historical_pair_has_exact_recorded_bytes _____
+
+    def test_each_named_current_and_historical_pair_has_exact_recorded_bytes():
+        for path, row in compatibility.FILES.items():
+            current = (ROOT/path).read_bytes()
+>           assert hashlib.sha256(current).hexdigest() == row['current_sha256']
+E           AssertionError: assert 'b90ad60a3323...b9321adc3ce45' == '8c0071159fa5...a42c90723a906'
+E             
+E             - 8c0071159fa528ce1b5453d18dc2357663e349b0edf02dd6a54a42c90723a906
+E             + b90ad60a33233321a0151ab454276018001e8a4496b6bc23861b9321adc3ce45
+
+tests/test_qft_runtime_compatibility.py:16: AssertionError
+____ test_frozen_reader_sources_and_unapproved_clinical_scope_are_explicit _____
+
+    def test_frozen_reader_sources_and_unapproved_clinical_scope_are_explicit():
+        proof = read('integrated-reader-proof.json')
+        for flag in ['productionUIVerified', 'clinicalApproval', 'fineAnatomicalApproval',
+                     'structureCoverageGranted', 'wholeGoalComplete']:
+            assert proof[flag] is False
+        for path, pin in proof['sourceHashes'].items():
+            from tools.qft_runtime_compatibility import historical_runtime_bytes
+>           assert hashlib.sha256(historical_runtime_bytes(path, (ROOT / path).read_bytes())).hexdigest() == pin
+E           AssertionError: assert 'cf3086ae256d...718a1fb5bc252' == '03c3f43f6995...b12662f8b6a09'
+E             
+E             - 03c3f43f6995391b182e0b4b7b8ae947f10dbe9d2fe83b699a8b12662f8b6a09
+E             + cf3086ae256ded8ee5443db8569ae53c7c0f9e75983fe675c70718a1fb5bc252
+
+tests/test_acute_stroke_reader_review.py:124: AssertionError
+_ test_final_cache_supplement_preserves_historical_reader_and_exact_private_boundaries _
+
+    def test_final_cache_supplement_preserves_historical_reader_and_exact_private_boundaries():
+        reader = read('integrated-reader-proof.json')
+        final = read('final-cache-CSP-API-supplement.json')
+        assert reader['historical_served_backend_SHA256'] == '607e717a8be8adf16b5fe4c9471770b6d07370627a097cffe58db7796c5acfe4'
+        assert reader['historicalSourceHashes']['primer/server.py'] == reader['historical_served_backend_SHA256']
+        from tools.qft_runtime_compatibility import historical_runtime_bytes
+>       assert final['server_SHA256'] == hashlib.sha256(historical_runtime_bytes('primer/server.py', (ROOT / 'primer/server.py').read_bytes())).hexdigest()
+                                                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests/test_acute_stroke_reader_review.py:136: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+relative = 'primer/server.py'
+current = b'"""The Primer server: one FastAPI app binding content, curriculum, learner,\npractice, quizzes, tutor and pacing int..._static = _CachedStatic(directory=WEB_DIR, html=True)\n    app.mount("/app", app.state.source_static, name="static")\n'
+
+    def historical_runtime_bytes(relative, current):
+        """Preserve only the exact PR134/current-QFT artifact pairs named below.
+    
+        Original receipts prove historical bytes. Current science/reader proofs
+        separately validate the new behavior; this helper grants no approval.
+        """
+        row=FILES.get(relative)
+        if row is None:
+            return current
+        digest=lambda data:hashlib.sha256(data).hexdigest()
+        baseline=(relocated_evidence_bytes(row['baseline_copy'],row['baseline_sha256'])
+                  if relative=='primer/server.py' else (ROOT/row['baseline_copy']).read_bytes())
+        if digest(baseline)!=row['baseline_sha256']:
+            raise ValueError('Historical QFT compatibility source changed')
+        if digest(current)==row['baseline_sha256']:
+            return current
+        if digest(current)!=row['current_sha256']:
+>           raise ValueError('Unreviewed QFT compatibility byte change')
+E           ValueError: Unreviewed QFT compatibility byte change
+
+tools/qft_runtime_compatibility.py:27: ValueError
+_______ test_review_pins_exact_scoped_runtime_and_all_quiz_requirements ________
+
+    def test_review_pins_exact_scoped_runtime_and_all_quiz_requirements():
+        review = json.loads(REVIEW.read_text())
+        assert review["whole_goal_complete"] is False
+        assert review["mechanical_verification_of_infinite_theorems"] is False
+        assert review["result"] == "pass_for_scoped_logic_lesson"
+        assert sorted(q["number"] for q in review["quiz_mapping"]) == list(range(1, 11))
+        assert len(review["station_mapping"]) == 8
+        for path, expected in review["reviewed_runtime_sha256"].items():
+            from tools.qft_runtime_compatibility import historical_runtime_bytes
+>           assert hashlib.sha256(historical_runtime_bytes(path, (ROOT / path).read_bytes())).hexdigest() == expected
+                                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests/test_math_logic_independent_review.py:98: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+relative = 'web/lesson-models.js'
+current = b'/* The Primer\'s small, local lesson manipulatives.\n   These models explain an idea; they never call the API or awa...toggle);\n      }\n      return result;\n    },\n    supported: Object.freeze(Object.keys(RENDERERS)),\n  });\n}());\n'
+
+    def historical_runtime_bytes(relative, current):
+        """Preserve only the exact PR134/current-QFT artifact pairs named below.
+    
+        Original receipts prove historical bytes. Current science/reader proofs
+        separately validate the new behavior; this helper grants no approval.
+        """
+        row=FILES.get(relative)
+        if row is None:
+            return current
+        digest=lambda data:hashlib.sha256(data).hexdigest()
+        baseline=(relocated_evidence_bytes(row['baseline_copy'],row['baseline_sha256'])
+                  if relative=='primer/server.py' else (ROOT/row['baseline_copy']).read_bytes())
+        if digest(baseline)!=row['baseline_sha256']:
+            raise ValueError('Historical QFT compatibility source changed')
+        if digest(current)==row['baseline_sha256']:
+            return current
+        if digest(current)!=row['current_sha256']:
+>           raise ValueError('Unreviewed QFT compatibility byte change')
+E           ValueError: Unreviewed QFT compatibility byte change
+
+tools/qft_runtime_compatibility.py:27: ValueError
+_____________ test_independent_review_scope_and_frozen_asset_pins ______________
+
+    def test_independent_review_scope_and_frozen_asset_pins():
+        review = json.loads((ROOT/'docs/maxwell-cosmology-independent-review-20261011.json').read_text())
+        assert review['independent_of_implementation_authors']
+        assert review['whole_goal_complete'] is False
+        assert review['production_verification'] is False
+        assert len(review['quiz_mapping']['phys.4.em-maxwell']) == 10
+        assert len(review['quiz_mapping']['phys.5.gr-cosmo']) == 10
+        for path, pin in review['files'].items():
+            from tools.qft_runtime_compatibility import historical_runtime_bytes
+>           blob = historical_runtime_bytes(path, (ROOT/path).read_bytes())
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests/test_maxwell_cosmology_independent.py:138: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+relative = 'primer/module_media.py'
+current = b'"""Spatial companions for the whole Primer.\n\nThe manifest is deliberately separate from authored assessment conten...itle": record["title"], "instructions": record["instructions"],\n            "props": model_props(node),\n        })\n'
+
+    def historical_runtime_bytes(relative, current):
+        """Preserve only the exact PR134/current-QFT artifact pairs named below.
+    
+        Original receipts prove historical bytes. Current science/reader proofs
+        separately validate the new behavior; this helper grants no approval.
+        """
+        row=FILES.get(relative)
+        if row is None:
+            return current
+        digest=lambda data:hashlib.sha256(data).hexdigest()
+        baseline=(relocated_evidence_bytes(row['baseline_copy'],row['baseline_sha256'])
+                  if relative=='primer/server.py' else (ROOT/row['baseline_copy']).read_bytes())
+        if digest(baseline)!=row['baseline_sha256']:
+            raise ValueError('Historical QFT compatibility source changed')
+        if digest(current)==row['baseline_sha256']:
+            return current
+        if digest(current)!=row['current_sha256']:
+>           raise ValueError('Unreviewed QFT compatibility byte change')
+E           ValueError: Unreviewed QFT compatibility byte change
+
+tools/qft_runtime_compatibility.py:27: ValueError
+_________ test_the_reviewed_backend_is_left_byte_for_byte_as_reviewed __________
+
+    def test_the_reviewed_backend_is_left_byte_for_byte_as_reviewed():
+        """Compression lives outside primer/server.py on purpose: a reviewed
+        record pins that file's hash as the backend it verified."""
+        pin = os.path.join(ROOT, "docs", "acute-stroke-reader-review-20261011",
+                           "final-cache-CSP-API-supplement.json")
+        if not os.path.exists(pin):
+            pytest.skip("no pinned review in this checkout")
+        with open(pin) as fh, open(os.path.join(ROOT, "primer", "server.py"), "rb") as src:
+            from tools.qft_runtime_compatibility import historical_runtime_bytes
+>           raw = historical_runtime_bytes("primer/server.py", src.read())
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests/test_load_time.py:64: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+relative = 'primer/server.py'
+current = b'"""The Primer server: one FastAPI app binding content, curriculum, learner,\npractice, quizzes, tutor and pacing int..._static = _CachedStatic(directory=WEB_DIR, html=True)\n    app.mount("/app", app.state.source_static, name="static")\n'
+
+    def historical_runtime_bytes(relative, current):
+        """Preserve only the exact PR134/current-QFT artifact pairs named below.
+    
+        Original receipts prove historical bytes. Current science/reader proofs
+        separately validate the new behavior; this helper grants no approval.
+        """
+        row=FILES.get(relative)
+        if row is None:
+            return current
+        digest=lambda data:hashlib.sha256(data).hexdigest()
+        baseline=(relocated_evidence_bytes(row['baseline_copy'],row['baseline_sha256'])
+                  if relative=='primer/server.py' else (ROOT/row['baseline_copy']).read_bytes())
+        if digest(baseline)!=row['baseline_sha256']:
+            raise ValueError('Historical QFT compatibility source changed')
+        if digest(current)==row['baseline_sha256']:
+            return current
+        if digest(current)!=row['current_sha256']:
+>           raise ValueError('Unreviewed QFT compatibility byte change')
+E           ValueError: Unreviewed QFT compatibility byte change
+
+tools/qft_runtime_compatibility.py:27: ValueError
+=============================== warnings summary ===============================
+tests/test_cervical_cancer_runtime.py::test_reader_delivers_all_32_current_originals_and_decimal_book_identity
+  /Users/peter/Documents/ChatGPT/Primer/.research/runtime-grade-py312-20261008/lib/python3.12/site-packages/fastapi/testclient.py:1: StarletteDeprecationWarning: Using `httpx` with `starlette.testclient` is deprecated; install `httpx2` instead.
+    from starlette.testclient import TestClient as TestClient  # noqa
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+=========================== short test summary info ============================
+FAILED tests/test_qft_runtime_compatibility.py::test_each_named_current_and_historical_pair_has_exact_recorded_bytes
+FAILED tests/test_acute_stroke_reader_review.py::test_frozen_reader_sources_and_unapproved_clinical_scope_are_explicit
+FAILED tests/test_acute_stroke_reader_review.py::test_final_cache_supplement_preserves_historical_reader_and_exact_private_boundaries
+FAILED tests/test_math_logic_independent_review.py::test_review_pins_exact_scoped_runtime_and_all_quiz_requirements
+FAILED tests/test_maxwell_cosmology_independent.py::test_independent_review_scope_and_frozen_asset_pins
+FAILED tests/test_load_time.py::test_the_reviewed_backend_is_left_byte_for_byte_as_reviewed
+6 failed, 154 passed, 1 warning in 56.40s
+sys:1: DeprecationWarning: builtin type swigvarlink has no __module__ attribute

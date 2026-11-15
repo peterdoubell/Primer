@@ -1,0 +1,189 @@
+{
+  "source_head": "3208b9b61e71a9a5bfb58f342d8155e16b4ca277",
+  "native_image": {
+    "file": "sub-03_CISS.nii.gz",
+    "sha256": "a5ceaf59d3fe9e110045b1acaffdd512adcdaca04b2bbc94c23ab887bd30da45",
+    "header_parser": "NIfTI-1 348-byte header: dim40,pixdim76,xyzt_units123,qform252,sform254,srow280/296/312",
+    "shape": [
+      960,
+      960,
+      80
+    ],
+    "voxel_spacing_mm": [
+      0.30000001192092896,
+      0.30000001192092896,
+      2.0
+    ],
+    "sform_affine": [
+      [
+        0.30000001192092896,
+        -1.4691000152500244e-12,
+        -9.062300682346537e-16,
+        -150.40380859375
+      ],
+      [
+        1.4691000152500244e-12,
+        0.29999953508377075,
+        -0.003490661969408393,
+        -173.0120391845703
+      ],
+      [
+        2.7000003168436764e-15,
+        0.0005235985154286027,
+        2.0,
+        -509.8055114746094
+      ],
+      [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ]
+    ],
+    "sform_exactly_matches_archived_selected_affine": true,
+    "qform_code": 1,
+    "sform_code": 1,
+    "spatial_unit": "mm",
+    "private_reproduction_location": "/Users/peter/Documents/ChatGPT/Primer/.research/liu-sub03-native-review-20261011-gn5cfhyj/sub-03_CISS.nii.gz"
+  },
+  "source_contours": {
+    "count": 146,
+    "points": 3167,
+    "max_native_slice_spread": 9.902691999741364e-10,
+    "max_native_slice_offset": 0.00011250258688733084,
+    "all_controls_inside_native_ciss_support": true
+  },
+  "parts": [
+    {
+      "id": "cord",
+      "runtime_sha256": "1b6bed8c2cee3e0c3ba7af2f0d34556351489511e12715d135214d4f8ae49c36",
+      "vertices": 10970,
+      "triangles": 21700,
+      "original_controls_in_mesh_exact_float32": true,
+      "native_slice_range": [
+        14,
+        79
+      ],
+      "source_lps_mm_bounds": [
+        [
+          1.0086805820465088,
+          51.35757827758789,
+          -481.603515625
+        ],
+        [
+          11.393988609313965,
+          60.8978385925293,
+          -351.59307861328125
+        ]
+      ],
+      "display_left_superior_anterior_mm_bounds": [
+        [
+          1.0086805820465088,
+          -481.603515625,
+          -60.8978385925293
+        ],
+        [
+          11.393988609313965,
+          -351.59307861328125,
+          -51.35757827758789
+        ]
+      ],
+      "open_boundary_loops": [
+        70,
+        170
+      ],
+      "nonmanifold_edges": 0,
+      "all_source_vertices_inside_manifest_clip_margin": true
+    },
+    {
+      "id": "dura",
+      "runtime_sha256": "4a3da5cf0b0bd2c584923f0431afdae8b414c2f4d0f3c7b45ea9bc1bc1c50f38",
+      "vertices": 20700,
+      "triangles": 40980,
+      "original_controls_in_mesh_exact_float32": true,
+      "native_slice_range": [
+        0,
+        79
+      ],
+      "source_lps_mm_bounds": [
+        [
+          -4.7839226722717285,
+          45.63310241699219,
+          -509.6065979003906
+        ],
+        [
+          17.851388931274414,
+          61.96464157104492,
+          -351.58477783203125
+        ]
+      ],
+      "display_left_superior_anterior_mm_bounds": [
+        [
+          -4.7839226722717285,
+          -509.6065979003906,
+          -61.96464157104492
+        ],
+        [
+          17.851388931274414,
+          -351.58477783203125,
+          -45.63310241699219
+        ]
+      ],
+      "open_boundary_loops": [
+        180,
+        240
+      ],
+      "nonmanifold_edges": 0,
+      "all_source_vertices_inside_manifest_clip_margin": true
+    }
+  ],
+  "display_mapping": "LPS mm [L,P,S] to display [L,S,-P]; determinant +1, preserves distances",
+  "independent_camera_xy_oracles_lps": {
+    "Anterior": [
+      "L",
+      "S"
+    ],
+    "Posterior": [
+      "-L",
+      "S"
+    ],
+    "Right lateral": [
+      "-P",
+      "S"
+    ],
+    "Left lateral": [
+      "P",
+      "S"
+    ],
+    "Superior": [
+      "L",
+      "P"
+    ],
+    "Inferior": [
+      "L",
+      "-P"
+    ]
+  },
+  "viewer_comparison": {
+    "current_sha256": "a79e9d10587c9daf702300a5b4b98880cab26313290b4106b9ac9f6340ed8160",
+    "original_review_helper_git_commit": "42d1635472839a8d090c58b2d9878e423fa57ace",
+    "original_review_helper_sha256": "664492f1a6316cd4d45fdc8e1d16cc27fd28d9c476d1677bc6fc126c661b8339",
+    "readMesh_renderer_displayPoint_viewOrientation_anatomicalPresets_unchanged": true,
+    "source_reference_entry_unchanged": true
+  },
+  "clinical_approval": false,
+  "anatomical_approval": false,
+  "continuous_spline_or_surface_nonintersection_proven": false,
+  "source_original_curve_settings_recovered": false,
+  "limits": [
+    "Fresh-default cardinal reconstruction is not recovered author settings.",
+    "Loft faces interpolate between acquired planes; two finite endpoint rings remain open.",
+    "No measured dural thickness, complete CSF volume, complete conus tip, gray/white compartments, rootlets or pathology is supplied.",
+    "Camera oracle describes display axes, not clinical validation.",
+    "No source-to-VerSe fitting or cross-subject registration is permitted by this evidence."
+  ],
+  "portable_copy_provenance": {
+    "original_complete_proof_sha256": "e44397ad52d9237ff16650a2fd4601e9e6c4c384b2e82b1a7877dd7c764efea4",
+    "changes": "Complete result retained; raw-master local file fields made basenames, with original local paths only in supplemental private_reproduction_location fields. No native arrays included."
+  }
+}

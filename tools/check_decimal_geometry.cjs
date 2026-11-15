@@ -1,0 +1,22 @@
+'use strict';
+const assert=require('assert/strict');
+const abs=n=>n<0n?-n:n;
+function q(n,d=1n){n=BigInt(n);d=BigInt(d);if(d<0n){n=-n;d=-d;}let a=abs(n),b=d;while(b)[a,b]=[b,a%b];return{n:n/a,d:d/a};}
+const add=(a,b)=>q(a.n*b.d+b.n*a.d,a.d*b.d),sub=(a,b)=>q(a.n*b.d-b.n*a.d,a.d*b.d),mul=(a,b)=>q(a.n*b.n,a.d*b.d),div=(a,b)=>q(a.n*b.d,a.d*b.n),cmp=(a,b)=>a.n*b.d<b.n*a.d?-1:a.n*b.d>b.n*a.d?1:0,num=a=>Number(a.n)/Number(a.d),read=p=>q(p.n,p.d),fraction=a=>String(a.n)+(a.d===1n?'':'/'+a.d);
+function decimal(s){s=String(s);const sign=s.startsWith('-')?-1n:1n,[a,b='']=s.replace(/^[+-]/,'').split('.');return q(sign*BigInt((a||'0')+b),10n**BigInt(b.length));}
+module.exports=async function(lab){
+ const v=await lab.evaluate(e=>({m:e.decimal.getModel(),state:e.decimal.getState(),bars:[...e.querySelectorAll('[data-decimal-bar]')].map(n=>({label:n.dataset.decimalBar,exact:n.dataset.exact,x:+n.getAttribute('x'),width:+n.getAttribute('width')})),domain:e.querySelector('[data-decimal-plot=bars]')?.dataset.domain,area:e.querySelector('[data-decimal-area]')?Object.fromEntries(['x','y','width','height','data-exact'].map(k=>[k,e.querySelector('[data-decimal-area]').getAttribute(k)])):null,groups:[...e.querySelectorAll('[data-decimal-group]')].map(n=>({index:n.dataset.decimalGroup,exact:n.dataset.exact,x:+n.getAttribute('x'),width:+n.getAttribute('width')})),round:[...e.querySelectorAll('[data-decimal-round]')].map(n=>({kind:n.dataset.decimalRound,exact:n.dataset.exact,x:+n.getAttribute('cx')})),plots:e.querySelectorAll('[data-decimal-plot]').length,bad:[...e.querySelectorAll('svg *')].flatMap(n=>[...n.attributes].filter(a=>/NaN|Infinity/.test(a.value)).map(a=>a.value))}));
+ const m=v.m,s=v.state;assert.deepEqual(v.bad,[]);let checks=0;const near=(a,b)=>{assert(Number.isFinite(a)&&Number.isFinite(b));assert(Math.abs(a-b)<2e-8*Math.max(1,Math.abs(b)),a+' != '+b);checks++;};
+ if(m.status==='undefined'){assert.equal(v.plots,0);return{checks,undefinedHasNoStalePlots:true};}
+ const a=decimal(s.a),b=decimal(s.b);let rows=[];
+ if(s.mode==='compare')rows=[['A',a],['B',b]];
+ if(['add','subtract'].includes(s.mode))rows=[['A',a],['B',b],['Result',s.mode==='add'?add(a,b):sub(a,b)]];
+ if(s.mode==='divide')rows=[['Dividend',a],['Divisor',b]];
+ if(s.mode==='money'){const total=add(mul(a,q(s.quantityA)),mul(b,q(s.quantityB))),tender=decimal(s.tender);rows=[['Total',total],['Tender',tender],['Balance',sub(tender,total)]];}
+ if(rows.length){let lo=q(0),hi=q(0);for(const[,r]of rows){if(cmp(r,lo)<0)lo=r;if(cmp(r,hi)>0)hi=r;}let span=sub(hi,lo);if(!span.n)span=q(1);const pad=div(span,q(20)),minimum=sub(lo,pad),maximum=add(hi,pad),X=r=>180+500*num(div(sub(r,minimum),sub(maximum,minimum))),dom=JSON.parse(v.domain);assert.equal(fraction(read(dom.min)),fraction(minimum));assert.equal(fraction(read(dom.max)),fraction(maximum));assert.equal(rows.length,v.bars.length);for(let i=0;i<rows.length;i++){const bar=v.bars[i],[label,r]=rows[i];assert.equal(bar.label,label);assert.equal(bar.exact,fraction(r));near(bar.x,Math.min(X(q(0)),X(r)));near(bar.width,Math.abs(X(r)-X(q(0))));}}
+ else assert.equal(v.bars.length,0);
+ if(s.mode==='multiply'){assert(v.area);const A=q(abs(a.n),a.d),B=q(abs(b.n),b.d),extent=read(m.axisExtent),width=280*num(div(A,extent)),height=280*num(div(B,extent));near(+v.area.x,180);near(+v.area.y,360-height);near(+v.area.width,width);near(+v.area.height,height);assert.equal(v.area['data-exact'],fraction(mul(A,B)));near(+v.area.width*+v.area.height/280**2,num(div(mul(A,B),mul(extent,extent))));}else assert.equal(v.area,null);
+ if(s.mode==='divide'){const ratio=div(a,b),positive=q(abs(ratio.n),ratio.d),full=positive.n/positive.d,last=full+(positive.n%positive.d?1n:0n),start=BigInt(s.groupStart),expected=[];for(let i=start;i<last&&i<start+12n;i++)expected.push({index:String(i),fraction:i<full?q(1):sub(positive,q(full))});assert.equal(v.groups.length,expected.length);for(let i=0;i<expected.length;i++){assert.equal(v.groups[i].index,expected[i].index);assert.equal(v.groups[i].exact,fraction(expected[i].fraction));near(v.groups[i].x,28+54*i);near(v.groups[i].width,46*num(expected[i].fraction));}}else assert.equal(v.groups.length,0);
+ if(s.mode==='round'){const lo=read(m.lower),unit=read(m.unit);assert.equal(v.round.length,2);for(const p of v.round){const value=p.kind==='input'?a:read(m.rounded);assert.equal(p.exact,fraction(value));near(p.x,100+520*num(div(sub(value,lo),unit)));}}else assert.equal(v.round.length,0);
+ return{checks,exactSharedScalesAndGeometry:true};
+};

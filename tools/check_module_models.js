@@ -8,12 +8,55 @@ const root = path.resolve(__dirname, '..');
 // modules through Node's module loader; no file contents become executable input.
 const context = { window: {} };
 globalThis.window = context.window;
+context.window.PrimerPhysicsThermalLab = require('../web/physics-thermal-lab.js');
+context.window.PrimerPhysicsBuoyancyLab = require('../web/physics-buoyancy-lab.js');
+context.window.PrimerPhysicsPhaseLab = require('../web/physics-phase-lab.js');
+context.window.PrimerPhysicsCycleLab = require('../web/physics-cycle-lab.js');
+context.window.PrimerMathOperatorLab = require('../web/math-operator-lab.js');
+context.window.PrimerPhysicsEnsembleLab = require('../web/physics-ensemble-lab.js');
+context.window.PrimerMathCurvatureLab = require('../web/math-curvature-lab.js');
+context.window.PrimerPhysicsConstraintsLab = require('../web/physics-constraints-lab.js');
+context.window.PrimerMathComplexLab = require('../web/math-complex-lab.js');
+context.window.PrimerPhysicsQuantumLab = require('../web/physics-quantum-lab.js');
+context.window.PrimerMathTopologyLab = require('../web/math-topology-lab.js');
+context.window.PrimerPhysicsRelativityLab = require('../web/physics-relativity-lab.js');
+context.window.PrimerMathAlgebraLab = require('../web/math-algebra-lab.js');
+context.window.PrimerPhysicsQftLab = require('../web/physics-qft-lab.js');
+require('../web/spatial-qft.js');
+context.window.PrimerPhysicsQuantumInfoLab = require('../web/physics-quantum-info-lab.js');
+context.window.PrimerMathLogicLab = require('../web/math-logic-lab.js');
+context.window.PrimerMathNumberTheoryLab = require('../web/math-number-theory-lab.js');
+context.window.PrimerNumberTheoryDiagrams = require('../web/number-theory-diagrams.js');
+require('../web/spatial-number-theory.js');
+require('../web/spatial-number-theory-relations.js');
+context.window.PrimerPhysicsMaxwellLab = require('../web/physics-maxwell-lab.js');
+context.window.PrimerPhysicsCosmologyLab = require('../web/physics-cosmology-lab.js');
+require('../web/spatial-logic.js');
+require('../web/spatial-maxwell.js');
+require('../web/spatial-cosmology.js');
+require('../web/spatial-algebra.js');
+require('../web/spatial-quantum-information.js');
+require('../web/spatial-fidelity.js');
+context.window.PrimerMathNumericalLab = require('../web/math-numerical-lab.js');
+context.window.PrimerMathConvergenceLab = require('../web/math-convergence-lab.js');
 require('../web/spatial-models.js');
 require('../web/spatial-math.js');
 require('../web/spatial-physical.js');
 require('../web/spatial-molecular.js');
 require('../web/spatial-cross-subject.js');
 require('../web/spatial-radiology.js');
+require('../web/decimal-spatial.js');
+require('../web/ratio-spatial.js');
+require('../web/base-ten-core.js');
+require('../web/base-ten-spatial.js');
+require('../web/algebra-functions-core.js');
+require('../web/algebra-functions-spatial.js');
+require('../web/coordinate-plane-core.js');
+require('../web/coordinate-plane-spatial.js');
+require('../web/physics-rotation-density.js');
+require('../web/physics-condensed-core.js');
+require('../web/physics-condensed-field.js');
+require('../web/physics-condensed-geometry.js');
 require('../web/spatial-module-objects.js');
 const spatial = context.window.PrimerSpatial, objects = context.window.PrimerModuleObjects;
 const prior = [...spatial.supported];
@@ -33,7 +76,14 @@ for(const binding of manifest.models) {
   assert.equal(objects.ensure({...item,props:{...item.props,context:'changed after registration'}}),false);
   if(!familyIds.has(binding.family)) familyIds.set(binding.family,item.props.scenario);
   const scene=spatial.build(item.props.scenario);
-  assert.ok(scene.readout.startsWith(binding.context));
+  if(binding.family==='number-theory-exact-traces') {
+    assert.equal(binding.node_id,'math.4.numtheory');
+    assert.equal(item.props.lesson,'Number Theory'); assert.equal(binding.mode,'model');
+    assert.ok(scene.readout.startsWith(binding.context));
+    assert.ok(scene.readout.includes(window.PrimerMathNumberTheoryLab.build(scene.state).readout));
+    assert.equal(objects.ensure({...item,props:{...item.props,scenario:'module.math.5.logic'}}),false);
+    assert.equal(objects.ensure({...item,props:{...item.props,lesson:'Other lesson'}}),false);
+  } else assert.ok(scene.readout.startsWith(binding.context));
   if(binding.mode==='context') assert.ok(scene.note.startsWith('Physical study context for “'+item.props.lesson+'”.'));
 }
 assert.deepEqual([...familyIds.keys()].sort(),[...objects.families].sort());
@@ -42,7 +92,7 @@ for(const value of [null,{}, {props:{}}, {props:{scenario:'constructor'}}, {prop
 let builds=0,controls=0;
 function verify(id,state={}) {
   const scene=spatial.build(id,state);
-  assert.ok(scene&&scene.primitives.length>0&&scene.primitives.length<=3000,id+': geometry budget');
+  assert.ok(scene&&scene.primitives.length>0&&scene.primitives.length<=(id==='module.phys.5.frontier'?40000:id==='module.phys.5.qft'&&scene.qft?.state?.mode==='casimir'?50000:3000),id+': geometry budget');
   assert.equal(JSON.stringify(scene),JSON.stringify(spatial.build(id,state)),id+': deterministic geometry');
   assert.ok(scene.note.length>30&&scene.readout.length>30&&scene.legend.length>0,id+': explanatory text');
   for(const primitive of scene.primitives){
@@ -51,15 +101,106 @@ function verify(id,state={}) {
     if(primitive.opacity!==undefined)assert.ok(primitive.opacity>=0&&primitive.opacity<=1);
   }
   const points=scene.primitives.filter(p=>p.kind!=='label').flatMap(p=>p.points.flatMap(point=>p.radius?[-1,1].map(sign=>point.map(v=>v+sign*p.radius)):[point]));
-  for(let axis=0;axis<3;axis++)assert.ok(Math.max(...points.map(p=>p[axis]))-Math.min(...points.map(p=>p[axis]))>.04,id+': real spatial extent on axis '+axis);
+  if(id==='module.phys.5.frontier'&&scene.state.diskMass===0){assert.equal(points.length,0);assert.equal(scene.primitives.length,1);assert.equal(scene.primitives[0].kind,'label');}
+  else for(let axis=0;axis<3;axis++)assert.ok(Math.max(...points.map(p=>p[axis]))-Math.min(...points.map(p=>p[axis]))>.04,id+': real spatial extent on axis '+axis);
   builds++;return scene;
 }
 for(const [family,id] of familyIds){
   const initial=verify(id);let minimum={},maximum={};
+  if(family==='ratio-calibrated-volumes') {
+    for(const control of spatial.controls(id)) {
+      const mode=control.visibleWhen?.mode?.[0]||'mixture';
+      const values=control.options?control.options.map(o=>o.value):[control.min,control.max];
+      const versions=values.map(value=>verify(id,{mode,[control.key]:value}));
+      assert.ok(versions.some(scene=>JSON.stringify(scene.primitives)!==JSON.stringify(versions[0].primitives)),family+': active '+control.key+' changes geometry');
+      if(control.visibleWhen) {
+        const inactive=mode==='mixture'?'similarity':'mixture';
+        const before=verify(id,{mode:inactive});
+        for(const value of values)assert.deepEqual(verify(id,{mode:inactive,[control.key]:value}).primitives,before.primitives);
+      }
+      if(!control.options)for(const value of [NaN,Infinity,-Infinity,'not a number'])assert.deepEqual(verify(id,{mode,[control.key]:value}).state,window.PrimerRatioSpatialFamily.normalize({...window.PrimerRatioSpatialFamily.initial,mode,[control.key]:value}));
+      controls++;
+    }
+    continue;
+  }
+  if(family==='number-theory-exact-traces') {
+    assert.equal(id,'module.math.4.numtheory');
+    const lab=window.PrimerMathNumberTheoryLab,diagrams=window.PrimerNumberTheoryDiagrams;
+    for(const control of spatial.controls(id)) {
+      const mode=control.visibleWhen?.mode?.[0]||lab.initial.mode;
+      const values=control.options?control.options.map(o=>o.value):control.key==='diagramPage'?[0,1,5000,10000]:
+        [String(control.min),String(BigInt(control.min)+BigInt(control.step)),String((BigInt(control.min)+BigInt(control.max))/2n),String(control.max)];
+      for(const value of values) {
+        const scene=verify(id,{mode,[control.key]:value});
+        const expected=diagrams.windowGraph(diagrams.graph(scene.state),scene.state.diagramPage);
+        assert.deepEqual(scene.numberTheoryRelations.window.nodes,expected.nodes);
+        assert.deepEqual(scene.numberTheoryRelations.window.edges,expected.edges);
+        assert.equal(scene.primitives.filter(p=>p.nt_relation_kind==='node').length,expected.nodes.length);
+        assert.equal(scene.primitives.filter(p=>p.nt_relation_kind==='edge').length,expected.edges.length);
+      }
+      if(!control.options)for(const value of [NaN,Infinity,-Infinity,'not an integer']) {
+        const scene=verify(id,{mode,[control.key]:value});
+        assert.deepEqual(scene.state,diagrams.normalize({mode,[control.key]:value}));
+      }
+      controls++;
+    }
+    continue;
+  }
   for(const control of spatial.controls(id)){
-    const values=control.options?control.options.map(o=>o.value):Array.from({length:Math.floor((control.max-control.min)/control.step+1e-7)+1},(_,i)=>Number((control.min+i*control.step).toFixed(8)));
+    const coordinated=family==='rotation-density-geometry'||family.startsWith('base-ten-')||['complex-function-domain','quantum-state-geometry','topology-open-set-geometry','relativistic-event-geometry','algebra-operation-geometry','quantum-information-geometry','logic-witness-geometry','maxwell-field-geometry','cosmology-chart-geometry','qft-observable-geometry'].includes(family);
+    // Large batch/seed ranges have no useful million-state exhaustive sweep.
+    // Their distributions and geometry have separate independent oracles.
+    const values=control.options?control.options.map(o=>o.value):coordinated
+      ? [...new Set([control.min,Math.min(control.max,control.min+control.step),(control.min+control.max)/2,control.max])]
+      : Array.from({length:Math.floor((control.max-control.min)/control.step+1e-7)+1},(_,i)=>Number((control.min+i*control.step).toFixed(8)));
     const versions=values.map(value=>verify(id,{[control.key]:value}));
-    assert.ok(versions.some(scene=>JSON.stringify(scene.primitives)!==JSON.stringify(initial.primitives)),family+': '+control.key+' visibly changes geometry');
+    if(family==='operator-coordinate-graph' && ['realization','probe'].includes(control.key)) {
+      // Cropping the same coefficient pairs must not fabricate a visible change
+      // when a domain or spectral probe changes only the full operator ledger.
+      for(const scene of versions) assert.deepEqual(scene.primitives,initial.primitives);
+      assert.ok(versions.some(scene=>scene.readout!==initial.readout),family+': '+control.key+' changes its exact ledger');
+      if(control.key==='realization') {
+        assert.equal(versions[0].operator.selected.output.offscreenSquared.exact,'1');
+        assert.equal(versions[1].operator.selected.output.normSquared.exact,'0');
+      } else {
+        assert.deepEqual(versions.map(v=>v.operator.lambda.exact),['0','2/5','1']);
+        assert.deepEqual(versions.map(v=>v.operator.selected.residual.normSquared.exact),['1','29/25','2']);
+      }
+    } else if(family==='operator-coordinate-graph' && control.key==='second') {
+      // The canonical e_N fixture puts its next coefficient beyond the crop.
+      // Retain that crop while verifying the full hidden-coordinate ledger.
+      for(let i=0;i<versions.length;i++) {
+        assert.deepEqual(versions[i].primitives,initial.primitives);
+        assert.equal(versions[i].operator.selected.input.offscreenSquared.value,(values[i]/4)**2);
+        assert.equal(versions[i].operator.selected.output.offscreenSquared.value,1+(values[i]/4)**2);
+      }
+      // Move the same sparse input inside the view to test visible dependence.
+      const visible=verify(id,{position:'first'});
+      const visibleVersions=values.map(value=>verify(id,{position:'first',second:value}));
+      assert.ok(visibleVersions.some(scene=>JSON.stringify(scene.primitives)!==JSON.stringify(visible.primitives)),family+': second changes visible coefficients when k = 1');
+    } else if(coordinated && ((control.visibleWhen && !Object.entries(control.visibleWhen).every(([key,allowed])=>allowed.includes(initial.state[key]))) || (control.visibleWhenAny && !control.visibleWhenAny.some(group=>Object.entries(group).every(([key,allowed])=>allowed.includes(initial.state[key])))))) {
+      // Inactive station parameters persist for the next station; they do not
+      // fabricate geometry in the current station.
+      for(const scene of versions)assert.deepEqual(scene.primitives,initial.primitives);
+      const field={'complex-function-domain':'complex','quantum-state-geometry':'quantum','topology-open-set-geometry':'topology','relativistic-event-geometry':'relativity','algebra-operation-geometry':'algebra','quantum-information-geometry':'quantumInfo','logic-witness-geometry':'logic','maxwell-field-geometry':'maxwell','cosmology-chart-geometry':'cosmology','qft-observable-geometry':'qft'}[family];
+      const api={'complex-function-domain':window.PrimerMathComplexLab,'quantum-state-geometry':window.PrimerPhysicsQuantumLab,'topology-open-set-geometry':window.PrimerMathTopologyLab,'relativistic-event-geometry':window.PrimerPhysicsRelativityLab,'algebra-operation-geometry':window.PrimerMathAlgebraLab,'quantum-information-geometry':window.PrimerPhysicsQuantumInfoLab,'logic-witness-geometry':window.PrimerMathLogicLab,'maxwell-field-geometry':window.PrimerPhysicsMaxwellLab,'cosmology-chart-geometry':window.PrimerPhysicsCosmologyLab,'qft-observable-geometry':window.PrimerPhysicsQftLab}[family];
+      values.forEach((value,i)=>assert.deepEqual(versions[i][field].state,api.normalize({[control.key]:value})));
+    } else if(family==='qft-observable-geometry'&&control.key==='areaMm2') {
+      for(const scene of versions)assert.deepEqual(scene.primitives,initial.primitives);
+      assert.ok(versions.some(scene=>scene.readout!==initial.readout));
+    } else if(family==='algebra-operation-geometry'&&control.key==='tableCode'&&initial.state.axiomsSystem!=='custom') {
+      for(const scene of versions)assert.deepEqual(scene.primitives,initial.primitives);
+      const custom=values.map(value=>verify(id,{axiomsSystem:'custom',tableCode:value}));
+      assert.ok(custom.some(scene=>JSON.stringify(scene.primitives)!==JSON.stringify(custom[0].primitives)));
+    } else if(family==='algebra-operation-geometry'&&control.key==='sylowStep') {
+      for(const scene of versions)assert.deepEqual(scene.primitives,initial.primitives);
+      values.forEach((value,i)=>assert.deepEqual(versions[i].algebra.state,window.PrimerMathAlgebraLab.normalize({sylowStep:value})));
+    } else if(family==='topology-open-set-geometry'&&control.key==='familyMask') {
+      assert.ok(versions.some(scene=>JSON.stringify(scene.primitives)!==JSON.stringify(initial.primitives)));
+    } else if(family==='quantum-state-geometry'&&control.key==='n'&&initial.state.wellState==='superposition') {
+      for(const scene of versions){assert.deepEqual(scene.primitives,initial.primitives);assert.equal(scene.quantum.current.coefficients.length,2);}
+      values.forEach((value,i)=>assert.equal(versions[i].state.n,Math.round(value)));
+    } else assert.ok(versions.some(scene=>JSON.stringify(scene.primitives)!==JSON.stringify(initial.primitives)),family+': '+control.key+' visibly changes geometry');
     if(!control.options)for(const invalid of [NaN,Infinity,-Infinity,'not a number'])assert.equal(JSON.stringify(verify(id,{[control.key]:invalid})),JSON.stringify(initial),family+': invalid input fallback');
     minimum[control.key]=values[0];maximum[control.key]=values.at(-1);controls++;
   }

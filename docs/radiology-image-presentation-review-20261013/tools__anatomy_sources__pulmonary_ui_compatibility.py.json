@@ -1,0 +1,16 @@
+{
+  "path": "tools/anatomy_sources/pulmonary_ui_compatibility.py",
+  "before": "47cc1421b7a245e896f6d3ea09f509bfa2cd906485733fbc3f1af20d07d5fd07",
+  "after": "6c5e19cfc50a11294f2e2e4918785e0cddb8701ee3b52832c2a51c5f419bc4c5",
+  "clinical_approval": false,
+  "fine_anatomical_approval": false,
+  "extends_any_historical_approval": false,
+  "changes": [
+    {
+      "start": 1412,
+      "end": 1529,
+      "before": "",
+      "after": "    from .radiology_presentation_compatibility import restore_presentation_app\n    app=restore_presentation_app(app)\n"
+    }
+  ]
+}

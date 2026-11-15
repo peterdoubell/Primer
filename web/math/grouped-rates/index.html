@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>When grouped rates reverse · Primer</title>
+<link rel="stylesheet" href="style.css">
+<script type="module" src="activity.js"></script>
+</head>
+<body><main>
+<a href="/app/#/node/math.3.statistics">Return to Statistics</a>
+<h1>When grouped rates reverse</h1>
+<p>Two teams each tackle 100 tasks. Change their mix of easy and hard tasks while keeping the success rates for each difficulty fixed.</p>
+<fieldset><legend>Easy task count out of 100</legend>
+<label for="easy-a">Team A</label><input id="easy-a" type="range" min="10" max="90" step="10" value="20"><output id="count-a" for="easy-a"></output>
+<label for="easy-b">Team B</label><input id="easy-b" type="range" min="10" max="90" step="10" value="80"><output id="count-b" for="easy-b"></output>
+<button type="button" id="equalise">Give Team B the same mix as A</button>
+</fieldset>
+<div class="layout">
+<section aria-labelledby="mix-heading"><h2 id="mix-heading">Task mix and outcomes</h2>
+<figure><canvas id="workers" width="470" height="320" role="img"></canvas>
+<figcaption>Each square is one task. Blue marks easy tasks and amber marks hard tasks. Filled squares mark successes and outlined squares mark failures.</figcaption></figure>
+</section>
+<section aria-labelledby="compare-heading"><h2 id="compare-heading">Success rates</h2>
+<table><caption>Within each difficulty and overall</caption><thead><tr><th scope="col">Tasks</th><th scope="col">Team A</th><th scope="col">Team B</th></tr></thead><tbody id="rates"></tbody></table>
+<p id="comparison" role="status"></p>
+<details><summary>How the overall rate is calculated</summary>
+<p id="calculation"></p>
+<p>Each team has more influence from the difficulty it encounters more often. A reversal between the subgroup and overall comparisons is an example of Simpson’s paradox.</p>
+</details>
+</section>
+</div>
+<section class="challenge" aria-labelledby="challenge-heading"><h2 id="challenge-heading">Try a comparison</h2>
+<label for="goal">Find a task mix where</label><select id="goal"><option value="reverse">Team B leads overall</option><option value="tie">the teams tie overall</option><option value="forward">Team A leads overall</option></select>
+<button type="button" id="check">Check my mix</button>
+<p id="feedback" role="status"></p>
+</section>
+<small>These counts are constructed for the activity. The rates describe outcomes under each chosen task mix.</small>
+</main></body></html>

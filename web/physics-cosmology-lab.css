@@ -1,0 +1,26 @@
+.physics-cosmology-lab { min-width:0; }
+.physics-cosmology-lab .model-heading-row { flex-wrap:wrap; }
+.physics-cosmology-lab .model-heading-row > button { flex-shrink:0; }
+.physics-cosmology-lab select, .physics-cosmology-lab input[type=number] { box-sizing:border-box; width:100%; min-width:0; min-height:44px; font:inherit; color:inherit; background:var(--paper,#f5efdf); border:1px solid var(--line,#d5cfbf); border-radius:6px; padding:6px 8px; }
+.physics-cosmology-lab [hidden] { display:none !important; }
+.cosmology-widget { min-width:0; display:flex; flex-direction:column; gap:7px; }
+.physics-cosmology-lab .cosmology-number-control { display:flex; flex-direction:column; gap:6px; font-size:13px; }
+.cosmology-panels { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:12px; margin:18px 0; }
+.cosmology-panel, .cosmology-viewport { min-width:0; }
+.cosmology-viewport { overflow:auto; background:#f5efdf; border:1px solid var(--line,#d5cfbf); border-radius:10px; }
+.cosmology-viewport svg { display:block; width:100%; height:auto; font-family:var(--sans,sans-serif); }
+.physics-cosmology-lab.is-enlarged .cosmology-viewport svg { width:720px; min-width:720px; max-width:none; }
+.cosmology-summary, .cosmology-equation, .cosmology-sources, .cosmology-assumptions, .cosmology-legend { overflow-wrap:anywhere; line-height:1.6; font-variant-numeric:tabular-nums; }
+.cosmology-summary { border-left:3px solid #b98a2f; padding-left:12px; }
+.cosmology-legend { font-size:12px; }
+.cosmology-ledger-region { overflow:auto; max-width:100%; margin:16px 0; }
+.cosmology-ledger { width:100%; min-width:440px; border-collapse:collapse; }
+.cosmology-ledger caption { text-align:left; margin:8px 0; }
+.cosmology-ledger th, .cosmology-ledger td { text-align:left; padding:8px; border-bottom:1px solid var(--line,#d5cfbf); }
+.cosmology-assumptions > summary { cursor:pointer; }
+.cosmology-viewport:focus-visible, .cosmology-ledger-region:focus-visible, .physics-cosmology-lab input:focus-visible, .physics-cosmology-lab select:focus-visible, .physics-cosmology-lab button:focus-visible { outline:3px solid var(--accent,#317e78); outline-offset:3px; }
+.cosmology-live { position:absolute; width:1px; height:1px; overflow:hidden; clip-path:inset(50%); white-space:nowrap; }
+@media (max-width:760px) { .cosmology-panels, .physics-cosmology-lab .concept-controls { grid-template-columns:minmax(0,1fr); } }
+
+.physics-cosmology-lab button, .physics-cosmology-lab input[type=range] { min-height:44px; }
+.cosmology-ledger-region { max-height:560px; }
