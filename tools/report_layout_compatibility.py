@@ -61,3 +61,21 @@ def before_normal_line_bytes(path, raw):
     if hashlib.sha256(restored).hexdigest() != row[0]:
         raise ValueError('Normal line changed unrelated report bytes')
     return restored
+
+
+# 2026-11-15: the on-screen report draft matches the copied text (Arial 12 pt, headings not bold).
+PREVIEW_PATH = 'web/radiology-structured.css'
+PREVIEW = ('f19c6250114063631410717561f262a9cf2e52ec60f2a2bc668033399ab9cb25', 'aa0cdb0c82544dac1c0a25120246d1164664d2755adc90a71cd3570ec01b8607',
+           b'.rad-report-main-heading { font-weight: 400; }\n.rad-report-text { font: 12pt/1.4 Arial, sans-serif !important; }',
+           b'.rad-report-main-heading { font-weight: 700; }')
+
+
+def before_preview_match_bytes(path, raw):
+    if str(path) != PREVIEW_PATH or hashlib.sha256(raw).hexdigest() != PREVIEW[1]:
+        return raw
+    if raw.count(PREVIEW[2]) != 1:
+        raise ValueError('Preview inverse literal is not unique')
+    restored = raw.replace(PREVIEW[2], PREVIEW[3], 1)
+    if hashlib.sha256(restored).hexdigest() != PREVIEW[0]:
+        raise ValueError('Preview match changed unrelated stylesheet bytes')
+    return restored

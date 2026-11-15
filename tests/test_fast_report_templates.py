@@ -308,3 +308,13 @@ def test_a_checklist_normal_reads_as_label_colon_normal_with_an_exact_inverse():
         assert hashlib.sha256(raw).hexdigest() == after
         assert hashlib.sha256(before_normal_line_bytes(path, raw)).hexdigest() == before
         assert before_normal_line_bytes(path, raw + b'\n') == raw + b'\n'
+
+
+def test_the_on_screen_report_draft_matches_the_copied_text_with_an_exact_inverse():
+    from tools.report_layout_compatibility import PREVIEW, PREVIEW_PATH, before_preview_match_bytes
+    raw = (ROOT / PREVIEW_PATH).read_bytes()
+    assert b'.rad-report-main-heading { font-weight: 400; }' in raw
+    assert b'.rad-report-text { font: 12pt/1.4 Arial, sans-serif !important; }' in raw
+    assert hashlib.sha256(raw).hexdigest() == PREVIEW[1]
+    assert hashlib.sha256(before_preview_match_bytes(PREVIEW_PATH, raw)).hexdigest() == PREVIEW[0]
+    assert before_preview_match_bytes(PREVIEW_PATH, raw + b'\n') == raw + b'\n'
