@@ -97,6 +97,8 @@ def before_endometrial_delivery_bytes(path, raw):
 
 def before_combined_source_release_bytes(path, raw):
     if str(path) in {'primer/server.py', 'vercel.json'}:
+        raw = _restore(path, raw, Path(__file__).resolve().parents[1] / 'docs/ccth-a01-roi/runtime-inverse.json', '354e3d4aed47b01d866bb852f96a916fbeb0023ad5a5e3cf1e08122e80e61f0d')
+    if str(path) in {'primer/server.py', 'vercel.json'}:
         raw = _restore(path, raw, Path(__file__).resolve().parents[1] / 'docs/illinois-uterus/runtime-inverse.json', '2821fafd1094314b846af964e123c33cb651b54d362f0d3cf2ccbd9a659baab9')
     if str(path) == 'web/app.js' and hashlib.sha256(raw).hexdigest() == '8db21ea495138956ba51885aa651f29ac774ed2c6d608e7f836b08a34326f96f':
         raw = raw.replace(b"  if (n.id === 'phys.4.classical') page.append(el('a', { class: 'btn ghost', href: '/app/physics/driven-oscillator/index.html' },\n    'Compare resonance and phase in a driven oscillator'));\n", b'', 1)

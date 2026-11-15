@@ -14,14 +14,15 @@
   scale.classList.add('surface-scale');
   scale.setAttribute('hidden', '');
   frame.append(scale);
+  const modelAxes = document.querySelector('main').dataset.sourceAxes === 'xyz';
   const orientation = document.createElementNS(scale.namespaceURI, 'svg');
   orientation.setAttribute('viewBox', '0 0 220 180');
   orientation.setAttribute('role', 'img');
-  orientation.setAttribute('aria-label', 'Patient directions under the current model rotation');
+  orientation.setAttribute('aria-label', modelAxes ? 'Source coordinate axes under the current rotation' : 'Patient directions under the current model rotation');
   orientation.classList.add('surface-orientation');
   orientation.setAttribute('hidden', '');
   const directionNote = document.createElement('p');
-  directionNote.textContent = 'Rotation uses the original atlas coordinate frame.';
+  directionNote.textContent = modelAxes ? 'Rotation uses X, Y and Z from the source mesh.' : 'Rotation uses the original atlas coordinate frame.';
   const key = document.createElement('ul');
   key.className = 'region-key';
   key.setAttribute('aria-label', 'Source region colour key');
@@ -182,11 +183,12 @@
       ['A', -Math.sin(yaw), -Math.sin(pitch)*Math.cos(yaw), Math.cos(pitch)*Math.cos(yaw)],
       ['S', 0, Math.cos(pitch), Math.sin(pitch)],
     ];
-    for (const [name, x, y, depth] of axes) {
+    for (const [index, [direction, x, y, depth]] of axes.entries()) {
+      const name = modelAxes ? 'XYZ'[index] : direction;
       const line = document.createElementNS(scale.namespaceURI, 'line');
       for (const [attr,value] of Object.entries({x1:110,y1:90,x2:110+60*x,y2:90-60*y,stroke:'#dce9ed','stroke-width':2,'data-axis':name,'data-depth':depth})) line.setAttribute(attr,value);
       const label = document.createElementNS(scale.namespaceURI, 'text');
-      label.setAttribute('x',110+78*x);label.setAttribute('y',90-78*y+(name==='R'?-10:name==='A'?10:0));
+      label.setAttribute('x',110+78*x);label.setAttribute('y',90-78*y+(index===0?-10:index===1?10:0));
       label.setAttribute('text-anchor','middle');label.setAttribute('dominant-baseline','middle');
       label.setAttribute('fill','#ffffff');label.setAttribute('font-size','18');
       label.textContent = name;
