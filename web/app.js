@@ -3696,6 +3696,7 @@ function renderReportWalkthrough(n, { openTemplate } = {}) {
         'DURAL SINUSES': ['sadik-17', 'Compare superior sagittal sinus thrombosis on CT'],
         'DEEP AND CORTICAL VEINS': ['oliveira-7', 'Inspect deep venous thrombosis and associated haemorrhagic infarction'],
         'PARENCHYMAL EFFECTS': ['oliveira-7', 'Inspect the published haemorrhagic venous infarction example'],
+        'MASS EFFECT': ['zuurbier-2', 'Compare temporal horn enlargement on MRI and CT'],
       };
       const example = page.sections.map(section => examples[section]).find(Boolean);
       if (example) parts.push(el('section', {class: 'card', 'aria-label': 'Published clinical example for this step'},
