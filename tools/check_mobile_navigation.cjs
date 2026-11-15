@@ -1,0 +1,74 @@
+#!/usr/bin/env node
+'use strict';
+// Exercise the real shell against an isolated, already-onboarded QA server.
+// Evidence uses a fresh private temporary directory; printed as EVIDENCE_DIRECTORY.
+// Legacy output-directory argument (slot 3) is ignored; see docs/browser-qa.md.
+const assert = require('node:assert/strict');
+const fs = require('node:fs');
+const { chromium } = require('playwright');
+const { createEvidenceDirectory, loopbackQaUrl } = require('./qa-browser.cjs');
+const base = loopbackQaUrl(process.argv[2] || 'http://127.0.0.1:8768');
+const out = createEvidenceDirectory();
+
+(async () => {
+  const browser = await chromium.launch({ headless: true });
+  try {
+    const page = await browser.newPage({ viewport: { width: 390, height: 844 }, reducedMotion: 'reduce' });
+    const errors = []; page.on('pageerror', e => errors.push(e.message));
+    await page.goto(base + '/#/node/chem.3.atomic-structure');
+    await page.locator('.concept-model').waitFor();
+    const menu = page.locator('#navigation-toggle'), nav = page.locator('#primary-nav');
+    await page.waitForFunction(() => document.querySelector('#mobile-location').textContent.includes('Atomic Structure'));
+    assert.match(await page.locator('#mobile-location').innerText(), /Chemistry/);
+    assert.equal(await menu.getAttribute('aria-expanded'), 'false');
+    assert.equal(await nav.isVisible(), false);
+    const collapsed = await page.locator('#sidebar').boundingBox();
+    assert.ok(collapsed.height < 155, 'Collapsed navigation preserves reading space');
+    for (const id of (await menu.getAttribute('aria-controls')).split(' ')) assert.equal(await page.locator('#' + id).count(), 1);
+    await menu.focus(); await page.keyboard.press('Enter');
+    assert.equal(await nav.isVisible(), true);
+    assert.equal(await page.locator('#reading-settings').isVisible(), true);
+    await page.locator('#theme-toggle').click();
+    await page.waitForFunction(() => document.activeElement?.id === 'theme-toggle');
+    assert.equal(await menu.getAttribute('aria-expanded'), 'true');
+    assert.equal(await page.locator('#theme-toggle').isVisible(), true);
+    await page.locator('#primary-nav button').first().focus();
+    await page.keyboard.press('Escape');
+    assert.equal(await nav.isVisible(), false);
+    assert.equal(await menu.evaluate(e => e === document.activeElement), true);
+    await menu.click();
+    await page.locator('[data-nav="math-images"]').click();
+    await page.waitForFunction(() => location.hash === '#/math-images' && document.querySelector('#navigation-toggle').getAttribute('aria-expanded') === 'false');
+    assert.equal(await nav.isVisible(), false);
+    await page.goto(base + '/#/node/chem.3.atomic-structure');
+    await page.locator('.concept-canvas').waitFor();
+    await page.locator('.concept-canvas').evaluate(e => e.scrollIntoView({ block: 'center', behavior: 'instant' }));
+    await page.evaluate(() => new Promise(resolve => requestAnimationFrame(() => requestAnimationFrame(resolve))));
+    assert.match(await page.locator('#mobile-location').innerText(), /Atomic Structure/);
+    await page.screenshot({ path: out + '/collapsed-model-mobile.png' });
+    await menu.click();
+    await page.screenshot({ path: out + '/expanded-menu-mobile.png' });
+    await page.setViewportSize({ width: 1440, height: 1000 });
+    assert.equal(await menu.isVisible(), false);
+    assert.equal(await nav.isVisible(), true);
+    assert.equal(await page.locator('#reading-settings').isVisible(), true);
+    await page.setViewportSize({ width: 390, height: 844 });
+    await menu.click();
+    assert.equal(await nav.isVisible(), false);
+    assert.ok(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth + 1));
+    await page.goto(base + '/#/read/Genetics/bio.3.genetics');
+    const context = page.locator('#reader-context-slot .reader-context-toggle');
+    await page.waitForFunction(() => document.querySelector('#reader-context-slot .reader-context-toggle')?.getAttribute('aria-label')?.includes('Life Sciences'));
+    assert.match(await context.getAttribute('aria-label'), /Genetics/);
+    assert.equal(await page.locator('#mobile-location').isVisible(), false);
+    assert.equal(await nav.isVisible(), false);
+    await context.click();
+    await page.locator('.lesson-nav-panel').waitFor();
+    await page.keyboard.press('Escape');
+    assert.equal(await page.locator('.lesson-nav-panel').count(), 0);
+    assert.equal(await context.evaluate(e => e === document.activeElement), true);
+    await page.screenshot({ path: out + '/genetics-reader-mobile.png' });
+    assert.deepEqual(errors, []);
+    console.log('PASS mobile menu, keyboard/Escape, settings focus, route collapse, lesson/reader context, resize and desktop navigation');
+  } finally { await browser.close(); }
+})().catch(error => { console.error(error); process.exitCode = 1; });

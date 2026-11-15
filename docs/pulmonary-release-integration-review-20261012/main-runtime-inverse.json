@@ -1,0 +1,66 @@
+{
+  "scope": "Offline exact source comparison only. Restore four fixed pulmonary additions to main bytes, plus the separately pinned app inverse. This does not extend historical approvals; actual current reader/ASGI/source checks remain separate.",
+  "base_main": "1e1337aecef27acdc90ce7be93f6a92c3bd36360",
+  "files": {
+    "primer/server.py": {
+      "main_sha256": "8c0071159fa528ce1b5453d18dc2357663e349b0edf02dd6a54a42c90723a906",
+      "current_sha256": "b90ad60a33233321a0151ab454276018001e8a4496b6bc23861b9321adc3ce45",
+      "changes": [
+        {
+          "before": "    return {\"ok\": True, \"nodes\": len(curr.nodes), \"archives\": len(wiki.archives),\n            \"source_gallery_metadata_validated\": True, \"source_model_metadata_validated\": True, \"source_motion_metadata_validated\": True,\n            \"source_study_metadata_validated\": True, \"source_native_inspector_metadata_validated\": True,\n            \"source_blob_metadata_validated\": True, \"source_stroke_metadata_validated\": True}\n\n\n\n",
+          "after": "    return {\"ok\": True, \"nodes\": len(curr.nodes), \"archives\": len(wiki.archives),\n            \"source_gallery_metadata_validated\": True, \"source_model_metadata_validated\": True, \"source_motion_metadata_validated\": True,\n            \"source_study_metadata_validated\": True, \"source_native_inspector_metadata_validated\": True,\n            \"source_blob_metadata_validated\": True, \"source_stroke_metadata_validated\": True,\n            \"source_pulmonary_metadata_validated\": True}\n\n\n\n"
+        },
+        {
+          "before": "    if os.environ.get('VERCEL'):\n        return RedirectResponse(row['url'], status_code=307, headers={'Cache-Control': 'private, no-store'})\n    return FileResponse(os.path.join(WEB_DIR, src.removeprefix('/app/')), media_type=row['content_type'], headers={'Cache-Control': 'private, no-store'})\n\n\n@app.api_route(\"/app/anatomy/{atlas}/{asset:path}\", methods=[\"GET\", \"HEAD\"], include_in_schema=False)\n",
+          "after": "    if os.environ.get('VERCEL'):\n        return RedirectResponse(row['url'], status_code=307, headers={'Cache-Control': 'private, no-store'})\n    return FileResponse(os.path.join(WEB_DIR, src.removeprefix('/app/')), media_type=row['content_type'], headers={'Cache-Control': 'private, no-store'})\n\n\n@app.api_route(\"/app/anatomy/lidc-idri-0525/{asset:path}\", methods=[\"GET\", \"HEAD\"], include_in_schema=False)\nasync def native_pulmonary_payload_delivery(asset: str, request: Request):\n    from .pulmonary_source_delivery import (AUTHORED_FILES, BLOB_PREFIX, PREFIX,\n                                            delivery, expected_files, validate_local_file)\n    from .pulmonary_native_inspectors import references\n    src = PREFIX + asset\n    # Authorisation has already run in the outer guard. Compare the raw ASGI\n    # path as well as the decoded identifier: encoded separators, aliases and\n    # traversal must not turn into a legitimate source selection.\n    if (request.scope.get('raw_path', b'') != src.encode('ascii', errors='replace')\n            or asset not in AUTHORED_FILES and asset not in expected_files()):\n        return JSONResponse({'detail': 'Unknown native pulmonary source file'}, status_code=404,\n                            headers={'Cache-Control': 'private, no-store'})\n    references()\n    if asset in AUTHORED_FILES:\n        response = await app.state.source_static.get_response('anatomy/lidc-idri-0525/' + asset, request.scope)\n        response.headers['Cache-Control'] = 'private, no-store'\n        if asset == 'reference.html':\n            response.headers['Content-Security-Policy'] = CSP.replace(\n                \"connect-src 'self';\", \"connect-src 'self' \" + BLOB_PREFIX + \";\"\n            ).replace(\"frame-ancestors 'none';\", \"frame-ancestors 'self';\")\n        return response\n    row = delivery()['files'][src]\n    # Check a selected local file again even when metadata has been cached.\n    # A present corrupt file must never silently fall back to the hosted copy.\n    validate_local_file(src, row)\n    if os.environ.get('VERCEL'):\n        return RedirectResponse(row['url'], status_code=307, headers={'Cache-Control': 'private, no-store'})\n    return FileResponse(os.path.join(WEB_DIR, src.removeprefix('/app/')),\n                        media_type=row['content_type'], headers={'Cache-Control': 'private, no-store'})\n\n\n@app.api_route(\"/app/anatomy/{atlas}/{asset:path}\", methods=[\"GET\", \"HEAD\"], include_in_schema=False)\n"
+        }
+      ],
+      "outside_exact_blocks_unchanged": true
+    },
+    "primer/module_media.py": {
+      "main_sha256": "078861258791477395df54b3b1135a121187a47379416141d54d258f12ceb1f1",
+      "current_sha256": "5876b7a8e0ce3a42f44bfc408dab37c1f790170bd9e0d56a98c6d183901bb2d7",
+      "changes": [
+        {
+          "before": "    sources = source_model_bindings().get(node['id'])\n    if sources:\n        props['source_references'] = copy.deepcopy(sources)\n    return props\n\n\n",
+          "after": "    sources = source_model_bindings().get(node['id'])\n    if sources:\n        props['source_references'] = copy.deepcopy(sources)\n    if reference.get('source_native_only') is True:\n        from .source_native_inspectors import references as native_inspectors\n        inspectors = native_inspectors().get('ra.ct-pulmonary-nodules')\n        if node['id'] != 'rad.4.pulmonary-nodule' or not inspectors:\n            raise ValueError('Native-only model lacks its exact pulmonary source')\n        props['source_native_only'] = True\n        props['native_inspectors'] = copy.deepcopy(inspectors)\n    return props\n\n\n"
+        },
+        {
+          "before": "                      if i['module_id'] == node['id'] and inspectors.get(i['id'])]\n        if native_ids:\n            media.append({'id': 'module-native-inspectors-' + node['id'], 'kind': 'source-native-inspectors',\n                          'title': 'Native source anatomy inspection',\n                          'instructions': ('Inspect the complete supplied source arrays and labels in their original grids. Read case, sampling and anatomical limits before interpretation.'\n                                           if node['id'] == 'rad.4.stroke' else\n                                           'Inspect the complete provided source selections against native images and separate atlas probabilities. Read population, sampling and anatomical limits before interpretation.'),\n                          'investigation_ids': native_ids})\n        from . import radiology_catalog\n",
+          "after": "                      if i['module_id'] == node['id'] and inspectors.get(i['id'])]\n        if native_ids:\n            media.append({'id': 'module-native-inspectors-' + node['id'], 'kind': 'source-native-inspectors',\n                          'title': ('Native source CT and separate nodule models'\n                                    if node['id'] == 'rad.4.pulmonary-nodule' else 'Native source anatomy inspection'),\n                          'instructions': ('Inspect the complete supplied source arrays and labels in their original grids. Read case, sampling and anatomical limits before interpretation.'\n                                           if node['id'] == 'rad.4.stroke' else\n                                           'Inspect all original CT sections, separate reader masks and every original XML mark. These source observations neither label every report structure nor establish histology, current-patient findings or longitudinal growth.'\n                                           if node['id'] == 'rad.4.pulmonary-nodule' else\n                                           'Inspect the complete provided source selections against native images and separate atlas probabilities. Read population, sampling and anatomical limits before interpretation.'),\n                          'investigation_ids': native_ids})\n        from . import radiology_catalog\n"
+        }
+      ],
+      "outside_exact_blocks_unchanged": true
+    },
+    "web/lesson-models.js": {
+      "main_sha256": "2ac415278e51eb56cbc183e97f67f2371ad66082177a7a0fd79efc988c251c50",
+      "current_sha256": "1fe0aa5426059fbddf0c75988bb88305d6f04ba5b03222ecaff99a354e6f0b98",
+      "changes": [
+        {
+          "before": "      return window.PrimerSpatial ? window.PrimerSpatial.render(item, hooks) : null;\n    },\n    'radiology-anatomy': (item, hooks) => {\n      const family = item.props?.family;\n      if (item.props?.source_references?.length) {\n        const host = node('div', { class: 'lesson-native-anatomy' });\n",
+          "after": "      return window.PrimerSpatial ? window.PrimerSpatial.render(item, hooks) : null;\n    },\n    'radiology-anatomy': (item, hooks) => {\n      if (item.props?.source_native_only) {\n        return node('section', { class: 'lesson-native-anatomy' },\n          ...item.props.native_inspectors.map(asset => node('section', {},\n            node('h3', {}, node('a', { href: asset.src, target: '_blank', rel: 'noopener noreferrer' }, asset.title)),\n            node('p', {}, asset.caption), node('p', {}, asset.attribution),\n            node('a', { href: asset.license_url, target: '_blank', rel: 'noopener noreferrer' }, asset.license))));\n      }\n      const family = item.props?.family;\n      if (item.props?.source_references?.length) {\n        const host = node('div', { class: 'lesson-native-anatomy' });\n"
+        }
+      ],
+      "outside_exact_blocks_unchanged": true
+    },
+    "primer/source_native_inspectors.py": {
+      "main_sha256": "03c3f43f6995391b182e0b4b7b8ae947f10dbe9d2fe83b699a8b12662f8b6a09",
+      "current_sha256": "cf3086ae256ded8ee5443db8569ae53c7c0f9e75983fe675c70718a1fb5bc252",
+      "changes": [
+        {
+          "before": "    result = {key: [data['inspectors'][identifier] for identifier in identifiers] for key, identifiers in data['bindings'].items()}\n    from .stroke_native_inspectors import references as stroke_references\n    result.update(stroke_references())\n    return result\n",
+          "after": "    result = {key: [data['inspectors'][identifier] for identifier in identifiers] for key, identifiers in data['bindings'].items()}\n    from .stroke_native_inspectors import references as stroke_references\n    result.update(stroke_references())\n    from .pulmonary_native_inspectors import references as pulmonary_references\n    result.update(pulmonary_references())\n    return result\n"
+        }
+      ],
+      "outside_exact_blocks_unchanged": true
+    }
+  },
+  "app_inverse": {
+    "path": "docs/pulmonary-nodule-integration-review-20261011/bounded-app-source-only-delta.json",
+    "sha256": "7ab2a9eb1fe06acd5407a05f738e8fddba9f64221e72c669c955e78e94edb76f"
+  },
+  "clinical_approval": false,
+  "fine_anatomical_approval": false,
+  "historical_approval_extended": false,
+  "whole_goal_complete": false
+}

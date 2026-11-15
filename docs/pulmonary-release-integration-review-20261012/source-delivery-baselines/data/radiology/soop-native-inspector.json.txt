@@ -1,0 +1,40 @@
+{
+  "schema_version": 1,
+  "source_proposal_sha256": "640b646f74ba254aa4e4f864e643bd9462b52429ee79849be22ffe131cd1cd2d",
+  "independent_source_review_sha256": "5f51f80d3bf56d412fc81e825927f1415e19d59fc1409651fab5a667836a9902",
+  "inspectors": {
+    "soop-stroke-sub342-native": {
+      "id": "soop-stroke-sub342-native",
+      "title": "Inspect complete source MRI arrays and three separate mask boundaries",
+      "src": "/app/anatomy/soop-stroke-sub342/reference.html",
+      "sha256": "c82a142483efdc8433f110b5f6f273ec7e59d0425a213931c61e84dd8dd07657",
+      "script_sha256": "bebcbbc1d985c35bda8aee8a02fd92f97b21819059b06ad506f11d2f9573e1c7",
+      "manifest_url": "/app/anatomy/soop-stroke-sub342/manifest.json",
+      "manifest_sha256": "6930d88bdf2741783f0e43fd80c01e2ce6686e82edaac5a12a072729432ce1a8",
+      "bound_source_ids": [
+        "soop-stroke-sub342"
+      ],
+      "investigation_id": "ra.acute-stroke",
+      "module_id": "rad.4.stroke",
+      "caption": "One released SOOP source case, sub-342: complete TRACE, ADC, T1 and FLAIR storage arrays, plus three separate original acute, chronic and combined masks. Inspect native planes, original voxel values and literal mask sampling-cell boundaries. Acquisition timing, treatment state, calibrated ADC clinical units, cross-sequence registration, named-anatomy coverage and clinical tissue boundaries remain unverified. Label volume is not pretreatment infarct core or irreversible tissue.",
+      "attribution": "Rorden, Absher and Newman-Norlund. Stroke Outcome Optimization Project (SOOP), OpenNeuro ds004889 v1.1.2. CC0. Source images and three source labels unchanged; lossless transport and literal voxel-cell geometry added.",
+      "source_url": "https://doi.org/10.18112/openneuro.ds004889.v1.1.2",
+      "publication_url": "https://doi.org/10.1038/s41597-024-03667-5",
+      "license": "CC0",
+      "license_url": "https://creativecommons.org/publicdomain/zero/1.0/",
+      "independent_source_review": "docs/soop-stroke-independent-review-20261011/independent-review.json",
+      "independent_source_review_sha256": "5f51f80d3bf56d412fc81e825927f1415e19d59fc1409651fab5a667836a9902",
+      "runtime_binding_added": true,
+      "clinical_approval": false,
+      "fine_anatomical_approval": false,
+      "structure_coverage_granted": false,
+      "current_patient_registration": false,
+      "whole_goal_complete": false
+    }
+  },
+  "bindings": {
+    "ra.acute-stroke": [
+      "soop-stroke-sub342-native"
+    ]
+  }
+}

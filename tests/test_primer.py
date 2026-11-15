@@ -9,6 +9,9 @@ Run:  .venv/bin/python -m pytest tests/ -q
 """
 
 import os
+import re
+import shutil
+import subprocess
 import sys
 import time
 
@@ -17,7 +20,10 @@ import pytest
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 from primer import practice, quiz  # noqa: E402
-from primer.curriculum import Curriculum  # noqa: E402
+from primer.curriculum import (  # noqa: E402
+    Curriculum, LESSON_ILLUSTRATION_DIMENSIONS, PHYSICS_MODEL_SCENARIOS,
+    _validate_lesson_media,
+)
 from primer.learner import LearnerStore, MASTERY_MIN_INTERVAL  # noqa: E402
 from primer.pacing import roadmap  # noqa: E402
 from primer.render import rewrite_article, sanitize  # noqa: E402
@@ -97,11 +103,13 @@ def test_sanitize_escapes_bare_text():
 
 @pytest.mark.parametrize('url,allowed', [
     ('https://upload.wikimedia.org/a/b.jpg', True),
+    ('https://thumb.wikimedia.org/a/b.jpg', True),
     ('https://en.wikipedia.org/x.png', True),
     ('https://commons.wikimedia.org/y.svg', True),
     ('http://169.254.169.254/x.wikipedia.org/', False),
     ('http://169.254.169.254/latest/meta-data/', False),
     ('https://evil.com/a.wikipedia.org/x', False),
+    ('https://thumb.wikimedia.org.evil.com/x', False),
     ('https://wikipedia.org.evil.com/x', False),
     ('http://localhost:8747/api/state', False),
     ('http://127.0.0.1/', False),
@@ -345,13 +353,10 @@ def test_graph_is_acyclic_and_fully_reachable(curr):
 def test_every_stage_is_populated_in_every_domain(curr):
     """A domain has no gaps: whatever stage it starts at, it runs to the end.
 
-    The ten general fields start at 0, which is the book's promise that a domain
-    is something a reader travels from preschool to graduate rather than a
-    subject handed to them at a level someone else chose. A domain may instead
-    declare a later `entry_stage` and begin above the general spine — radiology
-    is postgraduate by nature, and inventing preschool radiology to satisfy a
-    structural rule would be dishonest about what the book contains. What is not
-    allowed either way is a hole in the middle.
+    All current fields begin with concrete exploration and continue through
+    advanced study. Radiology starts with nonclinical imaging literacy; its
+    clinical modules keep their advanced prerequisites. Future specialist
+    pathways may declare a later entry stage, but no pathway may have a gap.
     """
     for d in curr.domains:
         stages = {n['stage'] for n in curr.nodes.values() if n['domain'] == d['id']}
@@ -422,6 +427,879 @@ def test_young_nodes_have_child_voiced_lessons(curr):
     young = [n for n in curr.nodes.values() if n['stage'] <= 1]
     with_text = [n for n in young if n.get('kid_text')]
     assert len(with_text) / len(young) >= 0.9
+
+
+def test_the_interactive_lesson_media_cohorts_are_local_and_complete(curr):
+    """The bounded-model cohorts keep both their authored plate and model."""
+    base_ten = {nid: [m for m in n.get('lesson_media', []) if m.get('renderer') == 'base-ten-lab']
+                for nid, n in curr.nodes.items() if any(m.get('renderer') == 'base-ten-lab' for m in n.get('lesson_media', []))}
+    assert set(base_ten) == {'math.1.addition', 'math.1.division', 'math.1.subtraction', 'math.1.place-value', 'math.1.multiplication'}
+    for nid, models in base_ten.items():
+        assert len(models) == 1 and models[0]['props'] == {'scenario': nid}
+        assert curr.nodes[nid]['stage'] == 1
+    expected = {
+        'math.3.vectors': (3, 'vector-components-lab'),
+        'math.2.geometry': (2, 'geometry-measures-lab'),
+        'math.2.coordinates': (2, 'coordinate-plane-lab'),
+        'math.3.linear': (3, 'algebra-functions-lab'),
+        'math.3.slope': (3, 'algebra-functions-lab'),
+        'math.3.quadratics': (3, 'algebra-functions-lab'),
+        'math.3.polynomials': (3, 'algebra-functions-lab'),
+        'math.0.counting': (0, 'counter'),
+        'math.0.shapes': (0, 'shape-explorer'),
+        'phys.0.light-shadow': (0, 'shadow-lab'),
+        'cs.0.instructions': (0, 'sequence-runner'),
+        'lang.0.alphabet': (0, 'alphabet-explorer'),
+        'hist.0.family': (0, 'inclusive-family-timeline'),
+        'earth.0.sky': (0, 'day-night-rotation-lab'),
+        'arts.0.colors': (0, 'classroom-paint-mixer'),
+        'math.1.addition': (1, 'make-ten'),
+        'phys.1.light': (1, 'light-paths'),
+        'cs.1.algorithms': (1, 'algorithm-tracer'),
+        'bio.1.lifecycles': (1, 'life-cycle'),
+        'lang.1.reading': (1, 'reading-path-lab'),
+        'hist.1.timelines': (1, 'timeline-order-lab'),
+        'earth.1.seasons': (1, 'seasons-tilt-lab'),
+        'arts.1.elements': (1, 'art-elements-composer'),
+        'math.2.fractions': (2, 'fraction-arithmetic-lab'),
+        'math.2.negatives': (2, 'integer-number-line-lab'),
+        'chem.2.atoms': (2, 'atom-element-builder'),
+        'bio.2.cells': (2, 'cell-microscope'),
+        'bio.2.reproduction': (2, 'prenatal-sequence'),
+        'mind.2.logic-intro': (2, 'counterexample-lab'),
+        'math.3.functions': (3, 'function-composition-lab'),
+        'bio.3.genetics': (3, 'allele-segregation-lab'),
+        'bio.3.human-anatomy': (3, 'circulation-route-lab'),
+        'mind.3.logic': (3, 'truth-table-lab'),
+        'cs.3.data-structures': (3, 'stack-queue-lab'),
+        'math.4.linalg': (4, 'matrix-transform-lab'),
+        'math.4.diffeq': (4, 'math-ode-lab'),
+        'math.4.multivar': (4, 'math-field-lab'),
+        'math.4.prob-theory': (4, 'math-probability-lab'),
+        'phys.4.fluids': (4, 'venturi-flow-lab'),
+        'bio.4.molecular': (4, 'gene-expression-stepper'),
+        'cs.4.networks': (4, 'tcp-packet-tracer'),
+        'math.5.pde': (5, 'heat-equation-lab'),
+        'cs.5.complexity': (5, 'complexity-certificate-lab'),
+        'bio.5.developmental': (5, 'morphogen-gradient-lab'),
+        'rad.3.ct-image': (5, 'ct-window-lab'),
+        'rad.5.ultrasound-physics': (5, 'doppler-angle-lab'),
+        'rad.5.tavi-ct': (5, 'spatial-3d'),
+        'rad.3.fracture-description': (5, 'spatial-3d'),
+    }
+    expected.update({
+        n['id']: (n['stage'], 'music-listening-lab')
+        for n in curr.nodes.values() if n.get('music_grade')
+    })
+    expected['math.4.analysis'] = (4, 'math-convergence-lab')
+    expected['math.5.numerical'] = (5, 'math-numerical-lab')
+    expected['math.4.numtheory'] = (4, 'math-number-theory-lab')
+    expected['math.3.systems'] = (3, 'math-systems-lab')
+    expected['phys.0.float-sink'] = (0, 'physics-buoyancy-lab')
+    expected['phys.4.particles'] = (4, 'physics-particle-lab')
+    expected['lang.5.comp-ling'] = (5, 'language-computation-lab')
+    expected.update({
+        node_id: (curr.nodes[node_id]['stage'], 'physics-concept-lab')
+        for node_id in PHYSICS_MODEL_SCENARIOS
+    })
+    with_models = {
+        nid: node for nid, node in curr.nodes.items()
+        if any(item['kind'] == 'model' and (nid in expected or item['renderer'] not in {'base-ten-lab', 'spatial-3d', 'concept-lab', 'radiology-anatomy', 'math-measure-lab', 'physics-cycle-lab', 'math-operator-lab', 'physics-ensemble-lab', 'math-curvature-lab', 'physics-constraints-lab', 'math-complex-lab', 'physics-quantum-lab', 'math-topology-lab', 'physics-relativity-lab', 'math-algebra-lab', 'physics-quantum-info-lab', 'math-logic-lab', 'physics-maxwell-lab', 'physics-cosmology-lab', 'physics-qft-lab'})
+               for item in node.get('lesson_media', []))
+    }
+    assert set(with_models) == set(expected)
+    root = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+    for nid, node in with_models.items():
+        companions = [item for item in node['lesson_media']
+                      if item.get('renderer') == 'fluids-concept-lab']
+        assert [(item['id'], item['kind'], item['props']) for item in companions] == (
+            [('explore-fluid-forces-and-flow', 'model', {'scenario': 'phys.4.fluids'})]
+            if nid == 'phys.4.fluids' else []), nid
+        linear_algebra = [item for item in node['lesson_media']
+                          if item.get('renderer') == 'linear-algebra-lab']
+        assert [(item['id'], item['kind'], item['props']) for item in linear_algebra] == (
+            [('explore-linear-maps-and-kernels', 'model', {'scenario': 'math.4.linalg'})]
+            if nid == 'math.4.linalg' else []), nid
+        assert node['stage'] == expected[nid][0], nid
+        base_media = [entry for entry in node['lesson_media'] if entry not in linear_algebra
+                      if entry['kind'] in {'illustration', 'model'} and (entry.get('renderer') == expected[nid][1]
+                           or entry.get('renderer') not in {'base-ten-lab', 'spatial-3d', 'concept-lab', 'radiology-anatomy', 'math-wave-lab', 'math-convergence-lab', 'physics-thermal-lab', 'math-numerical-lab', 'math-measure-lab', 'physics-cycle-lab', 'math-operator-lab', 'physics-ensemble-lab', 'math-curvature-lab', 'physics-constraints-lab', 'math-complex-lab', 'physics-quantum-lab', 'math-topology-lab', 'physics-relativity-lab', 'math-algebra-lab', 'physics-quantum-info-lab', 'math-logic-lab', 'physics-maxwell-lab', 'physics-cosmology-lab', 'physics-qft-lab', 'physics-phase-lab', 'fluids-concept-lab'})]
+        kinds = [entry['kind'] for entry in base_media]
+        assert kinds == ['illustration', 'model'], nid
+        model = base_media[-1]
+        assert model['renderer'] == expected[nid][1]
+        if nid == 'rad.3.ct-image':
+            assert [entry['renderer'] for entry in node['lesson_media']
+                    if entry.get('renderer') in {'ct-window-lab', 'spatial-3d'}] == [
+                        'ct-window-lab', 'spatial-3d']
+        plate = node['lesson_media'][0]
+        assert plate['alt'].strip() and plate['caption'].strip()
+        assert (plate['width'], plate['height']) == (1600, 1000)
+        candidate_urls = set()
+        for candidate in plate['srcset'].split(','):
+            url, descriptor = candidate.strip().split()
+            candidate_urls.add(url)
+            disk = os.path.join(root, 'web', url[len('/app/'):])
+            assert os.path.isfile(disk), disk
+            assert os.path.getsize(disk) < 300_000, '{} is too heavy'.format(disk)
+            actual_width, actual_height = LESSON_ILLUSTRATION_DIMENSIONS[url]
+            assert actual_width == int(descriptor[:-1])
+            assert actual_width * plate['height'] == actual_height * plate['width']
+            with open(disk, 'rb') as fh:
+                header = fh.read(12)
+            assert header[:4] == b'RIFF' and header[8:] == b'WEBP', disk
+        assert plate['src'] in candidate_urls
+
+
+def test_every_mathematics_lesson_has_one_local_responsive_illustration(curr):
+    """Counting through postgraduate work has uninterrupted explanatory visuals."""
+    mathematics = {
+        nid: node for nid, node in curr.nodes.items() if nid.startswith('math.')
+    }
+    assert len(mathematics) == 59
+    root = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+    raster_urls = set()
+    plate_ids = set()
+    for nid, node in mathematics.items():
+        plates = [item for item in node.get('lesson_media', [])
+                  if item['kind'] == 'illustration']
+        assert len(plates) == 1, nid
+        plate = plates[0]
+        assert plate['id'] not in plate_ids, plate['id']
+        plate_ids.add(plate['id'])
+        assert len(plate['alt'].split()) >= 8, nid
+        assert len(plate['caption'].split()) >= 8, nid
+        # The caption must add the mathematical insight; it may not merely
+        # repeat the image description as decorative alt copy.
+        assert plate['caption'].strip() != plate['alt'].strip(), nid
+        assert (plate['width'], plate['height']) == (1600, 1000)
+        candidates = {}
+        for candidate in plate['srcset'].split(','):
+            url, descriptor = candidate.strip().split()
+            width = int(descriptor[:-1])
+            assert width in (800, 1600), (nid, descriptor)
+            assert url not in raster_urls, url
+            raster_urls.add(url)
+            disk = os.path.join(root, 'web', url[len('/app/'):])
+            assert os.path.isfile(disk), disk
+            assert os.path.getsize(disk) < 300_000, '{} is too heavy'.format(disk)
+            actual_width, actual_height = LESSON_ILLUSTRATION_DIMENSIONS[url]
+            assert (actual_width, actual_height) == (width, width * 5 // 8)
+            candidates[url] = width
+        assert set(candidates.values()) == {800, 1600}, nid
+        assert candidates[plate['src']] == 800, nid
+    assert len(raster_urls) == 118
+
+
+def test_every_physics_lesson_has_explanatory_responsive_media(curr):
+    """Every physics rung retains its original plate/model; additions are checked separately."""
+    physics = {nid: node for nid, node in curr.nodes.items() if nid.startswith('phys.')}
+    assert len(physics) == 39
+    root = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+    raster_urls = set()
+    plate_ids = set()
+    model_ids = set()
+    bespoke = {
+        'phys.0.float-sink': 'physics-buoyancy-lab',
+        'phys.0.light-shadow': 'shadow-lab',
+        'phys.1.light': 'light-paths',
+        'phys.4.fluids': 'venturi-flow-lab',
+        'phys.5.frontier': 'spatial-3d',
+        'phys.5.condensed': 'spatial-3d',
+        'phys.4.particles': 'physics-particle-lab',
+    }
+    for nid, node in physics.items():
+        companions = [item for item in node['lesson_media']
+                      if item.get('renderer') == 'fluids-concept-lab']
+        assert [(item['id'], item['kind'], item['props']) for item in companions] == (
+            [('explore-fluid-forces-and-flow', 'model', {'scenario': 'phys.4.fluids'})]
+            if nid == 'phys.4.fluids' else []), nid
+        base_media = [item for item in node.get('lesson_media', []) if item.get('renderer') not in {'spatial-3d', 'physics-thermal-lab', 'math-measure-lab', 'physics-cycle-lab', 'math-operator-lab', 'physics-ensemble-lab', 'math-curvature-lab', 'physics-constraints-lab', 'math-complex-lab', 'physics-quantum-lab', 'math-topology-lab', 'physics-relativity-lab', 'math-algebra-lab', 'physics-quantum-info-lab', 'math-logic-lab', 'physics-maxwell-lab', 'physics-cosmology-lab', 'physics-qft-lab', 'physics-phase-lab', 'fluids-concept-lab'}]
+        if nid in {'phys.5.frontier','phys.5.condensed'}:
+            base_media = [item for item in node['lesson_media'] if item['kind']=='illustration' or item.get('props',{}).get('family')in {'rotation-density-geometry','type-i-field-geometry'}]
+            assert base_media[1]['props']['scenario']=='module.'+nid
+        assert [item['kind'] for item in base_media] == [
+            'illustration', 'model'], nid
+        plate, model = base_media
+        assert plate['id'] not in plate_ids, plate['id']
+        assert model['id'] not in model_ids, model['id']
+        plate_ids.add(plate['id'])
+        model_ids.add(model['id'])
+        assert len(plate['alt'].split()) >= 8, nid
+        assert len(plate['caption'].split()) >= 8, nid
+        assert plate['alt'].strip() != plate['caption'].strip(), nid
+        assert (plate['width'], plate['height']) == (1600, 1000)
+        candidates = {}
+        for candidate in plate['srcset'].split(','):
+            url, descriptor = candidate.strip().split()
+            width = int(descriptor[:-1])
+            assert width in (800, 1600), (nid, descriptor)
+            assert url.startswith('/app/illustrations/') and url.endswith('.webp')
+            assert url not in raster_urls, url
+            raster_urls.add(url)
+            disk = os.path.join(root, 'web', url[len('/app/'):])
+            assert os.path.isfile(disk), disk
+            assert os.path.getsize(disk) < 300_000, disk
+            assert LESSON_ILLUSTRATION_DIMENSIONS[url] == (width, width * 5 // 8)
+            candidates[url] = width
+        assert set(candidates.values()) == {800, 1600}, nid
+        assert candidates[plate['src']] == 800, nid
+        if nid in PHYSICS_MODEL_SCENARIOS:
+            assert model['renderer'] == 'physics-concept-lab', nid
+            assert model['props'] == {'scenario': nid}, nid
+        else:
+            assert model['renderer'] == bespoke[nid], nid
+    assert len(plate_ids) == len(model_ids) == 39
+    assert len(raster_urls) == 78
+
+
+def test_every_curriculum_lesson_has_one_unique_explanatory_plate():
+    """The whole book, not a favoured subject subset, carries visual teaching."""
+    from tools.check_curriculum_illustrations import audit
+
+    result = audit()
+    assert result['lessons'] == 558
+    assert result['illustrated'] == result['lessons']
+    assert result['missing'] == 0
+    assert result['plates'] == result['lessons'] + 3
+    assert result['responsive_webps'] == result['plates'] * 2
+    assert result['interactive_models'] >= 70
+    assert result['long_descriptions'] >= 83
+    assert result['orphan_webps'] == []
+    assert not result['errors'], '\n'.join(result['errors'][:20])
+    assert all(domain['illustrated'] == domain['lessons']
+               for domain in result['domains'])
+
+
+def test_physics_visual_copy_keeps_scientific_boundaries(curr):
+    sound = str(curr.nodes['phys.1.sound']).lower()
+    forces = str(curr.nodes['phys.2.forces']).lower()
+    all_physics = (' '.join(str(node).lower() for nid, node in curr.nodes.items()
+                            if nid.startswith('phys.')) + ' ' + _web('lesson-models.js').lower() + ' ' + _web('physics-rotation-lab.js').lower() + ' ' + _web('physics-condensed-lab.js').lower())
+    assert 'slow big wiggles' not in sound
+    assert 'vibration frequency changes pitch' in sound
+    assert 'different from how fast the sound travels' in sound
+    assert 'slides steadily when two people' not in forces
+    assert 'begins accelerating when two people' in forces
+    for boundary in (
+        'constant velocity—not necessarily rest',
+        'changing magnetic flux',
+        'individual events',
+        'no real engine exceeds the carnot bound',
+        'spacelike door-event order',
+        'photographed trajectories',
+        'faster-than-light signalling',
+        'without a center',
+        'pressure perturbation at one fixed point over 10 ms',
+        'not sideways air motion',
+        'heating and sound are transfer pathways',
+        'two phases can coexist',
+        'one free bosonic mode',
+        'a finite mock fluctuation above it is not an experimental bell proof',
+        'not measured galaxy data',
+        'not total or virial mass',
+        'no p-value or unique physical conclusion is inferred',
+        'not the edge of the disk',
+        'no sloped line joins the jump',
+        'the density integrates to one',
+        'gravity and acceleration require additional treatment',
+        'absolute temperatures in kelvin',
+        'relatively scaled, not normalized densities',
+        'synthetic example, not experimental data',
+        'momentum remains 8 kg m/s; kinetic energy falls from 16 j to 10⅔ j',
+        'remaining 5⅓ j becomes internal energy',
+        'photon arrival-rate scale',
+        'independent read-off errors are uniform',
+        'shared calibration standard uncertainty remains',
+        'fusion of light nuclei and fission of heavy nuclei',
+        'mean residual',
+        'residual scatter',
+        'axial fz =',
+        'torque τy =',
+        'positions and orientations are prescribed snapshots, not free motion',
+        'finite bar geometry, induced magnetization and close-contact forces are not solved',
+    ):
+        assert boundary in all_physics, boundary
+
+
+def test_mathematics_visual_copy_keeps_the_audited_boundary_conditions(curr):
+    """Plates must not lend authority to the misconceptions found beside them."""
+    def copy(node_id):
+        return str(curr.nodes[node_id]).lower()
+
+    assert 'bigger digit means colder' not in copy('math.2.negatives')
+    assert '115 cm' not in copy('math.2.ratio')
+    assert '11520 cm' in copy('math.2.ratio')
+    assert 'sensitivity and 99% specificity' in copy('math.3.probability')
+    assert 'summaries alone do not determine' in copy('math.3.statistics')
+    assert 'with x measured in radians' in copy('math.3.precalc')
+    assert 'ordinary improper integral diverges' in copy('math.4.int-calc')
+    assert curr.nodes['math.4.complex']['goal'] == \
+        'The plane where every nonconstant polynomial has a root.'
+    differential_geometry = copy('math.5.diffgeo')
+    assert 'positive gaussian curvature on its outer region' in differential_geometry
+    assert 'vacuum can still have nonzero weyl curvature' in differential_geometry
+    assert 'calculus remains essential' in differential_geometry
+    assert 'the equations alone are insufficient under these weak hypotheses' in \
+        copy('math.5.complex-analysis')
+    frontier_plate = curr.nodes['math.5.frontier']['lesson_media'][0]
+    assert frontier_plate['id'] == 'evidence-proof-counterexample-plate'
+    assert 'induction chain' in frontier_plate['alt'].lower()
+    assert 'finite computation' in frontier_plate['caption'].lower()
+    assert 'counterexample refutes' in frontier_plate['caption'].lower()
+
+
+def test_second_sprout_copy_does_not_reinforce_common_misconceptions(curr):
+    """The new media must not sit beside the exact claims it is designed to fix."""
+    reading = curr.nodes['lang.1.reading']
+    reading_copy = (reading['goal'] + ' ' + reading['kid_text'] + ' ' +
+                    ' '.join(item['explain'] for item in reading['quiz'])).lower()
+    assert 'all by yourself' not in reading_copy and 'just your eyes' not in reading_copy
+    assert 'braille' in reading_copy and 'other writing systems' in reading_copy
+    assert 'english lines usually' in reading_copy
+    spoken_reading = ' '.join(item.get('say', '') + ' ' + item['explain']
+                              for item in reading['quiz']).lower()
+    for schwa_sound in ('puh', 'guh', 'kuh', 'tuh'):
+        assert schwa_sound not in spoken_reading
+
+    timeline = curr.nodes['hist.1.timelines']
+    timeline_copy = (timeline['kid_text'] + ' ' +
+                     ' '.join(item['prompt'] + ' ' + item.get('say', '') + ' ' + item['explain']
+                              for item in timeline['quiz'])).lower()
+    for old_claim in ('learning to walk', 'starting school', 'first you crawl',
+                      'a timeline goes from left to right'):
+        assert old_claim not in timeline_copy
+    assert 'timelines can also run' in timeline_copy
+    assert 'this timeline' in timeline_copy and 'dates and arrows' in timeline_copy
+    assert 'fifteen hundred' not in timeline_copy and '15:00' not in timeline_copy
+
+    seasons = curr.nodes['earth.1.seasons']
+    seasons_copy = (seasons['kid_text'] + ' ' +
+                    ' '.join(item['prompt'] + ' ' + item['explain']
+                             for item in seasons['quiz'])).lower()
+    assert 'we do not move nearer' not in seasons_copy
+    assert 'distance changes are not the cause' in seasons_copy
+    assert 'opposite astronomical seasons' in seasons_copy
+    assert 'temperate' in seasons_copy and 'other regions and cultures' in seasons_copy
+
+    art = curr.nodes['arts.1.elements']
+    art_copy = (art['kid_text'] + ' ' +
+                ' '.join(item['prompt'] + ' ' + item['explain']
+                         for item in art['quiz'])).lower()
+    assert 'dark colors can feel gloomy' not in art_copy
+    assert 'visual texture' in art_copy and 'picture itself is smooth' in art_copy
+    assert 'culture and viewer' in art_copy
+
+
+@pytest.mark.parametrize('bad_media', [None, {}, '', 0, False])
+def test_lesson_media_schema_rejects_explicit_falsy_non_lists(bad_media):
+    with pytest.raises(ValueError, match='lesson_media must be a list'):
+        _validate_lesson_media({'id': 'test.0.media', 'lesson_media': bad_media})
+
+
+@pytest.mark.parametrize('descriptor', ['0w', '799w', '800w,duplicate'])
+def test_lesson_media_schema_rejects_invalid_srcset_widths(curr, descriptor):
+    plate = dict(curr.nodes['math.0.counting']['lesson_media'][0])
+    source = plate['src']
+    plate['srcset'] = '{} {}'.format(source, descriptor.replace(',duplicate', ', {} 800w'.format(source)))
+    with pytest.raises(ValueError, match='invalid srcset'):
+        _validate_lesson_media({'id': 'test.0.srcset', 'lesson_media': [plate]})
+
+
+def test_lesson_media_schema_requires_fallback_in_srcset(curr):
+    plate = dict(curr.nodes['math.0.counting']['lesson_media'][0])
+    plate['srcset'] = plate['srcset'].split(',')[1].strip()
+    with pytest.raises(ValueError, match='src is missing from srcset'):
+        _validate_lesson_media({'id': 'test.0.fallback', 'lesson_media': [plate]})
+
+
+def test_lesson_media_schema_never_resolves_an_authored_path(curr):
+    plate = dict(curr.nodes['math.0.counting']['lesson_media'][0])
+    escaped = '/app/illustrations/../styles.css.webp'
+    plate['src'] = escaped
+    plate['srcset'] = escaped + ' 800w'
+    with pytest.raises(ValueError, match='illustration manifest'):
+        _validate_lesson_media({'id': 'test.0.path', 'lesson_media': [plate]})
+
+
+def _physics_test_model(props):
+    return {
+        'id': 'test-physics-model', 'kind': 'model',
+        'renderer': 'physics-concept-lab', 'title': 'Physics concept test',
+        'instructions': 'Move the bounded scientific control.', 'props': props,
+    }
+
+
+def test_physics_model_props_accept_only_the_matching_lesson_scenario():
+    _validate_lesson_media({
+        'id': 'phys.0.push-pull',
+        'lesson_media': [_physics_test_model({'scenario': 'phys.0.push-pull'})],
+    })
+
+
+@pytest.mark.parametrize('node_id,props', [
+    ('phys.0.push-pull', {'scenario': 'phys.9.unknown'}),
+    ('phys.0.push-pull', {'scenario': 'phys.1.motion'}),
+    ('phys.0.push-pull', {'scenario': 'phys.0.push-pull', 'extra': True}),
+    ('phys.0.push-pull', {'scenario': 7}),
+    ('phys.0.push-pull', {'scenario': 'constructor'}),
+    ('phys.0.light-shadow', {'scenario': 'phys.0.light-shadow'}),
+])
+def test_physics_model_props_reject_unknown_cross_lesson_and_bespoke_scenarios(
+        node_id, props):
+    with pytest.raises(ValueError, match='unknown or cross-lesson scenario'):
+        _validate_lesson_media({
+            'id': node_id, 'lesson_media': [_physics_test_model(props)],
+        })
+
+
+@pytest.mark.parametrize('renderer,props', [
+    ('make-ten', {'first': True, 'second': 5}),
+    ('make-ten', {'first': 5, 'second': 5}),
+    ('light-paths', {'scene': 'mirror'}),
+    ('life-cycle', {'species': 'frog'}),
+    ('algorithm-tracer', {'scenario': 'unknown'}),
+    ('fraction-equivalence-lab', {'numerator': True, 'denominator': 3, 'max_factor': 4}),
+    ('fraction-equivalence-lab', {'numerator': 3, 'denominator': 3, 'max_factor': 4}),
+    ('fraction-equivalence-lab', {'numerator': 1, 'denominator': 8, 'max_factor': 4}),
+    ('atom-element-builder', {'protons': 0, 'neutrons': 6, 'electrons': 6}),
+    ('atom-element-builder', {'protons': 6, 'neutrons': 13, 'electrons': 6}),
+    ('atom-element-builder', {'protons': 6, 'neutrons': 6, 'electrons': 3}),
+    ('cell-microscope', {'start_specimen': 'pond', 'start_magnification': 100}),
+    ('cell-microscope', {'start_specimen': 'leaf', 'start_magnification': 200}),
+    ('cell-microscope', {'start_specimen': 'leaf', 'start_magnification': True}),
+    ('counterexample-lab', {'scenario': 'birds-brown'}),
+    ('integer-number-line-lab', {
+        'min': True, 'max': 12, 'start_value': -2, 'start_delta': -7,
+    }),
+    ('integer-number-line-lab', {
+        'min': -12, 'max': 12.0, 'start_value': -2, 'start_delta': -7,
+    }),
+    ('integer-number-line-lab', {
+        'min': -12, 'max': 11, 'start_value': -2, 'start_delta': -7,
+    }),
+    ('integer-number-line-lab', {
+        'min': -12, 'max': 12, 'start_value': -2, 'start_delta': -11,
+    }),
+    ('integer-number-line-lab', {
+        'min': -12, 'max': 12, 'start_value': -2, 'start_delta': -7,
+        'step': 1,
+    }),
+    ('function-composition-lab', {
+        'f_slope': True, 'f_intercept': 0, 'g_slope': 1, 'g_intercept': -1,
+        'x_min': -5, 'x_max': 5, 'start_x': 5,
+    }),
+    ('function-composition-lab', {
+        'f_slope': 0, 'f_intercept': 0, 'g_slope': 1, 'g_intercept': -1,
+        'x_min': -5, 'x_max': 5, 'start_x': 5,
+    }),
+    ('function-composition-lab', {
+        'f_slope': 2, 'f_intercept': 6, 'g_slope': 1, 'g_intercept': -1,
+        'x_min': -5, 'x_max': 5, 'start_x': 5,
+    }),
+    ('function-composition-lab', {
+        'f_slope': 2, 'f_intercept': 0, 'g_slope': 1, 'g_intercept': -1,
+        'x_min': 5, 'x_max': 5, 'start_x': 5,
+    }),
+    ('function-composition-lab', {
+        'f_slope': 2, 'f_intercept': 0, 'g_slope': 1, 'g_intercept': -1,
+        'x_min': -5, 'x_max': 5, 'start_x': 6,
+    }),
+    ('circulation-route-lab', {
+        'route': 'systemic', 'start_step': 0, 'show_oxygenation': True,
+    }),
+    ('circulation-route-lab', {
+        'route': 'cardiopulmonary', 'start_step': True, 'show_oxygenation': True,
+    }),
+    ('circulation-route-lab', {
+        'route': 'cardiopulmonary', 'start_step': 9, 'show_oxygenation': True,
+    }),
+    ('circulation-route-lab', {
+        'route': 'cardiopulmonary', 'start_step': 0, 'show_oxygenation': 1,
+    }),
+    ('allele-segregation-lab', {
+        'scenario': 'human-disease', 'start_cross': 'heterozygous',
+    }),
+    ('allele-segregation-lab', {
+        'scenario': 'pea-flower-complete-dominance', 'start_cross': 'unknown',
+    }),
+    ('allele-segregation-lab', {
+        'scenario': 'pea-flower-complete-dominance', 'start_cross': True,
+    }),
+    ('allele-segregation-lab', {
+        'scenario': 'pea-flower-complete-dominance',
+        'start_cross': 'heterozygous', 'extra': True,
+    }),
+    ('truth-table-lab', {'start_operator': 'xor', 'start_p': True, 'start_q': False}),
+    ('truth-table-lab', {'start_operator': 'and', 'start_p': 1, 'start_q': False}),
+    ('truth-table-lab', {'start_operator': 'or', 'start_p': True, 'start_q': 0}),
+    ('stack-queue-lab', {'start_mode': 'deque', 'capacity': 6, 'initial_count': 3}),
+    ('stack-queue-lab', {'start_mode': 'stack', 'capacity': True, 'initial_count': 0}),
+    ('stack-queue-lab', {'start_mode': 'queue', 'capacity': 2, 'initial_count': 0}),
+    ('stack-queue-lab', {'start_mode': 'queue', 'capacity': 8, 'initial_count': True}),
+    ('stack-queue-lab', {'start_mode': 'stack', 'capacity': 3, 'initial_count': 4}),
+    ('matrix-transform-lab', {'start_transform': 'rotation'}),
+    ('matrix-transform-lab', {'start_transform': 'x-shear', 'matrix': [[1, 1], [0, 1]]}),
+    ('venturi-flow-lab', {'scenario': 'horizontal-water-venturi', 'start_throat': 'third-area'}),
+    ('venturi-flow-lab', {'scenario': 'air-venturi', 'start_throat': 'half-area'}),
+    ('gene-expression-stepper', {'scenario': 'eukaryotic-met-glu-phe', 'start_gene_state': True}),
+    ('gene-expression-stepper', {'scenario': 'random-codons', 'start_gene_state': 'off'}),
+    ('tcp-packet-tracer', {'scenario': 'tcp-random-loss'}),
+    ('tcp-packet-tracer', {'scenario': 'tcp-four-segment-loss-two', 'segments': 4}),
+    ('heat-equation-lab', {
+        'cells': 9, 'hot_cell': 3, 'diffusion_percent': 20, 'max_steps': 10,
+    }),
+    ('heat-equation-lab', {
+        'cells': True, 'hot_cell': 4, 'diffusion_percent': 20, 'max_steps': 10,
+    }),
+    ('heat-equation-lab', {
+        'cells': 9.0, 'hot_cell': 4, 'diffusion_percent': 20, 'max_steps': 10,
+    }),
+    ('complexity-certificate-lab', {
+        'scenario': 'travelling-salesperson', 'start_n': 4, 'max_n': 20,
+    }),
+    ('complexity-certificate-lab', {
+        'scenario': 'sat-certificate', 'start_n': 4, 'max_n': 20, 'base': 2,
+    }),
+    ('complexity-certificate-lab', {
+        'scenario': 'sat-certificate', 'start_n': 4.0, 'max_n': 20,
+    }),
+    ('morphogen-gradient-lab', {
+        'cells': 11, 'source': 100, 'decay_percent': 20,
+        'low_threshold': 30, 'high_threshold': 64,
+    }),
+    ('morphogen-gradient-lab', {
+        'cells': 11, 'source': True, 'decay_percent': 20,
+        'low_threshold': 30, 'high_threshold': 65,
+    }),
+    ('morphogen-gradient-lab', {
+        'cells': 11, 'source': 100.0, 'decay_percent': 20,
+        'low_threshold': 30, 'high_threshold': 65,
+    }),
+    ('ct-window-lab', {
+        'phantom': 'synthetic-hu-reference', 'level': 40, 'width': 401,
+    }),
+    ('ct-window-lab', {
+        'phantom': 'synthetic-hu-reference', 'level': True, 'width': 400,
+    }),
+    ('ct-window-lab', {
+        'phantom': 'synthetic-hu-reference', 'level': 40.0, 'width': 400,
+    }),
+    ('alphabet-explorer', {
+        'alphabet': 'english-basic-latin', 'start_letter': 'a',
+        'example_set': 'common-words-v1',
+    }),
+    ('alphabet-explorer', {
+        'alphabet': 'english-basic-latin', 'start_letter': True,
+        'example_set': 'common-words-v1',
+    }),
+    ('alphabet-explorer', {
+        'alphabet': 'english-basic-latin', 'start_letter': 1.0,
+        'example_set': 'common-words-v1',
+    }),
+    ('alphabet-explorer', {
+        'alphabet': 'english-basic-latin', 'start_letter': 'A',
+    }),
+    ('alphabet-explorer', {
+        'alphabet': 'english-basic-latin', 'start_letter': 'A',
+        'example_set': 'common-words-v1', 'locale': 'en',
+    }),
+    ('inclusive-family-timeline', {
+        'scenario': 'fictional-family-three-times', 'start_time': 'yesterday',
+    }),
+    ('inclusive-family-timeline', {
+        'scenario': 'personal-family-three-times', 'start_time': 'today',
+    }),
+    ('inclusive-family-timeline', {
+        'scenario': 'fictional-family-three-times', 'start_time': 'today',
+        'names': ['Alex'],
+    }),
+    ('inclusive-family-timeline', {
+        'scenario': 'fictional-family-three-times',
+    }),
+    ('day-night-rotation-lab', {
+        'scenario': 'earth-rotation-equinox-equator',
+        'start_hour': True, 'step_hours': 6,
+    }),
+    ('day-night-rotation-lab', {
+        'scenario': 'earth-rotation-equinox-equator',
+        'start_hour': 6.0, 'step_hours': 6,
+    }),
+    ('day-night-rotation-lab', {
+        'scenario': 'earth-rotation-equinox-equator',
+        'start_hour': 3, 'step_hours': 6,
+    }),
+    ('day-night-rotation-lab', {
+        'scenario': 'earth-rotation-equinox-equator',
+        'start_hour': 6, 'step_hours': True,
+    }),
+    ('day-night-rotation-lab', {
+        'scenario': 'earth-rotation-equinox-equator',
+        'start_hour': 6, 'step_hours': 6.0,
+    }),
+    ('day-night-rotation-lab', {
+        'scenario': 'earth-rotation-equinox-equator',
+        'start_hour': 6,
+    }),
+    ('classroom-paint-mixer', {
+        'scenario': 'equal-parts-classroom-ryb',
+        'start_first': 'green', 'start_second': 'yellow',
+    }),
+    ('classroom-paint-mixer', {
+        'scenario': 'equal-parts-classroom-ryb',
+        'start_first': 'blue', 'start_second': True,
+    }),
+    ('classroom-paint-mixer', {
+        'scenario': 'equal-parts-classroom-ryb',
+        'start_first': 'blue', 'start_second': 1.0,
+    }),
+    ('classroom-paint-mixer', {
+        'scenario': 'equal-parts-classroom-ryb',
+        'start_first': 'blue', 'start_second': 'yellow', 'mode': 'rgb',
+    }),
+    ('classroom-paint-mixer', {
+        'scenario': 'equal-parts-classroom-ryb', 'start_first': 'blue',
+    }),
+    ('reading-path-lab', {
+        'scenario': 'simple-english-cat-sat', 'start_phase': 'guess',
+    }),
+    ('reading-path-lab', {
+        'scenario': 'simple-english-cat-sat', 'start_phase': True,
+    }),
+    ('reading-path-lab', {
+        'scenario': 'unknown', 'start_phase': 'sounds',
+    }),
+    ('reading-path-lab', {
+        'scenario': 'simple-english-cat-sat', 'start_phase': 'sounds',
+        'sentence': 'The cat sat.',
+    }),
+    ('timeline-order-lab', {
+        'scenario': 'fictional-library-three-dates',
+        'start_order': ['opened', 'reading-room'],
+    }),
+    ('timeline-order-lab', {
+        'scenario': 'fictional-library-three-dates',
+        'start_order': ['opened', True, 'roof-restored'],
+    }),
+    ('timeline-order-lab', {
+        'scenario': 'fictional-library-three-dates',
+        'start_order': ['opened', 'opened', 'roof-restored'],
+    }),
+    ('timeline-order-lab', {
+        'scenario': 'fictional-library-three-dates',
+        'start_order': ['opened', 'reading-room', 'demolished'],
+    }),
+    ('timeline-order-lab', {
+        'scenario': 'real-library',
+        'start_order': ['opened', 'reading-room', 'roof-restored'],
+    }),
+    ('timeline-order-lab', {
+        'scenario': 'fictional-library-three-dates',
+        'start_order': ['opened', 'reading-room', 'roof-restored'],
+        'locale': 'en',
+    }),
+    ('seasons-tilt-lab', {
+        'scenario': 'earth-tilt-four-positions',
+        'start_position': 'january', 'start_hemisphere': 'north',
+    }),
+    ('seasons-tilt-lab', {
+        'scenario': 'earth-tilt-four-positions',
+        'start_position': True, 'start_hemisphere': 'north',
+    }),
+    ('seasons-tilt-lab', {
+        'scenario': 'earth-tilt-four-positions',
+        'start_position': 'june-solstice', 'start_hemisphere': 'equator',
+    }),
+    ('seasons-tilt-lab', {
+        'scenario': 'earth-tilt-four-positions',
+        'start_position': 'june-solstice', 'start_hemisphere': True,
+    }),
+    ('seasons-tilt-lab', {
+        'scenario': 'elliptical-distance-seasons',
+        'start_position': 'june-solstice', 'start_hemisphere': 'north',
+    }),
+    ('seasons-tilt-lab', {
+        'scenario': 'earth-tilt-four-positions',
+        'start_position': 'june-solstice', 'start_hemisphere': 'north',
+        'axis_degrees': 23.5,
+    }),
+    ('art-elements-composer', {
+        'scenario': 'garden-five-elements', 'start_elements': [],
+    }),
+    ('art-elements-composer', {
+        'scenario': 'garden-five-elements', 'start_elements': [True],
+    }),
+    ('art-elements-composer', {
+        'scenario': 'garden-five-elements', 'start_elements': ['line', 'line'],
+    }),
+    ('art-elements-composer', {
+        'scenario': 'garden-five-elements', 'start_elements': ['line', 'sound'],
+    }),
+    ('art-elements-composer', {
+        'scenario': 'garden-five-elements', 'start_elements': 'line',
+    }),
+    ('art-elements-composer', {
+        'scenario': 'garden-five-elements', 'start_elements': ['line'],
+        'palette': 'warm',
+    }),
+])
+def test_lesson_model_props_fail_closed(renderer, props):
+    model = {
+        'id': 'test-model', 'kind': 'model', 'renderer': renderer,
+        'title': 'Test model', 'instructions': 'Test the bounded props.', 'props': props,
+    }
+    with pytest.raises(ValueError):
+        _validate_lesson_media({'id': 'test.1.model', 'lesson_media': [model]})
+
+
+@pytest.mark.parametrize('field', ('min', 'max', 'start_value', 'start_delta'))
+def test_integer_number_line_props_reject_bool_smuggling(field):
+    props = {'min': -12, 'max': 12, 'start_value': -2, 'start_delta': -7}
+    props[field] = True
+    model = {
+        'id': 'test-integer-line', 'kind': 'model',
+        'renderer': 'integer-number-line-lab',
+        'title': 'Test integer number line',
+        'instructions': 'Test strict integer props.', 'props': props,
+    }
+    with pytest.raises(ValueError, match='integer number line lab'):
+        _validate_lesson_media({'id': 'test.2.integer-line', 'lesson_media': [model]})
+
+
+@pytest.mark.parametrize('renderer,props', [
+    ('fraction-equivalence-lab', {'numerator': 2, 'denominator': 3, 'max_factor': 4}),
+    ('atom-element-builder', {'protons': 6, 'neutrons': 6, 'electrons': 6}),
+    ('cell-microscope', {'start_specimen': 'onion', 'start_magnification': 100}),
+    ('counterexample-lab', {'scenario': 'squares-and-rectangles'}),
+    ('integer-number-line-lab', {
+        'min': -12, 'max': 12, 'start_value': -2, 'start_delta': -7,
+    }),
+    ('function-composition-lab', {
+        'f_slope': 2, 'f_intercept': 0, 'g_slope': 1, 'g_intercept': -1,
+        'x_min': -5, 'x_max': 5, 'start_x': 5,
+    }),
+    ('function-composition-lab', {
+        'f_slope': -3, 'f_intercept': -5, 'g_slope': 3, 'g_intercept': 5,
+        'x_min': -8, 'x_max': 8, 'start_x': -8,
+    }),
+    ('circulation-route-lab', {
+        'route': 'cardiopulmonary', 'start_step': 0, 'show_oxygenation': True,
+    }),
+    ('circulation-route-lab', {
+        'route': 'cardiopulmonary', 'start_step': 8, 'show_oxygenation': False,
+    }),
+    ('allele-segregation-lab', {
+        'scenario': 'pea-flower-complete-dominance',
+        'start_cross': 'heterozygous',
+    }),
+    ('allele-segregation-lab', {
+        'scenario': 'pea-flower-complete-dominance',
+        'start_cross': 'test-cross',
+    }),
+    ('allele-segregation-lab', {
+        'scenario': 'pea-flower-complete-dominance',
+        'start_cross': 'pure-lines',
+    }),
+    ('truth-table-lab', {'start_operator': 'and', 'start_p': False, 'start_q': False}),
+    ('truth-table-lab', {'start_operator': 'or', 'start_p': False, 'start_q': True}),
+    ('truth-table-lab', {'start_operator': 'implies', 'start_p': True, 'start_q': False}),
+    ('stack-queue-lab', {'start_mode': 'stack', 'capacity': 3, 'initial_count': 0}),
+    ('stack-queue-lab', {'start_mode': 'queue', 'capacity': 8, 'initial_count': 8}),
+    ('matrix-transform-lab', {'start_transform': 'identity'}),
+    ('matrix-transform-lab', {'start_transform': 'x-stretch'}),
+    ('matrix-transform-lab', {'start_transform': 'x-shear'}),
+    ('matrix-transform-lab', {'start_transform': 'y-reflection'}),
+    ('matrix-transform-lab', {'start_transform': 'x-projection'}),
+    ('venturi-flow-lab', {'scenario': 'horizontal-water-venturi', 'start_throat': 'full-area'}),
+    ('venturi-flow-lab', {'scenario': 'horizontal-water-venturi', 'start_throat': 'half-area'}),
+    ('venturi-flow-lab', {'scenario': 'horizontal-water-venturi', 'start_throat': 'quarter-area'}),
+    ('gene-expression-stepper', {'scenario': 'eukaryotic-met-glu-phe', 'start_gene_state': 'off'}),
+    ('gene-expression-stepper', {'scenario': 'eukaryotic-met-glu-phe', 'start_gene_state': 'on'}),
+    ('tcp-packet-tracer', {'scenario': 'tcp-four-segment-loss-two'}),
+    ('heat-equation-lab', {
+        'cells': 9, 'hot_cell': 4, 'diffusion_percent': 20, 'max_steps': 10,
+    }),
+    ('complexity-certificate-lab', {
+        'scenario': 'sat-certificate', 'start_n': 4, 'max_n': 20,
+    }),
+    ('morphogen-gradient-lab', {
+        'cells': 11, 'source': 100, 'decay_percent': 20,
+        'low_threshold': 30, 'high_threshold': 65,
+    }),
+    ('ct-window-lab', {
+        'phantom': 'synthetic-hu-reference', 'level': 40, 'width': 400,
+    }),
+    ('alphabet-explorer', {
+        'alphabet': 'english-basic-latin', 'start_letter': 'A',
+        'example_set': 'common-words-v1',
+    }),
+    ('alphabet-explorer', {
+        'alphabet': 'english-basic-latin', 'start_letter': 'Z',
+        'example_set': 'common-words-v1',
+    }),
+    ('inclusive-family-timeline', {
+        'scenario': 'fictional-family-three-times', 'start_time': 'today',
+    }),
+    ('day-night-rotation-lab', {
+        'scenario': 'earth-rotation-equinox-equator',
+        'start_hour': 0, 'step_hours': 6,
+    }),
+    ('day-night-rotation-lab', {
+        'scenario': 'earth-rotation-equinox-equator',
+        'start_hour': 6, 'step_hours': 6,
+    }),
+    ('day-night-rotation-lab', {
+        'scenario': 'earth-rotation-equinox-equator',
+        'start_hour': 12, 'step_hours': 6,
+    }),
+    ('day-night-rotation-lab', {
+        'scenario': 'earth-rotation-equinox-equator',
+        'start_hour': 18, 'step_hours': 6,
+    }),
+    ('classroom-paint-mixer', {
+        'scenario': 'equal-parts-classroom-ryb',
+        'start_first': 'blue', 'start_second': 'yellow',
+    }),
+    ('classroom-paint-mixer', {
+        'scenario': 'equal-parts-classroom-ryb',
+        'start_first': 'red', 'start_second': 'white',
+    }),
+    ('reading-path-lab', {
+        'scenario': 'simple-english-cat-sat', 'start_phase': 'sounds',
+    }),
+    ('reading-path-lab', {
+        'scenario': 'simple-english-cat-sat', 'start_phase': 'meaning',
+    }),
+    ('timeline-order-lab', {
+        'scenario': 'fictional-library-three-dates',
+        'start_order': ['roof-restored', 'opened', 'reading-room'],
+    }),
+    ('timeline-order-lab', {
+        'scenario': 'fictional-library-three-dates',
+        'start_order': ['opened', 'reading-room', 'roof-restored'],
+    }),
+    ('seasons-tilt-lab', {
+        'scenario': 'earth-tilt-four-positions',
+        'start_position': 'march-equinox', 'start_hemisphere': 'south',
+    }),
+    ('seasons-tilt-lab', {
+        'scenario': 'earth-tilt-four-positions',
+        'start_position': 'december-solstice', 'start_hemisphere': 'north',
+    }),
+    ('art-elements-composer', {
+        'scenario': 'garden-five-elements', 'start_elements': ['texture'],
+    }),
+    ('art-elements-composer', {
+        'scenario': 'garden-five-elements',
+        'start_elements': ['line', 'shape', 'color', 'texture', 'pattern'],
+    }),
+])
+def test_lesson_model_props_accept_the_bounded_contract(renderer, props):
+    model = {
+        'id': 'test-model', 'kind': 'model', 'renderer': renderer,
+        'title': 'Test model', 'instructions': 'Test the bounded props.', 'props': props,
+    }
+    _validate_lesson_media({'id': 'test.2.model', 'lesson_media': [model]})
 
 
 def test_authored_quiz_items_are_well_formed(curr):
@@ -679,8 +1557,22 @@ def test_sanitizer_never_swallows_the_article_on_malformed_html():
 
 
 def test_sanitizer_keeps_rel_noopener_on_external_links():
+    """rel stays; target is gone on purpose.
+
+    The renderer used to hand every external link `target="_blank"`, so an
+    article's several hundred citation links were several hundred unannounced
+    exits: one tap and the reader was in a raw browser tab, outside the book's
+    typography and its offline guarantee. The destination is kept and marked —
+    `data-primer-outside` names the host and the client asks before going — and
+    `rel="noopener noreferrer"` still travels with it, because the client opens
+    the window itself and the anchor must stay safe if it is ever followed
+    directly.
+    """
     out = rewrite_article('<a href="https://example.com/x">ext</a>')
-    assert 'rel="noopener noreferrer"' in out and 'target="_blank"' in out
+    assert 'rel="noopener noreferrer"' in out
+    assert 'target=' not in out, "an unannounced exit from the book"
+    assert 'data-primer-outside="example.com"' in out
+    assert 'class="primer-outside"' in out
 
 
 def test_sanitizer_drops_unsafe_target_values():
@@ -713,13 +1605,16 @@ def test_the_promise_is_computed_not_assumed(curr):
 
 
 def test_the_curriculum_is_priced_against_instructional_time(curr):
-    """A whole preschool-to-graduate education across ten fields cannot cost a
-    few hundred hours. The classroom equivalent is on the order of 20,000; one
-    to one tutoring should come in well under that, and nowhere near a tenth."""
+    """Keep the existing instructional-time scale as the catalogue expands.
+
+    Average hours per module avoid an eleven-field total becoming a permanent
+    cap on new fields. The range is an internal estimate, not a degree-duration
+    promise: individual modules are scaled by depth and learning stage.
+    """
     graph = curr.graph()
     r = roadmap({'breadth': 'polymath', 'domains': [], 'hours_per_week': 20, 'stage': 0},
                 graph, {})
-    assert 4000 <= r['total_hours'] <= 12000, r['total_hours']
+    assert 9 <= r['total_hours'] / len(graph['nodes']) <= 28, r['total_hours']
 
 
 def test_polymath_takes_longer_than_focused(curr):
@@ -791,6 +1686,16 @@ def test_young_learners_get_cards_from_their_lesson():
     assert cards and all(c['back'] for c in cards)
 
 
+# Answer shapes a reader with no keyboard skills can still use: pick one, put
+# them in order, or touch each thing and commit. The rule is that a pre-reader
+# never has to TYPE — this listed only 'choice' because choice was once the
+# only shape that satisfied it, and that made a rule about the reader read like
+# a rule about the item kind. `tally` is the shape built for exactly these
+# readers (touch each apple, the book counting along), and asserting it away
+# was part of why it sat unused.
+YOUNG_ANSWER_SHAPES = ('choice', 'tally', 'order')
+
+
 def test_young_practice_never_requires_typing_and_is_voiced(curr):
     """A pre-reader must be able to answer by ear and by tapping."""
     young_gens = {n['practice'] for n in curr.nodes.values()
@@ -798,8 +1703,29 @@ def test_young_practice_never_requires_typing_and_is_voiced(curr):
     assert young_gens
     for key in young_gens:
         for q in practice.generate_set(key, 4, level=1):
-            assert q['kind'] == 'choice', '{} asks a young reader to type'.format(key)
+            assert q['kind'] in YOUNG_ANSWER_SHAPES, (
+                '{} asks a young reader to type ({})'.format(key, q['kind']))
             assert q.get('say'), '{} has no spoken prompt'.format(key)
+
+
+def test_a_young_reader_is_asked_to_produce_and_not_only_to_recognise(curr):
+    """Recognition alone is not practice, and it was all there was.
+
+    Every one of the 622 authored items at stages 0-1 is multiple choice, and
+    every young generator returned choice too — so for the Seedling and Sprout
+    years, which the pacing model prices in years rather than weeks, the book
+    asked the reader to pick an answer and never once to make one. The
+    instrument for this existed the whole time: `g_count_tally` scores counting
+    AS counting, so a child who counts five apples but cannot yet read the
+    numeral 5 is marked right. It was simply wired to nothing.
+    """
+    produced = 0
+    for q in practice.generate_set('counting', 40, level=0):
+        if q['kind'] in ('tally', 'numeric', 'order'):
+            produced += 1
+    assert produced >= 10, (
+        'counting minted %d produced items in 40 — a young reader is still only '
+        'recognising' % produced)
 
 
 def test_young_practice_generators_are_topical(curr):
@@ -1248,6 +2174,27 @@ def _web(name):
         return fh.read()
 
 
+def _assert_models_stay_local(js):
+    # A cited external document can legitimately contain /api/ in its URL.
+    # Block network calls and local API paths rather than that URL substring.
+    assert not re.search(r"\bfetch\s*\(", js)
+    assert not re.search(r"[\"']/api/", js)
+
+
+@pytest.mark.parametrize("source,allowed", [
+    ("node('a', {href: 'https://media.schott.com/api/public/content/document'}, 'Source')", True),
+    ("fetch('/api/quiz/submit')", False),
+    ("fetch ('https://example.org/anything')", False),
+    ("api.post('/api/score')", False),
+])
+def test_local_model_guard_distinguishes_source_links_from_api_calls(source, allowed):
+    if allowed:
+        _assert_models_stay_local(source)
+    else:
+        with pytest.raises(AssertionError):
+            _assert_models_stay_local(source)
+
+
 def test_text_on_a_coloured_fill_flips_with_the_theme():
     """Regression: fills lighten in dark mode while their text stayed `#fff`, so
     the completed-quest tick measured 2.00:1 — the primary completion indicator
@@ -1290,6 +2237,475 @@ def test_feedback_regions_are_mounted_before_they_are_filled():
     # The old pattern: a status region constructed with its message inline.
     assert "role: 'status' }, m.correct" not in js
     assert "{ class: 'q-nudge', role: 'status' }" not in js
+
+
+def test_lesson_models_are_local_explanations_not_assessments():
+    js = _web('lesson-models.js')
+    for renderer in ('counter', 'shape-explorer', 'shadow-lab', 'sequence-runner',
+                     'make-ten', 'light-paths', 'algorithm-tracer', 'life-cycle',
+                     'fraction-equivalence-lab', 'atom-element-builder',
+                     'cell-microscope', 'counterexample-lab',
+                     'integer-number-line-lab',
+                     'function-composition-lab', 'circulation-route-lab',
+                     'allele-segregation-lab',
+                     'truth-table-lab', 'stack-queue-lab',
+                     'matrix-transform-lab', 'venturi-flow-lab',
+                     'gene-expression-stepper', 'tcp-packet-tracer',
+                     'heat-equation-lab', 'complexity-certificate-lab',
+                     'morphogen-gradient-lab', 'ct-window-lab',
+                     'alphabet-explorer', 'inclusive-family-timeline',
+                     'day-night-rotation-lab', 'classroom-paint-mixer',
+                     'physics-concept-lab', 'physics-particle-lab', 'language-computation-lab'):
+        assert renderer in js
+    _assert_models_stay_local(js)
+    assert "role: 'status'" in js and "'aria-live': 'polite'" in js
+    assert "type: 'range'" in js and "type: 'button'" in js
+    assert 'runPackBag' in js and 'traceJamSandwich' in js and 'Read this activity aloud' in js
+    assert 'PrimerLessonModels' in _web('app.js')
+    assert '.model-pebble' in _web('styles.css') and '.make-ten-frame' in _web('styles.css')
+
+
+def test_physics_scenario_registry_matches_python_and_curriculum_exactly(curr):
+    js = _web('lesson-models.js')
+    start = js.index('const PHYSICS_SCENARIOS = Object.freeze({')
+    end = js.index('function formatPhysicsControl(', start)
+    registry = js[start:end]
+    scenario_keys = set(re.findall(r"^    '(phys\.[^']+)': \{", registry, re.MULTILINE))
+    expected = {
+        nid for nid, node in curr.nodes.items()
+        if nid.startswith('phys.') and
+        any(media.get('renderer') == 'physics-concept-lab' for media in node['lesson_media'])
+    }
+    assert scenario_keys == set(PHYSICS_MODEL_SCENARIOS) == expected
+    assert len(scenario_keys) == 32
+    assert registry.count('controls: [') == 32
+    assert registry.count('caveat:') == 32
+    assert registry.count('compute(state)') == 32
+    assert registry.count('readout:') >= 32
+    assert registry.count('visual:') == 32
+
+
+def test_physics_model_has_native_controls_resets_live_copy_and_fail_closed_lookup():
+    js = _web('lesson-models.js')
+    css = _web('styles.css')
+    start = js.index('function renderPhysicsConceptLab(')
+    end = js.index('const RENDERERS = Object.freeze({', start)
+    renderer = js[start:end]
+    assert "'physics-concept-lab': renderPhysicsConceptLab" in js
+    assert "type: 'range'" in renderer and "type: 'button'" in renderer
+    assert "'aria-valuetext'" in renderer and "node('output'" in renderer
+    assert "'Reset to the authored starting state'" in renderer
+    assert "Object.prototype.hasOwnProperty.call(PHYSICS_SCENARIOS, scenarioId)" in renderer
+    assert 'refresh(false)' in renderer and 'onchange:' in renderer
+    assert 'physics-svg-scroll' in renderer and 'physics-visual-summary' in renderer
+    assert '.physics-svg-scroll' in css and 'overflow-x: auto' in css
+    assert '.physics-control-grid' in css and '.physics-slider-value' in css
+
+
+@pytest.mark.skipif(shutil.which('node') is None, reason='Node.js is unavailable')
+def test_every_physics_model_control_changes_readout_and_svg_geometry():
+    """Execute the shipped renderer, not a parallel copy of its formulas."""
+    root = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+    result = subprocess.run(
+        ['node', os.path.join(root, 'tools', 'check_physics_models.js')],
+        cwd=root, capture_output=True, text=True, timeout=30, check=False,
+    )
+    assert result.returncode == 0, result.stdout + result.stderr
+    assert '32 scenarios, 79 independently exercised legacy range controls' in result.stdout
+    assert 'Dedicated circuits: 2 lesson bindings and 10 station mounts verified.' in result.stdout
+
+
+@pytest.mark.skipif(shutil.which('node') is None, reason='Node.js is required')
+def test_every_biology_model_interaction_changes_readout_and_svg_geometry():
+    """Every biology manipulative must visibly explain, react, and reset."""
+    root = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+    result = subprocess.run(
+        ['node', os.path.join(root, 'tools', 'check_biology_models.js')],
+        cwd=root, capture_output=True, text=True, timeout=30, check=False,
+    )
+    assert result.returncode == 0, result.stdout + result.stderr
+    assert '6 biology models, 6 independently exercised interactions' in result.stdout
+
+
+def test_sapling_lesson_models_keep_the_read_aloud_control():
+    js = _web('app.js')
+    media = js[js.index('function renderLessonMedia('):js.index('async function renderNode(')]
+    assert 'speakButton: S.stage <= 2 ?' in media
+    assert 'speakButton: S.stage <= 1 ?' not in media
+    assert 'if (n.kid_text && S.stage <= 1 && !(n.lesson && n.lesson.overview))' in js, \
+        'the model-only speech change must not restore automatic older-reader narration'
+
+
+def test_sapling_model_accessibility_geometry_registration_and_resets():
+    """Keep the four Sapling manipulatives usable, not merely named in source."""
+    js = _web('lesson-models.js')
+    css = _web('styles.css')
+
+    def px_after(text, marker):
+        start = text.index(marker) + len(marker)
+        return int(text[start:text.index('px', start)])
+
+    for renderer, function in (
+        ('fraction-equivalence-lab', 'renderFractionEquivalence'),
+        ('atom-element-builder', 'renderAtomElementBuilder'),
+        ('cell-microscope', 'renderCellMicroscope'),
+        ('counterexample-lab', 'renderCounterexampleLab'),
+    ):
+        assert "'{}': {}".format(renderer, function) in js
+
+    legend_declaration = js[js.index("const legend = node('div'"):
+                            js.index('const specimenButtons', js.index("const legend = node('div'"))]
+    assert "class: 'microscope-legend'" in legend_declaration
+    assert "'aria-hidden'" not in legend_declaration
+    assert "Structures present in this specimen: ' + detail.structures.join(', ')" in js
+    assert "role: 'list', 'aria-label': 'Structures present in this specimen'" in js
+    assert "role: 'listitem'" in js
+
+    inner_shell = px_after(css, '.atom-shell.is-inner { width: ')
+    nucleus_block = css[css.index('.atom-nucleus {'):css.index('}', css.index('.atom-nucleus {'))]
+    nucleus = px_after(nucleus_block, 'width: ')
+    inner_radius = px_after(js, "--electron-radius', inner ? '")
+    electron_radius = 7
+    assert inner_shell > nucleus
+    assert inner_radius - electron_radius > nucleus / 2
+
+    for reset in (
+        'factor = 1;',
+        'Object.assign(values, authored);',
+        'specimen = authoredSpecimen;',
+        'magnification = authoredMagnification;',
+        "state = 'forward';",
+    ):
+        assert js.count(reset) >= 2 or reset == 'Object.assign(values, authored);'
+
+
+def test_integer_number_line_registration_accessibility_reset_and_accuracy(curr):
+    """The first next-stage mathematics model stays exact and independently usable."""
+    js = _web('lesson-models.js')
+    css = _web('styles.css')
+    start = js.index('function renderIntegerNumberLine(')
+    end = js.index('\n  function renderFunctionComposition(', start)
+    source = js[start:end]
+    lower = source.lower()
+
+    assert "'integer-number-line-lab': renderIntegerNumberLine" in js
+    model = next(item for item in curr.nodes['math.2.negatives']['lesson_media']
+                 if item['kind'] == 'model')
+    assert model['renderer'] == 'integer-number-line-lab'
+    assert model['props'] == {
+        'min': -12, 'max': 12, 'start_value': -2, 'start_delta': -7,
+    }
+
+    assert "type: 'range'" in source and source.count("type: 'button'") >= 4
+    assert "role: 'group'" in source and 'aria-label' in source
+    assert "'aria-valuetext'" in source
+    assert "'Reset'" in source and "'Apply move'" in source
+    assert 'frame.controls.append' in source
+    assert 'frame.readout.textContent' in source
+    assert 'frame.status.textContent' in source
+    assert source.count('value = authored.startValue;') >= 2
+    assert source.count('delta = authored.startDelta;') >= 2
+
+    for phrase in ('current position', 'signed move', 'farther right is greater',
+                   'absolute value', 'distance from zero', 'units left', 'units right'):
+        assert phrase in lower
+    assert 'bigger digit' not in lower
+    assert 'math.abs(target)' in lower
+    assert 'number.isinteger' in lower
+
+    for selector in ('.integer-number-line-scene', '.integer-number-line-svg',
+                     '.integer-number-line-key', '.integer-number-line-buttons'):
+        assert selector in css
+    button_rule = css[css.index('.integer-number-line-buttons .btn {'):
+                      css.index('}', css.index('.integer-number-line-buttons .btn {'))]
+    assert 'min-width: 44px' in button_rule
+    assert '@media (max-width: 600px)' in css
+
+
+def test_tree_model_registration_accessibility_resets_and_accuracy_caveats():
+    """Keep Tree's local explanations operable and scientifically honest."""
+    js = _web('lesson-models.js')
+    css = _web('styles.css')
+
+    def function_source(name):
+        start = js.index('function {}('.format(name))
+        end = js.find('\n  function ', start + 1)
+        if end < 0:
+            end = js.index('\n  const RENDERERS', start)
+        return js[start:end]
+
+    for renderer, function in (
+        ('function-composition-lab', 'renderFunctionComposition'),
+        ('circulation-route-lab', 'renderCirculationRoute'),
+        ('allele-segregation-lab', 'renderAlleleSegregation'),
+        ('truth-table-lab', 'renderTruthTable'),
+        ('stack-queue-lab', 'renderStackQueue'),
+    ):
+        assert "'{}': {}".format(renderer, function) in js
+        source = function_source(function)
+        assert "type: 'button'" in source
+        assert "'Reset'" in source
+        assert 'frame.controls.append' in source
+        assert 'frame.readout.textContent' in source
+        assert 'frame.status.textContent' in source
+
+    _assert_models_stay_local(js)
+    model_frame = js[js.index('function modelFrame('):js.index('function clampNumber(')]
+    assert "role: 'status'" in model_frame and "'aria-live': 'polite'" in model_frame
+
+    lower = js.lower()
+    for accuracy_phrase in (
+        'not commutative', 'pulmonary arter', 'pulmonary vein', 'schematic',
+        'one autosomal pea-flower locus', 'complete dominance',
+        'expected probabilities', 'material implication', 'false only when', 'last-in, first-out',
+        'first-in, first-out',
+    ):
+        assert accuracy_phrase in lower
+
+    for selector in ('.circulation-diagram', '.allele-segregation-diagram'):
+        assert selector in css
+
+
+def test_grove_model_registration_accessibility_resets_and_accuracy_caveats():
+    """Keep Grove's four deterministic models operable and technically exact."""
+    js = _web('lesson-models.js')
+    css = _web('styles.css')
+
+    def function_source(name):
+        start = js.index('function {}('.format(name))
+        end = js.find('\n  function ', start + 1)
+        if end < 0:
+            end = js.index('\n  const RENDERERS', start)
+        return js[start:end]
+
+    for renderer, function in (
+        ('matrix-transform-lab', 'renderMatrixTransform'),
+        ('venturi-flow-lab', 'renderVenturiFlow'),
+        ('gene-expression-stepper', 'renderGeneExpression'),
+        ('tcp-packet-tracer', 'renderTcpPacketTracer'),
+    ):
+        assert "'{}': {}".format(renderer, function) in js
+        source = function_source(function)
+        assert "type: 'button'" in source
+        assert "'Reset'" in source
+        assert 'frame.controls.append' in source
+        assert 'frame.readout.textContent' in source
+        assert 'frame.status.textContent' in source
+
+    _assert_models_stay_local(js)
+    for reset in ('selected = authoredTransform;', 'selected = authoredThroat;',
+                  'stage = authoredStage;', 'step = 0;'):
+        assert reset in js
+
+    lower = js.lower()
+    for accuracy_phrase in (
+        'signed area', 'not invertible', '400 cm³/s', 'drop: 1.5', 'drop: 7.5',
+        'atg gaa ttt taa', 'aug gaa uuu uaa', 'met–glu–phe',
+        'two duplicate acknowledgements', 'not the three needed for fast retransmit',
+        'ack 5', 'count byte positions',
+    ):
+        assert accuracy_phrase in lower
+
+    for selector in ('.matrix-transform-scene', '.venturi-diagram',
+                     '.gene-expression-scene', '.tcp-packet-track'):
+        assert selector in css
+
+
+def test_forest_model_registration_accessibility_resets_and_accuracy_caveats():
+    """Keep Forest's four deterministic models operable and technically exact."""
+    js = _web('lesson-models.js')
+    css = _web('styles.css')
+
+    def function_source(name):
+        start = js.index('function {}('.format(name))
+        end = js.find('\n  function ', start + 1)
+        if end < 0:
+            end = js.index('\n  const RENDERERS', start)
+        return js[start:end]
+
+    for renderer, function in (
+        ('heat-equation-lab', 'renderHeatEquation'),
+        ('complexity-certificate-lab', 'renderComplexityCertificate'),
+        ('morphogen-gradient-lab', 'renderMorphogenGradient'),
+        ('ct-window-lab', 'renderCtWindow'),
+    ):
+        assert "'{}': {}".format(renderer, function) in js
+        source = function_source(function)
+        assert "type: 'button'" in source
+        assert "'Reset'" in source
+        assert 'frame.controls.append' in source
+        assert 'frame.readout.textContent' in source
+        assert 'frame.status.textContent' in source
+
+    _assert_models_stay_local(js)
+
+    lower = js.lower()
+    for accuracy_phrase in (
+        'no-flux boundaries', 'total heat is conserved', 'r = 0.20',
+        'p versus np remains open', 'polynomial examples do not prove',
+        'certificate', 'illustrative thresholds', '100 × 0.80',
+        'dicom linear voi', 'width − 1', 'synthetic phantom',
+        'not a diagnosis',
+    ):
+        assert accuracy_phrase in lower
+
+    for selector in ('.heat-equation-scene', '.complexity-certificate-scene',
+                     '.morphogen-gradient-scene', '.ct-window-scene'):
+        assert selector in css
+
+
+def test_second_seedling_model_registration_accessibility_resets_and_guardrails():
+    """Keep Seedling pass two local, inclusive, operable and honest."""
+    js = _web('lesson-models.js')
+    css = _web('styles.css')
+
+    def function_source(name):
+        start = js.index('function {}('.format(name))
+        end = js.find('\n  function ', start + 1)
+        if end < 0:
+            end = js.index('\n  const RENDERERS', start)
+        return js[start:end]
+
+    sources = {}
+    for renderer, function in (
+        ('alphabet-explorer', 'renderAlphabetExplorer'),
+        ('inclusive-family-timeline', 'renderInclusiveFamilyTimeline'),
+        ('day-night-rotation-lab', 'renderDayNightRotation'),
+        ('classroom-paint-mixer', 'renderClassroomPaintMixer'),
+    ):
+        assert "'{}': {}".format(renderer, function) in js
+        source = function_source(function)
+        sources[renderer] = source.lower()
+        assert "type: 'button'" in source
+        assert "'Reset'" in source
+        assert 'frame.controls.append' in source
+        assert 'frame.readout.textContent' in source
+        assert 'frame.status.textContent' in source
+        assert 'aria-label' in source
+        assert 'authored' in source.lower(), '{} reset must restore authored state'.format(renderer)
+
+    _assert_models_stay_local(js)
+
+    alphabet = sources['alphabet-explorer']
+    assert 'more than one sound' in alphabet
+    assert 'one common example' in alphabet
+    assert 'index = authored.index;' in alphabet
+
+    family = sources['inclusive-family-timeline']
+    assert 'fictional family' in family
+    assert 'biological, adoptive, foster, blended, or chosen' in family
+    assert 'no names, dates, or personal information' in family
+    assert "node('input'" not in family and 'contenteditable' not in family
+    assert 'mode = authored.mode;' in family and 'index = authored.index;' in family
+    assert "role: 'group', 'aria-label': 'choose timeline scale'" in family
+
+    rotation = sources['day-night-rotation-lab']
+    for phrase in ('earth rotates eastward', 'equinox at the equator',
+                   'moon can appear during the day', 'stars are still present'):
+        assert phrase in rotation
+    assert 'index = authored.index;' in rotation
+
+    paint = sources['classroom-paint-mixer']
+    for phrase in ('approximate classroom paint', 'equal parts',
+                   'real pigments', 'additive light'):
+        assert phrase in paint
+    assert 'first = authored.first;' in paint and 'second = authored.second;' in paint
+
+    for selector in ('.alphabet-explorer-scene', '.family-timeline-scene',
+                     '.day-night-rotation-scene', '.paint-mixer-scene'):
+        assert selector in css
+    assert 'repeat(auto-fill, minmax(44px, 1fr))' in css
+    assert 'repeat(2, minmax(62px, 1fr))' in css
+
+
+def test_second_sprout_model_registration_accessibility_resets_and_guardrails():
+    """Keep Sprout pass two local, keyboard-operable and conceptually honest."""
+    js = _web('lesson-models.js')
+    css = _web('styles.css')
+
+    def function_source(name):
+        start = js.index('function {}('.format(name))
+        end = js.find('\n  function ', start + 1)
+        if end < 0:
+            end = js.index('\n  const RENDERERS', start)
+        return js[start:end]
+
+    sources = {}
+    for renderer, function in (
+        ('reading-path-lab', 'renderReadingPath'),
+        ('timeline-order-lab', 'renderTimelineOrder'),
+        ('seasons-tilt-lab', 'renderSeasonsTilt'),
+        ('art-elements-composer', 'renderArtElementsComposer'),
+    ):
+        assert "'{}': {}".format(renderer, function) in js
+        source = function_source(function)
+        sources[renderer] = source.lower()
+        assert "type: 'button'" in source
+        assert "'Reset'" in source
+        assert 'frame.controls.append' in source
+        assert 'frame.readout.textContent' in source
+        assert 'frame.status.textContent' in source
+        assert 'aria-label' in source
+        assert 'authored' in source.lower(), \
+            '{} reset must restore authored state'.format(renderer)
+
+    _assert_models_stay_local(js)
+
+    reading = sources['reading-path-lab']
+    for phrase in ('one simple english example', 'blending is one reading strategy',
+                   'irregular word', 'accents can differ', 'other scripts',
+                   'audio, braille, assistive technology'):
+        assert phrase in reading
+    assert 'phase = authoredphase;' in reading
+    assert "role: 'group'" in reading and 'choose a reading step' in reading
+    assert 'the cat sat.' in reading and 'a cat sat.' not in reading
+    assert '“the cat sat.” tells who' in reading
+    assert 'c spells k' not in reading and 'k, short a, t' not in reading
+    assert 'first sound in cup' in reading and 'first sound in top' in reading
+    assert "'data-model-speak-text': detail.spoken" in reading
+    assert "'aria-label': detail.spoken" not in reading
+
+    timeline = sources['timeline-order-lab']
+    for phrase in ('fictional timeline', 'earlier dates on the left',
+                   'other timeline layouts', 'historians check dates against sources'):
+        assert phrase in timeline
+    assert 'order = authoredorder.slice();' in timeline
+    assert 'list.append(row.element);' in timeline and '.focus();' in timeline
+    assert "role: 'group'" in timeline and 'order the fictional library events' in timeline
+    assert "row.eventspeech.setattribute('data-model-speak-text'" in timeline, \
+        'timeline read-aloud labels need punctuation and current positions'
+    assert "row.eventspeech.setattribute('aria-label'" not in timeline
+    assert '.timeline-order-copy > small { display: block; }' in css.replace('\n', ' '), \
+        'timeline event labels and details need a visible text break'
+
+    seasons = sources['seasons-tilt-lab']
+    for phrase in ('axes stay parallel', 'not-to-scale',
+                   'distance from the sun does not cause the seasons',
+                   'opposite seasons', 'temperate regions'):
+        assert phrase in seasons
+    assert 'position = authoredposition;' in seasons
+    assert 'hemisphere = authoredhemisphere;' in seasons
+    assert seasons.count("role: 'group'") >= 2
+    assert 'choose a key position' in seasons and 'choose a hemisphere' in seasons
+    assert "position = detail.id;\n          refresh(true);" in seasons, \
+        'position announcements need both hemispheres and their seasonal labels'
+    assert 'align-items: stretch; gap: 8px;' in css, \
+        'season position buttons need equal row heights when labels wrap'
+
+    art = sources['art-elements-composer']
+    for phrase in ('not an exhaustive rulebook', 'visual texture suggests touch',
+                   'color from being the sole signal', 'people and cultures'):
+        assert phrase in art
+    assert 'activeelements = new set(authoredelements);' in art
+    assert 'activeelements.clear();' in art and "'clear board'" in art
+    assert "? 'added: ' : 'removed: '" in art
+    assert "role: 'group'" in art and 'choose visual elements' in art
+    assert '.art-element-layer[hidden] { display: none; }' in css, \
+        'the pattern grid must not override the native hidden state'
+
+    for selector in ('.reading-path-scene', '.timeline-order-scene',
+                     '.seasons-tilt-scene', '.art-elements-scene'):
+        assert selector in css
 
 
 def test_a_repaint_cannot_break_out_of_an_open_dialog():
@@ -1683,6 +3099,22 @@ def test_a_picture_reserves_its_own_space():
         '<img src="https://upload.wikimedia.org/a.png" width="500" height="322">')
     assert 'width="500"' in out and 'height="322"' in out
 
+    # Parsoid writes the source file's dimensions before its displayed box.
+    # ``\bwidth`` matched the suffix of data-file-width, so a 20px icon backed
+    # by a 180px SVG was stretched into a blurry 180px placeholder.  Only the
+    # actual HTML width/height attributes reserve layout space.
+    parsoid = rewrite_article(
+        '<img src="//upload.wikimedia.org/thumb/icon.svg/20px-icon.svg.png" '
+        'srcset="//upload.wikimedia.org/thumb/icon.svg/40px-icon.svg.png 2x" '
+        'data-file-width="180" data-file-height="185" width="12" height="16" alt="">')
+    assert 'width="12"' in parsoid and 'height="16"' in parsoid, parsoid
+    assert 'width="180"' not in parsoid and 'height="185"' not in parsoid, parsoid
+
+    metadata_only = rewrite_article(
+        '<img src="https://upload.wikimedia.org/a.png" '
+        'data-file-width="4000" data-file-height="3000">')
+    assert 'width="' not in metadata_only and 'height="' not in metadata_only
+
     for hostile in ('<img src="https://upload.wikimedia.org/a.png" width="100%">',
                     '<img src="https://upload.wikimedia.org/a.png" width="1e9">',
                     '<img src="https://upload.wikimedia.org/a.png" height="-5">',
@@ -1692,6 +3124,43 @@ def test_a_picture_reserves_its_own_space():
 
     css = _web("styles.css")
     assert "height: auto" in css, "a stated width without height:auto distorts"
+
+
+def test_a_picture_uses_its_sharpest_safe_srcset_candidate():
+    """A retina display must not enlarge the low-density fallback thumbnail.
+
+    srcset itself stays out of the sanitized document so every request still
+    passes through the Primer's cache/proxy; its best candidate becomes src.
+    """
+    from primer.render import rewrite_article
+
+    out = rewrite_article(
+        '<img src="//upload.wikimedia.org/thumb/map.svg/250px-map.svg.png?x=1&amp;y=2" '
+        'srcset="//upload.wikimedia.org/thumb/map.svg/500px-map.svg.png?x=1&amp;y=2 2x" '
+        'width="250" height="180" alt="Map">')
+    assert "500px-map.svg.png" in out and "250px-map.svg.png" not in out, out
+    assert "srcset" not in out
+    assert 'width="250"' in out and 'height="180"' in out
+    assert 'src="https://' not in out and 'src="//' not in out
+
+    # Invalid/mixed candidates cannot displace a good fallback.
+    mixed = rewrite_article(
+        '<img src="https://upload.wikimedia.org/fallback.png" '
+        'srcset="https://upload.wikimedia.org/a.png 2x, https://upload.wikimedia.org/b.png 900w">')
+    assert "fallback.png" in mixed and "a.png" not in mixed and "b.png" not in mixed
+
+    # Presentation markers are data about the pixels, not permission to carry
+    # arbitrary upstream classes into the app.  Keep only the two markers that
+    # make dark line-work visible on the night page.
+    invert = rewrite_article(
+        '<img class="mw-file-element skin-invert invented" '
+        'src="https://upload.wikimedia.org/hieroglyph.png" alt="glyph">')
+    assert 'class="skin-invert"' in invert, invert
+    assert "mw-file-element" not in invert and "invented" not in invert
+    invert_image = rewrite_article(
+        '<img class="skin-invert-image" '
+        'src="https://upload.wikimedia.org/line-art.png" alt="line art">')
+    assert 'class="skin-invert-image"' in invert_image
 
 
 def test_an_external_link_is_escaped_exactly_once():
@@ -1827,14 +3296,19 @@ def test_stripping_an_attribute_cannot_reopen_the_tag():
     # the "target=x" the class value happens to contain: counting raw substrings
     # would find it, which is why the check is on parsed attributes.
     assert ("title", "onclick=alert(1) zz") in seen, seen
-    assert ("class", "external target=x") in seen, seen
-    # …and the renderer still states its own pair, exactly once each.
+    # The hostile `target=x` rides inside a value and stays there: it must never
+    # appear as an attribute of its own. (On an external anchor the article's
+    # class is now replaced by the book's own marker rather than preserved, so
+    # the surviving-value evidence is `title` above; what matters here is that
+    # nothing re-tokenised.)
+    assert ("class", "primer-outside") in seen, seen
+    assert not any(name == "target" for name, _ in seen), seen
     names = [name for name, _ in seen]
-    assert names.count("target") == 1 and names.count("rel") == 1, names
+    assert names.count("rel") == 1, names
 
-    # A value that really is target/rel is still stripped.
-    assert rewrite_article(
-        '<a href="https://example.com" target="_blank">x</a>').count("target=") == 1
+    # A value that really is target is stripped and not restated.
+    assert "target=" not in rewrite_article(
+        '<a href="https://example.com" target="_blank">x</a>')
 
 
 def test_an_unquoted_value_cannot_open_a_quoted_run():
@@ -1922,22 +3396,43 @@ def test_the_two_night_palettes_cannot_drift_apart():
     Both blocks read from the --dk-* definitions in :root, so this also checks
     that every night value has a single source rather than a literal.
     """
-    import re
-
     css = _web("styles.css")
-    media = re.search(
-        r'@media \(prefers-color-scheme: dark\) \{\s*'
-        r':root:not\(\[data-theme="light"\]\) \{(.*?)\n  \}\n\}', css, re.S)
-    toggle = re.search(r':root\[data-theme="dark"\] \{(.*?)\n\}', css, re.S)
-    assert media and toggle, "both night-palette blocks must exist"
 
-    names = lambda block: set(re.findall(r"(--[a-z0-9-]+)\s*:", block))
-    in_media, in_toggle = names(media.group(1)), names(toggle.group(1))
+    def palette_block(opening, closing):
+        assert opening in css, "the night palette block must exist"
+        start = css.index(opening) + len(opening)
+        end = css.find(closing, start)
+        assert end >= start, "the palette block must close"
+        return css[start:end]
+
+    def names(block):
+        # Split comments and declarations once. Each input character is read
+        # a bounded number of times; repeated dashes/braces cannot backtrack.
+        comment_parts = block.split("/*")
+        plain = [comment_parts[0]]
+        for part in comment_parts[1:]:
+            _, closed, rest = part.partition("*/")
+            assert closed, "palette comments must close"
+            plain.append(rest)
+        result = set()
+        alphabet = "abcdefghijklmnopqrstuvwxyz0123456789-"
+        for declaration in "".join(plain).split(";"):
+            name, colon, _ = declaration.partition(":")
+            name = name.strip()
+            if (colon and name.startswith("--") and len(name) > 2
+                    and all(character in alphabet for character in name[2:])):
+                result.add(name)
+        return result
+
+    media_block = palette_block(
+        '@media (prefers-color-scheme: dark) {\n  :root:not([data-theme]) {',
+        '\n  }\n}')
+    toggle_block = palette_block(':root[data-theme="dark"] {', '\n}')
+    in_media, in_toggle = names(media_block), names(toggle_block)
     assert in_media == in_toggle, "night palettes drifted: {}".format(
         sorted(in_media ^ in_toggle))
 
-    root = re.search(r"^:root \{(.*?)\n\}", css, re.S | re.M).group(1)
-    sources = names(root)
+    sources = names(palette_block(':root {', '\n}'))
     missing = sorted(v for v in in_media if "--dk-" + v[2:] not in sources)
     assert not missing, "night values with no --dk-* source: {}".format(missing)
 
@@ -1991,6 +3486,36 @@ def test_a_navigation_box_is_folded_but_not_lost():
     for part in ("navbox-styles", "navbox-inner", "navbox-list"):
         assert "<details" not in rewrite_article(
             '<div class="%s">x</div>' % part), part
+
+
+def test_an_article_subject_sidebar_is_a_named_toggle_not_an_open_wall():
+    """Wikipedia promises collapsed groups with site JS Primer does not run.
+
+    Genetics therefore arrived as a permanently expanded table, including
+    dozens of topic links and tiny maintenance icons.  The native disclosure
+    keeps every link but gives the whole guide one accurate name and a toggle.
+    """
+    from primer.render import rewrite_article
+
+    genetics = (
+        '<table class="sidebar sidebar-collapse" role="navigation">'
+        '<tbody><tr><td class="sidebar-pretitle">Part of a series on</td></tr>'
+        '<tr><th class="sidebar-title-with-pretitle">'
+        '<a href="./Genetics">Genetics</a></th></tr>'
+        '<tr><td class="sidebar-content"><div class="sidebar-list mw-collapsed">'
+        '<a href="./DNA">DNA</a></div></td></tr></tbody></table>'
+    )
+    out = rewrite_article(genetics)
+    assert out.count('<details class="primer-article-guide">') == 1, out
+    assert "<summary>Genetics topics</summary>" in out, out
+    assert "DNA" in out and "primer-wikilink" in out
+    assert "<details open" not in out
+
+    # The marker is renderer-owned: an article cannot fold arbitrary claims.
+    forged = rewrite_article(
+        '<div class="primer-article-guide">not a real guide</div>')
+    assert "primer-article-guide" not in forged
+    assert "not a real guide" in forged
 
 
 def test_showing_an_answer_cannot_be_done_twice():
@@ -2126,6 +3651,41 @@ def test_every_short_item_can_be_passed_by_its_own_model_answer():
     assert not failures, "model answer fails its own item: {}".format(failures[:5])
 
 
+def test_no_short_answer_key_is_unmeetable():
+    """Every key has to be something SOME answer could hit.
+
+    The test above checks the model answer's total against the pass line, and
+    a dead key hides under that total: the Grade 1 music item keyed on "G" —
+    the note a treble clef names, and the whole point of the question — scored
+    0.67 on its other two keys and passed, while the scorer's three-letter
+    token floor meant no reader could ever be credited for G at all. Radiology
+    had "CT" and "S" dead the same way. Found by a simulated perfect reader
+    answering every item from the book's own key (tools/simulate_readers.py).
+    A key given back as the whole answer must score in full.
+    """
+    dead = []
+    for name, d in _banks():
+        for n in d["nodes"]:
+            for q in n.get("quiz") or []:
+                if q.get("kind") != "short":
+                    continue
+                for key in q.get("keywords") or []:
+                    if quiz.score_short_answer(str(key), [key]) < 1.0:
+                        dead.append((n["id"], key))
+    assert not dead, "keys no answer can ever meet: {}".format(dead[:8])
+
+
+def test_a_one_letter_key_is_met_by_the_word_and_not_by_a_fragment():
+    """The short-key path is exact on purpose: a possessive's "s", the letters
+    of "e.g.", or a word merely starting with the key must not credit it."""
+    s = quiz.score_short_answer
+    assert s("The treble clef identifies G on the second line", ["G"]) == 1.0
+    assert s("Order a CT of the abdomen", ["CT"]) == 1.0
+    assert s("the patient's scan", ["S"]) == 0.0
+    assert s("e.g. the second line", ["G"]) == 0.0
+    assert s("a ctenophore", ["CT"]) == 0.0
+
+
 def test_the_short_answer_scorer_still_refuses_a_run_on():
     """The multi-word fix must not re-open the substring cheat that started all
     this: "photosynthesisrespirationnutrients" once scored a perfect 1.0."""
@@ -2146,7 +3706,16 @@ def test_the_results_screen_keeps_focus():
     js = _web("app.js")
     assert js.count("class: 'result-heading'") >= 2, "quiz and placement both need one"
     i = js.index("async function finish(modal, close)")
-    assert "splashHead.focus()" in js[i:i + 900]
+    # Scoped to the function, not to a byte count. This read `js[i:i + 900]`,
+    # which asks "is the focus call within 900 characters of the declaration" —
+    # a question about comment length, not about behaviour. Adding five lines of
+    # comment inside `finish` pushed the call to character 901 and failed a test
+    # whose subject had not changed. The rule being kept is that focus moves to
+    # the results heading somewhere inside `finish`, so the window is `finish`.
+    rest = js[i:]
+    end = rest.index("\n  function ", 1) if "\n  function " in rest[1:] else len(rest)
+    assert "splashHead.focus()" in rest[:end], (
+        "finish() must move focus to the results heading")
 
 
 def test_a_wide_table_scrolls_without_widening_the_page():
@@ -2203,7 +3772,7 @@ def test_the_readers_place_is_read_before_the_page_can_collapse():
     body = body[:body.index("\n}\n")]
     claim = body.index("S.readerTitle = title;")
     read = body.index("readerScroll.get(title)")
-    first_await = body.index("await api.get(")
+    first_await = body.index("const a = await articlePromise;")
     assert claim < read < first_await, \
         "the remembered offset must be read before renderReader's first await"
 
@@ -2375,9 +3944,9 @@ def test_a_bare_url_cannot_widen_the_page():
     articles still pushed the document sideways at the 320px reflow threshold,
     long after the tables themselves had been fixed."""
     css = _web("styles.css")
-    assert "overflow-wrap: anywhere" in css
-    rule = next(l for l in css.splitlines() if "overflow-wrap: anywhere" in l)
-    assert "#article" in rule, rule
+    matching_rules = [line for line in css.splitlines()
+                      if "overflow-wrap: anywhere" in line]
+    assert any("#article" in rule for rule in matching_rules), matching_rules
 
 
 def test_the_graduate_stage_is_its_own_mode():
@@ -2461,7 +4030,19 @@ def test_an_article_cannot_mint_the_renderers_own_markers():
     # article carrying its own produced the attribute twice, and browsers take
     # the first one.
     dup = rewrite_article('<a href="https://example.com" target="_blank" rel="noopener">x</a>')
-    assert dup.count("target=") == 1 and dup.count("rel=") == 1, dup
+    assert dup.count("target=") == 0 and dup.count("rel=") == 1, dup
+    # The marker on a door out of the book is the book's to state, like every
+    # other reserved class: an article must not be able to dress one of its own
+    # links as one, nor dress a door as ordinary prose.
+    forged_outside = rewrite_article(
+        '<a class="primer-outside" data-primer-outside="evil.test" '
+        'href="https://real.test/x">x</a>')
+    # The substring occurs twice legitimately — the attribute name and the class
+    # — so count the class, and check the forged HOST was replaced by the real
+    # destination rather than carried through.
+    assert forged_outside.count('class="primer-outside"') == 1, forged_outside
+    assert 'data-primer-outside="real.test"' in forged_outside, forged_outside
+    assert "evil.test" not in forged_outside, forged_outside
 
 
 def test_no_image_reaches_the_reader_on_an_upstream_url():
@@ -2643,6 +4224,127 @@ def test_an_unknown_route_corrects_the_address_bar():
     js = _web("app.js")
     assert "KNOWN_VIEWS" in js
     assert "if (corrected) { location.replace('#/' + view); return; }" in js
+
+
+def test_visual_gallery_is_a_complete_accessible_route():
+    js = _web("app.js")
+    css = _web("styles.css")
+
+    # Keep the original hash route valid while broadening what the page names
+    # and contains; saved links to #/math-images must still open the gallery.
+    assert "['math-images', 'gallery', 'Visual Gallery']" in js
+    assert "'math-images': renderVisualGallery" in js
+    assert "/api/curriculum/visuals" in js
+    assert "function renderVisualGallery(page, selection = {})" in js
+    assert "domainFilter.value = selection.domain" in js
+    assert "stageFilter.value = String(selection.stage)" in js
+    for control in ('visual-domain-filter', 'visual-stage-filter',
+                    'visual-kind-filter'):
+        assert control in js
+    assert "item.kind === 'illustration'" in js
+    assert "'Interactive model '" in js
+    assert "role: 'status', 'aria-live': 'polite'" in js
+    assert "loading: 'lazy'" in js and "srcset: item.srcset" in js
+    assert "(max-width: 700px) calc(100vw - 48px)" in js
+    assert "attachPictureHandlers(board)" in js
+    assert "img.dataset.fullSrc || img.currentSrc" in js
+    assert "math-image-card[hidden]" in css
+    assert ".math-image-grid" in css and ".visual-filter-grid" in css
+    assert ".visual-model-preview" in css
+    assert ".math-search-row input[type=search]" in css
+    assert 'body[data-stage="0"] .visual-filter-control select' in css
+    assert 'body[data-stage="4"] .math-image-card' in css
+    assert "@media (max-width: 430px)" in css
+
+
+def test_reader_keeps_exact_lesson_context_in_a_toggleable_navigator():
+    js = _web("app.js")
+    css = _web("styles.css")
+
+    assert "id: 'reader-context-slot'" in js
+    assert "function openLessonNavigator(data, articleTitle)" in js
+    assert "function openIndependentReaderNavigator(articleTitle)" in js
+    assert "Independent reading: ' + articleTitle" in js
+    assert "showIndependentReaderContext(title)" in js
+    assert "/navigation')" in js
+    assert "readerContextStillCurrent(contextSeq, title, nodeId)" in js
+    assert "'aria-haspopup': 'dialog'" in js
+    assert "'aria-current': active ? 'page' : null" in js
+    assert "'aria-current': active ? 'location' : null" in js
+    assert "'Lessons in ' + domain.name" in js
+    assert "current.section || stageLabel(current.stage, current.stage_name)" in js
+    assert "stages.find(item => item.name === fallbackName)" in js
+    assert "info.name + (info.span ? ' · ' + info.span : '')" in js
+    assert "Reading: ' + articleTitle" in js
+    assert "Linked reading · still in " in js
+    assert ".reader-context-toggle" in css
+    assert ".lesson-nav-groups" in css
+    assert "grid-template-columns: repeat(2, minmax(0, 1fr))" in css
+    assert "@media (max-width: 600px)" in css
+
+
+def test_failed_article_images_become_text_states_not_broken_placeholders():
+    js = _web("app.js")
+    css = _web("styles.css")
+
+    assert "im.addEventListener('error', failed)" in js
+    assert "im.isConnected && im.currentSrc && im.complete && !im.naturalWidth" in js
+    assert "'Retry image'" in js
+    assert "class: 'picture-fallback'" not in js
+    assert "wrapper.hidden = true" in js
+    assert "img.closest('figure, .thumb, .thumbinner, .gallerybox')" in js
+    assert "figure, .thumb, .thumbinner, .gallerybox, .infobox" not in js
+    assert "const inversionSource = img.closest('.skin-invert, .skin-invert-image')" in js
+    assert "inversionSource.classList.contains(marker)" in js
+    assert ".image-load-note" in css
+
+
+def test_lesson_illustrations_have_a_full_resolution_keyboard_viewer():
+    js = _web("app.js")
+    css = _web("styles.css")
+
+    assert "fullSrc: largestSrcFromSet(item.srcset, item.src)" in js
+    assert "attachPictureHandlers(media)" in js
+    assert "Read labels at full size" in js
+    assert "Full-resolution image. Scroll horizontally and vertically" in js
+    assert "lightbox-image-scroll is-zoomed" not in js  # state is toggled, not baked in
+    assert ".lightbox-image-scroll.is-zoomed" in css
+    assert "width: var(--zoom-width, 1600px)" in css
+
+
+def test_radiology_diagrams_have_complete_html_text_equivalents(curr):
+    """Clinical reasoning must not be trapped in tiny text inside a raster."""
+    generated = {
+        node_id: node for node_id, node in curr.nodes.items()
+        if node_id.startswith('rad.') and node_id != 'rad.3.ct-image'
+    }
+    assert len(generated) == 95
+    for node_id, node in generated.items():
+        plate = next(item for item in node['lesson_media']
+                     if item['kind'] == 'illustration')
+        description = plate.get('long_description')
+        assert set(description) == {'title', 'mode', 'items', 'takeaway'}, node_id
+        assert description['title'] == node['title']
+        assert description['mode'] in {'flow', 'compare', 'map', 'scale', 'physics'}
+        assert description['takeaway'] == plate['caption']
+        assert len(description['items']) == 3
+        for item in description['items']:
+            assert set(item) == {'heading', 'label', 'detail'}
+            assert all(isinstance(item[key], str) and item[key].strip()
+                       for key in item)
+
+    js = _web('app.js')
+    css = _web('styles.css')
+    assert 'function lessonLongDescription(item)' in js
+    assert "ordered ? 'ol' : 'ul'" in js
+    assert "peers to compare, not steps in a sequence" in js
+    assert "'Read this diagram as text'" in js
+    assert "part.heading !== part.label" in js
+    assert "image.setAttribute('aria-describedby', longDescription.id)" in js
+    assert "window.matchMedia('(max-width: 720px)').matches" in js
+    assert '.lesson-diagram-steps' in css
+    assert '@media (max-width: 720px)' in css
+    assert 'grid-template-columns: 1fr' in css
 
 
 def test_review_card_decays_strength_before_adjusting_it(store):
@@ -3215,7 +4917,9 @@ def test_named_theorems_are_defined_where_they_are_used():
         ("chi-squared", lambda e: "residuals" in e.lower() and "degrees of freedom" in e.lower()),
         ("squeeze theorem", lambda e: "trapped between" in e.lower()),
         ("sylow", lambda e: "prime" in e.lower() and "divides" in e.lower()),
-        ("second incompleteness", lambda e: "cannot prove its own consistency" in e.lower()),
+        ("second incompleteness", lambda e: "cannot prove its own consistency" in e.lower()
+         or ("excludes a proof of the standard con(pa) sentence" in e.lower()
+             and "inside consistent pa" in e.lower())),
         ("rice's theorem", lambda e: "non-trivial property" in e.lower()),
         ("de moivre's theorem", lambda e: "multiplies its angle" in e.lower() or "multiplies the angle" in e.lower()),
         ("master theorem", lambda e: "n^(log_b a)" in e or "n^(log_2" in e),

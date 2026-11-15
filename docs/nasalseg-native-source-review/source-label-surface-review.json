@@ -1,0 +1,249 @@
+{
+  "case": "P001",
+  "dataset_record": "https://zenodo.org/records/13893419",
+  "source_mask_sha256": "511e378f34acad0224ba267830b21236a01bc0c34a6459ca254d2e762125c7c1",
+  "dataset_license": {
+    "id": "cc-by-4.0"
+  },
+  "representation": "binary source-label interface, not separately segmented mucosa/bone/nerve/wall",
+  "extraction": "skimage Lewiner marching cubes at original binary 0.5 interface",
+  "coordinate_system": "original declared LPS millimetres",
+  "source_affine": [
+    [
+      0.5859375,
+      0.0,
+      0.0,
+      -149.70703125000003
+    ],
+    [
+      0.0,
+      0.5859375,
+      0.0,
+      -329.70703125
+    ],
+    [
+      0.0,
+      0.0,
+      1.5000000000000002,
+      -565.5000000000001
+    ],
+    [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+    ]
+  ],
+  "models": [
+    {
+      "source_label": 1,
+      "source_name": "right_maxillary_sinus",
+      "file": "right_maxillary_sinus.obj.gz",
+      "sha256": "596b7c608d11e0781c2d940280e82fb792248532ba9a5081d349502e2209d97c",
+      "serialized_vertex_and_face_readback_verified": true,
+      "vertices": 8604,
+      "triangles": 17204,
+      "surface_components": 1,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "zero_area_triangles": 0,
+      "sample_edge_interface_vertices_verified": 8604,
+      "ambiguity_resolution_interior_vertices_retained": 0,
+      "maximum_trilinear_binary_field_residual": 0.0,
+      "maximum_affine_roundtrip_error_source_indices": 0.0,
+      "source_index_bounds_zyx": [
+        [
+          9.5,
+          55.5,
+          4.5
+        ],
+        [
+          38.5,
+          119.5,
+          53.5
+        ]
+      ],
+      "declared_LPS_bounds_mm": [
+        [
+          -147.07031250000003,
+          -297.1875,
+          -551.2500000000001
+        ],
+        [
+          -118.35937500000003,
+          -259.6875,
+          -507.7500000000001
+        ]
+      ]
+    },
+    {
+      "source_label": 2,
+      "source_name": "left_maxillary_sinus",
+      "file": "left_maxillary_sinus.obj.gz",
+      "sha256": "dc5d9e9b55bd6303096083543564f95b506fe976fe0e041405f3d41d323e92f7",
+      "serialized_vertex_and_face_readback_verified": true,
+      "vertices": 7792,
+      "triangles": 15580,
+      "surface_components": 1,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "zero_area_triangles": 0,
+      "sample_edge_interface_vertices_verified": 7792,
+      "ambiguity_resolution_interior_vertices_retained": 0,
+      "maximum_trilinear_binary_field_residual": 0.0,
+      "maximum_affine_roundtrip_error_source_indices": 0.0,
+      "source_index_bounds_zyx": [
+        [
+          12.5,
+          50.5,
+          101.5
+        ],
+        [
+          39.5,
+          108.5,
+          147.5
+        ]
+      ],
+      "declared_LPS_bounds_mm": [
+        [
+          -90.23437500000003,
+          -300.1171875,
+          -546.7500000000001
+        ],
+        [
+          -63.28125000000003,
+          -266.1328125,
+          -506.2500000000001
+        ]
+      ]
+    },
+    {
+      "source_label": 3,
+      "source_name": "right_nasal_cavity",
+      "file": "right_nasal_cavity.obj.gz",
+      "sha256": "068396f0891a2f82a94f1293a109ea93cd1b84f7093a327dbcad1da87067279f",
+      "serialized_vertex_and_face_readback_verified": true,
+      "vertices": 21316,
+      "triangles": 42672,
+      "surface_components": 1,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "zero_area_triangles": 0,
+      "sample_edge_interface_vertices_verified": 21312,
+      "ambiguity_resolution_interior_vertices_retained": 4,
+      "maximum_trilinear_binary_field_residual": 0.125,
+      "maximum_affine_roundtrip_error_source_indices": 0.0,
+      "source_index_bounds_zyx": [
+        [
+          4.5,
+          6.5,
+          44.5
+        ],
+        [
+          46.5,
+          128.5,
+          81.5
+        ]
+      ],
+      "declared_LPS_bounds_mm": [
+        [
+          -123.63281250000003,
+          -325.8984375,
+          -558.7500000000001
+        ],
+        [
+          -101.95312500000003,
+          -254.4140625,
+          -495.7500000000001
+        ]
+      ]
+    },
+    {
+      "source_label": 4,
+      "source_name": "left_nasal_cavity",
+      "file": "left_nasal_cavity.obj.gz",
+      "sha256": "d7b5d7bdd1bd9278f75a0928c53ec30c500b01437e048a8ba49d7474dac2f3a7",
+      "serialized_vertex_and_face_readback_verified": true,
+      "vertices": 21005,
+      "triangles": 42062,
+      "surface_components": 2,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "zero_area_triangles": 0,
+      "sample_edge_interface_vertices_verified": 20994,
+      "ambiguity_resolution_interior_vertices_retained": 11,
+      "maximum_trilinear_binary_field_residual": 0.125,
+      "maximum_affine_roundtrip_error_source_indices": 0.0,
+      "source_index_bounds_zyx": [
+        [
+          3.5,
+          4.5,
+          73.5
+        ],
+        [
+          46.5,
+          128.5,
+          109.5
+        ]
+      ],
+      "declared_LPS_bounds_mm": [
+        [
+          -106.64062500000003,
+          -327.0703125,
+          -560.2500000000001
+        ],
+        [
+          -85.54687500000003,
+          -254.4140625,
+          -495.7500000000001
+        ]
+      ]
+    },
+    {
+      "source_label": 5,
+      "source_name": "nasal_pharynx",
+      "file": "nasal_pharynx.obj.gz",
+      "sha256": "d6d2212260a43d5ed972ba6b90306589f2d568e9499006ff0baccdfea9b5707d",
+      "serialized_vertex_and_face_readback_verified": true,
+      "vertices": 8537,
+      "triangles": 16978,
+      "surface_components": 1,
+      "boundary_edges": 98,
+      "nonmanifold_edges": 0,
+      "zero_area_triangles": 0,
+      "sample_edge_interface_vertices_verified": 8536,
+      "ambiguity_resolution_interior_vertices_retained": 1,
+      "maximum_trilinear_binary_field_residual": 0.125,
+      "maximum_affine_roundtrip_error_source_indices": 0.0,
+      "source_index_bounds_zyx": [
+        [
+          0.0,
+          128.5,
+          55.5
+        ],
+        [
+          33.5,
+          199.5,
+          109.5
+        ]
+      ],
+      "declared_LPS_bounds_mm": [
+        [
+          -117.18750000000003,
+          -254.4140625,
+          -565.5000000000001
+        ],
+        [
+          -85.54687500000003,
+          -212.8125,
+          -515.2500000000001
+        ]
+      ]
+    }
+  ],
+  "source_padding_capping_smoothing_decimation_repair_or_component_filtering": false,
+  "complete_anatomical_extent_verified": false,
+  "clinical_approval": false,
+  "runtime_promoted": false,
+  "structure_coverage_granted": false
+}

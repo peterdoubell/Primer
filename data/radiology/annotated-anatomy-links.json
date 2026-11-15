@@ -1,0 +1,107 @@
+{
+  "reviewed_at": "2026-10-09",
+  "references": {
+    "bronchopulmonary-segments": {
+      "id": "bronchopulmonary-segments",
+      "title": "Bronchopulmonary segments — annotated CT",
+      "url": "https://radiopaedia.org/cases/bronchopulmonary-segments-annotated-ct-2",
+      "publisher": "Radiopaedia",
+      "modality": "Annotated CT case",
+      "reporting_use": "Use segmental bronchi and vessels to localise lesions, plan biopsy or resection, and describe separate tumour nodules by lobe and segment.",
+      "stack": {
+        "manifest_url": "/app/reference-media/annotated-ct/bronchopulmonary-segments.json",
+        "frame_count": 93,
+        "plane": "Axial CT",
+        "contributor": "Peter Jenvey",
+        "source_case_id": "54511",
+        "reuse": "Non-commercial educational image use; original contributor and Radiopaedia attribution retained.",
+        "reuse_url": "https://radiopaedia.org/articles/using-and-attributing-images-from-radiopaedia-1"
+      }
+    },
+    "head-neck-node-levels": {
+      "id": "head-neck-node-levels",
+      "title": "Head and neck lymph node levels — annotated CT",
+      "url": "https://radiopaedia.org/cases/lymph-node-levels-of-the-head-and-neck-annotated-ct",
+      "publisher": "Radiopaedia",
+      "modality": "Annotated CT case",
+      "reporting_use": "Use nodal levels and laterality to describe disease distribution and select the appropriate primary-site staging framework. Neck levels are distinct from IASLC thoracic node stations.",
+      "stack": {
+        "manifest_url": "/app/reference-media/annotated-ct/head-neck-node-levels.json",
+        "frame_count": 100,
+        "plane": "Axial",
+        "contributor": "Maciej Debowski",
+        "source_case_id": "62672",
+        "reuse": "Non-commercial educational image use; original contributor and Radiopaedia attribution retained.",
+        "reuse_url": "https://radiopaedia.org/articles/using-and-attributing-images-from-radiopaedia-1"
+      }
+    },
+    "liver-segments": {
+      "id": "liver-segments",
+      "title": "Liver segments — annotated CT",
+      "url": "https://radiopaedia.org/cases/liver-segments-annotated-ct-1",
+      "publisher": "Radiopaedia",
+      "modality": "Annotated CT case",
+      "reporting_use": "Use portal and hepatic venous landmarks for Couinaud localisation, lesion mapping and treatment planning. PRETEXT uses four liver sections, which must be mapped explicitly.",
+      "stack": {
+        "manifest_url": "/app/reference-media/annotated-ct/liver-segments.json",
+        "frame_count": 27,
+        "plane": "Axial post contrast",
+        "contributor": "Jeffrey Hocking",
+        "source_case_id": "45972",
+        "reuse": "Non-commercial educational image use; original contributor and Radiopaedia attribution retained.",
+        "reuse_url": "https://radiopaedia.org/articles/using-and-attributing-images-from-radiopaedia-1"
+      }
+    }
+  },
+  "bindings": {
+    "ra.ct-airways": [
+      "bronchopulmonary-segments"
+    ],
+    "ra.ct-lung-cancer": [
+      "bronchopulmonary-segments",
+      "liver-segments"
+    ],
+    "ra.hrct-lung": [
+      "bronchopulmonary-segments"
+    ],
+    "ra.ct-pulmonary-nodules": [
+      "bronchopulmonary-segments"
+    ],
+    "ra.paediatric-chest-ct": [
+      "bronchopulmonary-segments"
+    ],
+    "ra.cervical-lymph-nodes": [
+      "head-neck-node-levels"
+    ],
+    "ra.head-neck-malignancy": [
+      "head-neck-node-levels"
+    ],
+    "ra.mri-neck-spaces": [
+      "head-neck-node-levels"
+    ],
+    "ra.paediatric-neck-masses": [
+      "head-neck-node-levels"
+    ],
+    "ra.ultrasound-thyroid": [
+      "head-neck-node-levels"
+    ],
+    "ra.liver-lirads": [
+      "liver-segments"
+    ],
+    "ra.liver-masses": [
+      "liver-segments"
+    ],
+    "ra.ct-pancreatic-cancer": [
+      "liver-segments"
+    ],
+    "ra.ct-small-bowel-tumours": [
+      "liver-segments"
+    ],
+    "ra.ct-peritoneal-carcinomatosis": [
+      "liver-segments"
+    ],
+    "ra.paediatric-solid-abdominal-masses": [
+      "liver-segments"
+    ]
+  }
+}

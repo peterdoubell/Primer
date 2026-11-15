@@ -1,0 +1,41 @@
+{
+  "repository": "https://github.com/Joshua-M-maker/SpineNerveModelGenerator",
+  "tree_sha": "655c4a277c73a4c231d9db6cc7a7c50d82961a33",
+  "inspected_files": [
+    {
+      "path": "example.ipynb",
+      "git_blob_sha": "bd376f7df7d5f453c4b7167a29048f82756d2f6d",
+      "bytes": 8681,
+      "sha256": "a60330861d11c753c203f72f4867a5a7915be2e647fc5a2022f550357dccdb41"
+    },
+    {
+      "path": "utils/AnnotationImport.py",
+      "git_blob_sha": "0a44eb18dca8255c2c8b762355c42f20cd32432c",
+      "bytes": 5178,
+      "sha256": "2ad4ce64e957751b0e586e4911b23b760f03680ca792c9959034aafb0ff8653e"
+    },
+    {
+      "path": "utils/MeshBuilding.py",
+      "git_blob_sha": "fbb179e9d3a9ed72aa2cc7d5cae7030bd4fc40bc",
+      "bytes": 11944,
+      "sha256": "30570ec3dd89981cbc9d0a0649ade1fd846925f2298310d2a9ac793e11362d15"
+    },
+    {
+      "path": "utils/blender_tools.py",
+      "git_blob_sha": "80c7fdf46085d0910e65a67932c529a38dfd45fa",
+      "bytes": 787,
+      "sha256": "604328605665d83bc64ca938957d47bfd3b3e076d7d14688aa681b9be9a2c130"
+    }
+  ],
+  "findings": [
+    "Example notebook assigns uniform radius parameters 0.5 with metric scene scale 0.001, rather than reading subject-specific nerve cross-sections.",
+    "Root points are sorted by z and supplemented by ganglion points; entry points are extended into the cord model.",
+    "Example applies 100-point spline fitting with smoothing parameter 10.",
+    "Cord and dura contours are bridged into surfaces.",
+    "The publication describes later manual intersection corrections.",
+    "Native Figshare model archive was not acquired; correspondence between every published model and this example script has not been established."
+  ],
+  "decision": "MRI and original annotations are candidates for anatomical source review; generated nerve tubes are not accepted as measured full-fidelity nerve surfaces.",
+  "code_license_status": "No licence file visible in inspected repository tree; code inspected only, not reused or redistributed.",
+  "runtime_promoted": false
+}

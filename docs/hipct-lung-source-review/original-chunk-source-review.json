@@ -1,0 +1,218 @@
+{
+  "reviewed_at": "2026-10-07",
+  "article_pmc": "PMC9163096",
+  "article_metadata_sha256": "5e8fab242cd4dfaab24eef9363277a304e8b97703f1dec067b09d97d5d161faf",
+  "article_XML_sha256": "983c4a77ec2b4d3c2f4dd8b1a2a3a500abf488d319682b9635a98a9a7bfe4277",
+  "article_grant": "CC BY 4.0",
+  "data_citation_DOIs": [
+    "10.15151/ESRF-DC-572237999",
+    "10.15151/ESRF-DC-572222987"
+  ],
+  "source_tools_repository": "https://github.com/HumanOrganAtlas/hoa-tools",
+  "source_tools_revision": "b69494e8d8cb373e4f451d6b03e77e6d09602cea",
+  "source_metadata_repository": "https://github.com/HumanOrganAtlas/metadata-schemas",
+  "source_metadata_revision": "f8dc2928234ac46a6d126cc293aab7ddbd446f61",
+  "N5_specification": "https://github.com/saalfeldlab/n5",
+  "codec": "numcodecs0.17.0 Blosc",
+  "source_dataset_license_policy": {
+    "primary_page": "https://human-organ-atlas.esrf.fr/",
+    "indexed_primary_FAIR_statement": "Portal datasets distributed under CC BY4.0; dataset DOIs must be cited.",
+    "direct_primary_page_rendered_license_capture_completed": false,
+    "selected_DOI_datacite_rightsList": [],
+    "raw_dataset_licence_review_status": "primary_policy_support_found; retain pending byte-bound record-specific licence evidence"
+  },
+  "source_checked_planes": true,
+  "native_patient_orientation_and_registered_parent_fit_independently_validated": false,
+  "whole_lobule_and_every_reported_tissue_structure_verified": false,
+  "clinical_approval": false,
+  "runtime_promoted": false,
+  "structure_coverage_granted": false,
+  "datasets": [
+    {
+      "source_dataset": "LADAF-2020-27_lung_left_VOI-03b-interlobular-fissure_6.5um_bm05",
+      "source_metadata_sha256": "f712cbc0fb93c5a12f43e8c515f1b8524222c6f774941788655715f99b49f17a",
+      "metadata_repository_revision": "f8dc2928234ac46a6d126cc293aab7ddbd446f61",
+      "source_citation_doi": "10.15151/ESRF-DC-572237999",
+      "source_object_layout": "N5 big endian uint16, x fastest; derived array zyx",
+      "source_level": 0,
+      "source_preparation": {
+        "organ": "lung",
+        "organ_context": "left",
+        "post_mortem_interval_hours": null,
+        "fixation_method": null,
+        "fixation_medium": "formalin",
+        "organ_infilled": null,
+        "stabilisation_medium": "agar cubes",
+        "degassing_method": "vacuum",
+        "scan_solvent": "ethanol",
+        "scan_solvent_concentration": 70.0,
+        "scan_temperature": "room temperature"
+      },
+      "source_registration_to_parent": {
+        "source_dataset": "LADAF-2020-27_lung_left_VOI-03b-interlobular-fissure_6.5um_bm05",
+        "target_dataset": "LADAF-2020-27_lung_left_complete-organ_25.08um_bm05",
+        "translation": [
+          2966.90399218003,
+          2359.3877918482517,
+          3578.2945879443546
+        ],
+        "rotation": -25.299840331313927,
+        "scale": 0.25917022498957715
+      },
+      "registration_independently_verified": false,
+      "intensity_is_clinical_HU": false,
+      "in_vivo_clinical_CT": false,
+      "acquired_whole_VOI_or_organ": false,
+      "highest_original_TIFF_sample_identity_verified": false,
+      "article_JPEG2000_and_current_N5_conversion_identity_verified": false,
+      "data_license_independently_verified": false,
+      "clinical_approval": false,
+      "runtime_promoted": false,
+      "structure_coverage_granted": false,
+      "chunks": [
+        {
+          "grid_coordinate_xyz": [
+            15,
+            15,
+            5
+          ],
+          "source_index_origin_xyz": [
+            1920,
+            1920,
+            640
+          ],
+          "source_object_url": "https://storage.googleapis.com/ucl-hip-ct-35a68e99feaae8932b1d44da0358940b/LADAF-2020-27/lung-left/6.5um_VOI-03b-interlobular-fissure_bm05/s0/15/15/5",
+          "source_object_generation": "1695318262931608",
+          "source_md5_base64": "mdISDz67+8NgJJpgVXnwmQ==",
+          "source_encoded_sha256": "6c61c0bccbe3b5eaaeeb50e06e3ef40070728a8ee1ad1157c0a4f914c2ff59d6",
+          "source_object_metadata_sha256": "e9e1d00f17e7f8ad68f9b00e84b5c5e8eb1ebfa8029d881a197104a1674d31ac",
+          "source_bytes": 3224949,
+          "n5_header_and_samples": {
+            "mode": 0,
+            "block_dimensions_xyz": [
+              128,
+              128,
+              128
+            ],
+            "array_shape_zyx": [
+              128,
+              128,
+              128
+            ],
+            "decoded_big_endian_sample_sha256": "96e58ff6a4826097f746a2d37449ac2f6e0ffe3e2ff37547293a4dfe38f1212f",
+            "every_scalar_sample_independently_verified": 2097152
+          },
+          "scalar_range": [
+            240,
+            65535
+          ],
+          "derived_array_file": "chunks/LADAF-2020-27_lung_left_VOI-03b-interlobular-fissure_6.5um_bm05/15-15-5-source-zyx.npy",
+          "derived_array_file_sha256": "80ec45525906bf7b255fdfab0b8e07f74e5352872fb33fb61eabab876323c37b",
+          "pitch_um": 6.5,
+          "source_samples_changed": false
+        }
+      ],
+      "acquisition_manifest_sha256": "adec2f6b9d8a96a457518675dad0abc30055a65a64cdb3e9a934fb7ba5020a80",
+      "cached_acquisition_manifest_path": ".research/hipct-lung-source-review/chunks/LADAF-2020-27_lung_left_VOI-03b-interlobular-fissure_6.5um_bm05/original-chunk-acquisition.json",
+      "anatomical_label_review": "Not supplied; local texture does not independently identify all lobular septal/airway/vascular structures.",
+      "actual_dataset_dimensions_xyz": [
+        3851,
+        3851,
+        1401
+      ]
+    },
+    {
+      "source_dataset": "LADAF-2020-27_lung_left_VOI-03-upper-lobe-apical_2.5um_bm05",
+      "source_metadata_sha256": "bea7e7e766aabee999ae19e23f827307e1bd1f71de858604f5b7e083c1f6961a",
+      "metadata_repository_revision": "f8dc2928234ac46a6d126cc293aab7ddbd446f61",
+      "source_citation_doi": "10.15151/ESRF-DC-572222987",
+      "source_object_layout": "N5 big endian uint16, x fastest; derived array zyx",
+      "source_level": 0,
+      "source_preparation": {
+        "organ": "lung",
+        "organ_context": "left",
+        "post_mortem_interval_hours": null,
+        "fixation_method": null,
+        "fixation_medium": "formalin",
+        "organ_infilled": null,
+        "stabilisation_medium": "agar cubes",
+        "degassing_method": "vacuum",
+        "scan_solvent": "ethanol",
+        "scan_solvent_concentration": 70.0,
+        "scan_temperature": "room temperature"
+      },
+      "source_registration_to_parent": {
+        "source_dataset": "LADAF-2020-27_lung_left_VOI-03-upper-lobe-apical_2.5um_bm05",
+        "target_dataset": "LADAF-2020-27_lung_left_complete-organ_25.08um_bm05",
+        "translation": [
+          2386.5525436214675,
+          1745.4266980574525,
+          1453.3215202263639
+        ],
+        "rotation": -24.30008115409863,
+        "scale": 0.09968114239895809
+      },
+      "registration_independently_verified": false,
+      "intensity_is_clinical_HU": false,
+      "in_vivo_clinical_CT": false,
+      "acquired_whole_VOI_or_organ": false,
+      "highest_original_TIFF_sample_identity_verified": false,
+      "article_JPEG2000_and_current_N5_conversion_identity_verified": false,
+      "data_license_independently_verified": false,
+      "clinical_approval": false,
+      "runtime_promoted": false,
+      "structure_coverage_granted": false,
+      "chunks": [
+        {
+          "grid_coordinate_xyz": [
+            15,
+            15,
+            21
+          ],
+          "source_index_origin_xyz": [
+            1920,
+            1920,
+            2688
+          ],
+          "source_object_url": "https://storage.googleapis.com/ucl-hip-ct-35a68e99feaae8932b1d44da0358940b/LADAF-2020-27/lung-left/2.5um_VOI-03-upper-lobe-apical_bm05/s0/15/15/21",
+          "source_object_generation": "1695327720433339",
+          "source_md5_base64": "n1XXczyi1v+tGW50xW8UCg==",
+          "source_encoded_sha256": "3746d80775c17f172d7544fbf172d17170ca1af2e4251afcabe7b469bad96723",
+          "source_object_metadata_sha256": "c931f46f013e5fdd7c1c5cc90041dba6ede014c60639fa05fa9e2cae3a0f5548",
+          "source_bytes": 3415049,
+          "n5_header_and_samples": {
+            "mode": 0,
+            "block_dimensions_xyz": [
+              128,
+              128,
+              128
+            ],
+            "array_shape_zyx": [
+              128,
+              128,
+              128
+            ],
+            "decoded_big_endian_sample_sha256": "ca96efdba4f7a24828226f4a65aa271b447d7710bc61ad23896a41768fd36b33",
+            "every_scalar_sample_independently_verified": 2097152
+          },
+          "scalar_range": [
+            15342,
+            45103
+          ],
+          "derived_array_file": "chunks/LADAF-2020-27_lung_left_VOI-03-upper-lobe-apical_2.5um_bm05/15-15-21-source-zyx.npy",
+          "derived_array_file_sha256": "6f7a2178e435b354be36e5b5f3742341340493787cd4adb12125e528e7294644",
+          "pitch_um": 2.5,
+          "source_samples_changed": false
+        }
+      ],
+      "acquisition_manifest_sha256": "fc05bb22b66a256640f96bb1425879c576936a3462392c72ce199c25abb520b1",
+      "cached_acquisition_manifest_path": ".research/hipct-lung-source-review/chunks/LADAF-2020-27_lung_left_VOI-03-upper-lobe-apical_2.5um_bm05/original-chunk-acquisition.json",
+      "anatomical_label_review": "Not supplied; local texture does not independently identify all lobular septal/airway/vascular structures.",
+      "actual_dataset_dimensions_xyz": [
+        3877,
+        3877,
+        5600
+      ]
+    }
+  ]
+}

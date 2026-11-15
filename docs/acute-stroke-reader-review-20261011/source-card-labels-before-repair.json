@@ -1,0 +1,9 @@
+{
+  "observed_at": "2026-10-11",
+  "scope": "Static first integration boundary observed before final reader freeze",
+  "app_js_sha256": "a8dc2985ad28ed9a9b07bd17f87857b3bc389feb7d316049f66ff8f3cf22d29d",
+  "function": "function sourceNativeInspector(asset) {\n  return el('section', { class: 'rad-protocol source-native-inspector' },\n    el('h3', {}, el('a', { href: asset.src, target: '_blank', rel: 'noopener noreferrer' }, asset.title)),\n    el('p', {}, asset.caption), el('p', { class: 'rad-image-credit' }, asset.attribution),\n    radiologySourceLink('Original MRI templates', asset.source_url), ' \u00b7 ',\n    radiologySourceLink('Original probabilistic atlas', asset.atlas_source_url), ' \u00b7 ',\n    radiologySourceLink(asset.license, asset.license_url));\n}\n\n",
+  "problem": "Single SOOP patient arrays and binary masks are described by hard-coded MRI templates/probabilistic atlas link labels. Source-specific labels required; existing brain population labels retain their exact meanings.",
+  "runtime_source_files_changed": false,
+  "clinical_approval": false
+}

@@ -1,0 +1,192 @@
+{
+  "acquired_source": {
+    "doi": "10.5281/zenodo.6802614",
+    "dataset_license": "CC BY 4.0",
+    "original_case": "s0028",
+    "originals_directory": "/Users/peter/Documents/ChatGPT/Primer/.research/release-pulmonary-20261007/.research/cardiac-wall-source-20261014/totalseg-v1-s0028",
+    "source_member_count": 6,
+    "source_member_bytes": 50581205,
+    "source_metadata_rows": [
+      {
+        "image_id": "s0028",
+        "age": "60",
+        "gender": "f",
+        "institute": "C",
+        "study_type": "ct neck-thorax-abdomen-pelvis",
+        "split": "train"
+      }
+    ],
+    "published_grid": [
+      299,
+      299,
+      394
+    ],
+    "published_spacing": [
+      1.5,
+      1.5,
+      1.5
+    ],
+    "scanner_native_DICOM": false,
+    "source_original_member_CRCs_verified": true,
+    "full_archive_MD5_verified": false,
+    "all_original_samples_and_affines_match_independent_readers": true
+  },
+  "myocardium_scope": "LV myocardial context supported by primary cardiac methods; no RV or atrial walls supplied",
+  "source_labels": [
+    {
+      "original_label": "heart_myocardium",
+      "foreground_voxels": 24650,
+      "components_6_connected": 1,
+      "triangles": 29012,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0
+    },
+    {
+      "original_label": "heart_atrium_left",
+      "foreground_voxels": 17276,
+      "components_6_connected": 1,
+      "triangles": 10544,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0
+    },
+    {
+      "original_label": "heart_ventricle_left",
+      "foreground_voxels": 21625,
+      "components_6_connected": 1,
+      "triangles": 13112,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0
+    },
+    {
+      "original_label": "heart_atrium_right",
+      "foreground_voxels": 22093,
+      "components_6_connected": 1,
+      "triangles": 13200,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0
+    },
+    {
+      "original_label": "heart_ventricle_right",
+      "foreground_voxels": 34753,
+      "components_6_connected": 1,
+      "triangles": 20204,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0
+    }
+  ],
+  "v1_v3_image_comparison": {
+    "v3_original_file": "docs/thoracic-lung-source-review-s0028/originals/ct.nii.gz",
+    "v3_original_file_sha256": "d11b8acbf137277d157930f7d0cb3a5f259364a5e5af18dafcd3cac0ecf4168c",
+    "v3_header": {
+      "dimensions": [
+        299,
+        299,
+        394
+      ],
+      "datatype_code": 4,
+      "bits": 16,
+      "endian": "<",
+      "voxel_offset": 352,
+      "pixdim": [
+        1.0,
+        1.5,
+        1.5,
+        1.5,
+        1.0,
+        1.0,
+        1.0,
+        1.0
+      ],
+      "slope": 1.0,
+      "intercept": 0.0,
+      "qform_code": 0,
+      "sform_code": 2,
+      "xyzt_units": 0,
+      "sform": [
+        [
+          1.5,
+          0.0,
+          0.0,
+          -230.5625
+        ],
+        [
+          0.0,
+          1.5,
+          0.0,
+          -81.5625
+        ],
+        [
+          0.0,
+          0.0,
+          1.5,
+          -5.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "raw_voxel_sha256": "1db65353bfa5cafb2cf6b5ba7d3f4493e3fce34ec298e16c6b0c541130d03911",
+      "uncompressed_bytes": 70448340
+    },
+    "grids_have_same_shape": true,
+    "affines_exact": true,
+    "case_ID_alone_accepted_as_identity": false,
+    "source_arrays_declared_identical": false,
+    "all_voxels_exact": false,
+    "differing_voxels": 11945,
+    "maximum_absolute_unscaled_sample_difference": 1422.0,
+    "mean_absolute_unscaled_sample_difference": 0.03264161355466958,
+    "differing_voxel_bounds": [
+      [
+        123,
+        207,
+        366
+      ],
+      [
+        189,
+        253,
+        393
+      ]
+    ],
+    "differing_CT_samples_within_each_original_v1_label": {
+      "heart_myocardium.nii.gz": 0,
+      "heart_atrium_left.nii.gz": 0,
+      "heart_ventricle_left.nii.gz": 0,
+      "heart_atrium_right.nii.gz": 0,
+      "heart_ventricle_right.nii.gz": 0
+    },
+    "cross_version_spatial_registration_independently_approved": false
+  },
+  "source_review_sha256": "5108de0ca71c86c67b450b879b74cc439978c48853ea461d4fd6190addea64f7",
+  "dryad_candidate": {
+    "doi": "10.5061/dryad.9s4mw6mc9",
+    "license": "CC0 1.0",
+    "metadata_license_url": "https://spdx.org/licenses/CC0-1.0.html",
+    "publisher_file": "blends3.rar",
+    "publisher_file_bytes": 425386105,
+    "publisher_file_sha256": "06555b40c26982afe436075eb72098f4d580723a226424f858128c81c67688f8",
+    "paper_explicit_labels": [
+      "right ventricular myocardial wall excluding papillary muscles and trabeculations",
+      "left atrial myocardial wall including appendage but excluding veins"
+    ],
+    "acquisition_attempts": [
+      {
+        "url": "https://datadryad.org/api/v2/files/326997/download",
+        "status": 401
+      },
+      {
+        "url": "https://datadryad.org/downloads/file_stream/326997",
+        "status": 403
+      }
+    ],
+    "file_contents_original_geometry_and_surface_feasibility_verified": false,
+    "source_members_acquired": false
+  },
+  "next_feasible_integration": "Create an explicitly separate v1 LV-myocardium/chamber inspector using its preserved original CT and masks and complete derived boundaries. Keep v3 CT as a different source. Limit source-role credit to LV myocardial context until independent interface review; RV/atrial walls still require a separate source.",
+  "clinical_approval": false,
+  "runtime_or_product_files_changed": false,
+  "verified_structure_coverage_granted": false
+}

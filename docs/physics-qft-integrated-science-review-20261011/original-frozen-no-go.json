@@ -1,0 +1,373 @@
+{
+  "commit": "0f76e3b420f5fe962be2655b05397fc0cbb8d5ce",
+  "pins": {
+    "web/physics-qft-lab.js": "3f7fbf315e7a274038eb5951a464fd5a31b44167d738d25ec876d20c0bebdadb",
+    "web/spatial-qft.js": "c7819307d9f6ea5392a7527b93c4b39fabe43bc5d23b95f1a63dda9d530b9deb"
+  },
+  "antiparticle": {
+    "state": {
+      "mode": "antiparticle",
+      "fieldKind": "boson",
+      "occupation": 2,
+      "modeIndex": 1,
+      "boxFm": 1200,
+      "massMeV": 0.511,
+      "momentumMeV": 1,
+      "angleDeg": 60,
+      "chargeUnits": -1,
+      "massMultiple": 100,
+      "cutoff": 1000,
+      "probeScale": 3,
+      "referenceScale": 1,
+      "loopCoefficient": 0.05,
+      "matchedValue": 0.2,
+      "gapUm": 1,
+      "areaMm2": 1,
+      "normalMode": 1,
+      "parallelK": 0,
+      "alpha": 0.0072992700729927005,
+      "correctionKind": "rate",
+      "coefficient": 1,
+      "phaseDeg": 0,
+      "mediatorMeV": 197,
+      "radiusFm": 1,
+      "fieldTesla": 1
+    },
+    "expected": [
+      {
+        "key": "particle",
+        "source": [
+          {
+            "x": -1,
+            "y": 1.1229964381065507
+          }
+        ],
+        "points": [
+          [
+            -2.5,
+            3,
+            4
+          ]
+        ],
+        "discrete": false
+      },
+      {
+        "key": "antiparticle",
+        "source": [
+          {
+            "x": 1,
+            "y": 1.1229964381065507
+          }
+        ],
+        "points": [
+          [
+            2.5,
+            3,
+            4
+          ]
+        ],
+        "discrete": false
+      }
+    ],
+    "actual_chart_data_glyphs": [],
+    "actual_chart_axes": [
+      {
+        "points": [
+          [
+            -2.5,
+            0,
+            4
+          ],
+          [
+            2.5,
+            0,
+            4
+          ]
+        ],
+        "color": "ink",
+        "meta": {
+          "width": 1.5,
+          "fidelity_kind": "qft_chart_x_axis",
+          "panel": 1
+        }
+      },
+      {
+        "points": [
+          [
+            -2.5,
+            0,
+            4
+          ],
+          [
+            -2.5,
+            3,
+            4
+          ]
+        ],
+        "color": "ink",
+        "meta": {
+          "width": 1.5,
+          "fidelity_kind": "qft_chart_y_axis",
+          "panel": 1
+        }
+      }
+    ]
+  },
+  "casimir": {
+    "state": {
+      "mode": "casimir",
+      "fieldKind": "boson",
+      "occupation": 2,
+      "modeIndex": 1,
+      "boxFm": 1200,
+      "massMeV": 0.511,
+      "momentumMeV": 1,
+      "angleDeg": 60,
+      "chargeUnits": -1,
+      "massMultiple": 100,
+      "cutoff": 1000,
+      "probeScale": 3,
+      "referenceScale": 1,
+      "loopCoefficient": 0.05,
+      "matchedValue": 0.2,
+      "gapUm": 4.8,
+      "areaMm2": 1,
+      "normalMode": 1,
+      "parallelK": 10,
+      "alpha": 0.0072992700729927005,
+      "correctionKind": "rate",
+      "coefficient": 1,
+      "phaseDeg": 0,
+      "mediatorMeV": 197,
+      "radiusFm": 1,
+      "fieldTesla": 1
+    },
+    "vertices": 425,
+    "faces": 384,
+    "sampling_interpolation_worst": {
+      "cell": [
+        11,
+        12
+      ],
+      "xA": 0.71875,
+      "zA": 0.5,
+      "exact": -0.9983462274487422,
+      "emitted": -0.07062021842523185,
+      "error": 0.9277260090235104
+    },
+    "formula": "Compare emitted facet edge midpoint against continuous scalar Helmholtz standing solution sin(pi*z/a)*cos(k_parallel*x); no runtime formula helper used for oracle."
+  },
+  "underflow": {
+    "state": {
+      "mode": "scattering",
+      "fieldKind": "boson",
+      "occupation": 2,
+      "modeIndex": 1,
+      "boxFm": 1200,
+      "massMeV": 0.511,
+      "momentumMeV": 1,
+      "angleDeg": 1e-200,
+      "chargeUnits": -1,
+      "massMultiple": 100,
+      "cutoff": 1000,
+      "probeScale": 3,
+      "referenceScale": 1,
+      "loopCoefficient": 0.05,
+      "matchedValue": 0.2,
+      "gapUm": 1,
+      "areaMm2": 1,
+      "normalMode": 1,
+      "parallelK": 0,
+      "alpha": 0.0072992700729927005,
+      "correctionKind": "rate",
+      "coefficient": 1,
+      "phaseDeg": 0,
+      "mediatorMeV": 197,
+      "radiusFm": 1,
+      "fieldTesla": 1
+    },
+    "t": 0,
+    "zeroTransfer": false,
+    "photonOnShell": true,
+    "readout": "External states are on shell. The selected tree transfer has q\u00b2=0 MeV\u00b2 and is spacelike, so it is not a detectable free photon."
+  },
+  "small_angle_cancellation": {
+    "thetaDegrees": 1e-07,
+    "t_direct_four_vector": -3.0461741978670858e-18,
+    "t_chart_formula": 0,
+    "t_stable_identity": -3.0461741978670858e-18
+  },
+  "independent_decimal_oracle": {
+    "precision_digits": 110,
+    "theta_deg": "1e-200",
+    "momentum_MeV": "1",
+    "spacelike_t_MeV2_leading_value": "-3.0461741978670859934674354937889355355906479651977748846954782025370508711170386552474609270736272318851463778E-404",
+    "identity": "t=-4(pc)^2 sin(theta/2)^2",
+    "error_bound": "For x=theta/2 > 0, x-x^3/6 < sin(x) < x; relative error of leading theta^2 value is < theta^2/12, less than 3e-405.",
+    "float64_min_subnormal": "4.9406564584124654e-324",
+    "conclusion": "Nonzero negative invariant is below representable Float64 magnitude. An explicit underflow classification is required; it is not an on-shell transfer."
+  },
+  "failed_oracle_observations": [
+    {
+      "command": "scientific Python import mpmath",
+      "exit_code": 1,
+      "reason": "mpmath is not installed; no dependency installation or frozen-source mutation attempted.",
+      "replacement": "Python Decimal with a certified small-angle Taylor inequality"
+    }
+  ],
+  "decision": "NO-GO for full educational QFT release until three reproduced fidelity findings are resolved and independently rechecked.",
+  "read_only_frozen_worktree": true,
+  "whole_goal_complete": false,
+  "clinical_approved": false,
+  "findings": [
+    {
+      "id": "qft-antiparticle-singletons-not-emitted",
+      "severity": "P2",
+      "file": "web/spatial-qft.js",
+      "line": 19,
+      "related_lines": [
+        11,
+        20
+      ],
+      "finding": "The two physical particle/antiparticle point curves in chart 2 produce no geometry. The adapter stores transformed points in qft.charts, but line() discards their singleton geometry and no sphere/marker is emitted.",
+      "trigger": {
+        "mode": "antiparticle",
+        "chargeUnits": -1,
+        "momentumMeV": 1,
+        "massMeV": 0.511
+      },
+      "impact": "The linked 3D comparison shows classical +/- Hamiltonian branches but omits the key equal-positive-energy opposite-charge states supporting Q3.",
+      "fix_requirement": "Emit singleton data glyphs with independently checked coordinates and keys. The regression must inspect g emission, not only returned metadata.",
+      "visual_confirmation": "docs/physics-qft-reader-review-20261011/1440-antiparticle-spatial.png shows an empty Chart 2."
+    },
+    {
+      "id": "qft-casimir-allowed-frequency-facets",
+      "severity": "P2",
+      "file": "web/spatial-qft.js",
+      "line": 36,
+      "related_lines": [
+        38
+      ],
+      "finding": "A fixed 16x24 surface grid is not faithful to the continuous scalar standing factor at allowed high parallel wave numbers and plate gaps.",
+      "trigger": {
+        "mode": "casimir",
+        "gapUm": 4.8,
+        "parallelK": 10,
+        "normalMode": 1
+      },
+      "impact": "At an actual emitted facet edge midpoint the absolute unit-amplitude factor error is 0.9277260090; visible extrema are severely suppressed. Exact vertices and a generic finite-sampling disclaimer do not establish high-fidelity interpolation.",
+      "fix_requirement": "Resolve the selected spatial frequencies adaptively and expose a defensible interpolation bound or refine until a declared error budget is met. Keep the allowed physical parameter range and verify interiors of actually emitted facets against an independent continuous oracle."
+    },
+    {
+      "id": "qft-scattering-nonzero-underflow-classification",
+      "severity": "P2",
+      "file": "web/physics-qft-lab.js",
+      "line": 21,
+      "related_lines": [
+        34
+      ],
+      "finding": "Allowed precise tiny nonzero transfers underflow to q\u00b2=0 and the numeric equality predicate classifies them as on shell; readout simultaneously prints zero and calls the transfer spacelike. The chart also evaluates 1-cos(theta), which loses nonzero small-angle invariants.",
+      "trigger": {
+        "mode": "scattering",
+        "angleDeg": 1e-200,
+        "momentumMeV": 1
+      },
+      "impact": "The teaching distinction between zero/forward transfer and a spacelike nonzero transfer is contradicted by the reported classification. At 1e-7 degrees the chart formula gives zero while the external four-vector calculation is -3.0461741978670858e-18 MeV\u00b2.",
+      "fix_requirement": "Use a stable half-angle invariant for chart and selected values; distinguish mathematically zero transfer from Float64 magnitude underflow and label the latter explicitly. Do not infer on-shell status from a rounded/underflowed zero alone."
+    }
+  ],
+  "coverage_examined": [
+    {
+      "question": 1,
+      "station": "modes",
+      "result": "Assessed concept represented and scientifically qualified; no additional missing question coverage found beyond reported implementation defects."
+    },
+    {
+      "question": 2,
+      "station": "scattering",
+      "result": "Assessed concept represented and scientifically qualified; no additional missing question coverage found beyond reported implementation defects."
+    },
+    {
+      "question": 3,
+      "station": "antiparticle",
+      "result": "Assessed concept represented and scientifically qualified; no additional missing question coverage found beyond reported implementation defects."
+    },
+    {
+      "question": 4,
+      "station": "compton",
+      "result": "Assessed concept represented and scientifically qualified; no additional missing question coverage found beyond reported implementation defects."
+    },
+    {
+      "question": 5,
+      "station": "renormalization",
+      "result": "Assessed concept represented and scientifically qualified; no additional missing question coverage found beyond reported implementation defects."
+    },
+    {
+      "question": 6,
+      "station": "casimir",
+      "result": "Assessed concept represented and scientifically qualified; no additional missing question coverage found beyond reported implementation defects."
+    },
+    {
+      "question": 7,
+      "station": "perturbation",
+      "result": "Assessed concept represented and scientifically qualified; no additional missing question coverage found beyond reported implementation defects."
+    },
+    {
+      "question": 8,
+      "station": "mediator",
+      "result": "Assessed concept represented and scientifically qualified; no additional missing question coverage found beyond reported implementation defects."
+    },
+    {
+      "question": 9,
+      "station": "magnetic",
+      "result": "Assessed concept represented and scientifically qualified; no additional missing question coverage found beyond reported implementation defects."
+    },
+    {
+      "question": 10,
+      "station": "renormalization",
+      "result": "Assessed concept represented and scientifically qualified; no additional missing question coverage found beyond reported implementation defects."
+    }
+  ],
+  "examined_scope": [
+    "Exact frozen commit and clean tracked worktree",
+    "Current goal, authored four-part lesson, nine learning outcomes, all ten current questions, answer/explanation/choices and retained old bosonic activity",
+    "Every core formula, normalization limits, parameter unit, table/readout and disclosure; actual nine-station 3D adapter emission paths",
+    "Owner and prior independent review/amendment/reader receipts, including scope limits and original failures",
+    "Actual original 1600px schematic and three owner screenshots: antiparticle 3D, Casimir 2D, magnetic 2D",
+    "Independent actual-emission recorder, continuous standing-factor facet-interior oracle, stable half-angle identity, Decimal tiny-angle value and Taylor inequality"
+  ],
+  "primary_sources_read": [
+    {
+      "url": "https://davidtong.org/pdfs/teaching/quantum-field-theory/qft2.pdf",
+      "supports": "Free Fourier modes, canonical oscillator occupation and number-state field distinction."
+    },
+    {
+      "url": "https://davidtong.org/pdfs/teaching/quantum-field-theory/qft3.pdf",
+      "supports": "Momentum-conserved tree transfers, independent loop momentum integration, amplitudes/rates and static Yukawa Green function."
+    },
+    {
+      "url": "https://davidtong.org/pdfs/teaching/quantum-field-theory/qft5.pdf",
+      "supports": "Dirac quantization, positive-energy physical particle/antiparticle excitations and conjugate charges."
+    },
+    {
+      "url": "https://journals.aps.org/pr/abstract/10.1103/PhysRev.73.416",
+      "supports": "Primary source identification of the leading radiative magnetic correction."
+    },
+    {
+      "url": "https://physics.nist.gov/cuu/pdf/all.pdf",
+      "supports": "CODATA 2022 constants and their conventions."
+    }
+  ],
+  "source_access_failure": [
+    {
+      "url": "https://dwc.knaw.nl/DL/publications/PU00018547.pdf",
+      "observation": "Web reader returned Internal Error; not counted as newly read primary body."
+    }
+  ],
+  "limits": [
+    "This audit did not repeat the existing broad numeric checker or authenticated browser story. Returned-coordinate checks were not treated as emitted-geometry evidence.",
+    "No production requests, credentials, user browser profiles, merge/deploy or publishing operations.",
+    "Only three relevant owner PNGs and the retained schematic were visually examined; no GPU pixels of the new high-frequency state were captured. Its emitted actual geometry is the basis of the reproduced error.",
+    "The implementations remain declared finite educational models, not a full interacting continuum QFT solver; no clinical, whole-Primer or full-goal approval."
+  ]
+}

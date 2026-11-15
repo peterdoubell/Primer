@@ -1,0 +1,166 @@
+{
+  "source_repository": "https://github.com/anjany/verse",
+  "source_commit": "02b292b86021a8873043124982f5f58da9ba1cb8",
+  "readme_url": "https://raw.githubusercontent.com/anjany/verse/02b292b86021a8873043124982f5f58da9ba1cb8/README.md",
+  "readme_sha256": "3b077d89cd128a0313eefd0df6b638d962e3cf2d69fa2c249bf437c86e8e266a",
+  "data_license": "CC BY-SA 4.0",
+  "code_license": "MIT (not the CT/mask data licence)",
+  "archive_url": "https://s3.bonescreen.de/public/VerSe-complete/dataset-verse20training.zip",
+  "archive_bytes": 11514076813,
+  "archive_etag": "\"0519cf129d449e22fe11cbe1a849a527-21\"",
+  "archive_entries": 746,
+  "inventory_range_requests": [
+    [
+      11514076791,
+      11514076812
+    ],
+    [
+      11514076771,
+      11514076790
+    ],
+    [
+      11514076715,
+      11514076770
+    ],
+    [
+      11513965300,
+      11514076714
+    ]
+  ],
+  "selected_subject": "sub-verse521",
+  "selection_basis": "Centroid labels 7 through 24 cover C7\u2013L5; no label 25 (L6) in this metadata. This does not establish normality or correctness of every annotation.",
+  "metadata_acquisition": {
+    "archive_url": "https://s3.bonescreen.de/public/VerSe-complete/dataset-verse20training.zip",
+    "etag": "\"0519cf129d449e22fe11cbe1a849a527-21\"",
+    "requests": [
+      [
+        10124909,
+        10124938
+      ],
+      [
+        10124939,
+        10125022
+      ],
+      [
+        10125055,
+        10125358
+      ],
+      [
+        1563600021,
+        1563600050
+      ],
+      [
+        1563600051,
+        1563600118
+      ],
+      [
+        1563600151,
+        1563600340
+      ],
+      [
+        20866950,
+        20866979
+      ],
+      [
+        20866980,
+        20867062
+      ],
+      [
+        20867095,
+        20867381
+      ],
+      [
+        3218926605,
+        3218926634
+      ],
+      [
+        3218926635,
+        3218926701
+      ],
+      [
+        3218926734,
+        3218926917
+      ],
+      [
+        35517092,
+        35517121
+      ],
+      [
+        35517122,
+        35517205
+      ],
+      [
+        35517238,
+        35517539
+      ],
+      [
+        5192040378,
+        5192040407
+      ],
+      [
+        5192040408,
+        5192040475
+      ],
+      [
+        5192040508,
+        5192040686
+      ]
+    ],
+    "files": [
+      {
+        "archive_member": "dataset-01training/derivatives/sub-verse506/sub-verse506_dir-iso_seg-subreg_ctd.json",
+        "file": "/tmp/primer-msk-sources/verse/verse506/sub-verse506_dir-iso_seg-subreg_ctd.json",
+        "sha256": "6f15503c9990703086204777c2779c694f3de99b072c2e9fbb03f0e46993c71c",
+        "crc32": 74637624,
+        "size": 998
+      },
+      {
+        "archive_member": "dataset-01training/rawdata/sub-verse506/sub-verse506_dir-iso_ct.json",
+        "file": "/tmp/primer-msk-sources/verse/verse506/sub-verse506_dir-iso_ct.json",
+        "sha256": "88c18bcf48d2261a8176c88ca0ee4516b286cacb20a500529e88b0beac481be1",
+        "crc32": 369192447,
+        "size": 278
+      },
+      {
+        "archive_member": "dataset-01training/derivatives/sub-verse521/sub-verse521_dir-ax_seg-subreg_ctd.json",
+        "file": "/tmp/primer-msk-sources/verse/verse521/sub-verse521_dir-ax_seg-subreg_ctd.json",
+        "sha256": "2edf68dc434fad901481f7759c18272762e7a506f0ae2ffa61d1a50017075829",
+        "crc32": 3446401524,
+        "size": 945
+      },
+      {
+        "archive_member": "dataset-01training/rawdata/sub-verse521/sub-verse521_dir-ax_ct.json",
+        "file": "/tmp/primer-msk-sources/verse/verse521/sub-verse521_dir-ax_ct.json",
+        "sha256": "fa3940f2820df68a83d0bd30377814a556f8238fc0814c0055eeb72d6efd9101",
+        "crc32": 4166533107,
+        "size": 270
+      },
+      {
+        "archive_member": "dataset-01training/derivatives/sub-verse542/sub-verse542_dir-iso_seg-subreg_ctd.json",
+        "file": "/tmp/primer-msk-sources/verse/verse542/sub-verse542_dir-iso_seg-subreg_ctd.json",
+        "sha256": "53e65993d69dfd1ac10840d8eaad66689dba784556f22c6702f61cccba39ad2b",
+        "crc32": 2202918345,
+        "size": 948
+      },
+      {
+        "archive_member": "dataset-01training/rawdata/sub-verse542/sub-verse542_dir-iso_ct.json",
+        "file": "/tmp/primer-msk-sources/verse/verse542/sub-verse542_dir-iso_ct.json",
+        "sha256": "39a097fc1c494302c9f700fbaa74fa67de7f2f34ef757168c6b8f42bd1c7ea6c",
+        "crc32": 1061896007,
+        "size": 265
+      }
+    ],
+    "runtime_promoted": false
+  },
+  "limits": [
+    "CT and mask geometry match, but segmentation accuracy and clinical normality remain unverified.",
+    "C7 mask touches the scan boundary; do not claim complete C7 anatomy.",
+    "T1\u2013L5 labels do not touch the array boundary; that does not prove complete or correct anatomical segmentation.",
+    "Acquisition slice thickness is 1.5 mm while stored NIfTI slice spacing is 1.0 mm.",
+    "No scan, segmentation or derived model has been placed in runtime."
+  ],
+  "runtime_promoted": false,
+  "clinical_approval": false,
+  "case_acquired": true,
+  "case_geometry_evidence": "case-geometry.json"
+}

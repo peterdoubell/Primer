@@ -1,0 +1,32 @@
+{
+  "scope": "Three reproduced QFT integration findings repaired; current-hash independent educational review and live reader QA still required",
+  "current_sha256": {
+    "web/physics-qft-lab.js": "a48695e3190ef5743a27231be7dcd5b238e58b3e682956b5d512ba9e6ad2c1c5",
+    "web/spatial-qft.js": "53d7c8dd42e8ee9eab60581903c884be562393e308c8be451df839fffe17625f",
+    "web/spatial-models.js": "d16b25a18d59a79cb5d9f94c5573c486f19d01099d7ced70d74b4ecee0e20136",
+    "web/spatial-module-objects.js": "ca8cbf328cc1c38e3fc89826d72f47e0e72f3abb1fe6ffbb70889b923ea974fe",
+    "tools/check_physics_qft_integrated_geometry.js": "1e7d02bc001f08814216a68ff78ebf047d0c8838182f8ac171a82964a415d3a3"
+  },
+  "actual_engine_verification": {
+    "status": "pass",
+    "singletonStates": 27,
+    "facetStates": 24,
+    "facets": 160888,
+    "facetProbes": 643552,
+    "maxObservedError": 0.009888366696008899,
+    "maxFaces": 47500,
+    "errorBudget": 0.02,
+    "runtime_sha256": "a48695e3190ef5743a27231be7dcd5b238e58b3e682956b5d512ba9e6ad2c1c5",
+    "adapter_sha256": "53d7c8dd42e8ee9eab60581903c884be562393e308c8be451df839fffe17625f"
+  },
+  "casimir_proof": "f=sin(Az)cos(Bx)=1/2[sin(Az+Bx)+sin(Az-Bx)]. For each emitted triangle, barycentric interpolation of each sine has error <=(1/2) variance(s)<=range(s)^2/8. Each phase range is <=A/nz+B/nx, so the average harmonic error is <=(A/nz+B/nx)^2/8. Subdivision uses phase steps <=sqrt(2*0.02), guaranteeing this upper bound <=0.02 across the complete allowed physical range, apart from Float64 roundoff. Exact analytic vertex values are retained. Maximum47500 emitted triangles.",
+  "geometry_allowance": "Only exact scene module.phys.5.qft + trusted familyId qft-observable-geometry + linkedStateKey phys.5.qft + normalized casimir mode receives50000; every other/unknown scene/family remains3000, with actual negative guards. Unknown budgets cannot override the bound; duplicate scene replacement is rejected.",
+  "scattering_repair": "Symmetric stable half-angle t/u transfer vectors, invariants and actual plotted t curve; both accepted-angle/complement logarithmic magnitudes computed through log(angle)+log(pi/360)+log(sinc), with a tiny-argument log1p series. Both channels expose underflow/zero/log magnitude in ledger and readout, without an unsupported on-shell claim.60states are compared with independent110-digit Decimal sine-series/magnitude oracles, including subnormal angles/momenta and180-degree predecessors.",
+  "original_receipts_rebaselined": false,
+  "scientific_GO_pending": true,
+  "reader_QA_pending": true,
+  "whole_goal_complete": false,
+  "clinical_approval": false,
+  "renderer_repair": "Actual maximum-mesh constructor previously threw RangeError from>142k argument spreads. Bounded reductions preserve extrema and complete constructor bounds; actual live max-mesh draw/input/camera timing still pending.",
+  "decimal_test_sha256": "382c1167d404bf76f8e6d28592ef3deeaa9006c197d3ea056aed6f6aa8450728"
+}

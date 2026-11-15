@@ -1,0 +1,69 @@
+...............{"seed": 1, "bar": "current", "credited_day": null, "known": 9, "universe": 18, "questions": 450, "trace_path": "/private/var/folders/kq/2zbgq4xj5wb5rrs65kysm2f80000gn/T/pytest-of-peter/pytest-448/test_a_fixed_half_knower_only_0/fixed-half-reader-trace.json"}
+.{"seed": 2, "bar": "current", "credited_day": null, "known": 9, "universe": 18, "questions": 450, "trace_path": "/private/var/folders/kq/2zbgq4xj5wb5rrs65kysm2f80000gn/T/pytest-of-peter/pytest-448/test_a_fixed_half_knower_only_1/fixed-half-reader-trace.json"}
+.{"seed": 1, "bar": "old_weak", "credited_day": 37, "known": 9, "universe": 18, "questions": 190, "trace_path": "/private/var/folders/kq/2zbgq4xj5wb5rrs65kysm2f80000gn/T/pytest-of-peter/pytest-448/test_a_fixed_half_knower_only_2/fixed-half-reader-trace.json"}
+.{"seed": 2, "bar": "old_weak", "credited_day": null, "known": 9, "universe": 18, "questions": 225, "trace_path": "/private/var/folders/kq/2zbgq4xj5wb5rrs65kysm2f80000gn/T/pytest-of-peter/pytest-448/test_a_fixed_half_knower_only_3/fixed-half-reader-trace.json"}
+F..........
+=================================== FAILURES ===================================
+______ test_a_fixed_half_knower_only_passes_the_old_weak_bar[old_weak-2] _______
+
+app_client = <starlette.testclient.TestClient object at 0x10aafb740>
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x1085db440>
+tmp_path = PosixPath('/private/var/folders/kq/2zbgq4xj5wb5rrs65kysm2f80000gn/T/pytest-of-peter/pytest-448/test_a_fixed_half_knower_only_3')
+seed = 2, bar = 'old_weak'
+
+    @pytest.mark.parametrize("seed", [1, 2])
+    @pytest.mark.parametrize("bar", ["current", "old_weak"])
+    def test_a_fixed_half_knower_only_passes_the_old_weak_bar(app_client, monkeypatch, tmp_path, seed, bar):
+        """Sampled real-route regression, with an explicit old-bar positive control.
+    
+        Exactly nine of 18 fronts are known forever. Unknowns are guessed from
+        visible choices or a uniform permutation of ordering chips, without keys.
+        These two retained seeds are examples, not a universal probability claim.
+        """
+        import random
+        import json
+        import primer.server as srv
+        _isolated_plant_draws(monkeypatch, seed)
+        monkeypatch.setattr(srv, "_locked_lesson_response", lambda node, reader_id: None)
+        if bar == "old_weak":
+            monkeypatch.setattr(srv, "YOUNG_DRILL_ITEMS", 5)
+            monkeypatch.setattr(srv, "_evidence_bar", lambda node: {"pass_bar": .8, "passes_needed": 2})
+        universe = _plant_prompt_universe()
+        known = frozenset(random.Random(30000 + seed).sample(sorted(universe), len(universe)//2))
+        assert len(known)*2 == len(universe)
+        guesses = random.Random(40000 + seed)
+        trace = []
+    
+        def answer_for(i, q):
+            assert q["prompt"] in universe, "An undeclared front changed the simulated knowledge"
+            knows = q["prompt"] in known
+            visible = {key: q[key] for key in ("kind", "choices", "items") if key in q}
+            answer = str(q.get("answer", "")) if knows else _visible_tap_guess(visible, guesses)
+            trace.append({"prompt":q["prompt"], "kind":q["kind"], "known":knows, "answer":answer})
+            return answer
+    
+        day = _run_days(app_client, monkeypatch, "bio.0.plants", answer_for)
+        assert any(not row["known"] and row["kind"] == "order" for row in trace)
+        assert any(not row["known"] and row["kind"] == "choice" for row in trace)
+        record = {"seed":seed, "bar":bar, "known":sorted(known), "universe":sorted(universe),
+                  "credited_day":day, "trace":trace, "sampled_claim_only":True}
+        path = tmp_path/"fixed-half-reader-trace.json"
+        path.write_text(json.dumps(record, indent=2)+"\n")
+        print(json.dumps({"seed":seed,"bar":bar,"credited_day":day,"known":len(known),
+                          "universe":len(universe),"questions":len(trace),"trace_path":str(path)}))
+>       assert (day is None) if bar == "current" else (day is not None), record
+E       AssertionError: {'bar': 'old_weak', 'credited_day': None, 'known': ['Put them in order, from first to last: a flower, a leaf, a seed, ... flower do?", "What does a plant's fruit do?", "What does a plant's leaves do?", ...], 'sampled_claim_only': True, ...}
+E       assert False
+
+tests/test_end_to_end_progression.py:503: AssertionError
+------------------------------ Captured log setup ------------------------------
+WARNING  primer.server:server.py:263 backups -> /private/var/folders/kq/2zbgq4xj5wb5rrs65kysm2f80000gn/T/pytest-of-peter/pytest-448/test_a_fixed_half_knower_only_3/backups (0 kept) | Backups are on the same drive as the learner record — a failed drive loses both. Set PRIMER_BACKUP_DIR to a path on removable or synced storage to keep a copy off this disk.
+=============================== warnings summary ===============================
+tests/test_end_to_end_progression.py::test_one_weak_field_does_not_drop_a_frontier_reader_to_the_nursery
+  /Users/peter/Documents/ChatGPT/Primer/.research/runtime-grade-py312-20261008/lib/python3.12/site-packages/fastapi/testclient.py:1: StarletteDeprecationWarning: Using `httpx` with `starlette.testclient` is deprecated; install `httpx2` instead.
+    from starlette.testclient import TestClient as TestClient  # noqa
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+=========================== short test summary info ============================
+FAILED tests/test_end_to_end_progression.py::test_a_fixed_half_knower_only_passes_the_old_weak_bar[old_weak-2]
+1 failed, 28 passed, 1 warning in 9.07s

@@ -1,0 +1,28 @@
+# Original small-bowel tumour source packet
+
+Sixteen complete CT-source figures from [Brogna et al. (2025)](https://doi.org/10.3390/healthcare13091071) are attached to the local tumour reader and relevant reporting steps. The original XML grants CC BY 4.0, with © 2025 by the authors retained. [Source proof](small-bowel-tumour-published-source-review/original-source-review.json) preserves actual authors, complete captions, publisher checksums, source/PDF identities and native sample fingerprints. Academic-editor names are excluded from the author attribution. The noncommercial [Lee et al. source](https://doi.org/10.3348/jksr.2021.0168) remains a reporting reference, with its images outside this commercial packet.
+
+Fourteen figures preserve original PDF RGB samples and their original three-channel ICC profile in lossless PNGs. Independent zlib readback verifies unpredicted Flate samples; original DCT streams are independently byte-checked against Poppler extraction before preserving decoded RGB samples. Standard Poppler rendering produced different RGB values through colour-profile conversion, so those converted render samples are not used as the preserved source. Native sample values and ICC bytes remain intact. No resampling, recolouring, smoothing, source-label repair or anatomical edit occurs.
+
+Figure 12 uses two original, equal-width native rows. The PDF matrices establish equal horizontal alignment and an adjoining vertical boundary; the native rows are retained top-to-bottom at 1483×750 without scaling, interpolation, invented labels or additional panels. Original PDF rounding/scaled placement matrices remain in the evidence. Figures 19 and 20 retain the complete original repository JPEG bytes, whose acquired dimensions exceed their PDF counterparts. These published dimensions do not establish the native acquisition master, DICOM calibration or independent display calibration.
+
+Several PDF pages repeat embedded artwork and text. Those repeats are not counted as additional patient studies. Direct visual inspection caught shifted object assignments for Figures 14–16; the final mappings are explicitly guarded: Figure 14 is page 15/object 480, Figure 15 page 16/object 509, and Figure 16 page 17/object 538. The corrected final images were directly inspected before delivery checks. [Packaging evidence](small-bowel-tumour-published-source-review/packaged-source-images.json) binds the complete final files.
+
+| Source figures | Context/evidence retained |
+| --- | --- |
+| 2, 6 | Reported jejunal polyp/invagination case, with separate appendix observations and later oral-contrast views |
+| 3 | Ileocaecal invagination, lesion/wall and nodes in a reported adenocarcinoma case |
+| 4, 7, 10, 14 | Reported polyp/invagination sequence; Figure 14 includes CT A/B and operative photograph C |
+| 5, 9 | Melanoma-related intestinal observations; patient identity across the two figures is not established |
+| 11, 12 | Jejunal stenotic lesion/mesenteric and obstruction observations; Figure 12 includes CT A–C and operative photograph D; cross-figure patient identity is not independently established |
+| 15 | CT A/B and MRI C–F in a reported ileocaecal NET context |
+| 16 | CT A–C with abnormal jejunal wall/dilatation, collection and nodes; source diagnostic overlap remains explicit |
+| 18 | CT hepatic/ileocaecal/perivisceral observations with a source biopsy attribution |
+| 19 | CT A/B and MRI C–F with hepatic observations in a reported NET context |
+| 20 | CT A/B and PET/CT C; generic 68Ga-DOTA is not expanded into an unreported tracer subtype |
+
+Mixed figures remain complete. Primary CT panels and ancillary MRI, PET/CT and operative-photograph panels are identified separately; none supplies another modality's features, calibrated registration, grade or histology. Original arrows, letters and existing annotation artefacts remain unchanged. Source case relationships, oral-contrast/operative clinical course and diagnoses are author descriptions, not independent treatment causation or universal protocols. Histological confirmation, complete tumour/lead-point/mesenteric extent, vascular interfaces, microscopic invasion and full staging remain unverified by these selected sections. Image counts do not establish independent patients or acquisitions.
+
+Validation: 154 focused source, component/profile, panel-boundary, scope, catalogue, reference, reporting, walkthrough and picture checks passed. All sixteen source thumbnails loaded. The local API delivered all sixteen with exact file SHA-256 values and all sixteen registrations were linked to relevant reporting steps. Desktop 1440×1000 and mobile 390×844 screenshots were directly inspected: the mixed CT/MRI figure retained 2010 native pixels, and the complete CT/operative Figure 12 retained 1483×750, white source background, no colour filter and no page overflow. Full-size inspection and single-dialog closure worked; no application page errors were reported. Owned browser/server sessions were closed.
+
+Every structure binding/coverage map remains empty and anatomical review pending. These sources do not complete the tumour module's 329 targets/987 obligations, including still-missing tumour types and complete native anatomy/models. Rights accounting now records 639 unique resources, 196 cleared and 443 unverified. The all-radiology known floor remains 21,819 obligations, with 92 unexpanded investigations, 106 unreconciled curriculum surfaces and total unknown. Source-specific native acquisitions, full anatomical/pathological/variant representations and independent specialist validation remain required. No clinical readiness or deployment is claimed.

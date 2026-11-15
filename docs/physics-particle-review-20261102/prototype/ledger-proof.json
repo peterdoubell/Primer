@@ -1,0 +1,95 @@
+{
+  "allPassed": true,
+  "cases": [
+    {
+      "initial": [
+        "neutron"
+      ],
+      "final": [
+        "proton",
+        "electron",
+        "antineutrino"
+      ],
+      "before": {
+        "chargeThirds": 0,
+        "baryonThirds": 3,
+        "electronLepton": 0
+      },
+      "after": {
+        "chargeThirds": 0,
+        "baryonThirds": 3,
+        "electronLepton": 0
+      },
+      "differences": {
+        "chargeThirds": 0,
+        "baryonThirds": 0,
+        "electronLepton": 0
+      },
+      "numbersBalance": true,
+      "restEnergyBudgetMeV": 0.7823335593099046,
+      "isolatedRestDecayEnergeticallyPossible": true,
+      "checksPass": true,
+      "meaning": "Necessary additive-number and rest-energy checks only. No complete interaction selection rule, spin audit, rate or measured event is supplied. Neutrino masses are neglected; nucleon rest energies are measured inputs, not sums of quark masses."
+    },
+    {
+      "initial": [
+        "neutron"
+      ],
+      "final": [
+        "proton",
+        "electron"
+      ],
+      "before": {
+        "chargeThirds": 0,
+        "baryonThirds": 3,
+        "electronLepton": 0
+      },
+      "after": {
+        "chargeThirds": 0,
+        "baryonThirds": 3,
+        "electronLepton": 1
+      },
+      "differences": {
+        "chargeThirds": 0,
+        "baryonThirds": 0,
+        "electronLepton": 1
+      },
+      "numbersBalance": false,
+      "restEnergyBudgetMeV": 0.7823335593099046,
+      "isolatedRestDecayEnergeticallyPossible": true,
+      "checksPass": false,
+      "meaning": "Necessary additive-number and rest-energy checks only. No complete interaction selection rule, spin audit, rate or measured event is supplied. Neutrino masses are neglected; nucleon rest energies are measured inputs, not sums of quark masses."
+    },
+    {
+      "initial": [
+        "proton"
+      ],
+      "final": [
+        "neutron",
+        "positron",
+        "neutrino"
+      ],
+      "before": {
+        "chargeThirds": 3,
+        "baryonThirds": 3,
+        "electronLepton": 0
+      },
+      "after": {
+        "chargeThirds": 3,
+        "baryonThirds": 3,
+        "electronLepton": 0
+      },
+      "differences": {
+        "chargeThirds": 0,
+        "baryonThirds": 0,
+        "electronLepton": 0
+      },
+      "numbersBalance": true,
+      "restEnergyBudgetMeV": -1.804331460689923,
+      "isolatedRestDecayEnergeticallyPossible": false,
+      "checksPass": false,
+      "meaning": "Necessary additive-number and rest-energy checks only. No complete interaction selection rule, spin audit, rate or measured event is supplied. Neutrino masses are neglected; nucleon rest energies are measured inputs, not sums of quark masses."
+    }
+  ],
+  "wholeGoalComplete": false
+}

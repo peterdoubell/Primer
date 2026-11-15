@@ -1,0 +1,27 @@
+# Original aortic aneurysm/rupture figure review
+
+Reviewed 6 October 2026. All thirteen complete original figures from Vu et al., *Rupture signs on computed tomography, treatment, and outcome of abdominal aortic aneurysms*, DOI [10.1007/s13244-014-0327-3](https://doi.org/10.1007/s13244-014-0327-3), are retained as source artwork in the local CT reporting reference. The original XML grant is explicitly CC BY 4.0; copyright, author credits, figure captions and source links remain attached. No separate adapted/reprinted/courtesy figure credit was found in the selected original captions. Embedded illustrator signatures and original annotations remain intact. This is reuse of the actual published artwork, not generated clinical imagery.
+
+[Original source proof](aortic-rupture-published-source-review/original-source-review.json) binds the reviewed NLM metadata snapshot, original XML/PDF checksums, publisher figure checksums, page/object placements and all decoded pixel/profile identities. Metadata SHA-256 is `c5ceb17078c0b6400e021ef398d2e5eb89e1f14e10efda6fab00c701f08f68fd`. Seven PDF images use Flate streams and six use DCT streams. Flate extraction compares original pypdf decoded samples against independent Poppler output; grayscale expansion is accepted only when every RGB channel is byte-identical to the original grayscale samples. RGB ICC profiles remain original, and native grayscale remains grayscale. The prior acquisition helper still rejects Flate unless explicitly opted in. Original source PNGs were visually inspected with complete labels/panels retained; deployed copy candidates are byte-identical.
+
+| Figure | Actual acquired CT panels | Other artwork and clinical limits |
+| --- | --- | --- |
+| 1 | a/c: enhanced axial, baseline and one year later | b/d are flat parametric renderings with different colour scales; no geometry, independent growth measurement or registration |
+| 2 | b/c: unenhanced, one patient four years apart | a is a calcification-gap mechanism; no independent bitmap diameter/gap calibration |
+| 3 | b: unenhanced crescent example | a is schematic; an isolated crescent does not establish imminent rupture |
+| 4 | b/c: enhanced axial/coronal fissuration | a is schematic; no dynamic leak or subsequent outcome validation |
+| 5 | b: enhanced posterior wall/vertebral interface | a is schematic; same patient as Figure 13; containment and risk need full context |
+| 6 | b/c: enhanced fistula examples | a is schematic; b/c are different patients, c with prior repair; no joined tract geometry |
+| 7 | a/b: enhanced aortocaval example at different levels | Only a is explicitly named arterial phase; no independent complete tract or shunt measurement |
+| 8 | a/b: enhanced stranding | Stranding is nonspecific; absence of shown haematoma is local to the example |
+| 9 | a/b: enhanced extravasation/haematoma | Phase is not named; do not infer arterial timing from brightness |
+| 10 | a/b: unenhanced bilateral pararenal/psoas haemorrhage | Caption's 45 HU is source-reported, not independently recoverable from display pixels |
+| 11 | b/c: unenhanced perihepatic/paracolic/retroperitoneal blood | a is a compartment schematic; caption's 60 HU lacks independent voxel calibration |
+| 12 | a/b: unenhanced pre-repair; c: enhanced post-open-repair | Interval and independent registration unknown; incomplete graft/anastomosis/outcome assessment |
+| 13 | a: enhanced proximal neck; c: post-repair axial CT | b is fluoroscopy; d is a flat CT rendering; same patient as Figure 5; no full branch/access/device suitability proof |
+
+The actual clinical CT selection excludes schematic, fluoroscopic and flat-rendering panels, while keeping the complete original figure artwork visible. Original renderings remain explicitly identified as flat screenshots, never acquired models. Every packaged asset retains pending anatomical review, empty structure coverage and no clinical/model promotion. Original acquired voxel series and highest-resolution acquisition masters are unavailable; source hash/pixel conservation cannot establish every structure's clinical fidelity.
+
+The wall walkthrough previously stated that a hyperattenuating crescent implies imminent rupture. [Stoecker et al.](https://pubmed.ncbi.nlm.nih.gov/34788704/), DOI 10.1016/j.avsg.2021.10.043, retrospectively examined an isolated crescent in patients without definitive index rupture and questioned that categorical interpretation. The revised text combines the sign with symptoms, size/growth and other rupture findings, retaining immediate communication for suspected rupture or contained leak. No cohort size, timing or elective-management threshold becomes a universal triage rule. The original 2014 source captions are preserved as historical descriptions, separate from the current explanatory text.
+
+Reproduce acquisition with `python -m tools.anatomy_sources.acquire_aortic_rupture_figures --source-root .research/aortic-rupture-source-review --output docs/aortic-rupture-published-source-review`; package with `python -m tools.anatomy_sources.package_aortic_rupture_figures --source-root .research/aortic-rupture-source-review`. Scientific dependencies and Poppler are needed for source readback. Tests cover all thirteen pixel/profile identities, patient/timepoint/phase distinctions, mixed panel roles, missing model approval, opt-in filter handling and rejection of changed independent samples.

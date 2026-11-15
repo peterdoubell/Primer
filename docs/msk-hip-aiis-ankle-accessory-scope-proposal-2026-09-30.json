@@ -1,0 +1,559 @@
+{
+  "schema_version": 1,
+  "reviewed_at": "2026-09-30",
+  "status": "proposal_only_not_applied",
+  "clinical_validation_status": "draft_requires_msk_radiologist_review",
+  "scope": "Only concrete omissions already named by the current hip-FAI and MRI-ankle walkthrough findings. Preserve all existing structures, parts, checklists, worksheets and required representations.",
+  "source_file_sha256": {
+    "data/radiology/msk-structure-requirements.json": "db2522460d9b661e2098e3eb9d520bf4d4b2857eb452c91a495c6a69a538c34a",
+    "data/radiology/reporting-steps/musculoskeletal.json": "13115503a31eb5ee4d074ac4b19e1b5d74a1302dfe8415e62bc2731d609b7212",
+    "data/radiology/investigation-overrides.json": "8f32718b0c2fa134a1cf8e5e426222793c044bb817d63330978aeeea1b91da0a",
+    "data/radiology/msk-asset-evidence.json": "bdbd5785cd6b9755636d986435c8b4e26a083a572098b2b71835dbf121a79206",
+    "data/radiology/msk-open-images.json": "0fee2fa54ca3626a61312210f5999ff47027cf444441ed525420224eb38df71e",
+    "web/anatomy/msk-atlas/manifest.json": "ef50083f82c062154d13b91cb3f672cf28fabd02bdc835c67dc1c5814f1d335c",
+    "web/anatomy/bodyparts3d/manifest.json": "01ac96ea0d59c5c03a1dce23a44cfd0971860cea298be99c8905c2abe9a4a250",
+    "web/anatomy/msk-mri-ankle/manifest.json": "1b1c4d7cedc3f12569512e12ddea61688e0f0a942af62b717f2fd61e7d337aab",
+    "tools/check_msk_fidelity.py": "6918cc4515e598f8fd5cec1b20a2f1823197a83d13bc30d33c8cbed3ccad39c9"
+  },
+  "source_registry": {
+    "RA_HIP": {
+      "url": "https://radiologyassistant.nl/musculoskeletal/hip/femoroacetabular-impingement-syndrome",
+      "kind": "primary_authored_reporting_chapter",
+      "section": "Subspine impingement",
+      "supports": "Local AIIS morphology and injury-related ossification can be alternative osseous pain generators; morphology alone is not a clinical impingement diagnosis."
+    },
+    "AIIS_CT_2013": {
+      "url": "https://link.springer.com/article/10.1007/s11999-013-2847-4",
+      "record_url": "https://pubmed.ncbi.nlm.nih.gov/23412732/",
+      "doi": "10.1007/s11999-013-2847-4",
+      "kind": "primary_3d_ct_morphology_and_simulated_motion_study",
+      "supports": "AIIS caudal extent and the intervening ilium wall are evaluated relative to the acetabular rim. Source figure captions 2–5 separate smooth wall, prominence at the rim and distal extension.",
+      "limits": "Morphological groupings and simulated motion from selected symptomatic cohorts do not independently diagnose pain or validate an unrelated atlas mesh."
+    },
+    "AIIS_AP_2017": {
+      "url": "https://pubmed.ncbi.nlm.nih.gov/28432458/",
+      "kind": "primary_ap_radiograph_vs_3d_ct_evaluation_study",
+      "supports": "A conspicuous AIIS projection on AP imaging can prompt further assessment, but AP pelvis alone cannot reliably distinguish the full 3D morphological classes.",
+      "access": "Primary indexed abstract reviewed; full-text claims not imported."
+    },
+    "RA_ANKLE": {
+      "url": "https://radiologyassistant.nl/musculoskeletal/ankle/mri-examination",
+      "kind": "primary_authored_reporting_chapter",
+      "section": "Accessory muscles",
+      "supports": "Accessory muscle tissue may resemble usual muscle on MRI; local course and surrounding anatomy require inspection. Its examples include accessory soleus and accessory FHL/FDL."
+    },
+    "PQ_MRI_2025": {
+      "url": "https://pubmed.ncbi.nlm.nih.gov/41008701/",
+      "publisher_url": "https://www.mdpi.com/2075-4418/15/18/2329",
+      "doi": "10.3390/diagnostics15182329",
+      "kind": "primary_retrospective_mri_study",
+      "supports": "1160 ankle examinations assessed a lateral-compartment peroneus quartus separately from usual peroneal tendons and studied adjacent tendon disease. Figure 1 depicts one origin/insertion pattern, not a universal variant.",
+      "access": "Primary indexed abstract/figure caption reviewed; publisher fetch returned 429. No media acquired."
+    },
+    "ASM_MRI_CADAVER_2011": {
+      "url": "https://pubmed.ncbi.nlm.nih.gov/21538570/",
+      "kind": "primary_cadaver_and_retrospective_mri_study_with_literature_review",
+      "supports": "Accessory soleus attachment patterns differ between specimens; the MRI cases had a separate medial-calcaneal tendon, while dissections also showed other attachments.",
+      "limits": "Do not substitute ordinary soleus anatomy or impose one distal attachment on every accessory soleus."
+    },
+    "FDAL_CADAVER_1997": {
+      "url": "https://pubmed.ncbi.nlm.nih.gov/9232504/",
+      "kind": "primary_cadaver_anatomy_report",
+      "supports": "Two accessory flexor digitorum longus specimens were in the deep posterior compartment and differed in size/origin.",
+      "access": "Primary indexed abstract reviewed."
+    },
+    "FDAL_MRI_SURGERY_2024": {
+      "url": "https://www.jstage.jst.go.jp/article/nmccrj/11/0/11_2023-0136/_article",
+      "doi": "10.2176/jns-nmc.2023-0136",
+      "kind": "primary_case_mri_and_surgical_report",
+      "supports": "Bilateral MRI and surgery in one patient document the accessory muscle and its relationship to tibial nerve and vessels in the tarsal tunnel; dynamic compression cannot be inferred from a neutral static reference.",
+      "media_rights": "CC BY-NC-ND 4.0 at publisher; factual reference only, no commercial media import or adaptation."
+    }
+  },
+  "preservation": {
+    "delete_existing_structures": false,
+    "delete_existing_required_parts": false,
+    "change_reporting_guide": false,
+    "change_required_representations": false,
+    "grant_asset_coverage": false,
+    "grant_clinical_approval": false
+  },
+  "investigations": [
+    {
+      "investigation_id": "ra.hip-fai",
+      "existing_investigation_sha256": "165f99fc49dd3c60ab1b3552a15259959b0a200e546cd73698e9c4981a490f50",
+      "effective_walkthrough_evidence": {
+        "path": "data/radiology/reporting-steps/musculoskeletal.json",
+        "json_pointer": "/investigations/ra.hip-fai/steps/4",
+        "label": "Alternative pain generators",
+        "detail": "Assess periarticular tendons, bursae, muscles and the visible pelvic structures.",
+        "normal": "No alternative pain generator identified.",
+        "findings": [
+          "Prominent anterior inferior iliac spine extending to the acetabular rim (subspine impingement morphology).",
+          "Gluteus [medius / minimus] tendinopathy [with partial tear] at the greater trochanter.",
+          "Femoral head subchondral fracture or osteonecrosis."
+        ],
+        "sections": [
+          "ALTERNATIVE PAIN GENERATORS"
+        ],
+        "specific_finding_index": 0
+      },
+      "effective_reporting_evidence": {
+        "path": "data/radiology/investigation-overrides.json",
+        "checklist": {
+          "label": "Alternative Pain Generators",
+          "detail": "Assess additional bone/joint abnormalities on the acquired radiographs. If MRI was acquired, also assess periarticular tendons, bursae, muscles and covered pelvic structures; state limitations of coverage."
+        },
+        "template_section": {
+          "heading": "ALTERNATIVE PAIN GENERATORS",
+          "body": "Additional radiographic bone/joint finding [ ]; MRI periarticular tendons [not assessed / findings]; effusion/bursae [not assessed / findings]; fracture/osteonecrosis [ ]; other relevant finding [ ]."
+        },
+        "limitations": "Named finding is in the effective walkthrough; worksheet contains only the broader alternative pain generator / muscle or soft-tissue field. No worksheet text is deleted or silently replaced."
+      },
+      "existing_named_structure_ids": [
+        "hip.proximal_femur",
+        "hip.acetabulum",
+        "hip.pelvic_positional_landmarks",
+        "hip.acetabular_labrum",
+        "hip.acetabular_cartilage",
+        "hip.femoral_head_cartilage",
+        "hip.hip_joint_space",
+        "hip.gluteus_medius_tendon",
+        "hip.gluteus_minimus_tendon",
+        "hip.iliopsoas_tendon",
+        "hip.rectus_femoris_tendon",
+        "hip.proximal_hamstring_tendons",
+        "hip.trochanteric_bursae",
+        "hip.iliopsoas_bursa",
+        "hip.hip_capsule_and_synovium",
+        "hip.gluteus_medius_muscle",
+        "hip.gluteus_minimus_muscle",
+        "hip.iliopsoas_muscle",
+        "hip.quadratus_femoris_muscle",
+        "hip.proximal_hamstring_muscles"
+      ],
+      "existing_expansion_rules": [],
+      "append_structures": [
+        {
+          "id": "hip.anterior_inferior_iliac_spine",
+          "name": "Anterior inferior iliac spine and subspine region",
+          "tissue_class": "bone",
+          "required_parts": [
+            {
+              "id": "hip.anterior_inferior_iliac_spine.inferior_prominence",
+              "name": "Inferior prominence (caudal osseous extent)"
+            },
+            {
+              "id": "hip.anterior_inferior_iliac_spine.subspine_region",
+              "name": "Ilium surface between AIIS and anterior acetabular rim"
+            }
+          ],
+          "laterality": "examined_side",
+          "modality_scope": [
+            "Radiography",
+            "CT",
+            "MRI"
+          ],
+          "image_visibility": "direct_when_supported_by_acquisition",
+          "condition": "For the existing subspine morphology finding, on the examined side and within acquired coverage. Radiography describes the visible projected osseous extent; 3D morphology and the subspine surface require suitable cross-sectional acquisition. Routine AP radiography alone does not establish a 3D type. MRI bone morphology is assessed only when resolution/sequences permit; no dynamic impingement, clinical diagnosis or tissue attachment is inferred.",
+          "requirement_basis": "anatomical_decomposition_of_report_field",
+          "report_refs": [
+            {
+              "checklist_index": 4,
+              "label": "Alternative Pain Generators",
+              "detail": "Assess additional bone/joint abnormalities on the acquired radiographs. If MRI was acquired, also assess periarticular tendons, bursae, muscles and covered pelvic structures; state limitations of coverage."
+            }
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/musculoskeletal/hip/femoroacetabular-impingement-syndrome",
+            "https://link.springer.com/article/10.1007/s11999-013-2847-4",
+            "https://pubmed.ncbi.nlm.nih.gov/28432458/"
+          ],
+          "requires_site_instantiation": false
+        }
+      ],
+      "acquisition_and_site_scope": {
+        "laterality": "Each examined side separately; no inferred bilateral or mirrored validation.",
+        "accessory_presence": null,
+        "structure_targets_explicitly_named": true,
+        "original_representations": [
+          "image",
+          "schematic",
+          "model"
+        ]
+      },
+      "counts": {
+        "structures_before": 20,
+        "parts_before": 50,
+        "leaf_targets_before": 57,
+        "structures_added": 1,
+        "parts_added": 2,
+        "leaf_targets_added": 2,
+        "representation_requirements_before": 171,
+        "representation_requirements_after_if_applied": 177,
+        "extra_representation_requirements": 6
+      },
+      "asset_inventory_review": {
+        "module_open_image_ids": [
+          "open-hip-cam-chondrolabral-mechanism-fig1",
+          "open-hip-chondrolabral-injury-mri-fig6",
+          "open-hip-normal-joint-schematic-aubry-fig2",
+          "open-hip-superior-labrum-mra-aubry-fig3",
+          "open-hip-posterior-labral-recess-mra-aubry-fig5",
+          "open-hip-gluteus-minimus-comparison-mri-amin-fig3",
+          "open-hip-proximal-hamstring-schematic-balius-fig2",
+          "open-hip-rectus-femoris-course-mecho-fig2",
+          "open-hip-tendon-boutin-fig6-5",
+          "open-hip-tendon-boutin-fig6-7"
+        ],
+        "module_publisher_key_image_ids": [
+          "ra-hip-fai-detail-1",
+          "ra-hip-fai-detail-2",
+          "ra-hip-fai-detail-3",
+          "ra-hip-fai-detail-4"
+        ],
+        "explicit_ledger_bindings_to_proposed_parts": [],
+        "finding": "No currently explicit proposed-part bindings or named accessory/AIIS subobject meshes. Incidental visibility in unreviewed images is unresolved, not disproved."
+      }
+    },
+    {
+      "investigation_id": "ra.mri-ankle",
+      "existing_investigation_sha256": "7662cba26602dd275b0517ed799608433f73267113a43377d1d36712e0bcd0a8",
+      "effective_walkthrough_evidence": {
+        "path": "data/radiology/reporting-steps/musculoskeletal.json",
+        "json_pointer": "/investigations/ra.mri-ankle/steps/4",
+        "label": "Joints, impingement and soft tissues",
+        "detail": "Assess effusion, synovitis, capsular thickening, impingement recesses, bursae, accessory muscles and masses.",
+        "normal": "No significant ankle or subtalar effusion; no synovitis; impingement recesses clear; bursae normal.",
+        "findings": [
+          "Soft-tissue thickening in the anterolateral gutter, compatible with anterolateral impingement in the appropriate clinical setting.",
+          "Retrocalcaneal bursitis with [Haglund deformity / insertional Achilles tendinopathy].",
+          "Moderate tibiotalar effusion with synovial thickening.",
+          "Accessory muscle: [peroneus quartus / accessory soleus / flexor digitorum accessorius longus]."
+        ],
+        "sections": [
+          "JOINTS AND SOFT TISSUES"
+        ],
+        "specific_finding_index": 3
+      },
+      "effective_reporting_evidence": {
+        "path": "data/radiology/investigation-overrides.json",
+        "checklist": {
+          "index": 4,
+          "label": "Joints And Soft Tissues",
+          "detail": "Assess effusions, capsule, impingement sites, bursae and any mass.",
+          "source_path": "data/radiology/investigation-overrides.json#/ra.mri-ankle/reporting/checklist/4"
+        },
+        "template_section": {
+          "index": 4,
+          "heading": "JOINTS AND SOFT TISSUES",
+          "body": "Tibiotalar/subtalar joints [ ]; effusion/synovitis [ ]; anterior/posterior impingement findings [ ]; bursae [ ]; muscle or soft-tissue lesion [ ].",
+          "source_path": "data/radiology/investigation-overrides.json#/ra.mri-ankle/reporting/template_sections/4"
+        },
+        "limitations": "Named finding is in the effective walkthrough; worksheet contains only the broader alternative pain generator / muscle or soft-tissue field. No worksheet text is deleted or silently replaced."
+      },
+      "existing_named_structure_ids": [
+        "ankle.distal_tibia",
+        "ankle.fibula",
+        "ankle.talus",
+        "ankle.calcaneus",
+        "ankle.navicular",
+        "foot.cuboid",
+        "foot.medial_cuneiform",
+        "foot.intermediate_cuneiform",
+        "foot.lateral_cuneiform",
+        "ankle.talar_dome_cartilage",
+        "ankle.tibial_plafond_cartilage",
+        "ankle.subtalar_cartilage",
+        "ankle.anterior_talofibular_ligament",
+        "ankle.calcaneofibular_ligament",
+        "ankle.posterior_talofibular_ligament",
+        "ankle.anterior_inferior_tibiofibular_ligament",
+        "ankle.posterior_inferior_tibiofibular_ligament",
+        "ankle.interosseous_ligament",
+        "ankle.interosseous_membrane",
+        "ankle.deltoid_ligament",
+        "ankle.spring_ligament_complex",
+        "ankle.cervical_ligament",
+        "ankle.interosseous_talocalcaneal_ligament",
+        "ankle.sinus_tarsi_fat",
+        "foot.plantar_fascia",
+        "ankle.posterior_tibial_tendon",
+        "ankle.flexor_digitorum_longus_tendon",
+        "ankle.flexor_hallucis_longus_tendon",
+        "ankle.tibialis_anterior_tendon",
+        "ankle.extensor_hallucis_longus_tendon",
+        "ankle.extensor_digitorum_longus_tendon",
+        "ankle.fibularis_longus_tendon",
+        "ankle.fibularis_brevis_tendon",
+        "ankle.achilles_tendon",
+        "ankle.plantaris_tendon",
+        "ankle.flexor_retinaculum",
+        "ankle.superior_extensor_retinaculum",
+        "ankle.inferior_extensor_retinaculum",
+        "ankle.superior_fibular_retinaculum",
+        "ankle.inferior_fibular_retinaculum",
+        "ankle.tibiotalar_capsule_and_synovium",
+        "ankle.subtalar_capsule_and_synovium",
+        "ankle.retrocalcaneal_bursa",
+        "ankle.subcutaneous_calcaneal_bursa",
+        "ankle.kager_fat_pad",
+        "ankle.tibial_nerve",
+        "ankle.posterior_tibial_artery",
+        "ankle.posterior_tibial_veins"
+      ],
+      "existing_expansion_rules": [
+        {
+          "rule": "For a muscle lesion or accessory muscle, identify each affected named muscle and its fascial compartment; a generic soft-tissue shell is not sufficient.",
+          "named_sites_or_targets": [],
+          "status": "requires_explicit_instantiation_before_complete_coverage_claim"
+        }
+      ],
+      "append_structures": [
+        {
+          "id": "ankle.peroneus_quartus_muscle",
+          "name": "Peroneus quartus (fibularis quartus) muscle",
+          "tissue_class": "muscle",
+          "required_parts": [
+            {
+              "id": "ankle.peroneus_quartus_muscle.muscle_belly",
+              "name": "Observed accessory muscle belly"
+            },
+            {
+              "id": "ankle.peroneus_quartus_muscle.visible_musculotendinous_course",
+              "name": "Visible accessory musculotendinous course"
+            },
+            {
+              "id": "ankle.peroneus_quartus_muscle.proximal_attachment_if_covered",
+              "name": "Individual proximal attachment if covered"
+            },
+            {
+              "id": "ankle.peroneus_quartus_muscle.distal_attachment_if_covered",
+              "name": "Individual distal attachment if covered"
+            }
+          ],
+          "laterality": "examined_side",
+          "modality_scope": [
+            "MRI"
+          ],
+          "image_visibility": "direct_when_supported_by_acquisition",
+          "condition": "For the explicitly named accessory-muscle finding when this variant is present/suspected on the examined side, within the actual MRI coverage. Record absent, not seen or outside coverage distinctly; do not assert a variant exists in every examination. Belly/course and each attachment retain their acquisition limits. Map its captured course in the lateral/retromalleolar region separately from fibularis brevis and longus; do not relabel fibularis tertius as this variant. Individual anatomy and pathology need independent source/examination review; static geometry does not establish symptom causation or dynamic compression.",
+          "requirement_basis": "anatomical_decomposition_of_report_field",
+          "report_refs": [
+            {
+              "checklist_index": 4,
+              "index": 4,
+              "label": "Joints And Soft Tissues",
+              "detail": "Assess effusions, capsule, impingement sites, bursae and any mass.",
+              "source_path": "data/radiology/investigation-overrides.json#/ra.mri-ankle/reporting/checklist/4"
+            }
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/musculoskeletal/ankle/mri-examination",
+            "https://pubmed.ncbi.nlm.nih.gov/41008701/"
+          ],
+          "requires_site_instantiation": false
+        },
+        {
+          "id": "ankle.accessory_soleus_muscle",
+          "name": "Accessory soleus muscle",
+          "tissue_class": "muscle",
+          "required_parts": [
+            {
+              "id": "ankle.accessory_soleus_muscle.muscle_belly",
+              "name": "Observed accessory muscle belly"
+            },
+            {
+              "id": "ankle.accessory_soleus_muscle.visible_musculotendinous_course",
+              "name": "Visible accessory musculotendinous course"
+            },
+            {
+              "id": "ankle.accessory_soleus_muscle.proximal_attachment_if_covered",
+              "name": "Individual proximal attachment if covered"
+            },
+            {
+              "id": "ankle.accessory_soleus_muscle.distal_attachment_if_covered",
+              "name": "Individual distal attachment if covered"
+            }
+          ],
+          "laterality": "examined_side",
+          "modality_scope": [
+            "MRI"
+          ],
+          "image_visibility": "direct_when_supported_by_acquisition",
+          "condition": "For the explicitly named accessory-muscle finding when this variant is present/suspected on the examined side, within the actual MRI coverage. Record absent, not seen or outside coverage distinctly; do not assert a variant exists in every examination. Belly/course and each attachment retain their acquisition limits. Map its captured course and individual attachment in relation to the Achilles/Kager region; usual soleus and Achilles meshes are not substitutes. Individual anatomy and pathology need independent source/examination review; static geometry does not establish symptom causation or dynamic compression.",
+          "requirement_basis": "anatomical_decomposition_of_report_field",
+          "report_refs": [
+            {
+              "checklist_index": 4,
+              "index": 4,
+              "label": "Joints And Soft Tissues",
+              "detail": "Assess effusions, capsule, impingement sites, bursae and any mass.",
+              "source_path": "data/radiology/investigation-overrides.json#/ra.mri-ankle/reporting/checklist/4"
+            }
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/musculoskeletal/ankle/mri-examination",
+            "https://pubmed.ncbi.nlm.nih.gov/21538570/"
+          ],
+          "requires_site_instantiation": false
+        },
+        {
+          "id": "ankle.flexor_digitorum_accessorius_longus_muscle",
+          "name": "Flexor digitorum accessorius longus muscle",
+          "tissue_class": "muscle",
+          "required_parts": [
+            {
+              "id": "ankle.flexor_digitorum_accessorius_longus_muscle.muscle_belly",
+              "name": "Observed accessory muscle belly"
+            },
+            {
+              "id": "ankle.flexor_digitorum_accessorius_longus_muscle.visible_musculotendinous_course",
+              "name": "Visible accessory musculotendinous course"
+            },
+            {
+              "id": "ankle.flexor_digitorum_accessorius_longus_muscle.proximal_attachment_if_covered",
+              "name": "Individual proximal attachment if covered"
+            },
+            {
+              "id": "ankle.flexor_digitorum_accessorius_longus_muscle.distal_attachment_if_covered",
+              "name": "Individual distal attachment if covered"
+            }
+          ],
+          "laterality": "examined_side",
+          "modality_scope": [
+            "MRI"
+          ],
+          "image_visibility": "direct_when_supported_by_acquisition",
+          "condition": "For the explicitly named accessory-muscle finding when this variant is present/suspected on the examined side, within the actual MRI coverage. Record absent, not seen or outside coverage distinctly; do not assert a variant exists in every examination. Belly/course and each attachment retain their acquisition limits. Map its captured deep-posterior/tarsal-tunnel course and relationship to existing tibial nerve, vessels, flexor retinaculum and usual FDL/FHL anatomy. Individual anatomy and pathology need independent source/examination review; static geometry does not establish symptom causation or dynamic compression.",
+          "requirement_basis": "anatomical_decomposition_of_report_field",
+          "report_refs": [
+            {
+              "checklist_index": 4,
+              "index": 4,
+              "label": "Joints And Soft Tissues",
+              "detail": "Assess effusions, capsule, impingement sites, bursae and any mass.",
+              "source_path": "data/radiology/investigation-overrides.json#/ra.mri-ankle/reporting/checklist/4"
+            }
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/musculoskeletal/ankle/mri-examination",
+            "https://pubmed.ncbi.nlm.nih.gov/9232504/",
+            "https://www.jstage.jst.go.jp/article/nmccrj/11/0/11_2023-0136/_article"
+          ],
+          "requires_site_instantiation": false
+        }
+      ],
+      "acquisition_and_site_scope": {
+        "laterality": "Each examined side separately; no inferred bilateral or mirrored validation.",
+        "accessory_presence": "Conditional variant presence/suspicion. Demonstrated absence is not missing coverage; outside scan coverage is not absence. Do not erase the existing rule for any other affected named muscle.",
+        "structure_targets_explicitly_named": true,
+        "original_representations": [
+          "image",
+          "schematic",
+          "model"
+        ]
+      },
+      "counts": {
+        "structures_before": 48,
+        "parts_before": 158,
+        "leaf_targets_before": 160,
+        "structures_added": 3,
+        "parts_added": 12,
+        "leaf_targets_added": 12,
+        "representation_requirements_before": 480,
+        "representation_requirements_after_if_applied": 516,
+        "extra_representation_requirements": 36
+      },
+      "asset_inventory_review": {
+        "module_open_image_ids": [
+          "open-ankle-talofibular-ligaments-mri-fig6",
+          "open-ankle-tibialis-posterior-mri-fig8",
+          "open-ankle-spring-components-szaro-fig2",
+          "open-ankle-lateral-ligaments-cube-fig2",
+          "open-ankle-deltoid-syndesmosis-cube-fig3",
+          "open-ankle-tendon-compartments-fig4",
+          "open-ankle-peroneal-course-bianchi-fig1",
+          "open-ankle-deltoid-ultrasound-hung-fig9",
+          "open-ankle-superomedial-spring-ultrasound-hung-fig11",
+          "open-ankle-retinacula-ultrasound-hung-fig18"
+        ],
+        "module_publisher_key_image_ids": [
+          "ra-mri-ankle-detail-1",
+          "ra-mri-ankle-detail-2",
+          "ra-mri-ankle-detail-3",
+          "ra-mri-ankle-detail-4",
+          "ra-mri-ankle-detail-5"
+        ],
+        "explicit_ledger_bindings_to_proposed_parts": [],
+        "finding": "No currently explicit proposed-part bindings or named accessory/AIIS subobject meshes. Incidental visibility in unreviewed images is unresolved, not disproved."
+      }
+    }
+  ],
+  "existing_model_scope": {
+    "msk_atlas_hip": {
+      "manifest": "web/anatomy/msk-atlas/manifest.json",
+      "parts": 61,
+      "whole_bone_candidates": [
+        {
+          "id": "za-bones-83785534",
+          "name": "Hip bone.r"
+        }
+      ],
+      "limits": "Whole right hip bone is not independent proof of AIIS caudal extent or the subspine region. Rectus femoris tendon material is not a measured direct-head footprint."
+    },
+    "bodyparts3d_hip": {
+      "manifest": "web/anatomy/bodyparts3d/manifest.json",
+      "parts": 7,
+      "whole_bone_candidates": [
+        {
+          "id": "FJ3152",
+          "name": "right hip bone"
+        }
+      ],
+      "limits": "Whole bone and broad family selection do not bind or validate AIIS substructures."
+    },
+    "msk_atlas_ankle": {
+      "manifest": "web/anatomy/msk-atlas/manifest.json",
+      "parts": 147,
+      "ordinary_muscle_candidates": [
+        "za-muscles-65307038",
+        "za-muscles-235597193",
+        "za-muscles-144360526",
+        "za-muscles-622768040"
+      ],
+      "limits": "Fibularis tertius, longus, brevis and FDL are ordinary named source objects, not any of the three proposed accessory variants."
+    },
+    "malaya_mri_ankle": {
+      "manifest": "web/anatomy/msk-mri-ankle/manifest.json",
+      "parts": 20,
+      "ordinary_muscle_candidates": [
+        "um-ankle-muscle-soleus",
+        "um-ankle-muscle-flexor-digitorum-longus",
+        "um-ankle-muscle-peroneus-longus"
+      ],
+      "limits": "Usual soleus, FDL and fibularis longus source muscle units do not prove accessory soleus, FDAL or PQ."
+    },
+    "rectus_course_image": {
+      "id": "open-hip-rectus-femoris-course-mecho-fig2",
+      "existing_binding": "hip.rectus_femoris_tendon.visible_course",
+      "limits": "Existing local direct/indirect tendon course panels do not establish AIIS/subspine morphology or complete direct-head origin."
+    }
+  },
+  "additive_validation": {
+    "catalog_investigations_preserved": 22,
+    "all_existing_structures_and_parts_preserved": true,
+    "counts_basis": "tools/check_msk_fidelity.py requirements_for: children are leaf targets; parent is a target only without children. Each leaf requires clinical_image, schematic, model independently. Counts retain conditions; no absence or coverage waiver assigned.",
+    "representation_requirements_before": 5250,
+    "extra_representation_requirements": 42,
+    "new_asset_bindings_assigned": 0,
+    "clinical_approvals_assigned": 0,
+    "representation_requirements_after_if_applied": 5292
+  },
+  "unimplemented_followups": [
+    "Apply only additive named-target correction after review, preserving all current fields and generic affected-muscle expansion rule.",
+    "Review original source-labelled images and geometry for the exact new targets before assigning any partial binding.",
+    "MRI reference absence or outside-coverage state must not be represented by a fabricated accessory muscle.",
+    "Clinical and commercial asset approvals remain pending."
+  ]
+}

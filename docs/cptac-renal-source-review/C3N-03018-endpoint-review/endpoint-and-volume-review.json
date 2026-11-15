@@ -1,0 +1,164 @@
+{
+  "case_id": "C3N-03018",
+  "source_selection_sha256": "7bdd465bf39303a2b3bb471067ecd172febac79de40b8dfa9924708e9145f82b",
+  "source_contour_review_sha256": "87a7e24709bfda8b0438310e9c9fc610375494d10b5d24f56156627b7bee795b",
+  "original_rtstruct_roi_volume_value": "35.685833",
+  "csv_volume_value": "35.685833",
+  "csv_and_dicom_values_match_exactly": true,
+  "dicom_roi_volume_unit": "cm3",
+  "unit_basis": "DICOM PS3.3 Structure Set Module, ROI Volume (3006,002C)",
+  "unit_definition_url": "https://dicom.nema.org/medical/dicom/current/output/chtml/part03/sect_c.8.8.5.html",
+  "original_generation_algorithm": "MANUAL",
+  "source_volume_calculation_algorithm_verified": false,
+  "volume_candidates": [
+    {
+      "convention": "linear_area_between_observed_planes",
+      "volume_mm3": 38531.08613328987,
+      "volume_cm3": 38.53108613328987,
+      "assumption": "Linearly interpolate planar area only between first/last observed centres; no outside end cap.",
+      "difference_from_recorded_cm3": 2.845253133289866,
+      "relative_difference_percent": 7.97306071933326,
+      "is_original_author_volume_method": false,
+      "is_clinical_volume_validation": false
+    },
+    {
+      "convention": "constant_area_centred_slabs",
+      "volume_mm3": 38589.53811050391,
+      "volume_cm3": 38.58953811050391,
+      "assumption": "Each source polygon area occupies one observed plane-spacing slab, extending half a step beyond both endpoint centres.",
+      "difference_from_recorded_cm3": 2.903705110503907,
+      "relative_difference_percent": 8.136856747897427,
+      "is_original_author_volume_method": false,
+      "is_clinical_volume_validation": false
+    },
+    {
+      "convention": "native_pixel_centres_centred_slabs",
+      "volume_mm3": 38577.87473420201,
+      "volume_cm3": 38.577874734202005,
+      "assumption": "Each selected native pixel centre occupies its full in-plane pixel area and one observed spacing slab; no source-author equivalence claimed.",
+      "difference_from_recorded_cm3": 2.892041734202003,
+      "relative_difference_percent": 8.104173256098584,
+      "is_original_author_volume_method": false,
+      "is_clinical_volume_validation": false
+    }
+  ],
+  "source_geometry_scaled_to_match_recorded_volume": false,
+  "source_values_changed": false,
+  "annotation_end_context": [
+    {
+      "end": "inferior",
+      "endpoint_source_polygon_area_mm2": 86.7062577599477,
+      "acquired_planes": [
+        {
+          "offset_from_endpoint": -2,
+          "ct_sop_instance_uid": "1.3.6.1.4.1.14519.5.2.1.3320.3273.931339259404930476996062181802",
+          "acquisition_number": "1",
+          "source_plane_z_lps_mm": -162.875,
+          "source_contour_present": false,
+          "unannotated_plane_is_clinically_negative": false
+        },
+        {
+          "offset_from_endpoint": -1,
+          "ct_sop_instance_uid": "1.3.6.1.4.1.14519.5.2.1.3320.3273.856627857217195438625144944885",
+          "acquisition_number": "1",
+          "source_plane_z_lps_mm": -162.25,
+          "source_contour_present": false,
+          "unannotated_plane_is_clinically_negative": false
+        },
+        {
+          "offset_from_endpoint": 0,
+          "ct_sop_instance_uid": "1.3.6.1.4.1.14519.5.2.1.3320.3273.255026776206492506169660330308",
+          "acquisition_number": "1",
+          "source_plane_z_lps_mm": -161.625,
+          "source_contour_present": true,
+          "unannotated_plane_is_clinically_negative": false
+        },
+        {
+          "offset_from_endpoint": 1,
+          "ct_sop_instance_uid": "1.3.6.1.4.1.14519.5.2.1.3320.3273.133332256690964318068157607547",
+          "acquisition_number": "1",
+          "source_plane_z_lps_mm": -161.0,
+          "source_contour_present": true,
+          "unannotated_plane_is_clinically_negative": false
+        },
+        {
+          "offset_from_endpoint": 2,
+          "ct_sop_instance_uid": "1.3.6.1.4.1.14519.5.2.1.3320.3273.264321534811500660748597808948",
+          "acquisition_number": "1",
+          "source_plane_z_lps_mm": -160.375,
+          "source_contour_present": true,
+          "unannotated_plane_is_clinically_negative": false
+        }
+      ],
+      "end_cap_defined_in_source": false
+    },
+    {
+      "end": "superior",
+      "endpoint_source_polygon_area_mm2": 100.34006932497365,
+      "acquired_planes": [
+        {
+          "offset_from_endpoint": -2,
+          "ct_sop_instance_uid": "1.3.6.1.4.1.14519.5.2.1.3320.3273.168509754299035830518158074450",
+          "acquisition_number": "1",
+          "source_plane_z_lps_mm": -116.625,
+          "source_contour_present": true,
+          "unannotated_plane_is_clinically_negative": false
+        },
+        {
+          "offset_from_endpoint": -1,
+          "ct_sop_instance_uid": "1.3.6.1.4.1.14519.5.2.1.3320.3273.263145217642844523148421687488",
+          "acquisition_number": "1",
+          "source_plane_z_lps_mm": -116.0,
+          "source_contour_present": true,
+          "unannotated_plane_is_clinically_negative": false
+        },
+        {
+          "offset_from_endpoint": 0,
+          "ct_sop_instance_uid": "1.3.6.1.4.1.14519.5.2.1.3320.3273.194575317810418955556754447260",
+          "acquisition_number": "1",
+          "source_plane_z_lps_mm": -115.375,
+          "source_contour_present": true,
+          "unannotated_plane_is_clinically_negative": false
+        },
+        {
+          "offset_from_endpoint": 1,
+          "ct_sop_instance_uid": "1.3.6.1.4.1.14519.5.2.1.3320.3273.161091522832022789622916023957",
+          "acquisition_number": "1",
+          "source_plane_z_lps_mm": -114.75,
+          "source_contour_present": false,
+          "unannotated_plane_is_clinically_negative": false
+        },
+        {
+          "offset_from_endpoint": 2,
+          "ct_sop_instance_uid": "1.3.6.1.4.1.14519.5.2.1.3320.3273.133291806930424523608000623141",
+          "acquisition_number": "1",
+          "source_plane_z_lps_mm": -114.125,
+          "source_contour_present": false,
+          "unannotated_plane_is_clinically_negative": false
+        }
+      ],
+      "end_cap_defined_in_source": false
+    }
+  ],
+  "figures": [
+    {
+      "file": "inferior-endpoint-context.png",
+      "sha256": "965e8743cbd0f22cb0ba895325d594c187d828fabe439e7d4f621edbff06b99b",
+      "source_pixels_resampled": false
+    },
+    {
+      "file": "superior-endpoint-context.png",
+      "sha256": "17b46e11d6984ef6267c7a4ca4c24adc984fe47a5002d2140d90ba95659437c4",
+      "source_pixels_resampled": false
+    }
+  ],
+  "clinical_approval": false,
+  "runtime_promoted": false,
+  "status": "held_unreconciled_source_volume_convention_and_end_extent",
+  "limits": [
+    "DICOM resolves the stored volume unit and matches the CSV; it does not explain the authors numerical volume method.",
+    "Area/slab conventions are explicit diagnostic comparisons, not competing approved anatomical models.",
+    "Nonzero endpoint contours and acquired neighbours do not establish the actual superior/inferior tumour boundary.",
+    "No absent annotation is made clinically negative; no source surface is scaled, closed or repaired to force agreement."
+  ]
+}

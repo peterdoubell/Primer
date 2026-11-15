@@ -1,0 +1,16 @@
+{
+  "scope": "All ten prompts, answers, kinds and choices are preserved. Original quiz objects are not all byte-identical: only question6 explain is deliberately corrected. No other quiz field changes.",
+  "original_commit": "1e1337aecef27acdc90ce7be93f6a92c3bd36360",
+  "source_path": "data/curriculum/01-mathematics.json",
+  "original_source_git_blob_sha256": "88df43b1ee853d690b5aa56fd711628e170cb91fcb1bc621764a3fbe23751916",
+  "question_number": 6,
+  "original_question": {
+    "path": "docs/number-theory-reader-review-20261012/original-q6-from-main.json",
+    "sha256": "60c3d811be851d76071aa9d056029dedf309c5512c2f4a9020804427b0aa7aa4"
+  },
+  "old_explain": "Factoring the public modulus n recovers the secret primes p and q, hence (p - 1)(q - 1) and the private exponent. Generating keys and encrypting messages would still work exactly as before; what is lost is the secrecy of the private key, which is the whole of the security.",
+  "new_explain": "Factoring the public modulus n recovers the secret primes p and q, hence (p − 1)(q − 1) and a private exponent by modular inversion. Key generation and encryption can still run, but someone with those factors can recover a working private key. This is a sufficient attack; it does not prove that every way of inverting RSA is equivalent to factoring, and real encryption schemes also require suitable encodings and implementations.",
+  "reason": "Replace the overbroad whole-of-security claim with the sufficient factoring attack, a working private exponent, no proven factoring/RSA-inversion equivalence, and the encoding/implementation distinction. Reviewed by root as aligned scientific correction.",
+  "all_ten_prompts_and_answers_preserved": true,
+  "no_other_quiz_field_changed": true
+}

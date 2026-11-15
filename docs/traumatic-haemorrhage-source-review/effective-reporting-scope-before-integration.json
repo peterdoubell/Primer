@@ -1,0 +1,320 @@
+{
+  "reporting": {
+    "reviewed_at": "2026-09-23",
+    "protocol": [
+      "Review noncontrast head CT with brain and bone reconstructions; compare prior trauma imaging if available."
+    ],
+    "checklist": [
+      {
+        "label": "Extra-Axial Blood",
+        "detail": "Distinguish epidural, subdural and subarachnoid compartments."
+      },
+      {
+        "label": "Parenchymal Injury",
+        "detail": "Assess contusions and visible intraparenchymal haemorrhage."
+      },
+      {
+        "label": "Ventricles",
+        "detail": "Identify intraventricular blood and ventricular obstruction."
+      },
+      {
+        "label": "Mass Effect",
+        "detail": "Assess midline, cisterns and herniation signs."
+      },
+      {
+        "label": "Bone And Comparison",
+        "detail": "Review skull and skull base fractures and interval change."
+      }
+    ],
+    "measurements": [
+      {
+        "name": "Haematoma and shift",
+        "method": "Measure collection thickness perpendicular to the skull and midline shift at a stated level.",
+        "pitfall": "Different planes can mimic interval growth."
+      }
+    ],
+    "classification": null,
+    "criteria_table": null,
+    "pitfalls": [
+      "A normal CT does not exclude nonhaemorrhagic traumatic brain injury; contusions can evolve on follow-up."
+    ],
+    "impression_prompts": [
+      "Traumatic bleeding compartments, mass effect and associated injury.",
+      "State the dominant abnormality, relevant extent and examination limitations."
+    ],
+    "escalation": [
+      "Immediately communicate significant acute haemorrhage, herniation or worsening mass effect."
+    ],
+    "template_sections": [
+      {
+        "heading": "EXTRA-AXIAL BLOOD",
+        "body": "Epidural: [ ]. Subdural side/thickness: [ ]. Subarachnoid distribution: [ ]."
+      },
+      {
+        "heading": "PARENCHYMAL INJURY",
+        "body": "Contusions/haematomas: [ ]. Oedema: [ ]."
+      },
+      {
+        "heading": "VENTRICLES",
+        "body": "Intraventricular blood: [ ]. Ventricular calibre: [ ]."
+      },
+      {
+        "heading": "MASS EFFECT",
+        "body": "Midline shift: [ ] mm. Basal cisterns: [ ]. Herniation concern: [ ]."
+      },
+      {
+        "heading": "BONE AND COMPARISON",
+        "body": "Fractures: [ ]. Pneumocephalus: [ ]. Interval change: [ ]."
+      }
+    ],
+    "sources": [
+      {
+        "title": "Radiology Assistant — Traumatic Intracranial Hemorrhage",
+        "url": "https://radiologyassistant.nl/neuroradiology/hemorrhage/traumatic-intracranial-haemorrhage"
+      }
+    ]
+  },
+  "report_templates": [
+    {
+      "id": "ra-ct-traumatic-haemorrhage-report",
+      "title": "CT TRAUMATIC INTRACRANIAL HAEMORRHAGE",
+      "description": "Reporting fields for CT traumatic intracranial haemorrhage. Complete the relevant observations and remove unused alternatives.",
+      "sections": [
+        {
+          "heading": "INDICATION",
+          "body": "Clinical question: [ ].\nRelevant history, symptoms and prior procedures: [ ]."
+        },
+        {
+          "heading": "COMPARISON",
+          "body": "[None / examination and date]."
+        },
+        {
+          "heading": "TECHNIQUE AND QUALITY",
+          "body": "Review noncontrast head CT with brain and bone reconstructions; compare prior trauma imaging if available.\n\nAcquisition details: [ ].\nQuality: [diagnostic / limited / non-diagnostic].\nLimitation and effect: [ ]."
+        },
+        {
+          "heading": "KEY IMAGES",
+          "body": "[IMG 1: extra-axial blood; series __ image __]\n[IMG 2: parenchymal injury; series __ image __]\n[IMG 3: ventricles; series __ image __]"
+        },
+        {
+          "heading": "EXTRA-AXIAL BLOOD",
+          "body": "Epidural: [ ]. Subdural side/thickness: [ ]. Subarachnoid distribution: [ ]."
+        },
+        {
+          "heading": "PARENCHYMAL INJURY",
+          "body": "Contusions/haematomas: [ ]. Oedema: [ ]."
+        },
+        {
+          "heading": "VENTRICLES",
+          "body": "Intraventricular blood: [ ]. Ventricular calibre: [ ]."
+        },
+        {
+          "heading": "MASS EFFECT",
+          "body": "Midline shift: [ ] mm. Basal cisterns: [ ]. Herniation concern: [ ]."
+        },
+        {
+          "heading": "BONE AND COMPARISON",
+          "body": "Fractures: [ ]. Pneumocephalus: [ ]. Interval change: [ ]."
+        },
+        {
+          "heading": "IMPRESSION",
+          "body": "1. [Traumatic bleeding compartments, mass effect and associated injury.]\n2. [State the dominant abnormality, relevant extent and examination limitations.]"
+        },
+        {
+          "heading": "RECOMMENDATION AND COMMUNICATION",
+          "body": "Recommended next step and rationale: [ ].\nDirect communication, when indicated: [recipient, time, method]."
+        }
+      ],
+      "notes": [
+        "A normal CT does not exclude nonhaemorrhagic traumatic brain injury; contusions can evolve on follow-up."
+      ],
+      "sources": [
+        {
+          "title": "Radiology Assistant — Traumatic Intracranial Hemorrhage",
+          "url": "https://radiologyassistant.nl/neuroradiology/hemorrhage/traumatic-intracranial-haemorrhage"
+        }
+      ]
+    }
+  ],
+  "reading": [
+    {
+      "id": "ra-596788760d1c",
+      "title": "Traumatic Intracranial Hemorrhage",
+      "url": "https://radiologyassistant.nl/neuroradiology/hemorrhage/traumatic-intracranial-haemorrhage",
+      "section": "Neuroradiology",
+      "topic": "Hemorrhage",
+      "module_id": "rad.5.intracranial-haemorrhage",
+      "headings": [
+        "Localization of hemorrhage",
+        "Anatomy of the meninges",
+        "Traumatic hemorrhage",
+        "Epidural hematoma",
+        "Subdural hematoma",
+        "Subarachnoid hemorrhage",
+        "Diffuse Axonal Injury",
+        "Duret hemorrhage"
+      ]
+    }
+  ],
+  "walkthrough": {
+    "reviewed_at": "2026-09-25",
+    "complete": true,
+    "template_id": "ra-ct-traumatic-haemorrhage-report",
+    "start": {
+      "sections": [
+        "INDICATION",
+        "COMPARISON",
+        "TECHNIQUE AND QUALITY",
+        "KEY IMAGES"
+      ],
+      "images": []
+    },
+    "steps": [
+      {
+        "label": "Extra-axial haemorrhage",
+        "detail": "Distinguish epidural, subdural and subarachnoid haemorrhage.",
+        "sections": [
+          "EXTRA-AXIAL BLOOD"
+        ],
+        "normal": {
+          "EXTRA-AXIAL BLOOD": "No extra-axial haemorrhage."
+        },
+        "findings": [
+          "Biconvex epidural haematoma over the [right temporal] convexity, __ mm thick, with an overlying fracture.",
+          "Crescentic acute subdural haematoma over the [left] convexity, __ mm thick.",
+          "Traumatic subarachnoid haemorrhage in the [ ] sulci."
+        ],
+        "images": [
+          "intracranial-haemorrhage-image-1"
+        ],
+        "measurements": [
+          "Haematoma and shift"
+        ],
+        "landmark": "meninges",
+        "parts": [
+          "FMA67292",
+          "FMA61819"
+        ],
+        "look": "Brain window and a wider subdural window; epidural is biconvex and limited by sutures; subdural is crescentic and crosses sutures.",
+        "tip": "An epidural haematoma does not cross sutures; a subdural haematoma does not cross the midline."
+      },
+      {
+        "label": "Parenchymal injury",
+        "detail": "Assess contusions, intraparenchymal haematoma and oedema.",
+        "sections": [
+          "PARENCHYMAL INJURY"
+        ],
+        "normal": {
+          "PARENCHYMAL INJURY": "No contusion or intraparenchymal haemorrhage."
+        },
+        "findings": [
+          "Haemorrhagic contusions of the [inferior frontal / anterior temporal] lobes.",
+          "Petechial haemorrhages at the grey–white junction and corpus callosum (diffuse axonal injury pattern)."
+        ],
+        "images": [],
+        "measurements": [],
+        "landmark": "territories",
+        "parts": [
+          "FMA67292",
+          "FMA61819"
+        ],
+        "look": "Frontal and temporal poles and inferior surfaces (coup and contrecoup sites).",
+        "tip": "Contusions often enlarge on early follow-up CT."
+      },
+      {
+        "label": "Ventricles",
+        "detail": "Identify intraventricular blood and ventricular obstruction.",
+        "sections": [
+          "VENTRICLES"
+        ],
+        "normal": {
+          "VENTRICLES": "No intraventricular haemorrhage; ventricles normal."
+        },
+        "findings": [
+          "Intraventricular blood layering in the occipital horns.",
+          "Early hydrocephalus."
+        ],
+        "images": [],
+        "measurements": [],
+        "landmark": "ventricles",
+        "parts": [
+          "FJ1814",
+          "FJ1767",
+          "FJ1730",
+          "FJ1731"
+        ],
+        "look": "Occipital horns for layering blood; ventricular size."
+      },
+      {
+        "label": "Mass effect",
+        "detail": "Measure midline shift and assess the basal cisterns and herniation.",
+        "sections": [
+          "MASS EFFECT"
+        ],
+        "normal": {
+          "MASS EFFECT": "No midline shift; basal cisterns patent."
+        },
+        "findings": [
+          "Midline shift of __ mm to the [left].",
+          "Effaced basal cisterns with uncal herniation.",
+          "Duret haemorrhage in the pons (secondary to descending herniation)."
+        ],
+        "images": [],
+        "measurements": [
+          "Haematoma and shift"
+        ],
+        "landmark": "ventricles",
+        "parts": [
+          "FJ1814",
+          "FJ1767",
+          "FJ1730",
+          "FJ1731"
+        ],
+        "look": "Midline shift at the level of the septum pellucidum; ambient and quadrigeminal cisterns."
+      },
+      {
+        "label": "Skull and comparison",
+        "detail": "Review skull and skull-base fractures, pneumocephalus and interval change.",
+        "sections": [
+          "BONE AND COMPARISON"
+        ],
+        "normal": {
+          "BONE AND COMPARISON": "No skull fracture or pneumocephalus."
+        },
+        "findings": [
+          "Fracture of the [right temporal] bone crossing the middle meningeal groove.",
+          "Skull-base fracture with pneumocephalus.",
+          "Increase in contusion size since [time]."
+        ],
+        "images": [],
+        "measurements": [],
+        "landmark": "meninges",
+        "parts": [
+          "FMA67292",
+          "FMA61819"
+        ],
+        "look": "Bone window with multiplanar and 3D reformats."
+      }
+    ],
+    "finish": {
+      "sections": [
+        "IMPRESSION",
+        "RECOMMENDATION AND COMMUNICATION"
+      ]
+    },
+    "spatial_model": {
+      "id": "radiology-model-rad.5.intracranial-haemorrhage",
+      "title": "Intracranial Haemorrhage · 3D landmarks",
+      "instructions": "Drag to rotate; choose a reporting landmark and move the section plane. Distinguish lobar, deep and ventricular compartments when localising haemorrhage.",
+      "scenario": "radiology-reference:rad.5.intracranial-haemorrhage",
+      "family": "brain",
+      "focus": [
+        "deep"
+      ],
+      "reporting_aim": "Distinguish lobar, deep and ventricular compartments when localising haemorrhage."
+    }
+  },
+  "investigation_id": "ra.ct-traumatic-haemorrhage",
+  "module_id": "rad.5.intracranial-haemorrhage",
+  "scope_captured_before_source_integration": true
+}

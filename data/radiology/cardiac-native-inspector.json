@@ -1,0 +1,115 @@
+{
+  "schema_version": 1,
+  "source_case": "s0028",
+  "source_version": "1.0",
+  "source_doi": "10.5281/zenodo.6802614",
+  "source_triangles": 86072,
+  "bindings": {
+    "ra.thoracic-ultrasound": [
+      "totalseg-v1-s0028-cardiac-native"
+    ],
+    "ra.mri-cardiomyopathy": [
+      "totalseg-v1-s0028-cardiac-native"
+    ],
+    "ra.ct-coronary": [
+      "totalseg-v1-s0028-cardiac-native"
+    ],
+    "ra.cardiac-masses": [
+      "totalseg-v1-s0028-cardiac-native"
+    ]
+  },
+  "inspectors": {
+    "totalseg-v1-s0028-cardiac-native": {
+      "id": "totalseg-v1-s0028-cardiac-native",
+      "modality": "CT",
+      "title": "Original cardiac CT, LV myocardium and chamber-region source surfaces",
+      "src": "/app/anatomy/totalseg-v1-s0028-cardiac/index.html",
+      "manifest_url": "/app/anatomy/totalseg-v1-s0028-cardiac/viewer-manifest.json",
+      "sha256": "b368a801f2f1cce84a08200245862060c2d726b05c5720000d26f20aa91e25c4",
+      "manifest_sha256": "2007ee2621a6e8bd6dc875d8cf8d659083da0a5ae8ff56e7be492901c67b49ee",
+      "caption": "Inspect the separate original TotalSegmentator v1 s0028 CT, LV-myocardium label and four chamber-region labels with all 86,072 retained interface triangles. This CT anatomy context does not supply MRI tissue characterization, coronary arteries, cardiac masses, pericardium, valves, RV/atrial myocardial walls or quantitative function. Original source planes and voxel values remain available; no ultrasound/MRI or current-patient registration is supplied.",
+      "attribution": "Jakob Wasserthal and colleagues. TotalSegmentator dataset v1.0, case s0028. DOI 10.5281/zenodo.6802614. CC BY 4.0. Adaptation: reversible source-value display and complete 0.5 mask-interface extraction with area-weighted display normals; no smoothing, deletion, capping, fitting or repair.",
+      "source_url": "https://zenodo.org/records/6802614",
+      "license": "CC BY 4.0",
+      "license_url": "https://creativecommons.org/licenses/by/4.0/",
+      "bound_source_ids": [
+        "totalseg-v1-s0028-cardiac-native"
+      ],
+      "clinical_approval": false,
+      "fine_anatomical_approval": false,
+      "current_patient_registration": false,
+      "normal_anatomical_atlas_approval": false,
+      "complete_reporting_anatomy_approved": false
+    }
+  },
+  "files": {
+    "index.html": {
+      "sha256": "b368a801f2f1cce84a08200245862060c2d726b05c5720000d26f20aa91e25c4",
+      "bytes": 5365
+    },
+    "originals/ct.nii.gz": {
+      "sha256": "c7e4da7bdfd27609043b10f709df40f674beebaaeb93eaee87a7e4f130bde2b4",
+      "bytes": 49781712
+    },
+    "originals/heart_atrium_left.nii.gz": {
+      "sha256": "e76421eab385f5e49a870e002c4fde8bbcf36205a10ddadbec8b783dc0401b39",
+      "bytes": 157873
+    },
+    "originals/heart_atrium_right.nii.gz": {
+      "sha256": "5d347a26a2d4af237abc30550e28b7c6bb011b2a750d41871162e46d740b2c6d",
+      "bytes": 159573
+    },
+    "originals/heart_myocardium.nii.gz": {
+      "sha256": "ab9456598fd63c2da9fbda22599a95789ce1377b3b899426c87ff5740f768f3c",
+      "bytes": 162901
+    },
+    "originals/heart_ventricle_left.nii.gz": {
+      "sha256": "1c7e34e55f72e6d9bdaedd83aacc27e090231c4e4fc9452c1b7d3b3a0aeb117d",
+      "bytes": 158827
+    },
+    "originals/heart_ventricle_right.nii.gz": {
+      "sha256": "38c60dedc2d720170b564baa8c8defa2d1449633ddb2efe7092f96676eb848bc",
+      "bytes": 160319
+    },
+    "surface-review.js": {
+      "sha256": "c59a5ef10b29eb37075418255ac623216b0ef101295e0dd8ce6b0112260a39e8",
+      "bytes": 8471
+    },
+    "surfaces/heart_atrium_left-review-buffer.bin.gz": {
+      "sha256": "e50c82ab5a3ad728ada57656999cfd137ff2e4cd5fb9e3e9a63971423a4119ff",
+      "bytes": 63510
+    },
+    "surfaces/heart_atrium_right-review-buffer.bin.gz": {
+      "sha256": "2d08be956a20ab1296ca9fd2f2b6d577a6b514af7d76da36f7e3bec33b25d414",
+      "bytes": 79744
+    },
+    "surfaces/heart_myocardium-review-buffer.bin.gz": {
+      "sha256": "43b03762028748c2c5c18577839fbab320e2912266835000a9b91a63e88f9cc0",
+      "bytes": 176863
+    },
+    "surfaces/heart_ventricle_left-review-buffer.bin.gz": {
+      "sha256": "ae930c7aa38e2e25d310e42486ba35672651bdcc12e047b2f4f215db7a296289",
+      "bytes": 79095
+    },
+    "surfaces/heart_ventricle_right-review-buffer.bin.gz": {
+      "sha256": "7ab9c77972810e3a5a3ec43aa3d19c6c19b598f1bcaf159e33258d93495b8eab",
+      "bytes": 121828
+    },
+    "viewer-manifest.json": {
+      "sha256": "2007ee2621a6e8bd6dc875d8cf8d659083da0a5ae8ff56e7be492901c67b49ee",
+      "bytes": 10181
+    },
+    "viewer.css": {
+      "sha256": "6783422c6b2ae7ab1f971c91577a7d32c88748406430a83dd1b3d39d4857a98f",
+      "bytes": 1319
+    },
+    "volume-review.js": {
+      "sha256": "2244fa5891228d45ac8e238871fc1979b7c72c854d9f1703699cc583e0641ca5",
+      "bytes": 6600
+    },
+    "mask-storage.js": {
+      "sha256": "fce5be2ba349e091ca99dfe1535553e22bb13ed31057b640ebef374f5a2a1417",
+      "bytes": 753
+    }
+  }
+}

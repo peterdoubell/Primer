@@ -1,0 +1,711 @@
+{
+  "integrationBase": "e672744a2d66e94af8e063d09bc7819e218f2298",
+  "baselineCurriculumSHA256": "af745c88f26428084f200c7fb5c1f33569bb2c4b6cb7dd1930c74f8541ebd253",
+  "originalNodes": [
+    {
+      "id": "math.1.addition",
+      "title": "Addition",
+      "stage": 1,
+      "goal": "Add numbers up to 100 quickly and surely.",
+      "articles": [
+        "Addition"
+      ],
+      "practice": "addition",
+      "kid_text": "Adding means putting groups together to find how many you have in all. If you have 5 stickers and a friend gives you 3 more, count on: six, seven, eight, so you have 8! You can add in any order, so 3 + 5 also makes 8. A tens trick helps: 8 + 5 is the same as 10 + 3, which is 13.",
+      "lesson_media": [
+        {
+          "id": "make-ten-plate",
+          "kind": "illustration",
+          "src": "/app/illustrations/sprout/math/math-1-addition-800.webp",
+          "srcset": "/app/illustrations/sprout/math/math-1-addition-800.webp 800w, /app/illustrations/sprout/math/math-1-addition-1600.webp 1600w",
+          "alt": "A ten-frame holds eight blue pebbles and two of five green counters; three green counters remain below.",
+          "caption": "Use 2 from the 5 to complete ten; 3 remain, so 8 + 5 = 13.",
+          "width": 1600,
+          "height": 1000
+        },
+        {
+          "id": "make-a-friendly-ten",
+          "kind": "model",
+          "renderer": "make-ten",
+          "title": "Make a friendly ten",
+          "instructions": "Move counters from one addend to fill the ten-frame. Swap the addends and notice that the total stays the same.",
+          "props": {
+            "first": 8,
+            "second": 5
+          }
+        }
+      ],
+      "prereqs": [
+        "math.0.counting",
+        "math.0.numbers20"
+      ],
+      "quiz": [
+        {
+          "kind": "choice",
+          "prompt": "5 + 3 = ?",
+          "choices": [
+            "7",
+            "8",
+            "9"
+          ],
+          "answer": "8",
+          "say": "Five plus three. Is it 7, 8, or 9?",
+          "speak_choices": true,
+          "explain": "Count on from five: six, seven, eight!"
+        },
+        {
+          "kind": "choice",
+          "prompt": "8 + 5 = ?",
+          "choices": [
+            "12",
+            "13",
+            "14"
+          ],
+          "answer": "13",
+          "say": "Eight plus five. Is it 12, 13, or 14?",
+          "speak_choices": true,
+          "explain": "Eight and two make ten, and three more makes thirteen."
+        },
+        {
+          "kind": "choice",
+          "prompt": "20 + 30 = ?",
+          "choices": [
+            "40",
+            "50",
+            "60"
+          ],
+          "answer": "50",
+          "say": "Twenty plus thirty. Is it 40, 50, or 60?",
+          "speak_choices": true,
+          "explain": "Two tens and three tens make five tens, which is fifty."
+        },
+        {
+          "kind": "choice",
+          "prompt": "6 + 4 = ?",
+          "choices": [
+            "9",
+            "10",
+            "11"
+          ],
+          "answer": "10",
+          "say": "What is six plus four? 9, 10, or 11?",
+          "speak_choices": true,
+          "explain": "Six and four make a friendly ten."
+        },
+        {
+          "kind": "choice",
+          "prompt": "7 + 7 = ?",
+          "choices": [
+            "14",
+            "12",
+            "15"
+          ],
+          "answer": "14",
+          "say": "What is seven plus seven? 14, 12, or 15?",
+          "speak_choices": true,
+          "explain": "Double seven is fourteen."
+        },
+        {
+          "kind": "choice",
+          "prompt": "25 + 10 = ?",
+          "choices": [
+            "30",
+            "45",
+            "35"
+          ],
+          "answer": "35",
+          "say": "What is twenty-five plus ten? 30, 45, or 35?",
+          "speak_choices": true,
+          "explain": "Twenty-five is two tens and five ones. One more ten makes three tens and five ones: thirty-five."
+        },
+        {
+          "kind": "choice",
+          "prompt": "3 + 6 = 9. So 6 + 3 = ?",
+          "choices": [
+            "9",
+            "6",
+            "8"
+          ],
+          "answer": "9",
+          "say": "Three plus six is nine. So what is six plus three? 9, 6, or 8?",
+          "speak_choices": true,
+          "explain": "Swapping the two numbers round never changes the answer, so 6 + 3 is 9 as well."
+        }
+      ]
+    },
+    {
+      "id": "math.1.subtraction",
+      "title": "Subtraction",
+      "stage": 1,
+      "goal": "Take away and find the difference.",
+      "articles": [
+        "Subtraction"
+      ],
+      "practice": "subtraction",
+      "prereqs": [
+        "math.1.addition",
+        "math.0.compare"
+      ],
+      "kid_text": "Subtraction is taking some away and counting what is left. If you have 9 grapes and eat 4, then 5 grapes are still waiting. It also answers \"how many more?\": if you have 9 and a friend has 4, you have 5 more. Subtraction undoes adding, so because 4 + 5 = 9, we know 9 - 4 = 5.",
+      "quiz": [
+        {
+          "kind": "choice",
+          "prompt": "9 - 4 = ?",
+          "choices": [
+            "4",
+            "5",
+            "6"
+          ],
+          "answer": "5",
+          "say": "Nine take away four. Is it 4, 5, or 6?",
+          "speak_choices": true,
+          "explain": "You had nine grapes, ate four, and five are still waiting."
+        },
+        {
+          "kind": "choice",
+          "prompt": "7 sweets, eat 2. Left? 🍬",
+          "choices": [
+            "4",
+            "5",
+            "6"
+          ],
+          "answer": "5",
+          "say": "You have seven sweets and you eat two of them. How many are left? 4, 5, or 6?",
+          "speak_choices": true,
+          "explain": "Seven take away two leaves five sweets."
+        },
+        {
+          "kind": "choice",
+          "prompt": "You have 10, friend has 6. How many more?",
+          "choices": [
+            "3",
+            "4",
+            "5"
+          ],
+          "answer": "4",
+          "say": "You have ten stickers and your friend has six. How many more do you have? 3, 4, or 5?",
+          "speak_choices": true,
+          "explain": "Ten take away six is four, so you have four more."
+        },
+        {
+          "kind": "choice",
+          "prompt": "8 - 3 = ?",
+          "choices": [
+            "4",
+            "5",
+            "6"
+          ],
+          "answer": "5",
+          "say": "What is eight take away three? 4, 5, or 6?",
+          "speak_choices": true,
+          "explain": "Start at eight and count back three: seven, six, five."
+        },
+        {
+          "kind": "choice",
+          "prompt": "6 birds 🐦, 2 fly away. Left?",
+          "choices": [
+            "4",
+            "3",
+            "8"
+          ],
+          "answer": "4",
+          "say": "There were six birds and two flew away. How many are left? 4, 3, or 8?",
+          "speak_choices": true,
+          "explain": "Six take away two leaves four birds sitting there."
+        },
+        {
+          "kind": "choice",
+          "prompt": "12 - 5 = ?",
+          "choices": [
+            "6",
+            "8",
+            "7"
+          ],
+          "answer": "7",
+          "say": "What is twelve take away five? 6, 8, or 7?",
+          "speak_choices": true,
+          "explain": "Twelve minus five leaves seven."
+        },
+        {
+          "kind": "choice",
+          "prompt": "6 + 3 = 9, so 9 - 3 = ?",
+          "choices": [
+            "3",
+            "6",
+            "9"
+          ],
+          "answer": "6",
+          "say": "Six plus three is nine. So what is nine take away three? 3, 6, or 9?",
+          "speak_choices": true,
+          "explain": "Taking away undoes adding, so you land back on six."
+        }
+      ],
+      "lesson_media": [
+        {
+          "id": "subtraction-two-meanings-plate",
+          "kind": "illustration",
+          "src": "/app/illustrations/sprout/math/math-1-subtraction-800.webp",
+          "srcset": "/app/illustrations/sprout/math/math-1-subtraction-800.webp 800w, /app/illustrations/sprout/math/math-1-subtraction-1600.webp 1600w",
+          "alt": "Nine counters with four crossed out leave five; paired rows of nine and four also differ by five.",
+          "caption": "The equation 9 − 4 = 5 can describe what remains or the difference between two quantities. Addition checks the result because 4 + 5 = 9.",
+          "width": 1600,
+          "height": 1000
+        },
+        {
+          "id": "math.1.subtraction-concept-model",
+          "kind": "model",
+          "renderer": "concept-lab",
+          "title": "Take away, see what stays",
+          "instructions": "Choose how many counters stay and how many are removed. Read the subtraction from the whole group.",
+          "props": {
+            "scenario": "math.1.subtraction"
+          }
+        }
+      ]
+    },
+    {
+      "id": "math.1.place-value",
+      "title": "Place Value",
+      "stage": 1,
+      "goal": "Know what each digit in a big number means.",
+      "articles": [
+        "Positional notation",
+        "Decimal"
+      ],
+      "kid_text": "In a big number, where a digit sits tells you how much it is worth. In 47, the 4 means 4 tens, which is forty, and the 7 means 7 ones. So 47 is really 40 and 7 packed together. The digit itself does not grow: moving it one place left makes its place value ten times as large.",
+      "prereqs": [
+        "math.0.counting",
+        "math.0.numbers20",
+        "math.1.addition"
+      ],
+      "quiz": [
+        {
+          "kind": "choice",
+          "prompt": "In 47, what is the 4 worth?",
+          "choices": [
+            "4",
+            "40",
+            "400"
+          ],
+          "answer": "40",
+          "say": "In the number forty-seven, what is the four worth? 4, 40, or 400?",
+          "speak_choices": true,
+          "explain": "The four sits in the tens spot, so it means four tens, which is forty."
+        },
+        {
+          "kind": "choice",
+          "prompt": "How many tens in 60?",
+          "choices": [
+            "6",
+            "16",
+            "60"
+          ],
+          "answer": "6",
+          "say": "How many tens are hiding inside sixty? 6, 16, or 60?",
+          "speak_choices": true,
+          "explain": "Six tens stack up to make sixty."
+        },
+        {
+          "kind": "choice",
+          "prompt": "40 and 7 together make?",
+          "choices": [
+            "47",
+            "74",
+            "11"
+          ],
+          "answer": "47",
+          "say": "Forty and seven packed together. Is it 47, 74, or 11?",
+          "speak_choices": true,
+          "explain": "Forty and seven make forty-seven."
+        },
+        {
+          "kind": "choice",
+          "prompt": "In 58, what is the 8 worth?",
+          "choices": [
+            "8",
+            "80",
+            "58"
+          ],
+          "answer": "8",
+          "say": "In the number fifty-eight, how much is the eight worth? 8, 80, or 58?",
+          "speak_choices": true,
+          "explain": "The 8 is in the ones place, so it is worth just 8. The 5 is the one worth 50."
+        },
+        {
+          "kind": "choice",
+          "prompt": "How many tens in 30?",
+          "choices": [
+            "30",
+            "3",
+            "13"
+          ],
+          "answer": "3",
+          "say": "How many tens are inside thirty? 30, 3, or 13?",
+          "speak_choices": true,
+          "explain": "Thirty is three tens stacked together."
+        },
+        {
+          "kind": "choice",
+          "prompt": "Which number has 9 tens?",
+          "choices": [
+            "9",
+            "19",
+            "90"
+          ],
+          "answer": "90",
+          "say": "Which number has nine tens in it? 9, 19, or 90?",
+          "speak_choices": true,
+          "explain": "Ninety is nine tens, so the nine sits in the tens spot."
+        },
+        {
+          "kind": "choice",
+          "prompt": "20 and 6 together make?",
+          "choices": [
+            "62",
+            "206",
+            "26"
+          ],
+          "answer": "26",
+          "say": "What do twenty and six make when you put them together? 62, 206, or 26?",
+          "speak_choices": true,
+          "explain": "Two tens and six ones make twenty-six."
+        }
+      ],
+      "lesson_media": [
+        {
+          "id": "forty-seven-place-value-plate",
+          "kind": "illustration",
+          "src": "/app/illustrations/sprout/math/math-1-place-value-800.webp",
+          "srcset": "/app/illustrations/sprout/math/math-1-place-value-800.webp 800w, /app/illustrations/sprout/math/math-1-place-value-1600.webp 1600w",
+          "alt": "Four ten-rods sit in the tens column and seven unit squares sit in the ones column to make 47.",
+          "caption": "In 47, position gives the 4 a value of forty and the 7 a value of seven. One ten can be exchanged for ten ones without changing the total.",
+          "width": 1600,
+          "height": 1000
+        },
+        {
+          "id": "math.1.place-value-concept-model",
+          "kind": "model",
+          "renderer": "concept-lab",
+          "title": "Build hundreds, tens and ones",
+          "instructions": "Change each digit. Compare a hundred square, a ten rod and a single unit; read their contributions to the number.",
+          "props": {
+            "scenario": "math.1.place-value"
+          }
+        }
+      ],
+      "practice": "know:math.1.place-value"
+    },
+    {
+      "id": "math.1.multiplication",
+      "title": "Multiplication",
+      "stage": 1,
+      "goal": "Master the times tables to 12 × 12.",
+      "articles": [
+        "Multiplication",
+        "Multiplication table"
+      ],
+      "practice": "times-tables",
+      "prereqs": [
+        "math.1.addition",
+        "math.0.patterns"
+      ],
+      "kid_text": "Multiplying is a fast way to add the same number again and again. 4 x 3 means 4 groups of 3, so instead of 3 + 3 + 3 + 3 you just know it is 12. Picture 4 rows of 3 cookies on a tray and count them all: 12. Learn your times tables up to 12 x 12 and these answers pop out in a snap.",
+      "quiz": [
+        {
+          "kind": "choice",
+          "prompt": "4 rows of 3 🍪. How many?",
+          "choices": [
+            "7",
+            "9",
+            "12"
+          ],
+          "answer": "12",
+          "say": "There are four rows of cookies with three cookies in each row. How many cookies in all? 7, 9, or 12?",
+          "speak_choices": true,
+          "explain": "Four groups of three make twelve cookies."
+        },
+        {
+          "kind": "choice",
+          "prompt": "2 × 5 = ?",
+          "choices": [
+            "7",
+            "10",
+            "12"
+          ],
+          "answer": "10",
+          "say": "Two times five. Is it 7, 10, or 12?",
+          "speak_choices": true,
+          "explain": "Two groups of five make ten."
+        },
+        {
+          "kind": "choice",
+          "prompt": "6 × 6 = ?",
+          "choices": [
+            "12",
+            "30",
+            "36"
+          ],
+          "answer": "36",
+          "say": "Six times six. Is it 12, 30, or 36?",
+          "speak_choices": true,
+          "explain": "Six rows of six make thirty-six."
+        },
+        {
+          "kind": "choice",
+          "prompt": "3 × 3 = ?",
+          "choices": [
+            "6",
+            "9",
+            "12"
+          ],
+          "answer": "9",
+          "say": "What is three times three? 6, 9, or 12?",
+          "speak_choices": true,
+          "explain": "Three groups of three make nine."
+        },
+        {
+          "kind": "choice",
+          "prompt": "5 groups of 2 🍬. How many?",
+          "choices": [
+            "10",
+            "7",
+            "12"
+          ],
+          "answer": "10",
+          "say": "There are five groups with two sweets in each. How many sweets in all? 10, 7, or 12?",
+          "speak_choices": true,
+          "explain": "Two, four, six, eight, ten — five groups of two make ten."
+        },
+        {
+          "kind": "choice",
+          "prompt": "12 × 12 = ?",
+          "choices": [
+            "124",
+            "144",
+            "122"
+          ],
+          "answer": "144",
+          "say": "What is twelve times twelve? 124, 144, or 122?",
+          "speak_choices": true,
+          "explain": "Twelve twelves make one hundred forty-four, the last one in your tables."
+        },
+        {
+          "kind": "choice",
+          "prompt": "7 × 2 = ?",
+          "choices": [
+            "14",
+            "16",
+            "9"
+          ],
+          "answer": "14",
+          "say": "What is seven times two? 14, 16, or 9?",
+          "speak_choices": true,
+          "explain": "Two sevens are fourteen, just like seven plus seven."
+        }
+      ],
+      "lesson_media": [
+        {
+          "id": "twelve-array-turn-plate",
+          "kind": "illustration",
+          "src": "/app/illustrations/sprout/math/math-1-multiplication-800.webp",
+          "srcset": "/app/illustrations/sprout/math/math-1-multiplication-800.webp 800w, /app/illustrations/sprout/math/math-1-multiplication-1600.webp 1600w",
+          "alt": "Four rows of three counters form an array of twelve; turning the array gives three rows of four.",
+          "caption": "Four groups of three total twelve. Rotating the array shows that 4 × 3 and 3 × 4 have the same product.",
+          "width": 1600,
+          "height": 1000
+        },
+        {
+          "id": "math.1.multiplication-concept-model",
+          "kind": "model",
+          "renderer": "concept-lab",
+          "title": "Rows times columns",
+          "instructions": "Change the rows and counters in each row. Count equal groups, then compare the product.",
+          "props": {
+            "scenario": "math.1.multiplication"
+          }
+        }
+      ]
+    },
+    {
+      "id": "math.1.division",
+      "title": "Division",
+      "stage": 1,
+      "goal": "Share into equal groups; divide with times-table facts.",
+      "articles": [
+        "Division (mathematics)"
+      ],
+      "practice": "division",
+      "prereqs": [
+        "math.1.multiplication",
+        "math.1.subtraction"
+      ],
+      "kid_text": "Dividing means sharing a bunch into equal groups so everyone gets the same amount. If you have 12 candies and 3 friends, deal them out one at a time until each friend has 4. Division is the opposite of multiplying: because 3 x 4 = 12, we know 12 / 3 = 4. Your times tables help you share fast!",
+      "quiz": [
+        {
+          "kind": "choice",
+          "prompt": "12 candies, 3 friends. Each gets?",
+          "choices": [
+            "3",
+            "4",
+            "6"
+          ],
+          "answer": "4",
+          "say": "Twelve candies shared fairly with three friends. How many does each friend get? 3, 4, or 6?",
+          "speak_choices": true,
+          "explain": "Deal them out one at a time and each friend gets four."
+        },
+        {
+          "kind": "choice",
+          "prompt": "10 ÷ 2 = ?",
+          "choices": [
+            "4",
+            "5",
+            "8"
+          ],
+          "answer": "5",
+          "say": "Ten shared into two equal groups. Is it 4, 5, or 8?",
+          "speak_choices": true,
+          "explain": "Ten splits into two equal groups of five."
+        },
+        {
+          "kind": "choice",
+          "prompt": "3 × 4 = 12, so 12 ÷ 4 = ?",
+          "choices": [
+            "2",
+            "3",
+            "4"
+          ],
+          "answer": "3",
+          "say": "Three times four is twelve. So twelve divided by four is what? 2, 3, or 4?",
+          "speak_choices": true,
+          "explain": "Dividing undoes multiplying, so the answer is three."
+        },
+        {
+          "kind": "choice",
+          "prompt": "8 ÷ 2 = ?",
+          "choices": [
+            "3",
+            "4",
+            "6"
+          ],
+          "answer": "4",
+          "say": "What is eight shared into two equal groups? 3, 4, or 6?",
+          "speak_choices": true,
+          "explain": "Eight splits fairly into two groups of four."
+        },
+        {
+          "kind": "choice",
+          "prompt": "6 apples 🍎, 2 baskets. Each gets?",
+          "choices": [
+            "3",
+            "2",
+            "4"
+          ],
+          "answer": "3",
+          "say": "Six apples go into two baskets, the same in each. How many in one basket? 3, 2, or 4?",
+          "speak_choices": true,
+          "explain": "Deal them out one by one and each basket ends with three."
+        },
+        {
+          "kind": "choice",
+          "prompt": "20 ÷ 5 = ?",
+          "choices": [
+            "5",
+            "15",
+            "4"
+          ],
+          "answer": "4",
+          "say": "What is twenty shared into five equal groups? 5, 15, or 4?",
+          "speak_choices": true,
+          "explain": "Five fours make twenty, so each group gets four."
+        },
+        {
+          "kind": "choice",
+          "prompt": "5 × 3 = 15, so 15 ÷ 5 = ?",
+          "choices": [
+            "5",
+            "3",
+            "10"
+          ],
+          "answer": "3",
+          "say": "Five times three is fifteen. So what is fifteen shared into five groups? 5, 3, or 10?",
+          "speak_choices": true,
+          "explain": "Dividing undoes multiplying, so the answer is three."
+        }
+      ],
+      "lesson_media": [
+        {
+          "id": "twelve-shared-three-ways-plate",
+          "kind": "illustration",
+          "src": "/app/illustrations/sprout/math/math-1-division-800.webp",
+          "srcset": "/app/illustrations/sprout/math/math-1-division-800.webp 800w, /app/illustrations/sprout/math/math-1-division-1600.webp 1600w",
+          "alt": "Twelve counters are shared equally among three bowls, leaving four counters in each bowl.",
+          "caption": "Sharing 12 among 3 equal groups gives 4 in each group. Making groups of 3 from the same 12 instead produces 4 groups.",
+          "width": 1600,
+          "height": 1000
+        },
+        {
+          "id": "math.1.division-concept-model",
+          "kind": "model",
+          "renderer": "concept-lab",
+          "title": "Share equally, count the remainder",
+          "instructions": "Choose a total and a number of groups. Share whole counters equally and inspect any left over.",
+          "props": {
+            "scenario": "math.1.division"
+          }
+        }
+      ]
+    }
+  ],
+  "originalBindings": [
+    {
+      "node_id": "math.1.addition",
+      "family": "unit-blocks",
+      "title": "Counting blocks · 3D study",
+      "instructions": "Drag or use the camera buttons to inspect the object from different sides. Change the labeled controls, then compare the geometry with the explanation below.",
+      "context": "Addition: Count the same equal units in different arrangements and compare the total with complete groups and leftovers.",
+      "mode": "model"
+    },
+    {
+      "node_id": "math.1.subtraction",
+      "family": "unit-blocks",
+      "title": "Counting blocks · 3D study",
+      "instructions": "Drag or use the camera buttons to inspect the object from different sides. Change the labeled controls, then compare the geometry with the explanation below.",
+      "context": "Subtraction: Count the same equal units in different arrangements and compare the total with complete groups and leftovers.",
+      "mode": "model"
+    },
+    {
+      "node_id": "math.1.place-value",
+      "family": "unit-blocks",
+      "title": "Counting blocks · 3D study",
+      "instructions": "Drag or use the camera buttons to inspect the object from different sides. Change the labeled controls, then compare the geometry with the explanation below.",
+      "context": "Place Value: Count the same equal units in different arrangements and compare the total with complete groups and leftovers.",
+      "mode": "model"
+    },
+    {
+      "node_id": "math.1.multiplication",
+      "family": "unit-blocks",
+      "title": "Counting blocks · 3D study",
+      "instructions": "Drag or use the camera buttons to inspect the object from different sides. Change the labeled controls, then compare the geometry with the explanation below.",
+      "context": "Multiplication: Count the same equal units in different arrangements and compare the total with complete groups and leftovers.",
+      "mode": "model"
+    },
+    {
+      "node_id": "math.1.division",
+      "family": "unit-blocks",
+      "title": "Counting blocks · 3D study",
+      "instructions": "Drag or use the camera buttons to inspect the object from different sides. Change the labeled controls, then compare the geometry with the explanation below.",
+      "context": "Division: Count the same equal units in different arrangements and compare the total with complete groups and leftovers.",
+      "mode": "model"
+    }
+  ],
+  "requiredNext": [
+    "Build lesson-specific reader controls and exact 2D ledgers/diagrams.",
+    "Preserve all 35 original quiz items, prerequisite lists, illustrations and existing teaching models.",
+    "Integrate the five calibrated 3D companions through exact lesson bindings.",
+    "Verify independent arithmetic, closed-face geometry, actual projected vertices, reader interactions, speech, error recovery and phone/desktop layout.",
+    "Run full regressions and release through CI and verified staged production."
+  ],
+  "notYetIntegrated": true,
+  "wholeGoalComplete": false
+}

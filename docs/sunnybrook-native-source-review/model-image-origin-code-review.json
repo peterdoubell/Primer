@@ -1,0 +1,24 @@
+{
+  "source_repository": "https://github.com/ABI-Software/capclient",
+  "commit": "a4a8fa5a4200a5c6da372d42f6e2961bef14f1d3",
+  "files": [
+    {
+      "path": "src/dicomimage.cpp",
+      "sha256": "a4da9dc8d62e6c7e44f4ce713339b0a6169675334de0b54cfda7ca049307636e",
+      "url": "https://github.com/ABI-Software/capclient/blob/a4a8fa5a4200a5c6da372d42f6e2961bef14f1d3/src/dicomimage.cpp"
+    },
+    {
+      "path": "src/io/xmlfilehandler.cpp",
+      "sha256": "b952e23ace9240aef172e4d6516c39ddf4f69c5206634720202dbc53aa461e44",
+      "url": "https://github.com/ABI-Software/capclient/blob/a4a8fa5a4200a5c6da372d42f6e2961bef14f1d3/src/io/xmlfilehandler.cpp"
+    }
+  ],
+  "observed_source_behaviour": {
+    "DICOM_patient_position": "AssignTagValue copies DICOM ImagePosition(Patient) into position3D without flipping patient coordinates.",
+    "DICOM_patient_orientation": "Patient direction cosines are copied without the fallback non-patient-coordinate tag inversion.",
+    "XML_model_plane_override": "XMLFileHandler GetLabelledSlices applies any model XML ImagePosition through SetImagePosition on the matching SOP image."
+  },
+  "source_code_inspected_not_full_CAP_application_executed": true,
+  "revision_proven_identical_to_2012_converter": false,
+  "clinical_registration_or_surface_role_validation": false
+}

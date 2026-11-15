@@ -1,0 +1,1867 @@
+[
+  {
+    "source_function": "mesh_creator",
+    "source_filename": "Pelvic_visualiser.py",
+    "source_line": 184,
+    "instructions": [
+      {
+        "offset": 0,
+        "opcode": "RESUME",
+        "argument": ""
+      },
+      {
+        "offset": 2,
+        "opcode": "LOAD_GLOBAL",
+        "argument": "NULL + pv"
+      },
+      {
+        "offset": 12,
+        "opcode": "LOAD_ATTR",
+        "argument": "PolyData"
+      },
+      {
+        "offset": 32,
+        "opcode": "LOAD_FAST",
+        "argument": "self"
+      },
+      {
+        "offset": 34,
+        "opcode": "LOAD_ATTR",
+        "argument": "vertices"
+      },
+      {
+        "offset": 54,
+        "opcode": "LOAD_FAST",
+        "argument": "self"
+      },
+      {
+        "offset": 56,
+        "opcode": "LOAD_ATTR",
+        "argument": "faces"
+      },
+      {
+        "offset": 76,
+        "opcode": "CALL",
+        "argument": ""
+      },
+      {
+        "offset": 84,
+        "opcode": "LOAD_FAST",
+        "argument": "self"
+      },
+      {
+        "offset": 86,
+        "opcode": "STORE_ATTR",
+        "argument": "mesh"
+      },
+      {
+        "offset": 96,
+        "opcode": "RETURN_CONST",
+        "argument": "None"
+      }
+    ]
+  },
+  {
+    "source_function": "model_setup",
+    "source_filename": "Pelvic_visualiser.py",
+    "source_line": 766,
+    "instructions": [
+      {
+        "offset": 0,
+        "opcode": "RESUME",
+        "argument": ""
+      },
+      {
+        "offset": 2,
+        "opcode": "LOAD_FAST",
+        "argument": "model_data_dic"
+      },
+      {
+        "offset": 4,
+        "opcode": "STORE_GLOBAL",
+        "argument": "vertices_faces"
+      },
+      {
+        "offset": 6,
+        "opcode": "LOAD_GLOBAL",
+        "argument": "vertices_faces"
+      },
+      {
+        "offset": 16,
+        "opcode": "GET_ITER",
+        "argument": ""
+      },
+      {
+        "offset": 18,
+        "opcode": "FOR_ITER",
+        "argument": "to 152"
+      },
+      {
+        "offset": 22,
+        "opcode": "STORE_FAST",
+        "argument": "item"
+      },
+      {
+        "offset": 24,
+        "opcode": "LOAD_GLOBAL",
+        "argument": "NULL + isinstance"
+      },
+      {
+        "offset": 34,
+        "opcode": "LOAD_GLOBAL",
+        "argument": "vertices_faces"
+      },
+      {
+        "offset": 44,
+        "opcode": "LOAD_FAST",
+        "argument": "item"
+      },
+      {
+        "offset": 46,
+        "opcode": "BINARY_SUBSCR",
+        "argument": ""
+      },
+      {
+        "offset": 50,
+        "opcode": "LOAD_CONST",
+        "argument": "0"
+      },
+      {
+        "offset": 52,
+        "opcode": "BINARY_SUBSCR",
+        "argument": ""
+      },
+      {
+        "offset": 56,
+        "opcode": "LOAD_GLOBAL",
+        "argument": "list"
+      },
+      {
+        "offset": 66,
+        "opcode": "CALL",
+        "argument": ""
+      },
+      {
+        "offset": 74,
+        "opcode": "POP_JUMP_IF_FALSE",
+        "argument": "to 78"
+      },
+      {
+        "offset": 76,
+        "opcode": "JUMP_BACKWARD",
+        "argument": "to 18"
+      },
+      {
+        "offset": 78,
+        "opcode": "LOAD_GLOBAL",
+        "argument": "vertices_faces"
+      },
+      {
+        "offset": 88,
+        "opcode": "LOAD_FAST",
+        "argument": "item"
+      },
+      {
+        "offset": 90,
+        "opcode": "BINARY_SUBSCR",
+        "argument": ""
+      },
+      {
+        "offset": 94,
+        "opcode": "LOAD_CONST",
+        "argument": "0"
+      },
+      {
+        "offset": 96,
+        "opcode": "BINARY_SUBSCR",
+        "argument": ""
+      },
+      {
+        "offset": 100,
+        "opcode": "LOAD_ATTR",
+        "argument": "NULL|self + tolist"
+      },
+      {
+        "offset": 120,
+        "opcode": "CALL",
+        "argument": ""
+      },
+      {
+        "offset": 128,
+        "opcode": "LOAD_GLOBAL",
+        "argument": "vertices_faces"
+      },
+      {
+        "offset": 138,
+        "opcode": "LOAD_FAST",
+        "argument": "item"
+      },
+      {
+        "offset": 140,
+        "opcode": "BINARY_SUBSCR",
+        "argument": ""
+      },
+      {
+        "offset": 144,
+        "opcode": "LOAD_CONST",
+        "argument": "0"
+      },
+      {
+        "offset": 146,
+        "opcode": "STORE_SUBSCR",
+        "argument": ""
+      },
+      {
+        "offset": 150,
+        "opcode": "JUMP_BACKWARD",
+        "argument": "to 18"
+      },
+      {
+        "offset": 152,
+        "opcode": "END_FOR",
+        "argument": ""
+      },
+      {
+        "offset": 154,
+        "opcode": "BUILD_MAP",
+        "argument": ""
+      },
+      {
+        "offset": 156,
+        "opcode": "STORE_GLOBAL",
+        "argument": "visual_dic"
+      },
+      {
+        "offset": 158,
+        "opcode": "LOAD_FAST",
+        "argument": "model_data_dic"
+      },
+      {
+        "offset": 160,
+        "opcode": "GET_ITER",
+        "argument": ""
+      },
+      {
+        "offset": 162,
+        "opcode": "FOR_ITER",
+        "argument": "to 582"
+      },
+      {
+        "offset": 166,
+        "opcode": "STORE_FAST",
+        "argument": "name"
+      },
+      {
+        "offset": 168,
+        "opcode": "LOAD_GLOBAL",
+        "argument": "NULL + PartData"
+      },
+      {
+        "offset": 178,
+        "opcode": "LOAD_FAST",
+        "argument": "name"
+      },
+      {
+        "offset": 180,
+        "opcode": "LOAD_FAST",
+        "argument": "model_data_dic"
+      },
+      {
+        "offset": 182,
+        "opcode": "LOAD_FAST",
+        "argument": "name"
+      },
+      {
+        "offset": 184,
+        "opcode": "BINARY_SUBSCR",
+        "argument": ""
+      },
+      {
+        "offset": 188,
+        "opcode": "LOAD_CONST",
+        "argument": "0"
+      },
+      {
+        "offset": 190,
+        "opcode": "BINARY_SUBSCR",
+        "argument": ""
+      },
+      {
+        "offset": 194,
+        "opcode": "LOAD_FAST",
+        "argument": "model_data_dic"
+      },
+      {
+        "offset": 196,
+        "opcode": "LOAD_FAST",
+        "argument": "name"
+      },
+      {
+        "offset": 198,
+        "opcode": "BINARY_SUBSCR",
+        "argument": ""
+      },
+      {
+        "offset": 202,
+        "opcode": "LOAD_CONST",
+        "argument": "1"
+      },
+      {
+        "offset": 204,
+        "opcode": "BINARY_SUBSCR",
+        "argument": ""
+      },
+      {
+        "offset": 208,
+        "opcode": "KW_NAMES",
+        "argument": "('name', 'vertices', 'faces')"
+      },
+      {
+        "offset": 210,
+        "opcode": "CALL",
+        "argument": ""
+      },
+      {
+        "offset": 218,
+        "opcode": "STORE_FAST",
+        "argument": "data"
+      },
+      {
+        "offset": 220,
+        "opcode": "LOAD_FAST",
+        "argument": "data"
+      },
+      {
+        "offset": 222,
+        "opcode": "LOAD_ATTR",
+        "argument": "NULL|self + side_detection"
+      },
+      {
+        "offset": 242,
+        "opcode": "CALL",
+        "argument": ""
+      },
+      {
+        "offset": 250,
+        "opcode": "POP_TOP",
+        "argument": ""
+      },
+      {
+        "offset": 252,
+        "opcode": "LOAD_FAST",
+        "argument": "data"
+      },
+      {
+        "offset": 254,
+        "opcode": "LOAD_ATTR",
+        "argument": "NULL|self + organ_detection"
+      },
+      {
+        "offset": 274,
+        "opcode": "CALL",
+        "argument": ""
+      },
+      {
+        "offset": 282,
+        "opcode": "POP_TOP",
+        "argument": ""
+      },
+      {
+        "offset": 284,
+        "opcode": "LOAD_FAST",
+        "argument": "data"
+      },
+      {
+        "offset": 286,
+        "opcode": "LOAD_ATTR",
+        "argument": "NULL|self + color_detection"
+      },
+      {
+        "offset": 306,
+        "opcode": "CALL",
+        "argument": ""
+      },
+      {
+        "offset": 314,
+        "opcode": "POP_TOP",
+        "argument": ""
+      },
+      {
+        "offset": 316,
+        "opcode": "LOAD_FAST",
+        "argument": "data"
+      },
+      {
+        "offset": 318,
+        "opcode": "LOAD_ATTR",
+        "argument": "NULL|self + mesh_creator"
+      },
+      {
+        "offset": 338,
+        "opcode": "CALL",
+        "argument": ""
+      },
+      {
+        "offset": 346,
+        "opcode": "POP_TOP",
+        "argument": ""
+      },
+      {
+        "offset": 348,
+        "opcode": "NOP",
+        "argument": ""
+      },
+      {
+        "offset": 350,
+        "opcode": "LOAD_GLOBAL",
+        "argument": "plv"
+      },
+      {
+        "offset": 360,
+        "opcode": "LOAD_ATTR",
+        "argument": "NULL|self + add_mesh"
+      },
+      {
+        "offset": 380,
+        "opcode": "LOAD_FAST",
+        "argument": "data"
+      },
+      {
+        "offset": 382,
+        "opcode": "LOAD_ATTR",
+        "argument": "mesh"
+      },
+      {
+        "offset": 402,
+        "opcode": "LOAD_FAST",
+        "argument": "data"
+      },
+      {
+        "offset": 404,
+        "opcode": "LOAD_ATTR",
+        "argument": "part_color"
+      },
+      {
+        "offset": 424,
+        "opcode": "LOAD_CONST",
+        "argument": "False"
+      },
+      {
+        "offset": 426,
+        "opcode": "LOAD_CONST",
+        "argument": "(0, 0, 0)"
+      },
+      {
+        "offset": 428,
+        "opcode": "KW_NAMES",
+        "argument": "('color', 'show_edges', 'edge_color')"
+      },
+      {
+        "offset": 430,
+        "opcode": "CALL",
+        "argument": ""
+      },
+      {
+        "offset": 438,
+        "opcode": "STORE_FAST",
+        "argument": "actor"
+      },
+      {
+        "offset": 440,
+        "opcode": "LOAD_GLOBAL",
+        "argument": "visual_dic"
+      },
+      {
+        "offset": 450,
+        "opcode": "LOAD_ATTR",
+        "argument": "NULL|self + update"
+      },
+      {
+        "offset": 470,
+        "opcode": "LOAD_FAST",
+        "argument": "name"
+      },
+      {
+        "offset": 472,
+        "opcode": "LOAD_FAST",
+        "argument": "data"
+      },
+      {
+        "offset": 474,
+        "opcode": "LOAD_ATTR",
+        "argument": "part_name"
+      },
+      {
+        "offset": 494,
+        "opcode": "LOAD_FAST",
+        "argument": "data"
+      },
+      {
+        "offset": 496,
+        "opcode": "LOAD_ATTR",
+        "argument": "side"
+      },
+      {
+        "offset": 516,
+        "opcode": "LOAD_FAST",
+        "argument": "data"
+      },
+      {
+        "offset": 518,
+        "opcode": "LOAD_ATTR",
+        "argument": "organ"
+      },
+      {
+        "offset": 538,
+        "opcode": "LOAD_FAST",
+        "argument": "data"
+      },
+      {
+        "offset": 540,
+        "opcode": "LOAD_ATTR",
+        "argument": "part_color"
+      },
+      {
+        "offset": 560,
+        "opcode": "LOAD_FAST_CHECK",
+        "argument": "actor"
+      },
+      {
+        "offset": 562,
+        "opcode": "LOAD_CONST",
+        "argument": "''"
+      },
+      {
+        "offset": 564,
+        "opcode": "LOAD_CONST",
+        "argument": "''"
+      },
+      {
+        "offset": 566,
+        "opcode": "BUILD_LIST",
+        "argument": ""
+      },
+      {
+        "offset": 568,
+        "opcode": "BUILD_MAP",
+        "argument": ""
+      },
+      {
+        "offset": 570,
+        "opcode": "CALL",
+        "argument": ""
+      },
+      {
+        "offset": 578,
+        "opcode": "POP_TOP",
+        "argument": ""
+      },
+      {
+        "offset": 580,
+        "opcode": "JUMP_BACKWARD",
+        "argument": "to 162"
+      },
+      {
+        "offset": 582,
+        "opcode": "END_FOR",
+        "argument": ""
+      },
+      {
+        "offset": 584,
+        "opcode": "LOAD_GLOBAL",
+        "argument": "NULL + get_screen_bounds"
+      },
+      {
+        "offset": 594,
+        "opcode": "CALL",
+        "argument": ""
+      },
+      {
+        "offset": 602,
+        "opcode": "LOAD_GLOBAL",
+        "argument": "plv"
+      },
+      {
+        "offset": 612,
+        "opcode": "STORE_ATTR",
+        "argument": "camera_position"
+      },
+      {
+        "offset": 622,
+        "opcode": "LOAD_GLOBAL",
+        "argument": "NULL + click_buttons"
+      },
+      {
+        "offset": 632,
+        "opcode": "CALL",
+        "argument": ""
+      },
+      {
+        "offset": 640,
+        "opcode": "POP_TOP",
+        "argument": ""
+      },
+      {
+        "offset": 642,
+        "opcode": "RETURN_CONST",
+        "argument": "None"
+      },
+      {
+        "offset": 644,
+        "opcode": "PUSH_EXC_INFO",
+        "argument": ""
+      },
+      {
+        "offset": 646,
+        "opcode": "LOAD_GLOBAL",
+        "argument": "Exception"
+      },
+      {
+        "offset": 656,
+        "opcode": "CHECK_EXC_MATCH",
+        "argument": ""
+      },
+      {
+        "offset": 658,
+        "opcode": "POP_JUMP_IF_FALSE",
+        "argument": "to 702"
+      },
+      {
+        "offset": 660,
+        "opcode": "STORE_FAST",
+        "argument": "e"
+      },
+      {
+        "offset": 662,
+        "opcode": "LOAD_GLOBAL",
+        "argument": "NULL + print"
+      },
+      {
+        "offset": 672,
+        "opcode": "LOAD_FAST",
+        "argument": "e"
+      },
+      {
+        "offset": 674,
+        "opcode": "CALL",
+        "argument": ""
+      },
+      {
+        "offset": 682,
+        "opcode": "POP_TOP",
+        "argument": ""
+      },
+      {
+        "offset": 684,
+        "opcode": "POP_EXCEPT",
+        "argument": ""
+      },
+      {
+        "offset": 686,
+        "opcode": "LOAD_CONST",
+        "argument": "None"
+      },
+      {
+        "offset": 688,
+        "opcode": "STORE_FAST",
+        "argument": "e"
+      },
+      {
+        "offset": 690,
+        "opcode": "DELETE_FAST",
+        "argument": "e"
+      },
+      {
+        "offset": 692,
+        "opcode": "JUMP_BACKWARD",
+        "argument": "to 440"
+      },
+      {
+        "offset": 694,
+        "opcode": "LOAD_CONST",
+        "argument": "None"
+      },
+      {
+        "offset": 696,
+        "opcode": "STORE_FAST",
+        "argument": "e"
+      },
+      {
+        "offset": 698,
+        "opcode": "DELETE_FAST",
+        "argument": "e"
+      },
+      {
+        "offset": 700,
+        "opcode": "RERAISE",
+        "argument": ""
+      },
+      {
+        "offset": 702,
+        "opcode": "RERAISE",
+        "argument": ""
+      },
+      {
+        "offset": 704,
+        "opcode": "COPY",
+        "argument": ""
+      },
+      {
+        "offset": 706,
+        "opcode": "POP_EXCEPT",
+        "argument": ""
+      },
+      {
+        "offset": 708,
+        "opcode": "RERAISE",
+        "argument": ""
+      }
+    ]
+  },
+  {
+    "source_function": "fast_directed_hausdorff_with_points",
+    "source_filename": "Pelvic_visualiser.py",
+    "source_line": 806,
+    "instructions": [
+      {
+        "offset": 0,
+        "opcode": "RESUME",
+        "argument": ""
+      },
+      {
+        "offset": 2,
+        "opcode": "LOAD_GLOBAL",
+        "argument": "NULL + cKDTree"
+      },
+      {
+        "offset": 12,
+        "opcode": "LOAD_FAST",
+        "argument": "set_B"
+      },
+      {
+        "offset": 14,
+        "opcode": "CALL",
+        "argument": ""
+      },
+      {
+        "offset": 22,
+        "opcode": "STORE_FAST",
+        "argument": "tree_v"
+      },
+      {
+        "offset": 24,
+        "opcode": "LOAD_CONST",
+        "argument": "-1"
+      },
+      {
+        "offset": 26,
+        "opcode": "STORE_FAST",
+        "argument": "max_min_dist"
+      },
+      {
+        "offset": 28,
+        "opcode": "LOAD_CONST",
+        "argument": "None"
+      },
+      {
+        "offset": 30,
+        "opcode": "STORE_FAST",
+        "argument": "u_point"
+      },
+      {
+        "offset": 32,
+        "opcode": "LOAD_CONST",
+        "argument": "None"
+      },
+      {
+        "offset": 34,
+        "opcode": "STORE_FAST",
+        "argument": "v_point"
+      },
+      {
+        "offset": 36,
+        "opcode": "LOAD_FAST",
+        "argument": "set_A"
+      },
+      {
+        "offset": 38,
+        "opcode": "GET_ITER",
+        "argument": ""
+      },
+      {
+        "offset": 40,
+        "opcode": "FOR_ITER",
+        "argument": "to 118"
+      },
+      {
+        "offset": 44,
+        "opcode": "STORE_FAST",
+        "argument": "point"
+      },
+      {
+        "offset": 46,
+        "opcode": "LOAD_FAST",
+        "argument": "tree_v"
+      },
+      {
+        "offset": 48,
+        "opcode": "LOAD_ATTR",
+        "argument": "NULL|self + query"
+      },
+      {
+        "offset": 68,
+        "opcode": "LOAD_FAST",
+        "argument": "point"
+      },
+      {
+        "offset": 70,
+        "opcode": "CALL",
+        "argument": ""
+      },
+      {
+        "offset": 78,
+        "opcode": "UNPACK_SEQUENCE",
+        "argument": ""
+      },
+      {
+        "offset": 82,
+        "opcode": "STORE_FAST",
+        "argument": "dist"
+      },
+      {
+        "offset": 84,
+        "opcode": "STORE_FAST",
+        "argument": "idx"
+      },
+      {
+        "offset": 86,
+        "opcode": "LOAD_FAST",
+        "argument": "dist"
+      },
+      {
+        "offset": 88,
+        "opcode": "LOAD_FAST",
+        "argument": "max_min_dist"
+      },
+      {
+        "offset": 90,
+        "opcode": "COMPARE_OP",
+        "argument": ">"
+      },
+      {
+        "offset": 94,
+        "opcode": "POP_JUMP_IF_TRUE",
+        "argument": "to 98"
+      },
+      {
+        "offset": 96,
+        "opcode": "JUMP_BACKWARD",
+        "argument": "to 40"
+      },
+      {
+        "offset": 98,
+        "opcode": "LOAD_FAST",
+        "argument": "dist"
+      },
+      {
+        "offset": 100,
+        "opcode": "STORE_FAST",
+        "argument": "max_min_dist"
+      },
+      {
+        "offset": 102,
+        "opcode": "LOAD_FAST",
+        "argument": "point"
+      },
+      {
+        "offset": 104,
+        "opcode": "STORE_FAST",
+        "argument": "u_point"
+      },
+      {
+        "offset": 106,
+        "opcode": "LOAD_FAST",
+        "argument": "set_B"
+      },
+      {
+        "offset": 108,
+        "opcode": "LOAD_FAST",
+        "argument": "idx"
+      },
+      {
+        "offset": 110,
+        "opcode": "BINARY_SUBSCR",
+        "argument": ""
+      },
+      {
+        "offset": 114,
+        "opcode": "STORE_FAST",
+        "argument": "v_point"
+      },
+      {
+        "offset": 116,
+        "opcode": "JUMP_BACKWARD",
+        "argument": "to 40"
+      },
+      {
+        "offset": 118,
+        "opcode": "END_FOR",
+        "argument": ""
+      },
+      {
+        "offset": 120,
+        "opcode": "LOAD_FAST",
+        "argument": "max_min_dist"
+      },
+      {
+        "offset": 122,
+        "opcode": "LOAD_FAST",
+        "argument": "u_point"
+      },
+      {
+        "offset": 124,
+        "opcode": "LOAD_FAST",
+        "argument": "v_point"
+      },
+      {
+        "offset": 126,
+        "opcode": "BUILD_TUPLE",
+        "argument": ""
+      },
+      {
+        "offset": 128,
+        "opcode": "RETURN_VALUE",
+        "argument": ""
+      }
+    ]
+  },
+  {
+    "source_function": "hide_show_distance",
+    "source_filename": "Pelvic_visualiser.py",
+    "source_line": 1447,
+    "instructions": [
+      {
+        "offset": 0,
+        "opcode": "RESUME",
+        "argument": ""
+      },
+      {
+        "offset": 2,
+        "opcode": "LOAD_GLOBAL",
+        "argument": "NULL + len"
+      },
+      {
+        "offset": 12,
+        "opcode": "LOAD_GLOBAL",
+        "argument": "point_actors"
+      },
+      {
+        "offset": 22,
+        "opcode": "CALL",
+        "argument": ""
+      },
+      {
+        "offset": 30,
+        "opcode": "LOAD_CONST",
+        "argument": "0"
+      },
+      {
+        "offset": 32,
+        "opcode": "COMPARE_OP",
+        "argument": "!="
+      },
+      {
+        "offset": 36,
+        "opcode": "POP_JUMP_IF_FALSE",
+        "argument": "to 144"
+      },
+      {
+        "offset": 38,
+        "opcode": "LOAD_GLOBAL",
+        "argument": "point_actors"
+      },
+      {
+        "offset": 48,
+        "opcode": "GET_ITER",
+        "argument": ""
+      },
+      {
+        "offset": 50,
+        "opcode": "FOR_ITER",
+        "argument": "to 100"
+      },
+      {
+        "offset": 54,
+        "opcode": "STORE_FAST",
+        "argument": "act"
+      },
+      {
+        "offset": 56,
+        "opcode": "LOAD_GLOBAL",
+        "argument": "plv"
+      },
+      {
+        "offset": 66,
+        "opcode": "LOAD_ATTR",
+        "argument": "NULL|self + remove_actor"
+      },
+      {
+        "offset": 86,
+        "opcode": "LOAD_FAST",
+        "argument": "act"
+      },
+      {
+        "offset": 88,
+        "opcode": "CALL",
+        "argument": ""
+      },
+      {
+        "offset": 96,
+        "opcode": "POP_TOP",
+        "argument": ""
+      },
+      {
+        "offset": 98,
+        "opcode": "JUMP_BACKWARD",
+        "argument": "to 50"
+      },
+      {
+        "offset": 100,
+        "opcode": "END_FOR",
+        "argument": ""
+      },
+      {
+        "offset": 102,
+        "opcode": "LOAD_GLOBAL",
+        "argument": "point_actors"
+      },
+      {
+        "offset": 112,
+        "opcode": "LOAD_ATTR",
+        "argument": "NULL|self + clear"
+      },
+      {
+        "offset": 132,
+        "opcode": "CALL",
+        "argument": ""
+      },
+      {
+        "offset": 140,
+        "opcode": "POP_TOP",
+        "argument": ""
+      },
+      {
+        "offset": 142,
+        "opcode": "RETURN_CONST",
+        "argument": "None"
+      },
+      {
+        "offset": 144,
+        "opcode": "LOAD_GLOBAL",
+        "argument": "np"
+      },
+      {
+        "offset": 154,
+        "opcode": "LOAD_ATTR",
+        "argument": "NULL|self + array"
+      },
+      {
+        "offset": 174,
+        "opcode": "LOAD_GLOBAL",
+        "argument": "hausdorff_dis"
+      },
+      {
+        "offset": 184,
+        "opcode": "LOAD_CONST",
+        "argument": "1"
+      },
+      {
+        "offset": 186,
+        "opcode": "BINARY_SUBSCR",
+        "argument": ""
+      },
+      {
+        "offset": 190,
+        "opcode": "GET_ITER",
+        "argument": ""
+      },
+      {
+        "offset": 192,
+        "opcode": "LOAD_FAST_AND_CLEAR",
+        "argument": "item"
+      },
+      {
+        "offset": 194,
+        "opcode": "SWAP",
+        "argument": ""
+      },
+      {
+        "offset": 196,
+        "opcode": "BUILD_LIST",
+        "argument": ""
+      },
+      {
+        "offset": 198,
+        "opcode": "SWAP",
+        "argument": ""
+      },
+      {
+        "offset": 200,
+        "opcode": "FOR_ITER",
+        "argument": "to 230"
+      },
+      {
+        "offset": 204,
+        "opcode": "STORE_FAST",
+        "argument": "item"
+      },
+      {
+        "offset": 206,
+        "opcode": "LOAD_GLOBAL",
+        "argument": "NULL + float"
+      },
+      {
+        "offset": 216,
+        "opcode": "LOAD_FAST",
+        "argument": "item"
+      },
+      {
+        "offset": 218,
+        "opcode": "CALL",
+        "argument": ""
+      },
+      {
+        "offset": 226,
+        "opcode": "LIST_APPEND",
+        "argument": ""
+      },
+      {
+        "offset": 228,
+        "opcode": "JUMP_BACKWARD",
+        "argument": "to 200"
+      },
+      {
+        "offset": 230,
+        "opcode": "END_FOR",
+        "argument": ""
+      },
+      {
+        "offset": 232,
+        "opcode": "SWAP",
+        "argument": ""
+      },
+      {
+        "offset": 234,
+        "opcode": "STORE_FAST",
+        "argument": "item"
+      },
+      {
+        "offset": 236,
+        "opcode": "CALL",
+        "argument": ""
+      },
+      {
+        "offset": 244,
+        "opcode": "STORE_FAST",
+        "argument": "points_a"
+      },
+      {
+        "offset": 246,
+        "opcode": "LOAD_GLOBAL",
+        "argument": "np"
+      },
+      {
+        "offset": 256,
+        "opcode": "LOAD_ATTR",
+        "argument": "NULL|self + array"
+      },
+      {
+        "offset": 276,
+        "opcode": "LOAD_GLOBAL",
+        "argument": "hausdorff_dis"
+      },
+      {
+        "offset": 286,
+        "opcode": "LOAD_CONST",
+        "argument": "2"
+      },
+      {
+        "offset": 288,
+        "opcode": "BINARY_SUBSCR",
+        "argument": ""
+      },
+      {
+        "offset": 292,
+        "opcode": "GET_ITER",
+        "argument": ""
+      },
+      {
+        "offset": 294,
+        "opcode": "LOAD_FAST_AND_CLEAR",
+        "argument": "item"
+      },
+      {
+        "offset": 296,
+        "opcode": "SWAP",
+        "argument": ""
+      },
+      {
+        "offset": 298,
+        "opcode": "BUILD_LIST",
+        "argument": ""
+      },
+      {
+        "offset": 300,
+        "opcode": "SWAP",
+        "argument": ""
+      },
+      {
+        "offset": 302,
+        "opcode": "FOR_ITER",
+        "argument": "to 332"
+      },
+      {
+        "offset": 306,
+        "opcode": "STORE_FAST",
+        "argument": "item"
+      },
+      {
+        "offset": 308,
+        "opcode": "LOAD_GLOBAL",
+        "argument": "NULL + float"
+      },
+      {
+        "offset": 318,
+        "opcode": "LOAD_FAST",
+        "argument": "item"
+      },
+      {
+        "offset": 320,
+        "opcode": "CALL",
+        "argument": ""
+      },
+      {
+        "offset": 328,
+        "opcode": "LIST_APPEND",
+        "argument": ""
+      },
+      {
+        "offset": 330,
+        "opcode": "JUMP_BACKWARD",
+        "argument": "to 302"
+      },
+      {
+        "offset": 332,
+        "opcode": "END_FOR",
+        "argument": ""
+      },
+      {
+        "offset": 334,
+        "opcode": "SWAP",
+        "argument": ""
+      },
+      {
+        "offset": 336,
+        "opcode": "STORE_FAST",
+        "argument": "item"
+      },
+      {
+        "offset": 338,
+        "opcode": "CALL",
+        "argument": ""
+      },
+      {
+        "offset": 346,
+        "opcode": "STORE_FAST",
+        "argument": "points_b"
+      },
+      {
+        "offset": 348,
+        "opcode": "LOAD_GLOBAL",
+        "argument": "plv"
+      },
+      {
+        "offset": 358,
+        "opcode": "LOAD_ATTR",
+        "argument": "NULL|self + add_points"
+      },
+      {
+        "offset": 378,
+        "opcode": "LOAD_FAST",
+        "argument": "points_a"
+      },
+      {
+        "offset": 380,
+        "opcode": "LOAD_CONST",
+        "argument": "(255, 0, 0)"
+      },
+      {
+        "offset": 382,
+        "opcode": "LOAD_CONST",
+        "argument": "20"
+      },
+      {
+        "offset": 384,
+        "opcode": "LOAD_CONST",
+        "argument": "True"
+      },
+      {
+        "offset": 386,
+        "opcode": "KW_NAMES",
+        "argument": "('color', 'point_size', 'render_points_as_spheres')"
+      },
+      {
+        "offset": 388,
+        "opcode": "CALL",
+        "argument": ""
+      },
+      {
+        "offset": 396,
+        "opcode": "STORE_FAST",
+        "argument": "point_actor_a"
+      },
+      {
+        "offset": 398,
+        "opcode": "LOAD_GLOBAL",
+        "argument": "point_actors"
+      },
+      {
+        "offset": 408,
+        "opcode": "LOAD_ATTR",
+        "argument": "NULL|self + append"
+      },
+      {
+        "offset": 428,
+        "opcode": "LOAD_FAST",
+        "argument": "point_actor_a"
+      },
+      {
+        "offset": 430,
+        "opcode": "CALL",
+        "argument": ""
+      },
+      {
+        "offset": 438,
+        "opcode": "POP_TOP",
+        "argument": ""
+      },
+      {
+        "offset": 440,
+        "opcode": "LOAD_GLOBAL",
+        "argument": "plv"
+      },
+      {
+        "offset": 450,
+        "opcode": "LOAD_ATTR",
+        "argument": "NULL|self + add_points"
+      },
+      {
+        "offset": 470,
+        "opcode": "LOAD_FAST",
+        "argument": "points_b"
+      },
+      {
+        "offset": 472,
+        "opcode": "LOAD_CONST",
+        "argument": "(0, 255, 0)"
+      },
+      {
+        "offset": 474,
+        "opcode": "LOAD_CONST",
+        "argument": "20"
+      },
+      {
+        "offset": 476,
+        "opcode": "LOAD_CONST",
+        "argument": "True"
+      },
+      {
+        "offset": 478,
+        "opcode": "KW_NAMES",
+        "argument": "('color', 'point_size', 'render_points_as_spheres')"
+      },
+      {
+        "offset": 480,
+        "opcode": "CALL",
+        "argument": ""
+      },
+      {
+        "offset": 488,
+        "opcode": "STORE_FAST",
+        "argument": "point_actor_b"
+      },
+      {
+        "offset": 490,
+        "opcode": "LOAD_GLOBAL",
+        "argument": "point_actors"
+      },
+      {
+        "offset": 500,
+        "opcode": "LOAD_ATTR",
+        "argument": "NULL|self + append"
+      },
+      {
+        "offset": 520,
+        "opcode": "LOAD_FAST",
+        "argument": "point_actor_b"
+      },
+      {
+        "offset": 522,
+        "opcode": "CALL",
+        "argument": ""
+      },
+      {
+        "offset": 530,
+        "opcode": "POP_TOP",
+        "argument": ""
+      },
+      {
+        "offset": 532,
+        "opcode": "LOAD_GLOBAL",
+        "argument": "NULL + pv"
+      },
+      {
+        "offset": 542,
+        "opcode": "LOAD_ATTR",
+        "argument": "Line"
+      },
+      {
+        "offset": 562,
+        "opcode": "LOAD_FAST",
+        "argument": "points_a"
+      },
+      {
+        "offset": 564,
+        "opcode": "LOAD_FAST",
+        "argument": "points_b"
+      },
+      {
+        "offset": 566,
+        "opcode": "CALL",
+        "argument": ""
+      },
+      {
+        "offset": 574,
+        "opcode": "STORE_FAST",
+        "argument": "line"
+      },
+      {
+        "offset": 576,
+        "opcode": "LOAD_GLOBAL",
+        "argument": "point_actors"
+      },
+      {
+        "offset": 586,
+        "opcode": "LOAD_ATTR",
+        "argument": "NULL|self + append"
+      },
+      {
+        "offset": 606,
+        "opcode": "LOAD_GLOBAL",
+        "argument": "plv"
+      },
+      {
+        "offset": 616,
+        "opcode": "LOAD_ATTR",
+        "argument": "NULL|self + add_mesh"
+      },
+      {
+        "offset": 636,
+        "opcode": "LOAD_FAST",
+        "argument": "line"
+      },
+      {
+        "offset": 638,
+        "opcode": "LOAD_CONST",
+        "argument": "(0, 0, 0)"
+      },
+      {
+        "offset": 640,
+        "opcode": "LOAD_CONST",
+        "argument": "'wireframe'"
+      },
+      {
+        "offset": 642,
+        "opcode": "LOAD_CONST",
+        "argument": "1"
+      },
+      {
+        "offset": 644,
+        "opcode": "LOAD_CONST",
+        "argument": "True"
+      },
+      {
+        "offset": 646,
+        "opcode": "KW_NAMES",
+        "argument": "('color', 'style', 'line_width', 'render_lines_as_tubes')"
+      },
+      {
+        "offset": 648,
+        "opcode": "CALL",
+        "argument": ""
+      },
+      {
+        "offset": 656,
+        "opcode": "CALL",
+        "argument": ""
+      },
+      {
+        "offset": 664,
+        "opcode": "POP_TOP",
+        "argument": ""
+      },
+      {
+        "offset": 666,
+        "opcode": "LOAD_CONST",
+        "argument": "'Maximum distance: '"
+      },
+      {
+        "offset": 668,
+        "opcode": "LOAD_GLOBAL",
+        "argument": "hausdorff_dis"
+      },
+      {
+        "offset": 678,
+        "opcode": "LOAD_CONST",
+        "argument": "0"
+      },
+      {
+        "offset": 680,
+        "opcode": "BINARY_SUBSCR",
+        "argument": ""
+      },
+      {
+        "offset": 684,
+        "opcode": "LOAD_CONST",
+        "argument": "'.4f'"
+      },
+      {
+        "offset": 686,
+        "opcode": "FORMAT_VALUE",
+        "argument": "with format"
+      },
+      {
+        "offset": 688,
+        "opcode": "LOAD_CONST",
+        "argument": "' millimeter'"
+      },
+      {
+        "offset": 690,
+        "opcode": "BUILD_STRING",
+        "argument": ""
+      },
+      {
+        "offset": 692,
+        "opcode": "STORE_FAST",
+        "argument": "tex"
+      },
+      {
+        "offset": 694,
+        "opcode": "LOAD_GLOBAL",
+        "argument": "point_actors"
+      },
+      {
+        "offset": 704,
+        "opcode": "LOAD_ATTR",
+        "argument": "NULL|self + append"
+      },
+      {
+        "offset": 724,
+        "opcode": "LOAD_GLOBAL",
+        "argument": "plv"
+      },
+      {
+        "offset": 734,
+        "opcode": "LOAD_ATTR",
+        "argument": "NULL|self + add_text"
+      },
+      {
+        "offset": 754,
+        "opcode": "LOAD_FAST",
+        "argument": "tex"
+      },
+      {
+        "offset": 756,
+        "opcode": "LOAD_CONST",
+        "argument": "10"
+      },
+      {
+        "offset": 758,
+        "opcode": "LOAD_GLOBAL",
+        "argument": "max_y_text"
+      },
+      {
+        "offset": 768,
+        "opcode": "BUILD_TUPLE",
+        "argument": ""
+      },
+      {
+        "offset": 770,
+        "opcode": "LOAD_CONST",
+        "argument": "10"
+      },
+      {
+        "offset": 772,
+        "opcode": "LOAD_CONST",
+        "argument": "(0, 0, 0)"
+      },
+      {
+        "offset": 774,
+        "opcode": "KW_NAMES",
+        "argument": "('text', 'position', 'font_size', 'color')"
+      },
+      {
+        "offset": 776,
+        "opcode": "CALL",
+        "argument": ""
+      },
+      {
+        "offset": 784,
+        "opcode": "CALL",
+        "argument": ""
+      },
+      {
+        "offset": 792,
+        "opcode": "POP_TOP",
+        "argument": ""
+      },
+      {
+        "offset": 794,
+        "opcode": "RETURN_CONST",
+        "argument": "None"
+      },
+      {
+        "offset": 796,
+        "opcode": "SWAP",
+        "argument": ""
+      },
+      {
+        "offset": 798,
+        "opcode": "POP_TOP",
+        "argument": ""
+      },
+      {
+        "offset": 800,
+        "opcode": "SWAP",
+        "argument": ""
+      },
+      {
+        "offset": 802,
+        "opcode": "STORE_FAST",
+        "argument": "item"
+      },
+      {
+        "offset": 804,
+        "opcode": "RERAISE",
+        "argument": ""
+      },
+      {
+        "offset": 806,
+        "opcode": "SWAP",
+        "argument": ""
+      },
+      {
+        "offset": 808,
+        "opcode": "POP_TOP",
+        "argument": ""
+      },
+      {
+        "offset": 810,
+        "opcode": "SWAP",
+        "argument": ""
+      },
+      {
+        "offset": 812,
+        "opcode": "STORE_FAST",
+        "argument": "item"
+      },
+      {
+        "offset": 814,
+        "opcode": "RERAISE",
+        "argument": ""
+      }
+    ]
+  },
+  {
+    "source_function": "side_detection",
+    "source_filename": "Pelvic_visualiser.py",
+    "source_line": 168,
+    "instructions": [
+      {
+        "offset": 0,
+        "opcode": "RESUME",
+        "argument": ""
+      },
+      {
+        "offset": 2,
+        "opcode": "LOAD_CONST",
+        "argument": "'Left'"
+      },
+      {
+        "offset": 4,
+        "opcode": "LOAD_CONST",
+        "argument": "'Right'"
+      },
+      {
+        "offset": 6,
+        "opcode": "LOAD_CONST",
+        "argument": "('L', 'R')"
+      },
+      {
+        "offset": 8,
+        "opcode": "BUILD_CONST_KEY_MAP",
+        "argument": ""
+      },
+      {
+        "offset": 10,
+        "opcode": "STORE_FAST",
+        "argument": "side"
+      },
+      {
+        "offset": 12,
+        "opcode": "LOAD_CONST",
+        "argument": "'_'"
+      },
+      {
+        "offset": 14,
+        "opcode": "LOAD_FAST",
+        "argument": "self"
+      },
+      {
+        "offset": 16,
+        "opcode": "LOAD_ATTR",
+        "argument": "name"
+      },
+      {
+        "offset": 36,
+        "opcode": "CONTAINS_OP",
+        "argument": ""
+      },
+      {
+        "offset": 38,
+        "opcode": "POP_JUMP_IF_FALSE",
+        "argument": "to 90"
+      },
+      {
+        "offset": 40,
+        "opcode": "LOAD_FAST",
+        "argument": "self"
+      },
+      {
+        "offset": 42,
+        "opcode": "LOAD_ATTR",
+        "argument": "name"
+      },
+      {
+        "offset": 62,
+        "opcode": "LOAD_FAST",
+        "argument": "self"
+      },
+      {
+        "offset": 64,
+        "opcode": "STORE_ATTR",
+        "argument": "part_name"
+      },
+      {
+        "offset": 74,
+        "opcode": "LOAD_CONST",
+        "argument": "'Center'"
+      },
+      {
+        "offset": 76,
+        "opcode": "LOAD_FAST",
+        "argument": "self"
+      },
+      {
+        "offset": 78,
+        "opcode": "STORE_ATTR",
+        "argument": "side"
+      },
+      {
+        "offset": 88,
+        "opcode": "RETURN_CONST",
+        "argument": "None"
+      },
+      {
+        "offset": 90,
+        "opcode": "LOAD_FAST",
+        "argument": "self"
+      },
+      {
+        "offset": 92,
+        "opcode": "LOAD_ATTR",
+        "argument": "name"
+      },
+      {
+        "offset": 112,
+        "opcode": "LOAD_CONST",
+        "argument": "None"
+      },
+      {
+        "offset": 114,
+        "opcode": "LOAD_CONST",
+        "argument": "-2"
+      },
+      {
+        "offset": 116,
+        "opcode": "BINARY_SLICE",
+        "argument": ""
+      },
+      {
+        "offset": 118,
+        "opcode": "LOAD_FAST",
+        "argument": "self"
+      },
+      {
+        "offset": 120,
+        "opcode": "STORE_ATTR",
+        "argument": "part_name"
+      },
+      {
+        "offset": 130,
+        "opcode": "LOAD_FAST",
+        "argument": "side"
+      },
+      {
+        "offset": 132,
+        "opcode": "LOAD_FAST",
+        "argument": "self"
+      },
+      {
+        "offset": 134,
+        "opcode": "LOAD_ATTR",
+        "argument": "name"
+      },
+      {
+        "offset": 154,
+        "opcode": "LOAD_CONST",
+        "argument": "-1"
+      },
+      {
+        "offset": 156,
+        "opcode": "BINARY_SUBSCR",
+        "argument": ""
+      },
+      {
+        "offset": 160,
+        "opcode": "BINARY_SUBSCR",
+        "argument": ""
+      },
+      {
+        "offset": 164,
+        "opcode": "LOAD_FAST",
+        "argument": "self"
+      },
+      {
+        "offset": 166,
+        "opcode": "STORE_ATTR",
+        "argument": "side"
+      },
+      {
+        "offset": 176,
+        "opcode": "RETURN_CONST",
+        "argument": "None"
+      }
+    ]
+  }
+]

@@ -12,16 +12,10 @@ jobs:
   quality:
     name: Python ${{ matrix.python-version }}
     runs-on: ubuntu-latest
-    # 15 was set when the suite ran in eight minutes. The radiology domain grew
-    # from 5 modules to 66 (825 authored items), and the bank-wide checks —
-    # every item drawn, every model answer scored against its own keywords,
-    # every paper checked for a length tell — all scale with that corpus. The
-    # suite is honestly slower, not pathologically so: nothing in it is worse
-    # than linear, and the slowest single test is under ten seconds. Python 3.9
-    # came in at 13m30s and 3.12 was cancelled crossing the old ceiling, which
-    # is a timeout reading as a red build. Raised with headroom for the next
-    # domain rather than to the current high-water mark.
-    timeout-minutes: 30
+    # Large native studies make checkout time variable. Observed checkout
+    # (15m31s) plus the complete suite (20m30s) can exceed a 30-minute job.
+    # Keep every check and test, with headroom for source transport and execution.
+    timeout-minutes: 45
     env:
       # Matrix jobs run on separate ephemeral VMs, so fixed /tmp paths remain
       # isolated without using the step-only `runner.temp` context here.
@@ -33,7 +27,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        python-version: ["3.9", "3.12"]
+        python-version: ["3.10", "3.12"]
 
     steps:
       - name: Check out the repository
@@ -47,7 +41,7 @@ jobs:
           cache-dependency-path: requirements.lock.txt
 
       - name: Install locked dependencies
-        run: python -m pip install --disable-pip-version-check --requirement requirements.lock.txt
+        run: python -m pip install --disable-pip-version-check --requirement requirements.lock.txt --requirement tools/requirements-math-illustrations.txt --requirement tools/requirements-anatomy-source-checks.txt
 
       - name: Check dependency consistency
         run: python -m pip check
@@ -57,6 +51,24 @@ jobs:
 
       - name: Audit curriculum banks
         run: python tools/check_banks.py
+
+      - name: Verify hosted source raster inventory
+        run: python tools/check_static_raster_inventory.py
+
+      - name: Verify hosted source motion inventory
+        run: python tools/check_static_motion_inventory.py
+
+      - name: Verify hosted source volume inventory
+        run: python tools/check_static_source_volume_inventory.py
+
+      - name: Verify complete native source studies
+        run: python tools/check_static_source_study_inventory.py
+
+      - name: Verify hosted source mesh inventory
+        run: python tools/check_static_source_mesh_inventory.py
+
+      - name: Verify source-array and generated-image reproduction
+        run: python -m pytest tests/test_west_bohemia_pelvic_source.py tests/test_wt9fc_tongue_reference.py -q
 
       - name: Run the full test suite
         run: python -m pytest tests/ -q

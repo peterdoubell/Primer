@@ -1,0 +1,29 @@
+{
+  "case_id": "case_0571",
+  "reviewed_at": "2026-10-01",
+  "geometry_audit_sha256": "7b7bee13755f19ede4e63553907fcf26a14f9e02c7cad5969cb2cdfaf433a6dd",
+  "boundary_manifest_sha256": "3cf61aea8077b721cbb7573389071842d1ea51fb230a60da5d57eb6db9b8d732",
+  "topology_site_manifest_sha256": "45d3085b574131e53ce0edd857fa8216959c60fcddb5f092859597f53d61e137",
+  "inspected_figures": [
+    "complete-boundaries/component-01-source-labels.png",
+    "complete-boundaries/component-02-source-labels.png",
+    "complete-boundaries/component-03-source-labels.png",
+    "complete-boundaries/component-04-source-labels.png",
+    "complete-boundaries/component-05-source-labels.png",
+    "complete-boundaries/all-encoded-planes-soft-tissue-source-labels.png",
+    "topology-sites/component-02-site-01.png",
+    "topology-sites/component-02-site-02.png",
+    "topology-sites/component-02-site-03.png"
+  ],
+  "observations": [
+    "All source components have local orthogonal CT views; all thirty encoded planes are preserved, including three zero-label planes.",
+    "The largest surface has unresolved handles despite closed/manifold geometry and source-voxel consistency.",
+    "Native voxel adjacency and surface topology are separate conventions; candidate-site counts are not assigned as handle causes.",
+    "Native CT patches retain finite pixel sampling and source contours; these selected views do not independently establish disease, all boundary accuracy or station identity."
+  ],
+  "clinical_approval": false,
+  "source_labels_changed": false,
+  "source_mesh_changed": false,
+  "source_anatomy_or_disease_cause_assigned": false,
+  "next_action": "Resolve source/derived topology and clinical boundary context before model promotion; do not fill holes or prune source annotations."
+}

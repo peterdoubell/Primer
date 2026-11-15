@@ -1,0 +1,81 @@
+{
+  "status": "pass",
+  "scope": "Integrated QFT two-mode control/camera smoke and pulmonary inline mount/one annotation camera/section controls at1440/390; one local fullCT load; unchanged source fidelity inherited from PR137",
+  "served": {
+    "physics-qft-lab.js": "f0bb3bea1a995bf8e7fae194408f58c52e7a6f7e877a86eb306aa214c0fb7388",
+    "spatial-qft.js": "3e5385783b15901e4972ed0f981a0d97222d11adcb108ccfc3a77bbd9f2ba80d",
+    "spatial-models.js": "3fec71f2b3d9d6a3fb6b2840181baccb06954b54b83b633344a25e9d2a5431c3",
+    "spatial-module-objects.js": "54ce7bdabc20ae919a211b6df6ec2e02e0ff148a58bd5e99742eb80fc78727a7",
+    "lesson-state.js": "aac296f9901ed929474ba2f76d781f3bca8cf2ed5b79d039c71974451cfaa8d8",
+    "lesson-models.js": "d214a8ceb36c797758d72ef62fda18a0ccd964d5b297ef0f094cb33faada2782",
+    "app.js": "7e67a08f5a87983957418daf855069293ad6079c5375304c0dee83e1132029dc",
+    "anatomy/lidc-idri-0525/reference.js": "dcdd38c3eb1234b70c233b1cd739beaa9e6b4752c4576ee1671c6f4b2c8d3da5",
+    "anatomy/lidc-idri-0525/manifest.json": "e9c1a47e9c3a7e8e5ad441c5e66c45fbb32e136908aebd2e7a640faf60290c31"
+  },
+  "rows": [
+    {
+      "module": "phys.5.qft",
+      "width": 1440,
+      "mode": "modes",
+      "control": "occupation",
+      "camera_actions": 5,
+      "finite": true,
+      "state_synchronized": true
+    },
+    {
+      "module": "phys.5.qft",
+      "width": 1440,
+      "mode": "casimir",
+      "control": "gapUm",
+      "camera_actions": 5,
+      "finite": true,
+      "state_synchronized": true
+    },
+    {
+      "module": "phys.5.qft",
+      "width": 390,
+      "mode": "modes",
+      "control": "occupation",
+      "camera_actions": 5,
+      "finite": true,
+      "state_synchronized": true
+    },
+    {
+      "module": "phys.5.qft",
+      "width": 390,
+      "mode": "casimir",
+      "control": "gapUm",
+      "camera_actions": 5,
+      "finite": true,
+      "state_synchronized": true
+    },
+    {
+      "module": "rad.4.pulmonary-nodule",
+      "width": 1440,
+      "inline_mount": true,
+      "camera_reset": true,
+      "section_input": 330,
+      "model": {
+        "ready": "true",
+        "annotation": "annotation-57914",
+        "width": 814,
+        "height": 611
+      }
+    },
+    {
+      "module": "rad.4.pulmonary-nodule",
+      "width": 390,
+      "inline_mount": true,
+      "camera_reset": true,
+      "section_input": 331,
+      "model": {
+        "ready": "true",
+        "annotation": "annotation-57914",
+        "width": 235,
+        "height": 176
+      }
+    }
+  ],
+  "errors": [],
+  "whole_goal_complete": false
+}

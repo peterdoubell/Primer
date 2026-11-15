@@ -1,0 +1,318 @@
+{
+  "case": "s0028",
+  "source_version": "1.0",
+  "source_doi": "10.5281/zenodo.6802614",
+  "license": "CC BY 4.0",
+  "source_review_sha256": "5108de0ca71c86c67b450b879b74cc439978c48853ea461d4fd6190addea64f7",
+  "shape": [
+    299,
+    299,
+    394
+  ],
+  "spacing": [
+    1.5,
+    1.5,
+    1.5
+  ],
+  "affine": [
+    [
+      1.5,
+      0.0,
+      0.0,
+      -230.5625
+    ],
+    [
+      0.0,
+      1.5,
+      0.0,
+      -81.5625
+    ],
+    [
+      0.0,
+      0.0,
+      1.5,
+      -5.0
+    ],
+    [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+    ]
+  ],
+  "ct_file": "originals/ct.nii.gz",
+  "ct_file_sha256": "c7e4da7bdfd27609043b10f709df40f674beebaaeb93eaee87a7e4f130bde2b4",
+  "ct_file_decoded_sha256": "9eda1676c75b08a94ec966969c5bd0ab7900378eef31e4241bee382f50503dd6",
+  "ct_voxel_offset": 352,
+  "ct_payload_sha256": "6f411e87bf24128eb3192d46d439f929568fc5478f75592000111b73004fcad4",
+  "ct_datatype_code": 8,
+  "ct_sample_bytes": 4,
+  "ct_sample_kind": "signed_int32",
+  "source_xyzt_units": 0,
+  "source_original_published_grid_not_scanner_DICOM": true,
+  "parts": [
+    {
+      "id": "heart_myocardium",
+      "label": "Myocardium \u00b7 LV source output",
+      "original_label_name": "heart_myocardium",
+      "mask_file": "originals/heart_myocardium.nii.gz",
+      "mask_file_sha256": "ab9456598fd63c2da9fbda22599a95789ce1377b3b899426c87ff5740f768f3c",
+      "mask_file_decoded_sha256": "529fd82a9bc94a886a5c040c3c4e130d39dab3a14b60c8db03c6a59b1063e452",
+      "mask_payload_sha256": "6ce9783dbfbe859a8a068b5421ed07712923a1af9042647e863e276095c38d3c",
+      "mask_voxel_offset": 352,
+      "buffer_file": "surfaces/heart_myocardium-review-buffer.bin.gz",
+      "buffer_sha256": "43b03762028748c2c5c18577839fbab320e2912266835000a9b91a63e88f9cc0",
+      "buffer_decoded_sha256": "6dafe5157f2225b1206265c1bfa0fb27a3c02a6c8702404d726e3c7bbe248f3e",
+      "vertices": 14508,
+      "triangles": 29012,
+      "bounds": [
+        [
+          -85.8125,
+          138.1875,
+          381.25
+        ],
+        [
+          -15.3125,
+          211.6875,
+          445.75
+        ]
+      ],
+      "center_indices": [
+        120,
+        171,
+        279
+      ],
+      "foreground_bounds": [
+        [
+          97,
+          147,
+          258
+        ],
+        [
+          143,
+          195,
+          300
+        ]
+      ],
+      "foreground_voxels": 24650,
+      "source_components_6_connected": 1,
+      "max_centered_float32_position_error_source_coordinates": 0.0,
+      "source_position_payload_sha256": "5f9e277714a5989740d26f646a9c417d3325b412cac20374882065d15ce12a35",
+      "source_triangle_payload_sha256": "2d7ae88126396c17497a521187854a16c6caa8bb79dcab563683e69cd37b37d8",
+      "display_normals": "Area-weighted retained-source-triangle normals, derived only for display."
+    },
+    {
+      "id": "heart_atrium_left",
+      "label": "Left atrium \u00b7 source chamber region",
+      "original_label_name": "heart_atrium_left",
+      "mask_file": "originals/heart_atrium_left.nii.gz",
+      "mask_file_sha256": "e76421eab385f5e49a870e002c4fde8bbcf36205a10ddadbec8b783dc0401b39",
+      "mask_file_decoded_sha256": "f44978dc2720823d8c57adf9c70aa28c2c236366659f3907ceaa0d9d1b46ac98",
+      "mask_payload_sha256": "47f2b73292ed25da0335fb8640cdf2f4cb8845110a17551fa9f203a76e18f216",
+      "mask_voxel_offset": 352,
+      "buffer_file": "surfaces/heart_atrium_left-review-buffer.bin.gz",
+      "buffer_sha256": "e50c82ab5a3ad728ada57656999cfd137ff2e4cd5fb9e3e9a63971423a4119ff",
+      "buffer_decoded_sha256": "5b4ba8f21ec1cd6017cfef2aeef7b804d4fa892e3b5213554da5d7ca188a353b",
+      "vertices": 5274,
+      "triangles": 10544,
+      "bounds": [
+        [
+          -45.3125,
+          124.6875,
+          403.75
+        ],
+        [
+          19.1875,
+          166.6875,
+          456.25
+        ]
+      ],
+      "center_indices": [
+        145,
+        151,
+        290
+      ],
+      "foreground_bounds": [
+        [
+          124,
+          138,
+          273
+        ],
+        [
+          166,
+          165,
+          307
+        ]
+      ],
+      "foreground_voxels": 17276,
+      "source_components_6_connected": 1,
+      "max_centered_float32_position_error_source_coordinates": 0.0,
+      "source_position_payload_sha256": "de9cf6463d5220404ed9e46ab7733ab7e80375ca32207bdc5561ec6d5df81d7a",
+      "source_triangle_payload_sha256": "b69ae962a679c7704d2a4f37448541080eaa2d1000a73b3d587d0bb2fbb0c342",
+      "display_normals": "Area-weighted retained-source-triangle normals, derived only for display."
+    },
+    {
+      "id": "heart_ventricle_left",
+      "label": "Left ventricle \u00b7 source chamber region",
+      "original_label_name": "heart_ventricle_left",
+      "mask_file": "originals/heart_ventricle_left.nii.gz",
+      "mask_file_sha256": "1c7e34e55f72e6d9bdaedd83aacc27e090231c4e4fc9452c1b7d3b3a0aeb117d",
+      "mask_file_decoded_sha256": "a2ea476cad526344fa76fd82aa16a0b4876435f8602ec5820e4ca028c9eb0220",
+      "mask_payload_sha256": "3ba1d04fa2181283957da8f0b4564b7b797265764a486f77c496e19c8e9cfaf2",
+      "mask_voxel_offset": 352,
+      "buffer_file": "surfaces/heart_ventricle_left-review-buffer.bin.gz",
+      "buffer_sha256": "ae930c7aa38e2e25d310e42486ba35672651bdcc12e047b2f4f215db7a296289",
+      "buffer_decoded_sha256": "1d7500a74ce60d3b9bd3106c254b8c276edbd1c381fa184c7e04ff929aaa91a2",
+      "vertices": 6558,
+      "triangles": 13112,
+      "bounds": [
+        [
+          -79.8125,
+          144.1875,
+          387.25
+        ],
+        [
+          -15.3125,
+          205.6875,
+          441.25
+        ]
+      ],
+      "center_indices": [
+        122,
+        171,
+        279
+      ],
+      "foreground_bounds": [
+        [
+          101,
+          151,
+          262
+        ],
+        [
+          143,
+          191,
+          297
+        ]
+      ],
+      "foreground_voxels": 21625,
+      "source_components_6_connected": 1,
+      "max_centered_float32_position_error_source_coordinates": 0.0,
+      "source_position_payload_sha256": "3e0418ee2d9ce6b092cde0a51bee7cdbbbb3e686ef0ba3ea7437030e05c363d9",
+      "source_triangle_payload_sha256": "52645ce8c5575333deae5b12dc5bbfbe8f8ee140f2a0b52a1f59b52e9f0f046d",
+      "display_normals": "Area-weighted retained-source-triangle normals, derived only for display."
+    },
+    {
+      "id": "heart_atrium_right",
+      "label": "Right atrium \u00b7 source chamber region",
+      "original_label_name": "heart_atrium_right",
+      "mask_file": "originals/heart_atrium_right.nii.gz",
+      "mask_file_sha256": "5d347a26a2d4af237abc30550e28b7c6bb011b2a750d41871162e46d740b2c6d",
+      "mask_file_decoded_sha256": "ab50faec7abb914a783298b033362cdf215e1505eb9516e633affd5193b704ca",
+      "mask_payload_sha256": "a6571a2b5b5c08a12a6bd266f7a138eccf83e128341d565f3f2cac3acf6ccfb7",
+      "mask_voxel_offset": 352,
+      "buffer_file": "surfaces/heart_atrium_right-review-buffer.bin.gz",
+      "buffer_sha256": "2d08be956a20ab1296ca9fd2f2b6d577a6b514af7d76da36f7e3bec33b25d414",
+      "buffer_decoded_sha256": "f58fd1376d911bed1a4ca55461734673af04fa7d738f1d1b3bdbc3f22765ae8a",
+      "vertices": 6602,
+      "triangles": 13200,
+      "bounds": [
+        [
+          -15.3125,
+          145.6875,
+          388.75
+        ],
+        [
+          37.1875,
+          207.1875,
+          460.75
+        ]
+      ],
+      "center_indices": [
+        161,
+        172,
+        286
+      ],
+      "foreground_bounds": [
+        [
+          144,
+          152,
+          263
+        ],
+        [
+          178,
+          192,
+          310
+        ]
+      ],
+      "foreground_voxels": 22093,
+      "source_components_6_connected": 1,
+      "max_centered_float32_position_error_source_coordinates": 0.0,
+      "source_position_payload_sha256": "b819bf505b21f4f202fa980ab40f30fc4e33ef218bbea2f6f10bb6c9a3af6f1c",
+      "source_triangle_payload_sha256": "98617c8610c311e3d239be504006335b584fabacc1cd34d5f33b5404321968a3",
+      "display_normals": "Area-weighted retained-source-triangle normals, derived only for display."
+    },
+    {
+      "id": "heart_ventricle_right",
+      "label": "Right ventricle \u00b7 source chamber region",
+      "original_label_name": "heart_ventricle_right",
+      "mask_file": "originals/heart_ventricle_right.nii.gz",
+      "mask_file_sha256": "38c60dedc2d720170b564baa8c8defa2d1449633ddb2efe7092f96676eb848bc",
+      "mask_file_decoded_sha256": "665faa6cb9cc4aa5e6849f19d5f034447d22f193b14abf38a8a7e74bead88127",
+      "mask_payload_sha256": "16d2f603623b378809d451b7f282a9d60f9a0d9fad42de865e1c14a1dc543930",
+      "mask_voxel_offset": 352,
+      "buffer_file": "surfaces/heart_ventricle_right-review-buffer.bin.gz",
+      "buffer_sha256": "7ab9c77972810e3a5a3ec43aa3d19c6c19b598f1bcaf159e33258d93495b8eab",
+      "buffer_decoded_sha256": "f2f863bcea97db51f52c43110ba91793088daeceb8bd4e11faaf879b642183a8",
+      "vertices": 10104,
+      "triangles": 20204,
+      "bounds": [
+        [
+          -61.8125,
+          171.1875,
+          375.25
+        ],
+        [
+          11.6875,
+          220.6875,
+          462.25
+        ]
+      ],
+      "center_indices": [
+        137,
+        185,
+        282
+      ],
+      "foreground_bounds": [
+        [
+          113,
+          169,
+          254
+        ],
+        [
+          161,
+          201,
+          311
+        ]
+      ],
+      "foreground_voxels": 34753,
+      "source_components_6_connected": 1,
+      "max_centered_float32_position_error_source_coordinates": 0.0,
+      "source_position_payload_sha256": "ad83ede4d41c0e02715ac59b55243bb5669a392d9d161b2a4f806a7a018c36fa",
+      "source_triangle_payload_sha256": "6a8ffed04ac1ebef9d8ccb62b60eb562c19ff10c49d19ef0cbbb72593d0be1e3",
+      "display_normals": "Area-weighted retained-source-triangle normals, derived only for display."
+    }
+  ],
+  "sform_origin": [
+    -24.3125,
+    172.6875,
+    418.75
+  ],
+  "clinical_approval": false,
+  "normal_anatomical_atlas_approval": false,
+  "current_patient_registration": false,
+  "verified_structure_coverage_granted": false,
+  "display_storage": {
+    "CT": "Zero-copy signed-int32 view of the unchanged decoded NIfTI source",
+    "masks": "Lossless bit packing of every original binary label value"
+  }
+}

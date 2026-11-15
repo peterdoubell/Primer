@@ -1,0 +1,196 @@
+{
+  "dataset": "Z-Anatomy C1/C2 bone reference",
+  "status": "Limited source-bone reference; clinical fidelity unverified",
+  "source_url": "https://github.com/LluisV/Z-Anatomy/tree/6c7f9016bd5899ac8edafd31b9900c151df42ed6",
+  "license": "CC BY-SA 4.0",
+  "license_url": "https://creativecommons.org/licenses/by-sa/4.0/",
+  "coordinate_system": {
+    "units": "centimeters",
+    "unit_meters": 0.01,
+    "x_positive": "patient left",
+    "y_positive": "superior",
+    "z_positive": "anterior",
+    "registration": "Source FBX geometry_to_world evaluated by ufbx; no fit or translation to BodyParts3D",
+    "display_basis": "native-x-left-y-superior-z-anterior"
+  },
+  "parts": {
+    "za-bones-672122883": {
+      "name": "Atlas (C1)",
+      "source_model_id": 672122883,
+      "source_geometry_id": 549142835,
+      "world_transform_columns": [
+        [
+          1000.0003333091036,
+          7.24294843567293e-18,
+          -5.4962041684471774e-11
+        ],
+        [
+          3.7198465886279615e-11,
+          7.54979071227484e-05,
+          -1000.0000996589492
+        ],
+        [
+          5.2924091086876885e-18,
+          1000.0000996589492,
+          7.549790723377081e-05
+        ],
+        [
+          1.2457547433394195e-06,
+          154.25244363082007,
+          -1.8455413476636657
+        ]
+      ],
+      "ancestors": [
+        "Cervical vertebrae.g",
+        "Vertebral column.g",
+        ""
+      ],
+      "id": "za-bones-672122883",
+      "file": "/app/anatomy/msk-cervical/za-bones-672122883.bin",
+      "sha256": "6496a93f812320c40e44319db4e6e2175a724ed8d673dff5a86e21a8c4f1a778",
+      "vertices": 6486,
+      "triangles": 2194,
+      "bounds": [
+        [
+          -4.302791595458984,
+          153.3108367919922,
+          -4.595332145690918
+        ],
+        [
+          4.303620338439941,
+          155.27560424804688,
+          0.31141871213912964
+        ]
+      ],
+      "source_sha256": "294a649765cd060a62a4095da52b9c8ef2d97769aa447e196448aa5f7d596dea",
+      "source_file": "z-anatomy-SkeletalSystem100.fbx",
+      "layer": "bone",
+      "color": "#5f9ec5",
+      "fidelity_review": "pending",
+      "license": "CC BY-SA 4.0",
+      "regions": [
+        "cervical"
+      ]
+    },
+    "za-bones-454295794": {
+      "name": "Axis (C2)",
+      "source_model_id": 454295794,
+      "source_geometry_id": 35225681,
+      "world_transform_columns": [
+        [
+          1000.0003333091036,
+          7.24294843567293e-18,
+          -5.4962041684471774e-11
+        ],
+        [
+          3.7198465886279615e-11,
+          7.54979071227484e-05,
+          -1000.0000996589492
+        ],
+        [
+          5.2924091086876885e-18,
+          1000.0000996589492,
+          7.549790723377081e-05
+        ],
+        [
+          1.2370086095604e-06,
+          152.54854360098318,
+          -1.9829721666241298
+        ]
+      ],
+      "ancestors": [
+        "Cervical vertebrae.g",
+        "Vertebral column.g",
+        ""
+      ],
+      "id": "za-bones-454295794",
+      "file": "/app/anatomy/msk-cervical/za-bones-454295794.bin",
+      "sha256": "2b088cee674a6c58ef8a064da7a9e359ff19d4d2e4915d0573c9d3807a59243a",
+      "vertices": 6822,
+      "triangles": 2334,
+      "bounds": [
+        [
+          -2.6784627437591553,
+          150.85250854492188,
+          -5.2382426261901855
+        ],
+        [
+          2.6815907955169678,
+          155.1435089111328,
+          0.0356510691344738
+        ]
+      ],
+      "source_sha256": "294a649765cd060a62a4095da52b9c8ef2d97769aa447e196448aa5f7d596dea",
+      "source_file": "z-anatomy-SkeletalSystem100.fbx",
+      "layer": "bone",
+      "color": "#d9a164",
+      "fidelity_review": "pending",
+      "license": "CC BY-SA 4.0",
+      "regions": [
+        "cervical"
+      ]
+    }
+  },
+  "bounds": [
+    [
+      -4.302791595458984,
+      150.85250854492188,
+      -5.2382426261901855
+    ],
+    [
+      4.303620338439941,
+      155.27560424804688,
+      0.31141871213912964
+    ]
+  ],
+  "excluded": [
+    "Occipital source mesh: open/non-manifold edges",
+    "No ligament, cartilage, neural or vascular structures included"
+  ],
+  "limitations": "Preserved source bone surfaces only. No instability, validated joint surfaces, ligament attachments or clinical accuracy inferred.",
+  "clinical_approval": false,
+  "regions": {
+    "cervical": {
+      "title": "C1/C2 bones \u00b7 limited reference",
+      "side": "midline",
+      "parts": [
+        {
+          "id": "za-bones-672122883",
+          "layer": "bone"
+        },
+        {
+          "id": "za-bones-454295794",
+          "layer": "bone"
+        }
+      ],
+      "layers": [
+        [
+          "bone",
+          "Bones"
+        ]
+      ],
+      "source_up_range": [
+        150.35250854492188,
+        155.77560424804688
+      ],
+      "focus_bounds": [
+        [
+          -4.302791595458984,
+          150.85250854492188,
+          -5.2382426261901855
+        ],
+        [
+          4.303620338439941,
+          155.27560424804688,
+          0.31141871213912964
+        ]
+      ]
+    }
+  },
+  "viewer_notes": [
+    "Atlas and axis source-bone surfaces only, in their original shared coordinates. No fitting, smoothing or mesh repair.",
+    "The occipital bone is excluded because of unresolved source topology defects. Ligaments, cartilage, pannus, erosions and neural structures are not supplied by this reference. It cannot establish clinical stability.",
+    "Closed topology and preserved geometry do not prove anatomical fidelity. Fine articular and attachment anatomy remains unverified.",
+    "BodyParts3D, The Database Center for Life Science (source lineage); Z-Anatomy contributors. Adapted source meshes: CC BY-SA 4.0."
+  ]
+}

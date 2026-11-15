@@ -1,0 +1,40 @@
+{
+  "status": "source_and_reader_checks_passed_historical_inverse_pending",
+  "scope": "Six bounded publication examples, not clinical completeness",
+  "source_tests": {
+    "command": "python -m pytest tests/test_epilepsy_pathology_figures.py tests/test_hippunfold_reference.py -q",
+    "passed": 20
+  },
+  "related_regressions": {
+    "command": "python -m pytest tests/test_radiology_fidelity_scope.py tests/test_static_raster_integrity.py tests/test_module_media.py tests/test_neuroradiology_atlas_scope.py -q",
+    "passed": 37
+  },
+  "reader_proof": {
+    "path": "docs/epilepsy-pathology-figure-review-20261016/reader-proof.json",
+    "sha256": "ece85d1ebaf34a3c62a203f2c14ff60cce9ae63f9a3a58ae9d7362db6020996d",
+    "cases": 36,
+    "viewport_widths": [
+      390,
+      1440
+    ],
+    "exact_source_image_bodies": 6,
+    "errors": []
+  },
+  "independent_review": {
+    "path": "docs/epilepsy-pathology-figure-review-20261016/integration-independent/final-review.json",
+    "sha256": "32016f12fe092ab649ddca1225bfb5c5ffbf13586c955ef960b57d8bff563401"
+  },
+  "historical_checks_before_new_inverse": {
+    "passed": 11,
+    "failed": 8,
+    "stopped_at_maxfail": true,
+    "reason": "New exact figure/walkthrough/source-gallery delta must precede prior HippUnfold inverse; old proofs retained"
+  },
+  "clinical_approval": false,
+  "new_verified_structure_coverage": false,
+  "whole_goal_complete": false,
+  "production_verified": false,
+  "committed": false,
+  "pushed": false,
+  "deployed": false
+}

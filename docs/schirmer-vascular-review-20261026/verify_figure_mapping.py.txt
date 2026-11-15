@@ -1,0 +1,47 @@
+"""Independent direct-index test; no image resizing or learned label assignment."""
+from pathlib import Path
+import hashlib,json,itertools
+import numpy as np
+import nibabel as nib
+from PIL import Image
+from scipy.ndimage import minimum_filter
+D=Path(__file__).resolve().parent
+FIGURE_SHA='29fb529da4181e7827f4248fcaa9d256b5db88c8b9f123e320c525f754e21e07'
+LABEL_SHA='780e3f5194c8ade355cc965c90076b872cb24a43226991da3210927aba7e7a1f'
+# Names were transcribed from the published legend, rather than an anatomical
+# guess about a mask's location. Numeric codes are the hypothesis under test.
+LEGEND=[(2,'Right ACA',[135,0,152]),(12,'Left ACA',[0,255,1]),(4,'Right MCA',[0,0,222]),(14,'Left MCA',[238,236,1]),(6,'Right PCA',[0,151,220]),(16,'Left PCA',[254,153,0]),(8,'Right Pons/Medulla',[0,170,134]),(18,'Left Pons/Medulla',[220,0,0]),(10,'Right Cerebellum',[0,188,0]),(20,'Left Cerebellum',[204,204,204])]
+PANELS=[(916,40,1171,345,109),(916,351,1171,657,80),(916,663,1171,969,52)]
+for name,digest in [('figure1.webp',FIGURE_SHA),('mni_vascular_territories.nii.gz',LABEL_SHA)]:assert hashlib.sha256((D/name).read_bytes()).hexdigest()==digest
+im=np.asarray(Image.open(D/'figure1.webp').convert('RGB'),dtype=np.int16);nii=nib.load(D/'mni_vascular_territories.nii.gz');raw=np.asanyarray(nii.dataobj);assert raw.shape==(182,218,182)and np.array_equal(raw,raw.astype(np.uint16));lab=raw.astype(np.uint16)
+assert np.array_equal(nii.affine,[[-1,0,0,90],[0,1,0,-126],[0,0,1,-72],[0,0,0,1]])
+assert nib.aff2axcodes(nii.affine)==('L','A','S')
+palette=np.array([r[2]for r in LEGEND],dtype=np.int16);codes=np.array([r[0]for r in LEGEND],dtype=np.uint16)
+rows=[];all_actual=[];all_expected=[];all_flipped_x=[];all_flipped_y=[];all_wrong_z=[]
+for row,(x0,y0,x1,y1,z)in enumerate(PANELS):
+ rgb=im[y0:y1,x0:x1];height,width=rgb.shape[:2];dist=np.max(np.abs(rgb[:,:,None,:]-palette[None,None,:,:]),axis=3);nearest=dist.argmin(2);classified=dist.min(2)<=12
+ # A full seven-by-seven neighborhood must have the same identified color.
+ interior=np.zeros((height,width),bool)
+ for k in range(len(LEGEND)):interior|=minimum_filter(((nearest==k)&classified).astype(np.uint8),size=7,mode='constant',cval=0).astype(bool)
+ y,x=np.indices((height,width));i=((2*x+1)*182)//(2*width);j=217-((2*y+1)*218)//(2*height)
+ actual=lab[i,j,z];expected=codes[nearest];known=actual>0
+ def tally(mask):
+  return {'pixels':int(mask.sum()),'matching':int(np.count_nonzero(mask&(actual==expected))),'background':int(np.count_nonzero(mask&(actual==0))),'wrongNonbackgroundClass':int(np.count_nonzero(mask&known&(actual!=expected))),'unexpected19':int(np.count_nonzero(mask&(actual==19)))}
+ row_counts={str(code):{'pixels':int(np.count_nonzero(interior&(expected==code))),'matched':int(np.count_nonzero(interior&(expected==code)&(actual==code)))}for code in codes}
+ rows.append({'panel':row,'sourceK':z,'worldZ':z-72,'crop':[x0,y0,x1,y1],'allClassifiedPixels':tally(classified),'stableInteriors':tally(interior),'perExpectedLabel':row_counts})
+ all_actual.append(actual[interior]);all_expected.append(expected[interior]);all_flipped_x.append(lab[181-i,j,z][interior]);all_flipped_y.append(lab[i,217-j,z][interior]);all_wrong_z.append(lab[i,j,z+10][interior])
+a=np.concatenate(all_actual);e=np.concatenate(all_expected)
+per_label={str(code):{'publishedName':name,'samples':int(np.count_nonzero(e==code)),'matching':int(np.count_nonzero((e==code)&(a==code)))}for code,name,_ in LEGEND}
+negative=[]
+for name,values in [('left_right_flip',all_flipped_x),('anterior_posterior_flip',all_flipped_y),('wrong_axial_plane_plus10',all_wrong_z)]:
+ test=np.concatenate(values);negative.append({'case':name,'mismatches':int(np.count_nonzero(test!=e)),'samples':len(e)})
+for left,right in itertools.combinations(codes.tolist(),2):
+ wrong=e.copy();wrong[e==left]=right;wrong[e==right]=left;negative.append({'case':f'swap_{left}_{right}','mismatches':int(np.count_nonzero(a!=wrong)),'samples':len(e)})
+unknown=np.argwhere(lab==19);assert unknown.tolist()==[[142,73,25]]
+proof={'allPassed':False,'method':'Direct integer pixel-center indices; fixed legend/code hypothesis; Chebyshev color classification; 7x7 uniform-color interiors','figureSHA256':FIGURE_SHA,'labelSHA256':LABEL_SHA,'scriptSHA256':hashlib.sha256(Path(__file__).read_bytes()).hexdigest(),'rows':rows,'totalInteriorSamples':len(e),'interiorMatches':int(np.count_nonzero(a==e)),'interiorBackground':int(np.count_nonzero(a==0)),'interiorWrongNamedClass':int(np.count_nonzero((a>0)&(a!=e))),'perLabel':per_label,'negativeControls':negative,'label19':{'sourceIJK':unknown[0].tolist(),'sourceWorld':[-52,-53,-47],'voxels':1,'semanticName':None,'preserved':True},'fullFigureBoundaryIdentityClaimed':False,'anatomicalBoundaryValidationClaimed':False,'clinicalApproval':False,'currentPatientRegistration':False,'runtimeIntegrated':False}
+(D/'independent-figure-proof.json').write_text(json.dumps(proof,indent=2)+'\n')
+assert proof['interiorWrongNamedClass']==0,proof
+assert proof['interiorBackground']==0,proof
+assert all(r['samples']>=100 and r['matching']==r['samples']for r in per_label.values())
+assert all(r['mismatches']>0 for r in negative)
+proof['allPassed']=True;(D/'independent-figure-proof.json').write_text(json.dumps(proof,indent=2)+'\n');print(json.dumps({'allPassed':True,'samples':len(e),'background':proof['interiorBackground'],'wrongNamedClass':proof['interiorWrongNamedClass'],'negativeControls':len(negative),'perLabel':per_label}))

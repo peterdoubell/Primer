@@ -1,0 +1,185 @@
+{
+  "reviewed_at": "2026-09-25",
+  "section": "More",
+  "investigations": {
+    "ra.ct-contrast-protocols": {
+      "steps": [
+        {
+          "label": "Indication for contrast",
+          "detail": "State which question needs enhancement and which phase answers it.",
+          "sections": [
+            "CLINICAL BENEFIT"
+          ],
+          "look": "Arterial phase for arteries and hypervascular lesions; portal venous phase for most abdominal organs; delayed phase for excretion and some lesions.",
+          "findings": [
+            "Target: [portal venous organ enhancement]; single portal venous phase at about 70 seconds.",
+            "Target: pulmonary arteries; bolus-tracked pulmonary arterial phase.",
+            "Target: hypervascular liver lesion; late arterial and portal venous phases."
+          ],
+          "landmark": "target",
+          "tip": "Choose the phase for the question: a phase that does not show the target gives no benefit for its dose."
+        },
+        {
+          "label": "Kidney function and context",
+          "detail": "Record eGFR with its date and acute kidney injury status, and other relevant context.",
+          "sections": [
+            "PATIENT ASSESSMENT"
+          ],
+          "look": "Local contrast safety guideline.",
+          "findings": [
+            "eGFR __ mL/min/1.73 m² on [date]; no acute kidney injury.",
+            "Suspected acute kidney injury: creatinine-based eGFR is unreliable."
+          ],
+          "landmark": "target",
+          "tip": "Creatinine-based eGFR can mislead during evolving acute kidney injury."
+        },
+        {
+          "label": "Previous reaction",
+          "detail": "Identify the agent, symptoms, severity and timing of any prior reaction.",
+          "sections": [
+            "REACTION HISTORY"
+          ],
+          "look": "Previous reaction record; do not rely on unspecified \"allergy\".",
+          "normal": "No previous contrast reaction.",
+          "findings": [
+            "Previous [mild urticarial] reaction to [agent] in [year]; [agent change / premedication] according to local protocol.",
+            "Shellfish allergy only — not a contrast reaction."
+          ],
+          "landmark": "target",
+          "tip": "A shellfish allergy alone does not predict an iodinated contrast reaction."
+        },
+        {
+          "label": "Administration",
+          "detail": "Record agent, concentration, access, volume, rate and injection completion.",
+          "sections": [
+            "ADMINISTRATION"
+          ],
+          "look": "Injector record and scan timing (fixed delay or bolus trigger).",
+          "findings": [
+            "[Agent] __ mgI/mL, __ mL at __ mL/s via [18 G antecubital] cannula; bolus-tracked at [ ] HU.",
+            "Injection incomplete: __ mL delivered."
+          ],
+          "images": [
+            "contrast-image-1"
+          ],
+          "measurements": [
+            "Delivered volume",
+            "Enhancement timing"
+          ],
+          "landmark": "beam"
+        },
+        {
+          "label": "Phase adequacy and events",
+          "detail": "State whether the target phase was adequate and record any reaction or extravasation with its management.",
+          "sections": [
+            "QUALITY AND EVENT RECORD"
+          ],
+          "look": "Enhancement of the target vessel or organ; injection site.",
+          "normal": "Target phase adequate; no reaction or extravasation.",
+          "findings": [
+            "Suboptimal arterial opacification (__ HU) limits assessment of [ ].",
+            "Transient interruption of contrast in the pulmonary arteries (deep inspiration).",
+            "Extravasation of __ mL at the [ ] with [management and handover]."
+          ],
+          "images": [
+            "contrast-image-2",
+            "contrast-image-3"
+          ],
+          "landmark": "detector"
+        }
+      ]
+    },
+    "ra.recist": {
+      "model": {
+        "family": "abdomen",
+        "reporting_aim": "Map target and non-target lesions by organ and compartment so the same lesions are measured each time."
+      },
+      "steps": [
+        {
+          "label": "Therapy and reference studies",
+          "detail": "Record the malignancy, treatment and start date, baseline, nadir and criteria used.",
+          "sections": [
+            "THERAPY AND REFERENCES"
+          ],
+          "look": "Baseline study within the protocol window before treatment; nadir is the smallest sum so far.",
+          "findings": [
+            "[Malignancy]; treatment [ ] started [date]; baseline [date]; nadir [date]; RECIST 1.1.",
+            "Criteria other than RECIST 1.1 apply: [mRECIST / iRECIST / Choi / Lugano]."
+          ],
+          "landmark": "solid",
+          "tip": "Choose the right response system for the tumour and treatment before measuring."
+        },
+        {
+          "label": "Target lesions",
+          "detail": "Keep the same measurable target lesions: at most five in total and two per organ.",
+          "sections": [
+            "TARGET LESIONS"
+          ],
+          "look": "Measurable: non-nodal lesion 10 mm or more (longest diameter) on CT with slice thickness 5 mm or less; nodes 15 mm or more short axis.",
+          "findings": [
+            "T1: [liver segment VII], series __ image __: baseline __ mm, nadir __ mm, current __ mm.",
+            "T2: [right paratracheal node] (short axis): baseline __ mm, nadir __ mm, current __ mm."
+          ],
+          "images": [
+            "oncology-response-image-1",
+            "oncology-response-image-2"
+          ],
+          "landmark": "solid",
+          "tip": "Measure the same lesion in the same way each time; nodes by short axis, other lesions by longest diameter."
+        },
+        {
+          "label": "Sum of diameters",
+          "detail": "Add the target diameters and compare with baseline (for response) and nadir (for progression).",
+          "sections": [
+            "TARGET SUM"
+          ],
+          "look": "Percentage change = (current − reference) / reference × 100.",
+          "findings": [
+            "Sum __ mm: __% from baseline, __% from nadir.",
+            "Partial response: 30% or more decrease from baseline.",
+            "Progression: 20% or more increase from nadir with at least 5 mm absolute increase."
+          ],
+          "measurements": [
+            "Sum of diameters",
+            "Percentage change"
+          ],
+          "landmark": "solid"
+        },
+        {
+          "label": "Non-target and new lesions",
+          "detail": "Assess non-target lesions and unequivocal new lesions separately.",
+          "sections": [
+            "NON-TARGET AND NEW DISEASE"
+          ],
+          "look": "Each non-target site; systematic search for new lesions.",
+          "normal": "Non-target lesions present / stable; no new lesions.",
+          "findings": [
+            "Unequivocal progression of non-target disease: [ ].",
+            "New lesion in the [ ] (unequivocal).",
+            "Indeterminate new focus in the [ ]; reassess at the next study."
+          ],
+          "images": [
+            "oncology-response-image-3"
+          ],
+          "landmark": "spaces",
+          "tip": "An equivocal new focus is not progression until confirmed."
+        },
+        {
+          "label": "Overall response",
+          "detail": "Combine target, non-target and new-lesion assessments into the overall category.",
+          "sections": [
+            "OVERALL RESPONSE"
+          ],
+          "look": "RECIST 1.1 response table.",
+          "findings": [
+            "Overall response: partial response (PR).",
+            "Overall response: stable disease (SD).",
+            "Overall response: progressive disease (PD) based on [ ].",
+            "Not evaluable because [ ]."
+          ],
+          "landmark": "solid"
+        }
+      ]
+    }
+  }
+}

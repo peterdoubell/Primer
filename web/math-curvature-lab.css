@@ -1,0 +1,17 @@
+.math-curvature-lab { min-width: 0; }
+.math-curvature-lab [hidden] { display: none !important; }
+.math-curvature-lab .model-range-control select, .math-curvature-lab input[type="number"] { min-width: 0; min-height: 44px; width: 100%; }
+.curvature-summary { display: grid; grid-template-columns: repeat(4,minmax(0,1fr)); gap: 10px; margin: 16px 0; }
+.curvature-summary p { display: grid; gap: 4px; padding: 10px; margin: 0; border: 1px solid var(--line,#d5cfbf); border-radius: 8px; }
+.curvature-summary strong { font-size: 20px; overflow-wrap: anywhere; font-variant-numeric: tabular-nums; }
+.curvature-panels { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: 12px; }
+.curvature-viewport { min-width: 0; overflow: auto; background: #f5efdf; border-radius: 10px; }
+.curvature-viewport:last-child { width: 100%; max-width: 660px; grid-column: 1/-1; justify-self: center; }
+.curvature-viewport svg { display: block; width: 100%; height: auto; font-family: var(--sans,sans-serif); }
+.math-curvature-lab.is-enlarged .curvature-viewport svg { width: 660px; min-width: 660px; max-width: none; }
+.curvature-table-region { overflow: auto; max-width: 100%; margin: 18px 0; }
+.curvature-ledger { min-width: 570px; width: 100%; font-size: 14px; border-collapse: collapse; }
+.curvature-ledger caption { text-align: left; margin: 8px 0; }
+.curvature-ledger th, .curvature-ledger td { padding: 9px 7px; text-align: left; border-bottom: 1px solid var(--line,#d5cfbf); }
+.curvature-proof, .curvature-seam { padding: 12px; border-left: 3px solid #317e78; }
+@media (max-width:760px) { .curvature-panels, .math-curvature-lab .concept-controls { grid-template-columns: minmax(0,1fr); } .curvature-summary { grid-template-columns: repeat(2,minmax(0,1fr)); } }

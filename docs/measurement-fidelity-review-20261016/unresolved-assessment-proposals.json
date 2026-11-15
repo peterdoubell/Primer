@@ -1,0 +1,77 @@
+{
+  "status": "review_proposals_only_not_applied",
+  "product_edit_authorized_and_applied_only": "quiz index7; see curriculum-correction.json",
+  "items": [
+    {
+      "quiz_index_zero_based": 4,
+      "before": {
+        "kind": "choice",
+        "prompt": "A team reports a new particle at 3.1 standard deviations above background, while a rival team using a comparable detector sees nothing there. Advise on how to read the situation.",
+        "answer": "Suggestive, not decisive: more data and an independent check.",
+        "choices": [
+          "Three sigma settles it, so the rival team must have blundered.",
+          "The claim should be discarded straight away as a fluctuation.",
+          "Suggestive, not decisive: more data and an independent check.",
+          "Statistics cannot settle a question of physics either way."
+        ],
+        "explain": "Three-sigma excesses are common once many channels are searched, and most have faded with more data. Neither believing nor discarding it is warranted: particle physics reserves discovery for five sigma plus an independent confirmation."
+      },
+      "finding": "The current explanation states five sigma plus independent confirmation as a blanket discovery rule and adds an unsourced claim that most three-sigma excesses faded. The answer encourages sensible caution, but the explanation overstates a convention.",
+      "proposed_after": {
+        "kind": "choice",
+        "prompt": "A team reports a new particle at 3.1 standard deviations above background, while a rival team using a comparable detector sees nothing there. Advise on how to read the situation.",
+        "answer": "Suggestive, not decisive: more data and an independent check.",
+        "choices": [
+          "Three sigma settles it, so the rival team must have blundered.",
+          "The claim should be discarded straight away as a fluctuation.",
+          "Suggestive, not decisive: more data and an independent check.",
+          "Statistics cannot settle a question of physics either way."
+        ],
+        "explain": "A 3.1-sigma excess is suggestive under the stated background model, but interpretation also depends on systematic uncertainties, whether the significance is local or accounts for all searches, and the other experiment's sensitivity. Particle physics commonly uses a five-sigma convention for discovery claims; crossing a threshold is not a universal guarantee or a posterior probability that a new particle exists. More data, model checks and independent tests strengthen the evidence."
+      },
+      "primary_source": {
+        "url": "https://pdg.lbl.gov/2025/reviews/rpp2025-rev-statistics.pdf",
+        "locator": "PDG Statistics 2025, sections40.3.2 and40.3.2.2",
+        "support": "Significance is model-dependent; five sigma is a common particle-physics convention and look-elsewhere effects matter."
+      }
+    },
+    {
+      "quiz_index_zero_based": 5,
+      "before": {
+        "kind": "choice",
+        "prompt": "Two laboratories measure the same constant. Lab A reports 1.652 plus or minus 0.001 and lab B reports 1.641 plus or minus 0.002, so the stated intervals do not overlap. Give the most likely explanation.",
+        "answer": "An unrecognised systematic error in at least one of the labs.",
+        "choices": [
+          "An unrecognised systematic error in at least one of the labs.",
+          "One lab must have made an arithmetic slip somewhere.",
+          "Random noise happened to be large in both data sets.",
+          "The constant itself differs between the two locations."
+        ],
+        "explain": "Quoted errors here are statistical. A gap of five combined sigma normally means an uncorrected instrumental or method bias, not bad luck in the noise."
+      },
+      "finding": "The prompt does not define the plus/minus quantities, correlations or their distribution. The explanation introduces statistical-only errors afterwards and treats a conditional standardized discrepancy as a unique likely bias diagnosis.",
+      "proposed_after": {
+        "kind": "choice",
+        "prompt": "Two independent laboratories measure the same stable dimensionless constant. Assume their quoted uncertainties are one-standard-deviation Gaussian uncertainties: A reports 1.652 ± 0.001 and B reports 1.641 ± 0.002. Their difference is about 4.9 combined standard uncertainties. What conclusion is justified?",
+        "answer": "The results are in tension under these assumptions; investigate the methods and uncertainty budgets without assigning a unique cause.",
+        "choices": [
+          "The results are in tension under these assumptions; investigate the methods and uncertainty budgets without assigning a unique cause.",
+          "The difference proves that one instrument has a systematic bias.",
+          "The probability that the constant differs between laboratories is 99.9999 percent.",
+          "Non-overlapping intervals alone identify which laboratory is wrong."
+        ],
+        "explain": "For independent standard uncertainties, u(A−B)=sqrt(0.001^2+0.002^2), so 0.011/u(A−B)≈4.9. This conditional comparison indicates tension, not a diagnosis of its cause. Check that both results concern the same measurand, that the uncertainties and independence assumptions are appropriate, and that calibration, methods and analysis were assessed. A discrepancy may reveal an omitted effect or an inadequate uncertainty model; interval overlap alone does not select the explanation."
+      },
+      "calculation_under_proposed_assumptions": {
+        "difference": 0.011,
+        "combined_standard_uncertainty": 0.0022360679774997894,
+        "standardized_difference": 4.919349550499538
+      },
+      "primary_source": {
+        "url": "https://nvlpubs.nist.gov/nistpubs/jres/116/6/V116.N06.A02.pdf",
+        "locator": "Kacker et al., Combining results from multiple evaluations of the same measurand, section2.1",
+        "support": "Compatibility is based on the difference and its uncertainty, including covariance, for comparable results of the same measurand; no unique cause follows from non-overlap."
+      }
+    }
+  ]
+}

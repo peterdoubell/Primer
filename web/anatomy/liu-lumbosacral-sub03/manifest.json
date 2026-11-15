@@ -1,0 +1,107 @@
+{
+  "dataset": "Liu et al. sub-03 \u00b7 open cord/dura contour envelopes",
+  "source_url": "https://doi.org/10.6084/m9.figshare.c.7372564",
+  "license": "CC BY 4.0",
+  "license_url": "https://creativecommons.org/licenses/by/4.0/",
+  "coordinate_system": {
+    "basis": "LPS",
+    "units": "millimetres",
+    "unit_meters": 0.001,
+    "display_basis": "native-lps-to-x-left-y-superior-z-anterior"
+  },
+  "parts": {
+    "cord": {
+      "id": "cord",
+      "name": "Cord contour envelope \u00b7 partial",
+      "file": "/app/anatomy/liu-lumbosacral-sub03/cord-open-envelope.bin.gz",
+      "sha256": "1b6bed8c2cee3e0c3ba7af2f0d34556351489511e12715d135214d4f8ae49c36",
+      "color": "#79ccd7",
+      "vertices": 10970,
+      "triangles": 21700,
+      "bounds": [
+        [
+          1.0086805820465088,
+          51.35757827758789,
+          -481.603515625
+        ],
+        [
+          11.393988609313965,
+          60.8978385925293,
+          -351.59307861328125
+        ]
+      ],
+      "layer": "cord",
+      "regions": [
+        "lumbosacral-neural"
+      ]
+    },
+    "dura": {
+      "id": "dura",
+      "name": "Dura contour envelope \u00b7 partial",
+      "file": "/app/anatomy/liu-lumbosacral-sub03/dura-open-envelope.bin.gz",
+      "sha256": "4a3da5cf0b0bd2c584923f0431afdae8b414c2f4d0f3c7b45ea9bc1bc1c50f38",
+      "color": "#d9b66a",
+      "vertices": 20700,
+      "triangles": 40980,
+      "bounds": [
+        [
+          -4.7839226722717285,
+          45.63310241699219,
+          -509.6065979003906
+        ],
+        [
+          17.851388931274414,
+          61.96464157104492,
+          -351.58477783203125
+        ]
+      ],
+      "layer": "dura",
+      "regions": [
+        "lumbosacral-neural"
+      ]
+    }
+  },
+  "regions": {
+    "lumbosacral-neural": {
+      "title": "MRI-derived cord and dural contours \u00b7 partial",
+      "side": "midline",
+      "parts": [
+        {
+          "id": "cord",
+          "layer": "cord"
+        },
+        {
+          "id": "dura",
+          "layer": "dura"
+        }
+      ],
+      "layers": [
+        [
+          "cord",
+          "Cord envelope"
+        ],
+        [
+          "dura",
+          "Dural envelope"
+        ]
+      ],
+      "source_up_range": [
+        -510.6065979003906,
+        -350.58477783203125
+      ]
+    }
+  },
+  "viewer_notes": [
+    "Partial contour envelopes from one lumbosacral MRI case. The original finite source endpoints remain open.",
+    "Between-plane surfaces are derived from source contours under documented interpolation assumptions. Anatomical boundary accuracy remains under review.",
+    "The dural contour envelope has no measured wall thickness. No rootlets, nerve tubes, gray/white matter compartments or complete CSF volume are supplied.",
+    "Use the source MRI and the reporting checklist to assess structures beyond this reference. This model does not depict trauma, compression or instability.",
+    "Liu, Zhang, Zhou, Xu, Chu and Jia (2024), Figshare collection 10.6084/m9.figshare.c.7372564. Original data CC BY 4.0. Adaptations: stated-default curve reconstruction, open contour loft and display normals."
+  ],
+  "clinical_approval": false,
+  "runtime_promoted": true,
+  "case_id": "sub-03",
+  "status": "Partial source reference; anatomical validation pending",
+  "derivation": "Original LPS source controls, interpreted with stated fresh Slicer 5.4 cardinal defaults and joined between adjacent planes. No end caps, smoothing or cross-subject fitting.",
+  "source_reconstruction_sha256": "c81137c9361ad3daef9b45c671f825783b79e31430d7e94fd58f442853fb382c"
+}

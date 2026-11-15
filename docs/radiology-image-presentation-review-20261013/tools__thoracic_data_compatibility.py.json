@@ -1,0 +1,16 @@
+{
+  "path": "tools/thoracic_data_compatibility.py",
+  "before": "8fb4650e31c7518e901d276740dea4eb110908e60053eaae4b52a0c7930f9ad4",
+  "after": "8e0c63d213d23b75484510e162e55bf460ce99473bb2c635ec7dec839ae6b34f",
+  "clinical_approval": false,
+  "fine_anatomical_approval": false,
+  "extends_any_historical_approval": false,
+  "changes": [
+    {
+      "start": 896,
+      "end": 1051,
+      "before": "",
+      "after": "    from tools.anatomy_sources.radiology_presentation_compatibility import restore_presentation_bytes\n    raw = restore_presentation_bytes(str(path), raw)\n"
+    }
+  ]
+}
