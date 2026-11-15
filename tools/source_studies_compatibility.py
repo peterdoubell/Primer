@@ -97,7 +97,7 @@ def before_endometrial_delivery_bytes(path, raw):
 
 def before_combined_source_release_bytes(path, raw):
     if str(path) in {'web/app.js', 'primer/server.py', 'vercel.json'}:
-        raw = _restore(path, raw, Path(__file__).resolve().parents[1] / 'docs/bp3d-dural-4.3/runtime-inverse.json', '97bdf4bbd799321fb29ff67333e333a7f152041e5f98aa9e511466788edebcd9')
+        raw = _restore(path, raw, Path(__file__).resolve().parents[1] / 'docs/bp3d-dural-4.3/runtime-inverse.json', 'cdc79f7e1c378be67dcf689b8045c40b901087ff1ab625b0a22ba5a2a785429b')
     from tools.report_compartment_compatibility import before_rich_report_bytes
     if str(path) == 'web/app.js':
         raw = before_rich_report_bytes(path, raw)

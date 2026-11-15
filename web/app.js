@@ -2970,8 +2970,8 @@ function renderDuralVenousAtlas(nodeId) {
     'rad.5.intracranial-haemorrhage', 'ra.intracranial-haemorrhage'];
   if (!references.includes(nodeId)) return null;
   return el('section', {class: 'card', 'aria-label': 'Dural venous anatomy'},
-    el('h2', {}, 'Dural venous sinuses and deep veins'),
-    el('p', {}, 'Compare 12 named source objects. The lateral sinuses represented here are right-sided.'),
+    el('h2', {}, 'Dural sinuses and cerebral veins'),
+    el('p', {}, 'Compare 20 named source objects, including right-sided cortical and basal veins. The lateral sinuses represented here are right-sided.'),
     el('a', {href: '/app/anatomy/bp3d-dural-4.3/index.html?from=' + encodeURIComponent(nodeId)},
       'Explore named venous structures in 3D'));
 }
@@ -3678,8 +3678,11 @@ function renderReportWalkthrough(n, { openTemplate } = {}) {
           href: '/app/anatomy/bp3d-dural-4.3/index.html?from=ra.venous-sinus-thrombosis&focus=' + focus},
           focus === 'deep' ? 'Inspect the available deep venous models' : 'Inspect the named dural sinuses'),
         el('p', {}, focus === 'deep'
-          ? 'This view shows the right internal cerebral vein, the source great cerebral vein object and the straight sinus. Cortical venous anatomy requires separate source objects.'
+          ? 'This view shows the right internal cerebral and basal veins, the source great cerebral vein object and the straight sinus.'
           : 'This view shows the source dural sinuses and confluence. The lateral sinuses are right-sided.'),
+        focus === 'deep' ? el('p', {}, el('a', {target: '_blank', rel: 'noopener',
+          href: '/app/anatomy/bp3d-dural-4.3/index.html?from=ra.venous-sinus-thrombosis&focus=cortical'},
+          'Inspect the available right cortical venous models')) : null,
         el('p', {class: 'muted'}, 'The anatomical reference opens in a new tab. Assess patency and thrombus on the examination you are reporting.')));
     }
     const rows = step.measurements.map(name => measures.get(name)).filter(Boolean);
