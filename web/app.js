@@ -4036,6 +4036,8 @@ async function renderNode(page, nodeId) {
   if (sourceStudies) page.append(sourceStudies);
   const vascularStudies = renderAbdominalVesselStudies(n.id);
   if (vascularStudies) page.append(vascularStudies);
+  if (n.id === 'math.4.int-calc') page.append(el('a', { class: 'btn ghost', href: '/app/math/volume-by-slices/index.html' },
+    'Build volume from horizontal cross-sections'));
   if (n.id === 'math.3.precalc') page.append(el('a', { class: 'btn ghost', href: '/app/math/limits-approach/index.html' },
     'Compare limits from the left and right'));
   if (n.id === 'math.4.diff-calc') page.append(el('a', { class: 'btn ghost', href: '/app/math/derivative-signs/index.html' },
@@ -4068,6 +4070,8 @@ async function renderNode(page, nodeId) {
     'Compare manuscript families'));
   if (n.id === 'lang.5.narratology') page.append(el('a', { class: 'btn ghost', href: '/app/language/narrative-order/index.html' },
     'Retell the archive story in a different order'));
+  if (n.id === 'lang.3.second-language') page.append(el('a', { class: 'btn ghost', href: '/app/language/french-phrase-practice/index.html' },
+    'Practise French phrases in conversation'));
   if (n.id === 'lang.3.media') page.append(el('a', { class: 'btn ghost', href: '/app/language/headline-editor/index.html' },
     'Edit a headline using counts and rates'));
   if (n.id === 'rad.5.adrenal') page.append(el('a', { class: 'btn ghost', href: '/app/anatomy/kidney-adrenal-s0028/index.html' },

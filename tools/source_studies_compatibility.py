@@ -96,11 +96,13 @@ def before_endometrial_delivery_bytes(path, raw):
     return restored
 
 def before_combined_source_release_bytes(path, raw):
-    if str(path) == 'web/app.js' and hashlib.sha256(raw).hexdigest() == '20a674daeafe4034a18373fa55319bf7f5c83d02b90cbbe11fdf4f0393a30747':
+    if str(path) == 'web/app.js' and hashlib.sha256(raw).hexdigest() == 'ea590424dcfff901a668a27547f746bae9516321a1dd72d15464532fdd9db5e6':
         raw = raw.replace(b"  if (n.id === 'phys.2.waves') page.append(el('a', { class: 'btn ghost', href: '/app/physics/wave-reflection/index.html' },\n    'Compare reflection at fixed and free ends'));\n", b"", 1)
         raw = raw.replace(b"  if (n.id === 'lang.5.narratology') page.append(el('a', { class: 'btn ghost', href: '/app/language/narrative-order/index.html' },\n    'Retell the archive story in a different order'));\n", b"", 1)
+        raw = raw.replace(b"  if (n.id === 'math.4.int-calc') page.append(el('a', { class: 'btn ghost', href: '/app/math/volume-by-slices/index.html' },\n    'Build volume from horizontal cross-sections'));\n", b"", 1)
+        raw = raw.replace(b"  if (n.id === 'lang.3.second-language') page.append(el('a', { class: 'btn ghost', href: '/app/language/french-phrase-practice/index.html' },\n    'Practise French phrases in conversation'));\n", b"", 1)
         if hashlib.sha256(raw).hexdigest() != 'dbc9f97b83302f0492e09a6c0bda994731bd80e101cb8a197e46c0cb8cc1c9ea':
-            raise ValueError('Wave and narratology links changed unrelated reader bytes')
+            raise ValueError('Activity links changed unrelated reader bytes')
     if str(path) in {'primer/server.py', 'vercel.json'}:
         raw = _restore(path, raw, Path(__file__).resolve().parents[1] / 'docs/ward-swi-s1/runtime-inverse.json', 'a878fe96f9ac04381172cb54ae0c0569d0d2e2739912ccf696a34242a9d68448')
     if str(path) in {'web/app.js', 'primer/server.py', 'vercel.json'}:
