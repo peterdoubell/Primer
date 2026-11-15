@@ -4038,6 +4038,8 @@ async function renderNode(page, nodeId) {
     'Explore spin order and temperature'));
   if (n.id === 'phys.5.frontier') page.append(el('a', { class: 'btn ghost', href: '/app/physics/sparc/index.html' },
     'Explore observed galaxy rotation curves'));
+  if (n.id === 'phys.4.classical') page.append(el('a', { class: 'btn ghost', href: '/app/physics/driven-oscillator/index.html' },
+    'Compare resonance and phase in a driven oscillator'));
   if (n.id === 'phys.3.nuclear') page.append(el('a', { class: 'btn ghost', href: '/app/physics/nuclear-balance/index.html' },
     'Balance nucleons and charge in nuclear reactions'));
   if (n.id === 'phys.2.gravity') page.append(el('a', { class: 'btn ghost', href: '/app/physics/gravity-orbit/index.html' },
