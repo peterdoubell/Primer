@@ -96,6 +96,8 @@ def before_endometrial_delivery_bytes(path, raw):
     return restored
 
 def before_combined_source_release_bytes(path, raw):
+    if str(path) in {'web/app.js', 'primer/server.py', 'vercel.json'}:
+        raw = _restore(path, raw, Path(__file__).resolve().parents[1] / 'docs/hyperpic-venous/runtime-inverse.json', '98cba14ca58e020da7a5b488db20659e48646255bb25de8bc0443b92ea72ce84')
     if str(path) == 'web/app.js' and hashlib.sha256(raw).hexdigest() == '961fcee7e6abff3639c468ce7313501cbb8437ca83df9fefdc570b41533e2be5':
         raw = raw.replace(b"  if (n.id === 'lang.4.creative') page.append(el('a', { class: 'btn ghost', href: '/app/language/scene-revision/index.html' },\n    'Revise a scene against a writing brief'));\n", b'', 1)
         if hashlib.sha256(raw).hexdigest() != 'ba81ed324ad5c9aaf343d63cf8a5fcf2df7d55307d359253384ffe9ca4fb3e74':

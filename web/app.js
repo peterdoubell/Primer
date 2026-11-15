@@ -2977,7 +2977,9 @@ function renderDuralVenousAtlas(nodeId) {
     el('h2', {}, 'Dural sinuses and cerebral veins'),
     el('p', {}, 'Compare 21 named source objects, including right-sided cortical and basal veins. The lateral sinuses represented here are right-sided.'),
     el('a', {href: '/app/anatomy/bp3d-dural-4.3/index.html?from=' + encodeURIComponent(nodeId)},
-      'Explore named venous structures in 3D'));
+      'Explore named venous structures in 3D'),
+    el('p', {}, el('a', {href:'/app/anatomy/hyperpic-venous/index.html?from=' + encodeURIComponent(nodeId)},
+      'Compare left and right sinus boundaries in two MRI-derived models')));
 }
 
 function renderAneurysmCtaStudy(nodeId) {
@@ -3192,6 +3194,10 @@ async function renderRadiologyDesk(page, nodeId) {
   if (aneurysmCta) page.append(aneurysmCta);
   const duralAtlas = renderDuralVenousAtlas(n.id);
   if (duralAtlas) page.append(duralAtlas);
+  if (['rad.5.intracranial-haemorrhage', 'ra.intracranial-haemorrhage'].includes(n.id)) {
+    page.append(el('a', {class: 'btn ghost', href: '/app/anatomy/venat/index.html?from=' + encodeURIComponent(n.id)},
+      'Explore population venous anatomy in 3D'));
+  }
   const desk = el('section', { class: 'rad-reporting-desk', 'aria-label': 'Reporting reference workspace' });
   const tabs = el('div', { class: 'rad-desk-tabs', role: 'tablist', 'aria-label': 'Reference sections' });
   const legacy = renderRadiologyReference(n);
@@ -4113,6 +4119,10 @@ async function renderNode(page, nodeId) {
   if (aneurysmCta) page.append(aneurysmCta);
   const duralAtlas = renderDuralVenousAtlas(n.id);
   if (duralAtlas) page.append(duralAtlas);
+  if (['rad.5.intracranial-haemorrhage', 'ra.intracranial-haemorrhage'].includes(n.id)) {
+    page.append(el('a', {class: 'btn ghost', href: '/app/anatomy/venat/index.html?from=' + encodeURIComponent(n.id)},
+      'Explore population venous anatomy in 3D'));
+  }
   if (n.id === 'rad.4.liver') page.append(el('a', { class: 'btn ghost', href: '/app/anatomy/liver-s0028/index.html' },
     'Inspect liver CT in three planes'));
   if (n.id === 'math.2.data') page.append(el('a', { class: 'btn ghost', href: '/app/math/bar-scales/index.html' },
