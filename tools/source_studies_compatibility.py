@@ -96,8 +96,17 @@ def before_endometrial_delivery_bytes(path, raw):
     return restored
 
 def before_combined_source_release_bytes(path, raw):
+    if str(path) == 'web/app.js' and hashlib.sha256(raw).hexdigest() == 'ea590424dcfff901a668a27547f746bae9516321a1dd72d15464532fdd9db5e6':
+        raw = raw.replace(b"  if (n.id === 'phys.2.waves') page.append(el('a', { class: 'btn ghost', href: '/app/physics/wave-reflection/index.html' },\n    'Compare reflection at fixed and free ends'));\n", b"", 1)
+        raw = raw.replace(b"  if (n.id === 'lang.5.narratology') page.append(el('a', { class: 'btn ghost', href: '/app/language/narrative-order/index.html' },\n    'Retell the archive story in a different order'));\n", b"", 1)
+        raw = raw.replace(b"  if (n.id === 'math.4.int-calc') page.append(el('a', { class: 'btn ghost', href: '/app/math/volume-by-slices/index.html' },\n    'Build volume from horizontal cross-sections'));\n", b"", 1)
+        raw = raw.replace(b"  if (n.id === 'lang.3.second-language') page.append(el('a', { class: 'btn ghost', href: '/app/language/french-phrase-practice/index.html' },\n    'Practise French phrases in conversation'));\n", b"", 1)
+        if hashlib.sha256(raw).hexdigest() != 'dbc9f97b83302f0492e09a6c0bda994731bd80e101cb8a197e46c0cb8cc1c9ea':
+            raise ValueError('Activity links changed unrelated reader bytes')
+    if str(path) in {'primer/server.py', 'vercel.json'}:
+        raw = _restore(path, raw, Path(__file__).resolve().parents[1] / 'docs/ward-swi-s1/runtime-inverse.json', 'a878fe96f9ac04381172cb54ae0c0569d0d2e2739912ccf696a34242a9d68448')
     if str(path) in {'web/app.js', 'primer/server.py', 'vercel.json'}:
-        raw = _restore(path, raw, Path(__file__).resolve().parents[1] / 'docs/bp3d-dural-4.3/runtime-inverse.json', '19e2c0a483adc144fb98bb407f5e1bfd20728813e26d078ee2ebfb9743fed313')
+        raw = _restore(path, raw, Path(__file__).resolve().parents[1] / 'docs/bp3d-dural-4.3/runtime-inverse.json', '3e96a8eb3a84469fd43d90cbfeb8238aed533b8c461f71371ebe8c2f09d42b2c')
     if str(path) == 'web/app.js' and hashlib.sha256(raw).hexdigest() == 'a49349951dfbea9697fbceb9d3932c8526ac27b3e7ae3b2ad011a58e9984c4a9':
         raw = raw.replace(b"  if (n.id === 'lang.1.spelling') page.append(el('a', { class: 'btn ghost', href: '/app/language/spelling-endings/index.html' },\n    'Practise adding -ing and -ed'));\n", b'', 1)
         raw = raw.replace(b"  if (n.id === 'math.3.precalc') page.append(el('a', { class: 'btn ghost', href: '/app/math/limits-approach/index.html' },\n    'Compare limits from the left and right'));\n", b'', 1)

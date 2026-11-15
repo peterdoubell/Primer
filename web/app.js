@@ -2971,7 +2971,7 @@ function renderDuralVenousAtlas(nodeId) {
   if (!references.includes(nodeId)) return null;
   return el('section', {class: 'card', 'aria-label': 'Dural venous anatomy'},
     el('h2', {}, 'Dural sinuses and cerebral veins'),
-    el('p', {}, 'Compare 20 named source objects, including right-sided cortical and basal veins. The lateral sinuses represented here are right-sided.'),
+    el('p', {}, 'Compare 21 named source objects, including right-sided cortical and basal veins. The lateral sinuses represented here are right-sided.'),
     el('a', {href: '/app/anatomy/bp3d-dural-4.3/index.html?from=' + encodeURIComponent(nodeId)},
       'Explore named venous structures in 3D'));
 }
@@ -3684,10 +3684,20 @@ function renderReportWalkthrough(n, { openTemplate } = {}) {
           href: '/app/anatomy/bp3d-dural-4.3/index.html?from=ra.venous-sinus-thrombosis&focus=cortical'},
           'Inspect the available right cortical venous models')) : null,
         el('p', {class: 'muted'}, 'The anatomical reference opens in a new tab. Assess patency and thrombus on the examination you are reporting.')));
+      if (focus === 'sinuses') parts.push(el('p', {},
+        el('a', {target: '_blank', rel: 'noopener',
+          href: '/app/anatomy/bp3d-dural-4.3/index.html?from=ra.venous-sinus-thrombosis&focus=jugular'},
+          'Inspect the right jugular bulb model'),
+        ' · ',
+        el('a', {target: '_blank', rel: 'noopener',
+          href: '/app/anatomy/bp3d-dural-4.3/figures.html?from=ra.venous-sinus-thrombosis&figure=jugular-3'},
+          'Compare jugular bulb variants on CBCT')));
       const examples = {
         'DURAL SINUSES': ['sadik-17', 'Compare superior sagittal sinus thrombosis on CT'],
         'DEEP AND CORTICAL VEINS': ['oliveira-7', 'Inspect deep venous thrombosis and associated haemorrhagic infarction'],
         'PARENCHYMAL EFFECTS': ['oliveira-7', 'Inspect the published haemorrhagic venous infarction example'],
+        'MASS EFFECT': ['zuurbier-2', 'Compare temporal horn enlargement on MRI and CT'],
+        'MIMICS AND COMPARISON': ['liu-1', 'Compare a slender left transverse sinus with thrombosis'],
       };
       const example = page.sections.map(section => examples[section]).find(Boolean);
       if (example) parts.push(el('section', {class: 'card', 'aria-label': 'Published clinical example for this step'},
@@ -4026,6 +4036,8 @@ async function renderNode(page, nodeId) {
   if (sourceStudies) page.append(sourceStudies);
   const vascularStudies = renderAbdominalVesselStudies(n.id);
   if (vascularStudies) page.append(vascularStudies);
+  if (n.id === 'math.4.int-calc') page.append(el('a', { class: 'btn ghost', href: '/app/math/volume-by-slices/index.html' },
+    'Build volume from horizontal cross-sections'));
   if (n.id === 'math.3.precalc') page.append(el('a', { class: 'btn ghost', href: '/app/math/limits-approach/index.html' },
     'Compare limits from the left and right'));
   if (n.id === 'math.4.diff-calc') page.append(el('a', { class: 'btn ghost', href: '/app/math/derivative-signs/index.html' },
@@ -4040,6 +4052,8 @@ async function renderNode(page, nodeId) {
     'Explore observed galaxy rotation curves'));
   if (n.id === 'phys.3.nuclear') page.append(el('a', { class: 'btn ghost', href: '/app/physics/nuclear-balance/index.html' },
     'Balance nucleons and charge in nuclear reactions'));
+  if (n.id === 'phys.2.waves') page.append(el('a', { class: 'btn ghost', href: '/app/physics/wave-reflection/index.html' },
+    'Compare reflection at fixed and free ends'));
   if (n.id === 'phys.2.gravity') page.append(el('a', { class: 'btn ghost', href: '/app/physics/gravity-orbit/index.html' },
     'Compare gravity at different orbital distances'));
   if (n.id === 'phys.1.sound') page.append(el('a', { class: 'btn ghost', href: '/app/physics/longitudinal-sound/index.html' },
@@ -4054,6 +4068,10 @@ async function renderNode(page, nodeId) {
     'Inspect evidence and repair an argument'));
   if (n.id === 'lang.5.philology') page.append(el('a', { class: 'btn ghost', href: '/app/language/stemma/index.html' },
     'Compare manuscript families'));
+  if (n.id === 'lang.5.narratology') page.append(el('a', { class: 'btn ghost', href: '/app/language/narrative-order/index.html' },
+    'Retell the archive story in a different order'));
+  if (n.id === 'lang.3.second-language') page.append(el('a', { class: 'btn ghost', href: '/app/language/french-phrase-practice/index.html' },
+    'Practise French phrases in conversation'));
   if (n.id === 'lang.3.media') page.append(el('a', { class: 'btn ghost', href: '/app/language/headline-editor/index.html' },
     'Edit a headline using counts and rates'));
   if (n.id === 'rad.5.adrenal') page.append(el('a', { class: 'btn ghost', href: '/app/anatomy/kidney-adrenal-s0028/index.html' },

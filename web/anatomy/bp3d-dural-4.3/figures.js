@@ -2,6 +2,7 @@
 const get=id=>document.getElementById(id);
 const selection=get('figure'),image=get('image'),status=get('status'),retry=get('retry');
 const cache=new Map();
+const related=get('related-figures');
 let figures=null;
 let generation=0;
 function resize(){
@@ -14,6 +15,8 @@ async function showFigure(){
   get('caption').textContent='';
   get('label-key').replaceChildren();
   get('article').hidden=true;
+  related.hidden=true;
+  related.replaceChildren();
   status.textContent='Loading verified source figure…';
   try{
     if(!figures){
@@ -61,6 +64,19 @@ async function showFigure(){
       const name=document.createElement('td');name.textContent=structure;
       row.append(label,name);return row;
     }));
+    for(const id of item.related || []){
+      const comparison=figures.find(figure=>figure.id===id);
+      if(!comparison)continue;
+      const link=document.createElement('a');
+      const query=new URLSearchParams(location.search);
+      query.set('figure',id);
+      link.href='?'+query.toString();
+      link.textContent=comparison.title;
+      const line=document.createElement('p');
+      line.append(link);
+      related.append(line);
+    }
+    related.hidden=!related.childElementCount;
     status.textContent='Original Figure '+item.figureNumber+' · '+item.width+' × '+item.height+' source pixels.';
   }catch(error){
     if(attempt!==generation)return;

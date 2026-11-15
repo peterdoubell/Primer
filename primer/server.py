@@ -4274,7 +4274,7 @@ async def hva_ct_delivery(asset: str, request: Request):
 
 @app.api_route("/app/anatomy/{atlas}/{asset:path}", methods=["GET", "HEAD"], include_in_schema=False)
 async def source_mesh_delivery(atlas: str, asset: str, request: Request):
-    if atlas in {"aneurysm-cta-018", "cmha-mca-005", "rhuh-sah-001", "bp3d-dural-4.3"}:
+    if atlas in {"aneurysm-cta-018", "cmha-mca-005", "rhuh-sah-001", "bp3d-dural-4.3", "ward-swi-s1"}:
         directory = "anatomy/" + atlas
         with open(os.path.join(WEB_DIR, directory, "delivery.json"), encoding="utf-8") as source:
             files = json.load(source)["files"]
