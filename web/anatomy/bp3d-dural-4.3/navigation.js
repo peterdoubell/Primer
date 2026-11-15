@@ -15,7 +15,8 @@ if (contexts.has(from)) {
 }
 
 const layers = {
-  sinuses: ['FJ5005', 'FJ5222', 'FJ4704', 'FJ4705', 'FJ5232', 'FJ4716', 'FJ5140', 'FJ5064', 'FJ5098', 'FJ5207'],
+  sinuses: ['FJ5005', 'FJ5222', 'FJ4704', 'FJ4705', 'FJ5232', 'FJ4716', 'FJ5140', 'FJ5064', 'FJ5098', 'FJ5207', 'FJ5008'],
+  jugular: ['FJ5008'],
   deep: ['FJ4705', 'FJ4654', 'FJ4690', 'FJ5046'],
   cortical: ['FJ4695', 'FJ5007', 'FJ5090', 'FJ5091', 'FJ5194', 'FJ5195', 'FJ5196'],
 };
@@ -26,7 +27,7 @@ if (Object.hasOwn(layers, focus)) {
   }
 }
 
-for (const id of ['atlas-link', 'mrv-link']) {
+for (const id of ['atlas-link', 'mrv-link', 'swi-link']) {
   const link = document.getElementById(id);
   if (link) link.search = location.search;
 }
