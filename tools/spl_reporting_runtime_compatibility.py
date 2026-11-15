@@ -63,16 +63,19 @@ def validate_refresh(step):
         return json.loads(raw)
     reader=receipt('reporting_reader');standalone=receipt('reporting_standalone');preservation=receipt('existing_SPL_reader_preservation')
     if preservation.get('allPassed') is not True or preservation.get('errors')!=[] or len(preservation.get('cases',[]))!=2 or any(r.get('gpuMeshes')!=24 for r in preservation['cases']) or preservation['startupSHA256']!=reader['startupSHA256']:raise ValueError('Current original SPL preservation scope differs')
+    from tools.spl_unmarked_runtime_compatibility import before_unmarked_bytes
     for case in preservation['cases']:
         for name,pin in case['sourcePins'].items():
-            if sha((ROOT/'web/anatomy/spl-nac-limbic'/name).read_bytes())!=pin:raise ValueError('Original SPL preservation source changed')
+            if sha(before_unmarked_bytes('web/anatomy/spl-nac-limbic/'+name,(ROOT/'web/anatomy/spl-nac-limbic'/name).read_bytes()))!=pin:raise ValueError('Original SPL preservation source changed')
     if (reader.get('allPassed') is not True or reader.get('errors')!=[] or reader.get('productionVerified') is not False
             or len(reader.get('cases',[]))!=8 or standalone.get('everyClassHasSelectedOverlayInBothContrastsAndThreePlanes') is not True or standalone.get('allPassed') is not True or standalone.get('errors')!=[]
             or len(standalone.get('gpu',[]))!=2 or any(len(r['meshes'])!=217 for r in standalone['gpu'])):raise ValueError('SPL reporting verification scope differs')
+    from tools.spl_epilepsy_runtime_compatibility import before_context_bytes
     for evidence in [reader,standalone]:
         for name,pin in evidence['sourcePins'].items():
-            if sha((ROOT/'web/anatomy/spl-nac-reporting'/name).read_bytes())!=pin:raise ValueError('SPL reporting viewer changed')
-    if reader['registrySHA256']!=sha((ROOT/'data/radiology/spl-reporting-reference.json').read_bytes()):raise ValueError('SPL reporting registry differs')
+            file='web/anatomy/spl-nac-reporting/'+name
+            if sha(before_context_bytes(file,(ROOT/file).read_bytes()))!=pin:raise ValueError('Historical SPL reporting viewer changed')
+    if reader['registrySHA256']!=sha(before_context_bytes('data/radiology/spl-reporting-reference.json',(ROOT/'data/radiology/spl-reporting-reference.json').read_bytes())):raise ValueError('Historical SPL reporting registry differs')
     shell=before_reference_bytes('web/index.html', (ROOT/'web/index.html').read_bytes(), allow_older=True).decode();scripts=re.findall(r'<script src="/app/([\w-]+\.js)(?:\?[^"<>]*)?"></script>',shell)
     startup=b"'use strict';\n"+b'\n;\n'.join(before_reference_bytes('web/' + name, (ROOT/'web'/name).read_bytes(), allow_older=True) for name in scripts)
     if sha(startup)!=reader['startupSHA256'] or len(startup)!=reader['startupBytes']:raise ValueError('SPL current reader startup differs')

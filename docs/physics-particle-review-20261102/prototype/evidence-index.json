@@ -1,0 +1,47 @@
+{
+  "scope": "Standalone particle conservation and free-neutron beta-decay prototype",
+  "files": {
+    "angular-edge-proof.json": "912ce498f55fe18bf5aad9a47b4f2a8181beb03ad234b037bcb10a38d831c656",
+    "browser-cases.json": "6677380394fafe84d352eda8b886d763ad9faf3191ebacf29d8808aff7e848b8",
+    "check-angular-edges.py": "8f912491e87f8f60c2b8a4ce14b610d0f3226ec58cf18e4337641aa606e6f5df",
+    "check-browser.cjs": "ff25327550d6d447f66df308d5c5cfb5c88f27aba3554b3775572f12f3241f6f",
+    "check-four-momentum.py": "20d50019db4c956e4835559b4b44c738d0cf7553ed6bcfc40de7b6e849a0a088",
+    "check-ledger.py": "9df6412d4d58b82cd840421cad7e95d5c1e8f7d2d024fe3228996ae7029e65ec",
+    "check-rendered.py": "06386e0dbb4e4d67b0e8e7b8d2354c813db730dcc5f139bc8b888099ac3d7d51",
+    "core-browser.js": "509eed1a15a4a5a4b55d4914ae6f1290c4ab8bff3aac23cd00f559caa9f1bc96",
+    "core.cjs": "ca454392760ded65110c2f3fb1de74d5429505a5423542d8db67a3c175f3adfd",
+    "four-momentum-proof.json": "1b0bbdf9ff33dd8384390dbcadc20cd10cd5e96137c96758742adffddc20e505",
+    "index.html": "1ff433e268597743ab8c5788bdabf1a0b0fcad446e4d51f0cc1dae0ac980f6a9",
+    "ledger-browser.js": "952e0cf011f0937e0532b6b23597b71272ed7f07186b920172456ff31e250c79",
+    "ledger-independent-proof.json": "e6b9c486a454a6cd12d328f7158aaabc20fc5d78ede88cb42700bd439ebcc818",
+    "ledger-proof.json": "f7925a420c0eec06a411fd61e425f94edc638172f91f3b413e2af4329c9b9e36",
+    "ledger.cjs": "ea821e2002f4933f281cf350dbcdec366cc1341ce28c93ba38f61f1db7cc575f",
+    "mass-source.json": "f3d191b4de18414d8fafcf12ec689a27496c712b31aa06bf9c162405bc7de5c2",
+    "preview-1440.png": "f02aba02dae6dcb104a6859290d653783f140ae9f06873b90608e9a4450a756b",
+    "preview-390.png": "e5ff7d668e41aaa8ba333bec0a7ba0fb4e8eae8a0a72a51be763b6883ca0052a",
+    "rendered-proof.json": "dce1d9fde507b82af60b6f1f984aed96f84ee752cc301db13d167cadcef91ba0",
+    "source-audit.json": "8e4b45998c66d281434b743edb0cce6463621287c1685aaac8e418a08d0cbda3",
+    "viewer.js": "5001b22c6f68e798bd3d043919f603c034d3cb454e8cd150b6811e164e202c7b"
+  },
+  "verified": {
+    "conservationChannels": 516,
+    "independentFourMomentumCases": 120,
+    "browserCases": 36,
+    "renderedNonzeroVectors": 94,
+    "angularEdgeCases": 252
+  },
+  "limitations": [
+    "Only necessary additive-number and rest-energy checks; not full interaction or spin selection rules",
+    "Massless-antineutrino approximation with explicitly limiting zero-energy endpoint",
+    "Nucleon masses are measured inputs; u/d sums are valence bookkeeping only",
+    "No nuclear binding model, weak-decay rates, measured tracks or complete Standard Model coverage"
+  ],
+  "remainingWork": [
+    "Instance-scoped application adapter and lifecycle",
+    "Actual lesson integration and regressions"
+  ],
+  "applicationIntegrated": false,
+  "productionDeployed": false,
+  "wholeGoalComplete": false,
+  "numericalDirectionPolicy": "Proton direction is suppressed below 64 * Number.EPSILON * (neutron rest energy + proton rest energy) MeV/c; calculated momenta are retained. This threshold is numerical resolution, not experimental uncertainty."
+}

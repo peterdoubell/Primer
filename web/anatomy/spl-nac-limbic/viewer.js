@@ -2,6 +2,8 @@
 (async function () {
   const $ = id => document.getElementById(id), C = window.SPLNativeCoordinates;
   const canvas = $('mri'), ctx = canvas.getContext('2d', {willReadFrequently: true});
+  const unmarked=$('mri-unmarked'),unmarkedContext=unmarked.getContext('2d');
+  function hideComparison(){unmarked.hidden=true;unmarked.dataset.ready='false';delete unmarked.dataset.state;$('unmarked-panel').hidden=true;}
   const surface = $('mesh'), gl = surface.getContext('webgl2', {antialias: true, preserveDrawingBuffer: true});
   const sha = async bytes => [...new Uint8Array(await crypto.subtle.digest('SHA-256', bytes))].map(value => value.toString(16).padStart(2, '0')).join('');
   const payload = row => window.SPLSourcePayload.fetchPayload(row);
@@ -74,14 +76,14 @@
     $('cursor').textContent = 'Move over the image to inspect the original MRI sample, source RAS coordinates and nearest label voxel.';
     const center = Number($('centre').value), width = Number($('width').value);
     if ($('centre').value === '' || $('width').value === '' || !Number.isFinite(center) || !Number.isFinite(width) || width <= 0) {
-      canvas.hidden = true; canvas.dataset.ready = 'false'; delete canvas.dataset.state;
+      canvas.hidden = true; canvas.dataset.ready = 'false'; hideComparison(); delete canvas.dataset.state;
       $('status').textContent = 'Enter a finite display centre and positive width.';
       $('cursor').textContent = 'Choose a valid display window before inspecting a source sample.'; return;
     }
     spec = C.planeSpec(imageRow, $('plane').value, Number($('slice').value));
     canvas.width = spec.width; canvas.height = spec.height;
     canvas.style.setProperty('--physical-ratio', String(spec.width*spec.spacing[0]/(spec.height*spec.spacing[1])));
-    const rgba = new Uint8ClampedArray(spec.width*spec.height*4), palette = new Map(manifest.labels.map(row => [row.code, row.color]));
+    const rgba = new Uint8ClampedArray(spec.width*spec.height*4), plain=new Uint8ClampedArray(spec.width*spec.height*4), palette = new Map(manifest.labels.map(row => [row.code, row.color]));
     const overlay = $('overlay').value, code = selected(), low = center-width/2;
     for (let y = 0; y < spec.height; y++) for (let x = 0; x < spec.width; x++) {
       const voxel = C.pixelVoxel(spec, x, y), value = image[C.offset(imageRow.shape, voxel)];
@@ -90,11 +92,13 @@
       const color = palette.get(label), grey = Number.isFinite(value) ? Math.max(0, Math.min(255, Math.floor(255*(value-low)/width))) : 0;
       const tint = color && (overlay === 'all' || overlay === 'selected' && label === code), offset = 4*(x+spec.width*y);
       for (let channel = 0; channel < 3; channel++) rgba[offset+channel] = tint ? Math.round(.55*grey+.45*color[channel]) : grey;
-      rgba[offset+3] = 255;
+      rgba[offset+3] = 255;plain[offset]=plain[offset+1]=plain[offset+2]=grey;plain[offset+3]=255;
     }
     ctx.putImageData(new ImageData(rgba, spec.width, spec.height), 0, 0);
     canvas.hidden = false; canvas.dataset.ready = 'true';
     canvas.dataset.state = JSON.stringify({contrast: $('contrast').value, plane: spec.plane, slice: spec.slice, center, width, overlay, label: code, spec});
+    const compare=$('compare-unmarked').checked;$('mri-pair').classList.toggle('paired',compare);
+    if(compare){unmarked.width=spec.width;unmarked.height=spec.height;unmarked.style.setProperty('--physical-ratio',canvas.style.getPropertyValue('--physical-ratio'));unmarkedContext.putImageData(new ImageData(plain,spec.width,spec.height),0,0);unmarked.hidden=false;unmarked.dataset.ready='true';unmarked.dataset.state=JSON.stringify({...JSON.parse(canvas.dataset.state),overlay:'off'});$('unmarked-panel').hidden=false;}else hideComparison();
     const middle = C.pixelVoxel(spec, Math.floor(spec.width/2), Math.floor(spec.height/2));
     const world = C.transform(imageRow.voxelToRAS, middle), coordinate = {axial: 2, coronal: 1, sagittal: 0}[spec.plane];
     $('slice-value').textContent = spec.slice + ' / ' + (imageRow.shape[spec.fixed]-1);
@@ -244,7 +248,7 @@ void main(){vec3 n=normalize(cross(dFdx(worldPosition),dFdy(worldPosition)));flo
   }
   async function loadSource() {
     if (!manifest) return;
-    const id = ++loadID; image = null; imageRow = null; canvas.hidden = true; canvas.dataset.ready = 'false';
+    const id = ++loadID; image = null; imageRow = null; canvas.hidden = true; canvas.dataset.ready = 'false'; hideComparison();
     delete canvas.dataset.cursor; delete canvas.dataset.state; $('retry').hidden = true; $('cursor').textContent = 'Loading original source samples…';
     $('status').textContent = 'Loading and checking native ' + $('contrast').value + ' MRI and source labels…';
     try {
@@ -275,6 +279,7 @@ void main(){vec3 n=normalize(cross(dFdx(worldPosition),dFdy(worldPosition)));flo
     } catch (error) {manifest = null; $('status').textContent = error.message; $('retry').hidden = false;}
   }
   $('contrast').onchange = loadSource; $('retry').onclick = () => manifest ? loadSource() : loadManifest();
+  $('compare-unmarked').onchange=drawMRI;
   $('structure').onchange = () => {focusStructure(); drawMRI(); chooseMeshes();}; $('focus').onclick = focusStructure;
   $('fornix-outlier').onclick = inspectFornixOutlier;
   $('plane').onchange = () => {planeChanged(); focusStructure();};

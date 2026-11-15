@@ -1247,15 +1247,24 @@ console.log('FRACTIONS_BINDING math.2.fractions = build-equivalent-fractions');
 
 
 
+const vectorEntries=nodes.flatMap(node=>(node.lesson_media||[]).filter(item=>item.renderer==='vector-components-lab').map(item=>({node,item})));
+assert.equal(vectorEntries.length,1);assert.equal(vectorEntries[0].node.id,'math.3.vectors');assert.deepEqual(vectorEntries[0].item.props,{scenario:'math.3.vectors'});
+const geometryEntries=nodes.flatMap(node=>(node.lesson_media||[]).filter(item=>item.renderer==='geometry-measures-lab').map(item=>({node,item})));
+assert.equal(geometryEntries.length,1);assert.equal(geometryEntries[0].node.id,'math.2.geometry');assert.deepEqual(geometryEntries[0].item.props,{scenario:'math.2.geometry'});
+const coordinateEntries = nodes.flatMap(node => (node.lesson_media || []).filter(item => item.renderer === 'coordinate-plane-lab').map(item => ({node,item})));
+assert.equal(coordinateEntries.length,1);assert.equal(coordinateEntries[0].node.id,'math.2.coordinates');assert.deepEqual(coordinateEntries[0].item.props,{scenario:'math.2.coordinates'});
 const baseTenEntries = nodes.flatMap(node => (node.lesson_media || []).filter(item => item.renderer === 'base-ten-lab').map(item => ({node,item})));
 assert.deepEqual(baseTenEntries.map(r=>r.node.id).sort(), ["math.1.addition", "math.1.division", "math.1.multiplication", "math.1.place-value", "math.1.subtraction"]);
 for(const {node,item}of baseTenEntries){assert.equal(node.stage,1);assert.equal(item.kind,'model');assert.deepEqual(item.props,{scenario:node.id});}
+const algebraEntries = nodes.flatMap(node => (node.lesson_media || []).filter(item => item.renderer === 'algebra-functions-lab').map(item => ({node,item})));
+assert.deepEqual(algebraEntries.map(r=>r.node.id).sort(), ['math.3.linear','math.3.polynomials','math.3.quadratics','math.3.slope']);
+for(const {node,item}of algebraEntries)assert.deepEqual(item.props,{scenario:node.id});
 const entries = nodes.flatMap(node => (node.lesson_media || [])
   .filter(item => item.kind === 'model').map(item => ({ node, item })));
 const crossEntries = entries.filter(({ node, item }) =>
   CROSS_SPATIAL.includes(node.id) && item.renderer === 'spatial-3d' || item.renderer === 'concept-lab');
-equal(crossEntries.map(({ node }) => node.id).sort(), [...CROSS_SPATIAL, ...CONCEPTS.filter(id => id !== 'math.4.numtheory')].sort(),
-  'Legacy concept bindings remain exact except the separately verified full number-theory replacement');
+equal(crossEntries.map(({ node }) => node.id).sort(), [...CROSS_SPATIAL, ...CONCEPTS.filter(id => !['math.2.coordinates','math.4.numtheory','math.3.linear','math.3.slope','math.3.quadratics','math.3.polynomials'].includes(id))].sort(),
+  'Legacy concept bindings remain exact except separately verified number-theory and algebra replacements');
 
 function exercisePercentageRenderer(root, speak) {
   assert.ok(root.classList.contains('percentage-workbench'));
@@ -1350,8 +1359,13 @@ for (const { node, item } of crossEntries) {
   equal(item.props, { scenario: node.id });
   assert.equal(item.renderer, CROSS_SPATIAL.includes(node.id) ? 'spatial-3d' : 'concept-lab');
 }
-assert.equal(entries.filter(({ item }) => !['base-ten-lab', 'fraction-arithmetic-lab', 'spatial-3d', 'concept-lab', 'music-listening-lab', 'doppler-angle-lab', 'prenatal-sequence', 'math-ode-lab', 'math-field-lab', 'math-wave-lab', 'math-probability-lab', 'math-convergence-lab', 'physics-thermal-lab', 'math-numerical-lab', 'math-measure-lab', 'physics-cycle-lab', 'math-operator-lab', 'physics-ensemble-lab', 'math-curvature-lab', 'physics-constraints-lab', 'math-complex-lab', 'physics-quantum-lab', 'math-topology-lab', 'physics-relativity-lab', 'math-algebra-lab', 'physics-quantum-info-lab', 'math-logic-lab', 'physics-maxwell-lab', 'physics-cosmology-lab', 'physics-qft-lab', 'math-number-theory-lab', 'math-systems-lab', 'physics-phase-lab', 'fluids-concept-lab', 'linear-algebra-lab'].includes(item.renderer)).length,
-  69, 'The other 69 earlier models remain; fractions has its exact dedicated replacement below');
+assert.equal(entries.filter(({ item }) => !['vector-components-lab', 'geometry-measures-lab', 'coordinate-plane-lab', 'algebra-functions-lab', 'base-ten-lab', 'fraction-arithmetic-lab', 'spatial-3d', 'concept-lab', 'music-listening-lab', 'doppler-angle-lab', 'prenatal-sequence', 'math-ode-lab', 'math-field-lab', 'math-wave-lab', 'math-probability-lab', 'math-convergence-lab', 'physics-thermal-lab', 'math-numerical-lab', 'math-measure-lab', 'physics-cycle-lab', 'math-operator-lab', 'physics-ensemble-lab', 'math-curvature-lab', 'physics-constraints-lab', 'math-complex-lab', 'physics-quantum-lab', 'math-topology-lab', 'physics-relativity-lab', 'math-algebra-lab', 'physics-quantum-info-lab', 'math-logic-lab', 'physics-maxwell-lab', 'physics-cosmology-lab', 'physics-qft-lab', 'math-number-theory-lab', 'math-systems-lab', 'physics-phase-lab', 'fluids-concept-lab', 'linear-algebra-lab', 'language-computation-lab'].includes(item.renderer)).length,
+  67, 'Earlier models remain except the dedicated fractions, rotation and transition replacements');
+
+const languageComputationEntries=nodes.flatMap(node=>(node.lesson_media||[]).filter(item=>item.renderer==='language-computation-lab').map(item=>({node,item})));
+assert.deepEqual(languageComputationEntries.map(({node,item})=>[node.id,item.id,item.kind,item.props]),[['lang.5.comp-ling','lang-5-comp-ling-computation-studio','model',{scenario:'lang.5.comp-ling'}]],'The independently checked language studio is bound exactly once');
+console.log('LANGUAGE_COMPUTATION_BINDING lang.5.comp-ling = lang-5-comp-ling-computation-studio');
+
 assert.equal(entries.filter(({ item }) => item.renderer === 'math-ode-lab').length,
   1, 'The separately checked second-order ODE activity remains reachable');
 assert.equal(entries.filter(({ item }) => item.renderer === 'math-field-lab').length,

@@ -410,7 +410,7 @@ const evidence = {
       }
       if (hipKneeOnly && id === 'ra.hip-fai') {
         await page.getByRole('tab', { name: 'Report template', exact: true }).click();
-        const text = await page.locator('.rad-report-editor').first().inputValue();
+        const text = await page.locator('.rad-report-editor').first().innerText();
         for (const section of ref.reporting.template_sections) assert.ok(text.includes(section.heading) && text.includes(section.body));
         checked.reportTemplatePreserved = true;
       }
@@ -460,7 +460,7 @@ const evidence = {
       const guide = await page.locator('.rad-reporting-guide').textContent();
       for (const item of detail.radiology_reference.reporting.checklist) assert.ok(guide.includes(item.label) && guide.includes(item.detail));
       await page.getByRole('tab', { name: 'Report template', exact: true }).click();
-      const report = await page.locator('.rad-report-editor').first().inputValue();
+      const report = await page.locator('.rad-report-editor').first().innerText();
       for (const section of detail.radiology_reference.reporting.template_sections)
         assert.ok(report.includes(section.heading) && report.includes(section.body), id + ': corrected finding section reaches the editor');
       if (id === 'ra.thoracolumbar-fractures') {
@@ -486,7 +486,7 @@ const evidence = {
     assert.match(guide, /Elbow alignment/);
     assert.doesNotMatch(guide, /\bDDH\b|\bGraf\b|Hip plane|Hip development|Painful hip/i);
     await page.getByRole('tab', { name: 'Report template', exact: true }).click();
-    const report = await page.locator('.rad-report-editor').first().inputValue();
+    const report = await page.locator('.rad-report-editor').first().innerText();
     assert.match(report, /FRACTURE MORPHOLOGY/);
     assert.doesNotMatch(report, /\bDDH\b|\bGraf\b|\bhip\b/i);
     await page.getByRole('tab', { name: /3D anatomy|Spatial guide/ }).click();

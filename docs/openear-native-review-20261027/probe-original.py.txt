@@ -1,0 +1,10 @@
+from pathlib import Path
+import urllib.request,json,hashlib
+D=Path(__file__).resolve().parent;source=next(r for r in json.loads((D/'source-preparation.json').read_bytes())['volumes']if r['sourceFile']=='CBCT_Unembedded.nrrd');p=D/'source'/source['sourceFile'];size=p.stat().st_size;url='https://ja2lsnp9uca4bivw.public.blob.vercel-storage.com/radiology-native/openear-zeta-1473724/originals/'+source['original_member_sha256']+'/'+source['sourceFile'];out={'url':url,'expectedBytes':size,'expectedSHA256':source['original_member_sha256'],'ranges':[]}
+with urllib.request.urlopen(urllib.request.Request(url,method='HEAD'),timeout=90)as r:out['head']={'status':r.status,'headers':dict(r.headers)}
+with p.open('rb')as local:
+ for start in [0,size//2,size-1048576]:
+  end=min(size-1,start+1048575);req=urllib.request.Request(url,headers={'Range':f'bytes={start}-{end}','Cache-Control':'no-cache'})
+  with urllib.request.urlopen(req,timeout=120)as r:raw=r.read(end-start+2);record={'start':start,'end':end,'status':r.status,'headers':dict(r.headers),'bytes':len(raw),'sha256':hashlib.sha256(raw).hexdigest()}
+  local.seek(start);expected=local.read(end-start+1);record['matchesLocal']=raw==expected;out['ranges'].append(record);print({k:record[k]for k in ['start','end','status','bytes','matchesLocal']},flush=True)
+(D/'original-unembedded-delivery-diagnostic.json').write_text(json.dumps(out,indent=2)+'\n');print('HEAD',out['head'],flush=True)

@@ -1,0 +1,23 @@
+body {
+  margin: auto;
+  max-width: 72rem;
+  padding: 1rem;
+  background: #172128;
+  color: #f2f5f6;
+  font: 1rem/1.5 system-ui, sans-serif;
+}
+a { color: #a4dfff; }
+.controls { display: flex; flex-wrap: wrap; gap: .5rem 1.2rem; }
+.planes { display: grid; grid-template-columns: repeat(auto-fit,minmax(min(100%,15rem),1fr)); gap: .85rem; }
+figure { margin: .5rem 0; }
+canvas { display: block; width: 100%; height: auto; background: #0f171c; }
+.frame { position: relative; margin: .4rem 0; }
+.frame canvas { image-rendering: pixelated; }
+.frame::before, .frame::after { position: absolute; content: ""; pointer-events: none; background: #f8feff8a; }
+.frame::before { inset: 0 auto 0 var(--x); width: 1px; }
+.frame::after { inset: var(--y) 0 auto 0; height: 1px; }
+#surface { max-width: 44rem; }
+input, button { font: inherit; max-width: 100%; }
+fieldset label { display: inline-block; margin: .2rem .8rem .2rem 0; }
+.swatch { display: inline-block; width: .8em; height: .8em; border-radius: .2em; }
+[hidden] { display: none !important; }

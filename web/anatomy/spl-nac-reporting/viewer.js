@@ -297,9 +297,9 @@ void main(){vec3 n=normalize(cross(dFdx(worldPosition),dFdy(worldPosition)));flo
     enable(false); $('retry').hidden = true;
     try {
       const response = await fetch('manifest.json'); if (!response.ok) throw Error('Source metadata request failed: ' + response.status);
-      manifest=validateManifest(await response.json());await validateShared();$('group').replaceChildren();$('comparison').replaceChildren();
+      manifest=validateManifest(await response.json());if(manifest.defaultComparisonCode!==undefined&&!manifest.labels.some(row=>row.code===manifest.defaultComparisonCode))throw Error('Initial comparison leaves the source inventory');await validateShared();$('group').replaceChildren();$('comparison').replaceChildren();
       for(const group of manifest.groups)$('group').add(new Option(group.title,group.id));$('group').value=manifest.defaultGroup;
-      for(const row of manifest.labels)$('comparison').add(new Option(row.name+' · '+row.code,String(row.code)));$('comparison').value='12';
+      for(const row of manifest.labels)$('comparison').add(new Option(row.name+' · '+row.code,String(row.code)));$('comparison').value=String(manifest.defaultComparisonCode??12);
       try {initGL();} catch (error) {$('mesh-status').textContent = error.message;}
       enable(true);groupChanged();await loadSource();
     } catch (error) {manifest = null; $('status').textContent = error.message; $('retry').hidden = false;}

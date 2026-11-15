@@ -1,0 +1,23 @@
+:root { font:16px/1.55 "Instrument Sans",system-ui,sans-serif; background:#edf3f6; color:#22364b; }
+body { margin:0; }
+main { max-width:68rem; padding:1.2rem; margin:auto; }
+h1,h2 { font-family:"Instrument Serif",Georgia,serif; line-height:1.12; }
+h1 { font-size:clamp(2.3rem,7vw,4rem); margin:.58em 0 .2em; }
+h2 { margin:0 0 .45rem; }
+a { color:#28527d; text-underline-offset:.17em; }
+select,button { font:inherit; box-sizing:border-box; padding:.3rem .5rem; max-width:100%; }
+button { cursor:pointer; }
+label { margin-right:.25rem; }
+.sentence { margin:1rem 0; font:1.45rem/1.4 "Instrument Serif",Georgia,serif; }
+.readings { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:1rem; }
+section { min-width:0; background:white; border:1px solid #aabfd0; border-radius:.5rem; margin-bottom:1rem; padding:1rem; }
+.tree { list-style:none; padding-left:0; }
+.tree ul { list-style:none; padding-left:1rem; margin:.4rem 0; border-left:2px solid #a9bac9; }
+.tree li { padding:.15rem 0; }
+.tree .attachment { font-weight:650; color:#653b7f; background:#f3e9f7; padding:.11rem .3rem; border-radius:.25rem; }
+table { width:100%; border-collapse:collapse; }
+caption { text-align:left; font-weight:600; margin:.2rem 0; }
+th,td { text-align:left; padding:.4rem; border-bottom:1px solid #cbd7e1; }
+.answers { display:flex; gap:.6rem; flex-wrap:wrap; }
+:focus-visible { outline:3px solid #606dab; outline-offset:2px; }
+@media(max-width:46rem){.readings{grid-template-columns:1fr;}}

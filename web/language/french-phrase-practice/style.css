@@ -1,0 +1,22 @@
+:root { font: 16px/1.55 "Instrument Sans", system-ui, sans-serif; color: #233535; background: #eff4ed; }
+body { margin: 0; }
+main { padding: 1.2rem; max-width: 70rem; margin: auto; }
+h1, h2 { font-family: "Instrument Serif", Georgia, serif; line-height: 1.15; }
+h1 { font-size: clamp(2.5rem, 7vw, 4.1rem); margin: .6em 0 .2em; }
+h2 { margin-top: 0; }
+a { color: #1b564e; text-underline-offset: .16em; }
+.layout { display: grid; grid-template-columns: minmax(0, 1.16fr) minmax(0, 1fr); gap: 1rem; align-items: start; }
+section { min-width: 0; border: 1px solid #adc3b6; border-radius: .55rem; background: #fffefa; padding: 1.2rem; }
+.answers { display: grid; gap: .5rem; }
+button { font: inherit; padding: .45rem .7rem; border: 1px solid #62877b; border-radius: .35rem; background: #eff8f3; color: inherit; }
+button:not(:disabled) { cursor: pointer; }
+.answers button { text-align: left; }
+.answers button:disabled { color: #43584f; }
+.answers button[data-selected] { border: 2px solid #356756; }
+:focus-visible { outline: 3px solid #39755e; outline-offset: 2px; }
+.actions { display: flex; flex-wrap: wrap; gap: .5rem; }
+table { width: 100%; border-collapse: collapse; }
+caption { text-align: left; font-weight: 700; }
+th, td { text-align: left; padding: .33rem .4rem; border-bottom: 1px solid #cfddd5; }
+details { margin-top: .8rem; }
+@media (max-width: 47rem) { .layout { grid-template-columns: 1fr; } }

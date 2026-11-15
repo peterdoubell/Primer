@@ -1,0 +1,22 @@
+:root { font:16px/1.55 "Instrument Sans",system-ui,sans-serif; background:#f7f3eb; color:#30283a; }
+body { margin:0; }
+main { max-width:67rem; padding:1.25rem; margin:auto; }
+h1,h2,h3 { font-family:"Instrument Serif",Georgia,serif; line-height:1.16; }
+h1 { font-size:clamp(2.4rem,7vw,4.1rem); margin:.5em 0 .15em; }
+h2 { margin-top:0; }
+a { color:#604077; text-underline-offset:.15em; }
+.editor { display:grid; grid-template-columns:minmax(0,.85fr) minmax(0,1.15fr); gap:1rem; margin-bottom:1rem; align-items:start; }
+section { min-width:0; padding:1rem; border:1px solid #c7b7c8; background:#fffdfa; border-radius:.5rem; }
+#controls { display:grid; gap:.65rem; margin:.9rem 0; }
+#controls label { display:block; }
+button,select { font:inherit; max-width:100%; padding:.3rem .45rem; border:1px solid #9b85aa; border-radius:.3rem; }
+button { cursor:pointer; }
+.scene { font:1.16rem/1.56 "Instrument Serif",Georgia,serif; }
+.scene p { margin:.75rem 0; }
+#map { display:flex; flex-wrap:wrap; gap:.5rem; padding-left:1.3rem; }
+#map li { margin-right:1rem; }
+table { border-collapse:collapse; width:100%; }
+caption { text-align:left; font-weight:600; }
+td,th { padding:.45rem; border-bottom:1px solid #ded3df; text-align:left; }
+:focus-visible { outline:3px solid #724788; outline-offset:2px; }
+@media(max-width:46rem) { .editor { grid-template-columns:1fr; } }

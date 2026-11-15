@@ -72,6 +72,28 @@
   const families = Object.create(null);
   function define(id, title, initial, controls, build) { families[id] = {title, initial, controls, build}; }
 
+  if (window.PrimerCoordinatePlaneSpatial) families["coordinate-plane-exact"] = window.PrimerCoordinatePlaneSpatial.family;
+
+  const algebraFunctionsBindings = {
+  "module.math.3.linear": [
+    "algebra-functions-linear",
+    "Linear Equations"
+  ],
+  "module.math.3.slope": [
+    "algebra-functions-slope",
+    "Slope and Lines"
+  ],
+  "module.math.3.quadratics": [
+    "algebra-functions-quadratics",
+    "Quadratic Equations"
+  ],
+  "module.math.3.polynomials": [
+    "algebra-functions-polynomials",
+    "Polynomials"
+  ]
+};
+  if (window.PrimerAlgebraFunctionsSpatialFamilies) for (const [scenario, [family]] of Object.entries(algebraFunctionsBindings)) families[family] = window.PrimerAlgebraFunctionsSpatialFamilies[scenario.slice(7)];
+
   const baseTenBindings = {
     'module.math.1.place-value': ['base-ten-place-value', "Place Value"],
     'module.math.1.addition': ['base-ten-addition', "Addition"],
@@ -976,10 +998,35 @@
     return result(`Slit separation d = ${s.gap}; screen distance L = ${s.distance}; wavelength λ = ${wavelength}, all in the same model units. Approximate central fringe spacing λL/d = ${fmt(wavelength*s.distance/s.gap,3)}. Bands use the actual path-length difference from the two slit centers.`, 'Ideal coherent, monochromatic light with equal amplitudes at each point. Display intensity is proportional to cos²(πΔ/λ). Finite-slit diffraction envelopes, spreading losses, alignment error and quantum detection events are omitted. Wavelength and slit widths are enlarged for visibility; this is not a laboratory setup guide.',[['Gray: two-slit barrier',colors.metal],['Gold bands: relative intensity',g.colors.gold],['Coral: source housing',g.colors.coral]],g);
   });
 
+  define('rotation-density-geometry','Calibrated disk density',{diskMass:6e10,diskA:3,diskB:.3},[
+    range('diskMass','Disk mass (solar masses)',0,15e10,5e9),range('diskA','Radial scale a (kpc)',0,10,.25),range('diskB','Vertical scale b (kpc)',.1,2,.1)
+  ],(state,g)=>{
+    const mesh=window.RotationDensity.densitySurface(state,.1,128,128);
+    for(const face of mesh.triangles)g.polygon(face.map(i=>mesh.positions[i]),g.colors.gold);
+    if(mesh.empty)g.label([0,0,0],'Zero disk mass: no density surface');
+    return result('Density contour at '+mesh.density+' solar masses/kpc³. Positions use kpc.','The contour is not a material boundary or the full disk extent. Halo density is not drawn.',[['Gold: 10% of central disk density',g.colors.gold]],g);
+  });
+  families['rotation-density-geometry'].requires='RotationDensity';
+
+  define('type-i-field-geometry','Ideal type-I cylinder field',{temperature:5,appliedMilliTesla:30},[
+    range('temperature','Temperature (K)',0,10,.1),range('appliedMilliTesla','Applied mu0 H (mT)',0,100,1)
+  ],(state,g)=>{
+    const model=window.CondensedGeometry.geometry(state);
+    for(const ring of model.rings)g.line(ring,g.colors.ink);
+    for(let i=0;i<8;i++){const t=i*Math.PI/4;g.line([[Math.cos(t),Math.sin(t),-2],[Math.cos(t),Math.sin(t),2]],g.colors.ink);}
+    for(const glyph of [...model.fieldGlyphs,...model.currentGlyphs]){const color=glyph.kind==='surface-K'?g.colors.gold:g.colors.blue;if(glyph.zero)g.sphere(glyph.originMM,.025,g.colors.ink);else g.arrow(glyph.originMM,glyph.endpointMM,color);}
+    return result(model.uniqueHomogeneousState?'Field and sheet-current samples at '+state.temperature+' K and mu0 H = '+state.appliedMilliTesla+' mT.':model.note,'Ideal infinite cylinder; rings bound the display window, not physical ends. Positions in mm; vector glyphs encode separate T and A/m scales, not trajectories.',[['Blue: magnetic field',g.colors.blue],['Gold: sheet current',g.colors.gold]],g);
+  });
+  families['type-i-field-geometry'].requires='CondensedGeometry';
+
   function ensure(item) {
     const p = item && item.props;
     if (!p || typeof p.scenario !== 'string' || !/^module\.(math|lang|phys|bio|chem|cs|hist|earth|arts|mind|eng|health|env|design|business|civics|education|media|img)\.[0-5]\.[a-z0-9-]+$/.test(p.scenario)) return false;
     if (!Object.prototype.hasOwnProperty.call(families,p.family)) return false;
+    if ((p.scenario === 'module.math.2.coordinates' || p.family === 'coordinate-plane-exact')
+        && (p.scenario !== 'module.math.2.coordinates' || p.family !== 'coordinate-plane-exact' || p.mode !== 'model' || p.lesson !== 'The Coordinate Plane')) return false;
+    if ((Object.hasOwn(algebraFunctionsBindings, p.scenario) || p.family.startsWith('algebra-functions-'))
+        && (!Object.hasOwn(algebraFunctionsBindings, p.scenario) || p.family !== algebraFunctionsBindings[p.scenario][0] || p.mode !== 'model' || p.lesson !== algebraFunctionsBindings[p.scenario][1])) return false;
     if ((Object.hasOwn(baseTenBindings, p.scenario) || p.family.startsWith('base-ten-'))
         && (!Object.hasOwn(baseTenBindings, p.scenario) || p.family !== baseTenBindings[p.scenario][0] || p.mode !== 'model' || p.lesson !== baseTenBindings[p.scenario][1])) return false;
     if ((p.scenario === 'module.math.2.ratio' || p.family === 'ratio-calibrated-volumes')
@@ -988,6 +1035,8 @@
         && (p.scenario !== 'module.math.2.decimals' || p.family !== 'decimal-base-ten' || p.mode !== 'model' || p.lesson !== 'Decimals')) return false;
     if ((p.scenario === 'module.math.4.numtheory' || p.family === 'number-theory-exact-traces')
         && (p.scenario !== 'module.math.4.numtheory' || p.family !== 'number-theory-exact-traces' || p.mode !== 'model' || p.lesson !== 'Number Theory')) return false;
+    if ((p.scenario === 'module.phys.5.frontier' || p.family === 'rotation-density-geometry') && (p.scenario !== 'module.phys.5.frontier' || p.family !== 'rotation-density-geometry' || p.mode !== 'model' || p.lesson !== 'Open Problems')) return false;
+    if ((p.scenario === 'module.phys.5.condensed' || p.family === 'type-i-field-geometry') && (p.scenario !== 'module.phys.5.condensed' || p.family !== 'type-i-field-geometry' || p.mode !== 'model' || p.lesson !== 'Condensed Matter')) return false;
     if (!['model','context'].includes(p.mode) || typeof p.context !== 'string' || typeof p.lesson !== 'string') return false;
     const binding = JSON.stringify([p.family,p.mode,p.context,p.lesson]);
     if (registered.has(p.scenario)) return registered.get(p.scenario) === binding;

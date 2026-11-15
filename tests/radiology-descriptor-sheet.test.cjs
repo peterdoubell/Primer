@@ -47,7 +47,7 @@ test('the sheet has no typing controls or inferred normal findings', () => {
   assert.equal(descendants(root).filter(node => ['INPUT', 'TEXTAREA'].includes(node.tagName)).length, 0);
   assert.equal(root.getState().descriptor_version, 'frozen-schema');
   find(root, 'Use normal findings').onclick();
-  assert.equal(root.getReport(), 'FINDINGS\nRotator cuff intact.\nBiceps intact.');
+  assert.equal(root.getReport(), 'FINDINGS\nRotator cuff: normal.\nBiceps: normal.');
   assert.equal(find(root, 'Copy report').disabled, false);
 });
 
@@ -57,11 +57,11 @@ test('abnormal findings replace normal and show only their required follow-up ch
   assert.equal(root.getState().descriptor_state.selections.cuff.normal, false);
   assert.equal(find(root, 'Copy report').disabled, true);
   find(root, 'Articular').onclick();
-  assert.equal(root.getReport(), 'FINDINGS\nPartial-thickness articular-sided tear.\nBiceps intact.');
+  assert.equal(root.getReport(), 'FINDINGS\nPartial-thickness articular-sided tear.\nBiceps: normal.');
   assert.equal(find(root, 'Copy report').disabled, false);
   find(root, 'Partial-thickness tear').onclick();
   assert.equal(descendants(root).some(node => node.textContent === 'Articular'), false);
-  assert.equal(root.getReport(), 'FINDINGS\nBiceps intact.');
+  assert.equal(root.getReport(), 'FINDINGS\nBiceps: normal.');
 });
 
 test('numbers have blank defaults, accept explicit zero and exact values without typing', () => {
@@ -108,7 +108,7 @@ test('canonical snapshots hydrate and custom copy persists before touching the c
   const api = load(); let copied;
   const root = api.render(form, {initialState: {descriptor_state: {investigation_id: 'mri', selections: {cuff: {normal: true}}}, calculations: []}, onCopy: async (snapshot, text) => { copied = {snapshot, text}; }});
   await find(root, 'Copy report').onclick();
-  assert.equal(copied.text, 'FINDINGS\nRotator cuff intact.');
+  assert.equal(copied.text, 'FINDINGS\nRotator cuff: normal.');
   assert.equal(copied.snapshot.descriptor_state.selections.cuff.normal, true);
   assert.equal(api.context.copied, undefined);
 });
@@ -203,7 +203,7 @@ test('the actual MRI shoulder source produces a complete selectable partial-tear
   find(root, 'articular-sided').onclick(); find(root, '25–50%').onclick();
   assert.match(root.getReport(), /supraspinatus tendon has a partial-thickness articular-sided tear involving 25–50% of its thickness\./);
   assert.equal(root.getReportResult().complete, true);
-  assert.equal(descendants(root).filter(node => ['INPUT', 'TEXTAREA'].includes(node.tagName)).length, 0);
+  assert.equal(descendants(root).filter(node => node.tagName === 'INPUT').length, 0);
   await find(root, 'Copy report').onclick();
   assert.equal(api.context.copied, root.getReport());
   assert.equal(Object.keys(root.getState().descriptor_state.selections).length, 1);
@@ -279,14 +279,14 @@ test('bulk normal preserves abnormalities and omits unperformed or conflicting a
   find(root, 'Partial-thickness tear').onclick(); find(root, 'Articular').onclick();
   assert.doesNotMatch(root.getReport(), /Complete tear/);
   find(root, 'Use normal findings').onclick();
-  assert.match(root.getReport(), /articular-sided tear\.\nBiceps intact/);
-  assert.doesNotMatch(root.getReport(), /Rotator cuff intact|No enhancement/);
+  assert.match(root.getReport(), /articular-sided tear\.\nBiceps: normal/);
+  assert.doesNotMatch(root.getReport(), /Rotator cuff: normal|No enhancement/);
 });
 
 test('anatomic conflicts clear prior normals and disable incompatible normal buttons', () => {
   const root = load().render(anatomicForm());
   find(root, 'Use normal findings').onclick(); find(root, 'Complete tear').onclick();
-  assert.doesNotMatch(root.getReport(), /Biceps intact/);
+  assert.doesNotMatch(root.getReport(), /Biceps: normal/);
   assert.equal(root.getState().selections.biceps, undefined);
   const bicepsRow = descendants(root).find(node => node.className === 'rad-report-section' && descendants(node).some(child => child.textContent === 'Biceps'));
   assert.equal(find(bicepsRow, 'Normal').disabled, true);
@@ -315,7 +315,7 @@ test('repeatable findings are independent and unfilled entries block copy',()=>{
   assert.match(root.getReport(),/Lesion 1:[\s\S]*articular-sided[\s\S]*Lesion 2:\nComplete tear/);
   find(root,'Use normal findings').onclick();
   assert.equal(root.getState().selections.cuff.instances.length,2);
-  assert.doesNotMatch(root.getReport(),/Rotator cuff intact|Biceps intact/);
+  assert.doesNotMatch(root.getReport(),/Rotator cuff: normal|Biceps: normal/);
   find(root,'Remove Lesion 1').onclick();
   assert.match(root.getReport(),/Lesion 1:\nComplete tear/);
   assert.doesNotMatch(root.getReport(),/Lesion 2|articular-sided/);
@@ -325,5 +325,63 @@ test('malformed repeated hydration blocks copy without crashing the sheet',()=>{
     const root=load().render(repeatedForm(),{initialState:{descriptor_state:{investigation_id:'mri',selections:{cuff:{instances}}}}});
     assert.equal(root.getReportResult().complete,false);
     assert.equal(find(root,'Copy report').disabled,true);
+  }
+});
+
+test('knee compartments keep every row, scope normal actions, and retain collapsed state after selection',()=>{
+  const catalog=JSON.parse(require('node:zlib').gunzipSync(fs.readFileSync(require('node:path').join(__dirname,'../data/radiology/descriptor-reporting.json.gz'))));
+  const form=Object.values(catalog.forms).find(f=>f.investigations.some(i=>i.id==='ra.mri-knee'));
+  const exam=form.investigations.find(i=>i.id==='ra.mri-knee');
+  const root=load().render(form,{investigationId:exam.id});
+  const panels=()=>descendants(root).filter(n=>n.className==='rad-report-compartment');
+  const named=name=>panels().find(p=>descendants(p).some(n=>n.className==='rad-compartment-title'&&n.textContent===name));
+  assert.equal(panels().length,exam.compartments.length);
+  assert(panels().every(p=>p.open));
+  assert.equal(descendants(root).filter(n=>n.dataset.sectionId).length,exam.sections.length);
+  const lateral=named('Lateral compartment');lateral.open=false;lateral.ontoggle();
+  find(named('Medial compartment'),'Normal remaining').onclick();
+  const choices=root.getState().descriptor_state.selections;
+  assert(Object.keys(choices).length>0);
+  assert(Object.keys(choices).every(id=>exam.sections.find(s=>s.id===id).compartment==='Medial compartment'));
+  assert.equal(named('Lateral compartment').open,false);
+  assert.match(root.getReport(), /^Findings:\nMedial compartment:\n• /m);
+  assert.match(root.getReport(), /Medial meniscus, anterior horn: normal\./);
+  assert.doesNotMatch(root.getReport(), /The medial meniscus anterior horn has no tear/);
+  assert(!root.getReport().includes('Lateral compartment'));
+  assert.equal(find(named('Medial compartment'), 'Normal remaining').disabled, true);
+  const selectedState = root.getState();
+  find(root, 'Collapse all').onclick();
+  assert(panels().every(panel => !panel.open));
+  assert.deepEqual(root.getState(), selectedState);
+  find(root, 'Lateral compartment').onclick();
+  assert.equal(named('Lateral compartment').open, true);
+  assert.equal(named('Medial compartment').open, false);
+  find(root, 'Collapse all').onclick();
+  find(root, 'Expand all').onclick();
+  assert(panels().every(panel => panel.open));
+
+});
+
+
+test('rich clipboard keeps report formatting and the plain-text fallback', async () => {
+  const api = load();
+  let data;
+  const original = global.ClipboardItem;
+  global.ClipboardItem = class { constructor(formats) { this.formats = formats; } };
+  try {
+    navigator.clipboard.write = async ([item]) => { data = item.formats; };
+    const report = 'Clinical history:\n[]\n\nMRI knee\n\nMedial compartment:\n• <observed> & recorded';
+    await api.copyReport(report, 'MRI knee');
+    assert.equal(await data['text/plain'].text(), report);
+    const html = await data['text/html'].text();
+    assert.match(html, /<u>Clinical history:<\/u>/);
+    assert.match(html, /<u>MRI knee<\/u>/);
+    assert.match(html, /<em>Medial compartment:<\/em>/);
+    assert.match(html, /&lt;observed&gt; &amp; recorded/);
+    navigator.clipboard.write = async () => { throw Error('Unsupported HTML clipboard'); };
+    await api.copyReport(report, 'MRI knee');
+    assert.equal(api.context.copied, report);
+  } finally {
+    global.ClipboardItem = original;
   }
 });

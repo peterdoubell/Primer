@@ -5,7 +5,8 @@ from primer.curriculum import _validate_authored_lesson,_validate_lesson_media
 ROOT=Path(__file__).resolve().parents[1]
 def test_only_teaching_changes_and_original_assessments_and_media_remain():
  original=json.loads((ROOT/'docs/circuits-induction-review-20261026/original-lessons.json').read_text())
- data=json.loads((ROOT/'data/curriculum/03-physics.json').read_text());old={n['id']:n for n in original['nodes']}
+ from tools.rotation_runtime_compatibility import before_rotation_bytes
+ data=json.loads(before_rotation_bytes('data/curriculum/03-physics.json',(ROOT/'data/curriculum/03-physics.json').read_bytes()));old={n['id']:n for n in original['nodes']}
  for i,n in enumerate(data['nodes']):
   if n['id'] not in old:continue
   _validate_authored_lesson(n);_validate_lesson_media(n)

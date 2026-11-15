@@ -4,6 +4,7 @@ import hashlib
 import json
 import os
 from pathlib import Path
+from tools.hippocampal_rater_runtime_compatibility import before_hippocampal_reference_fields
 import re
 import shutil
 import subprocess
@@ -199,13 +200,16 @@ def test_old_source_registries_and_bindings_are_preserved():
     from primer.spl_limbic_reference import references as spl_references
     spl_registered = spl_references()
     assert set(spl_registered) == {'ra.brain-anatomy', 'ra.mri-epilepsy', 'ra.mri-dementia'}
-    assert all(items == [spl_reviewed()['source_inspector_addition']] for items in spl_registered.values())
+    from tools.spl_unmarked_runtime_compatibility import before_unmarked_reference_fields
+    assert all(before_unmarked_reference_fields(key,{'source_native_inspectors':items})['source_native_inspectors']==[spl_reviewed()['source_inspector_addition']] for key,items in spl_registered.items())
     prior_brain = before_spl_reference_fields('ra.brain-anatomy', {'source_native_inspectors': refs['ra.brain-anatomy']})
     assert prior_brain['source_native_inspectors'] == expected_brain
     from primer.spl_reporting_reference import references as reporting_references
     from primer.holiatlas_reference import references as holiatlas_references
     from primer.schirmer_vascular_reference import references as vascular_references
-    assert refs['ra.brain-anatomy'] == [*expected_brain, *spl_registered['ra.brain-anatomy'], *reporting_references()['ra.brain-anatomy'], *holiatlas_references()['ra.brain-anatomy'], *vascular_references()['ra.brain-anatomy']]
+    from primer.nextbrain_reference import references as nextbrain_references
+    from tools.cortical_contact_runtime_compatibility import before_contact_reference_fields
+    assert before_contact_reference_fields('ra.brain-anatomy',{'source_native_inspectors':refs['ra.brain-anatomy']})['source_native_inspectors'] == [*expected_brain, *spl_registered['ra.brain-anatomy'], *reporting_references()['ra.brain-anatomy'], *holiatlas_references()['ra.brain-anatomy'], *vascular_references()['ra.brain-anatomy'], *nextbrain_references()['ra.brain-anatomy']]
     assert refs['ra.acute-stroke'] == [*stroke_references()['ra.acute-stroke'], *vascular_references()['ra.acute-stroke']]
     from primer.cardiac_native_inspector import references as cardiac_references, BINDINGS as cardiac_bindings
     from primer.cardiac_wall_context import references as wall_references
@@ -213,11 +217,12 @@ def test_old_source_registries_and_bindings_are_preserved():
     assert hippocampal.BINDINGS == {'ra.mri-epilepsy', 'ra.mri-dementia'}
     registered = hippocampal.references()  # Validates the pinned registry, manifest and source inventory.
     assert set(registered) == hippocampal.BINDINGS
-    assert set(refs) == {'ra.brain-anatomy', 'ra.acute-stroke', 'ra.ct-pulmonary-nodules', 'ra.thoracic-ultrasound'} | cardiac_bindings | hippocampal.BINDINGS
+    from tools.spl_additional_runtime_compatibility import before_additional_bindings
+    assert set(before_additional_bindings(refs)) == {'ra.brain-anatomy', 'ra.acute-stroke', 'ra.ct-pulmonary-nodules', 'ra.thoracic-ultrasound'} | cardiac_bindings | hippocampal.BINDINGS | {'ra.ct-temporal-bone', 'ra.tinnitus'}
     for identifier, expected in registered.items():
         prior = before_spl_reference_fields(identifier, {'source_native_inspectors': refs[identifier]})
         assert prior['source_native_inspectors'] == expected
-        assert refs[identifier] == [*expected, *spl_registered[identifier]]
+        assert before_hippocampal_reference_fields(identifier, {'source_native_inspectors':refs[identifier]})['source_native_inspectors'] == [*expected, *spl_registered[identifier]]
         assert [item['id'] for item in expected] == [hippocampal.IDENTIFIER]
     from primer.thoracic_native_inspectors import references as thoracic_references
     from primer.thoracic_lung_native import references as lung_references

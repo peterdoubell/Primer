@@ -1,0 +1,37 @@
+<!doctype html>
+<html lang="en">
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Where does the phrase attach? · Primer</title>
+<link rel="stylesheet" href="style.css">
+<script type="module" src="activity.js"></script>
+</head>
+<body><main>
+<a href="/app/#/node/lang.3.linguistics-intro">Return to How Language Works</a>
+<h1>Where does the phrase attach?</h1>
+<p>Some sentences let a phrase describe the action or the thing the action concerns. Compare both structures without changing the words.</p>
+<label for="example">Sentence</label>
+<select id="example"></select>
+<p id="sentence" class="sentence"></p>
+<div class="readings">
+<section aria-labelledby="action-title">
+<h2 id="action-title">Attach to the action</h2><div id="action-tree"></div><p id="action-meaning"></p>
+</section>
+<section aria-labelledby="noun-title">
+<h2 id="noun-title">Attach to the noun phrase</h2><div id="noun-tree"></div><p id="noun-meaning"></p>
+</section>
+</div>
+<section aria-labelledby="meaning-title">
+<h2 id="meaning-title">Compare the two readings</h2>
+<table><caption>The phrase has a different job in each reading</caption>
+<thead><tr><th scope="col">Reading</th><th scope="col">The phrase describes</th><th scope="col">What it tells the reader</th></tr></thead>
+<tbody id="comparison"></tbody></table>
+</section>
+<section aria-labelledby="game-title">
+<h2 id="game-title">Choose the reading that fits</h2>
+<label for="context">Context</label><select id="context"><option value="0">First clue</option><option value="1">Second clue</option></select>
+<p id="clue"></p>
+<div class="answers"><button type="button" id="answer-action">Attach to the action</button><button type="button" id="answer-noun">Attach to the noun phrase</button></div>
+<p id="feedback" role="status"></p>
+</section>
+<p>The trees show the phrase’s attachment and leave out smaller grammatical details.</p>
+</main></body></html>

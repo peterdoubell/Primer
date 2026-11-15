@@ -55,7 +55,7 @@ def test_compiled_node_map_can_record_one_negative_station_and_an_independent_op
         }}]},
     })
     assert result['valid'], result['issues']
-    assert 'No morphologically suspicious node is identified in the assessed right level IIa' in result['text']
+    assert 'Right level IIa · upper jugular anterior to the spinal accessory nerve: normal.' in result['text']
     assert 'left level IIa' in result['text'] and 'centrally necrotic' in result['text']
     assert 'assessed left level IIa' not in result['text']
 
@@ -77,7 +77,7 @@ def test_compiled_sellar_parent_negative_copies_explicitly_but_never_from_an_emp
     form, _ = compiled(identifier)
     assert render(form, identifier, {})['text'] == ''
     result = render(form, identifier, {'anatomy-sellar-lesion': {'normal': True}})
-    assert result['valid'] and 'No focal sellar or parasellar lesion is identified' in result['text']
+    assert result['valid'] and 'Sellar / parasellar lesion: none.' in result['text']
     result = render(form, identifier, {
         'anatomy-sellar-lesion': {'normal': True},
         'anatomy-hypothalamus': {'findings': {identifier + ':hypothalamus:lesion': {'slot-1': 'solid'}}},
