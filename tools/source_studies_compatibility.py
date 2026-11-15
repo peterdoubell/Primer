@@ -96,6 +96,12 @@ def before_endometrial_delivery_bytes(path, raw):
     return restored
 
 def before_combined_source_release_bytes(path, raw):
+    if str(path) == 'web/app.js' and hashlib.sha256(raw).hexdigest() == 'a49349951dfbea9697fbceb9d3932c8526ac27b3e7ae3b2ad011a58e9984c4a9':
+        raw = raw.replace(b"  if (n.id === 'lang.1.spelling') page.append(el('a', { class: 'btn ghost', href: '/app/language/spelling-endings/index.html' },\n    'Practise adding -ing and -ed'));\n", b'', 1)
+        raw = raw.replace(b"  if (n.id === 'math.3.precalc') page.append(el('a', { class: 'btn ghost', href: '/app/math/limits-approach/index.html' },\n    'Compare limits from the left and right'));\n", b'', 1)
+        raw = raw.replace(b"  if (n.id === 'phys.2.gravity') page.append(el('a', { class: 'btn ghost', href: '/app/physics/gravity-orbit/index.html' },\n    'Compare gravity at different orbital distances'));\n", b'', 1)
+        if hashlib.sha256(raw).hexdigest() != '52e3bdefd2026d182abffa5c18f5236ba872c0fb03c576df3018f1d6f1fb5364':
+            raise ValueError('Activity links changed unrelated reader bytes')
     from tools.report_compartment_compatibility import before_rich_report_bytes
     if str(path) == 'web/app.js':
         raw = before_rich_report_bytes(path, raw)
