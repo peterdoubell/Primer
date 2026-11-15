@@ -4050,6 +4050,8 @@ async function renderNode(page, nodeId) {
     'Explore observed galaxy rotation curves'));
   if (n.id === 'phys.3.nuclear') page.append(el('a', { class: 'btn ghost', href: '/app/physics/nuclear-balance/index.html' },
     'Balance nucleons and charge in nuclear reactions'));
+  if (n.id === 'phys.2.waves') page.append(el('a', { class: 'btn ghost', href: '/app/physics/wave-reflection/index.html' },
+    'Compare reflection at fixed and free ends'));
   if (n.id === 'phys.2.gravity') page.append(el('a', { class: 'btn ghost', href: '/app/physics/gravity-orbit/index.html' },
     'Compare gravity at different orbital distances'));
   if (n.id === 'phys.1.sound') page.append(el('a', { class: 'btn ghost', href: '/app/physics/longitudinal-sound/index.html' },
@@ -4064,6 +4066,8 @@ async function renderNode(page, nodeId) {
     'Inspect evidence and repair an argument'));
   if (n.id === 'lang.5.philology') page.append(el('a', { class: 'btn ghost', href: '/app/language/stemma/index.html' },
     'Compare manuscript families'));
+  if (n.id === 'lang.5.narratology') page.append(el('a', { class: 'btn ghost', href: '/app/language/narrative-order/index.html' },
+    'Retell the archive story in a different order'));
   if (n.id === 'lang.3.media') page.append(el('a', { class: 'btn ghost', href: '/app/language/headline-editor/index.html' },
     'Edit a headline using counts and rates'));
   if (n.id === 'rad.5.adrenal') page.append(el('a', { class: 'btn ghost', href: '/app/anatomy/kidney-adrenal-s0028/index.html' },
