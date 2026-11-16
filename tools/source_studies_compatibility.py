@@ -103,6 +103,8 @@ def before_reporting_step_evidence_bytes(path, raw):
 
 
 def before_combined_source_release_bytes(path, raw):
+    from tools.lesson_activities_compatibility import before_activity_registry_bytes
+    raw = before_activity_registry_bytes(path, raw)
     raw = before_reporting_step_evidence_bytes(path, raw)
     if str(path) == 'web/app.js':
         from tools.report_layout_compatibility import before_template_editor_bytes

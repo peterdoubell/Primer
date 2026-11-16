@@ -1,0 +1,25 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The photoelectric effect · Primer</title>
+<link rel="stylesheet" href="/app/activities/kit.css">
+<script defer src="/app/activities/kit.js"></script>
+<script defer src="lab.js"></script>
+</head>
+<body><main>
+<a href="/app/#/node/phys.3.modern">Return to The Quantum Idea</a>
+<h1>The photoelectric effect</h1>
+<p class="lede">Shine light on a metal. Whether electrons leave depends on the colour of the light, not its brightness.</p>
+<div class="controls">
+<div><label for="metal">Metal</label><select id="metal"><option value="caesium">Caesium</option><option value="potassium">Potassium</option><option value="sodium">Sodium</option><option value="zinc">Zinc</option><option value="copper">Copper</option></select></div>
+<div><label for="wavelength">Wavelength of the light</label><input type="range" id="wavelength" min="100" max="800" step="10" value="400"><output id="wavelength-out" for="wavelength"></output></div>
+<div><label for="intensity">Brightness</label><input type="range" id="intensity" min="10" max="100" step="10" value="50"><output id="intensity-out" for="intensity"></output></div>
+</div>
+<figure>
+<canvas id="graph" width="720" height="400" role="img"></canvas>
+</figure>
+<table><caption>Values</caption><thead><tr><th scope="col">Quantity</th><th scope="col">Value</th></tr></thead><tbody id="rows"></tbody></table>
+<p id="result" role="status"></p>
+</main></body></html>

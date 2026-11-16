@@ -1,0 +1,24 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Primes, factors and common divisors · Primer</title>
+<link rel="stylesheet" href="/app/activities/kit.css">
+<script defer src="/app/activities/kit.js"></script>
+<script defer src="lab.js"></script>
+</head>
+<body><main>
+<a href="/app/#/node/math.2.primes">Return to Primes and Factors</a>
+<h1>Primes, factors and common divisors</h1>
+<p class="lede">Pick a number to see its prime factors and divisors, and a second number to compare.</p>
+<div class="controls">
+<div><label for="n">Number n</label><input type="range" id="n" min="2" max="200" step="1" value="84"><output id="n-out" for="n"></output></div>
+<div><label for="m">Second number m</label><input type="range" id="m" min="2" max="200" step="1" value="90"><output id="m-out" for="m"></output></div>
+</div>
+<figure>
+<canvas id="graph" width="720" height="356" role="img"></canvas>
+</figure>
+<table><caption>Values</caption><thead><tr><th scope="col">Question</th><th scope="col">Answer</th></tr></thead><tbody id="rows"></tbody></table>
+<p id="result" role="status"></p>
+</main></body></html>

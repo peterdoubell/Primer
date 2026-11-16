@@ -4154,6 +4154,19 @@ async function renderNode(page, nodeId) {
   if (sourceStudies) page.append(sourceStudies);
   const vascularStudies = renderAbdominalVesselStudies(n.id);
   if (vascularStudies) page.append(vascularStudies);
+  // Stand-alone activities are listed in /app/activities/registry.json, so adding one needs no change here.
+  if (typeof fetch === 'function') {
+    const activityRow = el('div', { class: 'model-button-row', style: 'margin:1rem 0', hidden: '' });
+    page.append(activityRow);
+    window.PrimerActivityRegistry = window.PrimerActivityRegistry
+      || fetch('/app/activities/registry.json').then(response => response.ok ? response.json() : {}).catch(() => ({}));
+    window.PrimerActivityRegistry.then(registry => {
+      for (const activity of registry[n.id] || []) {
+        if (String(activity.href).startsWith('/app/')) activityRow.append(el('a', { class: 'btn ghost', href: activity.href }, activity.label));
+      }
+      activityRow.hidden = !activityRow.childNodes.length;
+    });
+  }
   if (n.id === 'math.3.euclid') page.append(el('a', { class: 'btn ghost', href: '/app/math/intersecting-chords/index.html' },
     'Prove the intersecting-chords theorem'));
   if (n.id === 'math.4.int-calc') page.append(el('a', { class: 'btn ghost', href: '/app/math/volume-by-slices/index.html' },

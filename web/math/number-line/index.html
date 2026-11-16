@@ -1,0 +1,26 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Negative numbers on the number line · Primer</title>
+<link rel="stylesheet" href="/app/activities/kit.css">
+<script defer src="/app/activities/kit.js"></script>
+<script defer src="lab.js"></script>
+</head>
+<body><main>
+<a href="/app/#/node/math.2.negatives">Return to Negative Numbers</a>
+<h1>Negative numbers on the number line</h1>
+<p class="lede">Choose two numbers and an operation. Arrows show each move along the line.</p>
+<div class="controls">
+<div><label for="a">First number a</label><input type="range" id="a" min="-10" max="10" step="1" value="3"><output id="a-out" for="a"></output></div>
+<div><label for="op">Operation</label><select id="op"><option value="add">Add</option><option value="subtract">Subtract</option><option value="multiply">Multiply</option></select></div>
+<div><label for="b">Second number b</label><input type="range" id="b" min="-10" max="10" step="1" value="-5"><output id="b-out" for="b"></output></div>
+</div>
+<p id="sum" style="font-size:1.4rem;font-weight:700;margin:.8rem 0 0"></p>
+<figure>
+<canvas id="graph" width="720" height="220" role="img"></canvas>
+</figure>
+<table><caption>Values</caption><thead><tr><th scope="col">Step</th><th scope="col">Value</th></tr></thead><tbody id="rows"></tbody></table>
+<p id="result" role="status"></p>
+</main></body></html>
