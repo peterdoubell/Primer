@@ -18,6 +18,9 @@ LESSONS = frozenset({'rad.4.lung-cancer', 'rad.5.mediastinum'})
 def before_lnq_nodal_bytes(path, raw):
     if str(path) not in REVIEWED_FILES:
         return raw
+    if str(path) == 'web/app.js':
+        from tools.report_layout_compatibility import before_dictation_blanks_bytes
+        raw = before_dictation_blanks_bytes(path, raw)
     return _restore(path, raw, PROOF, PIN)
 
 

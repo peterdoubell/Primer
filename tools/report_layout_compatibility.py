@@ -159,10 +159,21 @@ def before_click_builder_spacing_bytes(path, raw):
     return _restore(path, raw, proof, 'e14759aabd7f3717ba688e26e6a4739a8fe2180cb71d0a815f25b27026da976f')
 
 
+def before_dictation_blanks_bytes(path, raw):
+    if str(path) != 'web/app.js':
+        return raw
+    from tools.colonvessels_compatibility import _restore
+    proof = Path(__file__).resolve().parents[1] / 'docs/report-format-parity/dictation-blanks-inverse.json'
+    return _restore(path, raw, proof, 'f4cd91ff8fe0a2f946a215fdc12b084801fa96a3f56337db015f5f54519566ad')
+
+
 def before_rich_report_format_bytes(path, raw):
     raw = before_click_builder_spacing_bytes(path, raw)
     if str(path) not in {'web/app.js', 'web/radiology-structured.js'}:
         return raw
+    if str(path) == 'web/app.js':
+        from tools.lnq_nodal_runtime_compatibility import before_lnq_nodal_bytes
+        raw = before_lnq_nodal_bytes(path, raw)
     from tools.colonvessels_compatibility import _restore
     proof = Path(__file__).resolve().parents[1] / 'docs/report-format-parity/runtime-inverse.json'
     return _restore(path, raw, proof, '88b4537a8494ac5052094229cc4a372b9d307bd67a4c4ed59289280f4cf6be2b')

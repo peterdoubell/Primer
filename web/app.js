@@ -1929,6 +1929,10 @@ function renderMusicStudy(n) {
   return wrap;
 }
 
+function authoredDictationBlanks(text) {
+  return text.replaceAll('[ ]', '[]');
+}
+
 function renderReference(ref, nodeTitle) {
   if (!ref || !ref.source) return null;
   const wrap = el('div', { class: 'card reference-card' });
@@ -1981,17 +1985,18 @@ function renderReference(ref, nodeTitle) {
   }
 
   if (ref.template) {
+    const templateText = authoredDictationBlanks(ref.template);
     const head = el('div', { class: 'ref-template-head' }, el('h3', { class: 'ref-h' }, 'Say it like this'));
     // A template you cannot lift is a template you retype, and a retyped
     // template drifts from the one the classification assumes.
     const copy = btn({ class: 'btn ghost small', onclick: () => {
       const done = () => toast('Template copied — paste it into your report.');
       if (navigator.clipboard && navigator.clipboard.writeText) {
-        navigator.clipboard.writeText(ref.template).then(done).catch(() => selectTemplate());
+        navigator.clipboard.writeText(templateText).then(done).catch(() => selectTemplate());
       } else selectTemplate();
     } }, glyph('shelf', 14), ' Copy');
     head.append(copy);
-    const pre = el('pre', { class: 'ref-template', tabindex: '0' }, ref.template);
+    const pre = el('pre', { class: 'ref-template', tabindex: '0' }, templateText);
     function selectTemplate() {
       const r = document.createRange(); r.selectNodeContents(pre);
       const sel = window.getSelection(); sel.removeAllRanges(); sel.addRange(r);
@@ -3309,9 +3314,9 @@ async function renderRadiologyDesk(page, nodeId) {
         const editor = templates.querySelector('.rad-report-editor');
         if (!editor) return;
         const title = 'STAGING REVIEW — ' + system.title + ' (' + system.version + ')';
-        const text = [title, ...system.report_fields.map(field => field + ': [ ].'),
-          'Imaging category / descriptor and confidence: [ ].',
-          'Unassessed extent / required clinical or pathological inputs: [ ].'].join('\n');
+        const text = [title, ...system.report_fields.map(field => field + ': [].'),
+          'Imaging category / descriptor and confidence: [].',
+          'Unassessed extent / required clinical or pathological inputs: [].'].join('\n');
         const staging = document.createDocumentFragment();
         const formatter = window.PrimerStructuredReporting;
         if (formatter?.renderReportPreview) formatter.renderReportPreview(staging, text, title);
@@ -3596,10 +3601,13 @@ function walkthroughInsert(current, phrase, pristine = []) {
   return { text: joined, start: joined.length - phrase.length };
 }
 
+function authoredWalkthroughBody(section) {
+  return authoredDictationBlanks(Array.isArray(section.body) ? section.body.join('\n') : (section.body || ''));
+}
+
 function walkthroughReport(title, sections, values) {
   return [title, ...sections.map(section => {
-    const fallback = Array.isArray(section.body) ? section.body.join('\n') : (section.body || '');
-    const body = values && values.has(section.heading) ? values.get(section.heading) : fallback;
+    const body = values && values.has(section.heading) ? values.get(section.heading) : authoredWalkthroughBody(section);
     return [section.heading, String(body).trim()].filter(Boolean).join('\n');
   })].filter(Boolean).join('\n\n');
 }
@@ -3628,11 +3636,11 @@ function renderReportWalkthrough(n, { openTemplate } = {}) {
   const assessmentPresets = walk.preset_mode === 'assessment-prompts';
   const template = ref.report_templates[0];
   const uid = 'rad-walk-' + String(n.id).replace(/[^a-z0-9-]/gi, '-');
-  const bodyOf = section => Array.isArray(section.body) ? section.body.join('\n') : (section.body || '');
-  const values = new Map(template.sections.map(section => [section.heading, bodyOf(section)]));
+  const values = new Map(template.sections.map(section => [section.heading, authoredWalkthroughBody(section)]));
   const originals = new Map(values);
   const normals = new Map();
-  walk.steps.forEach(step => Object.entries(step.normal || {}).forEach(([heading, text]) => normals.set(heading, text)));
+  walk.steps.forEach(step => Object.entries(step.normal || {}).forEach(([heading, text]) =>
+    normals.set(heading, authoredDictationBlanks(text))));
   const figures = new Map([...ref.key_images, ...(ref.structure_atlas || [])].filter(image => image.src).map(image => [image.id, image]));
   const measures = new Map(guide.measurements.map(row => [row.name, row]));
   const landmarks = (window.PrimerRadiologyReferenceModels && window.PrimerRadiologyReferenceModels.landmarks(walk.spatial_model.family)) || {};
@@ -3843,7 +3851,7 @@ function renderReportWalkthrough(n, { openTemplate } = {}) {
     if (step.findings.length) parts.push(el('div', { class: 'rad-walk-phrases' },
       el('h5', {}, 'Finding phrases'),
       el('p', { class: 'rad-walk-hint' }, 'Adds the phrase to the field you last edited and selects its first blank.'),
-      el('div', { class: 'rad-walk-phrase-list' }, ...step.findings.map(phrase =>
+      el('div', { class: 'rad-walk-phrase-list' }, ...step.findings.map(authoredDictationBlanks).map(phrase =>
         btn({ class: 'rad-walk-phrase', onclick: () => insertPhrase(page, phrase) }, phrase)))));
     parts.push(reviewToggle(index));
     return parts;
