@@ -85,7 +85,9 @@ def records(fetch=False):
         article = first['url'].split('#')[0]
         stem = re.sub(r'[^a-z0-9]+', '-', figure.split('/assets/')[1].rsplit('.', 1)[0].lower()).strip('-')[:80]
         path = MEDIA / (stem + '.' + figure.rsplit('.', 1)[1].lower())
-        title, authors = article_credit(article)
+        # Credits are read once at packaging time and kept in the review record, so checks run offline.
+        credit = review.get('article_credits', {}).get(article)
+        title, authors = (credit['title'], credit['authors']) if credit else article_credit(article)
         probe = {'kind': first['kind'], 'modality': first['modality'], 'source_context': {'laterality': 'not_reported'}}
         bindable = [row for row in rows if not inspect_binding(probe, required[(row['investigation_id'], row['structure_id'])])]
         if not bindable:
