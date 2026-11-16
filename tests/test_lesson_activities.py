@@ -38,15 +38,17 @@ def test_reader_hook_is_registry_driven_with_an_exact_inverse():
     from tools.lesson_activities_compatibility import (
         AFTER, BEFORE, BLOCK, DICTATION_LAYOUT, PATH, before_activity_registry_bytes,
     )
+    from tools.recist_pelvic_runtime_compatibility import before_recist_pelvic_delivery_bytes
     from tools.source_studies_compatibility import before_combined_source_release_bytes
     raw = (ROOT / PATH).read_bytes()
     assert raw.count(BLOCK) == 1 and b"fetch('/app/activities/registry.json')" in BLOCK
     # Only same-site activity links are rendered.
     assert b"String(activity.href).startsWith('/app/')" in BLOCK
     dictation_revision, current, previous = DICTATION_LAYOUT
-    assert hashlib.sha256(raw).hexdigest() == dictation_revision
-    assert raw.count(current) == 1
-    assert hashlib.sha256(raw.replace(current, previous, 1)).hexdigest() == AFTER
+    dictation_reader = before_recist_pelvic_delivery_bytes(PATH, raw)
+    assert hashlib.sha256(dictation_reader).hexdigest() == dictation_revision
+    assert dictation_reader.count(current) == 1
+    assert hashlib.sha256(dictation_reader.replace(current, previous, 1)).hexdigest() == AFTER
     assert hashlib.sha256(before_activity_registry_bytes(PATH, raw)).hexdigest() == BEFORE
     assert before_activity_registry_bytes(PATH, raw + b'\n') == raw + b'\n'
     assert hashlib.sha256(before_combined_source_release_bytes(PATH, raw)).hexdigest() not in (AFTER, BEFORE)
