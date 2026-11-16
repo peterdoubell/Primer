@@ -1,0 +1,7 @@
+# LyNoS Pat9 station-labelled node reference
+
+This case retains the publisher’s 241 acquired CT sections, 44 separate nodal mask values and four independent neighbouring anatomy masks. All six source arrays share the same effective affine and sample at approximately 0.703 × 0.703 × 1.25 mm. The viewer verifies each compressed chunk and its decoded bytes, and reads a single chunk for an axial section. Coronal and sagittal sections take samples directly from the same arrays. [LyNoS publisher record](https://zenodo.org/records/10102261) · [Original paper](https://doi.org/10.1080/21681163.2022.2043778) · [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/)
+
+The 48 selectable surfaces follow the source voxel faces in RAS millimetres. Separate verified masks preserve the azygos vein, brachiocephalic veins, esophagus, and subclavian and carotid arteries. Stored intensity values come from the original NIfTI. The CT transport reverses the row order by indexing and preserves the samples.
+
+The publisher assigns station terms to each annotated node. The viewer preserves primary, secondary and tertiary terms, including code 11L paired with a right-sided description in mask 19. The crosswalk finds individual examples for 15 of the 25 station codes in Primer’s lung cancer and mediastinum inventories. The source supplies individual-node examples and associated anatomy. Whole-station boundaries and pathological classifications require separate evidence.

@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>LyNoS Pat9 annotated node surfaces · Primer</title>
+  <link rel="stylesheet" href="/app/anatomy/bp3d-dural-4.3/viewer.css">
+  <script defer src="surface-selection.js"></script>
+  <script defer src="/app/anatomy/bp3d-dural-4.3/surface-viewer.js"></script>
+</head>
+<body>
+<main data-source-axes="xyz" data-source-sha256="48fd9096b243730377c26595edd23347f14301bbc4838e629df859430c9d1af6" data-surfaces-sha256="bbbe90ea7799cb7cddfd78f3afb95b23864a8d678a9cfe170d8c4dcbccfc15c1">
+  <a id="return-to-ct" href="index.html">Return to the selected node on CT</a>
+  <h1>Annotated nodes in 3D</h1>
+  <p>The surfaces follow the original labelled voxel cells on LyNoS Pat9. Station assignments apply to individual source masks under the authors’ IASLC 2009 scheme. Use the CT to inspect each node’s surrounding landmarks.</p>
+  <label for="node">Original node mask <select id="node" disabled></select></label>
+  <div id="station-details" aria-live="polite">
+    <p>Verifying the authors’ station assignments…</p>
+  </div>
+  <button id="retry-stations" type="button" hidden>Retry station assignments</button>
+  <div id="source-node-layers" hidden></div>
+  <fieldset>
+    <legend>Nearby anatomy from the same CT</legend>
+    <label><input class="layer" type="checkbox"> Azygos vein</label>
+    <label><input class="layer" type="checkbox"> Brachiocephalic veins</label>
+    <label><input class="layer" type="checkbox"> Esophagus</label>
+    <label><input class="layer" type="checkbox"> Subclavian and carotid arteries</label>
+  </fieldset>
+  <figure>
+    <canvas id="surface" width="640" height="480" role="img" aria-label="Selected source node and optional nearby anatomy surfaces"></canvas>
+  </figure>
+  <label for="rotation">Rotation <input id="rotation" type="range" min="-180" max="180" value="25"></label>
+  <label for="tilt">Tilt <input id="tilt" type="range" min="-90" max="90" value="18"></label>
+  <p id="surface-status" role="status">Verifying source surfaces…</p>
+  <p>Source coordinates are in millimetres. Positive X points right, Y anterior and Z superior. The four nearby surfaces show the extent supplied in the authors’ labels.</p>
+  <p>David Bouget, André Pedersen, Johanna Vanel, Håkon Olav Leira and Thomas Langø. <a href="https://zenodo.org/records/10102261">LyNoS source dataset</a> · <a href="https://doi.org/10.1080/21681163.2022.2043778">Source paper</a> · <a href="https://creativecommons.org/licenses/by/4.0/">CC BY 4.0</a></p>
+</main>
+</body>
+</html>
