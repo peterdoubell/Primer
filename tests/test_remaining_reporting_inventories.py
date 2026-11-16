@@ -46,15 +46,16 @@ def test_each_requirement_is_one_reporting_checklist_row_and_nothing_else():
     assert total == 733
 
 
-def test_new_requirements_start_with_no_bound_asset():
-    """Binding needs a reviewed image or model per structure; none is claimed for the new rows."""
+def test_new_requirements_are_bound_only_where_a_source_states_the_structure_and_side():
+    """Binding needs a reviewed image or model per structure. Only the two diaphragm sides have one."""
     import sys
     sys.path.insert(0, str(ROOT / 'tools'))
     import audit_structure_coverage
     by_id = {row['investigation_id']: row for row in audit_structure_coverage.coverage()}
     assert len(by_id) == 136
     for identifier in RECEIPT['investigation_ids']:
-        assert by_id[identifier]['bound'] == 0 and by_id[identifier]['required'] > 0
+        expected = 2 if identifier == 'ra.thoracic-ultrasound' else 0
+        assert by_id[identifier]['bound'] == expected and by_id[identifier]['required'] > 0
 
 
 def test_the_additions_are_removed_byte_for_byte():
