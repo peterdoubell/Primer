@@ -15,6 +15,17 @@ Source: `docs/radiology-fidelity-scope.json`, `data/radiology/*structure-require
 | Non-MSK assets with no fidelity assessment recorded | 968 of 974 |
 | MSK models recorded as not assessed | 504 of 736 |
 
+Structure-level coverage, from `tools/audit_structure_coverage.py`:
+
+| Measure | Count |
+|---|---|
+| Investigations with a structure inventory | 99 |
+| Required structures and parts in those inventories | 57,252 |
+| With an explicitly bound source image or model | 158 |
+| Investigations with no bound structure at all | 81 |
+
+The inventories are deliberately granular (for example, each named part of the distal tibia is a separate requirement), so the totals are large. The proportion still shows the position: under 1% of what must be shown has a bound, reviewed source.
+
 What this means:
 
 - The repository's own rule is that presence is not fidelity: each reportable structure needs an explicit, reviewed binding to a source image or model.
