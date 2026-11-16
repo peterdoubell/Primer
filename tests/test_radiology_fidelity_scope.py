@@ -38,9 +38,11 @@ def test_missing_or_relabelled_scope_cannot_pass(scope,change):
 
 def test_unexpanded_scope_is_unknown_and_includes_non_msk_media(scope):
     report=build_report(scope)
-    assert report['known_representation_requirements']==150387
+    # 733 checklist-derived draft requirements were added on 2026-11-16, each needing three representations.
+    assert report['known_representation_requirements']==150387+733*3
     assert report['msk_subaudit']['representation_requirements']==5292
-    assert len(report['investigations_requiring_structure_expansion'])==37
+    assert report['investigations_requiring_structure_expansion']==[]
+    assert report['clinical_commercial_ready'] is False
     expanded = {
         'ra.mri-epilepsy', 'ra.mullerian-anomalies', 'ra.intracranial-haemorrhage',
     }

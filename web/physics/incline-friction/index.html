@@ -1,0 +1,26 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>A block on a slope · Primer</title>
+<link rel="stylesheet" href="/app/activities/kit.css">
+<script defer src="/app/activities/kit.js"></script>
+<script defer src="lab.js"></script>
+</head>
+<body><main>
+<a href="/app/#/node/phys.2.forces">Return to Forces and Friction</a>
+<h1>A block on a slope</h1>
+<p class="lede">Tilt the slope and change the surface. Friction holds the block until the pull down the slope is too large.</p>
+<div class="controls">
+<div><label for="angle">Slope angle θ</label><input type="range" id="angle" min="0" max="60" step="1" value="20"><output id="angle-out" for="angle"></output></div>
+<div><label for="mass">Mass of the block</label><input type="range" id="mass" min="1" max="20" step="1" value="5"><output id="mass-out" for="mass"></output></div>
+<div><label for="mus">Static friction coefficient μs</label><input type="range" id="mus" min="0" max="1.2" step="0.05" value="0.5"><output id="mus-out" for="mus"></output></div>
+<div><label for="muk">Kinetic friction coefficient μk</label><input type="range" id="muk" min="0" max="1.2" step="0.05" value="0.4"><output id="muk-out" for="muk"></output></div>
+</div>
+<figure>
+<canvas id="graph" width="720" height="380" role="img"></canvas>
+</figure>
+<table><caption>Values</caption><thead><tr><th scope="col">Force</th><th scope="col">Size</th></tr></thead><tbody id="rows"></tbody></table>
+<p id="result" role="status"></p>
+</main></body></html>

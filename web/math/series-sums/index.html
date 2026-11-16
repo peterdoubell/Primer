@@ -1,0 +1,26 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Arithmetic and geometric series · Primer</title>
+<link rel="stylesheet" href="/app/activities/kit.css">
+<script defer src="/app/activities/kit.js"></script>
+<script defer src="lab.js"></script>
+</head>
+<body><main>
+<a href="/app/#/node/math.3.sequences">Return to Sequences and Series</a>
+<h1>Arithmetic and geometric series</h1>
+<p class="lede">Compare the terms of a sequence with their running sum, and the direct sum with the formula.</p>
+<div class="controls">
+<div><label for="kind">Type of sequence</label><select id="kind"><option value="arithmetic">Arithmetic (add each time)</option><option value="geometric">Geometric (multiply each time)</option></select></div>
+<div><label for="first">First term a</label><input type="range" id="first" min="-5" max="10" step="1" value="3"><output id="first-out" for="first"></output></div>
+<div><label for="step" id="step-label">Common difference d</label><input type="range" id="step" min="-2" max="3" step="0.25" value="0.5"><output id="step-out" for="step"></output></div>
+<div><label for="count">Number of terms n</label><input type="range" id="count" min="1" max="20" step="1" value="8"><output id="count-out" for="count"></output></div>
+</div>
+<figure>
+<canvas id="graph" width="720" height="400" role="img"></canvas>
+</figure>
+<table><caption>Values</caption><thead><tr><th scope="col">Quantity</th><th scope="col">Value</th><th scope="col">Rule</th></tr></thead><tbody id="rows"></tbody></table>
+<p id="result" role="status"></p>
+</main></body></html>

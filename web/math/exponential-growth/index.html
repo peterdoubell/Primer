@@ -1,0 +1,25 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Exponential growth and decay · Primer</title>
+<link rel="stylesheet" href="/app/activities/kit.css">
+<script defer src="/app/activities/kit.js"></script>
+<script defer src="lab.js"></script>
+</head>
+<body><main>
+<a href="/app/#/node/math.3.expo-logs">Return to Exponentials and Logarithms</a>
+<h1>Exponential growth and decay</h1>
+<p class="lede">Change the starting value and the base, then read how long the quantity takes to double or halve.</p>
+<div class="controls">
+<div><label for="start">Starting value a</label><input type="range" id="start" min="1" max="10" step="1" value="2"><output id="start-out" for="start"></output></div>
+<div><label for="base">Base b (multiplier per step)</label><input type="range" id="base" min="0.25" max="3" step="0.05" value="1.5"><output id="base-out" for="base"></output></div>
+<div><label for="x">Read the curve at x</label><input type="range" id="x" min="-1" max="4" step="0.5" value="2"><output id="x-out" for="x"></output></div>
+</div>
+<figure>
+<canvas id="graph" width="720" height="400" role="img"></canvas>
+</figure>
+<table><caption>Values</caption><thead><tr><th scope="col">Input</th><th scope="col">y = a·bˣ</th><th scope="col">Change from the row above</th></tr></thead><tbody id="rows"></tbody></table>
+<p id="result" role="status"></p>
+</main></body></html>

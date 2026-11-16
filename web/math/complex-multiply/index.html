@@ -1,0 +1,26 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Multiplying complex numbers · Primer</title>
+<link rel="stylesheet" href="/app/activities/kit.css">
+<script defer src="/app/activities/kit.js"></script>
+<script defer src="lab.js"></script>
+</head>
+<body><main>
+<a href="/app/#/node/math.4.complex">Return to Complex Numbers and Beyond</a>
+<h1>Multiplying complex numbers</h1>
+<p class="lede">Move z and w. Their product multiplies the lengths and adds the angles.</p>
+<div class="controls">
+<div><label for="zr">Real part of z</label><input type="range" id="zr" min="-3" max="3" step="0.5" value="1"><output id="zr-out" for="zr"></output></div>
+<div><label for="zi">Imaginary part of z</label><input type="range" id="zi" min="-3" max="3" step="0.5" value="1"><output id="zi-out" for="zi"></output></div>
+<div><label for="wr">Real part of w</label><input type="range" id="wr" min="-3" max="3" step="0.5" value="0"><output id="wr-out" for="wr"></output></div>
+<div><label for="wi">Imaginary part of w</label><input type="range" id="wi" min="-3" max="3" step="0.5" value="1"><output id="wi-out" for="wi"></output></div>
+</div>
+<figure>
+<canvas id="graph" width="720" height="500" role="img"></canvas>
+</figure>
+<table><caption>Values</caption><thead><tr><th scope="col">Number</th><th scope="col">Value</th><th scope="col">Length</th><th scope="col">Angle</th></tr></thead><tbody id="rows"></tbody></table>
+<p id="result" role="status"></p>
+</main></body></html>

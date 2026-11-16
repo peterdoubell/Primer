@@ -334,7 +334,8 @@ def test_the_report_template_tab_is_a_rich_text_editor_with_an_exact_inverse():
     assert "'text/html': new Blob([html], { type: 'text/html' })" in source and "'text/plain': new Blob([text], { type: 'text/plain' })" in source
     assert set(TEMPLATE_EDITOR) == {'web/app.js', 'web/radiology-structured.css'}
     for path, (before, after, _) in TEMPLATE_EDITOR.items():
-        raw = before_reporting_step_evidence_bytes(path, (ROOT / path).read_bytes())
+        from tools.lesson_activities_compatibility import before_activity_registry_bytes
+        raw = before_reporting_step_evidence_bytes(path, before_activity_registry_bytes(path, (ROOT / path).read_bytes()))
         assert hashlib.sha256(raw).hexdigest() == after
         assert hashlib.sha256(before_template_editor_bytes(path, raw)).hexdigest() == before
         assert before_template_editor_bytes(path, raw + b'\n') == raw + b'\n'

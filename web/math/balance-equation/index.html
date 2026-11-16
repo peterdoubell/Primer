@@ -1,0 +1,25 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Solving an equation like a balance · Primer</title>
+<link rel="stylesheet" href="/app/activities/kit.css">
+<script defer src="/app/activities/kit.js"></script>
+<script defer src="lab.js"></script>
+</head>
+<body><main>
+<a href="/app/#/node/math.2.prealgebra">Return to Letters for Numbers</a>
+<h1>Solving an equation like a balance</h1>
+<p class="lede">An unknown number x is hidden in the boxes. Undo each operation on both sides to find it.</p>
+<div class="controls">
+<div><label for="a">Number of x boxes a</label><input type="range" id="a" min="1" max="9" step="1" value="3"><output id="a-out" for="a"></output></div>
+<div><label for="b">Added amount b</label><input type="range" id="b" min="-10" max="10" step="1" value="4"><output id="b-out" for="b"></output></div>
+<div><label for="x">Hidden value of x</label><input type="range" id="x" min="-6" max="9" step="1" value="5"><output id="x-out" for="x"></output></div>
+</div>
+<figure>
+<canvas id="graph" width="720" height="270" role="img"></canvas>
+</figure>
+<table><caption>Values</caption><thead><tr><th scope="col">What is done</th><th scope="col">Equation</th></tr></thead><tbody id="rows"></tbody></table>
+<p id="result" role="status"></p>
+</main></body></html>

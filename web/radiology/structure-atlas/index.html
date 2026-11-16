@@ -1,0 +1,26 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Structure source locator · Primer</title>
+<link rel="stylesheet" href="/app/activities/kit.css">
+<link rel="stylesheet" href="page.css">
+<script defer src="lab.js"></script>
+</head>
+<body><main>
+<a href="/app/#/node/rad.4.structured-reporting">Return to Structured reporting</a>
+<h1>Structure source locator</h1>
+<p class="lede">Where each reportable structure is shown in the named sources: the Stanford MSK MRI Atlas (xrayhead.com) for musculoskeletal work, and Radiology Assistant for everything else.</p>
+<p id="policy" class="note"></p>
+<div class="controls">
+<div><label for="investigation">Investigation</label><select id="investigation"></select></div>
+<div><label for="filter">Find a structure</label><input id="filter" type="search" autocomplete="off"></div>
+<div><input id="located" type="checkbox"> <label for="located">Only structures with a locator</label></div>
+</div>
+<p id="summary" role="status"></p>
+<table><caption>Reportable structures</caption>
+<thead><tr><th scope="col">Structure</th><th scope="col">Stanford MSK MRI Atlas</th><th scope="col">Radiology Assistant</th></tr></thead>
+<tbody id="rows"></tbody></table>
+<p class="note" id="credit"></p>
+</main></body></html>
