@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Graph colouring · Primer</title>
+  <link rel="stylesheet" href="style.css">
+  <script type="module" src="lab.js"></script>
+</head>
+<body>
+<main>
+  <a href="/app/#/node/math.4.discrete">Return to Discrete Mathematics</a>
+  <h1>Graph colouring</h1>
+  <p>Colour every vertex so that the ends of each edge have different colours. Change an edge and see whether you still need the same number of colours.</p>
+  <div class="workspace">
+    <section aria-labelledby="graph-heading">
+      <h2 id="graph-heading">Graph</h2>
+      <div class="controls">
+        <label for="example">Example
+          <select id="example">
+            <option value="wheel">Odd wheel</option>
+            <option value="pentagon">Five-vertex cycle</option>
+            <option value="complete">Complete graph on four vertices</option>
+            <option value="bipartite">Complete bipartite graph</option>
+          </select>
+        </label>
+        <label for="palette">Available colours
+          <select id="palette">
+            <option value="1">1</option><option value="2">2</option>
+            <option value="3" selected>3</option><option value="4">4</option>
+            <option value="5">5</option><option value="6">6</option>
+          </select>
+        </label>
+      </div>
+      <canvas id="graph" width="620" height="410" role="img" aria-label="Vertex and edge diagram. All adjacencies and assigned colours are also listed in the table."></canvas>
+      <p id="colouring-status" role="status"></p>
+      <details>
+        <summary>Edit an edge</summary>
+        <div class="controls edge-controls">
+          <label for="from">First vertex <select id="from"></select></label>
+          <label for="to">Second vertex <select id="to"></select></label>
+          <button id="toggle-edge" type="button"></button>
+        </div>
+      </details>
+    </section>
+    <section aria-labelledby="assignment-heading">
+      <h2 id="assignment-heading">Assign colours</h2>
+      <table>
+        <thead><tr><th scope="col">Vertex</th><th scope="col">Neighbours</th><th scope="col">Colour</th></tr></thead>
+        <tbody id="vertices"></tbody>
+      </table>
+      <h2>Trace the search</h2>
+      <div class="controls">
+        <button id="search" type="button">Start search</button>
+        <button id="minimum" type="button">Find minimum</button>
+      </div>
+      <div id="trace" hidden>
+        <div class="controls trace-controls">
+          <button id="previous" type="button">Previous</button>
+          <button id="next" type="button">Next</button>
+          <button id="result" type="button">Show result</button>
+        </div>
+        <label for="step">Search step <output for="step" id="step-count"></output></label>
+        <input type="range" id="step" min="0" value="0">
+      </div>
+      <p id="explanation" aria-live="polite">The search tries every colour that fits the current vertex. If all later choices fail, it removes that assignment and tries the next colour.</p>
+    </section>
+  </div>
+</main>
+</body>
+</html>
