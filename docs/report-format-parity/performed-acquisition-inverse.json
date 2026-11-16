@@ -1,0 +1,92 @@
+{
+  "primer/descriptor_reporting.py": {
+    "before": "fcef75e7f5beaa4b5f80fa9fc873fc1e259e399efe532db73caa5791fa69744c",
+    "after": "f5d7dd398f4b86ea1b01c642c1b5fad305677483bb0e2351e5ac53adf2660556",
+    "changes": [
+      {
+        "start": 80,
+        "end": 84,
+        "after": "    selected_options = fields.get('protocol_options', [])\n    confirmed_only = bool(acquisition and acquisition.get('confirmed_only'))\n    if confirmed_only and not (selected_options or fields.get('protocol')):\n        acquisition = None\n",
+        "before": ""
+      },
+      {
+        "start": 85,
+        "end": 86,
+        "after": "    protocol = [fields.get('protocol', standard if not selected_options else ''), *selected_options]\n",
+        "before": "    protocol = [fields.get('protocol', standard if not fields.get('protocol_options') else ''), *fields.get('protocol_options', [])]\n"
+      },
+      {
+        "start": 98,
+        "end": 100,
+        "after": "    explicit_blank = 'protocol' in fields and not confirmed_only\n    if not any(fields.values()) and not explicit_blank and not sections and not assessments:\n",
+        "before": "    if not any(fields.values()) and 'protocol' not in fields and not sections and not assessments:\n"
+      },
+      {
+        "start": 105,
+        "end": 106,
+        "after": "        heading = acquisition.get('heading') or ('Protocol' if investigation['modality'] == 'MRI' else 'Technique')\n",
+        "before": "        heading = 'Protocol' if investigation['modality'] == 'MRI' else 'Technique'\n"
+      }
+    ]
+  },
+  "web/radiology-structured.js": {
+    "before": "aed5b97962ada1380ac57e58a8be7dfa82b63671858fe0099ce8d2545f02af31",
+    "after": "2ac59dc07009bee49f77ccb025e4daf403b0fe1da3f89a227ea8df557a622759",
+    "changes": [
+      {
+        "start": 210,
+        "end": 211,
+        "after": "  const protocolHeading = exam => exam.report_protocol?.heading || (exam.modality === 'MRI' ? 'Protocol' : 'Technique');\n",
+        "before": ""
+      },
+      {
+        "start": 212,
+        "end": 214,
+        "after": "    const acquisition = exam.report_protocol;\n    const explicitBlank = own(fields, 'protocol') && !acquisition?.confirmed_only;\n",
+        "before": ""
+      },
+      {
+        "start": 215,
+        "end": 216,
+        "after": "        && !explicitBlank && !sections.length && !assessments.length) return '';\n",
+        "before": "        && !own(fields, 'protocol') && !sections.length && !assessments.length) return '';\n"
+      },
+      {
+        "start": 217,
+        "end": 217,
+        "after": "",
+        "before": "    const acquisition = exam.report_protocol;\n"
+      },
+      {
+        "start": 218,
+        "end": 219,
+        "after": "    const includeProtocol = acquisition && (!acquisition.confirmed_only || selectedOptions.length || fields.protocol?.trim());\n",
+        "before": ""
+      },
+      {
+        "start": 225,
+        "end": 226,
+        "after": "        (includeProtocol ? protocol : examination).push(section.text);\n",
+        "before": "        (acquisition ? protocol : examination).push(section.text);\n"
+      },
+      {
+        "start": 229,
+        "end": 231,
+        "after": "    const study = includeProtocol\n      ? [exam.title + '\\n' + block(protocolHeading(exam), protocol.filter(Boolean).join('\\n')),\n",
+        "before": "    const study = acquisition\n      ? [exam.title + '\\n' + block(exam.modality === 'MRI' ? 'Protocol' : 'Technique', protocol.filter(Boolean).join('\\n')),\n"
+      },
+      {
+        "start": 483,
+        "end": 484,
+        "after": "        edit(reportOpening, 'protocol', protocol.confirmed_only ? 'Acquisition details (if performed)' : protocolHeading(exam));\n",
+        "before": "        edit(reportOpening, 'protocol', exam.modality === 'MRI' ? 'Protocol' : 'Technique');\n"
+      },
+      {
+        "start": 521,
+        "end": 523,
+        "after": "        reportOpening.append(references);\n        if (!protocol.confirmed_only) reportOpening.append(element('h4', 'Findings', 'rad-report-study'));\n",
+        "before": "        reportOpening.append(references, element('h4', 'Findings', 'rad-report-study'));\n"
+      }
+    ]
+  }
+}

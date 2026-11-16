@@ -362,7 +362,10 @@ def test_the_click_builder_default_acquisition_is_the_template_protocol_with_an_
             acquisition = investigation.get('report_protocol')
             if not acquisition:
                 continue
-            before = original[investigation['id']]['report_protocol']
+            before = original[investigation['id']].get('report_protocol')
+            if before is None:
+                assert investigation['id'] in rt.CONFIRMED_ACQUISITIONS and acquisition['confirmed_only']
+                continue
             # Only the default text changes; the selectable choices stay as authored.
             assert {k: v for k, v in acquisition.items() if k != 'standard_text'} == {
                 k: v for k, v in before.items() if k != 'standard_text'}, investigation['id']

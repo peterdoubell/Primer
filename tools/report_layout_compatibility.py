@@ -142,7 +142,16 @@ def before_protocol_alignment_bytes(path, raw):
     return restored
 
 
+def before_performed_acquisition_bytes(path, raw):
+    if str(path) not in {'primer/descriptor_reporting.py', 'web/radiology-structured.js'}:
+        return raw
+    from tools.colonvessels_compatibility import _restore
+    proof = Path(__file__).resolve().parents[1] / 'docs/report-format-parity/performed-acquisition-inverse.json'
+    return _restore(path, raw, proof, 'bae5b593b70456023f9e4f68c99f8983a8c12777d685a687f0ba99db89495d43')
+
+
 def before_click_builder_spacing_bytes(path, raw):
+    raw = before_performed_acquisition_bytes(path, raw)
     if str(path) not in {'primer/descriptor_reporting.py', 'web/radiology-structured.js'}:
         return raw
     from tools.colonvessels_compatibility import _restore

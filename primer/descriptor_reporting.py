@@ -78,8 +78,12 @@ REPORT_FIELDS = ('clinical_history', 'comparison', 'protocol', 'impression', 're
 def format_study_report(investigation, fields, sections, assessments=()):
     """Compose the document in reading order using only supplied observations."""
     acquisition = investigation.get('report_protocol')
+    selected_options = fields.get('protocol_options', [])
+    confirmed_only = bool(acquisition and acquisition.get('confirmed_only'))
+    if confirmed_only and not (selected_options or fields.get('protocol')):
+        acquisition = None
     standard = (acquisition or {}).get('standard_text', '')
-    protocol = [fields.get('protocol', standard if not fields.get('protocol_options') else ''), *fields.get('protocol_options', [])]
+    protocol = [fields.get('protocol', standard if not selected_options else ''), *selected_options]
     findings = []
     examination = []
     for section in sections:
@@ -92,13 +96,14 @@ def format_study_report(investigation, fields, sections, assessments=()):
             label = section['label'].capitalize() if section['label'].isupper() else section['label']
             findings.append(label + ':\n' + section['text'])
     findings.extend(assessments)
-    if not any(fields.values()) and 'protocol' not in fields and not sections and not assessments:
+    explicit_blank = 'protocol' in fields and not confirmed_only
+    if not any(fields.values()) and not explicit_blank and not sections and not assessments:
         return ''
     def block(label, body):
         return label + ':\n' + (body or '[]')
     study = [investigation['title']]
     if acquisition:
-        heading = 'Protocol' if investigation['modality'] == 'MRI' else 'Technique'
+        heading = acquisition.get('heading') or ('Protocol' if investigation['modality'] == 'MRI' else 'Technique')
         study[0] += '\n' + block(heading, '\n'.join(filter(None, protocol)))
         study.append(block('Findings', '\n\n'.join(findings)))
     else:
