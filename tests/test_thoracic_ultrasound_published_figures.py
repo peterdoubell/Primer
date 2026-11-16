@@ -49,7 +49,8 @@ def test_source_examples_never_grant_anatomical_coverage_or_mix_diagram_with_dop
     assert mixed['schematic_panels'] == ['A']
     assert mixed['source_context']['panel_types'] == {'A': 'Schematic', 'B': 'Ultrasound', 'C': 'Ultrasound'}
     evidence = json.loads((ROOT / 'data/radiology/radiology-asset-evidence.json').read_text())
-    assets = [a for a in evidence['assets'] if a['id'].startswith('open-thoracic-us-')]
+    # Lettered panels whose side the published caption states are bound separately, as partial coverage.
+    assets = [a for a in evidence['assets'] if a['id'].startswith('open-thoracic-us-') and '-panel-' not in a['id']]
     assert len(assets) == 16
     for asset in assets:
         assert not asset['structure_ids'] and not asset['requirement_coverage']

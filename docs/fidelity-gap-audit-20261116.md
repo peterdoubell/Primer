@@ -42,13 +42,40 @@ The 37 investigations that had no inventory now have a draft one (`tools/anatomy
 
 ### Binding assets to the new inventories
 
-No asset is bound to any of the 733 new requirements.
+Three source-reviewed bindings were added. None is clinically approved.
 
-- Only 16 existing assets belong to these 37 investigations. All are published thoracic ultrasound figures.
-- Their source records give no side, no caption and no completed anatomical review. The thoracic ultrasound requirements are side-specific (right and left pleura, pleural fluid, lung base, diaphragm), so binding any figure would assert a side the source does not state.
-- The other 36 investigations have no local source image or model at all.
+- The stored thoracic ultrasound figure of the diaphragm shows both sides in one image, so it could not be bound to a sided requirement. Its peer-reviewed caption states the side of each lettered panel. The figure was split into its three panels, and each panel is bound to the right or left diaphragm requirement with partial coverage. Details are in `docs/thoracic-ultrasound-side-panels-20261116/README.md`.
+- Bound requirements rise from 158 to 160 of 57,985. Investigations with no bound asset fall from 118 to 117.
+- The other six thoracic ultrasound requirements stay unbound. No stored open figure states a side for them.
+- The other 36 new investigations have no local source image or model.
 
-Binding therefore waits on sourced, reviewed images or models for each structure. Run `python tools/audit_structure_coverage.py` for the current count per investigation.
+Run `python tools/audit_structure_coverage.py` for the current count per investigation.
+
+### Source locators (xrayhead.com and Radiology Assistant)
+
+The project owner named two sources on 2026-11-16: the Stanford MSK MRI Atlas at xrayhead.com for musculoskeletal work, and Radiology Assistant as the primary source for everything else.
+
+Neither source can supply bound assets:
+
+- xrayhead.com states no reuse licence, so its images cannot be copied or embedded.
+- Radiology Assistant permits reproduction for educational purposes with credit. That is not a commercial redistribution licence, which the fidelity checker requires for a bound asset.
+
+Both are therefore used as link-out locators. A locator says where a named structure is shown in the source. It does not count towards coverage.
+
+| Measure | Count |
+| --- | --- |
+| Reportable structures (top level) | 7,893 |
+| Located in the Stanford MSK MRI Atlas | 199 |
+| Located in a Radiology Assistant section | 593 |
+| Located in either | 691 |
+| Investigations with no locator | 57 of 136 |
+
+- Atlas locators give the region, the label and the axial, coronal and sagittal slice numbers on which the label appears. A label matches a requirement by the same name or by a hand-reviewed synonym. Where the atlas labels only named parts of a structure, the locator says so.
+- Radiology Assistant locators give the article section in which the structure is named, with the publisher's own figure shown from the publisher's address and credited.
+- Matching is on the structure name. No radiologist has reviewed the locators.
+- Most requirements are finer than either source names, which is why most have no locator.
+
+The page is `web/radiology/structure-atlas/index.html`, linked from the Structured reporting module. Rebuild the data with `python tools/anatomy_sources/build_structure_source_locators.py CACHE_DIR`.
 
 ## Math, physics and language
 

@@ -269,7 +269,7 @@ test('every registered activity has its page, script and a return link to its mo
   for (const [node, links] of Object.entries(registry)) {
     assert.ok(curriculum.includes('"id": "' + node + '"') || curriculum.includes('"id":"' + node + '"'), node);
     for (const {href, label} of links) {
-      assert.match(href, /^\/app\/(math|physics|language)\/[a-z0-9-]+\/index\.html$/); assert.ok(label.length > 8);
+      assert.match(href, /^\/app\/(math|physics|language|radiology)\/[a-z0-9-]+\/index\.html$/); assert.ok(label.length > 8);
       const dir = path.join(root, href.replace('/app/', '').replace('/index.html', ''));
       const html = fs.readFileSync(path.join(dir, 'index.html'), 'utf8');
       assert.ok(html.includes('href="/app/#/node/' + node + '"'), href); assert.ok(html.includes('role="status"'), href); assert.equal(html.includes('<canvas'), html.includes('role="img"'), href);

@@ -1,0 +1,473 @@
+{
+ "articles": [
+  "https://radiologyassistant.nl/chest/chest-x-ray/basic-interpretation",
+  "https://radiologyassistant.nl/chest/chest-x-ray/heart-failure",
+  "https://radiologyassistant.nl/chest/chest-x-ray/lung-disease"
+ ],
+ "atlas_regions": [],
+ "counts": {
+  "atlas": 0,
+  "either": 0,
+  "radiology_assistant": 0,
+  "requirements": 114
+ },
+ "investigation_id": "ra.chest-radiography",
+ "structures": [
+  {
+   "id": "cxr.trachea_carina",
+   "name": "Covered trachea/carinal region"
+  },
+  {
+   "id": "cxr.cardiac_silhouette",
+   "name": "Cardiac silhouette and actual chamber-related contours"
+  },
+  {
+   "id": "cxr.aortic_contours",
+   "name": "Covered aortic knob/ascending/descending projected contours"
+  },
+  {
+   "id": "cxr.pulmonary_trunk",
+   "name": "Pulmonary trunk and relevant projected arterial contours"
+  },
+  {
+   "id": "cxr.caval_azygos",
+   "name": "Covered caval/azygos projected interfaces"
+  },
+  {
+   "id": "cxr.paratracheal",
+   "name": "Actual right/left paratracheal interfaces"
+  },
+  {
+   "id": "cxr.azygos_oesophageal",
+   "name": "Azygo-oesophageal recess/interface"
+  },
+  {
+   "id": "cxr.aortopulmonary_window",
+   "name": "Aortopulmonary window/interface"
+  },
+  {
+   "id": "cxr.anterior_posterior_junctions",
+   "name": "Actual anterior/posterior junction lines"
+  },
+  {
+   "id": "cxr.retrosternal",
+   "name": "Retrosternal clear-space interfaces"
+  },
+  {
+   "id": "cxr.retrocardiac",
+   "name": "Retrocardiac/posterior cardiac interfaces"
+  },
+  {
+   "id": "cxr.posterior_mediastinum",
+   "name": "Covered posterior mediastinal/paraspinal interfaces"
+  },
+  {
+   "id": "cxr.right_main_bronchus",
+   "name": "Right main/covered central bronchial region"
+  },
+  {
+   "id": "cxr.right_hilum",
+   "name": "Right hilar region and relevant vascular/nodal overlap"
+  },
+  {
+   "id": "cxr.right_upper_territory",
+   "name": "Right source-supported upper territory"
+  },
+  {
+   "id": "cxr.right_middle_territory",
+   "name": "Right source-supported middle territory"
+  },
+  {
+   "id": "cxr.right_lower_territory",
+   "name": "Right source-supported lower territory"
+  },
+  {
+   "id": "cxr.right_apical_zone",
+   "name": "Right apical projected review zone"
+  },
+  {
+   "id": "cxr.right_upper_zone",
+   "name": "Right upper projected review zone"
+  },
+  {
+   "id": "cxr.right_middle_zone",
+   "name": "Right middle projected review zone"
+  },
+  {
+   "id": "cxr.right_lower_zone",
+   "name": "Right lower projected review zone"
+  },
+  {
+   "id": "cxr.right_perihilar_zone",
+   "name": "Right perihilar projected review zone"
+  },
+  {
+   "id": "cxr.right_retrocardiac_zone",
+   "name": "Right retrocardiac projected review zone"
+  },
+  {
+   "id": "cxr.right_subdiaphragmatic_zone",
+   "name": "Right subdiaphragmatic projected review zone"
+  },
+  {
+   "id": "cxr.right_additional_region",
+   "name": "Right every actual accessory/variant/unassigned region"
+  },
+  {
+   "id": "cxr.right_pleural_apex",
+   "name": "Right apical pleural region"
+  },
+  {
+   "id": "cxr.right_costophrenic",
+   "name": "Right lateral/posterior costophrenic recesses"
+  },
+  {
+   "id": "cxr.right_fissures",
+   "name": "Right visible major minor accessory fissures"
+  },
+  {
+   "id": "cxr.right_subpulmonic",
+   "name": "Right subpulmonic pleural region"
+  },
+  {
+   "id": "cxr.right_diaphragm",
+   "name": "Right hemidiaphragmatic contour"
+  },
+  {
+   "id": "cxr.right_opacity",
+   "name": "Right each pulmonary opacity/interstitial component"
+  },
+  {
+   "id": "cxr.right_lucency",
+   "name": "Right each pulmonary lucency or cystic component"
+  },
+  {
+   "id": "cxr.right_nodular_mass",
+   "name": "Right every nodule/mass or projected mimic"
+  },
+  {
+   "id": "cxr.right_volume_loss",
+   "name": "Right each volume-loss/distortion component"
+  },
+  {
+   "id": "cxr.right_pneumothorax",
+   "name": "Right every suspected pleural-air region"
+  },
+  {
+   "id": "cxr.right_effusion",
+   "name": "Right every suspected pleural-fluid region"
+  },
+  {
+   "id": "cxr.right_rib1",
+   "name": "Right actual rib 1 and adjacent interfaces"
+  },
+  {
+   "id": "cxr.right_rib2",
+   "name": "Right actual rib 2 and adjacent interfaces"
+  },
+  {
+   "id": "cxr.right_rib3",
+   "name": "Right actual rib 3 and adjacent interfaces"
+  },
+  {
+   "id": "cxr.right_rib4",
+   "name": "Right actual rib 4 and adjacent interfaces"
+  },
+  {
+   "id": "cxr.right_rib5",
+   "name": "Right actual rib 5 and adjacent interfaces"
+  },
+  {
+   "id": "cxr.right_rib6",
+   "name": "Right actual rib 6 and adjacent interfaces"
+  },
+  {
+   "id": "cxr.right_rib7",
+   "name": "Right actual rib 7 and adjacent interfaces"
+  },
+  {
+   "id": "cxr.right_rib8",
+   "name": "Right actual rib 8 and adjacent interfaces"
+  },
+  {
+   "id": "cxr.right_rib9",
+   "name": "Right actual rib 9 and adjacent interfaces"
+  },
+  {
+   "id": "cxr.right_rib10",
+   "name": "Right actual rib 10 and adjacent interfaces"
+  },
+  {
+   "id": "cxr.right_rib11",
+   "name": "Right actual rib 11 and adjacent interfaces"
+  },
+  {
+   "id": "cxr.right_rib12",
+   "name": "Right actual rib 12 and adjacent interfaces"
+  },
+  {
+   "id": "cxr.right_clavicle",
+   "name": "Right clavicle"
+  },
+  {
+   "id": "cxr.right_scapula",
+   "name": "Right scapula and covered shoulder"
+  },
+  {
+   "id": "cxr.right_chest_wall",
+   "name": "Right chest-wall/breast/axillary soft tissue"
+  },
+  {
+   "id": "cxr.left_main_bronchus",
+   "name": "Left main/covered central bronchial region"
+  },
+  {
+   "id": "cxr.left_hilum",
+   "name": "Left hilar region and relevant vascular/nodal overlap"
+  },
+  {
+   "id": "cxr.left_upper_with_lingula_territory",
+   "name": "Left source-supported upper with lingula territory"
+  },
+  {
+   "id": "cxr.left_lower_territory",
+   "name": "Left source-supported lower territory"
+  },
+  {
+   "id": "cxr.left_apical_zone",
+   "name": "Left apical projected review zone"
+  },
+  {
+   "id": "cxr.left_upper_zone",
+   "name": "Left upper projected review zone"
+  },
+  {
+   "id": "cxr.left_middle_zone",
+   "name": "Left middle projected review zone"
+  },
+  {
+   "id": "cxr.left_lower_zone",
+   "name": "Left lower projected review zone"
+  },
+  {
+   "id": "cxr.left_perihilar_zone",
+   "name": "Left perihilar projected review zone"
+  },
+  {
+   "id": "cxr.left_retrocardiac_zone",
+   "name": "Left retrocardiac projected review zone"
+  },
+  {
+   "id": "cxr.left_subdiaphragmatic_zone",
+   "name": "Left subdiaphragmatic projected review zone"
+  },
+  {
+   "id": "cxr.left_additional_region",
+   "name": "Left every actual accessory/variant/unassigned region"
+  },
+  {
+   "id": "cxr.left_pleural_apex",
+   "name": "Left apical pleural region"
+  },
+  {
+   "id": "cxr.left_costophrenic",
+   "name": "Left lateral/posterior costophrenic recesses"
+  },
+  {
+   "id": "cxr.left_fissures",
+   "name": "Left visible major minor accessory fissures"
+  },
+  {
+   "id": "cxr.left_subpulmonic",
+   "name": "Left subpulmonic pleural region"
+  },
+  {
+   "id": "cxr.left_diaphragm",
+   "name": "Left hemidiaphragmatic contour"
+  },
+  {
+   "id": "cxr.left_opacity",
+   "name": "Left each pulmonary opacity/interstitial component"
+  },
+  {
+   "id": "cxr.left_lucency",
+   "name": "Left each pulmonary lucency or cystic component"
+  },
+  {
+   "id": "cxr.left_nodular_mass",
+   "name": "Left every nodule/mass or projected mimic"
+  },
+  {
+   "id": "cxr.left_volume_loss",
+   "name": "Left each volume-loss/distortion component"
+  },
+  {
+   "id": "cxr.left_pneumothorax",
+   "name": "Left every suspected pleural-air region"
+  },
+  {
+   "id": "cxr.left_effusion",
+   "name": "Left every suspected pleural-fluid region"
+  },
+  {
+   "id": "cxr.left_rib1",
+   "name": "Left actual rib 1 and adjacent interfaces"
+  },
+  {
+   "id": "cxr.left_rib2",
+   "name": "Left actual rib 2 and adjacent interfaces"
+  },
+  {
+   "id": "cxr.left_rib3",
+   "name": "Left actual rib 3 and adjacent interfaces"
+  },
+  {
+   "id": "cxr.left_rib4",
+   "name": "Left actual rib 4 and adjacent interfaces"
+  },
+  {
+   "id": "cxr.left_rib5",
+   "name": "Left actual rib 5 and adjacent interfaces"
+  },
+  {
+   "id": "cxr.left_rib6",
+   "name": "Left actual rib 6 and adjacent interfaces"
+  },
+  {
+   "id": "cxr.left_rib7",
+   "name": "Left actual rib 7 and adjacent interfaces"
+  },
+  {
+   "id": "cxr.left_rib8",
+   "name": "Left actual rib 8 and adjacent interfaces"
+  },
+  {
+   "id": "cxr.left_rib9",
+   "name": "Left actual rib 9 and adjacent interfaces"
+  },
+  {
+   "id": "cxr.left_rib10",
+   "name": "Left actual rib 10 and adjacent interfaces"
+  },
+  {
+   "id": "cxr.left_rib11",
+   "name": "Left actual rib 11 and adjacent interfaces"
+  },
+  {
+   "id": "cxr.left_rib12",
+   "name": "Left actual rib 12 and adjacent interfaces"
+  },
+  {
+   "id": "cxr.left_clavicle",
+   "name": "Left clavicle"
+  },
+  {
+   "id": "cxr.left_scapula",
+   "name": "Left scapula and covered shoulder"
+  },
+  {
+   "id": "cxr.left_chest_wall",
+   "name": "Left chest-wall/breast/axillary soft tissue"
+  },
+  {
+   "id": "cxr.vertebra_C7",
+   "name": "Actual covered C7 vertebral region"
+  },
+  {
+   "id": "cxr.vertebra_T1",
+   "name": "Actual covered T1 vertebral region"
+  },
+  {
+   "id": "cxr.vertebra_T2",
+   "name": "Actual covered T2 vertebral region"
+  },
+  {
+   "id": "cxr.vertebra_T3",
+   "name": "Actual covered T3 vertebral region"
+  },
+  {
+   "id": "cxr.vertebra_T4",
+   "name": "Actual covered T4 vertebral region"
+  },
+  {
+   "id": "cxr.vertebra_T5",
+   "name": "Actual covered T5 vertebral region"
+  },
+  {
+   "id": "cxr.vertebra_T6",
+   "name": "Actual covered T6 vertebral region"
+  },
+  {
+   "id": "cxr.vertebra_T7",
+   "name": "Actual covered T7 vertebral region"
+  },
+  {
+   "id": "cxr.vertebra_T8",
+   "name": "Actual covered T8 vertebral region"
+  },
+  {
+   "id": "cxr.vertebra_T9",
+   "name": "Actual covered T9 vertebral region"
+  },
+  {
+   "id": "cxr.vertebra_T10",
+   "name": "Actual covered T10 vertebral region"
+  },
+  {
+   "id": "cxr.vertebra_T11",
+   "name": "Actual covered T11 vertebral region"
+  },
+  {
+   "id": "cxr.vertebra_T12",
+   "name": "Actual covered T12 vertebral region"
+  },
+  {
+   "id": "cxr.additional_bone",
+   "name": "Every actual additional/variant covered bone or joint"
+  },
+  {
+   "id": "cxr.sternum",
+   "name": "Covered manubrium/sternal body/xiphoid and joint interfaces"
+  },
+  {
+   "id": "cxr.neck_soft_tissue",
+   "name": "Covered lower-neck/chest-wall soft tissue"
+  },
+  {
+   "id": "cxr.upper_abdomen",
+   "name": "Every covered relevant upper abdominal organ/gas interface"
+  },
+  {
+   "id": "cxr.airway_device",
+   "name": "Every actual airway device"
+  },
+  {
+   "id": "cxr.enteric_device",
+   "name": "Every actual enteric device"
+  },
+  {
+   "id": "cxr.vascular_device",
+   "name": "Every actual vascular catheter/lead/vascular support device"
+  },
+  {
+   "id": "cxr.pleural_device",
+   "name": "Every actual pleural/drain device"
+  },
+  {
+   "id": "cxr.other_device",
+   "name": "Every actual other support/implant/foreign body"
+  },
+  {
+   "id": "cxr.acquisition",
+   "name": "Actual radiograph acquisition/processing sources"
+  },
+  {
+   "id": "cxr.comparison",
+   "name": "Every actual matching prior/view comparison"
+  },
+  {
+   "id": "cxr.clinical_source",
+   "name": "Actual relevant clinical/physiological confirmation"
+  }
+ ]
+}
