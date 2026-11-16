@@ -1,0 +1,32 @@
+:root { font:16px/1.5 "Instrument Sans",system-ui,sans-serif; color:#e8f2fb; background:#131e2a; }
+body { margin:0; }
+main { max-width:77rem; margin:auto; padding:clamp(1rem,4vw,2rem); }
+a { color:#9ee4ff; text-underline-offset:.15em; }
+h1 { font-family:"Instrument Serif",Georgia,serif; font-size:clamp(2.7rem,7vw,5rem); line-height:1; margin:.45em 0 .15em; }
+h2 { font-size:1.22rem; margin:0 0 .4rem; }
+fieldset,section { background:#182939; border:1px solid #4d6779; border-radius:.55rem; padding:.8rem; min-width:0; }
+fieldset { display:grid; grid-template-columns:minmax(0,2fr) minmax(0,4fr) auto; gap:.6rem; align-items:center; }
+label { display:flex; flex-wrap:wrap; gap:.35rem; font-weight:650; }
+output { color:#b7ffea; font-variant-numeric:tabular-nums; }
+button { font:inherit; padding:.35rem .6rem; border-radius:.35rem; border:1px solid #719aab; color:inherit; background:#254353; min-height:2.6rem; cursor:pointer; }
+input[type=range] { width:100%; accent-color:#b7ffea; }
+:focus-visible { outline:3px solid #aee6fb; outline-offset:2px; }
+.plots { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:1rem; margin-bottom:1rem; }
+.plots p { margin:.35rem 0; font-size:.9rem; }
+canvas { display:block; width:100%; height:clamp(215px,32vw,315px); }
+.mark { display:inline-block; width:1.15rem; height:.17rem; margin:0 .15rem .13rem 0; background:#b5faee; }
+.mark.dot { width:.45rem; height:.45rem; border-radius:50%; margin-left:.55rem; background:#ffcf86; }
+.mark.stem { width:.13rem; height:.7rem; background:#ffcf86; }
+.readout { display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:.5rem; }
+.readout div { padding:.5rem; background:#223748; border-radius:.35rem; }
+dd { margin:.2rem 0 0; font-weight:700; font-variant-numeric:tabular-nums; }
+summary { cursor:pointer; }
+.table-wrap { max-width:100%; overflow:auto; margin-top:.5rem; }
+table { width:100%; border-collapse:collapse; font-variant-numeric:tabular-nums; }
+th,td { padding:.35rem .5rem; text-align:right; border-bottom:1px solid #3d596e; }
+tr[data-selected] { background:#375263; }
+@media(max-width:55rem) { .plots { grid-template-columns:minmax(0,1fr); } }
+@media(max-width:37rem) {
+  fieldset { grid-template-columns:1fr; }
+  .readout { grid-template-columns:repeat(2,minmax(0,1fr)); }
+}
