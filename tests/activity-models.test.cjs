@@ -262,6 +262,52 @@ test('rhyme families: rhyme is by family, and every odd-one-out round has exactl
   for (let n = 0; n < 30; n++) { const r = m.round(n); assert.equal(r.words.length, 4); assert.equal(r.words.filter(w => m.family(w) !== m.family(r.words.find(x => x !== r.odd))).length, 1); assert.ok(r.words.includes(r.odd)); }
 });
 
+test('rainbow traces agree with independent turning angles and the visible bow limits', async () => {
+  const { angularRadius, causticHeight, radians, skyElevation, traceRay, visibleHalfArc, waterIndex } =
+    await import('../web/physics/rainbow-ray-tracing/optics.mjs');
+
+  const sodiumIndex = waterIndex(589.3);
+  near(sodiumIndex, 1.33335, 0.00001);
+  for (const wavelength of [400, 485, 560, 589.3, 650, 700]) {
+    const index = waterIndex(wavelength);
+    for (const reflections of [1, 2]) {
+      const peak = causticHeight(index, reflections);
+      const radius = angularRadius(peak, index, reflections);
+      for (let step = 0; step < 200; step++) {
+        const height = step / 200;
+        const ray = traceRay(height, index, reflections);
+        assert.equal(ray.points.length, reflections + 2);
+        for (const point of ray.points) near(Math.hypot(...point), 1, 1e-11);
+        near(ray.points[0][1], height);
+        near(Math.hypot(...ray.outgoing), 1, 1e-11);
+        near(Math.atan2(Math.abs(ray.outgoing[1]), -ray.outgoing[0]),
+          angularRadius(height, index, reflections), 1e-10);
+        assert.ok(ray.power >= 0 && ray.power <= 1);
+      }
+      const normalReflectance = ((index - 1) / (index + 1)) ** 2;
+      near(traceRay(0, index, reflections).power,
+        (1 - normalReflectance) ** 2 * normalReflectance ** reflections);
+      for (const direction of [-1, 1]) {
+        const neighbour = angularRadius(peak + direction * 0.001, index, reflections);
+        assert.ok(reflections === 1 ? neighbour < radius : neighbour > radius);
+      }
+      near(skyElevation(radius, 10 * radians, 0), radius - 10 * radians);
+      near(skyElevation(radius, 10 * radians, visibleHalfArc(radius, 10 * radians)), 0);
+      near(visibleHalfArc(radius, 0), Math.PI / 2);
+      assert.equal(visibleHalfArc(radius, 60 * radians), 0);
+    }
+  }
+
+  const causticDegrees = (nm, reflections) => {
+    const index = waterIndex(nm);
+    return angularRadius(causticHeight(index, reflections), index, reflections) / radians;
+  };
+  near(causticDegrees(700, 1), 42.4, 0.1);
+  near(causticDegrees(700, 2), 50.2, 0.1);
+  assert.ok(causticDegrees(700, 1) > causticDegrees(400, 1));
+  assert.ok(causticDegrees(700, 2) < causticDegrees(400, 2));
+});
+
 test('every registered activity has its page, script and a return link to its module', () => {
   const registry = JSON.parse(fs.readFileSync(path.join(root, 'activities', 'registry.json'), 'utf8'));
   const curriculum = fs.readdirSync(path.join(root, '..', 'data', 'curriculum')).map(f => fs.readFileSync(path.join(root, '..', 'data', 'curriculum', f), 'utf8')).join('');

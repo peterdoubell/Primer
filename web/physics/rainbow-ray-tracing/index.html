@@ -1,0 +1,79 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>How a raindrop makes a rainbow · Primer</title>
+  <link rel="stylesheet" href="style.css">
+  <script type="module" src="lab.js"></script>
+</head>
+<body>
+<main>
+  <a class="back" href="/app/#/node/phys.1.light">Return to Light and Color</a>
+  <header>
+    <h1>How a raindrop<br class="title-break"> makes a rainbow</h1>
+    <p>Sunlight bends into a drop, bounces inside, and bends again as it leaves. Follow one colour through the drop, then see where that colour appears in the sky.</p>
+  </header>
+
+  <div class="bench">
+    <fieldset class="controls">
+      <legend>Send in a ray</legend>
+      <label for="order">Bounces inside the drop</label>
+      <select id="order">
+        <option value="1">One · Primary rainbow</option>
+        <option value="2">Two · Secondary rainbow</option>
+      </select>
+      <div class="range-label">
+        <label for="wavelength">Colour</label>
+        <output id="wavelength-value" for="wavelength"></output>
+      </div>
+      <input id="wavelength" type="range" min="400" max="700" step="1" value="560">
+      <div class="range-label">
+        <label for="height">How far from the centre it hits</label>
+        <output id="height-value" for="height"></output>
+      </div>
+      <input id="height" type="range" min="0" max="0.995" step="0.001" value="0.860">
+      <button type="button" id="aim">Aim at the bow</button>
+      <p class="hint">The light gathers near the bow because nearby rays leave at almost the same angle.</p>
+    </fieldset>
+
+    <section class="plate" aria-labelledby="drop-heading">
+      <h2 id="drop-heading">Inside the drop</h2>
+      <canvas id="drop" width="960" height="600" role="img"></canvas>
+      <p id="drop-description"></p>
+    </section>
+
+    <section class="plate" aria-labelledby="angle-heading">
+      <h2 id="angle-heading">Where the rays leave</h2>
+      <canvas id="angles" width="840" height="600" role="img"></canvas>
+      <p>The dot follows your ray. The diamond marks where the curve flattens and rays gather.</p>
+    </section>
+    <p class="result" id="result" role="status"></p>
+  </div>
+
+  <div class="sky-layout">
+    <section class="plate" aria-labelledby="sky-heading">
+      <h2 id="sky-heading">From a drop to the sky</h2>
+      <div class="range-label">
+        <label for="sun">Sun above the horizon</label>
+        <output id="sun-value" for="sun"></output>
+      </div>
+      <input id="sun" type="range" min="0" max="60" step="1" value="10">
+      <canvas id="sky" width="960" height="620" role="img"></canvas>
+      <p id="sky-description"></p>
+    </section>
+    <figure class="plate">
+      <img src="double-rainbow.jpg" alt="A bright rainbow arcs across grey clouds. A fainter arc follows its curve farther out." width="4186" height="2036" loading="lazy">
+      <figcaption>Look for red on the outside of the brighter bow and the inside of the fainter bow. <a href="https://commons.wikimedia.org/wiki/File:Double-Rainbow.jpg">Leonardo Weiss, Karlsruhe, 22 July 2011</a>. Original photograph under <a href="https://creativecommons.org/licenses/by/3.0/">CC BY 3.0</a>.</figcaption>
+    </figure>
+  </div>
+
+  <details>
+    <summary>Measurements and assumptions</summary>
+    <p>The drop has radius <var>R</var>. The ray enters at impact parameter <var>b</var>, and the incidence angle is <var>i</var> = arcsin(<var>b</var>/<var>R</var>). Snell’s law gives the angle in water <var>r</var> = arcsin(sin(<var>i</var>)/<var>n</var>). With <var>p</var> internal reflections, the turning angle is <var>D</var> = <var>p</var>π + 2[<var>i</var> − (<var>p</var> + 1)<var>r</var>]. The bow corresponds to the stationary point of <var>D</var> and has angular radius |π − <var>D</var>| around the point opposite the Sun.</p>
+    <p>Water’s index varies with wavelength using the 20 °C measurements of <a href="https://doi.org/10.1364/AO.46.003811">Daimon and Masumura</a>. Fresnel coefficients give the fraction of an unpolarised incident ray that follows the selected path. The sky diagram shows the calculated angles and approximate display colours for 400–700 nm.</p>
+    <p>The model uses spherical, clear water drops, parallel sunlight and air with refractive index 1. Its ray optics omit absorption, diffraction, drop deformation and interference. The sky view assumes a level horizon with illuminated drops available in every direction and depicts angular position alone. <a href="https://www.nesdis.noaa.gov/about/k-12-education/optical-phenomena/what-causes-rainbow">NOAA’s explanation of double rainbows</a></p>
+  </details>
+</main>
+</body>
+</html>
