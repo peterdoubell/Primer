@@ -3307,9 +3307,15 @@ async function renderRadiologyDesk(page, nodeId) {
       usePrompts: system => {
         const editor = templates.querySelector('.rad-report-editor');
         if (!editor) return;
-        editor.append(document.createTextNode('\n\nSTAGING REVIEW — ' + system.title + ' (' + system.version + ')\n'
-          + system.report_fields.map(field => field + ': [ ].').join('\n')
-          + '\nImaging category / descriptor and confidence: [ ].\nUnassessed extent / required clinical or pathological inputs: [ ].'));
+        const title = 'STAGING REVIEW — ' + system.title + ' (' + system.version + ')';
+        const text = [title, ...system.report_fields.map(field => field + ': [ ].'),
+          'Imaging category / descriptor and confidence: [ ].',
+          'Unassessed extent / required clinical or pathological inputs: [ ].'].join('\n');
+        const staging = document.createDocumentFragment();
+        const formatter = window.PrimerStructuredReporting;
+        if (formatter?.renderReportPreview) formatter.renderReportPreview(staging, text, title);
+        else staging.append(document.createTextNode(text));
+        editor.append(document.createElement('br'), document.createElement('br'), staging);
         templates.querySelector('.rad-template').open = true;
         editor.dispatchEvent(new Event('input'));
         activate(choices.findIndex(([id]) => id === 'template'), true);

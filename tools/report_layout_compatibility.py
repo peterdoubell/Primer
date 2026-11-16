@@ -147,4 +147,4 @@ def before_rich_report_format_bytes(path, raw):
         return raw
     from tools.colonvessels_compatibility import _restore
     proof = Path(__file__).resolve().parents[1] / 'docs/report-format-parity/runtime-inverse.json'
-    return _restore(path, raw, proof, 'db2692bdf24161da5159246ba74f8c265b0ac37f0cd0ea552381326139c20d9f')
+    return _restore(path, raw, proof, '44f32e2e8b1172cf62e91d54019fcaefbe885c9705aa97ad26f06a007733b335')

@@ -1,59 +1,53 @@
 {
   "web/app.js": {
     "before": "74520a58e62f3af7284f33a54ea50a3a4ab9333f143df67d2a42f2468f31b797",
-    "after": "0910c41881cd3d3914e84db4226d11c7984e2771f728b69a5ab549dc4872cd2b",
+    "after": "fadcc8fcae7cf731a90f72dcf77a6ee7c79de916d7e59b267bfb4646306b69c6",
     "changes": [
       {
         "start": 3309,
-        "end": 3310,
-        "after": "        editor.append(document.createTextNode('\\n\\nSTAGING REVIEW — ' + system.title + ' (' + system.version + ')\\n'\n",
-        "before": "        editor.value += '\\n\\nSTAGING REVIEW — ' + system.title + ' (' + system.version + ')\\n'\n"
+        "end": 3318,
+        "after": "        const title = 'STAGING REVIEW — ' + system.title + ' (' + system.version + ')';\n        const text = [title, ...system.report_fields.map(field => field + ': [ ].'),\n          'Imaging category / descriptor and confidence: [ ].',\n          'Unassessed extent / required clinical or pathological inputs: [ ].'].join('\\n');\n        const staging = document.createDocumentFragment();\n        const formatter = window.PrimerStructuredReporting;\n        if (formatter?.renderReportPreview) formatter.renderReportPreview(staging, text, title);\n        else staging.append(document.createTextNode(text));\n        editor.append(document.createElement('br'), document.createElement('br'), staging);\n",
+        "before": "        editor.value += '\\n\\nSTAGING REVIEW — ' + system.title + ' (' + system.version + ')\\n'\n          + system.report_fields.map(field => field + ': [ ].').join('\\n')\n          + '\\nImaging category / descriptor and confidence: [ ].\\nUnassessed extent / required clinical or pathological inputs: [ ].';\n"
       },
       {
-        "start": 3311,
-        "end": 3312,
-        "after": "          + '\\nImaging category / descriptor and confidence: [ ].\\nUnassessed extent / required clinical or pathological inputs: [ ].'));\n",
-        "before": "          + '\\nImaging category / descriptor and confidence: [ ].\\nUnassessed extent / required clinical or pathological inputs: [ ].';\n"
-      },
-      {
-        "start": 3318,
-        "end": 3319,
+        "start": 3324,
+        "end": 3325,
         "after": "    ['steps', 'Step by step', panel => panel.append(renderReportWalkthrough(n, { openTemplate: (text, title, headings) => {\n",
         "before": "    ['steps', 'Step by step', panel => panel.append(renderReportWalkthrough(n, { openTemplate: text => {\n"
       },
       {
-        "start": 3325,
-        "end": 3328,
+        "start": 3331,
+        "end": 3334,
         "after": "      const formatter = window.PrimerStructuredReporting;\n      if (formatter?.renderReportPreview) formatter.renderReportPreview(editor, text, title, headings);\n      else editor.textContent = text;\n",
         "before": "      editor.value = text;\n"
       },
       {
-        "start": 3881,
-        "end": 3887,
+        "start": 3887,
+        "end": 3893,
         "after": "    const headings = template.sections.map(section => section.heading);\n    const formatter = window.PrimerStructuredReporting;\n    const output = el('pre', { id: uid + '-report', class: 'rad-report-editor rad-report-text rad-walk-preview',\n      role: 'region', tabindex: '0', 'aria-labelledby': uid + '-report-label' });\n    if (formatter?.renderReportPreview) formatter.renderReportPreview(output, text, template.title, headings);\n    else output.textContent = text;\n",
         "before": "    const output = el('textarea', { id: uid + '-report', class: 'rad-report-editor rad-walk-preview', rows: 22, readonly: '', spellcheck: 'false' });\n    output.value = text;\n"
       },
       {
-        "start": 3891,
-        "end": 3908,
+        "start": 3897,
+        "end": 3914,
         "after": "      try {\n        if (navigator.clipboard) {\n          if (formatter?.copyReport) await formatter.copyReport(text, template.title, headings);\n          else await navigator.clipboard.writeText(text);\n          copied = true;\n        }\n      } catch (e) { /* Select the formatted draft when clipboard access is unavailable. */ }\n      if (!copied) {\n        output.focus();\n        const selection = window.getSelection();\n        const range = document.createRange();\n        range.selectNodeContents(output);\n        selection.removeAllRanges();\n        selection.addRange(range);\n        try { copied = !!document.execCommand && document.execCommand('copy'); } catch (e) { /* Manual copy remains available. */ }\n      }\n      status.textContent = copied ? 'Report copied.' : 'Text selected. Use your device’s Copy command, or download the text file.';\n",
         "before": "      try { if (navigator.clipboard && navigator.clipboard.writeText) { await navigator.clipboard.writeText(output.value); copied = true; } } catch (e) { /* selection fallback below */ }\n      if (!copied) { output.focus(); output.select(); try { copied = !!document.execCommand && document.execCommand('copy'); } catch (e) { /* manual copy remains */ } }\n      status.textContent = copied ? 'Report text copied.' : 'Text selected. Use your device’s Copy command, or download the text file.';\n"
       },
       {
-        "start": 3913,
-        "end": 3914,
+        "start": 3919,
+        "end": 3920,
         "after": "        url = URL.createObjectURL(new Blob([text], { type: 'text/plain;charset=utf-8' }));\n",
         "before": "        url = URL.createObjectURL(new Blob([output.value], { type: 'text/plain;charset=utf-8' }));\n"
       },
       {
-        "start": 3920,
-        "end": 3921,
+        "start": 3926,
+        "end": 3927,
         "after": "    const send = openTemplate ? btn({ class: 'btn ghost small', onclick: () => openTemplate(text, template.title, headings) }, 'Edit freely in Report template') : null;\n",
         "before": "    const send = openTemplate ? btn({ class: 'btn ghost small', onclick: () => openTemplate(output.value) }, 'Edit freely in Report template') : null;\n"
       },
       {
-        "start": 3929,
-        "end": 3930,
+        "start": 3935,
+        "end": 3936,
         "after": "      el('p', { id: uid + '-report-label', class: 'rad-report-label' }, 'Assembled report — ' + template.title), output,\n",
         "before": "      el('label', { for: output.id, class: 'rad-report-label' }, 'Assembled report — ' + template.title), output,\n"
       }
