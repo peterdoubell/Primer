@@ -21,8 +21,8 @@ Structure-level coverage, from `tools/audit_structure_coverage.py`:
 |---|---|
 | Investigations with a structure inventory | 136 |
 | Required structures and parts in those inventories | 57,985 |
-| With an explicitly bound source image or model | 158 |
-| Investigations with no bound structure at all | 118 |
+| With an explicitly bound source image or model | 188 |
+| Investigations with no bound structure at all | 112 |
 
 The inventories are deliberately granular (for example, each named part of the distal tibia is a separate requirement), so the totals are large. The proportion still shows the position: under 1% of what must be shown has a bound, reviewed source.
 
@@ -49,18 +49,30 @@ Three source-reviewed bindings were added. None is clinically approved.
 - The other six thoracic ultrasound requirements stay unbound. No stored open figure states a side for them.
 - The other 36 new investigations have no local source image or model.
 
+### Radiology Assistant figures stored and bound
+
+On the project owner's direction, reviewed Radiology Assistant figures are now stored locally and bound.
+
+- 82 candidate figures came from article sections headed with a structure's name. Each was looked at; 35 plainly show the structure and were accepted. Tables, photographs, mixed-modality composites and unclear figures were rejected.
+- 33 figures are stored and give 34 bindings across 13 investigations. Bound requirements rise from 160 to 188 of 57,985. Investigations with no bound asset fall from 117 to 112.
+- Every binding is partial, source-reviewed and not clinically approved. The review was not done by a radiologist.
+- The publisher permits educational reproduction with credit, not commercial use. Each asset records this and keeps the `commercial_rights_unverified` issue.
+- Sided requirements stay unbound, because the figures do not state a side.
+
+Details are in `docs/radiology-assistant-figure-bindings-20261116/README.md`.
+
 Run `python tools/audit_structure_coverage.py` for the current count per investigation.
 
 ### Source locators (xrayhead.com and Radiology Assistant)
 
 The project owner named two sources on 2026-11-16: the Stanford MSK MRI Atlas at xrayhead.com for musculoskeletal work, and Radiology Assistant as the primary source for everything else.
 
-Neither source can supply bound assets:
+How each is used:
 
-- xrayhead.com states no reuse licence, so its images cannot be copied or embedded.
-- Radiology Assistant permits reproduction for educational purposes with credit. That is not a commercial redistribution licence, which the fidelity checker requires for a bound asset.
+- xrayhead.com states no reuse licence and lists no contact address, so its images are not copied or embedded. It is used by link-out locator only.
+- Radiology Assistant permits reproduction for educational purposes with credit. Reviewed figures are stored and bound under those terms (see above). Every other structure is reached by link-out locator.
 
-Both are therefore used as link-out locators. A locator says where a named structure is shown in the source. It does not count towards coverage.
+A locator says where a named structure is shown in the source. It does not count towards coverage.
 
 | Measure | Count |
 | --- | --- |

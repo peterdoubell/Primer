@@ -47,14 +47,15 @@ def test_each_requirement_is_one_reporting_checklist_row_and_nothing_else():
 
 
 def test_new_requirements_are_bound_only_where_a_source_states_the_structure_and_side():
-    """Binding needs a reviewed image or model per structure. Only the two diaphragm sides have one."""
+    """Binding needs a reviewed image per structure: the sided diaphragm panels and reviewed publisher figures."""
     import sys
     sys.path.insert(0, str(ROOT / 'tools'))
     import audit_structure_coverage
     by_id = {row['investigation_id']: row for row in audit_structure_coverage.coverage()}
     assert len(by_id) == 136
     for identifier in RECEIPT['investigation_ids']:
-        expected = 2 if identifier == 'ra.thoracic-ultrasound' else 0
+        expected = {'ra.thoracic-ultrasound': 2, 'ra.dynamic-rectal-examination': 1, 'ra.transvaginal-nongynaecology': 2,
+                    'ra.ultrasound-acute-abdomen': 1, 'ra.ultrasound-gi-tract': 3}.get(identifier, 0)
         assert by_id[identifier]['bound'] == expected and by_id[identifier]['required'] > 0
 
 

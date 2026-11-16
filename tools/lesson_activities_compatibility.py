@@ -12,9 +12,10 @@ BLOCK = b"  // Stand-alone activities are listed in /app/activities/registry.jso
 
 def before_activity_registry_bytes(path, raw):
     if str(path) == 'data/radiology/radiology-asset-evidence.json':
-        # Newest link for the evidence file: the side-specific thoracic ultrasound panels.
+        # Newest links for the evidence file: stored Radiology Assistant figures, then the sided ultrasound panels.
+        from tools.anatomy_sources.package_radiology_assistant_figures import before_radiology_assistant_figures
         from tools.anatomy_sources.package_thoracic_us_side_panels import before_side_panels
-        return before_side_panels(raw)
+        return before_side_panels(before_radiology_assistant_figures(raw))
     if str(path) != PATH or hashlib.sha256(raw).hexdigest() != AFTER:
         return raw
     if raw.count(BLOCK) != 1:

@@ -63,8 +63,10 @@ def test_side_panels_are_partial_sided_bindings_with_an_exact_inverse():
     raw = (ROOT / 'data/radiology/radiology-asset-evidence.json').read_bytes()
     receipt = json.loads(RECEIPT.read_text())
     assert receipt['clinical_approval'] is False and receipt['extends_historical_approval'] is False
-    assert hashlib.sha256(raw).hexdigest() == receipt['after_sha256']
-    assert hashlib.sha256(before_side_panels(raw)).hexdigest() == receipt['before_sha256']
+    from tools.anatomy_sources.package_radiology_assistant_figures import before_radiology_assistant_figures
+    raw_panels = before_radiology_assistant_figures(raw)  # Publisher figures were added after the panels.
+    assert hashlib.sha256(raw_panels).hexdigest() == receipt['after_sha256']
+    assert hashlib.sha256(before_side_panels(raw_panels)).hexdigest() == receipt['before_sha256']
     assert before_side_panels(raw + b'\n') == raw + b'\n'
     assets = {item['id']: item for item in json.loads(raw)['assets']}
     inventory = json.loads((ROOT / 'data/radiology/non-msk-structure-requirements.json').read_text())
@@ -83,3 +85,36 @@ def test_side_panels_are_partial_sided_bindings_with_an_exact_inverse():
         assert inspect_requirement_coverage(item, requirements[identifier]) == ['requirement_coverage_partial']
     # A panel of one side cannot satisfy the other side's requirement.
     assert 'source_context_laterality_mismatch' in inspect_binding(expected[0], requirements['thoracic_ultrasound.left_diaphragm'])
+
+
+def test_publisher_figures_are_stored_reviewed_and_bound_as_partial_educational_use_only():
+    from tools.anatomy_sources.package_radiology_assistant_figures import (
+        RECEIPT, REVIEW, TERMS, before_radiology_assistant_figures, records, requirements)
+    from tools.check_msk_fidelity import inspect_binding, inspect_requirement_coverage
+    from tools.msk_runtime_rights import license_issues
+    raw = (ROOT / 'data/radiology/radiology-asset-evidence.json').read_bytes()
+    receipt = json.loads(RECEIPT.read_text())
+    assert receipt['clinical_approval'] is False and receipt['extends_historical_approval'] is False
+    assert hashlib.sha256(raw).hexdigest() == receipt['after_sha256']
+    assert hashlib.sha256(before_radiology_assistant_figures(raw)).hexdigest() == receipt['before_sha256']
+    assert 'educational purposes with due credit' in TERMS.read_text()
+    review = json.loads(REVIEW.read_text())
+    accepted = {row['figure'] for row in review['accepted']}
+    assert 'not a radiologist review' in review['reviewer'] and not accepted & set(review['rejected_figures'])
+    assets = {item['id']: item for item in json.loads(raw)['assets']}
+    required = {key[1]: value for key, value in requirements().items()}
+    expected = records()
+    assert len(expected) == 33 and sum(len(item['structure_ids']) for item in expected) == 34
+    for item in expected:
+        assert assets[item['id']] == item and item['source']['asset_url'] in accepted
+        assert hashlib.sha256((ROOT / item['local_path']).read_bytes()).hexdigest() == item['sha256']
+        licence = item['source']['license']
+        # The publisher grants educational reproduction only, and the record says so.
+        assert licence['commercial_use'] is False and licence['educational_reproduction'] is True
+        assert license_issues(item, ROOT) == ['commercial_rights_unverified']
+        assert 'The Radiology Assistant' in licence['attribution'] and item['source']['url'] in licence['attribution']
+        assert item['fidelity'] == 'source_reviewed_not_clinically_approved'
+        assert item['anatomical_review']['status'] == 'pending'
+        for identifier in item['structure_ids']:
+            assert inspect_binding(item, required[identifier]) == []
+            assert inspect_requirement_coverage(item, required[identifier]) == ['requirement_coverage_partial']
