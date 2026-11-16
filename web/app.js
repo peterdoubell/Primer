@@ -2366,11 +2366,13 @@ function renderRadiologyTemplate(template, index, nodeId, open) {
 }
 
 function renderQuickReport(report, nodeId) {
-  // Two editable texts in the reporting-system layout: the fast template and the all-normal report.
-  return [['template', 'Fast template', report.template, 'Under each heading the first line is normal. Delete the lines that do not apply, choose within [a / b] and fill [ ].'],
-    ['normal', 'Normal report', report.normal, 'Every heading normal. Add the clinical history and keep one study title.']]
-    .map(([kind, title, text, description], index) => renderRadiologyTemplate({ id: nodeId + '-' + kind, title, description, text, studyTitle: report.title },
-      'quick-' + index, nodeId, true));
+  const reports = [
+    ['dictation', 'Dictation template', report.dictation?.text, report.dictation?.title, 'Fill the [] fields with your findings.'],
+    ['template', 'Fast template', report.template, report.title, 'Choose the findings that apply.'],
+    ['normal', 'Normal report', report.normal, report.title, 'Use after confirming normal findings.'],
+  ].filter(([, , text]) => text);
+  return reports.map(([kind, title, text, studyTitle, description], index) =>
+    renderRadiologyTemplate({ title, description, text, studyTitle }, 'quick-' + kind, nodeId, index === 0));
 }
 
 function renderRadiologyReference(n) {

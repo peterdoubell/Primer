@@ -12,8 +12,9 @@ Clinical history and comparison sit above the inserted template in Prism.
 RadProof markup: ** toggles bold, __ toggles underline; a short line ending in a colon is a
 heading, so subheadings carry no colon.
 
-Usage: python3 tools/authoring/radproof_export.py > radproof-templates.json
+Usage: python3 tools/authoring/radproof_export.py --dictation > radproof-templates.json
 """
+import argparse
 import json
 import re
 import sys
@@ -42,7 +43,18 @@ def sentences(text):
     return [s if s.endswith('.') else s + '.' for s in re.split(r'(?<=\.)\s+(?=[A-Z])', text.strip()) if s]
 
 
-def export():
+def dictation_text(item, acquisition, title):
+    draft = rt.render_dictation(item, acquisition)
+    # Prism supplies history and comparison above the inserted study body.
+    study = draft['text'].split('\n\n', 2)[2].splitlines()
+    study[0] = '**__' + (draft['title'] if item.get('dictation') else title) + '__**'
+    markup = {'Protocol:': '__Protocol:__', 'Technique:': '__Technique:__',
+              'Findings:': '__Findings:__', 'Impression:': '**__Impression:__**',
+              'Recommendation:': '**__Recommendation:__**'}
+    return '\n'.join(markup.get(line, line) for line in study)
+
+
+def export(*, dictation=False):
     library = rt.library()
     prism = json.loads((DATA / 'prism-titles.json').read_text())
     practice = {n['name'].lower() for n in json.loads((DATA / 'radproof-practice-library.json').read_text())['templates']}
@@ -72,11 +84,14 @@ def export():
                       else sentence for sentence in sentences(section['normal'])]
         impression = item['impression'] if isinstance(item['impression'], list) else [item['impression']]
         lines += ['', '**__Conclusion:__**', *impression]
-        out.append({'id': identifier, 'name': name, 'names': prism['titles'][identifier], 'text': '\n'.join(lines)})
+        text = dictation_text(item, acquisition, title) if dictation else '\n'.join(lines)
+        out.append({'id': identifier, 'name': name, 'names': prism['titles'][identifier], 'text': text})
     return out
 
 
 if __name__ == '__main__':
-    result = export()
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument('--dictation', action='store_true', help='Export the editable dictation templates.')
+    result = export(dictation=parser.parse_args().dictation)
     sys.stdout.write(json.dumps(result, ensure_ascii=False, separators=(',', ':')))
     print(len(result), 'templates;', sum(len(t['names']) for t in result), 'Prism titles', file=sys.stderr)

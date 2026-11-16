@@ -382,3 +382,30 @@ def test_the_click_builder_default_acquisition_is_the_template_protocol_with_an_
     assert hashlib.sha256(before_protocol_alignment_bytes(PROTOCOL_ALIGNMENT_PATH, raw)).hexdigest() == PROTOCOL_ALIGNMENT[0]
     assert before_protocol_alignment_bytes(PROTOCOL_ALIGNMENT_PATH, raw + b'\n') == raw + b'\n'
     assert hashlib.sha256(before_compartments_bytes(PROTOCOL_ALIGNMENT_PATH, raw, allow_older=True)).hexdigest() == PROTOCOL_ALIGNMENT[0]
+
+
+def test_all_dictation_templates_use_study_specific_sections_and_simple_placeholders():
+    for identifier, item in rt.library().items():
+        draft = rt.quick_report(identifier)['dictation']
+        text = draft['text']
+        assert text.startswith('Clinical history:\n[]\n\nComparison:\n[]\n\n' + draft['title'])
+        assert text.endswith('\n\nImpression:\n[]\n\nRecommendation:\n[]')
+        assert '[ ]' not in text and '• ' not in text
+        heading = rt.acquisition_heading(identifier, item)
+        if heading and 'dictation' not in item:
+            assert f'\n{heading}:\n' + item['technique']['normal'] + '\n\nFindings:\n' in text
+        if not heading:
+            assert '\nTechnique:' not in text and '\nProtocol:' not in text
+        if 'dictation' not in item:
+            assert all(f"\n{section['heading']}: []" in text for section in item['sections'])
+
+
+def test_prostate_dictation_encodes_the_departmental_template():
+    draft = rt.quick_report('ra.mri-prostate')['dictation']
+    assert draft['title'] == 'mpMRI prostate'
+    assert '\nTechnique:\nDepartmental 1.5 T' in draft['text']
+    assert 'PSA density [] ng/mL²' in draft['text']
+    assert 'Location (PI-RADS sector, series and image): []' in draft['text']
+    assert 'T2: []\nDWI: []\nDCE: []' in draft['text']
+    assert 'Lesion PI-RADS category: []' in draft['text']
+    assert 'Extraprostatic extension: []' in draft['text']
