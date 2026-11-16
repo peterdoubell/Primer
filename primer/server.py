@@ -4288,7 +4288,7 @@ async def source_mesh_delivery(atlas: str, asset: str, request: Request):
         if asset.endswith(".gz") and os.environ.get("VERCEL"):
             return RedirectResponse("/source-media/" + directory + "/" + asset, status_code=307)
         response = await app.state.source_static.get_response(directory + "/" + asset, request.scope)
-        if atlas in pelvic_cases and asset in {"index.html", "surfaces.html"}:
+        if atlas in pelvic_cases and asset in {"index.html", "surfaces.html", "comparison.html"}:
             response.headers["Content-Security-Policy"] = CSP.replace(
                 "frame-ancestors 'none';", "frame-ancestors 'self';"
             )

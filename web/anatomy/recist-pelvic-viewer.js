@@ -155,6 +155,15 @@
     }
   }
 
+  if (location.pathname.endsWith('/recist-pelvic-023/index.html')) {
+    const comparison = document.createElement('a');
+    comparison.href = 'comparison.html';
+    comparison.textContent = 'Compare target measurements across three scans';
+    const paragraph = document.createElement('p');
+    paragraph.append(comparison);
+    document.querySelector('h1').after(paragraph);
+  }
+
   plane.addEventListener('change', selectPlane);
   get('node').addEventListener('change', () => {
     lastSections = {};

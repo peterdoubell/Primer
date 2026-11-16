@@ -25,9 +25,14 @@ from primer.server import app
 
 auth = ('synthetic-pelvic-reader', 'fixture-only')
 with TestClient(app) as client:
-    for case in ('recist-pelvic-015', 'recist-pelvic-023'):
+    for case, paths in (
+        ('recist-pelvic-015', ('index.html', 'surfaces.html')),
+        ('recist-pelvic-023', ('index.html', 'surfaces.html', 'comparison.html')),
+        ('recist-pelvic-023-follow-up-1', ('index.html', 'surfaces.html')),
+        ('recist-pelvic-023-follow-up-2', ('index.html', 'surfaces.html')),
+    ):
         prefix = '/app/anatomy/' + case + '/'
-        for path in ('index.html', 'surfaces.html'):
+        for path in paths:
             for method in ('GET', 'HEAD'):
                 assert client.request(method, prefix + path).status_code == 401
                 response = client.request(method, prefix + path, auth=auth)
@@ -36,6 +41,8 @@ with TestClient(app) as client:
                 assert "frame-ancestors 'self';" in policy
                 assert "connect-src 'self';" in policy
         assert client.get(prefix + 'unlisted.html', auth=auth).status_code == 404
+        manifest = client.get(prefix + 'source.json', auth=auth)
+        assert "frame-ancestors 'none';" in manifest.headers['content-security-policy']
     homepage = client.get('/app/', auth=auth)
     assert "frame-ancestors 'none';" in homepage.headers['content-security-policy']
 """

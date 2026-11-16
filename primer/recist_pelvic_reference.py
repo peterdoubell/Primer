@@ -29,6 +29,18 @@ CASES = {
         'nodes': 2,
         'source_sha256': '441e5d7bd0c9592a0aafdfcae45ef031ab9a7c168175c0884b7a827fedbd70ee',
     },
+    'recist-pelvic-023-follow-up-1': {
+        'source_case': '023',
+        'study': 'follow-up-1',
+        'nodes': 1,
+        'source_sha256': '737eac8d34d8878cf5235140ea9fd539f7616228ef8482fc87e13310ccbffca0',
+    },
+    'recist-pelvic-023-follow-up-2': {
+        'source_case': '023',
+        'study': 'follow-up-2',
+        'nodes': 1,
+        'source_sha256': 'c5974efcb0db7459e083a9accb71e4fa95495c9fcd58f2d53a35994d22e02893',
+    },
 }
 
 
@@ -41,6 +53,8 @@ def delivery(case_id):
     expected = {'index.html', 'surfaces.html', 'source.json', 'surfaces.json',
                 'ct-int16.gz', 'labels-int16.gz'}
     expected.update(f'node-{label}.mesh.gz' for label in range(1, case['nodes'] + 1))
+    if case_id == 'recist-pelvic-023':
+        expected.add('comparison.html')
     if set(files) != expected or files['source.json']['sha256'] != case['source_sha256']:
         raise ValueError('Pelvic source case inventory differs')
     for asset, record in files.items():
@@ -55,7 +69,8 @@ def delivery(case_id):
         elif not asset.endswith('.gz') or not os.environ.get('VERCEL'):
             raise ValueError('Pelvic source asset missing')
     source = json.loads((directory / 'source.json').read_bytes())
-    if (source['case'] != case_id.rsplit('-', 1)[1]
+    if (source['case'] != case.get('source_case', case_id.rsplit('-', 1)[1])
+            or source['study'] != case.get('study', 'baseline')
             or source['sourceURL'] != DATASET or source['articleURL'] != ARTICLE
             or source['license'] != LICENSE
             or source['surfaceManifestSHA256'] != files['surfaces.json']['sha256']):
@@ -72,6 +87,8 @@ def references():
     result = {}
     for case_id, case in CASES.items():
         files = delivery(case_id)
+        if 'investigation' not in case:
+            continue
         prefix = f'/app/anatomy/{case_id}/'
         result[case['investigation']] = [{
             'id': case_id,

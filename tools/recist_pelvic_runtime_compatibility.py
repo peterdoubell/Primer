@@ -10,7 +10,26 @@ PROOF = Path(__file__).resolve().parents[1] / 'docs/recist-pelvic-nodes/runtime-
 PIN = '9e0aa7638d1299ee06cbe44ac8e34f136557c666cb8deebc4c6edbe4297a7d98'
 
 
+LONGITUDINAL_PROOF = PROOF.parents[1] / 'recist-pelvic-longitudinal/runtime-inverse.json'
+LONGITUDINAL_PIN = '4da5d83292552bce2f22b8bb1d3e3b034d5ffabfefde22d7209743d5302a7f86'
+LONGITUDINAL_PATHS = {
+    'vercel.json',
+    'primer/recist_pelvic_reference.py',
+    'primer/server.py',
+    'web/anatomy/recist-pelvic-023/delivery.json',
+    'web/anatomy/recist-pelvic-viewer.js',
+    'web/anatomy/recist-pelvic-viewer.css',
+}
+
+
+def before_recist_longitudinal_bytes(path, raw):
+    if str(path) not in LONGITUDINAL_PATHS:
+        return raw
+    return _restore(path, raw, LONGITUDINAL_PROOF, LONGITUDINAL_PIN)
+
+
 def before_recist_pelvic_delivery_bytes(path, raw):
+    raw = before_recist_longitudinal_bytes(path, raw)
     if str(path) == 'web/app.js':
         from tools.report_layout_compatibility import before_rich_report_format_bytes
         raw = before_rich_report_format_bytes(path, raw)

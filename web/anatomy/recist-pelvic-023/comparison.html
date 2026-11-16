@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Target measurements across three scans · Case 023 · Primer</title>
+  <link rel="stylesheet" href="/app/anatomy/recist-pelvic-viewer.css">
+</head>
+<body>
+<main>
+  <a href="/app/#/radiology/ra.recist">Return to RECIST</a>
+  <h1>Target measurements across three scans</h1>
+  <p>Case 023, colon cancer. The publisher links each target by its alias. Each scan has its own mask values and anatomical labels. The original label for target A changes from iliac to inguinal to pelvic.</p>
+  <div class="comparison-table" tabindex="0" role="region" aria-label="Scrollable comparison of the three CT scans">
+    <table>
+      <caption>Publisher-recorded axial short axes</caption>
+      <thead>
+        <tr><th scope="col">Exam</th><th scope="col">Target A</th><th scope="col">Target B</th><th scope="col">Target sum</th><th scope="col">Inspect target A</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <th scope="row">Baseline<br><time datetime="2021-07-29">29 Jul 2021</time></th>
+          <td>16 mm<br><code>n,iliac</code> · mask 1</td>
+          <td>16 mm<br><code>n,aortocaval</code> · mask 6</td>
+          <td>32 mm</td>
+          <td><a href="index.html" aria-label="Open baseline CT">CT</a> · <a href="surfaces.html" aria-label="Open baseline 3D surfaces">3D</a></td>
+        </tr>
+        <tr>
+          <th scope="row">Follow-up 1<br><time datetime="2021-11-03">3 Nov 2021</time></th>
+          <td>17 mm<br><code>n,inguinal</code> · mask 1</td>
+          <td>13 mm<br><code>n,retroperitoneal</code> · mask 9</td>
+          <td>30 mm<br>Tied measured nadir</td>
+          <td><a href="../recist-pelvic-023-follow-up-1/index.html" aria-label="Open follow-up 1 CT">CT</a> · <a href="../recist-pelvic-023-follow-up-1/surfaces.html" aria-label="Open follow-up 1 3D surface">3D</a></td>
+        </tr>
+        <tr>
+          <th scope="row">Follow-up 2<br><time datetime="2021-12-07">7 Dec 2021</time></th>
+          <td>16 mm<br><code>n,pelvis</code> · mask 1</td>
+          <td>14 mm<br><code>n,retroperitoneal</code> · mask 8</td>
+          <td>30 mm<br>Tied measured nadir</td>
+          <td><a href="../recist-pelvic-023-follow-up-2/index.html" aria-label="Open follow-up 2 CT">CT</a> · <a href="../recist-pelvic-023-follow-up-2/surfaces.html" aria-label="Open follow-up 2 3D surface">3D</a></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <p>The baseline viewer also shows iliac mask 2. Target B uses mask 6 on that scan and lies outside the displayed pelvic bands. An overall RECIST response requires assessment of non-target and new lesions as well as these target measurements.</p>
+  <p>Each view uses its own scan coordinates. In-plane spacing is 0.6973, 0.6738 and 0.6250 mm in exam order. All three scans have 5 mm section thickness and 2.5 mm section spacing. Use each scan’s orientation markers and controls independently.</p>
+  <p>Rojas-Pizarro and colleagues. <a href="https://doi.org/10.5281/zenodo.17788162">Original CT, masks and measurements</a> · <a href="https://doi.org/10.1038/s41597-026-06597-6">Source paper</a> · <a href="https://creativecommons.org/licenses/by/4.0/">CC BY 4.0</a></p>
+</main>
+</body>
+</html>
