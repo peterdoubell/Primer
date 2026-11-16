@@ -30,7 +30,7 @@ def test_report_document_order_and_browser_parity(identifier, header):
     titles = ['Clinical history:', 'Comparison:', exam['title']]
     if header:
         titles += [header + ':', 'Findings:']
-        assert fields['protocol_options'][0] in text
+        assert exam['title'] + '\n' + header + ':\n' + fields['protocol_options'][0] in text
     else:
         assert '\nTechnique:' not in text and '\nProtocol:' not in text
     titles += ['Impression:', 'Recommendation:']
@@ -55,8 +55,13 @@ def test_protocol_omission_and_unlisted_choices_are_explicit():
 
 
 def test_standard_acquisition_exists_for_each_mri_and_ct():
-    for _, exam in EXAMS.values():
+    for form, exam in EXAMS.values():
         if exam['modality'] in ('MRI', 'CT'):
-            assert exam['report_protocol']['standard_text'], exam['id']
+            protocol = exam['report_protocol']['standard_text']
+            assert protocol, exam['id']
+            state = {'investigation_id': exam['id'], 'report_fields': {'clinical_history': 'Clinical question'}}
+            report = render_descriptors(form, state)['text']
+            heading = 'Protocol' if exam['modality'] == 'MRI' else 'Technique'
+            assert exam['title'] + '\n' + heading + ':\n' + protocol + '\n\nFindings:' in report, exam['id']
         else:
             assert not exam.get('report_protocol'), exam['id']

@@ -3,6 +3,7 @@
 Only these three literals are restored, and only from the exact new bytes.
 """
 import hashlib
+from pathlib import Path
 
 PATH = 'web/radiology-structured.js'
 BEFORE = '8445df128aa282ae71ff3439f05e32fe2510e337a9999d5e262b8180d1227a50'
@@ -50,6 +51,7 @@ NORMAL_LINE = {
 
 
 def before_normal_line_bytes(path, raw):
+    raw = before_rich_report_format_bytes(path, raw)
     row = NORMAL_LINE.get(str(path))
     if not row or hashlib.sha256(raw).hexdigest() != row[1]:
         return raw
@@ -138,3 +140,20 @@ def before_protocol_alignment_bytes(path, raw):
     if hashlib.sha256(restored).hexdigest() != PROTOCOL_ALIGNMENT[0]:
         raise ValueError('Protocol alignment changed unrelated bridge bytes')
     return restored
+
+
+def before_click_builder_spacing_bytes(path, raw):
+    if str(path) not in {'primer/descriptor_reporting.py', 'web/radiology-structured.js'}:
+        return raw
+    from tools.colonvessels_compatibility import _restore
+    proof = Path(__file__).resolve().parents[1] / 'docs/report-format-parity/acquisition-spacing-inverse.json'
+    return _restore(path, raw, proof, 'e14759aabd7f3717ba688e26e6a4739a8fe2180cb71d0a815f25b27026da976f')
+
+
+def before_rich_report_format_bytes(path, raw):
+    raw = before_click_builder_spacing_bytes(path, raw)
+    if str(path) not in {'web/app.js', 'web/radiology-structured.js'}:
+        return raw
+    from tools.colonvessels_compatibility import _restore
+    proof = Path(__file__).resolve().parents[1] / 'docs/report-format-parity/runtime-inverse.json'
+    return _restore(path, raw, proof, '88b4537a8494ac5052094229cc4a372b9d307bd67a4c4ed59289280f4cf6be2b')

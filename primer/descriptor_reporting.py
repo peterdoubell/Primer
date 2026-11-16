@@ -98,8 +98,9 @@ def format_study_report(investigation, fields, sections, assessments=()):
         return label + ':\n' + (body or '[]')
     study = [investigation['title']]
     if acquisition:
-        study.extend((block('Protocol' if investigation['modality'] == 'MRI' else 'Technique',
-                            '\n'.join(filter(None, protocol))), block('Findings', '\n\n'.join(findings))))
+        heading = 'Protocol' if investigation['modality'] == 'MRI' else 'Technique'
+        study[0] += '\n' + block(heading, '\n'.join(filter(None, protocol)))
+        study.append(block('Findings', '\n\n'.join(findings)))
     else:
         study.extend(examination + findings)
     return '\n\n'.join((block('Clinical history', fields.get('clinical_history')),

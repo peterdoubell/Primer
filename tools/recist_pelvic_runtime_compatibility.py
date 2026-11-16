@@ -11,6 +11,9 @@ PIN = '9e0aa7638d1299ee06cbe44ac8e34f136557c666cb8deebc4c6edbe4297a7d98'
 
 
 def before_recist_pelvic_delivery_bytes(path, raw):
+    if str(path) == 'web/app.js':
+        from tools.report_layout_compatibility import before_rich_report_format_bytes
+        raw = before_rich_report_format_bytes(path, raw)
     if str(path) not in {
         'primer/server.py', 'primer/source_native_inspectors.py', 'vercel.json', 'web/app.js',
         'docs/radiology-fidelity-scope.json', 'tests/test_pulmonary_source_delivery.py',
