@@ -262,6 +262,64 @@ test('rhyme families: rhyme is by family, and every odd-one-out round has exactl
   for (let n = 0; n < 30; n++) { const r = m.round(n); assert.equal(r.words.length, 4); assert.equal(r.words.filter(w => m.family(w) !== m.family(r.words.find(x => x !== r.odd))).length, 1); assert.ok(r.words.includes(r.odd)); }
 });
 
+const SORTING = ['letter-sounds', 'question-words', 'story-parts', 'childrens-classics', 'letter-shapes', 'read-for-meaning', 'word-hoard', 'story-mountain', 'myth-traditions', 'novel-elements',
+  'source-types', 'argument-parts', 'literary-devices', 'shakespeare-plays', 'world-classics', 'ancient-canon', 'poetic-forms', 'theory-schools', 'garden-paths', 'registers'];
+
+test('sorting activities: every table row and quiz entry has a known answer, and each round offers it exactly once', () => {
+  for (const slug of SORTING) {
+    const m = load('language/' + slug);
+    assert.equal(new Set(m.ITEMS.map(item => item.name)).size, m.ITEMS.length, slug);
+    for (const item of m.ITEMS) { assert.ok(m.CATEGORIES.includes(item.cat), slug + ' ' + item.name); assert.equal(m.category(item.name), item.cat); assert.ok(m.inCategory(item.cat).includes(item.name)); }
+    assert.ok(m.QUIZ.length >= 6, slug);
+    const asked = new Set();
+    for (let n = 0; n < m.QUIZ.length; n++) {
+      const round = m.round(n); asked.add(round.text);
+      assert.ok(round.options.length >= 3 && round.options.length <= 4, slug);
+      assert.equal(new Set(round.options).size, round.options.length, slug);
+      assert.equal(round.options.filter(option => option === round.answer).length, 1, slug + ' ' + round.text);
+      assert.equal(m.check(n, round.answer), true); assert.equal(m.check(n, round.options.find(option => option !== round.answer)), false);
+      assert.ok(!round.prompt.includes('{name}'), slug);
+    }
+    assert.equal(asked.size, m.QUIZ.length, slug + ' repeats a question before asking them all');
+  }
+});
+
+test('sorting activities: spot checks of the facts they teach', () => {
+  const cat = (slug, name) => load('language/' + slug).category(name);
+  assert.equal(cat('childrens-classics', "Charlotte's Web"), 'E. B. White'); assert.equal(cat('childrens-classics', 'The Tale of Peter Rabbit'), 'Beatrix Potter');
+  assert.equal(cat('letter-shapes', 'g'), 'Tail'); assert.equal(cat('letter-shapes', 'h'), 'Tall'); assert.equal(cat('letter-shapes', 'a'), 'Small');
+  assert.equal(load('language/letter-shapes').ITEMS.length, 26);
+  assert.equal(cat('myth-traditions', 'Thor'), 'Norse'); assert.equal(cat('myth-traditions', 'Anubis'), 'Egyptian'); assert.equal(cat('myth-traditions', 'Amaterasu'), 'Japanese');
+  assert.equal(cat('shakespeare-plays', 'Hamlet'), 'Tragedy'); assert.equal(cat('shakespeare-plays', 'Twelfth Night'), 'Comedy'); assert.equal(cat('shakespeare-plays', 'Henry V'), 'History');
+  assert.equal(cat('ancient-canon', 'Aeneid'), 'Virgil'); assert.equal(cat('ancient-canon', 'Odyssey'), 'Homer'); assert.equal(cat('ancient-canon', 'Medea'), 'Euripides');
+  assert.equal(cat('world-classics', 'The Tale of Genji'), 'Japan'); assert.equal(cat('world-classics', 'Don Quixote'), 'Spain'); assert.equal(cat('world-classics', 'Things Fall Apart'), 'Nigeria');
+  assert.equal(cat('poetic-forms', 'Haiku'), 'Japanese'); assert.equal(cat('poetic-forms', 'Sonnet'), 'Italian'); assert.equal(cat('source-types', 'a diary'), 'Primary'); assert.equal(cat('source-types', 'an encyclopedia'), 'Tertiary');
+  assert.equal(cat('word-hoard', 'enormous'), 'tiny'); assert.equal(cat('garden-paths', 'The old man the boats.'), 'man');
+  // Time lines run in order, and the story mountain peaks at the problem.
+  for (const slug of ['childrens-classics', 'shakespeare-plays', 'ancient-canon']) { const years = load('language/' + slug).ITEMS.map(item => item.year); assert.deepEqual(years, [...years].sort((a, b) => a - b), slug); }
+  assert.deepEqual(load('language/story-mountain').ITEMS.map(item => item.name), ['Opening', 'Build-up', 'Problem', 'Resolution', 'Ending']);
+  // Garden-path options are words of the sentence itself.
+  const paths = load('language/garden-paths'); for (let n = 0; n < paths.QUIZ.length; n++) { const round = paths.round(n); for (const option of round.options) assert.ok(round.text.includes(option), option); }
+});
+
+test('speech pace: words that fit, the three-part plan and overrun', () => {
+  const m = load('language/speech-pace');
+  assert.equal(m.words(3, 130), 390); assert.equal(m.seconds(390, 130), 180); assert.equal(m.count('  one two\nthree  '), 3); assert.equal(m.count(''), 0);
+  near(m.PARTS.reduce((sum, part) => sum + part.share, 0), 1);
+  assert.deepEqual(m.plan(3, 130).map(part => [part.name, part.seconds, part.words]), [['Opening', 27, 59], ['Body', 126, 273], ['Close', 27, 59]]);
+  assert.equal(m.clock(125), '2:05'); assert.equal(m.describe(100), 'slow and clear'); assert.equal(m.describe(130), 'comfortable'); assert.equal(m.describe(170), 'fast');
+  assert.equal(m.overrun('word '.repeat(520), 3, 130), 60); assert.ok(m.overrun('word '.repeat(100), 3, 130) < 0);
+});
+
+test('bigram counter: counts, probabilities, smoothing and greedy generation', () => {
+  const m = load('language/bigram-counter'), text = 'the cat sat on the mat. the dog sat on the log. the cat saw the dog. the dog saw the cat on the mat.', c = m.count(text);
+  assert.deepEqual(m.stats(text), {tokens: 25, types: 8}); assert.equal(c.unigrams.the, 9); assert.equal(c.bigrams['<s>'].the, 4);
+  assert.deepEqual(m.next(c, 'the').map(row => [row.word, row.count]), [['cat', 3], ['dog', 3], ['mat', 2], ['log', 1]]);
+  near(m.next(c, 'the').reduce((sum, row) => sum + row.p, 0), 1); near(m.probability(c, 'the', 'cat'), 1 / 3); assert.equal(m.probability(c, 'sat', 'on'), 1); assert.equal(m.probability(c, 'cat', 'log'), 0);
+  assert.equal(m.vocabulary(c).length, 9); near(m.probability(c, 'cat', 'log', true), 1 / 12); near(m.next(c, 'cat', true).reduce((sum, row) => sum + row.p, 0), 1);
+  assert.equal(m.generate(c), 'the cat on the'); assert.equal(m.generate(m.count('')), ''); assert.equal(m.probability(m.count(''), 'x', 'y'), 0);
+});
+
 test('every registered activity has its page, script and a return link to its module', () => {
   const registry = JSON.parse(fs.readFileSync(path.join(root, 'activities', 'registry.json'), 'utf8'));
   const curriculum = fs.readdirSync(path.join(root, '..', 'data', 'curriculum')).map(f => fs.readFileSync(path.join(root, '..', 'data', 'curriculum', f), 'utf8')).join('');

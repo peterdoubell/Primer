@@ -1,0 +1,26 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Classic children's books · Primer</title>
+<link rel="stylesheet" href="/app/activities/kit.css">
+<script defer src="/app/activities/kit.js"></script>
+<script defer src="lab.js"></script>
+</head>
+<body><main>
+<a href="/app/#/node/lang.1.childrens-lit">Return to Great Children's Books</a>
+<h1>Classic children's books</h1>
+<p class="lede">These books have been read to children for generations. The drawing places each one on a time line.</p>
+<label for="show">Show</label><select id="show"></select>
+<figure>
+<canvas id="graph" width="760" height="440" role="img" aria-label="Time line of first publication. The table below gives the same information."></canvas>
+<figcaption>Time line of first publication.</figcaption>
+</figure>
+<table><caption>Book table</caption><thead><tr><th scope="col">Book</th><th scope="col">Author</th><th scope="col">First published</th><th scope="col">What it is about</th></tr></thead><tbody id="rows"></tbody></table>
+<h2>Test yourself</h2>
+<p id="prompt"></p>
+<div id="choices" class="choices"></div>
+<p id="feedback" role="status"></p>
+<p id="result" role="status"></p>
+</main></body></html>
