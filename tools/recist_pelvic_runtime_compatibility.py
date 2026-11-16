@@ -7,11 +7,15 @@ from pathlib import Path
 from tools.colonvessels_compatibility import _restore
 
 PROOF = Path(__file__).resolve().parents[1] / 'docs/recist-pelvic-nodes/runtime-inverse.json'
-PIN = 'fd74f002d505a3a20b4b9e8f7eaf363f83d3522e39e34d01a3ce11abad958e63'
+PIN = '91d0ef669ebb55dfeb392c874bfd0a9a0644c6ece55dcb6c0d9faecad5e14871'
 
 
 def before_recist_pelvic_delivery_bytes(path, raw):
-    if str(path) not in {'primer/server.py', 'primer/source_native_inspectors.py', 'vercel.json', 'web/app.js'}:
+    if str(path) not in {
+        'primer/server.py', 'primer/source_native_inspectors.py', 'vercel.json', 'web/app.js',
+        'docs/radiology-fidelity-scope.json', 'tests/test_pulmonary_source_delivery.py',
+        'tools/check_pulmonary_delivery.py',
+    }:
         return raw
     return _restore(path, raw, PROOF, PIN)
 
@@ -31,3 +35,23 @@ def before_recist_pelvic_lesson_fields(identifier, fields):
             raise ValueError('Unreviewed pelvic source lesson gallery')
         media.remove(matches[0])
     return result
+
+
+def before_recist_pelvic_bindings(bindings):
+    from primer.recist_pelvic_reference import references
+
+    previous = dict(bindings)
+    for identifier, additions in references().items():
+        if identifier not in previous:
+            continue
+        added_ids = {item['id'] for item in additions}
+        existing = previous[identifier]
+        present = [item for item in existing if item['id'] in added_ids]
+        if present != additions:
+            raise ValueError('Unreviewed pelvic node source bindings')
+        retained = [item for item in existing if item['id'] not in added_ids]
+        if retained:
+            previous[identifier] = retained
+        else:
+            del previous[identifier]
+    return previous

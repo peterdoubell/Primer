@@ -78,5 +78,71 @@
         "ra.recist"
       ]
     }
+  },
+  "docs/radiology-fidelity-scope.json": {
+    "before": "420dad5a698c41c6ee7938b3d7a32a5c6ec9180cb304d06f8f17d6d5854a57f9",
+    "after": "6577669644443bc786efafbeaf4d80f0237f2a100b5fe170db8dcf7ff836f62c",
+    "changes": [
+      {
+        "start": 11713,
+        "end": 11735,
+        "after": "        \"source_native_inspectors\": [\n          {\n            \"id\": \"recist-pelvic-015\",\n            \"title\": \"Pelvic nodes on bladder cancer baseline CT\",\n            \"caption\": \"Inspect three original pelvic nodal labels on one acquired CT and isolate their sampled 3D boundaries. This case supplies CT nodal context for bladder cancer. VI-RADS assesses the bladder tumour on MRI.\",\n            \"src\": \"/app/anatomy/recist-pelvic-015/index.html\",\n            \"manifest_url\": \"/app/anatomy/recist-pelvic-015/source.json\",\n            \"sha256\": \"d42adcf5760ce767f210781d1baefa3c50ba110165bd7a60071fba3aea50d5b0\",\n            \"manifest_sha256\": \"cdf9d1700250b8e773c09ac72c657a135ee68ad75f4d020d281221941cf72a51\",\n            \"modality\": \"CT\",\n            \"source_url\": \"https://zenodo.org/records/17788162\",\n            \"publication_url\": \"https://doi.org/10.1038/s41597-026-06597-6\",\n            \"license\": \"CC BY 4.0\",\n            \"license_url\": \"https://creativecommons.org/licenses/by/4.0/\",\n            \"attribution\": \"Rojas-Pizarro and colleagues, University of Chile clinical hospital, Zenodo 10.5281/zenodo.17788162. Primer crops the original CT and masks without resampling and displays the source voxel boundaries.\",\n            \"clinical_approval\": false,\n            \"fine_anatomical_approval\": false,\n            \"current_patient_registration\": false,\n            \"normal_anatomical_atlas_approval\": false,\n            \"complete_reporting_anatomy_approved\": false\n          }\n        ]\n",
+        "before": "        \"source_native_inspectors\": null\n"
+      },
+      {
+        "start": 129500,
+        "end": 129522,
+        "after": "        \"source_native_inspectors\": [\n          {\n            \"id\": \"recist-pelvic-023\",\n            \"title\": \"Iliac nodes and a 16 mm RECIST target on baseline CT\",\n            \"caption\": \"Inspect two source-labelled iliac nodes on the baseline CT and isolate their sampled 3D boundaries. The authors measured node 1 at 16 mm on its axial short axis as target A. This single scan illustrates the baseline measurement context.\",\n            \"src\": \"/app/anatomy/recist-pelvic-023/index.html\",\n            \"manifest_url\": \"/app/anatomy/recist-pelvic-023/source.json\",\n            \"sha256\": \"5d753182193466d71b965e90229368172f9a58118225ff71d6e0a8c5f9cd551c\",\n            \"manifest_sha256\": \"441e5d7bd0c9592a0aafdfcae45ef031ab9a7c168175c0884b7a827fedbd70ee\",\n            \"modality\": \"CT\",\n            \"source_url\": \"https://zenodo.org/records/17788162\",\n            \"publication_url\": \"https://doi.org/10.1038/s41597-026-06597-6\",\n            \"license\": \"CC BY 4.0\",\n            \"license_url\": \"https://creativecommons.org/licenses/by/4.0/\",\n            \"attribution\": \"Rojas-Pizarro and colleagues, University of Chile clinical hospital, Zenodo 10.5281/zenodo.17788162. Primer crops the original CT and masks without resampling and displays the source voxel boundaries.\",\n            \"clinical_approval\": false,\n            \"fine_anatomical_approval\": false,\n            \"current_patient_registration\": false,\n            \"normal_anatomical_atlas_approval\": false,\n            \"complete_reporting_anatomy_approved\": false\n          }\n        ]\n",
+        "before": "        \"source_native_inspectors\": null\n"
+      },
+      {
+        "start": 141508,
+        "end": 141517,
+        "after": "          {\n            \"id\": \"module-native-inspectors-rad.4.oncology-response\",\n            \"kind\": \"source-native-inspectors\",\n            \"title\": \"Native source anatomy inspection\",\n            \"instructions\": \"Inspect the complete provided source selections against native images and separate atlas probabilities. Read population, sampling and anatomical limits before interpretation.\",\n            \"investigation_ids\": [\n              \"ra.recist\"\n            ]\n          },\n",
+        "before": ""
+      },
+      {
+        "start": 141678,
+        "end": 141679,
+        "after": "      \"module_contract_sha256\": \"2f5afa5599c0a38063d17a5eed9c4ec968d8b2c46b7e95c9322e7a3337ed5d1c\",\n",
+        "before": "      \"module_contract_sha256\": \"392df2621edf0f9a3dfaa4cd563c139f83d7f9f509ac589361e1b266edd6fda9\",\n"
+      },
+      {
+        "start": 151020,
+        "end": 151029,
+        "after": "          {\n            \"id\": \"module-native-inspectors-rad.5.bladder-virads\",\n            \"kind\": \"source-native-inspectors\",\n            \"title\": \"Native source anatomy inspection\",\n            \"instructions\": \"Inspect the complete provided source selections against native images and separate atlas probabilities. Read population, sampling and anatomical limits before interpretation.\",\n            \"investigation_ids\": [\n              \"ra.mri-bladder\"\n            ]\n          },\n",
+        "before": ""
+      },
+      {
+        "start": 151391,
+        "end": 151392,
+        "after": "      \"module_contract_sha256\": \"e3031552306abbefcfe22e441e7588e4f53a349770b73cea3e212c4004ca517d\",\n",
+        "before": "      \"module_contract_sha256\": \"0e34d9f6a6d528699d200531e80be43c4a4187b45646a0f92412f8c4e4f55275\",\n"
+      }
+    ]
+  },
+  "tests/test_pulmonary_source_delivery.py": {
+    "before": "dbde167533a6d9ab59f93d6f30116c2622bbce09757397530a68758046e3eca9",
+    "after": "6582275ff80fb76802eb3fdaa7ba010ff7adc7d46324c71cbf0e4f3e9120f64c",
+    "changes": [
+      {
+        "start": 220,
+        "end": 222,
+        "after": "    from tools.recist_pelvic_runtime_compatibility import before_recist_pelvic_bindings\n    assert set(before_additional_bindings(before_recist_pelvic_bindings(refs))) == {'ra.brain-anatomy', 'ra.acute-stroke', 'ra.ct-pulmonary-nodules', 'ra.thoracic-ultrasound'} | cardiac_bindings | hippocampal.BINDINGS | {'ra.ct-temporal-bone', 'ra.tinnitus'}\n",
+        "before": "    assert set(before_additional_bindings(refs)) == {'ra.brain-anatomy', 'ra.acute-stroke', 'ra.ct-pulmonary-nodules', 'ra.thoracic-ultrasound'} | cardiac_bindings | hippocampal.BINDINGS | {'ra.ct-temporal-bone', 'ra.tinnitus'}\n"
+      }
+    ]
+  },
+  "tools/check_pulmonary_delivery.py": {
+    "before": "7cb98067c743c1b3e2d1367a84e52e8ac9b3e12c3bcf00d50793626ec092a573",
+    "after": "403db75e0b3d9d4fabcb9d7b68c84df8a8b9b8cc3792b3ff7097c8bd5a30836e",
+    "changes": [
+      {
+        "start": 130,
+        "end": 132,
+        "after": "            from tools.recist_pelvic_runtime_compatibility import before_recist_pelvic_bindings\n            assert set(before_additional_bindings(before_recist_pelvic_bindings(references))) == {'ra.brain-anatomy', 'ra.acute-stroke', 'ra.ct-pulmonary-nodules', 'ra.thoracic-ultrasound'} | cardiac_bindings | hippocampal.BINDINGS | {'ra.ct-temporal-bone', 'ra.tinnitus'}\n",
+        "before": "            assert set(before_additional_bindings(references)) == {'ra.brain-anatomy', 'ra.acute-stroke', 'ra.ct-pulmonary-nodules', 'ra.thoracic-ultrasound'} | cardiac_bindings | hippocampal.BINDINGS | {'ra.ct-temporal-bone', 'ra.tinnitus'}\n"
+      }
+    ]
   }
 }
