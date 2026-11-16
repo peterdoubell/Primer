@@ -187,10 +187,85 @@ test('mixing water conserves energy', () => {
   }
 });
 
+test('parts of speech: every word is tagged with a known class and each sentence has a verb', () => {
+  const m = load('language/parts-of-speech');
+  for (const sentence of m.SENTENCES) {
+    assert.ok(sentence.every(([word, kind]) => word && kind in m.JOBS)); assert.ok(m.count(sentence).verb >= 1); assert.ok(m.count(sentence).noun + (m.count(sentence).pronoun || 0) >= 1);
+    assert.match(m.text(sentence), /^[A-Z].*\.$/);
+  }
+  assert.deepEqual(m.count(m.SENTENCES[0]), {determiner: 2, adjective: 1, noun: 2, verb: 1, adverb: 1, preposition: 1});
+  assert.equal(Object.keys(m.JOBS).length, 8);
+});
+
+test('sentence builder always produces a capital letter, an end mark and a verb', () => {
+  const m = load('language/sentence-builder');
+  assert.equal(m.build('the cat', 'sleeps', 'on the mat', 'statement'), 'The cat sleeps on the mat.');
+  assert.equal(m.build('the cat', 'sleeps', 'on the mat', 'question'), 'Does the cat sleep on the mat?');
+  assert.equal(m.build('the rain', 'falls', '', 'exclamation'), 'The rain falls!');
+  for (const s of m.SUBJECTS) for (const v of m.VERBS) for (const e of m.ENDINGS) for (const k of ['statement', 'question', 'exclamation']) {
+    const text = m.build(s, v, e, k); assert.deepEqual(m.check(text), {capital: true, end: true, verb: true}, text); assert.equal(m.kind(text), k); assert.ok(!text.includes('  '));
+  }
+  assert.deepEqual(m.check('the cat'), {capital: false, end: false, verb: false});
+});
+
+test('metre: syllable counts match the stress pattern and the named foot fills the line', () => {
+  const m = load('language/meter-scansion');
+  for (const line of m.LINES) {
+    assert.equal(line.syllables.length, line.stress.length, line.poet);
+    assert.match(line.stress, /^[Sx]+$/, line.poet);
+    assert.ok(m.matches(line) >= line.feet - 1, line.poet); assert.ok(line.feet in m.COUNT);
+  }
+  assert.equal(m.name(m.LINES[0]), 'iambic pentameter'); assert.equal(m.name(m.LINES[1]), 'trochaic tetrameter'); assert.equal(m.name(m.LINES[4]), 'dactylic hexameter');
+  assert.equal(m.matches(m.LINES[0]), 5); assert.equal(m.matches(m.LINES[2]), 4);
+});
+
+test('word roots: every word decomposes into listed roots that appear in its spelling', () => {
+  const m = load('language/word-roots'), variant = {phon: ['phon'], in: ['in', 'im'], logy: ['logy'], graph: ['graph'], meter: ['meter']};
+  for (const [word, roots] of Object.entries(m.WORDS)) for (const root of roots) {
+    assert.ok(root in m.ROOTS, root); assert.ok((variant[root] || [root]).some(form => word.includes(form)), word + ' ' + root);
+  }
+  assert.equal(m.literal('telephone'), 'far + sound'); assert.equal(m.literal('biology'), 'life + study of'); assert.equal(m.literal('transport'), 'across + carry');
+  assert.deepEqual(m.family('scope'), ['telescope', 'microscope']); assert.ok(m.family('graph').length >= 5);
+  for (const [origin] of Object.values(m.ROOTS)) assert.ok(['Greek', 'Latin'].includes(origin));
+});
+
+test('English timeline: periods are contiguous and events are in order', () => {
+  const m = load('language/english-timeline');
+  m.PERIODS.forEach((p, i) => { if (i) assert.equal(p.from, m.PERIODS[i - 1].to); assert.ok(p.sample && p.source); });
+  assert.equal(m.period(900).name, 'Old English'); assert.equal(m.period(1150).name, 'Middle English'); assert.equal(m.period(1400).name, 'Middle English');
+  assert.equal(m.period(1611).name, 'Early Modern English'); assert.equal(m.period(2025).name, 'Modern English');
+  assert.deepEqual(m.EVENTS.map(e => e[0]), [...m.EVENTS.map(e => e[0])].sort((a, b) => a - b));
+  assert.equal(m.eventsBy(1066).length, 3); assert.equal(m.eventsBy(450).length, 0); assert.equal(m.eventsBy(2025).length, m.EVENTS.length);
+});
+
+test('alphabet: 26 letters, five vowels, and each example word contains its letter', () => {
+  const m = load('language/alphabet-grid');
+  assert.equal(m.letters().length, 26); assert.equal(m.letters().filter(l => m.info(l).vowel).join(''), 'aeiou');
+  for (const letter of m.letters()) { const i = m.info(letter); assert.ok(i.position === 'starts' ? i.word.startsWith(letter) : i.word.endsWith(letter), i.word); assert.equal(i.upper.toLowerCase(), letter); }
+  assert.deepEqual([m.info('a').before, m.info('a').after, m.info('z').before, m.info('z').after, m.info('m').index], [null, 'b', 'y', null, 13]);
+});
+
+test('paragraph builder: scrambled order is scored against each sentence’s role', () => {
+  const m = load('language/paragraph-builder');
+  for (const p of m.PARAGRAPHS) {
+    assert.deepEqual(p.sentences.map(s => s[1]), [0, 1, 2, 3]); assert.equal(m.score(p, [2, 0, 3, 1]), 4); assert.equal(m.score(p, [0, 1, 2, 3]), 0); assert.equal(m.score(p, [2, 0, 1, 3]), 2);
+    assert.equal(m.ordered(p).split('. ').length, 4);
+  }
+  assert.equal(m.ROLES.length, 4); for (const role of m.ROLES) assert.ok(m.JOB[role]);
+});
+
+test('rhyme families: rhyme is by family, and every odd-one-out round has exactly one outsider', () => {
+  const m = load('language/rhyme-families');
+  assert.equal(m.rhymes('cat', 'hat'), true); assert.equal(m.rhymes('cat', 'dog'), false); assert.equal(m.rhymes('cat', 'cat'), false); assert.equal(m.rhymes('night', 'kite'), true);
+  assert.deepEqual(m.surprising('tree'), ['sea', 'key']); assert.deepEqual(m.surprising('sun'), ['one']);
+  const all = Object.values(m.FAMILIES).flat(); assert.equal(new Set(all).size, all.length);
+  for (let n = 0; n < 30; n++) { const r = m.round(n); assert.equal(r.words.length, 4); assert.equal(r.words.filter(w => m.family(w) !== m.family(r.words.find(x => x !== r.odd))).length, 1); assert.ok(r.words.includes(r.odd)); }
+});
+
 test('every registered activity has its page, script and a return link to its module', () => {
   const registry = JSON.parse(fs.readFileSync(path.join(root, 'activities', 'registry.json'), 'utf8'));
   const curriculum = fs.readdirSync(path.join(root, '..', 'data', 'curriculum')).map(f => fs.readFileSync(path.join(root, '..', 'data', 'curriculum', f), 'utf8')).join('');
-  assert.ok(Object.keys(registry).length >= 20);
+  assert.ok(Object.keys(registry).length >= 28);
   for (const [node, links] of Object.entries(registry)) {
     assert.ok(curriculum.includes('"id": "' + node + '"') || curriculum.includes('"id":"' + node + '"'), node);
     for (const {href, label} of links) {

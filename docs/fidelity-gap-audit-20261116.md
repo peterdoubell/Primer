@@ -27,15 +27,15 @@ Every module has an illustration and a 3D model. The gap is modules that use a g
 
 | Domain | Modules | With a dedicated lab or activity before this batch | Added here |
 |---|---|---|---|
-| Mathematics | 59 | 29 | 6 |
-| Physics | 39 | 20 | 4 |
-| Language | 40 | 11 | 0 |
+| Mathematics | 59 | 29 | 12 |
+| Physics | 39 | 20 | 8 |
+| Language | 40 | 11 | 8 |
 
 The counts come from matching module ids in the lab scripts and activity links; they are an estimate, not a reviewed inventory.
 
-## First batch
+## Activities added
 
-Ten stand-alone activities, each with a calculation model tested against hand-worked values (`tests/activity-models.test.cjs`, run in CI by `tests/test_lesson_activities.py`).
+Twenty-eight stand-alone activities, each with a calculation model tested against hand-worked values (`tests/activity-models.test.cjs`, run in CI by `tests/test_lesson_activities.py`).
 
 | Module | Activity |
 |---|---|
@@ -49,6 +49,24 @@ Ten stand-alone activities, each with a calculation model tested against hand-wo
 | Simple Machines | Balancing a lever |
 | Special Relativity: a First Look | Time dilation and length contraction |
 | The Quantum Idea | The photoelectric effect |
+| Time and Calendars | Reading a clock |
+| Order of Operations | Order of operations, one step at a time |
+| Powers | Powers and the laws of exponents |
+| Letters for Numbers | Solving an equation like a balance |
+| Complex Numbers and Beyond | Multiplying complex numbers |
+| Differential Equations | Slope fields and Euler's method |
+| Newton's Laws | Projectile motion |
+| Floating and Sinking | Why things float or sink |
+| Light and Color | Mixing coloured light |
+| Heat and Temperature | Mixing warm and cool water |
+| Grammar | Parts of speech in a sentence (table and self-test) |
+| Sentences | Build a complete sentence |
+| Poetry | Hearing the metre of a line (table of feet) |
+| Where Words Come From | Word roots from Greek and Latin (root map) |
+| History of English | A timeline of the English language |
+| The Alphabet | The twenty-six letters |
+| Paragraphs and Essays | The four jobs in a paragraph (algorithm and game) |
+| Rhymes and Songs | Words that rhyme (families and odd-one-out game) |
 
 Each activity has labelled controls, a drawing with a text description, a table of values and a plain-language result line.
 

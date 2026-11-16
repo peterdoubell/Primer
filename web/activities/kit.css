@@ -17,3 +17,18 @@ caption { text-align: left; font-weight: 700; }
 th, td { border-bottom: 1px solid #b2b8bc; padding: .35rem; }
 [role=status] { padding: .6rem .8rem; background: #fff; border-left: 4px solid #215783; }
 .controls { display: grid; grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr)); gap: 0 1.5rem; }
+.choices, .grid { display: flex; flex-wrap: wrap; gap: .5rem; margin: .6rem 0; }
+.grid button { min-width: 3.2rem; font-size: 1.15rem; }
+.grid button.vowel { background: #f6d9b4; }
+.grid button[aria-pressed=true] { background: #172533; color: #fff; }
+.big { font-size: 1.4rem; margin: .8rem 0 .2rem; }
+.huge { font-size: 4rem; margin: .2rem 0; line-height: 1.1; }
+.beats { font-family: ui-monospace, monospace; margin: 0 0 .6rem; }
+.sentences li { margin: .6rem 0; }
+.sentences select { display: block; margin-top: .2rem; }
+.built { padding: .6rem .8rem; background: #fff; }
+.built:empty { display: none; }
+blockquote { margin: 1rem 0; padding: .2rem 1rem; border-left: 4px solid #c9a26b; background: #fff; }
+h2 { margin: 1.4rem 0 .2rem; font-size: 1.2rem; }
+.syllable { margin-right: .28em; }
+strong.syllable { text-decoration: underline; }

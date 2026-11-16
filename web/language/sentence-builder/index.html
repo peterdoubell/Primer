@@ -1,0 +1,19 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Build a complete sentence · Primer</title>
+<link rel="stylesheet" href="/app/activities/kit.css">
+<script defer src="/app/activities/kit.js"></script>
+<script defer src="lab.js"></script>
+</head>
+<body><main>
+<a href="/app/#/node/lang.1.sentences">Return to Sentences</a>
+<h1>Build a complete sentence</h1>
+<p class="lede">Choose who, what they do and a little more. Watch the capital letter and the end mark appear.</p>
+<div class="controls"><div><label for="subject">Who or what?</label><select id="subject"></select></div><div><label for="verb">What do they do?</label><select id="verb"></select></div><div><label for="ending">More detail</label><select id="ending"></select></div><div><label for="kind">Kind of sentence</label><select id="kind"><option value="statement">Telling (.)</option><option value="question">Asking (?)</option><option value="exclamation">Exclaiming (!)</option></select></div></div>
+<p id="sentence" class="big"></p>
+<table><caption>Check the sentence</caption><thead><tr><th scope="col">Check</th><th scope="col">Answer</th></tr></thead><tbody id="rows"></tbody></table>
+<p id="result" role="status"></p>
+</main></body></html>

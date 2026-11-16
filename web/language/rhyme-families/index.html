@@ -1,0 +1,22 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Words that rhyme · Primer</title>
+<link rel="stylesheet" href="/app/activities/kit.css">
+<script defer src="/app/activities/kit.js"></script>
+<script defer src="lab.js"></script>
+</head>
+<body><main>
+<a href="/app/#/node/lang.0.rhymes">Return to Rhymes and Songs</a>
+<h1>Words that rhyme</h1>
+<p class="lede">Rhyming words end with the same sound. Choose a word to meet its family, then find the odd one out.</p>
+<label for="word">Word</label><select id="word"></select>
+<table><caption>Words that rhyme with it</caption><thead><tr><th scope="col">Word</th><th scope="col">Why it rhymes</th></tr></thead><tbody id="rows"></tbody></table>
+<h2>Odd one out</h2>
+<p>Which word does not rhyme with the others?</p>
+<div id="choices" class="choices"></div>
+<p id="feedback" role="status"></p>
+<p id="result" role="status"></p>
+</main></body></html>
