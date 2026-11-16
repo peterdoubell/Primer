@@ -1,0 +1,38 @@
+"""Recover the exact shared bytes and lesson media before the LNQ reference."""
+from copy import deepcopy
+from hashlib import sha256
+import json
+from pathlib import Path
+
+from tools.colonvessels_compatibility import _restore
+
+PROOF = Path(__file__).resolve().parents[1] / 'docs/lnq-nodal-source-review/runtime-inverse.json'
+PIN = '5bca976a4131c26267c936c096b7b88b617275a37c6afc42ba707ef8c8da58c8'
+REVIEWED_FILES = frozenset({
+    'primer/server.py', 'primer/source_native_inspectors.py', 'vercel.json', 'web/app.js',
+    'docs/radiology-fidelity-scope.json',
+})
+LESSONS = frozenset({'rad.4.lung-cancer', 'rad.5.mediastinum'})
+
+
+def before_lnq_nodal_bytes(path, raw):
+    if str(path) not in REVIEWED_FILES:
+        return raw
+    return _restore(path, raw, PROOF, PIN)
+
+
+def before_lnq_nodal_lesson_fields(identifier, fields):
+    if identifier not in LESSONS:
+        return fields
+    raw = PROOF.read_bytes()
+    if sha256(raw).hexdigest() != PIN:
+        raise ValueError('LNQ lesson integration evidence differs')
+    addition = json.loads(raw)['lessons'][identifier]
+    result = deepcopy(fields)
+    media = result.get('lesson_media', [])
+    matches = [row for row in media if row.get('id') == addition['id']]
+    if matches:
+        if matches != [addition]:
+            raise ValueError('Unreviewed LNQ lesson source gallery')
+        media.remove(matches[0])
+    return result

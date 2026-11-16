@@ -29,6 +29,8 @@ def before_recist_longitudinal_bytes(path, raw):
 
 
 def before_recist_pelvic_delivery_bytes(path, raw):
+    from tools.lnq_nodal_runtime_compatibility import before_lnq_nodal_bytes
+    raw = before_lnq_nodal_bytes(path, raw)
     raw = before_recist_longitudinal_bytes(path, raw)
     if str(path) == 'web/app.js':
         from tools.report_layout_compatibility import before_rich_report_format_bytes
@@ -43,6 +45,8 @@ def before_recist_pelvic_delivery_bytes(path, raw):
 
 
 def before_recist_pelvic_lesson_fields(identifier, fields):
+    from tools.lnq_nodal_runtime_compatibility import before_lnq_nodal_lesson_fields
+    fields = before_lnq_nodal_lesson_fields(identifier, fields)
     if identifier not in {'rad.5.bladder-virads', 'rad.4.oncology-response'}:
         return fields
     raw = PROOF.read_bytes()
@@ -60,17 +64,19 @@ def before_recist_pelvic_lesson_fields(identifier, fields):
 
 
 def before_recist_pelvic_bindings(bindings):
+    from primer.lnq_nodal_reference import references as lnq_references
     from primer.recist_pelvic_reference import references
 
     previous = dict(bindings)
-    for identifier, additions in references().items():
+    additions_by_investigation = {**references(), **lnq_references()}
+    for identifier, additions in additions_by_investigation.items():
         if identifier not in previous:
             continue
         added_ids = {item['id'] for item in additions}
         existing = previous[identifier]
         present = [item for item in existing if item['id'] in added_ids]
         if present != additions:
-            raise ValueError('Unreviewed pelvic node source bindings')
+            raise ValueError('Unreviewed nodal source bindings')
         retained = [item for item in existing if item['id'] not in added_ids]
         if retained:
             previous[identifier] = retained

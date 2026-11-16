@@ -4274,12 +4274,17 @@ async def hva_ct_delivery(asset: str, request: Request):
 
 @app.api_route("/app/anatomy/{atlas}/{asset:path}", methods=["GET", "HEAD"], include_in_schema=False)
 async def source_mesh_delivery(atlas: str, asset: str, request: Request):
+    from .lnq_nodal_reference import ATLAS as lnq_atlas, delivery as lnq_delivery
     from .recist_pelvic_reference import CASES as pelvic_cases, delivery as pelvic_delivery
 
-    if atlas in pelvic_cases or atlas in {"aneurysm-cta-018", "cmha-mca-005", "rhuh-sah-001", "bp3d-dural-4.3", "ward-swi-s1", "illinois-uterus", "endometriosis-mri-evidence", "hyperpic-venous", "venat", "ccth-a01-roi"}:
+    node_source = atlas in pelvic_cases or atlas == lnq_atlas
+
+    if node_source or atlas in {"aneurysm-cta-018", "cmha-mca-005", "rhuh-sah-001", "bp3d-dural-4.3", "ward-swi-s1", "illinois-uterus", "endometriosis-mri-evidence", "hyperpic-venous", "venat", "ccth-a01-roi"}:
         directory = "anatomy/" + atlas
         if atlas in pelvic_cases:
             files = pelvic_delivery(atlas)
+        elif atlas == lnq_atlas:
+            files = lnq_delivery()
         else:
             with open(os.path.join(WEB_DIR, directory, "delivery.json"), encoding="utf-8") as source:
                 files = json.load(source)["files"]
@@ -4288,7 +4293,7 @@ async def source_mesh_delivery(atlas: str, asset: str, request: Request):
         if asset.endswith(".gz") and os.environ.get("VERCEL"):
             return RedirectResponse("/source-media/" + directory + "/" + asset, status_code=307)
         response = await app.state.source_static.get_response(directory + "/" + asset, request.scope)
-        if atlas in pelvic_cases and asset in {"index.html", "surfaces.html", "comparison.html"}:
+        if node_source and asset in {"index.html", "surfaces.html", "comparison.html"}:
             response.headers["Content-Security-Policy"] = CSP.replace(
                 "frame-ancestors 'none';", "frame-ancestors 'self';"
             )

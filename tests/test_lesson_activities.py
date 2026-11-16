@@ -38,6 +38,7 @@ def test_reader_hook_is_registry_driven_with_an_exact_inverse():
     from tools.lesson_activities_compatibility import (
         AFTER, BEFORE, BLOCK, DICTATION_LAYOUT, PATH, before_activity_registry_bytes,
     )
+    from tools.lnq_nodal_runtime_compatibility import before_lnq_nodal_bytes
     from tools.recist_pelvic_runtime_compatibility import PROOF, before_recist_pelvic_delivery_bytes
     from tools.report_layout_compatibility import before_rich_report_format_bytes
     from tools.source_studies_compatibility import before_combined_source_release_bytes
@@ -46,7 +47,7 @@ def test_reader_hook_is_registry_driven_with_an_exact_inverse():
     # Only same-site activity links are rendered.
     assert b"String(activity.href).startsWith('/app/')" in BLOCK
     dictation_revision, current, previous = DICTATION_LAYOUT
-    pelvic_reader = before_rich_report_format_bytes(PATH, raw)
+    pelvic_reader = before_rich_report_format_bytes(PATH, before_lnq_nodal_bytes(PATH, raw))
     assert hashlib.sha256(pelvic_reader).hexdigest() == json.loads(PROOF.read_bytes())[PATH]['after']
     dictation_reader = before_recist_pelvic_delivery_bytes(PATH, raw)
     assert hashlib.sha256(dictation_reader).hexdigest() == dictation_revision

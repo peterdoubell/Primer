@@ -2070,8 +2070,8 @@ function sourceNativeInspector(asset) {
   const vascularTemplate = asset.id === 'schirmer-vascular-template-reference';
   const templateMRI = asset.id === 'holiatlas-source-template-reference' || vascularTemplate;
   const limbicMRI = asset.id === 'spl-nac-limbic-native-reference' || reportingMRI;
-  const pelvicNodeCT = ['recist-pelvic-015', 'recist-pelvic-023'].includes(asset.id) && asset.modality === 'CT';
-  const nativeCT = noduleCT || lungCT || basalCT || cardiacCT || pelvicNodeCT;
+  const nodalCT = ['recist-pelvic-015', 'recist-pelvic-023', 'lnq-case-0571'].includes(asset.id) && asset.modality === 'CT';
+  const nativeCT = noduleCT || lungCT || basalCT || cardiacCT || nodalCT;
   const curatedSurface = ['bp3d-thoracic-original-surfaces', 'bp3d-cardiac-original-context'].includes(asset.id) && asset.modality === 'Curated 3D anatomy';
   const section = el('section', { class: 'rad-protocol source-native-inspector' },
     el('h3', {}, el('a', { href: asset.src, target: '_blank', rel: 'noopener noreferrer' }, asset.title)),
