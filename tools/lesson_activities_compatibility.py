@@ -18,6 +18,8 @@ DICTATION_LAYOUT = (
 
 
 def before_activity_registry_bytes(path, raw):
+    from tools.report_layout_compatibility import before_rich_report_format_bytes
+    raw = before_rich_report_format_bytes(path, raw)
     if str(path) == 'data/radiology/radiology-asset-evidence.json':
         # Newest links for the evidence file: stored Radiology Assistant figures, then the sided ultrasound panels.
         from tools.anatomy_sources.package_radiology_assistant_figures import before_radiology_assistant_figures

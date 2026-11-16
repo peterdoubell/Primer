@@ -1,0 +1,116 @@
+{
+  "web/app.js": {
+    "before": "74520a58e62f3af7284f33a54ea50a3a4ab9333f143df67d2a42f2468f31b797",
+    "after": "0910c41881cd3d3914e84db4226d11c7984e2771f728b69a5ab549dc4872cd2b",
+    "changes": [
+      {
+        "start": 3309,
+        "end": 3310,
+        "after": "        editor.append(document.createTextNode('\\n\\nSTAGING REVIEW — ' + system.title + ' (' + system.version + ')\\n'\n",
+        "before": "        editor.value += '\\n\\nSTAGING REVIEW — ' + system.title + ' (' + system.version + ')\\n'\n"
+      },
+      {
+        "start": 3311,
+        "end": 3312,
+        "after": "          + '\\nImaging category / descriptor and confidence: [ ].\\nUnassessed extent / required clinical or pathological inputs: [ ].'));\n",
+        "before": "          + '\\nImaging category / descriptor and confidence: [ ].\\nUnassessed extent / required clinical or pathological inputs: [ ].';\n"
+      },
+      {
+        "start": 3318,
+        "end": 3319,
+        "after": "    ['steps', 'Step by step', panel => panel.append(renderReportWalkthrough(n, { openTemplate: (text, title, headings) => {\n",
+        "before": "    ['steps', 'Step by step', panel => panel.append(renderReportWalkthrough(n, { openTemplate: text => {\n"
+      },
+      {
+        "start": 3325,
+        "end": 3328,
+        "after": "      const formatter = window.PrimerStructuredReporting;\n      if (formatter?.renderReportPreview) formatter.renderReportPreview(editor, text, title, headings);\n      else editor.textContent = text;\n",
+        "before": "      editor.value = text;\n"
+      },
+      {
+        "start": 3881,
+        "end": 3887,
+        "after": "    const headings = template.sections.map(section => section.heading);\n    const formatter = window.PrimerStructuredReporting;\n    const output = el('pre', { id: uid + '-report', class: 'rad-report-editor rad-report-text rad-walk-preview',\n      role: 'region', tabindex: '0', 'aria-labelledby': uid + '-report-label' });\n    if (formatter?.renderReportPreview) formatter.renderReportPreview(output, text, template.title, headings);\n    else output.textContent = text;\n",
+        "before": "    const output = el('textarea', { id: uid + '-report', class: 'rad-report-editor rad-walk-preview', rows: 22, readonly: '', spellcheck: 'false' });\n    output.value = text;\n"
+      },
+      {
+        "start": 3891,
+        "end": 3908,
+        "after": "      try {\n        if (navigator.clipboard) {\n          if (formatter?.copyReport) await formatter.copyReport(text, template.title, headings);\n          else await navigator.clipboard.writeText(text);\n          copied = true;\n        }\n      } catch (e) { /* Select the formatted draft when clipboard access is unavailable. */ }\n      if (!copied) {\n        output.focus();\n        const selection = window.getSelection();\n        const range = document.createRange();\n        range.selectNodeContents(output);\n        selection.removeAllRanges();\n        selection.addRange(range);\n        try { copied = !!document.execCommand && document.execCommand('copy'); } catch (e) { /* Manual copy remains available. */ }\n      }\n      status.textContent = copied ? 'Report copied.' : 'Text selected. Use your device’s Copy command, or download the text file.';\n",
+        "before": "      try { if (navigator.clipboard && navigator.clipboard.writeText) { await navigator.clipboard.writeText(output.value); copied = true; } } catch (e) { /* selection fallback below */ }\n      if (!copied) { output.focus(); output.select(); try { copied = !!document.execCommand && document.execCommand('copy'); } catch (e) { /* manual copy remains */ } }\n      status.textContent = copied ? 'Report text copied.' : 'Text selected. Use your device’s Copy command, or download the text file.';\n"
+      },
+      {
+        "start": 3913,
+        "end": 3914,
+        "after": "        url = URL.createObjectURL(new Blob([text], { type: 'text/plain;charset=utf-8' }));\n",
+        "before": "        url = URL.createObjectURL(new Blob([output.value], { type: 'text/plain;charset=utf-8' }));\n"
+      },
+      {
+        "start": 3920,
+        "end": 3921,
+        "after": "    const send = openTemplate ? btn({ class: 'btn ghost small', onclick: () => openTemplate(text, template.title, headings) }, 'Edit freely in Report template') : null;\n",
+        "before": "    const send = openTemplate ? btn({ class: 'btn ghost small', onclick: () => openTemplate(output.value) }, 'Edit freely in Report template') : null;\n"
+      },
+      {
+        "start": 3929,
+        "end": 3930,
+        "after": "      el('p', { id: uid + '-report-label', class: 'rad-report-label' }, 'Assembled report — ' + template.title), output,\n",
+        "before": "      el('label', { for: output.id, class: 'rad-report-label' }, 'Assembled report — ' + template.title), output,\n"
+      }
+    ]
+  },
+  "web/radiology-structured.js": {
+    "before": "9bbc93a07b3a73f5fcd35fff6955fbd304664ad771bdb1ab8220c64532596bb7",
+    "after": "eb665924ce329c461e2050989f7e983b27f3d56c3131f6e340cc6e9f0141ec2c",
+    "changes": [
+      {
+        "start": 169,
+        "end": 177,
+        "after": "  const mainReportHeading = /^(Clinical history|Clinical information|Indication|Comparison|Protocol|Technique|Technique and quality|Technique and diagnostic limitations|Findings|Impression|Recommendation|Recommendation and communication|Impression and recommendation):?$/i;\n  function reportLineParts(line, studyTitle, sectionHeadings) {\n    const namedSection = sectionHeadings.includes(line);\n    if ((studyTitle && line === studyTitle) ||\n        (mainReportHeading.test(line) && (namedSection || line.endsWith(':')))) return ['u', line, ''];\n    if (namedSection || (line.endsWith(':') && !line.startsWith('•'))) return ['em', line, ''];\n    const inline = /^([A-Z][^:]*:)( \\[\\](?: .*)?)$/.exec(line);\n    return inline ? ['em', inline[1], inline[2]] : ['', '', line];\n",
+        "before": "  function reportLineRole(line, studyTitle) {\n    if (line === studyTitle || /^(Clinical history|Comparison|Protocol|Technique|Findings|Impression|Recommendation):$/.test(line)) return 'main';\n    return line.endsWith(':') && !line.startsWith('•') ? 'subheading' : 'body';\n"
+      },
+      {
+        "start": 178,
+        "end": 179,
+        "after": "  function reportHTML(text, studyTitle = '', sectionHeadings = []) {\n",
+        "before": "  function reportHTML(text, studyTitle = '') {\n"
+      },
+      {
+        "start": 181,
+        "end": 183,
+        "after": "      const [tag, heading, body] = reportLineParts(line, studyTitle, sectionHeadings);\n      return (tag ? '<' + tag + '>' + escape(heading) + '</' + tag + '>' : '') + escape(body);\n",
+        "before": "      const content = escape(line);\n      switch (reportLineRole(line, studyTitle)) {\n        case 'main': return '<u>' + content + '</u>';\n        case 'subheading': return '<em>' + content + '</em>';\n        default: return content;\n      }\n"
+      },
+      {
+        "start": 185,
+        "end": 186,
+        "after": "  function renderReportPreview(preview, text, studyTitle, sectionHeadings = []) {\n",
+        "before": "  function renderReportPreview(preview, text, studyTitle) {\n"
+      },
+      {
+        "start": 188,
+        "end": 194,
+        "after": "      const [tag, heading, body] = reportLineParts(line, studyTitle, sectionHeadings);\n      const nodes = [];\n      if (tag) nodes.push(element(tag, heading, tag === 'u' ? 'rad-report-main-heading' : undefined));\n      if (body || !tag) nodes.push(element('span', body));\n      if (index < lines.length - 1) nodes.push(element('br'));\n      return nodes;\n",
+        "before": "      const role = reportLineRole(line, studyTitle);\n      const content = role === 'main' ? element('u', line, 'rad-report-main-heading')\n        : element(role === 'subheading' ? 'em' : 'span', line);\n      return index === lines.length - 1 ? [content] : [content, element('br')];\n"
+      },
+      {
+        "start": 196,
+        "end": 197,
+        "after": "  async function copyReport(text, studyTitle = '', sectionHeadings = []) {\n",
+        "before": "  async function copyReport(text, studyTitle = '') {\n"
+      },
+      {
+        "start": 201,
+        "end": 202,
+        "after": "          'text/html': new Blob([reportHTML(text, studyTitle, sectionHeadings)], {type: 'text/html'}),\n",
+        "before": "          'text/html': new Blob([reportHTML(text, studyTitle)], {type: 'text/html'}),\n"
+      },
+      {
+        "start": 933,
+        "end": 934,
+        "after": "  return {render, compose, descriptorText, descriptorCalculationJobs, reportHTML, renderReportPreview, copyReport};\n",
+        "before": "  return {render, compose, descriptorText, descriptorCalculationJobs, reportHTML, copyReport};\n"
+      }
+    ]
+  }
+}

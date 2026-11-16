@@ -3307,23 +3307,25 @@ async function renderRadiologyDesk(page, nodeId) {
       usePrompts: system => {
         const editor = templates.querySelector('.rad-report-editor');
         if (!editor) return;
-        editor.value += '\n\nSTAGING REVIEW — ' + system.title + ' (' + system.version + ')\n'
+        editor.append(document.createTextNode('\n\nSTAGING REVIEW — ' + system.title + ' (' + system.version + ')\n'
           + system.report_fields.map(field => field + ': [ ].').join('\n')
-          + '\nImaging category / descriptor and confidence: [ ].\nUnassessed extent / required clinical or pathological inputs: [ ].';
+          + '\nImaging category / descriptor and confidence: [ ].\nUnassessed extent / required clinical or pathological inputs: [ ].'));
         templates.querySelector('.rad-template').open = true;
         editor.dispatchEvent(new Event('input'));
         activate(choices.findIndex(([id]) => id === 'template'), true);
         editor.focus();
       },
     }))]] : []),
-    ['steps', 'Step by step', panel => panel.append(renderReportWalkthrough(n, { openTemplate: text => {
+    ['steps', 'Step by step', panel => panel.append(renderReportWalkthrough(n, { openTemplate: (text, title, headings) => {
       // Hand the assembled draft to the free-text editor; its own reset still
       // restores the blank template.
       const editor = templates.querySelector('.rad-report-editor');
       const details = templates.querySelector('.rad-template');
       if (!editor) return;
       if (details) details.open = true;
-      editor.value = text;
+      const formatter = window.PrimerStructuredReporting;
+      if (formatter?.renderReportPreview) formatter.renderReportPreview(editor, text, title, headings);
+      else editor.textContent = text;
       editor.dispatchEvent(new Event('input'));
       activate(choices.findIndex(([key]) => key === 'template'), true);
       editor.focus();
@@ -3877,28 +3879,46 @@ function renderReportWalkthrough(n, { openTemplate } = {}) {
   }
   function reviewPage() {
     const text = walkthroughReport(template.title, template.sections, values);
-    const output = el('textarea', { id: uid + '-report', class: 'rad-report-editor rad-walk-preview', rows: 22, readonly: '', spellcheck: 'false' });
-    output.value = text;
+    const headings = template.sections.map(section => section.heading);
+    const formatter = window.PrimerStructuredReporting;
+    const output = el('pre', { id: uid + '-report', class: 'rad-report-editor rad-report-text rad-walk-preview',
+      role: 'region', tabindex: '0', 'aria-labelledby': uid + '-report-label' });
+    if (formatter?.renderReportPreview) formatter.renderReportPreview(output, text, template.title, headings);
+    else output.textContent = text;
     const pending = template.sections.filter(section => walkthroughPrompts(values.get(section.heading)) > 0);
     const status = el('p', { class: 'rad-report-status', role: 'status', 'aria-live': 'polite', 'aria-atomic': 'true' });
     const copy = btn({ class: 'btn small', onclick: async () => {
       let copied = false;
-      try { if (navigator.clipboard && navigator.clipboard.writeText) { await navigator.clipboard.writeText(output.value); copied = true; } } catch (e) { /* selection fallback below */ }
-      if (!copied) { output.focus(); output.select(); try { copied = !!document.execCommand && document.execCommand('copy'); } catch (e) { /* manual copy remains */ } }
-      status.textContent = copied ? 'Report text copied.' : 'Text selected. Use your device’s Copy command, or download the text file.';
+      try {
+        if (navigator.clipboard) {
+          if (formatter?.copyReport) await formatter.copyReport(text, template.title, headings);
+          else await navigator.clipboard.writeText(text);
+          copied = true;
+        }
+      } catch (e) { /* Select the formatted draft when clipboard access is unavailable. */ }
+      if (!copied) {
+        output.focus();
+        const selection = window.getSelection();
+        const range = document.createRange();
+        range.selectNodeContents(output);
+        selection.removeAllRanges();
+        selection.addRange(range);
+        try { copied = !!document.execCommand && document.execCommand('copy'); } catch (e) { /* Manual copy remains available. */ }
+      }
+      status.textContent = copied ? 'Report copied.' : 'Text selected. Use your device’s Copy command, or download the text file.';
     } }, 'Copy report');
     const download = btn({ class: 'btn small', onclick: () => {
       const base = String(template.id || 'radiology-report').toLowerCase().replace(/[^a-z0-9_-]+/g, '-').slice(0, 100) || 'radiology-report';
       let url, link;
       try {
-        url = URL.createObjectURL(new Blob([output.value], { type: 'text/plain;charset=utf-8' }));
+        url = URL.createObjectURL(new Blob([text], { type: 'text/plain;charset=utf-8' }));
         link = el('a', { href: url, download: base + '.txt', hidden: '' });
         document.body.append(link); link.click();
         status.textContent = 'Download requested: ' + base + '.txt.';
       } catch (e) { status.textContent = 'The download could not start. Use Copy report to keep your draft.'; }
       finally { if (link) link.remove(); if (url) setTimeout(() => URL.revokeObjectURL(url), 30000); }
     } }, 'Download .txt');
-    const send = openTemplate ? btn({ class: 'btn ghost small', onclick: () => openTemplate(output.value) }, 'Edit freely in Report template') : null;
+    const send = openTemplate ? btn({ class: 'btn ghost small', onclick: () => openTemplate(text, template.title, headings) }, 'Edit freely in Report template') : null;
     return [el('p', { class: 'rad-walk-assess' }, 'The report below is assembled from every step in template order. Edit it in the steps, or move it to the Report template tab for free editing.'),
       el('div', { class: 'rad-walk-check' + (pending.length ? ' pending' : '') },
         el('strong', {}, pending.length ? plural(pending.length, 'section') + ' still contain bracketed prompts or blanks' : 'No bracketed prompts or blanks remain'),
@@ -3907,7 +3927,7 @@ function renderReportWalkthrough(n, { openTemplate } = {}) {
           return el('li', {}, owner >= 0 ? btn({ class: 'rad-walk-route-link', onclick: () => show(owner, true) }, section.heading) : section.heading);
         })) : el('p', {}, 'Review the wording against the images before use.')),
       el('p', { class: 'rad-walk-hint' }, reviewed.size + ' of ' + (pages.length - 1) + ' steps marked reviewed. Keep patient identifiers out of this page.'),
-      el('label', { for: output.id, class: 'rad-report-label' }, 'Assembled report — ' + template.title), output,
+      el('p', { id: uid + '-report-label', class: 'rad-report-label' }, 'Assembled report — ' + template.title), output,
       el('div', { class: 'rad-report-actions' }, copy, download, send), status];
   }
   function showVisual(announce) {

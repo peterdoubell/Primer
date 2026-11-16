@@ -38,8 +38,10 @@ def test_reader_hook_is_registry_driven_with_an_exact_inverse():
     from tools.lesson_activities_compatibility import (
         AFTER, BEFORE, BLOCK, DICTATION_LAYOUT, PATH, before_activity_registry_bytes,
     )
+    from tools.report_layout_compatibility import before_rich_report_format_bytes
     from tools.source_studies_compatibility import before_combined_source_release_bytes
-    raw = (ROOT / PATH).read_bytes()
+    current_reader = (ROOT / PATH).read_bytes()
+    raw = before_rich_report_format_bytes(PATH, current_reader)
     assert raw.count(BLOCK) == 1 and b"fetch('/app/activities/registry.json')" in BLOCK
     # Only same-site activity links are rendered.
     assert b"String(activity.href).startsWith('/app/')" in BLOCK
@@ -47,6 +49,6 @@ def test_reader_hook_is_registry_driven_with_an_exact_inverse():
     assert hashlib.sha256(raw).hexdigest() == dictation_revision
     assert raw.count(current) == 1
     assert hashlib.sha256(raw.replace(current, previous, 1)).hexdigest() == AFTER
-    assert hashlib.sha256(before_activity_registry_bytes(PATH, raw)).hexdigest() == BEFORE
-    assert before_activity_registry_bytes(PATH, raw + b'\n') == raw + b'\n'
-    assert hashlib.sha256(before_combined_source_release_bytes(PATH, raw)).hexdigest() not in (AFTER, BEFORE)
+    assert hashlib.sha256(before_activity_registry_bytes(PATH, current_reader)).hexdigest() == BEFORE
+    assert before_activity_registry_bytes(PATH, current_reader + b'\n') == current_reader + b'\n'
+    assert hashlib.sha256(before_combined_source_release_bytes(PATH, current_reader)).hexdigest() not in (AFTER, BEFORE)
