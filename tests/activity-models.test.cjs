@@ -308,6 +308,31 @@ test('rainbow traces agree with independent turning angles and the visible bow l
   assert.ok(causticDegrees(700, 2) < causticDegrees(400, 2));
 });
 
+test('Labov store observations keep all four Table 13.1 categories and their denominators', async () => {
+  const { STORES, observations, largestChange } = await import('../web/language/department-store-r/model.mjs');
+  assert.equal(STORES.map(store => store.interviews).reduce((sum, n) => sum + n), 264);
+  for (const word of ['floor', 'fourth']) {
+    for (const mode of ['pronounced', 'coverage']) {
+      const stores = observations(word, mode);
+      for (const store of stores) {
+        for (const row of store.replies) {
+          assert.equal(row.present + row.absent + row.doubtful + row.missing, store.interviews);
+          assert.equal(row.whole, mode === 'pronounced' ? row.present + row.absent : store.interviews);
+          assert.equal(row.proportion, row.part / row.whole);
+        }
+      }
+    }
+  }
+  const [first, repeat] = observations('floor', 'pronounced')[1].replies;
+  assert.deepEqual([first.present, first.whole, repeat.present, repeat.whole, repeat.missing], [48, 110, 31, 51, 74]);
+  assert.deepEqual(observations('fourth', 'coverage')[0].replies.map(row => row.doubtful), [4, 4]);
+  near(largestChange(observations('floor', 'pronounced'), 'pronounced').points, 17.147950089126556, 1e-9);
+  assert.equal(largestChange(observations('fourth', 'pronounced'), 'pronounced').name, 'Saks');
+  const coverage = largestChange(observations('floor', 'coverage'), 'coverage');
+  assert.equal(coverage.name, 'Macy’s');
+  near(coverage.points, -47.2, 1e-10);
+});
+
 test('every registered activity has its page, script and a return link to its module', () => {
   const registry = JSON.parse(fs.readFileSync(path.join(root, 'activities', 'registry.json'), 'utf8'));
   const curriculum = fs.readdirSync(path.join(root, '..', 'data', 'curriculum')).map(f => fs.readFileSync(path.join(root, '..', 'data', 'curriculum', f), 'utf8')).join('');
