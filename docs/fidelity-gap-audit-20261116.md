@@ -10,8 +10,8 @@ Source: `docs/radiology-fidelity-scope.json`, `data/radiology/*structure-require
 |---|---|
 | Investigations tracked | 136 |
 | Marked clinically approved | 0 |
-| With a draft structure inventory | 99 |
-| Still without a structure inventory | 37 |
+| With a draft structure inventory | 136 (99 earlier, 37 added 2026-11-16) |
+| Still without a structure inventory | 0 |
 | Non-MSK assets with no fidelity assessment recorded | 968 of 974 |
 | MSK models recorded as not assessed | 504 of 736 |
 
@@ -19,10 +19,10 @@ Structure-level coverage, from `tools/audit_structure_coverage.py`:
 
 | Measure | Count |
 |---|---|
-| Investigations with a structure inventory | 99 |
-| Required structures and parts in those inventories | 57,252 |
+| Investigations with a structure inventory | 136 |
+| Required structures and parts in those inventories | 57,985 |
 | With an explicitly bound source image or model | 158 |
-| Investigations with no bound structure at all | 81 |
+| Investigations with no bound structure at all | 118 |
 
 The inventories are deliberately granular (for example, each named part of the distal tibia is a separate requirement), so the totals are large. The proportion still shows the position: under 1% of what must be shown has a bound, reviewed source.
 
@@ -30,7 +30,25 @@ What this means:
 
 - The repository's own rule is that presence is not fidelity: each reportable structure needs an explicit, reviewed binding to a source image or model.
 - Reaching a standard where certification could reasonably be expected needs two things that cannot be produced by authoring alone: licensed source imaging or meshes that show each structure, and review by a radiologist. Synthetic or inferred anatomy must not be presented as high fidelity.
-- Work that can proceed without those: completing the 37 missing structure inventories, binding existing reviewed assets to structures, and listing per investigation which structures still lack a source.
+
+### Inventories added on 2026-11-16
+
+The 37 investigations that had no inventory now have a draft one (`tools/anatomy_sources/expand_remaining_requirements.py`).
+
+- Each inventory lists the rows of that investigation's own click-builder reporting checklist: 733 requirements in total. Technique and report-review rows are left out.
+- No sub-parts are invented. The earlier inventories expand each structure into named parts; these do not, so they are coarser and are marked `reporting_checklist_rows_without_sub_part_expansion`.
+- 26 rows record context or a conclusion (for example "Time point" in RECIST) and are tagged as reporting items, not anatomy.
+- Every inventory is `draft_requires_specialist_review`. No investigation is marked clinically approved.
+
+### Binding assets to the new inventories
+
+No asset is bound to any of the 733 new requirements.
+
+- Only 16 existing assets belong to these 37 investigations. All are published thoracic ultrasound figures.
+- Their source records give no side, no caption and no completed anatomical review. The thoracic ultrasound requirements are side-specific (right and left pleura, pleural fluid, lung base, diaphragm), so binding any figure would assert a side the source does not state.
+- The other 36 investigations have no local source image or model at all.
+
+Binding therefore waits on sourced, reviewed images or models for each structure. Run `python tools/audit_structure_coverage.py` for the current count per investigation.
 
 ## Math, physics and language
 

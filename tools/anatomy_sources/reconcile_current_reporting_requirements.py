@@ -76,7 +76,12 @@ def digest(value):
 
 
 def file_hash(path):
-    return hashlib.sha256(path.read_bytes()).hexdigest()
+    raw = path.read_bytes()
+    if path.name == "non-msk-structure-requirements.json":
+        # Receipts written before the 2026-11-16 draft inventories record the file without them.
+        from tools.anatomy_sources.expand_remaining_requirements import before_remaining_inventories
+        raw = before_remaining_inventories(raw)
+    return hashlib.sha256(raw).hexdigest()
 
 
 def brain_additions(report):
@@ -209,6 +214,11 @@ def write_json(path, value):
 
 
 def reporting_reconciliation(root, inventory):
+    # This dated reconciliation predates the 2026-11-16 draft inventories derived from the click-builder
+    # checklists. They are left out here and counted by tools/audit_structure_coverage.py instead.
+    later = root / "docs/remaining-reporting-inventories-20261116/inverse.json"
+    later_ids = set(json.loads(later.read_text())["investigation_ids"]) if later.exists() else set()
+    inventory = dict(inventory, investigations=[i for i in inventory["investigations"] if i["investigation_id"] not in later_ids])
     current = {}
     files = sorted((root / "data/radiology").glob("*anatomic*.json"))
     for file in files:
@@ -312,6 +322,8 @@ def replace_brain_bytes(raw, brain):
 
 def before_recent_reporting_inventories(raw):
     """Recover the historical inventory from the exact reviewed extension."""
+    from tools.anatomy_sources.expand_remaining_requirements import before_remaining_inventories
+    raw = before_remaining_inventories(raw)  # a later extension sits on top
     encoded = raw.encode() if isinstance(raw, str) else raw
     if hashlib.sha256(encoded).hexdigest() != '31fdf084790bb82c1d010649dd19baeb0e0475077a9b0e41d98ed1e153a86374':
         return raw

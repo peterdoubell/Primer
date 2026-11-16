@@ -127,6 +127,11 @@ def before_combined_source_release_bytes(path, raw):
         if hashlib.sha256(raw).hexdigest() != 'cc8e9b7ca2217341c1ad38421f5de8aeab22c047fda7f0f47055f8f366d49e4e':
             raise ValueError('Intersecting chords link changed unrelated reader bytes')
     if str(path) == 'docs/radiology-fidelity-scope.json':
+        raw = _restore(path, raw, Path(__file__).resolve().parents[1] / 'docs/remaining-reporting-inventories-20261116/scope-inverse.json', 'f8189f7d786c07fa278c1dc4e41a3964ac5f3004dc856ba18654841abe1ac9dc')
+    if str(path) == 'data/radiology/non-msk-structure-requirements.json':
+        from tools.anatomy_sources.expand_remaining_requirements import before_remaining_inventories
+        raw = before_remaining_inventories(raw)
+    if str(path) == 'docs/radiology-fidelity-scope.json':
         raw = _restore(path, raw, Path(__file__).resolve().parents[1] / 'docs/mullerian-reporting-inventory/scope-inverse.json', 'e7677d660fed1643bdcb1cb8d8897182947727448482d8b55ce848125a7817d3')
     if str(path) == 'data/radiology/non-msk-structure-requirements.json':
         from tools.anatomy_sources.reconcile_current_reporting_requirements import before_recent_reporting_inventories
