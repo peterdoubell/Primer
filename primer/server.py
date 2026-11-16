@@ -4287,7 +4287,12 @@ async def source_mesh_delivery(atlas: str, asset: str, request: Request):
             return JSONResponse({"detail": "Unknown source study asset"}, status_code=404)
         if asset.endswith(".gz") and os.environ.get("VERCEL"):
             return RedirectResponse("/source-media/" + directory + "/" + asset, status_code=307)
-        return await app.state.source_static.get_response(directory + "/" + asset, request.scope)
+        response = await app.state.source_static.get_response(directory + "/" + asset, request.scope)
+        if atlas in pelvic_cases and asset in {"index.html", "surfaces.html"}:
+            response.headers["Content-Security-Policy"] = CSP.replace(
+                "frame-ancestors 'none';", "frame-ancestors 'self';"
+            )
+        return response
 
     allowed = {"bodyparts3d", "hra-female-pelvis-v1.10", "bp3d-carotid-4.3", "bp3d-sella-4.3", "msk-atlas", "msk-cervical", "msk-mri-knee", "msk-mri-ankle", "liu-lumbosacral-sub03", "verse521", "hvsmr2-pat7", "openear-zeta", "totalseg-v3-s0358", "totalseg-v3-esophagus-s0358", "ispy1-expert1002", "prostate-biopsy0001"}
     mri_atlases = {"ispy1-expert1002", "prostate-biopsy0001", "fedbca-center1-001", "fedbca-center2-01", "fedbca-center3-01", "fedbca-center4-01"}

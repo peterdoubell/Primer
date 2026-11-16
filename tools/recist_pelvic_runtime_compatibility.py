@@ -7,7 +7,7 @@ from pathlib import Path
 from tools.colonvessels_compatibility import _restore
 
 PROOF = Path(__file__).resolve().parents[1] / 'docs/recist-pelvic-nodes/runtime-inverse.json'
-PIN = '91d0ef669ebb55dfeb392c874bfd0a9a0644c6ece55dcb6c0d9faecad5e14871'
+PIN = '9e0aa7638d1299ee06cbe44ac8e34f136557c666cb8deebc4c6edbe4297a7d98'
 
 
 def before_recist_pelvic_delivery_bytes(path, raw):

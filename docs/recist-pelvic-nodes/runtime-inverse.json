@@ -1,7 +1,7 @@
 {
   "primer/server.py": {
     "before": "0ab21f3687d7497ad7fb67a1f5c8864cb124c949df1102677b4fff0005e5570c",
-    "after": "58a2fed078e444c4efa213d3765789dd140b3ef59a4c248d2d7b253e14cc299e",
+    "after": "e5c044f037a951a7df67a5430726b9c4630e2edc26eb70b4f5ba741961df3800",
     "changes": [
       {
         "start": 4276,
@@ -14,6 +14,12 @@
         "end": 4285,
         "after": "        if atlas in pelvic_cases:\n            files = pelvic_delivery(atlas)\n        else:\n            with open(os.path.join(WEB_DIR, directory, \"delivery.json\"), encoding=\"utf-8\") as source:\n                files = json.load(source)[\"files\"]\n",
         "before": "        with open(os.path.join(WEB_DIR, directory, \"delivery.json\"), encoding=\"utf-8\") as source:\n            files = json.load(source)[\"files\"]\n"
+      },
+      {
+        "start": 4289,
+        "end": 4295,
+        "after": "        response = await app.state.source_static.get_response(directory + \"/\" + asset, request.scope)\n        if atlas in pelvic_cases and asset in {\"index.html\", \"surfaces.html\"}:\n            response.headers[\"Content-Security-Policy\"] = CSP.replace(\n                \"frame-ancestors 'none';\", \"frame-ancestors 'self';\"\n            )\n        return response\n",
+        "before": "        return await app.state.source_static.get_response(directory + \"/\" + asset, request.scope)\n"
       }
     ]
   },
