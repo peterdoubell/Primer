@@ -1,0 +1,25 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Projectile motion · Primer</title>
+<link rel="stylesheet" href="/app/activities/kit.css">
+<script defer src="/app/activities/kit.js"></script>
+<script defer src="lab.js"></script>
+</head>
+<body><main>
+<a href="/app/#/node/phys.3.mechanics">Return to Newton's Laws</a>
+<h1>Projectile motion</h1>
+<p class="lede">Launch a ball. Gravity changes only the vertical motion; the sideways speed stays the same.</p>
+<div class="controls">
+<div><label for="speed">Launch speed</label><input type="range" id="speed" min="5" max="40" step="1" value="20"><output id="speed-out" for="speed"></output></div>
+<div><label for="angle">Launch angle</label><input type="range" id="angle" min="5" max="85" step="5" value="45"><output id="angle-out" for="angle"></output></div>
+<div><label for="height">Launch height</label><input type="range" id="height" min="0" max="30" step="5" value="0"><output id="height-out" for="height"></output></div>
+</div>
+<figure>
+<canvas id="graph" width="720" height="400" role="img"></canvas>
+</figure>
+<table><caption>Values</caption><thead><tr><th scope="col">Quantity</th><th scope="col">Value</th></tr></thead><tbody id="rows"></tbody></table>
+<p id="result" role="status"></p>
+</main></body></html>

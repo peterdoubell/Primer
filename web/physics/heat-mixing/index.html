@@ -1,0 +1,26 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Mixing warm and cool water · Primer</title>
+<link rel="stylesheet" href="/app/activities/kit.css">
+<script defer src="/app/activities/kit.js"></script>
+<script defer src="lab.js"></script>
+</head>
+<body><main>
+<a href="/app/#/node/phys.2.heat">Return to Heat and Temperature</a>
+<h1>Mixing warm and cool water</h1>
+<p class="lede">Pour two amounts of water together. Energy moves from the warmer to the cooler until they agree.</p>
+<div class="controls">
+<div><label for="m1">First mass</label><input type="range" id="m1" min="0.5" max="5" step="0.5" value="1"><output id="m1-out" for="m1"></output></div>
+<div><label for="t1">First temperature</label><input type="range" id="t1" min="0" max="100" step="5" value="80"><output id="t1-out" for="t1"></output></div>
+<div><label for="m2">Second mass</label><input type="range" id="m2" min="0.5" max="5" step="0.5" value="3"><output id="m2-out" for="m2"></output></div>
+<div><label for="t2">Second temperature</label><input type="range" id="t2" min="0" max="100" step="5" value="20"><output id="t2-out" for="t2"></output></div>
+</div>
+<figure>
+<canvas id="graph" width="720" height="360" role="img"></canvas>
+</figure>
+<table><caption>Values</caption><thead><tr><th scope="col">Quantity</th><th scope="col">Value</th></tr></thead><tbody id="rows"></tbody></table>
+<p id="result" role="status"></p>
+</main></body></html>

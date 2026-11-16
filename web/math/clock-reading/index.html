@@ -1,0 +1,24 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Reading a clock · Primer</title>
+<link rel="stylesheet" href="/app/activities/kit.css">
+<script defer src="/app/activities/kit.js"></script>
+<script defer src="lab.js"></script>
+</head>
+<body><main>
+<a href="/app/#/node/math.1.time">Return to Time and Calendars</a>
+<h1>Reading a clock</h1>
+<p class="lede">Set the hour and the minutes, then read the time three ways.</p>
+<div class="controls">
+<div><label for="hour">Hour</label><input type="range" id="hour" min="1" max="12" step="1" value="3"><output id="hour-out" for="hour"></output></div>
+<div><label for="minute">Minutes</label><input type="range" id="minute" min="0" max="59" step="1" value="45"><output id="minute-out" for="minute"></output></div>
+</div>
+<figure>
+<canvas id="graph" width="720" height="420" role="img"></canvas>
+</figure>
+<table><caption>Values</caption><thead><tr><th scope="col">Reading</th><th scope="col">Value</th></tr></thead><tbody id="rows"></tbody></table>
+<p id="result" role="status"></p>
+</main></body></html>
