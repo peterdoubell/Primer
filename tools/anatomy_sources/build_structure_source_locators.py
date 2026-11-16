@@ -14,14 +14,16 @@ plane and slice numbers on which it appears are recorded. For Radiology
 Assistant only the section anchor, section heading and the address of the
 publisher's own figure are recorded.
 
-Usage: python tools/anatomy_sources/build_structure_source_locators.py CACHE_DIR
-CACHE_DIR holds the downloaded pages, so a rebuild does not refetch them.
+Usage: python tools/anatomy_sources/build_structure_source_locators.py
+Downloaded pages are kept in a fixed folder under the system temporary directory,
+so a rebuild does not refetch them.
 """
 import hashlib
 import html
 import json
 import re
 import sys
+import tempfile
 import urllib.request
 from pathlib import Path
 
@@ -266,4 +268,4 @@ def main(cache):
 
 
 if __name__ == '__main__':
-    main(Path(sys.argv[1]))
+    main(Path(tempfile.gettempdir()) / 'primer-structure-locator-cache')

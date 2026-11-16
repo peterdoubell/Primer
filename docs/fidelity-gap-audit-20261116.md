@@ -75,7 +75,7 @@ Both are therefore used as link-out locators. A locator says where a named struc
 - Matching is on the structure name. No radiologist has reviewed the locators.
 - Most requirements are finer than either source names, which is why most have no locator.
 
-The page is `web/radiology/structure-atlas/index.html`, linked from the Structured reporting module. Rebuild the data with `python tools/anatomy_sources/build_structure_source_locators.py CACHE_DIR`.
+The page is `web/radiology/structure-atlas/index.html`, linked from the Structured reporting module. Rebuild the data with `python tools/anatomy_sources/build_structure_source_locators.py`.
 
 ## Math, physics and language
 
