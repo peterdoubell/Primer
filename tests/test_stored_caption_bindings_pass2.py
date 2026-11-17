@@ -4,6 +4,7 @@ from pathlib import Path
 
 from tools.anatomy_sources import bind_stored_caption_assets as first
 from tools.anatomy_sources import bind_stored_caption_assets_pass2 as tool
+from tools.anatomy_sources.package_radiology_assistant_sided_figures import before_radiology_assistant_sided_figures as before_sided
 from tools.check_msk_fidelity import inspect_binding, inspect_requirement_coverage, side_unstated
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -76,7 +77,7 @@ def test_findings_and_diagnoses_are_not_bound():
 
 def test_second_pass_has_an_exact_inverse_and_only_rewrites_first_pass_quotes():
     receipt = json.loads(tool.RECEIPT.read_text())
-    raw = tool.EVIDENCE.read_bytes()
+    raw = before_sided(tool.EVIDENCE.read_bytes())  # Sided publisher figures followed.
     assert tool.sha(raw) == receipt['after_sha256']
     before = tool.before_stored_caption_bindings_pass2(raw)
     assert tool.sha(before) == receipt['before_sha256']
