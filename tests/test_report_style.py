@@ -128,3 +128,33 @@ def test_radproof_export_keeps_every_normal_line_self_contained():
         assert ('__Technique:__' in lines) == (heading == 'Technique'), template['id']
         if template['id'] not in radproof_export.MULTI_REGION:
             assert not radproof_export.BARE & set(lines), template['id']
+
+
+# ---- 2026-11-16: radiographs as Prism titles and reports them (tools/authoring/radiograph_titles_20261116.py)
+
+def test_radiograph_prism_titles_name_the_region_not_the_modality():
+    import sys
+    sys.path.insert(0, str(ROOT / 'tools' / 'authoring'))
+    import radproof_export
+    library = rt.library()
+    for identifier, titles in PRISM['titles'].items():
+        if radproof_export.is_radiograph(identifier, library[identifier]):
+            for title in titles:
+                assert not re.search(r'x-?ray|radiograph|\bxr\b', title, re.I), (identifier, title)
+
+
+def test_radiographs_have_findings_under_the_title_and_count_their_views():
+    import sys
+    sys.path.insert(0, str(ROOT / 'tools' / 'authoring'))
+    import radproof_export
+    exported = {t['id']: t['text'].split('\n') for t in radproof_export.export()}
+    knee = exported['xr.knee']
+    assert knee[0] == '**__{Side} knee radiograph{s}__**' and knee[1] == 'No fracture.'
+    assert '__Findings:__' not in knee and knee[-1] == 'Normal knee radiograph{s}.'
+    assert exported['ra.chest-radiography'][0] == '**__Chest radiograph{s}__**'
+    assert '__Findings:__' in exported['ct.trauma-panscan']
+
+
+def test_3d_uterus_is_reported_in_the_pelvic_ultrasound():
+    assert 'us.uterus-3d' in PRISM['not_performed_studies'] and 'us.uterus-3d' not in PRISM['titles']
+    assert '3D ultrasound uterus' in PRISM['titles']['ra.ultrasound-acute-gynaecology']
