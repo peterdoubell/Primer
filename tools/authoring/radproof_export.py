@@ -8,12 +8,16 @@ Layout follows the practice's Prism reports, from the study title down:
                                plain region subheadings (RadProof text has no italics). Every
                                line reads on its own, adjective first: a bare "Normal." under
                                Spleen is written "Normal spleen.", and a line that two sections
-                               share takes its heading ("Right carotid: no plaque or stenosis.").
-                               A section that only restates the conclusion (stage, category)
-                               is left out
+                               share takes its heading ("Right vertebral artery: patent ...").
+                               Headings under one subheading that are normal in the same words
+                               are said once ("Intact intrinsic ligaments.", "Right carotid: no
+                               plaque or stenosis."). A section that only restates the
+                               conclusion (stage, category) is left out
   **__Conclusion:__**          bold and underlined; the normal impression
 A single-region radiograph says radiograph{s}: the bar adds the s for two or more views, which it
 reads from Prism's title ("Right knee, two views").
+The dictation layout (--dictation) lists every heading with a blank to fill; a subheading over
+the headings it groups is bold, as RadProof sets out a part of a report (**Intrinsic ligaments:**).
 Clinical history and comparison sit above the inserted template in Prism.
 RadProof markup: ** toggles bold, __ toggles underline; a short line ending in a colon is a
 heading, so subheadings carry no colon.
@@ -49,7 +53,7 @@ NONE = {'Fractures': 'No fracture.', 'Strictures': 'No stricture.', 'Subdural co
         'Other pain generators': 'No other pain generator.', 'Lines and tubes': 'No lines or tubes.',
         'Satellite lesions and lymph nodes': 'No satellite lesion or lymphadenopathy.',
         'Joint and neurovascular bundle': 'No joint or neurovascular involvement.'}
-PROPER = {'Graf', 'Agatston', 'Böhler', 'Lisfranc', 'Baker', 'Morton'}
+PROPER = {'Graf', 'Agatston', 'Böhler', 'Lisfranc', 'Baker', 'Morton', 'Achilles', 'Hoffa', 'Meckel', 'Bosniak', 'Bern'}
 
 
 def study_title(title):
@@ -77,14 +81,28 @@ def self_contained(heading, sentence):
 
 
 def findings(item, multi_region):
-    """The normal findings, one sentence per line, each readable without its section heading."""
-    sections = [(section['heading'], sentences(section['normal'])) for section in item['sections']
-                if multi_region or not SUMMARY.match(section['heading'])]
-    if multi_region:
-        return [line for heading, lines in sections for line in [heading, *lines]]
-    flat = [(heading, self_contained(heading, sentence)) for heading, lines in sections for sentence in lines]
-    shared = {line for _, line in flat if sum(other == line for _, other in flat) > 1}
-    return [f'{heading}: {lower_first(line)}' if line in shared else line for heading, line in flat]
+    """The normal findings, one sentence per line, each readable without its section heading.
+
+    Headings under one subheading that are all normal in the same words are said once, of the
+    subheading ("Intact intrinsic ligaments.", "Lumbar discs: no disc herniation ..."). In a
+    multi-region study a subheading is the region, printed above its lines.
+    """
+    rows = []  # (label, line, always labelled); a row without a label is printed as it is
+    for group, members in rt._blocks([section for section in item['sections']
+                                      if multi_region or not SUMMARY.match(section['heading'])]):
+        normals = [sentences(section['normal']) for section in members]
+        if multi_region and not group:
+            rows += [(None, line, False) for line in [members[0]['heading'], *normals[0]]]
+            continue
+        if multi_region:
+            rows.append((None, group, False))
+        elif group and len(normals[0]) == 1 and all(lines == normals[0] for lines in normals):
+            rows.append((group, self_contained(group, normals[0][0]), normals[0][0] not in BARE))
+            continue
+        rows += [(section['heading'], self_contained(section['heading'], sentence), False)
+                 for section, lines in zip(members, normals) for sentence in lines]
+    shared = {line for label, line, _ in rows if label and sum(bool(other) and text == line for other, text, _ in rows) > 1}
+    return [f'{label}: {lower_first(line)}' if label and (always or line in shared) else line for label, line, always in rows]
 
 
 def is_radiograph(identifier, item):
@@ -107,6 +125,9 @@ def dictation_text(item, acquisition, title):
     markup = {'Protocol:': '__Protocol:__', 'Technique:': '__Technique:__',
               'Findings:': '__Findings:__', 'Impression:': '**__Impression:__**',
               'Recommendation:': '**__Recommendation:__**'}
+    # A subheading over the headings it groups is a part of the report: bold, as RadProof sets one out.
+    markup.update({f'{section["group"]}:': f'**{section["group"]}:**'
+                   for section in item['sections'] if section.get('group')})
     return '\n'.join(markup.get(line, line) for line in study)
 
 

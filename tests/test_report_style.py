@@ -220,7 +220,7 @@ def test_exported_normal_reports_are_flat_self_contained_and_say_nothing_twice()
             assert not re.search(r': (?:normal|none|clear|intact|patent|preserved|not involved)\.$', line), (template['id'], line)
             assert not re.search(r' to (?:stage|classify|score)\.$|^[A-Z]{1,3}-RADS \d', line), (template['id'], line)
     exported = {template['id']: template['text'] for template in rx.export()}
-    assert 'Normal pancreas and spleen.' in exported['ra.acute-abdomen']
+    assert 'Normal pancreas.\nNormal spleen.\nNormal adrenal glands.' in exported['ra.acute-abdomen']
     assert 'Right carotid: no plaque or stenosis.\nLeft carotid: no plaque or stenosis.' in exported['ra.carotid-obstruction']
     assert exported['ra.ultrasound-breast'].startswith('**__Ultrasound breast__**')  # right, left or both
     assert 'BI-RADS 1' not in exported['ra.mammography'].split('**__Conclusion:__**')[0]
