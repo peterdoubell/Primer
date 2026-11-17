@@ -5,9 +5,12 @@ Layout follows the practice's Prism reports, from the study title down:
   __Protocol:__ / __Technique:__  underlined; MRI protocol or CT technique (no other modality has one)
   __Findings:__                underlined; one sentence per line (radiographs have no Findings
                                heading: the findings follow the title); multi-region studies keep
-                               plain region subheadings (RadProof text has no italics). A normal
-                               line that relies on its heading ("Normal.") is written with it
-                               ("Spleen: normal.")
+                               plain region subheadings (RadProof text has no italics). Every
+                               line reads on its own, adjective first: a bare "Normal." under
+                               Spleen is written "Normal spleen.", and a line that two sections
+                               share takes its heading ("Right carotid: no plaque or stenosis.").
+                               A section that only restates the conclusion (stage, category)
+                               is left out
   **__Conclusion:__**          bold and underlined; the normal impression
 A single-region radiograph says radiograph{s}: the bar adds the s for two or more views, which it
 reads from Prism's title ("Right knee, two views").
@@ -38,11 +41,50 @@ VIEWS = re.compile(r', (?:PA and lateral|AP|supine)$')  # Prism's title gives th
 NAME = re.compile(r"^[A-Za-z0-9 ,()&+'.\-]{1,80}$")
 
 
+# Sections that restate the conclusion in a normal report: the stage or the category.
+SUMMARY = re.compile(r'^(?:[A-Za-z]{1,4}-RADS|(?:FIGO |Modified Bell )?[Ss]tage|Classification|Resectability'
+                     r'|(?:[A-Za-z-]+ )?[Cc]ategory|Response assessment|Expression for therapy)$')
+# "None." under these headings needs more than "No <heading>.".
+NONE = {'Fractures': 'No fracture.', 'Strictures': 'No stricture.', 'Subdural collections': 'No subdural collection.',
+        'Other pain generators': 'No other pain generator.', 'Lines and tubes': 'No lines or tubes.',
+        'Satellite lesions and lymph nodes': 'No satellite lesion or lymphadenopathy.',
+        'Joint and neurovascular bundle': 'No joint or neurovascular involvement.'}
+PROPER = {'Graf', 'Agatston', 'Böhler', 'Lisfranc', 'Baker', 'Morton'}
+
+
 def study_title(title):
     parts = title.split(' / ')
-    if len(parts) == 2 and parts[0].replace('Right', 'Left').replace('right', 'left') == parts[1]:
+    if len(parts) >= 2 and parts[0].replace('Right', 'Left').replace('right', 'left') == parts[1]:
+        if len(parts) > 2:  # right, left or both: one template serves all three, so it names no side
+            return re.sub(r'\b[Rr]ight ', '', parts[0])
         return parts[0].replace('Right', '{Side}').replace('right', '{side}')
     return parts[0]
+
+
+def lower_first(text):
+    first = re.match(r"[\w'-]+", text).group()
+    proper = first in PROPER or first.isupper() or any(c.isupper() or c.isdigit() for c in first[1:])
+    return text if proper else text[0].lower() + text[1:]
+
+
+def self_contained(heading, sentence):
+    """A bare normal ("Normal.", "None.") as a sentence that names its subject."""
+    if sentence not in BARE:
+        return sentence
+    if sentence in {'None.', 'Not involved.'}:
+        return NONE.get(heading) or 'No ' + lower_first(heading).replace(' and ', ' or ') + '.'
+    return f'{sentence[:-1]} {lower_first(heading)}.'
+
+
+def findings(item, multi_region):
+    """The normal findings, one sentence per line, each readable without its section heading."""
+    sections = [(section['heading'], sentences(section['normal'])) for section in item['sections']
+                if multi_region or not SUMMARY.match(section['heading'])]
+    if multi_region:
+        return [line for heading, lines in sections for line in [heading, *lines]]
+    flat = [(heading, self_contained(heading, sentence)) for heading, lines in sections for sentence in lines]
+    shared = {line for _, line in flat if sum(other == line for _, other in flat) > 1}
+    return [f'{heading}: {lower_first(line)}' if line in shared else line for heading, line in flat]
 
 
 def is_radiograph(identifier, item):
@@ -97,11 +139,7 @@ def export(*, dictation=False):
             lines += [f'__{acquisition}:__', item['technique']['normal'], '']
         if not radiograph:
             lines.append('__Findings:__')
-        for section in item['sections']:
-            if identifier in MULTI_REGION:
-                lines.append(section['heading'])
-            lines += [f"{section['heading']}: {sentence.lower()}" if sentence in BARE and identifier not in MULTI_REGION
-                      else sentence for sentence in sentences(section['normal'])]
+        lines += findings(item, identifier in MULTI_REGION)
         lines += ['', '**__Conclusion:__**', *impression]
         text = dictation_text(item, acquisition, title) if dictation else '\n'.join(lines)
         out.append({'id': identifier, 'name': name, 'names': prism['titles'][identifier], 'text': text})

@@ -21,7 +21,7 @@ Comparison:
 
 Chest radiographs, PA and lateral / Chest radiograph, AP
 Airways and cardiomediastinum:
-• Trachea central.
+• Central trachea.
 • Normal heart size, mediastinal contours and hila.
 • [Cardiomegaly / Widened mediastinum / Hilar enlargement / Tracheal deviation] []
 
@@ -39,7 +39,7 @@ Pleura and diaphragm:
 
 Devices and bones:
 • No lines or devices.
-• No acute bony abnormality.
+• No acute bone abnormality.
 • [Endotracheal tube / Central venous catheter / Nasogastric tube / Pacemaker lead] tip []
 • [Rib fracture / Vertebral fracture / Lytic lesion / Sclerotic lesion] []
 
@@ -61,7 +61,7 @@ Comparison:
 
 Chest radiographs, PA and lateral / Chest radiograph, AP
 Airways and cardiomediastinum:
-• Trachea central.
+• Central trachea.
 • Normal heart size, mediastinal contours and hila.
 
 Lungs:
@@ -73,7 +73,7 @@ Pleura and diaphragm:
 
 Devices and bones:
 • No lines or devices.
-• No acute bony abnormality.
+• No acute bone abnormality.
 
 Impression:
 1. Normal chest radiograph.

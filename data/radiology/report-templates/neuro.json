@@ -193,12 +193,12 @@
     "ra.mri-dementia": {
       "title": "MRI brain, cognitive impairment",
       "radiograph": false,
-      "technique": {"normal": "Sagittal 3D T1 with coronal reformats perpendicular to the hippocampus, axial FLAIR and T2, DWI, SWI.",
+      "technique": {"normal": "Sagittal 3D T1 with coronal reformats perpendicular to the hippocampus, axial FLAIR and T2, DWI with ADC, SWI.",
                     "options": []},
       "sections": [
         {"heading": "Global atrophy", "normal": "Normal brain volume for age.",
          "options": ["Global cortical atrophy grade [1 / 2 / 3]."]},
-        {"heading": "Medial temporal lobes", "normal": "Hippocampal volumes normal for age.",
+        {"heading": "Medial temporal lobes", "normal": "Normal hippocampal volumes for age.",
          "options": ["MTA score right [0 / 1 / 2 / 3 / 4], left [0 / 1 / 2 / 3 / 4].",
                      "Posterior atrophy (Koedam) grade [1 / 2 / 3]."]},
         {"heading": "Frontal and temporal lobes", "normal": "No disproportionate frontal or anterior temporal atrophy.",
@@ -215,7 +215,7 @@
     "ra.mri-epilepsy": {
       "title": "MRI brain, epilepsy protocol",
       "radiograph": false,
-      "technique": {"normal": "3D T1, 3D FLAIR, coronal T2 and FLAIR perpendicular to the hippocampus, axial T2, DWI, SWI.",
+      "technique": {"normal": "3D T1, 3D FLAIR, coronal T2 and FLAIR perpendicular to the hippocampus, axial T2, DWI with ADC, SWI.",
                     "options": []},
       "sections": [
         {"heading": "Hippocampi", "normal": "Symmetrical hippocampi with normal size, signal and internal architecture.",
@@ -232,7 +232,7 @@
     "ra.mri-ms": {
       "title": "MRI brain, demyelination protocol",
       "radiograph": false,
-      "technique": {"normal": "Sagittal 3D FLAIR, axial T2, DWI, SWI, 3D T1 after gadolinium.",
+      "technique": {"normal": "Sagittal 3D FLAIR, axial T2, DWI with ADC, SWI, 3D T1 after gadolinium.",
                     "options": ["Cord: sagittal T2 and STIR, axial T2."]},
       "sections": [
         {"heading": "Brain lesions", "normal": "No demyelinating lesion.",
@@ -294,7 +294,7 @@
       "technique": {"normal": "Thin coronal and sagittal T1, coronal T2, dynamic coronal T1 and delayed T1 after gadolinium.",
                     "options": []},
       "sections": [
-        {"heading": "Pituitary gland", "normal": "Normal size, signal and enhancement. No adenoma.",
+        {"heading": "Pituitary gland", "normal": "Normal pituitary size, signal and enhancement. No adenoma.",
          "options": ["[Microadenoma / Macroadenoma] [ ] mm in the [right / left / central] gland, [hypoenhancing / cystic / haemorrhagic].",
                      "Gland height [ ] mm."]},
         {"heading": "Stalk and hypothalamus", "normal": "Midline stalk. Normal hypothalamus.",
@@ -307,7 +307,7 @@
         {"heading": "Sella and skull base", "normal": "Normal sella and sphenoid sinus.",
          "options": ["[Sellar expansion / Floor erosion / Sphenoid invasion] [ ]."]}
       ],
-      "impression": "Normal pituitary gland."
+      "impression": "Normal MRI pituitary."
     },
     "ra.mri-trigeminal": {
       "title": "MRI trigeminal nerves",
@@ -360,7 +360,7 @@
         {"heading": "Apex, walls and sinuses", "normal": "Normal orbital apex, walls and adjacent sinuses.",
          "options": ["[Orbital wall fracture / Sinusitis / Cavernous sinus involvement] [ ]."]}
       ],
-      "impression": "Normal orbits."
+      "impression": "Normal CT orbits."
     },
     "ra.ct-temporal-bone": {
       "title": "CT temporal bones",
@@ -381,7 +381,7 @@
         {"heading": "Fracture", "normal": "No temporal bone fracture.",
          "options": ["[Otic capsule sparing / Otic capsule violating] fracture of the [right / left] temporal bone [ ]."]}
       ],
-      "impression": "Normal temporal bones."
+      "impression": "Normal CT temporal bones."
     },
     "ra.tinnitus": {
       "title": "MRI internal auditory meati",
@@ -418,7 +418,7 @@
         {"heading": "Orbit and skull base", "normal": "No orbital or intracranial extension.",
          "options": ["[Orbital / Intracranial] extension [ ]."]}
       ],
-      "impression": "Normal paranasal sinuses."
+      "impression": "Normal MRI paranasal sinuses."
     },
     "ra.mri-neck-spaces": {
       "title": "MRI neck with contrast",
@@ -426,9 +426,9 @@
       "technique": {"normal": "Axial and coronal T1 and T2 fat-sat, DWI with ADC; axial and coronal T1 fat-sat after gadolinium; skull base to thoracic inlet.",
                     "options": []},
       "sections": [
-        {"heading": "Suprahyoid neck", "normal": "Normal parapharyngeal, masticator, parotid, carotid and retropharyngeal spaces.",
+        {"heading": "Suprahyoid neck", "normal": "Normal suprahyoid parapharyngeal, masticator, parotid, carotid and retropharyngeal spaces.",
          "options": ["Mass [ ] mm centred in the [ ] space [ ]."]},
-        {"heading": "Infrahyoid neck", "normal": "Normal visceral, carotid, retropharyngeal and posterior cervical spaces.",
+        {"heading": "Infrahyoid neck", "normal": "Normal infrahyoid visceral, carotid, retropharyngeal and posterior cervical spaces.",
          "options": ["Mass [ ] mm centred in the [ ] space [ ]."]},
         {"heading": "Lymph nodes", "normal": "No enlarged or suspicious lymph nodes.",
          "options": ["Level [ ] node, [ ] mm short axis, [necrotic / extranodal extension / round]."]},
@@ -518,7 +518,7 @@
       "technique": {"normal": "Ultrasound of the thyroid and cervical lymph nodes.",
                     "options": []},
       "sections": [
-        {"heading": "Thyroid gland", "normal": "Normal size and echotexture.",
+        {"heading": "Thyroid gland", "normal": "Normal thyroid size and echotexture.",
          "options": ["Right lobe [ ] x [ ] x [ ] mm, left lobe [ ] x [ ] x [ ] mm, isthmus [ ] mm.",
                      "[Heterogeneous / Hypoechoic / Hypervascular] parenchyma [ ]."]},
         {"heading": "Nodules", "normal": "No thyroid nodule.",
@@ -532,7 +532,7 @@
         {"heading": "Parathyroid and salivary glands", "normal": "Normal.",
          "options": ["[Parathyroid lesion / Salivary gland lesion] [ ]."]}
       ],
-      "impression": "Normal thyroid ultrasound."
+      "impression": "Normal ultrasound thyroid."
     }
   }
 }

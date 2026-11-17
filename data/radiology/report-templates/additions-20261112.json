@@ -8,14 +8,19 @@
       "technique": {"normal": "Portal venous phase (70 s) after IV contrast, diaphragm to symphysis; coronal and sagittal reformats.",
                     "options": []},
       "sections": [
+        {"heading": "Appendix", "normal": "Normal appendix, under 6 mm in diameter.",
+         "options": ["Dilated appendix, [ ] mm diameter, [with / without] appendicolith.",
+                     "Appendix not visualised."]},
         {"heading": "Periappendiceal region", "normal": "No periappendiceal fat stranding or fluid.",
          "options": ["[Fat stranding / Free fluid / Hyperaemia] [ ]."]},
         {"heading": "Complications", "normal": "No perforation, abscess or phlegmon.",
          "options": ["[Perforation / Abscess / Phlegmon], [ ] mm."]},
         {"heading": "Alternative findings", "normal": "No alternative cause for pain.",
-         "options": ["[Mesenteric adenitis / Terminal ileitis / Ovarian cyst / Ureteric calculus] [ ]."]}
+         "options": ["[Mesenteric adenitis / Terminal ileitis / Ovarian cyst / Ureteric calculus] [ ]."]},
+        {"heading": "Other organs, lung bases and bones", "normal": "Normal liver, spleen, pancreas, adrenals, kidneys and pelvic organs. Clear lung bases. No destructive bone lesion.",
+         "options": ["[ ]."]}
       ],
-      "impression": "Normal appendix. No appendicitis."
+      "impression": "No appendicitis."
     },
     "ct.liver-mass": {
       "title": "CT liver, multiphase, focal lesion",
@@ -67,7 +72,7 @@
          "options": ["Observation [ ] in segment [ ], [ ] mm, series [ ] image [ ].",
                      "Major features: [nonrim APHE / nonperipheral washout / enhancing capsule / threshold growth] [ ].",
                      "Ancillary features: [ ]."]},
-        {"heading": "Category", "normal": "No LI-RADS category assigned.",
+        {"heading": "LI-RADS category", "normal": "No LI-RADS category assigned.",
          "options": ["LR-[1 / 2 / 3 / 4 / 5 / M / TIV] (calculated v2018)."]},
         {"heading": "Vessels", "normal": "Patent portal and hepatic veins. No tumour in vein.",
          "options": ["[Bland thrombus / Tumour in vein] in the [ ]."]},
@@ -83,18 +88,19 @@
       "technique": {"normal": "Oral water-soluble contrast immediately before scanning; portal venous phase after IV contrast, thoracic inlet to upper abdomen.",
                     "options": []},
       "sections": [
-        {"heading": "Oesophageal lumen", "normal": "Normal calibre oesophagus. No stricture or filling defect.",
-         "options": ["[Stricture / Web / Ring / Mass] at [ ] cm, [smooth / irregular] [ ].",
-                     "[Diverticulum / Hiatus hernia] [ ]."]},
-        {"heading": "Mucosa", "normal": "Normal mucosal pattern.",
-         "options": ["[Ulceration / Plaques / Nodularity / Reflux oesophagitis] [ ]."]},
-        {"heading": "Motility", "normal": "Normal primary peristalsis and lower oesophageal sphincter opening.",
-         "options": ["[Tertiary contractions / Achalasia pattern / Reduced peristalsis] [ ].",
-                     "Gastro-oesophageal reflux to the [ ]."]},
-        {"heading": "Leak", "normal": "No contrast leak.",
-         "options": ["Contrast leak at [ ] [ ]."]}
+        {"heading": "Oesophagus", "normal": "Normal calibre oesophagus. No wall thickening or mass.",
+         "options": ["[Circumferential / Eccentric] wall thickening at [ ] cm, over [ ] mm.",
+                     "[Dilatation / Hiatus hernia / Diverticulum] [ ]."]},
+        {"heading": "Leak", "normal": "No contrast leak or extraluminal gas.",
+         "options": ["Contrast leak at [ ] [ ].",
+                     "[Pneumomediastinum / Extraluminal gas] [ ]."]},
+        {"heading": "Mediastinum and pleura", "normal": "No mediastinal collection. No pleural effusion.",
+         "options": ["[Mediastinal collection / Mediastinal fat stranding] [ ], [ ] mm.",
+                     "[Right / Left / Bilateral] pleural effusion [ ]."]},
+        {"heading": "Lungs", "normal": "Clear.",
+         "options": ["[Consolidation / Aspiration change / Collapse] in the [ ]."]}
       ],
-      "impression": "Normal oesophagus."
+      "impression": "No oesophageal perforation or leak."
     },
     "us.breast-implants": {
       "title": "Ultrasound breast implants",
@@ -190,10 +196,10 @@
          "options": ["[Pericardial / Pleural / Vascular / Lung] invasion [ ]."]},
         {"heading": "Pleura and lymph nodes", "normal": "No pleural nodules, effusion or lymphadenopathy.",
          "options": ["[Pleural drop metastases / Lymphadenopathy] [ ]."]},
-        {"heading": "Remaining chest", "normal": "Clear visualised lungs. Normal heart and great vessels. No pleural effusion.",
+        {"heading": "Remaining chest", "normal": "Clear visualised lungs. Normal heart and great vessels.",
          "options": ["[ ]."]}
       ],
-      "impression": "Normal thymus."
+      "impression": "Normal MRI thymus."
     },
     "mri.paediatric-mediastinum": {
       "title": "MRI chest, paediatric",
@@ -211,7 +217,7 @@
          "options": ["[Pleural effusion / Pericardial effusion / Lung nodules] [ ]."]},
         {"heading": "Spinal canal", "normal": "No intraspinal extension.",
          "options": ["Extension through the [ ] neural foramen [ ]."]},
-        {"heading": "Remaining chest", "normal": "Clear visualised lungs. Normal heart and great vessels. No pleural effusion.",
+        {"heading": "Remaining chest", "normal": "Normal heart and great vessels.",
          "options": ["[ ]."]}
       ],
       "impression": "No mediastinal mass."
@@ -266,7 +272,7 @@
         {"heading": "Other upper abdominal organs", "normal": "Normal liver, spleen, pancreas and kidneys. No lymphadenopathy.",
          "options": ["[ ]."]}
       ],
-      "impression": "Normal adrenal glands."
+      "impression": "Normal MRI adrenals."
     },
     "mri.adnexal-mass": {
       "title": "MRI pelvis, adnexal mass",
@@ -340,7 +346,7 @@
       "title": "Radiographs, stress injury",
       "radiograph": true,
       "sections": [
-        {"heading": "Bone", "normal": "No stress reaction or stress fracture.",
+        {"heading": "Bones", "normal": "No stress reaction or stress fracture.",
          "options": ["[Periosteal / Marrow] oedema at the [ ] [with / without] a fracture line.",
                      "High-risk site: [femoral neck tension side / anterior tibial cortex / navicular / fifth metatarsal base] [ ]."]},
         {"heading": "Joints and soft tissues", "normal": "No effusion or soft tissue abnormality.",
@@ -416,7 +422,7 @@
     "mri.venogram": {
       "title": "MR venogram",
       "radiograph": false,
-      "technique": {"normal": "T1, T2, FLAIR, DWI and SWI; contrast-enhanced MR venogram with MIP.",
+      "technique": {"normal": "T1, T2, FLAIR, DWI with ADC and SWI; contrast-enhanced MR venogram with MIP.",
                     "options": ["Phase-contrast venogram without gadolinium."]},
       "sections": [
         {"heading": "Dural sinuses", "normal": "Patent dural venous sinuses.",
@@ -434,7 +440,7 @@
     "mri.orbits": {
       "title": "MRI orbits",
       "radiograph": false,
-      "technique": {"normal": "Thin axial and coronal T1, coronal STIR, DWI; axial and coronal T1 fat-sat after gadolinium; whole-brain FLAIR.",
+      "technique": {"normal": "Thin axial and coronal T1, coronal STIR, DWI with ADC; axial and coronal T1 fat-sat after gadolinium; whole-brain FLAIR.",
                     "options": []},
       "sections": [
         {"heading": "Globes", "normal": "Normal globes and lenses.",
@@ -448,7 +454,7 @@
         {"heading": "Apex, walls and sinuses", "normal": "Normal orbital apex, walls and adjacent sinuses.",
          "options": ["[Orbital wall fracture / Sinusitis / Cavernous sinus involvement] [ ]."]}
       ],
-      "impression": "Normal orbits."
+      "impression": "Normal MRI orbits."
     },
     "ct.angiogram-head-neck-tinnitus": {
       "title": "CT angiogram head and neck, pulsatile tinnitus",
@@ -485,7 +491,7 @@
         {"heading": "Orbit and skull base", "normal": "No orbital or intracranial extension.",
          "options": ["[Orbital / Intracranial] extension [ ]."]}
       ],
-      "impression": "Normal paranasal sinuses."
+      "impression": "Normal CT paranasal sinuses."
     },
     "mri.neck-tumour": {
       "title": "MRI neck, cancer staging",
@@ -607,7 +613,7 @@
       "sections": [
         {"heading": "Alignment", "normal": "Normal. No translation or rotation.",
          "options": ["[Kyphosis / Translation / Rotation] at [ ] [ ]."]},
-        {"heading": "Vertebral bodies", "normal": "No fracture.",
+        {"heading": "Vertebrae", "normal": "No fracture.",
          "options": ["[Compression / Burst / Translation / Distraction] fracture of [ ], [ ] percent height loss.",
                      "Retropulsion [ ] mm; canal compromise [ ] percent."]},
         {"heading": "Posterior elements and ligaments", "normal": "Intact posterior elements and posterior ligamentous complex.",
@@ -639,7 +645,7 @@
         {"heading": "BI-RADS", "normal": "BI-RADS 1: negative.",
          "options": ["BI-RADS [2 / 3 / 4 / 5]: [ ]."]}
       ],
-      "impression": "No suspicious breast abnormality."
+      "impression": "No suspicious breast abnormality (BI-RADS 1)."
     },
     "mri.cervical-spine-trauma": {
       "title": "MRI cervical spine, trauma",
@@ -647,9 +653,9 @@
       "technique": {"normal": "Sagittal T1, T2 and STIR; axial T2 and gradient echo through the injured levels.",
                     "options": []},
       "sections": [
-        {"heading": "Alignment", "normal": "Normal, including the craniocervical and atlantoaxial relationships.",
+        {"heading": "Alignment", "normal": "Normal alignment, including the craniocervical and atlantoaxial relationships.",
          "options": ["[Anterolisthesis / Retrolisthesis / Facet subluxation / Perched facet / Facet dislocation] at [ ]."]},
-        {"heading": "Fractures", "normal": "None.",
+        {"heading": "Fracture", "normal": "None.",
          "options": ["Fracture of [ ] [ ].",
                      "[Occipital condyle / Jefferson / Odontoid / Hangman / Teardrop / Clay-shoveler] fracture [ ]."]},
         {"heading": "Ligaments and discs", "normal": "No ligamentous injury or traumatic disc herniation on the available imaging.",
@@ -677,7 +683,7 @@
          "options": ["[Renal / Ureteric / Gallstone / Vascular] calcification [ ]."]},
         {"heading": "Chest", "normal": "Clear lungs. No pleural effusion. Normal heart size.",
          "options": ["[Consolidation / Pleural effusion / Pneumothorax] [ ]."]},
-        {"heading": "Bones and soft tissues", "normal": "No acute bony abnormality.",
+        {"heading": "Bones and soft tissues", "normal": "No acute bone abnormality.",
          "options": ["[Fracture / Dislocation / Lytic lesion / Sclerotic lesion] [ ]."]}
       ],
       "impression": "No bowel obstruction or free gas."
@@ -721,7 +727,7 @@
       "sections": [
         {"heading": "Bone age", "normal": "Bone age within two standard deviations of chronological age (Greulich and Pyle).",
          "options": ["Chronological age [ ]. Bone age [ ] (Greulich and Pyle). [Advanced / Delayed] by [ ]."]},
-        {"heading": "Bones", "normal": "No bony abnormality.",
+        {"heading": "Bones", "normal": "No bone abnormality.",
          "options": ["[Dysplasia / Fracture / Focal lesion] [ ]."]}
       ],
       "impression": "Bone age appropriate for chronological age."
@@ -763,7 +769,7 @@
       "technique": {"normal": "Double-contrast barium enema after bowel preparation.",
                     "options": []},
       "sections": [
-        {"heading": "Colon", "normal": "Contrast reaches the caecum with terminal ileal filling. Normal calibre and mucosa.",
+        {"heading": "Colon", "normal": "Contrast reaches the caecum with terminal ileal filling. Normal colonic calibre and mucosa.",
          "options": ["[Stricture / Mass / Polyp] in the [ ]."]},
         {"heading": "Diverticula", "normal": "No diverticular disease.",
          "options": ["Diverticular disease of the [ ]."]},
@@ -793,7 +799,7 @@
         {"heading": "Pelvis", "normal": "Normal bladder and pelvic organs.",
          "options": ["[ ]."]}
       ],
-      "impression": "Normal multiphase CT abdomen and pelvis."
+      "impression": "Normal CT abdomen and pelvis."
     },
     "ct.angiogram-brain": {
       "title": "CT angiogram brain",
@@ -812,7 +818,7 @@
         {"heading": "Vascular malformation", "normal": "No arteriovenous malformation.",
          "options": ["Arteriovenous malformation [ ]."]}
       ],
-      "impression": "Normal CT angiogram of the brain."
+      "impression": "Normal CT angiogram brain."
     },
     "ct.angiogram-lower-limbs": {
       "title": "CT angiogram aorta and lower limbs",
@@ -824,7 +830,7 @@
          "options": ["[Stenosis / Occlusion / Aneurysm] of the [ ] [ ]."]},
         {"heading": "Femoropopliteal arteries", "normal": "Patent common femoral, profunda, superficial femoral and popliteal arteries.",
          "options": ["[Stenosis / Occlusion] of the [ ], [ ] percent, over [ ] cm."]},
-        {"heading": "Crural arteries", "normal": "Three-vessel runoff to the ankles.",
+        {"heading": "Crural arteries", "normal": "Three-vessel run-off to the ankles.",
          "options": ["[Anterior tibial / Posterior tibial / Peroneal] [occlusion / stenosis] [ ]."]},
         {"heading": "Collaterals and grafts", "normal": "No significant collaterals. No graft or stent.",
          "options": ["[Graft / Stent] [patent / occluded / stenosed] [ ]."]}
@@ -844,7 +850,7 @@
         {"heading": "Forearm arteries", "normal": "Patent radial and ulnar arteries to the wrist.",
          "options": ["[Stenosis / Occlusion] of the [radial / ulnar] artery [ ]."]}
       ],
-      "impression": "Normal CT angiogram of the upper limb."
+      "impression": "Normal CT angiogram upper limb."
     },
     "ct.ankle-foot": {
       "title": "CT right ankle and foot / CT left ankle and foot",
@@ -920,7 +926,7 @@
       "sections": [
         {"heading": "Fracture", "normal": "None.",
          "options": ["Fracture of the [proximal / mid / distal] femur [ ]."]},
-        {"heading": "Bone", "normal": "No focal bone lesion or periosteal reaction.",
+        {"heading": "Bones", "normal": "No focal bone lesion or periosteal reaction.",
          "options": ["[Lytic / Sclerotic] lesion [ ]; periosteal reaction [ ]."]},
         {"heading": "Joints and soft tissues", "normal": "Normal hip and knee alignment. Normal soft tissues.",
          "options": ["[Effusion / Haematoma / Mass] [ ]."]}
@@ -969,7 +975,7 @@
          "options": ["[Bowel wall thickening / Diverticulitis / Collection] [ ]."]},
         {"heading": "Lymph nodes and fluid", "normal": "No pelvic lymphadenopathy or free fluid.",
          "options": ["[Lymphadenopathy / Free fluid] [ ]."]},
-        {"heading": "Bones", "normal": "No suspicious bone lesion.",
+        {"heading": "Bones", "normal": "No destructive bone lesion.",
          "options": ["[Fracture / Dislocation / Lytic lesion / Sclerotic lesion] [ ]."]}
       ],
       "impression": "Normal CT pelvis."
@@ -1042,7 +1048,7 @@
         {"heading": "Fracture", "normal": "None.",
          "options": ["[Condylar / Subcondylar] fracture [ ]."]}
       ],
-      "impression": "Normal temporomandibular joints."
+      "impression": "Normal CT temporomandibular joints."
     },
     "ct.trauma-panscan": {
       "title": "CT trauma, whole body",
@@ -1090,7 +1096,7 @@
       "technique": {"normal": "Planning CT, intermittent CT guidance during needle placement and post-procedure CT.",
                     "options": []},
       "sections": [
-        {"heading": "Procedure", "normal": "Informed consent. Time-out completed. CT-guided biopsy of the target lesion.",
+        {"heading": "Procedure", "normal": "Informed consent obtained. Time-out completed. CT-guided biopsy of the target lesion.",
          "options": ["Needle [ ] G [core / FNA], [ ] passes, [ ] approach."]},
         {"heading": "Specimens", "normal": "Specimens sent for histology.",
          "options": ["Specimens sent for [histology / cytology / microbiology]."]},
@@ -1112,7 +1118,7 @@
         {"heading": "Reflux", "normal": "No vesicoureteric reflux.",
          "options": ["Vesicoureteric reflux, grade [ ], [right / left]."]}
       ],
-      "impression": "Normal cystogram. No leak."
+      "impression": "Normal cystogram."
     },
     "xr.facial-bones": {
       "title": "Facial bones radiographs",
@@ -1125,15 +1131,15 @@
         {"heading": "Mandible", "normal": "Intact.",
          "options": ["Mandibular fracture [ ]."]}
       ],
-      "impression": "No facial fracture."
+      "impression": "Normal facial bones radiographs."
     },
     "fl.lumbar-puncture": {
-      "title": "Lumbar puncture, fluoroscopy-guided",
+      "title": "Fluoroscopy-guided lumbar puncture",
       "radiograph": false,
       "technique": {"normal": "Fluoroscopy-guided lumbar puncture under local anaesthetic after informed consent.",
                     "options": []},
       "sections": [
-        {"heading": "Procedure", "normal": "Informed consent. Time-out completed. Fluoroscopy-guided lumbar puncture.",
+        {"heading": "Procedure", "normal": "Informed consent obtained. Time-out completed. Fluoroscopy-guided lumbar puncture.",
          "options": ["Needle [ ] G at [ ], [ ] attempts. Opening pressure [ ] cm H2O."]},
         {"heading": "CSF", "normal": "Clear CSF obtained and sent for analysis.",
          "options": ["[Clear / Blood-stained / Turbid] CSF, [ ] mL."]},
@@ -1148,7 +1154,7 @@
       "technique": {"normal": "Fluoroscopy-guided hip injection of iodinated contrast and dilute gadolinium after informed consent.",
                     "options": []},
       "sections": [
-        {"heading": "Procedure", "normal": "Informed consent. Time-out completed. Anterior approach to the hip under fluoroscopy.",
+        {"heading": "Procedure", "normal": "Informed consent obtained. Time-out completed. Anterior approach to the hip under fluoroscopy.",
          "options": ["Needle [ ] G; [ ] mL iodinated contrast and [ ] mL dilute gadolinium."]},
         {"heading": "Arthrogram", "normal": "Intra-articular contrast confirmed.",
          "options": ["[Extravasation / Lymphatic filling] [ ]."]},
@@ -1182,7 +1188,7 @@
          "options": ["[Hilar / Mediastinal] lymphadenopathy [ ]."]},
         {"heading": "Pleura", "normal": "No pleural effusion or thickening.",
          "options": ["[Pleural effusion / Pleural thickening / Calcification] [ ]."]},
-        {"heading": "Heart and bones", "normal": "Normal heart size. No bony abnormality.",
+        {"heading": "Heart and bones", "normal": "Normal heart size. No bone abnormality.",
          "options": ["[Fracture / Dislocation / Lytic lesion / Sclerotic lesion] [ ]."]}
       ],
       "impression": "Normal chest radiograph. No radiographic evidence of active or previous tuberculosis."
@@ -1195,10 +1201,10 @@
          "options": ["[Maxillary / Mandibular] [prognathism / retrognathism] [ ]."]},
         {"heading": "Airway", "normal": "Patent.",
          "options": ["Airway narrowing at the [ ]."]},
-        {"heading": "Bones", "normal": "No bony abnormality.",
+        {"heading": "Bones", "normal": "No bone abnormality.",
          "options": ["[Fracture / Dislocation / Lytic lesion / Sclerotic lesion] [ ]."]}
       ],
-      "impression": "Normal lateral cephalogram."
+      "impression": "Normal lateral cephalometric radiograph."
     },
     "xr.lumbar-spine-flexion-extension": {
       "title": "Lumbar spine radiographs, flexion and extension",
@@ -1224,7 +1230,7 @@
         {"heading": "Teeth", "normal": "No periapical lucency.",
          "options": ["Periapical lucency at [ ]."]}
       ],
-      "impression": "No mandibular fracture."
+      "impression": "Normal mandible radiographs."
     },
     "fl.mcug": {
       "title": "Micturating cystourethrogram",
@@ -1260,7 +1266,7 @@
         {"heading": "Vascular malformation", "normal": "No arteriovenous malformation.",
          "options": ["Arteriovenous malformation [ ]."]}
       ],
-      "impression": "Normal MR angiogram of the brain."
+      "impression": "Normal MR angiogram brain."
     },
     "mri.bony-pelvis": {
       "title": "MRI bony pelvis",
@@ -1294,7 +1300,7 @@
         {"heading": "Tendons and bursae", "normal": "Intact gluteus medius and minimus tendons. No trochanteric bursitis.",
          "options": ["[Tendinopathy / Tear / Bursitis] [ ]."]}
       ],
-      "impression": "Normal MRI of both hips."
+      "impression": "Normal MRI both hips."
     },
     "mri.female-pelvis": {
       "title": "MRI female pelvis",
@@ -1302,7 +1308,7 @@
       "technique": {"normal": "Sagittal, axial and coronal T2; axial T1 with and without fat-sat; DWI with ADC.",
                     "options": ["T1 fat-sat after gadolinium."]},
       "sections": [
-        {"heading": "Uterus", "normal": "Normal uterine size and zonal anatomy. Junctional zone not thickened.",
+        {"heading": "Uterus", "normal": "Normal uterine size and zonal anatomy. Normal junctional zone.",
          "options": ["[Fibroid / Adenomyosis / Endometrial thickening] [ ]."]},
         {"heading": "Cervix and vagina", "normal": "Normal.",
          "options": ["[Cervical mass / Nabothian cysts] [ ]."]},
@@ -1392,12 +1398,12 @@
       "title": "Orbit radiographs, foreign body screen",
       "radiograph": true,
       "sections": [
-        {"heading": "Foreign body", "normal": "No radio-opaque foreign body in either orbit.",
+        {"heading": "Foreign body", "normal": "No radiopaque foreign body in either orbit.",
          "options": ["Radio-opaque foreign body in the [right / left] orbit [ ]."]},
         {"heading": "Orbital margins", "normal": "Intact.",
          "options": ["Orbital fracture [ ]."]}
       ],
-      "impression": "No radio-opaque orbital foreign body."
+      "impression": "No radiopaque orbital foreign body."
     },
     "fl.retrograde-pyelogram": {
       "title": "Right retrograde pyelogram / Left retrograde pyelogram",
@@ -1407,7 +1413,7 @@
       "sections": [
         {"heading": "Ureter", "normal": "Normal ureteric calibre and course. No stricture or filling defect.",
          "options": ["[Stricture / Filling defect / Calculus] at the [ ]."]},
-        {"heading": "Pelvicalyceal system", "normal": "Non-dilated pelvicalyceal system. No filling defect.",
+        {"heading": "Pelvicalyceal system", "normal": "Non-dilated pelvicalyceal system without filling defect.",
          "options": ["[Hydronephrosis / Filling defect] [ ]."]},
         {"heading": "Extravasation", "normal": "No contrast extravasation.",
          "options": ["Contrast extravasation [ ]."]}
@@ -1440,7 +1446,7 @@
         {"heading": "Bones", "normal": "No focal bone lesion.",
          "options": ["[Fracture / Dislocation / Lytic lesion / Sclerotic lesion] [ ]."]}
       ],
-      "impression": "Normal scapula."
+      "impression": "Normal scapula radiographs."
     },
     "xr.sesamoid": {
       "title": "Right sesamoid radiographs / Left sesamoid radiographs",
@@ -1451,7 +1457,7 @@
         {"heading": "First metatarsophalangeal joint", "normal": "Normal.",
          "options": ["[Osteoarthritis / Hallux valgus] [ ]."]}
       ],
-      "impression": "Normal sesamoids."
+      "impression": "Normal sesamoid radiographs."
     },
     "fl.shoulder-arthrogram": {
       "title": "Right shoulder arthrogram injection / Left shoulder arthrogram injection",
@@ -1459,7 +1465,7 @@
       "technique": {"normal": "Fluoroscopy-guided shoulder injection of iodinated contrast and dilute gadolinium after informed consent.",
                     "options": []},
       "sections": [
-        {"heading": "Procedure", "normal": "Informed consent. Time-out completed. Fluoroscopy-guided glenohumeral injection.",
+        {"heading": "Procedure", "normal": "Informed consent obtained. Time-out completed. Fluoroscopy-guided glenohumeral injection.",
          "options": ["Needle [ ] G, [anterior / posterior] approach; [ ] mL iodinated contrast and [ ] mL dilute gadolinium."]},
         {"heading": "Arthrogram", "normal": "Intra-articular contrast confirmed.",
          "options": ["[Extravasation / Subacromial contrast] [ ]."]},
@@ -1474,10 +1480,10 @@
       "sections": [
         {"heading": "Sinuses", "normal": "Clear paranasal sinuses. No air-fluid level or mucosal thickening.",
          "options": ["[Air-fluid level / Opacification / Mucosal thickening] in the [ ] sinus."]},
-        {"heading": "Bone", "normal": "No bony erosion.",
+        {"heading": "Bones", "normal": "No bony erosion.",
          "options": ["Bony erosion of the [ ]."]}
       ],
-      "impression": "Clear paranasal sinuses."
+      "impression": "Normal paranasal sinus radiograph."
     },
     "xr.skull": {
       "title": "Skull radiographs",
@@ -1515,7 +1521,7 @@
          "options": ["Prevertebral thickening to [ ] mm at [ ]."]},
         {"heading": "Airway", "normal": "Patent. Normal epiglottis and aryepiglottic folds.",
          "options": ["[Epiglottic swelling / Airway narrowing] [ ]."]},
-        {"heading": "Foreign body and gas", "normal": "No radio-opaque foreign body. No soft tissue gas.",
+        {"heading": "Foreign body and gas", "normal": "No radiopaque foreign body. No soft tissue gas.",
          "options": ["[Foreign body / Soft tissue gas] at [ ]."]}
       ],
       "impression": "Normal soft tissue neck radiograph."
@@ -1531,7 +1537,7 @@
         {"heading": "Bones and soft tissues", "normal": "No fracture or focal bone lesion. Normal soft tissues.",
          "options": ["[Fracture / Dislocation / Lytic lesion / Sclerotic lesion] [ ]."]}
       ],
-      "impression": "Normal weight-bearing radiographs of both feet."
+      "impression": "Normal weight-bearing foot radiographs."
     },
     "xr.standing-knees": {
       "title": "Knee radiographs, both, weight-bearing",
@@ -1544,7 +1550,7 @@
         {"heading": "Bones and effusion", "normal": "No fracture or focal bone lesion. No effusion.",
          "options": ["[Effusion / Osteophytes / Subchondral sclerosis] [ ]."]}
       ],
-      "impression": "Normal weight-bearing radiographs of both knees."
+      "impression": "Normal weight-bearing knee radiographs."
     },
     "mg.stereotactic-biopsy": {
       "title": "Right stereotactic breast biopsy / Left stereotactic breast biopsy",
@@ -1552,7 +1558,7 @@
       "technique": {"normal": "Stereotactic vacuum-assisted breast biopsy under local anaesthetic after informed consent.",
                     "options": []},
       "sections": [
-        {"heading": "Procedure", "normal": "Informed consent. Time-out completed. Stereotactic vacuum-assisted biopsy of the target.",
+        {"heading": "Procedure", "normal": "Informed consent obtained. Time-out completed. Stereotactic vacuum-assisted biopsy of the target.",
          "options": ["Vacuum-assisted needle [ ] G, [ ] cores; specimen radiograph [shows / does not show] the target calcification."]},
         {"heading": "Marker clip", "normal": "Marker clip placed; position confirmed on the post-procedure mammogram.",
          "options": ["Clip [ ] mm from the target in the [ ] direction."]},
@@ -1567,7 +1573,7 @@
       "technique": {"normal": "Stereotactic or grid localisation with hookwire, seed or reflector; two-view mammogram confirming position relative to the target.",
                     "options": []},
       "sections": [
-        {"heading": "Procedure", "normal": "Informed consent. Time-out completed. Stereotactic localisation of the target.",
+        {"heading": "Procedure", "normal": "Informed consent obtained. Time-out completed. Stereotactic localisation of the target.",
          "options": ["[Hookwire / Seed / Reflector] placed via the [ ] approach."]},
         {"heading": "Position", "normal": "Post-procedure mammogram confirms the device at the target.",
          "options": ["Device [ ] mm from the target in the [ ] direction."]},
@@ -1585,7 +1591,7 @@
         {"heading": "Bones", "normal": "No fracture, erosion or sclerosis.",
          "options": ["[Fracture / Erosion / Sclerosis] [ ]."]}
       ],
-      "impression": "Normal sternoclavicular joints."
+      "impression": "Normal sternoclavicular joint radiographs."
     },
     "xr.sternum": {
       "title": "Sternum radiographs",
@@ -1596,7 +1602,7 @@
         {"heading": "Soft tissues", "normal": "No retrosternal soft tissue swelling.",
          "options": ["Retrosternal haematoma [ ]."]}
       ],
-      "impression": "No sternal fracture."
+      "impression": "Normal sternum radiographs."
     },
     "xr.tmj": {
       "title": "Temporomandibular joint radiographs",
@@ -1609,7 +1615,7 @@
         {"heading": "Condyles", "normal": "Normal condylar contour. No erosion or osteophyte.",
          "options": ["[Erosion / Osteophyte / Flattening] [ ]."]}
       ],
-      "impression": "Normal temporomandibular joints."
+      "impression": "Normal temporomandibular joint radiographs."
     },
     "fl.theatre": {
       "title": "Theatre fluoroscopy",
@@ -1710,8 +1716,8 @@
          "options": ["Calf vein thrombus in the [right / left] [ ]."]},
         {"heading": "Flow", "normal": "Normal respiratory phasicity and augmentation bilaterally.",
          "options": ["Loss of phasicity in the [right / left] common femoral vein."]},
-        {"heading": "Superficial veins and popliteal fossae", "normal": "Patent great saphenous veins. No Baker cyst.",
-         "options": ["[Superficial thrombophlebitis / Baker cyst] [ ]."]}
+        {"heading": "Superficial veins and popliteal fossae", "normal": "Patent great saphenous veins. No Baker's cyst.",
+         "options": ["[Superficial thrombophlebitis / Baker's cyst] [ ]."]}
       ],
       "impression": "No deep vein thrombosis in either leg."
     },
@@ -1755,7 +1761,7 @@
       "technique": {"normal": "Ultrasound-guided paracentesis under local anaesthetic after informed consent.",
                     "options": []},
       "sections": [
-        {"heading": "Procedure", "normal": "Informed consent. Time-out completed. Ultrasound-guided paracentesis at the marked site.",
+        {"heading": "Procedure", "normal": "Informed consent obtained. Time-out completed. Ultrasound-guided paracentesis at the marked site.",
          "options": ["Needle [ ] G in the [right / left] iliac fossa."]},
         {"heading": "Fluid", "normal": "Straw-coloured ascites drained and sent for analysis.",
          "options": ["Of [ ] mL [straw-coloured / blood-stained / turbid] fluid."]},

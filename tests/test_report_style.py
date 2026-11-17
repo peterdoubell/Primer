@@ -158,3 +158,69 @@ def test_radiographs_have_findings_under_the_title_and_count_their_views():
 def test_3d_uterus_is_reported_in_the_pelvic_ultrasound():
     assert 'us.uterus-3d' in PRISM['not_performed_studies'] and 'us.uterus-3d' not in PRISM['titles']
     assert '3D ultrasound uterus' in PRISM['titles']['ra.ultrasound-acute-gynaecology']
+
+
+# ---- 2026-11-17: one standard for conclusions, lines and spelling (tools/authoring/report_uniformity_20261117.py)
+
+def _export():
+    import sys
+    sys.path.insert(0, str(ROOT / 'tools' / 'authoring'))
+    import radproof_export
+    return radproof_export
+
+
+def _performed():
+    excluded = set(PRISM['not_performed_studies'])
+    return {identifier: item for identifier, item in rt.library().items() if identifier not in excluded}
+
+
+def test_a_normal_conclusion_names_the_study_not_an_organ():
+    rx = _export()
+    for identifier, item in _performed().items():
+        impression = item['impression'] if isinstance(item['impression'], str) else ' '.join(item['impression'])
+        title = rx.VIEWS.sub('', rx.study_title(item['title'])).replace('{Side} ', '').replace('{side} ', '')
+        if not impression.startswith('Normal ') or ',' in title or identifier == 'dxa.bone-densitometry':
+            continue  # a study with an indication concludes with what it excludes or finds
+        study = rx.lower_first(re.sub(r' with(?:out)?(?: oral)? contrast$', '', title))
+        assert impression.replace('radiographs', 'radiograph') == f'Normal {study}.'.replace('radiographs', 'radiograph'), (identifier, impression)
+
+
+def test_every_normal_sentence_names_its_subject():
+    attributes = set('''normal size echotexture signal calibre thickness stratification enhancement contour wall flow
+        compressible fully spontaneous phasic opacification mucosa outline morphology and with including stable'''.split())
+    for identifier, item in _performed().items():
+        for section in item['sections']:
+            for sentence in re.split(r'(?<=\.)\s+(?=[A-Z])', section['normal']):
+                words = re.findall(r'[a-z]+', sentence.lower())
+                assert sentence in {'Normal.', 'Stable.'} or set(words) - attributes, (identifier, sentence)
+                assert not re.match(r'Normal, including', sentence), (identifier, sentence)
+
+
+def test_one_spelling_for_one_term():
+    variants = re.compile(r'Baker cyst|radio-opaque|runoff|bony abnormality|fat-suppressed|Informed consent\.')
+    for identifier, item in rt.library().items():
+        assert not variants.search(json.dumps(item, ensure_ascii=False)), identifier
+        if rt.acquisition_heading(identifier, item) == 'Protocol':
+            assert not re.search(r'\bDWI(?! with ADC| neurography)', item['technique']['normal']), identifier
+
+
+def test_exported_normal_reports_are_flat_self_contained_and_say_nothing_twice():
+    rx = _export()
+    library = rt.library()
+    for template in rx.export():
+        lines = template['text'].split('\n')
+        if template['id'] in rx.MULTI_REGION:
+            continue
+        findings = [line for line in lines[1:lines.index('**__Conclusion:__**')] if line and not line.startswith('__')]
+        if rt.acquisition_heading(template['id'], library[template['id']]):
+            findings = findings[1:]  # the protocol line
+        assert len(findings) == len(set(findings)), (template['id'], findings)
+        for line in findings:
+            # No "Spleen: normal." labels and no stage or category restating the conclusion.
+            assert not re.search(r': (?:normal|none|clear|intact|patent|preserved|not involved)\.$', line), (template['id'], line)
+            assert not re.search(r' to (?:stage|classify|score)\.$|^[A-Z]{1,3}-RADS \d', line), (template['id'], line)
+    exported = {template['id']: template['text'] for template in rx.export()}
+    assert 'Normal pancreas and spleen.' in exported['ra.acute-abdomen']
+    assert 'Right carotid: no plaque or stenosis.\nLeft carotid: no plaque or stenosis.' in exported['ra.carotid-obstruction']
+    assert exported['ra.ultrasound-breast'].startswith('**__Ultrasound breast__**')  # right, left or both
+    assert 'BI-RADS 1' not in exported['ra.mammography'].split('**__Conclusion:__**')[0]
