@@ -320,6 +320,39 @@ test('bigram counter: counts, probabilities, smoothing and greedy generation', (
   assert.equal(m.generate(c), 'the cat on the'); assert.equal(m.generate(m.count('')), ''); assert.equal(m.probability(m.count(''), 'x', 'y'), 0);
 });
 
+test('early number activities: comparing, counting, tens and ones, patterns and shapes', () => {
+  const c = load('math/bigger-smaller'); assert.deepEqual([c.sign(7, 4), c.sign(2, 9), c.sign(5, 5)], ['>', '<', '=']); assert.equal(c.difference(4, 7), 3); assert.equal(c.words(3, 3), '3 is the same as 3');
+  const n = load('math/count-to-ten'); assert.deepEqual(n.forward(4), [1, 2, 3, 4]); assert.deepEqual(n.back(4), [4, 3, 2, 1]); assert.deepEqual(n.forward(0), []); assert.equal(n.WORDS[10], 'ten');
+  const t = load('math/numbers-to-twenty'); assert.deepEqual(t.split(13), {tens: 1, ones: 3}); assert.deepEqual(t.split(20), {tens: 2, ones: 0}); assert.deepEqual(t.split(7), {tens: 0, ones: 7}); assert.equal(t.WORDS[13], 'thirteen'); assert.equal(t.WORDS.length, 21);
+  const p = load('math/what-comes-next'); assert.deepEqual(p.sequence('aab', 7), ['red', 'red', 'blue', 'red', 'red', 'blue', 'red']); assert.equal(p.term('abc', 6), 'green'); assert.deepEqual(p.sequence('plus2', 5), [1, 3, 5, 7, 9]); assert.equal(p.term('plus3', 6), 17);
+  const s = load('math/shape-sides'); assert.deepEqual(['circle', 'triangle', 'square', 'rectangle', 'pentagon', 'hexagon'].map(s.sides), [0, 3, 4, 4, 5, 6]); assert.equal(s.points('hexagon').length, 6); assert.equal(s.points('circle').length, 0);
+});
+
+test('arithmetic activities: carrying, exchanging, arrays, remainders and place value', () => {
+  const a = load('math/column-addition'); assert.deepEqual(a.add(47, 38), {sum: 85, ones: 15, carry: 1, onesDigit: 5, tens: 8}); assert.deepEqual(a.add(21, 34), {sum: 55, ones: 5, carry: 0, onesDigit: 5, tens: 5}); assert.equal(a.add(99, 99).tens * 10 + a.add(99, 99).onesDigit, 198);
+  const s = load('math/column-subtraction'); assert.deepEqual(s.subtract(52, 27), {difference: 25, exchange: true, ones: 5, tens: 2, possible: true}); assert.deepEqual(s.subtract(68, 25), {difference: 43, exchange: false, ones: 3, tens: 4, possible: true}); assert.equal(s.subtract(20, 30).possible, false);
+  for (let x = 0; x < 100; x += 7) for (let y = 0; y <= x; y += 3) { const r = s.subtract(x, y); assert.equal(r.tens * 10 + r.ones, x - y); const q = a.add(x, y); assert.equal(q.tens * 10 + q.onesDigit, x + y); }
+  const m = load('math/times-table-array'); assert.equal(m.product(7, 8), 56); assert.equal(m.repeated(3, 5), '5 + 5 + 5'); assert.deepEqual(m.table(12)[11], ['12 × 12', 144]);
+  const d = load('math/equal-sharing'); assert.deepEqual(d.divide(23, 4), {each: 5, left: 3, exact: false}); assert.deepEqual(d.divide(24, 6), {each: 4, left: 0, exact: true}); assert.ok(d.check(59, 12));
+  const f = load('math/halves-and-quarters'); assert.equal(f.name(1, 2), 'one half'); assert.equal(f.name(3, 4), 'three quarters'); assert.equal(f.name(4, 4), 'one whole'); assert.equal(f.name(2, 8), 'two eighths'); assert.deepEqual(f.simplest(2, 4), [1, 2]); assert.deepEqual(f.simplest(6, 8), [3, 4]);
+  const u = load('math/unit-conversion'); assert.equal(u.toBig('length', 250), 2.5); assert.equal(u.toBig('mass', 1500), 1.5); assert.equal(u.toSmall('capacity', 2), 2000); assert.deepEqual(u.split('length', 1250), {big: 12, small: 50});
+  const v = load('math/place-value-digits'); assert.deepEqual(v.digits(3407).map(x => [x.digit, x.value]), [[3, 3000], [4, 400], [0, 0], [7, 7]]); assert.equal(v.expanded(3407), '3000 + 400 + 7'); assert.equal(v.expanded(0), '0'); assert.equal(v.expanded(9999), '9000 + 900 + 90 + 9');
+});
+
+test('middle activities: coordinates, decimals, fractions, measures, percent and ratio', () => {
+  const c = load('math/plot-a-point'); assert.deepEqual([c.quadrant(3, 2), c.quadrant(-3, 2), c.quadrant(-3, -2), c.quadrant(3, -2)], ['in the first quadrant', 'in the second quadrant', 'in the third quadrant', 'in the fourth quadrant']);
+  assert.equal(c.quadrant(0, 0), 'at the origin'); assert.equal(c.quadrant(4, 0), 'on the x-axis'); assert.equal(c.distance(3, -4), 5); assert.deepEqual(c.reflectX(3, -2), [3, 2]); assert.deepEqual(c.reflectY(3, -2), [-3, -2]);
+  const d = load('math/decimal-arithmetic'); assert.equal(d.calc(0.1, 0.2, 'add'), 0.3); assert.equal(d.calc(3.75, 1.4, 'add'), 5.15); assert.equal(d.calc(1.4, 3.75, 'subtract'), -2.35); assert.equal(d.calc(3.75, 1.4, 'multiply'), 5.25); assert.equal(d.calc(0.05, 0.05, 'multiply'), 0.0025);
+  assert.equal(d.round(5.25, 1), 5.3); assert.equal(d.round(2.45, 0), 2); assert.equal(d.places(0.0025), 4); assert.equal(d.places(5), 0); assert.equal(d.show(-2.35), '−2.35');
+  const f = load('math/fraction-arithmetic'); assert.deepEqual(f.calc(2, 3, 3, 4, 'add'), [17, 12]); assert.deepEqual(f.calc(2, 3, 3, 4, 'subtract'), [-1, 12]); assert.deepEqual(f.calc(2, 3, 3, 4, 'multiply'), [1, 2]); assert.deepEqual(f.calc(2, 3, 3, 4, 'divide'), [8, 9]);
+  assert.equal(f.calc(1, 2, 0, 5, 'divide'), null); assert.equal(f.lcm(3, 4), 12); assert.equal(f.lcm(6, 4), 12); assert.equal(f.compare(2, 3, 3, 4), -1); assert.equal(f.compare(2, 4, 1, 2), 0); assert.equal(f.mixed([17, 12]), '1 and 5/12'); assert.equal(f.text([4, 1]), '4'); assert.equal(f.text([-1, 12]), '−1/12');
+  const g = load('math/area-perimeter-volume'), val = (shape, a, b, cc, name) => g.measure(shape, a, b, cc).find(r => r[0] === name)[2];
+  assert.equal(val('rectangle', 6, 4, 1, 'Area'), 24); assert.equal(val('rectangle', 6, 4, 1, 'Perimeter'), 20); assert.equal(val('triangle', 3, 4, 1, 'Longest side'), 5); assert.equal(val('triangle', 3, 4, 1, 'Area'), 6); assert.equal(val('triangle', 3, 4, 1, 'Perimeter'), 12);
+  near(val('circle', 2, 1, 1, 'Area'), 4 * Math.PI); near(val('circle', 2, 1, 1, 'Circumference'), 4 * Math.PI); assert.equal(val('cuboid', 2, 3, 4, 'Volume'), 24); assert.equal(val('cuboid', 2, 3, 4, 'Surface area'), 52); assert.equal(val('cuboid', 2, 3, 4, 'Total edge length'), 36);
+  const p = load('math/percent-grid'); assert.deepEqual(p.fraction(35), [7, 20]); assert.deepEqual(p.fraction(50), [1, 2]); assert.deepEqual(p.fraction(100), [1, 1]); assert.deepEqual(p.fraction(0), [0, 1]); assert.equal(p.of(35, 80), 28); assert.equal(p.increase(10, 80), 88); assert.equal(p.decrease(10, 88), 79.2);
+  const r = load('math/ratio-sharing'); assert.deepEqual(r.simplify(4, 6), [2, 3]); assert.deepEqual(r.share(60, 2, 3), {part: 12, first: 24, second: 36}); assert.deepEqual(r.scale(2, 3, 5), [10, 15]); assert.equal(r.proportion(2, 3, 10), 15);
+});
+
 test('every registered activity has its page, script and a return link to its module', () => {
   const registry = JSON.parse(fs.readFileSync(path.join(root, 'activities', 'registry.json'), 'utf8'));
   const curriculum = fs.readdirSync(path.join(root, '..', 'data', 'curriculum')).map(f => fs.readFileSync(path.join(root, '..', 'data', 'curriculum', f), 'utf8')).join('');
