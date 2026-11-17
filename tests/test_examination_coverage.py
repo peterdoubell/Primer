@@ -36,7 +36,13 @@ def test_prism_titles_belong_to_one_examination_and_come_from_the_practice():
             assert title.lower() not in seen, title
             seen[title.lower()] = identifier
     assert not set(seen) & {t.lower() for t in TITLES['shared_left_to_practice']}
-    assert practice_titles - {t.lower() for t in TITLES['shared_left_to_practice']} <= set(seen)
+    # A practice radiograph title ("knee x-ray") is owned by its region ("knee"), as Prism titles it.
+    import sys
+    sys.path.insert(0, str(ROOT / 'tools' / 'authoring'))
+    from radiograph_titles_20261116 import AMBIGUOUS, region_only
+    unowned = {t for t in practice_titles - {t.lower() for t in TITLES['shared_left_to_practice']} - set(seen)
+               if region_only(t).lower() not in set(seen) | AMBIGUOUS}
+    assert unowned == set()
 
 
 def test_each_examination_title_names_one_modality():

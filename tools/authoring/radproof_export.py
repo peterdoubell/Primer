@@ -3,11 +3,14 @@
 Layout follows the practice's Prism reports, from the study title down:
   **__<Study title>__**        bold and underlined; {Side} where Prism supplies the side
   __Protocol:__ / __Technique:__  underlined; MRI protocol or CT technique (no other modality has one)
-  __Findings:__                underlined; one sentence per line; multi-region studies keep
+  __Findings:__                underlined; one sentence per line (radiographs have no Findings
+                               heading: the findings follow the title); multi-region studies keep
                                plain region subheadings (RadProof text has no italics). A normal
                                line that relies on its heading ("Normal.") is written with it
                                ("Spleen: normal.")
   **__Conclusion:__**          bold and underlined; the normal impression
+A single-region radiograph says radiograph{s}: the bar adds the s for two or more views, which it
+reads from Prism's title ("Right knee, two views").
 Clinical history and comparison sit above the inserted template in Prism.
 RadProof markup: ** toggles bold, __ toggles underline; a short line ending in a colon is a
 heading, so subheadings carry no colon.
@@ -29,6 +32,9 @@ MULTI_REGION = {'ct.trauma-panscan', 'ct.oncology-staging', 'xr.acute-abdomen-se
                 'oncology.recist-follow-up', 'ra.ct-peritoneal-carcinomatosis'}
 # Normal lines that say nothing without their heading.
 BARE = {'Normal.', 'None.', 'Clear.', 'Intact.', 'Patent.', 'Preserved.', 'Not involved.'}
+# One region, so one radiograph or several by the views Prism's title gives.
+COUNTED = re.compile(r"^(?:\{Side\} )?[A-Za-z' -]+ radiographs?$")
+VIEWS = re.compile(r', (?:PA and lateral|AP|supine)$')  # Prism's title gives the views
 NAME = re.compile(r"^[A-Za-z0-9 ,()&+'.\-]{1,80}$")
 
 
@@ -37,6 +43,14 @@ def study_title(title):
     if len(parts) == 2 and parts[0].replace('Right', 'Left').replace('right', 'left') == parts[1]:
         return parts[0].replace('Right', '{Side}').replace('right', '{side}')
     return parts[0]
+
+
+def is_radiograph(identifier, item):
+    return rt.acquisition_heading(identifier, item) is None and 'radiograph' in item['title'].lower()
+
+
+def counted(text):
+    return re.sub(r'\bradiographs?\b', 'radiograph{s}', text)
 
 
 def sentences(text):
@@ -72,17 +86,22 @@ def export(*, dictation=False):
             name, n = f'{base} ({n})', n + 1
         names.add(name.lower())
         assert NAME.match(name), name
+        impression = item['impression'] if isinstance(item['impression'], list) else [item['impression']]
+        radiograph = is_radiograph(identifier, item)
+        if radiograph and COUNTED.match(VIEWS.sub('', title)):
+            title = VIEWS.sub('', title)
+            title, impression = counted(title), [counted(line) for line in impression]
         lines = ['**__' + title + '__**']
         acquisition = rt.acquisition_heading(identifier, item)
         if acquisition:
             lines += [f'__{acquisition}:__', item['technique']['normal'], '']
-        lines.append('__Findings:__')
+        if not radiograph:
+            lines.append('__Findings:__')
         for section in item['sections']:
             if identifier in MULTI_REGION:
                 lines.append(section['heading'])
             lines += [f"{section['heading']}: {sentence.lower()}" if sentence in BARE and identifier not in MULTI_REGION
                       else sentence for sentence in sentences(section['normal'])]
-        impression = item['impression'] if isinstance(item['impression'], list) else [item['impression']]
         lines += ['', '**__Conclusion:__**', *impression]
         text = dictation_text(item, acquisition, title) if dictation else '\n'.join(lines)
         out.append({'id': identifier, 'name': name, 'names': prism['titles'][identifier], 'text': text})
