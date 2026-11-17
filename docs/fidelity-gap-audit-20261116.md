@@ -277,3 +277,11 @@ What still blocks most of the inventory:
 - 411 candidate pairs were skipped because the requirement names a side and the figure does not.
 - Most requirements are finer than anything the articles name or label.
 - No binding has been reviewed by a radiologist.
+
+## Stored figures bound from their own captions (2026-11-17)
+
+Stored, openly licensed figures were bound where their own published caption names a required
+structure and no modality or side conflict exists: 29 bindings on 21 figures; bound structures
+240 → 258 of 57,985; investigations with none 92 → 88. The stored catalogue yields little more
+under the current rules: about 190 further caption matches fail only because the figure record
+states no side. Details: `docs/stored-asset-caption-bindings-20261117/README.md`.
