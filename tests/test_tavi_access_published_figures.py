@@ -5,6 +5,7 @@ from pathlib import Path
 from PIL import Image
 from primer.curriculum import Curriculum
 from primer.radiology_catalog import detail,resolve
+from tools.anatomy_sources.bind_stored_caption_assets import only_caption_bindings
 
 ROOT=Path(__file__).resolve().parents[1]
 FOLDER=ROOT/'docs/tavi-access-published-source-review'
@@ -50,4 +51,4 @@ def test_access_figure_rights_do_not_borrow_manufacturer_or_anatomical_approval(
     for row in rows:
         licence=row['source']['license'];assert licence['name']=='CC BY 2.0' and licence['commercial_use'] and licence['redistribution']
         assert sha((ROOT/licence['evidence_path']).read_bytes())==licence['evidence_sha256']
-        assert not row['structure_ids'] and not row['requirement_coverage'] and row['anatomical_review']['status']=='pending'
+        assert only_caption_bindings(row) and row['anatomical_review']['status']=='pending'

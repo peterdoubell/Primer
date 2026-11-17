@@ -22,6 +22,7 @@ from tools.pulmonary_data_compatibility import restore_prior_view
 from tools.check_msk_fidelity import audit,inspect_binding,requirements_for,validate_reporting_snapshots
 from tools.check_radiology_fidelity import digest
 from tools.msk_runtime_rights import license_issues,audit_reference_image_rights
+from tools.anatomy_sources.bind_stored_caption_assets import only_caption_bindings
 
 ROOT=Path(__file__).resolve().parents[1]
 FOLDER=ROOT/'docs/myelopathy-published-source-review-20261011'
@@ -164,7 +165,7 @@ def test_exact_current_walkthrough_all_fields_and_pending_fine_obligations(sourc
   assert step['images']==integration.STEP_IMAGES[i] and step['parts']==[]
   assert all('[__]' in text for text in step['normal'].values())
  assert 'not acquired' in str(walk['steps'][3]['normal'])
- assert all(not a['structure_ids'] and not a['requirement_coverage'] and a['anatomical_review']['status']=='pending' for a in assets)
+ assert all(only_caption_bindings(a) and a['anatomical_review']['status']=='pending' for a in assets)
  report=audit({'investigations':[item],'scope':{'catalog_investigation_ids':[INV]},'clinical_validation_status':'draft'}, {'assets':assets},ROOT,expected_catalog_ids={INV})
  assert report['representation_requirements']==7266 and report['counts']=={'verified':0,'unverified':0,'missing':7266}
  assert report['clinical_commercial_ready'] is False

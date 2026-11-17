@@ -5,6 +5,7 @@ from PIL import Image
 from primer.curriculum import Curriculum
 from primer.radiology_catalog import detail,resolve
 from tools.check_msk_fidelity import inspect_binding
+from tools.anatomy_sources.bind_stored_caption_assets import only_caption_bindings
 ROOT=Path(__file__).resolve().parents[1];OUT=ROOT/'docs/chest-radiograph-published-source-review';PREFIX='open-cxr-original-'
 def sha(raw):return hashlib.sha256(raw).hexdigest()
 def test_all_original_selected_pixels_and_actual_grants_survive_packaging():
@@ -26,7 +27,7 @@ def test_normal_appearing_projection_does_not_prove_visible_pathology_or_new_mod
     rows=[r for r in json.loads((ROOT/'data/radiology/radiology-asset-evidence.json').read_text())['assets'] if r['id'].startswith(PREFIX)];assert len(rows)==11
     for r in rows:
         l=r['source']['license'];assert sha((ROOT/l['evidence_path']).read_bytes())==l['evidence_sha256']
-        assert not r['structure_ids'] and not r['requirement_coverage'] and r['anatomical_review']['status']=='pending'
+        assert only_caption_bindings(r) and r['anatomical_review']['status']=='pending'
     r=copy.deepcopy(next(r for r in rows if r['id']==PREFIX+'pmc5621990-fig6'));r['source_context']['selected_panels']=['c']
     assert 'source_context_selected_panel_state_mismatch' in inspect_binding(r,{'modality_scope':['Radiography'],'context_requirements':{'purpose':'pathology_example'}})
     assert 'clinical_image_modality_not_in_requirement_scope' in inspect_binding(r,{'modality_scope':['CT']})

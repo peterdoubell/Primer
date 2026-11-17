@@ -4,6 +4,7 @@ from pathlib import Path
 from PIL import Image
 from primer.curriculum import Curriculum
 from primer.radiology_catalog import detail,resolve
+from tools.anatomy_sources.bind_stored_caption_assets import only_caption_bindings
 ROOT=Path(__file__).resolve().parents[1];OUT=ROOT/'docs/cardiovascular-device-published-source-review';PREFIX='open-cardiovascular-device-pmc6837806-fig'
 def sha(raw):return hashlib.sha256(raw).hexdigest()
 def test_original_source_pixels_and_permission_exclusions_are_preserved():
@@ -39,6 +40,6 @@ def test_rights_review_does_not_inherit_third_party_or_clinical_approval():
     for row in rows:
         licence=row['source']['license'];assert licence['name']=='CC BY 4.0' and licence['commercial_use'] and licence['redistribution']
         assert sha((ROOT/licence['evidence_path']).read_bytes())==licence['evidence_sha256']
-        assert not row['structure_ids'] and not row['requirement_coverage'] and row['anatomical_review']['status']=='pending'
+        assert only_caption_bindings(row) and row['anatomical_review']['status']=='pending'
     p=json.loads((OUT/'original-source-review.json').read_text());assert p['noncommercial_other_article_images_not_reused']=='PMC4286824'
     assert 'classification only' in next(s for s in p['sources'] if s['pmcid']=='PMC8661294')['correction_scope']

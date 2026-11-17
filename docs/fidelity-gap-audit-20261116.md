@@ -285,3 +285,15 @@ structure and no modality or side conflict exists: 29 bindings on 21 figures; bo
 240 → 258 of 57,985; investigations with none 92 → 88. The stored catalogue yields little more
 under the current rules: about 190 further caption matches fail only because the figure record
 states no side. Details: `docs/stored-asset-caption-bindings-20261117/README.md`.
+
+## Side rule relaxed and second stored-figure pass (2026-11-17)
+
+On the project owner's direction, a figure whose record states no side may now be bound to a left
+or right requirement. Such coverage can be partial at most and cannot verify the requirement; a
+stated side must still match. With that rule and wider name matching, 280 further bindings were
+made on 154 stored figures: bound structures 258 → 449 of 57,985; investigations with none 88 → 73.
+Findings and diagnoses were left unbound. Details:
+`docs/stored-asset-caption-bindings-pass2-20261117/README.md`.
+
+Earlier sections of this document that say sided requirements stay unbound describe the state
+before this change.

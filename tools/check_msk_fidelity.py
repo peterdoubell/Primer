@@ -35,6 +35,8 @@ REQUIREMENT_REVIEW_FIELDS = frozenset((
     "clinical_validation_status", "review_status", "reviewed_at", "reviewed_by",
     "reviewer", "site_expansion_review",
 ))
+# A source fact recorded with one of these values is unknown, never a claim.
+UNKNOWN_CONTEXT_VALUES = frozenset(('unknown', 'not_reported', 'unspecified'))
 
 
 def validate_reporting_snapshots(requirements, reporting):
@@ -84,6 +86,29 @@ def requirements_for(investigation):
     return result
 
 
+def side_unstated(asset, requirement):
+    """True when a left or right requirement meets a source that states no side.
+
+    Relaxed on the project owner's direction (2026-11-17). Before that, such a
+    source could not be bound to a sided requirement at all. Paired structures
+    are near mirror images, so a figure of unstated side may now support the
+    left or the right requirement. The side is then an assumption, never a
+    source fact, so that coverage can be partial at most
+    (inspect_requirement_coverage) and cannot verify the requirement.
+
+    Nothing else is relaxed: a stated side must still match, a bilateral
+    requirement still needs a source that states both sides, and a side named
+    in context_requirements is still enforced against the source.
+    """
+    if requirement.get('laterality') not in ('left', 'right'):
+        return False
+    context = asset.get('source_context', {})
+    if not isinstance(context, dict):
+        return False
+    stated = context.get('laterality')
+    return stated is None or isinstance(stated, str) and stated in UNKNOWN_CONTEXT_VALUES
+
+
 def inspect_source_context(asset, requirement):
     """Check explicit context claims only; prose and module names imply none.
 
@@ -95,16 +120,17 @@ def inspect_source_context(asset, requirement):
         constraints = [constraints]
     if not isinstance(constraints, list) or any(not isinstance(item, dict) for item in constraints):
         return ['requirement_context_invalid']
-    # The established requirement schema already has a typed laterality field.
-    # Enforce explicit sides there too; "examined_side" remains unresolved
-    # site context, never a guess that the reference is bilateral.
-    if requirement.get('laterality') in ('left', 'right', 'bilateral'):
-        constraints = [{'laterality': requirement['laterality']}, *constraints]
     context = asset.get('source_context', {})
     if not isinstance(context, dict):
         return ['source_context_invalid']
+    # The established requirement schema already has a typed laterality field.
+    # Enforce explicit sides there too; "examined_side" remains unresolved
+    # site context, never a guess that the reference is bilateral. A source
+    # that states no side is the one exception (see side_unstated).
+    if requirement.get('laterality') in ('left', 'right', 'bilateral') and not side_unstated(asset, requirement):
+        constraints = [{'laterality': requirement['laterality']}, *constraints]
     issues = []
-    unknown = {'unknown', 'not_reported', 'unspecified'}
+    unknown = UNKNOWN_CONTEXT_VALUES
     fields = {'setting', 'laterality', 'depicted_state', 'extent', 'projection', 'anatomical_variant'}
     vocabularies = {
         'setting': {'in_vivo', 'ex_vivo', 'cadaveric', 'mixed', 'conceptual'},
@@ -264,6 +290,9 @@ def inspect_requirement_coverage(asset, requirement):
         return ['requirement_coverage_invalid']
     if not isinstance(entry.get('basis'), str) or not entry['basis'].strip():
         return ['requirement_coverage_basis_missing']
+    if entry['extent'] == 'complete' and side_unstated(asset, requirement):
+        # An assumed side cannot demonstrate the whole of a sided requirement.
+        return ['requirement_coverage_side_unstated_cannot_be_complete']
     return [] if entry['extent'] == 'complete' else ['requirement_coverage_' + entry['extent']]
 
 

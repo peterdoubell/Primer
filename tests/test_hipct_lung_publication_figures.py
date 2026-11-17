@@ -5,6 +5,7 @@ from PIL import Image
 from primer.curriculum import Curriculum
 from primer.radiology_catalog import detail,resolve,_structure_atlases
 from tools.check_msk_fidelity import inspect_binding
+from tools.anatomy_sources.bind_stored_caption_assets import only_caption_bindings
 ROOT=Path(__file__).resolve().parents[1];OUT=ROOT/'docs/hipct-lung-publication-source-review';PREFIX='open-hipct-lung-pmc9163096-fig'
 def sha(raw):return hashlib.sha256(raw).hexdigest()
 def test_complete_original_publication_pixels_and_article_grant_preserved():
@@ -29,7 +30,7 @@ def test_publication_grant_and_source_sampling_cannot_approve_clinical_bindings(
     rows=[r for r in json.loads((ROOT/'data/radiology/radiology-asset-evidence.json').read_text())['assets'] if r['id'].startswith(PREFIX)];assert len(rows)==2
     for r in rows:
         l=r['source']['license'];assert l['name']=='CC BY 4.0' and sha((ROOT/l['evidence_path']).read_bytes())==l['evidence_sha256']
-        assert not r['structure_ids'] and not r['requirement_coverage'] and r['anatomical_review']['status']=='pending'
+        assert only_caption_bindings(r) and r['anatomical_review']['status']=='pending'
         assert 'source_context_setting_mismatch' in inspect_binding(r,{'modality_scope':['CT'],'context_requirements':{'setting':'in_vivo'}})
     r=copy.deepcopy(next(r for r in rows if r['id']==PREFIX+'1'));r['source_context']['selected_panels']=['a']
     assert 'source_context_selected_panel_not_clinical_image' in inspect_binding(r,{'modality_scope':['CT']})

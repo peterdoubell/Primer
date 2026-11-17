@@ -19,8 +19,11 @@ DICTATION_LAYOUT = (
 
 def before_activity_registry_bytes(path, raw):
     if str(path) == 'data/radiology/radiology-asset-evidence.json':
-        # Newest links for the evidence file: stored-caption bindings, Radiology Assistant figures, sided ultrasound panels.
+        # Newest links for the evidence file: second-pass stored-caption bindings, first-pass stored-caption bindings,
+        # Radiology Assistant figures, sided ultrasound panels.
         from tools.anatomy_sources.bind_stored_caption_assets import before_stored_caption_bindings
+        from tools.anatomy_sources.bind_stored_caption_assets_pass2 import before_stored_caption_bindings_pass2
+        raw = before_stored_caption_bindings_pass2(raw)
         from tools.anatomy_sources.package_radiology_assistant_figures import before_radiology_assistant_figures
         from tools.anatomy_sources.package_thoracic_us_side_panels import before_side_panels
         return before_side_panels(before_radiology_assistant_figures(before_stored_caption_bindings(raw)))
