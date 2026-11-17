@@ -89,7 +89,9 @@ def records(fetch=False):
         credit = review.get('article_credits', {}).get(article)
         title, authors = (credit['title'], credit['authors']) if credit else article_credit(article)
         probe = {'kind': first['kind'], 'modality': first['modality'], 'source_context': {'laterality': 'not_reported'}}
-        bindable = [row for row in rows if not inspect_binding(probe, required[(row['investigation_id'], row['structure_id'])])]
+        # A structure id can be shared by several investigations. Bind only if the figure suits every one of them.
+        bindable = [row for row in rows if not any(inspect_binding(probe, requirement)
+                                                   for (_, identifier), requirement in required.items() if identifier == row['structure_id'])]
         if not bindable:
             continue  # Wrong modality for every report that names it, or a side the figure does not state.
         if not path.is_file():
@@ -122,8 +124,9 @@ def records(fetch=False):
                               'observation': first['seen']},
         }
         for row in bindable:
-            if row['investigation_id'] not in asset['investigation_ids']:
-                asset['investigation_ids'].append(row['investigation_id'])
+            for (investigation, identifier) in required:
+                if identifier == row['structure_id'] and investigation not in asset['investigation_ids']:
+                    asset['investigation_ids'].append(investigation)
             if row['structure_id'] not in asset['structure_ids']:
                 asset['structure_ids'].append(row['structure_id'])
             asset['requirement_coverage'][row['structure_id']] = {
