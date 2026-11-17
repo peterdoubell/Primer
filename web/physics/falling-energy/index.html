@@ -1,0 +1,26 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Energy changes form as a ball falls · Primer</title>
+<link rel="stylesheet" href="/app/activities/kit.css">
+<script defer src="/app/activities/kit.js"></script>
+<script defer src="lab.js"></script>
+</head>
+<body><main>
+<a href="/app/#/node/phys.1.energy">Return to Energy Everywhere</a>
+<h1>Energy changes form as a ball falls</h1>
+<p class="lede">A ball held up high has stored energy. As it falls, stored energy becomes energy of motion. The total stays the same.</p>
+<div class="controls">
+<div><label for="mass">Mass (kg)</label><input type="range" id="mass" min="0.5" max="5" step="0.5" value="1"><output id="mass-out" for="mass"></output></div>
+<div><label for="height">Starting height (m)</label><input type="range" id="height" min="1" max="20" step="1" value="10"><output id="height-out" for="height"></output></div>
+<div><label for="fallen">Part of the drop completed (%)</label><input type="range" id="fallen" min="0" max="100" step="5" value="40"><output id="fallen-out" for="fallen"></output></div>
+</div>
+<p id="sum" class="big" style="font-weight:700"></p>
+<figure>
+<canvas id="graph" width="720" height="320" role="img" aria-label="Bars for stored energy, energy of motion and their total. The table below gives the same values."></canvas>
+</figure>
+<table><caption>Values</caption><thead><tr><th scope="col">Energy</th><th scope="col">Joules</th></tr></thead><tbody id="rows"></tbody></table>
+<p id="result" role="status"></p>
+</main></body></html>

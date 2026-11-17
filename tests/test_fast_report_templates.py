@@ -334,7 +334,8 @@ def test_the_report_template_tab_is_a_rich_text_editor_with_an_exact_inverse():
     assert "'text/html': new Blob([html], { type: 'text/html' })" in source and "'text/plain': new Blob([text], { type: 'text/plain' })" in source
     assert set(TEMPLATE_EDITOR) == {'web/app.js', 'web/radiology-structured.css'}
     for path, (before, after, _) in TEMPLATE_EDITOR.items():
-        raw = before_reporting_step_evidence_bytes(path, (ROOT / path).read_bytes())
+        from tools.lesson_activities_compatibility import before_activity_registry_bytes
+        raw = before_reporting_step_evidence_bytes(path, before_activity_registry_bytes(path, (ROOT / path).read_bytes()))
         assert hashlib.sha256(raw).hexdigest() == after
         assert hashlib.sha256(before_template_editor_bytes(path, raw)).hexdigest() == before
         assert before_template_editor_bytes(path, raw + b'\n') == raw + b'\n'
@@ -381,3 +382,30 @@ def test_the_click_builder_default_acquisition_is_the_template_protocol_with_an_
     assert hashlib.sha256(before_protocol_alignment_bytes(PROTOCOL_ALIGNMENT_PATH, raw)).hexdigest() == PROTOCOL_ALIGNMENT[0]
     assert before_protocol_alignment_bytes(PROTOCOL_ALIGNMENT_PATH, raw + b'\n') == raw + b'\n'
     assert hashlib.sha256(before_compartments_bytes(PROTOCOL_ALIGNMENT_PATH, raw, allow_older=True)).hexdigest() == PROTOCOL_ALIGNMENT[0]
+
+
+def test_all_dictation_templates_use_study_specific_sections_and_simple_placeholders():
+    for identifier, item in rt.library().items():
+        draft = rt.quick_report(identifier)['dictation']
+        text = draft['text']
+        assert text.startswith('Clinical history:\n[]\n\nComparison:\n[]\n\n' + draft['title'])
+        assert text.endswith('\n\nImpression:\n[]\n\nRecommendation:\n[]')
+        assert '[ ]' not in text and '• ' not in text
+        heading = rt.acquisition_heading(identifier, item)
+        if heading and 'dictation' not in item:
+            assert f'\n{heading}:\n' + item['technique']['normal'] + '\n\nFindings:\n' in text
+        if not heading:
+            assert '\nTechnique:' not in text and '\nProtocol:' not in text
+        if 'dictation' not in item:
+            assert all(f"\n{section['heading']}: []" in text for section in item['sections'])
+
+
+def test_prostate_dictation_encodes_the_departmental_template():
+    draft = rt.quick_report('ra.mri-prostate')['dictation']
+    assert draft['title'] == 'mpMRI prostate'
+    assert '\nTechnique:\nDepartmental 1.5 T' in draft['text']
+    assert 'PSA density [] ng/mL²' in draft['text']
+    assert 'Location (PI-RADS sector, series and image): []' in draft['text']
+    assert 'T2: []\nDWI: []\nDCE: []' in draft['text']
+    assert 'Lesion PI-RADS category: []' in draft['text']
+    assert 'Extraprostatic extension: []' in draft['text']

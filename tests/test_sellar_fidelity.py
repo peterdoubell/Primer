@@ -12,6 +12,7 @@ from primer.radiology_catalog import detail, resolve, _validate_source_panel_rol
 from primer.module_media import radiology_source_bindings
 from tools.check_msk_fidelity import requirements_for, audit, validate_reporting_snapshots
 from tools.check_radiology_fidelity import digest
+from tools.anatomy_sources.bind_stored_caption_assets import only_caption_bindings
 
 ROOT = Path(__file__).resolve().parents[1]
 REVIEW = ROOT / 'docs/sellar-published-source-review'
@@ -90,7 +91,7 @@ def test_original_images_do_not_grant_anatomical_or_three_dimensional_approval()
     assets=json.loads((ROOT/'data/radiology/radiology-asset-evidence.json').read_text())['assets']
     rows=[a for a in assets if a['id'].startswith('open-sella-')];assert len(rows)==20
     for row in rows:
-        assert row['structure_ids']==[] and row['requirement_coverage']=={} and row['anatomical_review']['status']=='pending'
+        assert only_caption_bindings(row) and row['anatomical_review']['status']=='pending'
         license=row['source']['license'];assert license['commercial_use'] and license['redistribution']
         assert hashlib.sha256((ROOT/license['evidence_path']).read_bytes()).hexdigest()==license['evidence_sha256']
 

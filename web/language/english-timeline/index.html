@@ -1,0 +1,20 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>A timeline of the English language · Primer</title>
+<link rel="stylesheet" href="/app/activities/kit.css">
+<script defer src="/app/activities/kit.js"></script>
+<script defer src="lab.js"></script>
+</head>
+<body><main>
+<a href="/app/#/node/lang.4.history-english">Return to History of English</a>
+<h1>A timeline of the English language</h1>
+<p class="lede">Slide through fifteen centuries and read the same line of the Lord’s Prayer as it was written in each period.</p>
+<label for="year">Year</label><input type="range" id="year" min="450" max="2025" step="25" value="1400"><output id="year-out" for="year"></output>
+<figure><canvas id="graph" width="720" height="140" role="img"></canvas></figure>
+<blockquote><p id="sample" class="big"></p><footer id="source"></footer></blockquote>
+<table><caption>Most recent events by this year</caption><thead><tr><th scope="col">Year</th><th scope="col">Event</th></tr></thead><tbody id="rows"></tbody></table>
+<p id="result" role="status"></p>
+</main></body></html>

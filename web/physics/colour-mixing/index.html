@@ -1,0 +1,25 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Mixing coloured light · Primer</title>
+<link rel="stylesheet" href="/app/activities/kit.css">
+<script defer src="/app/activities/kit.js"></script>
+<script defer src="lab.js"></script>
+</head>
+<body><main>
+<a href="/app/#/node/phys.1.light">Return to Light and Color</a>
+<h1>Mixing coloured light</h1>
+<p class="lede">Shine red, green and blue beams onto a dark wall and see what the overlaps look like.</p>
+<div class="controls">
+<div><label for="red">Red beam</label><input type="range" id="red" min="0" max="100" step="10" value="100"><output id="red-out" for="red"></output></div>
+<div><label for="green">Green beam</label><input type="range" id="green" min="0" max="100" step="10" value="100"><output id="green-out" for="green"></output></div>
+<div><label for="blue">Blue beam</label><input type="range" id="blue" min="0" max="100" step="10" value="0"><output id="blue-out" for="blue"></output></div>
+</div>
+<figure>
+<canvas id="graph" width="720" height="400" role="img"></canvas>
+</figure>
+<table><caption>Values</caption><thead><tr><th scope="col">Beams</th><th scope="col">Looks</th><th scope="col">Colour code</th></tr></thead><tbody id="rows"></tbody></table>
+<p id="result" role="status"></p>
+</main></body></html>

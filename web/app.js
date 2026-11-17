@@ -2366,11 +2366,13 @@ function renderRadiologyTemplate(template, index, nodeId, open) {
 }
 
 function renderQuickReport(report, nodeId) {
-  // Two editable texts in the reporting-system layout: the fast template and the all-normal report.
-  return [['template', 'Fast template', report.template, 'Under each heading the first line is normal. Delete the lines that do not apply, choose within [a / b] and fill [ ].'],
-    ['normal', 'Normal report', report.normal, 'Every heading normal. Add the clinical history and keep one study title.']]
-    .map(([kind, title, text, description], index) => renderRadiologyTemplate({ id: nodeId + '-' + kind, title, description, text, studyTitle: report.title },
-      'quick-' + index, nodeId, true));
+  const reports = [
+    ['dictation', 'Dictation template', report.dictation?.text, report.dictation?.title, 'Fill the [] fields with your findings.'],
+    ['template', 'Fast template', report.template, report.title, 'Choose the findings that apply.'],
+    ['normal', 'Normal report', report.normal, report.title, 'Use after confirming normal findings.'],
+  ].filter(([, , text]) => text);
+  return reports.map(([kind, title, text, studyTitle, description], index) =>
+    renderRadiologyTemplate({ title, description, text, studyTitle }, 'quick-' + kind, nodeId, index === 0));
 }
 
 function renderRadiologyReference(n) {
@@ -4154,6 +4156,19 @@ async function renderNode(page, nodeId) {
   if (sourceStudies) page.append(sourceStudies);
   const vascularStudies = renderAbdominalVesselStudies(n.id);
   if (vascularStudies) page.append(vascularStudies);
+  // Stand-alone activities are listed in /app/activities/registry.json, so adding one needs no change here.
+  if (typeof fetch === 'function') {
+    const activityRow = el('div', { class: 'model-button-row', style: 'margin:1rem 0', hidden: '' });
+    page.append(activityRow);
+    window.PrimerActivityRegistry = window.PrimerActivityRegistry
+      || fetch('/app/activities/registry.json').then(response => response.ok ? response.json() : {}).catch(() => ({}));
+    window.PrimerActivityRegistry.then(registry => {
+      for (const activity of registry[n.id] || []) {
+        if (String(activity.href).startsWith('/app/')) activityRow.append(el('a', { class: 'btn ghost', href: activity.href }, activity.label));
+      }
+      activityRow.hidden = !activityRow.childNodes.length;
+    });
+  }
   if (n.id === 'math.3.euclid') page.append(el('a', { class: 'btn ghost', href: '/app/math/intersecting-chords/index.html' },
     'Prove the intersecting-chords theorem'));
   if (n.id === 'math.4.int-calc') page.append(el('a', { class: 'btn ghost', href: '/app/math/volume-by-slices/index.html' },

@@ -1,0 +1,25 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Balancing a lever · Primer</title>
+<link rel="stylesheet" href="/app/activities/kit.css">
+<script defer src="/app/activities/kit.js"></script>
+<script defer src="lab.js"></script>
+</head>
+<body><main>
+<a href="/app/#/node/phys.1.machines">Return to Simple Machines</a>
+<h1>Balancing a lever</h1>
+<p class="lede">Move the load and the effort along the beam. A longer effort arm needs less force.</p>
+<div class="controls">
+<div><label for="load">Load</label><input type="range" id="load" min="10" max="200" step="10" value="100"><output id="load-out" for="load"></output></div>
+<div><label for="dload">Load distance from the pivot</label><input type="range" id="dload" min="0.5" max="4" step="0.5" value="1"><output id="dload-out" for="dload"></output></div>
+<div><label for="deffort">Effort distance from the pivot</label><input type="range" id="deffort" min="0.5" max="6" step="0.5" value="3"><output id="deffort-out" for="deffort"></output></div>
+</div>
+<figure>
+<canvas id="graph" width="720" height="330" role="img"></canvas>
+</figure>
+<table><caption>Values</caption><thead><tr><th scope="col">Quantity</th><th scope="col">Value</th></tr></thead><tbody id="rows"></tbody></table>
+<p id="result" role="status"></p>
+</main></body></html>

@@ -1,0 +1,26 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Slope fields and Euler's method · Primer</title>
+<link rel="stylesheet" href="/app/activities/kit.css">
+<script defer src="/app/activities/kit.js"></script>
+<script defer src="lab.js"></script>
+</head>
+<body><main>
+<a href="/app/#/node/math.4.diffeq">Return to Differential Equations</a>
+<h1>Slope fields and Euler's method</h1>
+<p class="lede">A differential equation gives the slope at every point. Follow the slopes exactly, or step along them with Euler's method.</p>
+<div class="controls">
+<div><label for="law">Equation</label><select id="law"><option value="growth">Growth: y′ = k·y</option><option value="cooling">Cooling: y′ = −k·(y − 2)</option><option value="logistic">Logistic: y′ = k·y·(1 − y/4)</option></select></div>
+<div><label for="k">Rate k</label><input type="range" id="k" min="0.1" max="1.5" step="0.1" value="0.5"><output id="k-out" for="k"></output></div>
+<div><label for="y0">Starting value y(0)</label><input type="range" id="y0" min="0.25" max="5.5" step="0.25" value="0.5"><output id="y0-out" for="y0"></output></div>
+<div><label for="h">Euler step size</label><input type="range" id="h" min="0.125" max="1" step="0.125" value="0.5"><output id="h-out" for="h"></output></div>
+</div>
+<figure>
+<canvas id="graph" width="720" height="460" role="img"></canvas>
+</figure>
+<table><caption>Values</caption><thead><tr><th scope="col">Quantity</th><th scope="col">Value</th></tr></thead><tbody id="rows"></tbody></table>
+<p id="result" role="status"></p>
+</main></body></html>

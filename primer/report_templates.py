@@ -76,7 +76,7 @@ def _section(section, where):
 
 def validate(identifier, item):
     """Return the template unchanged, or raise ValueError naming the defect."""
-    allowed = {'title', 'radiograph', 'technique', 'sections', 'impression', 'recommendation'}
+    allowed = {'title', 'radiograph', 'technique', 'sections', 'impression', 'recommendation', 'dictation'}
     if not isinstance(item, dict) or set(item) - allowed:
         raise ValueError(f'{identifier}: unknown template fields')
     title = item.get('title')
@@ -107,6 +107,17 @@ def validate(identifier, item):
         _normal(line, f'{identifier} impression')
     if 'recommendation' in item:
         _normal(item['recommendation'], f'{identifier} recommendation')
+    if 'dictation' in item:
+        draft = item['dictation']
+        if (not isinstance(draft, dict) or set(draft) != {'title', 'technique', 'findings'}
+                or any(not isinstance(draft[key], str) or not draft[key].strip()
+                       or '\n' in draft[key] for key in ('title', 'technique'))
+                or not isinstance(draft['findings'], list) or not draft['findings']
+                or any(not isinstance(block, str) or '[]' not in block
+                       or re.sub(r'\[\]', '', block).find('[') >= 0
+                       or re.sub(r'\[\]', '', block).find(']') >= 0
+                       for block in draft['findings'])):
+            raise ValueError(f'{identifier}: invalid dictation layout')
     return item
 
 
@@ -163,6 +174,23 @@ def render(item, normal=False, heading=None):
     return '\n\n'.join(['Clinical history:\n[]', 'Comparison:\n[]', *blocks, *closing]).replace('[ ].', '[]').replace('[ ]', '[]')
 
 
+def render_dictation(item, heading):
+    """Render a fill-in report with the study's anatomical search pattern."""
+    draft = item.get('dictation')
+    title = draft['title'] if draft else item['title']
+    study = title
+    if heading:
+        label = 'Technique' if draft else heading
+        technique = draft['technique'] if draft else item['technique']['normal']
+        study += f'\n{label}:\n{technique}'
+    findings = draft['findings'] if draft else [section['heading'] + ': []' for section in item['sections']]
+    if heading:
+        findings = ['Findings:\n' + findings[0], *findings[1:]]
+    text = '\n\n'.join(['Clinical history:\n[]', 'Comparison:\n[]', study, *findings,
+                       'Impression:\n[]', 'Recommendation:\n[]'])
+    return {'title': title, 'text': text}
+
+
 @lru_cache(maxsize=1)
 def library():
     """Every authored template by investigation id, validated on first use."""
@@ -187,6 +215,7 @@ def quick_report(identifier):
     if heading:
         headings.insert(1, 'Findings')
     return {'title': item['title'], 'radiograph': item['radiograph'], 'headings': headings,
+            'dictation': render_dictation(item, heading),
             'template': render(item, heading=heading), 'normal': render(item, normal=True, heading=heading)}
 
 

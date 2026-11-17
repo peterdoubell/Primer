@@ -6,6 +6,7 @@ from PIL import Image
 from primer.curriculum import Curriculum
 from primer.radiology_catalog import detail,resolve
 from tools.anatomy_sources.acquire_acute_aortic_figures import SELECTION
+from tools.anatomy_sources.bind_stored_caption_assets import only_caption_bindings
 
 ROOT=Path(__file__).resolve().parents[1]
 FOLDER=ROOT/'docs/acute-aortic-published-source-review'
@@ -61,4 +62,4 @@ def test_rights_clearance_keeps_every_anatomical_and_model_requirement_unapprove
     for row in rows:
         license=row['source']['license'];assert license['commercial_use'] and license['redistribution'] and license['review_status']=='verified'
         assert sha((ROOT/license['evidence_path']).read_bytes())==license['evidence_sha256']
-        assert row['anatomical_review']['status']=='pending' and not row['structure_ids'] and not row['requirement_coverage']
+        assert row['anatomical_review']['status']=='pending' and only_caption_bindings(row)

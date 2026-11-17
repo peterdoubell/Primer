@@ -1,0 +1,20 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Order of operations, one step at a time · Primer</title>
+<link rel="stylesheet" href="/app/activities/kit.css">
+<script defer src="/app/activities/kit.js"></script>
+<script defer src="lab.js"></script>
+</head>
+<body><main>
+<a href="/app/#/node/math.2.order-ops">Return to Order of Operations</a>
+<h1>Order of operations, one step at a time</h1>
+<p class="lede">Choose an expression and follow each reduction in the agreed order.</p>
+<div class="controls">
+<div><label for="expression">Expression</label><select id="expression"><option value="3 + 4 × 2">3 + 4 × 2</option><option value="(3 + 4) × 2">(3 + 4) × 2</option><option value="20 - 8 ÷ 4 + 1">20 - 8 ÷ 4 + 1</option><option value="2 × 3 ^ 2">2 × 3 ^ 2</option><option value="(2 × 3) ^ 2">(2 × 3) ^ 2</option><option value="18 ÷ 3 × 2">18 ÷ 3 × 2</option><option value="10 - 4 - 3">10 - 4 - 3</option><option value="2 ^ 3 ^ 2">2 ^ 3 ^ 2</option><option value="6 + 2 × (5 - 3) ^ 2 ÷ 4">6 + 2 × (5 - 3) ^ 2 ÷ 4</option><option value="100 ÷ (2 + 3) × 2 - 1">100 ÷ (2 + 3) × 2 - 1</option></select></div>
+</div>
+<table><caption>Values</caption><thead><tr><th scope="col">Step</th><th scope="col">Expression</th><th scope="col">Rule used</th></tr></thead><tbody id="rows"></tbody></table>
+<p id="result" role="status"></p>
+</main></body></html>

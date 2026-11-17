@@ -1,0 +1,25 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Powers and the laws of exponents · Primer</title>
+<link rel="stylesheet" href="/app/activities/kit.css">
+<script defer src="/app/activities/kit.js"></script>
+<script defer src="lab.js"></script>
+</head>
+<body><main>
+<a href="/app/#/node/math.2.exponents">Return to Powers</a>
+<h1>Powers and the laws of exponents</h1>
+<p class="lede">Change the base and the exponent. The bars show how fast repeated multiplication grows.</p>
+<div class="controls">
+<div><label for="base">Base a</label><input type="range" id="base" min="-3" max="5" step="1" value="2"><output id="base-out" for="base"></output></div>
+<div><label for="exponent">Exponent n</label><input type="range" id="exponent" min="-3" max="6" step="1" value="3"><output id="exponent-out" for="exponent"></output></div>
+<div><label for="second">Second exponent m</label><input type="range" id="second" min="-3" max="4" step="1" value="2"><output id="second-out" for="second"></output></div>
+</div>
+<figure>
+<canvas id="graph" width="720" height="400" role="img"></canvas>
+</figure>
+<table><caption>Values</caption><thead><tr><th scope="col">Expression</th><th scope="col">Meaning</th><th scope="col">Value</th></tr></thead><tbody id="rows"></tbody></table>
+<p id="result" role="status"></p>
+</main></body></html>

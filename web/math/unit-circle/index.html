@@ -1,0 +1,23 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Sine and cosine on the unit circle · Primer</title>
+<link rel="stylesheet" href="/app/activities/kit.css">
+<script defer src="/app/activities/kit.js"></script>
+<script defer src="lab.js"></script>
+</head>
+<body><main>
+<a href="/app/#/node/math.3.trig">Return to Trigonometry</a>
+<h1>Sine and cosine on the unit circle</h1>
+<p class="lede">Turn the angle. The point on the circle has coordinates (cos θ, sin θ).</p>
+<div class="controls">
+<div><label for="angle">Angle θ</label><input type="range" id="angle" min="0" max="360" step="5" value="30"><output id="angle-out" for="angle"></output></div>
+</div>
+<figure>
+<canvas id="graph" width="720" height="480" role="img"></canvas>
+</figure>
+<table><caption>Values</caption><thead><tr><th scope="col">Ratio</th><th scope="col">Decimal</th><th scope="col">Exact value</th></tr></thead><tbody id="rows"></tbody></table>
+<p id="result" role="status"></p>
+</main></body></html>

@@ -4,6 +4,7 @@ from pathlib import Path
 from PIL import Image
 from primer.curriculum import Curriculum
 from primer.radiology_catalog import detail,resolve
+from tools.anatomy_sources.bind_stored_caption_assets import only_caption_bindings
 ROOT=Path(__file__).resolve().parents[1];OUT=ROOT/'docs/peripheral-perforator-published-source-review';PREFIX='open-peripheral-perforator-pmc9964888-fig'
 def sha(raw):return hashlib.sha256(raw).hexdigest()
 def test_selected_original_pixels_and_grants_are_preserved_without_noncommercial_foot_reuse():
@@ -30,4 +31,4 @@ def test_rights_clearance_is_not_full_structure_or_clinical_approval():
     rows=[r for r in json.loads((ROOT/'data/radiology/radiology-asset-evidence.json').read_text())['assets'] if r['id'].startswith(PREFIX)];assert len(rows)==6
     for row in rows:
         l=row['source']['license'];assert l['name']=='CC BY 4.0' and l['commercial_use'] and l['redistribution'] and sha((ROOT/l['evidence_path']).read_bytes())==l['evidence_sha256']
-        assert not row['structure_ids'] and not row['requirement_coverage'] and row['anatomical_review']['status']=='pending'
+        assert only_caption_bindings(row) and row['anatomical_review']['status']=='pending'
