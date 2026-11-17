@@ -4,6 +4,7 @@ from pathlib import Path
 from PIL import Image
 from primer.curriculum import Curriculum
 from primer.radiology_catalog import detail,resolve
+from tools.anatomy_sources.bind_stored_caption_assets import only_caption_bindings
 ROOT=Path(__file__).resolve().parents[1];OUT=ROOT/'docs/cmr-published-source-review';PREFIX='open-cmr-source-'
 def sha(raw):return hashlib.sha256(raw).hexdigest()
 def test_original_grants_samples_and_upstream_holds_are_preserved():
@@ -34,4 +35,4 @@ def test_rights_do_not_approve_source_contours_or_case_diagnoses():
     a=json.loads((ROOT/'data/radiology/radiology-asset-evidence.json').read_text())['assets'];rows=[r for r in a if r['id'].startswith(PREFIX)];assert len(rows)==13
     for r in rows:
         l=r['source']['license'];assert l['commercial_use'] and l['redistribution'] and l['name']=='CC BY 4.0'
-        assert sha((ROOT/l['evidence_path']).read_bytes())==l['evidence_sha256'] and not r['structure_ids'] and not r['requirement_coverage'] and r['anatomical_review']['status']=='pending'
+        assert sha((ROOT/l['evidence_path']).read_bytes())==l['evidence_sha256'] and only_caption_bindings(r) and r['anatomical_review']['status']=='pending'

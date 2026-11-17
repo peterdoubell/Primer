@@ -5,6 +5,7 @@ from pathlib import Path
 from PIL import Image
 from primer.curriculum import Curriculum
 from primer.radiology_catalog import detail,resolve
+from tools.anatomy_sources.bind_stored_caption_assets import only_caption_bindings
 ROOT=Path(__file__).resolve().parents[1];FOLDER=ROOT/'docs/vascular-venous-published-source-review';PREFIX='open-vascular-venous-'
 def sha(raw):return hashlib.sha256(raw).hexdigest()
 def test_complete_original_jpegs_and_actual_licenses_are_preserved():
@@ -46,4 +47,4 @@ def test_rights_do_not_confer_geometry_or_haemodynamic_approval():
     for r in rows:
         l=r['source']['license'];assert l['commercial_use'] and l['redistribution'] and l['review_status']=='verified'
         assert sha((ROOT/l['evidence_path']).read_bytes())==l['evidence_sha256']
-        assert not r['structure_ids'] and not r['requirement_coverage'] and r['anatomical_review']['status']=='pending'
+        assert only_caption_bindings(r) and r['anatomical_review']['status']=='pending'

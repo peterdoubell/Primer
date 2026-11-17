@@ -8,6 +8,7 @@ from primer.curriculum import Curriculum
 from primer.radiology_catalog import detail,resolve
 from tools.check_msk_fidelity import requirements_for,validate_reporting_snapshots,audit
 from tools.check_radiology_fidelity import digest
+from tools.anatomy_sources.bind_stored_caption_assets import only_caption_bindings
 ROOT=Path(__file__).resolve().parents[1];REVIEW=ROOT/'docs/endometriosis-source-review'
 INV='ra.mri-endometriosis';PREFIX='open-endometriosis-esur-2025-'
 def sha(raw):return hashlib.sha256(raw).hexdigest()
@@ -90,7 +91,7 @@ def test_full_named_scope_retains_every_fine_layer_side_and_unknown_extent():
  result=audit(scoped,{'assets':[{'id':'gross-only','kind':'model','investigation_ids':[INV],'structure_ids':['endometriosis.central.uterus_covered_body_and_orientation']}]},expected_catalog_ids={INV})
  assert result['representation_requirements']==2631 and result['counts']['missing']==2631
  assets=[a for a in json.loads((ROOT/'data/radiology/radiology-asset-evidence.json').read_text())['assets'] if a['id'].startswith(PREFIX)]
- assert len(assets)==18 and all(a['anatomical_review']['status']=='pending' and not a['requirement_coverage'] for a in assets)
+ assert len(assets)==18 and all(a['anatomical_review']['status']=='pending' and only_caption_bindings(a) for a in assets)
  hold=json.loads((REVIEW/'held-legacy-and-native-candidates.json').read_text());assert len(hold['legacy_remote_images'])==2 and not hold['native_model_published']
 
 
