@@ -102,9 +102,11 @@ def test_publisher_figures_are_stored_reviewed_and_bound_as_partial_educational_
     accepted = {row['figure'] for row in review['accepted']}
     assert 'not a radiologist review' in review['reviewer'] and not accepted & set(review['rejected_figures'])
     assets = {item['id']: item for item in json.loads(raw)['assets']}
-    required = {key[1]: value for key, value in requirements().items()}
+    required = {}
+    for key, value in requirements().items():
+        required.setdefault(key[1], []).append(value)
     expected = records()
-    assert len(expected) == 33 and sum(len(item['structure_ids']) for item in expected) == 34
+    assert len(expected) == 77 and sum(len(item['structure_ids']) for item in expected) == 90
     for item in expected:
         assert assets[item['id']] == item and item['source']['asset_url'] in accepted
         assert hashlib.sha256((ROOT / item['local_path']).read_bytes()).hexdigest() == item['sha256']
@@ -116,5 +118,7 @@ def test_publisher_figures_are_stored_reviewed_and_bound_as_partial_educational_
         assert item['fidelity'] == 'source_reviewed_not_clinically_approved'
         assert item['anatomical_review']['status'] == 'pending'
         for identifier in item['structure_ids']:
-            assert inspect_binding(item, required[identifier]) == []
-            assert inspect_requirement_coverage(item, required[identifier]) == ['requirement_coverage_partial']
+            # Shared structure ids: the figure must suit every investigation that lists the structure.
+            for requirement in required[identifier]:
+                assert inspect_binding(item, requirement) == []
+                assert inspect_requirement_coverage(item, requirement) == ['requirement_coverage_partial']

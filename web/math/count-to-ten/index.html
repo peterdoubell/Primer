@@ -1,0 +1,24 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Count up and count back · Primer</title>
+<link rel="stylesheet" href="/app/activities/kit.css">
+<script defer src="/app/activities/kit.js"></script>
+<script defer src="lab.js"></script>
+</head>
+<body><main>
+<a href="/app/#/node/math.0.counting">Return to Counting</a>
+<h1>Count up and count back</h1>
+<p class="lede">Slide to choose how many. Touch each dot once as you count.</p>
+<div class="controls">
+<div><label for="n">How many</label><input type="range" id="n" min="0" max="10" step="1" value="6"><output id="n-out" for="n"></output></div>
+</div>
+<p id="sum" class="big" style="font-weight:700"></p>
+<figure>
+<canvas id="graph" width="720" height="180" role="img" aria-label="A row of ten dots with the counted ones filled in. The table below gives the same values."></canvas>
+</figure>
+<table><caption>Values</caption><thead><tr><th scope="col">Count</th><th scope="col">Numbers</th></tr></thead><tbody id="rows"></tbody></table>
+<p id="result" role="status"></p>
+</main></body></html>

@@ -1,0 +1,24 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Tens and ones up to twenty · Primer</title>
+<link rel="stylesheet" href="/app/activities/kit.css">
+<script defer src="/app/activities/kit.js"></script>
+<script defer src="lab.js"></script>
+</head>
+<body><main>
+<a href="/app/#/node/math.0.numbers20">Return to Numbers to Twenty</a>
+<h1>Tens and ones up to twenty</h1>
+<p class="lede">Numbers after ten are one ten and some more. Fill the frames and read the number.</p>
+<div class="controls">
+<div><label for="n">Number</label><input type="range" id="n" min="1" max="20" step="1" value="13"><output id="n-out" for="n"></output></div>
+</div>
+<p id="sum" class="big" style="font-weight:700"></p>
+<figure>
+<canvas id="graph" width="720" height="220" role="img" aria-label="Two frames of ten spaces, filled to show the number. The table below gives the same values."></canvas>
+</figure>
+<table><caption>Values</caption><thead><tr><th scope="col">Question</th><th scope="col">Answer</th></tr></thead><tbody id="rows"></tbody></table>
+<p id="result" role="status"></p>
+</main></body></html>

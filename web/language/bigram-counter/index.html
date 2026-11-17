@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Counting word pairs: a tiny language model · Primer</title>
+<link rel="stylesheet" href="/app/activities/kit.css">
+<script defer src="/app/activities/kit.js"></script>
+<script defer src="lab.js"></script>
+</head>
+<body><main>
+<a href="/app/#/node/lang.5.comp-ling">Return to Computational Linguistics</a>
+<h1>Counting word pairs: a tiny language model</h1>
+<p class="lede">A bigram model predicts the next word from the one before it, using nothing but counts from a corpus. Edit the corpus, choose a word, and read off the probabilities.</p>
+<div class="controls">
+<div><label for="corpus">Corpus</label><textarea id="corpus" rows="5">the cat sat on the mat. the dog sat on the log. the cat saw the dog. the dog saw the cat on the mat.</textarea></div>
+<div><label for="word">Previous word</label><select id="word"></select></div>
+<div><label for="smooth">Add-one smoothing</label><select id="smooth"><option value="0">off</option><option value="1">on</option></select></div>
+</div>
+<p id="stats" role="status"></p>
+<table><caption>What follows the chosen word</caption><thead><tr><th scope="col">Next word</th><th scope="col">Count</th><th scope="col">Probability</th></tr></thead><tbody id="rows"></tbody></table>
+<h2>Algorithm</h2>
+<ol>
+<li>Split the corpus into sentences, lower-case it and split it into word tokens.</li>
+<li>Add a start marker before each sentence and an end marker after it.</li>
+<li>Count every pair of neighbouring tokens.</li>
+<li>P(next | previous) = count(previous, next) ÷ count(previous). With add-one smoothing, add 1 to the top and the vocabulary size to the bottom.</li>
+<li>To generate text, start at the start marker and keep choosing the most likely next word.</li>
+</ol>
+<p id="result" role="status"></p>
+</main></body></html>

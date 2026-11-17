@@ -1,0 +1,25 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Equal parts of a whole · Primer</title>
+<link rel="stylesheet" href="/app/activities/kit.css">
+<script defer src="/app/activities/kit.js"></script>
+<script defer src="lab.js"></script>
+</head>
+<body><main>
+<a href="/app/#/node/math.1.fractions-intro">Return to Halves and Quarters</a>
+<h1>Equal parts of a whole</h1>
+<p class="lede">A fraction names equal parts. The bottom number says how many equal parts; the top says how many you have.</p>
+<div class="controls">
+<div><label for="parts">Equal parts</label><select id="parts"><option value="2">2 (halves)</option><option value="4">4 (quarters)</option><option value="3">3 (thirds)</option><option value="8">8 (eighths)</option></select></div>
+<div><label for="shaded">Parts shaded</label><input type="range" id="shaded" min="0" max="8" step="1" value="1"><output id="shaded-out" for="shaded"></output></div>
+</div>
+<p id="sum" class="big" style="font-weight:700"></p>
+<figure>
+<canvas id="graph" width="720" height="220" role="img" aria-label="A bar cut into equal parts with some shaded. The table below gives the same values."></canvas>
+</figure>
+<table><caption>Values</caption><thead><tr><th scope="col">Question</th><th scope="col">Answer</th></tr></thead><tbody id="rows"></tbody></table>
+<p id="result" role="status"></p>
+</main></body></html>

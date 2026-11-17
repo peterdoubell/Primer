@@ -1,0 +1,26 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Plan and pace a talk · Primer</title>
+<link rel="stylesheet" href="/app/activities/kit.css">
+<script defer src="/app/activities/kit.js"></script>
+<script defer src="lab.js"></script>
+</head>
+<body><main>
+<a href="/app/#/node/lang.2.speaking">Return to Public Speaking</a>
+<h1>Plan and pace a talk</h1>
+<p class="lede">A talk has an opening, a body and a close. Set how long you may speak and how fast you talk. The plan shows how many words fit in each part.</p>
+<div class="controls">
+<div><label for="minutes">Time allowed (minutes)</label><input type="range" id="minutes" min="1" max="10" step="0.5" value="3"><output id="minutes-out" for="minutes"></output></div>
+<div><label for="pace">Speaking pace (words a minute)</label><input type="range" id="pace" min="90" max="190" step="5" value="130"><output id="pace-out" for="pace"></output></div>
+<div><label for="draft">Paste your talk to time it (optional)</label><textarea id="draft" rows="4"></textarea></div>
+</div>
+<figure>
+<canvas id="graph" width="760" height="200" role="img" aria-label="Bar showing the share of the talk given to the opening, the body and the close. The table below gives the same figures."></canvas>
+<figcaption>How the time divides between opening, body and close.</figcaption>
+</figure>
+<table><caption>Plan for the talk</caption><thead><tr><th scope="col">Part</th><th scope="col">Its job</th><th scope="col">Time</th><th scope="col">Words</th></tr></thead><tbody id="rows"></tbody></table>
+<p id="result" role="status"></p>
+</main></body></html>

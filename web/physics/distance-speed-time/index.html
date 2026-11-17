@@ -1,0 +1,26 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Speed, time and distance · Primer</title>
+<link rel="stylesheet" href="/app/activities/kit.css">
+<script defer src="/app/activities/kit.js"></script>
+<script defer src="lab.js"></script>
+</head>
+<body><main>
+<a href="/app/#/node/phys.1.motion">Return to How Things Move</a>
+<h1>Speed, time and distance</h1>
+<p class="lede">Speed says how far something goes each second. Set a speed and a time and read the distance.</p>
+<div class="controls">
+<div><label for="speed">Speed (metres each second)</label><input type="range" id="speed" min="0" max="15" step="0.5" value="5"><output id="speed-out" for="speed"></output></div>
+<div><label for="time">Time (seconds)</label><input type="range" id="time" min="0" max="20" step="1" value="8"><output id="time-out" for="time"></output></div>
+<div><label for="friction">Slowing each second (m/s)</label><input type="range" id="friction" min="0" max="3" step="0.5" value="0"><output id="friction-out" for="friction"></output></div>
+</div>
+<p id="sum" class="big" style="font-weight:700"></p>
+<figure>
+<canvas id="graph" width="720" height="420" role="img" aria-label="Graph of distance against time. The table below gives the same values."></canvas>
+</figure>
+<table><caption>Values</caption><thead><tr><th scope="col">Question</th><th scope="col">Answer</th></tr></thead><tbody id="rows"></tbody></table>
+<p id="result" role="status"></p>
+</main></body></html>

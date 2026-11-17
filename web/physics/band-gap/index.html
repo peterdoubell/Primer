@@ -1,0 +1,25 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Band gaps and why semiconductors conduct · Primer</title>
+<link rel="stylesheet" href="/app/activities/kit.css">
+<script defer src="/app/activities/kit.js"></script>
+<script defer src="lab.js"></script>
+</head>
+<body><main>
+<a href="/app/#/node/phys.4.solid-state">Return to Solid State Physics</a>
+<h1>Band gaps and why semiconductors conduct</h1>
+<p class="lede">In a crystal, electrons need the band-gap energy to break free and conduct. Heat or light can supply it.</p>
+<div class="controls">
+<div><label for="material">Material</label><select id="material"><option value="si">Silicon</option><option value="ge">Germanium</option><option value="gaas">Gallium arsenide</option><option value="diamond">Diamond</option></select></div>
+<div><label for="temperature">Temperature (K)</label><input type="range" id="temperature" min="200" max="600" step="10" value="300"><output id="temperature-out" for="temperature"></output></div>
+</div>
+<p id="sum" class="big" style="font-weight:700"></p>
+<figure>
+<canvas id="graph" width="720" height="460" role="img" aria-label="Curves of the Boltzmann factor against temperature for four materials. The table below gives the same values."></canvas>
+</figure>
+<table><caption>Materials</caption><thead><tr><th scope="col">Material</th><th scope="col">Band gap (eV)</th><th scope="col">Longest wavelength absorbed (nm)</th></tr></thead><tbody id="rows"></tbody></table>
+<p id="result" role="status"></p>
+</main></body></html>

@@ -54,8 +54,7 @@ def test_new_requirements_are_bound_only_where_a_source_states_the_structure_and
     by_id = {row['investigation_id']: row for row in audit_structure_coverage.coverage()}
     assert len(by_id) == 136
     for identifier in RECEIPT['investigation_ids']:
-        expected = {'ra.thoracic-ultrasound': 2, 'ra.dynamic-rectal-examination': 1, 'ra.transvaginal-nongynaecology': 2,
-                    'ra.ultrasound-acute-abdomen': 1, 'ra.ultrasound-gi-tract': 3}.get(identifier, 0)
+        expected = {'ra.ct-covid': 1, 'ra.dynamic-rectal-examination': 2, 'ra.intracranial-hypotension': 1, 'ra.paediatric-chest-ct': 3, 'ra.thoracic-ultrasound': 2, 'ra.thymus': 1, 'ra.transvaginal-nongynaecology': 3, 'ra.ultrasound-acute-abdomen': 3, 'ra.ultrasound-acute-gynaecology': 2, 'ra.ultrasound-gi-tract': 3, 'ra.venous-sinus-thrombosis': 1}.get(identifier, 0)
         assert by_id[identifier]['bound'] == expected and by_id[identifier]['required'] > 0
 
 

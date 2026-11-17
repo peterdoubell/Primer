@@ -1,0 +1,25 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Time near a black hole · Primer</title>
+<link rel="stylesheet" href="/app/activities/kit.css">
+<script defer src="/app/activities/kit.js"></script>
+<script defer src="lab.js"></script>
+</head>
+<body><main>
+<a href="/app/#/node/phys.5.gr-cosmo">Return to General Relativity and Cosmology</a>
+<h1>Time near a black hole</h1>
+<p class="lede">Mass curves spacetime. Close to a compact mass, clocks run slow compared with clocks far away, and at the Schwarzschild radius light can no longer escape.</p>
+<div class="controls">
+<div><label for="mass">Mass: 10 to this power, in solar masses</label><input type="range" id="mass" min="0" max="10" step="0.1" value="1"><output id="mass-out" for="mass"></output></div>
+<div><label for="ratio">Your distance, in Schwarzschild radii</label><input type="range" id="ratio" min="1.05" max="20" step="0.05" value="3"><output id="ratio-out" for="ratio"></output></div>
+</div>
+<p id="sum" class="big" style="font-weight:700"></p>
+<figure>
+<canvas id="graph" width="720" height="420" role="img" aria-label="Curve of clock rate against distance from the black hole, with the horizon marked. The table below gives the same values."></canvas>
+</figure>
+<table><caption>Values</caption><thead><tr><th scope="col">Quantity</th><th scope="col">Value</th></tr></thead><tbody id="rows"></tbody></table>
+<p id="result" role="status"></p>
+</main></body></html>
