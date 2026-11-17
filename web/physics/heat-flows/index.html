@@ -1,0 +1,26 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Heat moves from warm to cool · Primer</title>
+<link rel="stylesheet" href="/app/activities/kit.css">
+<script defer src="/app/activities/kit.js"></script>
+<script defer src="lab.js"></script>
+</head>
+<body><main>
+<a href="/app/#/node/phys.0.hot-cold">Return to Hot and Cold</a>
+<h1>Heat moves from warm to cool</h1>
+<p class="lede">Put a warm thing against a cool thing. Heat flows from the warmer one to the cooler one until they are the same.</p>
+<div class="controls">
+<div><label for="a">First thing (°C)</label><input type="range" id="a" min="0" max="100" step="1" value="80"><output id="a-out" for="a"></output></div>
+<div><label for="b">Second thing (°C)</label><input type="range" id="b" min="0" max="100" step="1" value="20"><output id="b-out" for="b"></output></div>
+<div><label for="t">Minutes waited</label><input type="range" id="t" min="0" max="30" step="1" value="5"><output id="t-out" for="t"></output></div>
+</div>
+<p id="sum" class="big" style="font-weight:700"></p>
+<figure>
+<canvas id="graph" width="720" height="300" role="img" aria-label="Two bars showing the temperatures of the two things, with an arrow for the heat flow. The table below gives the same values."></canvas>
+</figure>
+<table><caption>Values</caption><thead><tr><th scope="col">Question</th><th scope="col">Answer</th></tr></thead><tbody id="rows"></tbody></table>
+<p id="result" role="status"></p>
+</main></body></html>

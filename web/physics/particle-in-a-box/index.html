@@ -1,0 +1,25 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>An electron in a box · Primer</title>
+<link rel="stylesheet" href="/app/activities/kit.css">
+<script defer src="/app/activities/kit.js"></script>
+<script defer src="lab.js"></script>
+</head>
+<body><main>
+<a href="/app/#/node/phys.4.quantum">Return to Quantum Mechanics</a>
+<h1>An electron in a box</h1>
+<p class="lede">Confine an electron between two walls. Only certain standing waves fit, so only certain energies are allowed.</p>
+<div class="controls">
+<div><label for="n">Level n</label><input type="range" id="n" min="1" max="6" step="1" value="2"><output id="n-out" for="n"></output></div>
+<div><label for="width">Width of the box (nanometres)</label><input type="range" id="width" min="0.2" max="2" step="0.1" value="1"><output id="width-out" for="width"></output></div>
+</div>
+<p id="sum" class="big" style="font-weight:700"></p>
+<figure>
+<canvas id="graph" width="720" height="440" role="img" aria-label="The wavefunction and the probability density across the box. The table below gives the same values."></canvas>
+</figure>
+<table><caption>Allowed levels</caption><thead><tr><th scope="col">Level</th><th scope="col">Energy (eV)</th><th scope="col">Nodes inside</th></tr></thead><tbody id="rows"></tbody></table>
+<p id="result" role="status"></p>
+</main></body></html>

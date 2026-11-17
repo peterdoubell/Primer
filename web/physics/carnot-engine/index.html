@@ -1,0 +1,27 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The best any heat engine can do · Primer</title>
+<link rel="stylesheet" href="/app/activities/kit.css">
+<script defer src="/app/activities/kit.js"></script>
+<script defer src="lab.js"></script>
+</head>
+<body><main>
+<a href="/app/#/node/phys.3.thermo">Return to Thermodynamics</a>
+<h1>The best any heat engine can do</h1>
+<p class="lede">A heat engine takes heat from a hot place, turns some into work and dumps the rest somewhere cooler. The temperatures alone set the ceiling on its efficiency.</p>
+<div class="controls">
+<div><label for="hot">Hot temperature (K)</label><input type="range" id="hot" min="300" max="1500" step="10" value="800"><output id="hot-out" for="hot"></output></div>
+<div><label for="cold">Cold temperature (K)</label><input type="range" id="cold" min="100" max="600" step="10" value="300"><output id="cold-out" for="cold"></output></div>
+<div><label for="heat">Heat taken in (J)</label><input type="range" id="heat" min="100" max="2000" step="100" value="1000"><output id="heat-out" for="heat"></output></div>
+<div><label for="real">This engine’s efficiency (%)</label><input type="range" id="real" min="0" max="100" step="1" value="35"><output id="real-out" for="real"></output></div>
+</div>
+<p id="sum" class="big" style="font-weight:700"></p>
+<figure>
+<canvas id="graph" width="720" height="380" role="img" aria-label="Bars for heat taken in, work and waste heat, for the ideal engine and this engine. The table below gives the same values."></canvas>
+</figure>
+<table><caption>One cycle</caption><thead><tr><th scope="col">Quantity</th><th scope="col">Ideal (Carnot)</th><th scope="col">This engine</th></tr></thead><tbody id="rows"></tbody></table>
+<p id="result" role="status"></p>
+</main></body></html>

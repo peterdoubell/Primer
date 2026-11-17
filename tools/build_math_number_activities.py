@@ -79,8 +79,8 @@ def select(i, label, options):
 ACTS = []
 
 
-def add(slug, node, back, title, lede, controls, heads, model, render, height=260, aria='', caption='Values'):
-    ACTS.append(dict(slug=slug, node=node, back=back, title=title, lede=lede, controls=controls, heads=heads, model=model,
+def add(slug, node, back, title, lede, controls, heads, model, render, height=260, aria='', caption='Values', subject='math'):
+    ACTS.append(dict(subject=subject, slug=slug, node=node, back=back, title=title, lede=lede, controls=controls, heads=heads, model=model,
                      render=render, height=height, aria=aria or title + '.', caption=caption))
 
 
@@ -406,7 +406,7 @@ def build():
     registry_path = WEB / 'activities/registry.json'
     registry = json.loads(registry_path.read_text())
     for act in ACTS:
-        folder = WEB / 'math' / act['slug']
+        folder = WEB / act['subject'] / act['slug']
         folder.mkdir(parents=True, exist_ok=True)
         page = HTML
         for key, value in {'TITLE': act['title'], 'NODE': act['node'], 'BACK': act['back'], 'LEDE': act['lede'], 'HEIGHT': str(act['height']), 'ARIA': act['aria'],
@@ -416,7 +416,7 @@ def build():
         (folder / 'index.html').write_text(page)
         script = JS.replace('@MODEL@', act['model']).replace('@RENDER@', act['render']).replace('@IDS@', json.dumps([name for name, _ in act['controls']]))
         (folder / 'lab.js').write_text(script)
-        entry = {'href': '/app/math/%s/index.html' % act['slug'], 'label': act['title']}
+        entry = {'href': '/app/%s/%s/index.html' % (act['subject'], act['slug']), 'label': act['title']}
         links = registry.setdefault(act['node'], [])
         if entry not in links:
             links.append(entry)
