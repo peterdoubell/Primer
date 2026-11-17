@@ -4,6 +4,7 @@ from pathlib import Path
 from PIL import Image
 from primer.curriculum import Curriculum
 from primer.radiology_catalog import detail,resolve
+from tools.anatomy_sources.bind_stored_caption_assets import only_caption_bindings
 ROOT=Path(__file__).resolve().parents[1];OUT=ROOT/'docs/implanted-support-published-source-review';PREFIX='open-implanted-support-pmc6837777-fig'
 def sha(raw):return hashlib.sha256(raw).hexdigest()
 def test_complete_original_pixels_and_grant_are_preserved():
@@ -30,4 +31,4 @@ def test_rights_do_not_approve_circuit_or_native_device_anatomy():
     for row in rows:
         license=row['source']['license'];assert license['commercial_use'] and license['redistribution'] and license['name']=='CC BY 4.0'
         assert sha((ROOT/license['evidence_path']).read_bytes())==license['evidence_sha256']
-        assert not row['structure_ids'] and not row['requirement_coverage'] and row['anatomical_review']['status']=='pending'
+        assert only_caption_bindings(row) and row['anatomical_review']['status']=='pending'

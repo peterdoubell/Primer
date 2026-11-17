@@ -3,6 +3,7 @@ import subprocess
 from pathlib import Path
 
 from tools.anatomy_sources import bind_stored_caption_assets as tool
+from tools.anatomy_sources.bind_stored_caption_assets_pass2 import before_stored_caption_bindings_pass2
 from tools.check_msk_fidelity import inspect_binding
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -25,7 +26,8 @@ def test_stored_figures_are_bound_only_to_structures_their_own_caption_names():
         assert row['structure_id'] in asset['structure_ids']
         coverage = asset['requirement_coverage'][row['structure_id']]
         assert coverage['extent'] == 'partial'
-        assert tool.quote(described[row['asset_id']], row['name']) in coverage['basis']
+        # The second pass rewrote quotes that had lost a first letter or were cut mid-word.
+        assert coverage['basis'] == tool.basis(tool.quote(described[row['asset_id']], row['name'], row.get('prefer')))
         assert asset['anatomical_review']['status'] != 'approved'
         for requirement in required[row['structure_id']]:
             assert inspect_binding(asset, requirement) == []
@@ -36,7 +38,7 @@ def test_stored_figures_are_bound_only_to_structures_their_own_caption_names():
 
 def test_stored_caption_bindings_have_an_exact_inverse():
     receipt = json.loads(tool.RECEIPT.read_text())
-    raw = tool.EVIDENCE.read_bytes()
+    raw = before_stored_caption_bindings_pass2(tool.EVIDENCE.read_bytes())  # A second pass followed.
     assert tool.sha(raw) == receipt['after_sha256']
     before = tool.before_stored_caption_bindings(raw)
     assert tool.sha(before) == receipt['before_sha256']

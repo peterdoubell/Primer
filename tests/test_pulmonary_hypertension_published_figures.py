@@ -6,6 +6,7 @@ from PIL import Image
 from primer.curriculum import Curriculum
 from primer.radiology_catalog import detail, resolve
 from tools.check_msk_fidelity import inspect_binding, inspect_source_context
+from tools.anatomy_sources.bind_stored_caption_assets import only_caption_bindings
 ROOT=Path(__file__).resolve().parents[1]
 OUT=ROOT/'docs/pulmonary-hypertension-published-source-review'
 PREFIX='open-pulmonary-htn-pmc9698386-fig'
@@ -30,7 +31,7 @@ def test_distinct_modalities_cannot_become_CT_requirement_evidence():
     assert rows[9]['ancillary_panels'][0]['kind']=='Haemodynamic tracing' and rows[9]['ancillary_panels'][0]['panels']==['A']
     assets=[r for r in json.loads((ROOT/'data/radiology/radiology-asset-evidence.json').read_text())['assets'] if r['id'].startswith(PREFIX)]
     for asset in assets:
-        assert not asset['structure_ids'] and not asset['requirement_coverage'] and asset['anatomical_review']['status']=='pending'
+        assert only_caption_bindings(asset) and asset['anatomical_review']['status']=='pending'
         grant=asset['source']['license'];assert sha((ROOT/grant['evidence_path']).read_bytes())==grant['evidence_sha256']
         if asset['modality'] in {'Ultrasound','Nuclear medicine','Radiography'}:
             assert 'clinical_image_modality_not_in_requirement_scope' in inspect_binding(asset,{'modality_scope':['CT']})

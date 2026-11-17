@@ -4,6 +4,7 @@ from pathlib import Path
 from PIL import Image
 from primer.curriculum import Curriculum
 from primer.radiology_catalog import detail,resolve
+from tools.anatomy_sources.bind_stored_caption_assets import only_caption_bindings
 ROOT=Path(__file__).resolve().parents[1];OUT=ROOT/'docs/cardiac-support-published-source-review';PREFIX='open-cardiac-support-pmc10350447-fig'
 def sha(raw):return hashlib.sha256(raw).hexdigest()
 def test_source_samples_credits_and_actual_grant_are_preserved():
@@ -33,5 +34,5 @@ def test_case_examples_and_artist_rights_do_not_grant_complete_geometry():
     for row in rows:
         l=row['source']['license'];assert l['commercial_use'] and l['redistribution'] and l['name']=='CC BY 4.0'
         assert sha((ROOT/l['evidence_path']).read_bytes())==l['evidence_sha256']
-        assert not row['structure_ids'] and not row['requirement_coverage'] and row['anatomical_review']['status']=='pending'
+        assert only_caption_bindings(row) and row['anatomical_review']['status']=='pending'
     assert 'Medical Illustrators' in next(r for r in rows if r['id']==PREFIX+'1')['source']['license']['attribution']

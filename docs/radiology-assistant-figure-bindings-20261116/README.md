@@ -59,3 +59,7 @@ Totals after both passes: 77 stored figures and 90 bindings, touching 36 investi
 The same limits apply. The review was by the packaging author at reduced size, not by a radiologist; every binding
 is partial; many figures are teaching cases that show pathology. Sided requirements remain unbound because the
 figures do not state a side.
+
+Update 2026-11-17: the side rule has since been relaxed (see
+`docs/stored-asset-caption-bindings-pass2-20261117/README.md`). The Radiology Assistant sections
+that name sided structures have not yet been reviewed under the new rule.

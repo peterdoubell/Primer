@@ -18,3 +18,8 @@ composite, and a mixed-modality figure an existing rule keeps unbound.
 
 Files: `review.json` (accepted and rejected pairs), `inverse.json` (exact byte edits and hashes),
 tool `tools/anatomy_sources/bind_stored_caption_assets.py`, tests `tests/test_stored_caption_bindings.py`.
+
+Update 2026-11-17: a second pass (`docs/stored-asset-caption-bindings-pass2-20261117`) rewrote 14 of
+these quotes, which had lost a first letter or were cut mid-word, and moved the clivus quote on
+`open-sella-pmc10366012-fig7` to the sentence about the selected MRI panels. The bindings themselves
+are unchanged.

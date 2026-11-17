@@ -662,6 +662,57 @@ def test_source_context_cannot_ignore_the_existing_typed_laterality_field(case):
     assert all('source_context_laterality_mismatch' in row['candidates']['fixture'] for row in rows)
 
 
+@pytest.mark.parametrize('side', ['left', 'right'])
+@pytest.mark.parametrize('source', [{}, {'laterality': 'not_reported'}, {'laterality': 'unknown'}])
+def test_source_without_a_side_may_support_a_sided_requirement_only_partially(case, side, source):
+    """Side rule relaxed by the project owner on 2026-11-17: bindable, never verifiable."""
+    requirements, evidence, root = case
+    requirements['investigations'][0]['structures'][0]['laterality'] = side
+    asset = evidence['assets'][0]
+    asset.update(kind='clinical_image', source_context=dict(source))
+    bind_synthetic_reviews(asset, requirements)
+    rows = [row for row in fidelity.audit(requirements, evidence, root)['requirements'] if row['kind'] == 'clinical_image']
+    # The side is an assumption, so even a fully reviewed asset cannot verify the requirement.
+    assert all(row['status'] == 'unverified' for row in rows)
+    assert all(row['candidates']['fixture'] == ['requirement_coverage_side_unstated_cannot_be_complete'] for row in rows)
+    for entry in asset['requirement_coverage'].values():
+        entry['extent'] = 'partial'
+    bind_synthetic_reviews(asset, requirements)
+    rows = [row for row in fidelity.audit(requirements, evidence, root)['requirements'] if row['kind'] == 'clinical_image']
+    assert all(row['candidates']['fixture'] == ['requirement_coverage_partial'] for row in rows)
+
+
+def test_relaxed_side_rule_keeps_stated_bilateral_and_explicit_sides_strict(case):
+    requirements, evidence, root = case
+    structure = requirements['investigations'][0]['structures'][0]
+    asset = evidence['assets'][0]
+    asset.update(kind='clinical_image', source_context={'laterality': 'not_reported'})
+
+    def leaf():
+        return fidelity.requirements_for(requirements['investigations'][0])[0]
+    structure['laterality'] = 'bilateral'
+    assert fidelity.inspect_binding(asset, leaf()) == ['source_context_laterality_unresolved']
+    assert not fidelity.side_unstated(asset, leaf())
+    structure['laterality'] = 'right'
+    assert fidelity.inspect_binding(asset, leaf()) == [] and fidelity.side_unstated(asset, leaf())
+    asset['source_context']['laterality'] = 'left'
+    assert fidelity.inspect_binding(asset, leaf()) == ['source_context_laterality_mismatch']
+    assert not fidelity.side_unstated(asset, leaf())
+    asset['source_context']['laterality'] = 'right'
+    assert fidelity.inspect_binding(asset, leaf()) == [] and not fidelity.side_unstated(asset, leaf())
+    # A side named in context_requirements is a deliberate constraint and is still enforced.
+    asset['source_context']['laterality'] = 'not_reported'
+    structure['laterality'] = 'examined_side'
+    structure['context_requirements'] = {'laterality': 'right'}
+    assert fidelity.inspect_binding(asset, leaf()) == ['source_context_laterality_unresolved']
+    # A malformed side is never treated as unstated.
+    structure.pop('context_requirements')
+    structure['laterality'] = 'right'
+    asset['source_context']['laterality'] = []
+    assert 'source_context_laterality_invalid' in fidelity.inspect_binding(asset, leaf())
+    assert not fidelity.side_unstated(asset, leaf())
+
+
 def test_typed_panel_context_cannot_disagree_with_the_credited_selection(case):
     requirements, evidence, root = case
     asset = evidence['assets'][0]
