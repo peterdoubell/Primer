@@ -1,0 +1,27 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Adding vectors and the dot product · Primer</title>
+<link rel="stylesheet" href="/app/activities/kit.css">
+<script defer src="/app/activities/kit.js"></script>
+<script defer src="lab.js"></script>
+</head>
+<body><main>
+<a href="/app/#/node/math.3.vectors">Return to Vectors</a>
+<h1>Adding vectors and the dot product</h1>
+<p class="lede">A vector has a size and a direction. Add them tip to tail. The dot product measures how far two vectors point the same way.</p>
+<div class="controls">
+<div><label for="ux">u across</label><input type="range" id="ux" min="-5" max="5" step="1" value="3"><output id="ux-out" for="ux"></output></div>
+<div><label for="uy">u up</label><input type="range" id="uy" min="-5" max="5" step="1" value="1"><output id="uy-out" for="uy"></output></div>
+<div><label for="vx">v across</label><input type="range" id="vx" min="-5" max="5" step="1" value="1"><output id="vx-out" for="vx"></output></div>
+<div><label for="vy">v up</label><input type="range" id="vy" min="-5" max="5" step="1" value="4"><output id="vy-out" for="vy"></output></div>
+</div>
+<p id="sum" class="big" style="font-weight:700"></p>
+<figure>
+<canvas id="graph" width="720" height="700" role="img" aria-label="Arrows for u, v and their sum, added tip to tail. The table below gives the same values."></canvas>
+</figure>
+<table><caption>Values</caption><thead><tr><th scope="col">Quantity</th><th scope="col">Value</th></tr></thead><tbody id="rows"></tbody></table>
+<p id="result" role="status"></p>
+</main></body></html>

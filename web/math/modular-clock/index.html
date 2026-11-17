@@ -1,0 +1,25 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Euclid’s algorithm and arithmetic on a clock · Primer</title>
+<link rel="stylesheet" href="/app/activities/kit.css">
+<script defer src="/app/activities/kit.js"></script>
+<script defer src="lab.js"></script>
+</head>
+<body><main>
+<a href="/app/#/node/math.4.numtheory">Return to Number Theory</a>
+<h1>Euclid’s algorithm and arithmetic on a clock</h1>
+<p class="lede">Euclid’s algorithm finds the greatest common divisor by repeated remainders. On a clock with n hours, multiplying by a reaches every hour exactly when gcd(a, n) = 1.</p>
+<div class="controls">
+<div><label for="a">a</label><input type="range" id="a" min="1" max="60" step="1" value="14"><output id="a-out" for="a"></output></div>
+<div><label for="n">Modulus n</label><input type="range" id="n" min="2" max="60" step="1" value="45"><output id="n-out" for="n"></output></div>
+</div>
+<p id="sum" class="big" style="font-weight:700"></p>
+<figure>
+<canvas id="graph" width="720" height="700" role="img" aria-label="A clock face with n hours; the hours reached by stepping a at a time are filled in and joined. The table below gives the same values."></canvas>
+</figure>
+<table><caption>Euclid’s algorithm</caption><thead><tr><th scope="col">Step</th><th scope="col">Working</th></tr></thead><tbody id="rows"></tbody></table>
+<p id="result" role="status"></p>
+</main></body></html>
