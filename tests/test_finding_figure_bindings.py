@@ -18,7 +18,7 @@ def test_every_finding_binding_quotes_a_stored_sentence_about_a_selected_panel()
     review, assets, required, holders = records()
     described = second.captions()
     rows = review['accepted']
-    assert len(rows) == 466 and len({row['asset_id'] for row in rows}) == 246
+    assert len(rows) == 462 and len({row['asset_id'] for row in rows}) == 245
     assert len({row['structure_id'] for row in rows}) == 237
     assert 'not a radiologist review' in review['reviewer'] and '2026-11-18' in review['decision']
     for row in rows:
@@ -44,16 +44,29 @@ def test_each_quote_names_the_finding_in_one_of_three_recorded_ways():
     for row in review['accepted']:
         counts[row['evidence']] = counts.get(row['evidence'], 0) + 1
         assert tool.evidence_fits(row, required[row['structure_id']], review['kind_of_pairs'])
-        assert ('term' in row) == (row['evidence'] == 'listed_term') and ('kind_of' in row) == (row['evidence'] == 'kind_of')
-    assert counts == {'own_word': 362, 'listed_term': 71, 'kind_of': 33}
+        assert ('term' in row) == ('listed_parts' in row) == (row['evidence'] == 'listed_term')
+        assert ('kind_of' in row) == (row['evidence'] == 'kind_of')
+        if row['evidence'] == 'listed_term':
+            # The row names the parts its term stands for, and the stored basis repeats them.
+            listed = tool.parts(required[row['structure_id']])
+            assert row['listed_parts'] and set(row['listed_parts']) <= set(listed)
+            assert all(part.lower() == row['term'].lower() or '“%s”' % part in tool.basis(row) for part in row['listed_parts'])
+    assert counts == {'own_word': 362, 'listed_term': 66, 'kind_of': 34}
     # Every kind-of pair is listed with its reason, so the owner can veto any of them.
-    assert len(review['kind_of_pairs']) == 20
+    assert len(review['kind_of_pairs']) == 21
     assert {'%s>%s' % (pair['caption_word'], pair['requirement_word']) for pair in review['kind_of_pairs']} == set(review['kind_of_reasons'])
     # A quote that does not name the finding is refused, whatever evidence it claims.
     row = dict(next(row for row in review['accepted'] if row['evidence'] == 'own_word'), quote='A normal appearance is shown.')
     assert not tool.evidence_fits(row, required[row['structure_id']], review['kind_of_pairs'])
     row = dict(next(row for row in review['accepted'] if row['evidence'] == 'kind_of'))
     assert not tool.evidence_fits(row, required[row['structure_id']], [])
+    # A listed term must name parts of this requirement that contain it.
+    row = next(row for row in review['accepted'] if row['evidence'] == 'listed_term')
+    assert not tool.evidence_fits(dict(row, listed_parts=[]), required[row['structure_id']], review['kind_of_pairs'])
+    assert not tool.evidence_fits(dict(row, listed_parts=['not a part']), required[row['structure_id']], review['kind_of_pairs'])
+    other = next(part for part in tool.parts(required[row['structure_id']]) if part not in row['listed_parts']
+                 and not all(any(tool.same(word, found) for found in tool.words(part)) for word in tool.words(row['term'])))
+    assert not tool.evidence_fits(dict(row, listed_parts=[other]), required[row['structure_id']], review['kind_of_pairs'])
 
 
 def test_side_is_stated_by_the_caption_or_recorded_as_an_assumption():
@@ -75,7 +88,7 @@ def test_side_is_stated_by_the_caption_or_recorded_as_an_assumption():
             stated = row['quote'] + ' ' + row.get('side_quote', '')
             assert any(re.search(second.SIDE_WORDS[side], stated, re.I if side in stated.lower() else 0)
                        for side in sides) or re.search(tool.BOTH_WORDS, stated, re.I)
-    assert counts == {'not_sided': 281, 'caption_states_side': 118, 'side_not_stated': 51, 'record_states_side': 16}
+    assert counts == {'not_sided': 277, 'caption_states_side': 118, 'side_not_stated': 51, 'record_states_side': 16}
     # Lung findings are never bound on the mirror-image assumption.
     assert not [row for row in review['accepted'] if row['side'] == 'side_not_stated'
                 and row['structure_id'].split('.')[0] in ('hrct_lung', 'cystic_lung', 'thoracic_tb', 'cxr', 'pulm_htn')]
@@ -84,7 +97,15 @@ def test_side_is_stated_by_the_caption_or_recorded_as_an_assumption():
 def test_catch_all_requirements_and_guarded_figures_stay_unbound():
     review, assets, _, _ = records()
     assert not [row['name'] for row in review['accepted'] if re.search(r'unlisted|every other', row['name'], re.I)]
-    assert len(review['rejected']) == 238 and all(row['reason'] and row['asset_id'] in assets for row in review['rejected'])
+    assert len(review['rejected']) == 240 and all(row['reason'] and row['asset_id'] in assets for row in review['rejected'])
+    # A finding named only in a note that the source's suggestion or attribution is unconfirmed is not bound.
+    bound = {(row['asset_id'], row['structure_id']) for row in review['accepted']}
+    for pair in (('open-renal-trauma-pmc4376814-fig11', 'trauma_ct.injury'),
+                 ('open-bowel-wall-pmc3999365-fig14', 'bowel_wall.infectious_immune'),
+                 ('open-bowel-obstruction-pmc4729712-fig10', 'bowel_obstruction.causes'),
+                 ('open-bowel-obstruction-pmc4729712-fig10', 'bowel_obstruction.positive_examples')):
+        assert pair not in bound and pair[1] not in assets[pair[0]]['structure_ids']
+        assert any(row['asset_id'] == pair[0] and 'unconfirmed' in row['reason'] for row in review['rejected'])
     for asset in assets.values():
         if asset['id'].startswith('open-acute-abdomen-ref-'):
             assert asset['structure_ids'] == []

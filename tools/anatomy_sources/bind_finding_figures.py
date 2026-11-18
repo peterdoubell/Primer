@@ -14,7 +14,8 @@ A pair is bound only when all of these hold:
 "Names the finding" is one of three things, recorded per row as its evidence:
 
 - own_word: the sentence uses the requirement's own word for the finding;
-- listed_term: the sentence uses a term that the requirement lists among its required parts;
+- listed_term: the sentence uses a term that the requirement lists among its required parts; the row
+  names those parts;
 - kind_of: the sentence names something that is by definition a kind of what the requirement names
   (a contusion is an injury), or spells out an abbreviation the requirement uses. Every such pair
   is listed in the review record.
@@ -24,8 +25,9 @@ and an unstated side binds each side only where the two sides are mirror images.
 pulmonary arteries are not, so an unsided lung finding is not bound.
 
 Catch-all requirements ("every other", "unlisted"), measurements and acquisition descriptors are
-not bound. Coverage is always partial. Nothing here is a clinical approval, and no radiologist has
-reviewed the bindings.
+not bound. Nor is a finding that the description mentions only to say that the source's suggestion,
+attribution or description of it is unconfirmed. Coverage is always partial. Nothing here is a
+clinical approval, and no radiologist has reviewed the bindings.
 """
 import json
 import re
@@ -63,7 +65,8 @@ SAME_WORD = {
     'calculus': 'stone', 'lithiasis': 'stone', 'masses': 'mass', 'fistulae': 'fistula', 'fistulas': 'fistula',
     'fistulous': 'fistula', 'abscesses': 'abscess', 'diverticula': 'diverticulum', 'hernias': 'hernia',
     'herniation': 'hernia', 'herniated': 'hernia', 'nodes': 'node', 'nodal': 'node', 'lymphadenopathy': 'node',
-    'infarction': 'infarct', 'infarcts': 'infarct', 'infarcted': 'infarct', 'necrotic': 'necrosis'}
+    'infarction': 'infarct', 'infarcts': 'infarct', 'infarcted': 'infarct', 'necrotic': 'necrosis',
+    'invagination': 'intussusception', 'invaginated': 'intussusception', 'spasm': 'vasospasm'}
 
 
 def words(text):
@@ -106,11 +109,22 @@ def evidence_fits(row, requirements, pairs):
     if row['evidence'] == 'own_word':
         return any(named(word, words(quote)) for word in finding_words(name))
     if row['evidence'] == 'listed_term':
-        return row['term'].lower() in quote.lower() and any(
-            all(any(same(word, other) for other in words(part)) for word in words(row['term'])) for part in parts(requirements))
+        # Every part the row names is a part of this requirement and contains each word of the term.
+        return bool(row['listed_parts']) and row['term'].lower() in quote.lower() and all(
+            part in parts(requirements) and all(any(same(word, other) for other in words(part)) for word in words(row['term']))
+            for part in row['listed_parts'])
     pair = row['kind_of']
     return (pair['caption_word'].lower() in quote.lower() and pair in pairs
             and all(any(same(word, other) for other in words(name)) for word in words(pair['requirement_word'])))
+
+
+def listed_as(row):
+    """How the requirement lists the row's term: nothing to add when the part is the term itself."""
+    listed = row['listed_parts']
+    if [part.lower() for part in listed] == [row['term'].lower()]:
+        return 'which this requirement lists'
+    quoted = ['“%s”' % part for part in listed]
+    return 'which this requirement lists as ' + (', '.join(quoted[:-1]) + ' and ' + quoted[-1] if len(quoted) > 1 else quoted[0])
 
 
 def basis(row):
@@ -118,7 +132,7 @@ def basis(row):
     if row['evidence'] == 'own_word':
         text = 'The %s of this figure names the finding: “%s”' % (source, row['quote'])
     elif row['evidence'] == 'listed_term':
-        text = 'The %s of this figure names “%s”, which this requirement lists: “%s”' % (source, row['term'], row['quote'])
+        text = 'The %s of this figure names “%s”, %s: “%s”' % (source, row['term'], listed_as(row), row['quote'])
     else:
         pair = row['kind_of']
         relation = ('which this requirement abbreviates as %s' if pair['requirement_word'].isupper()

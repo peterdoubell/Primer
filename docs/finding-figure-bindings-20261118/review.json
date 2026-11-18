@@ -3,10 +3,10 @@
  "reviewer": "Claude stored caption and figure comparison at reduced size; not a radiologist review",
  "decision": "On 2026-11-18 the project owner decided that figures of findings are bound to finding requirements.",
  "rule": "A stored figure is bound to a finding requirement when a sentence of its published caption or stored source note names the finding, the sentence is about a selected panel, the fidelity checker finds no modality, state or side conflict, and the figure was looked at. A stated side binds that side; an unstated side binds each side only where the two sides are mirror images. Coverage is always partial.",
- "method": "Names of finding requirements and of their listed parts were matched against stored descriptions, allowing spelling variants and word forms. About 950 candidate pairs on 322 figures were read, and further pairs were added where the same caption names another finding requirement of its investigation. Each accepted figure was looked at on a contact sheet.",
+ "method": "Names of finding requirements and of their listed parts were matched against stored descriptions, allowing spelling variants and word forms. About 950 candidate pairs on 322 figures were read, and further pairs were added where the same caption names another finding requirement of its investigation. Each accepted figure was looked at on a contact sheet. The accepted rows were then read again as a set for consistency.",
  "evidence_values": {
   "own_word": "the quoted sentence uses the requirement’s own word for the finding",
-  "listed_term": "the quoted sentence uses a term that the requirement lists among its required parts",
+  "listed_term": "the quoted sentence uses a term that the requirement lists among its required parts; listed_parts names those parts",
   "kind_of": "the quoted sentence names a kind of what the requirement names, or spells out its abbreviation"
  },
  "side_values": {
@@ -61,11 +61,15 @@
    "requirement_word": "lesion"
   },
   {
-   "caption_word": "ischaemic colitis",
-   "requirement_word": "injury"
+   "caption_word": "haemorrhage",
+   "requirement_word": "lesion"
   },
   {
-   "caption_word": "laceration",
+   "caption_word": "hepatic metastases",
+   "requirement_word": "spread site"
+  },
+  {
+   "caption_word": "ischaemic colitis",
    "requirement_word": "injury"
   },
   {
@@ -109,8 +113,9 @@
   "contusion>injury": "a contusion is an injury",
   "fistulating>penetrating tract": "a fistula is a penetrating tract",
   "haemangioma>lesion": "a haemangioma is a lesion",
+  "haemorrhage>lesion": "a haemorrhage into the gland is a lesion of it",
+  "hepatic metastases>spread site": "a hepatic metastasis is a site of spread",
   "ischaemic colitis>injury": "ischaemic injury of the colon",
-  "laceration>injury": "a laceration is an injury",
   "lupus>immune": "an autoimmune disease",
   "mass>lesion": "a mass is a lesion",
   "masses>lesion": "a mass is a lesion",
@@ -121,6 +126,7 @@
  },
  "not_bound": {
   "catch_all_requirements": "Requirements for “every other” or “unlisted” findings, measurements, comparisons and acquisition descriptors are not bound.",
+  "unconfirmed_notes": "A finding that the stored description mentions only to say that the source’s suggestion, attribution or description of it is unconfirmed is not bound. A diagnosis that the description reports as the source’s own is accepted, and its basis quotes the whole sentence with any limit it states.",
   "lungs": "A lung or pulmonary artery finding whose caption states no side is not bound, because the two sides are not mirror images.",
   "radiology_assistant_figures": "None of the 116 stored Radiology Assistant figures has a recorded sentence that names a finding requirement.",
   "checker": "About 770 further caption matches fail the checker because of malformed codes in the figure record."
@@ -183,8 +189,10 @@
    "quote": "Source bilateral nodular hyperplasia on MRI A–D.",
    "side": "not_sided",
    "evidence": "listed_term",
-   "term": "hyperplasia",
-   "listed_part": "hypervascular metastasis"
+   "term": "nodular hyperplasia",
+   "listed_parts": [
+    "nodular hyperplasia"
+   ]
   },
   {
    "asset_id": "open-adrenal-pmc6349247-fig2",
@@ -212,9 +220,11 @@
    "field": "caption",
    "quote": "Source adrenal haemorrhage: unenhanced CT A and source-described arterial CT B.",
    "side": "not_sided",
-   "evidence": "listed_term",
-   "term": "haemorrhage",
-   "listed_part": "underlying haemorrhagic tumour"
+   "evidence": "kind_of",
+   "kind_of": {
+    "caption_word": "haemorrhage",
+    "requirement_word": "lesion"
+   }
   },
   {
    "asset_id": "open-adrenal-pmc6349247-fig4",
@@ -230,7 +240,10 @@
    "side": "not_sided",
    "evidence": "listed_term",
    "term": "cyst",
-   "listed_part": "simple cyst"
+   "listed_parts": [
+    "simple cyst",
+    "complex cyst"
+   ]
   },
   {
    "asset_id": "open-adrenal-pmc6349247-fig5",
@@ -247,7 +260,9 @@
    "side": "not_sided",
    "evidence": "listed_term",
    "term": "myelolipoma",
-   "listed_part": "fat predominant myelolipoma"
+   "listed_parts": [
+    "fat predominant myelolipoma"
+   ]
   },
   {
    "asset_id": "open-adrenal-pmc6349247-fig5",
@@ -264,7 +279,9 @@
    "side": "not_sided",
    "evidence": "listed_term",
    "term": "macroscopic fat",
-   "listed_part": "macroscopic fat component"
+   "listed_parts": [
+    "macroscopic fat component"
+   ]
   },
   {
    "asset_id": "open-adrenal-pmc6349247-fig6",
@@ -280,7 +297,9 @@
    "side": "not_sided",
    "evidence": "listed_term",
    "term": "phaeochromocytoma",
-   "listed_part": "phaeochromocytoma"
+   "listed_parts": [
+    "phaeochromocytoma"
+   ]
   },
   {
    "asset_id": "open-adrenal-pmc6349247-fig8",
@@ -296,7 +315,9 @@
    "side": "not_sided",
    "evidence": "listed_term",
    "term": "carcinoma",
-   "listed_part": "necrotic adrenocortical carcinoma"
+   "listed_parts": [
+    "necrotic adrenocortical carcinoma"
+   ]
   },
   {
    "asset_id": "open-adrenal-pmc6349247-fig8",
@@ -312,7 +333,9 @@
    "side": "not_sided",
    "evidence": "listed_term",
    "term": "haemorrhagic",
-   "listed_part": "haemorrhagic component"
+   "listed_parts": [
+    "haemorrhagic component"
+   ]
   },
   {
    "asset_id": "open-adrenal-pmc6349247-fig9",
@@ -328,7 +351,9 @@
    "side": "not_sided",
    "evidence": "listed_term",
    "term": "lymphoma",
-   "listed_part": "lymphoma"
+   "listed_parts": [
+    "lymphoma"
+   ]
   },
   {
    "asset_id": "open-adrenal-pmc6349247-fig11",
@@ -345,7 +370,9 @@
    "side": "not_sided",
    "evidence": "listed_term",
    "term": "metastasis",
-   "listed_part": "adrenal metastasis"
+   "listed_parts": [
+    "adrenal metastasis"
+   ]
   },
   {
    "asset_id": "open-aortic-rupture-pmc4035490-fig1",
@@ -432,7 +459,10 @@
    "side": "not_sided",
    "evidence": "listed_term",
    "term": "calcifications",
-   "listed_part": "Each calcified segment"
+   "listed_parts": [
+    "Each calcified segment",
+    "Each calcification gap"
+   ]
   },
   {
    "asset_id": "open-aortic-rupture-pmc4035490-fig4",
@@ -471,7 +501,9 @@
    "side": "not_sided",
    "evidence": "listed_term",
    "term": "fissuration",
-   "listed_part": "Each fissuration course"
+   "listed_parts": [
+    "Each fissuration course"
+   ]
   },
   {
    "asset_id": "open-aortic-rupture-pmc4035490-fig5",
@@ -572,7 +604,9 @@
    "side": "not_sided",
    "evidence": "listed_term",
    "term": "Caroli",
-   "listed_part": "caroli pattern"
+   "listed_parts": [
+    "caroli pattern"
+   ]
   },
   {
    "asset_id": "open-biliary-pmc9287528-fig10",
@@ -588,7 +622,10 @@
    "side": "not_sided",
    "evidence": "listed_term",
    "term": "saccular",
-   "listed_part": "saccular extrahepatic region"
+   "listed_parts": [
+    "saccular extrahepatic region",
+    "intrahepatic saccular region"
+   ]
   },
   {
    "asset_id": "open-biliary-pmc9287528-fig12",
@@ -603,7 +640,9 @@
    "side": "not_sided",
    "evidence": "listed_term",
    "term": "Caroli",
-   "listed_part": "caroli pattern"
+   "listed_parts": [
+    "caroli pattern"
+   ]
   },
   {
    "asset_id": "open-breast-us-pmc10000574-fig10-breast-cancer-staging",
@@ -1085,7 +1124,9 @@
    "side": "not_sided",
    "evidence": "listed_term",
    "term": "fracture",
-   "listed_part": "Fracture vs projection or tie down mimic"
+   "listed_parts": [
+    "Fracture vs projection or tie down mimic"
+   ]
   },
   {
    "asset_id": "open-carotid-obstruction-neck-spaces-fig12",
@@ -1271,7 +1312,9 @@
    "side": "not_sided",
    "evidence": "listed_term",
    "term": "gas",
-   "listed_part": "free gas region if supported"
+   "listed_parts": [
+    "free gas region if supported"
+   ]
   },
   {
    "asset_id": "open-bowel-trauma-pmc6780049-fig2",
@@ -1290,13 +1333,16 @@
    "structure_id": "trauma_ct.bowel_injury",
    "name": "Every actual bowel/mesenteric injury interface",
    "panels": [
-    "A",
-    "B"
+    "A"
    ],
    "field": "caption",
-   "quote": "The caption suggests possible bowel/mesenteric injury; these appearances do not independently establish its cause, full wall layers, perfusion/viability or every injured organ.",
+   "quote": "Complete original CT A/B with source-described thickened/hyperaemic fluid-filled bowel in A and intraperitoneal/retroperitoneal fluid in B.",
    "side": "not_sided",
-   "evidence": "own_word"
+   "evidence": "listed_term",
+   "term": "thickened",
+   "listed_parts": [
+    "wall thickening region"
+   ]
   },
   {
    "asset_id": "open-bowel-trauma-pmc6780049-fig3",
@@ -1323,7 +1369,9 @@
    "side": "not_sided",
    "evidence": "listed_term",
    "term": "pseudoaneurysm",
-   "listed_part": "pseudoaneurysm region if supported"
+   "listed_parts": [
+    "pseudoaneurysm region if supported"
+   ]
   },
   {
    "asset_id": "open-bowel-trauma-pmc6780049-fig3",
@@ -1337,7 +1385,9 @@
    "side": "not_sided",
    "evidence": "listed_term",
    "term": "mesenteric haematoma",
-   "listed_part": "mesenteric haematoma"
+   "listed_parts": [
+    "mesenteric haematoma"
+   ]
   },
   {
    "asset_id": "open-renal-trauma-pmc4376814-fig1",
@@ -1353,20 +1403,6 @@
    "evidence": "kind_of",
    "kind_of": {
     "caption_word": "contusion",
-    "requirement_word": "injury"
-   }
-  },
-  {
-   "asset_id": "open-renal-trauma-pmc4376814-fig11",
-   "structure_id": "trauma_ct.injury",
-   "name": "Every actual solid-organ injury and host interface",
-   "panels": [],
-   "field": "caption",
-   "quote": "Source descriptions of laceration/shock/infarction are not independent histological, physiological or complete geometry validation.",
-   "side": "not_sided",
-   "evidence": "kind_of",
-   "kind_of": {
-    "caption_word": "laceration",
     "requirement_word": "injury"
    }
   },
@@ -1441,7 +1477,9 @@
    "side": "not_sided",
    "evidence": "listed_term",
    "term": "pseudoaneurysm",
-   "listed_part": "pseudoaneurysm region if supported"
+   "listed_parts": [
+    "pseudoaneurysm region if supported"
+   ]
   },
   {
    "asset_id": "open-renal-trauma-pmc4376814-fig9",
@@ -1735,7 +1773,9 @@
    "side": "not_sided",
    "evidence": "listed_term",
    "term": "hernia",
-   "listed_part": "hernia orifice"
+   "listed_parts": [
+    "hernia orifice"
+   ]
   },
   {
    "asset_id": "open-bowel-ischaemia-pmc10066158-fig4",
@@ -1751,7 +1791,9 @@
    "side": "not_sided",
    "evidence": "listed_term",
    "term": "strangulated",
-   "listed_part": "mechanical strangulation pattern"
+   "listed_parts": [
+    "mechanical strangulation pattern"
+   ]
   },
   {
    "asset_id": "open-bowel-ischaemia-pmc10066158-fig5",
@@ -1765,7 +1807,9 @@
    "side": "not_sided",
    "evidence": "listed_term",
    "term": "occluding embolus",
-   "listed_part": "occluding embolus"
+   "listed_parts": [
+    "occluding embolus"
+   ]
   },
   {
    "asset_id": "open-bowel-ischaemia-pmc10066158-fig5",
@@ -1779,7 +1823,9 @@
    "side": "not_sided",
    "evidence": "listed_term",
    "term": "pneumatosis",
-   "listed_part": "pneumatosis region"
+   "listed_parts": [
+    "pneumatosis region"
+   ]
   },
   {
    "asset_id": "open-bowel-ischaemia-pmc10066158-fig5",
@@ -1794,7 +1840,9 @@
    "side": "not_sided",
    "evidence": "listed_term",
    "term": "embolism",
-   "listed_part": "arterial embolic pattern"
+   "listed_parts": [
+    "arterial embolic pattern"
+   ]
   },
   {
    "asset_id": "open-bowel-ischaemia-pmc10066158-fig6",
@@ -1820,7 +1868,9 @@
    "side": "not_sided",
    "evidence": "listed_term",
    "term": "gas",
-   "listed_part": "mesenteric venous gas"
+   "listed_parts": [
+    "mesenteric venous gas"
+   ]
   },
   {
    "asset_id": "open-bowel-ischaemia-pmc10066158-fig6",
@@ -1834,7 +1884,9 @@
    "side": "not_sided",
    "evidence": "listed_term",
    "term": "gas",
-   "listed_part": "intramural gas"
+   "listed_parts": [
+    "mesenteric venous gas"
+   ]
   },
   {
    "asset_id": "open-bowel-ischaemia-pmc10066158-fig7",
@@ -1848,7 +1900,9 @@
    "side": "not_sided",
    "evidence": "listed_term",
    "term": "portal gas",
-   "listed_part": "peripheral portal gas"
+   "listed_parts": [
+    "peripheral portal gas"
+   ]
   },
   {
    "asset_id": "open-bowel-ischaemia-pmc10066158-fig7",
@@ -1862,7 +1916,9 @@
    "side": "not_sided",
    "evidence": "listed_term",
    "term": "portal gas",
-   "listed_part": "hepatic portal gas"
+   "listed_parts": [
+    "hepatic portal gas"
+   ]
   },
   {
    "asset_id": "open-bowel-ischaemia-pmc10066158-fig7",
@@ -1875,8 +1931,10 @@
    "quote": "Source NOMI: venous-phase axial CT A with author-described intrahepatic portal gas and arterial-phase coronal MIP B with diffuse SMA/branch spasm.",
    "side": "not_sided",
    "evidence": "listed_term",
-   "term": "diffuse",
-   "listed_part": "diffuse narrowing region"
+   "term": "spasm",
+   "listed_parts": [
+    "vasospasm source if supported"
+   ]
   },
   {
    "asset_id": "open-bowel-ischaemia-pmc10066158-fig8",
@@ -1917,7 +1975,9 @@
    "side": "not_sided",
    "evidence": "listed_term",
    "term": "mesenteric venous thrombosis",
-   "listed_part": "mesenteric venous thrombosis pattern"
+   "listed_parts": [
+    "mesenteric venous thrombosis pattern"
+   ]
   },
   {
    "asset_id": "open-bowel-ischaemia-pmc10066158-fig9",
@@ -1931,7 +1991,11 @@
    "side": "not_sided",
    "evidence": "listed_term",
    "term": "embolism",
-   "listed_part": "embolus proximal margin"
+   "listed_parts": [
+    "embolus proximal margin",
+    "embolus distal margin",
+    "occluding embolus"
+   ]
   },
   {
    "asset_id": "open-bowel-ischaemia-pmc10066158-fig9",
@@ -1946,7 +2010,9 @@
    "side": "not_sided",
    "evidence": "listed_term",
    "term": "embolism",
-   "listed_part": "arterial embolic pattern"
+   "listed_parts": [
+    "arterial embolic pattern"
+   ]
   },
   {
    "asset_id": "open-bowel-obstruction-pmc10066158-fig2",
@@ -2002,7 +2068,10 @@
    "side": "not_sided",
    "evidence": "listed_term",
    "term": "hernia",
-   "listed_part": "external hernia neck"
+   "listed_parts": [
+    "external hernia neck",
+    "internal hernia defect"
+   ]
   },
   {
    "asset_id": "open-bowel-obstruction-pmc10066158-fig4",
@@ -2018,7 +2087,10 @@
    "side": "not_sided",
    "evidence": "listed_term",
    "term": "hernia",
-   "listed_part": "obstructing external hernia pattern"
+   "listed_parts": [
+    "obstructing external hernia pattern",
+    "internal hernia pattern"
+   ]
   },
   {
    "asset_id": "open-bowel-obstruction-pmc4729712-fig10",
@@ -2029,30 +2101,6 @@
    "quote": "Source CT transition and angulation without a visible underlying lesion.",
    "side": "not_sided",
    "evidence": "own_word"
-  },
-  {
-   "asset_id": "open-bowel-obstruction-pmc4729712-fig10",
-   "structure_id": "bowel_obstruction.causes",
-   "name": "Each actual obstructing cause and complete interfaces",
-   "panels": [],
-   "field": "caption",
-   "quote": "The author adhesion attribution is source context; an unseen cause is not proof of a particular band.",
-   "side": "not_sided",
-   "evidence": "listed_term",
-   "term": "adhesion",
-   "listed_part": "suspected adhesive transition"
-  },
-  {
-   "asset_id": "open-bowel-obstruction-pmc4729712-fig10",
-   "structure_id": "bowel_obstruction.positive_examples",
-   "name": "Separate source obstruction/differential states",
-   "panels": [],
-   "field": "caption",
-   "quote": "The author adhesion attribution is source context; an unseen cause is not proof of a particular band.",
-   "side": "not_sided",
-   "evidence": "listed_term",
-   "term": "adhesion",
-   "listed_part": "adhesive sbo suspected pattern"
   },
   {
    "asset_id": "open-bowel-obstruction-pmc4729712-fig2",
@@ -2093,7 +2141,9 @@
    "side": "not_sided",
    "evidence": "listed_term",
    "term": "beak",
-   "listed_part": "beak region"
+   "listed_parts": [
+    "beak region"
+   ]
   },
   {
    "asset_id": "open-bowel-obstruction-pmc4729712-fig2",
@@ -2108,7 +2158,10 @@
    "side": "not_sided",
    "evidence": "listed_term",
    "term": "closed-loop",
-   "listed_part": "short closed loop pattern"
+   "listed_parts": [
+    "short closed loop pattern",
+    "long closed loop pattern"
+   ]
   },
   {
    "asset_id": "open-bowel-obstruction-pmc4729712-fig3",
@@ -2120,7 +2173,9 @@
    "side": "not_sided",
    "evidence": "listed_term",
    "term": "radial-loop",
-   "listed_part": "radial loop configuration"
+   "listed_parts": [
+    "radial loop configuration"
+   ]
   },
   {
    "asset_id": "open-bowel-obstruction-pmc4729712-fig4",
@@ -2142,7 +2197,9 @@
    "side": "not_sided",
    "evidence": "listed_term",
    "term": "fluid",
-   "listed_part": "free fluid distribution"
+   "listed_parts": [
+    "free fluid distribution"
+   ]
   },
   {
    "asset_id": "open-bowel-obstruction-pmc4729712-fig6",
@@ -2158,7 +2215,9 @@
    "side": "not_sided",
    "evidence": "listed_term",
    "term": "free-gas",
-   "listed_part": "free intraperitoneal gas"
+   "listed_parts": [
+    "free intraperitoneal gas"
+   ]
   },
   {
    "asset_id": "open-bowel-obstruction-pmc4729712-fig7",
@@ -2186,7 +2245,9 @@
    "side": "not_sided",
    "evidence": "listed_term",
    "term": "external-hernia",
-   "listed_part": "external hernia neck"
+   "listed_parts": [
+    "external hernia neck"
+   ]
   },
   {
    "asset_id": "open-bowel-obstruction-pmc4729712-fig7",
@@ -2201,7 +2262,9 @@
    "side": "not_sided",
    "evidence": "listed_term",
    "term": "external-hernia",
-   "listed_part": "obstructing external hernia pattern"
+   "listed_parts": [
+    "obstructing external hernia pattern"
+   ]
   },
   {
    "asset_id": "open-bowel-wall-pmc3999365-fig12",
@@ -2267,7 +2330,9 @@
    "side": "not_sided",
    "evidence": "listed_term",
    "term": "fistula",
-   "listed_part": "fistula tract if visible"
+   "listed_parts": [
+    "fistula tract if visible"
+   ]
   },
   {
    "asset_id": "open-bowel-wall-pmc3999365-fig13",
@@ -2279,7 +2344,9 @@
    "side": "not_sided",
    "evidence": "listed_term",
    "term": "fistula",
-   "listed_part": "fistula if visible"
+   "listed_parts": [
+    "fistula if visible"
+   ]
   },
   {
    "asset_id": "open-bowel-wall-pmc3999365-fig14",
@@ -2300,18 +2367,6 @@
    "quote": "Source contrast-enhanced CT with marked ascending/descending colonic wall thickening, stratification and limited adjacent fat stranding.",
    "side": "not_sided",
    "evidence": "own_word"
-  },
-  {
-   "asset_id": "open-bowel-wall-pmc3999365-fig14",
-   "structure_id": "bowel_wall.infectious_immune",
-   "name": "Actual infectious/immune-context bowel observations",
-   "panels": [],
-   "field": "caption",
-   "quote": "The author pseudomembranous-colitis suggestion is not an independent microbiological diagnosis from the image.",
-   "side": "not_sided",
-   "evidence": "listed_term",
-   "term": "pseudomembranous",
-   "listed_part": "pseudomembranous pattern if supported"
   },
   {
    "asset_id": "open-bowel-wall-pmc3999365-fig15",
@@ -2353,7 +2408,9 @@
    "side": "not_sided",
    "evidence": "listed_term",
    "term": "thickened",
-   "listed_part": "thickened wall"
+   "listed_parts": [
+    "thickened wall"
+   ]
   },
   {
    "asset_id": "open-bowel-wall-pmc3999365-fig18",
@@ -2391,7 +2448,9 @@
    "side": "not_sided",
    "evidence": "listed_term",
    "term": "thickened",
-   "listed_part": "thickened wall"
+   "listed_parts": [
+    "thickened wall"
+   ]
   },
   {
    "asset_id": "open-bowel-wall-pmc3999365-fig20",
@@ -2473,7 +2532,9 @@
    "side": "not_sided",
    "evidence": "listed_term",
    "term": "diverticula",
-   "listed_part": "diverticular focus"
+   "listed_parts": [
+    "diverticular focus"
+   ]
   },
   {
    "asset_id": "open-bowel-wall-pmc3999365-fig9",
@@ -2513,7 +2574,9 @@
    "side": "not_sided",
    "evidence": "listed_term",
    "term": "polyp",
-   "listed_part": "polypoid lesion"
+   "listed_parts": [
+    "polypoid lesion"
+   ]
   },
   {
    "asset_id": "open-small-bowel-tumour-pmc12071709-fig10",
@@ -2543,7 +2606,9 @@
    "side": "not_sided",
    "evidence": "listed_term",
    "term": "dilatation",
-   "listed_part": "upstream dilatation"
+   "listed_parts": [
+    "upstream dilatation"
+   ]
   },
   {
    "asset_id": "open-small-bowel-tumour-pmc12071709-fig11",
@@ -2570,7 +2635,9 @@
    "side": "not_sided",
    "evidence": "listed_term",
    "term": "obstruction",
-   "listed_part": "obstructed region"
+   "listed_parts": [
+    "obstructed region"
+   ]
   },
   {
    "asset_id": "open-small-bowel-tumour-pmc12071709-fig11",
@@ -2598,7 +2665,9 @@
    "side": "not_sided",
    "evidence": "listed_term",
    "term": "adenocarcinoma",
-   "listed_part": "adenocarcinoma example"
+   "listed_parts": [
+    "adenocarcinoma example"
+   ]
   },
   {
    "asset_id": "open-small-bowel-tumour-pmc12071709-fig12",
@@ -2614,7 +2683,9 @@
    "side": "not_sided",
    "evidence": "listed_term",
    "term": "stenosis",
-   "listed_part": "stenosis"
+   "listed_parts": [
+    "stenosis"
+   ]
   },
   {
    "asset_id": "open-small-bowel-tumour-pmc12071709-fig14",
@@ -2653,7 +2724,9 @@
    "side": "not_sided",
    "evidence": "listed_term",
    "term": "hepatic lesions",
-   "listed_part": "each hepatic lesion"
+   "listed_parts": [
+    "each hepatic lesion"
+   ]
   },
   {
    "asset_id": "open-small-bowel-tumour-pmc12071709-fig19",
@@ -2668,7 +2741,9 @@
    "side": "not_sided",
    "evidence": "listed_term",
    "term": "hepatic lesions",
-   "listed_part": "each hepatic lesion"
+   "listed_parts": [
+    "each hepatic lesion"
+   ]
   },
   {
    "asset_id": "open-small-bowel-tumour-pmc12071709-fig2",
@@ -2695,7 +2770,9 @@
    "side": "not_sided",
    "evidence": "listed_term",
    "term": "hepatic lesion",
-   "listed_part": "each hepatic lesion"
+   "listed_parts": [
+    "each hepatic lesion"
+   ]
   },
   {
    "asset_id": "open-small-bowel-tumour-pmc12071709-fig20",
@@ -2761,7 +2838,9 @@
    "side": "not_sided",
    "evidence": "listed_term",
    "term": "adenocarcinoma",
-   "listed_part": "adenocarcinoma example"
+   "listed_parts": [
+    "adenocarcinoma example"
+   ]
   },
   {
    "asset_id": "open-small-bowel-tumour-pmc12071709-fig4",
@@ -2776,7 +2855,9 @@
    "side": "not_sided",
    "evidence": "listed_term",
    "term": "polyp",
-   "listed_part": "polypoid lesion"
+   "listed_parts": [
+    "polypoid lesion"
+   ]
   },
   {
    "asset_id": "open-small-bowel-tumour-pmc12071709-fig4",
@@ -2806,9 +2887,7 @@
    "field": "caption",
    "quote": "Source CT A/B with focal invagination and a source-described ileal polyp.",
    "side": "not_sided",
-   "evidence": "listed_term",
-   "term": "invagination",
-   "listed_part": "invaginated mesentery"
+   "evidence": "own_word"
   },
   {
    "asset_id": "open-small-bowel-tumour-pmc12071709-fig5",
@@ -2853,7 +2932,9 @@
    "side": "not_sided",
    "evidence": "listed_term",
    "term": "obstruction",
-   "listed_part": "obstructed region"
+   "listed_parts": [
+    "obstructed region"
+   ]
   },
   {
    "asset_id": "open-small-bowel-tumour-pmc12071709-fig9",
@@ -2867,9 +2948,11 @@
    "field": "caption",
    "quote": "Source CT A–C with intussusceptions, obstruction and source-described hepatic metastases in a melanoma context; identity with the Figure 5 patient is not established.",
    "side": "not_sided",
-   "evidence": "listed_term",
-   "term": "hepatic",
-   "listed_part": "each hepatic lesion"
+   "evidence": "kind_of",
+   "kind_of": {
+    "caption_word": "hepatic metastases",
+    "requirement_word": "spread site"
+   }
   },
   {
    "asset_id": "open-temporal-bone-pmc11913933-fig2",
@@ -4559,7 +4642,9 @@
    "side": "not_sided",
    "evidence": "listed_term",
    "term": "perimural signal",
-   "listed_part": "perimural signal region"
+   "listed_parts": [
+    "perimural signal region"
+   ]
   },
   {
    "asset_id": "open-crohn-mri-pmc12634764-fig2",
@@ -5979,7 +6064,9 @@
    "side": "not_sided",
    "evidence": "listed_term",
    "term": "stone",
-   "listed_part": "each stone"
+   "listed_parts": [
+    "each stone"
+   ]
   },
   {
    "asset_id": "open-breast-us-pmc10000574-fig10-ultrasound-breast",
@@ -6145,7 +6232,9 @@
    "side": "not_sided",
    "evidence": "listed_term",
    "term": "acalculous-cholecystitis",
-   "listed_part": "acalculous cholecystitis pattern"
+   "listed_parts": [
+    "acalculous cholecystitis pattern"
+   ]
   },
   {
    "asset_id": "open-gallbladder-pmc12181115-fig4",
@@ -6159,7 +6248,9 @@
    "side": "not_sided",
    "evidence": "listed_term",
    "term": "gangrenous",
-   "listed_part": "gangrenous pattern"
+   "listed_parts": [
+    "gangrenous pattern"
+   ]
   },
   {
    "asset_id": "open-gallbladder-pmc12181115-fig6",
@@ -6173,7 +6264,9 @@
    "side": "not_sided",
    "evidence": "listed_term",
    "term": "perforation",
-   "listed_part": "perforation site"
+   "listed_parts": [
+    "perforation site"
+   ]
   },
   {
    "asset_id": "open-gallbladder-pmc12181115-fig6",
@@ -6187,7 +6280,9 @@
    "side": "not_sided",
    "evidence": "listed_term",
    "term": "perforation",
-   "listed_part": "perforation pattern"
+   "listed_parts": [
+    "perforation pattern"
+   ]
   },
   {
    "asset_id": "open-gallbladder-pmc5359147-fig3",
@@ -6201,7 +6296,9 @@
    "side": "not_sided",
    "evidence": "listed_term",
    "term": "carcinoma",
-   "listed_part": "suspicious carcinoma pattern"
+   "listed_parts": [
+    "suspicious carcinoma pattern"
+   ]
   },
   {
    "asset_id": "open-gallbladder-pmc5359147-fig5",
@@ -6219,7 +6316,9 @@
    "side": "not_sided",
    "evidence": "listed_term",
    "term": "adenomyomatosis",
-   "listed_part": "adenomyomatosis pattern"
+   "listed_parts": [
+    "adenomyomatosis pattern"
+   ]
   },
   {
    "asset_id": "open-gallbladder-pmc5359147-fig7",
@@ -6727,8 +6826,8 @@
   },
   {
    "asset_id": "open-renal-trauma-pmc4376814-fig11",
-   "name": "Bowel injury; vascular lesion",
-   "reason": "The reduced enhancement is renal, and the contrast focus is not named as a listed vascular lesion."
+   "name": "Bowel injury; vascular lesion; solid-organ injury",
+   "reason": "The reduced enhancement is renal, the contrast focus is not named as a listed vascular lesion, and the laceration is named only in a note that the source description is unconfirmed."
   },
   {
    "asset_id": "open-renal-trauma-pmc4376814-fig3",
@@ -6739,6 +6838,11 @@
    "asset_id": "open-renal-trauma-pmc4376814-fig9",
    "name": "Fluid or haematoma (published caption)",
    "reason": "Bound from the stored structure note, which names the haematoma."
+  },
+  {
+   "asset_id": "open-bowel-obstruction-pmc4729712-fig10",
+   "name": "Obstructing cause; adhesive pattern",
+   "reason": "Adhesion is named only in a note that the author’s attribution is unconfirmed."
   },
   {
    "asset_id": "open-acute-aortic-pmc3505562-fig10",
@@ -6809,6 +6913,11 @@
    "asset_id": "open-bowel-obstruction-pmc4729712-fig7",
    "name": "Closed-loop geometry",
    "reason": "A closed loop is not named."
+  },
+  {
+   "asset_id": "open-bowel-wall-pmc3999365-fig14",
+   "name": "Infectious or immune-context observations",
+   "reason": "The colitis is named only in a note that the author’s suggestion is unconfirmed."
   },
   {
    "asset_id": "open-bowel-wall-pmc3999365-fig12",
