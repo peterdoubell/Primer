@@ -6,6 +6,7 @@ from primer.curriculum import Curriculum
 from primer.radiology_catalog import detail,resolve
 from tools.check_msk_fidelity import requirements_for
 from tools.anatomy_sources.expand_cystic_lung_requirements import build
+from tools.anatomy_sources.bind_stored_caption_assets import only_caption_bindings
 ROOT=Path(__file__).resolve().parents[1];OUT=ROOT/'docs/cystic-lung-published-source-review';PREFIX='open-cystic-lung-pmc13200743-fig'
 def sha(raw):return hashlib.sha256(raw).hexdigest()
 def test_original_files_and_decoded_pixels_are_preserved_with_actual_grant():
@@ -30,7 +31,7 @@ def test_rights_clearance_cannot_supply_full_anatomical_requirement_bindings():
     assert len(assets)==11
     for a in assets:
         l=a['source']['license'];assert l['name']=='CC BY 4.0' and l['commercial_use'] and sha((ROOT/l['evidence_path']).read_bytes())==l['evidence_sha256']
-        assert not a['structure_ids'] and not a['requirement_coverage'] and a['anatomical_review']['status']=='pending'
+        assert only_caption_bindings(a) and a['anatomical_review']['status']=='pending'
 def test_full_structure_scope_requires_actual_sites_and_current_contract():
     item=build();stored=next(i for i in json.loads((ROOT/'data/radiology/non-msk-structure-requirements.json').read_text())['investigations'] if i['investigation_id']=='ra.hrct-lung')
     assert item['structures']==[s for s in stored['structures'] if s['id'].startswith('cystic_lung.')]

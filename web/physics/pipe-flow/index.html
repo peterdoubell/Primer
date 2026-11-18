@@ -1,0 +1,26 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Flow through a narrowing pipe · Primer</title>
+<link rel="stylesheet" href="/app/activities/kit.css">
+<script defer src="/app/activities/kit.js"></script>
+<script defer src="lab.js"></script>
+</head>
+<body><main>
+<a href="/app/#/node/phys.4.fluids">Return to Fluid Mechanics</a>
+<h1>Flow through a narrowing pipe</h1>
+<p class="lede">Water cannot pile up, so it speeds up where the pipe narrows. Where it moves faster its pressure is lower.</p>
+<div class="controls">
+<div><label for="a1">Wide section area (cm²)</label><input type="range" id="a1" min="5" max="50" step="1" value="20"><output id="a1-out" for="a1"></output></div>
+<div><label for="a2">Narrow section area (cm²)</label><input type="range" id="a2" min="1" max="50" step="1" value="5"><output id="a2-out" for="a2"></output></div>
+<div><label for="v1">Speed in the wide section (m/s)</label><input type="range" id="v1" min="0.5" max="5" step="0.5" value="2"><output id="v1-out" for="v1"></output></div>
+</div>
+<p id="sum" class="big" style="font-weight:700"></p>
+<figure>
+<canvas id="graph" width="720" height="340" role="img" aria-label="A pipe that changes width, with arrows showing the speed in each section. The table below gives the same values."></canvas>
+</figure>
+<table><caption>The two sections</caption><thead><tr><th scope="col">Quantity</th><th scope="col">Wide section</th><th scope="col">Narrow section</th></tr></thead><tbody id="rows"></tbody></table>
+<p id="result" role="status"></p>
+</main></body></html>

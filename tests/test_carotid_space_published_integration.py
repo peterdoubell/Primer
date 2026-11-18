@@ -1,5 +1,6 @@
 import hashlib,json
 from pathlib import Path
+from tools.anatomy_sources.bind_stored_caption_assets import only_caption_bindings
 ROOT=Path(__file__).resolve().parents[1];INV='ra.mri-neck-spaces';PREFIX='open-neck-spaces-pmc6377693-fig'
 def rows():return json.loads((ROOT/'data/radiology/radiology-open-images.json').read_text())[INV]
 def test_conceptual_layers_and_mixed_acquisitions_have_actual_roles():
@@ -22,7 +23,7 @@ def test_original_samples_and_pending_anatomy_are_retained_for_every_figure():
         _validate_source_panel_roles(r)
         assert hashlib.sha256((ROOT/'web'/r['src'].removeprefix('/app/')).read_bytes()).hexdigest()==r['sha256']
         assert 'Harris U. Chengazi, Alok A. Bhatt' in r['attribution']
-        a=next(a for a in ledger if a['id']==r['id']);assert a['anatomical_review']['status']=='pending' and not a['structure_ids'] and not a['requirement_coverage']
+        a=next(a for a in ledger if a['id']==r['id']);assert a['anatomical_review']['status']=='pending' and only_caption_bindings(a)
         assert not a['pixel_provenance']['source_pixels_changed']
     n=json.loads((ROOT/'data/radiology/reporting-steps/head-neck.json').read_text())['investigations'][INV]
     assert n['start']['images']==[PREFIX+'1'] and all(s['normal']=={} for s in n['steps'])

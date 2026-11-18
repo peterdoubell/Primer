@@ -1,0 +1,24 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The Cantor set: uncountable, yet of length zero · Primer</title>
+<link rel="stylesheet" href="/app/activities/kit.css">
+<script defer src="/app/activities/kit.js"></script>
+<script defer src="lab.js"></script>
+</head>
+<body><main>
+<a href="/app/#/node/math.5.measure">Return to Measure Theory</a>
+<h1>The Cantor set: uncountable, yet of length zero</h1>
+<p class="lede">Start with the interval from 0 to 1 and keep removing the open middle third of every piece. Measure what is left.</p>
+<div class="controls">
+<div><label for="n">Steps taken</label><input type="range" id="n" min="0" max="7" step="1" value="3"><output id="n-out" for="n"></output></div>
+</div>
+<p id="sum" class="big" style="font-weight:700"></p>
+<figure>
+<canvas id="graph" width="720" height="360" role="img" aria-label="Rows of bars showing the pieces left after each step. The table below gives the same values."></canvas>
+</figure>
+<table><caption>What is left after each step</caption><thead><tr><th scope="col">Step</th><th scope="col">Pieces</th><th scope="col">Length of each</th><th scope="col">Total length</th></tr></thead><tbody id="rows"></tbody></table>
+<p id="result" role="status"></p>
+</main></body></html>

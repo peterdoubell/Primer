@@ -1,6 +1,9 @@
 """Fast report templates and normal reports, laid out for pasting into a RIS.
 
-Each examination has a study title and short sentence-case headings. Under a
+Each examination has a study title and short sentence-case headings, one for
+every structure the study is routinely reported on. Headings that belong
+together (the intrinsic ligaments, the extensor compartments, the disc levels)
+share a ``group``, which is printed once as a subheading above them. Under a
 heading the first line is the normal finding; the lines after it are the
 common abnormal findings, written with picks ``[a / b]`` and blanks ``[ ]``
 only where the reader must explain. The same data renders a complete normal
@@ -29,6 +32,7 @@ CONFIRMED_ACQUISITIONS = {
 BLANK_IMPRESSION = 'Impression:\n1. []\n2. []\n3. []'
 BLANK_RECOMMENDATION = 'Recommendation:\n1. []\n2. []\n3. []'
 BULLET = '• '
+MOST_HEADINGS = 30  # a joint MRI names every ligament, tendon and compartment it reports
 HEADING = re.compile(r"[A-Z][\w ,/()'\-]*[\w)]")
 
 
@@ -63,14 +67,20 @@ def _option(text, where):
     return text
 
 
-def _section(section, where):
-    if set(section) - {'heading', 'normal', 'options'} or 'heading' not in section or 'normal' not in section:
-        raise ValueError(f'{where}: a section has heading, normal and options')
-    heading = section['heading']
+def _heading(heading, where):
     if not isinstance(heading, str) or not HEADING.fullmatch(heading) or len(heading) > 60:
         raise ValueError(f'{where}: heading {heading!r} must be short sentence case without punctuation at the end')
     if heading.upper() == heading and ' ' in heading:
         raise ValueError(f'{where}: heading {heading!r} must be sentence case')
+    return heading
+
+
+def _section(section, where):
+    if set(section) - {'heading', 'group', 'normal', 'options'} or 'heading' not in section or 'normal' not in section:
+        raise ValueError(f'{where}: a section has heading, normal and options, and may have a group')
+    heading = _heading(section['heading'], where)
+    if 'group' in section:
+        _heading(section['group'], where)
     _normal(section['normal'], f'{where} {heading}')
     options = section.get('options', [])
     if not isinstance(options, list) or len(options) > 5:
@@ -96,14 +106,23 @@ def validate(identifier, item):
     if 'technique' in item:
         _section({'heading': 'Technique', **item['technique']}, identifier)
     sections = item.get('sections')
-    if not isinstance(sections, list) or not 2 <= len(sections) <= 12:
-        raise ValueError(f'{identifier}: two to twelve finding headings')
+    if not isinstance(sections, list) or not 2 <= len(sections) <= MOST_HEADINGS:
+        raise ValueError(f'{identifier}: two to {MOST_HEADINGS} finding headings')
     seen = set()
     for section in sections:
         _section(section, identifier)
         key = section['heading'].lower()
         if key in RESERVED or key in seen:
             raise ValueError(f'{identifier}: heading {section["heading"]!r} is reserved or repeated')
+        seen.add(key)
+    for group, members in _blocks(sections):
+        if group is None:
+            continue
+        key = group.lower()
+        if key in RESERVED or key == 'findings' or key in seen:
+            raise ValueError(f'{identifier}: subheading {group!r} is reserved, repeated or split')
+        if len(members) < 2:
+            raise ValueError(f'{identifier}: subheading {group!r} needs two or more headings under it')
         seen.add(key)
     impression = item.get('impression')
     impression = [impression] if isinstance(impression, str) else impression
@@ -143,6 +162,18 @@ def acquisition_heading(identifier, item):
     return 'Protocol' if re.search(r'\bMRI?\b|\bMRCP\b', title) else None
 
 
+def _blocks(sections):
+    """The sections in order, those that share a subheading gathered under it: [(group or None, [section])]."""
+    blocks = []
+    for section in sections:
+        group = section.get('group')
+        if group and blocks and blocks[-1][0] == group:
+            blocks[-1][1].append(section)
+        else:
+            blocks.append((group, [section]))
+    return blocks
+
+
 def _sections(item, heading):
     sections = list(item['sections'])
     if not heading:
@@ -157,16 +188,20 @@ def render(item, normal=False, heading=None):
 
     Layout: main headings (clinical history, comparison, study name, protocol or technique,
     findings, impression, recommendation), then anatomical subheadings whose findings are
-    bullet lines. The study name runs into its first heading and Findings into its first
-    subheading; impression and recommendation are numbered lists.
+    bullet lines. Headings that share a group follow its subheading without a blank line.
+    The study name runs into its first heading and Findings into its first subheading;
+    impression and recommendation are numbered lists.
     """
     blocks = []
-    for index, section in enumerate(_sections(item, heading)):
-        acquisition = bool(heading) and index == 0
-        # One sentence per bullet for the normal finding, as dictated.
-        first = [section['normal']] if acquisition else re.split(r'(?<=\.)\s+(?=[A-Z])', section['normal'])
-        lines = [*first, *([] if normal else section.get('options', []))]
-        blocks.append(section['heading'] + ':\n' + '\n'.join(line if acquisition else BULLET + line for line in lines))
+    for group, members in _blocks(_sections(item, heading)):
+        parts = []
+        for section in members:
+            acquisition = bool(heading) and not blocks and not parts
+            # One sentence per bullet for the normal finding, as dictated.
+            first = [section['normal']] if acquisition else re.split(r'(?<=\.)\s+(?=[A-Z])', section['normal'])
+            lines = [*first, *([] if normal else section.get('options', []))]
+            parts.append(section['heading'] + ':\n' + '\n'.join(line if acquisition else BULLET + line for line in lines))
+        blocks.append((group + ':\n' if group else '') + '\n'.join(parts))
     if heading:
         blocks[1] = 'Findings:\n' + blocks[1]
     blocks[0] = item['title'] + '\n' + blocks[0]
@@ -189,7 +224,9 @@ def render_dictation(item, heading):
         label = 'Technique' if draft else heading
         technique = draft['technique'] if draft else item['technique']['normal']
         study += f'\n{label}:\n{technique}'
-    findings = draft['findings'] if draft else [section['heading'] + ': []' for section in item['sections']]
+    findings = draft['findings'] if draft else [
+        (group + ':\n' if group else '') + '\n'.join(section['heading'] + ': []' for section in members)
+        for group, members in _blocks(item['sections'])]
     if heading:
         findings = ['Findings:\n' + findings[0], *findings[1:]]
     text = '\n\n'.join(['Clinical history:\n[]', 'Comparison:\n[]', study, *findings,
@@ -217,7 +254,8 @@ def quick_report(identifier):
     if item is None:
         return None
     heading = acquisition_heading(identifier, item)
-    headings = [section['heading'] for section in _sections(item, heading)]
+    headings = [name for group, members in _blocks(_sections(item, heading))
+                for name in [*([group] if group else []), *(section['heading'] for section in members)]]
     if heading:
         headings.insert(1, 'Findings')
     return {'title': item['title'], 'radiograph': item['radiograph'], 'headings': headings,

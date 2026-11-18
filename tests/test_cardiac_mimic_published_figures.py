@@ -4,6 +4,7 @@ from pathlib import Path
 from PIL import Image
 from primer.curriculum import Curriculum
 from primer.radiology_catalog import detail,resolve
+from tools.anatomy_sources.bind_stored_caption_assets import only_caption_bindings
 ROOT=Path(__file__).resolve().parents[1];OUT=ROOT/'docs/cardiac-mimic-published-source-review';PREFIX='open-cardiac-mimic-pmc10818366-fig'
 def sha(raw):return hashlib.sha256(raw).hexdigest()
 def test_original_source_samples_and_actual_grant_are_preserved():
@@ -43,5 +44,5 @@ def test_rights_do_not_borrow_native_geometry_diagnosis_or_noncommercial_materia
     a=json.loads((ROOT/'data/radiology/radiology-asset-evidence.json').read_text())['assets'];rows=[r for r in a if r['id'].startswith(PREFIX)];assert len(rows)==38
     for r in rows:
         l=r['source']['license'];assert l['name']=='CC BY 4.0' and l['commercial_use'] and l['redistribution']
-        assert sha((ROOT/l['evidence_path']).read_bytes())==l['evidence_sha256'] and not r['structure_ids'] and not r['requirement_coverage'] and r['anatomical_review']['status']=='pending'
+        assert sha((ROOT/l['evidence_path']).read_bytes())==l['evidence_sha256'] and only_caption_bindings(r) and r['anatomical_review']['status']=='pending'
     assert json.loads((OUT/'original-source-review.json').read_text())['noncommercial_other_article_images_not_reused']=='PMC9558634'

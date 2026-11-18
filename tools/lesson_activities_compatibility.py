@@ -22,10 +22,15 @@ def before_activity_registry_bytes(path, raw):
         from tools.recist_pelvic_runtime_compatibility import before_recist_pelvic_delivery_bytes
         raw = before_recist_pelvic_delivery_bytes(path, raw)
     if str(path) == 'data/radiology/radiology-asset-evidence.json':
-        # Newest links for the evidence file: stored Radiology Assistant figures, then the sided ultrasound panels.
+        # Newest links for the evidence file: sided Radiology Assistant figures, second-pass stored-caption bindings, first-pass stored-caption bindings,
+        # Radiology Assistant figures, sided ultrasound panels.
+        from tools.anatomy_sources.bind_stored_caption_assets import before_stored_caption_bindings
+        from tools.anatomy_sources.bind_stored_caption_assets_pass2 import before_stored_caption_bindings_pass2
+        from tools.anatomy_sources.package_radiology_assistant_sided_figures import before_radiology_assistant_sided_figures
+        raw = before_stored_caption_bindings_pass2(before_radiology_assistant_sided_figures(raw))
         from tools.anatomy_sources.package_radiology_assistant_figures import before_radiology_assistant_figures
         from tools.anatomy_sources.package_thoracic_us_side_panels import before_side_panels
-        return before_side_panels(before_radiology_assistant_figures(raw))
+        return before_side_panels(before_radiology_assistant_figures(before_stored_caption_bindings(raw)))
     if str(path) == PATH and hashlib.sha256(raw).hexdigest() == DICTATION_LAYOUT[0]:
         raw = raw.replace(DICTATION_LAYOUT[1], DICTATION_LAYOUT[2], 1)
         if hashlib.sha256(raw).hexdigest() != AFTER:

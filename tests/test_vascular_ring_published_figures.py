@@ -5,6 +5,7 @@ from pathlib import Path
 from PIL import Image
 from primer.curriculum import Curriculum
 from primer.radiology_catalog import detail,resolve
+from tools.anatomy_sources.bind_stored_caption_assets import only_caption_bindings
 ROOT=Path(__file__).resolve().parents[1]
 FOLDER=ROOT/'docs/vascular-ring-published-source-review'
 PREFIX='open-vascular-ring-pmc4141344-fig'
@@ -48,5 +49,5 @@ def test_rights_clearance_does_not_grant_anatomy_or_reuse_other_articles():
     for r in rows:
         license=r['source']['license'];assert license['name']=='CC BY 4.0' and license['commercial_use'] and license['redistribution']
         assert sha((ROOT/license['evidence_path']).read_bytes())==license['evidence_sha256']
-        assert not r['structure_ids'] and not r['requirement_coverage'] and r['anatomical_review']['status']=='pending'
+        assert only_caption_bindings(r) and r['anatomical_review']['status']=='pending'
     assert json.loads((FOLDER/'original-source-review.json').read_text())['noncommercial_other_article_images_not_reused']=='PMC9705143'

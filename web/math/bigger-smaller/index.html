@@ -1,0 +1,25 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Which is bigger? · Primer</title>
+<link rel="stylesheet" href="/app/activities/kit.css">
+<script defer src="/app/activities/kit.js"></script>
+<script defer src="lab.js"></script>
+</head>
+<body><main>
+<a href="/app/#/node/math.0.compare">Return to Bigger and Smaller</a>
+<h1>Which is bigger?</h1>
+<p class="lede">Choose two numbers. Line up the dots and see which row is longer.</p>
+<div class="controls">
+<div><label for="a">First number</label><input type="range" id="a" min="0" max="20" step="1" value="7"><output id="a-out" for="a"></output></div>
+<div><label for="b">Second number</label><input type="range" id="b" min="0" max="20" step="1" value="4"><output id="b-out" for="b"></output></div>
+</div>
+<p id="sum" class="big" style="font-weight:700"></p>
+<figure>
+<canvas id="graph" width="720" height="200" role="img" aria-label="Two rows of dots, one for each number. The table below gives the same values."></canvas>
+</figure>
+<table><caption>Values</caption><thead><tr><th scope="col">Question</th><th scope="col">Answer</th></tr></thead><tbody id="rows"></tbody></table>
+<p id="result" role="status"></p>
+</main></body></html>

@@ -6,6 +6,7 @@ from pathlib import Path
 from primer.curriculum import Curriculum
 from primer.radiology_catalog import detail,resolve
 from tools.check_msk_fidelity import inspect_binding
+from tools.anatomy_sources.bind_stored_caption_assets import only_caption_bindings
 
 ROOT=Path(__file__).resolve().parents[1];REVIEW=ROOT/'docs/pancreatic-cyst-published-source-review'
 
@@ -29,7 +30,7 @@ def test_all_seven_figures_use_larger_original_encoded_streams_without_structure
         assert r['license']=='CC BY 4.0' and r['modality']=='MRI'
         assert r['clinical_panels']==src['selected_mri_panels']
         a=next(a for a in assets if a['id']==r['id'])
-        assert a['structure_ids']==[] and a['requirement_coverage']=={} and a['investigation_ids']==['ra.pancreatic-cysts']
+        assert only_caption_bindings(a) and a['investigation_ids']==['ra.pancreatic-cysts']
         assert a['anatomical_review']['status']=='pending'
     assert original['separately_credited_2021_book_figure_excluded']=='PMC8355307 Fig2'
     assert not any('pmc8355307-fig2' in r['id'] for r in rows)

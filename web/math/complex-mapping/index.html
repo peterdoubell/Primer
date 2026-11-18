@@ -1,0 +1,26 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>A complex function as a map of the plane · Primer</title>
+<link rel="stylesheet" href="/app/activities/kit.css">
+<script defer src="/app/activities/kit.js"></script>
+<script defer src="lab.js"></script>
+</head>
+<body><main>
+<a href="/app/#/node/math.5.complex-analysis">Return to Complex Analysis</a>
+<h1>A complex function as a map of the plane</h1>
+<p class="lede">A complex function sends each point z to a point w. Where the derivative is not zero, it stretches and turns every tiny shape the same way.</p>
+<div class="controls">
+<div><label for="f">Function</label><select id="f"><option value="square">w = z²</option><option value="inverse">w = 1/z</option><option value="exp">w = eᶻ</option></select></div>
+<div><label for="re">Real part of z</label><input type="range" id="re" min="-2" max="2" step="0.25" value="1"><output id="re-out" for="re"></output></div>
+<div><label for="im">Imaginary part of z</label><input type="range" id="im" min="-2" max="2" step="0.25" value="0.5"><output id="im-out" for="im"></output></div>
+</div>
+<p id="sum" class="big" style="font-weight:700"></p>
+<figure>
+<canvas id="graph" width="720" height="700" role="img" aria-label="The complex plane showing z, its image w, the circle through z and the image of that circle. The table below gives the same values."></canvas>
+</figure>
+<table><caption>Values</caption><thead><tr><th scope="col">Quantity</th><th scope="col">Value</th></tr></thead><tbody id="rows"></tbody></table>
+<p id="result" role="status"></p>
+</main></body></html>

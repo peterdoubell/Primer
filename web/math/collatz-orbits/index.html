@@ -1,0 +1,24 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>An open problem you can try: the Collatz conjecture · Primer</title>
+<link rel="stylesheet" href="/app/activities/kit.css">
+<script defer src="/app/activities/kit.js"></script>
+<script defer src="lab.js"></script>
+</head>
+<body><main>
+<a href="/app/#/node/math.5.frontier">Return to The Frontier</a>
+<h1>An open problem you can try: the Collatz conjecture</h1>
+<p class="lede">Take a whole number. If it is even, halve it; if it is odd, triple it and add one. Repeat. Nobody has proved that every start reaches 1.</p>
+<div class="controls">
+<div><label for="n">Starting number</label><input type="range" id="n" min="1" max="200" step="1" value="27"><output id="n-out" for="n"></output></div>
+</div>
+<p id="sum" class="big" style="font-weight:700"></p>
+<figure>
+<canvas id="graph" width="720" height="460" role="img" aria-label="Line graph of the values visited from the starting number until it reaches 1. The table below gives the same values."></canvas>
+</figure>
+<table><caption>Values</caption><thead><tr><th scope="col">Quantity</th><th scope="col">Value</th></tr></thead><tbody id="rows"></tbody></table>
+<p id="result" role="status"></p>
+</main></body></html>

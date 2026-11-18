@@ -1,0 +1,27 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Measuring shapes and solids · Primer</title>
+<link rel="stylesheet" href="/app/activities/kit.css">
+<script defer src="/app/activities/kit.js"></script>
+<script defer src="lab.js"></script>
+</head>
+<body><main>
+<a href="/app/#/node/math.2.geometry">Return to Area, Perimeter and Volume</a>
+<h1>Measuring shapes and solids</h1>
+<p class="lede">Perimeter is the distance round a shape, area is the surface it covers, and volume is the space a solid fills.</p>
+<div class="controls">
+<div><label for="shape">Shape</label><select id="shape"><option value="rectangle">Rectangle</option><option value="triangle">Right-angled triangle</option><option value="circle">Circle</option><option value="cuboid">Cuboid</option></select></div>
+<div><label for="a">Length a (or radius)</label><input type="range" id="a" min="1" max="12" step="1" value="6"><output id="a-out" for="a"></output></div>
+<div><label for="b">Length b</label><input type="range" id="b" min="1" max="12" step="1" value="4"><output id="b-out" for="b"></output></div>
+<div><label for="c">Height c (cuboid only)</label><input type="range" id="c" min="1" max="12" step="1" value="3"><output id="c-out" for="c"></output></div>
+</div>
+<p id="sum" class="big" style="font-weight:700"></p>
+<figure>
+<canvas id="graph" width="720" height="520" role="img" aria-label="The chosen shape drawn with its lengths labelled. The table below gives the same values."></canvas>
+</figure>
+<table><caption>Measures</caption><thead><tr><th scope="col">Measure</th><th scope="col">Rule</th><th scope="col">Value</th></tr></thead><tbody id="rows"></tbody></table>
+<p id="result" role="status"></p>
+</main></body></html>

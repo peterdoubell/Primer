@@ -6,6 +6,7 @@ from primer.curriculum import Curriculum
 from primer.radiology_catalog import detail,resolve
 from tools.check_msk_fidelity import requirements_for
 from tools.anatomy_sources.expand_hrct_fibrosis_requirements import build
+from tools.anatomy_sources.bind_stored_caption_assets import only_caption_bindings
 ROOT=Path(__file__).resolve().parents[1];OUT=ROOT/'docs/hrct-fibrosis-published-source-review';PREFIX='open-hrct-fibrosis-pmc11914337-fig'
 def sha(raw):return hashlib.sha256(raw).hexdigest()
 def test_original_publisher_bytes_and_pixels_keep_exact_original_grant():
@@ -30,7 +31,7 @@ def test_rights_and_source_integrity_do_not_approve_structure_bindings():
     rows=[r for r in json.loads((ROOT/'data/radiology/radiology-asset-evidence.json').read_text())['assets'] if r['id'].startswith(PREFIX)];assert len(rows)==6
     for row in rows:
         l=row['source']['license'];assert l['name']=='CC BY 4.0' and l['commercial_use'] and sha((ROOT/l['evidence_path']).read_bytes())==l['evidence_sha256']
-        assert row['anatomical_review']['status']=='pending' and not row['structure_ids'] and not row['requirement_coverage']
+        assert row['anatomical_review']['status']=='pending' and only_caption_bindings(row)
 def test_inventory_covers_lobular_patterns_and_full_actual_site_instantiation():
     item=build();stored=next(i for i in json.loads((ROOT/'data/radiology/non-msk-structure-requirements.json').read_text())['investigations'] if i['investigation_id']=='ra.hrct-lung');assert item==stored
     assert len(item['structures'])==157 and len(requirements_for(item))==1176

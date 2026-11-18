@@ -8,6 +8,7 @@ from PIL import Image
 from primer.curriculum import Curriculum
 from primer.radiology_catalog import detail, resolve
 from tools.anatomy_sources.acquire_pancreatitis_vascular_figures import exact_license
+from tools.anatomy_sources.bind_stored_caption_assets import only_caption_bindings
 
 ROOT = Path(__file__).resolve().parents[1]
 REVIEW = ROOT / 'docs/bowel-wall-published-source-review'
@@ -63,7 +64,7 @@ def test_cleared_source_pixels_do_not_grant_wall_layer_fistula_or_model_coverage
     rows = [r for r in json.loads((ROOT / 'data/radiology/radiology-asset-evidence.json').read_text())['assets'] if r['id'].startswith('open-bowel-wall-')]
     assert len(rows) == 10
     for row in rows:
-        assert row['structure_ids'] == [] and row['requirement_coverage'] == {} and row['anatomical_review']['status'] == 'pending'
+        assert only_caption_bindings(row) and row['anatomical_review']['status'] == 'pending'
         rights = row['source']['license']; assert rights['name'] == 'CC BY 2.0'
         assert rights['commercial_use'] and rights['redistribution']
         assert hashlib.sha256((ROOT / rights['evidence_path']).read_bytes()).hexdigest() == rights['evidence_sha256']

@@ -9,6 +9,7 @@ from primer.curriculum import Curriculum
 from primer.radiology_catalog import detail,resolve
 from tools.anatomy_sources.acquire_aortic_rupture_figures import SELECTION
 from tools.anatomy_sources.acquire_hernia_valsalva_figures import acquire,verify_flate_readback
+from tools.anatomy_sources.bind_stored_caption_assets import only_caption_bindings
 
 ROOT=Path(__file__).resolve().parents[1]
 FOLDER=ROOT/'docs/aortic-rupture-published-source-review'
@@ -71,7 +72,7 @@ def test_rights_and_pixel_proof_cannot_grant_complete_anatomical_coverage():
     for row in rows:
         rights=row['source']['license'];assert rights['review_status']=='verified' and rights['commercial_use'] and rights['redistribution']
         assert sha((ROOT/rights['evidence_path']).read_bytes())==rights['evidence_sha256']
-        assert row['anatomical_review']['status']=='pending' and row['structure_ids']==[] and row['requirement_coverage']=={}
+        assert row['anatomical_review']['status']=='pending' and only_caption_bindings(row)
         assert not row['pixel_provenance']['highest_resolution_acquired_master_verified']
 
 

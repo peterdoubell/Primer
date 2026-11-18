@@ -1,0 +1,26 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Comedies, histories and tragedies · Primer</title>
+<link rel="stylesheet" href="/app/activities/kit.css">
+<script defer src="/app/activities/kit.js"></script>
+<script defer src="lab.js"></script>
+</head>
+<body><main>
+<a href="/app/#/node/lang.3.shakespeare">Return to Shakespeare</a>
+<h1>Comedies, histories and tragedies</h1>
+<p class="lede">The First Folio of 1623 sorted Shakespeare’s plays into comedies, histories and tragedies. Dates are approximate; scholars date the plays from records and style.</p>
+<label for="show">Show</label><select id="show"></select>
+<figure>
+<canvas id="graph" width="760" height="440" role="img" aria-label="Time line of when each play was written (approximate). The table below gives the same information."></canvas>
+<figcaption>Time line of when each play was written (approximate).</figcaption>
+</figure>
+<table><caption>Play table</caption><thead><tr><th scope="col">Play</th><th scope="col">Kind</th><th scope="col">Written about</th><th scope="col">In one line</th></tr></thead><tbody id="rows"></tbody></table>
+<h2>Test yourself</h2>
+<p id="prompt"></p>
+<div id="choices" class="choices"></div>
+<p id="feedback" role="status"></p>
+<p id="result" role="status"></p>
+</main></body></html>

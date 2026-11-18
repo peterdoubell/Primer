@@ -4,6 +4,7 @@ from pathlib import Path
 from PIL import Image
 from primer.curriculum import Curriculum
 from primer.radiology_catalog import detail,resolve
+from tools.anatomy_sources.bind_stored_caption_assets import only_caption_bindings
 ROOT=Path(__file__).resolve().parents[1];OUT=ROOT/'docs/thoracic-tb-published-source-review';PREFIX='open-thoracic-tb-pmc11449295-fig'
 def sha(raw):return hashlib.sha256(raw).hexdigest()
 def test_complete_original_files_pixels_and_original_article_grant():
@@ -28,6 +29,6 @@ def test_integrity_and_licence_clearance_do_not_grant_anatomy_or_microbiology():
     assets=[r for r in json.loads((ROOT/'data/radiology/radiology-asset-evidence.json').read_text())['assets'] if r['id'].startswith(PREFIX)];assert len(assets)==13
     for a in assets:
         l=a['source']['license'];assert sha((ROOT/l['evidence_path']).read_bytes())==l['evidence_sha256'] and l['commercial_use']
-        assert not a['structure_ids'] and not a['requirement_coverage'] and a['anatomical_review']['status']=='pending'
+        assert only_caption_bindings(a) and a['anatomical_review']['status']=='pending'
         assert not a['source_context']['genotype_viability_infectivity_or_resistance_verified']
         assert not a['source_context']['full_native_anatomical_or_3D_extent_verified']

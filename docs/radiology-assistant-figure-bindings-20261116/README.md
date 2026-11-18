@@ -39,3 +39,27 @@ of 57,985. Every binding is recorded as partial coverage.
 - One figure per structure does not show its full extent.
 - `inverse.json` records the exact bytes added to `data/radiology/radiology-asset-evidence.json`.
   Rebuild with `python tools/anatomy_sources/package_radiology_assistant_figures.py` from the pre-binding file.
+
+## Second pass (2026-11-17)
+
+The first pass used only sections whose heading is the structure's name. The second pass widened the search to
+sections whose heading or text names an unbound structure that has no stated side.
+
+- 219 further figures were looked at. 50 were accepted, each only for the structures it labels or plainly marks.
+- Three accepted rows came from an article page that names no author. They were dropped, because the publisher's
+  terms require credit to the original author.
+- Bindings whose figure is in a modality the report does not use for that structure were dropped by the checker,
+  as before.
+- Some structure ids are shared by several investigations. A figure is now bound only if it suits every investigation
+  that lists the structure, so a CT figure is not bound to a structure that another report describes on ultrasound.
+
+Totals after both passes: 77 stored figures and 90 bindings, touching 36 investigations. Bound requirements stand at
+240 of 57,985, and 92 investigations still have none.
+
+The same limits apply. The review was by the packaging author at reduced size, not by a radiologist; every binding
+is partial; many figures are teaching cases that show pathology. Sided requirements remain unbound because the
+figures do not state a side.
+
+Update 2026-11-17: the side rule has since been relaxed (see
+`docs/stored-asset-caption-bindings-pass2-20261117/README.md`). The Radiology Assistant sections
+that name sided structures have not yet been reviewed under the new rule.

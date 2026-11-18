@@ -22,7 +22,7 @@ Comparison:
 
 Chest radiographs, PA and lateral / Chest radiograph, AP
 Airways and cardiomediastinum:
-• Trachea central.
+• Central trachea.
 • Normal heart size, mediastinal contours and hila.
 • [Cardiomegaly / Widened mediastinum / Hilar enlargement / Tracheal deviation] []
 
@@ -40,7 +40,7 @@ Pleura and diaphragm:
 
 Devices and bones:
 • No lines or devices.
-• No acute bony abnormality.
+• No acute bone abnormality.
 • [Endotracheal tube / Central venous catheter / Nasogastric tube / Pacemaker lead] tip []
 • [Rib fracture / Vertebral fracture / Lytic lesion / Sclerotic lesion] []
 
@@ -62,7 +62,7 @@ Comparison:
 
 Chest radiographs, PA and lateral / Chest radiograph, AP
 Airways and cardiomediastinum:
-• Trachea central.
+• Central trachea.
 • Normal heart size, mediastinal contours and hila.
 
 Lungs:
@@ -74,7 +74,7 @@ Pleura and diaphragm:
 
 Devices and bones:
 • No lines or devices.
-• No acute bony abnormality.
+• No acute bone abnormality.
 
 Impression:
 1. Normal chest radiograph.
@@ -115,7 +115,9 @@ def test_layout_rules_hold_for_every_template(identifier):
     report = rt.quick_report(identifier)
     template, normal = report['template'].split('\n'), report['normal'].split('\n')
     header = rt.acquisition_heading(identifier, item)
-    first = header or item['sections'][0]['heading']
+    # A heading that opens a group is preceded by the group's subheading.
+    opening = item['sections'][0].get('group') or item['sections'][0]['heading']
+    first = header or opening
     for lines in (template, normal):
         # The study name runs straight into its first heading.
         assert lines[:8] == ['Clinical history:', '[]', '', 'Comparison:', '[]', '', item['title'], first + ':']
@@ -130,7 +132,7 @@ def test_layout_rules_hold_for_every_template(identifier):
         assert template[start + 1] == item['technique']['normal']
         assert 'Limited by []' in template and 'Limited by []' not in normal
         # Findings runs straight into the first anatomical subheading.
-        assert template[template.index('Findings:') + 1] == item['sections'][0]['heading'] + ':'
+        assert template[template.index('Findings:') + 1] == opening + ':'
     else:
         assert not {'Technique', 'Protocol'} & set(report['headings'])
     numbered = 'Impression:\n1. []\n2. []\n3. []\n\nRecommendation:\n1. []\n2. []\n3. []'
@@ -146,7 +148,13 @@ def test_layout_rules_hold_for_every_template(identifier):
         options = [option.replace('[ ].', '[]').replace('[ ]', '[]') for option in section.get('options', [])]
         expected = ['\u2022 ' + line for line in [*sentences, *options]]
         assert template[start + 1:start + 1 + len(expected)] == expected
-        assert template[start + 1 + len(expected):start + 2 + len(expected)] in ([''], [])
+        after = template[start + 1 + len(expected):start + 2 + len(expected)]
+        # A blank line ends the block; inside a group the next heading follows at once.
+        assert after in ([''], []) or (section.get('group') and after[0].endswith(':')), (identifier, after)
+    for group, members in rt._blocks(item['sections']):
+        if group:
+            start = template.index(group + ':')
+            assert template[start + 1] == members[0]['heading'] + ':' and (start == 0 or template[start - 1] in ('', 'Findings:', item['title']))
 
 
 def test_radiograph_titles_and_flags_agree():
@@ -188,11 +196,34 @@ def test_malformed_templates_are_refused():
         ({'title': 'Chest [PA / AP]'}, 'study title'),
         ({'impression': 'Normal [chest / lungs].'}, 'normal line'),
         ({'impression': []}, 'impression'),
-        ({'sections': good['sections'][:1]}, 'two to twelve'),
+        ({'sections': good['sections'][:1]}, 'two to 30'),
+        ({'sections': good['sections'] * 8}, 'two to 30'),
         ({'extra': True}, 'unknown'),
     ]:
         with pytest.raises(ValueError, match=message):
             rt.validate('bad', {**copy.deepcopy(good), **change})
+
+
+def test_a_subheading_groups_two_or_more_adjacent_headings():
+    good = copy.deepcopy(rt.library()['ra.chest-radiography'])
+    def grouped(*groups):
+        item = copy.deepcopy(good)
+        for section, group in zip(item['sections'], groups):
+            if group:
+                section['group'] = group
+        return item
+    rt.validate('good', grouped('Chest', 'Chest', None, None))
+    for groups, message in [(('Chest', None, None, None), 'two or more'), (('Chest', 'Chest', None, 'Chest'), 'split'),
+                            (('Lungs', 'Lungs', None, None), 'repeated'), (('Findings', 'Findings', None, None), 'reserved'),
+                            (('chest:', 'chest:', None, None), 'sentence case')]:
+        with pytest.raises(ValueError, match=message):
+            rt.validate('bad', grouped(*groups))
+    item = grouped('Chest', 'Chest', None, None)
+    text = rt.render(item)
+    assert '\nChest:\nAirways and cardiomediastinum:\n• Central trachea.' in text
+    assert '\nLungs:\n• Clear.' in text and '\n\nLungs:' not in text
+    draft = rt.render_dictation(item, None)['text']
+    assert '\n\nChest:\nAirways and cardiomediastinum: []\nLungs: []\n\nPleura and diaphragm: []' in draft
 
 
 def test_library_files_are_schema_tagged_and_ids_unique(tmp_path, monkeypatch):

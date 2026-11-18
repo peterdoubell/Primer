@@ -1,0 +1,25 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Heat flow along a rod · Primer</title>
+<link rel="stylesheet" href="/app/activities/kit.css">
+<script defer src="/app/activities/kit.js"></script>
+<script defer src="lab.js"></script>
+</head>
+<body><main>
+<a href="/app/#/node/math.5.pde">Return to Partial Differential Equations</a>
+<h1>Heat flow along a rod</h1>
+<p class="lede">A rod with both ends held at zero. Heat flows from hot to cold, and each sine-shaped mode of the temperature decays at its own rate.</p>
+<div class="controls">
+<div><label for="start">Starting temperature</label><select id="start"><option value="mix">sin(πx) + ½ sin(3πx)</option><option value="mode1">sin(πx)</option><option value="mode2">sin(2πx)</option><option value="mode3">sin(3πx)</option></select></div>
+<div><label for="t">Time</label><input type="range" id="t" min="0" max="5" step="0.1" value="0.5"><output id="t-out" for="t"></output></div>
+</div>
+<p id="sum" class="big" style="font-weight:700"></p>
+<figure>
+<canvas id="graph" width="720" height="460" role="img" aria-label="Temperature along the rod at the start and at the chosen time. The table below gives the same values."></canvas>
+</figure>
+<table><caption>Modes</caption><thead><tr><th scope="col">Mode</th><th scope="col">Starting size</th><th scope="col">Size now</th><th scope="col">Time to halve</th></tr></thead><tbody id="rows"></tbody></table>
+<p id="result" role="status"></p>
+</main></body></html>

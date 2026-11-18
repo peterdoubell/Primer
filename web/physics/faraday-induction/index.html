@@ -1,0 +1,28 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Faraday’s law: a changing field makes a voltage · Primer</title>
+<link rel="stylesheet" href="/app/activities/kit.css">
+<script defer src="/app/activities/kit.js"></script>
+<script defer src="lab.js"></script>
+</head>
+<body><main>
+<a href="/app/#/node/phys.3.em">Return to Electricity and Magnetism</a>
+<h1>Faraday’s law: a changing field makes a voltage</h1>
+<p class="lede">A coil in a changing magnetic field has a voltage induced in it. Only the change matters: a steady field induces nothing.</p>
+<div class="controls">
+<div><label for="turns">Turns of wire</label><input type="range" id="turns" min="1" max="200" step="1" value="50"><output id="turns-out" for="turns"></output></div>
+<div><label for="area">Area of the coil (cm²)</label><input type="range" id="area" min="1" max="100" step="1" value="20"><output id="area-out" for="area"></output></div>
+<div><label for="b1">Field at the start (tesla)</label><input type="range" id="b1" min="-1" max="1" step="0.1" value="0"><output id="b1-out" for="b1"></output></div>
+<div><label for="b2">Field at the end (tesla)</label><input type="range" id="b2" min="-1" max="1" step="0.1" value="0.5"><output id="b2-out" for="b2"></output></div>
+<div><label for="dt">Time taken (seconds)</label><input type="range" id="dt" min="0.01" max="2" step="0.01" value="0.5"><output id="dt-out" for="dt"></output></div>
+</div>
+<p id="sum" class="big" style="font-weight:700"></p>
+<figure>
+<canvas id="graph" width="720" height="400" role="img" aria-label="Graph of the magnetic field against time; the sloping part is where voltage is induced. The table below gives the same values."></canvas>
+</figure>
+<table><caption>Values</caption><thead><tr><th scope="col">Quantity</th><th scope="col">Value</th></tr></thead><tbody id="rows"></tbody></table>
+<p id="result" role="status"></p>
+</main></body></html>

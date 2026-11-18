@@ -7,6 +7,7 @@ import pytest
 from primer.curriculum import Curriculum
 from primer.radiology_catalog import detail,resolve
 from tools.anatomy_sources.acquire_pancreatitis_vascular_figures import exact_license
+from tools.anatomy_sources.bind_stored_caption_assets import only_caption_bindings
 
 ROOT=Path(__file__).resolve().parents[1]
 
@@ -32,7 +33,7 @@ def test_original_vascular_examples_do_not_invent_phase_diagnosis_or_structure_c
         assert hashlib.sha256((ROOT/'web'/r['src'].removeprefix('/app/')).read_bytes()).hexdigest()==r['sha256']
         assert r['license']==source['license']
         a=next(a for a in assets if a['id']==r['id'])
-        assert a['structure_ids']==[] and a['requirement_coverage']=={}
+        assert only_caption_bindings(a)
         assert a['anatomical_review']['status']=='pending' and a['investigation_ids']==['ra.ct-pancreatitis']
     conflict=next(r for r in rows if 'pmc12490646' in r['id'])
     assert conflict['source_modality_caption_body_discrepancy'] is True

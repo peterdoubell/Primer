@@ -17,6 +17,7 @@ from tools.pulmonary_data_compatibility import restore_prior_view
 from tools.check_msk_fidelity import audit,requirements_for,validate_reporting_snapshots,inspect_binding
 from tools.check_radiology_fidelity import digest
 from tools.msk_runtime_rights import license_issues
+from tools.anatomy_sources.bind_stored_caption_assets import only_caption_bindings
 
 ROOT=Path(__file__).resolve().parents[1]
 INV='ra.ct-traumatic-haemorrhage'
@@ -151,7 +152,7 @@ def test_full_report_contract_and_named_fine_anatomy_floor_remain_unapproved(sta
     result=audit({'investigations':[item],'scope':{'catalog_investigation_ids':[INV]},'clinical_validation_status':'draft_requires_neuroradiologist_review'},
                  {'assets':assets},ROOT,expected_catalog_ids={INV})
     assert result['counts']=={'verified':0,'unverified':0,'missing':10884}
-    assert all(a['structure_ids']==[] and a['requirement_coverage']=={} and a['anatomical_review']['status']=='pending' for a in assets)
+    assert all(only_caption_bindings(a) and a['anatomical_review']['status']=='pending' for a in assets)
 
 
 def test_unrelated_value_tokens_and_nontraumatic_source_contract_are_preserved(state):
