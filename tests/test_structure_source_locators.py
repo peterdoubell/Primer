@@ -67,8 +67,9 @@ def test_side_panels_are_partial_sided_bindings_with_an_exact_inverse():
     from tools.anatomy_sources.bind_stored_caption_assets import before_stored_caption_bindings
     from tools.anatomy_sources.bind_stored_caption_assets_pass2 import before_stored_caption_bindings_pass2
     from tools.anatomy_sources.package_radiology_assistant_sided_figures import before_radiology_assistant_sided_figures as before_sided
+    from tools.anatomy_sources.bind_finding_figures import before_finding_figure_bindings as before_findings
     # Publisher figures, then two passes of stored-caption bindings, were added after the panels.
-    raw_panels = before_radiology_assistant_figures(before_stored_caption_bindings(before_stored_caption_bindings_pass2(before_sided(raw))))
+    raw_panels = before_radiology_assistant_figures(before_stored_caption_bindings(before_stored_caption_bindings_pass2(before_sided(before_findings(raw)))))
     assert hashlib.sha256(raw_panels).hexdigest() == receipt['after_sha256']
     assert hashlib.sha256(before_side_panels(raw_panels)).hexdigest() == receipt['before_sha256']
     assert before_side_panels(raw + b'\n') == raw + b'\n'
@@ -102,8 +103,9 @@ def test_publisher_figures_are_stored_reviewed_and_bound_as_partial_educational_
     from tools.anatomy_sources.bind_stored_caption_assets import before_stored_caption_bindings
     from tools.anatomy_sources.bind_stored_caption_assets_pass2 import before_stored_caption_bindings_pass2
     from tools.anatomy_sources.package_radiology_assistant_sided_figures import before_radiology_assistant_sided_figures as before_sided
+    from tools.anatomy_sources.bind_finding_figures import before_finding_figure_bindings as before_findings
     # Two passes of stored-caption bindings were added after these figures.
-    raw = before_stored_caption_bindings(before_stored_caption_bindings_pass2(before_sided(raw)))
+    raw = before_stored_caption_bindings(before_stored_caption_bindings_pass2(before_sided(before_findings(raw))))
     assert hashlib.sha256(raw).hexdigest() == receipt['after_sha256']
     assert hashlib.sha256(before_radiology_assistant_figures(raw)).hexdigest() == receipt['before_sha256']
     assert 'educational purposes with due credit' in TERMS.read_text()

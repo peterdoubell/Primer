@@ -47,6 +47,7 @@ are not mirror images, so an unsided sentence does not bind them.
 
 - Findings and diagnoses (haematoma, fracture, thrombus, stenosis and so on): 133 candidate pairs.
   Whether a figure of a finding should support a finding requirement is a separate decision.
+  (Decided on 2026-11-18: see `docs/finding-figure-bindings-20261118`.)
 - 126 figures have rejected candidates, each with a reason in `review.json`. Common reasons: the
   sentence is about a panel that is not selected; the caption names a different part or the other
   side; a stored note only says what the figure cannot show.

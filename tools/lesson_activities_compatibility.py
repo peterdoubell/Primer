@@ -24,7 +24,8 @@ def before_activity_registry_bytes(path, raw):
         from tools.anatomy_sources.bind_stored_caption_assets import before_stored_caption_bindings
         from tools.anatomy_sources.bind_stored_caption_assets_pass2 import before_stored_caption_bindings_pass2
         from tools.anatomy_sources.package_radiology_assistant_sided_figures import before_radiology_assistant_sided_figures
-        raw = before_stored_caption_bindings_pass2(before_radiology_assistant_sided_figures(raw))
+        from tools.anatomy_sources.bind_finding_figures import before_finding_figure_bindings
+        raw = before_stored_caption_bindings_pass2(before_radiology_assistant_sided_figures(before_finding_figure_bindings(raw)))
         from tools.anatomy_sources.package_radiology_assistant_figures import before_radiology_assistant_figures
         from tools.anatomy_sources.package_thoracic_us_side_panels import before_side_panels
         return before_side_panels(before_radiology_assistant_figures(before_stored_caption_bindings(raw)))
