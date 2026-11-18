@@ -93,8 +93,12 @@ is stated in a different sentence of the same caption, that sentence is stored a
 - Figures that an existing rule keeps unbound: the reused acute abdomen references, the stroke
   perfusion records and the mixed appendix figure.
 - 240 figures have rejected candidates, each with a reason in `review.json`.
-- About 770 further caption matches fail the checker because of malformed codes in the figure
-  record.
+- 740 further caption matches fail the checker. 336 are genuine conflicts (a modality outside the
+  requirement's scope, or a side or depicted state that does not match), which the checker is right
+  to refuse. The other 404 involve a malformed context code in the figure record, such as an extent
+  of `source_local_views` or a depicted state with capital letters. Such a code makes the checker
+  refuse every binding of its figure; 256 stored figures and models carry one, and repairing them is
+  a separate pass.
 - None of the 116 stored Radiology Assistant figures has a recorded sentence that names a finding
   requirement, so none was bound in this pass.
 

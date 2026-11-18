@@ -129,7 +129,7 @@
   "unconfirmed_notes": "A finding that the stored description mentions only to say that the source’s suggestion, attribution or description of it is unconfirmed is not bound. A diagnosis that the description reports as the source’s own is accepted, and its basis quotes the whole sentence with any limit it states.",
   "lungs": "A lung or pulmonary artery finding whose caption states no side is not bound, because the two sides are not mirror images.",
   "radiology_assistant_figures": "None of the 116 stored Radiology Assistant figures has a recorded sentence that names a finding requirement.",
-  "checker": "About 770 further caption matches fail the checker because of malformed codes in the figure record."
+  "checker": "740 further caption matches fail the checker. 336 are genuine conflicts (a modality outside the requirement’s scope, or a side or depicted state that does not match), which the checker is right to refuse. The other 404 involve a malformed context code in the figure record, such as an extent of “source_local_views” or a depicted state with capital letters. Such a code makes the checker refuse every binding of its figure; 256 stored figures and models carry one, and repairing them is a separate pass."
  },
  "accepted": [
   {
