@@ -575,3 +575,45 @@ test('every registered activity has its page, script and a return link to its mo
     }
   }
 });
+
+test('DIAPIX-FL preserves all case-sensitive source rows and transparent vowel medians', async () => {
+  const model = await import('../web/language/vowel-formant-map/data.mjs');
+  const folder = path.join(root, 'language/vowel-formant-map');
+  const packed = fs.readFileSync(path.join(folder, 'vowels.txt.gz'));
+  const raw = require('node:zlib').gunzipSync(packed);
+  const metadata = JSON.parse(fs.readFileSync(path.join(folder, 'source.json')));
+  const hash = require('node:crypto').createHash('sha256').update(raw).digest('hex');
+  assert.equal(hash, '787f99e8d2aa6e0025ba2a864a1f797d1270a5dfafd3cfd06eb76740090a38b6');
+  assert.equal(raw.length, 2582403);
+  assert.equal(metadata.sourceSHA256, hash);
+  assert.equal(metadata.sourceMD5, require('node:crypto').createHash('md5').update(raw).digest('hex'));
+  const tokens = model.readTokens(raw.toString('utf8'));
+  assert.equal(tokens.length, 55978);
+  assert.equal(tokens[0].word, 'theres');
+  assert.deepEqual([tokens[0].f1, tokens[0].f2, tokens[0].row], [439, 1970, 1]);
+  assert.equal(new Set(tokens.map(model.speakerKey)).size, 20);
+  const filters = {speaking:'',l1:'',vowel:'',speaker:'',word:''};
+  assert.deepEqual(model.selectTokens(tokens, filters), tokens);
+  assert.equal(model.selectTokens(tokens, {...filters,speaking:'Sp',vowel:'I'}).length, 4963);
+  assert.equal(model.selectTokens(tokens, {...filters,speaking:'Sp',vowel:'i'}).length, 764);
+  assert.equal(model.selectTokens(tokens, {...filters,speaking:'En',l1:'En'}).length, 8537);
+  assert.equal(model.selectTokens(tokens, {...filters,speaking:'Sp',l1:'Sp'}).length, 21278);
+  const groups = model.summaries(tokens, 'tokens');
+  assert.equal(groups.length, 44);
+  assert.equal(groups.reduce((n,row)=>n+row.tokens,0), tokens.length);
+  assert.ok(groups.every(row=>row.speakers===10));
+  const byId = new Map(groups.map(row=>[row.id,row]));
+  assert.deepEqual([byId.get('En|En|ih').tokens,byId.get('En|En|ih').f1,byId.get('En|En|ih').f2], [1603,447,2002]);
+  assert.deepEqual([byId.get('En|Sp|ih').tokens,byId.get('En|Sp|ih').f1,byId.get('En|Sp|ih').f2], [2154,368,2356]);
+  const equalSpeakers = new Map(model.summaries(tokens, 'speakers').map(row=>[row.id,row]));
+  assert.deepEqual([equalSpeakers.get('En|Sp|ih').f1,equalSpeakers.get('En|Sp|ih').f2], [368.25,2363.75]);
+  assert.deepEqual([equalSpeakers.get('Sp|En|I').f1,equalSpeakers.get('Sp|En|I').f2], [396,2586.25]);
+  assert.equal(model.comparison(byId.get('Sp|Sp|u'),byId.get('Sp|Sp|i'),'f1'),'tie');
+  assert.equal(model.comparison(byId.get('En|En|ih'),byId.get('En|Sp|ih'),'f1'),'first');
+  assert.equal(model.comparison(byId.get('En|En|ih'),byId.get('En|Sp|ih'),'f2'),'second');
+  assert.equal(model.median([8,1,3,2]), 2.5);
+  const box={left:0,right:300,top:0,bottom:210};
+  assert.deepEqual(model.plotPosition(1000,2400,box),{x:100,y:100});
+  assert.ok(model.plotPosition(500,3000,box).x<model.plotPosition(500,1000,box).x);
+  assert.ok(model.plotPosition(1000,2000,box).y>model.plotPosition(500,2000,box).y);
+});
