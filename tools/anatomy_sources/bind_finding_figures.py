@@ -122,7 +122,7 @@ def basis(row):
     else:
         pair = row['kind_of']
         relation = ('which this requirement abbreviates as %s' if pair['requirement_word'].isupper()
-                    else 'which is a kind of %s') % pair['requirement_word']
+                    else 'which this requirement covers under “%s”') % pair['requirement_word']
         text = 'The %s of this figure names “%s”, %s: “%s”' % (source, pair['caption_word'], relation, row['quote'])
     if row.get('side_quote'):
         text += ' The caption states the side: “%s”' % row['side_quote']
