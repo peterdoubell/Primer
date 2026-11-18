@@ -21,6 +21,9 @@ def before_activity_registry_bytes(path, raw):
     # Newest link for the backend: the learning-sequence router (2026-11-18).
     from tools.learning_games_compatibility import before_learning_games_bytes
     raw = before_learning_games_bytes(path, raw)
+    # Newest link for the evidence file and the figure catalog: repaired figure-record context codes.
+    from tools.anatomy_sources.repair_source_context_codes import before_source_context_repairs
+    raw = before_source_context_repairs(path, raw)
     if str(path) == PATH:
         from tools.recist_pelvic_runtime_compatibility import before_recist_pelvic_delivery_bytes
         raw = before_recist_pelvic_delivery_bytes(path, raw)
