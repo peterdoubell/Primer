@@ -7,6 +7,7 @@ from pathlib import Path
 import pytest
 
 from primer.descriptor_reporting import render_descriptors
+from primer.report_templates import CONFIRMED_ACQUISITIONS
 
 ROOT = Path(__file__).resolve().parents[1]
 with gzip.open(ROOT / 'data/radiology/descriptor-reporting.json.gz', 'rt') as source:
@@ -67,24 +68,24 @@ def test_standard_acquisition_exists_for_each_mri_and_ct():
             assert not exam.get('report_protocol'), exam['id']
 
 
-@pytest.mark.parametrize('identifier', [
-    'ra.biliary-duct-pathology',
-    'ra.pancreatic-cysts',
-])
+@pytest.mark.parametrize('identifier', sorted(CONFIRMED_ACQUISITIONS))
 def test_multimodality_protocol_only_appears_after_confirmation(identifier):
     from copy import deepcopy
-    from primer.report_templates import align_builder_protocols, library
+    from primer.report_templates import acquisition_heading, align_builder_protocols, library
     from primer.reporting_bridge import descriptor_forms
 
     stored_form, stored_exam = EXAMS[identifier]
     served_form = descriptor_forms()['forms'][stored_form['guide_id']]
     served = next(exam for exam in served_form['investigations'] if exam['id'] == identifier)
-    option = library()[identifier]['technique']['normal']
+    item = library()[identifier]
+    option = item['technique']['normal']
+    heading = acquisition_heading(identifier, item)
     assert served['modality'] == 'Multimodality'
     assert served['sections'] == stored_exam['sections']
     assert served['report_protocol']['options'] == [option]
     assert served['report_protocol']['standard_text'] == ''
-    assert served['report_protocol']['heading'] == 'Protocol'
+    assert served['report_protocol']['heading'] == heading
+    assert served['report_protocol']['sources']
     catalogue = {'forms': {stored_form['guide_id']: deepcopy(served_form)}}
     assert align_builder_protocols(catalogue)['forms'][stored_form['guide_id']] == served_form
     for exam in served_form['investigations']:
@@ -97,7 +98,7 @@ def test_multimodality_protocol_only_appears_after_confirmation(identifier):
     baseline = render_descriptors(stored_form, generic)
     explicit = dict(generic, report_fields={'protocol_options': [option]})
     blank = dict(generic, report_fields={'protocol_options': [], 'protocol': '  '})
-    typed = dict(generic, report_fields={'protocol': 'Reader-confirmed MRCP details.'})
+    typed = dict(generic, report_fields={'protocol': 'Reader-confirmed acquisition details.'})
     empty = {'investigation_id': identifier, 'report_fields': {'protocol': ''}}
     forged = dict(generic, report_fields={'protocol_options': ['Unauthored MRCP option']})
 
@@ -109,9 +110,9 @@ def test_multimodality_protocol_only_appears_after_confirmation(identifier):
     assert text(generic) == text(blank) == baseline['text']
     assert text(empty) == ''
     confirmed = text(explicit)
-    assert served['title'] + f'\nProtocol:\n{option}\n\nFindings:\n' in confirmed
+    assert served['title'] + f'\n{heading}:\n{option}\n\nFindings:\n' in confirmed
     assert confirmed.count(option) == 1
-    assert '\nProtocol:\nReader-confirmed MRCP details.\n\nFindings:\n' in text(typed)
+    assert f'\n{heading}:\nReader-confirmed acquisition details.\n\nFindings:\n' in text(typed)
     assert option not in text(typed)
     assert not render_descriptors(served_form, forged)['valid']
 
@@ -128,7 +129,7 @@ def test_performed_acquisition_composes_with_both_exact_layout_inverses():
     from hashlib import sha256
     from tools.report_layout_compatibility import (
         NORMAL_LINE, before_click_builder_spacing_bytes, before_performed_acquisition_bytes,
-        before_rich_report_format_bytes,
+        before_rich_report_format_bytes, before_confirmed_acquisition_group_bytes,
     )
 
     folder = ROOT / 'docs' / 'report-format-parity'
@@ -136,7 +137,7 @@ def test_performed_acquisition_composes_with_both_exact_layout_inverses():
     spacing = json.loads((folder / 'acquisition-spacing-inverse.json').read_text())
     for path, proof in sources.items():
         raw = (ROOT / path).read_bytes()
-        assert sha256(raw).hexdigest() == proof['after']
+        assert sha256(before_confirmed_acquisition_group_bytes(path, raw)).hexdigest() == proof['after']
         assert sha256(before_performed_acquisition_bytes(path, raw)).hexdigest() == proof['before'] == spacing[path]['after']
         assert sha256(before_click_builder_spacing_bytes(path, raw)).hexdigest() == spacing[path]['before']
         assert sha256(before_rich_report_format_bytes(path, raw)).hexdigest() == NORMAL_LINE[path][1]

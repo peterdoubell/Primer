@@ -529,7 +529,8 @@ window.PrimerStructuredReporting = (() => {
     const selected = section => state.selections[section.id] || {normal: false, not_assessed: false, findings: {}};
     const displayGroup = name => {
       const exam = investigation();
-      return exam?.report_format === 3 && !exam.report_protocol && /^(technique|protocol)$/i.test(name)
+      const genericAcquisition = !exam?.report_protocol || exam.report_protocol.confirmed_only;
+      return exam?.report_format === 3 && genericAcquisition && /^(technique|protocol)$/i.test(name)
         ? 'Examination details' : name;
     };
     const compartmentOf = section => displayGroup(section.compartment || section.group || section.label);

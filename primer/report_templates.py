@@ -23,11 +23,24 @@ RESERVED = {'clinical history', 'technique', 'comparison', 'impression', 'recomm
 LIMITATION = 'Limited by [ ].'
 # Review worksheets and the contrast record are not acquired studies.
 NOT_ACQUIRED = {'template:ct-image-report', 'template:mri-sequences-report', 'ra.ct-contrast-protocols'}
-# These multimodality worksheets have an authored MR protocol and no
-# competing performed-modality control. The remaining options stay generic.
+# These multimodality worksheets offer one complete authored acquisition
+# description after the reader confirms it was performed.
 CONFIRMED_ACQUISITIONS = {
     'ra.biliary-duct-pathology': ('Confirm performed MRCP acquisition', 'biliary-duct-pathology'),
     'ra.pancreatic-cysts': ('Confirm performed pancreatic MRI and MRCP acquisition', 'pancreatic-cystic-lesions'),
+    'ra.adrenal-lesions': ('Confirm performed adrenal washout CT acquisition', 'characterization-of-adrenal-lesions-update'),
+    'ra.bone-tumours': ('Confirm performed contrast-enhanced bone lesion MRI acquisition and radiograph comparison', 'ra-bone-tumours'),
+    'ra.cardiac-masses': ('Confirm performed contrast-enhanced cardiac MRI acquisition', 'ref-cardiac-masses-tumors-and-mimics'),
+    'ra.cartilage-tumours': ('Confirm performed contrast-enhanced cartilage lesion MRI acquisition and radiograph comparison', 'ra-cartilage-tumours'),
+    'ra.craniosynostosis': ('Confirm performed low-dose unenhanced skull CT acquisition', 'neuro-ref-2'),
+    'ra.mullerian-anomalies': ('Confirm performed uterine anatomy MRI acquisition', 'm-llerian-duct-anomalies'),
+    'ra.paediatric-mediastinum': ('Confirm performed paediatric contrast CT chest acquisition', 'ref-pediatric-chest-ct-2'),
+    'ra.paediatric-renal-tumours': ('Confirm performed paediatric contrast CT abdomen acquisition', 'renal-tumors-in-children'),
+    'ra.renal-cysts-bosniak': ('Confirm performed renal cyst CT acquisition', 'bosniak-classification-2019'),
+    'ra.solid-renal-masses': ('Confirm performed renal mass CT acquisition', 'solid-renal-masses'),
+    'ra.stress-fractures': ('Confirm performed stress injury MRI acquisition', 'ra-stress-fractures'),
+    'ra.thymus': ('Confirm performed contrast CT chest acquisition for thymic assessment', 'ref-thymic-masses-and-mimics'),
+    'ra.venous-sinus-thrombosis': ('Confirm performed unenhanced CT head and CT venogram acquisition', 'neuro-ref-33'),
 }
 BLANK_IMPRESSION = 'Impression:\n1. []\n2. []\n3. []'
 BLANK_RECOMMENDATION = 'Recommendation:\n1. []\n2. []\n3. []'
@@ -266,8 +279,8 @@ def quick_report(identifier):
 def align_builder_protocols(catalogue):
     """Give the click builder the same default acquisition wording as the report template.
 
-    Existing study options stay as authored. The two multimodality
-    worksheets in CONFIRMED_ACQUISITIONS offer only an explicit MR option.
+    Existing study options stay as authored. Each listed multimodality
+    worksheet offers its authored acquisition after explicit confirmation.
     """
     templates = library()
     for form in catalogue.get('forms', {}).values():
