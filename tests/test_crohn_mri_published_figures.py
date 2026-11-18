@@ -5,6 +5,7 @@ from pathlib import Path
 from PIL import Image
 from primer.curriculum import Curriculum
 from primer.radiology_catalog import detail, resolve
+from tools.anatomy_sources.bind_stored_caption_assets import only_caption_bindings
 
 ROOT = Path(__file__).resolve().parents[1]
 REVIEW = ROOT / 'docs/crohn-mri-published-source-review'
@@ -69,7 +70,7 @@ def test_reporting_links_do_not_grant_native_sequence_or_structure_coverage():
     assets = [r for r in json.loads((ROOT / 'data/radiology/radiology-asset-evidence.json').read_text())['assets'] if r['id'].startswith('open-crohn-mri-')]
     assert len(assets) == 5
     for row in assets:
-        assert row['structure_ids'] == [] and row['requirement_coverage'] == {}
+        assert only_caption_bindings(row)
         assert row['anatomical_review']['status'] == 'pending'
         assert row['source_context']['native_sequence_and_registration_verified'] is False
         rights = row['source']['license']

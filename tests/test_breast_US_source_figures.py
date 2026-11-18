@@ -4,6 +4,7 @@ import pytest
 from PIL import Image
 from primer.curriculum import Curriculum
 from primer.radiology_catalog import detail,resolve,_validate_source_panel_roles
+from tools.anatomy_sources.bind_stored_caption_assets import only_caption_bindings
 ROOT=Path(__file__).resolve().parents[1];PREFIX='open-breast-us-pmc10000574-fig'
 def rows(inv):return [r for r in json.loads((ROOT/'data/radiology/radiology-open-images.json').read_text()).get(inv,[]) if r['id'].startswith(PREFIX)]
 def test_all_eleven_full_masters_preserve_original_samples_and_duplicate_source_bindings():
@@ -25,7 +26,7 @@ def test_reader_scoping_does_not_borrow_MRI_registration_or_approve_full_anatomy
     for inv,n in expected.items():
         assert len(rows(inv))==n;ref=detail(Curriculum(),resolve(inv))['radiology_reference'];assert not ref['key_images'] and not ref['walkthrough']['start']['images'];assert all(not s['normal'] for s in ref['walkthrough']['steps'])
         for a in assets:
-            if a['id'].startswith(PREFIX) and inv in a['investigation_ids']:assert not a['structure_ids'] and not a['requirement_coverage'] and a['anatomical_review']['status']=='pending'
+            if a['id'].startswith(PREFIX) and inv in a['investigation_ids']:assert only_caption_bindings(a) and a['anatomical_review']['status']=='pending'
     other=detail(Curriculum(),resolve('ra.mri-breast'))['radiology_reference'];assert not any(a['id'].startswith(PREFIX) for a in other.get('structure_atlas',[]))
     # Existing clinical readers/source rasters must retain their reviewed bytes.
     for row in json.loads((ROOT/'data/radiology/radiology-open-images.json').read_text())['ra.esophagus']:

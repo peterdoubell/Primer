@@ -303,3 +303,13 @@ before this change.
 118 section figures naming unbound left or right structures were reviewed; 39 were stored with 62
 partial bindings on 54 structures. Bound structures 449 → 503 of 57,985; investigations with none
 73 → 67. Details: `docs/radiology-assistant-sided-figure-bindings-20261117/README.md`.
+
+## Figures of findings bound to finding requirements (2026-11-18)
+
+On 2026-11-18 the project owner decided that figures of findings are bound to finding requirements.
+The stored figures were reviewed for that (`docs/finding-figure-bindings-20261118`): 462 partial
+bindings on 245 figures, covering 237 finding requirements. Bound structures 503 → 739 of 57,985;
+investigations with none 67 → 51. Each binding quotes the sentence that names the finding; 34 rest
+on a listed kind-of pair (a contusion is an injury). Unsided lung findings, catch-all requirements,
+measurements and findings named only in a note that the source's suggestion is unconfirmed were not
+bound. Nothing is anatomically approved.
