@@ -71,4 +71,7 @@ def test_the_additions_are_removed_byte_for_byte():
     assert hashlib.sha256(before_source_studies_bytes(PATH, raw)).hexdigest() not in (RECEIPT['after_sha256'], RECEIPT['before_sha256'])
     scope = 'docs/radiology-fidelity-scope.json'
     receipt = json.loads((ROOT / 'docs/remaining-reporting-inventories-20261116/scope-inverse.json').read_text())[scope]
-    assert hashlib.sha256((ROOT / scope).read_bytes()).hexdigest() == receipt['after']
+    from tools.recist_pelvic_runtime_compatibility import before_recist_pelvic_delivery_bytes
+    current_scope = (ROOT / scope).read_bytes()
+    historical_scope = before_recist_pelvic_delivery_bytes(scope, current_scope)
+    assert hashlib.sha256(historical_scope).hexdigest() == receipt['after']

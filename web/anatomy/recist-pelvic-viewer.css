@@ -1,0 +1,30 @@
+:root { font:16px/1.5 "Atkinson Hyperlegible Next", system-ui, sans-serif; color:#eef3f3; background:#131b20; }
+body { margin:0; }
+main { max-width:70rem; padding:clamp(.9rem,3vw,2rem); margin:auto; }
+h1 { font-size:clamp(2rem,5vw,3.2rem); line-height:1.1; margin:.6em 0 .25em; }
+a { color:#aee6ff; text-underline-offset:.15em; }
+.ct-workspace { display:grid; grid-template-columns:minmax(0,1fr) minmax(16rem,.48fr); gap:1rem; align-items:start; }
+.controls, .scan { border:1px solid #48616b; border-radius:.55rem; background:#1b2930; padding:.8rem; min-width:0; }
+.controls { display:grid; gap:.8rem; }
+label { display:grid; gap:.2rem; }
+button, select, input[type="number"] { color:inherit; background:#213740; border:1px solid #6e8c96; border-radius:.35rem; min-height:2.6rem; padding:.2rem .45rem; font:inherit; box-sizing:border-box; width:100%; }
+button { cursor:pointer; }
+input[type="range"] { width:100%; accent-color:#9fe1f0; }
+.window-points { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:.5rem; }
+.image-wrap { background:#080b0d; position:relative; }
+canvas { width:100%; height:auto; image-rendering:pixelated; vertical-align:top; }
+.edge { font-weight:700; color:#fff; background:#12191cbf; padding:.05rem .32rem; border-radius:.2rem; position:absolute; pointer-events:none; }
+.edge.top { top:.25rem; left:50%; }
+.edge.bottom { bottom:.25rem; left:50%; }
+.edge.left { left:.25rem; top:50%; }
+.edge.right { right:.25rem; top:50%; }
+figcaption { margin-top:.5rem; min-height:3.1rem; }
+figure { margin:0; }
+#pixel { min-height:1.6em; }
+:focus-visible { outline:3px solid #beeef6; outline-offset:3px; }
+@media(max-width:49rem) { .ct-workspace { grid-template-columns:minmax(0,1fr); } }
+.comparison-table { overflow-x:auto; margin:1rem 0; }
+.comparison-table table { border-collapse:collapse; min-width:37rem; width:100%; background:#1b2930; }
+.comparison-table caption { font-weight:700; text-align:left; padding:.5rem 0; }
+.comparison-table th, .comparison-table td { text-align:left; vertical-align:top; padding:.62rem; border:1px solid #48616b; }
+.comparison-table thead { background:#213740; }

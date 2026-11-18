@@ -1,0 +1,168 @@
+{
+  "case": "023",
+  "scenario": "Colon cancer baseline CT",
+  "study": "baseline",
+  "title": "A CT Dataset with RECIST Measurements and Comprehensive Segmentation Masks for Tumors and Lymph Nodes",
+  "doi": "10.5281/zenodo.17788162",
+  "sourceURL": "https://zenodo.org/records/17788162",
+  "articleURL": "https://doi.org/10.1038/s41597-026-06597-6",
+  "license": "https://creativecommons.org/licenses/by/4.0/",
+  "authors": [
+    "Rojas-Pizarro, Roberto",
+    "V\u00e1squez-Venegas, Constanza",
+    "Eyssautier Susarte, Mar\u00eda Fernanda",
+    "Pereira Retamales, Gonzalo",
+    "H\u00e4rtel, Steffen",
+    "Cabrera-Vives, Guillermo"
+  ],
+  "sourceArchiveMember": "final-formatted/images/abdomen/train/images/023_1.3.12.2.1107.5.1.4.83504.30000021072912214330400005557.nii.gz",
+  "originalShapeSliceRowColumn": [
+    167,
+    512,
+    512
+  ],
+  "shapeSliceRowColumn": [
+    32,
+    512,
+    512
+  ],
+  "sourceZStart": 26,
+  "sourceZStopExclusive": 58,
+  "spacingXYZMm": [
+    0.697265625,
+    0.697265625,
+    2.5
+  ],
+  "nativeIndexAxes": [
+    "left",
+    "anterior",
+    "superior"
+  ],
+  "originalAffineRAS": [
+    [
+      -0.697265625,
+      -0.0,
+      0.0,
+      176.1513671875
+    ],
+    [
+      0.0,
+      0.697265625,
+      0.0,
+      -39.6513671875
+    ],
+    [
+      0.0,
+      0.0,
+      2.5,
+      -624.0
+    ],
+    [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+    ]
+  ],
+  "cropAffineRAS": [
+    [
+      -0.697265625,
+      -0.0,
+      0.0,
+      176.1513671875
+    ],
+    [
+      0.0,
+      0.697265625,
+      0.0,
+      -39.6513671875
+    ],
+    [
+      0.0,
+      0.0,
+      2.5,
+      -559.0
+    ],
+    [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+    ]
+  ],
+  "voxelStorage": "signed 16-bit little-endian, x fastest, then y, then z",
+  "ctRescaleSlope": 1.0,
+  "ctRescaleIntercept": -1024.0,
+  "volumes": {
+    "ct": {
+      "file": "ct-int16.gz",
+      "bytes": 9198749,
+      "compressedSHA256": "ea65147fb5b1cda1a5664b6d47b1e139d3107f7683cef92188dccc39e0d620dd",
+      "decodedBytes": 16777216,
+      "decodedSHA256": "0aac2654eace78c64c5ec94e66b73a07bac0f783153e8c4b1ada891bb5b0689c"
+    },
+    "labels": {
+      "file": "labels-int16.gz",
+      "bytes": 17564,
+      "compressedSHA256": "4493c9dc8cdf96c95195470ee6bcfcffe7cc142d6f83fdb2bb5be4c3ef9fad87",
+      "decodedBytes": 16777216,
+      "decodedSHA256": "e9085ba6ffd2d45813bf061cc4f9986bb184deb4568e509fb9d2e346905b9431"
+    }
+  },
+  "originalLabelMap": {
+    "1": "n,iliac",
+    "2": "n,iliac",
+    "3": "n,retroperitoneal",
+    "4": "n,retroperitoneal",
+    "5": "n,mesenteric",
+    "6": "n,aortocaval",
+    "7": "n,retroperitoneal",
+    "8": "m,suprarenal",
+    "9": "n,retroperitoneal"
+  },
+  "nodalLabels": [
+    {
+      "label": 1,
+      "sourceLabel": "n,iliac",
+      "name": "Iliac node 1",
+      "color": [
+        254,
+        210,
+        86
+      ],
+      "occupiedVoxels": 6333,
+      "displayIndexXYZ": [
+        342,
+        315,
+        16
+      ]
+    },
+    {
+      "label": 2,
+      "sourceLabel": "n,iliac",
+      "name": "Iliac node 2",
+      "color": [
+        55,
+        235,
+        240
+      ],
+      "occupiedVoxels": 1771,
+      "displayIndexXYZ": [
+        325,
+        264,
+        14
+      ]
+    }
+  ],
+  "sourceTargetMeasurements": [
+    {
+      "label": 1,
+      "millimetres": 16,
+      "sourceTargetAlias": "A",
+      "sourceMeasurement": "RECIST axial short axis"
+    }
+  ],
+  "surfaceManifestSHA256": "64554691ade4f7ad1a4f1ba2db393dcb08a1302710d397d9fa3b0625b9a1da33",
+  "scope": "The source manual segmentation gives visible gross nodal contours. Specific chain and microscopic anatomy are unspecified. This is a CT reference with source labels and no pathology or stage inference.",
+  "transform": "Original full-width and full-height sampled axial planes, cropped only along z and encoded losslessly. Coronal and sagittal planes use the same source samples. Surfaces are the unsmoothed external faces of the original labelled voxel cells, transformed by the native affine."
+}

@@ -1,0 +1,74 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Labov’s department-store interviews · Primer</title>
+  <link rel="stylesheet" href="/app/activities/kit.css">
+  <link rel="stylesheet" href="style.css">
+  <script type="module" src="lab.js"></script>
+</head>
+<body>
+<main>
+  <a href="/app/#/node/lang.5.socioling">← Sociolinguistics lesson</a>
+  <header>
+    <h1>How often did speakers pronounce /r/?</h1>
+    <p>Compare the first replies and careful repetitions in William Labov’s 264 department-store interviews in New York City in 1962.</p>
+  </header>
+  <section class="survey" aria-labelledby="survey-heading">
+    <h2 id="survey-heading">How the replies were elicited</h2>
+    <ol>
+      <li><strong>Ask for directions</strong><p>The interviewer asks about a department on the fourth floor.</p></li>
+      <li><strong>Listen to the first reply</strong><p>“Fourth floor.” Both words give a place to listen for /r/.</p></li>
+      <li><strong>Request repetition</strong><p>“Excuse me?” prompts a more careful reply, sometimes just “Fourth.”</p></li>
+    </ol>
+  </section>
+  <section aria-labelledby="comparison-heading">
+    <h2 id="comparison-heading">Compare the three stores</h2>
+    <div class="controls">
+      <div>
+        <label for="word">Word position</label>
+        <select id="word">
+          <option value="floor">Phrase-final · floor</option>
+          <option value="fourth">Before a consonant · fourth</option>
+        </select>
+      </div>
+      <div>
+        <label for="measure">Share to plot</label>
+        <select id="measure">
+          <option value="pronounced">Pronounced /r/ among clear tokens</option>
+          <option value="coverage">Clear tokens among all interviews</option>
+        </select>
+      </div>
+    </div>
+    <p id="formula"></p>
+    <figure aria-labelledby="chart-caption">
+      <figcaption id="chart-caption" aria-live="polite"></figcaption>
+      <div class="scale" aria-hidden="true"><span>0%</span><span>25%</span><span>50%</span><span>75%</span><span>100%</span></div>
+      <div id="chart"></div>
+    </figure>
+    <details>
+      <summary>Inspect the counted and excluded tokens</summary>
+      <div class="table-wrap">
+        <table>
+          <caption id="counts-caption"></caption>
+          <thead><tr><th scope="col">Store and reply</th><th scope="col">Clear /r/</th><th scope="col">No /r/</th><th scope="col">Doubtful</th><th scope="col">Missing</th></tr></thead>
+          <tbody id="counts"></tbody>
+        </table>
+      </div>
+      <p>His two clear codes distinguish a constricted /r/ from a vowel without that constriction. He excluded doubtful tokens, including partial constrictions. He reports that repeats were not requested consistently on Macy’s ground floor.</p>
+    </details>
+  </section>
+  <section class="exercise" aria-labelledby="exercise-heading">
+    <h2 id="exercise-heading">Read the change between replies</h2>
+    <p id="prompt"></p>
+    <div id="answers" class="choices" role="group" aria-labelledby="prompt"></div>
+    <p id="feedback" role="status"></p>
+    <p>These are group-level comparisons. The counts combine different numbers of clear tokens and cannot show how many individual speakers changed their pronunciation.</p>
+  </section>
+  <footer>
+    <p>Source: William Labov, <a href="https://web.stanford.edu/class/linguist62n/labov001.pdf#page=5">“The Social Stratification of (r) in New York City Department Stores,” Table 13.1</a>. The chart calculates percentages directly from the printed counts.</p>
+  </footer>
+</main>
+</body>
+</html>

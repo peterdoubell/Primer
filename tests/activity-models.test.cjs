@@ -441,6 +441,77 @@ test('university physics II: Lorentz transforms, band gaps, microstates, black h
   for (const gate of ['H', 'X', 'Z', 'none']) for (const [theta, phi] of [[30, 45], [120, 300], [180, 0]]) { const pr = P(theta, phi, gate); near(pr[0] + pr[1], 1); const B = q.bloch(q.apply(gate, q.state(theta, phi))); near(Math.hypot(...B), 1); }
 });
 
+test('rainbow traces agree with independent turning angles and the visible bow limits', async () => {
+  const { angularRadius, causticHeight, radians, skyElevation, traceRay, visibleHalfArc, waterIndex } =
+    await import('../web/physics/rainbow-ray-tracing/optics.mjs');
+
+  const sodiumIndex = waterIndex(589.3);
+  near(sodiumIndex, 1.33335, 0.00001);
+  for (const wavelength of [400, 485, 560, 589.3, 650, 700]) {
+    const index = waterIndex(wavelength);
+    for (const reflections of [1, 2]) {
+      const peak = causticHeight(index, reflections);
+      const radius = angularRadius(peak, index, reflections);
+      for (let step = 0; step < 200; step++) {
+        const height = step / 200;
+        const ray = traceRay(height, index, reflections);
+        assert.equal(ray.points.length, reflections + 2);
+        for (const point of ray.points) near(Math.hypot(...point), 1, 1e-11);
+        near(ray.points[0][1], height);
+        near(Math.hypot(...ray.outgoing), 1, 1e-11);
+        near(Math.atan2(Math.abs(ray.outgoing[1]), -ray.outgoing[0]),
+          angularRadius(height, index, reflections), 1e-10);
+        assert.ok(ray.power >= 0 && ray.power <= 1);
+      }
+      const normalReflectance = ((index - 1) / (index + 1)) ** 2;
+      near(traceRay(0, index, reflections).power,
+        (1 - normalReflectance) ** 2 * normalReflectance ** reflections);
+      for (const direction of [-1, 1]) {
+        const neighbour = angularRadius(peak + direction * 0.001, index, reflections);
+        assert.ok(reflections === 1 ? neighbour < radius : neighbour > radius);
+      }
+      near(skyElevation(radius, 10 * radians, 0), radius - 10 * radians);
+      near(skyElevation(radius, 10 * radians, visibleHalfArc(radius, 10 * radians)), 0);
+      near(visibleHalfArc(radius, 0), Math.PI / 2);
+      assert.equal(visibleHalfArc(radius, 60 * radians), 0);
+    }
+  }
+
+  const causticDegrees = (nm, reflections) => {
+    const index = waterIndex(nm);
+    return angularRadius(causticHeight(index, reflections), index, reflections) / radians;
+  };
+  near(causticDegrees(700, 1), 42.4, 0.1);
+  near(causticDegrees(700, 2), 50.2, 0.1);
+  assert.ok(causticDegrees(700, 1) > causticDegrees(400, 1));
+  assert.ok(causticDegrees(700, 2) < causticDegrees(400, 2));
+});
+
+test('Labov store observations keep all four Table 13.1 categories and their denominators', async () => {
+  const { STORES, observations, largestChange } = await import('../web/language/department-store-r/model.mjs');
+  assert.equal(STORES.map(store => store.interviews).reduce((sum, n) => sum + n), 264);
+  for (const word of ['floor', 'fourth']) {
+    for (const mode of ['pronounced', 'coverage']) {
+      const stores = observations(word, mode);
+      for (const store of stores) {
+        for (const row of store.replies) {
+          assert.equal(row.present + row.absent + row.doubtful + row.missing, store.interviews);
+          assert.equal(row.whole, mode === 'pronounced' ? row.present + row.absent : store.interviews);
+          assert.equal(row.proportion, row.part / row.whole);
+        }
+      }
+    }
+  }
+  const [first, repeat] = observations('floor', 'pronounced')[1].replies;
+  assert.deepEqual([first.present, first.whole, repeat.present, repeat.whole, repeat.missing], [48, 110, 31, 51, 74]);
+  assert.deepEqual(observations('fourth', 'coverage')[0].replies.map(row => row.doubtful), [4, 4]);
+  near(largestChange(observations('floor', 'pronounced'), 'pronounced').points, 17.147950089126556, 1e-9);
+  assert.equal(largestChange(observations('fourth', 'pronounced'), 'pronounced').name, 'Saks');
+  const coverage = largestChange(observations('floor', 'coverage'), 'coverage');
+  assert.equal(coverage.name, 'Macy’s');
+  near(coverage.points, -47.2, 1e-10);
+});
+
 test('every registered activity has its page, script and a return link to its module', () => {
   const registry = JSON.parse(fs.readFileSync(path.join(root, 'activities', 'registry.json'), 'utf8'));
   const curriculum = fs.readdirSync(path.join(root, '..', 'data', 'curriculum')).map(f => fs.readFileSync(path.join(root, '..', 'data', 'curriculum', f), 'utf8')).join('');

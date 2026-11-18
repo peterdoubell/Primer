@@ -23,6 +23,12 @@ RESERVED = {'clinical history', 'technique', 'comparison', 'impression', 'recomm
 LIMITATION = 'Limited by [ ].'
 # Review worksheets and the contrast record are not acquired studies.
 NOT_ACQUIRED = {'template:ct-image-report', 'template:mri-sequences-report', 'ra.ct-contrast-protocols'}
+# These multimodality worksheets have an authored MR protocol and no
+# competing performed-modality control. The remaining options stay generic.
+CONFIRMED_ACQUISITIONS = {
+    'ra.biliary-duct-pathology': ('Confirm performed MRCP acquisition', 'biliary-duct-pathology'),
+    'ra.pancreatic-cysts': ('Confirm performed pancreatic MRI and MRCP acquisition', 'pancreatic-cystic-lesions'),
+}
 BLANK_IMPRESSION = 'Impression:\n1. []\n2. []\n3. []'
 BLANK_RECOMMENDATION = 'Recommendation:\n1. []\n2. []\n3. []'
 BULLET = '• '
@@ -260,16 +266,30 @@ def quick_report(identifier):
 def align_builder_protocols(catalogue):
     """Give the click builder the same default acquisition wording as the report template.
 
-    The builder's selectable acquisition choices are unchanged; only the text used when
-    none is chosen is replaced, and only for studies whose template has a Protocol or Technique.
+    Existing study options stay as authored. The two multimodality
+    worksheets in CONFIRMED_ACQUISITIONS offer only an explicit MR option.
     """
     templates = library()
     for form in catalogue.get('forms', {}).values():
         for investigation in form.get('investigations', []):
-            item = templates.get(investigation.get('id'))
+            identifier = investigation['id']
+            item = templates.get(identifier)
+            heading = acquisition_heading(identifier, item) if item else None
+            if not heading:
+                continue
             acquisition = investigation.get('report_protocol')
-            if acquisition and item and acquisition_heading(investigation['id'], item):
+            if acquisition and not acquisition.get('confirmed_only'):
                 acquisition['standard_text'] = item['technique']['normal']
+            elif not acquisition and identifier in CONFIRMED_ACQUISITIONS:
+                label, source_id = CONFIRMED_ACQUISITIONS[identifier]
+                investigation['report_protocol'] = {
+                    'heading': heading,
+                    'label': label,
+                    'standard_text': '',
+                    'options': [item['technique']['normal']],
+                    'sources': [source['url'] for source in investigation['sources'] if source['id'] == source_id],
+                    'confirmed_only': True,
+                }
     return catalogue
 
 

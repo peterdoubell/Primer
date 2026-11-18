@@ -167,36 +167,39 @@ window.PrimerStructuredReporting = (() => {
     clinical_history: 'Clinical history', comparison: 'Comparison', protocol: 'Protocol',
     impression: 'Impression', recommendation: 'Recommendation',
   };
-  function reportLineRole(line, studyTitle) {
-    if (line === studyTitle || /^(Clinical history|Comparison|Protocol|Technique|Findings|Impression|Recommendation):$/.test(line)) return 'main';
-    return line.endsWith(':') && !line.startsWith('•') ? 'subheading' : 'body';
+  const mainReportHeading = /^(Clinical history|Clinical information|Indication|Comparison|Protocol|Technique|Technique and quality|Technique and diagnostic limitations|Findings|Impression|Recommendation|Recommendation and communication|Impression and recommendation):?$/i;
+  function reportLineParts(line, studyTitle, sectionHeadings) {
+    const namedSection = sectionHeadings.includes(line);
+    if ((studyTitle && line === studyTitle) ||
+        (mainReportHeading.test(line) && (namedSection || line.endsWith(':')))) return ['u', line, ''];
+    if (namedSection || (line.endsWith(':') && !line.startsWith('•'))) return ['em', line, ''];
+    const inline = /^([A-Z][^:]*:)( \[\](?: .*)?)$/.exec(line);
+    return inline ? ['em', inline[1], inline[2]] : ['', '', line];
   }
-  function reportHTML(text, studyTitle = '') {
+  function reportHTML(text, studyTitle = '', sectionHeadings = []) {
     const escape = value => value.replaceAll('&', '&amp;').replaceAll('<', '&lt;').replaceAll('>', '&gt;');
     return '<div style="font-family:Arial,sans-serif;font-size:12pt;line-height:1.4">' + text.split('\n').map(line => {
-      const content = escape(line);
-      switch (reportLineRole(line, studyTitle)) {
-        case 'main': return '<u>' + content + '</u>';
-        case 'subheading': return '<em>' + content + '</em>';
-        default: return content;
-      }
+      const [tag, heading, body] = reportLineParts(line, studyTitle, sectionHeadings);
+      return (tag ? '<' + tag + '>' + escape(heading) + '</' + tag + '>' : '') + escape(body);
     }).join('<br>') + '</div>';
   }
-  function renderReportPreview(preview, text, studyTitle) {
+  function renderReportPreview(preview, text, studyTitle, sectionHeadings = []) {
     const lines = text.split('\n');
     preview.replaceChildren(...lines.flatMap((line, index) => {
-      const role = reportLineRole(line, studyTitle);
-      const content = role === 'main' ? element('u', line, 'rad-report-main-heading')
-        : element(role === 'subheading' ? 'em' : 'span', line);
-      return index === lines.length - 1 ? [content] : [content, element('br')];
+      const [tag, heading, body] = reportLineParts(line, studyTitle, sectionHeadings);
+      const nodes = [];
+      if (tag) nodes.push(element(tag, heading, tag === 'u' ? 'rad-report-main-heading' : undefined));
+      if (body || !tag) nodes.push(element('span', body));
+      if (index < lines.length - 1) nodes.push(element('br'));
+      return nodes;
     }));
   }
-  async function copyReport(text, studyTitle = '') {
+  async function copyReport(text, studyTitle = '', sectionHeadings = []) {
     if (navigator.clipboard.write && typeof ClipboardItem !== 'undefined') {
       try {
         await navigator.clipboard.write([new ClipboardItem({
           'text/plain': new Blob([text], {type: 'text/plain'}),
-          'text/html': new Blob([reportHTML(text, studyTitle)], {type: 'text/html'}),
+          'text/html': new Blob([reportHTML(text, studyTitle, sectionHeadings)], {type: 'text/html'}),
         })]);
         return;
       } catch (error) {
@@ -205,24 +208,28 @@ window.PrimerStructuredReporting = (() => {
     }
     await navigator.clipboard.writeText(text);
   }
+  const protocolHeading = exam => exam.report_protocol?.heading || (exam.modality === 'MRI' ? 'Protocol' : 'Technique');
   function formatStudyReport(exam, fields, sections, assessments = []) {
-    if (!Object.values(fields).some(value => Array.isArray(value) ? value.length : value.trim())
-        && !own(fields, 'protocol') && !sections.length && !assessments.length) return '';
-    const block = (label, body) => label + ':\n' + (body || '[]');
     const acquisition = exam.report_protocol;
+    const explicitBlank = own(fields, 'protocol') && !acquisition?.confirmed_only;
+    if (!Object.values(fields).some(value => Array.isArray(value) ? value.length : value.trim())
+        && !explicitBlank && !sections.length && !assessments.length) return '';
+    const block = (label, body) => label + ':\n' + (body || '[]');
     const selectedOptions = (acquisition?.options || []).filter(option => fields.protocol_options?.includes(option));
+    const includeProtocol = acquisition && (!acquisition.confirmed_only || selectedOptions.length || fields.protocol?.trim());
     const standard = acquisition?.standard_text || '';
     const protocol = [fields.protocol === undefined && !selectedOptions.length ? standard : fields.protocol?.trim(), ...selectedOptions];
     const findings = [];
     const examination = [];
     for (const section of sections) {
       if (['technique', 'protocol'].includes(section.label.toLowerCase())) {
-        (acquisition ? protocol : examination).push(section.text);
+        (includeProtocol ? protocol : examination).push(section.text);
       } else findings.push(block(section.label === section.label.toUpperCase() ? section.label.charAt(0) + section.label.slice(1).toLowerCase() : section.label, section.text));
     }
     findings.push(...assessments);
-    const study = acquisition
-      ? [exam.title, block(exam.modality === 'MRI' ? 'Protocol' : 'Technique', protocol.filter(Boolean).join('\n')), block('Findings', findings.join('\n\n'))]
+    const study = includeProtocol
+      ? [exam.title + '\n' + block(protocolHeading(exam), protocol.filter(Boolean).join('\n')),
+        block('Findings', findings.join('\n\n'))]
       : [exam.title, ...examination, ...findings];
     return [block('Clinical history', fields.clinical_history?.trim()), block('Comparison', fields.comparison?.trim()),
       ...study, block('Impression', fields.impression?.trim()), block('Recommendation', fields.recommendation?.trim())].join('\n\n');
@@ -474,7 +481,7 @@ window.PrimerStructuredReporting = (() => {
       reportOpening.append(element('h4', exam.title, 'rad-report-study'));
       const protocol = exam.report_protocol;
       if (protocol) {
-        edit(reportOpening, 'protocol', exam.modality === 'MRI' ? 'Protocol' : 'Technique');
+        edit(reportOpening, 'protocol', protocol.confirmed_only ? 'Acquisition details (if performed)' : protocolHeading(exam));
         const choices = element('div', undefined, 'rad-choices rad-protocol-choices');
         choices.setAttribute('role', 'group');
         choices.setAttribute('aria-label', protocol.label);
@@ -512,7 +519,8 @@ window.PrimerStructuredReporting = (() => {
           link.rel = 'noopener noreferrer';
           references.append(link);
         }
-        reportOpening.append(references, element('h4', 'Findings', 'rad-report-study'));
+        reportOpening.append(references);
+        if (!protocol.confirmed_only) reportOpening.append(element('h4', 'Findings', 'rad-report-study'));
       }
       edit(reportClosing, 'impression');
       edit(reportClosing, 'recommendation');
@@ -928,5 +936,5 @@ window.PrimerStructuredReporting = (() => {
     })());
     return {node: panel, busy: () => inFlight, dispose: () => { disposed = true; sequence++; }};
   }
-  return {render, compose, descriptorText, descriptorCalculationJobs, reportHTML, copyReport};
+  return {render, compose, descriptorText, descriptorCalculationJobs, reportHTML, renderReportPreview, copyReport};
 })();

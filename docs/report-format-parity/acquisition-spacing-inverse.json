@@ -1,0 +1,26 @@
+{
+  "web/radiology-structured.js": {
+    "before": "eb665924ce329c461e2050989f7e983b27f3d56c3131f6e340cc6e9f0141ec2c",
+    "after": "aed5b97962ada1380ac57e58a8be7dfa82b63671858fe0099ce8d2545f02af31",
+    "changes": [
+      {
+        "start": 227,
+        "end": 229,
+        "after": "      ? [exam.title + '\\n' + block(exam.modality === 'MRI' ? 'Protocol' : 'Technique', protocol.filter(Boolean).join('\\n')),\n        block('Findings', findings.join('\\n\\n'))]\n",
+        "before": "      ? [exam.title, block(exam.modality === 'MRI' ? 'Protocol' : 'Technique', protocol.filter(Boolean).join('\\n')), block('Findings', findings.join('\\n\\n'))]\n"
+      }
+    ]
+  },
+  "primer/descriptor_reporting.py": {
+    "before": "37538ed99536aab8c3dcd9f5b63c4eb30bbcf30fef3dd1bee5be2b05a9728e3d",
+    "after": "fcef75e7f5beaa4b5f80fa9fc873fc1e259e399efe532db73caa5791fa69744c",
+    "changes": [
+      {
+        "start": 100,
+        "end": 103,
+        "after": "        heading = 'Protocol' if investigation['modality'] == 'MRI' else 'Technique'\n        study[0] += '\\n' + block(heading, '\\n'.join(filter(None, protocol)))\n        study.append(block('Findings', '\\n\\n'.join(findings)))\n",
+        "before": "        study.extend((block('Protocol' if investigation['modality'] == 'MRI' else 'Technique',\n                            '\\n'.join(filter(None, protocol))), block('Findings', '\\n\\n'.join(findings))))\n"
+      }
+    ]
+  }
+}
