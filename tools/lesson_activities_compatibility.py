@@ -22,8 +22,8 @@ def before_activity_registry_bytes(path, raw):
         from tools.recist_pelvic_runtime_compatibility import before_recist_pelvic_delivery_bytes
         raw = before_recist_pelvic_delivery_bytes(path, raw)
     if str(path) == 'data/radiology/radiology-asset-evidence.json':
-        # Newest links for the evidence file: sided Radiology Assistant figures, second-pass stored-caption bindings, first-pass stored-caption bindings,
-        # Radiology Assistant figures, sided ultrasound panels.
+        # Newest links for the evidence file: finding-figure bindings, sided Radiology Assistant figures, second-pass stored-caption bindings,
+        # first-pass stored-caption bindings, Radiology Assistant figures, sided ultrasound panels.
         from tools.anatomy_sources.bind_stored_caption_assets import before_stored_caption_bindings
         from tools.anatomy_sources.bind_stored_caption_assets_pass2 import before_stored_caption_bindings_pass2
         from tools.anatomy_sources.package_radiology_assistant_sided_figures import before_radiology_assistant_sided_figures
