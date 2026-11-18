@@ -22,7 +22,10 @@ def before_activity_registry_bytes(path, raw):
     from tools.learning_games_compatibility import before_learning_games_bytes
     raw = before_learning_games_bytes(path, raw)
     if str(path) == 'data/radiology/radiology-asset-evidence.json':
-        # Newest link for the evidence file: bindings of the figures that the context-code repair unlocked.
+        # Newest link for the evidence file: bindings of the stored 3D models to the structures their labels name.
+        from tools.anatomy_sources.bind_models import before_model_bindings
+        raw = before_model_bindings(raw)
+        # Next link: bindings of the figures that the context-code repair unlocked.
         from tools.anatomy_sources.bind_unlocked_figures import before_unlocked_figure_bindings
         raw = before_unlocked_figure_bindings(raw)
     # Next link for the evidence file, and the newest for the figure catalog: repaired figure-record context codes.

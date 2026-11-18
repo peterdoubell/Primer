@@ -335,3 +335,15 @@ tumour) and 10 on a legend letter that a selected panel carries. After the figur
 three bindings were withdrawn: an orbit cyst whose stated side conflicts with the image, and both sides
 of an unsided pouch above the diaphragm. The 69 repaired 3D models are reference-only and stay unbound. Nothing is
 anatomically approved.
+
+## 3D models bound (2026-11-18)
+
+The 142 stored 3D models without a binding were reviewed against the requirements of their
+investigations (`docs/model-bindings-20261118`): 108 partial bindings on 69 models, covering 94
+structure requirements. Bound structures 993 → 1,062 of 57,985; investigations with none 47 → 45
+(thyroid ultrasound and prostate MRI gain their first bindings). Each binding quotes the model's own
+source label. A label that names a whole is not bound to a requirement that names its parts. Where a
+label states a side, the stored mesh was checked to lie on that side of its source's midline. That
+check found that the HRA female pelvis source swaps its round ligament labels; neither is bound. The
+other 73 models are listed with their reasons. The MSK ledger's 636 models (12 bound) are a separate
+pass. Nothing is anatomically approved.
