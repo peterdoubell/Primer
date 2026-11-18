@@ -4,6 +4,7 @@ from pathlib import Path
 from PIL import Image
 from primer.curriculum import Curriculum
 from primer.radiology_catalog import detail,resolve
+from tools.anatomy_sources.bind_stored_caption_assets import only_caption_bindings
 
 ROOT=Path(__file__).resolve().parents[1]
 REVIEW=ROOT/'docs/gi-foreign-body-published-source-review'
@@ -54,7 +55,7 @@ def test_cleared_figures_do_not_grant_calibrated_object_ct_injury_or_model_cover
     rows=[r for r in json.loads((ROOT/'data/radiology/radiology-asset-evidence.json').read_text())['assets'] if r['id'].startswith('open-gi-foreign-body-')]
     assert len(rows)==8
     for row in rows:
-        assert row['structure_ids']==[] and row['requirement_coverage']=={} and row['anatomical_review']['status']=='pending'
+        assert only_caption_bindings(row) and row['anatomical_review']['status']=='pending'
         rights=row['source']['license'];assert rights['commercial_use'] and rights['redistribution']
         assert hashlib.sha256((ROOT/rights['evidence_path']).read_bytes()).hexdigest()==rights['evidence_sha256']
         assert not row['pixel_provenance']['highest_resolution_acquired_master_verified']

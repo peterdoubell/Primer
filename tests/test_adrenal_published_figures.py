@@ -6,6 +6,7 @@ from pathlib import Path
 from PIL import Image
 from primer.curriculum import Curriculum
 from primer.radiology_catalog import detail, resolve
+from tools.anatomy_sources.bind_stored_caption_assets import only_caption_bindings
 
 ROOT = Path(__file__).resolve().parents[1]
 REVIEW = ROOT / 'docs/adrenal-published-source-review'
@@ -57,7 +58,7 @@ def test_licensed_adrenal_candidates_do_not_claim_clinical_or_structure_approval
     rows = [r for r in data['assets'] if r['id'].startswith('open-adrenal-')]
     assert len(rows) == 10
     for row in rows:
-        assert row['structure_ids'] == [] and row['requirement_coverage'] == {}
+        assert only_caption_bindings(row)
         assert row['anatomical_review']['status'] == 'pending'
         license = row['source']['license']
         assert license['commercial_use'] and license['redistribution'] and license['review_status'] == 'verified'
