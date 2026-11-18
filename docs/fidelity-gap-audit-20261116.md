@@ -297,3 +297,9 @@ Findings and diagnoses were left unbound. Details:
 
 Earlier sections of this document that say sided requirements stay unbound describe the state
 before this change.
+
+## Radiology Assistant figures for sided structures (2026-11-17)
+
+118 section figures naming unbound left or right structures were reviewed; 39 were stored with 62
+partial bindings on 54 structures. Bound structures 449 → 503 of 57,985; investigations with none
+73 → 67. Details: `docs/radiology-assistant-sided-figure-bindings-20261117/README.md`.
