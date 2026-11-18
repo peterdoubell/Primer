@@ -24,6 +24,7 @@ REVIEW, RECEIPT = DOCS / 'review.json', DOCS / 'inverse.json'
 PASS2_REVIEW = ROOT / 'docs/stored-asset-caption-bindings-pass2-20261117/review.json'
 FINDINGS_REVIEW = ROOT / 'docs/finding-figure-bindings-20261118/review.json'
 UNLOCKED_REVIEW = ROOT / 'docs/unlocked-figure-bindings-20261118/review.json'
+MODEL_REVIEW = ROOT / 'docs/model-bindings-20261118/review.json'
 EMPTY_IDS = re.compile(rb'"structure_ids":\s*\[\s*\]')
 EMPTY_COVERAGE = re.compile(rb'"requirement_coverage":\s*\{\s*\}')
 
@@ -108,8 +109,10 @@ def plan():
 
 
 def only_caption_bindings(asset):
-    """True when an asset carries no bindings, or exactly the reviewed caption bindings of the four passes, all partial."""
-    wanted = [row['structure_id'] for path in (REVIEW, PASS2_REVIEW, FINDINGS_REVIEW, UNLOCKED_REVIEW)
+    """True when an asset carries no bindings, or exactly its reviewed bindings, all partial.
+
+    The reviews are the four caption passes over figures and the label pass over 3D models (MODEL_REVIEW)."""
+    wanted = [row['structure_id'] for path in (REVIEW, PASS2_REVIEW, FINDINGS_REVIEW, UNLOCKED_REVIEW, MODEL_REVIEW)
               for row in json.loads(path.read_text())['accepted'] if row['asset_id'] == asset['id']]
     return (asset['structure_ids'] == wanted and sorted(asset['requirement_coverage']) == sorted(wanted)
             and all(item['extent'] == 'partial' for item in asset['requirement_coverage'].values()))

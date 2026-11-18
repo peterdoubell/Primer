@@ -1,6 +1,7 @@
 """Transport and reader checks do not imply independently approved anatomy."""
 import collections,gzip,hashlib,json,struct
 from pathlib import Path
+from tools.anatomy_sources.bind_stored_caption_assets import only_caption_bindings
 ROOT=Path(__file__).resolve().parents[1];ATLAS='totalseg-v3-s0358';PROOF=ROOT/'docs/thyroid-native-source-review/s0358'
 def sha(raw):return hashlib.sha256(raw).hexdigest()
 def test_all_source_faces_and_coordinates_survive_transport_with_open_boundaries():
@@ -27,7 +28,7 @@ def test_reader_is_explicitly_partial_CT_context_with_no_US_or_leaf_approval():
     assert 'not a dedicated neck CT' in entry['population_note'] and 'no ultrasound echogenicity' in entry['population_note']
     ledger=json.loads((ROOT/'data/radiology/radiology-asset-evidence.json').read_text())['assets'];rows=[r for r in ledger if r['id'].startswith(ATLAS+'-')];assert len(rows)==8
     for r in rows:
-        assert not r['structure_ids'] and not r['requirement_coverage'] and r['anatomical_review']['status']=='pending'
+        assert only_caption_bindings(r) and r['anatomical_review']['status']=='pending'
         grant=r['source']['license'];assert grant['commercial_use'] and grant['redistribution'];assert sha((ROOT/grant['evidence_path']).read_bytes())==grant['evidence_sha256']
 def test_hosted_missing_mesh_uses_only_verified_static_contract(monkeypatch,tmp_path):
     from primer.source_mesh_integrity import verified_mesh_contract

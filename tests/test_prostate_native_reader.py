@@ -11,6 +11,7 @@ from PIL import Image
 from primer import radiology_catalog as catalog
 from primer.curriculum import Curriculum
 from primer.source_volume_integrity import verified_volume_identity
+from tools.anatomy_sources.bind_stored_caption_assets import only_caption_bindings
 
 ROOT=Path(__file__).resolve().parents[1];ATLAS='prostate-biopsy0001';OUT=ROOT/'web/anatomy'/ATLAS;PROOF=ROOT/'docs/prostate-native-source-review/case0001'
 
@@ -75,7 +76,7 @@ def test_scoped_reader_inventory_preserves_comprehensive_template_and_all_region
     assets=json.loads((ROOT/'data/radiology/radiology-asset-evidence.json').read_text())['assets']
     for asset in assets:
         if asset['id'].startswith((ATLAS,'open-prostate-biopsy0001')):
-            assert asset['anatomical_review']['status']=='pending' and not asset['structure_ids'] and not asset['requirement_coverage']
+            assert asset['anatomical_review']['status']=='pending' and only_caption_bindings(asset)
 
 def test_new_CDN_MRI_identity_is_specific_and_invalid_missing_contracts_are_rejected(tmp_path,monkeypatch):
     ref=catalog.detail(Curriculum(),catalog.resolve('ra.mri-prostate'))['radiology_reference'];volume=ref['source_anatomy_references'][0]['source_volume']
