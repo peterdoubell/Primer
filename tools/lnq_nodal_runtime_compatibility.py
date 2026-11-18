@@ -16,6 +16,8 @@ LESSONS = frozenset({'rad.4.lung-cancer', 'rad.5.mediastinum'})
 
 
 def before_lnq_nodal_bytes(path, raw):
+    from tools.lynos_pat9_runtime_compatibility import before_lynos_pat9_bytes
+    raw = before_lynos_pat9_bytes(path, raw)
     if str(path) not in REVIEWED_FILES:
         return raw
     if str(path) == 'web/app.js':

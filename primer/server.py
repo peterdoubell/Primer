@@ -4275,9 +4275,10 @@ async def hva_ct_delivery(asset: str, request: Request):
 @app.api_route("/app/anatomy/{atlas}/{asset:path}", methods=["GET", "HEAD"], include_in_schema=False)
 async def source_mesh_delivery(atlas: str, asset: str, request: Request):
     from .lnq_nodal_reference import ATLAS as lnq_atlas, delivery as lnq_delivery
+    from .lynos_pat9_reference import ATLAS as lynos_atlas, delivery as lynos_delivery
     from .recist_pelvic_reference import CASES as pelvic_cases, delivery as pelvic_delivery
 
-    node_source = atlas in pelvic_cases or atlas == lnq_atlas
+    node_source = atlas in pelvic_cases or atlas in {lnq_atlas, lynos_atlas}
 
     if node_source or atlas in {"aneurysm-cta-018", "cmha-mca-005", "rhuh-sah-001", "bp3d-dural-4.3", "ward-swi-s1", "illinois-uterus", "endometriosis-mri-evidence", "hyperpic-venous", "venat", "ccth-a01-roi"}:
         directory = "anatomy/" + atlas
@@ -4285,6 +4286,8 @@ async def source_mesh_delivery(atlas: str, asset: str, request: Request):
             files = pelvic_delivery(atlas)
         elif atlas == lnq_atlas:
             files = lnq_delivery()
+        elif atlas == lynos_atlas:
+            files = lynos_delivery()
         else:
             with open(os.path.join(WEB_DIR, directory, "delivery.json"), encoding="utf-8") as source:
                 files = json.load(source)["files"]
