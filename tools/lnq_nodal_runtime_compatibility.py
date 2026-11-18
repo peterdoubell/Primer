@@ -7,7 +7,7 @@ from pathlib import Path
 from tools.colonvessels_compatibility import _restore
 
 PROOF = Path(__file__).resolve().parents[1] / 'docs/lnq-nodal-source-review/runtime-inverse.json'
-PIN = '5bca976a4131c26267c936c096b7b88b617275a37c6afc42ba707ef8c8da58c8'
+PIN = '51698460c2b5d1abd9c9171d0877e80e4d3ac01a1e51f99eaa07891af1b3d990'
 REVIEWED_FILES = frozenset({
     'primer/server.py', 'primer/source_native_inspectors.py', 'vercel.json', 'web/app.js',
     'docs/radiology-fidelity-scope.json',

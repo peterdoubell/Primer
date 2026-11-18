@@ -21,31 +21,25 @@
   },
   "primer/server.py": {
     "before": "873988e7df06d8c42b84d7da5f99f4a77483a541615e93944111dd007089e870",
-    "after": "f7d9e52f801218b7e6669747019fa872542d7b43b2ace86bfaa93b293acee8a2",
+    "after": "7154c06e5f0d71ab9bde3fda6cac5956b7c3245a91b4e2c905c6cc20b32a2b22",
     "changes": [
       {
-        "start": 4276,
-        "end": 4277,
+        "start": 4274,
+        "end": 4289,
         "before": "",
-        "after": "    from .lnq_nodal_reference import ATLAS as lnq_atlas, delivery as lnq_delivery\n"
+        "after": "# Resolve the route parameter to a directory constructed solely from registered names.\nfrom .lnq_nodal_reference import ATLAS as LNQ_NODE_ATLAS, delivery as lnq_nodal_delivery\nfrom .recist_pelvic_reference import CASES as RECIST_NODE_CASES, delivery as recist_nodal_delivery\n\nNODE_SOURCE_ATLASES = frozenset((*RECIST_NODE_CASES, LNQ_NODE_ATLAS))\nMESH_SOURCE_DIRECTORIES = {\n    name: \"anatomy/\" + name\n    for name in (\n        *NODE_SOURCE_ATLASES, \"aneurysm-cta-018\", \"cmha-mca-005\", \"rhuh-sah-001\",\n        \"bp3d-dural-4.3\", \"ward-swi-s1\", \"illinois-uterus\", \"endometriosis-mri-evidence\",\n        \"hyperpic-venous\", \"venat\", \"ccth-a01-roi\",\n    )\n}\n\n\n"
       },
       {
-        "start": 4279,
-        "end": 4282,
-        "before": "    if atlas in pelvic_cases or atlas in {\"aneurysm-cta-018\", \"cmha-mca-005\", \"rhuh-sah-001\", \"bp3d-dural-4.3\", \"ward-swi-s1\", \"illinois-uterus\", \"endometriosis-mri-evidence\", \"hyperpic-venous\", \"venat\", \"ccth-a01-roi\"}:\n",
-        "after": "    node_source = atlas in pelvic_cases or atlas == lnq_atlas\n\n    if node_source or atlas in {\"aneurysm-cta-018\", \"cmha-mca-005\", \"rhuh-sah-001\", \"bp3d-dural-4.3\", \"ward-swi-s1\", \"illinois-uterus\", \"endometriosis-mri-evidence\", \"hyperpic-venous\", \"venat\", \"ccth-a01-roi\"}:\n"
+        "start": 4291,
+        "end": 4298,
+        "before": "    from .recist_pelvic_reference import CASES as pelvic_cases, delivery as pelvic_delivery\n\n    if atlas in pelvic_cases or atlas in {\"aneurysm-cta-018\", \"cmha-mca-005\", \"rhuh-sah-001\", \"bp3d-dural-4.3\", \"ward-swi-s1\", \"illinois-uterus\", \"endometriosis-mri-evidence\", \"hyperpic-venous\", \"venat\", \"ccth-a01-roi\"}:\n        directory = \"anatomy/\" + atlas\n        if atlas in pelvic_cases:\n            files = pelvic_delivery(atlas)\n",
+        "after": "    directory = MESH_SOURCE_DIRECTORIES.get(atlas)\n    if directory is not None:\n        registered_atlas = directory.removeprefix(\"anatomy/\")\n        if registered_atlas in RECIST_NODE_CASES:\n            files = recist_nodal_delivery(registered_atlas)\n        elif registered_atlas == LNQ_NODE_ATLAS:\n            files = lnq_nodal_delivery()\n"
       },
       {
-        "start": 4285,
-        "end": 4287,
-        "before": "",
-        "after": "        elif atlas == lnq_atlas:\n            files = lnq_delivery()\n"
-      },
-      {
-        "start": 4295,
-        "end": 4296,
+        "start": 4306,
+        "end": 4307,
         "before": "        if atlas in pelvic_cases and asset in {\"index.html\", \"surfaces.html\", \"comparison.html\"}:\n",
-        "after": "        if node_source and asset in {\"index.html\", \"surfaces.html\", \"comparison.html\"}:\n"
+        "after": "        if registered_atlas in NODE_SOURCE_ATLASES and asset in {\"index.html\", \"surfaces.html\", \"comparison.html\"}:\n"
       }
     ]
   },
