@@ -38,7 +38,8 @@ def test_sided_publisher_figures_have_an_exact_inverse():
     from tools.anatomy_sources.bind_finding_figures import before_finding_figure_bindings
     from tools.anatomy_sources.repair_source_context_codes import before_source_context_repairs as before_repairs
     from tools.anatomy_sources.bind_unlocked_figures import before_unlocked_figure_bindings as before_unlocked
-    raw = before_finding_figure_bindings(before_repairs('data/radiology/radiology-asset-evidence.json', before_unlocked(tool.EVIDENCE.read_bytes())))  # A findings pass, a context repair and an unlocked-figure pass followed.
+    from tools.anatomy_sources.bind_models import before_model_bindings as before_models
+    raw = before_finding_figure_bindings(before_repairs('data/radiology/radiology-asset-evidence.json', before_unlocked(before_models(tool.EVIDENCE.read_bytes()))))  # A findings pass, a context repair and an unlocked-figure pass followed.
     assert tool.sha(raw) == receipt['after_sha256']
     before = tool.before_radiology_assistant_sided_figures(raw)
     assert tool.sha(before) == receipt['before_sha256'] and tool.before_radiology_assistant_sided_figures(before) == before

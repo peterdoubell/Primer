@@ -1,0 +1,1405 @@
+{
+ "reviewed_at": "2026-11-18",
+ "reviewer": "Claude review of stored model labels, source records and mesh positions; not a radiologist review",
+ "decision": "On 2026-11-18 the project owner asked for the 3D models to be bound.",
+ "rule": "A stored model is bound to a structure requirement of one of its investigations when its own source label names the structure the requirement names, or one of the structures a combined requirement names, and the fidelity checker finds no conflict. A whole is not bound to a requirement that names its parts, and a part is not bound to its whole. A sided requirement needs a side stated by the label or the record that agrees with where the mesh lies, a mesh that lies on both sides of the midline, or, for a specimen of unrecorded side, the mirror-image assumption. Coverage is always partial.",
+ "method": "The labels of all 142 models without a binding were compared with the names of the requirements of their investigations, family by family, against each source’s own label list. Where a label states a side, the stored mesh was decoded and its position compared with the midline of the same source, in the axes the source declares (“frames”). 108 bindings on 69 models were accepted. Each of the other 73 models is listed under “not_bound” with its reason.",
+ "evidence_values": {
+  "own_word": "the label and the requirement share the words that name the structure (term)",
+  "another_name": "the label names the structure by another name, or by the abbreviation its source’s class list uses",
+  "kind_of": "the label names something that is by definition a kind of what the requirement names"
+ },
+ "side_values": {
+  "label_states_side": "the label (or the source node name, side_quote) states this side or both, and the mesh lies there",
+  "record_states_side": "the model record itself states the matching side",
+  "mesh_spans_both_sides": "the label states no side, and the mesh lies on both sides of the midline",
+  "side_not_stated": "neither the label nor the record states a side; bound on the mirror-image assumption",
+  "not_sided": "the requirement has no left or right side"
+ },
+ "mirror_image_regions": "Only the OpenEar ZETA temporal bone specimen rests on the mirror-image assumption: the source does not record which ear it is, and its axes are not registered to a patient.",
+ "frames": {
+  "hra-female-pelvis-v1.10-": {
+   "left": "+x",
+   "unit": "m",
+   "margin": 0.005,
+   "midline": [
+    "hra-female-pelvis-v1.10-n0437-p0-vh_f_vagina",
+    "hra-female-pelvis-v1.10-n0485-p0-vh_f_cervix",
+    "hra-female-pelvis-v1.10-n0479-p0-vh_f_body_of_uterus"
+   ],
+   "why": "glTF axes with Y up; the bladder meshes lie at greater Z than the rectum, sacrum and coccyx, so +Z is anterior and +X is the body’s left. The left ovary, tubes, ligaments, ureter and ilium meshes all lie at +X."
+  },
+  "source-only-bp3d-sella-4.3-": {
+   "left": "+x",
+   "unit": "mm",
+   "margin": 2.0,
+   "midline": [
+    "source-only-bp3d-sella-4.3-fj3848",
+    "source-only-bp3d-sella-4.3-fj1796"
+   ],
+   "why": "BodyParts3D axes with Z up; the optic nerves run forward from the chiasm toward -Y, so -Y is anterior and +X is the body’s left. The pituitary gland marks the midline."
+  },
+  "totalseg-v3-s0358-": {
+   "left": "-x",
+   "unit": "mm",
+   "margin": 3.0,
+   "midline": [
+    "totalseg-v3-s0358-trachea"
+   ],
+   "why": "RAS axes from the source sform: +X is the body’s right. The trachea marks the midline."
+  },
+  "totalseg-v3-esophagus-s0358-": {
+   "left": "-x",
+   "unit": "mm",
+   "margin": 10.0,
+   "midline": [
+    "totalseg-v3-esophagus-s0358-vertebrae_T1",
+    "totalseg-v3-esophagus-s0358-vertebrae_T2",
+    "totalseg-v3-esophagus-s0358-vertebrae_T3",
+    "totalseg-v3-esophagus-s0358-vertebrae_T4",
+    "totalseg-v3-esophagus-s0358-vertebrae_T5",
+    "totalseg-v3-esophagus-s0358-vertebrae_T6",
+    "totalseg-v3-esophagus-s0358-vertebrae_T7",
+    "totalseg-v3-esophagus-s0358-vertebrae_T8",
+    "totalseg-v3-esophagus-s0358-vertebrae_T9",
+    "totalseg-v3-esophagus-s0358-vertebrae_T10",
+    "totalseg-v3-esophagus-s0358-vertebrae_T11",
+    "totalseg-v3-esophagus-s0358-vertebrae_T12"
+   ],
+   "why": "RAS axes from the source sform: +X is the body’s right. The thoracic vertebral bodies mark the midline."
+  },
+  "nasalseg-p001-": {
+   "left": "+x",
+   "unit": "mm",
+   "margin": 3.0,
+   "midline": [
+    "nasalseg-p001-label5"
+   ],
+   "why": "LPS axes from the source NRRD header: +X is the body’s left. The nasopharynx marks the midline."
+  },
+  "wt9fc-sub007-": {
+   "left": "-x",
+   "unit": "mm",
+   "margin": 3.0,
+   "midline": [
+    "wt9fc-sub007-transverse-vertical",
+    "wt9fc-sub007-superior-longitudinal",
+    "wt9fc-sub007-inferior-longitudinal",
+    "wt9fc-sub007-genioglossus"
+   ],
+   "why": "RAS axes from the source sform: +X is the body’s right. The tongue is a midline organ; the mean of its four muscle meshes marks the midline."
+  },
+  "hvsmr2-pat7-": {
+   "left": "-x",
+   "unit": "mm",
+   "margin": 20.0,
+   "midline": null,
+   "why": "RAS axes from the source sform: +X is the body’s right. No segmented structure marks the midline, so a label that states both sides must have separate connected parts at least the margin apart from left to right."
+  }
+ },
+ "another_name_pairs": [
+  {
+   "label_word": "ovarian ligament",
+   "requirement_word": "ovarian uterine attachment"
+  },
+  {
+   "label_word": "posterior wall of uterus",
+   "requirement_word": "posterior uterine body"
+  },
+  {
+   "label_word": "anterior wall of uterus",
+   "requirement_word": "anterior uterine body"
+  },
+  {
+   "label_word": "carotis interna",
+   "requirement_word": "internal carotid"
+  },
+  {
+   "label_word": "RV",
+   "requirement_word": "right ventricular"
+  },
+  {
+   "label_word": "LA",
+   "requirement_word": "left atrium"
+  },
+  {
+   "label_word": "RA",
+   "requirement_word": "right atrium"
+  },
+  {
+   "label_word": "SVC",
+   "requirement_word": "superior vena cava"
+  },
+  {
+   "label_word": "nasal pharynx",
+   "requirement_word": "nasopharynx"
+  },
+  {
+   "label_word": "prostate outline",
+   "requirement_word": "gland outline"
+  }
+ ],
+ "another_name_reasons": {
+  "ovarian ligament>ovarian uterine attachment": "the ovarian ligament is the band that attaches the ovary to the uterus",
+  "posterior wall of uterus>posterior uterine body": "the posterior wall of the uterus is the posterior part of the uterine body",
+  "anterior wall of uterus>anterior uterine body": "the anterior wall of the uterus is the anterior part of the uterine body",
+  "carotis interna>internal carotid": "Latin name of the internal carotid artery",
+  "RV>right ventricular": "the HVSMR-2.0 class list abbreviates the right ventricle as RV",
+  "LA>left atrium": "the HVSMR-2.0 class list abbreviates the left atrium as LA",
+  "RA>right atrium": "the HVSMR-2.0 class list abbreviates the right atrium as RA",
+  "SVC>superior vena cava": "the HVSMR-2.0 class list abbreviates the superior vena cava as SVC",
+  "nasal pharynx>nasopharynx": "another name for the nasopharynx",
+  "prostate outline>gland outline": "the gland of the prostate investigation is the prostate"
+ },
+ "kind_of_pairs": [
+  {
+   "label_word": "transverse / vertical",
+   "requirement_word": "intrinsic"
+  },
+  {
+   "label_word": "superior longitudinal",
+   "requirement_word": "intrinsic"
+  },
+  {
+   "label_word": "inferior longitudinal",
+   "requirement_word": "intrinsic"
+  },
+  {
+   "label_word": "genioglossus",
+   "requirement_word": "extrinsic"
+  }
+ ],
+ "kind_of_reasons": {
+  "transverse / vertical>intrinsic": "the transverse and vertical muscles are intrinsic muscles of the tongue",
+  "superior longitudinal>intrinsic": "the superior longitudinal muscle is an intrinsic muscle of the tongue",
+  "inferior longitudinal>intrinsic": "the inferior longitudinal muscle is an intrinsic muscle of the tongue",
+  "genioglossus>extrinsic": "the genioglossus is an extrinsic muscle of the tongue"
+ },
+ "source_findings": [
+  "HRA female pelvis v1.10: the meshes labelled right and left round ligament of uterus lie on the body’s left and right respectively, while every other sided mesh of the source (30, including both ilia, ovaries, tubes and ureters) lies on its labelled side. The round ligament labels are swapped in the source. Neither mesh is bound.",
+  "HRA female pelvis v1.10: the mesh labelled “Abdominal ostium of uterine tube” lies at the uterine cornua, with the same left-right extent as the cornua mesh, not at the fimbriated end of a tube. It is not bound.",
+  "HRA female pelvis v1.10: the bladder dome and bladder base meshes carry the same source label, “fundus of urinary bladder”. Neither is bound."
+ ],
+ "not_bound": {
+  "hvsmr2-pat7-label1": "No requirement of the vascular anomaly investigation names the left ventricle.",
+  "hvsmr2-pat7-label5": "The requirements name parts of this structure (ascending aorta, arch, isthmus, descending aorta); the label names the whole, and a whole is not bound to its parts.",
+  "hvsmr2-pat7-label6": "The requirements name parts of this structure (main, proximal and distal pulmonary arteries); the label names the whole, and a whole is not bound to its parts.",
+  "hvsmr2-pat7-label8": "The requirements name parts of this structure (hepatic, suprarenal, renal and infrarenal segments of the IVC); the label names the whole, and a whole is not bound to its parts.",
+  "nasalseg-p001-label3": "The requirements name parts of this structure (lateral nasal wall, meatuses, turbinates, vestibule and floor); the label names the whole, and a whole is not bound to its parts.",
+  "nasalseg-p001-label4": "The requirements name parts of this structure (lateral nasal wall, meatuses, turbinates, vestibule and floor); the label names the whole, and a whole is not bound to its parts.",
+  "openear-zeta-part2": "The requirements name parts of this structure (head, neck, manubrium and processes of the malleus); the label names the whole, and a whole is not bound to its parts.",
+  "openear-zeta-part3": "The requirements name parts of this structure (body and processes of the incus); the label names the whole, and a whole is not bound to its parts.",
+  "openear-zeta-part4": "The requirements name parts of this structure (head, crura and footplate of the stapes); the label names the whole, and a whole is not bound to its parts.",
+  "openear-zeta-part7": "The requirements name the cochlear nerve and the superior and inferior vestibular nerves separately; the label names the common nerve.",
+  "openear-zeta-part8": "The requirements name parts of this structure (pars tensa, pars flaccida, annulus and umbo); the label names the whole, and a whole is not bound to its parts.",
+  "openear-zeta-part10": "“Sinus Dura” does not name a structure that a requirement names; the sigmoid sinus is not named by the label.",
+  "openear-zeta-part12": "The requirements name parts of this structure (named bony boundaries, canals and plates of the temporal bone); the label names the whole, and a whole is not bound to its parts.",
+  "totalseg-v3-s0358-thyroid_gland": "The requirements name parts of this structure (left and right lobes, isthmus and pyramidal lobe); the label names the whole, and a whole is not bound to its parts.",
+  "totalseg-v3-s0358-trachea": "Neither the thyroid nor the carotid investigation has a requirement that names the trachea.",
+  "totalseg-v3-s0358-brachiocephalic_vein_left": "No requirement of the thyroid or carotid investigation names the brachiocephalic veins.",
+  "totalseg-v3-s0358-brachiocephalic_vein_right": "No requirement of the thyroid or carotid investigation names the brachiocephalic veins.",
+  "larynx-jasa19629778-phase01-original-air-tissue-interface": "The label names an air–tissue interface, not an anatomical structure.",
+  "totalseg-v3-esophagus-s0358-esophagus": "The oesophagus investigation names each segment’s lumen, wall layers and attachments; the label names the whole oesophagus.",
+  "totalseg-v3-esophagus-s0358-trachea": "The requirements name parts of this structure (tracheal wall, membrane, lumen and carinal interfaces); the label names the whole, and a whole is not bound to its parts.",
+  "totalseg-v3-esophagus-s0358-aorta": "The requirements name parts of this structure (aortic arch and descending aorta); the label names the whole, and a whole is not bound to its parts.",
+  "totalseg-v3-esophagus-s0358-heart": "The only cardiac requirement names the left atrial, pericardial and cardiac interfaces with the oesophagus, not the heart.",
+  "totalseg-v3-esophagus-s0358-stomach": "The requirements name parts of this structure (gastric cardia, fundus and folds); the label names the whole, and a whole is not bound to its parts.",
+  "totalseg-v3-esophagus-s0358-atrial_appendage_left": "No requirement of the oesophagus investigation names the left atrial appendage.",
+  "totalseg-v3-esophagus-s0358-superior_vena_cava": "The requirement names jugular, brachiocephalic and superior caval connections, not the vena cava itself.",
+  "totalseg-v3-esophagus-s0358-inferior_vena_cava": "No requirement of the oesophagus investigation names the inferior vena cava.",
+  "totalseg-v3-esophagus-s0358-spinal_cord": "No requirement of the oesophagus investigation names the spinal cord.",
+  "ispy1-expert1002-expert-structural-tumour": "The breast lesion requirements are sided and the label states no side; they are finding requirements, and the record has no depicted state for the checker to read.",
+  "prostate-biopsy0001-suspicious-target1": "A suspicious biopsy target is not an established lesion; the lesion requirement is a finding requirement, and the record has no depicted state for the checker to read.",
+  "source-only-bp3d-sella-4.3-fj1682": "The sella investigation has no requirement that names the internal carotid artery.",
+  "source-only-bp3d-sella-4.3-fj4993": "The sella investigation has no requirement that names the internal carotid artery.",
+  "bp3d-carotid-4.3-fj4993": "The requirements name parts of this structure (cervical, petrous, cavernous, clinoid and supraclinoid segments of the ICA); the label names the whole, and a whole is not bound to its parts.",
+  "bp3d-carotid-4.3-fj4986": "The requirements name parts of this structure (origin and proximal, mid and distal common carotid); the label names the whole, and a whole is not bound to its parts.",
+  "hra-female-pelvis-v1.10-n0438-p0-vh_f_cervicovaginal_junction": "The source attaches no label to this mesh (“-”), and the requirement names an interface.",
+  "hra-female-pelvis-v1.10-n0451-p0-vh_f_uterovesical_pouch": "The requirement names the vesicouterine space. Pelvic anatomy separates the peritoneal pouch from the subperitoneal space, so the pair needs anatomical review.",
+  "hra-female-pelvis-v1.10-n0453-p0-vh_f_right_round_ligament_of_uterus": "The requirements name segments of the round ligament. The mesh also lies on the body’s left, unlike every other right-labelled mesh in the source: the round ligament labels are swapped.",
+  "hra-female-pelvis-v1.10-n0454-p0-vh_f_left_round_ligament_of_uterus": "The requirements name segments of the round ligament. The mesh also lies on the body’s right, unlike every other left-labelled mesh in the source: the round ligament labels are swapped.",
+  "hra-female-pelvis-v1.10-n0462-p0-vh_f_suspensory_ligament_of_ovary_r": "No requirement names the suspensory ligament of the ovary.",
+  "hra-female-pelvis-v1.10-n0463-p0-vh_f_suspensory_ligament_of_ovary_l": "No requirement names the suspensory ligament of the ovary.",
+  "hra-female-pelvis-v1.10-n0472-p0-vh_f_mesovarium_r": "No requirement names the mesovarium.",
+  "hra-female-pelvis-v1.10-n0473-p0-vh_f_mesovarium_l": "No requirement names the mesovarium.",
+  "hra-female-pelvis-v1.10-n0478-p0-vh_f_abdominal_ostium_of_uterine_tube": "The label states no side, and the mesh lies at the uterine cornua, not at the fimbriated end where the abdominal ostium is.",
+  "hra-female-pelvis-v1.10-n0481-p0-vh_f_cornua": "The source attaches no label to this mesh (“-”).",
+  "hra-female-pelvis-v1.10-n0707-p0-vh_f_fundus_of_urinary_bladder_dome": "The requirements name parts of the dome (anterior two thirds, posterior third) and the base; the source labels this mesh and the base mesh alike as “fundus of urinary bladder”.",
+  "hra-female-pelvis-v1.10-n0709-p0-vh_f_fundus_of_urinary_bladder_base": "The source labels this mesh and the dome mesh alike as “fundus of urinary bladder”; only the node name says base, so the bladder base is not bound.",
+  "hra-female-pelvis-v1.10-n0708-p0-vh_f_urinary_bladder_neck_smooth_muscle": "No requirement names the bladder neck.",
+  "hra-female-pelvis-v1.10-n1007-p0-vh_f_sacrum": "The only bone requirements name a class (any covered bone or skeletal site); one bone is not bound to the class.",
+  "hra-female-pelvis-v1.10-n1008-p0-vh_f_coccyx": "The only bone requirements name a class (any covered bone or skeletal site); one bone is not bound to the class.",
+  "hra-female-pelvis-v1.10-n1011-p0-vh_f_ilium_compact_bone_r": "The source label names a tissue (compact bone tissue), not a structure that a requirement names.",
+  "hra-female-pelvis-v1.10-n1012-p0-vh_f_ilium_compact_bone_l": "The source label names a tissue (compact bone tissue), not a structure that a requirement names.",
+  "hra-female-pelvis-v1.10-n1014-p0-vh_f_ilium_spongy_bone_l": "The source label names a tissue (trabecular bone tissue), not a structure that a requirement names.",
+  "hra-female-pelvis-v1.10-n1015-p0-vh_f_ilium_spongy_bone_r": "The source label names a tissue (trabecular bone tissue), not a structure that a requirement names.",
+  "totalseg-v3-esophagus-s0358-vertebrae_T1": "The only spinal requirement names the cervical spine; no requirement names a thoracic vertebra.",
+  "totalseg-v3-esophagus-s0358-vertebrae_T2": "The only spinal requirement names the cervical spine; no requirement names a thoracic vertebra.",
+  "totalseg-v3-esophagus-s0358-vertebrae_T3": "The only spinal requirement names the cervical spine; no requirement names a thoracic vertebra.",
+  "totalseg-v3-esophagus-s0358-vertebrae_T4": "The only spinal requirement names the cervical spine; no requirement names a thoracic vertebra.",
+  "totalseg-v3-esophagus-s0358-vertebrae_T5": "The only spinal requirement names the cervical spine; no requirement names a thoracic vertebra.",
+  "totalseg-v3-esophagus-s0358-vertebrae_T6": "The only spinal requirement names the cervical spine; no requirement names a thoracic vertebra.",
+  "totalseg-v3-esophagus-s0358-vertebrae_T7": "The only spinal requirement names the cervical spine; no requirement names a thoracic vertebra.",
+  "totalseg-v3-esophagus-s0358-vertebrae_T8": "The only spinal requirement names the cervical spine; no requirement names a thoracic vertebra.",
+  "totalseg-v3-esophagus-s0358-vertebrae_T9": "The only spinal requirement names the cervical spine; no requirement names a thoracic vertebra.",
+  "totalseg-v3-esophagus-s0358-vertebrae_T10": "The only spinal requirement names the cervical spine; no requirement names a thoracic vertebra.",
+  "totalseg-v3-esophagus-s0358-vertebrae_T11": "The only spinal requirement names the cervical spine; no requirement names a thoracic vertebra.",
+  "totalseg-v3-esophagus-s0358-vertebrae_T12": "The only spinal requirement names the cervical spine; no requirement names a thoracic vertebra.",
+  "totalseg-v3-esophagus-s0358-lung_upper_lobe_left": "The lung requirements name pleural, mediastinal and pulmonary interfaces with the oesophagus, not the lobes.",
+  "totalseg-v3-esophagus-s0358-lung_lower_lobe_left": "The lung requirements name pleural, mediastinal and pulmonary interfaces with the oesophagus, not the lobes.",
+  "totalseg-v3-esophagus-s0358-lung_upper_lobe_right": "The lung requirements name pleural, mediastinal and pulmonary interfaces with the oesophagus, not the lobes.",
+  "totalseg-v3-esophagus-s0358-lung_middle_lobe_right": "The lung requirements name pleural, mediastinal and pulmonary interfaces with the oesophagus, not the lobes.",
+  "totalseg-v3-esophagus-s0358-lung_lower_lobe_right": "The lung requirements name pleural, mediastinal and pulmonary interfaces with the oesophagus, not the lobes.",
+  "fedbca-center1-001-label1-cells": "The bladder tumour requirements are finding requirements for a papillary or sessile tumour, its stalk or base; the label names neither form, and the record has no depicted state for the checker to read.",
+  "fedbca-center2-01-label1-cells": "The bladder tumour requirements are finding requirements for a papillary or sessile tumour, its stalk or base; the label names neither form, and the record has no depicted state for the checker to read.",
+  "fedbca-center3-01-label1-cells": "The bladder tumour requirements are finding requirements for a papillary or sessile tumour, its stalk or base; the label names neither form, and the record has no depicted state for the checker to read.",
+  "fedbca-center4-01-label1-cells": "The bladder tumour requirements are finding requirements for a papillary or sessile tumour, its stalk or base; the label names neither form, and the record has no depicted state for the checker to read."
+ },
+ "accepted": [
+  {
+   "asset_id": "hra-female-pelvis-v1.10-n0437-p0-vh_f_vagina",
+   "structure_id": "endometrial_cancer.vaginal.covered_vaginal_extent",
+   "name": "Covered vaginal extent",
+   "kind": "structure",
+   "quote": "vagina",
+   "evidence": "own_word",
+   "term": "vagina",
+   "side": "not_sided"
+  },
+  {
+   "asset_id": "hra-female-pelvis-v1.10-n0441-p0-vh_f_ampulla_of_uterine_tube_r",
+   "structure_id": "endometriosis.right.adnexa.tube_ampulla",
+   "name": "Right tube ampulla",
+   "kind": "structure",
+   "quote": "Ampulla of right uterine tube",
+   "evidence": "own_word",
+   "term": "tube ampulla",
+   "side": "label_states_side"
+  },
+  {
+   "asset_id": "hra-female-pelvis-v1.10-n0441-p0-vh_f_ampulla_of_uterine_tube_r",
+   "structure_id": "endometrial_cancer.right.adnexal_pelvic.tubal_ampulla",
+   "name": "Right tubal ampulla",
+   "kind": "structure",
+   "quote": "Ampulla of right uterine tube",
+   "evidence": "own_word",
+   "term": "tube ampulla",
+   "side": "label_states_side"
+  },
+  {
+   "asset_id": "hra-female-pelvis-v1.10-n0442-p0-vh_f_isthmus_of_fallopian_tube_r",
+   "structure_id": "endometriosis.right.adnexa.tube_isthmus",
+   "name": "Right tube isthmus",
+   "kind": "structure",
+   "quote": "Isthmus of right uterine tube",
+   "evidence": "own_word",
+   "term": "tube isthmus",
+   "side": "label_states_side"
+  },
+  {
+   "asset_id": "hra-female-pelvis-v1.10-n0442-p0-vh_f_isthmus_of_fallopian_tube_r",
+   "structure_id": "endometrial_cancer.right.adnexal_pelvic.tubal_isthmus",
+   "name": "Right tubal isthmus",
+   "kind": "structure",
+   "quote": "Isthmus of right uterine tube",
+   "evidence": "own_word",
+   "term": "tube isthmus",
+   "side": "label_states_side"
+  },
+  {
+   "asset_id": "hra-female-pelvis-v1.10-n0443-p0-vh_f_fibria_of_uterine_tube_r",
+   "structure_id": "endometriosis.right.adnexa.tube_infundibulum_fimbrial_end",
+   "name": "Right tube infundibulum fimbrial end",
+   "kind": "structure",
+   "quote": "Fimbria of right uterine tube",
+   "evidence": "own_word",
+   "term": "tube fimbria",
+   "side": "label_states_side"
+  },
+  {
+   "asset_id": "hra-female-pelvis-v1.10-n0443-p0-vh_f_fibria_of_uterine_tube_r",
+   "structure_id": "endometrial_cancer.right.adnexal_pelvic.source_resolved_infundibular_fimbrial_extent",
+   "name": "Right source resolved infundibular fimbrial extent",
+   "kind": "structure",
+   "quote": "Fimbria of right uterine tube",
+   "evidence": "own_word",
+   "term": "fimbria",
+   "side": "label_states_side"
+  },
+  {
+   "asset_id": "hra-female-pelvis-v1.10-n0444-p0-vh_f_uterine_tube_infundibulum_r",
+   "structure_id": "endometriosis.right.adnexa.tube_infundibulum_fimbrial_end",
+   "name": "Right tube infundibulum fimbrial end",
+   "kind": "structure",
+   "quote": "Infundibulum of right uterine tube",
+   "evidence": "own_word",
+   "term": "tube infundibulum",
+   "side": "label_states_side"
+  },
+  {
+   "asset_id": "hra-female-pelvis-v1.10-n0444-p0-vh_f_uterine_tube_infundibulum_r",
+   "structure_id": "endometrial_cancer.right.adnexal_pelvic.source_resolved_infundibular_fimbrial_extent",
+   "name": "Right source resolved infundibular fimbrial extent",
+   "kind": "structure",
+   "quote": "Infundibulum of right uterine tube",
+   "evidence": "own_word",
+   "term": "infundibulum",
+   "side": "label_states_side"
+  },
+  {
+   "asset_id": "hra-female-pelvis-v1.10-n0449-p0-vh_f_ampulla_of_uterine_tube_l",
+   "structure_id": "endometriosis.left.adnexa.tube_ampulla",
+   "name": "Left tube ampulla",
+   "kind": "structure",
+   "quote": "Ampulla of left uterine tube",
+   "evidence": "own_word",
+   "term": "tube ampulla",
+   "side": "label_states_side"
+  },
+  {
+   "asset_id": "hra-female-pelvis-v1.10-n0449-p0-vh_f_ampulla_of_uterine_tube_l",
+   "structure_id": "endometrial_cancer.left.adnexal_pelvic.tubal_ampulla",
+   "name": "Left tubal ampulla",
+   "kind": "structure",
+   "quote": "Ampulla of left uterine tube",
+   "evidence": "own_word",
+   "term": "tube ampulla",
+   "side": "label_states_side"
+  },
+  {
+   "asset_id": "hra-female-pelvis-v1.10-n0448-p0-vh_f_isthmus_of_fallopian_tube_l",
+   "structure_id": "endometriosis.left.adnexa.tube_isthmus",
+   "name": "Left tube isthmus",
+   "kind": "structure",
+   "quote": "Isthmus of left uterine tube",
+   "evidence": "own_word",
+   "term": "tube isthmus",
+   "side": "label_states_side"
+  },
+  {
+   "asset_id": "hra-female-pelvis-v1.10-n0448-p0-vh_f_isthmus_of_fallopian_tube_l",
+   "structure_id": "endometrial_cancer.left.adnexal_pelvic.tubal_isthmus",
+   "name": "Left tubal isthmus",
+   "kind": "structure",
+   "quote": "Isthmus of left uterine tube",
+   "evidence": "own_word",
+   "term": "tube isthmus",
+   "side": "label_states_side"
+  },
+  {
+   "asset_id": "hra-female-pelvis-v1.10-n0447-p0-vh_f_fibria_of_uterine_tube_l",
+   "structure_id": "endometriosis.left.adnexa.tube_infundibulum_fimbrial_end",
+   "name": "Left tube infundibulum fimbrial end",
+   "kind": "structure",
+   "quote": "Fimbria of left uterine tube",
+   "evidence": "own_word",
+   "term": "tube fimbria",
+   "side": "label_states_side"
+  },
+  {
+   "asset_id": "hra-female-pelvis-v1.10-n0447-p0-vh_f_fibria_of_uterine_tube_l",
+   "structure_id": "endometrial_cancer.left.adnexal_pelvic.source_resolved_infundibular_fimbrial_extent",
+   "name": "Left source resolved infundibular fimbrial extent",
+   "kind": "structure",
+   "quote": "Fimbria of left uterine tube",
+   "evidence": "own_word",
+   "term": "fimbria",
+   "side": "label_states_side"
+  },
+  {
+   "asset_id": "hra-female-pelvis-v1.10-n0446-p0-vh_f_uterine_tube_infundibulum_l",
+   "structure_id": "endometriosis.left.adnexa.tube_infundibulum_fimbrial_end",
+   "name": "Left tube infundibulum fimbrial end",
+   "kind": "structure",
+   "quote": "Infundibulum of left uterine tube",
+   "evidence": "own_word",
+   "term": "tube infundibulum",
+   "side": "label_states_side"
+  },
+  {
+   "asset_id": "hra-female-pelvis-v1.10-n0446-p0-vh_f_uterine_tube_infundibulum_l",
+   "structure_id": "endometrial_cancer.left.adnexal_pelvic.source_resolved_infundibular_fimbrial_extent",
+   "name": "Left source resolved infundibular fimbrial extent",
+   "kind": "structure",
+   "quote": "Infundibulum of left uterine tube",
+   "evidence": "own_word",
+   "term": "infundibulum",
+   "side": "label_states_side"
+  },
+  {
+   "asset_id": "hra-female-pelvis-v1.10-n0456-p0-vh_f_right_uterosacral_ligament",
+   "structure_id": "cervical_cancer.right.parametrial.covered_sacrouterine_uterosacral_course",
+   "name": "Right covered sacrouterine uterosacral course",
+   "kind": "structure",
+   "quote": "Right uterosacral ligament",
+   "evidence": "own_word",
+   "term": "uterosacral",
+   "side": "label_states_side"
+  },
+  {
+   "asset_id": "hra-female-pelvis-v1.10-n0456-p0-vh_f_right_uterosacral_ligament",
+   "structure_id": "endometrial_cancer.right.adnexal_pelvic.uterosacral_origin_and_covered_course",
+   "name": "Right uterosacral origin and covered course",
+   "kind": "structure",
+   "quote": "Right uterosacral ligament",
+   "evidence": "own_word",
+   "term": "uterosacral",
+   "side": "label_states_side"
+  },
+  {
+   "asset_id": "hra-female-pelvis-v1.10-n0459-p0-vh_f_right_cardinal_ligament_of_uterus",
+   "structure_id": "cervical_cancer.right.parametrial.covered_cardinal_paracervical_tissue",
+   "name": "Right covered cardinal paracervical tissue",
+   "kind": "structure",
+   "quote": "Cardinal ligament",
+   "evidence": "own_word",
+   "term": "cardinal",
+   "side": "label_states_side",
+   "side_quote": "VH_F_right_cardinal_ligament_of_uterus"
+  },
+  {
+   "asset_id": "hra-female-pelvis-v1.10-n0466-p0-vh_f_ovarian_ligament_r",
+   "structure_id": "endometrial_cancer.right.adnexal_pelvic.ovarian_uterine_attachment",
+   "name": "Right ovarian uterine attachment",
+   "kind": "structure",
+   "quote": "Right ovarian ligament",
+   "evidence": "another_name",
+   "another_name": {
+    "label_word": "ovarian ligament",
+    "requirement_word": "ovarian uterine attachment"
+   },
+   "side": "label_states_side"
+  },
+  {
+   "asset_id": "hra-female-pelvis-v1.10-n0470-p0-vh_f_mesosalpinx_r",
+   "structure_id": "endometriosis.right.adnexa.mesosalpinx",
+   "name": "Right mesosalpinx",
+   "kind": "structure",
+   "quote": "Right mesosalpinx",
+   "evidence": "own_word",
+   "term": "mesosalpinx",
+   "side": "label_states_side"
+  },
+  {
+   "asset_id": "hra-female-pelvis-v1.10-n0476-p0-vh_f_right_ovary",
+   "structure_id": "endometriosis.right.adnexa.ovary",
+   "name": "Right ovary",
+   "kind": "structure",
+   "quote": "Right ovary",
+   "evidence": "own_word",
+   "term": "ovary",
+   "side": "label_states_side"
+  },
+  {
+   "asset_id": "hra-female-pelvis-v1.10-n0476-p0-vh_f_right_ovary",
+   "structure_id": "endometrial_cancer.right.adnexal_pelvic.ovary",
+   "name": "Right ovary",
+   "kind": "structure",
+   "quote": "Right ovary",
+   "evidence": "own_word",
+   "term": "ovary",
+   "side": "label_states_side"
+  },
+  {
+   "asset_id": "hra-female-pelvis-v1.10-n0685-p0-vh_f_right_ureter",
+   "structure_id": "endometrial_cancer.right.urinary.covered_ureter",
+   "name": "Right covered ureter",
+   "kind": "structure",
+   "quote": "right ureter",
+   "evidence": "own_word",
+   "term": "ureter",
+   "side": "label_states_side"
+  },
+  {
+   "asset_id": "hra-female-pelvis-v1.10-n0712-p0-vh_f_ureteral_orifice_r",
+   "structure_id": "cervical_cancer.right.urinary.ureteric_orifice",
+   "name": "Right ureteric orifice",
+   "kind": "structure",
+   "quote": "Right ureteral orifice",
+   "evidence": "own_word",
+   "term": "ureteral orifice",
+   "side": "label_states_side"
+  },
+  {
+   "asset_id": "hra-female-pelvis-v1.10-n0712-p0-vh_f_ureteral_orifice_r",
+   "structure_id": "endometrial_cancer.right.urinary.ureteric_orifice",
+   "name": "Right ureteric orifice",
+   "kind": "structure",
+   "quote": "Right ureteral orifice",
+   "evidence": "own_word",
+   "term": "ureteral orifice",
+   "side": "label_states_side"
+  },
+  {
+   "asset_id": "hra-female-pelvis-v1.10-n0712-p0-vh_f_ureteral_orifice_r",
+   "structure_id": "endometriosis.right.urinary.ureteric_orifice",
+   "name": "Right ureteric orifice",
+   "kind": "structure",
+   "quote": "Right ureteral orifice",
+   "evidence": "own_word",
+   "term": "ureteral orifice",
+   "side": "label_states_side"
+  },
+  {
+   "asset_id": "hra-female-pelvis-v1.10-n0457-p0-vh_f_left_uterosacral_ligament",
+   "structure_id": "cervical_cancer.left.parametrial.covered_sacrouterine_uterosacral_course",
+   "name": "Left covered sacrouterine uterosacral course",
+   "kind": "structure",
+   "quote": "Left uterosacral ligament",
+   "evidence": "own_word",
+   "term": "uterosacral",
+   "side": "label_states_side"
+  },
+  {
+   "asset_id": "hra-female-pelvis-v1.10-n0457-p0-vh_f_left_uterosacral_ligament",
+   "structure_id": "endometrial_cancer.left.adnexal_pelvic.uterosacral_origin_and_covered_course",
+   "name": "Left uterosacral origin and covered course",
+   "kind": "structure",
+   "quote": "Left uterosacral ligament",
+   "evidence": "own_word",
+   "term": "uterosacral",
+   "side": "label_states_side"
+  },
+  {
+   "asset_id": "hra-female-pelvis-v1.10-n0460-p0-vh_f_left_cardinal_ligament_of_uterus",
+   "structure_id": "cervical_cancer.left.parametrial.covered_cardinal_paracervical_tissue",
+   "name": "Left covered cardinal paracervical tissue",
+   "kind": "structure",
+   "quote": "Cardinal ligament",
+   "evidence": "own_word",
+   "term": "cardinal",
+   "side": "label_states_side",
+   "side_quote": "VH_F_left_cardinal_ligament_of_uterus"
+  },
+  {
+   "asset_id": "hra-female-pelvis-v1.10-n0465-p0-vh_f_ovarian_ligament_l",
+   "structure_id": "endometrial_cancer.left.adnexal_pelvic.ovarian_uterine_attachment",
+   "name": "Left ovarian uterine attachment",
+   "kind": "structure",
+   "quote": "Left ovarian ligament",
+   "evidence": "another_name",
+   "another_name": {
+    "label_word": "ovarian ligament",
+    "requirement_word": "ovarian uterine attachment"
+   },
+   "side": "label_states_side"
+  },
+  {
+   "asset_id": "hra-female-pelvis-v1.10-n0469-p0-vh_f_mesosalpinx_l",
+   "structure_id": "endometriosis.left.adnexa.mesosalpinx",
+   "name": "Left mesosalpinx",
+   "kind": "structure",
+   "quote": "Left mesosalpinx",
+   "evidence": "own_word",
+   "term": "mesosalpinx",
+   "side": "label_states_side"
+  },
+  {
+   "asset_id": "hra-female-pelvis-v1.10-n0475-p0-vh_f_left_ovary",
+   "structure_id": "endometriosis.left.adnexa.ovary",
+   "name": "Left ovary",
+   "kind": "structure",
+   "quote": "Left ovary",
+   "evidence": "own_word",
+   "term": "ovary",
+   "side": "label_states_side"
+  },
+  {
+   "asset_id": "hra-female-pelvis-v1.10-n0475-p0-vh_f_left_ovary",
+   "structure_id": "endometrial_cancer.left.adnexal_pelvic.ovary",
+   "name": "Left ovary",
+   "kind": "structure",
+   "quote": "Left ovary",
+   "evidence": "own_word",
+   "term": "ovary",
+   "side": "label_states_side"
+  },
+  {
+   "asset_id": "hra-female-pelvis-v1.10-n0705-p0-vh_f_left_ureter",
+   "structure_id": "endometrial_cancer.left.urinary.covered_ureter",
+   "name": "Left covered ureter",
+   "kind": "structure",
+   "quote": "left ureter",
+   "evidence": "own_word",
+   "term": "ureter",
+   "side": "label_states_side"
+  },
+  {
+   "asset_id": "hra-female-pelvis-v1.10-n0713-p0-vh_f_ureteral_orifice_l",
+   "structure_id": "cervical_cancer.left.urinary.ureteric_orifice",
+   "name": "Left ureteric orifice",
+   "kind": "structure",
+   "quote": "Left ureteral orifice",
+   "evidence": "own_word",
+   "term": "ureteral orifice",
+   "side": "label_states_side"
+  },
+  {
+   "asset_id": "hra-female-pelvis-v1.10-n0713-p0-vh_f_ureteral_orifice_l",
+   "structure_id": "endometrial_cancer.left.urinary.ureteric_orifice",
+   "name": "Left ureteric orifice",
+   "kind": "structure",
+   "quote": "Left ureteral orifice",
+   "evidence": "own_word",
+   "term": "ureteral orifice",
+   "side": "label_states_side"
+  },
+  {
+   "asset_id": "hra-female-pelvis-v1.10-n0713-p0-vh_f_ureteral_orifice_l",
+   "structure_id": "endometriosis.left.urinary.ureteric_orifice",
+   "name": "Left ureteric orifice",
+   "kind": "structure",
+   "quote": "Left ureteral orifice",
+   "evidence": "own_word",
+   "term": "ureteral orifice",
+   "side": "label_states_side"
+  },
+  {
+   "asset_id": "hra-female-pelvis-v1.10-n0467-p0-vh_f_broad_ligament",
+   "structure_id": "endometrial_cancer.left.adnexal_pelvic.covered_broad_ligament_fold",
+   "name": "Left covered broad ligament fold",
+   "kind": "structure",
+   "quote": "broad ligament of uterus",
+   "evidence": "own_word",
+   "term": "broad ligament",
+   "side": "mesh_spans_both_sides"
+  },
+  {
+   "asset_id": "hra-female-pelvis-v1.10-n0467-p0-vh_f_broad_ligament",
+   "structure_id": "endometrial_cancer.right.adnexal_pelvic.covered_broad_ligament_fold",
+   "name": "Right covered broad ligament fold",
+   "kind": "structure",
+   "quote": "broad ligament of uterus",
+   "evidence": "own_word",
+   "term": "broad ligament",
+   "side": "mesh_spans_both_sides"
+  },
+  {
+   "asset_id": "hra-female-pelvis-v1.10-n0479-p0-vh_f_body_of_uterus",
+   "structure_id": "cervical_cancer.central.uterine_body_orientation_and_whole_size",
+   "name": "Uterine body orientation and whole size",
+   "kind": "structure",
+   "quote": "body of uterus",
+   "evidence": "own_word",
+   "term": "uterus body",
+   "side": "not_sided"
+  },
+  {
+   "asset_id": "hra-female-pelvis-v1.10-n0479-p0-vh_f_body_of_uterus",
+   "structure_id": "endometrial_cancer.central.whole_uterine_body_and_orientation",
+   "name": "Whole uterine body and orientation",
+   "kind": "structure",
+   "quote": "body of uterus",
+   "evidence": "own_word",
+   "term": "uterus body",
+   "side": "not_sided"
+  },
+  {
+   "asset_id": "hra-female-pelvis-v1.10-n0479-p0-vh_f_body_of_uterus",
+   "structure_id": "endometriosis.central.uterus_covered_body_and_orientation",
+   "name": "Uterus covered body and orientation",
+   "kind": "structure",
+   "quote": "body of uterus",
+   "evidence": "own_word",
+   "term": "uterus body",
+   "side": "not_sided"
+  },
+  {
+   "asset_id": "hra-female-pelvis-v1.10-n0480-p0-vh_f_fundus_of_uterus",
+   "structure_id": "cervical_cancer.central.covered_uterine_fundus",
+   "name": "Covered uterine fundus",
+   "kind": "structure",
+   "quote": "Fundus of uterus",
+   "evidence": "own_word",
+   "term": "uterus fundus",
+   "side": "not_sided"
+  },
+  {
+   "asset_id": "hra-female-pelvis-v1.10-n0480-p0-vh_f_fundus_of_uterus",
+   "structure_id": "endometrial_cancer.central.uterine_fundus",
+   "name": "Uterine fundus",
+   "kind": "structure",
+   "quote": "Fundus of uterus",
+   "evidence": "own_word",
+   "term": "uterus fundus",
+   "side": "not_sided"
+  },
+  {
+   "asset_id": "hra-female-pelvis-v1.10-n0482-p0-vh_f_lower_uterine_segment",
+   "structure_id": "cervical_cancer.central.covered_uterine_isthmus_lower_segment",
+   "name": "Covered uterine isthmus lower segment",
+   "kind": "structure",
+   "quote": "Lower uterine segment",
+   "evidence": "own_word",
+   "term": "lower uterine segment",
+   "side": "not_sided"
+  },
+  {
+   "asset_id": "hra-female-pelvis-v1.10-n0482-p0-vh_f_lower_uterine_segment",
+   "structure_id": "endometrial_cancer.central.uterine_isthmus_lower_segment",
+   "name": "Uterine isthmus lower segment",
+   "kind": "structure",
+   "quote": "Lower uterine segment",
+   "evidence": "own_word",
+   "term": "lower uterine segment",
+   "side": "not_sided"
+  },
+  {
+   "asset_id": "hra-female-pelvis-v1.10-n0483-p0-vh_f_posterior_wall_of_uterus",
+   "structure_id": "endometrial_cancer.central.posterior_uterine_body",
+   "name": "Posterior uterine body",
+   "kind": "structure",
+   "quote": "Posterior wall of uterus",
+   "evidence": "another_name",
+   "another_name": {
+    "label_word": "posterior wall of uterus",
+    "requirement_word": "posterior uterine body"
+   },
+   "side": "not_sided"
+  },
+  {
+   "asset_id": "hra-female-pelvis-v1.10-n0484-p0-vh_f_anterior_wall_of_uterus",
+   "structure_id": "endometrial_cancer.central.anterior_uterine_body",
+   "name": "Anterior uterine body",
+   "kind": "structure",
+   "quote": "Anterior wall of uterus",
+   "evidence": "another_name",
+   "another_name": {
+    "label_word": "anterior wall of uterus",
+    "requirement_word": "anterior uterine body"
+   },
+   "side": "not_sided"
+  },
+  {
+   "asset_id": "hra-female-pelvis-v1.10-n0485-p0-vh_f_cervix",
+   "structure_id": "endometriosis.central.uterine_cervix",
+   "name": "Uterine cervix",
+   "kind": "structure",
+   "quote": "uterine cervix",
+   "evidence": "own_word",
+   "term": "uterine cervix",
+   "side": "not_sided"
+  },
+  {
+   "asset_id": "hra-female-pelvis-v1.10-n0486-p0-vh_f_internal_cervical_os",
+   "structure_id": "cervical_cancer.central.internal_cervical_os",
+   "name": "Internal cervical os",
+   "kind": "structure",
+   "quote": "internal cervical os",
+   "evidence": "own_word",
+   "term": "internal cervical os",
+   "side": "not_sided"
+  },
+  {
+   "asset_id": "hra-female-pelvis-v1.10-n0487-p0-vh_f_external_cervical_os",
+   "structure_id": "cervical_cancer.central.external_cervical_os",
+   "name": "External cervical os",
+   "kind": "structure",
+   "quote": "external cervical os",
+   "evidence": "own_word",
+   "term": "external cervical os",
+   "side": "not_sided"
+  },
+  {
+   "asset_id": "hra-female-pelvis-v1.10-n0598-p0-vh_f_rectum",
+   "structure_id": "cervical_cancer.adjacent.covered_rectum",
+   "name": "Covered rectum",
+   "kind": "structure",
+   "quote": "rectum",
+   "evidence": "own_word",
+   "term": "rectum",
+   "side": "not_sided"
+  },
+  {
+   "asset_id": "hra-female-pelvis-v1.10-n0486-p0-vh_f_internal_cervical_os",
+   "structure_id": "endometrial_cancer.central.internal_cervical_os",
+   "name": "Internal cervical os",
+   "kind": "structure",
+   "quote": "internal cervical os",
+   "evidence": "own_word",
+   "term": "internal cervical os",
+   "side": "not_sided"
+  },
+  {
+   "asset_id": "hra-female-pelvis-v1.10-n0487-p0-vh_f_external_cervical_os",
+   "structure_id": "endometrial_cancer.central.external_cervical_os",
+   "name": "External cervical os",
+   "kind": "structure",
+   "quote": "external cervical os",
+   "evidence": "own_word",
+   "term": "external cervical os",
+   "side": "not_sided"
+  },
+  {
+   "asset_id": "hra-female-pelvis-v1.10-n0598-p0-vh_f_rectum",
+   "structure_id": "endometrial_cancer.adjacent.covered_rectum",
+   "name": "Covered rectum",
+   "kind": "structure",
+   "quote": "rectum",
+   "evidence": "own_word",
+   "term": "rectum",
+   "side": "not_sided"
+  },
+  {
+   "asset_id": "hra-female-pelvis-v1.10-n0599-p0-vh_f_sigmoid_colon",
+   "structure_id": "endometrial_cancer.adjacent.covered_sigmoid",
+   "name": "Covered sigmoid",
+   "kind": "structure",
+   "quote": "sigmoid colon",
+   "evidence": "own_word",
+   "term": "sigmoid",
+   "side": "not_sided"
+  },
+  {
+   "asset_id": "hra-female-pelvis-v1.10-n0599-p0-vh_f_sigmoid_colon",
+   "structure_id": "endometriosis.bowel.covered_sigmoid",
+   "name": "Covered sigmoid",
+   "kind": "structure",
+   "quote": "sigmoid colon",
+   "evidence": "own_word",
+   "term": "sigmoid",
+   "side": "not_sided"
+  },
+  {
+   "asset_id": "hra-female-pelvis-v1.10-n0710-p0-vh_f_trigone_of_urinary_bladder",
+   "structure_id": "cervical_cancer.adjacent.bladder_base_trigone",
+   "name": "Bladder base trigone",
+   "kind": "structure",
+   "quote": "trigone of urinary bladder",
+   "evidence": "own_word",
+   "term": "bladder trigone",
+   "side": "not_sided"
+  },
+  {
+   "asset_id": "hra-female-pelvis-v1.10-n0710-p0-vh_f_trigone_of_urinary_bladder",
+   "structure_id": "endometrial_cancer.adjacent.bladder_base_trigone",
+   "name": "Bladder base trigone",
+   "kind": "structure",
+   "quote": "trigone of urinary bladder",
+   "evidence": "own_word",
+   "term": "bladder trigone",
+   "side": "not_sided"
+  },
+  {
+   "asset_id": "hra-female-pelvis-v1.10-n0710-p0-vh_f_trigone_of_urinary_bladder",
+   "structure_id": "endometriosis.central.bladder_base_and_trigone",
+   "name": "Bladder base and trigone",
+   "kind": "structure",
+   "quote": "trigone of urinary bladder",
+   "evidence": "own_word",
+   "term": "bladder trigone",
+   "side": "not_sided"
+  },
+  {
+   "asset_id": "source-only-bp3d-sella-4.3-fj7505",
+   "structure_id": "sella.optic_chiasm",
+   "name": "Complete obtained optic chiasm",
+   "kind": "structure",
+   "quote": "Optic chiasm",
+   "evidence": "own_word",
+   "term": "optic chiasm",
+   "side": "not_sided"
+  },
+  {
+   "asset_id": "source-only-bp3d-sella-4.3-fj7505m",
+   "structure_id": "sella.optic_chiasm",
+   "name": "Complete obtained optic chiasm",
+   "kind": "structure",
+   "quote": "Optic chiasm",
+   "evidence": "own_word",
+   "term": "optic chiasm",
+   "side": "not_sided"
+  },
+  {
+   "asset_id": "source-only-bp3d-sella-4.3-fj7503",
+   "structure_id": "sella.optic_chiasm",
+   "name": "Complete obtained optic chiasm",
+   "kind": "structure",
+   "quote": "Optic chiasm",
+   "evidence": "own_word",
+   "term": "optic chiasm",
+   "side": "not_sided"
+  },
+  {
+   "asset_id": "source-only-bp3d-sella-4.3-fj7503m",
+   "structure_id": "sella.optic_chiasm",
+   "name": "Complete obtained optic chiasm",
+   "kind": "structure",
+   "quote": "Optic chiasm",
+   "evidence": "own_word",
+   "term": "optic chiasm",
+   "side": "not_sided"
+  },
+  {
+   "asset_id": "source-only-bp3d-sella-4.3-fj7501",
+   "structure_id": "sella.right.optic_nerve",
+   "name": "Right Prechiasmatic optic nerve",
+   "kind": "structure",
+   "quote": "Right optic nerve",
+   "evidence": "own_word",
+   "term": "optic nerve",
+   "side": "label_states_side"
+  },
+  {
+   "asset_id": "source-only-bp3d-sella-4.3-fj7501m",
+   "structure_id": "sella.left.optic_nerve",
+   "name": "Left Prechiasmatic optic nerve",
+   "kind": "structure",
+   "quote": "Left optic nerve",
+   "evidence": "own_word",
+   "term": "optic nerve",
+   "side": "label_states_side"
+  },
+  {
+   "asset_id": "source-only-bp3d-sella-4.3-fj7502",
+   "structure_id": "sella.right.optic_tract",
+   "name": "Right Postchiasmatic optic tract",
+   "kind": "structure",
+   "quote": "Right optic tract",
+   "evidence": "own_word",
+   "term": "optic tract",
+   "side": "label_states_side"
+  },
+  {
+   "asset_id": "source-only-bp3d-sella-4.3-fj7502m",
+   "structure_id": "sella.left.optic_tract",
+   "name": "Left Postchiasmatic optic tract",
+   "kind": "structure",
+   "quote": "Left optic tract",
+   "evidence": "own_word",
+   "term": "optic tract",
+   "side": "label_states_side"
+  },
+  {
+   "asset_id": "source-only-bp3d-sella-4.3-fj3848",
+   "structure_id": "sella.gland",
+   "name": "Whole source pituitary gland",
+   "kind": "structure",
+   "quote": "Pituitary gland",
+   "evidence": "own_word",
+   "term": "pituitary gland",
+   "side": "not_sided"
+  },
+  {
+   "asset_id": "source-only-bp3d-sella-4.3-fj1796",
+   "structure_id": "sella.gland",
+   "name": "Whole source pituitary gland",
+   "kind": "structure",
+   "quote": "Pituitary gland",
+   "evidence": "own_word",
+   "term": "pituitary gland",
+   "side": "not_sided"
+  },
+  {
+   "asset_id": "bp3d-carotid-4.3-fj4989",
+   "structure_id": "carotid_obstruction.right.vessel.covered_external_carotid_trunk",
+   "name": "Right covered external carotid trunk",
+   "kind": "structure",
+   "quote": "Trunk of right external carotid artery",
+   "evidence": "own_word",
+   "term": "external carotid trunk",
+   "side": "record_states_side"
+  },
+  {
+   "asset_id": "openear-zeta-part0",
+   "structure_id": "temporal_bone.right_source_resolved_scala_tympani_if_reported",
+   "name": "Right source resolved scala tympani if reported",
+   "kind": "structure",
+   "quote": "Scala Tympani",
+   "evidence": "own_word",
+   "term": "scala tympani",
+   "side": "side_not_stated"
+  },
+  {
+   "asset_id": "openear-zeta-part1",
+   "structure_id": "temporal_bone.right_source_resolved_scala_vestibuli_if_reported",
+   "name": "Right source resolved scala vestibuli if reported",
+   "kind": "structure",
+   "quote": "Scala Vestibuli",
+   "evidence": "own_word",
+   "term": "scala vestibuli",
+   "side": "side_not_stated"
+  },
+  {
+   "asset_id": "openear-zeta-part5",
+   "structure_id": "temporal_bone.right_covered_facial_nerve_and_actual_branches",
+   "name": "Right covered facial nerve and actual branches",
+   "kind": "structure",
+   "quote": "Facial Nerve",
+   "evidence": "own_word",
+   "term": "facial nerve",
+   "side": "side_not_stated"
+  },
+  {
+   "asset_id": "openear-zeta-part6",
+   "structure_id": "temporal_bone.right_chorda_tympani_canal_route_if_reported",
+   "name": "Right chorda tympani canal route if reported",
+   "kind": "structure",
+   "quote": "Chorda Tympani",
+   "evidence": "own_word",
+   "term": "chorda tympani",
+   "side": "side_not_stated"
+  },
+  {
+   "asset_id": "openear-zeta-part9",
+   "structure_id": "temporal_bone.right_external_canal_anterior_posterior_superior_inferior_walls",
+   "name": "Right external canal anterior posterior superior inferior walls",
+   "kind": "structure",
+   "quote": "External Auditory Canal",
+   "evidence": "own_word",
+   "term": "external canal",
+   "side": "side_not_stated"
+  },
+  {
+   "asset_id": "openear-zeta-part11",
+   "structure_id": "temporal_bone.right_covered_internal_carotid_vessel",
+   "name": "Right covered internal carotid vessel",
+   "kind": "structure",
+   "quote": "Carotis Interna",
+   "evidence": "another_name",
+   "another_name": {
+    "label_word": "carotis interna",
+    "requirement_word": "internal carotid"
+   },
+   "side": "side_not_stated"
+  },
+  {
+   "asset_id": "openear-zeta-part0",
+   "structure_id": "temporal_bone.left_source_resolved_scala_tympani_if_reported",
+   "name": "Left source resolved scala tympani if reported",
+   "kind": "structure",
+   "quote": "Scala Tympani",
+   "evidence": "own_word",
+   "term": "scala tympani",
+   "side": "side_not_stated"
+  },
+  {
+   "asset_id": "openear-zeta-part1",
+   "structure_id": "temporal_bone.left_source_resolved_scala_vestibuli_if_reported",
+   "name": "Left source resolved scala vestibuli if reported",
+   "kind": "structure",
+   "quote": "Scala Vestibuli",
+   "evidence": "own_word",
+   "term": "scala vestibuli",
+   "side": "side_not_stated"
+  },
+  {
+   "asset_id": "openear-zeta-part5",
+   "structure_id": "temporal_bone.left_covered_facial_nerve_and_actual_branches",
+   "name": "Left covered facial nerve and actual branches",
+   "kind": "structure",
+   "quote": "Facial Nerve",
+   "evidence": "own_word",
+   "term": "facial nerve",
+   "side": "side_not_stated"
+  },
+  {
+   "asset_id": "openear-zeta-part6",
+   "structure_id": "temporal_bone.left_chorda_tympani_canal_route_if_reported",
+   "name": "Left chorda tympani canal route if reported",
+   "kind": "structure",
+   "quote": "Chorda Tympani",
+   "evidence": "own_word",
+   "term": "chorda tympani",
+   "side": "side_not_stated"
+  },
+  {
+   "asset_id": "openear-zeta-part9",
+   "structure_id": "temporal_bone.left_external_canal_anterior_posterior_superior_inferior_walls",
+   "name": "Left external canal anterior posterior superior inferior walls",
+   "kind": "structure",
+   "quote": "External Auditory Canal",
+   "evidence": "own_word",
+   "term": "external canal",
+   "side": "side_not_stated"
+  },
+  {
+   "asset_id": "openear-zeta-part11",
+   "structure_id": "temporal_bone.left_covered_internal_carotid_vessel",
+   "name": "Left covered internal carotid vessel",
+   "kind": "structure",
+   "quote": "Carotis Interna",
+   "evidence": "another_name",
+   "another_name": {
+    "label_word": "carotis interna",
+    "requirement_word": "internal carotid"
+   },
+   "side": "side_not_stated"
+  },
+  {
+   "asset_id": "totalseg-v3-s0358-esophagus",
+   "structure_id": "thyroid.not_applicable_esophagus_and_tracheoesophageal_grooves",
+   "name": "Not applicable esophagus and tracheoesophageal grooves",
+   "kind": "structure",
+   "quote": "esophagus",
+   "evidence": "own_word",
+   "term": "esophagus",
+   "side": "not_sided"
+  },
+  {
+   "asset_id": "totalseg-v3-s0358-common_carotid_artery_left",
+   "structure_id": "thyroid.left_common_carotid_and_encountered_branches",
+   "name": "Left common carotid and encountered branches",
+   "kind": "structure",
+   "quote": "common carotid artery left",
+   "evidence": "own_word",
+   "term": "common carotid",
+   "side": "label_states_side"
+  },
+  {
+   "asset_id": "totalseg-v3-s0358-common_carotid_artery_right",
+   "structure_id": "thyroid.right_common_carotid_and_encountered_branches",
+   "name": "Right common carotid and encountered branches",
+   "kind": "structure",
+   "quote": "common carotid artery right",
+   "evidence": "own_word",
+   "term": "common carotid",
+   "side": "label_states_side"
+  },
+  {
+   "asset_id": "totalseg-v3-s0358-brachiocephalic_trunk",
+   "structure_id": "carotid_obstruction.covered_brachiocephalic_trunk",
+   "name": "covered brachiocephalic trunk",
+   "kind": "structure",
+   "quote": "brachiocephalic trunk",
+   "evidence": "own_word",
+   "term": "brachiocephalic trunk",
+   "side": "not_sided"
+  },
+  {
+   "asset_id": "totalseg-v3-esophagus-s0358-pulmonary_vein",
+   "structure_id": "esophagus.left_pulmonary_arterial_venous_and_actual_variant_routes",
+   "name": "Left pulmonary arterial venous and actual variant routes",
+   "kind": "structure",
+   "quote": "pulmonary vein",
+   "evidence": "own_word",
+   "term": "pulmonary vein",
+   "side": "mesh_spans_both_sides"
+  },
+  {
+   "asset_id": "totalseg-v3-esophagus-s0358-pulmonary_vein",
+   "structure_id": "esophagus.right_pulmonary_arterial_venous_and_actual_variant_routes",
+   "name": "Right pulmonary arterial venous and actual variant routes",
+   "kind": "structure",
+   "quote": "pulmonary vein",
+   "evidence": "own_word",
+   "term": "pulmonary vein",
+   "side": "mesh_spans_both_sides"
+  },
+  {
+   "asset_id": "hvsmr2-pat7-label2",
+   "structure_id": "vascular_anomaly.right_ventricle",
+   "name": "Right ventricular size/covered morphology",
+   "kind": "structure",
+   "quote": "RV blood pool",
+   "evidence": "another_name",
+   "another_name": {
+    "label_word": "RV",
+    "requirement_word": "right ventricular"
+   },
+   "side": "not_sided"
+  },
+  {
+   "asset_id": "hvsmr2-pat7-label3",
+   "structure_id": "vascular_anomaly.left_atrium",
+   "name": "Left atrium and venous ostia",
+   "kind": "structure",
+   "quote": "LA blood pool",
+   "evidence": "another_name",
+   "another_name": {
+    "label_word": "LA",
+    "requirement_word": "left atrium"
+   },
+   "side": "not_sided"
+  },
+  {
+   "asset_id": "hvsmr2-pat7-label4",
+   "structure_id": "vascular_anomaly.right_atrium",
+   "name": "Right atrium and systemic venous junctions",
+   "kind": "structure",
+   "quote": "RA blood pool",
+   "evidence": "another_name",
+   "another_name": {
+    "label_word": "RA",
+    "requirement_word": "right atrium"
+   },
+   "side": "not_sided"
+  },
+  {
+   "asset_id": "hvsmr2-pat7-label7",
+   "structure_id": "vascular_anomaly.left_svc",
+   "name": "Left superior vena cava",
+   "kind": "structure",
+   "quote": "Both source SVC blood-pool channels",
+   "evidence": "another_name",
+   "another_name": {
+    "label_word": "SVC",
+    "requirement_word": "superior vena cava"
+   },
+   "side": "label_states_side"
+  },
+  {
+   "asset_id": "hvsmr2-pat7-label7",
+   "structure_id": "vascular_anomaly.right_svc",
+   "name": "Right superior vena cava",
+   "kind": "structure",
+   "quote": "Both source SVC blood-pool channels",
+   "evidence": "another_name",
+   "another_name": {
+    "label_word": "SVC",
+    "requirement_word": "superior vena cava"
+   },
+   "side": "label_states_side"
+  },
+  {
+   "asset_id": "nasalseg-p001-label1",
+   "structure_id": "sinonasal.right_maxillary_sinus",
+   "name": "Right maxillary sinus",
+   "kind": "structure",
+   "quote": "right maxillary sinus",
+   "evidence": "own_word",
+   "term": "maxillary sinus",
+   "side": "label_states_side"
+  },
+  {
+   "asset_id": "nasalseg-p001-label2",
+   "structure_id": "sinonasal.left_maxillary_sinus",
+   "name": "Left maxillary sinus",
+   "kind": "structure",
+   "quote": "left maxillary sinus",
+   "evidence": "own_word",
+   "term": "maxillary sinus",
+   "side": "label_states_side"
+  },
+  {
+   "asset_id": "nasalseg-p001-label5",
+   "structure_id": "sinonasal.nasopharynx",
+   "name": "Nasopharynx",
+   "kind": "structure",
+   "quote": "nasal pharynx",
+   "evidence": "another_name",
+   "another_name": {
+    "label_word": "nasal pharynx",
+    "requirement_word": "nasopharynx"
+   },
+   "side": "not_sided"
+  },
+  {
+   "asset_id": "wt9fc-sub007-transverse-vertical",
+   "structure_id": "swallowing.left_oral_tongue_intrinsic_and_extrinsic_components",
+   "name": "Left oral tongue intrinsic and extrinsic components",
+   "kind": "structure",
+   "quote": "transverse / vertical",
+   "evidence": "kind_of",
+   "kind_of": {
+    "label_word": "transverse / vertical",
+    "requirement_word": "intrinsic"
+   },
+   "side": "mesh_spans_both_sides"
+  },
+  {
+   "asset_id": "wt9fc-sub007-transverse-vertical",
+   "structure_id": "swallowing.right_oral_tongue_intrinsic_and_extrinsic_components",
+   "name": "Right oral tongue intrinsic and extrinsic components",
+   "kind": "structure",
+   "quote": "transverse / vertical",
+   "evidence": "kind_of",
+   "kind_of": {
+    "label_word": "transverse / vertical",
+    "requirement_word": "intrinsic"
+   },
+   "side": "mesh_spans_both_sides"
+  },
+  {
+   "asset_id": "wt9fc-sub007-superior-longitudinal",
+   "structure_id": "swallowing.left_oral_tongue_intrinsic_and_extrinsic_components",
+   "name": "Left oral tongue intrinsic and extrinsic components",
+   "kind": "structure",
+   "quote": "superior longitudinal",
+   "evidence": "kind_of",
+   "kind_of": {
+    "label_word": "superior longitudinal",
+    "requirement_word": "intrinsic"
+   },
+   "side": "mesh_spans_both_sides"
+  },
+  {
+   "asset_id": "wt9fc-sub007-superior-longitudinal",
+   "structure_id": "swallowing.right_oral_tongue_intrinsic_and_extrinsic_components",
+   "name": "Right oral tongue intrinsic and extrinsic components",
+   "kind": "structure",
+   "quote": "superior longitudinal",
+   "evidence": "kind_of",
+   "kind_of": {
+    "label_word": "superior longitudinal",
+    "requirement_word": "intrinsic"
+   },
+   "side": "mesh_spans_both_sides"
+  },
+  {
+   "asset_id": "wt9fc-sub007-inferior-longitudinal",
+   "structure_id": "swallowing.left_oral_tongue_intrinsic_and_extrinsic_components",
+   "name": "Left oral tongue intrinsic and extrinsic components",
+   "kind": "structure",
+   "quote": "inferior longitudinal",
+   "evidence": "kind_of",
+   "kind_of": {
+    "label_word": "inferior longitudinal",
+    "requirement_word": "intrinsic"
+   },
+   "side": "mesh_spans_both_sides"
+  },
+  {
+   "asset_id": "wt9fc-sub007-inferior-longitudinal",
+   "structure_id": "swallowing.right_oral_tongue_intrinsic_and_extrinsic_components",
+   "name": "Right oral tongue intrinsic and extrinsic components",
+   "kind": "structure",
+   "quote": "inferior longitudinal",
+   "evidence": "kind_of",
+   "kind_of": {
+    "label_word": "inferior longitudinal",
+    "requirement_word": "intrinsic"
+   },
+   "side": "mesh_spans_both_sides"
+  },
+  {
+   "asset_id": "wt9fc-sub007-genioglossus",
+   "structure_id": "swallowing.left_oral_tongue_intrinsic_and_extrinsic_components",
+   "name": "Left oral tongue intrinsic and extrinsic components",
+   "kind": "structure",
+   "quote": "genioglossus",
+   "evidence": "kind_of",
+   "kind_of": {
+    "label_word": "genioglossus",
+    "requirement_word": "extrinsic"
+   },
+   "side": "mesh_spans_both_sides"
+  },
+  {
+   "asset_id": "wt9fc-sub007-genioglossus",
+   "structure_id": "swallowing.right_oral_tongue_intrinsic_and_extrinsic_components",
+   "name": "Right oral tongue intrinsic and extrinsic components",
+   "kind": "structure",
+   "quote": "genioglossus",
+   "evidence": "kind_of",
+   "kind_of": {
+    "label_word": "genioglossus",
+    "requirement_word": "extrinsic"
+   },
+   "side": "mesh_spans_both_sides"
+  },
+  {
+   "asset_id": "prostate-biopsy0001-prostate",
+   "structure_id": "prostate.complete_gland_outline_and_each_dimension",
+   "name": "complete gland outline and each dimension",
+   "kind": "structure",
+   "quote": "source prostate outline",
+   "evidence": "another_name",
+   "another_name": {
+    "label_word": "prostate outline",
+    "requirement_word": "gland outline"
+   },
+   "side": "not_sided"
+  }
+ ]
+}

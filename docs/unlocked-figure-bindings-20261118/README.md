@@ -130,7 +130,8 @@ same caption, that sentence is stored as `side_quote`.
   that the repair left refused, 5 are on the other side from the one the record states and 3 are
   normal figures matched to a finding.
 - The 69 repaired 3D models are reference-only records without a caption. Binding them needs a
-  separate review of each model's source label.
+  separate review of each model's source label. (The models were reviewed and bound later on
+  2026-11-18: see `docs/model-bindings-20261118`.)
 
 ## Limits of this pass
 

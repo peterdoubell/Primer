@@ -6,6 +6,7 @@ import struct
 from pathlib import Path
 from primer.curriculum import Curriculum
 from primer.radiology_catalog import detail, resolve
+from tools.anatomy_sources.bind_stored_caption_assets import only_caption_bindings
 ROOT = Path(__file__).resolve().parents[1]
 OUT = ROOT/'web/anatomy/nasalseg-p001'
 PROOF = ROOT/'docs/nasalseg-native-source-review'
@@ -54,7 +55,7 @@ def test_source_assets_have_explicit_dataset_rights_without_anatomical_leaf_appr
     rows = [r for r in rows if r['id'].startswith('nasalseg-p001-')]
     assert len(rows) == 6 and sum(r['kind']=='model' for r in rows) == 5
     for r in rows:
-        assert not r['structure_ids'] and not r['requirement_coverage'] and r['anatomical_review']['status'] == 'pending'
+        assert only_caption_bindings(r) and r['anatomical_review']['status'] == 'pending'
         rights = r['source']['license']; assert rights['commercial_use'] and rights['redistribution']
         assert rights['url'] == 'https://creativecommons.org/licenses/by/4.0/'
         assert sha((ROOT/rights['evidence_path']).read_bytes()) == rights['evidence_sha256']

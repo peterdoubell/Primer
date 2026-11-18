@@ -1,6 +1,7 @@
 """Transport and reader checks do not imply independently approved anatomy."""
 import collections,gzip,hashlib,json,struct
 from pathlib import Path
+from tools.anatomy_sources.bind_stored_caption_assets import only_caption_bindings
 ROOT=Path(__file__).resolve().parents[1];ATLAS='totalseg-v3-esophagus-s0358';PROOF=ROOT/'docs/esophagus-native-context-review/s0358'
 def sha(raw):return hashlib.sha256(raw).hexdigest()
 def test_all_source_faces_and_coordinates_survive_transport_with_open_boundaries():
@@ -30,7 +31,7 @@ def test_reader_keeps_source_case_and_pending_all_structure_scope():
     ledger=json.loads((ROOT/'data/radiology/radiology-asset-evidence.json').read_text())['assets'];rows=[r for r in ledger if r['id'].startswith(ATLAS+'-')];assert len(rows)==27
     assert not any(r['id'].startswith('totalseg-v3-s0358-') for r in rows)
     for r in rows:
-        assert not r['structure_ids'] and not r['requirement_coverage'] and r['anatomical_review']['status']=='pending'
+        assert only_caption_bindings(r) and r['anatomical_review']['status']=='pending'
         grant=r['source']['license'];assert grant['commercial_use'] and grant['redistribution'];assert sha((ROOT/grant['evidence_path']).read_bytes())==grant['evidence_sha256']
     other=detail(Curriculum(),resolve('ra.ultrasound-thyroid'))['radiology_reference'];assert all(x['atlas']!=ATLAS for x in other['source_anatomy_references'])
 def test_hosted_missing_mesh_uses_only_verified_static_contract(monkeypatch,tmp_path):
