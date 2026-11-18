@@ -313,3 +313,13 @@ investigations with none 67 → 51. Each binding quotes the sentence that names 
 on a listed kind-of pair (a contusion is an injury). Unsided lung findings, catch-all requirements,
 measurements and findings named only in a note that the source's suggestion is unconfirmed were not
 bound. Nothing is anatomically approved.
+
+## Figure-record context codes repaired (2026-11-18)
+
+256 stored figures and models carried a context code the checker could not read, so it refused every
+binding of them. 250 were repaired in the evidence ledger (`docs/source-context-code-repairs-20261118`):
+318 changes into the checker's vocabulary, each with its rule, and a reviewed state where the old code
+did not say what the figure shows. Six deliberate empty panel selections were left as they are, and
+nine context-only figures keep that restriction. On the repaired figures, 375 caption matches (318
+structure, 57 finding) can now be reviewed for binding. Bound structures stay at 739 of 57,985. The
+app's figure catalog keeps the original codes.
