@@ -1,0 +1,33 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Pelvic node surfaces · Case 023 · Primer</title>
+  <link rel="stylesheet" href="/app/anatomy/bp3d-dural-4.3/viewer.css">
+  <script defer src="/app/anatomy/bp3d-dural-4.3/surface-viewer.js"></script>
+</head>
+<body>
+<main data-source-axes="xyz" data-surfaces-sha256="64554691ade4f7ad1a4f1ba2db393dcb08a1302710d397d9fa3b0625b9a1da33">
+  <a href="index.html">Return to the acquired CT and original masks</a>
+  <h1>Pelvic node surfaces</h1>
+  <p>Case 023. Isolate each labelled node or compare their positions. The surfaces follow the outer faces of the original labelled voxel cells at the acquired spacing. X points right, Y anterior and Z superior.</p>
+  <figure><canvas id="surface" width="640" height="480" role="img" aria-label="Three-dimensional surfaces of publisher-labelled pelvic lymph nodes"></canvas></figure>
+  <label>Rotation <input id="rotation" type="range" min="-180" max="180" value="25"></label>
+  <label>Tilt <input id="tilt" type="range" min="-90" max="90" value="18"></label>
+  <p id="surface-status" role="status">Verifying source surfaces…</p>
+  <fieldset><legend>Source nodal labels</legend>
+    <label><input class="layer" type="checkbox" checked>Iliac node 1</label>
+<label><input class="layer" type="checkbox" checked>Iliac node 2</label>
+
+  </fieldset>
+  <table class="mrv-key"><caption>Original labelled voxels and display triangles</caption>
+    <thead><tr><th scope="col">Node</th><th scope="col">Voxels</th><th scope="col">Triangles</th></tr></thead>
+    <tbody><tr><th scope="row">Iliac node 1</th><td>6,333</td><td>8,608</td></tr>
+<tr><th scope="row">Iliac node 2</th><td>1,771</td><td>3,156</td></tr>
+</tbody>
+  </table>
+  <p>Rojas-Pizarro, Vásquez-Venegas, Eyssautier Susarte, Pereira Retamales, Härtel and Cabrera-Vives. <a href="https://doi.org/10.5281/zenodo.17788162">A CT Dataset with RECIST Measurements and Comprehensive Segmentation Masks for Tumors and Lymph Nodes</a> · <a href="https://creativecommons.org/licenses/by/4.0/">CC BY 4.0</a></p>
+</main>
+</body>
+</html>

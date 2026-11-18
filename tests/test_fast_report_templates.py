@@ -1,6 +1,7 @@
 """Fast report templates: one per examination, in the paste-ready RIS layout."""
 import copy
 import hashlib
+import html
 import json
 import re
 import subprocess
@@ -301,13 +302,13 @@ def test_reader_renders_both_texts_above_the_click_builder():
 
 
 def test_formatted_copy_is_arial_12_with_underlined_headings_and_an_exact_inverse():
-    from tools.report_layout_compatibility import AFTER, BEFORE, PATH, before_report_layout_bytes
+    from tools.report_layout_compatibility import AFTER, BEFORE, PATH, before_report_layout_bytes, before_rich_report_format_bytes
     from tools.report_compartment_compatibility import before_rich_report_bytes
     raw = (ROOT / PATH).read_bytes()
     source = raw.decode()
     assert 'font-family:Arial,sans-serif;font-size:12pt' in source
-    assert "case 'main': return '<u>' + content + '</u>';" in source and "case 'subheading': return '<em>'" in source
-    assert '(Clinical history|Comparison|Protocol|Technique|Findings|Impression|Recommendation)' in source
+    assert "return ['u', line, ''];" in source and "return ['em', line, ''];" in source
+    raw = before_rich_report_format_bytes(PATH, raw)
     from tools.report_layout_compatibility import NORMAL_LINE, before_normal_line_bytes
     assert hashlib.sha256(raw).hexdigest() == NORMAL_LINE[PATH][1]
     raw = before_normal_line_bytes(PATH, raw)
@@ -322,7 +323,7 @@ def test_formatted_copy_is_arial_12_with_underlined_headings_and_an_exact_invers
 
 def test_a_checklist_normal_reads_as_label_colon_normal_with_an_exact_inverse():
     from primer.descriptor_reporting import normal_line
-    from tools.report_layout_compatibility import NORMAL_LINE, before_normal_line_bytes
+    from tools.report_layout_compatibility import NORMAL_LINE, before_normal_line_bytes, before_rich_report_format_bytes
     assert normal_line('Supraspinatus tendon', 'The supraspinatus tendon is intact.') == 'Supraspinatus tendon: normal.'
     assert normal_line('Right pleura', 'No right pleural effusion, pneumothorax or pleural nodularity.') == 'Right pleura: normal.'
     # A heading that names a finding cannot be "normal".
@@ -335,7 +336,7 @@ def test_a_checklist_normal_reads_as_label_colon_normal_with_an_exact_inverse():
     assert normal_line('Supraspinatus', 'Intact.', 'Rotator cuff · tendons') == 'Supraspinatus tendon: normal.'
     assert normal_line('Supraspinatus', 'Normal bulk.', 'Rotator cuff · muscles') == 'Supraspinatus muscle: normal.'
     for path, (before, after, _) in NORMAL_LINE.items():
-        raw = (ROOT / path).read_bytes()
+        raw = before_rich_report_format_bytes(path, (ROOT / path).read_bytes())
         assert hashlib.sha256(raw).hexdigest() == after
         assert hashlib.sha256(before_normal_line_bytes(path, raw)).hexdigest() == before
         assert before_normal_line_bytes(path, raw + b'\n') == raw + b'\n'
@@ -392,7 +393,10 @@ def test_the_click_builder_default_acquisition_is_the_template_protocol_with_an_
             acquisition = investigation.get('report_protocol')
             if not acquisition:
                 continue
-            before = original[investigation['id']]['report_protocol']
+            before = original[investigation['id']].get('report_protocol')
+            if before is None:
+                assert investigation['id'] in rt.CONFIRMED_ACQUISITIONS and acquisition['confirmed_only']
+                continue
             # Only the default text changes; the selectable choices stay as authored.
             assert {k: v for k, v in acquisition.items() if k != 'standard_text'} == {
                 k: v for k, v in before.items() if k != 'standard_text'}, investigation['id']
@@ -429,6 +433,33 @@ def test_all_dictation_templates_use_study_specific_sections_and_simple_placehol
             assert '\nTechnique:' not in text and '\nProtocol:' not in text
         if 'dictation' not in item:
             assert all(f"\n{section['heading']}: []" in text for section in item['sections'])
+
+
+def test_every_dictation_template_uses_inline_italics_without_changing_its_text():
+    drafts = [rt.quick_report(identifier)['dictation'] for identifier in rt.library()]
+    script = """
+        const fs = require('node:fs');
+        global.window = {};
+        require('./web/radiology-structured.js');
+        const drafts = JSON.parse(fs.readFileSync(0, 'utf8'));
+        process.stdout.write(JSON.stringify(drafts.map(
+          ({text, title}) => window.PrimerStructuredReporting.reportHTML(text, title)
+        )));
+    """
+    result = subprocess.run(['node', '-e', script], cwd=ROOT, input=json.dumps(drafts),
+                            text=True, capture_output=True, check=True, timeout=30)
+    for draft, formatted in zip(drafts, json.loads(result.stdout), strict=True):
+        assert formatted.startswith('<div style="font-family:Arial,sans-serif;font-size:12pt;')
+        assert '<strong>' not in formatted
+        assert f'<u>{html.escape(draft["title"], quote=False)}</u>' in formatted
+        restored = re.sub(r'<[^>]+>', '', formatted.replace('<br>', '\n'))
+        assert html.unescape(restored) == draft['text']
+        for line in draft['text'].splitlines():
+            match = re.fullmatch(r'([A-Z][^:]*:)( \[\](?: .*)?)', line)
+            if match:
+                heading, value = (html.escape(part, quote=False) for part in match.groups())
+                assert f'<em>{heading}</em>{value}' in formatted
+                assert f'<em>{heading}{value}</em>' not in formatted
 
 
 def test_prostate_dictation_encodes_the_departmental_template():

@@ -1,0 +1,171 @@
+{
+  "case": "015",
+  "scenario": "Bladder cancer baseline CT",
+  "study": "baseline",
+  "title": "A CT Dataset with RECIST Measurements and Comprehensive Segmentation Masks for Tumors and Lymph Nodes",
+  "doi": "10.5281/zenodo.17788162",
+  "sourceURL": "https://zenodo.org/records/17788162",
+  "articleURL": "https://doi.org/10.1038/s41597-026-06597-6",
+  "license": "https://creativecommons.org/licenses/by/4.0/",
+  "authors": [
+    "Rojas-Pizarro, Roberto",
+    "V\u00e1squez-Venegas, Constanza",
+    "Eyssautier Susarte, Mar\u00eda Fernanda",
+    "Pereira Retamales, Gonzalo",
+    "H\u00e4rtel, Steffen",
+    "Cabrera-Vives, Guillermo"
+  ],
+  "sourceArchiveMember": "final-formatted/images/abdomen/test/images/015_1.3.12.2.1107.5.1.4.83504.30000020011313523232500004258.nii.gz",
+  "originalShapeSliceRowColumn": [
+    189,
+    512,
+    512
+  ],
+  "shapeSliceRowColumn": [
+    40,
+    512,
+    512
+  ],
+  "sourceZStart": 25,
+  "sourceZStopExclusive": 65,
+  "spacingXYZMm": [
+    0.763671875,
+    0.763671875,
+    2.5
+  ],
+  "nativeIndexAxes": [
+    "left",
+    "anterior",
+    "superior"
+  ],
+  "originalAffineRAS": [
+    [
+      -0.763671875,
+      -0.0,
+      0.0,
+      189.1181640625
+    ],
+    [
+      0.0,
+      0.763671875,
+      0.0,
+      -29.1181640625
+    ],
+    [
+      0.0,
+      0.0,
+      2.5,
+      -689.5
+    ],
+    [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+    ]
+  ],
+  "cropAffineRAS": [
+    [
+      -0.763671875,
+      -0.0,
+      0.0,
+      189.1181640625
+    ],
+    [
+      0.0,
+      0.763671875,
+      0.0,
+      -29.1181640625
+    ],
+    [
+      0.0,
+      0.0,
+      2.5,
+      -627.0
+    ],
+    [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+    ]
+  ],
+  "voxelStorage": "signed 16-bit little-endian, x fastest, then y, then z",
+  "ctRescaleSlope": 1.0,
+  "ctRescaleIntercept": -1024.0,
+  "volumes": {
+    "ct": {
+      "file": "ct-int16.gz",
+      "bytes": 11297545,
+      "compressedSHA256": "2832df206c2cff64fe883bf75e6685d8f50a0a0eb59d24a5450eb01570f1581e",
+      "decodedBytes": 20971520,
+      "decodedSHA256": "41c246cb07644c031f721ea10a302841ac4160c50abad4c3a81e58c0fa9531f2"
+    },
+    "labels": {
+      "file": "labels-int16.gz",
+      "bytes": 21975,
+      "compressedSHA256": "716ea71e6a05f8114ad1f62dddfd5e51d442a1472495b58674473b08f36831f0",
+      "decodedBytes": 20971520,
+      "decodedSHA256": "619fc40d1aef95235b020cc37154f23928c40a96a3f5404803b48b5226bc38f0"
+    }
+  },
+  "originalLabelMap": {
+    "1": "n,pelvis",
+    "2": "n,pelvis",
+    "3": "n,pelvis"
+  },
+  "nodalLabels": [
+    {
+      "label": 1,
+      "sourceLabel": "n,pelvis",
+      "name": "Pelvic node 1",
+      "color": [
+        254,
+        210,
+        86
+      ],
+      "occupiedVoxels": 1805,
+      "displayIndexXYZ": [
+        177,
+        284,
+        15
+      ]
+    },
+    {
+      "label": 2,
+      "sourceLabel": "n,pelvis",
+      "name": "Pelvic node 2",
+      "color": [
+        55,
+        235,
+        240
+      ],
+      "occupiedVoxels": 4079,
+      "displayIndexXYZ": [
+        321,
+        291,
+        20
+      ]
+    },
+    {
+      "label": 3,
+      "sourceLabel": "n,pelvis",
+      "name": "Pelvic node 3",
+      "color": [
+        255,
+        126,
+        183
+      ],
+      "occupiedVoxels": 1051,
+      "displayIndexXYZ": [
+        162,
+        302,
+        21
+      ]
+    }
+  ],
+  "sourceTargetMeasurements": [],
+  "surfaceManifestSHA256": "7121dbc2fc0466d7bd1e82f793801f50692bcaf8638bd3c98503de4b1462447e",
+  "scope": "The source manual segmentation gives visible gross nodal contours. Specific chain and microscopic anatomy are unspecified. This is a CT reference with source labels and no pathology or stage inference.",
+  "transform": "Original full-width and full-height sampled axial planes, cropped only along z and encoded losslessly. Coronal and sagittal planes use the same source samples. Surfaces are the unsmoothed external faces of the original labelled voxel cells, transformed by the native affine."
+}

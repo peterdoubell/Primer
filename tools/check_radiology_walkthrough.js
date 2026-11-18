@@ -45,6 +45,11 @@ assert.equal(walkthroughReport('MRI SHOULDER', sections, new Map([['FINDINGS', '
   'MRI SHOULDER\n\nINDICATION\n[Clinical question]\n\nFINDINGS\nEdited.\n\nEMPTY\n\nIMPRESSION\nNormal.');
 assert.equal(walkthroughReport('', sections.slice(1, 2), null), 'FINDINGS\nLine one.\nLine two.');
 
+const withAuthoredBlank = {heading: 'FINDINGS', body: ['Size [ ] mm.', '[finding] or [solid / cystic].']};
+assert.equal(walkthroughReport('CT', [withAuthoredBlank], null), 'CT\n\nFINDINGS\nSize [] mm.\n[finding] or [solid / cystic].');
+assert.equal(walkthroughReport('CT', [withAuthoredBlank], new Map([['FINDINGS', 'User’s literal [ ] notation.']])),
+  'CT\n\nFINDINGS\nUser’s literal [ ] notation.');
+
 // Corrected investigation scenes register only from a valid served specification.
 const corrected = { id: 'radiology-model-ra.check', title: 'Check · spatial orientation', instructions: 'Drag.',
   scenario: 'radiology-investigation:ra.check', family: 'elbow', focus: ['radius'], reporting_aim: 'Orientation only.' };

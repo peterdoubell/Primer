@@ -1,0 +1,150 @@
+{
+  "case": "023",
+  "sourceArchive": {
+    "id": "8fe50b6a-d736-4cd6-a8e0-be3890ca7ca4",
+    "key": "final-formatted.zip",
+    "size": 4661273139,
+    "checksum": "md5:627c8bfe6ee55fe21b10c64864ad3b36",
+    "links": {
+      "self": "https://zenodo.org/api/records/17788162/files/final-formatted.zip/content"
+    }
+  },
+  "verification": "Publisher HTTP Range responses and ZIP central-directory length and CRC for each member. Exact CT/mask shape and qform/sform concordance. All cropped stored voxels and mesh triangle normals independently checked.",
+  "sourceFiles": [
+    {
+      "member": "final-formatted/images/abdomen/train/images/023_1.3.12.2.1107.5.1.4.83504.30000021072912214330400005557.nii.gz",
+      "bytes": 48136690,
+      "crc32": "beeb8e28",
+      "sha256": "72b4546a28d96fe09a48ba7e7e9f7ac356eef18567ff6dbac223e87d2ebbcdd6"
+    },
+    {
+      "member": "final-formatted/images/abdomen/train/masks/023_1.3.12.2.1107.5.1.4.83504.30000021072912214330400005557.nii.gz",
+      "bytes": 90592,
+      "crc32": "32d8fb4c",
+      "sha256": "211326c3eecf8f65d4182a418c73c44dc7810070abf2eae98c19e37d4c7b9ac6"
+    },
+    {
+      "member": "final-formatted/images/abdomen/train/labels/023_1.3.12.2.1107.5.1.4.83504.30000021072912214330400005557.json",
+      "bytes": 237,
+      "crc32": "24882b21",
+      "sha256": "18dc9a780f4fd59737dbbe60e1f2a50c68bc5949aa73215670d4bda8982e4db6"
+    }
+  ],
+  "sourceMeasurementFile": {
+    "member": "final-formatted/recist_measurements.csv",
+    "bytes": 17398,
+    "crc32": "1fa37339",
+    "sha256": "9fb07dc64ddd1caa500c3459c625ae4968670301c99bdcf27454dbe6884718fb"
+  },
+  "explicitCrop": {
+    "sourceStartIndexXYZ": [
+      0,
+      0,
+      26
+    ],
+    "sourceEndIndexXYZExclusive": [
+      512,
+      512,
+      58
+    ],
+    "samplesComparedPerArray": 8388608
+  },
+  "sourceNiftiAffineCodes": {
+    "qform": 1,
+    "sform": 1
+  },
+  "verifiedAllSelectedLabelsPreserved": true,
+  "surfaceProof": [
+    {
+      "file": "node-1.mesh.gz",
+      "bytes": 47590,
+      "compressedSHA256": "5a2d0b757ed61c17673680b0752f597af9eb39a989c5ed2c7b04a47d3a71c376",
+      "decodedBytes": 154932,
+      "decodedSHA256": "9f322362f56c1e5d8e00eebccf7e5918500bf8c6588fffd8d9d54094b908d715",
+      "label": 1,
+      "boundsVoxelCenterXYZ": [
+        [
+          322,
+          289,
+          36
+        ],
+        [
+          362,
+          335,
+          47
+        ]
+      ],
+      "centroidVoxelXYZ": [
+        342.0102636980894,
+        314.5052897520922,
+        42.22911732196432
+      ],
+      "occupiedVoxels": 6333,
+      "components6Connected": 1,
+      "physicalVolumeMm3": 7697.434587478638,
+      "verifiedMeshVolumeMm3": 7697.434587478638,
+      "verifiedSurfaceAreaMm2": 3915.1437606811523,
+      "triangles": 8608,
+      "vertices": 4303,
+      "outwardTriangleChecks": 8608,
+      "edgeIncidenceCount": {
+        "2": 12908,
+        "4": 2
+      },
+      "physicalPointsExactlyRepresentableAsFloat32": true
+    },
+    {
+      "file": "node-2.mesh.gz",
+      "bytes": 17894,
+      "compressedSHA256": "221c44c89b0c89f7023ef925f578323e3be4a992463925d386b01fe31ef30ebd",
+      "decodedBytes": 56832,
+      "decodedSHA256": "25da876b394e5fc461999ce005a8066618e8f64ae72fc40e8445005219096883",
+      "label": 2,
+      "boundsVoxelCenterXYZ": [
+        [
+          315,
+          249,
+          37
+        ],
+        [
+          334,
+          282,
+          44
+        ]
+      ],
+      "centroidVoxelXYZ": [
+        324.832298136646,
+        264.1942405420666,
+        40.1270468661773
+      ],
+      "occupiedVoxels": 1771,
+      "components6Connected": 1,
+      "physicalVolumeMm3": 2152.5590801239014,
+      "verifiedMeshVolumeMm3": 2152.5590801239014,
+      "verifiedSurfaceAreaMm2": 1493.7281799316406,
+      "triangles": 3156,
+      "vertices": 1580,
+      "outwardTriangleChecks": 3156,
+      "edgeIncidenceCount": {
+        "2": 4734
+      },
+      "physicalPointsExactlyRepresentableAsFloat32": true
+    }
+  ],
+  "deliverables": [
+    {
+      "file": "ct-int16.gz",
+      "bytes": 9198749,
+      "compressedSHA256": "ea65147fb5b1cda1a5664b6d47b1e139d3107f7683cef92188dccc39e0d620dd",
+      "decodedBytes": 16777216,
+      "decodedSHA256": "0aac2654eace78c64c5ec94e66b73a07bac0f783153e8c4b1ada891bb5b0689c"
+    },
+    {
+      "file": "labels-int16.gz",
+      "bytes": 17564,
+      "compressedSHA256": "4493c9dc8cdf96c95195470ee6bcfcffe7cc142d6f83fdb2bb5be4c3ef9fad87",
+      "decodedBytes": 16777216,
+      "decodedSHA256": "e9085ba6ffd2d45813bf061cc4f9986bb184deb4568e509fb9d2e346905b9431"
+    }
+  ]
+}

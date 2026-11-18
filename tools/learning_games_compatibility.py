@@ -12,7 +12,7 @@ from pathlib import Path
 from tools.colonvessels_compatibility import _restore
 
 PROOF = Path(__file__).resolve().parents[1] / "docs/learning-games/runtime-inverse.json"
-PIN = "ccb1f207dd0a43c249bfc274e1b43ca2ff043da94afc9d2e4da239a65a4ce146"
+PIN = "abe3343bff1d0e4a1306d07b239838f6c9c59b416d7ff1fbb76fbe6eced92a4e"
 
 
 def before_learning_games_bytes(path, raw):

@@ -1,0 +1,68 @@
+{
+  "web/app.js": {
+    "before": "cce8ae6949dbc3d49089144b99765ceb78860e4a0dda1cf4a71e6ff7caa3d539",
+    "after": "7cf844f3927cb41c12f7e9ce234b76cb5fced520ab3014b29a2244f675d2bdae",
+    "changes": [
+      {
+        "start": 1931,
+        "end": 1935,
+        "before": "",
+        "after": "function authoredDictationBlanks(text) {\n  return text.replaceAll('[ ]', '[]');\n}\n\n"
+      },
+      {
+        "start": 1987,
+        "end": 1988,
+        "before": "",
+        "after": "    const templateText = authoredDictationBlanks(ref.template);\n"
+      },
+      {
+        "start": 1994,
+        "end": 1995,
+        "before": "        navigator.clipboard.writeText(ref.template).then(done).catch(() => selectTemplate());\n",
+        "after": "        navigator.clipboard.writeText(templateText).then(done).catch(() => selectTemplate());\n"
+      },
+      {
+        "start": 1998,
+        "end": 1999,
+        "before": "    const pre = el('pre', { class: 'ref-template', tabindex: '0' }, ref.template);\n",
+        "after": "    const pre = el('pre', { class: 'ref-template', tabindex: '0' }, templateText);\n"
+      },
+      {
+        "start": 3316,
+        "end": 3319,
+        "before": "        const text = [title, ...system.report_fields.map(field => field + ': [ ].'),\n          'Imaging category / descriptor and confidence: [ ].',\n          'Unassessed extent / required clinical or pathological inputs: [ ].'].join('\\n');\n",
+        "after": "        const text = [title, ...system.report_fields.map(field => field + ': [].'),\n          'Imaging category / descriptor and confidence: [].',\n          'Unassessed extent / required clinical or pathological inputs: [].'].join('\\n');\n"
+      },
+      {
+        "start": 3603,
+        "end": 3607,
+        "before": "",
+        "after": "function authoredWalkthroughBody(section) {\n  return authoredDictationBlanks(Array.isArray(section.body) ? section.body.join('\\n') : (section.body || ''));\n}\n\n"
+      },
+      {
+        "start": 3609,
+        "end": 3610,
+        "before": "    const fallback = Array.isArray(section.body) ? section.body.join('\\n') : (section.body || '');\n    const body = values && values.has(section.heading) ? values.get(section.heading) : fallback;\n",
+        "after": "    const body = values && values.has(section.heading) ? values.get(section.heading) : authoredWalkthroughBody(section);\n"
+      },
+      {
+        "start": 3638,
+        "end": 3639,
+        "before": "  const bodyOf = section => Array.isArray(section.body) ? section.body.join('\\n') : (section.body || '');\n  const values = new Map(template.sections.map(section => [section.heading, bodyOf(section)]));\n",
+        "after": "  const values = new Map(template.sections.map(section => [section.heading, authoredWalkthroughBody(section)]));\n"
+      },
+      {
+        "start": 3641,
+        "end": 3643,
+        "before": "  walk.steps.forEach(step => Object.entries(step.normal || {}).forEach(([heading, text]) => normals.set(heading, text)));\n",
+        "after": "  walk.steps.forEach(step => Object.entries(step.normal || {}).forEach(([heading, text]) =>\n    normals.set(heading, authoredDictationBlanks(text))));\n"
+      },
+      {
+        "start": 3853,
+        "end": 3854,
+        "before": "      el('div', { class: 'rad-walk-phrase-list' }, ...step.findings.map(phrase =>\n",
+        "after": "      el('div', { class: 'rad-walk-phrase-list' }, ...step.findings.map(authoredDictationBlanks).map(phrase =>\n"
+      }
+    ]
+  }
+}

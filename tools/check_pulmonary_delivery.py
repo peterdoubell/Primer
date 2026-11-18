@@ -128,7 +128,8 @@ def check():
             assert all(before_unmarked_reference_fields(key,{'source_native_inspectors':items})['source_native_inspectors']==[spl_reviewed()['source_inspector_addition']] for key,items in spl_registered.items())
             assert set(registered) == hippocampal.BINDINGS
             from tools.spl_additional_runtime_compatibility import before_additional_bindings
-            assert set(before_additional_bindings(references)) == {'ra.brain-anatomy', 'ra.acute-stroke', 'ra.ct-pulmonary-nodules', 'ra.thoracic-ultrasound'} | cardiac_bindings | hippocampal.BINDINGS | {'ra.ct-temporal-bone', 'ra.tinnitus'}
+            from tools.recist_pelvic_runtime_compatibility import before_recist_pelvic_bindings
+            assert set(before_additional_bindings(before_recist_pelvic_bindings(references))) == {'ra.brain-anatomy', 'ra.acute-stroke', 'ra.ct-pulmonary-nodules', 'ra.thoracic-ultrasound'} | cardiac_bindings | hippocampal.BINDINGS | {'ra.ct-temporal-bone', 'ra.tinnitus'}
             for identifier, expected in registered.items():
                 prior = before_spl_reference_fields(identifier, {'source_native_inspectors': references[identifier]})
                 assert prior['source_native_inspectors'] == expected

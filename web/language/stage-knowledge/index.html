@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Who knows what on Shakespeare’s stage?</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="/app/activities/kit.js" defer></script>
+  <script src="lab.js" defer></script>
+</head>
+<body>
+<main>
+  <a class="back" href="/app/#/node/lang.3.shakespeare">← Shakespeare lesson</a>
+  <header>
+    <h1>Who knows what on Shakespeare’s stage?</h1>
+    <p>Follow a tragedy and a comedy scene by scene. Use the words spoken onstage to explain why a welcome can feel ominous and why a ring can mean two things.</p>
+  </header>
+  <div class="controls">
+    <div>
+      <label for="play">Play</label>
+      <select id="play">
+        <option value="macbeth">Macbeth</option>
+        <option value="twelfth">Twelfth Night</option>
+      </select>
+    </div>
+    <nav aria-label="Scenes" id="scenes"></nav>
+  </div>
+  <section aria-labelledby="scene-heading">
+    <p id="scene-location"></p>
+    <h2 id="scene-heading" tabindex="-1"></h2>
+    <p id="event"></p>
+    <div class="scene-detail">
+      <figure>
+        <ol class="stage" id="stage" aria-label="Figures in focus at this moment"></ol>
+        <div class="audience">Audience</div>
+        <figcaption>The placement of figures is illustrative. The scene’s entrances, exits and speech decide who is there to hear the line.</figcaption>
+      </figure>
+      <div class="script">
+        <blockquote><p id="line"></p></blockquote>
+        <p><span id="speaker"></span> · <a id="source" rel="noopener noreferrer">Read the play</a></p>
+      </div>
+    </div>
+    <form id="question">
+      <fieldset>
+        <legend id="prompt"></legend>
+        <div id="answers"></div>
+      </fieldset>
+      <button type="submit">Check interpretation</button>
+      <p id="feedback" role="status"></p>
+    </form>
+    <details id="perspectives">
+      <summary>Compare what each person knows</summary>
+      <table>
+        <caption>What the text establishes at this moment</caption>
+        <thead><tr><th scope="col">Perspective</th><th scope="col">Evidence and inference</th></tr></thead>
+        <tbody id="evidence"></tbody>
+      </table>
+    </details>
+  </section>
+  <section class="compare" aria-labelledby="compare-heading">
+    <h2 id="compare-heading">Compare the two plays</h2>
+    <p>In <i>Macbeth</i>, the audience hears a private threat before Duncan praises the castle. In <i>Twelfth Night</i>, the audience sees a disguise put on before it watches Olivia misread it. Follow the scenes until each gap changes.</p>
+  </section>
+</main>
+</body>
+</html>
