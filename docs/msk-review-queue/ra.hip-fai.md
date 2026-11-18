@@ -53,23 +53,23 @@ Investigation: `ra.hip-fai`
 | Medial (`hip.hip_joint_space.medial`) | missing | missing | missing | Within the acquired anatomical coverage. / Radiography |
 | Axial compartment (`hip.hip_joint_space.axial_compartment`) | missing | missing | missing | Within the acquired anatomical coverage. / Radiography |
 | Attachment (`hip.gluteus_medius_tendon.attachment`) | missing | missing | missing | For periarticular pain-generator assessment when MRI covers the structure. / MRI |
-| Visible course (`hip.gluteus_medius_tendon.visible_course`) | missing | missing | missing | For periarticular pain-generator assessment when MRI covers the structure. / MRI |
+| Visible course (`hip.gluteus_medius_tendon.visible_course`) | missing | missing | unverified | For periarticular pain-generator assessment when MRI covers the structure. / MRI |
 | Attachment (`hip.gluteus_minimus_tendon.attachment`) | unverified | missing | missing | For periarticular pain-generator assessment when MRI covers the structure. / MRI |
 | Visible course (`hip.gluteus_minimus_tendon.visible_course`) | missing | missing | missing | For periarticular pain-generator assessment when MRI covers the structure. / MRI |
 | Attachment (`hip.iliopsoas_tendon.attachment`) | missing | missing | missing | For periarticular pain-generator assessment when MRI covers the structure. / MRI |
 | Visible course (`hip.iliopsoas_tendon.visible_course`) | unverified | missing | missing | For periarticular pain-generator assessment when MRI covers the structure. / MRI |
 | Attachment (`hip.rectus_femoris_tendon.attachment`) | missing | missing | missing | For periarticular pain-generator assessment when MRI covers the structure. / MRI |
-| Visible course (`hip.rectus_femoris_tendon.visible_course`) | unverified | missing | missing | For periarticular pain-generator assessment when MRI covers the structure. / MRI |
+| Visible course (`hip.rectus_femoris_tendon.visible_course`) | unverified | missing | unverified | For periarticular pain-generator assessment when MRI covers the structure. / MRI |
 | Attachment (`hip.proximal_hamstring_tendons.attachment`) | missing | unverified | missing | For periarticular pain-generator assessment when MRI covers the structure. / MRI |
 | Visible course (`hip.proximal_hamstring_tendons.visible_course`) | unverified | missing | missing | For periarticular pain-generator assessment when MRI covers the structure. / MRI |
-| Trochanteric bursae (`hip.trochanteric_bursae`) | missing | missing | missing | If included on the acquired MRI. / MRI |
-| Iliopsoas bursa (`hip.iliopsoas_bursa`) | missing | missing | missing | If included on the acquired MRI. / MRI |
+| Trochanteric bursae (`hip.trochanteric_bursae`) | missing | missing | unverified | If included on the acquired MRI. / MRI |
+| Iliopsoas bursa (`hip.iliopsoas_bursa`) | missing | missing | unverified | If included on the acquired MRI. / MRI |
 | Anterior recess (`hip.hip_capsule_and_synovium.anterior_recess`) | missing | missing | missing | Within the acquired anatomical coverage. / MRI |
 | Posterior recess (`hip.hip_capsule_and_synovium.posterior_recess`) | missing | missing | missing | Within the acquired anatomical coverage. / MRI |
-| Gluteus medius muscle (`hip.gluteus_medius_muscle`) | missing | missing | missing | Visible periarticular coverage; resolve each component of named muscle groups when abnormal. / MRI |
-| Gluteus minimus muscle (`hip.gluteus_minimus_muscle`) | missing | missing | missing | Visible periarticular coverage; resolve each component of named muscle groups when abnormal. / MRI |
+| Gluteus medius muscle (`hip.gluteus_medius_muscle`) | missing | missing | unverified | Visible periarticular coverage; resolve each component of named muscle groups when abnormal. / MRI |
+| Gluteus minimus muscle (`hip.gluteus_minimus_muscle`) | missing | missing | unverified | Visible periarticular coverage; resolve each component of named muscle groups when abnormal. / MRI |
 | Iliopsoas muscle (`hip.iliopsoas_muscle`) | missing | missing | missing | Visible periarticular coverage; resolve each component of named muscle groups when abnormal. / MRI |
-| Quadratus femoris muscle (`hip.quadratus_femoris_muscle`) | missing | missing | missing | Visible periarticular coverage; resolve each component of named muscle groups when abnormal. / MRI |
+| Quadratus femoris muscle (`hip.quadratus_femoris_muscle`) | missing | missing | unverified | Visible periarticular coverage; resolve each component of named muscle groups when abnormal. / MRI |
 | Proximal hamstring muscles (`hip.proximal_hamstring_muscles`) | missing | missing | missing | Visible periarticular coverage; resolve each component of named muscle groups when abnormal. / MRI |
 | Inferior prominence (caudal osseous extent) (`hip.anterior_inferior_iliac_spine.inferior_prominence`) | missing | missing | missing | For the existing subspine morphology finding, on the examined side and within acquired coverage. Radiography describes the visible projected osseous extent; 3D morphology and the subspine surface require suitable cross-sectional acquisition. Routine AP radiography alone does not establish a 3D type. MRI bone morphology is assessed only when resolution/sequences permit; no dynamic impingement, clinical diagnosis or tissue attachment is inferred. / Radiography, CT, MRI |
 | Ilium surface between AIIS and anterior acetabular rim (`hip.anterior_inferior_iliac_spine.subspine_region`) | missing | missing | missing | For the existing subspine morphology finding, on the examined side and within acquired coverage. Radiography describes the visible projected osseous extent; 3D morphology and the subspine surface require suitable cross-sectional acquisition. Routine AP radiography alone does not establish a 3D type. MRI bone morphology is assessed only when resolution/sequences permit; no dynamic impingement, clinical diagnosis or tissue attachment is inferred. / Radiography, CT, MRI |
@@ -94,6 +94,25 @@ Investigation: `ra.hip-fai`
 - Source context: {'laterality': 'not_reported', 'population': {'life_stage': 'unknown', 'age_years': 17}, 'depicted_state': 'normal_variant', 'extent': 'local', 'selected_panels': ['whole_asset'], 'panel_types': {'whole_asset': 'MR arthrography'}, 'anatomical_site': {'region': 'hip'}, 'source_evidence': {'url': 'https://link.springer.com/article/10.1007/s13244-010-0023-x', 'locator': 'Figure 5 caption and original native image; see docs/msk-hip-image-progress.md'}, 'setting': 'unknown', 'unknowns': ['No complete structure/footprint metric or broader clinical validation inferred.', 'Source laterality not reported; no side inferred from image orientation.', 'Skeletal maturity is not reported; age 17 is retained without assuming adult/open physes.']}
 - Limits: Normal variant in one selected MR arthrogram slice, not a labral tear or a complete posterior-sector survey. Source laterality and skeletal maturity are not stated; age 17 must not be converted into an assumed adult or open-physis category. No full cartilage or capsule-recess coverage is claimed.
 - Gate findings: anatomical_review_scope_missing_or_stale, anatomical_review_missing_or_stale, visual_review_scope_missing_or_stale, visual_review_missing_or_stale, high_fidelity_unproven, requirement_coverage_missing
+
+### hip.gluteus_medius_tendon.visible_course — model
+
+- Asset: `za-muscles-1562777-material-0`
+- Local file: [web/anatomy/msk-atlas/za-muscles-1562777-material-0.bin](../../web/anatomy/msk-atlas/za-muscles-1562777-material-0.bin)
+- Artifact SHA-256: `7fed1238bce622500734431cab33143ba0d3dbb2e8f0bd207985e2848e73ff04`
+- Review-scope SHA-256: `3fc793ae5f0f21d6af0e8d322b2376d68129ba1ca26d414fdad997ad3fda6b93`
+- Source: [Original source](https://github.com/LluisV/Z-Anatomy/tree/6c7f9016bd5899ac8edafd31b9900c151df42ed6)
+- Licence: [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/)
+- Recorded rights: commercial use=True; redistribution=True; review status=verified
+- Attribution: BodyParts3D — The Database Center for Life Science — upstream lineage CC BY-SA 2.1 Japan; Z-Anatomy — The open source atlas of anatomy — CC BY-SA 4.0
+- Rights evidence: docs/msk-mesh-source-audit.md
+- Licence use plan: No separate use plan recorded; inspect the exact licence and rights evidence
+- Presentation dependencies: Not separately recorded
+- Coverage: {'extent': 'partial', 'basis': 'The source label of this model names the structure: “Gluteus medius muscle · tendon surface”. This part is the structure’s own body or surface, which the whole model shows; the model does not delineate the other parts. The requirement is for the examined side; the model is a right-side reference, a mirror image for the other side. One source-labelled model; the full extent and boundaries of the named anatomy are not established.'}
+- Selection: Not recorded
+- Source context: Not recorded
+- Limits: Not recorded
+- Gate findings: anatomical_review_scope_missing_or_stale, anatomical_review_missing_or_stale, visual_review_scope_missing_or_stale, visual_review_missing_or_stale, high_fidelity_unproven, requirement_coverage_partial
 
 ### hip.gluteus_minimus_tendon.attachment — clinical_image
 
@@ -152,6 +171,25 @@ Investigation: `ra.hip-fai`
 - Limits: Selected local tendon-course views, not complete attachment footprints, the entire distal course or a normal whole-examination claim. The cohort includes clinically indicated examinations and volunteers; individual age, sex, side and pathological state are not specified for this figure. The published 3D PD acquisition uses 2.5–3.5 mm sections and 1.4 × 0.88 mm in-plane sampling; the figure does not establish isotropic resolution or fine fibre accuracy. Panel C provides reformat context. Measurement reproducibility in the article is not clinical validation of these component bindings.
 - Gate findings: anatomical_review_scope_missing_or_stale, anatomical_review_missing_or_stale, visual_review_scope_missing_or_stale, visual_review_missing_or_stale, high_fidelity_unproven, requirement_coverage_partial
 
+### hip.rectus_femoris_tendon.visible_course — model
+
+- Asset: `za-muscles-771346357-material-0`
+- Local file: [web/anatomy/msk-atlas/za-muscles-771346357-material-0.bin](../../web/anatomy/msk-atlas/za-muscles-771346357-material-0.bin)
+- Artifact SHA-256: `714b64edf36abdbe38f101052f6df7dd40676c2dd6de8408ca6748fbb848c1eb`
+- Review-scope SHA-256: `117285ad36df2e37dc9d904275e9ec4bde2bd50dcede1e4be3ecfd7b7de94510`
+- Source: [Original source](https://github.com/LluisV/Z-Anatomy/tree/6c7f9016bd5899ac8edafd31b9900c151df42ed6)
+- Licence: [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/)
+- Recorded rights: commercial use=True; redistribution=True; review status=verified
+- Attribution: BodyParts3D — The Database Center for Life Science — upstream lineage CC BY-SA 2.1 Japan; Z-Anatomy — The open source atlas of anatomy — CC BY-SA 4.0
+- Rights evidence: docs/msk-mesh-source-audit.md
+- Licence use plan: No separate use plan recorded; inspect the exact licence and rights evidence
+- Presentation dependencies: Not separately recorded
+- Coverage: {'extent': 'partial', 'basis': 'The source label of this model names the structure: “Rectus femoris muscle · tendon surface”. This part is the structure’s own body or surface, which the whole model shows; the model does not delineate the other parts. The requirement is for the examined side; the model is a right-side reference, a mirror image for the other side. One source-labelled model; the full extent and boundaries of the named anatomy are not established.'}
+- Selection: Not recorded
+- Source context: Not recorded
+- Limits: Not recorded
+- Gate findings: anatomical_review_scope_missing_or_stale, anatomical_review_missing_or_stale, visual_review_scope_missing_or_stale, visual_review_missing_or_stale, high_fidelity_unproven, requirement_coverage_partial
+
 ### hip.proximal_hamstring_tendons.attachment — schematic
 
 - Asset: `open-hip-proximal-hamstring-schematic-balius-fig2`
@@ -188,6 +226,118 @@ Investigation: `ra.hip-fai`
 - Selection: {'kind': 'clinical_image', 'panels': ['a']}
 - Source context: {'setting': 'in_vivo', 'laterality': 'right', 'population': {'life_stage': 'adult', 'age_years': 24}, 'depicted_state': 'normal_anatomical_reference', 'extent': 'local', 'anatomical_site': {'region': 'hip', 'structure': 'hip.proximal_hamstring_tendons'}, 'selected_panels': ['a'], 'panel_types': {'a': 'MRI', 'b': 'MRI'}, 'panel_states': {'a': 'normal_anatomical_reference', 'b': 'myotendinous_tear'}, 'unknowns': ['Sex not specified in caption.'], 'acquisition_note': 'Source labels T2 fat-suppressed MRI; specific slice thickness and voxel spacing for the figure are not reported.'}
 - Limits: Only panel a is selected as a local tendon-course reference. A cross-section cannot establish the full proximal hamstring course or attachment footprints. This is a symptomatic 24-year-old athlete; panel b is pathological and is not credited as normal anatomy. Native panels have approximately 150 effective PPI; the 300-DPI render adds no anatomical detail. Independent clinical review is pending.
+- Gate findings: anatomical_review_scope_missing_or_stale, anatomical_review_missing_or_stale, visual_review_scope_missing_or_stale, visual_review_missing_or_stale, high_fidelity_unproven, requirement_coverage_partial
+
+### hip.trochanteric_bursae — model
+
+- Asset: `za-muscles-167745672`
+- Local file: [web/anatomy/msk-atlas/za-muscles-167745672.bin](../../web/anatomy/msk-atlas/za-muscles-167745672.bin)
+- Artifact SHA-256: `305910e9a6632406452ae847df2f4daab0a2fee2efa57c3de1288bb20e22a449`
+- Review-scope SHA-256: `b7127ead4059b7380d41d5349fb525e59d18a5dd77c8529e63b4e114bb572f53`
+- Source: [Original source](https://github.com/LluisV/Z-Anatomy/tree/6c7f9016bd5899ac8edafd31b9900c151df42ed6)
+- Licence: [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/)
+- Recorded rights: commercial use=True; redistribution=True; review status=verified
+- Attribution: BodyParts3D — The Database Center for Life Science — upstream lineage CC BY-SA 2.1 Japan; Z-Anatomy — The open source atlas of anatomy — CC BY-SA 4.0
+- Rights evidence: docs/msk-mesh-source-audit.md
+- Licence use plan: No separate use plan recorded; inspect the exact licence and rights evidence
+- Presentation dependencies: Not separately recorded
+- Coverage: {'extent': 'partial', 'basis': 'The source label of this model names one of the structures this requirement groups: “Trochanteric bursa of gluteus medius muscle”. The requirement is for the examined side; the model is a right-side reference, a mirror image for the other side. One source-labelled model; the full extent and boundaries of the named anatomy are not established.'}
+- Selection: Not recorded
+- Source context: Not recorded
+- Limits: Not recorded
+- Gate findings: anatomical_review_scope_missing_or_stale, anatomical_review_missing_or_stale, visual_review_scope_missing_or_stale, visual_review_missing_or_stale, high_fidelity_unproven, requirement_coverage_partial
+
+- Asset: `za-muscles-762817357`
+- Local file: [web/anatomy/msk-atlas/za-muscles-762817357.bin](../../web/anatomy/msk-atlas/za-muscles-762817357.bin)
+- Artifact SHA-256: `7f2af79a265c839303f32c68213f0ce086199d79fd95dd5d6a7fe465ed9ca240`
+- Review-scope SHA-256: `5e2d217ff46a6bfd35de3911ad9215a340c50b66eaaec415cfcbf1712ee6ebe5`
+- Source: [Original source](https://github.com/LluisV/Z-Anatomy/tree/6c7f9016bd5899ac8edafd31b9900c151df42ed6)
+- Licence: [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/)
+- Recorded rights: commercial use=True; redistribution=True; review status=verified
+- Attribution: BodyParts3D — The Database Center for Life Science — upstream lineage CC BY-SA 2.1 Japan; Z-Anatomy — The open source atlas of anatomy — CC BY-SA 4.0
+- Rights evidence: docs/msk-mesh-source-audit.md
+- Licence use plan: No separate use plan recorded; inspect the exact licence and rights evidence
+- Presentation dependencies: Not separately recorded
+- Coverage: {'extent': 'partial', 'basis': 'The source label of this model names one of the structures this requirement groups: “Trochanteric bursa of gluteus minimus muscle”. The requirement is for the examined side; the model is a right-side reference, a mirror image for the other side. One source-labelled model; the full extent and boundaries of the named anatomy are not established.'}
+- Selection: Not recorded
+- Source context: Not recorded
+- Limits: Not recorded
+- Gate findings: anatomical_review_scope_missing_or_stale, anatomical_review_missing_or_stale, visual_review_scope_missing_or_stale, visual_review_missing_or_stale, high_fidelity_unproven, requirement_coverage_partial
+
+### hip.iliopsoas_bursa — model
+
+- Asset: `za-muscles-307679662`
+- Local file: [web/anatomy/msk-atlas/za-muscles-307679662.bin](../../web/anatomy/msk-atlas/za-muscles-307679662.bin)
+- Artifact SHA-256: `26036d7bd26d2d5ec6eaca387b90fd2de5d1b6a539ada6311862b2a65a3be8d5`
+- Review-scope SHA-256: `18fb0f95e0021a5e5ab4011856cf91882b28321ea56ee52eb429455696d10030`
+- Source: [Original source](https://github.com/LluisV/Z-Anatomy/tree/6c7f9016bd5899ac8edafd31b9900c151df42ed6)
+- Licence: [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/)
+- Recorded rights: commercial use=True; redistribution=True; review status=verified
+- Attribution: BodyParts3D — The Database Center for Life Science — upstream lineage CC BY-SA 2.1 Japan; Z-Anatomy — The open source atlas of anatomy — CC BY-SA 4.0
+- Rights evidence: docs/msk-mesh-source-audit.md
+- Licence use plan: No separate use plan recorded; inspect the exact licence and rights evidence
+- Presentation dependencies: Not separately recorded
+- Coverage: {'extent': 'partial', 'basis': 'The source label of this model names “iliopectineal bursa”, another name for this requirement’s “iliopsoas bursa”: “(Iliopectineal bursa)”. The requirement is for the examined side; the model is a right-side reference, a mirror image for the other side. One source-labelled model; the full extent and boundaries of the named anatomy are not established.'}
+- Selection: Not recorded
+- Source context: Not recorded
+- Limits: Not recorded
+- Gate findings: anatomical_review_scope_missing_or_stale, anatomical_review_missing_or_stale, visual_review_scope_missing_or_stale, visual_review_missing_or_stale, high_fidelity_unproven, requirement_coverage_partial
+
+### hip.gluteus_medius_muscle — model
+
+- Asset: `za-muscles-1562777`
+- Local file: [web/anatomy/msk-atlas/za-muscles-1562777.bin](../../web/anatomy/msk-atlas/za-muscles-1562777.bin)
+- Artifact SHA-256: `9732036e09d796646d3f2facf09153bf526f351625f4b849fe7f44e820844779`
+- Review-scope SHA-256: `cbf16254cc623e6fb0b0c5f0eaff3ee0e8d39e41c770846e669c378e50adcb92`
+- Source: [Original source](https://github.com/LluisV/Z-Anatomy/tree/6c7f9016bd5899ac8edafd31b9900c151df42ed6)
+- Licence: [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/)
+- Recorded rights: commercial use=True; redistribution=True; review status=verified
+- Attribution: BodyParts3D — The Database Center for Life Science — upstream lineage CC BY-SA 2.1 Japan; Z-Anatomy — The open source atlas of anatomy — CC BY-SA 4.0
+- Rights evidence: docs/msk-mesh-source-audit.md
+- Licence use plan: No separate use plan recorded; inspect the exact licence and rights evidence
+- Presentation dependencies: Not separately recorded
+- Coverage: {'extent': 'partial', 'basis': 'The source label of this model names the structure: “Gluteus medius muscle”. The requirement is for the examined side; the model is a right-side reference, a mirror image for the other side. One source-labelled model; the full extent and boundaries of the named anatomy are not established.'}
+- Selection: Not recorded
+- Source context: Not recorded
+- Limits: Not recorded
+- Gate findings: anatomical_review_scope_missing_or_stale, anatomical_review_missing_or_stale, visual_review_scope_missing_or_stale, visual_review_missing_or_stale, high_fidelity_unproven, requirement_coverage_partial
+
+### hip.gluteus_minimus_muscle — model
+
+- Asset: `za-muscles-965185828`
+- Local file: [web/anatomy/msk-atlas/za-muscles-965185828.bin](../../web/anatomy/msk-atlas/za-muscles-965185828.bin)
+- Artifact SHA-256: `4d3cc2223cd93446cf630025b149267cf4ab53b828d1ff8072f1bc9413f6f205`
+- Review-scope SHA-256: `ba16b546a0424805f936758c69e8d7d8c0a499a8f6b1c22b5c7ff82aad8c8271`
+- Source: [Original source](https://github.com/LluisV/Z-Anatomy/tree/6c7f9016bd5899ac8edafd31b9900c151df42ed6)
+- Licence: [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/)
+- Recorded rights: commercial use=True; redistribution=True; review status=verified
+- Attribution: BodyParts3D — The Database Center for Life Science — upstream lineage CC BY-SA 2.1 Japan; Z-Anatomy — The open source atlas of anatomy — CC BY-SA 4.0
+- Rights evidence: docs/msk-mesh-source-audit.md
+- Licence use plan: No separate use plan recorded; inspect the exact licence and rights evidence
+- Presentation dependencies: Not separately recorded
+- Coverage: {'extent': 'partial', 'basis': 'The source label of this model names the structure: “Gluteus minimus muscle”. The requirement is for the examined side; the model is a right-side reference, a mirror image for the other side. One source-labelled model; the full extent and boundaries of the named anatomy are not established.'}
+- Selection: Not recorded
+- Source context: Not recorded
+- Limits: Not recorded
+- Gate findings: anatomical_review_scope_missing_or_stale, anatomical_review_missing_or_stale, visual_review_scope_missing_or_stale, visual_review_missing_or_stale, high_fidelity_unproven, requirement_coverage_partial
+
+### hip.quadratus_femoris_muscle — model
+
+- Asset: `za-muscles-919705750`
+- Local file: [web/anatomy/msk-atlas/za-muscles-919705750.bin](../../web/anatomy/msk-atlas/za-muscles-919705750.bin)
+- Artifact SHA-256: `9e74038a5f40220aecd919ba89206d26a0c9730b1630389dfd60a35806bd6980`
+- Review-scope SHA-256: `45539cba74781931cefdd41f12e180706a15bb5cee280278b046ac691b99f79a`
+- Source: [Original source](https://github.com/LluisV/Z-Anatomy/tree/6c7f9016bd5899ac8edafd31b9900c151df42ed6)
+- Licence: [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/)
+- Recorded rights: commercial use=True; redistribution=True; review status=verified
+- Attribution: BodyParts3D — The Database Center for Life Science — upstream lineage CC BY-SA 2.1 Japan; Z-Anatomy — The open source atlas of anatomy — CC BY-SA 4.0
+- Rights evidence: docs/msk-mesh-source-audit.md
+- Licence use plan: No separate use plan recorded; inspect the exact licence and rights evidence
+- Presentation dependencies: Not separately recorded
+- Coverage: {'extent': 'partial', 'basis': 'The source label of this model names the structure: “Quadratus femoris muscle”. The requirement is for the examined side; the model is a right-side reference, a mirror image for the other side. One source-labelled model; the full extent and boundaries of the named anatomy are not established.'}
+- Selection: Not recorded
+- Source context: Not recorded
+- Limits: Not recorded
 - Gate findings: anatomical_review_scope_missing_or_stale, anatomical_review_missing_or_stale, visual_review_scope_missing_or_stale, visual_review_missing_or_stale, high_fidelity_unproven, requirement_coverage_partial
 
 ## Scope blockers

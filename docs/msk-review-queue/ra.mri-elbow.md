@@ -27,7 +27,7 @@ Investigation: `ra.mri-elbow`
 | Tendon substance (`elbow.triceps_tendon.tendon_substance`) | unverified | missing | missing | Within the acquired anatomical coverage. / MRI |
 | Bony attachment (`elbow.triceps_tendon.bony_attachment`) | unverified | missing | missing | Within the acquired anatomical coverage. / MRI |
 | Myotendinous segment (`elbow.brachialis_tendon.myotendinous_segment`) | missing | missing | missing | Within the acquired anatomical coverage. / MRI |
-| Tendon substance (`elbow.brachialis_tendon.tendon_substance`) | missing | missing | missing | Within the acquired anatomical coverage. / MRI |
+| Tendon substance (`elbow.brachialis_tendon.tendon_substance`) | missing | missing | unverified | Within the acquired anatomical coverage. / MRI |
 | Bony attachment (`elbow.brachialis_tendon.bony_attachment`) | missing | missing | missing | Within the acquired anatomical coverage. / MRI |
 | Biceps continuity (`elbow.lacertus_fibrosus.biceps_continuity`) | missing | missing | missing | Within the acquired anatomical coverage. / MRI |
 | Medial fascial attachment (`elbow.lacertus_fibrosus.medial_fascial_attachment`) | missing | missing | missing | Within the acquired anatomical coverage. / MRI |
@@ -37,11 +37,11 @@ Investigation: `ra.mri-elbow`
 | Medial epicondylar origin (`elbow.ulnar_collateral_ligament.medial_epicondylar_origin`) | unverified | missing | missing | Within the acquired anatomical coverage. / MRI |
 | Sublime tubercle attachment (`elbow.ulnar_collateral_ligament.sublime_tubercle_attachment`) | unverified | missing | missing | Within the acquired anatomical coverage. / MRI |
 | Attachments (`elbow.radial_collateral_ligament.attachments`) | missing | missing | missing | Within the acquired anatomical coverage. / MRI |
-| Complete course (`elbow.radial_collateral_ligament.complete_course`) | missing | missing | missing | Within the acquired anatomical coverage. / MRI |
+| Complete course (`elbow.radial_collateral_ligament.complete_course`) | missing | missing | unverified | Within the acquired anatomical coverage. / MRI |
 | Attachments (`elbow.lateral_ulnar_collateral_ligament.attachments`) | missing | missing | missing | Within the acquired anatomical coverage. / MRI |
 | Complete course (`elbow.lateral_ulnar_collateral_ligament.complete_course`) | missing | missing | missing | Within the acquired anatomical coverage. / MRI |
 | Attachments (`elbow.annular_ligament.attachments`) | missing | missing | missing | Within the acquired anatomical coverage. / MRI |
-| Complete course (`elbow.annular_ligament.complete_course`) | missing | missing | missing | Within the acquired anatomical coverage. / MRI |
+| Complete course (`elbow.annular_ligament.complete_course`) | missing | missing | unverified | Within the acquired anatomical coverage. / MRI |
 | Capitellum (`elbow.distal_humerus.capitellum`) | missing | missing | missing | Within the acquired anatomical coverage. / MRI |
 | Trochlea (`elbow.distal_humerus.trochlea`) | missing | missing | missing | Within the acquired anatomical coverage. / MRI |
 | Medial epicondyle (`elbow.distal_humerus.medial_epicondyle`) | missing | missing | missing | Within the acquired anatomical coverage. / MRI |
@@ -77,8 +77,8 @@ Investigation: `ra.mri-elbow`
 | Pronator teres passage (`elbow.median_nerve.pronator_teres_passage`) | missing | missing | missing | Within the acquired anatomical coverage. / MRI |
 | Anterior interosseous branch (`elbow.median_nerve.anterior_interosseous_branch`) | missing | missing | missing | Within the acquired anatomical coverage. / MRI |
 | Antecubital course (`elbow.radial_nerve.antecubital_course`) | missing | missing | missing | Within the acquired anatomical coverage. / MRI |
-| Superficial branch (`elbow.radial_nerve.superficial_branch`) | missing | missing | missing | Within the acquired anatomical coverage. / MRI |
-| Deep branch (`elbow.radial_nerve.deep_branch`) | missing | missing | missing | Within the acquired anatomical coverage. / MRI |
+| Superficial branch (`elbow.radial_nerve.superficial_branch`) | missing | missing | unverified | Within the acquired anatomical coverage. / MRI |
+| Deep branch (`elbow.radial_nerve.deep_branch`) | missing | missing | unverified | Within the acquired anatomical coverage. / MRI |
 | Posterior interosseous nerve at supinator (`elbow.radial_nerve.posterior_interosseous_nerve_at_supinator`) | missing | missing | missing | Within the acquired anatomical coverage. / MRI |
 | Medial epicondyle (`elbow.cubital_tunnel_boundaries.medial_epicondyle`) | unverified | missing | missing | Within the acquired anatomical coverage. / MRI |
 | Olecranon (`elbow.cubital_tunnel_boundaries.olecranon`) | unverified | missing | missing | Within the acquired anatomical coverage. / MRI |
@@ -89,15 +89,15 @@ Investigation: `ra.mri-elbow`
 | Arcade of Frohse (`elbow.radial_tunnel_boundaries.arcade_of_frohse`) | missing | missing | missing | Within the acquired anatomical coverage. / MRI |
 | Supinator exit (`elbow.radial_tunnel_boundaries.supinator_exit`) | missing | missing | missing | Within the acquired anatomical coverage. / MRI |
 | Biceps muscle (`elbow.biceps_muscle`) | missing | missing | missing | Visible muscle belly/territory for injury or denervation; expand to all muscles covered by a suspected nerve lesion. / MRI |
-| Brachialis muscle (`elbow.brachialis_muscle`) | missing | missing | missing | Visible muscle belly/territory for injury or denervation; expand to all muscles covered by a suspected nerve lesion. / MRI |
+| Brachialis muscle (`elbow.brachialis_muscle`) | missing | missing | unverified | Visible muscle belly/territory for injury or denervation; expand to all muscles covered by a suspected nerve lesion. / MRI |
 | Triceps muscle (`elbow.triceps_muscle`) | missing | missing | missing | Visible muscle belly/territory for injury or denervation; expand to all muscles covered by a suspected nerve lesion. / MRI |
 | Pronator teres muscle (`elbow.pronator_teres_muscle`) | missing | missing | missing | Visible muscle belly/territory for injury or denervation; expand to all muscles covered by a suspected nerve lesion. / MRI |
-| Supinator muscle (`elbow.supinator_muscle`) | missing | missing | missing | Visible muscle belly/territory for injury or denervation; expand to all muscles covered by a suspected nerve lesion. / MRI |
-| Anconeus muscle (`elbow.anconeus_muscle`) | missing | missing | missing | Visible muscle belly/territory for injury or denervation; expand to all muscles covered by a suspected nerve lesion. / MRI |
+| Supinator muscle (`elbow.supinator_muscle`) | missing | missing | unverified | Visible muscle belly/territory for injury or denervation; expand to all muscles covered by a suspected nerve lesion. / MRI |
+| Anconeus muscle (`elbow.anconeus_muscle`) | missing | missing | unverified | Visible muscle belly/territory for injury or denervation; expand to all muscles covered by a suspected nerve lesion. / MRI |
 | Flexor carpi ulnaris muscle (`elbow.flexor_carpi_ulnaris_muscle`) | missing | missing | missing | Visible muscle belly/territory for injury or denervation; expand to all muscles covered by a suspected nerve lesion. / MRI |
-| Flexor carpi radialis muscle (`elbow.flexor_carpi_radialis_muscle`) | missing | missing | missing | Visible muscle belly/territory for injury or denervation; expand to all muscles covered by a suspected nerve lesion. / MRI |
+| Flexor carpi radialis muscle (`elbow.flexor_carpi_radialis_muscle`) | missing | missing | unverified | Visible muscle belly/territory for injury or denervation; expand to all muscles covered by a suspected nerve lesion. / MRI |
 | Flexor digitorum superficialis muscle (`elbow.flexor_digitorum_superficialis_muscle`) | missing | missing | missing | Visible muscle belly/territory for injury or denervation; expand to all muscles covered by a suspected nerve lesion. / MRI |
-| Extensor carpi radialis brevis muscle (`elbow.extensor_carpi_radialis_brevis_muscle`) | missing | missing | missing | Visible muscle belly/territory for injury or denervation; expand to all muscles covered by a suspected nerve lesion. / MRI |
+| Extensor carpi radialis brevis muscle (`elbow.extensor_carpi_radialis_brevis_muscle`) | missing | missing | unverified | Visible muscle belly/territory for injury or denervation; expand to all muscles covered by a suspected nerve lesion. / MRI |
 | Extensor digitorum muscle (`elbow.extensor_digitorum_muscle`) | missing | missing | missing | Visible muscle belly/territory for injury or denervation; expand to all muscles covered by a suspected nerve lesion. / MRI |
 | Extensor carpi ulnaris muscle (`elbow.extensor_carpi_ulnaris_muscle`) | missing | missing | missing | Visible muscle belly/territory for injury or denervation; expand to all muscles covered by a suspected nerve lesion. / MRI |
 | Anterior recess (`elbow.elbow_capsule_and_synovium.anterior_recess`) | missing | missing | missing | Within the acquired anatomical coverage. / MRI |
@@ -107,7 +107,7 @@ Investigation: `ra.mri-elbow`
 | Lateral synovial fold (`elbow.radiocapitellar_plica.lateral_synovial_fold`) | missing | missing | missing | Within the acquired anatomical coverage. / MRI |
 | Bursal boundaries (`elbow.olecranon_bursa.bursal_boundaries`) | missing | missing | missing | Within the acquired anatomical coverage. / MRI |
 | Tendon relationship (`elbow.olecranon_bursa.tendon_relationship`) | missing | missing | missing | Within the acquired anatomical coverage. / MRI |
-| Bursal boundaries (`elbow.bicipitoradial_bursa.bursal_boundaries`) | missing | missing | missing | Within the acquired anatomical coverage. / MRI |
+| Bursal boundaries (`elbow.bicipitoradial_bursa.bursal_boundaries`) | missing | missing | unverified | Within the acquired anatomical coverage. / MRI |
 | Tendon relationship (`elbow.bicipitoradial_bursa.tendon_relationship`) | missing | missing | missing | Within the acquired anatomical coverage. / MRI |
 
 ## Candidate evidence
@@ -168,6 +168,25 @@ Investigation: `ra.mri-elbow`
 - Source context: {'setting': 'in_vivo', 'laterality': 'not_reported', 'population': {'life_stage': 'unknown'}, 'depicted_state': 'normal_anatomical_reference', 'extent': 'local', 'anatomical_site': {'region': 'elbow'}, 'selected_panels': ['a', 'b'], 'panel_types': {'a': 'MRI', 'b': 'MRI'}, 'acquisition_note': 'Axial a and coronal b fat-saturated T2-weighted MRI; original arrows mark source-described physiological linear insertional signal.', 'unknowns': ['Selected patient/specimen age and maturity are not reported.', 'Laterality is not explicitly stated by this selected source.']}
 - Limits: The source interprets these linear insertional signals as physiological, while acknowledging retrospective symptom ascertainment and other elbow indications in its study. Do not call every signal change normal or imply a disease-free whole examination. Two selected slices show local triceps insertional appearance, not separate long/lateral/medial head footprints or a measured enthesis boundary. Source laterality is not explicitly stated.
 - Gate findings: anatomical_review_scope_missing_or_stale, anatomical_review_missing_or_stale, visual_review_scope_missing_or_stale, visual_review_missing_or_stale, high_fidelity_unproven, requirement_coverage_missing
+
+### elbow.brachialis_tendon.tendon_substance — model
+
+- Asset: `za-muscles-120536626-material-0`
+- Local file: [web/anatomy/msk-atlas/za-muscles-120536626-material-0.bin](../../web/anatomy/msk-atlas/za-muscles-120536626-material-0.bin)
+- Artifact SHA-256: `8ee757057ebed40a25d634d07c50ff6aa9b6dc9fcd556bd6ea716001db882d50`
+- Review-scope SHA-256: `b284b489b98374271082faebcda29ac508b8797b8ec1b28ac2621d05a0a12366`
+- Source: [Original source](https://github.com/LluisV/Z-Anatomy/tree/6c7f9016bd5899ac8edafd31b9900c151df42ed6)
+- Licence: [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/)
+- Recorded rights: commercial use=True; redistribution=True; review status=verified
+- Attribution: BodyParts3D — The Database Center for Life Science — upstream lineage CC BY-SA 2.1 Japan; Z-Anatomy — The open source atlas of anatomy — CC BY-SA 4.0
+- Rights evidence: docs/msk-mesh-source-audit.md
+- Licence use plan: No separate use plan recorded; inspect the exact licence and rights evidence
+- Presentation dependencies: Not separately recorded
+- Coverage: {'extent': 'partial', 'basis': 'The source label of this model names the structure: “Brachialis muscle · tendon surface”. This part is the structure’s own body or surface, which the whole model shows; the model does not delineate the other parts. The requirement is for the examined side; the model is a right-side reference, a mirror image for the other side. One source-labelled model; the full extent and boundaries of the named anatomy are not established.'}
+- Selection: Not recorded
+- Source context: Not recorded
+- Limits: Not recorded
+- Gate findings: anatomical_review_scope_missing_or_stale, anatomical_review_missing_or_stale, visual_review_scope_missing_or_stale, visual_review_missing_or_stale, high_fidelity_unproven, requirement_coverage_partial
 
 ### elbow.ulnar_collateral_ligament.anterior_bundle — clinical_image
 
@@ -245,6 +264,44 @@ Investigation: `ra.mri-elbow`
 - Limits: Three selected normal coronal slices, not a full MRI examination, stress test or quantitative enthesis map. The source identifies the anterior UCL bundle as a whole, not separately verified anterior/posterior functional bands within that bundle. Posterior and transverse UCL bundles and adjacent common-flexor components are outside this figure’s claimed scope. Source laterality is not explicitly stated.
 - Gate findings: anatomical_review_scope_missing_or_stale, anatomical_review_missing_or_stale, visual_review_scope_missing_or_stale, visual_review_missing_or_stale, high_fidelity_unproven, requirement_coverage_missing
 
+### elbow.radial_collateral_ligament.complete_course — model
+
+- Asset: `za-joints-657138113`
+- Local file: [web/anatomy/msk-atlas/za-joints-657138113.bin](../../web/anatomy/msk-atlas/za-joints-657138113.bin)
+- Artifact SHA-256: `1bab5947db5fb9bc1ac6357e7c01b4f8262d30d0a0bbf4e60b8be32fed59b5b3`
+- Review-scope SHA-256: `85096687436e00d775a0dd36ecd969fd9433efcc6739aa2e7d0d0670a89f262c`
+- Source: [Original source](https://github.com/LluisV/Z-Anatomy/tree/6c7f9016bd5899ac8edafd31b9900c151df42ed6)
+- Licence: [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/)
+- Recorded rights: commercial use=True; redistribution=True; review status=verified
+- Attribution: BodyParts3D — The Database Center for Life Science — upstream lineage CC BY-SA 2.1 Japan; Z-Anatomy — The open source atlas of anatomy — CC BY-SA 4.0
+- Rights evidence: docs/msk-mesh-source-audit.md
+- Licence use plan: No separate use plan recorded; inspect the exact licence and rights evidence
+- Presentation dependencies: Not separately recorded
+- Coverage: {'extent': 'partial', 'basis': 'The source label of this model names the structure: “Radial collateral ligament”. This part is the structure’s own body or surface, which the whole model shows; the model does not delineate the other parts. The requirement is for the examined side; the model is a right-side reference, a mirror image for the other side. One source-labelled model; the full extent and boundaries of the named anatomy are not established.'}
+- Selection: Not recorded
+- Source context: Not recorded
+- Limits: Not recorded
+- Gate findings: anatomical_review_scope_missing_or_stale, anatomical_review_missing_or_stale, visual_review_scope_missing_or_stale, visual_review_missing_or_stale, high_fidelity_unproven, requirement_coverage_partial
+
+### elbow.annular_ligament.complete_course — model
+
+- Asset: `za-joints-878872661`
+- Local file: [web/anatomy/msk-atlas/za-joints-878872661.bin](../../web/anatomy/msk-atlas/za-joints-878872661.bin)
+- Artifact SHA-256: `00b94291b1cf23d058559d22a05d8644bf21e3a96434df68507cb7fbdb5fa60b`
+- Review-scope SHA-256: `7ba7e315ccc0a1d444885fa71109bac511af10a2dea2dee47bc7df4f2149cd48`
+- Source: [Original source](https://github.com/LluisV/Z-Anatomy/tree/6c7f9016bd5899ac8edafd31b9900c151df42ed6)
+- Licence: [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/)
+- Recorded rights: commercial use=True; redistribution=True; review status=verified
+- Attribution: BodyParts3D — The Database Center for Life Science — upstream lineage CC BY-SA 2.1 Japan; Z-Anatomy — The open source atlas of anatomy — CC BY-SA 4.0
+- Rights evidence: docs/msk-mesh-source-audit.md
+- Licence use plan: No separate use plan recorded; inspect the exact licence and rights evidence
+- Presentation dependencies: Not separately recorded
+- Coverage: {'extent': 'partial', 'basis': 'The source label of this model names the structure: “Annular ligament of radius”. This part is the structure’s own body or surface, which the whole model shows; the model does not delineate the other parts. The requirement is for the examined side; the model is a right-side reference, a mirror image for the other side. One source-labelled model; the full extent and boundaries of the named anatomy are not established.'}
+- Selection: Not recorded
+- Source context: Not recorded
+- Limits: Not recorded
+- Gate findings: anatomical_review_scope_missing_or_stale, anatomical_review_missing_or_stale, visual_review_scope_missing_or_stale, visual_review_missing_or_stale, high_fidelity_unproven, requirement_coverage_partial
+
 ### elbow.ulnar_nerve.cubital_tunnel — clinical_image
 
 - Asset: `open-elbow-posterior-ucl-ulnar-nerve-mri-acosta-fig6`
@@ -263,6 +320,44 @@ Investigation: `ra.mri-elbow`
 - Source context: {'setting': 'in_vivo', 'laterality': 'not_reported', 'population': {'life_stage': 'unknown'}, 'depicted_state': 'normal_variant', 'extent': 'local', 'anatomical_site': {'region': 'elbow'}, 'selected_panels': ['a', 'b'], 'panel_types': {'a': 'MRI', 'b': 'MRI'}, 'acquisition_note': 'Two different healthy volunteers: axial T1 in a, axial fat-suppressed PD in b; b includes anconeus epitrochlearis variant.', 'panel_states': {'a': 'normal_anatomy', 'b': 'normal_variant'}, 'unknowns': ['Selected patient/specimen age and maturity are not reported.', 'Laterality is not explicitly stated by this selected source.']}
 - Limits: Two different healthy volunteers, not paired sequences from one subject. Panel b includes the source’s anconeus epitrochlearis anatomical variant; it must not imply that everyone has this muscle or that it is necessarily pathological. Local posterior UCL and cubital-tunnel relationships only, not a whole-nerve examination, dynamic stability test or complete ligament attachment map. Source laterality is not explicitly stated.
 - Gate findings: anatomical_review_scope_missing_or_stale, anatomical_review_missing_or_stale, visual_review_scope_missing_or_stale, visual_review_missing_or_stale, high_fidelity_unproven, requirement_coverage_missing
+
+### elbow.radial_nerve.superficial_branch — model
+
+- Asset: `za-nerves-281977780`
+- Local file: [web/anatomy/msk-atlas/za-nerves-281977780.bin](../../web/anatomy/msk-atlas/za-nerves-281977780.bin)
+- Artifact SHA-256: `594a38a6117a3f31e99f823d5b406cb52c0ce7b7549f6b9d12acad797cda37b3`
+- Review-scope SHA-256: `bcd4464e380f918b1929ed011d359c2d6f3c0cd12e07360da4c416f2ac87f159`
+- Source: [Original source](https://github.com/LluisV/Z-Anatomy/tree/6c7f9016bd5899ac8edafd31b9900c151df42ed6)
+- Licence: [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/)
+- Recorded rights: commercial use=True; redistribution=True; review status=verified
+- Attribution: BodyParts3D — The Database Center for Life Science — upstream lineage CC BY-SA 2.1 Japan; Z-Anatomy — The open source atlas of anatomy — CC BY-SA 4.0
+- Rights evidence: docs/msk-mesh-source-audit.md
+- Licence use plan: No separate use plan recorded; inspect the exact licence and rights evidence
+- Presentation dependencies: Not separately recorded
+- Coverage: {'extent': 'partial', 'basis': 'The source label of this model names this part: “Superficial branch of radial nerve”. The requirement is for the examined side; the model is a right-side reference, a mirror image for the other side. One source-labelled model; the full extent and boundaries of the named anatomy are not established.'}
+- Selection: Not recorded
+- Source context: Not recorded
+- Limits: Not recorded
+- Gate findings: anatomical_review_scope_missing_or_stale, anatomical_review_missing_or_stale, visual_review_scope_missing_or_stale, visual_review_missing_or_stale, high_fidelity_unproven, requirement_coverage_partial
+
+### elbow.radial_nerve.deep_branch — model
+
+- Asset: `za-nerves-744841522`
+- Local file: [web/anatomy/msk-atlas/za-nerves-744841522.bin](../../web/anatomy/msk-atlas/za-nerves-744841522.bin)
+- Artifact SHA-256: `416352909169c719781757e6156228cb767e371c51d3900112690ee943556135`
+- Review-scope SHA-256: `3555bb284a90f78b60411abce9c43c9f38da4a5c616517075536fa5ba4ad3079`
+- Source: [Original source](https://github.com/LluisV/Z-Anatomy/tree/6c7f9016bd5899ac8edafd31b9900c151df42ed6)
+- Licence: [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/)
+- Recorded rights: commercial use=True; redistribution=True; review status=verified
+- Attribution: BodyParts3D — The Database Center for Life Science — upstream lineage CC BY-SA 2.1 Japan; Z-Anatomy — The open source atlas of anatomy — CC BY-SA 4.0
+- Rights evidence: docs/msk-mesh-source-audit.md
+- Licence use plan: No separate use plan recorded; inspect the exact licence and rights evidence
+- Presentation dependencies: Not separately recorded
+- Coverage: {'extent': 'partial', 'basis': 'The source label of this model names this part: “Deep branch of radial nerve”. The requirement is for the examined side; the model is a right-side reference, a mirror image for the other side. One source-labelled model; the full extent and boundaries of the named anatomy are not established.'}
+- Selection: Not recorded
+- Source context: Not recorded
+- Limits: Not recorded
+- Gate findings: anatomical_review_scope_missing_or_stale, anatomical_review_missing_or_stale, visual_review_scope_missing_or_stale, visual_review_missing_or_stale, high_fidelity_unproven, requirement_coverage_partial
 
 ### elbow.cubital_tunnel_boundaries.medial_epicondyle — clinical_image
 
@@ -320,6 +415,120 @@ Investigation: `ra.mri-elbow`
 - Source context: {'setting': 'in_vivo', 'laterality': 'not_reported', 'population': {'life_stage': 'unknown'}, 'depicted_state': 'normal_variant', 'extent': 'local', 'anatomical_site': {'region': 'elbow'}, 'selected_panels': ['a', 'b'], 'panel_types': {'a': 'MRI', 'b': 'MRI'}, 'acquisition_note': 'Two different healthy volunteers: axial T1 in a, axial fat-suppressed PD in b; b includes anconeus epitrochlearis variant.', 'panel_states': {'a': 'normal_anatomy', 'b': 'normal_variant'}, 'unknowns': ['Selected patient/specimen age and maturity are not reported.', 'Laterality is not explicitly stated by this selected source.']}
 - Limits: Two different healthy volunteers, not paired sequences from one subject. Panel b includes the source’s anconeus epitrochlearis anatomical variant; it must not imply that everyone has this muscle or that it is necessarily pathological. Local posterior UCL and cubital-tunnel relationships only, not a whole-nerve examination, dynamic stability test or complete ligament attachment map. Source laterality is not explicitly stated.
 - Gate findings: anatomical_review_scope_missing_or_stale, anatomical_review_missing_or_stale, visual_review_scope_missing_or_stale, visual_review_missing_or_stale, high_fidelity_unproven, requirement_coverage_missing
+
+### elbow.brachialis_muscle — model
+
+- Asset: `za-muscles-120536626`
+- Local file: [web/anatomy/msk-atlas/za-muscles-120536626.bin](../../web/anatomy/msk-atlas/za-muscles-120536626.bin)
+- Artifact SHA-256: `aa5a49702711b18b44243db858a74bf80ffa539a0626b676cafe93c6d49c5185`
+- Review-scope SHA-256: `111b418ae5d9299c93e57883f28ddbf24a4957543849dc64600ed189d3f005b7`
+- Source: [Original source](https://github.com/LluisV/Z-Anatomy/tree/6c7f9016bd5899ac8edafd31b9900c151df42ed6)
+- Licence: [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/)
+- Recorded rights: commercial use=True; redistribution=True; review status=verified
+- Attribution: BodyParts3D — The Database Center for Life Science — upstream lineage CC BY-SA 2.1 Japan; Z-Anatomy — The open source atlas of anatomy — CC BY-SA 4.0
+- Rights evidence: docs/msk-mesh-source-audit.md
+- Licence use plan: No separate use plan recorded; inspect the exact licence and rights evidence
+- Presentation dependencies: Not separately recorded
+- Coverage: {'extent': 'partial', 'basis': 'The source label of this model names the structure: “Brachialis muscle”. The requirement is for the examined side; the model is a right-side reference, a mirror image for the other side. One source-labelled model; the full extent and boundaries of the named anatomy are not established.'}
+- Selection: Not recorded
+- Source context: Not recorded
+- Limits: Not recorded
+- Gate findings: anatomical_review_scope_missing_or_stale, anatomical_review_missing_or_stale, visual_review_scope_missing_or_stale, visual_review_missing_or_stale, high_fidelity_unproven, requirement_coverage_partial
+
+### elbow.supinator_muscle — model
+
+- Asset: `za-muscles-210170064`
+- Local file: [web/anatomy/msk-atlas/za-muscles-210170064.bin](../../web/anatomy/msk-atlas/za-muscles-210170064.bin)
+- Artifact SHA-256: `ec8f124c8faacb57d73dc0635db29790df57b6f11c8a39092e41718377c4d00e`
+- Review-scope SHA-256: `65fb3b6f2de1def038224d53e3780f82d5d675f126c6aae1da69b770f252e942`
+- Source: [Original source](https://github.com/LluisV/Z-Anatomy/tree/6c7f9016bd5899ac8edafd31b9900c151df42ed6)
+- Licence: [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/)
+- Recorded rights: commercial use=True; redistribution=True; review status=verified
+- Attribution: BodyParts3D — The Database Center for Life Science — upstream lineage CC BY-SA 2.1 Japan; Z-Anatomy — The open source atlas of anatomy — CC BY-SA 4.0
+- Rights evidence: docs/msk-mesh-source-audit.md
+- Licence use plan: No separate use plan recorded; inspect the exact licence and rights evidence
+- Presentation dependencies: Not separately recorded
+- Coverage: {'extent': 'partial', 'basis': 'The source label of this model names the structure: “Supinator”. The requirement is for the examined side; the model is a right-side reference, a mirror image for the other side. One source-labelled model; the full extent and boundaries of the named anatomy are not established.'}
+- Selection: Not recorded
+- Source context: Not recorded
+- Limits: Not recorded
+- Gate findings: anatomical_review_scope_missing_or_stale, anatomical_review_missing_or_stale, visual_review_scope_missing_or_stale, visual_review_missing_or_stale, high_fidelity_unproven, requirement_coverage_partial
+
+### elbow.anconeus_muscle — model
+
+- Asset: `za-muscles-229882640`
+- Local file: [web/anatomy/msk-atlas/za-muscles-229882640.bin](../../web/anatomy/msk-atlas/za-muscles-229882640.bin)
+- Artifact SHA-256: `21ae2d5b3aaf2e1bf6f4d450d39037cb7406ebd643829fd5abc26a99a6b8fd0f`
+- Review-scope SHA-256: `785dca8def4ab728c662aa001288d2b923f8c9f797870136ed4dfb2b4f2e9d57`
+- Source: [Original source](https://github.com/LluisV/Z-Anatomy/tree/6c7f9016bd5899ac8edafd31b9900c151df42ed6)
+- Licence: [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/)
+- Recorded rights: commercial use=True; redistribution=True; review status=verified
+- Attribution: BodyParts3D — The Database Center for Life Science — upstream lineage CC BY-SA 2.1 Japan; Z-Anatomy — The open source atlas of anatomy — CC BY-SA 4.0
+- Rights evidence: docs/msk-mesh-source-audit.md
+- Licence use plan: No separate use plan recorded; inspect the exact licence and rights evidence
+- Presentation dependencies: Not separately recorded
+- Coverage: {'extent': 'partial', 'basis': 'The source label of this model names the structure: “Anconeus muscle”. The requirement is for the examined side; the model is a right-side reference, a mirror image for the other side. One source-labelled model; the full extent and boundaries of the named anatomy are not established.'}
+- Selection: Not recorded
+- Source context: Not recorded
+- Limits: Not recorded
+- Gate findings: anatomical_review_scope_missing_or_stale, anatomical_review_missing_or_stale, visual_review_scope_missing_or_stale, visual_review_missing_or_stale, high_fidelity_unproven, requirement_coverage_partial
+
+### elbow.flexor_carpi_radialis_muscle — model
+
+- Asset: `za-muscles-672824902`
+- Local file: [web/anatomy/msk-atlas/za-muscles-672824902.bin](../../web/anatomy/msk-atlas/za-muscles-672824902.bin)
+- Artifact SHA-256: `f8171db787980686c4d9d8d698fa2670a57f544e25cdfbdaff4c4aa018fce078`
+- Review-scope SHA-256: `48e7bac8b6e10f4b37a6c6a316643c0fa54c9fb94e346936e234eccd4aaed8bf`
+- Source: [Original source](https://github.com/LluisV/Z-Anatomy/tree/6c7f9016bd5899ac8edafd31b9900c151df42ed6)
+- Licence: [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/)
+- Recorded rights: commercial use=True; redistribution=True; review status=verified
+- Attribution: BodyParts3D — The Database Center for Life Science — upstream lineage CC BY-SA 2.1 Japan; Z-Anatomy — The open source atlas of anatomy — CC BY-SA 4.0
+- Rights evidence: docs/msk-mesh-source-audit.md
+- Licence use plan: No separate use plan recorded; inspect the exact licence and rights evidence
+- Presentation dependencies: Not separately recorded
+- Coverage: {'extent': 'partial', 'basis': 'The source label of this model names the structure: “Flexor carpi radialis”. The requirement is for the examined side; the model is a right-side reference, a mirror image for the other side. One source-labelled model; the full extent and boundaries of the named anatomy are not established.'}
+- Selection: Not recorded
+- Source context: Not recorded
+- Limits: Not recorded
+- Gate findings: anatomical_review_scope_missing_or_stale, anatomical_review_missing_or_stale, visual_review_scope_missing_or_stale, visual_review_missing_or_stale, high_fidelity_unproven, requirement_coverage_partial
+
+### elbow.extensor_carpi_radialis_brevis_muscle — model
+
+- Asset: `za-muscles-579432817`
+- Local file: [web/anatomy/msk-atlas/za-muscles-579432817.bin](../../web/anatomy/msk-atlas/za-muscles-579432817.bin)
+- Artifact SHA-256: `ad4e8b0fb997da45a90a39e242e36c35710b143dfdab20aec215ba7f72f61ee0`
+- Review-scope SHA-256: `746b95e3b30b6c674a3acd9e6343c6c94af01ec819a2dddf9efa7d0dae17d110`
+- Source: [Original source](https://github.com/LluisV/Z-Anatomy/tree/6c7f9016bd5899ac8edafd31b9900c151df42ed6)
+- Licence: [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/)
+- Recorded rights: commercial use=True; redistribution=True; review status=verified
+- Attribution: BodyParts3D — The Database Center for Life Science — upstream lineage CC BY-SA 2.1 Japan; Z-Anatomy — The open source atlas of anatomy — CC BY-SA 4.0
+- Rights evidence: docs/msk-mesh-source-audit.md
+- Licence use plan: No separate use plan recorded; inspect the exact licence and rights evidence
+- Presentation dependencies: Not separately recorded
+- Coverage: {'extent': 'partial', 'basis': 'The source label of this model names the structure: “Extensor carpi radialis brevis”. The requirement is for the examined side; the model is a right-side reference, a mirror image for the other side. One source-labelled model; the full extent and boundaries of the named anatomy are not established.'}
+- Selection: Not recorded
+- Source context: Not recorded
+- Limits: Not recorded
+- Gate findings: anatomical_review_scope_missing_or_stale, anatomical_review_missing_or_stale, visual_review_scope_missing_or_stale, visual_review_missing_or_stale, high_fidelity_unproven, requirement_coverage_partial
+
+### elbow.bicipitoradial_bursa.bursal_boundaries — model
+
+- Asset: `za-muscles-861554301`
+- Local file: [web/anatomy/msk-atlas/za-muscles-861554301.bin](../../web/anatomy/msk-atlas/za-muscles-861554301.bin)
+- Artifact SHA-256: `47bcf86b35460025aa0842192d391b9bd1e1536ff46ca85c06f47f9942e07f44`
+- Review-scope SHA-256: `5b59066bbca3b47a72f4485ee261d05ac4c51b95977f553163a3792355d4bd4c`
+- Source: [Original source](https://github.com/LluisV/Z-Anatomy/tree/6c7f9016bd5899ac8edafd31b9900c151df42ed6)
+- Licence: [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/)
+- Recorded rights: commercial use=True; redistribution=True; review status=verified
+- Attribution: BodyParts3D — The Database Center for Life Science — upstream lineage CC BY-SA 2.1 Japan; Z-Anatomy — The open source atlas of anatomy — CC BY-SA 4.0
+- Rights evidence: docs/msk-mesh-source-audit.md
+- Licence use plan: No separate use plan recorded; inspect the exact licence and rights evidence
+- Presentation dependencies: Not separately recorded
+- Coverage: {'extent': 'partial', 'basis': 'The source label of this model names the structure: “Bicipitoradial bursa”. This part is the structure’s own body or surface, which the whole model shows; the model does not delineate the other parts. The requirement is for the examined side; the model is a right-side reference, a mirror image for the other side. One source-labelled model; the full extent and boundaries of the named anatomy are not established.'}
+- Selection: Not recorded
+- Source context: Not recorded
+- Limits: Not recorded
+- Gate findings: anatomical_review_scope_missing_or_stale, anatomical_review_missing_or_stale, visual_review_scope_missing_or_stale, visual_review_missing_or_stale, high_fidelity_unproven, requirement_coverage_partial
 
 ## Scope blockers
 

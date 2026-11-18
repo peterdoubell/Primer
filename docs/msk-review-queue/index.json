@@ -2,8 +2,8 @@
   "requirements": 5292,
   "counts": {
     "verified": 0,
-    "unverified": 173,
-    "missing": 5119
+    "unverified": 326,
+    "missing": 4966
   },
   "clinical_commercial_ready": false,
   "candidate_artifacts": {
@@ -14,6 +14,10 @@
     "derived-knee-patellar-cartilage-openknee": {
       "local_path": "web/reference-media/msk-open/knee-patellar-cartilage-openknee.png",
       "sha256": "b2b2ba055b21bc182503bad5a99a98c7d0d7f4dee3fddcafcf06e8e0c21421d0"
+    },
+    "oks003-lcl": {
+      "local_path": "web/anatomy/openknee-oks003/oks003-lcl.bin.gz",
+      "sha256": "ca1e41296d83f8f5b1beaf0683c3ff0c22724cc4e576e4cc3128299d546a8eee"
     },
     "oks003-mns-l": {
       "local_path": "web/anatomy/openknee-oks003/oks003-mns-l.bin.gz",
@@ -26,6 +30,14 @@
     "oks003-ptc": {
       "local_path": "web/anatomy/openknee-oks003/oks003-ptc.bin.gz",
       "sha256": "f87e507be2955758a5842d24d43f173ebe035bdb37eed2862458840673ec0a7e"
+    },
+    "oks003-ptl": {
+      "local_path": "web/anatomy/openknee-oks003/oks003-ptl.bin.gz",
+      "sha256": "0682707852d14df477688445daf47a66238fee10b92ecf44060495ac5042c62c"
+    },
+    "oks003-qat": {
+      "local_path": "web/anatomy/openknee-oks003/oks003-qat.bin.gz",
+      "sha256": "07f01022866212bffc7bbef282548efd577579dbd2e99270930af2a6ac775413"
     },
     "open-ankle-accessory-soleus-plecko-fig1": {
       "local_path": "web/reference-media/msk-open/ankle-accessory-soleus-plecko-fig1-pdf.png",
@@ -299,25 +311,473 @@
       "local_path": "web/reference-media/msk-open/wrist-volar-extrinsic-ligaments-okoro-fig26-pdf.jpg",
       "sha256": "420eb3f20536c879d7b1b3bccb893e46ef521c7532a71254278d4b977bf6d538"
     },
+    "um-ankle-tendon-archilles": {
+      "local_path": "web/anatomy/msk-mri-ankle/um-ankle-tendon-archilles.bin.gz",
+      "sha256": "6395b5f23708c0cfd68c0bb9ee1922f22d7b7dc7007d29f374831051e6b7112e"
+    },
+    "um-knee-cartilage-patella": {
+      "local_path": "web/anatomy/msk-mri-knee/um-knee-cartilage-patella.bin.gz",
+      "sha256": "c7ff560597fb5d9608ccfc145923d3074372c001e76c0c22a4872c407db0b832"
+    },
+    "um-knee-ligament-lcl": {
+      "local_path": "web/anatomy/msk-mri-knee/um-knee-ligament-lcl.bin.gz",
+      "sha256": "9b124d162e3dcee571caec40395454190a62a20b1ac232a133ad6c50a84b82e8"
+    },
+    "um-knee-ligament-patella": {
+      "local_path": "web/anatomy/msk-mri-knee/um-knee-ligament-patella.bin.gz",
+      "sha256": "3bbe3640f504777946757730a07bcb2649693548de01cef7453d66fa49d48aa6"
+    },
+    "um-knee-muscle-gastrocnemius-lateral": {
+      "local_path": "web/anatomy/msk-mri-knee/um-knee-muscle-gastrocnemius-lateral.bin.gz",
+      "sha256": "b1c8e61a3ce672bfe3ff050f1800705e108aa52534984b5dfc027f13bd629aaa"
+    },
+    "um-knee-muscle-gastrocnemius-medial": {
+      "local_path": "web/anatomy/msk-mri-knee/um-knee-muscle-gastrocnemius-medial.bin.gz",
+      "sha256": "d75f00ca2e64290e23cd84d11ddd69dbcb122990a7280c01d7d81558e9c17b5a"
+    },
+    "um-knee-muscle-popliteus": {
+      "local_path": "web/anatomy/msk-mri-knee/um-knee-muscle-popliteus.bin.gz",
+      "sha256": "1d33b880514f07b4d98fe317a1ea998257f78ff856daa752b409e779c37aee39"
+    },
+    "um-knee-tendon-quadriceps": {
+      "local_path": "web/anatomy/msk-mri-knee/um-knee-tendon-quadriceps.bin.gz",
+      "sha256": "8f9186341c01f104bfeea5bee88b21e48a38d78a84bec842a86db1b638eda21e"
+    },
+    "za-bones-314913365-material-1": {
+      "local_path": "web/anatomy/msk-atlas/za-bones-314913365-material-1.bin",
+      "sha256": "514a35965a0a3e2b459cb24310fbd575de7b96e43cc2578cb7ca9e331b76ee65"
+    },
+    "za-bones-330368362": {
+      "local_path": "web/anatomy/msk-atlas/za-bones-330368362.bin",
+      "sha256": "47dedf0c8704e35d13a31ebc594950bcd68fa88c18f8a075a65cdfb1168d39d5"
+    },
+    "za-bones-330368362-material-4": {
+      "local_path": "web/anatomy/msk-atlas/za-bones-330368362-material-4.bin",
+      "sha256": "3312597ef467f485a9f02455fc1864f69283dfe7822a1cb95bcca681f7dad053"
+    },
+    "za-bones-367424422": {
+      "local_path": "web/anatomy/msk-atlas/za-bones-367424422.bin",
+      "sha256": "5c776bdaa0242ef5be0c3cd47aca975358b17523245b45b43ff40d9e1d927c95"
+    },
+    "za-bones-444117336-material-1": {
+      "local_path": "web/anatomy/msk-atlas/za-bones-444117336-material-1.bin",
+      "sha256": "52e98581ecb038defaaa867f0242ff1e2f71a43b623ae281e867f17b92d37b6d"
+    },
+    "za-bones-487761000-material-1": {
+      "local_path": "web/anatomy/msk-atlas/za-bones-487761000-material-1.bin",
+      "sha256": "988738701cbeab0e79e512408da7996ced2d5c0a4b66200ed2181262f6c61627"
+    },
+    "za-bones-734101807-material-1": {
+      "local_path": "web/anatomy/msk-atlas/za-bones-734101807-material-1.bin",
+      "sha256": "f2f5c06485c0fb5480e80f0733cef626a9623e4e73d7a282a56df56e39291919"
+    },
+    "za-bones-81077546": {
+      "local_path": "web/anatomy/msk-atlas/za-bones-81077546.bin",
+      "sha256": "f641efbd46ea009d1bd567a0575450f38078d8217d7d55861880bc8aed9e9b5d"
+    },
+    "za-bones-81077546-material-1": {
+      "local_path": "web/anatomy/msk-atlas/za-bones-81077546-material-1.bin",
+      "sha256": "7db51ed5741a1b2086a1788cda47cf72348a5e30fb4557a904da491223f6c7c9"
+    },
+    "za-bones-958396538": {
+      "local_path": "web/anatomy/msk-atlas/za-bones-958396538.bin",
+      "sha256": "beb8779a647ca9d2250b748d9afbb4592debcffd529d7ff5c10d82878642bdb2"
+    },
+    "za-bones-958396538-material-0": {
+      "local_path": "web/anatomy/msk-atlas/za-bones-958396538-material-0.bin",
+      "sha256": "d3cfa21172290f73ab71e0c66c63d14de339279a84890af1abc64d12a2158a37"
+    },
+    "za-bones-962625739-material-1": {
+      "local_path": "web/anatomy/msk-atlas/za-bones-962625739-material-1.bin",
+      "sha256": "08999cb6eb8e621d2a12eb7b7defc7ad9f1b01af93a73429d88722f6c4bd00a5"
+    },
+    "za-joints-146002912": {
+      "local_path": "web/anatomy/msk-atlas/za-joints-146002912.bin",
+      "sha256": "2e3bb9062c35d886df1e4c6e7155520aa7c87365ba4524643419fcb7d96073c7"
+    },
+    "za-joints-179388422": {
+      "local_path": "web/anatomy/msk-atlas/za-joints-179388422.bin",
+      "sha256": "d3b068ad7c1a941130666239acc36fd7839122f7208cfbad3e06f84de1991b8f"
+    },
+    "za-joints-193731724": {
+      "local_path": "web/anatomy/msk-atlas/za-joints-193731724.bin",
+      "sha256": "c3f53696f6314f0f59a6c5edd51d0d74bbd17dfd5dfad40df6482d7f629fa6bd"
+    },
+    "za-joints-268562447": {
+      "local_path": "web/anatomy/msk-atlas/za-joints-268562447.bin",
+      "sha256": "4561231fe21cb407f015debe5bf1841a122e4b5f93fb18d977d9446c65f0417d"
+    },
+    "za-joints-283420712": {
+      "local_path": "web/anatomy/msk-atlas/za-joints-283420712.bin",
+      "sha256": "4254d2e12c196b58358ecb211a09afd64c319bb3233a476e26d486df757fe22d"
+    },
+    "za-joints-285034228": {
+      "local_path": "web/anatomy/msk-atlas/za-joints-285034228.bin",
+      "sha256": "6594ca4434a8bff7ac8ce9540e763cb85e730a17f7b7b20ca7cf54b2a274c873"
+    },
+    "za-joints-29406840": {
+      "local_path": "web/anatomy/msk-atlas/za-joints-29406840.bin",
+      "sha256": "59f83be3d21590faaba038ea5c1b202fd7050e54e5c4ae6059ed82c8634e6bfc"
+    },
+    "za-joints-340094425": {
+      "local_path": "web/anatomy/msk-atlas/za-joints-340094425.bin",
+      "sha256": "1e3ea51421a0b20847be6930f6e8dab268f52fdf3d5932ea0c0f49d076b8f8c0"
+    },
+    "za-joints-342768763": {
+      "local_path": "web/anatomy/msk-atlas/za-joints-342768763.bin",
+      "sha256": "5436e3f72fe749a98faf80a8db16286aa74e1e2800abd98d1d19227bd6492878"
+    },
+    "za-joints-343680498": {
+      "local_path": "web/anatomy/msk-atlas/za-joints-343680498.bin",
+      "sha256": "3812723f04e4d4a9887d9990e1fd5392ee6d635f334c56599954c301e1162a29"
+    },
+    "za-joints-348735722": {
+      "local_path": "web/anatomy/msk-atlas/za-joints-348735722.bin",
+      "sha256": "c32a1c327330b5a3f5e9b4101757e1d191e9c79cf2adb386b4608ff4a3d46806"
+    },
+    "za-joints-353278166": {
+      "local_path": "web/anatomy/msk-atlas/za-joints-353278166.bin",
+      "sha256": "7072af8467d6626c65723b4841a7699882c4d8781367c85e86f3fba841c39c1a"
+    },
+    "za-joints-356912233": {
+      "local_path": "web/anatomy/msk-atlas/za-joints-356912233.bin",
+      "sha256": "93116d0d6acdbbfe98185e671deae292e9dc2cad670710dec6ce8be5c349232f"
+    },
+    "za-joints-38623813": {
+      "local_path": "web/anatomy/msk-atlas/za-joints-38623813.bin",
+      "sha256": "9e9c9bc8b6d107c4242a5a257bcb2939981a59691e6c88605a0cad188cbedbdb"
+    },
+    "za-joints-413029801": {
+      "local_path": "web/anatomy/msk-atlas/za-joints-413029801.bin",
+      "sha256": "acbc57f4cf411ed79c61e63e6f5c1ca332c55cb168e6417dc75bb1b60a5a0267"
+    },
+    "za-joints-49279403": {
+      "local_path": "web/anatomy/msk-atlas/za-joints-49279403.bin",
+      "sha256": "e8f519cf1ec23eb990b38d90919cb7dfb06066e7b766db9dc6666bafd5b7922a"
+    },
+    "za-joints-536305954": {
+      "local_path": "web/anatomy/msk-atlas/za-joints-536305954.bin",
+      "sha256": "e8e3aa51e06ab644c8e263ab366e874f34a3ba62b5e92ba1b747601c780386d1"
+    },
+    "za-joints-538546670": {
+      "local_path": "web/anatomy/msk-atlas/za-joints-538546670.bin",
+      "sha256": "edcdccf9753bcc8b50bedd51024ffdf8a5c06310eb839478f9a921c289cf6593"
+    },
+    "za-joints-614802793": {
+      "local_path": "web/anatomy/msk-atlas/za-joints-614802793.bin",
+      "sha256": "9c93a153213acaa39e297e813c7be3ded5dfd71307f49ed47ba150193b9f35c0"
+    },
+    "za-joints-62709733": {
+      "local_path": "web/anatomy/msk-atlas/za-joints-62709733.bin",
+      "sha256": "cbe2983ddfecd9f23365af3576d9e67d7db9e14d06f0c123981700f9dc5fd6ac"
+    },
+    "za-joints-64020006": {
+      "local_path": "web/anatomy/msk-atlas/za-joints-64020006.bin",
+      "sha256": "f1980e0e7c719d34a1b3c38663013b401fc0615a071a463ef147ad061369c581"
+    },
+    "za-joints-657138113": {
+      "local_path": "web/anatomy/msk-atlas/za-joints-657138113.bin",
+      "sha256": "1bab5947db5fb9bc1ac6357e7c01b4f8262d30d0a0bbf4e60b8be32fed59b5b3"
+    },
     "za-joints-711785439": {
       "local_path": "web/anatomy/msk-atlas/za-joints-711785439.bin",
       "sha256": "af608d8a0a26c404bb4998bd8b0eb72586a2e0ef663564b777df7f5da6a4fe02"
+    },
+    "za-joints-744517071": {
+      "local_path": "web/anatomy/msk-atlas/za-joints-744517071.bin",
+      "sha256": "64814b82446630931910beb70379384c5238d68f9fb2228f0a261e918b2fd952"
+    },
+    "za-joints-758236691": {
+      "local_path": "web/anatomy/msk-atlas/za-joints-758236691.bin",
+      "sha256": "c16f5f7fbd525aae05c7d54a7596b9e899f313c408408e6da9176648dedec6fa"
+    },
+    "za-joints-85929803": {
+      "local_path": "web/anatomy/msk-atlas/za-joints-85929803.bin",
+      "sha256": "b68e1f90177a42279c0dea0706d033f06689cf50439c14e2faa9417514fabd7f"
+    },
+    "za-joints-86665965": {
+      "local_path": "web/anatomy/msk-atlas/za-joints-86665965.bin",
+      "sha256": "75c02c495e0ffd1d58b165cb4f929eff5e34063cbdb890addf40c48fbc9b2abb"
+    },
+    "za-joints-878872661": {
+      "local_path": "web/anatomy/msk-atlas/za-joints-878872661.bin",
+      "sha256": "00b94291b1cf23d058559d22a05d8644bf21e3a96434df68507cb7fbdb5fa60b"
+    },
+    "za-joints-899021983": {
+      "local_path": "web/anatomy/msk-atlas/za-joints-899021983.bin",
+      "sha256": "854a8f9fef10a36d60cdd66c1676aa71821c5332c7c38653e603c321ff6c7d8c"
+    },
+    "za-joints-947478872": {
+      "local_path": "web/anatomy/msk-atlas/za-joints-947478872.bin",
+      "sha256": "5859df3c57ecab80d55c3c067779e344db7b898958e02a6ab2dec995798498d2"
+    },
+    "za-joints-982736080": {
+      "local_path": "web/anatomy/msk-atlas/za-joints-982736080.bin",
+      "sha256": "738700a6e91a9b213392b0f7ec51c019e8ebc07a24d5cc8f7e9c53f012a4ebd5"
+    },
+    "za-joints-995232359": {
+      "local_path": "web/anatomy/msk-atlas/za-joints-995232359.bin",
+      "sha256": "a76947186612923861f4d1b24ddb934134bc38830f27b4e251891b858da293ba"
+    },
+    "za-muscles-115201106": {
+      "local_path": "web/anatomy/msk-atlas/za-muscles-115201106.bin",
+      "sha256": "b3ff44b2efaddf46585628797a345c7dade106d8f75d1c6bd588785f28efee96"
+    },
+    "za-muscles-120536626": {
+      "local_path": "web/anatomy/msk-atlas/za-muscles-120536626.bin",
+      "sha256": "aa5a49702711b18b44243db858a74bf80ffa539a0626b676cafe93c6d49c5185"
+    },
+    "za-muscles-120536626-material-0": {
+      "local_path": "web/anatomy/msk-atlas/za-muscles-120536626-material-0.bin",
+      "sha256": "8ee757057ebed40a25d634d07c50ff6aa9b6dc9fcd556bd6ea716001db882d50"
+    },
+    "za-muscles-120752132-material-0": {
+      "local_path": "web/anatomy/msk-atlas/za-muscles-120752132-material-0.bin",
+      "sha256": "92122db1bc652ef6b431beb7f453e2e47863cb7164e189e784a1220ee8551dad"
+    },
+    "za-muscles-144360526-material-0": {
+      "local_path": "web/anatomy/msk-atlas/za-muscles-144360526-material-0.bin",
+      "sha256": "ff56a6ffc9964c811efd8793719a3b8cb1511b1d8f3fb136f771387d0cc43eaf"
+    },
+    "za-muscles-1562777": {
+      "local_path": "web/anatomy/msk-atlas/za-muscles-1562777.bin",
+      "sha256": "9732036e09d796646d3f2facf09153bf526f351625f4b849fe7f44e820844779"
+    },
+    "za-muscles-1562777-material-0": {
+      "local_path": "web/anatomy/msk-atlas/za-muscles-1562777-material-0.bin",
+      "sha256": "7fed1238bce622500734431cab33143ba0d3dbb2e8f0bd207985e2848e73ff04"
+    },
+    "za-muscles-161668141": {
+      "local_path": "web/anatomy/msk-atlas/za-muscles-161668141.bin",
+      "sha256": "625df50c717ba6d03fe1e0812a30b367ce52f1f0521025c4f05498bbb27866c6"
+    },
+    "za-muscles-167745672": {
+      "local_path": "web/anatomy/msk-atlas/za-muscles-167745672.bin",
+      "sha256": "305910e9a6632406452ae847df2f4daab0a2fee2efa57c3de1288bb20e22a449"
+    },
+    "za-muscles-192883580": {
+      "local_path": "web/anatomy/msk-atlas/za-muscles-192883580.bin",
+      "sha256": "4463a8d41e38436373f6986a72fc1b8262c6cde06f79c9f3a0cbe8663ce50cec"
+    },
+    "za-muscles-210170064": {
+      "local_path": "web/anatomy/msk-atlas/za-muscles-210170064.bin",
+      "sha256": "ec8f124c8faacb57d73dc0635db29790df57b6f11c8a39092e41718377c4d00e"
+    },
+    "za-muscles-212087649": {
+      "local_path": "web/anatomy/msk-atlas/za-muscles-212087649.bin",
+      "sha256": "7dd7f76564764765a67740814b55bc6353720e7cc4d6a31421163f5c5c98f449"
+    },
+    "za-muscles-229882640": {
+      "local_path": "web/anatomy/msk-atlas/za-muscles-229882640.bin",
+      "sha256": "21ae2d5b3aaf2e1bf6f4d450d39037cb7406ebd643829fd5abc26a99a6b8fd0f"
+    },
+    "za-muscles-235597193-material-1": {
+      "local_path": "web/anatomy/msk-atlas/za-muscles-235597193-material-1.bin",
+      "sha256": "9b55c12a78e0c53fc79e5437f69a2a8d64b57b8cfafcc1fed6caeb00ad37a5bc"
+    },
+    "za-muscles-245217129-material-0": {
+      "local_path": "web/anatomy/msk-atlas/za-muscles-245217129-material-0.bin",
+      "sha256": "3f62b5d282f388b5d16d57db10460a97c9b6995aa144c0080a7eedf48b253c74"
     },
     "za-muscles-266598907": {
       "local_path": "web/anatomy/msk-atlas/za-muscles-266598907.bin",
       "sha256": "6742df972a2ec6311f6f8183b35c666a7d1f9b99e030a1e36b8d90ab4d39e7d6"
     },
+    "za-muscles-275120679": {
+      "local_path": "web/anatomy/msk-atlas/za-muscles-275120679.bin",
+      "sha256": "d85b877f866ad31322f8f7cdedcc0e7a18f04829284ac61e01f613b7ae4c711d"
+    },
+    "za-muscles-307679662": {
+      "local_path": "web/anatomy/msk-atlas/za-muscles-307679662.bin",
+      "sha256": "26036d7bd26d2d5ec6eaca387b90fd2de5d1b6a539ada6311862b2a65a3be8d5"
+    },
     "za-muscles-312860247": {
       "local_path": "web/anatomy/msk-atlas/za-muscles-312860247.bin",
       "sha256": "da1210fb46f3d53228bebfe3e5543ebb939514dc0c3d181dfbd35ba8e8ca236f"
+    },
+    "za-muscles-320904578": {
+      "local_path": "web/anatomy/msk-atlas/za-muscles-320904578.bin",
+      "sha256": "0528da8a8b6f3e3a212103ddada588f904993ae4ec872361e8564a4689e525c3"
+    },
+    "za-muscles-344109556": {
+      "local_path": "web/anatomy/msk-atlas/za-muscles-344109556.bin",
+      "sha256": "f484b58659144b698d86faedb908b060c7377c16c26172e5bdb2097769a667d5"
+    },
+    "za-muscles-381356990": {
+      "local_path": "web/anatomy/msk-atlas/za-muscles-381356990.bin",
+      "sha256": "a2f931f33111631ba4ce5c0788cc992ba78357b049a4cad300547703fc3481f1"
+    },
+    "za-muscles-408909323": {
+      "local_path": "web/anatomy/msk-atlas/za-muscles-408909323.bin",
+      "sha256": "759936aa6ac89b45110622fca861b5674328ce11bdaa2e3a7d0641cdf302425a"
+    },
+    "za-muscles-417444599": {
+      "local_path": "web/anatomy/msk-atlas/za-muscles-417444599.bin",
+      "sha256": "8dd78ca597963a02c90ec3505fb26714cf23937d298ab5f1150757c029c81c6d"
+    },
+    "za-muscles-448210086": {
+      "local_path": "web/anatomy/msk-atlas/za-muscles-448210086.bin",
+      "sha256": "7f987e65ebdc065750c004c504e5b3a1ae435614f49657505e0611803f2d8310"
+    },
+    "za-muscles-497593817": {
+      "local_path": "web/anatomy/msk-atlas/za-muscles-497593817.bin",
+      "sha256": "768d50a9d3d851c22ebf2dc81d37a071113e994a01e58afcc2012ac617fa1e2a"
+    },
+    "za-muscles-498927038-material-0": {
+      "local_path": "web/anatomy/msk-atlas/za-muscles-498927038-material-0.bin",
+      "sha256": "4efbb3acc35b8c0c8439b4aa3d53f77951c0e71a37c33d6156edd3f36249ed5b"
+    },
+    "za-muscles-506767053": {
+      "local_path": "web/anatomy/msk-atlas/za-muscles-506767053.bin",
+      "sha256": "cbb5fdfe70473256fdff7292c547771a2fe60e48d0ee90e7bcad9e79cf9e389d"
+    },
+    "za-muscles-508386731": {
+      "local_path": "web/anatomy/msk-atlas/za-muscles-508386731.bin",
+      "sha256": "2c5d99aaf8dedb0ac5d6cba3551a260a43474d36cbac8ad0cbb69009b0085168"
+    },
+    "za-muscles-563214887": {
+      "local_path": "web/anatomy/msk-atlas/za-muscles-563214887.bin",
+      "sha256": "6fe8088d9645bb90086e79a20dc39d4988c5e0b8973ee224b095d481add559f7"
+    },
+    "za-muscles-579432817": {
+      "local_path": "web/anatomy/msk-atlas/za-muscles-579432817.bin",
+      "sha256": "ad4e8b0fb997da45a90a39e242e36c35710b143dfdab20aec215ba7f72f61ee0"
+    },
+    "za-muscles-599750783": {
+      "local_path": "web/anatomy/msk-atlas/za-muscles-599750783.bin",
+      "sha256": "621168d428882635fecdfd8ab094a6e494f295097414d1112dd512fcebcd6480"
+    },
+    "za-muscles-622768040-material-0": {
+      "local_path": "web/anatomy/msk-atlas/za-muscles-622768040-material-0.bin",
+      "sha256": "6b71bdb3068055920827a0ac936117192e36f98c2c6b39fe0dbd16c9d4e5b8fc"
+    },
+    "za-muscles-632232163-material-0": {
+      "local_path": "web/anatomy/msk-atlas/za-muscles-632232163-material-0.bin",
+      "sha256": "64133fbd72fa49a7047145a34c06f4f6763daa7dc2d05bc4c9e0a9833f534a43"
     },
     "za-muscles-63886170": {
       "local_path": "web/anatomy/msk-atlas/za-muscles-63886170.bin",
       "sha256": "44af9bb49cf69ae13d5b2f6c1716189397283164ec8a72ee42bc71b26e29a136"
     },
+    "za-muscles-65307038-material-0": {
+      "local_path": "web/anatomy/msk-atlas/za-muscles-65307038-material-0.bin",
+      "sha256": "6a6383531dff437a314a72598ce5381a49c0ef9cf3790fcbdfb538f1430cf43d"
+    },
+    "za-muscles-654616173": {
+      "local_path": "web/anatomy/msk-atlas/za-muscles-654616173.bin",
+      "sha256": "bf0229aa14dc3b4df7e61b8d242193a69eb0314dc2498ab8ae39f82ecaac272f"
+    },
+    "za-muscles-672824902": {
+      "local_path": "web/anatomy/msk-atlas/za-muscles-672824902.bin",
+      "sha256": "f8171db787980686c4d9d8d698fa2670a57f544e25cdfbdaff4c4aa018fce078"
+    },
+    "za-muscles-674249050": {
+      "local_path": "web/anatomy/msk-atlas/za-muscles-674249050.bin",
+      "sha256": "be6c203ebf165f757a43afa24a4f7ff657331f694b205a915e69c60849ea0089"
+    },
+    "za-muscles-69359382": {
+      "local_path": "web/anatomy/msk-atlas/za-muscles-69359382.bin",
+      "sha256": "599b509ca7088e596dd21087f7cc01f76b37c4327cdf2296dd124af8103fae23"
+    },
+    "za-muscles-71171280-material-0": {
+      "local_path": "web/anatomy/msk-atlas/za-muscles-71171280-material-0.bin",
+      "sha256": "d218fdd3af39b544b182efbed6a0ea7b3eb59d50bf3ffb551d94a478c8ef8c8f"
+    },
+    "za-muscles-726761018": {
+      "local_path": "web/anatomy/msk-atlas/za-muscles-726761018.bin",
+      "sha256": "9d0dc1e901f0de3d9cb9bff8a0c7447f5f8eb77233a197f179c4c6a25023b794"
+    },
+    "za-muscles-72952947": {
+      "local_path": "web/anatomy/msk-atlas/za-muscles-72952947.bin",
+      "sha256": "c0b635e463e891657fe2c9e96fb1d9f0f9e061d784f96fd5a341cfb868304875"
+    },
+    "za-muscles-762817357": {
+      "local_path": "web/anatomy/msk-atlas/za-muscles-762817357.bin",
+      "sha256": "7f2af79a265c839303f32c68213f0ce086199d79fd95dd5d6a7fe465ed9ca240"
+    },
+    "za-muscles-766711871": {
+      "local_path": "web/anatomy/msk-atlas/za-muscles-766711871.bin",
+      "sha256": "68326aeeff6187d030ce0b70f336fd93c524b3f227d499bf3a9084348d7e9e0a"
+    },
+    "za-muscles-771346357-material-0": {
+      "local_path": "web/anatomy/msk-atlas/za-muscles-771346357-material-0.bin",
+      "sha256": "714b64edf36abdbe38f101052f6df7dd40676c2dd6de8408ca6748fbb848c1eb"
+    },
+    "za-muscles-775355141": {
+      "local_path": "web/anatomy/msk-atlas/za-muscles-775355141.bin",
+      "sha256": "81b483bec85496085d2da0d106151dfd4a508db397dc0a7fa3c30eda6bb0d684"
+    },
+    "za-muscles-783417961": {
+      "local_path": "web/anatomy/msk-atlas/za-muscles-783417961.bin",
+      "sha256": "029dc4e158ac64cd19981b2f6d701cee886e3fef4171ea289fbe2ffd0fd686e2"
+    },
+    "za-muscles-805853519": {
+      "local_path": "web/anatomy/msk-atlas/za-muscles-805853519.bin",
+      "sha256": "a3992b1ed659f1df24b21fcac11adda769bf8337ad63ae5c84b032109c8082fc"
+    },
+    "za-muscles-805853519-material-1": {
+      "local_path": "web/anatomy/msk-atlas/za-muscles-805853519-material-1.bin",
+      "sha256": "e0740e72d1b66b5f715ec763b1d5b11ec2d4814e587a31c39e7bd7279d1371f1"
+    },
+    "za-muscles-806276737": {
+      "local_path": "web/anatomy/msk-atlas/za-muscles-806276737.bin",
+      "sha256": "7a30381a0f62398c3e62b0dc7b38d98f49645655a7fe869ba763fcf97b18a0f4"
+    },
+    "za-muscles-822740360": {
+      "local_path": "web/anatomy/msk-atlas/za-muscles-822740360.bin",
+      "sha256": "a19d12b77c9d716d2f4958f16581f1466af406c0d5290ee6aacd004197d30fe4"
+    },
+    "za-muscles-846877236": {
+      "local_path": "web/anatomy/msk-atlas/za-muscles-846877236.bin",
+      "sha256": "2fadf3cbc9590d1bfe7a7fef2f8e8857c149d6cfec5e53d3d93aa7cc33c1e3bc"
+    },
+    "za-muscles-848390498": {
+      "local_path": "web/anatomy/msk-atlas/za-muscles-848390498.bin",
+      "sha256": "f61127a2a0c36a187d1c8473170df751cddbbd0d842a91235aee464dff95ca25"
+    },
+    "za-muscles-861554301": {
+      "local_path": "web/anatomy/msk-atlas/za-muscles-861554301.bin",
+      "sha256": "47bcf86b35460025aa0842192d391b9bd1e1536ff46ca85c06f47f9942e07f44"
+    },
     "za-muscles-906368294": {
       "local_path": "web/anatomy/msk-atlas/za-muscles-906368294.bin",
       "sha256": "7b56d928cd7e4d8dade5ff2b50d2cc47b2993e531a3d2ae2e8c7c1b88fa95cea"
+    },
+    "za-muscles-919705750": {
+      "local_path": "web/anatomy/msk-atlas/za-muscles-919705750.bin",
+      "sha256": "9e74038a5f40220aecd919ba89206d26a0c9730b1630389dfd60a35806bd6980"
+    },
+    "za-muscles-921875828": {
+      "local_path": "web/anatomy/msk-atlas/za-muscles-921875828.bin",
+      "sha256": "e7ab273d1f2c6387de8a348e890b76c90be4007e9249a0f91556d099c85b76d1"
+    },
+    "za-muscles-965185828": {
+      "local_path": "web/anatomy/msk-atlas/za-muscles-965185828.bin",
+      "sha256": "4d3cc2223cd93446cf630025b149267cf4ab53b828d1ff8072f1bc9413f6f205"
+    },
+    "za-muscles-969083175": {
+      "local_path": "web/anatomy/msk-atlas/za-muscles-969083175.bin",
+      "sha256": "da24da2010fa0456ff6c0640558948536c8e77bf853ebca958eee4eb7fa8abdd"
+    },
+    "za-nerves-281977780": {
+      "local_path": "web/anatomy/msk-atlas/za-nerves-281977780.bin",
+      "sha256": "594a38a6117a3f31e99f823d5b406cb52c0ce7b7549f6b9d12acad797cda37b3"
+    },
+    "za-nerves-356827246": {
+      "local_path": "web/anatomy/msk-atlas/za-nerves-356827246.bin",
+      "sha256": "19cec77990235ac451edffd9c246da67b533dc59b3dc972e23a2e1a37f33dec6"
+    },
+    "za-nerves-473222863": {
+      "local_path": "web/anatomy/msk-atlas/za-nerves-473222863.bin",
+      "sha256": "5f04e3872b29d6f771c9e5eacb9cd8333131cebad6cd0cfde8d2122a2dfdb101"
+    },
+    "za-nerves-744841522": {
+      "local_path": "web/anatomy/msk-atlas/za-nerves-744841522.bin",
+      "sha256": "416352909169c719781757e6156228cb767e371c51d3900112690ee943556135"
+    },
+    "za-nerves-85997353": {
+      "local_path": "web/anatomy/msk-atlas/za-nerves-85997353.bin",
+      "sha256": "4c2bcd67994e8c18d289f05aae85705e2984cf57e0f1a6a46ac82385b1e77073"
     }
   },
   "files": [
@@ -326,19 +786,20 @@
       "file": "ra.ankle-fractures.md",
       "requirements": 330,
       "counts": {
-        "missing": 330
+        "missing": 323,
+        "unverified": 7
       },
-      "sha256": "c9276a31749a7008f657972d33da9ebc646720eb16e69687ef737affe8a639f0"
+      "sha256": "287b5c0818fbbbae65f62296831421315c510ba3c71274face16770ab8ebc8f1"
     },
     {
       "investigation_id": "ra.mri-ankle",
       "file": "ra.mri-ankle.md",
       "requirements": 516,
       "counts": {
-        "missing": 497,
-        "unverified": 19
+        "missing": 463,
+        "unverified": 53
       },
-      "sha256": "ae502c34e38c92c0d248bacc8c9a1a86b4de945427d5d1d80387d78e5aa6bdae"
+      "sha256": "e8e1633e03487cf155ffb0d3f678615e0348576382693aa5d42dec9c18183dc7"
     },
     {
       "investigation_id": "ra.arthritis",
@@ -373,29 +834,30 @@
       "file": "ra.foot-ankle-cases.md",
       "requirements": 360,
       "counts": {
-        "missing": 360
+        "missing": 353,
+        "unverified": 7
       },
-      "sha256": "ebfdbea6ff8a6609752a135656c2e0f017274200584fcde956ae60c23c23cbe6"
+      "sha256": "a2074c7d011ad0a9e5811a73ce6805285d2623304847b5f52b9722e801c0b2a3"
     },
     {
       "investigation_id": "ra.mri-diabetic-foot",
       "file": "ra.mri-diabetic-foot.md",
       "requirements": 741,
       "counts": {
-        "missing": 724,
-        "unverified": 17
+        "missing": 701,
+        "unverified": 40
       },
-      "sha256": "68c9d299058bd8e0d46bf67f0cb1f5846a5708bf48c338903f7983ea109023e6"
+      "sha256": "1b6a0a9d8d5b9d818128b938bb632873cfe157fc946f0cbe271673ae718bde60"
     },
     {
       "investigation_id": "ra.mri-elbow",
       "file": "ra.mri-elbow.md",
       "requirements": 285,
       "counts": {
-        "missing": 274,
-        "unverified": 11
+        "missing": 263,
+        "unverified": 22
       },
-      "sha256": "07b6df8998372c74665ed63576ebd2a305390ec0b287c9c3609b9c46513fe896"
+      "sha256": "ceea8ae10bdf9183b6bc77fb24680984a13cbc707c3e78d32dbb87296aa86649"
     },
     {
       "investigation_id": "ra.paediatric-elbow-fractures",
@@ -420,20 +882,20 @@
       "file": "ra.hip-fai.md",
       "requirements": 177,
       "counts": {
-        "missing": 171,
-        "unverified": 6
+        "missing": 164,
+        "unverified": 13
       },
-      "sha256": "401ed5b65064f2e94e5a181738f870dc5cbc3d96599f828c18d228de278bac2c"
+      "sha256": "283ca71f0ab94e1e8d1e02e9996fbd8d767348b6e180b85c3fa4df961997fd0e"
     },
     {
       "investigation_id": "ra.mri-knee",
       "file": "ra.mri-knee.md",
       "requirements": 450,
       "counts": {
-        "missing": 425,
-        "unverified": 25
+        "missing": 406,
+        "unverified": 44
       },
-      "sha256": "03389d164e37dd5a8057e5e2f5b5a886dd38e519bfa9d2b8db3c0326dc4fd33b"
+      "sha256": "a572c5a84878b5cd2f6f797ac718eecf597e402395cd0ca14b8c134eaf309a92"
     },
     {
       "investigation_id": "ra.mri-muscle-injury",
@@ -461,27 +923,27 @@
         "missing": 152,
         "unverified": 10
       },
-      "sha256": "67151f24c68b8375933d6ecec0e013be06e9297f278368e61d9c95dea889f768"
+      "sha256": "539935310ab93313946c573be1bab652ff78b1151731198eb2ddb43cbab5ed1e"
     },
     {
       "investigation_id": "ra.mri-shoulder",
       "file": "ra.mri-shoulder.md",
       "requirements": 342,
       "counts": {
-        "missing": 322,
-        "unverified": 20
+        "missing": 308,
+        "unverified": 34
       },
-      "sha256": "550bc88564a39f2ab5c1aa853467ae477b12a4d11b25239cbdc4d5c3305502c0"
+      "sha256": "ef99deed7170b5c8e953338ac9d90acc7f972e3b766cc6e8e5e1c5f7041a7f22"
     },
     {
       "investigation_id": "ra.ultrasound-shoulder",
       "file": "ra.ultrasound-shoulder.md",
       "requirements": 147,
       "counts": {
-        "missing": 141,
-        "unverified": 6
+        "missing": 132,
+        "unverified": 15
       },
-      "sha256": "88cf1f093e0a943a92a170396df932ef9f23ff11cf2b0e402fd9003dbf8dc936"
+      "sha256": "4556a1376dc82aa361899406564e84fe85830e004d00e97e447a507d8b43af0b"
     },
     {
       "investigation_id": "ra.thoracolumbar-fractures",
@@ -507,30 +969,30 @@
       "file": "ra.ultrasound-joint-injection.md",
       "requirements": 225,
       "counts": {
-        "missing": 221,
-        "unverified": 4
+        "missing": 211,
+        "unverified": 14
       },
-      "sha256": "c56006e3d81fe386db7f3aae1f9a4ad7683f398143a5cb22aa7f66c49000a3e5"
+      "sha256": "74f6302083b34b6d5161b5d1842dc140605a5412c6f74718952e09320e357dbf"
     },
     {
       "investigation_id": "ra.wrist-instability",
       "file": "ra.wrist-instability.md",
       "requirements": 291,
       "counts": {
-        "missing": 267,
-        "unverified": 24
+        "missing": 261,
+        "unverified": 30
       },
-      "sha256": "68d550530bf29b7cf4f31d36c6f799b159f3d3256d9a99d5230aad456b8eef99"
+      "sha256": "e82e66f761b6bcaefce23ee505a8cbbed6235d75743a209c05b4c53d0dec5b18"
     },
     {
       "investigation_id": "ra.wrist-fractures",
       "file": "ra.wrist-fractures.md",
       "requirements": 270,
       "counts": {
-        "missing": 246,
-        "unverified": 24
+        "missing": 240,
+        "unverified": 30
       },
-      "sha256": "e9f3b837a9a1490008a799a51bcf07871dfc3912652a3d43a262f4f5bac6c730"
+      "sha256": "91795a90884cdf1a09c1bf9416161b0064e927b3f489162663963c7ffb8cc8f4"
     }
   ]
 }
