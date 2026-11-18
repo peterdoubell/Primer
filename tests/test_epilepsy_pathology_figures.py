@@ -9,6 +9,7 @@ from PIL import Image
 
 from primer.curriculum import Curriculum
 from primer.radiology_catalog import _validate_source_panel_roles, detail, resolve
+from tools.anatomy_sources.bind_stored_caption_assets import only_caption_bindings
 from tools.anatomy_sources.repair_source_context_codes import catalog_view
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -199,7 +200,8 @@ def test_new_rights_evidence_does_not_grant_anatomical_or_clinical_coverage():
     rows = {r['id']: r for r in figures().values()}
     for asset in records:
         assert asset['investigation_ids'] == [INV]
-        assert not asset['structure_ids'] and not asset['requirement_coverage']
+        # Rights evidence grants nothing; the only bindings are the reviewed, partial caption bindings of the unlocked figures.
+        assert only_caption_bindings(asset)
         assert asset['anatomical_review']['status'] == 'pending'
         # The ledger copy's context codes were repaired later; the catalog keeps the originals.
         assert catalog_view(asset['id'], asset['source_context']) == rows[asset['id']]['source_context']

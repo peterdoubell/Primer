@@ -35,7 +35,8 @@ binding.
 The checker now reads 241 of these records without an issue. On the 105 captioned figures among them,
 375 caption matches (318 structure, 57 finding) are no longer refused and can be reviewed for binding.
 The 69 3D models can be reviewed too. Bound structures stay at 739 of 57,985, because this pass binds
-nothing.
+nothing. (The unlocked figures were reviewed and bound later on 2026-11-18: see
+`docs/unlocked-figure-bindings-20261118`.)
 
 ## How each value was chosen
 
