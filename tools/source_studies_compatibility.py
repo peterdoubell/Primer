@@ -103,6 +103,10 @@ def before_reporting_step_evidence_bytes(path, raw):
 
 
 def before_combined_source_release_bytes(path, raw):
+    # Newest link: the learning-sequence router in primer/server.py (2026-11-18).
+    # It must run before the pelvic CT link, whose record is of the bytes before it.
+    from tools.learning_games_compatibility import before_learning_games_bytes
+    raw = before_learning_games_bytes(path, raw)
     from tools.recist_pelvic_runtime_compatibility import before_recist_pelvic_delivery_bytes
     raw = before_recist_pelvic_delivery_bytes(path, raw)
     from tools.lesson_activities_compatibility import before_activity_registry_bytes
