@@ -6,6 +6,7 @@ import json
 import pytest
 
 from tools import epilepsy_figure_runtime_compatibility as bridge
+from tools.anatomy_sources.bind_unlocked_figures import before_unlocked_figure_bindings
 from tools.anatomy_sources.repair_source_context_codes import before_source_context_repairs
 from tools.check_radiology_fidelity import digest
 
@@ -47,8 +48,8 @@ def test_only_exact_source_gallery_is_removed_from_the_observed_lesson():
     'data/radiology/reporting-steps/neuroradiology.json'])
 def test_semantic_inverse_preserves_unknown_records_and_rejects_changed_added_records(path):
     record = bridge.reviewed()['data_values'][path]
-    # A later pass repaired the context codes of these figure records in the evidence file; peel it first.
-    data = json.loads(before_source_context_repairs(path, (bridge.ROOT / path).read_bytes()))
+    # Later passes repaired the context codes of these figure records in the evidence file and then bound them; peel both.
+    data = json.loads(before_source_context_repairs(path, before_unlocked_figure_bindings((bridge.ROOT / path).read_bytes())))
     if record['kind'] == 'added_array_records':
         tokens = {'assets:' + key: value for key, value in record['raw_token_sha256'].items()}
         data['assets'].append({'id': 'unreviewed-figure', 'unverified_claim': True})

@@ -323,3 +323,15 @@ did not say what the figure shows. Six deliberate empty panel selections were le
 nine context-only figures keep that restriction. On the repaired figures, 375 caption matches (318
 structure, 57 finding) can now be reviewed for binding. Bound structures stay at 739 of 57,985. The
 app's figure catalog keeps the original codes.
+
+## Unlocked figures bound (2026-11-18)
+
+The figures that the context-code repair unlocked were reviewed for binding, structures and findings
+alike (`docs/unlocked-figure-bindings-20261118`): 515 partial bindings on 138 figures, covering 283
+requirements. Bound structures 739 → 993 of 57,985; investigations with none 51 → 47 (oesophagus,
+epilepsy MRI, swallowing and cervical lymph nodes gain their first bindings). Each binding quotes the
+sentence that names the structure or finding; 51 rest on a listed kind-of pair (a carcinoma is a
+tumour) and 10 on a legend letter that a selected panel carries. After the figures were looked at,
+three bindings were withdrawn: an orbit cyst whose stated side conflicts with the image, and both sides
+of an unsided pouch above the diaphragm. The 69 repaired 3D models are reference-only and stay unbound. Nothing is
+anatomically approved.
