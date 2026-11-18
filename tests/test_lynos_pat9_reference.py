@@ -23,12 +23,39 @@ def test_pat9_reporting_source_and_viewer_delivery(tmp_path):
 import os
 from fastapi.testclient import TestClient
 from primer import lynos_pat9_reference as source
-from primer.server import app
+from primer.server import app, MESH_SOURCE_DIRECTORIES, NODE_SOURCE_ATLASES
+
+expected = {
+    'recist-pelvic-015', 'recist-pelvic-023',
+    'recist-pelvic-023-follow-up-1', 'recist-pelvic-023-follow-up-2',
+    'lnq-case-0571', source.ATLAS, 'aneurysm-cta-018', 'cmha-mca-005',
+    'rhuh-sah-001', 'bp3d-dural-4.3', 'ward-swi-s1', 'illinois-uterus',
+    'endometriosis-mri-evidence', 'hyperpic-venous', 'venat', 'ccth-a01-roi',
+}
+assert set(MESH_SOURCE_DIRECTORIES) == expected and len(expected) == 16
+assert all(value == 'anatomy/' + name for name, value in MESH_SOURCE_DIRECTORIES.items())
+assert NODE_SOURCE_ATLASES == frozenset({
+    'recist-pelvic-015', 'recist-pelvic-023',
+    'recist-pelvic-023-follow-up-1', 'recist-pelvic-023-follow-up-2',
+    'lnq-case-0571', source.ATLAS,
+})
 
 auth = ('synthetic-lynos-reader', 'fixture-only')
 prefix = '/app/anatomy/' + source.ATLAS + '/'
 with TestClient(app) as client:
     assert client.get('/healthz').json()['source_native_inspector_metadata_validated']
+    for atlas, directory in MESH_SOURCE_DIRECTORIES.items():
+        manifest = client.get('/app/' + directory + '/delivery.json', auth=auth)
+        assert manifest.status_code == 200, atlas
+        files = manifest.json()['files']
+        for asset in files:
+            if not asset.endswith('.html'):
+                continue
+            page = client.head('/app/' + directory + '/' + asset, auth=auth)
+            assert page.status_code == 200, (atlas, asset)
+            may_embed = atlas in NODE_SOURCE_ATLASES and asset in {'index.html', 'surfaces.html', 'comparison.html'}
+            expected_policy = "frame-ancestors 'self';" if may_embed else "frame-ancestors 'none';"
+            assert expected_policy in page.headers['content-security-policy'], (atlas, asset)
     for investigation, expected in source.references().items():
         response = client.get('/api/radiology/modules/' + investigation, auth=auth)
         assert response.status_code == 200

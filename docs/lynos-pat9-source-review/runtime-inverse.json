@@ -1,25 +1,25 @@
 {
   "primer/server.py": {
-    "before": "f7d9e52f801218b7e6669747019fa872542d7b43b2ace86bfaa93b293acee8a2",
-    "after": "557c7b462cf19330d44c08812703224ab11ccec42bbbae04b87d44900aa4deb9",
+    "before": "7154c06e5f0d71ab9bde3fda6cac5956b7c3245a91b4e2c905c6cc20b32a2b22",
+    "after": "7902d4f034dbbef448301a6ab0895332287829dfba15419a4722b5e2f65908df",
     "changes": [
       {
-        "start": 4277,
-        "end": 4278,
-        "after": "    from .lynos_pat9_reference import ATLAS as lynos_atlas, delivery as lynos_delivery\n",
-        "before": ""
+        "start": 4276,
+        "end": 4277,
+        "before": "",
+        "after": "from .lynos_pat9_reference import ATLAS as LYNOS_NODE_ATLAS, delivery as lynos_nodal_delivery\n"
       },
       {
-        "start": 4280,
-        "end": 4281,
-        "after": "    node_source = atlas in pelvic_cases or atlas in {lnq_atlas, lynos_atlas}\n",
-        "before": "    node_source = atlas in pelvic_cases or atlas == lnq_atlas\n"
+        "start": 4279,
+        "end": 4280,
+        "before": "NODE_SOURCE_ATLASES = frozenset((*RECIST_NODE_CASES, LNQ_NODE_ATLAS))\n",
+        "after": "NODE_SOURCE_ATLASES = frozenset((*RECIST_NODE_CASES, LNQ_NODE_ATLAS, LYNOS_NODE_ATLAS))\n"
       },
       {
-        "start": 4288,
-        "end": 4290,
-        "after": "        elif atlas == lynos_atlas:\n            files = lynos_delivery()\n",
-        "before": ""
+        "start": 4299,
+        "end": 4301,
+        "before": "",
+        "after": "        elif registered_atlas == LYNOS_NODE_ATLAS:\n            files = lynos_nodal_delivery()\n"
       }
     ]
   },
