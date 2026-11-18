@@ -1,0 +1,443 @@
+# Engineering, stages 0 to 5.
+# Predict an outcome, adjust a parameter, inspect the result, explain the relationship.
+# Every figure is an idealised classroom example, not a basis for building anything.
+
+@ eng.0.build
+goal: Build a small structure, find its base, and make it better after a gentle test.
+intro: Engineers make things for a job. A tower has a bottom, called the base, and a top. A wide base helps a tower to stand.
+  show: emoji 🧱 🧱 🧱
+demo: Mina builds two towers. One has a wide block at the bottom. The other has a wide block right at the top. She gives each the same gentle tap. The first one stands. The second one tips over.
+  show: table Where the wide block is | After a gentle tap ;; at the bottom | it stands ;; at the top | it tips over
+P: Which part of a tower is the base?
+  + The bottom :: The base is the part that sits on the floor.
+  - The top :: [mixed-up-top-and-bottom] The top is the part you put on last.
+  - The middle :: [mixed-up-parts] The base is right at the bottom.
+  hint: Which part touches the floor?
+  why: The base is the bottom of the tower. It holds up everything above it.
+P: Two towers get the same gentle tap. Which one is more likely to stay up?
+  + The one with the wide block at the bottom :: A wide base is steady.
+  - The one with the wide block at the top :: [wide-part-on-top] A heavy, wide top makes a tower tip.
+  hint: Where did Mina put the wide block on the tower that stood?
+  why: A wide base makes a tower steadier.
+O: Put the steps in order to make a tower better.
+  items: Build the tower | Give it a gentle tap | Watch what happens | Change one part | Test it again
+  ends: First | Last
+  hint: You have to test it before you know what to change.
+  why: Build, test, watch, change, test again. That is how engineers work.
+>P: Your toy bridge falls down when a toy car goes over it. What should you do?
+  + Change one part and test it again :: Then you can see whether the change helped.
+  - Give up :: [gave-up] A fall tells you something. Use it.
+  - Change everything and never test it :: [changed-everything] If you change everything at once, you cannot tell what helped.
+  hint: What did Mina do when her tower tipped?
+  why: When a model falls, it is giving us information. Change one thing, and try again.
+done: Build, test and try again. Make a tower today and find its base.
+
+@ eng.0.tools
+goal: Match a tool to its job, and ask before using a tool you do not know.
+intro: A tool helps us to do a job. A scoop carries sand. A cup holds water. A wheel helps a toy to roll. A ramp gives a toy a sloping path.
+  show: emoji 🥄 🥤 🛞
+demo: A doll needs to get up onto a book. You could lift her straight up. Or you could slide her up a cardboard ramp. The ramp is a longer path, but it is a gentle one. Both ways get her onto the book.
+  show: flow the doll on the floor > up the ramp > the doll on the book
+M: Match each tool to its job.
+  pairs: Scoop => Carrying sand | Cup => Holding water | Brush => Sweeping up crumbs | Wheel => Helping a toy to roll
+  hint: Which one can hold water without spilling it?
+  why: Each tool is good for its own job.
+P: A toy car needs to get up onto a book. Which tool helps it to roll up?
+  + A ramp :: A ramp gives the car a sloping path.
+  - A cup :: [wrong-tool] A cup holds things. It does not help a car to roll.
+  - A brush :: [wrong-tool] A brush sweeps. It does not make a path.
+  hint: What did the doll slide up?
+  why: A ramp is a slope. Wheels can roll up a slope.
+G: Can you use it by yourself, or should you ask a grown-up first?
+  bin By myself: a toy spade | a paintbrush | a plastic cup
+  bin Ask a grown-up first: a sharp knife | a hot iron | a saw
+  hint: Could it hurt you?
+  why: Some tools are sharp or hot. We always ask a grown-up before using those.
+>P: You want to move water from one bowl to another. Which tool is best?
+  + A cup :: A cup holds water.
+  - A brush :: [cannot-hold-water] The water would run straight through a brush.
+  - A fork :: [cannot-hold-water] The water would run between the prongs.
+  hint: Which tool can hold water?
+  why: The best tool depends on the job. To move water, you need something that holds it.
+done: The right tool makes a job easier. Find three tools at home and say what each is for.
+
+@ eng.1.materials
+goal: Choose a material for a job by testing what it does.
+intro: A material is what a thing is made of: wood, plastic, paper, metal. A property is what the material is like: bendy or stiff, heavy or light, soaking up water or keeping it out.
+  show: table Material | A property ;; sponge | soaks up water ;; plastic | keeps water out ;; rubber | bendy ;; metal | stiff
+demo: Take a square of paper towel and a square of plastic, both the same size. Put one spoonful of water on each. The towel is wet right through. The plastic holds a little puddle on top. Same size and same water make it a fair test.
+  show: table Material | After one spoonful of water ;; paper towel | wet right through ;; plastic sheet | a puddle sits on top
+G: Does it soak up water, or keep water out?
+  bin Soaks up water: sponge | paper towel | cotton cloth
+  bin Keeps water out: plastic sheet | metal foil | glass
+  hint: Which ones would you use to wipe up a spill?
+  why: Sponge, paper towel and cotton take water in. Plastic, foil and glass keep it out.
+F: Is it a material or a property?
+  frame: Wood is a material. "Stiff" is a __
+  taps: material | property | tool
+  answer: property
+  x material :: [material-and-property-confused] Stiff tells you what a material is like. It is not a thing that something is made of.
+  x tool :: [wrong-word] A tool is something you use to do a job.
+  hint: Does "stiff" tell you what a thing is made of, or what it is like?
+  why: A property tells you what a material is like. Wood is a material, and stiff is one of its properties.
+P: You want to compare a paper towel and a plastic sheet fairly. What must be the same?
+  + The size of the pieces and the amount of water :: Then only the material is different.
+  - Their colour :: [irrelevant-factor] Colour does not change how much water soaks in.
+  - Nothing needs to be the same :: [unfair-test] If the pieces differ in size, you cannot tell what made the difference.
+  hint: What might change the result apart from the material?
+  why: In a fair test, only one thing is different. Everything else stays the same.
+>P: You need a roof for a toy house that will keep the rain out. Which material do you choose?
+  + Plastic sheet :: In the test it kept the water out.
+  - Paper towel :: [chose-the-soaker] In the test the water went right through it.
+  - Sponge :: [chose-the-soaker] A sponge soaks water up, so the house would get wet.
+  hint: Which material held the water on top in the test?
+  why: The best material depends on the job. A roof needs a material that keeps water out.
+done: Test first, then choose. Find something at home made of two materials, and say why.
+
+@ eng.1.design-cycle
+goal: Turn a need into a goal, make a model, test it fairly and make it better.
+intro: Designers start with what someone needs. They say what success will look like. They build a quick model, called a prototype, and test it. Then they make it better.
+  show: flow ask > make > test > improve
+demo: A bridge must cross a gap and hold three toy animals. You may use only one sheet of paper. A flat sheet sags under two animals. So you fold up the long edges to make rails. Now it holds three!
+  show: table Bridge | Animals it held ;; flat sheet | 2 ;; sheet with folded edges | 3
+O: Put the steps of designing in order.
+  items: Ask what is needed | Make a model | Test it | Improve it
+  ends: First | Last
+  hint: You cannot test something you have not made yet.
+  why: Ask, make, test, improve. Then go round again.
+G: Is it what the bridge must do, or a limit on what you may use?
+  bin What it must do: cross the gap | hold three toy animals
+  bin A limit: only one sheet of paper | no sticky tape
+  hint: "Must do" is the goal. "May only use" is the limit.
+  why: A goal says what success looks like. A limit says what you are allowed to use.
+P: What is a prototype for?
+  + Finding out whether an idea works :: It does not have to look finished.
+  - Looking pretty :: [looks-over-testing] A prototype is for testing, not for show.
+  - Selling in a shop :: [finished-product] That comes much later, once the idea has been tested.
+  hint: Why did we build the first paper bridge?
+  why: A prototype is a quick model made to answer a question.
+>P: A foil boat must carry five marbles. You may use only one sheet of foil. It sinks at three marbles. What do you do next?
+  + Change one thing, such as making the sides higher, and test again :: Then you will know whether the change helped.
+  - Paint it a nicer colour :: [looks-over-testing] Colour does not help it to carry marbles.
+  - Use three sheets of foil :: [broke-the-limit] The limit is one sheet.
+  hint: What did we change on the paper bridge?
+  why: Keep to the goal and the limit, change one thing, and test again.
+done: Ask, make, test, improve. Write down what happened in each test, so that you remember.
+
+@ eng.2.mechanisms
+goal: Explain how levers and gears trade force against distance or speed, and calculate simple ratios.
+intro: A mechanism links moving parts so that a push in one place does a useful job in another. A lever turns about a pivot. Gears mesh, tooth against tooth. Neither creates energy: what you gain in force you pay for in distance or in speed.
+  show: table Mechanism | What it changes ;; lever | force and distance ;; gears | speed, turning force and direction ;; linkage | the path of a movement
+demo: On an ideal lever, effort × effort arm = load × load arm. To lift a 300 newton load that sits 1 metre from the pivot, a push 3 metres from the pivot need be only 100 newtons. But your hand moves three times as far as the load rises.
+  show: balance 100 N at 3 m | 300 N at 1 m
+X: A load of 300 N sits 1 m from the pivot of an ideal lever. Move your hand along the lever and watch the effort that is needed.
+  param arm: 0.5..4 /0.5 @1 | Distance of your hand from the pivot | m
+  out effort: 300/arm | Effort needed | N
+  aim: Find where to push so that 100 N is enough to lift the load.
+  target: effort == 100
+  view: bars effort over arm
+  hint: A longer arm needs less force.
+  why: 300 × 1 = 100 × 3. Tripling the arm cuts the effort to a third, and your hand must move three times as far.
+F: A driving gear with 10 teeth turns a gear with 40 teeth.
+  frame: When the small gear turns at 120 turns a minute, the large gear turns at __ turns a minute
+  answer: 30
+  x 480 :: [inverted-the-ratio] The larger gear turns more slowly, not faster.
+  x 120 :: [same-speed] The gears have different numbers of teeth, so they turn at different speeds.
+  hint: Each turn of the small gear moves on 10 teeth. How many teeth are needed for one turn of the large gear?
+  why: 40 ÷ 10 = 4, so the large gear turns at a quarter of the speed: 30 turns a minute, with four times the turning force in an ideal pair.
+P: Two gears mesh directly. The first turns clockwise. Which way does the second turn?
+  + Anticlockwise :: Meshing teeth push in opposite directions.
+  - Clockwise :: [same-direction] Where the teeth meet, they move together, and so the wheels turn opposite ways.
+  - It does not turn :: [no-transfer] The teeth push it round.
+  hint: Picture the two teeth at the point where the gears touch.
+  why: A pair of meshing gears always reverses the direction of rotation.
+>P: A cyclist changes to a low gear to climb a hill. What has she traded?
+  + Distance for force: each turn of the pedals moves the bike less far, but pushes harder on the road :: Easier, and slower.
+  - Nothing: a low gear is simply better :: [free-lunch] On the flat it would have her pedalling furiously to go slowly.
+  - Force for distance: each turn moves the bike farther :: [reversed] That describes a high gear.
+  hint: In a low gear, how far does the bike travel for one turn of the pedals?
+  why: Mechanisms trade force against distance or speed. No arrangement increases both.
+done: What you gain in force, you pay for in distance. Find a lever and a pair of gears in your home.
+
+@ eng.2.systems
+goal: Describe an engineered system by its inputs, processes and outputs, and explain how feedback uses a measurement.
+intro: A system is a set of parts working together inside a boundary that we choose. Things go in, a process changes them, and things come out. In a feedback system, a sensor measures the result and the system uses that measurement to adjust itself.
+  show: flow input > process > output > a sensor measures > the controller adjusts
+demo: A model greenhouse has a target of 26 degrees. Its sensor reads 31, so the controller switches the fan on. Later the sensor reads 25, and the controller switches the fan off. The measurement closes the loop: the system acts on what it finds.
+  show: table Sensor reading | Compared with the target of 26 | Fan ;; 31 | too warm | on ;; 25 | cool enough | off
+G: In an automatic plant-watering system, sort the parts.
+  bin Input: water from the tank | a reading from the moisture sensor
+  bin Process: the controller compares the reading with the target | the pump moves the water
+  bin Output: water delivered to the soil
+  hint: What goes in, what happens inside, and what comes out?
+  why: Inputs enter the system, processes act on them and outputs leave. The sensor reading is an input that carries information.
+O: Put one turn of a feedback loop in order.
+  items: The sensor measures the temperature | The controller compares it with the target | The controller switches the fan on or off | The temperature changes | The sensor measures again
+  ends: First | Last
+  hint: The system must measure before it can decide.
+  why: Measure, compare, act, and measure again: the loop never stops.
+P: Which watering system uses feedback?
+  + One that waters until a moisture sensor reaches its target :: It measures the result and stops accordingly.
+  - One that waters for one minute every morning :: [timer-as-feedback] A timer does not measure whether the soil is wet or dry.
+  hint: Which system finds out how wet the soil really is?
+  why: Feedback needs a measurement of the result. A timer acts in the same way whether it has rained or not.
+F: A heater switches off when its sensor reads 20 °C. The sensor is faulty, and reads 2 °C too high.
+  frame: When the heater switches off, the room is really at __ °C
+  answer: 18
+  x 22 :: [error-in-the-wrong-direction] The sensor reads high, so the true temperature is lower than the reading.
+  x 20 :: [trusted-the-sensor] The sensor reads 20, but it is 2 °C too high.
+  hint: The reading is 2 °C above the truth.
+  why: 20 − 2 = 18 °C. A controller can be only as good as its measurement.
+>P: A street lamp comes on at a fixed clock time. In winter it gets dark earlier, and the street is unlit for an hour. How could the system be improved?
+  + Add a light sensor, so that the lamp responds to measured darkness and not to the clock :: It then acts on what is actually happening.
+  - Use a brighter lamp :: [wrong-fix] Brightness is not the problem. The timing is.
+  - Leave it as it is: the clock is always right :: [ignored-the-result] The clock is right about the time, but the time is not what matters.
+  hint: What should the lamp really be responding to?
+  why: A system that measures the condition it cares about adapts when circumstances change.
+done: Input, process, output, and a measurement that closes the loop. Find one feedback system at home.
+
+@ eng.3.structures
+goal: Trace how a load travels to the ground, calculate average stress and a safety ratio, and state what such a check leaves out.
+intro: Every load on a structure must find a path to the ground: through members, connections and foundations. A pull puts a member in tension and a push puts it in compression. Stress is the force carried by each unit of cross-sectional area.
+  show: flow load > deck > beams > columns > foundations > ground
+demo: A straight bar with a cross-section of 200 square millimetres carries a pull of 6,000 newtons along its length. The average stress is 6,000 ÷ 200 = 30 newtons per square millimetre, or 30 megapascals. If the material's limit for this simple check is 120 megapascals, the ratio of limit to stress is 4.
+  show: steps stress = force ÷ area ;; 6,000 N ÷ 200 mm² = 30 MPa ;; ratio = 120 ÷ 30 = 4
+O: Trace the path of a load through a building.
+  items: A person stands on the floor | The floor passes the load to the beams | The beams pass it to the columns | The columns pass it to the foundations | The foundations pass it to the ground
+  ends: First | Last
+  hint: The load works its way downwards.
+  why: A load path must be continuous. A gap anywhere along it means that the load has nowhere to go.
+G: Tension or compression?
+  bin Tension: a rope holding a hanging weight | the main cable of a suspension bridge | the bottom edge of a sagging beam
+  bin Compression: a column under a roof | the stones of an arch | the top edge of a sagging beam
+  hint: Is the part being stretched, or squashed?
+  why: Tension stretches and compression squashes. A sagging beam has both at once: its top is squashed and its bottom stretched.
+X: A bar must carry an axial load of 6,000 N. Change its cross-sectional area and watch the average stress.
+  param area: 50..400 /50 @50 | Cross-sectional area | mm²
+  out stress: 6000/area | Average stress | MPa
+  aim: Find the smallest area on this dial that brings the stress down to 30 MPa.
+  target: stress == 30
+  view: bars stress over area
+  hint: Doubling the area halves the stress.
+  why: 6,000 ÷ 200 = 30 MPa. Stress is inversely proportional to area: the same force spread over more material.
+F: Compare the limit with the demand.
+  frame: A material's limit in a simple check is 240 MPa and the working stress is 60 MPa. The ratio is __
+  answer: 4 | four
+  x 180 :: [subtracted] The safety ratio divides the limit by the stress.
+  x 0.25 :: [inverted-the-ratio] Divide the limit by the stress, not the stress by the limit.
+  hint: Divide the limit by the stress.
+  why: 240 ÷ 60 = 4. A ratio above 1 means that, in this check, resistance exceeds demand.
+P: A thin plastic ruler, pressed end to end, bows sideways long before the plastic itself is crushed. What should a designer do about it?
+  + Make the member stockier, or brace it against moving sideways :: The failure is governed by slenderness.
+  - Choose a stronger plastic and change nothing else :: [strength-for-a-stability-problem] The plastic has not reached its strength. The shape is the problem.
+  - Nothing: it passed the stress check :: [stress-check-is-everything] A stress check does not cover buckling.
+  hint: Did the material fail, or did the shape?
+  why: Slender members in compression can buckle at stresses far below the material's strength. Adding material in the wrong place may not help at all.
+>P: A bar passes a simplified stress check with a ratio of 3. Has it been shown safe to build?
+  + No: connections, buckling, repeated loading and the real loads have not been checked :: One check is not a safety assessment.
+  - Yes: a ratio of 3 guarantees safety :: [ratio-as-guarantee] The ratio compares one kind of resistance with one kind of demand, under idealised assumptions.
+  - No: it will certainly fail :: [overcorrection] Nothing shows that it will fail. Its safety is simply not yet established.
+  hint: What can go wrong with a structure besides the material being pulled apart?
+  why: A classroom calculation rests on idealised shapes and materials. Real designs need many more checks, made by qualified engineers.
+done: Follow the load, check the stress, and list what has not been checked. Trace the load path of a table you are sitting at.
+
+@ eng.3.energy-design
+goal: Track energy through a device, calculate its efficiency, tell power from energy and compare designs within a stated boundary.
+intro: An energy budget accounts for everything that goes into a device and everything that comes out, over a stated time. Efficiency is the useful output divided by the input. Power is the rate at which energy is transferred, which is a different thing from the amount.
+  show: table Quantity | Meaning | Unit ;; energy | an amount transferred | joule ;; power | the rate of transfer | watt ;; efficiency | useful output ÷ input | a fraction or a percentage
+demo: A lifting device takes in 2,000 joules of electrical energy and gives a load 1,500 joules of gravitational potential energy. Its efficiency is 1,500 ÷ 2,000 = 75%. The other 500 joules have not vanished: they have gone into heat and sound.
+  show: bars Input=2000 Useful_output=1500 Heat_and_sound=500 unit=J
+F: Calculate an efficiency.
+  frame: A motor takes in 800 J and does 600 J of useful work. Its efficiency is __ %
+  answer: 75
+  x 133 :: [inverted-the-ratio] Divide the useful output by the input. An efficiency cannot exceed 100%.
+  x 200 :: [subtracted] That is the 200 J not usefully transferred. Efficiency is a ratio.
+  hint: Useful output ÷ input, × 100.
+  why: 600 ÷ 800 = 0.75, or 75%. The remaining 200 J is transferred in ways that are not useful for this job.
+X: Boiling a kettleful of water takes 300,000 J. Change the kettle's power and watch how long it takes.
+  param power: 500..3000 /500 @500 | Power of the kettle | W
+  out time: 300000/power | Time to boil | s
+  aim: Find the power that boils the water in two minutes.
+  target: time == 120
+  view: bars time over power
+  hint: Power is energy divided by time.
+  why: 300,000 ÷ 2,500 = 120 s. A lower power does not save energy here: the same 300,000 J are simply delivered more slowly.
+G: Is it a statement about energy, or about power?
+  bin Energy: The battery stores 50 watt-hours. | The cycle uses 2 kilowatt-hours. | 300,000 joules are needed to boil the water.
+  bin Power: The motor draws 200 watts. | The heater is rated at 2 kilowatts. | The lamp uses 9 joules every second.
+  hint: Is it an amount, or a rate?
+  why: Energy is an amount, in joules or watt-hours. Power is a rate, in watts: joules per second.
+P: An electric motor becomes warm when it runs. Is that heat wasted?
+  + It depends on the purpose: wasted in a lift, but useful in a fan heater :: "Useful" has to be defined for the job.
+  - Always: heat is never useful :: [fixed-definition-of-useful] In a heater, heat is the whole point.
+  - Never: no energy is ever wasted :: [conservation-as-usefulness] Energy is conserved, but not all of it does the intended job.
+  hint: What is the device for?
+  why: Efficiency depends on what counts as useful output, and that depends on the device's purpose.
+>P: Machine A uses less electricity in use than machine B. But A took far more energy to manufacture, and lasts half as long. Which has the lower energy impact?
+  + It cannot be said until the boundary is stated: use alone, or manufacture, use and disposal together :: The answer depends on what is counted.
+  - A, because it uses less electricity :: [use-phase-only] That counts only one stage of its life.
+  - B, because it lasts longer :: [single-factor] Lifetime is one factor. The totals have to be worked out.
+  hint: What is being counted, and over how long?
+  why: A fair comparison states its boundary and its time span. Different boundaries can reverse the ranking.
+done: State the boundary, then count. Read the power rating on an appliance and work out the energy it uses in an hour.
+
+@ eng.4.control
+goal: Predict how proportional feedback changes a first-order system's speed and steady-state error, and say what limits the gain.
+intro: A first-order process responds to a change gradually, with a time constant that sets how quickly. Feedback compares the measured output with a reference, and a proportional controller acts on the error in proportion to its size. A higher gain acts more strongly.
+  show: table Quantity | For a unit-gain process with proportional gain k ;; closed-loop time constant | the process time constant ÷ (1 + k) ;; steady output for a unit step | k ÷ (1 + k) ;; steady-state error | 1 ÷ (1 + k)
+demo: Take a process with unit gain and a time constant of 6 seconds, under proportional feedback with gain 2. The loop responds with a time constant of 6 ÷ 3 = 2 seconds, and settles at 2 ÷ 3 of the reference, leaving an error of one third. These figures assume no delay and an actuator with no limit.
+  show: steps time constant = 6 ÷ (1 + 2) = 2 s ;; steady output = 2 ÷ 3 ;; error = 1 ÷ 3
+F: The process has a time constant of 6 s and unit gain. The proportional gain is 5.
+  frame: The closed-loop time constant is __ s
+  answer: 1 | one
+  x 30 :: [multiplied] Feedback speeds the response: divide by 1 + k.
+  x 1.2 :: [divided-by-k] Divide by 1 + k, which is 6, not by k alone.
+  hint: 6 ÷ (1 + 5).
+  why: 6 ÷ 6 = 1 s. Feedback makes this system six times faster.
+X: Raise the proportional gain on the same process and watch the steady-state error.
+  param k: 0..20 /1 @0 | Proportional gain
+  out err: 1/(1+k) | Steady-state error, as a fraction of the reference
+  aim: Find the smallest gain that brings the steady-state error down to 10% of the reference.
+  target: abs(err-0.1) < 0.001
+  view: plot err over k
+  hint: The error is 1 ÷ (1 + k).
+  why: 1 ÷ (1 + 9) = 0.1. The error shrinks as the gain rises, but it never reaches zero with proportional control alone.
+G: In this model, what happens as the proportional gain is raised?
+  bin Falls: the steady-state error | the time constant
+  bin Rises: the effort demanded of the actuator | the sensitivity to noise in the measurement
+  hint: A larger gain multiplies whatever it is given, including noise.
+  why: Higher gain gives a faster and more accurate response, at the price of harder work for the actuator and amplified noise.
+P: If a higher gain reduces the error and speeds the response, why not make it enormous?
+  + Delay, limits on the actuator, noise and dynamics left out of the model can make the real loop oscillate or go unstable :: The simple model leaves these out.
+  - No reason: a higher gain is always better :: [trusted-the-model] That holds only inside the idealised model.
+  - The error would increase :: [reversed] In the model the error falls. The danger is instability, not a larger error.
+  hint: What does the first-order model leave out?
+  why: A model is valid within its assumptions. Real loops contain delays and limits that turn high gain into oscillation.
+>P: The measurement in a loop arrives 2 seconds late. When the gain is raised, the output begins to oscillate, although the first-order model predicts a smooth response. What explains it?
+  + The controller is acting on out-of-date information, and so it over-corrects; the model left the delay out :: A flaw in the model, not in the equipment.
+  - The sensor must be broken :: [blamed-the-equipment] A delayed but accurate measurement is enough to cause it.
+  - The gain is still too low :: [more-of-the-same] Raising the gain makes the oscillation worse.
+  hint: What is the controller responding to: the present state, or the state two seconds ago?
+  why: Delay is a classic cause of instability. Validating a design means comparing the model with measured responses over time.
+done: Gain buys speed and accuracy, until the delay sends the bill. Sketch the response you would expect before and after doubling a gain.
+
+@ eng.4.reliability
+goal: Calculate the reliability of simple series and parallel systems, recognise when independence fails and design a fair engineering experiment.
+intro: Reliability is the probability that something performs its function for a stated time under stated conditions. In a series system every part must work. In a parallel, redundant system, one working part is enough. The standard formulas assume that the parts fail independently.
+  show: table Arrangement | Works when | Reliability, if independent ;; series | every part works | multiply the reliabilities ;; parallel | at least one part works | 1 − the product of the chances of failure
+demo: Two independent components, each with reliability 0.9, are both required. The series reliability is 0.9 × 0.9 = 0.81. If instead either one alone could do the job, the parallel reliability is 1 − 0.1 × 0.1 = 0.99. Redundancy helps, as long as the two really do fail independently.
+  show: bars One_component=0.9 Two_in_series=0.81 Two_in_parallel=0.99
+F: Two independent components are both required.
+  frame: With reliabilities 0.95 and 0.9, the reliability of the system is __
+  answer: 0.855
+  x 0.9 :: [took-the-weaker] Both must work, so the reliabilities multiply. The result is lower than either.
+  x 1.85 :: [added] A probability cannot exceed 1. Multiply them.
+  hint: Multiply the two reliabilities.
+  why: 0.95 × 0.9 = 0.855. A series system is less reliable than its weakest part.
+F: Either of two independent pumps can do the job alone.
+  frame: If each has reliability 0.8, the reliability of the pair is __
+  answer: 0.96
+  x 0.64 :: [used-the-series-rule] That would require both to work. Here one is enough.
+  x 1.6 :: [added] A probability cannot exceed 1.
+  hint: Find the chance that both fail, and subtract it from 1.
+  why: Both fail with probability 0.2 × 0.2 = 0.04, so the pair works with probability 0.96.
+X: Each unit has reliability 0.7, and any one working unit is enough. Add redundant units.
+  param n: 1..6 /1 @1 | Number of units in parallel
+  out r: 1 - 0.3**n | Reliability of the system
+  aim: Find the smallest number of units that gives a reliability of at least 0.99.
+  target: r >= 0.99 and r < 0.995
+  view: bars r over n
+  hint: Each added unit multiplies the chance of total failure by 0.3.
+  why: With four units, 1 − 0.3⁴ = 0.9919. Each extra unit helps less than the one before: diminishing returns.
+P: Two "redundant" pumps are both plugged into the same power supply. Why does the parallel formula overstate their reliability?
+  + A failure of the supply stops both at once, so their failures are not independent :: A common cause.
+  - It does not: two pumps are always better than the formula says :: [ignored-dependence] The formula assumes independence, which the shared supply breaks.
+  - Because pumps cannot be run in parallel :: [irrelevant-objection] They can. The trouble is the shared supply.
+  hint: What single event would stop both pumps?
+  why: Common-cause failures defeat redundancy. Independence has to be designed in, not assumed.
+>P: An engineer tests coating A on a cool Monday and coating B on a hot Tuesday. B lasts longer. What is wrong with the comparison, and what would mend it?
+  + The coating is confounded with the day and its temperature; randomise the order, repeat the runs, and compare within each day :: Then only the coating differs systematically.
+  - Nothing: B is better :: [confounded-conclusion] The difference could be due to the temperature or to anything else about the day.
+  - Test coating A again on Monday :: [repeated-the-flaw] That repeats the same confounded arrangement.
+  hint: What else differed between the two tests besides the coating?
+  why: Replication estimates the variation, randomisation prevents systematic bias, and blocking removes a known nuisance factor.
+done: Multiply for series, subtract for parallel, and question independence. Find a single point of failure in something you depend on.
+
+@ eng.5.optimization
+goal: Formulate a design optimisation with constraints and several objectives, treat uncertainty explicitly and criticise what "optimal" depends on.
+intro: Optimisation chooses design variables to improve objectives while respecting constraints. With more than one objective there is usually no single best design, only a frontier of trade-offs. And an optimum is optimal only for the model and the inputs that were assumed.
+  show: table Term | Meaning ;; nominal optimum | best for one assumed set of inputs ;; robust optimum | best worst case over a stated set of inputs ;; chance constraint | a limit that must hold with a stated probability ;; Pareto frontier | designs that cannot improve one objective without worsening another
+demo: Four designs are scored on cost and on deflection, and lower is better for both. Design C costs 26 and deflects 7. Design A costs 20 and deflects 6: cheaper and stiffer. So C is dominated, and no rational designer would choose it. A, B and D each beat the others on something, and so they form the frontier.
+  show: table Design | Cost | Deflection ;; A | 20 | 6 ;; B | 24 | 4 ;; C | 26 | 7 ;; D | 30 | 3
+G: Using the table of four designs, which lie on the Pareto frontier?
+  bin On the frontier: A | B | D
+  bin Dominated: C
+  hint: A design is dominated if another is at least as good on both counts and better on one.
+  why: C is beaten on both objectives by A, and by B. Among A, B and D, improving the deflection always costs more, so none dominates another.
+M: Match each term to its meaning.
+  pairs: Nominal optimum => Best for one assumed set of inputs | Robust optimum => Best worst case over a stated set of inputs | Chance constraint => A limit that must hold with a stated probability | Pareto frontier => Designs where one objective improves only if another worsens | Sensitivity analysis => How the result changes as the inputs change
+  hint: "Robust" is about the worst case.
+  why: These terms separate different ways of treating what is not known for certain.
+X: A plate of thickness t costs 10 × t and deflects by the load ÷ t. The deflection must not exceed 4. The nominal load is 8, but it could be as high as 12.
+  param t: 1..5 /0.5 @2 | Thickness
+  out dnom: 8/t | Deflection at the nominal load
+  out dworst: 12/t | Deflection at the worst-case load
+  out cost: 10*t | Cost
+  aim: Find the cheapest thickness that keeps within the limit even at the worst-case load.
+  target: dworst <= 4 and cost <= 30
+  view: bars dworst over t
+  hint: The nominal optimum, t = 2, deflects by 6 at the worst-case load.
+  why: The nominal optimum sits exactly on the limit and breaks it when the load rises. The robust design, t = 3, costs 30 where the nominal one costs 20: the price of protection.
+P: An optimiser returns the design t = 2, which exactly meets the deflection limit at the nominal load. Why is that fragile?
+  + An optimum pushed against a constraint has no margin, so any unfavourable change in the inputs breaks the constraint :: Optimisation removes slack.
+  - It is not fragile: the optimiser found the best design :: [optimal-means-safe] Best for the assumed inputs, and only for those.
+  - The optimiser has made an error :: [blamed-the-solver] It solved correctly the problem it was given. The problem left out the uncertainty.
+  hint: What did the exploration show at the worst-case load?
+  why: Optimisers exploit every assumption. If the uncertainty is not in the formulation, the result will carry no allowance for it.
+>P: A report presents an "optimal" design. It states no model of uncertainty, no sensitivity analysis and no validation of the simulation used. What is the right criticism?
+  + "Optimal" is relative to the model and its assumptions: without the uncertainty, the sensitivity and the validation, the claim cannot be assessed :: Ask what the optimum depends on.
+  - None: the optimiser converged :: [convergence-as-validity] Converging shows that the numerical problem was solved, not that the model is right.
+  - Optimisation should never be used :: [rejected-the-method] The method is sound. The reporting is incomplete.
+  hint: What would have to be true for the result to hold in practice?
+  why: A defensible optimisation states its formulation and its treatment of uncertainty, shows how sensitive the answer is, and reports enough to be reproduced.
+done: Optimal for what, and under what assumptions? Take any "best" design you know and name the trade-off that it makes.
+
+@ eng.5.validation
+goal: Separate verification from validation, keep calibration data apart from validation data and judge how far a model can be trusted.
+intro: Two questions must be kept apart. Verification asks whether the equations were solved correctly. Validation asks whether the model represents reality well enough for its intended use. Agreement with the data that a model was tuned to answers neither question.
+  show: table Activity | Question that it answers ;; verification | were the equations solved correctly? ;; calibration | which parameter values fit the data? ;; validation | does the model predict new cases well enough? ;; uncertainty quantification | how far could the prediction be out?
+demo: A thermal model is tuned to three heating trials and matches them closely. In a fourth trial, with a different airflow, it is wrong by 8 degrees. Halving the time step changes the prediction by 0.1 degrees. So the numerical error is tiny, and the discrepancy must come from the physics or from parameters that do not carry over to the new conditions.
+  show: table Check | Result ;; fit to the three tuning trials | close ;; a new trial at a different airflow | 8 degrees out ;; halving the time step | changes it by 0.1 degrees
+G: Verification or validation?
+  bin Verification: refining the mesh and checking that the answer settles | comparing the code with an exact solution | halving the time step
+  bin Validation: comparing predictions with a new experiment | testing at conditions not used for tuning | comparing the discrepancy with the uncertainty of the measurements
+  hint: Is it checking the mathematics, or checking against the world?
+  why: Verification concerns the numerical solution. Validation concerns agreement with independent measurements.
+P: A model's parameters are tuned until it matches four experiments. The report then says: "Validated: the model matches all four experiments." What is wrong?
+  + The same data were used for tuning and for checking, so the agreement is not independent evidence :: Calibration presented as validation.
+  - Nothing: matching the experiments is validation :: [calibration-as-validation] A model with adjustable parameters can be made to match the data to which it is tuned.
+  - Four experiments are too many :: [irrelevant-objection] The number is not the problem. Reusing them is.
+  hint: Could the model have failed this "test"?
+  why: Validation needs data that the model has not seen. A test that cannot be failed is not a test.
+K: The thermal model is 8 degrees out on a new trial. Turn over as few facts as you need to decide whether the size of the time step is the main cause.
+  clue Time step: Halving the time step changes the prediction by 0.1 degrees.
+  clue Language: The code is written in a compiled language.
+  clue Author: The model was written by an experienced analyst.
+  clue Run time: A simulation takes four minutes.
+  need: 1
+  + No: the time step accounts for almost none of the error :: Look to the physics or to the parameters.
+  - Yes: a smaller time step would cure it :: [numerical-explanation-assumed] Halving the step moved the answer by only 0.1 of the 8 degrees.
+  hint: Which fact measures the effect of the time step directly?
+  why: A convergence check isolates the numerical error. When that is small, the discrepancy is a matter for validation.
+O: Put the stages of a defensible modelling study in order.
+  items: Define the quantity of interest and the intended use | Set the acceptance criteria | Verify the numerical solution | Calibrate on one set of data | Validate on independent data | Report the uncertainty and the limits of scope
+  ends: First | Last
+  hint: The criteria are set before the results are seen.
+  why: Deciding what will count as success before looking at the results prevents the standard from drifting to fit the outcome.
+>P: A model has been validated for airflows of 1 to 3 metres a second. An engineer uses it to predict behaviour at 10 metres a second. How should that prediction be treated?
+  + As an extrapolation beyond the validated range, with no evidence behind it until new validation is done :: Validation holds for the conditions tested.
+  - As reliable, because the model has been validated :: [validation-as-universal] It was validated for 1 to 3 metres a second, and only for that.
+  - As worthless, like the model itself :: [overcorrection] The model keeps its value inside its validated range.
+  hint: For which conditions is there evidence that the model works?
+  why: Validation is always for an intended use and a range of conditions. Outside that range the model is an untested hypothesis.
+done: Solved correctly, and correct for the purpose, are two different claims. Ask of any model: validated for what?

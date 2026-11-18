@@ -1,0 +1,31 @@
+{
+  "date": "2026-11-08",
+  "lesson_title": "More Divisibility Shortcuts",
+  "source_url": "https://brilliant.org/courses/basic-number-theory/factorization/divisibility-shortcuts-ii/",
+  "access": "Recommended next lesson completed in the signed-in free-tier Chrome session.",
+  "completion": {
+    "observed": true,
+    "screen": "Lesson complete",
+    "displayed_xp": 115,
+    "questions_answered": 7
+  },
+  "knowledge_learned": [
+    "Write an integer as a sum of digit times place value. Reducing each term modulo the divisor preserves the remainder of the sum.",
+    "If d divides 10 to the power k, changing the prefix before the last k digits cannot change the remainder modulo d.",
+    "The smallest sufficient ending widths for 4, 8, 16 and 125 are two, three, four and three digits respectively.",
+    "For a specific ending, fewer digits can sometimes rule out divisibility. An odd final digit rules out a multiple of 4 or 8."
+  ],
+  "mechanics_observed": [
+    "Worked place-value example before predictions",
+    "Count how many numbers with a shared ending pass the same rule",
+    "Constrain each hypothetical edit to one digit position and count feasible edits",
+    "Choose the minimum number of digits to reveal for a guaranteed decision",
+    "Transfer the rule to a new divisor, with answer feedback, optional explanation, progress and XP"
+  ],
+  "primer_adaptation": {
+    "model": "web/learning-games/divisibility/model.json",
+    "renderer": "web/learning-games/divisibility/game.js",
+    "module": "math.2.primes",
+    "extension": "Original minimum-clue and repair-count puzzles with worked feedback, plus exact sandbox checks for 8, 16 and 125."
+  }
+}

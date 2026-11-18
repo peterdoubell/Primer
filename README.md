@@ -70,6 +70,16 @@ The Primer is three things woven together:
   a garden, earn the existing review XP, and see the next scheduled visit.
   Read-aloud and larger controls support younger learners; keyboard controls
   and mobile layouts support everyone. [Game details](docs/memory-garden.md).
+- **Learn by doing.** Every module opens with a short interactive sequence:
+  introduce the idea, show it, ask you to predict or act, check, explain, then
+  try it on a fresh case. Steps include predictions, sorting, ordering,
+  matching, missing values, constrained edits, minimum-clue puzzles,
+  side-by-side comparisons, parameter explorers and constructions. The server
+  marks every response; wrong answers get feedback tied to the specific
+  mistake, with hints, a *Why?* and the answer only after two honest tries.
+  Finishing records study, not mastery: the quiz on spaced days still decides
+  that. [Authoring guide](docs/learning-games.md) ·
+  [Coverage report](docs/learning-games-coverage.md).
 - **Onboards and places you.** Tell it your age, weekly hours, breadth of
   ambition, and favourite fields. Every new reader starts at Stage 0 with no
   assumed knowledge. A short server-scored placement check can then credit what

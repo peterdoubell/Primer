@@ -80,6 +80,8 @@ STORY_PATH = os.path.join(ROOT, "data", "story", "frame.json")
 app = FastAPI(title="The Primer")
 from .reporting_bridge import router as reporting_router
 app.include_router(reporting_router)
+from .learning_games import router as learning_games_router
+app.include_router(learning_games_router)
 
 
 def init_services(db_path: str = None):

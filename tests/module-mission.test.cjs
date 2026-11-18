@@ -51,9 +51,20 @@ const mission = teaching + '\n' + fs.readFileSync(path.join(__dirname, '../web/m
       const main = document.querySelector('main'); main.replaceChildren();
       await renderNode(main, 'fixture');
     });
-    assert.equal(await page.locator('.module-mission-stop').count(), 4, 'Module route installs all available mission steps');
+    assert.equal(await page.locator('.module-mission-stop').count(), 5, 'Module route installs all available mission steps, Play included');
+    // No service at about:blank: the learn-by-doing section says so and offers a retry, and the lesson stays usable.
+    await page.getByText('The activity could not load. Your lesson is still available.').waitFor();
+    assert.equal(await page.locator('.lg-play').getByRole('button', { name: 'Try again' }).count(), 1);
     await page.getByRole('button', { name: /Challenge/ }).click();
     assert.equal(await page.evaluate(() => document.activeElement.textContent), 'Take the quiz');
+    // A module with no learning sequence drops the Play stop and its section.
+    await page.evaluate(async () => {
+      window.fetch = async () => new Response(JSON.stringify({ sequences: [] }), { status: 200, headers: { 'content-type': 'application/json' } });
+      const main = document.querySelector('main'); main.replaceChildren();
+      await renderNode(main, 'fixture');
+    });
+    await page.waitForFunction(() => !document.querySelector('.lg-play'));
+    assert.equal(await page.locator('.module-mission-stop').count(), 4, 'Play is dropped when there is nothing to play');
     console.log('Module mission: navigation, progress, focus, plain text, full lesson and mobile checks passed.');
   } finally { await browser.close(); }
 })().catch(e => { console.error(e); process.exitCode = 1; });

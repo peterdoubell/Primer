@@ -1,0 +1,900 @@
+# Chemistry, all six stages.
+# Assemble structures, order processes and classify observations using evidence.
+
+@ chem.0.materials
+goal: Name what things are made of, and choose a material that suits a job.
+intro: Things are made of materials. Wood, metal, plastic, glass and water are all materials.
+  show: chips wood | metal | plastic | glass | water
+demo: A spoon can be made of metal, of wood, or of plastic. It is still a spoon. What it is made of is its material.
+  show: table Thing | Material ;; a key | metal ;; a log | wood ;; a window | glass
+G: What is it made of?
+  bin Wood: a table | a pencil | a log
+  bin Metal: a key | a coin | a steel spoon
+  hint: Is it hard and shiny, or is it from a tree?
+  why: Tables, pencils and logs are wood. Keys, coins and steel spoons are metal.
+P: Which material can you see through?
+  + Glass :: Light goes straight through glass.
+  - Wood :: [looks-do-not-matter] You cannot see through wood.
+  - Metal :: [looks-do-not-matter] You cannot see through metal.
+  hint: What are windows made of?
+  why: Glass lets light through, so you can see through it.
+P: Which of these can you pour?
+  + Water :: Water is a liquid.
+  - A stone :: [solid-pours] A stone keeps its shape. It cannot be poured.
+  - A brick :: [solid-pours] A brick keeps its shape. It cannot be poured.
+  hint: Which one would fill a cup to the top?
+  why: Water flows and takes the shape of the cup.
+>P: You are making a window for a doll's house. Which material is best?
+  + Clear plastic :: You can see through it.
+  - Wood :: [wrong-property] You could not see through a wooden window.
+  - Metal :: [wrong-property] You could not see through a metal window.
+  hint: A window has to let you see through.
+  why: We choose a material for what it can do. A window needs something see-through.
+done: Look round the room and name three materials you can see.
+
+@ chem.0.mixing
+goal: Say what happens when things are mixed with water or with each other.
+intro: When we mix things, sometimes we can still see each one. Sometimes one seems to vanish, but it is still there.
+  show: emoji 🥄 💧
+demo: Stir sand into water and the sand sinks. You can still see it. Stir sugar into water and you cannot see it any more, but the water tastes sweet. The sugar is still there.
+  show: table Stir into water | What you see ;; sand | it sinks to the bottom ;; sugar | it seems to vanish
+G: What happens in water?
+  bin Seems to vanish: sugar | salt
+  bin Stays as bits you can see: sand | pebbles | rice
+  hint: Think of making a sweet drink, and of a sandy beach.
+  why: Sugar and salt spread out so finely that you cannot see them. Sand, pebbles and rice stay as bits.
+P: You stir sugar into water until you cannot see it. Where is the sugar?
+  + Still in the water, in bits too small to see :: That is why the water tastes sweet.
+  - Gone for ever :: [dissolving-is-vanishing] The water tastes sweet, so the sugar must still be there.
+  - Up in the air :: [dissolving-is-vanishing] The sugar stays in the water.
+  hint: What does the water taste like?
+  why: The sugar has broken into bits too tiny to see. We say it has dissolved.
+P: You mix blue paint and yellow paint. What colour do you get?
+  + Green :: Blue and yellow make green.
+  - Purple :: [wrong-pair] Purple comes from blue and red.
+  - Orange :: [wrong-pair] Orange comes from yellow and red.
+  hint: Think of the colour of grass.
+  why: Mixing can make something that looks new. Blue and yellow paint make green.
+>P: You pour cooking oil into water and wait. What do you see?
+  + Two layers, with the oil on top :: Oil and water do not mix.
+  - One mixed liquid :: [everything-mixes] Not everything mixes. Oil and water stay apart.
+  - The oil sinks to the bottom :: [oil-is-heavy] Oil floats on water.
+  hint: Have you seen oil floating on soup?
+  why: Some things do not mix at all. Oil floats on top of water.
+done: Mixing can hide things, change things, or leave them apart. Try mixing with a grown-up.
+
+@ chem.0.water-states
+goal: Name ice, water and steam, and say what makes water change from one to another.
+intro: Water can be hard ice, runny water, or steam in the air. Cold makes water freeze. Heat makes ice melt, and more heat makes water boil.
+  show: emoji 🧊 💧 ♨️
+demo: Leave an ice cube in the sun. It melts into a puddle. Later the puddle dries up: the water has gone into the air.
+  show: flow ice > melts > water > dries up > into the air
+O: Put them in order, from coldest to hottest.
+  items: Ice | Water | Steam
+  ends: Coldest | Hottest
+  hint: Which one do you find in a freezer?
+  why: Ice is the coldest. Warm it and you get water. Heat that and you get steam.
+M: Match each word to what happens.
+  pairs: Freeze => Water turns to ice | Melt => Ice turns to water | Boil => Water turns to steam
+  hint: Freezing needs cold. Melting and boiling need heat.
+  why: Freezing makes ice. Melting makes water. Boiling makes steam.
+P: You put a cup of water in the freezer. What do you find later?
+  + Ice :: The cold has frozen the water.
+  - Steam :: [wrong-direction] Steam comes from heating, not cooling.
+  - Just water :: [nothing-changes] A freezer is cold enough to freeze water.
+  hint: A freezer is very cold.
+  why: When water gets cold enough, it freezes into ice.
+>P: A snowman stands in the garden on a warm day. What happens to it?
+  + It melts into water :: Snow is frozen water.
+  - It gets bigger :: [wrong-direction] Warmth melts snow. It does not make more.
+  - It turns to stone :: [not-water] Snow is made of water, so it becomes water.
+  hint: Snow is frozen water. What does warmth do to it?
+  why: Heat melts frozen water, whether it is an ice cube or a snowman.
+done: Ice, water and steam are all the same stuff. Watch for them at home.
+
+@ chem.1.matter
+goal: Sort things into solids, liquids and gases, and say how each behaves.
+intro: A solid keeps its shape. A liquid pours and takes the shape of its cup. A gas spreads out to fill all the space it can.
+  show: table State | What it does ;; solid | keeps its shape ;; liquid | pours, takes the cup's shape ;; gas | spreads to fill the space
+demo: Pour juice from a tall glass into a wide bowl. Its shape changes, but there is just as much juice as before.
+  show: flow tall glass > pour > wide bowl > same amount of juice
+G: Solid, liquid or gas?
+  bin Solid: a brick | an ice cube | a spoon
+  bin Liquid: milk | cooking oil | rain
+  bin Gas: the air in a balloon | steam
+  hint: Does it keep its shape, pour, or spread out?
+  why: Solids keep their shape, liquids pour, and gases spread out.
+P: Which one changes shape when you pour it into a different cup?
+  + Water :: A liquid takes the shape of whatever holds it.
+  - A stone :: [solid-pours] A solid keeps its own shape.
+  - A coin :: [solid-pours] A solid keeps its own shape.
+  hint: Which one is a liquid?
+  why: Liquids flow. Solids do not.
+P: Is there anything in an "empty" cup?
+  + Yes, air :: Air is a gas and it fills the cup.
+  - No, nothing at all :: [air-is-nothing] Air is real stuff. You can feel it when the wind blows.
+  hint: What do you blow into a balloon?
+  why: Air is a gas. We cannot see it, but it takes up space.
+>P: You squeeze a closed bottle full of air, and you squeeze a brick. Which one gets smaller?
+  + The bottle of air :: A gas can be squashed.
+  - The brick :: [solids-squash] A solid cannot be squashed by hand.
+  - Both the same :: [all-alike] Only the gas squashes.
+  hint: Which one is a gas?
+  why: In a gas the bits are far apart, so they can be pushed closer. In a solid they are already packed tight.
+done: Solid, liquid, gas: look for one of each in the kitchen.
+
+@ chem.1.changes
+goal: Tell changes that can be undone from changes that cannot.
+intro: Some changes can be undone. Ice melts, and the water can be frozen again. Other changes make something new and cannot be undone, like burning.
+  show: table Change | Undo it? ;; melting chocolate | yes, cool it ;; burning paper | no
+demo: Melt chocolate and let it cool: it is chocolate again. Burn paper and you get ash and smoke. You cannot turn them back into paper.
+  show: flow paper > burns > ash and smoke > cannot go back
+G: Can the change be undone?
+  bin Can be undone: melting ice | freezing juice | dissolving salt in water
+  bin Cannot be undone: burning wood | baking a cake | frying an egg
+  hint: Could you get the first thing back again?
+  why: Melting, freezing and dissolving can be undone. Burning and cooking make new stuff.
+M: Match each word to what it means.
+  pairs: Melting => A solid turns to liquid | Freezing => A liquid turns to solid | Dissolving => Something mixes into a liquid until you cannot see it | Burning => New stuff is made, like ash and smoke
+  hint: Three of these can be undone. One cannot.
+  why: Melting, freezing and dissolving change how a thing looks. Burning makes something new.
+P: Salty water is left in a dish in the sun until the water has gone. What is left in the dish?
+  + Salt :: The water went into the air and the salt stayed behind.
+  - Nothing :: [dissolving-is-vanishing] The salt was still there in the water, so it is left behind.
+  - Sugar :: [not-what-went-in] Only salt was put in.
+  hint: The salt was in the water all the time.
+  why: Dissolving can be undone. Take away the water and the salt comes back.
+>P: You bake bread dough into a loaf. Can you turn the loaf back into dough?
+  + No, baking made something new :: Heat changed the dough for good.
+  - Yes, by cooling it :: [all-changes-undo] Cooling a loaf just gives a cold loaf.
+  - Yes, by adding water :: [all-changes-undo] Wet bread is not dough.
+  hint: Is baking more like melting or more like burning?
+  why: Cooking makes new stuff. It cannot be undone.
+done: Ask of any change: could I get it back? Explore the states of matter.
+
+@ chem.1.materials-props
+goal: Describe a material by its properties and choose the right one for a job.
+intro: Materials have properties. They can be hard or soft, bendy or stiff, see-through, or waterproof. We choose a material because of what it can do.
+  show: chips hard | soft | bendy | stiff | see-through | waterproof
+demo: An umbrella is made of waterproof cloth so the rain runs off. A window is made of glass so we can see through it.
+  show: table Thing | Property it needs ;; umbrella | waterproof ;; window | see-through ;; cushion | soft
+M: Match each thing to the material that suits it.
+  pairs: A window => See-through glass | A raincoat => Waterproof plastic | A cushion => Soft foam | A hammer head => Hard metal
+  hint: What does each thing have to do?
+  why: A window must be see-through, a raincoat waterproof, a cushion soft and a hammer hard.
+G: Bendy or stiff?
+  bin Bendy: a rubber band | a strip of paper | a plastic ruler
+  bin Stiff: a brick | a glass bottle | a steel bar
+  hint: Could you bend it with your hands?
+  why: Rubber, paper and thin plastic bend. Brick, glass and steel do not.
+P: Why is a saucepan made of metal?
+  + Heat passes through it and it does not burn :: The food gets hot and the pan stays whole.
+  - Because metal is shiny :: [looks-do-not-matter] Shininess does not cook food.
+  - Because metal is heavy :: [wrong-property] Being heavy does not help cooking.
+  hint: What must a pan do on a hot stove?
+  why: Metal lets heat through to the food and does not melt or burn on the stove.
+>P: You must stir very hot soup for a long time. Which spoon will not burn your hand?
+  + A wooden spoon :: Heat travels slowly through wood.
+  - A metal spoon :: [strong-means-best] Metal is strong, but heat runs up it to your hand.
+  - A chocolate spoon :: [wrong-property] Chocolate would melt.
+  hint: Which material does not let heat through easily?
+  why: Wood is a poor carrier of heat, so the handle stays cool.
+done: A good choice of material is a good match of properties. Go on a materials hunt.
+
+@ chem.2.atoms
+goal: Explain what an element is and connect elements to atoms and symbols.
+intro: All matter is made of atoms. There are about a hundred kinds of atom, and a substance made of only one kind is an element. Each element has a symbol.
+  show: table Element | Symbol ;; hydrogen | H ;; carbon | C ;; oxygen | O ;; iron | Fe
+demo: A bar of pure gold contains only gold atoms. Water is different: it is made of hydrogen atoms and oxygen atoms joined together, so water is not an element.
+  show: table Substance | Kinds of atom ;; gold | 1 ;; oxygen gas | 1 ;; water | 2
+M: Match each element to its symbol.
+  pairs: Hydrogen => H | Carbon => C | Oxygen => O | Iron => Fe | Sodium => Na
+  hint: Some symbols come from Latin names: ferrum for iron, natrium for sodium.
+  why: Each element has a one- or two-letter symbol. Fe and Na come from the Latin names.
+G: Is it an element?
+  bin An element: gold | oxygen | iron
+  bin Not an element: water | table salt | air
+  note water :: Water is hydrogen and oxygen joined together.
+  note air :: Air is a mixture of several gases.
+  hint: Is it made of only one kind of atom?
+  why: Gold, oxygen and iron each contain one kind of atom. Water and salt are compounds, and air is a mixture.
+P: You cut a piece of pure gold into smaller and smaller pieces. What is the smallest piece that is still gold?
+  + A single gold atom :: Split that, and what remains is no longer gold.
+  - There is no smallest piece :: [matter-is-continuous] Matter is not endlessly divisible. It is made of atoms.
+  - A proton :: [parts-are-the-element] A proton is a part of every atom. Alone it is not gold.
+  hint: What is every element made of?
+  why: An atom is the smallest unit of an element that still is that element.
+>P: A pure substance cannot be broken down into anything simpler by any chemical reaction. What is it?
+  + An element :: It contains only one kind of atom.
+  - A compound :: [compounds-are-simplest] A compound can be broken down into its elements.
+  - A mixture :: [mixtures-are-pure] A mixture is not a pure substance and can be separated.
+  hint: What can a compound be broken into?
+  why: Chemical reactions rearrange atoms but cannot change one kind of atom into another.
+done: About a hundred elements build everything. Build an atom in the model.
+
+@ chem.2.molecules
+goal: Read a chemical formula and explain how a compound differs from the elements in it.
+intro: Atoms join together to make molecules. A formula shows which atoms are in a molecule and how many: H₂O has two hydrogen atoms and one oxygen atom.
+  show: table Formula | Atoms in one molecule ;; H₂O | 2 hydrogen, 1 oxygen ;; CO₂ | 1 carbon, 2 oxygen ;; O₂ | 2 oxygen
+demo: In CO₂ the small 2 belongs to the oxygen: one carbon atom joined to two oxygen atoms. A number in front, as in 3 CO₂, counts whole molecules.
+  show: steps CO₂: 1 carbon atom and 2 oxygen atoms ;; 3 CO₂: three such molecules ;; In all: 3 carbon atoms and 6 oxygen atoms
+B: Build one molecule of water.
+  bank: H | H | O | O | C
+  answer: H | H | O
+  any-order
+  x C :: [wrong-element] Water contains no carbon.
+  hint: The formula is H₂O.
+  why: H₂O means two hydrogen atoms and one oxygen atom.
+F: Count the atoms.
+  frame: Three molecules of H₂O contain __ hydrogen atoms
+  answer: 6
+  x 2 :: [ignored-the-number-in-front] Each molecule has 2 hydrogen atoms, and there are 3 molecules.
+  x 3 :: [ignored-the-small-number] Each molecule has 2 hydrogen atoms.
+  hint: Two in each molecule, three molecules.
+  why: 3 × 2 = 6.
+M: Match each formula to its name.
+  pairs: H₂O => Water | CO₂ => Carbon dioxide | O₂ => Oxygen gas | NaCl => Table salt | CH₄ => Methane
+  hint: Read the symbols: C is carbon, O is oxygen, H is hydrogen, Na is sodium, Cl is chlorine.
+  why: Each formula lists the elements present and how many atoms of each.
+>P: Sodium is a metal that reacts violently with water. Chlorine is a poisonous gas. Joined together they make table salt. What does this show?
+  + A compound has properties quite different from its elements :: Salt is neither a reactive metal nor a poisonous gas.
+  - Salt must be dangerous too :: [compound-keeps-element-properties] Joining the atoms changes the properties completely.
+  - Salt is a mixture of the two :: [compound-is-a-mixture] In a mixture each part keeps its properties. Here they have reacted.
+  hint: Do you sprinkle a reactive metal or a poisonous gas on your food?
+  why: When atoms bond, the new substance has properties of its own.
+done: A formula is a parts list. See how atoms join in the model.
+
+@ chem.2.mixtures
+goal: Tell a mixture from a pure substance and choose a way to separate it.
+intro: In a mixture, substances are mingled but not joined, so they can be separated without a chemical reaction. In a solution one substance, the solute, is dissolved in another, the solvent.
+  show: table Method | What it separates ;; filtering | an undissolved solid from a liquid ;; evaporating | a dissolved solid from its liquid ;; distilling | a liquid from what is dissolved in it
+demo: Sandy salt water can be separated in two steps. Filter it: the sand stays in the paper. Then evaporate the water: the salt is left behind.
+  show: flow sandy salt water > filter > sand removed > evaporate > salt left
+M: Match each method to what it does.
+  pairs: Filtering => Removes an undissolved solid from a liquid | Evaporating => Leaves a dissolved solid behind | Distilling => Collects the liquid from a solution | Using a magnet => Pulls out iron | Chromatography => Separates the dyes in ink
+  hint: Which methods deal with something dissolved?
+  why: Filtering works on particles big enough to catch. Evaporating and distilling deal with dissolved substances.
+O: Put the steps for separating sand and salt in order.
+  items: Add water and stir | Filter out the sand | Evaporate the water | Collect the salt crystals
+  ends: First | Last
+  hint: The salt has to be dissolved before the sand can be filtered off.
+  why: Salt dissolves and passes through the filter; sand does not. Evaporation then recovers the salt.
+P: In salt water, which is the solvent?
+  + The water :: It does the dissolving.
+  - The salt :: [swapped-solute-and-solvent] The salt is the solute: the substance that is dissolved.
+  - Both together :: [solution-is-solvent] Together they are the solution.
+  hint: The solvent is the one that does the dissolving.
+  why: Solute dissolves in solvent to give a solution.
+>P: You need drinking water from sea water. Which method gives you the water itself?
+  + Distilling :: The water boils off and is condensed, leaving the salt behind.
+  - Filtering :: [filter-catches-dissolved] Dissolved salt passes straight through filter paper.
+  - Evaporating :: [kept-the-wrong-part] Evaporation leaves the salt and lets the water escape into the air.
+  hint: You want to keep the liquid, not the solid.
+  why: Distillation evaporates the water and then condenses it, so the liquid is collected.
+done: Choose a separation by asking what is dissolved and what you want to keep.
+
+@ chem.2.reactions-intro
+goal: Recognise the signs of a chemical reaction and explain what happens to the atoms.
+intro: In a chemical reaction, substances change into new substances. Signs include a lasting colour change, bubbles of gas, heat or light, and a solid appearing in a liquid.
+  show: chips colour change | gas bubbles | heat or light | a new solid
+demo: Iron left in damp air turns into rust. Rust is a new substance: brown and flaky, where iron is grey and strong. Drying it does not bring the iron back.
+  show: flow iron + oxygen + water > reaction > rust
+G: Chemical change or physical change?
+  bin Chemical change: iron rusting | wood burning | milk going sour | baking soda fizzing in vinegar
+  bin Physical change: ice melting | sugar dissolving | paper being torn
+  hint: Has a new substance been made?
+  why: Rusting, burning, souring and fizzing make new substances. Melting, dissolving and tearing do not.
+S: Which of these are signs that a chemical reaction is happening? Choose every one.
+  + Bubbles of a new gas appear :: A gas that was not there before is a new substance.
+  + The colour changes and stays changed :: A lasting colour change points to a new substance.
+  + Heat or light is given out :: Many reactions release energy.
+  - The substance changes shape :: [shape-change-is-reaction] Bending or cutting makes no new substance.
+  - A solid melts into a liquid :: [state-change-is-reaction] Melting changes the state, not the substance.
+  hint: Each real sign points to a new substance being formed.
+  why: A chemical reaction is known by its products: new gas, new colour, energy released or a new solid.
+P: A log burns down to a small pile of ash. Where did most of its mass go?
+  + Into gases that drifted away :: Carbon dioxide and water vapour carry most of it off.
+  - It was destroyed :: [mass-vanishes] Atoms are never destroyed in a reaction, only rearranged.
+  - It turned into heat :: [mass-becomes-heat] The atoms are all still there, mostly in the gases.
+  hint: What rises from a fire?
+  why: Mass is conserved. The atoms of the wood, joined with oxygen, leave as gases.
+>P: A fizzy tablet is dropped into water. It bubbles, and the water gets a little colder. Is a chemical reaction happening?
+  + Yes: a new gas is being made :: The bubbles are a product that was not there before.
+  - No: the tablet is only dissolving :: [fizzing-is-dissolving] Plain dissolving makes no gas.
+  - No: a reaction always gets hot :: [reactions-always-heat] Some reactions take heat in and cool their surroundings.
+  hint: Where does the gas come from?
+  why: Gas production shows new substances forming. Reactions can absorb heat as well as release it.
+done: Look for a new substance, not just a new look. Explore reaction types later on.
+
+@ chem.2.acids
+goal: Place substances on the pH scale and predict what happens when an acid meets a base.
+intro: Acids taste sour, like lemon juice and vinegar. Bases feel slippery, like soap. The pH scale runs from 0 to 14: 7 is neutral, below 7 is acidic and above 7 is basic.
+  show: line 0..14 mark=7
+demo: Red cabbage juice is an indicator: it turns red in an acid and green in a base. An indicator shows where a substance sits on the scale.
+  show: table Substance | About pH ;; lemon juice | 2 ;; pure water | 7 ;; soapy water | 10
+G: Acid, neutral or base?
+  bin Acid: lemon juice | vinegar | stomach acid
+  bin Neutral: pure water
+  bin Base: soapy water | baking soda in water | bleach
+  hint: Sour things are acids. Slippery cleaners are usually bases.
+  why: Lemon juice, vinegar and stomach acid are below pH 7. Soap, baking soda and bleach are above it.
+O: Put these in order, from most acidic to most basic.
+  items: Stomach acid | Vinegar | Pure water | Baking soda in water | Bleach
+  ends: Most acidic | Most basic
+  hint: Pure water sits in the middle, at pH 7.
+  why: Their pH values are roughly 1, 3, 7, 9 and 13.
+P: A base is added, a little at a time, to an acid. What happens to the pH?
+  + It rises towards 7 :: The base cancels the acid.
+  - It falls further :: [bases-are-acidic] A base raises the pH.
+  - It stays the same :: [no-reaction] An acid and a base react with each other.
+  hint: Acids are below 7 and bases above. What lies between?
+  why: Acid and base neutralise each other, making a salt and water, and the pH moves towards 7.
+>P: A farmer's soil is too acidic for the crop. What should be spread on it?
+  + Lime, which is a base :: It neutralises some of the acid.
+  - Vinegar :: [added-more-acid] Vinegar is an acid and would make the soil more acidic.
+  - Sand :: [inert-fixes-it] Sand is neither acid nor base, so it neutralises nothing.
+  hint: What cancels an acid?
+  why: Neutralisation: a base raises the pH of acidic soil towards neutral.
+done: Acid plus base moves towards neutral. Test household liquids with an indicator.
+
+@ chem.2.periodic
+goal: Use an element's place in the periodic table to predict how it behaves.
+intro: The periodic table lists the elements in order of atomic number. Columns are called groups, and the elements in a group behave alike. Rows are called periods. Metals are on the left, non-metals on the right.
+  show: table Group | Family | Behaviour ;; 1 | alkali metals | soft, very reactive ;; 17 | halogens | reactive non-metals ;; 18 | noble gases | hardly react at all
+demo: Lithium, sodium and potassium are all in group 1. All three are soft metals that react with water, more violently as you go down the group.
+  show: steps Lithium: fizzes steadily ;; Sodium: fizzes fast and may melt ;; Potassium: catches fire
+G: Metal or non-metal?
+  bin Metal: iron | sodium | copper
+  bin Non-metal: oxygen | chlorine | carbon | helium
+  hint: Metals are shiny and conduct electricity.
+  why: Iron, sodium and copper are metals on the left and centre of the table. The others are non-metals on the right.
+M: Match each group to its character.
+  pairs: Group 1 => Soft, very reactive metals | Group 17 => Reactive non-metals | Group 18 => Gases that hardly react
+  hint: The far left and far right columns are the extremes.
+  why: Alkali metals lose one electron easily, halogens gain one easily, and noble gases have full outer shells.
+P: Sodium, in group 1, reacts vigorously with water. Which element would you expect to behave most like it?
+  + Potassium :: It is in the same group, just below sodium.
+  - Magnesium :: [neighbour-in-the-row] Neighbours in a period differ. Elements in the same group are alike.
+  - Neon :: [any-nearby-element] Neon is a noble gas and hardly reacts at all.
+  hint: Elements in the same column behave alike.
+  why: Group members have the same number of outer electrons, so they react in similar ways.
+>P: Mendeleev left gaps in his table and correctly predicted the properties of elements nobody had yet found. How was that possible?
+  + Properties repeat in a regular pattern, so a gap's neighbours show what belongs there :: The pattern itself made the prediction.
+  - He guessed and was lucky :: [prediction-is-luck] His predictions for several elements were close in detail.
+  - He had secretly seen the elements :: [no-pattern-needed] They were discovered years later by other chemists.
+  hint: What would the elements above and below a gap tell you?
+  why: The periodic pattern is strong enough to predict the unknown: a mark of a good scientific model.
+done: Position predicts behaviour. Explore groups and periods in the table.
+
+@ chem.3.atomic-structure
+goal: Work out the protons, neutrons and electrons in an atom or ion, and arrange electrons in shells.
+intro: An atom has a tiny nucleus of protons and neutrons, with electrons in shells around it. The number of protons, the atomic number, decides which element it is.
+  show: table Particle | Charge | Where ;; proton | +1 | nucleus ;; neutron | 0 | nucleus ;; electron | −1 | shells
+demo: Carbon-12 has 6 protons and 6 neutrons in its nucleus and 6 electrons around it: 2 in the first shell and 4 in the second.
+  show: table Carbon-12 | Number ;; protons | 6 ;; neutrons | 6 ;; electrons | 6
+F: Find the neutrons.
+  frame: Sodium has atomic number 11 and mass number 23, so it has __ neutrons
+  answer: 12
+  x 23 :: [gave-the-mass-number] The mass number counts protons and neutrons together.
+  x 34 :: [added-instead] Subtract the protons from the mass number.
+  hint: Mass number = protons + neutrons.
+  why: 23 − 11 = 12.
+F: Fill the shells for chlorine, which has 17 electrons.
+  frame: 2, 8, __
+  answer: 7
+  x 8 :: [filled-every-shell] There are only 17 electrons: 2 + 8 leaves 7.
+  hint: The first shell holds 2 and the second 8. How many are left?
+  why: 17 − 2 − 8 = 7. Seven outer electrons put chlorine in group 17.
+M: Match each term to its meaning.
+  pairs: Atomic number => Number of protons | Mass number => Protons plus neutrons | Isotopes => Same protons, different neutrons | Ion => Unequal numbers of protons and electrons
+  hint: Only one of these involves electrons.
+  why: Protons fix the element, neutrons fix the isotope, and electrons fix the charge.
+>P: A particle has 17 protons and 18 electrons. What is it?
+  + A chloride ion with charge −1 :: One more electron than protons.
+  - A neutral chlorine atom :: [ignored-the-extra-electron] A neutral atom has equal numbers of protons and electrons.
+  - An argon atom :: [electrons-decide-the-element] The element is set by the 17 protons, which means chlorine.
+  - A chloride ion with charge +1 :: [reversed-the-charge] Extra electrons make the charge negative.
+  hint: The protons name the element. The balance of protons and electrons gives the charge.
+  why: 17 protons means chlorine. 17 positive and 18 negative charges leave −1.
+done: Count protons for identity, neutrons for mass, electrons for charge. Build atoms in the model.
+
+@ chem.3.bonding
+goal: Tell ionic, covalent and metallic bonding apart and predict properties from the kind of bonding.
+intro: Atoms bond in three main ways. In ionic bonding a metal gives electrons to a non-metal and the ions attract. In covalent bonding non-metals share pairs of electrons. In metallic bonding positive ions sit in a sea of free electrons.
+  show: table Bonding | Between | Electrons ;; ionic | metal and non-metal | transferred ;; covalent | non-metals | shared ;; metallic | metal atoms | free to move
+demo: In sodium chloride, each sodium atom gives one electron to a chlorine atom. The resulting Na⁺ and Cl⁻ ions attract each other strongly in every direction, building a crystal.
+  show: flow Na atom > gives 1 electron > Na⁺ and Cl⁻ > ions attract > crystal
+G: Which kind of bonding?
+  bin Ionic: sodium chloride | magnesium oxide
+  bin Covalent: water | methane | carbon dioxide
+  bin Metallic: copper | iron
+  hint: A metal with a non-metal is ionic. Non-metals together are covalent.
+  why: Metal plus non-metal gives ions; non-metals share electrons; a pure metal has metallic bonding.
+M: Match each kind of bond to its description.
+  pairs: Ionic bond => Electrons transferred, and the ions attract | Covalent bond => Pairs of electrons shared | Metallic bond => Positive ions in a sea of free electrons
+  hint: Transfer, share, or set free.
+  why: The three kinds differ in what happens to the outer electrons.
+P: Solid salt does not conduct electricity, but molten salt does. Why?
+  + The ions are locked in place in the solid and free to move in the liquid :: Moving charges are what carry a current.
+  - Melting releases free electrons :: [ions-are-electrons] The charge carriers in molten salt are ions, not electrons.
+  - Solid salt contains no charges :: [no-charges-in-solid] It is full of ions. They simply cannot move.
+  hint: A current needs charges that can move.
+  why: An ionic lattice holds its ions fixed. Melting or dissolving frees them to carry charge.
+>P: A substance melts at 1400 °C, conducts electricity when molten but not when solid, and shatters when struck. What kind of bonding does it have?
+  + Ionic :: High melting point, brittle, and conducting only when the ions can move.
+  - Covalent molecules :: [ignored-melting-point] Small molecules melt at low temperatures and do not conduct.
+  - Metallic :: [ignored-solid-conduction] A metal conducts as a solid and bends rather than shattering.
+  hint: Which kind has charges that are fixed in the solid but free in the liquid?
+  why: Those three properties together are the signature of an ionic lattice.
+done: Bonding explains melting, conducting and breaking. Explore molecular models.
+
+@ chem.3.stoichiometry
+goal: Balance a chemical equation and use moles to relate the masses of reactants and products.
+intro: A balanced equation has the same number of each kind of atom on both sides, because atoms are neither made nor destroyed. Chemists count particles by the mole, and the mass of one mole is the molar mass.
+  show: table Side | H atoms | O atoms ;; 2 H₂ + O₂ | 4 | 2 ;; 2 H₂O | 4 | 2
+demo: In 2 H₂ + O₂ → 2 H₂O there are four hydrogen atoms and two oxygen atoms on each side. The big numbers count molecules; the small ones belong to the formula and are never changed.
+  show: steps Count each element on the left ;; Count each element on the right ;; Change only the numbers in front
+F: Balance the equation.
+  frame: N₂ + __ H₂ → 2 NH₃
+  answer: 3
+  x 2 :: [matched-the-product-number] Two NH₃ contain 6 hydrogen atoms, which need 3 molecules of H₂.
+  x 6 :: [counted-atoms-not-molecules] Six hydrogen atoms come in three H₂ molecules.
+  hint: Count the hydrogen atoms in 2 NH₃.
+  why: 2 NH₃ has 6 hydrogen atoms, and 3 H₂ supplies exactly 6.
+E: This equation for burning methane is not balanced. Repair it.
+  tokens: 1{2,3} | CH₄ | + | 1{2,3} | O₂ | → | 1{2,3} | CO₂ | + | 1{2,3} | H₂O
+  limit: 2
+  aim: Change at most two of the numbers so that every element balances.
+  accept: 4=2&10=2
+  hint: Carbon already balances. Fix hydrogen first, then count the oxygen atoms on the right.
+  hint: Four hydrogen atoms need 2 H₂O. Then the right side has 2 + 2 = 4 oxygen atoms.
+  why: CH₄ + 2 O₂ → CO₂ + 2 H₂O. Each side has 1 carbon, 4 hydrogen and 4 oxygen atoms.
+  miss: Count the atoms of each element on both sides again.
+F: Find a molar mass, using H = 1 and O = 16.
+  frame: The molar mass of H₂O is __ g/mol
+  answer: 18
+  x 17 :: [counted-one-hydrogen] There are two hydrogen atoms: 2 × 1 + 16.
+  hint: Two hydrogens and one oxygen.
+  why: 2 × 1 + 16 = 18 g/mol.
+>P: Methane (16 g/mol) burns: CH₄ + 2 O₂ → CO₂ + 2 H₂O. How much carbon dioxide (44 g/mol) comes from 16 g of methane?
+  + 44 g :: 16 g is one mole of methane, which gives one mole of CO₂.
+  - 16 g :: [mass-in-equals-mass-out] Equal moles do not mean equal masses. A CO₂ molecule is heavier than a CH₄ molecule.
+  - 88 g :: [used-the-wrong-ratio] The equation gives one CO₂ for each CH₄, not two.
+  hint: Convert grams to moles, use the equation's ratio, then convert back.
+  why: 16 g ÷ 16 g/mol = 1 mol CH₄ → 1 mol CO₂ = 44 g.
+done: Balance first, then count in moles. Practise with the stoichiometry drill.
+
+@ chem.3.reactions
+goal: Classify a reaction as redox, acid–base or precipitation, and say what is transferred in each.
+intro: Three families cover most reactions. In redox reactions electrons are transferred. In acid–base reactions a proton, H⁺, is transferred. In precipitation an insoluble solid forms from two solutions.
+  show: table Family | What moves or forms ;; redox | electrons ;; acid–base | protons, H⁺ ;; precipitation | an insoluble solid
+demo: Dip zinc in copper sulfate solution: Zn + Cu²⁺ → Zn²⁺ + Cu. Zinc atoms lose electrons and are oxidised. Copper ions gain them and are reduced.
+  show: steps Zn → Zn²⁺ + 2 electrons: oxidation ;; Cu²⁺ + 2 electrons → Cu: reduction ;; Oxidation Is Loss, Reduction Is Gain
+G: Which family does each reaction belong to?
+  bin Redox: iron rusting | magnesium burning in air | zinc displacing copper from solution
+  bin Acid–base: hydrochloric acid neutralising sodium hydroxide | vinegar reacting with baking soda
+  bin Precipitation: silver nitrate and sodium chloride forming a white solid | lead nitrate and potassium iodide forming a yellow solid
+  hint: Ask what is transferred, or whether a solid appears from clear solutions.
+  why: Rusting, burning and displacement move electrons. Neutralisation moves protons. A solid falling out of solution is precipitation.
+P: In Zn + Cu²⁺ → Zn²⁺ + Cu, which species is oxidised?
+  + Zn :: It loses two electrons.
+  - Cu²⁺ :: [gain-is-oxidation] Copper ions gain electrons, which is reduction.
+  - Both :: [both-oxidised] One loses electrons and the other gains them.
+  hint: Oxidation is loss of electrons.
+  why: Zn goes from 0 to +2 by losing electrons: it is oxidised, and it is the reducing agent.
+M: Match each term to its meaning.
+  pairs: Oxidation => Loss of electrons | Reduction => Gain of electrons | Acid => Proton donor | Base => Proton acceptor | Precipitate => Insoluble solid formed from solution
+  hint: Two concern electrons, two concern protons.
+  why: Redox is electron transfer; acid–base is proton transfer.
+>P: An iron nail is left in blue copper sulfate solution. A brown coating forms on the nail and the blue colour fades. What has happened?
+  + Iron atoms gave electrons to copper ions, so copper metal was deposited :: A redox displacement.
+  - The nail has rusted :: [any-brown-is-rust] Rust needs oxygen and water. The brown coating here is copper metal.
+  - Copper sulfate dried onto the nail :: [physical-coating] The blue ions have left the solution, and the coating is metal, not blue crystals.
+  hint: Why does the blue colour of the copper ions fade?
+  why: Fe + Cu²⁺ → Fe²⁺ + Cu. Iron is more reactive, so it is oxidised while copper ions are reduced.
+done: Follow the electrons or the protons. Explore reaction types in the lab.
+
+@ chem.3.gases
+goal: Use the gas laws to predict how pressure, volume and temperature change together.
+intro: A gas presses on its container because its particles keep hitting the walls. Squeeze a gas into half the volume at the same temperature and the particles hit twice as often, so the pressure doubles.
+  show: table Volume | Pressure ;; 4 L | 1 atm ;; 2 L | 2 atm ;; 1 L | 4 atm
+demo: This is Boyle's law: pressure × volume stays constant at a fixed temperature. In every row of the table the product is 4.
+  show: plot 4/x x=1..4
+F: Use pressure × volume = constant.
+  frame: A gas at 2 atm fills 6 L. At 3 atm and the same temperature it fills __ L
+  answer: 4
+  x 9 :: [made-it-proportional] More pressure means less volume, not more.
+  hint: 2 × 6 = 3 × ?
+  why: 2 × 6 = 12, and 12 ÷ 3 = 4 L.
+X: Compress a gas at constant temperature.
+  param v: 1..12 /1 @12 | Volume | L
+  out p: 12/v | Pressure | atm
+  aim: Squeeze the gas until its pressure reaches 4 atm.
+  target: p == 4
+  view: bars p over v
+  hint: Pressure × volume stays at 12. What volume gives 4 atm?
+  why: 12 ÷ 4 = 3 L. Pressure is inversely proportional to volume.
+P: A gas is heated from 27 °C to 327 °C at constant pressure. What happens to its volume?
+  + It doubles :: 300 K to 600 K is a doubling of the absolute temperature.
+  - It becomes about twelve times larger :: [used-celsius] Gas laws need kelvin. 327 ÷ 27 means nothing physically.
+  - It stays the same :: [temperature-ignored] A heated gas at constant pressure expands.
+  hint: Convert both temperatures to kelvin by adding 273.
+  why: Charles's law: volume is proportional to absolute temperature. 600 K ÷ 300 K = 2.
+>P: A sealed packet of crisps swells up as an aeroplane climbs. Why?
+  + The pressure outside falls, so the gas inside expands :: It expands until the pressures balance again.
+  - The air inside gets hotter :: [heat-explains-all] The cabin does not heat the packet. The outside pressure has dropped.
+  - More air gets into the packet :: [gas-enters] The packet is sealed.
+  hint: What happens to air pressure higher up?
+  why: Boyle's law: at lower outside pressure, the same gas takes up more volume.
+done: Pressure, volume and temperature are tied together. Practise with the gas law drill.
+
+@ chem.3.energy
+goal: Tell exothermic from endothermic reactions and explain what changes the rate of a reaction.
+intro: An exothermic reaction gives out heat and warms its surroundings. An endothermic reaction takes heat in. How fast a reaction goes is a separate question: it depends on how often particles collide with enough energy.
+  show: table Kind | Heat | Surroundings ;; exothermic | given out | get warmer ;; endothermic | taken in | get colder
+demo: Reacting particles must first climb an energy barrier, the activation energy. Only collisions with at least that much energy lead to products.
+  show: flow reactants > over the energy barrier > products
+G: Exothermic or endothermic?
+  bin Exothermic: burning methane | a hand warmer | neutralising an acid with a base
+  bin Endothermic: an instant cold pack | photosynthesis | heating limestone to make lime
+  hint: Does it release heat, or need heat to keep going?
+  why: Burning, hand warmers and neutralisation release heat. Cold packs, photosynthesis and decomposing limestone absorb energy.
+S: Which changes make a reaction go faster? Choose every one.
+  + Raising the temperature :: Particles collide more often and with more energy.
+  + Crushing a solid reactant into powder :: More surface is exposed to collisions.
+  + Adding a suitable catalyst :: It provides a route with a lower energy barrier.
+  - Moving the same gases into a bigger container :: [more-room-is-faster] Spreading the particles out makes collisions rarer.
+  - Cooling the mixture :: [cold-speeds-up] Slower particles collide less often and with less energy.
+  hint: Each real answer increases the number of successful collisions.
+  why: Rate depends on collision frequency and on the fraction of collisions that exceed the activation energy.
+P: What does a catalyst do?
+  + It lowers the activation energy and is not used up :: The same catalyst works again and again.
+  - It heats the mixture :: [catalyst-is-heat] A catalyst does not supply energy.
+  - It is consumed like a reactant :: [catalyst-is-a-reactant] It is still there, unchanged, at the end.
+  - It changes what the products are :: [catalyst-changes-products] The products are the same; they simply form sooner.
+  hint: A catalyst changes the route, not the destination.
+  why: By offering a pathway with a lower barrier, a catalyst lets more collisions succeed.
+>P: Food keeps longer in a refrigerator. Explain this in terms of particles.
+  + Colder particles move more slowly, so fewer collisions have enough energy to react :: The reactions that spoil food slow down.
+  - The cold kills every microbe :: [cold-sterilises] Cold slows microbes and reactions. It does not eliminate them.
+  - There is no oxygen in a fridge :: [fridge-removes-air] A fridge is full of air.
+  hint: What does lowering the temperature do to reaction rates?
+  why: Lower temperature means fewer and gentler collisions, so chemical change, including spoilage, slows.
+done: Energy change and speed are separate questions. Explore the thermal lab.
+
+@ chem.3.organic-intro
+goal: Explain why carbon forms so many compounds and read the pattern in a family of hydrocarbons.
+intro: A carbon atom forms four bonds, and carbon atoms bond readily to each other in chains and rings. That is why there are millions of carbon compounds, including the molecules of life.
+  show: table Alkane | Formula ;; methane | CH₄ ;; ethane | C₂H₆ ;; propane | C₃H₈ ;; butane | C₄H₁₀
+demo: Each alkane has one more carbon and two more hydrogens than the one before. The pattern is CₙH₂ₙ₊₂.
+  show: steps Methane, n = 1: CH₄ ;; Ethane, n = 2: C₂H₆ ;; Each step adds CH₂
+F: Use the pattern CₙH₂ₙ₊₂.
+  frame: Pentane has 5 carbon atoms and __ hydrogen atoms
+  answer: 12
+  x 10 :: [forgot-the-two-ends] 2n gives 10; the two end carbons carry one extra hydrogen each.
+  hint: 2 × 5 + 2.
+  why: 2 × 5 + 2 = 12, so pentane is C₅H₁₂.
+M: Match each alkane to its number of carbon atoms.
+  pairs: Methane => 1 carbon | Ethane => 2 carbons | Propane => 3 carbons | Butane => 4 carbons
+  hint: The beginnings meth-, eth-, prop- and but- count 1, 2, 3 and 4.
+  why: The prefix of the name gives the length of the carbon chain.
+P: Why can carbon form such a huge number of different compounds?
+  + It makes four bonds and links to itself in chains and rings :: Chains can be any length and branch in many ways.
+  - It is the most common element :: [abundance-explains-variety] Abundance does not create variety. Bonding does.
+  - It is the lightest element :: [lightness-explains-variety] Hydrogen is lighter and forms only one bond.
+  hint: How many bonds does one carbon atom form, and with what?
+  why: Four bonds per atom, and stable carbon–carbon bonds, allow endless skeletons.
+>P: Two compounds both have the formula C₄H₁₀, yet they boil at different temperatures. How is that possible?
+  + Their atoms are joined in different arrangements: one chain is straight and one is branched :: Such compounds are called isomers.
+  - It is not possible: the same formula means the same substance :: [formula-is-identity] A formula lists atoms. It does not say how they are connected.
+  - They contain different numbers of electrons :: [electrons-differ] The same atoms bring the same electrons.
+  hint: A formula says which atoms are present. What does it leave out?
+  why: Butane and methylpropane share a formula but differ in structure, and structure decides properties.
+done: Carbon's four bonds are the alphabet of life's molecules. Explore molecular models.
+
+@ chem.4.physical
+goal: Use ΔG = ΔH − TΔS to judge whether a change is spontaneous, and separate that question from how fast it goes.
+intro: Whether a change can happen by itself is decided by the Gibbs energy change, ΔG = ΔH − TΔS. If ΔG is negative the change is spontaneous. How fast it goes is a different matter, set by the activation energy.
+  show: table Quantity | Meaning ;; ΔH | heat change at constant pressure ;; ΔS | change in disorder ;; ΔG | decides whether the change is spontaneous
+demo: Melting ice absorbs heat, so ΔH is positive, but it also increases disorder, so ΔS is positive. At low temperature ΔH wins and ice is stable. Above 0 °C the TΔS term wins and ice melts.
+  show: plot 6000-22*x x=200..400
+X: For melting ice, ΔH = 6000 J/mol and ΔS = 22 J/(mol K).
+  param t: 200..400 /10 @200 | Temperature | K
+  out g: 6000-22*t | ΔG | J/mol
+  aim: Find the lowest temperature on the dial at which melting becomes spontaneous.
+  target: g < 0 and g > -250
+  view: bars g over t
+  hint: Spontaneous means ΔG is negative. Raise T until the sign changes.
+  why: ΔG = 0 at T = 6000 ÷ 22 ≈ 273 K, the melting point. At 270 K it is still positive; at 280 K it is negative.
+M: Match each quantity to what it tells you.
+  pairs: ΔH => Heat taken in or given out | ΔS => Change in disorder | ΔG => Whether the change is spontaneous | Activation energy => How fast the change goes
+  hint: Three are about where the system ends up; one is about the route.
+  why: Thermodynamics (ΔH, ΔS, ΔG) says what is possible. Kinetics (activation energy) says how fast.
+P: Turning diamond into graphite has a negative ΔG at room temperature, yet diamonds last for millions of years. Why?
+  + The activation energy is enormous, so the change is immeasurably slow :: Favourable does not mean fast.
+  - The value of ΔG must be wrong :: [thermodynamics-means-fast] The sign is right. Thermodynamics simply says nothing about speed.
+  - Diamond and graphite are at equilibrium :: [stable-means-equilibrium] They are not. The diamond is trapped behind an energy barrier.
+  hint: What does ΔG not tell you?
+  why: A spontaneous change can be kinetically blocked. Diamond is metastable.
+>P: N₂ + 3 H₂ ⇌ 2 NH₃ gives out heat. What does raising the temperature do to the yield of ammonia at equilibrium?
+  + It lowers the yield :: The equilibrium shifts in the direction that absorbs heat.
+  - It raises the yield :: [faster-means-more] Heating makes the reaction faster, but shifts the balance away from ammonia.
+  - It has no effect :: [equilibrium-is-fixed] The position of equilibrium depends on temperature.
+  hint: Which direction absorbs the heat you add?
+  why: For an exothermic reaction, a higher temperature favours the reactants. Industry accepts a compromise temperature for the sake of rate.
+done: Thermodynamics says whether; kinetics says how fast. Explore the phase and thermal labs.
+
+@ chem.4.organic
+goal: Recognise functional groups and use them to predict how an organic molecule reacts.
+intro: The reactions of an organic molecule are decided by its functional groups: small clusters of atoms that behave the same way whatever chain carries them.
+  show: table Group | Family | Example ;; –OH | alcohol | ethanol ;; –COOH | carboxylic acid | ethanoic acid ;; –NH₂ | amine | methylamine ;; C=C | alkene | ethene
+demo: Ethanol, an alcohol, reacts with ethanoic acid, a carboxylic acid, to make an ester and water. The two functional groups meet; the carbon chains are bystanders.
+  show: flow alcohol + carboxylic acid > acid catalyst > ester + water
+M: Match each functional group to its family.
+  pairs: –OH => Alcohol | –COOH => Carboxylic acid | –NH₂ => Amine | C=C => Alkene | –CHO => Aldehyde
+  hint: The names often echo the group: an alkene has a double bond, an amine has nitrogen.
+  why: Each family is defined by its group, and molecules with the same group react alike.
+O: Put this synthesis in order, starting from ethene.
+  items: Ethene | Ethanol | Ethanoic acid | Ethyl ethanoate
+  ends: Starting material | Final product
+  hint: Add water to the double bond, oxidise the alcohol, then make an ester.
+  why: Hydration gives the alcohol, oxidation gives the acid, and esterification with more ethanol gives the ester.
+P: Hydroxide ions react with bromoethane to give ethanol. Which atom does the hydroxide attack?
+  + The carbon bonded to the bromine :: Bromine pulls electrons away, leaving that carbon slightly positive.
+  - The bromine atom :: [attacked-the-leaving-group] Bromine is electron-rich and leaves. It is not attacked.
+  - A hydrogen on the far carbon :: [attacked-a-distant-atom] Nothing draws electrons from that end of the molecule.
+  hint: An electron-rich reagent seeks an electron-poor atom.
+  why: The C–Br bond is polarised, so the carbon is the site for nucleophilic attack and bromide leaves.
+>P: An unknown hydrocarbon is shaken with orange bromine water and the colour disappears at once. What does the hydrocarbon contain?
+  + A carbon–carbon double bond :: Bromine adds across it.
+  - Only single bonds :: [alkanes-react-with-bromine] Alkanes do not react with bromine water under these conditions.
+  - An –OH group :: [any-group-reacts] A hydrocarbon contains only carbon and hydrogen.
+  hint: Which functional group undergoes addition?
+  why: Decolourising bromine water is the standard test for unsaturation.
+done: Find the functional group and you can predict the chemistry. Explore molecular models.
+
+@ chem.4.inorganic
+goal: Describe a coordination complex and explain its colour and its biological importance.
+intro: Transition metal ions form complexes. Surrounding molecules or ions, called ligands, each donate a pair of electrons to the metal. The number of such bonds is the coordination number.
+  show: table Term | Meaning ;; ligand | donates an electron pair to the metal ;; coordination number | bonds from ligands to the metal ;; chelate | a ligand that grips with more than one atom
+demo: Copper ions in water are pale blue: six water molecules surround each one. Add ammonia and the solution turns deep blue as ammonia molecules replace some of the water. A change of ligands is a change of colour.
+  show: flow pale blue: water ligands > add ammonia > deep blue: ammonia ligands
+M: Match each term to its meaning.
+  pairs: Ligand => Donates an electron pair to a metal ion | Coordination number => Number of bonds from ligands to the metal | Complex => A metal ion with its attached ligands | Chelate => A ligand that grips with more than one atom
+  hint: One is a donor, one is a count, one is the whole assembly.
+  why: A complex is the metal plus its ligands; the coordination number counts the bonds between them.
+F: Find the oxidation state of iron.
+  frame: In [Fe(CN)₆]⁴⁻, each cyanide is −1, so iron is +__
+  answer: 2
+  x 4 :: [used-the-overall-charge] The overall charge is −4. Six cyanides contribute −6, so iron must be +2.
+  x 6 :: [used-the-ligand-count] Six is the number of ligands, not the iron's charge.
+  hint: Iron's charge plus 6 × (−1) must equal −4.
+  why: x − 6 = −4, so x = +2.
+P: Why are so many transition-metal complexes coloured?
+  + Their d orbitals are split in energy, and visible light can lift electrons between them :: The colour seen is what remains after absorption.
+  - The ligands contain dyes :: [colour-is-added] Colourless ligands such as water and ammonia give coloured complexes.
+  - The metal ions give out light :: [colour-is-emission] The colour comes from absorbing part of white light, not from emitting.
+  hint: What does absorbing one colour from white light leave?
+  why: Ligands split the d-orbital energies by an amount matching visible photons. Changing the ligand changes the splitting and so the colour.
+>P: Haemoglobin carries oxygen on an iron ion held in a ring. Why is carbon monoxide so dangerous?
+  + It binds to the same iron site far more strongly than oxygen does :: Oxygen is shut out.
+  - It destroys the iron :: [destroys-the-metal] The iron is intact. Its binding site is occupied.
+  - It is a strong acid :: [acid-explains-harm] Carbon monoxide is not acidic. It is a ligand.
+  hint: Carbon monoxide and oxygen are both ligands competing for one site.
+  why: CO is a much stronger ligand for the iron than O₂, so even small amounts block oxygen transport.
+done: Ligands tune a metal's colour and chemistry. Explore the periodic table in depth.
+
+@ chem.4.analytical
+goal: Choose a suitable analytical method and judge the accuracy and precision of results.
+intro: Analytical chemistry asks two questions: what is present, and how much. Different methods answer each, and every answer comes with an uncertainty.
+  show: table Method | Tells you ;; titration | how much acid or base ;; mass spectrometry | masses of molecules and fragments ;; infrared spectroscopy | which bonds are present ;; chromatography | what a mixture contains
+demo: In a titration, 25.0 mL of hydrochloric acid needs 20.0 mL of 0.100 mol/L sodium hydroxide. That is 2.00 mmol of base, so the acid also contained 2.00 mmol: a concentration of 0.0800 mol/L.
+  show: steps Moles of NaOH: 20.0 mL × 0.100 mol/L = 2.00 mmol ;; HCl and NaOH react 1 to 1: 2.00 mmol of HCl ;; Concentration: 2.00 mmol ÷ 25.0 mL = 0.0800 mol/L
+F: Find the amount of base.
+  frame: 30.0 mL of 0.100 mol/L NaOH contains __ mmol of NaOH
+  answer: 3 | 3.0 | 3.00
+  x 300 :: [divided-instead] Multiply the volume by the concentration.
+  hint: Millilitres × moles per litre gives millimoles.
+  why: 30.0 × 0.100 = 3.00 mmol.
+M: Match each method to what it tells you.
+  pairs: Titration => How much acid or base is present | Mass spectrometry => The masses of molecules and their fragments | Infrared spectroscopy => Which bonds are present | Chromatography => The separate components of a mixture
+  hint: One measures amount, one mass, one bonds, and one separates.
+  why: Each method answers a different question. Real analyses often combine several.
+P: Four titres are 22.10, 22.12, 22.11 and 22.10 mL. The true value is 21.50 mL. How would you describe the results?
+  + Precise but not accurate :: They agree closely with each other and are all wrong by the same amount.
+  - Accurate but not precise :: [swapped-the-terms] Accuracy means closeness to the true value. These are far from it.
+  - Both accurate and precise :: [agreement-means-accuracy] Close agreement does not make results correct.
+  hint: Precision is agreement among results. Accuracy is agreement with the truth.
+  why: Tightly grouped but offset results point to a systematic error, such as a miscalibrated burette.
+>P: A laboratory must find a trace of one banned drug among hundreds of compounds in a urine sample. Which approach suits best?
+  + Chromatography to separate, then mass spectrometry to identify :: Separation first, identification second.
+  - Titration :: [one-method-fits-all] Titration measures a bulk amount of acid or base, not a trace in a mixture.
+  - Weighing the sample :: [mass-identifies] A total mass says nothing about what is in it.
+  hint: The sample is a complex mixture. What must happen before anything can be identified?
+  why: Coupled chromatography and mass spectrometry separates the mixture and then fingerprints each component.
+done: Match the method to the question, and report the uncertainty. Explore the measurement lab.
+
+@ chem.4.quantum-chem
+goal: Describe atomic orbitals, apply the filling order, and explain a chemical bond with molecular orbitals.
+intro: The Schrödinger equation gives each electron in an atom an orbital: a region where it is likely to be found. An s orbital is a sphere; a p orbital is a dumbbell. Each orbital holds at most two electrons.
+  show: table Subshell | Orbitals | Electrons at most ;; s | 1 | 2 ;; p | 3 | 6 ;; d | 5 | 10
+demo: Electrons fill the lowest energy orbitals first. Carbon's six electrons go 1s², 2s², 2p². Note that 4s fills before 3d.
+  show: chips 1s | 2s | 2p | 3s | 3p | 4s | 3d
+O: Put the orbitals in the order in which they fill.
+  items: 1s | 2s | 2p | 3s | 3p | 4s | 3d
+  ends: Fills first | Fills last
+  hint: 4s fills before 3d.
+  why: Orbitals fill in order of increasing energy: 1s, 2s, 2p, 3s, 3p, 4s, 3d.
+F: Count the electrons.
+  frame: A p subshell has three orbitals, so it holds up to __ electrons
+  answer: 6
+  x 3 :: [one-electron-per-orbital] Each orbital holds two electrons with opposite spins.
+  hint: Three orbitals, two electrons in each.
+  why: 3 × 2 = 6.
+P: Two hydrogen 1s orbitals overlap in phase. What is formed?
+  + A bonding orbital, lower in energy, with electron density between the nuclei :: That shared density holds the nuclei together.
+  - An antibonding orbital :: [confused-the-phases] Antibonding orbitals come from out-of-phase overlap and have a node between the nuclei.
+  - Nothing new: the orbitals stay separate :: [atoms-stay-atoms] Overlapping orbitals always combine into molecular orbitals.
+  hint: What does adding two waves in phase do between the two nuclei?
+  why: In-phase combination piles up electron density between the nuclei, lowering the energy: a bond.
+>P: Why does helium not form He₂?
+  + Its four electrons would fill the bonding and the antibonding orbital, giving no net bond :: The two effects cancel.
+  - Helium atoms are too small to touch :: [size-explains-bonding] Hydrogen atoms are smaller and bond readily.
+  - Helium has no electrons to share :: [no-electrons] Each helium atom has two.
+  hint: Count the electrons in bonding and antibonding orbitals for He₂.
+  why: Bond order = (2 − 2) ÷ 2 = 0. Filling the antibonding orbital undoes the bond.
+done: Orbitals explain the periodic table and the chemical bond together. Explore the quantum lab.
+
+@ chem.4.electrochem
+goal: Explain how a cell turns a redox reaction into a voltage, and apply the idea to batteries, electrolysis and corrosion.
+intro: A redox reaction can be split into two half-reactions in separate places. Electrons released by oxidation at the anode travel through a wire to the cathode, where reduction takes them up.
+  show: table Electrode | What happens ;; anode | oxidation: electrons are released ;; cathode | reduction: electrons are taken up
+demo: In a zinc–copper cell, zinc is oxidised at the anode and copper ions are reduced at the cathode. The standard potentials are −0.76 V and +0.34 V, so the cell gives 0.34 − (−0.76) = 1.10 V.
+  show: steps Anode: Zn → Zn²⁺ + 2 electrons ;; Cathode: Cu²⁺ + 2 electrons → Cu ;; Cell voltage: 0.34 − (−0.76) = 1.10 V
+F: Find a cell voltage from E°(cathode) − E°(anode).
+  frame: With a silver cathode (+0.80 V) and a zinc anode (−0.76 V), the cell gives __ V
+  answer: 1.56
+  x 0.04 :: [added-the-signed-values] Subtract the anode potential: 0.80 − (−0.76).
+  hint: Subtracting a negative number adds.
+  why: 0.80 − (−0.76) = 1.56 V.
+M: Match each part of a cell to its role.
+  pairs: Anode => Where oxidation happens | Cathode => Where reduction happens | Salt bridge => Lets ions move to balance the charge | Electrolyte => A solution that conducts by moving ions
+  hint: Electrons travel in the wire; ions travel in the solutions.
+  why: The external wire carries electrons, and the salt bridge completes the circuit with ions.
+P: How does electrolysis differ from a battery?
+  + An external supply forces a reaction that would not happen by itself :: Electrical energy is turned into chemical energy.
+  - It runs a spontaneous reaction more quickly :: [electrolysis-is-spontaneous] The reaction driven by electrolysis is not spontaneous.
+  - It needs no ions :: [no-ions-needed] Ions in the electrolyte carry the current.
+  hint: In which device is electrical energy the input rather than the output?
+  why: A battery converts chemical energy to electrical; electrolysis does the reverse.
+>P: Blocks of zinc are bolted to the steel hull of a ship. Why?
+  + Zinc is more easily oxidised, so it corrodes in place of the steel :: A sacrificial anode.
+  - Zinc is a waterproof coating :: [zinc-is-paint] The blocks cover only a tiny part of the hull.
+  - The zinc makes the hull stronger :: [zinc-is-structural] Its job is electrochemical, not mechanical.
+  hint: Compare the standard potentials of zinc and iron.
+  why: The more reactive metal becomes the anode and is consumed, keeping the iron as the protected cathode.
+done: Separate the half-reactions and you can harvest the electrons. Explore the circuits lab.
+
+@ chem.5.biochem
+goal: Relate the structure of life's macromolecules to their building blocks and their function.
+intro: Life runs on four families of large molecules: proteins, nucleic acids, polysaccharides and lipids. Each is assembled from a small set of building blocks.
+  show: table Macromolecule | Building blocks ;; protein | amino acids ;; nucleic acid | nucleotides ;; polysaccharide | sugars ;; triglyceride | glycerol and fatty acids
+demo: A protein's structure is described at four levels. The order of amino acids is the primary structure. Local helices and sheets are secondary. The fold of the whole chain is tertiary. Several chains assembled together are quaternary.
+  show: flow sequence > helices and sheets > folded chain > assembled chains
+M: Match each macromolecule to its building blocks.
+  pairs: Protein => Amino acids | Nucleic acid => Nucleotides | Polysaccharide => Sugars | Triglyceride => Glycerol and fatty acids
+  hint: Starch and cellulose are polysaccharides. DNA and RNA are nucleic acids.
+  why: Each family is built by joining its own kind of small unit.
+O: Put the levels of protein structure in order.
+  items: Primary: the sequence of amino acids | Secondary: local helices and sheets | Tertiary: the fold of the whole chain | Quaternary: several chains assembled
+  ends: Simplest | Most complex
+  hint: Each level is built from the one before.
+  why: Sequence determines local folding, which determines the overall fold, which determines how chains assemble.
+P: How does an enzyme speed up a reaction?
+  + It stabilises the transition state, lowering the activation energy :: More molecules can then react at body temperature.
+  - It supplies the energy the reaction needs :: [enzyme-is-fuel] An enzyme is not an energy source.
+  - It shifts the equilibrium towards the products :: [enzyme-shifts-equilibrium] An enzyme speeds both directions equally and leaves the equilibrium where it was.
+  hint: An enzyme is a catalyst. What does any catalyst change?
+  why: The active site binds the transition state best, reducing the barrier without altering the overall energy change.
+>P: Changing one amino acid, from glutamate to valine, on the surface of haemoglobin causes sickle-cell disease. What does this illustrate?
+  + The sequence determines how the protein folds and interacts :: One sticky patch makes the molecules clump into fibres.
+  - Sequence does not matter as long as the shape is right :: [sequence-is-irrelevant] The shape and behaviour both come from the sequence.
+  - Only large changes to a protein have any effect :: [small-changes-are-harmless] A single substitution out of hundreds of residues causes the disease.
+  hint: What decides how a protein folds and what it sticks to?
+  why: A charged residue replaced by a water-avoiding one creates a patch that binds other haemoglobin molecules.
+done: Sequence, structure, function: each explains the next. Explore molecular models.
+
+@ chem.5.materials
+goal: Explain how the structure of a material, from chains to nanoparticles, sets its properties.
+intro: A material's behaviour depends on how its atoms and molecules are arranged, at every scale. The same chemical ingredients can give a flexible bag or a rigid bottle.
+  show: table Material | Key to its properties ;; polymer | how the chains pack and link ;; nanomaterial | its size and large surface ;; semiconductor | its band gap
+demo: Polyethylene comes in two forms from the same monomer. Straight chains pack closely into a dense, rigid plastic. Branched chains cannot pack, giving a soft, flexible one.
+  show: table Chains | Packing | Plastic ;; straight | close | dense and rigid ;; branched | loose | soft and flexible
+C: Compare the two polymers made from the same monomer.
+  left: text Straight chains that lie closely side by side
+  right: text Branched chains whose side arms hold them apart
+  + The first is denser and more rigid :: Close packing lets the chains attract each other more strongly.
+  - The second is stronger because it has more atoms :: [more-atoms-means-stronger] Branches prevent close packing and weaken the forces between chains.
+  - They must behave identically, being the same substance :: [composition-is-everything] Arrangement matters as much as composition.
+  hint: Which chains can get close enough to hold on to each other?
+  why: Forces between chains depend on contact. Straight chains pack well, giving high-density polyethylene.
+G: Sort each material by its type.
+  bin Polymer: polyethylene | nylon | natural rubber
+  bin Nanomaterial: carbon nanotubes | quantum dots | gold nanoparticles
+  bin Semiconductor: silicon | gallium arsenide
+  hint: Long chains, tiny particles, or controlled conductivity?
+  why: Polymers are long chains, nanomaterials are defined by their size, and semiconductors by their band gap.
+P: Gold nanoparticles in water look red or purple, not gold. Why?
+  + At that size the electrons respond to light differently, so the colour depends on particle size :: Properties change with scale.
+  - The gold is impure :: [impurity-explains-colour] The particles are pure gold.
+  - A dye has been added :: [colour-is-added] No dye is needed. The colour is a property of the particles themselves.
+  hint: What changes when a piece of matter is only a few thousand atoms across?
+  why: The collective motion of electrons in a tiny particle absorbs particular colours, and the colour shifts with size.
+>P: You want to make a rubbery polymer stiffer and more resistant to heat. Which change would do it?
+  + Linking the chains together with covalent bonds :: Cross-links stop the chains sliding past each other.
+  - Adding a plasticiser :: [softener-stiffens] A plasticiser pushes chains apart and makes the material softer.
+  - Using shorter chains :: [shorter-is-stiffer] Shorter chains tangle less and usually weaken the material.
+  hint: What stops chains from sliding?
+  why: Cross-linking, as in vulcanised rubber, ties chains into a network that resists flow and heat.
+done: Structure at every scale is the designer's toolkit. Explore the condensed matter lab.
+
+@ chem.5.compchem
+goal: Match a computational method to the size and accuracy a chemical problem needs.
+intro: Chemists compute the behaviour of molecules with methods that trade accuracy against cost. Quantum methods are accurate but expensive. Classical force fields are fast but approximate.
+  show: table Method | Typical size | Accuracy ;; molecular mechanics | millions of atoms | modest ;; density functional theory | hundreds of atoms | good ;; coupled cluster | tens of atoms | very high
+demo: A geometry optimisation starts from a guessed structure, computes the energy and the forces on the atoms, moves the atoms downhill, and repeats until the forces vanish. The result is a minimum-energy structure.
+  show: flow guess a structure > compute energy and forces > move the atoms downhill > repeat until the forces are zero
+O: Put these methods in order of cost, cheapest first.
+  items: Molecular mechanics | Semi-empirical methods | Density functional theory | Coupled cluster
+  ends: Cheapest | Most expensive
+  hint: The more of the quantum behaviour a method treats explicitly, the more it costs.
+  why: Cost and accuracy rise together along this ladder, which is why large systems use the cheaper rungs.
+M: Match each term to its meaning.
+  pairs: Force field => Classical springs and charges fitted to data | Basis set => Functions used to build orbitals | Molecular dynamics => Following atoms' motion through time | Geometry optimisation => Finding a minimum-energy structure
+  hint: Two belong to classical simulation and two to quantum calculation.
+  why: Force fields drive molecular dynamics; basis sets underlie quantum calculations; optimisation is used with both.
+P: What does a geometry optimisation search for?
+  + An arrangement of atoms with minimum energy :: A structure where the forces on every atom vanish.
+  - The arrangement with the highest energy :: [maximised-instead] Stable structures sit at minima, not maxima.
+  - The fastest vibration of the molecule :: [confused-with-frequencies] Vibrations are calculated afterwards, at the optimised structure.
+  hint: Stable molecules sit at the bottom of an energy valley.
+  why: Optimisation follows the forces downhill until it reaches a stationary point of the energy surface.
+>P: You must simulate a protein of 50,000 atoms in water for microseconds. Which approach is feasible?
+  + Classical molecular dynamics with a force field :: Only a classical model can reach that size and time.
+  - Coupled cluster on the whole system :: [accuracy-over-feasibility] Its cost grows so steeply that tens of atoms is already demanding.
+  - Density functional theory at every time step :: [accuracy-over-feasibility] DFT handles hundreds of atoms, not tens of thousands for billions of steps.
+  hint: Compare the system size with the table in the introduction.
+  why: The choice of method is set by size and timescale. Accuracy that cannot be afforded is no accuracy at all.
+done: Choose the cheapest method that answers the question. Explore the numerical lab.
+
+@ chem.5.frontier
+goal: Apply the ideas of green chemistry and explain what makes a molecular machine possible.
+intro: Chemistry's frontier includes making what we need with less waste. Green chemistry measures a reaction by how many of its atoms end up in the wanted product, and prefers catalysts, safe solvents and mild conditions.
+  show: table Principle | Aim ;; atom economy | reactant atoms end up in the product ;; catalysis | small amounts, used many times ;; benign solvents | less hazard and less waste
+demo: Atom economy is the mass of wanted product as a percentage of the mass of all products. A reaction that makes 46 g of wanted product and 54 g of by-products has an atom economy of 46%.
+  show: bars Wanted=46 By-products=54 unit=g
+F: Calculate the atom economy.
+  frame: A reaction gives 30 g of wanted product and 20 g of by-product. Atom economy = __ %
+  answer: 60
+  x 150 :: [divided-by-the-waste] Divide the wanted product by the total of all products.
+  x 30 :: [gave-the-mass] 30 g is the mass of product, not a percentage of the total.
+  hint: Wanted ÷ (wanted + by-product).
+  why: 30 ÷ 50 = 0.60 = 60%.
+G: Does each choice follow green chemistry?
+  bin Follows the principles: a catalyst in place of an excess reagent | water as the solvent | a reaction with no by-products
+  bin Works against them: a step that needs a toxic solvent | a reagent used once and thrown away | extreme heat where milder conditions would work
+  hint: Less waste, less hazard, less energy.
+  why: Green chemistry reduces waste at the source instead of treating it afterwards.
+P: Why does green chemistry prefer a catalyst to a reagent used in full amounts?
+  + A small amount works again and again, so far less waste is made :: The catalyst is not consumed.
+  - Catalysts are always cheap :: [catalyst-is-cheap] Many are costly. Their value is that they are reused.
+  - A catalyst raises the temperature :: [catalyst-is-heat] A catalyst lowers the barrier. It supplies no heat.
+  hint: What happens to a catalyst at the end of the reaction?
+  why: Because it is regenerated, a catalyst can turn over many molecules, raising efficiency and cutting waste.
+>P: A molecular motor spins in one direction when light shines on it. Why must it be given energy to turn one way?
+  + Random thermal motion alone turns it equally in both directions :: Directed motion needs an energy input.
+  - Friction stops it otherwise :: [macroscopic-friction] At this scale the issue is random jostling, not sliding friction.
+  - Molecules cannot move without light :: [molecules-are-still] Molecules move constantly. The difficulty is giving that motion a direction.
+  hint: What does the second law say about getting directed work from random motion?
+  why: Without an energy source, forward and backward steps are equally likely. Light biases the cycle in one direction.
+done: The frontier is chemistry that wastes nothing and does work molecule by molecule.

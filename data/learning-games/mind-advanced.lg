@@ -1,0 +1,640 @@
+# Mind and society, stages 3 to 5 (ages 13 to adult).
+# Classify the argument, repair the inference, weigh the evidence,
+# and test each theory against its hardest case.
+
+@ mind.3.logic
+goal: Evaluate compound statements with truth tables, tell valid forms of argument from fallacies and negate statements about "all" and "some".
+intro: Formal logic studies arguments by their form alone. Letters stand for statements, connectives join them, and a truth table shows exactly when a compound statement is true. An argument form is valid if it can never lead from true premises to a false conclusion.
+  show: table P | Q | P and Q | P or Q | if P then Q ;; T | T | T | T | T ;; T | F | F | T | F ;; F | T | F | T | T ;; F | F | F | F | T
+demo: "If P then Q" is false in only one case: when P is true and Q is false. A promise, "if you tidy your room, you will get a treat", is broken only when the room is tidied and no treat arrives. If the room is never tidied, the promise has not been broken, whatever happens.
+  show: table The room is tidied? | A treat is given? | Is the promise kept? ;; yes | yes | kept ;; yes | no | broken ;; no | yes | kept ;; no | no | kept
+F: Read the truth table.
+  frame: When P is true and Q is false, "if P then Q" is __
+  answer: false | F
+  x true :: [conditional-misread] This is the one case in which a conditional fails: the "if" part holds and the "then" part does not.
+  hint: Look at the second row of the table.
+  why: A conditional is false exactly when its antecedent is true and its consequent false.
+G: Valid form or fallacy?
+  bin Valid: If P then Q. P. So Q. | If P then Q. Not Q. So not P. | P or Q. Not P. So Q.
+  bin Fallacy: If P then Q. Q. So P. | If P then Q. Not P. So not Q.
+  hint: Test each form with "if it rains, the ground is wet".
+  why: The valid forms are modus ponens, modus tollens and disjunctive syllogism. The fallacies are affirming the consequent and denying the antecedent: wet ground need not mean rain, and a dry sky need not mean dry ground.
+E: This is meant to be equivalent to "not (P and Q)". Repair it.
+  tokens: not P | and{or} | not Q
+  limit: 1
+  aim: Change one word so that the statement means the same as "not (P and Q)".
+  accept: 2=or
+  hint: If it is not true that both hold, then at least one of them fails.
+  why: "Not (P and Q)" is equivalent to "not P or not Q". This is one of De Morgan's laws: negation turns "and" into "or".
+P: Which statement is the negation of "All swans are white"?
+  + At least one swan is not white :: One counter-example is enough.
+  - No swans are white :: [contrary-not-contradictory] That goes too far. Both statements could be false together.
+  - All swans are black :: [contrary-not-contradictory] The original is false as soon as one swan is not white, whatever its colour.
+  hint: What is the least that would make the original false?
+  why: The negation of "all are" is "some are not". A single counter-example refutes a universal claim.
+>P: If the alarm is set, the light is on. The light is off. What follows?
+  + The alarm is not set :: If it were set, the light would be on.
+  - Nothing follows :: [missed-modus-tollens] A false consequent shows that the antecedent is false.
+  - The alarm is set :: [reversed] A set alarm would mean that the light was on, and it is off.
+  hint: Suppose that the alarm were set. What would the light be doing?
+  why: This is modus tollens: from "if P then Q" and "not Q", infer "not P".
+done: Check the form, not the subject matter. Translate one everyday argument into Ps and Qs and test it.
+
+@ mind.3.critical
+goal: Reason well under uncertainty: allow for base rates, spot biased samples and separate correlation from cause.
+intro: Critical thinking is the habit of asking what the evidence really shows. Most mistakes come from a few predictable errors: ignoring how common something is, examining only part of the evidence, and treating things that occur together as cause and effect.
+  show: table Trap | What goes wrong ;; base-rate neglect | ignoring how common the thing is ;; confirmation bias | noticing only what agrees with you ;; survivorship bias | examining only the cases that made it through ;; correlation as cause | assuming that A causes B because they occur together
+demo: A disease affects 1 person in 100. A test detects 90% of cases, and wrongly flags 9% of healthy people. You test positive. Of 1,000 people, 10 are ill and 9 of those test positive; 990 are healthy and about 89 of those test positive too. So of 98 positive results, only 9 are true.
+  show: table Group | Number | Test positive ;; ill | 10 | 9 ;; healthy | 990 | 89 ;; all positives | 98 | 9 true and 89 false
+F: Use the table of 1,000 people.
+  frame: Of the people who test positive, about __ % really have the disease
+  answer: 9 | 9.2 | 9.18
+  x 90 :: [ignored-the-base-rate] Ninety per cent is the share of ill people who test positive. The question asks the reverse: of the positives, how many are ill?
+  x 1 :: [ignored-the-test] One per cent was the chance before testing. A positive result raises it, to 9 out of 98.
+  hint: Divide the true positives by all the positives.
+  why: 9 ÷ 98 is about 9%. Because the disease is rare, false alarms from the many healthy people outnumber the true positives.
+M: Match each bias to its description.
+  pairs: Confirmation bias => Noticing only the evidence that supports what you already believe | Anchoring => Leaning too heavily on the first number you hear | Availability => Judging likelihood by how easily examples come to mind | Survivorship bias => Examining only the cases that made it through | Hindsight bias => Feeling, afterwards, that the outcome was obvious
+  hint: Which bias makes dramatic events seem commoner than they are?
+  why: Naming a bias is the first step towards catching it in yourself.
+K: In wartime, bombers return from missions with bullet holes. Where should extra armour go? Turn over as few facts as you need to decide.
+  clue Holes: On the returning planes, most holes are in the wings and tail, and very few in the engines.
+  clue Sample: Only the planes that returned could be examined.
+  clue Paint: The planes are painted grey.
+  clue Crew: Each plane carries a crew of seven.
+  need: 1,2
+  + Armour the engines :: Planes hit there did not come back to be counted.
+  - Armour the wings and tail :: [survivorship-bias] Those planes survived their damage. The holes show where a plane can be hit and still fly home.
+  hint: What happened to the planes that were hit in the places where you see no holes?
+  why: The sample contains only survivors. The absence of engine damage among them means that engine damage was fatal.
+P: Ice-cream sales and deaths by drowning rise and fall together through the year. What is the best explanation?
+  + A third factor, hot weather, raises both :: Neither causes the other.
+  - Ice cream causes drowning :: [correlation-as-cause] Two things that move together need not be cause and effect.
+  - Drownings make people buy ice cream :: [reversed-cause] There is no such mechanism. Look for a common cause.
+  hint: What else changes with the seasons?
+  why: A correlation can come from a common cause. Before inferring causation, ask what else could drive both.
+>P: A website for a supplement displays fifty glowing testimonials. What is the most important missing information?
+  + How many people tried it and were not helped, and how a comparison group fared :: Testimonials are a selected sample.
+  - More testimonials :: [more-of-the-same] Any number of selected successes says nothing about the failures.
+  - The price :: [irrelevant-factor] The price does not bear on whether it works.
+  hint: Who chose which stories appear on the page?
+  why: Evidence chosen by an interested party shows only the hits. Without the misses and a comparison, it cannot show an effect.
+done: Ask how common it is, who is missing and what else could explain it. Apply the three questions to one claim you meet this week.
+
+@ mind.3.psychology
+goal: Explain how people learn, think and develop, and read a psychological study critically.
+intro: Psychology studies mind and behaviour by scientific methods. It asks how we learn from experience, how thinking develops through childhood and how to tell a real effect from a coincidence.
+  show: table Kind of learning | How it works | Example ;; classical conditioning | two stimuli become linked | a dog salivates at a bell ;; operant conditioning | consequences shape behaviour | a reward increases a behaviour ;; observational learning | watching others | a child copies an adult
+demo: Water is poured from a short, wide glass into a tall, thin one, in front of a four-year-old. Asked whether there is now more water, she says yes, "because it is higher". At seven she will answer, without hesitation, that it is the same. Her thinking has changed, not her eyesight.
+  show: flow a short, wide glass > poured into a tall, thin glass > "more": age four > "the same": age seven
+M: Match each term to its meaning.
+  pairs: Classical conditioning => Learning to link two stimuli | Operant conditioning => Behaviour shaped by its consequences | Observational learning => Learning by watching others | Working memory => Holding and using information for a few seconds | Reinforcement => Any consequence that makes a behaviour more likely
+  hint: Reinforcement always increases a behaviour.
+  why: These are the basic mechanisms by which experience changes behaviour.
+O: Put Piaget's stages of cognitive development in order.
+  items: Sensorimotor: knowing through the senses and actions | Preoperational: symbols and language, but one viewpoint | Concrete operational: logical thought about real things | Formal operational: abstract and hypothetical thought
+  ends: First | Last
+  hint: Abstract reasoning comes last.
+  why: On Piaget's account, children move from knowing by acting, to symbols, to logic about concrete things, to abstract thought.
+P: A car beeps until the driver fastens the seat belt. Fastening it makes the beep stop, and so drivers fasten up more often. What is this?
+  + Negative reinforcement: removing something unpleasant strengthens the behaviour :: The behaviour increases.
+  - Punishment :: [reinforcement-punishment-confused] Punishment reduces a behaviour. Here a behaviour increases.
+  - Classical conditioning :: [wrong-mechanism] The driver's own action is being shaped by its consequence.
+  hint: Does the behaviour become more frequent or less?
+  why: "Negative" means that something is removed, and "reinforcement" means that the behaviour increases. It is not punishment.
+G: In an experiment on whether caffeine speeds reactions, what is each of these?
+  bin Independent variable: the dose of caffeine given
+  bin Dependent variable: the reaction time measured
+  bin Controlled: the time of day | the task used | the participants' ages
+  hint: What does the experimenter change, what is measured, and what is kept the same?
+  why: The experimenter changes the independent variable, measures the dependent one and holds everything else constant.
+>P: A study finds that children who eat breakfast get better marks. Can we conclude that breakfast causes better marks?
+  + Not from this alone: families that give breakfast may differ in other ways, and only random assignment could separate the two :: Correlation is not yet cause.
+  - Yes: the data show it :: [correlation-as-cause] The data show an association. Other differences between the families could explain it.
+  - No: breakfast certainly has no effect :: [overcorrection] The study does not rule out an effect. It simply cannot establish one.
+  hint: In what other ways might breakfast-eating households differ?
+  why: An observational study cannot exclude confounding. An experiment that assigns breakfast at random could.
+done: Mechanism, development and method. Find one headline about psychology and identify the design of the study behind it.
+
+@ mind.3.ethics
+goal: Compare the major moral theories by what each treats as fundamental, and apply them to cases that pull them apart.
+intro: Ethics asks how we ought to act. Three families of theory give different accounts of what makes an act right: its consequences, its conformity to duty, or the character that it expresses.
+  show: table Theory | Asks | Associated with ;; consequentialism | which act produces the best results? | Bentham, Mill ;; deontology | which act does duty require? | Kant ;; virtue ethics | what would a person of good character do? | Aristotle
+demo: A runaway tram will kill five people on the track ahead. You can pull a lever to divert it onto a side track, where it will kill one. Most people say: pull it. Now suppose instead that the only way to stop the tram is to push a large man off a bridge into its path. The numbers are the same, yet most people say: do not push.
+  show: table Case | Act | Outcome | What most people judge ;; the lever | divert the tram | one dies, five live | permissible ;; the bridge | push a man | one dies, five live | wrong
+M: Match each theory to what it treats as fundamental.
+  pairs: Consequentialism => The results of the act | Deontology => Duties and rights that hold whatever the results | Virtue ethics => The character that the act expresses | Contractualism => Principles that nobody could reasonably reject
+  hint: Which theory would never ask what happens next?
+  why: Each theory starts from a different question: outcomes, duties, character or justifiability to others.
+G: Which theory lies behind each reason?
+  bin Consequentialist: It would produce the most happiness overall. | It would prevent the most suffering.
+  bin Deontological: It would treat a person merely as a means. | I gave my word, and so I must.
+  bin Virtue-based: It is what an honest person would do. | It would be cowardly not to.
+  hint: Is the reason about results, about duty or about character?
+  why: Reasons reveal the theory at work. The same act may be defended by all three in different words.
+C: The lever and the bridge have the same outcome: one dies, and five live. Why do many people judge them differently?
+  left: text The lever: the one death is a side effect of diverting the tram.
+  right: text The bridge: the man's death is the means by which the five are saved.
+  + In the bridge case a person is used as a means, which many take to be wrong whatever the outcome :: The cases differ in how the death comes about.
+  - There is no difference; people are simply inconsistent :: [numbers-only] The cases differ in a way that many moral theories count as relevant.
+  - More people die in the bridge case :: [misread-the-case] The numbers are identical.
+  hint: In which case would the plan fail if the one person were not there?
+  why: The pair shows that outcomes are not all that people care about. How a result is brought about matters too.
+P: Kant's test asks whether you could will that everyone act on your principle. Apply it to: "I shall make false promises whenever it suits me."
+  + It fails: if everyone did so, nobody would trust a promise, and promising would be impossible :: The principle undermines itself.
+  - It passes: lying sometimes produces good results :: [switched-to-consequences] Kant's test concerns consistency, not results.
+  - It cannot be applied to promises :: [misunderstood-the-test] False promising is Kant's own central example.
+  hint: What would happen to promising if everybody did this?
+  why: A principle that could not work if everyone followed it fails the test of universalisability.
+>P: A surgeon could save five dying patients by secretly taking the organs of one healthy visitor. Almost everyone judges this to be wrong. What does that suggest about a simple calculation of total benefit?
+  + Numbers alone leave something out: rights, justice, or the trust on which hospitals depend :: A theory must account for the judgement.
+  - The surgeon should do it: five is more than one :: [numbers-only] That is the conclusion which nearly everyone finds unacceptable.
+  - Ethics is only opinion :: [relativist-retreat] Near-universal agreement on the case is evidence about morality, not a sign that anything goes.
+  hint: What would become of hospitals if this were allowed?
+  why: Hard cases test theories. A theory that implies the surgeon should operate must either explain the intuition away or be revised.
+done: Results, duties, character: three questions to ask of any act. Take one decision from your own week and ask all three.
+
+@ mind.3.philosophy-intro
+goal: Place the major Western philosophers in sequence and state the central idea and method of each.
+intro: Western philosophy is a conversation across twenty-five centuries. Each thinker answers those before. Knowing the order and the main ideas lets you follow the argument.
+  show: time 400 BCE=Socrates and Plato | 340 BCE=Aristotle | 1640=Descartes | 1740=Hume | 1780=Kant
+demo: Socrates wrote nothing. He questioned people in the marketplace of Athens. Asked "What is courage?", a general would give a definition, and Socrates would produce a case that did not fit it. The general would try again. The method exposes what we do not know, and that is where inquiry begins.
+  show: flow ask for a definition > find a case that does not fit > revise > ask again
+O: Put the philosophers in order.
+  items: Socrates | Plato | Aristotle | Descartes | Hume | Kant
+  ends: Earliest | Latest
+  hint: Plato was a pupil of Socrates, and Aristotle of Plato. Kant said that reading Hume had woken him up.
+  why: Three Greeks, teacher to pupil, and then three moderns, each answering the last.
+M: Match each philosopher to a central idea.
+  pairs: Socrates => The unexamined life is not worth living | Plato => True reality lies in unchanging Forms beyond appearances | Aristotle => Knowledge begins from observation; virtue is a mean | Descartes => "I think, therefore I am" | Hume => All knowledge of the world comes from experience | Kant => The mind shapes the experience that it has
+  hint: Descartes sought certainty through doubt; Hume doubted even cause and effect.
+  why: Each idea answers the question of what we can know and how.
+G: Rationalist or empiricist?
+  bin Rationalist: Descartes | Spinoza | Leibniz
+  bin Empiricist: Locke | Berkeley | Hume
+  hint: Rationalists trust reason; empiricists trust experience.
+  why: The rationalists held that reason alone can yield knowledge of reality. The empiricists held that all such knowledge comes through the senses.
+P: In Plato's story of the cave, prisoners see only shadows on a wall and take them for reality. What do the shadows stand for?
+  + The appearances that we mistake for the whole truth :: Reality lies beyond them.
+  - Evil spirits :: [literal-reading] The story is an allegory about knowledge, not a tale of the supernatural.
+  - Real things, seen clearly :: [reversed-the-allegory] The shadows are what is furthest from real.
+  hint: What do the prisoners wrongly believe about the shadows?
+  why: The allegory pictures ordinary opinion as a shadow of reality, and education as the turn towards the light.
+>P: Descartes resolves to doubt everything that he can: his senses, the world, even mathematics. What can he not doubt, and why?
+  + That he is thinking: to doubt is to think, and so a thinker exists :: The doubt proves the doubter.
+  - That the physical world exists :: [not-beyond-doubt] He could be dreaming or deceived about the world.
+  - Nothing at all :: [missed-the-argument] The very act of doubting establishes one certainty.
+  hint: What must be true for any doubting to be going on?
+  why: "I think, therefore I am": the existence of the thinker survives every doubt, because doubting is a kind of thinking.
+done: A conversation across centuries. Read one short dialogue of Plato and watch the method at work.
+
+@ mind.3.social-science
+goal: Choose the right method for a question about society, recognise a biased sample and connect individual lives to social patterns.
+intro: The social sciences study how people live together: in families, markets, organisations and nations. Because people cannot be put in test tubes, the choice of method matters greatly, and so does the question of who is being studied.
+  show: table Method | Good for ;; survey | measuring how common something is ;; interview | understanding experience in depth ;; participant observation | seeing how a setting really works ;; experiment | testing cause and effect
+demo: In 1936 an American magazine polled 2.4 million people and predicted a landslide defeat for the president. He won by a landslide instead. The names had been drawn from lists of telephone and car owners, who in the Depression were richer than most voters. A huge sample was beaten by a small representative one.
+  show: bars Magazine_poll=2400000 A_scientific_poll=50000 unit=people_asked
+M: Match each research question to the method that suits it.
+  pairs: What share of adults support the policy? => A survey of a representative sample | How do night-shift nurses experience their work? => In-depth interviews | How does a street market actually operate? => Participant observation | Does a reminder letter raise tax payments? => A randomised experiment | How has household size changed since 1900? => Census records
+  hint: "How many?" needs numbers. "What is it like?" needs words.
+  why: The method follows from the question: prevalence, experience, practice, cause or change over time.
+P: Why did the enormous poll of 1936 fail?
+  + Its sample was biased towards the better-off, and size cannot cure bias :: Who is asked matters more than how many.
+  - It asked too few people :: [size-as-quality] It asked millions. The fault lay in who they were.
+  - People lied to the pollsters :: [wrong-diagnosis] The problem was the lists from which the sample was drawn.
+  hint: Who owned telephones and cars in 1936?
+  why: A sample must resemble the population. A biased sample only gives the wrong answer with more confidence as it grows.
+G: Quantitative or qualitative?
+  bin Quantitative: the percentage who voted | the average household income | the number of visits per week
+  bin Qualitative: a transcript of an interview | a researcher's field notes | a description of a ritual
+  hint: Is it counted, or described?
+  why: Quantitative data measure how much and how many. Qualitative data capture meaning and experience. Many studies use both.
+C: Two ways of explaining why a person is unemployed.
+  left: text She did not try hard enough.
+  right: text The town's largest employer closed, and unemployment in the town doubled in a year.
+  + The right connects a personal trouble to a public issue that no individual controls :: The pattern points beyond the person.
+  - The left: individuals are responsible for their own lives :: [individual-only] When unemployment doubles in a year, a sudden loss of effort is not a plausible cause.
+  - Both are equally good explanations :: [ignored-the-pattern] The town-wide change is evidence for the structural account.
+  hint: Did thousands of people become lazy in the same year?
+  why: Seeing personal troubles in the light of social patterns is what one sociologist called the "sociological imagination".
+>P: A news website runs a poll that anyone may answer, and 80% of those who respond oppose a policy. Does this measure public opinion?
+  + No: the respondents chose themselves and are not representative :: Those who feel strongly, and who read that site, respond.
+  - Yes: 80% is a clear majority :: [ignored-the-sample] The percentage is beside the point if the sample is unrepresentative.
+  - Yes, if enough people answered :: [size-as-quality] More self-selected answers leave the bias untouched.
+  hint: Who decides to answer such a poll?
+  why: Self-selection biases a sample however large it grows. Representative sampling is what makes a poll informative.
+done: Fit the method to the question, and check who was asked. Look at the methods section of one survey reported in the news.
+
+@ mind.4.epistemology
+goal: Analyse what knowledge is, test the classic definition against counter-examples and compare theories of justification.
+intro: Epistemology asks what it is to know something, and whether we know as much as we suppose. The classical answer is that knowledge is belief that is both true and justified. Small, exact counter-examples have shown that this is not the whole story.
+  show: table Condition | Meaning ;; belief | you accept the claim ;; truth | the claim is so ;; justification | you have good reason to accept it
+demo: You glance at a clock that reads three o'clock, and you form the belief that it is three. It is three. But the clock stopped exactly twelve hours ago. Your belief is true, and you had good reason for it. Yet it seems wrong to say that you knew the time: you were right by luck.
+  show: flow the clock stopped at three > you look at three > you believe it is three > true, justified, and lucky
+P: In the case of the stopped clock, your belief is true and justified. What does the case show?
+  + That justified true belief is not sufficient for knowledge, since a belief can be true by luck :: Something further is needed.
+  - That you do know the time :: [definition-is-sufficient] Most people judge that being right by accident is not knowing.
+  - That clocks can never give knowledge :: [overgeneralised] A working clock does. The trouble here is the luck.
+  hint: Would you have believed the same thing if it had been four o'clock?
+  why: Cases of this kind, named after Edmund Gettier, show that the three conditions can be met by accident. Knowledge seems to need a non-accidental link to the truth.
+G: Can it be known without checking the world?
+  bin Knowable by reasoning alone: 2 + 3 = 5 | All bachelors are unmarried | Nothing is both red all over and green all over
+  bin Knowable only by experience: Water boils at 100 °C at sea level | The cat is on the mat | Rome is in Italy
+  hint: Could you settle it while sitting in an armchair?
+  why: A priori knowledge rests on reasoning alone. A posteriori knowledge depends on observation.
+M: Match each position to its claim.
+  pairs: Scepticism => We know far less than we suppose, perhaps nothing of the external world | Foundationalism => Knowledge rests on basic beliefs that need no further support | Coherentism => Beliefs are justified by fitting together with one another | Reliabilism => A belief is justified if a reliable process produced it | Fallibilism => We can know without being certain
+  hint: One of these pictures knowledge as a building, and another as a web.
+  why: Each position answers the question of what justifies a belief, and where justification comes to an end.
+P: Each belief is justified by another, which needs justifying in turn. Which position stops the regress with beliefs that need no further support?
+  + Foundationalism :: Some beliefs are basic.
+  - Coherentism :: [wrong-solution] Coherentism denies that there is a chain. Beliefs support one another in a web.
+  - Scepticism :: [wrong-solution] The sceptic concludes that justification never gets started.
+  hint: Which view holds that the chain ends somewhere?
+  why: Foundationalism ends the regress in basic beliefs. Its rivals reject the picture of a chain, or accept the regress.
+>P: A man drives through a district in which, unknown to him, nearly all the barns are painted facades. He happens to look at the one real barn and believes, "That is a barn." Does he know?
+  + Many say that he does not: he would have believed the same of a fake, so his being right is luck :: His method is unreliable in that district.
+  - Yes: his belief is true and justified :: [definition-is-sufficient] That is the very definition which the case is designed to test.
+  - No, because his belief is false :: [misread-the-case] His belief is true. He is looking at the one real barn.
+  hint: How easily could he have been wrong?
+  why: The case suggests that knowledge needs a belief that could not easily have been false, or a method that is reliable in the circumstances.
+done: True, justified, and not by luck. Take one thing you are sure of and ask how you know it.
+
+@ mind.4.metaphysics
+goal: Analyse central metaphysical problems (identity through time, causation, free will) by setting out the positions and what each must give up.
+intro: Metaphysics asks about the most general features of reality: what exists, what makes a thing the same thing over time, what causing is, and whether we act freely. Its problems are sharpened by cases in which our intuitions collide.
+  show: table Position on free will | Claim ;; hard determinism | every event is caused, so nobody is free ;; libertarianism | some choices are not determined, so we are free ;; compatibilism | freedom is acting on one's own reasons, and is consistent with determinism
+demo: One billiard ball strikes another, and the second moves. We say that the first caused the second to move. Hume asked what we actually observe. We see one event and then another, and events of the first kind regularly followed by events of the second. We never see the "must": the necessity that we take to link them.
+  show: flow ball A moves > the balls touch > ball B moves > where is the "must"?
+M: Match each position to its claim.
+  pairs: Determinism => Every event is fixed by earlier causes and the laws of nature | Libertarianism => Some choices are not determined, and those are free | Compatibilism => Free action is consistent with determinism | Dualism => Mind and body are distinct kinds of thing | Physicalism => Everything that exists is physical
+  hint: Here "libertarianism" names a view about free will, not about politics.
+  why: These positions map the logical space. Each accepts some intuitions and rejects others.
+C: She chooses tea because she prefers it. Her preference was fixed by her upbringing and her biology. Was her choice free?
+  left: text Free means: she could have chosen otherwise in exactly the same circumstances.
+  right: text Free means: she acted on her own reasons, without compulsion.
+  + On the left definition, not if determinism is true; on the right definition, yes :: The answer depends on what freedom is.
+  - Free on both definitions :: [conflated-the-definitions] If her preference was fixed, she could not have chosen otherwise in those exact circumstances.
+  - Unfree on both definitions :: [conflated-the-definitions] Nobody compelled her. She did what she wanted.
+  hint: Apply each definition in turn.
+  why: Much of the debate over free will is a debate about which notion of freedom matters for responsibility.
+G: Necessary or contingent?
+  bin Necessary: A triangle has three sides | 2 + 2 = 4 | Nothing is taller than itself
+  bin Contingent: Paris is the capital of France | There are eight planets | It rained yesterday
+  hint: Could it have been otherwise?
+  why: A necessary truth could not have been false. A contingent truth is true, but might not have been.
+P: According to Hume, what do we actually observe when one event causes another?
+  + One kind of event regularly followed by another; the necessary connection is not observed :: The "must" is contributed by the mind.
+  - A force passing from one object to the other :: [assumed-observable-necessity] Hume's point is that no such link shows up in experience.
+  - Nothing at all :: [overstated] We observe the events and their regular sequence.
+  hint: Describe the billiard balls using only what can be seen.
+  why: Hume held that our idea of necessity comes from habit: having seen A followed by B again and again, we come to expect B.
+>P: A machine scans you, destroys the original, and builds on Mars an exact copy with all your memories and character. Which theory of personal identity says that the person on Mars is you?
+  + The psychological-continuity theory: your memories and character continue :: What matters is the mental life.
+  - The bodily-continuity theory :: [wrong-theory] Your body was destroyed, so on this theory you did not survive.
+  - No theory could say so :: [dismissed-the-view] The psychological theory says exactly that, and many philosophers defend it.
+  hint: What continues, and what does not?
+  why: Thought experiments separate things that normally go together, body and mind, to reveal which of them we take identity to consist in.
+done: Set out the positions and see what each must give up. Put the teleporter case to a friend and argue it through.
+
+@ mind.4.cognitive-sci
+goal: Explain the mind as an information-processing system, distinguish levels of explanation and read behavioural evidence about mental processes.
+intro: Cognitive science studies the mind by combining psychology, neuroscience, linguistics, computer science, philosophy and anthropology. Its central idea is that thinking is the processing of information, which can be studied at several levels at once.
+  show: table Level | Question | Example for vision ;; computational | what problem is being solved? | recover depth from two flat images ;; algorithmic | by what procedure? | match features and measure their offset ;; implementational | in what physical system? | neurons tuned to particular offsets
+demo: Say aloud the colour of the ink in which a word is printed. If the word is "RED" printed in blue ink, you slow down, and you may say "red" by mistake. Reading is so automatic that it cannot be switched off, and it interferes with naming the colour. A delay of a fraction of a second reveals two processes in conflict.
+  show: table The word | The ink | The response ;; BLUE | blue | fast ;; RED | blue | slow
+G: At which level of explanation is each statement?
+  bin Computational: The system must recover depth from two flat images.
+  bin Algorithmic: It matches features in the two images and measures how far apart they lie.
+  bin Implementational: Cells in the visual cortex respond to particular offsets. | The signals travel along the optic nerve.
+  hint: What is to be done, how it is done step by step, or in what physical material?
+  why: A full explanation of any mental ability needs all three levels: the task, the procedure and the machinery.
+M: Match each discipline to what it contributes.
+  pairs: Psychology => Experiments on behaviour | Neuroscience => The structure and activity of the brain | Linguistics => The structure of language | Computer science => Working models of cognitive processes | Philosophy => Analysis of the concepts and arguments | Anthropology => How thinking varies across cultures
+  hint: Which discipline builds models and runs them?
+  why: No single method reaches the mind. The field depends on evidence of several kinds converging.
+P: In the colour-naming task, what does the slowing on "RED" in blue ink reveal?
+  + Reading is automatic, and interferes with the slower, controlled task of naming a colour :: Two processes compete.
+  - People cannot see colours clearly :: [wrong-explanation] They name the colours of plain patches quickly and accurately.
+  - The task is too hard to perform :: [overstated] People succeed. It simply takes measurably longer.
+  hint: What does your mind do with a word whether you want it to or not?
+  why: Reaction times expose the structure of mental processing: automatic processes run without intention and are hard to suppress.
+F: Short-term memory has a small capacity.
+  frame: The classic estimate of its span is about __ items, give or take two
+  answer: 7 | seven
+  x 20 :: [overestimated] The classic estimate is far smaller.
+  hint: Think of the length of a telephone number without its area code.
+  why: The classic figure is seven, plus or minus two. Later work suggests about four chunks when rehearsal is prevented.
+>P: A neural network learns to label photographs of cats very accurately. Does this show that it has the concept of a cat as people do?
+  + Not by itself: equal performance leaves open whether its representations resemble ours, which must be tested by how it generalises and where it fails :: The same output can come from a different process.
+  - Yes: the same answers mean the same understanding :: [behaviour-equals-mechanism] Different procedures can compute the same function.
+  - No: a machine cannot represent anything :: [dismissed-in-advance] That is an assumption. Whether and how it represents is a question for evidence.
+  hint: Recall the three levels. Which one does accuracy on a task tell you about?
+  why: Matching behaviour settles the computational level only. Claims about how a system does the task need evidence about its procedure.
+done: Task, procedure, machinery. Try the colour-naming test on a friend and time it.
+
+@ mind.4.ethics-adv
+goal: Analyse what moral claims mean and whether they can be true, and construct and assess arguments in applied ethics.
+intro: Metaethics steps back from asking what is right, and asks what we are doing when we call something right: describing a fact, expressing an attitude or reporting a convention. Applied ethics brings argument to bear on particular questions, one premise at a time.
+  show: table Position | What "cruelty is wrong" does ;; moral realism | states a fact that holds whatever anyone thinks ;; expressivism | expresses disapproval; it describes nothing ;; error theory | tries to state a fact, but there are no such facts ;; relativism | states what a given culture disapproves of
+demo: "People naturally favour their own relatives. Therefore people ought to favour their own relatives." The premise describes; the conclusion prescribes. Nothing in a statement of how things are, taken alone, yields how they ought to be. A further premise linking "natural" to "right" is needed, and that premise can be disputed.
+  show: flow what is: people favour their kin > a missing premise: what is natural is right > what ought to be: people should favour their kin
+M: Match each metaethical position to its claim.
+  pairs: Moral realism => There are moral facts that hold whatever anyone thinks | Expressivism => Moral statements express attitudes and do not describe facts | Error theory => Moral statements aim at facts, but there are none, so all are false | Relativism => Moral truth is relative to a culture | Constructivism => Moral truths are what would be agreed under ideal conditions
+  hint: Error theory and expressivism both deny that there are moral facts, in different ways.
+  why: The positions differ over whether moral statements can be true and, if so, what makes them true.
+P: "People naturally favour their own relatives; therefore they ought to." What is wrong with this argument?
+  + It moves from a statement of what is to a statement of what ought to be, with no premise linking the two :: The link is missing.
+  - Its premise is false :: [attacked-the-premise] The premise may well be true. The fault lies in the inference.
+  - Nothing: what is natural is right :: [supplied-the-missing-premise] That is the unstated premise, and it is highly disputable: much that is natural is harmful.
+  hint: What kind of statement is the premise, and what kind is the conclusion?
+  why: This is Hume's gap between "is" and "ought". An evaluative conclusion needs an evaluative premise.
+B: Assemble an argument for giving to effective charities.
+  bank: Premise 1: suffering and death from want of food and medicine are bad. | Premise 2: if we can prevent something bad without giving up anything comparably important, we ought to do so. | Premise 3: by giving to effective aid we can prevent such suffering at small cost. | Conclusion: we ought to give to effective aid. | Most people do not give very much. | Charity is admirable.
+  answer: Premise 1: suffering and death from want of food and medicine are bad. | Premise 2: if we can prevent something bad without giving up anything comparably important, we ought to do so. | Premise 3: by giving to effective aid we can prevent such suffering at small cost. | Conclusion: we ought to give to effective aid.
+  x Most people do not give very much. :: [is-for-ought] What people do does not show what they ought to do.
+  x Charity is admirable. :: [too-weak] "Admirable" suggests an optional extra. The argument concludes that giving is required.
+  hint: A value, a principle, a fact, and then what follows.
+  why: Set out in this way, the argument is valid. To reject the conclusion you must reject a premise, and most critics challenge the second.
+C: Two cases, each costing you the price of a pair of shoes.
+  left: text A child is drowning in a pond in front of you. Wading in will ruin your shoes.
+  right: text A child far away will die of a preventable disease unless you donate the price of the shoes.
+  + It claims that distance makes no moral difference; critics answer that the duty is too demanding, or that those near us have special claims :: The dispute is over which differences matter.
+  - The cases are plainly different, because one child is far away :: [asserted-without-reason] That needs an argument for why distance matters morally.
+  - The cases are identical in every respect :: [ignored-the-differences] They differ in directness, in certainty and in how many others could help.
+  hint: List the differences, and then ask which of them could justify treating the cases differently.
+  why: Applied ethics proceeds by finding the features that differ between cases, and asking whether each is morally relevant.
+>P: A relativist says, "Whatever a culture approves is right for that culture." A society practises slavery, and reformers within it condemn the practice. What difficulty does the relativist face?
+  + On this view the reformers are simply mistaken, and moral progress cannot be described as progress :: The view has consequences that few accept.
+  - None: the view handles the case well :: [accepted-the-implication] It implies that those who opposed slavery were wrong while it was approved.
+  - The case proves that moral realism is true :: [overclaimed] It is a serious objection to simple relativism. It does not establish any one alternative.
+  hint: According to the view, who is right: the majority, or the reformers?
+  why: A theory is tested by what it implies. Simple relativism implies that a society's reformers are always wrong until they have won.
+done: Find the missing premise, and test the theory by what it implies. Set out one argument that you accept in numbered steps.
+
+@ mind.4.philsci
+goal: Explain what separates science from pseudoscience, why a failed prediction does not simply refute a theory, and how scientific change takes place.
+intro: The philosophy of science asks what makes scientific knowledge reliable. The obvious answers, that science proves its theories or that one failed prediction refutes a theory, both turn out to be too simple.
+  show: table Thinker | Idea ;; Hume | no argument from past cases guarantees the next one ;; Popper | science is marked by claims that could be shown false ;; Duhem and Quine | a prediction tests a whole bundle of assumptions ;; Kuhn | science alternates between normal work and revolutions ;; Lakatos | judge a research programme by whether it keeps predicting new facts
+demo: In the 1840s the planet Uranus was not moving as Newton's theory predicted. Astronomers did not abandon Newton. They proposed an unseen planet pulling on Uranus, calculated where it must be, and found Neptune. Later, Mercury's orbit also misbehaved. The same rescue was tried, with a planet called Vulcan, and it failed. That anomaly was explained only by a new theory, general relativity.
+  show: table Anomaly | Rescue proposed | Outcome ;; the orbit of Uranus | an unseen planet | Neptune was found ;; the orbit of Mercury | an unseen planet | nothing was found; a new theory was needed
+G: Could an observation show it to be false?
+  bin Falsifiable: All swans are white. | This drug lowers blood pressure more than a placebo does. | Light is bent by this amount when it passes the Sun.
+  bin Unfalsifiable: Whatever happens was meant to happen. | An undetectable spirit guides every event. | You will face both challenges and opportunities.
+  hint: Can you describe an observation that would count against it?
+  why: A falsifiable claim forbids something. A claim that fits every possible outcome tells us nothing about which outcome to expect.
+M: Match each thinker to the idea.
+  pairs: Hume => No argument from past cases guarantees the next one | Popper => Science is marked by claims that could be shown false | Duhem and Quine => A prediction tests a whole bundle of assumptions together | Kuhn => Normal science is punctuated by revolutions | Lakatos => A programme is healthy while it predicts new facts
+  hint: Kuhn made the word "paradigm" famous.
+  why: Each idea complicates the simple picture of science as proof or as straightforward refutation.
+P: What do the cases of Uranus and Mercury show about a failed prediction?
+  + The failure alone does not say which assumption is at fault: the theory, or a background assumption :: Sometimes the rescue succeeds and sometimes it does not.
+  - A single failed prediction refutes a theory at once :: [naive-falsification] Had that rule been followed, Newton's theory would have been abandoned just before one of its greatest successes.
+  - Scientists never give up a theory :: [overcorrection] The anomaly of Mercury did, in the end, require a new theory.
+  hint: In both cases, what was proposed in place of abandoning Newton?
+  why: A prediction follows from a theory together with background assumptions. When it fails, logic alone does not say which to change.
+C: Which theory is better supported by the evidence?
+  left: text A theory that can account for any outcome whatever.
+  right: text A theory that forbids many outcomes, none of which has ever been observed.
+  + The right: it took risks that could have exposed it, and survived :: Its agreement with the evidence means something.
+  - The left: it explains more :: [explains-everything] A theory compatible with every outcome is supported by none.
+  - They are equally well supported :: [missed-the-asymmetry] Only the right-hand theory could have failed.
+  hint: Which theory would have been embarrassed by some possible observation?
+  why: Evidence supports a theory only to the extent that the theory could have been contradicted by it.
+>P: An astrologer's prediction fails. She explains that "the influence was masked by another planet", and makes no new prediction. How does this compare with the proposal of Neptune?
+  + Neptune was a rescue that made a new, risky and confirmed prediction; this is a patch after the fact that predicts nothing :: One programme was progressing and the other is degenerating.
+  - It is the same move, and equally legitimate :: [ignored-the-new-prediction] The proposal of Neptune could have failed, and was checked.
+  - One failure proves that all astrology is false :: [naive-falsification] The trouble is the pattern of rescues that risk nothing, not the single failure.
+  hint: Which rescue could itself have been shown wrong?
+  why: Adjusting a theory is legitimate when the adjustment predicts something new and testable. Adjustments that only explain away failures drain a theory of content.
+done: Risky predictions, tested bundles, healthy programmes. Find one claim in the news that nothing could count against.
+
+@ mind.4.economics-behav
+goal: Predict how real decisions depart from the model of the perfectly rational chooser, and identify the bias at work in a given case.
+intro: Standard economics assumes that people weigh costs and benefits consistently. Behavioural science has found systematic departures: people fear losses more than they value gains, are swayed by wording and by defaults, and favour the present over the future.
+  show: table Effect | What happens ;; loss aversion | a loss hurts more than an equal gain pleases ;; framing | the same choice, described differently, is chosen differently ;; default effect | people stay with whatever is pre-selected ;; present bias | rewards now are over-valued against rewards later ;; sunk-cost fallacy | going on because of what has already been spent
+demo: You are offered a coin toss: heads you win 120, tails you lose 100. On average you gain 10 a toss. Yet most people refuse. The prospect of losing 100 weighs more heavily than the prospect of winning 120. People typically need to win about twice what they might lose before they will accept.
+  show: bars Win_on_heads=120 Lose_on_tails=-100 unit=money
+F: Work out the average result of the coin toss.
+  frame: With a half chance of winning 120 and a half chance of losing 100, the expected value is __
+  answer: 10
+  x 20 :: [forgot-the-probabilities] Twenty is the difference. Each outcome has probability one half: 60 − 50.
+  x 110 :: [averaged-the-sizes] Losses count as negative: half of 120, minus half of 100.
+  hint: Half of 120, minus half of 100.
+  why: 0.5 × 120 − 0.5 × 100 = 10. The bet is favourable on average, and most people still refuse it.
+X: A bet pays 150 if you win and costs 100 if you lose. Change the chance of winning and watch the expected value.
+  param p: 0.1..0.9 /0.05 @0.5 | Chance of winning
+  out ev: 150*p - 100*(1-p) | Expected value of the bet
+  aim: Find the chance of winning at which the bet is exactly fair, with an expected value of zero.
+  target: abs(ev) < 0.01
+  view: bars ev over p
+  hint: The bet is fair when the expected winnings equal the expected losses.
+  why: At a chance of 0.4, 150 × 0.4 = 60 and 100 × 0.6 = 60. A bigger prize makes a bet fair even when winning is less likely than losing.
+M: Match each effect to an example.
+  pairs: Loss aversion => Refusing a favourable bet for fear of losing | Anchoring => A high first offer raises the final price | Framing => "90% survive" is preferred to "10% die" | Default effect => Staying in a pension scheme because you were enrolled automatically | Sunk-cost fallacy => Sitting through a bad film because you paid for the ticket
+  hint: "90% survive" and "10% die" describe the same result.
+  why: Each effect is a reliable pattern in which the choice depends on something that should not matter.
+P: You paid 60 for a concert ticket. On the night you are ill and would much rather stay at home. The ticket cannot be sold or refunded. What should decide whether you go?
+  + Only which evening you would now prefer: the 60 is gone either way :: Costs already sunk should not drive the choice.
+  - You should go, so as not to waste the money :: [sunk-cost] The money is spent whether you go or not. Going while ill adds a second loss.
+  - You should stay at home in order to punish yourself :: [irrelevant-motive] The question is which option is better from here on.
+  hint: Does going get the 60 back?
+  why: A rational choice looks forward. What cannot be recovered is the same under every option, and so it cannot favour any of them.
+>P: A gym charges 5 a visit, or 40 a month for unlimited visits. A new member chooses the monthly plan, expecting to go twelve times a month, and in fact goes four times. Which bias best explains her choice?
+  + Overconfidence about her future self-control: she pays 10 a visit when 5 was on offer :: She overestimated how often she would go.
+  - Loss aversion :: [wrong-bias] No loss was being avoided when she chose.
+  - Anchoring :: [wrong-bias] No starting number pulled her estimate. She mispredicted her own behaviour.
+  hint: Compare what she expected to do with what she did.
+  why: People tend to predict that their future selves will be more disciplined than they turn out to be, and businesses design contracts around that.
+done: Losses, frames, defaults and the pull of the present. Notice one default that you have never changed, and ask whether you would have chosen it.
+
+@ mind.5.logic-advanced
+goal: Reason with necessity and possibility, compare logics that reject classical principles, and state what the incompleteness theorem establishes.
+intro: Classical logic is one logic among several. Modal logic adds necessity and possibility. Other systems give up classical principles for stated reasons, and some results fix the limits of what any formal system can do.
+  show: table Logic | Departs from classical logic by ;; modal | adding "necessarily" and "possibly" ;; intuitionistic | not assuming that every statement is true or false ;; paraconsistent | not letting a contradiction imply everything ;; many-valued | allowing more than two truth values
+demo: "Necessarily P" is true when P holds in every possible world. "Possibly P" is true when P holds in at least one. So "possibly P" means the same as "not necessarily not-P": to say that it might rain is to say that it is not settled that it will stay dry.
+  show: table Statement | True when ;; necessarily P | P holds in every possible world ;; possibly P | P holds in at least one possible world
+P: When is "necessarily P" true, on the possible-worlds account?
+  + When P holds in every accessible possible world :: Necessity is truth in all of them.
+  - When P holds in the actual world :: [actual-truth-only] That is plain truth. Necessity requires truth everywhere.
+  - When P holds in at least one possible world :: [confused-with-possibility] That is the condition for "possibly P".
+  hint: Necessity is the strong notion.
+  why: The semantics of possible worlds turns necessity into "all" and possibility into "some".
+F: Use the duality of necessity and possibility.
+  frame: "It is not necessary that not-P" means the same as "it is __ that P"
+  answer: possible | possibly true
+  x necessary :: [dropped-the-negations] The two negations do not simply cancel: "not necessarily not" is weaker than "necessarily".
+  x impossible :: [reversed] If not-P is not forced, then P is not ruled out.
+  hint: If not-P does not have to hold, then P could hold.
+  why: Possibility and necessity are duals: "possibly P" is "not necessarily not-P".
+G: Which logic does each statement describe?
+  bin Classical: Every statement is either true or false. | From a contradiction, anything follows.
+  bin Intuitionistic: "P or not-P" is not assumed for every P. | To prove that something exists, you must construct an example.
+  bin Paraconsistent: A contradiction does not make everything provable.
+  hint: Intuitionistic logic grew out of a demand for constructive proofs.
+  why: Each non-classical logic gives up a particular classical principle for a particular reason: constructive proof in one case, tolerance of inconsistency in another.
+P: What does Gödel's first incompleteness theorem establish?
+  + Any consistent formal system able to express arithmetic contains true statements that it cannot prove :: Truth outruns provability within the system.
+  - Arithmetic is inconsistent :: [misread-the-theorem] The theorem assumes consistency, and shows incompleteness.
+  - Nothing in mathematics can be proved :: [overgeneralised] Almost everything of interest can be proved. The theorem concerns the existence of some unprovable truths.
+  hint: The theorem is about a gap between being true and being provable.
+  why: No single consistent system of this kind captures all arithmetical truth. Each can be extended, and the extension is incomplete in its turn.
+>P: A large database contains one contradictory record. In classical logic a contradiction implies every statement. Which logic would let a reasoning system go on drawing sensible conclusions from the rest?
+  + A paraconsistent logic :: It blocks the inference from a contradiction to everything.
+  - Classical logic :: [explosion] Classically, one contradiction makes every statement derivable.
+  - Intuitionistic logic :: [also-explosive] It, too, allows anything to be derived from a contradiction.
+  hint: Which logic rejects the principle that anything follows from a contradiction?
+  why: Paraconsistent logics were designed for reasoning with inconsistent information without triviality.
+done: Different logics for different purposes, and limits that no logic escapes. Work through a proof sketch of the incompleteness theorem.
+
+@ mind.5.phil-mind
+goal: Set out the main theories of the mind's relation to the body, and use the classic thought experiments to test them.
+intro: The philosophy of mind asks what mental states are and how they are related to the brain. Each theory must explain how thoughts cause actions, and why there is something it is like to have an experience.
+  show: table Theory | Mental states are ;; dualism | states of a non-physical mind ;; identity theory | states of the brain ;; functionalism | defined by what they do, whatever they are made of ;; behaviourism | dispositions to behave ;; eliminativism | posits of a false theory, to be discarded
+demo: A man who knows no Chinese sits in a room with a rule book. Chinese questions are passed in. By following the rules for matching symbols he passes out answers so good that those outside think he understands. He understands nothing. The philosopher John Searle concluded that manipulating symbols by rule is not sufficient for understanding.
+  show: flow symbols come in > rules are followed > symbols go out > where is the understanding?
+M: Match each theory to its claim.
+  pairs: Dualism => The mind is not physical | Identity theory => Mental states are states of the brain | Functionalism => A mental state is defined by its causal role | Behaviourism => Talk of the mind is talk of dispositions to behave | Eliminativism => Beliefs and desires, as ordinarily conceived, do not exist | Panpsychism => Consciousness is a basic and widespread feature of reality
+  hint: Functionalism allows that a mind might be made of something other than neurons.
+  why: The theories differ over whether the mind is physical and, if it is, at what level it should be identified.
+P: What is the Chinese room argument meant to show?
+  + That following rules for manipulating symbols is not sufficient for understanding :: Syntax is not enough for meaning.
+  - That no machine could ever pass a test of conversation :: [misread-the-target] The room passes the test. The claim is that passing is not understanding.
+  - That Chinese cannot be learned from a book :: [literal-reading] The language is incidental. The point concerns programs and understanding.
+  hint: The man produces the right answers. What does he lack?
+  why: The argument is aimed at the claim that running the right program is all there is to having a mind. One reply says that the whole system, and not the man, understands.
+C: Mary knows every physical fact about colour vision, but has lived in a black-and-white room. She steps outside and sees red for the first time. Two accounts of what happens:
+  left: text She learns a new fact: what it is like to see red.
+  right: text She gains a new ability, to recognise and imagine red, but learns no new fact.
+  + The left supports the argument against physicalism; the right is a physicalist reply :: If she learns a fact, the physical facts were not all the facts.
+  - Both accounts support physicalism :: [conflated-the-views] On the left, something escapes the physical account.
+  - Both accounts refute physicalism :: [conflated-the-views] The right is designed to defend it.
+  hint: If she already knew every physical fact and then learns another fact, what follows?
+  why: The thought experiment asks whether complete physical knowledge would be complete knowledge. The answer depends on what, if anything, Mary learns.
+P: What is the "hard problem" of consciousness?
+  + Explaining why physical processing is accompanied by experience at all :: Why is there something it is like?
+  - Explaining how the brain distinguishes colours :: [easy-problem] That is a question about function, which the ordinary methods of science can address.
+  - Building a computer that passes a test of conversation :: [engineering-problem] That concerns behaviour, not why experience exists.
+  hint: Which question would remain when every function had been explained?
+  why: The "easy" problems concern how the brain performs its functions. The hard problem is why performing them should feel like anything.
+>P: A future artificial system reports that it is in pain, and behaves accordingly. How would a functionalist and a critic such as Searle judge the claim that it feels pain?
+  + The functionalist accepts it if the system's internal organisation plays the causal role of pain; Searle denies that running a program could be enough :: They disagree about what a mind requires.
+  - Both accept that it feels pain :: [conflated-the-views] Searle holds that understanding and feeling need more than the right program.
+  - Both deny that it could feel pain :: [conflated-the-views] For the functionalist, the right organisation is all that pain is.
+  hint: For which of them does the material of the system matter?
+  why: The dispute turns on whether mental states are defined by organisation alone. Behaviour cannot settle it, because both sides predict the same behaviour.
+done: Each theory has a case that it cannot comfortably handle. Explain the Chinese room to someone and see which reply they give.
+
+@ mind.5.phil-language
+goal: Analyse how words mean and refer, using the distinctions of sense and reference, description and name, and saying and doing.
+intro: The philosophy of language asks how marks and sounds come to be about the world. How does a name pick out its bearer? What makes a sentence true? And how do we do things, such as promising and commanding, by speaking?
+  show: table Idea | Meaning ;; reference | the thing that a word picks out ;; sense | the way in which the thing is presented ;; description | a phrase that picks something out by its properties ;; speech act | something done by saying something
+demo: The ancients called the bright star of the evening sky Hesperus and that of the morning sky Phosphorus. It was a discovery that the two are one object, the planet Venus. Yet "Hesperus is Hesperus" is trivial, while "Hesperus is Phosphorus" was news. If meaning were only reference, the two sentences would say the same thing.
+  show: table Sentence | Informative? ;; Hesperus is Hesperus | no ;; Hesperus is Phosphorus | yes
+P: "Hesperus is Phosphorus" was a discovery, although both names refer to Venus. How did Frege explain that?
+  + The two names have the same reference but different senses: different ways of presenting the one object :: Meaning has two levels.
+  - The two names refer to different objects :: [denied-the-identity] Both refer to Venus. That is what was discovered.
+  - The sentence is as trivial as "Hesperus is Hesperus" :: [reference-only] It was an astronomical discovery. Nobody ever had to discover that Hesperus is Hesperus.
+  hint: What could differ between two names for the same thing?
+  why: A sense is a mode of presentation. Learning that two senses present one object is real knowledge.
+C: "The present King of France is bald." There is no King of France. Two analyses:
+  left: text The sentence asserts that there is exactly one King of France and that he is bald. So it is false.
+  right: text The sentence presupposes that there is a King of France. Since there is not, it is neither true nor false.
+  + They disagree over whether the King's existence is asserted or presupposed, and so over whether the sentence is false or lacks a truth value :: Russell's view against Strawson's.
+  - Both say that the sentence is false :: [conflated-the-analyses] On the right-hand view the question of truth does not arise.
+  - Both say that the sentence is meaningless :: [meaning-and-truth-confused] Both treat it as meaningful. They differ over its truth value.
+  hint: On each view, what goes wrong when there is no King?
+  why: The dispute is over how sentences relate to the conditions for using them properly: whether a failure of reference makes for falsehood or for a gap.
+M: Match each kind of speech act to its description.
+  pairs: Locutionary act => Saying words with a certain meaning | Illocutionary act => What is done in saying them, such as promising or asking | Perlocutionary act => The effect produced on the hearer, such as persuading or alarming
+  hint: "In saying it I promised", but "by saying it I alarmed her".
+  why: An utterance is an action on three levels: what is said, what is done in saying it, and what is brought about by it.
+G: Is the word being used, or mentioned?
+  bin Used: Paris is beautiful. | Cats chase mice.
+  bin Mentioned: "Paris" has five letters. | "Cats" is a plural noun.
+  hint: Is the sentence about the thing, or about the word?
+  why: To use a word is to talk about the world. To mention it is to talk about the word itself, which quotation marks signal.
+>P: Imagine a planet just like ours, except that its lakes hold a liquid with a different chemical make-up, which looks and tastes like water. An Earthling and her exact twin there both say "water". Do their words mean the same?
+  + On Putnam's argument they do not: the words refer to different substances, although the speakers are inwardly alike :: Meaning depends partly on the world.
+  - Yes: their inner states are identical :: [meaning-in-the-head] That is the assumption which the thought experiment challenges.
+  - Neither word means anything :: [dismissed-the-case] Each word refers perfectly well to the liquid around its speaker.
+  hint: What does each speaker's word pick out?
+  why: If reference is part of meaning, and reference depends on the environment, then meaning is not fixed by what is in the head alone.
+done: Sense, reference, and what we do with words. Find one sentence that is informative although both of its names refer to the same thing.
+
+@ mind.5.political-phil
+goal: Compare rival conceptions of justice, freedom and power, and apply each to a case that separates it from the others.
+intro: Political philosophy asks what we owe one another as members of a society. Theories of justice differ over what should be equalised or protected: welfare, liberties, property, opportunities, or what people are actually able to do.
+  show: table Theory | Justice is ;; utilitarianism | the greatest total welfare ;; liberal egalitarianism | equal liberties, with inequalities arranged to benefit the worst-off ;; libertarianism | respect for property and free exchange ;; the capabilities approach | securing what people are really able to do and be ;; republicanism | freedom from another's arbitrary power
+demo: Imagine a slave whose master is kind and never interferes with him. Is the slave free? If freedom means the absence of interference, he is. If freedom means not living at another's mercy, he is not, for the master could interfere at any moment, at will. Two conceptions of freedom give opposite verdicts.
+  show: pair text Freedom as non-interference: nobody is stopping him || text Freedom as non-domination: someone could, at will
+M: Match each theory to its idea of justice.
+  pairs: Utilitarianism => Maximise total welfare | Liberal egalitarianism => Equal liberties, with inequalities that benefit the worst-off | Libertarianism => Respect property and voluntary exchange | Capabilities approach => Secure what people are really able to do and be | Republicanism => Protect people from arbitrary power | Luck egalitarianism => Correct the inequalities that people did not choose
+  hint: Luck egalitarianism separates circumstance from choice.
+  why: Each theory picks out a different thing as what justice must attend to.
+C: A slave has a kind master who never interferes. Is he free?
+  left: text Freedom is the absence of interference by others.
+  right: text Freedom is not being subject to another's arbitrary power.
+  + Free on the left account; unfree on the right, because the master could interfere at will :: Domination without interference.
+  - Free on both accounts :: [conflated-the-concepts] On the right account, living at another's mercy is itself unfreedom.
+  - Unfree on both accounts :: [conflated-the-concepts] On the left account, the absence of actual interference is freedom.
+  hint: Is anyone interfering? Could someone, whenever he pleased?
+  why: The republican conception finds unfreedom in the mere power to interfere. It implies that security against arbitrary power matters as well as being left alone.
+P: Suppose incomes begin perfectly equal. Then a million people each freely pay a small sum to watch a brilliant athlete, who becomes rich. What is Nozick's point?
+  + Free choices upset any fixed pattern of distribution, so keeping the pattern would need constant interference :: Liberty disrupts patterns.
+  - The athlete has stolen the money :: [misread-the-case] Every payment was voluntary.
+  - The result is still equal :: [misread-the-case] The athlete now has far more than the others.
+  hint: Each step was voluntary, and the starting point was just by hypothesis.
+  why: The argument challenges theories that require a particular pattern. Its critics reply that a just background may still require taxation.
+P: Workers in a dangerous factory never demand safer conditions, because they have come to believe that danger is simply part of the job. Which form of power is at work?
+  + The power to shape what people believe and want, so that conflict never arises :: The least visible form.
+  - The power to win an open contest :: [first-face-only] There is no open conflict to win.
+  - No power at all, since nobody is complaining :: [silence-as-consent] The absence of complaint may itself be an effect of power.
+  hint: Why does no demand ever get made?
+  why: Beyond winning decisions and controlling agendas, power can work by forming preferences. Its success shows as the absence of conflict.
+>P: Two people have equal incomes. One of them uses a wheelchair, in a city with no ramps and no accessible transport. Which approach captures most directly what is unjust?
+  + The capabilities approach: equal resources do not give equal ability to move about, work and take part :: It looks at what people can actually do.
+  - Equality of resources: their incomes are equal, so nothing is unjust :: [resources-only] The same income buys her far less freedom to function.
+  - Libertarianism: nobody has violated her property rights :: [rights-only] On that view there is nothing to complain of, which is exactly what the case puts in question.
+  hint: Compare what each of them is able to do with the same money.
+  why: People convert resources into freedoms at different rates. The capabilities approach measures justice by the freedoms themselves.
+done: Ask what a theory equalises, and whom it leaves out. Apply two of these theories to one policy debated where you live.
+
+@ mind.5.frontier
+goal: State philosophy's enduring problems precisely, explain why they resist solution and describe what progress on them looks like.
+intro: Some questions have been argued for more than two thousand years without agreement. That is not for want of intelligence or of facts. In each case several plausible claims cannot all be true together, and the positions differ over which one to give up.
+  show: table Problem | The question ;; consciousness | why is brain activity accompanied by experience? ;; induction | what justifies expecting the future to resemble the past? ;; free will | can we be responsible if our choices are caused? ;; scepticism | how can we know that there is a world outside our minds? ;; personal identity | what makes someone the same person over time?
+demo: The sceptic argues as follows. If I know that I have hands, then I know that I am not a brain in a vat being fed illusions. But I cannot know that I am not such a brain, since everything would seem exactly the same. Therefore I do not know that I have hands. Each premise seems true, the logic is valid, and the conclusion seems absurd.
+  show: steps If I know that I have hands, I know that I am not a brain in a vat. ;; I do not know that I am not a brain in a vat. ;; So I do not know that I have hands.
+M: Match each problem to its question.
+  pairs: The hard problem => Why is brain activity accompanied by experience? | The problem of induction => What justifies expecting the future to resemble the past? | The is–ought problem => How could facts alone yield values? | The problem of free will => Can we be responsible if our choices are caused? | The problem of personal identity => What makes someone the same person over time? | Scepticism => How can we know that there is a world outside our minds?
+  hint: Induction is reasoning from what has been observed to what has not.
+  why: Stating a problem exactly is half of philosophy. Each of these can be put in a single sentence, and resists every answer so far.
+B: Assemble the sceptical argument in order.
+  bank: Premise 1: if I know that I have hands, then I know that I am not a brain in a vat. | Premise 2: I do not know that I am not a brain in a vat. | Conclusion: I do not know that I have hands. | Brains in vats really exist. | I have hands.
+  answer: Premise 1: if I know that I have hands, then I know that I am not a brain in a vat. | Premise 2: I do not know that I am not a brain in a vat. | Conclusion: I do not know that I have hands.
+  x Brains in vats really exist. :: [not-needed] The argument needs only the possibility, not the reality.
+  x I have hands. :: [beside-the-point] The argument does not deny that you have hands. It denies that you know it.
+  hint: A conditional, a denial of its consequent, and what follows.
+  why: The argument is valid: it has the form of modus tollens. To resist the conclusion you must reject a premise.
+P: Why do problems like these remain unsolved?
+  + In each, several plausible claims cannot all be true, and every answer gives up something that seems compelling :: The difficulty lies in the structure, not in missing facts.
+  - Philosophers are not clever enough :: [blamed-the-thinkers] The same minds founded logic and several of the sciences.
+  - The questions are meaningless :: [dismissed-the-questions] They can be stated precisely, and their answers bear on science, law and medicine.
+  hint: What does the sceptical argument force you to give up?
+  why: A philosophical problem is typically a set of claims that are individually plausible and jointly inconsistent. No experiment can say which to abandon.
+C: Two views of whether philosophy makes progress.
+  left: text The same questions have been asked for 2,500 years, so nothing has been achieved.
+  right: text The positions have been mapped, bad arguments have been eliminated and new fields have been founded.
+  + The right describes real progress: sharper distinctions, refuted definitions, and logic, linguistics and computer science as offspring :: Progress need not mean final answers.
+  - The left: a question without an agreed answer has seen no progress :: [answers-only] We now know far more about which answers fail, and why.
+  - Neither: progress cannot be assessed :: [gave-up] It can be assessed by what has been ruled out and what has been made exact.
+  hint: Is finding out that an answer fails a kind of knowledge?
+  why: Philosophy advances by clarifying the options and their costs, and by handing matured questions to new sciences.
+>P: One philosopher replies to the sceptic: "I know that I have hands. Therefore I know that I am not a brain in a vat." What has this reply done, logically?
+  + It accepts the conditional premise and runs the argument the other way, so that the dispute becomes which starting point is more certain :: The same logic, reversed.
+  - It commits a fallacy :: [missed-the-validity] The reply is valid: it is modus ponens on the sceptic's own first premise.
+  - It proves that brains in vats are impossible :: [overclaimed] It claims knowledge that one is not such a brain, not that such brains are impossible.
+  hint: Both arguments share the first premise. Where do they differ?
+  why: From "if P then Q", one person infers Q from P, and another infers not-P from not-Q. Logic alone cannot say which premise to trust more.
+done: State the problem exactly, and count the cost of each answer. Choose one enduring problem and write down the claims that cannot all be true.

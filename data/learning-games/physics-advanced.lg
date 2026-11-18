@@ -1,0 +1,694 @@
+# Physics, stages 3 to 5 (secondary school to master's level).
+# Predict an outcome, adjust a parameter, inspect the result, explain the relationship.
+
+@ phys.3.mechanics
+goal: Apply Newton's laws: predict acceleration from net force and mass, and tell an action–reaction pair from a pair of balanced forces.
+intro: Newton's second law says that acceleration equals net force divided by mass. The same force gives a heavier object a smaller acceleration.
+  show: table Net force | Mass | Acceleration ;; 10 N | 2 kg | 5 m/s² ;; 10 N | 5 kg | 2 m/s²
+demo: Push a 2 kg trolley with a net force of 10 N and it accelerates at 5 m/s². Load it to 5 kg and the same push gives only 2 m/s².
+  show: bars Mass_2_kg=5 Mass_5_kg=2 unit=m/s²
+F: Use a = F ÷ m.
+  frame: A net force of 12 N on a 3 kg mass gives an acceleration of __ m/s²
+  answer: 4
+  x 36 :: [multiplied-instead] F = ma, so the acceleration is the force divided by the mass.
+  x 0.25 :: [inverted-the-ratio] That is mass divided by force. Divide the force by the mass.
+  hint: Divide the force by the mass.
+  why: 12 ÷ 3 = 4 m/s².
+P: A horse pulls a cart forward, and the cart pulls back on the horse with an equal force. Why can the cart still speed up?
+  + The two forces act on different objects, so they cannot cancel on the cart :: Only forces on the cart decide the cart's motion.
+  - The horse's pull is really slightly bigger :: [third-law-is-approximate] The pair is exactly equal at every instant. That is not what lets the cart move.
+  - The cart's pull arrives a moment later :: [reaction-is-delayed] The two forces exist together; neither comes first.
+  hint: List the forces that act on the cart alone.
+  why: An action–reaction pair never acts on one object. The cart accelerates because the horse's pull on it exceeds the friction on it.
+X: Push a trolley and choose its mass.
+  param f: 0..20 /1 @0 | Net force | N
+  param m: 1..10 /1 @1 | Mass | kg
+  out a: f/m | Acceleration | m/s²
+  aim: Give a 4 kg trolley an acceleration of exactly 3 m/s².
+  target: m == 4 and a == 3
+  view: bars a over f
+  hint: Set the mass first, then ask what force that mass needs.
+  why: F = ma = 4 × 3 = 12 N. Doubling the mass would need double the force for the same acceleration.
+>P: A 1000 kg car brakes with a force of 5000 N. What is its deceleration?
+  + 5 m/s² :: 5000 ÷ 1000.
+  - 5,000,000 m/s² :: [multiplied-instead] Divide the force by the mass.
+  - 0.2 m/s² :: [inverted-the-ratio] That is mass divided by force.
+  - 4000 m/s² :: [subtracted-instead] Force and mass are different kinds of quantity and cannot be subtracted.
+  hint: a = F ÷ m works for slowing down as well as speeding up.
+  why: 5000 N ÷ 1000 kg = 5 m/s², directed against the motion.
+done: Force, mass and acceleration: know two and you have the third. Launch a projectile in the activity.
+
+@ phys.3.energy-work
+goal: Calculate work, kinetic energy and momentum, and use conservation to predict the outcome of a collision.
+intro: Work is done when a force moves something: work equals force times distance. Energy is the ability to do work. It is never lost, only moved from one store to another.
+  show: table Quantity | Formula ;; work | force × distance ;; kinetic energy | ½ × mass × speed² ;; momentum | mass × velocity
+demo: Lifting a 2 kg book through 1.5 m takes a force of 20 N, so the work done is 20 × 1.5 = 30 J. That energy is now stored by the book's height. Drop it, and the store becomes kinetic energy.
+  show: flow 30 J of work > stored by height > 30 J of kinetic energy > heat and sound on landing
+F: Calculate the work done.
+  frame: A force of 20 N moves a crate 3 m. Work done = __ J
+  answer: 60
+  x 23 :: [added-instead] Work is the product of force and distance.
+  hint: Multiply the force by the distance.
+  why: 20 × 3 = 60 J.
+P: A car doubles its speed. What happens to its kinetic energy?
+  + It becomes four times as large :: Kinetic energy depends on the square of the speed.
+  - It doubles :: [assumed-proportional] Kinetic energy is ½mv², so doubling v multiplies it by 2² = 4.
+  - It stays the same :: [ignored-speed] Kinetic energy rises steeply with speed.
+  hint: Look at the power of the speed in the formula.
+  why: ½m(2v)² = 4 × ½mv². This is why stopping distance grows so fast with speed.
+M: Match each quantity to its formula.
+  pairs: Work => Force × distance | Kinetic energy => ½ × mass × speed² | Momentum => Mass × velocity | Power => Energy ÷ time
+  hint: Only one of them involves a square, and only one involves time.
+  why: Work and energy are measured in joules, momentum in kg m/s and power in watts.
+>P: A 2 kg trolley moving at 3 m/s hits a stationary 1 kg trolley and they stick together. How fast do they move afterwards?
+  + 2 m/s :: Momentum 6 kg m/s is shared by 3 kg.
+  - 3 m/s :: [ignored-the-added-mass] The same momentum now moves more mass, so the speed must fall.
+  - 1.5 m/s :: [averaged-the-speeds] Averaging 3 and 0 ignores that the masses differ.
+  - 6 m/s :: [gave-the-momentum] 6 is the total momentum, not the speed.
+  hint: Total momentum before equals total momentum after.
+  why: Before: 2 × 3 + 1 × 0 = 6 kg m/s. After: 3 kg × v = 6, so v = 2 m/s. Kinetic energy falls from 9 J to 6 J; the rest becomes heat.
+done: Conservation laws tell you the outcome without following every detail. Explore the energy and momentum lab.
+
+@ phys.3.em
+goal: Use V = IR in a simple circuit, and explain how a changing magnetic field produces a voltage.
+intro: A voltage pushes charge round a circuit, resistance opposes it, and a current flows: voltage = current × resistance.
+  show: table Voltage | Resistance | Current ;; 12 V | 4 Ω | 3 A ;; 12 V | 6 Ω | 2 A
+demo: Push a magnet into a coil of wire and a meter flicks. Hold the magnet still and the meter reads zero. Pull it out and the meter flicks the other way. Only a changing field drives a current.
+  show: steps Magnet moving in: current one way ;; Magnet held still: no current ;; Magnet moving out: current the other way
+F: Use I = V ÷ R.
+  frame: 10 V across 5 Ω drives a current of __ A
+  answer: 2
+  x 50 :: [multiplied-instead] Current is voltage divided by resistance.
+  x 0.5 :: [inverted-the-ratio] That is resistance divided by voltage.
+  hint: Divide the voltage by the resistance.
+  why: 10 ÷ 5 = 2 A.
+X: A 12 V battery drives a circuit with a variable resistor.
+  param r: 1..12 /1 @1 | Resistance | Ω
+  out i: 12/r | Current | A
+  aim: Set the resistance so that the current is exactly 2 A.
+  target: i == 2
+  view: bars i over r
+  hint: More resistance means less current for the same voltage.
+  why: R = V ÷ I = 12 ÷ 2 = 6 Ω. Current is inversely proportional to resistance at a fixed voltage.
+P: A magnet lies motionless inside a coil of wire. What does a meter connected to the coil show?
+  + No current :: The field through the coil is not changing.
+  - A steady current :: [field-alone-induces] A magnetic field induces a voltage only while it is changing.
+  - A current that keeps growing :: [field-accumulates] Nothing is changing, so nothing is induced.
+  hint: What did the meter do in the demonstration while the magnet was held still?
+  why: Faraday's law: the induced voltage depends on the rate of change of the magnetic field through the coil, not on the field itself.
+>P: A bicycle dynamo lights the lamp only while the wheel turns. Why?
+  + Turning spins a magnet near a coil, and only a changing field induces a voltage :: When the wheel stops, the field stops changing.
+  - Friction from the wheel rubs charge into the wire :: [friction-makes-current] The current comes from induction, not from rubbing.
+  - The lamp runs on energy stored from the last ride :: [stored-not-induced] A dynamo stores nothing; it generates only while it turns.
+  hint: What changes inside the dynamo while the wheel turns?
+  why: A generator is Faraday's experiment run continuously: relative motion keeps the field through the coil changing.
+done: Circuits obey V = IR; generators obey Faraday. Explore the circuits and induction lab.
+
+@ phys.3.optics-waves
+goal: Predict where two waves reinforce or cancel, and name what light does at mirrors, lenses and gaps.
+intro: When two waves meet, their displacements add. Crest meeting crest gives a bigger wave. Crest meeting trough gives nothing.
+  show: table The waves meet | Result ;; crest with crest | they reinforce ;; crest with trough | they cancel
+demo: Shine one colour of light through two narrow slits and a screen shows bright and dark bands. It is bright where the two paths differ by a whole number of wavelengths, and dark where they differ by a half.
+  show: plot cos(x)*cos(x) x=-6.283..6.283
+M: Match each word to what the wave does.
+  pairs: Reflection => Bounces off a mirror | Refraction => Bends on entering glass | Diffraction => Spreads out after a narrow gap | Interference => Adds to or cancels another wave
+  hint: Two of these need a boundary, one needs a gap, and one needs a second wave.
+  why: Reflection and refraction happen at boundaries, diffraction at openings, and interference wherever waves overlap.
+P: Two identical waves arrive at a point exactly half a wavelength out of step. What is observed there?
+  + Nothing: they cancel :: Each crest meets a trough.
+  - A wave of double the height :: [ignored-phase] Doubling needs the waves to be in step.
+  - One wave, unchanged :: [waves-do-not-combine] Overlapping waves always add, and here the sum is zero.
+  hint: Where one wave has a crest, what does the other have?
+  why: Half a wavelength out of step means crests line up with troughs: destructive interference.
+F: A lens obeys 1/f = 1/u + 1/v, where u is the object distance and v the image distance.
+  frame: With f = 10 cm and the object 20 cm away, the image forms __ cm from the lens
+  answer: 20
+  x 10 :: [gave-the-focal-length] An image forms at the focal length only for a very distant object.
+  x 30 :: [added-the-distances] The reciprocals are what add, not the distances.
+  hint: 1/v = 1/10 − 1/20.
+  why: 1/10 − 1/20 = 1/20, so v = 20 cm.
+>P: Noise-cancelling headphones play a second sound into your ear. What must that sound be?
+  + A copy of the noise shifted by half a wavelength :: Its crests meet the noise's troughs.
+  - A louder copy of the noise :: [louder-masks] A copy in step would add to the noise.
+  - A much higher note :: [different-frequency-cancels] Waves of different frequency cannot stay out of step with each other.
+  hint: Which kind of interference removes a wave?
+  why: The headphones measure the noise and emit its mirror image, so the two interfere destructively at your ear.
+done: Adding waves explains colours on soap films and silence in headphones. Compare polarisers in the activity.
+
+@ phys.3.thermo
+goal: State the first and second laws of thermodynamics, and use them to judge what an engine or a refrigerator can do.
+intro: The first law says energy is conserved: it is never created or destroyed. The second law says heat flows by itself only from hot to cold, so no engine can turn all the heat it takes in into work.
+  show: table Law | It says ;; first | energy is never created or destroyed ;; second | heat flows by itself only from hot to cold
+demo: An engine takes in 500 J of heat, does 150 J of work and passes 350 J on to its cooler surroundings. Every joule is accounted for, and its efficiency is 150 ÷ 500 = 30%.
+  show: bars Heat_in=500 Work_out=150 Heat_out=350 unit=J
+F: Find the efficiency.
+  frame: An engine takes in 800 J of heat and does 200 J of work. Efficiency = __ %
+  answer: 25
+  x 4 :: [inverted-the-ratio] Efficiency is work out divided by heat in.
+  x 600 :: [gave-the-waste-heat] 600 J is the heat rejected. Efficiency compares the work with the heat taken in.
+  hint: Work out ÷ heat in, as a percentage.
+  why: 200 ÷ 800 = 0.25 = 25%.
+M: Match each statement to its law.
+  pairs: First law => Energy cannot be created or destroyed | Second law => Heat flows by itself only from hot to cold | Engine limit => No engine turns all of its heat into work
+  hint: One is about how much energy there is; the others are about which way it can go.
+  why: The first law is energy bookkeeping. The second law, and the engine limit that follows from it, are about direction.
+P: An inventor claims a machine that runs for ever and gives out more energy than it takes in. Which law does it break?
+  + The first law :: It would be creating energy from nothing.
+  - No law: it only needs better bearings :: [engineering-problem] No amount of engineering can make energy out of nothing.
+  - The law of gravity :: [named-an-unrelated-law] Gravity is not what forbids it. Energy conservation is.
+  hint: Add up the energy in and the energy out.
+  why: More energy out than in contradicts conservation of energy, however cleverly the machine is built.
+>P: You leave a refrigerator door open in a closed, insulated room, hoping to cool the room. What happens?
+  + The room gets warmer :: The motor's electrical energy ends up as heat in the room.
+  - The room gets cooler :: [fridge-makes-cold] A fridge does not make cold. It moves heat from its inside to the coils at its back.
+  - The temperature stays the same :: [heat-only-moves] Moving heat round the room would change nothing, but the motor also adds energy.
+  hint: Where does the heat taken from inside the fridge go? What else is being supplied?
+  why: Heat removed at the front is released at the back, in the same room, together with the electrical energy the motor uses.
+done: The first law counts energy; the second gives it a direction. Explore the thermal and cycle labs.
+
+@ phys.3.nuclear
+goal: Describe the three kinds of nuclear radiation, use half-life, and tell fission from fusion.
+intro: Some atomic nuclei are unstable. They change by throwing out radiation: alpha particles, beta particles or gamma rays.
+  show: table Radiation | What it is | Stopped by ;; alpha | a helium nucleus | paper ;; beta | a fast electron | thin aluminium ;; gamma | high-energy light | thick lead
+demo: A half-life is the time for half of the unstable nuclei to decay. Start with 80 g: after one half-life 40 g remain, after two 20 g, after three 10 g.
+  show: bars Start=80 After_1=40 After_2=20 After_3=10 unit=g
+M: Match each radiation to its description.
+  pairs: Alpha => A helium nucleus, stopped by paper | Beta => A fast electron, stopped by thin aluminium | Gamma => High-energy light, reduced by thick lead
+  hint: The heaviest particle is the easiest to stop.
+  why: Alpha particles are heavy and charged, so they stop quickly. Gamma rays have no mass or charge and penetrate furthest.
+F: Use the half-life.
+  frame: 64 g of a substance has a half-life of 5 days. After 15 days, __ g remain
+  answer: 8
+  x 32 :: [one-half-life-only] 15 days is three half-lives, not one.
+  x 21 :: [divided-by-the-count] Three half-lives halve the amount three times; they do not divide it by three.
+  hint: How many half-lives are there in 15 days?
+  why: 15 ÷ 5 = 3 half-lives: 64 → 32 → 16 → 8.
+G: Fission or fusion?
+  bin Fission: a heavy nucleus splits in two | used in today's nuclear power stations | can run as a chain reaction
+  bin Fusion: light nuclei join together | powers the Sun | needs temperatures of millions of degrees
+  hint: Fission means splitting. Fusion means joining.
+  why: Both release energy from the nucleus: fission by splitting very heavy nuclei, fusion by joining very light ones.
+>P: A wooden tool contains a quarter of the carbon-14 found in living wood. The half-life of carbon-14 is about 5,700 years. About how old is the tool?
+  + About 11,400 years :: A quarter means two half-lives have passed.
+  - About 5,700 years :: [one-half-life-only] After one half-life, half would remain, not a quarter.
+  - About 22,800 years :: [counted-quarters-as-half-lives] One quarter is ½ × ½: two half-lives, not four.
+  - About 1,425 years :: [divided-the-half-life] The age is a multiple of the half-life here, not a fraction of it.
+  hint: How many times must you halve to reach one quarter?
+  why: 1 → ½ → ¼ takes two half-lives: 2 × 5,700 = 11,400 years.
+done: Half-life turns decay into a clock. Balance nuclear reactions in the activity.
+
+@ phys.3.relativity-intro
+goal: Say what special relativity changes about time and energy when speeds approach that of light.
+intro: The speed of light is the same for every observer, however they move. One consequence is that a moving clock runs slow, by a factor called gamma.
+  show: table Speed | Time-stretch factor γ ;; 0.5 c | 1.15 ;; 0.87 c | 2.0 ;; 0.99 c | 7.1
+demo: Muons are created high in the atmosphere and survive, on average, for about two millionths of a second: far too short to reach the ground. But they travel at 0.99 c, so their clocks run seven times slow, and many do arrive.
+  show: flow muon created high up > its clock runs 7 times slow > it survives to the ground
+P: A spaceship passes you at half the speed of light and switches on its headlight. How fast does that light move relative to you?
+  + At c, the speed of light :: Light has the same speed for every observer.
+  - At 1.5 c :: [added-the-speeds] Speeds do not simply add at this scale. Light always moves at c.
+  - At 0.5 c :: [subtracted-the-speeds] The light does not share the ship's speed in any simple way; it moves at c for everyone.
+  hint: What is special about the speed of light in relativity?
+  why: The constancy of the speed of light is the starting point of special relativity. Time and length adjust so that it holds.
+X: Speed up a clock and watch time stretch.
+  param v: 0..0.95 /0.05 @0 | Speed | × c
+  out g: 1/sqrt(1-v*v) | Time-stretch factor γ
+  aim: Find the lowest speed on this dial at which a moving clock runs at less than half its normal rate (γ above 2).
+  target: g > 2 and g < 2.5
+  view: bars g over v
+  hint: γ barely changes at everyday speeds. Try speeds close to c.
+  why: γ = 1 ÷ √(1 − v²/c²). At 0.85 c it is 1.9; at 0.9 c it is 2.3. The effect is negligible until v is a large fraction of c.
+F: Use E = mc².
+  frame: 1 kg × (3 × 10⁸ m/s)² = 9 × 10 to the power __ joules
+  answer: 16
+  x 8 :: [did-not-square] The speed of light is squared: (10⁸)² = 10¹⁶.
+  hint: Square 3 × 10⁸.
+  why: (3 × 10⁸)² = 9 × 10¹⁶. One kilogram of mass corresponds to about 9 × 10¹⁶ J.
+>P: One twin flies to a distant star and back at high speed while the other stays at home. Who is older when they meet again?
+  + The twin who stayed at home :: The traveller's clock ran slow over the whole journey.
+  - The twin who travelled :: [reversed-the-effect] Moving clocks run slow, so the traveller has aged less.
+  - Neither: the effects cancel :: [assumed-symmetry] The journeys are not alike: only the traveller turned round.
+  hint: Whose clock was the moving one, and who changed direction?
+  why: The traveller changes from one steadily moving frame to another at the turn-round; the stay-at-home does not. Less time passes for the traveller.
+done: At everyday speeds none of this shows. Explore time dilation and length contraction in the activity.
+
+@ phys.3.modern
+goal: Explain why light must come in packets, and how energy levels produce line spectra.
+intro: Light delivers its energy in packets called photons. The energy of each photon depends on the light's frequency: violet photons carry more than red ones.
+  show: table Light | Energy of one photon ;; red | about 1.8 eV ;; green | about 2.3 eV ;; violet | about 3.1 eV
+demo: Faint violet light knocks electrons out of a metal plate at once. Brilliant red light knocks out none, however long it shines. Brightness is the number of photons; colour is the energy of each one.
+  show: table Light on the metal | Electrons released ;; bright red | none ;; faint violet | some, at once
+P: Bright red light frees no electrons from a metal, yet faint violet light does. What does that show?
+  + Each photon's energy depends on frequency, and one photon must free one electron :: A red photon does not carry enough, however many arrive.
+  - The metal needs longer to soak up the red light :: [energy-accumulates] If energy built up gradually, bright red light would succeed quickest. It never succeeds.
+  - Violet light is always brighter :: [confused-colour-with-brightness] The violet light here was the faint one.
+  hint: What does one electron receive from the light, and from how many photons?
+  why: An electron is freed by a single photon. If that photon's energy is below the metal's threshold, more photons do not help.
+F: An electron in an atom falls from a level at −1.5 eV to a level at −3.4 eV.
+  frame: The photon given out has energy __ eV
+  answer: 1.9
+  x 4.9 :: [added-the-levels] The photon carries the difference between the two levels.
+  hint: Subtract the lower energy from the higher.
+  why: −1.5 − (−3.4) = 1.9 eV, which is red light.
+M: Match each idea to its meaning.
+  pairs: Photon => A packet of light energy | Energy level => An allowed energy for an electron in an atom | Line spectrum => Light of only certain colours from an element
+  hint: Only certain energies are allowed, so only certain jumps are possible.
+  why: Fixed levels allow only fixed jumps, and each jump gives a photon of one particular colour.
+>P: Electrons are sent one at a time towards two slits. Each lands as a single dot, yet thousands of dots build up bright and dark bands. What does this show?
+  + Each electron travels like a wave and arrives like a particle :: The bands are an interference pattern built from single arrivals.
+  - Electrons collide with one another on the way :: [needs-a-crowd] They were sent one at a time, so there was nothing to collide with.
+  - Each electron splits and half goes through each slit :: [particle-splits] Only whole electrons are ever detected.
+  hint: A banded pattern needs something to pass through both slits. Yet every detection is a single dot.
+  why: The probability of where an electron lands follows a wave that passes through both slits. Detection always finds one whole electron.
+done: Quantum physics begins where waves and particles stop being opposites. Explore the photoelectric effect.
+
+@ phys.4.fluids
+goal: Use pressure, continuity and Bernoulli's principle to predict how a fluid behaves.
+intro: In a steady flow through a pipe, what goes in must come out. So where the pipe narrows, the fluid speeds up: area times speed stays constant.
+  show: table Pipe area | Flow speed ;; 4 cm² | 2 m/s ;; 2 cm² | 4 m/s ;; 1 cm² | 8 m/s
+demo: Bernoulli's principle adds a second fact: where a fluid moves faster along a streamline, its pressure is lower. In the narrow part of a pipe the flow is fastest and the pressure least.
+  show: flow wide pipe: slow, high pressure > narrow pipe: fast, low pressure > wide again: slow, high pressure
+F: Use area × speed = constant.
+  frame: Water flows at 3 m/s through 6 cm² of pipe, which narrows to 2 cm². Its speed there is __ m/s
+  answer: 9
+  x 1 :: [inverted-the-ratio] A narrower pipe makes the water faster, not slower.
+  hint: The area falls to a third. What must happen to the speed?
+  why: 6 × 3 = 2 × v, so v = 9 m/s.
+P: Air travels faster over the curved top of a wing than beneath it. What does Bernoulli's principle say about the pressures?
+  + The pressure is lower above the wing :: The higher pressure below pushes the wing up.
+  - The pressure is higher above the wing :: [fast-means-high-pressure] Faster flow goes with lower pressure, not higher.
+  - The pressures are equal :: [ignored-speed-difference] A difference in speed means a difference in pressure.
+  hint: Faster flow, lower pressure.
+  why: The pressure difference between the two surfaces is part of what produces lift.
+X: Dive into water and watch the pressure rise.
+  param d: 0..50 /5 @0 | Depth | m
+  out p: 100+10*d | Total pressure | kPa
+  aim: Find the depth at which the total pressure is three times the pressure at the surface.
+  target: p == 300
+  view: bars p over d
+  hint: The air above already presses with 100 kPa. Each metre of water adds about 10 kPa.
+  why: 100 + 10 × 20 = 300 kPa. Pressure rises in step with depth because each layer carries the weight of the water above it.
+>P: A steel ship floats, although steel is far denser than water. Why?
+  + Its hollow hull pushes aside a weight of water equal to its own weight :: The ship as a whole, air included, is less dense than water.
+  - Paint keeps the water out of the steel :: [surface-keeps-it-up] Paint prevents rust. It has nothing to do with floating.
+  - Water presses equally on every side, so nothing pushes it down :: [ignored-depth-difference] Pressure is greater deeper down, and that difference is the upward push.
+  hint: How much water does the hull push out of the way?
+  why: Archimedes' principle: the upward force equals the weight of fluid displaced. A hollow hull displaces a great deal.
+done: Flow, pressure and buoyancy all follow from a few conservation rules. Explore the fluids lab.
+
+@ phys.4.classical
+goal: Describe mechanics through the Lagrangian and the action, and connect symmetries to conservation laws.
+intro: Mechanics can be rebuilt without forces. Describe a system by its Lagrangian, the kinetic energy minus the potential energy. Of all imaginable motions, the one that happens makes the action stationary.
+  show: table Quantity | Meaning ;; Lagrangian L | kinetic energy minus potential energy ;; action S | L added up along a path ;; Hamiltonian H | total energy in positions and momenta
+demo: A pendulum needs only one coordinate, its angle θ. Write the kinetic and potential energies in terms of θ, apply the Euler–Lagrange equation, and the equation of motion appears. The tension in the string is never mentioned.
+  show: steps Choose the coordinate θ ;; T = ½ m l² (dθ/dt)² ;; V = −m g l cos θ ;; Euler–Lagrange gives d²θ/dt² = −(g/l) sin θ
+M: Match each symmetry to the quantity it conserves.
+  pairs: Nothing changes under a shift in time => Energy | Nothing changes under a shift in space => Momentum | Nothing changes under a rotation => Angular momentum
+  hint: This pairing is Noether's theorem.
+  why: Every continuous symmetry of the Lagrangian gives a conserved quantity: time gives energy, position gives momentum, angle gives angular momentum.
+P: Among all the paths a system could take between two configurations in a given time, which does it follow?
+  + The path that makes the action stationary :: Small changes to that path leave the action unchanged to first order.
+  - The shortest path in space :: [confused-with-geometry] A thrown ball follows a parabola, not a straight line.
+  - The path with the least kinetic energy :: [minimised-the-wrong-quantity] It is the action, kinetic minus potential added over time, that is stationary.
+  hint: Which single quantity is added up along the whole path?
+  why: Hamilton's principle: the true motion is a stationary point of the action. The Euler–Lagrange equations express exactly that.
+P: Why does the Lagrangian treatment of a pendulum never mention the tension in the string?
+  + The coordinate θ already respects the constraint, and the tension does no work :: Forces that only enforce a constraint drop out.
+  - The tension is zero :: [denied-the-force] The string is taut. The tension is real; it is simply not needed.
+  - The tension is hidden inside the potential energy :: [misplaced-the-force] The potential here is gravity's alone.
+  hint: Does the tension ever act along the direction in which the bob moves?
+  why: Tension acts along the string, perpendicular to the bob's motion, so it does no work and never enters the energies.
+>P: A system's Lagrangian does not depend on the angle φ around some axis. What is conserved?
+  + The angular momentum about that axis :: A missing coordinate means a conserved conjugate momentum.
+  - The energy :: [matched-the-wrong-symmetry] Energy conservation comes from the Lagrangian not depending on time.
+  - The linear momentum :: [matched-the-wrong-symmetry] That would need the Lagrangian not to depend on a position.
+  hint: Which symmetry does a missing angle express?
+  why: If L does not depend on φ, then ∂L/∂(dφ/dt), the angular momentum about the axis, is constant.
+done: Symmetry in, conservation out. Compare resonance and phase in the driven oscillator.
+
+@ phys.4.em-maxwell
+goal: State what each of Maxwell's equations says, and explain how together they predict electromagnetic waves.
+intro: Four equations describe all of classical electricity and magnetism. Two say where field lines begin and end; two say how a changing field of one kind creates the other.
+  show: table Equation | It says ;; Gauss's law | electric field lines begin and end on charges ;; Gauss's law for magnetism | magnetic field lines never end ;; Faraday's law | a changing magnetic field curls an electric field round it ;; Ampère–Maxwell law | a current or a changing electric field curls a magnetic field round it
+demo: A changing electric field makes a magnetic field, and a changing magnetic field makes an electric field. Each can sustain the other and travel through empty space. The speed the equations give for this wave is the measured speed of light.
+  show: flow changing E > creates B > changing B > creates E > the wave travels on
+M: Match each equation to what it says.
+  pairs: Gauss's law => Electric field lines begin and end on charges | Gauss's law for magnetism => Magnetic field lines never end | Faraday's law => A changing magnetic field curls an electric field round it | Ampère–Maxwell law => A current or changing electric field curls a magnetic field round it
+  hint: Two equations are about sources; two are about change.
+  why: The two Gauss laws describe sources: charges exist, magnetic monopoles do not. Faraday and Ampère–Maxwell link the fields through their rates of change.
+F: Use wavelength = speed ÷ frequency, with c = 3 × 10⁸ m/s.
+  frame: A 100 MHz radio wave has a wavelength of __ m
+  answer: 3
+  x 0.33 :: [inverted-the-ratio] Divide the speed by the frequency, not the frequency by the speed.
+  hint: 100 MHz is 10⁸ Hz.
+  why: 3 × 10⁸ ÷ 10⁸ = 3 m.
+P: An electromagnetic wave travels north and its electric field points straight up. Which way does its magnetic field point?
+  + East: horizontal, at right angles to both :: E, B and the direction of travel are mutually perpendicular.
+  - Up, parallel to the electric field :: [fields-are-parallel] The two fields are always at right angles to each other.
+  - North, along the direction of travel :: [longitudinal-wave] Electromagnetic waves are transverse: neither field points along the direction of travel.
+  hint: The direction of travel is that of E × B.
+  why: Up × east = north, by the right-hand rule. Both fields are perpendicular to the motion and to each other.
+>P: While a capacitor charges, no charge crosses the gap between its plates, yet a magnetic field circles the gap. Which term accounts for it?
+  + The changing electric field in the gap :: Maxwell's addition to Ampère's law, the displacement current.
+  - A small leak of charge across the gap :: [invented-a-current] The effect is present with a perfect vacuum between the plates.
+  - Gauss's law for magnetism :: [named-the-wrong-equation] That law says only that magnetic field lines never end.
+  hint: What is changing in the gap while the capacitor charges?
+  why: The Ampère–Maxwell law has two sources of magnetic field: current, and the rate of change of electric field. In the gap only the second is present.
+done: Four equations, and light falls out of them. Explore the Maxwell lab.
+
+@ phys.4.quantum
+goal: Interpret the wavefunction, use quantised energy levels, and say what a measurement does to a state.
+intro: A quantum state is described by a wavefunction ψ. Its squared size gives the probability of finding the particle at each place. The Schrödinger equation says how ψ changes.
+  show: table Level n | Energy of a particle in a box ;; 1 | E₁ ;; 2 | 4 E₁ ;; 3 | 9 E₁
+demo: Confine a particle between two walls and only standing waves fit: a whole number of half-wavelengths. That restriction is what quantises the energy, as n² times the lowest value.
+  show: plot sin(x)*sin(x) x=0..3.1416
+F: The energy levels of a particle in a box follow Eₙ = n² E₁.
+  frame: E₃ = __ × E₁
+  answer: 9
+  x 3 :: [assumed-proportional] The energy grows as the square of n.
+  x 6 :: [doubled-instead-of-squared] 3² is 9.
+  hint: Square the level number.
+  why: 3² = 9. The levels get further apart as n rises.
+P: What does |ψ(x)|² tell you?
+  + The probability density for finding the particle at x :: Integrate it over a region to get the probability of finding the particle there.
+  - The particle's exact position :: [wavefunction-is-a-trajectory] Before measurement the theory gives probabilities, not a position.
+  - How the particle's charge is smeared out :: [smeared-particle] A measurement always finds the whole particle at one place.
+  hint: This is Born's rule.
+  why: |ψ|² is a probability density. The particle is always detected whole; ψ says how likely each place is.
+M: Match each term to its meaning.
+  pairs: Wavefunction => Amplitude whose square gives probabilities | Eigenstate => State with a definite value of an observable | Superposition => Sum of states with different values | Measurement => Yields one value and leaves the matching state
+  hint: An eigenstate has no uncertainty in the quantity it belongs to.
+  why: A general state is a superposition of eigenstates. Measuring gives one of their values, with probability set by its amplitude squared.
+>P: A beam of silver atoms passes through a non-uniform magnetic field and lands in exactly two spots. What does this show?
+  + The spin component along the field takes only two values :: This is the Stern–Gerlach experiment.
+  - The atoms were oriented at random :: [classical-expectation] Random orientations would give a continuous smear, not two spots.
+  - There are two kinds of silver atom :: [two-species] The atoms are identical; any one of them can land in either spot.
+  hint: What would a continuous range of orientations look like on the screen?
+  why: Classical magnets would spread into a band. Two sharp spots mean the measured spin component is quantised: up or down.
+done: Probabilities from amplitudes, and definite values only on measurement. Explore the quantum lab.
+
+@ phys.4.statmech
+goal: Count microstates, define entropy from the count, and use counting to explain why heat flows one way.
+intro: A macrostate is what we measure, such as "two heads among four coins". A microstate is one exact arrangement that gives it. Entropy measures how many microstates a macrostate has.
+  show: table Heads among 4 coins | Arrangements ;; 0 | 1 ;; 1 | 4 ;; 2 | 6 ;; 3 | 4 ;; 4 | 1
+demo: Two heads is the likeliest result because six of the sixteen arrangements give it. With four coins the lead is modest. With 10²³ particles the likeliest macrostate wins so completely that nothing else is ever seen.
+  show: bars 0=1 1=4 2=6 3=4 4=1
+F: Count the microstates.
+  frame: Four coins can land in __ different arrangements in all
+  answer: 16
+  x 8 :: [added-instead-of-multiplying] Each coin doubles the count: 2 × 2 × 2 × 2.
+  x 4 :: [counted-the-coins] Four is the number of coins. Each has two faces.
+  hint: Each coin has two possibilities, and the coins are independent.
+  why: 2⁴ = 16, which is also 1 + 4 + 6 + 4 + 1.
+M: Match each term to its meaning.
+  pairs: Microstate => The exact arrangement of every particle | Macrostate => What we measure, such as pressure and temperature | Entropy => A measure of how many microstates fit a macrostate
+  hint: Many microstates can look identical from outside.
+  why: S = k ln W: entropy is Boltzmann's constant times the logarithm of the number of microstates.
+P: A gas released in one corner of an empty box spreads to fill it. Why does it never gather back into the corner?
+  + Spread-out arrangements outnumber gathered ones so overwhelmingly that gathering is never seen :: Nothing forbids it; it is simply fantastically unlikely.
+  - A force pushes the gas outwards :: [invented-a-force] The molecules move freely. No force aims them at the empty space.
+  - The laws of motion forbid it :: [laws-are-irreversible] The microscopic laws run equally well backwards. The one-way behaviour is statistical.
+  hint: Compare the number of arrangements that fill the box with the number confined to a corner.
+  why: The second law is a statement about counting. Systems drift to macrostates with vastly more microstates.
+>P: A hot block is placed against a cold one and energy flows from hot to cold. In terms of counting, why?
+  + That transfer increases the total number of microstates available :: The cold block gains more arrangements than the hot one loses.
+  - Energy is drawn to wherever there is less of it :: [energy-has-a-purpose] Energy has no aim. The flow is the overwhelmingly likely outcome.
+  - The hot block pushes harder :: [invented-a-force] Heat flow is not a push. It is a drift towards the most numerous arrangements.
+  hint: Where does a joule of energy open up more new arrangements, in the hot block or the cold one?
+  why: A joule adds more entropy to a cold body than it removes from a hot one, so total entropy rises when heat flows from hot to cold.
+done: The arrow of time is a counting argument. Explore the ensemble lab.
+
+@ phys.4.relativity
+goal: Compute a Lorentz factor, use the invariance of the spacetime interval, and state the equivalence principle.
+intro: Observers in relative motion disagree about the time between two events and about the distance between them. They agree on one combination of the two: the spacetime interval.
+  show: table v/c | γ ;; 0.6 | 1.25 ;; 0.8 | 1.667 ;; 0.99 | 7.09
+demo: For v = 0.6 c: 1 − v²/c² = 0.64, whose square root is 0.8, so γ = 1.25. A clock moving at that speed takes 1.25 s for each of its own seconds, and a metre rule moving along its length measures 0.8 m.
+  show: steps v = 0.6 c ;; 1 − v²/c² = 0.64 ;; √0.64 = 0.8 ;; γ = 1 ÷ 0.8 = 1.25
+F: Take the first step towards γ.
+  frame: For v = 0.8 c, √(1 − v²/c²) = __
+  answer: 0.6
+  x 0.36 :: [forgot-the-square-root] 0.36 is 1 − 0.64. Take its square root.
+  x 0.2 :: [did-not-square] v²/c² is 0.64, not 0.8.
+  hint: 0.8² = 0.64.
+  why: 1 − 0.64 = 0.36 and √0.36 = 0.6, so γ = 1 ÷ 0.6 ≈ 1.667.
+P: Two observers in relative motion record the same two events. On which quantity do they agree?
+  + The spacetime interval between the events :: It combines the time and space separations into something every observer shares.
+  - The time between the events :: [absolute-time] Time separations depend on the observer's motion.
+  - The distance between the events :: [absolute-space] Space separations depend on the observer's motion too.
+  - Nothing at all :: [everything-is-relative] Relativity is built on what does not vary: the speed of light and the interval.
+  hint: Relativity is as much about what is the same for everyone as about what differs.
+  why: (c × time)² − distance² has the same value for all inertial observers.
+P: You are in a sealed lift and feel pressed against the floor. Without looking outside, can you tell whether you are at rest on Earth or accelerating in deep space?
+  + No: locally the two cannot be told apart :: This is the equivalence principle.
+  - Yes: real gravity feels different :: [gravity-is-special] Every local experiment gives the same result in both cases.
+  - Yes: objects fall only in real gravity :: [no-falling-when-accelerating] In the accelerating lift a released object also "falls" to the floor.
+  hint: Drop a ball in each lift. What do you see?
+  why: Gravity and acceleration are locally indistinguishable. Einstein built general relativity on that fact.
+>P: GPS satellites move fast and sit high in the Earth's gravity. For which effects must their clocks be corrected?
+  + Both: speed slows them, weaker gravity speeds them up, and gravity wins :: The net effect is tens of microseconds a day.
+  - Only their speed :: [ignored-gravity] The gravitational effect is larger than the speed effect, and opposite.
+  - Only gravity :: [ignored-speed] The satellites move at about 4 km/s, enough to matter at this precision.
+  - Neither: the effects are too small to matter :: [dismissed-the-effect] Uncorrected, positions would drift by kilometres a day.
+  hint: Special relativity concerns motion; general relativity concerns gravity. Both apply.
+  why: Motion slows the clocks by about 7 μs a day; weaker gravity speeds them by about 45 μs. The net gain is about 38 μs a day.
+done: Relativity is engineering now, not only theory. Explore the relativity lab.
+
+@ phys.4.solid-state
+goal: Explain conductors, insulators and semiconductors with energy bands, and say what doping does.
+intro: In a crystal, the energy levels of the separate atoms merge into bands. Electrons fill the bands from the bottom. What matters is whether a gap separates the filled states from the empty ones.
+  show: table Material | Band gap ;; metal | none: the bands overlap ;; semiconductor | small, about 1 eV ;; insulator | large, several eV
+demo: Pure silicon has a gap of about 1.1 eV. At room temperature a few electrons have enough thermal energy to cross it, so silicon conducts weakly. Add a trace of phosphorus, with one more outer electron, and carriers become plentiful.
+  show: flow filled valence band > gap of 1.1 eV > conduction band
+G: Conductor, semiconductor or insulator?
+  bin Conductor: copper | silver
+  bin Semiconductor: silicon | germanium
+  bin Insulator: diamond | glass
+  hint: The size of the band gap decides.
+  why: Metals have no gap, semiconductors a small one, and insulators a large one that thermal energy cannot bridge.
+M: Match each term to its meaning.
+  pairs: Valence band => Highest band filled with electrons | Conduction band => Band in which electrons move freely | Band gap => Range of energies no electron may have | Dopant => Impurity added to supply charge carriers
+  hint: Electrons must reach the conduction band to carry current.
+  why: Conduction needs electrons in a band with free states. The gap is the energy cost of getting there.
+P: Silicon is doped with phosphorus, which has one more outer electron than silicon. What results?
+  + n-type silicon, with extra electrons to carry current :: Each phosphorus atom gives up an electron to the conduction band.
+  - p-type silicon, with holes to carry current :: [confused-donor-with-acceptor] Holes come from an element with one fewer outer electron, such as boron.
+  - An insulator :: [doping-blocks-current] Doping adds carriers and raises the conductivity.
+  hint: Does phosphorus bring an electron too many or one too few?
+  why: The fifth electron of phosphorus is not needed for bonding and is easily freed: a donor, giving negative carriers.
+>P: A light-emitting diode shines when electrons drop across its band gap. What sets the colour?
+  + The size of the band gap :: A larger gap gives photons of higher energy, towards the blue.
+  - The size of the current :: [brightness-is-colour] More current means more photons, so a brighter light of the same colour.
+  - The colour of the plastic case :: [filter-sets-the-colour] The case only passes or tints light the chip has already made.
+  hint: Each electron that drops across the gap releases one photon. How much energy does it carry?
+  why: Photon energy equals the gap energy, and photon energy fixes the colour. Blue LEDs needed materials with a wide gap.
+done: A small gap and a little impurity: that is electronics. Explore the condensed matter lab.
+
+@ phys.4.particles
+goal: Sort the particles of the Standard Model, build hadrons from quarks, and apply conservation laws to a decay.
+intro: Matter is made of two families of particles, quarks and leptons. Forces are carried by a third group, the force carriers.
+  show: table Family | Members ;; quarks | up, down, charm, strange, top, bottom ;; leptons | electron, muon, tau and their neutrinos ;; force carriers | photon, gluon, W and Z
+demo: A proton is made of two up quarks and one down quark. Their charges, +2/3, +2/3 and −1/3, add up to +1.
+  show: table Quark | Charge ;; up | +2/3 ;; up | +2/3 ;; down | −1/3 ;; proton, in total | +1
+G: Sort the particles.
+  bin Quarks: up | down | strange
+  bin Leptons: electron | muon | neutrino
+  bin Force carriers: photon | gluon | W boson
+  hint: Quarks feel the strong force. Leptons do not. Force carriers are exchanged between the others.
+  why: Up, down and strange are quarks. The electron, muon and neutrino are leptons. The photon, gluon and W carry forces.
+B: Build a neutron from quarks.
+  bank: up | up | down | down | strange
+  answer: up | down | down
+  any-order
+  x strange :: [used-a-heavier-quark] Protons and neutrons contain only up and down quarks.
+  hint: A neutron has no charge. Which three charges of +2/3 and −1/3 add up to zero?
+  why: +2/3 − 1/3 − 1/3 = 0, so a neutron is one up quark and two down quarks.
+F: Check the neutron's charge.
+  frame: +2/3 − 1/3 − 1/3 = __
+  answer: 0
+  hint: Add the three thirds.
+  why: 2/3 − 2/3 = 0. The neutron is neutral although its quarks are charged.
+>P: A free neutron decays into a proton, an electron and an antineutrino. Which conservation law forbids a neutron from decaying into a proton and a positron instead?
+  + Conservation of electric charge :: A neutral neutron cannot become two positive particles.
+  - Conservation of energy :: [named-the-wrong-law] There is enough energy. The charges are what fail to balance.
+  - Conservation of baryon number :: [named-the-wrong-law] One baryon goes in and one comes out either way.
+  hint: Add up the electric charge before and after.
+  why: Before: 0. After a proton and a positron: +2. In the real decay the proton's +1 is balanced by the electron's −1.
+done: A short list of particles and a short list of conserved quantities. Explore the particle lab.
+
+@ phys.4.experiment
+goal: Combine repeated readings, tell random error from systematic error, and judge whether a result agrees with an accepted value.
+intro: No measurement is exact. Repeated readings scatter, which is random error. They may also all be shifted the same way by a fault in the method, which is systematic error.
+  show: table Reading | Time in seconds ;; 1 | 9.7 ;; 2 | 9.8 ;; 3 | 9.9
+demo: Three timings of 9.7, 9.8 and 9.9 s have a mean of 9.8 s and scatter by about 0.1 s either side. The honest result is 9.8 ± 0.1 s.
+  show: line 9.5..10 step=0.1 mark=9.7,9.8,9.9
+F: Find the mean.
+  frame: The mean of 4.1, 4.3 and 4.2 is __
+  answer: 4.2
+  x 12.6 :: [gave-the-total] 12.6 is the sum. Divide it by the number of readings.
+  hint: Add the readings and divide by three.
+  why: 12.6 ÷ 3 = 4.2.
+G: Random or systematic?
+  bin Random error: reaction time with a stopwatch | electrical noise in a reading
+  bin Systematic error: a ruler with a worn end | a balance that reads 5 g when empty | a clock that runs slow
+  hint: Does the fault push every reading the same way?
+  why: Random errors scatter readings in both directions. Systematic errors shift them all in one direction.
+P: You repeat a measurement many more times and take the average. Which kind of error shrinks?
+  + Random error only :: Scatter averages out; a shared offset does not.
+  - Systematic error only :: [reversed-the-two] An offset common to every reading survives any amount of averaging.
+  - Both kinds :: [averaging-cures-everything] Averaging cannot remove a shift that every reading shares.
+  hint: If every reading is 5 g too high, what is their average?
+  why: Random errors cancel in the mean. A systematic error has to be found and removed at its source.
+>P: You measure g = 9.6 ± 0.3 m/s². The accepted value is 9.81 m/s². What should you conclude?
+  + Your result is consistent with the accepted value :: 9.81 lies inside your range, 9.3 to 9.9.
+  - The experiment failed :: [exact-match-required] A measurement need not equal the accepted value, only agree within its uncertainty.
+  - Gravity really is 9.6 m/s² where you are :: [ignored-uncertainty] Your result does not single out 9.6. It says the value lies between 9.3 and 9.9.
+  hint: Write down the range your result allows.
+  why: Agreement means the accepted value falls within the stated uncertainty. Here it does.
+done: A result without its uncertainty cannot be compared with anything. Compare two laboratory measurements in the activity.
+
+@ phys.5.qft
+goal: Explain why relativistic quantum physics needs fields, and read the ingredients of a Feynman diagram.
+intro: In quantum field theory every kind of particle is a quantised ripple of a field that fills spacetime. Because ripples can be made and unmade, particles can be created and destroyed.
+  show: table Idea | In quantum field theory ;; particle | a quantum of excitation of a field ;; vacuum | the lowest-energy state of every field ;; interaction | fields exchanging energy at a point
+demo: Two electrons repel. In the simplest diagram one electron emits a virtual photon and the other absorbs it. The diagram has two vertices, and at each one two electron lines meet one photon line.
+  show: flow electron arrives > vertex: a photon is emitted > the photon crosses > vertex: the photon is absorbed > electron leaves
+M: Match each term to its meaning.
+  pairs: Field => A quantity defined at every point of spacetime | Particle => A quantised excitation of a field | Virtual particle => An internal line of a diagram, never observed directly | Vacuum => The lowest-energy state of all the fields
+  hint: The field is the basic object. Everything else is described in terms of it.
+  why: Particles are what a field's energy comes in. The vacuum is the state with no excitations, not a state with no field.
+P: Why can single-particle quantum mechanics not describe high-energy collisions?
+  + Particles are created and destroyed, so their number is not fixed :: Energy can become new particles.
+  - The particles move too fast for a wavefunction to exist :: [speed-forbids-waves] Wave descriptions hold at any speed. The trouble is the changing number of particles.
+  - The uncertainty principle stops applying :: [dropped-a-principle] It applies at every energy.
+  hint: What can E = mc² do with the energy of a collision?
+  why: When the available energy exceeds the rest energy of new particles, they can appear. A theory with a fixed particle number cannot describe that.
+P: In quantum electrodynamics, what meets at every vertex of a Feynman diagram?
+  + Two charged-particle lines and one photon line :: Charge flows in along one line and out along the other.
+  - Three photon lines :: [photons-couple-to-photons] Photons carry no charge and do not couple directly to each other.
+  - Four electron lines :: [contact-interaction] Electrons in this theory interact only by exchanging photons.
+  hint: A photon couples to electric charge.
+  why: The single vertex of QED is charge emitting or absorbing a photon. Every diagram is built from copies of it.
+>P: Beyond the simplest diagrams, calculations give infinite answers. How does renormalisation still produce predictions?
+  + The infinities are absorbed into a few measured quantities, such as mass and charge :: Everything else then comes out finite.
+  - The infinite diagrams are simply left out :: [ignored-the-problem] They cannot be dropped; their finite parts are measured in experiments.
+  - It cannot: the theory predicts nothing :: [theory-is-useless] QED agrees with experiment to better than one part in a billion.
+  hint: A theory needs some measured inputs. What if the infinities live entirely in those inputs?
+  why: Bare parameters are not observable. Expressing results in terms of the measured mass and charge removes the infinities from every prediction.
+done: Fields first, particles second. Explore the quantum field theory lab.
+
+@ phys.5.gr-cosmo
+goal: State what Einstein's equation relates, use Hubble's law, and order the main events in the history of the universe.
+intro: General relativity describes gravity as geometry. Matter and energy tell spacetime how to curve, and curved spacetime tells matter how to move.
+  show: table Idea | Meaning ;; Einstein's equation | curvature of spacetime = its content of energy and momentum ;; geodesic | the path of anything in free fall ;; Hubble's law | recession speed is proportional to distance
+demo: Distant galaxies recede from us at speeds proportional to their distance. With a Hubble constant of about 70 km/s for each megaparsec, a galaxy 100 Mpc away recedes at about 7000 km/s.
+  show: plot 70*x x=0..200
+F: Use Hubble's law with H₀ = 70 km/s per megaparsec.
+  frame: A galaxy 50 Mpc away recedes at about __ km/s
+  answer: 3500
+  x 1.4 :: [divided-instead] Speed is the Hubble constant multiplied by the distance.
+  hint: Multiply the distance by 70.
+  why: 70 × 50 = 3500 km/s.
+O: Put these events in the history of the universe in order.
+  items: A burst of inflation | Nuclei of the light elements form | Atoms form and the background radiation is released | The first stars and galaxies appear | The expansion begins to speed up
+  ends: Earliest | Most recent
+  hint: The universe had to cool before nuclei, and cool much further before atoms.
+  why: Inflation in the first instant, nuclei within minutes, atoms after about 380,000 years, stars after about a hundred million years, and accelerated expansion in the last few billion.
+M: Match each term to its meaning.
+  pairs: Einstein's equation => Curvature equals energy and momentum content | Geodesic => The path of anything in free fall | Cosmic microwave background => The afterglow of the hot early universe | Hubble's law => Recession speed is proportional to distance
+  hint: One is an equation, one a path, one a kind of light, one an observed rule.
+  why: These four ideas carry most of modern cosmology: the dynamics, free motion, the oldest light and the expansion.
+>P: Light from distant galaxies arrives with its wavelengths stretched. What is the best description of the cause?
+  + Space itself expanded while the light was travelling :: The waves were stretched along with it.
+  - The galaxies are flying apart through a fixed space :: [explosion-picture] There is no centre and no edge. Distances grow everywhere at once.
+  - Light loses energy just by travelling far :: [tired-light] That idea predicts effects, such as blurred images, that are not observed.
+  hint: What happens to a wave drawn on a balloon as the balloon is blown up?
+  why: Cosmological redshift is the stretching of wavelengths by the expansion of space between emission and arrival.
+done: Geometry is gravity, and the universe has a history. Explore the cosmology lab.
+
+@ phys.5.condensed
+goal: Describe emergence in many-particle systems through phase transitions, order parameters and superconductivity.
+intro: When very many particles interact, they can behave in ways no single one of them does. That is emergence. A phase transition is the point at which a new kind of order appears.
+  show: table Idea | Meaning ;; order parameter | zero in the disordered phase, non-zero in the ordered one ;; critical temperature | where the order appears or vanishes ;; emergence | collective behaviour that no single particle has
+demo: In a magnet above its critical temperature the atomic spins point at random and the magnetisation is zero. Cool it below that temperature and the spins begin to line up: the magnetisation, the order parameter, grows from nothing.
+  show: plot sqrt(max(1-x,0)) x=0..1.5
+X: Warm a magnet through its critical temperature.
+  param t: 0..1.5 /0.1 @0 | Temperature | × the critical temperature
+  out m: sqrt(max(1-t, 0)) | Magnetisation
+  aim: Find the lowest temperature at which the magnetisation has vanished.
+  target: m == 0 and t < 1.05
+  view: bars m over t
+  hint: The order shrinks as the temperature rises. Where does it reach zero?
+  why: The magnetisation falls continuously to zero exactly at the critical temperature and stays zero above it. That is a continuous phase transition.
+M: Match each term to its meaning.
+  pairs: Superconductor => Zero electrical resistance below a critical temperature | Cooper pair => Two electrons bound together through lattice vibrations | Order parameter => Zero when disordered, non-zero when ordered | Phase transition => An abrupt change of state at a critical point
+  hint: Three describe order in general; one is the mechanism of a particular kind.
+  why: Superconductivity is a phase transition whose order parameter describes the paired electrons.
+P: Which of these is an emergent property, one that no single atom has?
+  + The rigidity of a crystal :: One atom cannot be rigid. Rigidity belongs to the ordered arrangement.
+  - The mass of an atom :: [property-of-one] Each atom has mass by itself.
+  - The charge of an electron :: [property-of-one] A single electron carries its charge.
+  hint: Which property needs many atoms before the word even makes sense?
+  why: Rigidity, magnetism and superconductivity exist only in collections of particles.
+>P: A small magnet floats above a superconductor that has been cooled below its critical temperature. Why?
+  + The superconductor expels the magnetic field from its interior :: This is the Meissner effect, and it repels the magnet.
+  - The superconductor has become a permanent magnet :: [became-a-magnet] It carries surface currents that cancel the field inside it. It has no fixed poles.
+  - The cold air lifts the magnet :: [buoyancy] Cold air is denser, but far too thin to hold up a magnet.
+  hint: A superconductor does more than conduct perfectly. What does it do to a magnetic field?
+  why: Screening currents on the surface keep the field out of the superconductor, and that produces a repulsive force on the magnet.
+done: More is different. Explore spin order and temperature in the activity.
+
+@ phys.5.quantum-info
+goal: Describe qubits, superposition and entanglement, and say what entanglement can and cannot be used for.
+intro: A qubit can be in a superposition of 0 and 1. Describing n qubits takes 2ⁿ numbers, called amplitudes, which is where the power of a quantum computer comes from.
+  show: table Qubits | Amplitudes needed ;; 1 | 2 ;; 2 | 4 ;; 3 | 8 ;; 10 | 1024
+demo: Apply a Hadamard gate to a qubit in state 0 and it becomes an equal superposition. Follow it with a controlled-NOT on a second qubit and the pair is entangled: each result alone is random, but the two always agree.
+  show: steps Start with |00⟩ ;; Hadamard on the first qubit: (|00⟩ + |10⟩)/√2 ;; Controlled-NOT: (|00⟩ + |11⟩)/√2 ;; The two results always agree
+F: Count the amplitudes.
+  frame: Describing 5 qubits takes __ amplitudes
+  answer: 32
+  x 10 :: [doubled-instead] Each extra qubit doubles the count: 2⁵, not 2 × 5.
+  x 25 :: [squared-instead] The count is 2 to the power 5, not 5 squared.
+  hint: 2, 4, 8, …
+  why: 2⁵ = 32.
+M: Match each term to its meaning.
+  pairs: Qubit => A superposition of 0 and 1 | Entanglement => Correlations that no pre-set values can explain | Hadamard gate => Turns a definite 0 into an equal superposition | No-cloning theorem => An unknown quantum state cannot be copied
+  hint: One is a unit, one a resource, one an operation, one a limit.
+  why: These four ideas underlie quantum algorithms and quantum cryptography alike.
+P: A qubit is in the equal superposition (|0⟩ + |1⟩)/√2 and is measured in the 0/1 basis. What is seen?
+  + 0 or 1, each with probability one half :: A measurement always gives one definite value.
+  - The value 0.5 :: [superposition-is-an-average] A superposition is not an intermediate value. Each measurement gives 0 or 1.
+  - Both 0 and 1 at once :: [sees-both] A single measurement returns a single result.
+  hint: Square each amplitude to get a probability.
+  why: Each amplitude is 1/√2, and its square is ½.
+>P: Alice and Bob share an entangled pair. Alice measures her qubit. Can she use this to send Bob a message faster than light?
+  + No: Bob's results look random until he compares notes with Alice by ordinary means :: The correlation appears only when the two records are brought together.
+  - Yes, instantly :: [entanglement-signals] Alice cannot choose her result, so she cannot encode a message in it.
+  - Yes, but only at the speed of light :: [entanglement-is-a-channel] Entanglement by itself carries no message at any speed.
+  hint: What does Bob see if he looks only at his own results?
+  why: Each side sees perfectly random outcomes. Entanglement gives correlation, not communication.
+done: Entanglement is a resource, not a telephone. Explore the quantum information lab.
+
+@ phys.5.frontier
+goal: Separate what physics has established from what remains open, and say what makes a proposed answer testable.
+intro: Physics has open questions at its foundations. What is dark matter made of? How does gravity fit with quantum theory? Why is there more matter than antimatter?
+  show: table Question | Status ;; What is dark matter made of? | open ;; How does gravity fit with quantum theory? | open ;; Does the Higgs boson exist? | settled in 2012
+demo: Stars far from the centre of a galaxy orbit about as fast as stars nearer in. The visible matter alone would make them slower. Either there is unseen mass, or gravity behaves differently at such scales.
+  show: table Distance from the centre | Observed pattern | Expected from visible matter ;; near | fast | fast ;; far | still fast | much slower
+G: Established, or still open?
+  bin Established: the Higgs boson | gravitational waves | the accelerating expansion of the universe
+  bin Still open: what dark matter is made of | how gravity and quantum theory fit together | why matter outweighs antimatter
+  hint: Which of these have been directly detected or measured?
+  why: The Higgs boson, gravitational waves and cosmic acceleration have all been observed. The other three have no accepted answer.
+S: Which observations are evidence that dark matter exists? Choose every one.
+  + Outer stars in galaxies orbit faster than the visible matter allows :: More mass must be pulling on them.
+  + Galaxy clusters bend light more than their visible matter could :: Gravitational lensing weighs all the mass, seen or not.
+  + The pattern of ripples in the cosmic microwave background :: It fits a universe with far more matter than the ordinary kind.
+  - A dark-matter particle caught in a laboratory detector :: [assumed-direct-detection] No such detection has been confirmed. So far all the evidence is gravitational.
+  hint: Which of these have actually been observed?
+  why: Three independent gravitational lines of evidence agree. What dark matter is made of remains unknown because none has been detected directly.
+>P: A new theory accounts for every measurement made so far. What more does it need before physicists count it as an advance?
+  + A prediction that differs from the old theory's and could be shown wrong by experiment :: Otherwise nothing could ever tell the two apart.
+  - Mathematical beauty :: [beauty-is-evidence] Elegance can guide a search, but it is not evidence.
+  - The support of famous physicists :: [authority-is-evidence] Nature, not reputation, settles the question.
+  hint: How could anyone find out that the new theory is wrong?
+  why: A theory earns its place by risking a prediction. Matching what is already known is necessary but shows nothing new.
+done: The frontier is where the questions are better than the answers. Explore observed galaxy rotation curves.

@@ -18,6 +18,9 @@ DICTATION_LAYOUT = (
 
 
 def before_activity_registry_bytes(path, raw):
+    # Newest link for the backend: the learning-sequence router (2026-11-18).
+    from tools.learning_games_compatibility import before_learning_games_bytes
+    raw = before_learning_games_bytes(path, raw)
     if str(path) == 'data/radiology/radiology-asset-evidence.json':
         # Newest links for the evidence file: sided Radiology Assistant figures, second-pass stored-caption bindings, first-pass stored-caption bindings,
         # Radiology Assistant figures, sided ultrasound panels.

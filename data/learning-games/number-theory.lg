@@ -1,0 +1,354 @@
+# Number theory: divisibility, digit sums, last-digit cycles, remainder
+# arithmetic, digital roots and factor trees.
+#
+# The ideas follow seven lessons recorded in data/learning-observations/.
+# Every explanation, number, example and puzzle below was written for Primer;
+# no source wording, question or artwork is reproduced.  The arithmetic is
+# recomputed by tests/test_learning_games_number_theory.py.
+
+@ math.2.primes
+~ Last-Digit Detective
+from: brilliant-2026-11-05-divisibility
+goal: Decide divisibility by 2, 5 and 10 from the last digit alone, and tell a definite "no" apart from "cannot tell yet".
+intro: A number is divisible by d when dividing by d leaves nothing over. Every whole number is a pile of tens plus its last digit: 804,210 is 80,421 tens and 0 more.
+  show: digits 804210 last=1
+demo: Tens never leave anything over when shared among 2, 5 or 10, because 10 = 2 × 5. So only the last digit can. 730,025 is 73,002 tens and 5 more, and 5 ÷ 5 leaves nothing: 730,025 is a multiple of 5.
+  show: digits 730025 last=1
+P: Is 804,210 divisible by 10?
+  keep
+  + Yes :: The last digit is 0, so the number is a whole count of tens.
+  - No :: [judged-whole-number] The size of the number does not matter. 804,210 = 80,421 × 10 + 0, and that leftover 0 decides it.
+  hint: Split off the last digit. How many tens are there, and what is left over?
+  why: 804,210 = 80,421 × 10 + 0. Nothing is left over, so 10 divides it exactly.
+P: Is 9,007,199,254,740,993 divisible by 2?
+  show: digits 9007199254740993 last=1
+  keep
+  + No :: The last digit, 3, is odd.
+  - Yes :: [length-distracts] However long it is, the number is still some tens plus its last digit. Tens are even, and 3 leaves one over.
+  hint: Tens always split into two equal piles. What does the last digit leave when it is halved?
+  why: The number is a huge count of tens, plus 3. The tens halve exactly; 3 leaves 1 over. So the number is odd.
+G: Sort each number by what its last digit tells you.
+  bin Divisible by 10: 4,070 | 51,300
+  bin By 5 but not by 2: 135 | 90,905
+  bin By 2 but not by 5: 618 | 7,776
+  bin By neither: 2,223 | 409
+  note 135 :: It ends in 5, so 5 divides it; 5 is odd, so 2 does not.
+  note 618 :: It ends in 8, which is even but is not 0 or 5.
+  note 409 :: It ends in 9: odd, and not 0 or 5. The 0 in the middle changes nothing.
+  hint: Look only at the last digit. Is it 0, is it 5, is it even, or is it none of these?
+  why: A last digit of 0 means divisible by 2, 5 and 10. A last digit of 5 means by 5 only. A last digit of 2, 4, 6 or 8 means by 2 only. Any other last digit means by none of them.
+K: A six-digit number lies face down. Turn over as few digits as you can, then decide: is it divisible by 5?
+  clue Hundred-thousands digit: 3
+  clue Thousands digit: 0
+  clue Tens digit: 5
+  clue Units digit: 2
+  need: 4
+  + No :: The units digit is 2, so 2 is left over after every five is removed.
+  - Yes :: [any-five-counts] A 5 in the tens place is worth 50, which is already a multiple of 5. It leaves nothing over either way; only the units digit can.
+  - It depends on digits still hidden :: [needs-every-digit] Every hidden place is worth a multiple of 10, and 10 is a multiple of 5. Nothing still hidden can change the answer.
+  hint: Which place value is the only one that is not a multiple of 10?
+  why: Every digit except the last stands for a multiple of 10, and 10 = 5 × 2. Only the units digit can leave anything over.
+P: Four digits of this number are hidden. Is it divisible by 4?
+  show: digits ????0 last=1
+  + Not enough information :: 40 is a multiple of 4 and 50 is not, yet both end in 0.
+  - Yes :: [overextended-last-digit-rule] The last digit settles 2, 5 and 10 because they divide 10. But 4 does not divide 10: compare 40 with 50.
+  - No :: [overextended-last-digit-rule] Some numbers ending in 0 are multiples of 4, such as 20 and 40. One digit cannot rule it out.
+  hint: Try two small numbers that end in 0, such as 40 and 50.
+  why: Ten is not a multiple of 4, so the tens digit can change the remainder: 40 = 4 × 10 but 50 = 4 × 12 + 2. One visible digit is not enough.
+>P: Now two digits show. Is the number divisible by 4?
+  show: digits ???20 last=2
+  + Yes :: Every hundred is a multiple of 4, and so is 20.
+  - Not enough information :: [carried-over-doubt] One digit was not enough, but two are: 100 = 4 × 25, so the hidden digits only ever add multiples of 4.
+  - No :: [tested-one-digit] Test the ending 20, not the single digit 0 or 2: 20 = 4 × 5.
+  hint: 100 = 4 × 25. What is left once every hundred is taken away?
+  why: The number is some hundreds plus 20. Hundreds are multiples of 4 and 20 = 4 × 5, so nothing is left over whatever the hidden digits are.
+done: Next, "Longer Endings" asks how many final digits 8, 16 and 125 need.
+
+@ math.2.primes
+~ Longer Endings
+from: brilliant-2026-11-08-more-divisibility
+goal: Find how many final digits decide divisibility by 4, 8, 16, 25 and 125, and use those digits to test and repair numbers.
+intro: Write a number as digits times place values: 5,236 = 5 × 1000 + 2 × 100 + 3 × 10 + 6. When a place value is itself a multiple of the divisor, the digit in that place cannot change what is left over.
+  show: table Place | Value | Left over ÷ 8 ;; thousands | 1000 | 0 ;; hundreds | 100 | 4 ;; tens | 10 | 2 ;; units | 1 | 1
+demo: 1000 = 8 × 125, so thousands, and every place above them, leave nothing when divided by 8. Only the last three digits matter. For 57,232 the ending is 232 = 8 × 29, so 57,232 is a multiple of 8.
+  show: digits 57232 last=3
+F: How many final digits do you need to be sure whether a number is divisible by 8?
+  frame: The last __ digits
+  answer: 3 | three
+  x 2 :: [copied-rule-for-4] Two digits work for 4 because 100 is a multiple of 4. But 100 = 8 × 12 + 4, so the hundreds digit still changes what 8 leaves.
+  x 1 :: [last-digit-habit] One digit works only when the divisor divides 10. Compare 16 and 26: same last digit, different answers.
+  hint: Find the smallest of 10, 100 and 1000 that 8 divides exactly.
+  why: 10 and 100 are not multiples of 8, but 1000 = 8 × 125 is. Compare 1,000 with 1,100: the same last two digits, yet only 1,000 is a multiple of 8.
+M: Match each divisor to the fewest final digits that always decide.
+  pairs: 5 => 1 digit | 4 => 2 digits | 125 => 3 digits | 16 => 4 digits
+  hint: For each divisor, find the smallest power of ten that it divides exactly.
+  why: 10 = 5 × 2, 100 = 4 × 25, 1000 = 125 × 8 and 10,000 = 16 × 625. Once a power of ten is a multiple, every higher place is too.
+E: 57,236 is not a multiple of 8. Repair it.
+  tokens: 5 | 7 | 2 | 3 | 6
+  limit: 1
+  aim: Change exactly one digit so that the number becomes a multiple of 8.
+  eval: nt.repair by=8
+  hint: Only three of the five positions can change what 8 leaves. Which three?
+  hint: The ending 236 leaves 4. Change one of the last three digits so the ending is a multiple of 8, such as 232.
+  why: Thousands and above are multiples of 1000 = 8 × 125, so editing them changes nothing. The ending 236 leaves 4; endings such as 232, 216 and 136 are multiples of 8.
+F: In how many of the five positions of 57,236 could one new digit make a multiple of 8?
+  frame: __ positions
+  answer: 3 | three
+  x 5 :: [every-digit-matters] Changing the 5 or the 7 adds or removes a multiple of 1000, which is already a multiple of 8. What is left over stays 4.
+  x 1 :: [units-only] The tens and hundreds digits also sit below 1000, so each of them can be repaired too: 216 and 136 are multiples of 8.
+  hint: A position can only help if its place value is not a multiple of 8.
+  why: Units: 6 becomes 2. Tens: 3 becomes 1, 5 or 9. Hundreds: 2 becomes 1, 3, 5, 7 or 9. The two leading positions cannot change what is left over.
+P: A number ends in 7. You can see nothing else. Is it divisible by 8?
+  + No :: Every multiple of 8 is even, and a last digit of 7 makes this number odd.
+  - Not enough information :: [confirm-and-refute-alike] Three digits are needed to confirm a multiple of 8, but a single odd digit is enough to rule one out.
+  - Yes :: [guessed] A multiple of 8 is a multiple of 2, so it must end in an even digit.
+  hint: 8 = 2 × 4. What must be true of every multiple of 8?
+  why: Multiples of 8 are multiples of 2, so they end in 0, 2, 4, 6 or 8. An odd last digit already fails.
+>P: A new divisor: 25. Which endings show that a number is a multiple of 25?
+  + 00, 25, 50 or 75 :: 100 = 25 × 4, so the last two digits decide, and these are the two-digit multiples of 25.
+  - Any ending in 0 or 5 :: [rule-for-5] That is the test for 5. 15 ends in 5, but 15 is not a multiple of 25.
+  - 25 only :: [single-example] 50, 75 and 100 are multiples of 25 as well.
+  - Any last three digits that form a multiple of 25 :: [more-than-needed] True, but more than you need: 100 is already a multiple of 25, so two digits always decide.
+  hint: What is the smallest power of ten that 25 divides exactly?
+  why: 100 = 25 × 4, so only the last two digits can leave anything over. The two-digit multiples of 25 are 00, 25, 50 and 75.
+done: Next, "Digit Sums" deals with 3 and 9, which divide no power of ten at all.
+
+@ math.2.primes
+~ Digit Sums
+from: brilliant-2026-11-13-divisibility-by-9-and-3
+goal: Use digit sums to find what a number leaves on division by 3 and by 9, and explain why the method works.
+intro: 10 = 9 + 1, 100 = 99 + 1 and 1000 = 999 + 1. Every power of ten is one more than a multiple of 9. So, counted in nines, each digit leaves over just itself.
+  show: table Place value | Split | Left over ÷ 9 ;; 10 | 9 + 1 | 1 ;; 100 | 99 + 1 | 1 ;; 1000 | 999 + 1 | 1
+demo: Take 52 dots: 5 tens and 2 ones. Each ten is one nine and a spare dot. So 52 is 5 nines with 5 + 2 = 7 dots over, and 52 ÷ 9 leaves 7.
+  show: dots 52 /9
+P: What does 4,321 leave when it is divided by 9?
+  + 1 :: 4 + 3 + 2 + 1 = 10, and 10 is 9 + 1.
+  - 10 :: [unreduced-sum] 10 is the digit sum, but something left over on division by 9 must be less than 9. Reduce once more: 10 = 9 + 1.
+  - 0 :: [assumed-divisible] The digit sum is 10, which is not a multiple of 9.
+  - 4 :: [first-digit-only] Every digit counts, not only the first: add all four.
+  hint: Add the digits, then check that your result is less than 9.
+  why: 4 + 3 + 2 + 1 = 10, and 10 leaves 1. Indeed 4,321 = 9 × 480 + 1.
+S: Which of these are divisible by 3? Choose every one.
+  + 7,032 :: 7 + 0 + 3 + 2 = 12, a multiple of 3.
+  + 111,111 :: Six ones add to 6.
+  + 90,909 :: 9 + 9 + 9 = 27.
+  - 4,444 :: [neat-pattern] A tidy pattern proves nothing: 4 + 4 + 4 + 4 = 16 leaves 1.
+  - 3,133 :: [contains-a-three] Containing the digit 3 does not matter. 3 + 1 + 3 + 3 = 10 leaves 1.
+  hint: Add each number's digits. If the sum is a multiple of 3, so is the number.
+  why: Powers of ten leave 1 on division by 3 as well (10 = 3 × 3 + 1), so a number and its digit sum leave the same amount on division by 3.
+C: These two numbers use the same digits in a different order. What must be true of them?
+  left: digits 4725
+  right: digits 7254
+  + They leave the same amount on division by 9 :: Both have digit sum 18, so both are multiples of 9.
+  - They leave the same amount on division by 4 :: [one-rule-fits-all] The test for 4 reads the last two digits, and those differ: 25 leaves 1 and 54 leaves 2.
+  - Only the larger one can be a multiple of 9 :: [order-matters] Reordering digits cannot change their sum: 4,725 = 9 × 525 and 7,254 = 9 × 806.
+  - They have the same last digit :: [misread] The last digits are 5 and 4.
+  hint: What does reordering the digits leave unchanged?
+  why: Reordering digits keeps their sum, so it cannot change what is left on division by 9, or by 3. Rules that read particular positions, such as the rule for 4, can change.
+F: A number is written using only the digit 1. What is the smallest count of 1s that makes a multiple of 9?
+  frame: __ ones
+  answer: 9 | nine
+  x 3 :: [confused-3-with-9] 111 has digit sum 3, so it is a multiple of 3 (111 = 3 × 37), but not of 9.
+  x 1 :: [misread] The number 1 leaves 1 on division by 9.
+  hint: A number made of k ones has digit sum k.
+  why: k ones have digit sum k, so they leave whatever k leaves. The first k that is a multiple of 9 is 9 itself: 111,111,111 = 9 × 12,345,679.
+>P: The digits of 271,845 are read in pairs: 27 + 18 + 45 = 90. What does that tell you about 271,845?
+  + It is a multiple of 9, because 90 is :: Each pair leaves the same amount as its own two digits would.
+  - Nothing: only single digits may be added :: [single-digits-only] 100 and 10,000 also leave 1 on division by 9, so two-digit chunks work for the same reason single digits do.
+  - It is a multiple of 90 :: [sum-becomes-divisor] The chunk sum shares what is left on division by 9, not divisibility by 90. 271,845 is odd, so it is not a multiple of 90.
+  hint: What do 100 and 10,000 leave when divided by 9?
+  why: 271,845 = 27 × 10,000 + 18 × 100 + 45, and 10,000 and 100 each leave 1 on division by 9. So the number leaves what 27 + 18 + 45 = 90 leaves, which is 0.
+done: Next, "Last-Digit Cycles" predicts the endings of sums, products and powers.
+
+@ math.2.primes
+~ Last-Digit Cycles
+from: brilliant-2026-11-14-last-digits
+goal: Predict the last digit of sums, products and large powers without working them out in full.
+intro: The last digit of a number is what it leaves on division by 10. When you add or multiply, only the last digits of the inputs can reach the last digit of the result.
+  show: steps 48 + 37: the last digits give 8 + 7 = 15, so the sum ends in 5 ;; 48 × 37: the last digits give 8 × 7 = 56, so the product ends in 6
+demo: The powers of 3 are 3, 9, 27, 81, 243, 729 and so on. Their last digits run 3, 9, 7, 1 and then start again, because each step multiplies only the last digit by 3.
+  show: cycle 3 9 7 1
+P: What is the last digit of 6,418 + 2,937 + 5,126?
+  + 1 :: 8 + 7 + 6 = 21, which ends in 1.
+  - 21 :: [unreduced-sum] 21 is the sum of the three last digits. Only its own last digit, 1, survives.
+  - 4 :: [dropped-a-term] There are three numbers to add: 8 + 7 + 6, not 8 + 6.
+  - 6 :: [last-term-only] Every term's last digit counts, not only the final term's.
+  hint: Add the three last digits, then keep only the last digit of that sum.
+  why: 8 + 7 + 6 = 21, so the total ends in 1. The full sum is 14,481.
+P: What is the last digit of 2,014²?
+  + 6 :: 4 × 4 = 16, which ends in 6.
+  - 8 :: [doubled-not-squared] Squaring multiplies the number by itself: 4 × 4, not 4 × 2.
+  - 4 :: [kept-the-digit] The last digit is squared too: 4 × 4 = 16.
+  - 16 :: [unreduced-product] A last digit is a single digit. Keep only the 6.
+  hint: Multiply the last digit by itself.
+  why: Only the 4 can reach the last place, and 4 × 4 = 16. In full, 2,014² = 4,056,196.
+M: Match each power of 3 to its last digit.
+  pairs: 3⁵ => 3 | 3⁶ => 9 | 3⁷ => 7 | 3⁸ => 1
+  hint: Carry the cycle 3, 9, 7, 1 on from 3⁴ = 81.
+  why: 3⁵ = 243, 3⁶ = 729, 3⁷ = 2,187 and 3⁸ = 6,561. The cycle 3, 9, 7, 1 starts again after every fourth power.
+F: What is the last digit of 3¹⁰⁰?
+  frame: 3¹⁰⁰ ends in __
+  answer: 1
+  x 3 :: [restarted-too-early] 100 is a multiple of 4, so the cycle has just finished rather than just begun. Its fourth entry is 1.
+  x 0 :: [multiplied-the-exponent] No power of 3 ends in 0. Follow the cycle 3, 9, 7, 1.
+  hint: 100 = 4 × 25. How many complete trips round the cycle is that?
+  why: The cycle 3, 9, 7, 1 has length 4, and 100 = 4 × 25. So 3¹⁰⁰ completes its twenty-fifth trip and ends in 1.
+X: Powers of 7 have a cycle of their own. Find it by experiment.
+  param n: 1..12 /1 @1 | Exponent n
+  out d: (7^n) % 10 | Last digit of 7ⁿ
+  aim: Move the exponent until 7ⁿ ends in 3.
+  target: d == 3
+  view: bars d over n
+  hint: Step n up one at a time and watch the last digit: 7, then 9, then…
+  why: Powers of 7 end in 7, 9, 3, 1 and repeat every four steps, so n = 3, 7 and 11 all give 3.
+>P: What is the last digit of 4,173²⁰²⁶?
+  + 9 :: The base ends in 3, and 2,026 is two steps past a multiple of 4.
+  - 1 :: [stopped-at-the-multiple] 2,024 is a multiple of 4 and would give 1, but two more steps remain: 1 goes to 3, then to 9.
+  - 3 :: [ignored-the-exponent] The base ends in 3, but raising it to a power moves round the cycle.
+  - 7 :: [miscounted-the-cycle] 2,026 leaves 2 on division by 4, so take the second entry of 3, 9, 7, 1.
+  hint: Only the base's last digit matters. Divide the exponent by the cycle length and keep what is left.
+  why: 4,173 ends in 3, so its powers follow 3, 9, 7, 1. Since 2,026 = 4 × 506 + 2, the power sits at the second entry: 9.
+done: Next, "Remainder Arithmetic" uses the same idea with any divisor, not only 10.
+
+@ math.2.primes
+~ Remainder Arithmetic
+from: brilliant-2026-11-15-arithmetic-with-remainders
+goal: Add and multiply using remainders alone, reducing the result so that it is a proper remainder.
+intro: Fix a divisor, say 7. To find what a sum or a product leaves, you may first replace each number by what it leaves. Then reduce once more, because a remainder must be smaller than 7.
+  show: steps 100 leaves 2 and 30 leaves 2 on division by 7 ;; Sum: 2 + 2 = 4, so 130 leaves 4 ;; Product: 2 × 2 = 4, so 3,000 leaves 4
+demo: Here is why. 100 = 7 × 14 + 2 and 30 = 7 × 4 + 2. Multiply them out and every part except 2 × 2 contains a factor 7. Only the product of the two remainders survives.
+  show: table Number | Left over ÷ 7 ;; 100 | 2 ;; 30 | 2 ;; 100 + 30 | 4 ;; 100 × 30 | 4
+P: On division by 5, one number leaves 4 and another leaves 3. What does their sum leave?
+  + 2 :: 4 + 3 = 7, and 7 = 5 + 2.
+  - 7 :: [unreduced-sum] 7 is the sum of the remainders, but a remainder on division by 5 must be less than 5. Take away one more 5.
+  - 12 :: [multiplied-instead] The question asks about the sum: 4 + 3, not 4 × 3.
+  - 1 :: [subtracted-instead] Add the remainders, then reduce: 4 + 3 = 7 leaves 2.
+  hint: Add the two remainders, then make sure the result is less than 5.
+  why: The remainders add to 7, which still contains one more 5. Removing it leaves 2.
+P: On division by 7, one number leaves 3 and another leaves 5. What does their product leave?
+  + 1 :: 3 × 5 = 15, and 15 = 14 + 1.
+  - 15 :: [unreduced-product] 15 is the product of the remainders. Reduce it: 15 = 7 × 2 + 1.
+  - 8 :: [added-instead] The question asks about the product: 3 × 5, not 3 + 5.
+  - 0 :: [assumed-divisible] Neither remainder is 0, and 15 is not a multiple of 7.
+  hint: Multiply the two remainders, then take away as many sevens as you can.
+  why: 3 × 5 = 15 = 7 × 2 + 1. For example 10 × 12 = 120 = 7 × 17 + 1.
+G: Here a is odd and b is even. Sort each result.
+  bin Even: a × b | a + a | b × b | a + b + a
+  bin Odd: a + b | a × a
+  note a + a :: Odd plus odd is 1 + 1 = 2, which leaves 0 on division by 2.
+  note a × a :: Odd times odd is 1 × 1 = 1.
+  note a + b + a :: 1 + 0 + 1 = 2, which leaves 0.
+  hint: Write 1 for odd and 0 for even, do the sum or product, then keep what is left on division by 2.
+  why: Odd and even are simply remainders on division by 2: odd is 1 and even is 0. So a + b is 1 + 0 = 1, and a × a is 1 × 1 = 1; every other result reduces to 0.
+F: Square any odd number and divide by 8. What is always left over?
+  frame: An odd square leaves __ on division by 8
+  answer: 1 | one
+  x 0 :: [assumed-divisible] An odd square is odd, so 8 cannot divide it exactly.
+  hint: Try 3², 5² and 7².
+  why: An odd number leaves 1, 3, 5 or 7 on division by 8, and 1, 9, 25 and 49 each leave 1. So every odd square does.
+>P: Beads on a string repeat six colours for ever, starting with red at bead 1. The bead numbers are hidden, but one bead is orange and another is green. What colour is the bead whose number is their product?
+  show: cycle red orange yellow green blue violet
+  + Orange :: Orange leaves 2 and green leaves 4; 2 × 4 = 8, and 8 = 6 + 2.
+  - Violet :: [added-instead] 2 + 4 = 6 would land on violet, but the question asks for the product.
+  - Green :: [kept-one-factor] Both colours take part: multiply their remainders.
+  - It cannot be known without the bead numbers :: [needs-the-numbers] A colour already tells you what the bead number leaves on division by 6, and that is all the product needs.
+  hint: Give each colour what its bead numbers leave on division by 6: red 1, orange 2, yellow 3, green 4, blue 5, violet 0.
+  why: Orange beads are 2 more than a multiple of 6 and green beads are 4 more. The product leaves 2 × 4 = 8 = 6 + 2, the second colour: orange. The bead numbers themselves never matter.
+done: Next, "Digital Roots" turns remainders on division by 9 into a quick check on arithmetic.
+
+@ math.2.primes
+~ Digital Roots
+from: brilliant-2026-11-16-digital-roots
+goal: Use digital roots to screen arithmetic for mistakes and to recover a missing digit, knowing what the check can and cannot prove.
+intro: Add a number's digits. If the result has more than one digit, add again. The single digit you reach is the number's digital root.
+  show: flow 8,765 > 8 + 7 + 6 + 5 = 26 > 2 + 6 = 8
+demo: Adding digits never changes what a number leaves on division by 9, so digital roots follow the arithmetic. Check 23 × 41 = 943. The roots of 23 and 41 are 5 and 5; 5 × 5 = 25 has root 7; and 943 has root 7 as well.
+  show: table Number | Digital root ;; 23 | 5 ;; 41 | 5 ;; 5 × 5 = 25 | 7 ;; 943 | 7
+F: What is the digital root of 987,654?
+  frame: Digital root: __
+  answer: 3 | three
+  x 39 :: [stopped-early] 39 is the first digit sum. A digital root has one digit, so keep adding: 3 + 9 = 12, then 1 + 2.
+  x 12 :: [stopped-early] 12 still has two digits. Add once more: 1 + 2.
+  hint: 9 + 8 + 7 + 6 + 5 + 4 = 39. Now add the digits of 39, and again if needed.
+  why: 987,654 gives 39, then 12, then 3.
+P: Three answers are offered for 347 × 286. The roots of 347 and 286 are 5 and 7, and 5 × 7 = 35 has root 8. Which answer survives the check?
+  + 99,242 :: 9 + 9 + 2 + 4 + 2 = 26, and 2 + 6 = 8.
+  - 99,142 :: [skipped-the-check] 9 + 9 + 1 + 4 + 2 = 25 has root 7, not 8, so this cannot be the product.
+  - 99,252 :: [skipped-the-check] 9 + 9 + 2 + 5 + 2 = 27 has root 9, not 8.
+  - 98,242 :: [skipped-the-check] 9 + 8 + 2 + 4 + 2 = 25 has root 7, not 8.
+  hint: Work out each candidate's digital root and compare it with 8.
+  why: The product must have the root of 5 × 7 = 35, which is 8. Only 99,242 does; the others have roots 7, 9 and 7.
+S: A calculation passes the digital-root check. Choose every statement that follows.
+  + The answer could still be wrong :: Two different numbers can share a digital root.
+  + Any mistake that remains is a multiple of 9 :: Numbers with the same root differ by a multiple of 9.
+  - The answer is certainly right :: [check-as-proof] The check compares what is left on division by 9. Being wrong by 9, 18 or 27 would not show.
+  - No two digits have been swapped :: [swaps-are-visible] Swapping digits keeps their sum, so a swapped answer always passes.
+  hint: How far apart must two numbers be to share a digital root?
+  why: The check catches every mistake that is not a multiple of 9. Swapping two digits, or being out by 9, 18, 27 and so on, slips through.
+F: A five-digit multiple of 9 has a smudged digit. Which digit is hidden?
+  frame: 4 7 __ 2 3
+  answer: 2 | two
+  x 0 :: [guessed-zero] With 0 the digits add to 16, which is not a multiple of 9.
+  hint: The digits you can see add to 16. What must be added to reach the next multiple of 9?
+  why: A multiple of 9 has a digit sum that is a multiple of 9. 4 + 7 + 2 + 3 = 16 and 16 + 2 = 18, so the hidden digit is 2: 47,223 = 9 × 5,247.
+>P: Mira writes down a number, scrambles its digits to make a smaller number, and subtracts. She shows you every digit of the result but one: 3, 1 and 6. Which digit is she hiding?
+  + 8 :: 3 + 1 + 6 = 10, and only 8 brings the digit sum to 18.
+  - 0 :: [ignored-the-rule] The digits would then add to 10, but the result has to be a multiple of 9.
+  - 9 :: [ignored-the-rule] The digits would then add to 19, which is not a multiple of 9.
+  - It cannot be worked out without her numbers :: [needs-the-numbers] Scrambling keeps the digit sum, and that alone pins down the result's digit sum.
+  hint: What do a number and its scrambled version have in common?
+  why: Scrambling keeps the digit sum, so both numbers leave the same amount on division by 9 and their difference is a multiple of 9. The digits shown add to 10, so the hidden one is 8. Had they added to a multiple of 9, the hidden digit could be 0 or 9, and the check alone could not say which.
+done: Next, "Factor Trees" breaks numbers into their prime building blocks.
+
+@ math.2.primes
+~ Factor Trees
+from: brilliant-2026-11-17-factor-trees
+goal: Build factor trees, read a number's prime factors from the leaves, and explain why every valid tree for a number ends in the same primes.
+intro: A factor tree splits a number into two smaller factors, then splits those, until every branch ends in a prime. Splitting a number into 1 and itself is not allowed, because it makes no progress.
+  show: tree 60(6,10)
+demo: Start with 60 = 6 × 10. Neither part is prime, so split again: 6 = 2 × 3 and 10 = 2 × 5. Now every leaf is prime, and multiplying the leaves gives back the start: 2 × 3 × 2 × 5 = 60.
+  show: tree 60(6(2,3),10(2,5))
+F: Two nodes of this tree for 84 are hidden. Fill them in.
+  show: tree 84(?(2,2),21(3,?))
+  frame: Hidden branch: __ · Hidden leaf: __
+  answer: 4 | four
+  answer: 7 | seven
+  hint: Each node is the product of the two nodes below it.
+  why: 2 × 2 = 4 and 21 = 3 × 7. Check the top: 4 × 21 = 84.
+B: Assemble the prime factorisation of 90.
+  bank: 2 | 3 | 3 | 5 | 6 | 9 | 10
+  answer: 2 | 3 | 3 | 5
+  any-order
+  x 9 :: [stopped-at-a-composite] 9 is not prime. 9 = 3 × 3, so that branch still has to be split.
+  x 10 :: [stopped-at-a-composite] 10 is not prime. 10 = 2 × 5, so that branch still has to be split.
+  x 6 :: [stopped-at-a-composite] 6 is not prime. 6 = 2 × 3, so that branch still has to be split.
+  hint: Split 90 = 9 × 10, and keep splitting until every leaf is prime.
+  why: 90 = 9 × 10 = (3 × 3) × (2 × 5). The prime leaves are 2, 3, 3 and 5, in whatever order you split.
+P: Four trees are described for 36. Which one is not a finished factor tree?
+  + 36 = 2 × 18, then 18 = 2 × 9, and stop :: It stops at 9, which is not prime: 9 = 3 × 3 still has to be split.
+  - 36 = 6 × 6, then each 6 = 2 × 3 :: [missed-the-early-stop] This tree is finished: its leaves 2, 3, 2, 3 are all prime.
+  - 36 = 4 × 9, then 4 = 2 × 2 and 9 = 3 × 3 :: [missed-the-early-stop] This tree is finished: its leaves 2, 2, 3, 3 are all prime.
+  - 36 = 3 × 12, then 12 = 3 × 4, then 4 = 2 × 2 :: [missed-the-early-stop] This tree is finished: its leaves 3, 3, 2, 2 are all prime.
+  hint: In a finished tree every leaf is prime. Check the last numbers on each branch.
+  why: A tree is finished only when no leaf can be split. The tree that stops at 9 has a leaf that is 3 × 3.
+C: Here are two different trees for 72. What must they share?
+  left: tree 72(8(2,4(2,2)),9(3,3))
+  right: tree 72(2,36(2,18(2,9(3,3))))
+  + The same prime leaves, repeats included: 2, 2, 2, 3, 3 :: Multiply either set of leaves and you get 72.
+  - The same number of levels :: [shape-is-not-structure] The left tree splits three levels deep and the right tree four. Shape depends on the choices made.
+  - The same first split :: [first-split-is-fixed] One starts with 8 × 9 and the other with 2 × 36. Any correct split may come first.
+  - Nothing: a number can break into different primes :: [non-unique-factorisation] However a whole number above 1 is split, it ends in the same primes the same number of times.
+  hint: Multiply the leaves of each tree.
+  why: Every valid factor tree for a number ends in the same primes with the same repeats, whatever its shape. This is the fundamental theorem of arithmetic.
+F: A node splits into two leaves that are both 7. Another tree has exactly three leaves, all 5. What are the two starting numbers?
+  frame: Two leaves of 7: __ · Three leaves of 5: __
+  answer: 49
+  answer: 125
+  hint: Multiply the leaves together.
+  why: Two equal prime leaves make a prime square, 7 × 7 = 49. Three make a cube, 5 × 5 × 5 = 125.
+>O: Order these numbers by how many prime leaves their factor trees have, fewest first.
+  items: 13 | 35 | 30 | 16 | 96
+  ends: Fewest leaves | Most leaves
+  hint: Count prime factors with repeats: 16 = 2 × 2 × 2 × 2 has four.
+  why: 13 is prime, so its tree is a single leaf. 35 = 5 × 7 has two, 30 = 2 × 3 × 5 has three, 16 = 2⁴ has four, and 96 = 2⁵ × 3 has six. The count never depends on how the tree is drawn.
+done: You have followed primes from last digits to factor trees. Take the module quiz to prove it, or hunt primes in the factor sieve.

@@ -1,0 +1,542 @@
+# Earth and space, stages 3 to 5 (ages 13 to adult).
+# Predict, adjust a parameter, inspect the result, explain the relationship.
+
+@ earth.3.earth-science
+goal: Read the Earth's history from its rocks: the rock cycle, the order of layers, and ages measured by radioactive decay.
+intro: Rocks are a record. Each kind forms in a particular way, layers are laid down in order, and radioactive atoms inside minerals decay at known rates. Together these let geologists reconstruct more than four billion years of history.
+  show: flow magma > igneous rock > sediment > sedimentary rock > metamorphic rock > magma again
+demo: A radioactive isotope decays at a fixed rate: after one half-life, half of it is left; after two, a quarter. Measure how much of the original isotope remains in a mineral and you know how long ago the mineral formed.
+  show: bars Start=100 One_half-life=50 Two_half-lives=25 Three_half-lives=12.5 unit=%_remaining
+M: Match each process of the rock cycle to what it produces.
+  pairs: Magma cools and hardens => Igneous rock | Rock is weathered and carried away => Sediment | Sediment is buried and cemented => Sedimentary rock | Rock is heated and squeezed without melting => Metamorphic rock | Rock melts => Magma
+  hint: Follow the cycle round: cooling, wearing down, burying, squeezing, melting.
+  why: Any rock can become any other. The cycle is driven by heat from within the Earth and by weather at its surface.
+F: An isotope has a half-life of 700 million years.
+  frame: A mineral that still holds 25% of its original isotope is __ million years old
+  answer: 1400 | 1,400
+  x 700 :: [one-half-life] One half-life leaves 50%. A second leaves 25%.
+  x 2800 :: [four-half-lives] Twenty-five per cent is two halvings, not four.
+  hint: How many halvings take 100% down to 25%?
+  why: Two half-lives have passed: 2 × 700 = 1,400 million years.
+X: Squeeze the Earth's whole history, 4,540 million years, into one day of 24 hours. Choose how long ago something happened and see how late in the day it falls.
+  param mya: 0..4370 /190 @0 | Time before the present | million years
+  out mins: mya/4540*1440 | Minutes before midnight
+  aim: Find how long ago corresponds to one hour before midnight.
+  target: abs(mins-60) < 2
+  view: bars mins over mya
+  hint: One hour is one twenty-fourth of the day.
+  why: 4,540 ÷ 24 is about 190 million years: the time of the early dinosaurs. On this clock all of written history fits into the last fraction of a second.
+P: A sheet of igneous rock cuts straight across several layers of sedimentary rock. Which is older?
+  + The layers: they had to exist before anything could cut across them :: What is cut is older than what cuts it.
+  - The igneous sheet, because it came from deeper down :: [depth-as-age] Where the material came from says nothing about when it arrived.
+  - They are the same age :: [no-ordering] One event had to come before the other.
+  hint: Can you cut through something that is not yet there?
+  why: This is the principle of cross-cutting relationships, one of the basic rules for ordering events in rock.
+>O: Layer A lies at the bottom, B above it and C on top. A fault breaks A and B but does not break C. Put the events in order.
+  items: Layer A is laid down | Layer B is laid down | The fault breaks A and B | Layer C is laid down across the top
+  ends: Happened first | Happened last
+  hint: Lower layers are older, and the fault is younger than everything it breaks.
+  why: A and B were deposited in order, then faulted. C is unbroken, so it was deposited after the fault moved.
+done: Rocks keep the order and the dates. Read the layers in a cliff or a road cutting near you.
+
+@ earth.3.astronomy
+goal: Follow a star through its life, predict its end from its mass, and use light's travel time to measure distance.
+intro: Stars are born in clouds of gas, shine by fusion for millions or billions of years, and end in ways that depend on their mass. The distances are so great that astronomers measure them by the time light takes to cross them.
+  show: flow gas cloud > protostar > main-sequence star > red giant > white dwarf
+demo: Sunlight takes about 8.3 minutes to reach the Earth. That distance is called one astronomical unit. Light takes about four years to reach us from the nearest star beyond the Sun: roughly 270,000 times farther.
+  show: table Journey | Time taken by light ;; the Moon to the Earth | 1.3 seconds ;; the Sun to the Earth | 8.3 minutes ;; the nearest star to the Earth | about 4 years
+O: Put the stages in the life of a star like the Sun in order.
+  items: A cloud of gas and dust | A protostar | A main-sequence star | A red giant | A planetary nebula | A white dwarf
+  ends: First | Last
+  hint: The star spends most of its life fusing hydrogen, then swells.
+  why: Collapse, ignition, a long stable life, expansion as the fuel runs low, the shedding of the outer layers and a cooling core.
+G: How does a star end? Sort by its mass.
+  bin A star like the Sun: a planetary nebula | a white dwarf
+  bin A star many times heavier: a supernova | a neutron star | a black hole
+  hint: Only heavy stars explode.
+  why: Mass decides everything. Light stars fade gently. Heavy stars collapse and explode, leaving a neutron star or a black hole.
+F: Sunlight takes 8.3 minutes to travel one astronomical unit.
+  frame: A planet 10 astronomical units from the Sun receives sunlight that left about __ minutes ago
+  answer: 83
+  x 8.3 :: [one-unit-only] That is the time for one unit. This planet is ten times farther.
+  x 18.3 :: [added-instead] Multiply: ten times the distance takes ten times as long.
+  hint: Ten times the distance takes ten times the time.
+  why: 10 × 8.3 = 83 minutes. Saturn is at about this distance.
+P: A very heavy star has far more fuel than the Sun. Why does it have a far shorter life?
+  + It burns its fuel enormously faster :: Higher pressure and temperature in the core speed up fusion.
+  - It has less fuel :: [fuel-only] It has more. It uses it at a far higher rate.
+  - Heavy stars form later :: [irrelevant-factor] When a star forms does not set how long it lasts.
+  hint: Compare a small fire with a furnace.
+  why: Brightness rises steeply with mass. A star ten times as heavy as the Sun shines thousands of times brighter and lasts only tens of millions of years.
+>P: The gold in a ring was not made on the Earth. Where were its atoms made?
+  + In violent events such as supernovae and collisions of neutron stars, before the Sun formed :: Elements heavier than iron need such conditions.
+  - In the Sun :: [wrong-furnace] The Sun fuses hydrogen into helium and cannot make gold.
+  - Deep inside the Earth :: [wrong-furnace] The Earth is far too cool to build atomic nuclei.
+  hint: Which events are violent enough to build very heavy nuclei?
+  why: The heavy elements were forged in dying stars and scattered through space. The Solar System formed from that enriched material.
+done: Mass decides a star's life. Find a red giant and a blue star in tonight's sky.
+
+@ earth.3.climate-sci
+goal: Explain the greenhouse effect step by step, predict how warming depends on carbon dioxide, and tell evidence about climate from weather.
+intro: The Earth's temperature is set by a balance: energy arriving from the Sun against energy leaving as infrared radiation. Greenhouse gases let sunlight in but absorb outgoing infrared, and so the surface is warmer than it would otherwise be.
+  show: flow sunlight arrives > the surface warms > the surface emits infrared > gases absorb some of it > part returns to the surface
+demo: Without any greenhouse effect the Earth's average surface temperature would be about −18 °C. With it, the average is about 15 °C. The natural effect makes the planet habitable. Adding more greenhouse gas strengthens it.
+  show: bars With_no_greenhouse_gases=-18 As_it_is=15 unit=°C
+O: Put the steps of the greenhouse effect in order.
+  items: Sunlight passes through the atmosphere | The surface absorbs it and warms | The warm surface emits infrared radiation | Greenhouse gases absorb some of the infrared | Some of that energy returns to the surface
+  ends: First | Last
+  hint: Light comes in first; infrared goes out afterwards.
+  why: The atmosphere is nearly transparent to sunlight but partly opaque to infrared. That difference is the whole effect.
+X: Raise the concentration of carbon dioxide from its level before industry, 280 parts per million, and watch the long-run warming on a central estimate.
+  param co2: 280..840 /70 @280 | Carbon dioxide | parts per million
+  out dt: 3*log(co2/280)/log(2) | Long-run warming | °C
+  aim: Find the concentration at which the long-run warming reaches 3 °C.
+  target: abs(dt-3) < 0.05
+  view: plot dt over co2
+  hint: Try doubling the starting concentration.
+  why: Doubling from 280 to 560 gives about 3 °C on the central estimate. Each further doubling adds about the same again, so the curve flattens but never stops rising.
+G: Evidence about climate, or only weather?
+  bin Evidence about climate: the global average temperature rising over decades | Arctic sea ice shrinking over forty years | the sea level rising over a century
+  bin Only weather: one cold day in one town | a hot afternoon in one city | a single stormy week
+  hint: Does it cover many years and a large area?
+  why: Climate is a long-run average over large regions. Single events in single places cannot show a trend in either direction.
+P: Warming melts bright sea ice and exposes dark ocean, which absorbs more sunlight. What kind of process is this?
+  + An amplifying feedback: the warming causes more warming :: The change feeds itself.
+  - A stabilising feedback: it cancels the warming :: [reversed] Darker water absorbs more energy, and so adds to the warming.
+  - Not a feedback at all :: [missed-the-loop] The result of the warming, less ice, becomes a cause of further warming.
+  hint: Does the consequence push in the same direction as the cause?
+  why: Feedbacks multiply an initial change. The ice feedback is one reason why the Arctic warms faster than the global average.
+>P: Carbon dioxide makes up only about 0.04% of the air. How can so little matter?
+  + It absorbs infrared radiation, which the main gases of the air do not; the effect depends on absorption, not on abundance :: A small amount of an absorber does a great deal.
+  - It cannot matter: there is too little of it :: [share-as-effect] A thin coat of black paint blocks light although it is a tiny fraction of the wall.
+  - It blocks sunlight from reaching the ground :: [wrong-mechanism] It lets sunlight through. It absorbs the infrared going out.
+  hint: Nitrogen and oxygen are transparent to infrared. Carbon dioxide is not.
+  why: What counts is how strongly a gas interacts with infrared radiation. Trace gases control the planet's heat balance.
+done: Energy in, energy out, and what the gases absorb. Look up this year's carbon dioxide reading.
+
+@ earth.3.ecology-earth
+goal: Explain how temperature and rainfall determine the Earth's biomes, and how living things have reshaped the planet.
+intro: A biome is a large region with a characteristic climate and a characteristic community of life. Which biome develops depends mostly on two things: how warm it is, and how much rain falls.
+  show: table Biome | Climate ;; tundra | cold and dry, with frozen subsoil ;; taiga | long cold winters; conifer forest ;; temperate forest | mild, with four seasons ;; grassland | too dry for forest ;; desert | very dry ;; tropical rainforest | hot and wet all year
+demo: Travel from the equator towards a pole and you pass from rainforest through grassland and desert, temperate forest and conifer forest to treeless tundra. Each change follows a change in temperature or rainfall.
+  show: flow rainforest > grassland > temperate forest > taiga > tundra
+M: Match each biome to its climate.
+  pairs: Tundra => Cold and dry, with frozen subsoil | Taiga => Long cold winters and short summers | Temperate forest => Mild, with four distinct seasons | Grassland => Enough rain for grass but not for forest | Desert => Very little rain at any season | Tropical rainforest => Hot and wet all year
+  hint: Taiga is the great conifer forest of the north.
+  why: Each biome is the vegetation that its climate supports. Learn the climate and you can predict the biome.
+P: Which two factors do most to decide which biome a region has?
+  + Temperature and rainfall :: Together they determine what plants can grow.
+  - Longitude and time zone :: [irrelevant-factors] East and west make no systematic difference to climate.
+  - The animals that live there :: [reversed-cause] The animals follow the vegetation, which follows the climate.
+  hint: What do plants need, and what limits them?
+  why: Plants form the base of every land community, and their growth is limited above all by warmth and water.
+O: Follow one atom of carbon round the cycle.
+  items: A plant takes carbon dioxide from the air | The carbon becomes part of the plant | An animal eats the plant | The animal breathes out carbon dioxide
+  ends: First | Last
+  hint: Photosynthesis takes carbon in, and respiration returns it.
+  why: Carbon moves from the air into plants by photosynthesis, along food chains by feeding, and back to the air by respiration and decay.
+P: Where did the oxygen in the Earth's atmosphere come from?
+  + From photosynthesis, begun by microbes more than two billion years ago :: Life made the air that we breathe.
+  - From volcanoes :: [wrong-source] Volcanic gases contain almost no free oxygen.
+  - It has always been there :: [static-planet] The early atmosphere had almost none.
+  hint: Which process releases oxygen as a by-product?
+  why: Photosynthesising microbes transformed the atmosphere. Life is not only shaped by the planet; it shapes the planet.
+>P: Climb a tall mountain in the tropics and you pass from rainforest through cloud forest and grassland to ice at the summit. Why does this resemble a journey from the equator to a pole?
+  + Temperature falls with height as it does with latitude, and the biomes follow the climate :: The same cause produces the same sequence.
+  - The mountain is closer to the pole at the top :: [literal-distance] The summit is no nearer the pole. It is colder because it is higher.
+  - It is a coincidence :: [no-explanation] The same pattern appears on high mountains all over the world.
+  hint: What changes steadily as you climb?
+  why: Biomes follow climate, wherever that climate arises. A mountain compresses thousands of kilometres of latitude into a few kilometres of height.
+done: Warmth and water decide what grows. Work out which biome you live in, and what it would be without people.
+
+@ earth.3.space-exploration
+goal: Explain how rockets and orbits work, and place the milestones of spaceflight in order.
+intro: To reach space a rocket throws mass backwards at great speed and is pushed forwards in return. To stay in space a craft must travel sideways so fast that as it falls, the ground curves away beneath it. That is an orbit.
+  show: flow exhaust is thrown backwards > the rocket is pushed forwards > sideways speed builds up > the craft is in orbit
+demo: A satellite in low orbit travels at nearly 8 kilometres a second and circles the Earth in about 90 minutes. It is falling all the time. It simply never reaches the ground, because the Earth's surface curves away as fast as the satellite falls.
+  show: table Orbit | Height | Time for one circuit ;; low Earth orbit | about 400 km | about 90 minutes ;; geostationary orbit | about 35,800 km | one day
+O: Put these milestones of spaceflight in order.
+  items: Sputnik, the first satellite | Gagarin, the first person in orbit | Apollo 11 lands on the Moon | The International Space Station is permanently crewed | Voyager 1 leaves the Sun's bubble for interstellar space | The Webb telescope is launched
+  ends: Earliest | Latest
+  hint: 1957, 1961, 1969, 2000, 2012, 2021.
+  why: Only twelve years separate the first satellite from the first Moon landing.
+P: How does a rocket accelerate in the vacuum of space, where there is nothing to push against?
+  + It pushes its exhaust backwards, and the exhaust pushes the rocket forwards :: Action and reaction.
+  - It cannot: rockets work only in air :: [needs-air-to-push-on] A rocket pushes against its own exhaust, and works best in a vacuum.
+  - It pushes against the Earth's gravity :: [wrong-interaction] Gravity pulls on the rocket. It is not something to push on.
+  hint: What does the rocket throw out, and in which direction?
+  why: By Newton's third law, throwing mass one way pushes the rocket the other way. No surrounding air is needed.
+P: Why do astronauts float inside the space station?
+  + They and the station are falling together round the Earth :: Continuous free fall feels like weightlessness.
+  - There is no gravity in space :: [zero-gravity-idea] At the station's height gravity is still about nine tenths as strong as on the ground.
+  - The station's walls shield them from gravity :: [shielding-idea] Nothing shields against gravity.
+  hint: What does it feel like in a lift at the instant it starts to drop?
+  why: Gravity is what keeps the station in orbit. Everything aboard falls at the same rate, so nothing presses on anything else.
+X: Raise a satellite's orbit and watch how long one circuit of the Earth takes.
+  param h: 200..36000 /200 @200 | Height above the ground | km
+  out t: 2*pi*sqrt((6371+h)**3/398600)/60 | Time for one circuit | minutes
+  aim: Find the height at which one circuit takes a day, about 1,436 minutes, so that the satellite stays above one spot on the turning Earth.
+  target: abs(t-1436) < 5
+  view: plot t over h
+  hint: Higher orbits are slower. You will need to go a very long way up.
+  why: At about 35,800 km a satellite circles once a day, in step with the Earth's rotation. Broadcasting and weather satellites sit there, apparently motionless in the sky.
+>P: Why do large rockets drop their empty stages on the way up?
+  + With less mass to push, the same thrust gives more acceleration :: Carrying empty tanks wastes fuel.
+  - To hit targets on the ground :: [invented-purpose] The stages are discarded only to shed their mass.
+  - Because the stages overheat :: [wrong-cause] They are dropped because they are empty.
+  hint: What happens to the acceleration when the mass goes down and the force stays the same?
+  why: Acceleration is force divided by mass. Shedding dead weight lets the remaining fuel do far more.
+done: Throw mass back to go forward, and go sideways fast to stay up. Look up when the space station next passes over you.
+
+@ earth.4.geophysics
+goal: Infer the Earth's interior from seismic waves, locate an earthquake from arrival times, and read the record of the Earth's magnetic field.
+intro: Nobody has drilled more than a few kilometres into the Earth. What we know of the interior comes from waves: earthquakes send vibrations through the planet, and the way they bend, speed up, slow down and vanish reveals what they passed through.
+  show: table Wave | Motion | Travels through ;; P wave | push and pull | solids and liquids ;; S wave | side to side | solids only
+demo: After a large earthquake, S waves are recorded over most of the globe, but not on the far side of the planet. Something in the deep interior stops them. S waves cannot pass through a liquid, and so the outer core must be liquid.
+  show: flow the earthquake > S waves spread through the solid mantle > they stop at the liquid outer core > a shadow on the far side
+P: S waves from an earthquake do not arrive on the opposite side of the Earth. What does that reveal?
+  + Part of the deep interior, the outer core, is liquid :: Shear waves cannot travel through a liquid.
+  - The Earth is hollow :: [wrong-inference] P waves do pass through the centre, so it is not empty.
+  - S waves die away with distance :: [attenuation-only] They are recorded strongly at great distances until a sharp boundary is reached.
+  hint: Which kind of material cannot carry a side-to-side wave?
+  why: A sharply bounded shadow for S waves, while P waves get through, is the signature of a liquid layer.
+X: P waves travel at 6 km/s and S waves at 4 km/s through this crust. Move the seismometer away from the earthquake and watch the S wave lag behind the P wave.
+  param d: 0..600 /30 @0 | Distance from the earthquake | km
+  out lag: d/4 - d/6 | Delay of the S wave after the P wave | s
+  aim: A station records the S wave 25 seconds after the P wave. Find how far away the earthquake was.
+  target: lag == 25
+  view: bars lag over d
+  hint: The farther the waves travel, the farther the slow wave falls behind.
+  why: The delay grows by one second for every 12 km here, so 25 seconds means 300 km. Three stations, each giving a distance, pin down the location.
+F: Each whole step on the magnitude scale means ten times the ground motion.
+  frame: A magnitude 7 earthquake shakes the ground __ times as much as a magnitude 5
+  answer: 100
+  x 2 :: [linear-scale] The scale is logarithmic. Two steps are 10 × 10.
+  x 20 :: [added-the-factors] Multiply the factors: 10 × 10.
+  hint: Two steps, each a factor of ten.
+  why: 10 × 10 = 100. The energy released grows faster still, by about a thousand times for two steps.
+M: Match each layer to its nature.
+  pairs: Crust => A thin rocky skin, rich in silicon and oxygen | Mantle => Solid rock that flows very slowly | Outer core => Liquid iron and nickel, the source of the magnetic field | Inner core => Solid iron, kept solid by immense pressure | Lithosphere => The rigid outer shell that is broken into plates
+  hint: The magnetic field comes from moving liquid metal.
+  why: The layers differ in composition and in state. Pressure keeps the inner core solid although it is hotter than the liquid above it.
+>P: The sea floor on either side of a mid-ocean ridge carries stripes of rock magnetised in alternating directions, and the pattern on one side mirrors the other. What explains this?
+  + New crust forms at the ridge and records the direction of the magnetic field, which reverses from time to time, while spreading carries it away on both sides :: The sea floor is a tape recording.
+  - The stripes are random :: [no-pattern] Random magnetisation would not form matching mirror images.
+  - Passing ships magnetised the rocks :: [ad-hoc-explanation] Ships cannot magnetise kilometres of rock, let alone in a symmetrical pattern.
+  hint: What would be recorded if the field flipped while new crust kept forming?
+  why: The mirrored stripes were decisive evidence for sea-floor spreading, and so for plate tectonics.
+done: Waves and magnetism reveal what nobody can visit. Look at a live map of today's earthquakes.
+
+@ earth.4.astrophysics
+goal: Use the laws of radiation to find a star's temperature, power and distance from its light alone.
+intro: Almost everything known about the stars comes from their light. Its colour gives temperature, its spectrum gives composition and motion, and its brightness, with distance, gives power output.
+  show: table Law | What it says ;; Wien's law | hotter bodies glow at shorter wavelengths ;; Stefan–Boltzmann law | power per unit area rises as the fourth power of temperature ;; inverse-square law | brightness falls as the square of the distance
+demo: The Sun's surface is at about 5,800 kelvin and its light peaks near 500 nanometres, in the green part of the visible range. A cooler star peaks at longer, redder wavelengths, and a hotter one at shorter, bluer wavelengths.
+  show: table Surface temperature | Peak wavelength | Colour ;; 3,000 K | about 970 nm | red ;; 5,800 K | about 500 nm | yellow-white ;; 10,000 K | about 290 nm | blue-white
+X: Heat a star's surface and watch the peak of its light move.
+  param t: 3000..12000 /500 @3000 | Surface temperature | K
+  out peak: 2898000/t | Peak wavelength | nm
+  aim: Find the temperature of a star whose light peaks near 290 nm, in the ultraviolet.
+  target: abs(peak-290) < 1
+  view: plot peak over t
+  hint: A shorter peak wavelength needs a hotter surface.
+  why: The peak wavelength is inversely proportional to the temperature: 2,898,000 ÷ 10,000 is about 290 nm. Doubling the temperature halves the peak wavelength.
+F: The power radiated by each square metre rises as the fourth power of the temperature.
+  frame: Two stars are the same size. The one with twice the surface temperature emits __ times as much power
+  answer: 16
+  x 2 :: [linear] The dependence is on the fourth power: 2 × 2 × 2 × 2.
+  x 4 :: [squared] It is the fourth power, not the square.
+  x 8 :: [cubed] It is the fourth power, not the cube.
+  hint: Work out 2 to the fourth power.
+  why: 2⁴ = 16. Small differences in temperature make enormous differences in luminosity.
+M: Match each source to the spectrum it gives.
+  pairs: A hot, dense body => A continuous spectrum | A hot, thin gas => Bright emission lines | A cooler gas in front of a hot source => Dark absorption lines
+  hint: A star's outer atmosphere is cooler than the layers beneath it.
+  why: A star's spectrum is continuous, crossed by dark lines. Each element absorbs at its own wavelengths, and so the lines reveal what the star is made of.
+P: The lines in a galaxy's spectrum are all shifted towards longer wavelengths. What does that show?
+  + The galaxy is moving away from us :: The waves are stretched.
+  - The galaxy is moving towards us :: [reversed] Approach would shift the lines towards shorter wavelengths.
+  - The galaxy is cooler than expected :: [temperature-confusion] Temperature changes the overall colour, not the positions of the lines.
+  hint: A receding siren sounds lower in pitch. What happens to light?
+  why: A shift to longer wavelengths, a redshift, signals recession. The size of the shift gives the speed.
+>P: Two stars look equally bright in the sky, but star A is ten times as far away as star B. How do their true power outputs compare?
+  + A is 100 times as luminous :: To look the same from ten times as far, it must emit 10² times as much.
+  - A is 10 times as luminous :: [linear] Brightness falls with the square of the distance.
+  - They are equally luminous :: [ignored-distance] If that were so, the farther star would look a hundred times fainter.
+  hint: By what factor does light spread out when the distance grows tenfold?
+  why: Apparent brightness is luminosity divided by the square of the distance. Ten times farther needs a hundred times the power.
+done: Colour, lines and brightness: three measurements, and a star is known. Compare the colours of the stars in Orion.
+
+@ earth.4.planetary
+goal: Explain how planets form and why they differ, read a surface's history from its craters, and interpret detections of planets round other stars.
+intro: Planets form in a disc of gas and dust around a young star. Where a planet forms in that disc, and how big it grows, sets its composition and its later history.
+  show: flow a cloud collapses > a spinning disc forms > dust clumps into pebbles > bodies collide and grow > planets
+demo: Close to the young Sun it was too hot for ice, and only rock and metal could condense. The inner planets are therefore small and rocky. Beyond the "frost line" ice could condense as well, so solid cores grew large enough to capture gas and became giants.
+  show: table Region | What could condense | Result ;; inside the frost line | rock and metal | small rocky planets ;; beyond the frost line | rock, metal and ice | giant planets
+O: Put the stages of planet formation in order.
+  items: A cloud of gas and dust collapses | A spinning disc forms round the young star | Dust grains stick together into pebbles | Larger bodies collide and merge | The planets sweep their orbits clear
+  ends: First | Last
+  hint: Small things stick together before large things collide.
+  why: Collapse, disc, pebbles, larger bodies, planets. The whole process takes a few million to a hundred million years.
+P: One region of a moon is crowded with craters. Another has very few. What can you conclude?
+  + The lightly cratered region is younger: something has resurfaced it :: Lava, ice or erosion wiped the older craters away.
+  - The lightly cratered region is older :: [reversed] Craters accumulate with time, so more craters mean a longer exposure.
+  - Meteorites avoid that region :: [ad-hoc-explanation] Impacts fall almost evenly. The difference lies in how long each surface has been exposed.
+  hint: How does the number of craters on a surface change as time passes?
+  why: Counting craters is the main way of dating surfaces that we cannot sample.
+F: A planet crossing in front of its star blocks a share of the light equal to the ratio of their areas.
+  frame: A planet one tenth of its star's diameter dims the star by __ %
+  answer: 1
+  x 10 :: [linear] The blocked share depends on area, which goes as the square: one tenth squared is one hundredth.
+  hint: Square the ratio of the diameters.
+  why: (1/10)² = 1/100 = 1%. A planet the size of the Earth crossing a star like the Sun dims it by less than one hundredth of 1%.
+G: Which method of detection gives which evidence?
+  bin Transit: the star dims slightly at regular intervals | the depth of the dip gives the planet's size
+  bin Radial velocity: the star's spectral lines shift back and forth | the size of the wobble gives the planet's mass
+  hint: One method watches brightness and the other watches the spectrum.
+  why: A transit gives the size and the wobble gives the mass. Together they give density, and so composition.
+>P: A planet round another star has 1.5 times the Earth's radius and about the Earth's density. What kind of world is it?
+  + Rocky: a "super-Earth" :: A density like the Earth's means rock and metal.
+  - A gas giant :: [size-only] A gas giant has a far lower density. Size alone does not decide.
+  - A ball of ice :: [ignored-density] Ice is much less dense than rock.
+  hint: What does density tell you that size cannot?
+  why: Density distinguishes rock from gas and ice. That is why both a planet's mass and its radius are wanted.
+done: Where a planet forms decides what it is. Look up the nearest known planet beyond the Solar System, and how it was found.
+
+@ earth.4.climatology
+goal: Explain how climate models are built and tested, read a carbon budget, and interpret a range of projections correctly.
+intro: Climatology quantifies the climate system. Models built on the laws of physics simulate the atmosphere and the oceans. They are tested against the past before they are used to explore possible futures.
+  show: table Term | Meaning ;; radiative forcing | a change in the planet's energy balance ;; climate sensitivity | the warming caused by a doubling of carbon dioxide ;; proxy | an indirect record of past climate ;; scenario | an assumed path of future emissions
+demo: Warming depends, to a good approximation, on the total amount of carbon dioxide ever emitted. So any chosen limit on temperature implies a fixed budget of emissions. Suppose the remaining budget is 400 billion tonnes and the world emits 40 billion tonnes a year: at that rate the budget lasts 10 years.
+  show: bars Remaining_budget=400 Emitted_each_year=40 unit=billion_tonnes
+X: The remaining budget is 400 billion tonnes. Change the yearly emissions and see how long the budget lasts.
+  param e: 5..40 /5 @40 | Emissions each year | billion tonnes
+  out years: 400/e | Years until the budget is spent
+  aim: Find the yearly emissions at which the budget lasts 40 years.
+  target: years == 40
+  view: bars years over e
+  hint: Lower emissions spread the same budget over more years.
+  why: 400 ÷ 10 = 40 years. Because the budget is a total, cutting emissions buys time, and only reaching net zero stops the budget from being spent.
+M: Match each term to its meaning.
+  pairs: Radiative forcing => A change in the planet's energy balance | Climate sensitivity => The warming caused by a doubling of carbon dioxide | Feedback => A response that amplifies or damps a change | Proxy => An indirect record of past climate | Scenario => An assumed path of future emissions
+  hint: A scenario is an assumption, not a forecast.
+  why: These are the working terms of climate science. A projection always depends on a stated scenario.
+P: How do scientists know the level of carbon dioxide in the air half a million years ago?
+  + From bubbles of ancient air trapped in the ice of Antarctica :: Ice cores hold samples of past atmospheres.
+  - From written records :: [no-such-record] Writing is only about five thousand years old.
+  - It cannot be known :: [gave-up] The air itself has been preserved, and can be measured directly.
+  hint: Where might a sample of old air have been sealed up?
+  why: Ice cores reach back about 800,000 years. The trapped air is measured in the laboratory.
+P: Before a climate model is trusted for the future, it is started in 1900 and run forward to the present. What is the point?
+  + If it reproduces the changes that were actually observed, confidence in it grows :: A model must pass a test whose answer is known.
+  - It teaches the model the right answers :: [tuning-assumed] The model is checked against the record. It is not given the record to copy.
+  - It is only a formality :: [dismissed-validation] This test is how poor models are found and rejected.
+  hint: How would you check a method of forecasting, using only what has already happened?
+  why: Testing against the known past, including the brief cooling after large volcanic eruptions, is the main check on a model's physics.
+>P: Twenty climate models are run on the same scenario. All show warming, ranging from 2.1 °C to 3.9 °C. How should the result be read?
+  + Warming is a robust result; its size is uncertain within that range, and plans should allow for the whole range :: Uncertainty about amount is not doubt about direction.
+  - The models disagree, so nothing is known :: [uncertainty-as-ignorance] Every one shows warming. They differ only in how much.
+  - The true figure is exactly the average :: [false-precision] The spread is real uncertainty, and the average hides it.
+  hint: On what do the twenty models agree?
+  why: A range of results conveys both what is well established and what is not. Good decisions use the range.
+done: Budgets, tests and ranges. Look up the current estimate of the remaining carbon budget, and its date.
+
+@ earth.4.oceanatmos
+goal: Explain how the Earth's rotation and uneven heating organise the winds and the ocean currents.
+intro: The Sun heats the equator more than the poles, and the atmosphere and oceans carry the surplus heat poleward. Because the Earth rotates, that flow is turned aside, and the result is great belts of wind and circulating currents.
+  show: table Effect | What it does ;; uneven heating | drives air and water to move ;; the Coriolis effect | turns moving air and water aside ;; differences in density | make water sink or rise
+demo: Seen from a rotating Earth, moving air is deflected: to the right in the northern hemisphere, and to the left in the southern. Air flowing in towards a centre of low pressure is turned aside and ends up circling it: anticlockwise in the north, clockwise in the south.
+  show: flow air flows towards low pressure > rotation turns it aside > it circles the low
+X: The strength of the Coriolis effect depends on latitude: none at the equator, greatest at the poles.
+  param lat: 0..90 /15 @0 | Latitude | degrees
+  out f: sin(lat*pi/180) | Coriolis effect, as a fraction of its value at the pole
+  aim: Find the latitude at which the effect has half its polar strength.
+  target: abs(f-0.5) < 0.01
+  view: bars f over lat
+  hint: It is not at 45 degrees. Try nearer the equator.
+  why: The effect goes as the sine of the latitude, and sin 30° = 0.5. It vanishes at the equator, which is why hurricanes never form there.
+O: Follow the air round the tropical circulation.
+  items: Air is heated at the equator and rises | It cools, and its moisture falls as rain | It flows towards the poles at height | It sinks, dry, near latitude 30 degrees | It returns to the equator at the surface as the trade winds
+  ends: First | Last
+  hint: Rising air makes rain, and sinking air is dry.
+  why: This loop explains the rainforests at the equator, the deserts near 30 degrees and the steady trade winds between them.
+G: What makes sea water denser, and what makes it lighter?
+  bin Denser: cooling | evaporation, which leaves the salt behind | freezing of sea ice, which leaves the salt behind
+  bin Lighter: warming | rain | melting ice
+  hint: Cold, salty water is the densest.
+  why: Dense water sinks at high latitudes and drives a slow circulation through the deep ocean. Fresh water from melting ice can weaken it.
+P: In some years the trade winds over the Pacific weaken, and warm water spreads eastwards towards South America. What follows off the coast of Peru?
+  + The upwelling of cold, nutrient-rich water weakens, and the fisheries decline :: This is El Niño.
+  - More cold water rises, and the fisheries boom :: [reversed] That describes the opposite phase, when the trade winds are strong.
+  - Nothing changes there :: [ignored-the-coupling] The winds drive the upwelling, so weaker winds mean less of it.
+  hint: What do the trade winds normally do to the surface water off Peru?
+  why: The winds and the ocean are coupled. A change in one changes the other, with effects on weather around the world.
+>P: Along certain coasts the wind and the Earth's rotation push the surface water offshore, and deep water rises to replace it. Why are these among the richest fishing grounds on Earth?
+  + The rising deep water carries nutrients into the sunlit surface, feeding plankton and so everything above them :: Nutrients and light together.
+  - Fish prefer cold water :: [surface-explanation] It is the nutrients, not the temperature, that drive the whole food web.
+  - Rivers deliver the food there :: [wrong-source] These coasts are often deserts with few rivers.
+  hint: What do plankton need besides sunlight?
+  why: Deep water is rich in nutrients and surface water has the light. Upwelling brings the two together.
+done: Heat drives the flow, and rotation turns it. Find the great circulating currents on a map of the oceans.
+
+@ earth.5.cosmology
+goal: Use the expansion law, the cosmic background radiation and the abundance of the light elements to reason about the universe's history and contents.
+intro: Cosmology studies the universe as a whole. Three independent observations support an origin in a hot, dense state: distant galaxies recede, faint microwave radiation fills the whole sky, and the light elements exist in the predicted proportions.
+  show: table Observation | What it shows ;; galaxies recede in proportion to distance | space is expanding ;; a microwave background at 2.7 K | the universe was once hot and dense ;; about three quarters hydrogen, one quarter helium | nuclei formed in the first minutes
+demo: Hubble's law says that a galaxy's speed of recession is proportional to its distance. With a Hubble constant of about 70 kilometres a second per megaparsec, a galaxy 100 megaparsecs away recedes at about 7,000 kilometres a second.
+  show: table Distance in megaparsecs | Speed of recession in km/s ;; 100 | 7,000 ;; 200 | 14,000 ;; 400 | 28,000
+X: Move a galaxy farther away and watch its speed of recession.
+  param d: 0..500 /50 @0 | Distance | megaparsecs
+  out v: 70*d | Speed of recession | km/s
+  aim: A galaxy is observed receding at 21,000 km/s. Find its distance.
+  target: v == 21000
+  view: plot v over d
+  hint: Each megaparsec adds 70 km/s.
+  why: 21,000 ÷ 70 = 300 megaparsecs. A measured redshift gives a speed, and the law turns the speed into a distance.
+F: The temperature of the background radiation is inversely proportional to the size of the universe. Today it is 2.7 K.
+  frame: When the universe was one thousandth of its present size, the radiation was at about __ K
+  answer: 2700 | 2,700
+  x 0.0027 :: [divided-instead] A smaller universe was hotter. Multiply by 1,000.
+  hint: A thousand times smaller means a thousand times hotter.
+  why: 2.7 × 1,000 = 2,700 K, close to the temperature at which atoms first formed and the universe became transparent.
+O: Put the events of cosmic history in order.
+  items: A burst of extremely rapid expansion | The first atomic nuclei form | Atoms form, and the background radiation is released | The first stars ignite | The Solar System forms
+  ends: Earliest | Latest
+  hint: Nuclei form within minutes; atoms after about 380,000 years; the Sun after about nine billion years.
+  why: The sequence runs from a fraction of a second to nine billion years. The universe is now about 13.8 billion years old.
+S: Select every observation that supports a hot, dense early universe.
+  + The redshifts of galaxies increase with their distance :: Expansion, run backwards, implies a denser past.
+  + Microwave radiation arrives almost evenly from every direction :: It is the cooled glow of the hot early universe.
+  + About a quarter of ordinary matter, by mass, is helium :: That is the amount predicted for the first few minutes.
+  - The Milky Way is a spiral galaxy :: [irrelevant-observation] The shape of our galaxy says nothing about the origin of the universe.
+  - The planets orbit the Sun in nearly the same plane :: [irrelevant-observation] That concerns the formation of the Solar System.
+  hint: Which observations concern the universe as a whole?
+  why: Three independent lines of evidence, expansion, the background radiation and the light elements, all point to the same history.
+>P: Does the expansion of the universe mean that the galaxies are flying outwards from a central point?
+  + No: space itself is expanding, and every observer sees the others receding; there is no centre :: Like dots on the surface of an inflating balloon.
+  - Yes: everything is flying away from the site of the explosion :: [explosion-in-space] The Big Bang was not an explosion at a place within space. It happened everywhere.
+  - Yes, and we are at the centre :: [privileged-observer] Observers in every galaxy would see the same pattern.
+  hint: What would an observer in a different galaxy see?
+  why: The expansion is the same seen from anywhere. The law of recession looks identical from every galaxy.
+done: Three observations and one history. Look up what the universe is made of: about 5% ordinary matter, and the rest unknown.
+
+@ earth.5.astrobiology
+goal: Reason about where life could exist and how it might be detected, and separate evidence of life from signals that imitate it.
+intro: Astrobiology asks whether life exists beyond the Earth. It combines what is known of life's limits here with what can be measured of other worlds, and it is strict about one thing: a claim of life must survive every non-biological explanation.
+  show: table Term | Meaning ;; habitable zone | the distances from a star at which surface water could be liquid ;; biosignature | a feature that life produces and that is hard to produce otherwise ;; extremophile | an organism that thrives in extreme conditions ;; false positive | a signal that imitates life without it
+demo: Life on the Earth turns up in boiling springs, in acid, under kilometres of ice and deep in rock. That widens the range of places worth searching. Jupiter's moon Europa and Saturn's moon Enceladus lie far outside the habitable zone, yet both have oceans of liquid water beneath their ice.
+  show: chips boiling springs | acid lakes | deep rock | beneath ice
+M: Match each term to its meaning.
+  pairs: Habitable zone => Where a planet's surface water could be liquid | Biosignature => A sign that life would produce and little else would | Extremophile => An organism thriving in extreme conditions | Subsurface ocean => Liquid water beneath a shell of ice | False positive => A signal that imitates life without it
+  hint: A biosignature must be hard to explain without life.
+  why: The field's vocabulary reflects its central problem: telling life apart from everything that can imitate it.
+X: A dimmer star has a closer habitable zone. The distance at which a planet receives as much light as the Earth is the square root of the star's luminosity, in units of the Sun's.
+  param lum: 0.01..1 /0.01 @1 | Luminosity of the star | Suns
+  out d: sqrt(lum) | Distance for Earth-like sunlight | astronomical units
+  aim: Find the luminosity of a star whose Earth-like distance is 0.2 astronomical units.
+  target: abs(d-0.2) < 0.005
+  view: plot d over lum
+  hint: Square the distance.
+  why: 0.2² = 0.04. A star with 4% of the Sun's light has its habitable zone five times closer in. Most of the stars in the galaxy are dim like this.
+K: Oxygen is detected in the atmosphere of a planet orbiting a small red star. Turn over as few facts as you need to decide whether the oxygen is convincing evidence of life.
+  clue Star: The star emits strong ultraviolet flares, which split water vapour and can leave oxygen behind with no life involved.
+  clue Size: The planet is 1.1 times the size of the Earth.
+  clue Distance: The system is 40 light-years away.
+  clue Orbit: The planet's year lasts 11 days.
+  need: 1
+  + Not yet convincing: there is a known source of oxygen that needs no life :: A biosignature must exclude such sources.
+  - Convincing: oxygen means life :: [single-gas-as-proof] Oxygen can build up without biology, especially round stars of this kind.
+  hint: Which fact offers another way to make oxygen?
+  why: A gas counts as a biosignature only when non-biological sources have been ruled out. Oxygen together with a gas that should destroy it, such as methane, would be far stronger evidence.
+G: Where is the liquid?
+  bin An ocean of water beneath ice: Europa | Enceladus
+  bin Liquid water in the distant past: Mars
+  bin Lakes of liquid methane today: Titan
+  hint: Mars has dry river valleys. Titan is far too cold for liquid water at its surface.
+  why: These four are the main targets in our own Solar System, each for a different reason.
+>P: In 1967 a radio telescope picked up pulses arriving precisely every 1.3 seconds from one point in the sky. What should have been the first working hypothesis?
+  + A natural source, to be tested before any thought of intelligence :: It proved to be a spinning neutron star: the first pulsar.
+  - A message from another civilisation :: [extraordinary-first] Regularity alone does not imply intelligence. Many natural systems are regular.
+  - Not worth investigating :: [dismissed-the-anomaly] An unexplained signal is exactly what is worth investigating.
+  hint: Which explanations need to be excluded before the extraordinary one is accepted?
+  why: Astrobiology rests on this discipline: exhaust the natural explanations first. The pulsar turned out to be a new kind of star, and no message at all.
+done: Rule out the lifeless explanations first. Look up the latest results from a mission to Mars or to the icy moons.
+
+@ earth.5.earth-systems
+goal: Analyse the Earth as coupled systems: identify feedbacks, calculate residence times and explain how a planet's temperature is regulated.
+intro: Earth system science treats the air, water, ice, rock and life as one interacting whole. The behaviour of the whole depends on the links between the parts: flows of energy and matter, and the feedbacks that amplify or damp change.
+  show: table Sphere | Contains ;; atmosphere | the air ;; hydrosphere | liquid water ;; cryosphere | ice and snow ;; geosphere | rock and the interior ;; biosphere | living things
+demo: A warmer Earth radiates more heat to space, which works against further warming: a stabilising feedback. A warmer Earth also has less ice, and so absorbs more sunlight: an amplifying feedback. The climate we get is the net result of many such loops.
+  show: pair text Stabilising: warmer > more heat lost to space > cooler || text Amplifying: warmer > less ice > more sunlight absorbed > warmer
+G: Amplifying or stabilising?
+  bin Amplifying: melting ice exposes darker ground | warmer air holds more water vapour, a greenhouse gas | thawing frozen ground releases methane
+  bin Stabilising: a warmer planet radiates more heat to space | a warmer, wetter climate speeds the weathering of rock, which removes carbon dioxide
+  hint: Does the response push in the same direction as the original change, or against it?
+  why: Amplifying feedbacks make the system more sensitive. Stabilising feedbacks hold it steady, some within years and others only over hundreds of thousands of years.
+F: The residence time is the amount in a reservoir divided by the rate of flow through it.
+  frame: A reservoir holds 600 units, and 120 units flow in and out each year. The residence time is __ years
+  answer: 5 | five
+  x 720 :: [added] Divide the amount by the flow: 600 ÷ 120.
+  x 0.2 :: [inverted] It is the amount divided by the flow, not the flow divided by the amount.
+  hint: How many years of flow would it take to replace everything in the reservoir?
+  why: 600 ÷ 120 = 5 years. Water vapour stays in the air for about ten days and carbon in the deep ocean for centuries, which is why they respond on such different timescales.
+X: A planet's temperature depends on how much sunlight it reflects. Change the share reflected, the albedo, and watch the temperature at which the planet radiates.
+  param a: 0.1..0.6 /0.05 @0.3 | Albedo, the share of sunlight reflected
+  out t: sqrt(sqrt(6000900000*(1-a))) | Radiating temperature | K
+  aim: The Earth, with an albedo of 0.3, radiates at about 255 K. Find the albedo at which that falls to about 245 K.
+  target: abs(t-245) < 1
+  view: plot t over a
+  hint: A brighter planet absorbs less sunlight.
+  why: At an albedo of 0.4 the planet absorbs less and settles about 10 K cooler. More ice means more reflection and more cooling: the ice feedback, running in reverse.
+M: Match each sphere to what it contains.
+  pairs: Atmosphere => The air | Hydrosphere => Liquid water | Cryosphere => Ice and snow | Geosphere => Rock and the Earth's interior | Biosphere => Living things
+  hint: "Cryo" means cold.
+  why: The spheres exchange energy and matter continually. Carbon, water and heat pass through all of them.
+>P: A great volcanic eruption in 1991 filled the upper air with fine particles. The world cooled by about half a degree, and recovered within about two years. What does the recovery show?
+  + The particles settled out, so the cooling ended; the effect lasts only as long as its cause stays in the air :: Compare carbon dioxide, which stays for centuries.
+  - The climate does not respond to changes in the atmosphere :: [ignored-the-response] It responded clearly, and then recovered as the particles were removed.
+  - Volcanoes are the main cause of long-term climate change :: [overgeneralised] Their effect lasts a few years. Long-term change needs a cause that persists.
+  hint: How long did the particles remain in the air?
+  why: The size and the duration of a climatic effect depend on how long the cause persists. Short-lived particles cool briefly; long-lived gases warm for centuries.
+done: Loops and lifetimes. Draw one feedback loop that you can observe where you live.
+
+@ earth.5.frontier
+goal: Describe what is known and what is unknown at the edge of astronomy (gravitational waves, dark matter, the expansion rate) and judge claims of discovery by the standard of evidence.
+intro: Some of the largest questions in science are open. Most of the universe's matter has never been directly detected, the expansion rate measured in two ways gives two answers, and a new kind of astronomy, listening for ripples in space-time, is barely ten years old.
+  show: table Question | Status ;; do gravitational waves exist? | detected in 2015 ;; what is dark matter? | inferred from gravity; never directly detected ;; what is dark energy? | unknown ;; why do two measurements of the expansion rate disagree? | unresolved
+demo: On 14 September 2015 two detectors, each with arms 4 kilometres long, registered the same tiny tremor. Two black holes had merged more than a billion light-years away, and the passing wave changed the length of each arm by far less than the width of a proton. The signal matched the prediction of general relativity.
+  show: flow two black holes merge > ripples spread through space-time > the detector's arms change length > a signal is recorded
+G: Directly detected, or inferred only from its effects?
+  bin Directly detected: gravitational waves | the Higgs boson | neutrinos from an exploding star
+  bin Inferred from its effects only: dark matter | dark energy
+  hint: Which have been registered by an instrument built to catch them?
+  why: Dark matter and dark energy are known only through their gravitational effects. What they are remains an open question.
+K: Does this galaxy contain more matter than its visible stars and gas? Turn over as few observations as you need to decide.
+  clue Rotation: Stars far from the centre orbit just as fast as stars close in.
+  clue Shape: The galaxy is a spiral.
+  clue Distance: The galaxy is 30 million light-years away.
+  clue Lensing: The images of galaxies behind it are distorted more than its visible matter can explain.
+  need: 1 | 4
+  + Yes, on our present theory of gravity: the visible matter cannot account for what is observed :: Either there is unseen mass, or gravity differs at these scales.
+  - No: the visible stars and gas account for everything :: [ignored-the-anomaly] If so, the outer stars should orbit more slowly, as the outer planets do.
+  hint: Which observations measure the pull of gravity directly?
+  why: Orbital speeds and the bending of light both measure total mass. Both exceed what the visible matter can supply, and this is the case for dark matter.
+P: The universe's rate of expansion is measured at about 67 from the early universe and about 73 from nearby galaxies, in the usual units. Each measurement claims a precision of about 1 or 2. What follows?
+  + Either an unrecognised error in one method, or physics that is not yet understood; independent methods are needed to decide :: The disagreement is itself informative.
+  - One of the teams must be dishonest :: [assumed-bad-faith] Careful measurements can disagree for reasons that nobody has yet found.
+  - Take the average, 70, and move on :: [averaged-away-the-problem] If the errors are as small as claimed, the two results really do conflict.
+  hint: What does it mean when two careful measurements disagree by more than their errors?
+  why: A discrepancy larger than the stated errors is a clue: to a hidden mistake, or to something new.
+P: In 2017 a gravitational-wave signal and a burst of light arrived from the same collision of two neutron stars. Why did this matter so much?
+  + Two independent kinds of signal from one event confirmed where heavy elements are made, and that gravity travels at the speed of light :: Each messenger checked the other.
+  - It showed that the detectors were faulty :: [reversed] Agreement between independent instruments is the strongest confirmation there is.
+  - It added nothing to what the light alone showed :: [ignored-the-new-channel] The gravitational waves revealed the masses and the collision itself, which light could not.
+  hint: What can you learn from two different kinds of signal that you cannot learn from one?
+  why: Observing one event by gravitational waves and by light together opened what is called multi-messenger astronomy.
+>P: One experiment reports a signal consistent with particles of dark matter. The odds of it being a chance fluctuation are about one in a few hundred, and no other detector has seen it. How should the report be treated?
+  + As promising but unconfirmed: it needs stronger statistics, independent replication and the exclusion of ordinary backgrounds :: A discovery in this field demands far longer odds.
+  - As a confirmed discovery :: [premature-claim] Fluctuations of this size occur regularly among the many measurements that physicists make.
+  - As worthless :: [dismissed-the-hint] Hints are how discoveries begin. They need testing, not ignoring.
+  hint: How often would chance alone produce such a signal, across many experiments?
+  why: Extraordinary claims are held to a high standard of evidence and must be reproduced. Most hints fade, and a few become discoveries.
+done: Know what is measured, what is inferred and what is unknown. Follow the next announcement from a gravitational-wave observatory.

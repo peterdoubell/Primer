@@ -1,0 +1,654 @@
+# Art, music, film and design, stages 3 to 5 (ages 13 to adult).
+# Compare patterns, identify relationships, assemble a composition, revise a design.
+
+@ arts.3.art-history
+goal: Place the major movements of Western art from the Renaissance onward in sequence, and identify a work's movement from its visual evidence.
+intro: Each movement in art answers the one before it. Knowing the sequence, and the visual hallmarks of each, lets you date and place a work that you have never seen.
+  show: time 1500=Renaissance | 1620=Baroque | 1820=Romanticism | 1874=Impressionism | 1908=Cubism | 1950=Abstract Expressionism | 1962=Pop Art
+demo: A Renaissance painting is typically calm and balanced: figures arranged in a stable triangle under even light. A Baroque painting of the same subject catches a single dramatic instant: a diagonal thrust, and one beam of light cutting through deep shadow.
+  show: table Renaissance | Baroque ;; calm, balanced | dramatic, in motion ;; a stable triangle | a strong diagonal ;; even light | light out of darkness
+O: Put the movements in order.
+  items: Renaissance | Baroque | Romanticism | Impressionism | Cubism | Abstract Expressionism | Pop Art
+  ends: Earliest | Latest
+  hint: Impressionism belongs to the 1870s and Cubism to the years just before the First World War.
+  why: About 1500, 1620, 1820, 1874, 1908, 1950 and 1962. Each reacted against the one before it.
+M: Match each movement to its hallmark.
+  pairs: Baroque => Drama, with strong contrasts of light and shadow | Romanticism => Emotion, and the power of wild nature | Impressionism => Fleeting light and visible brushwork | Cubism => Several viewpoints shown at once | Surrealism => Dreams and the unconscious mind | Pop Art => Images taken from advertising and mass culture
+  hint: Which movement painted dreams, and which painted soup cans?
+  why: A hallmark is the visible trace of a movement's idea about what art is for.
+C: Two paintings of the same biblical supper. Which is Baroque?
+  left: text Figures sit along a level table, symmetrical about the centre, in clear and even light.
+  right: text The table plunges diagonally into darkness, and one shaft of light picks out startled faces.
+  + The right: the diagonal, the drama and the light out of darkness are Baroque :: The left has the balance of the Renaissance.
+  - The left: its symmetry is the dramatic device :: [misread-the-hallmarks] Symmetry and even light give calm, not drama.
+  - Neither can be placed without a signature :: [style-ignored] Composition and lighting are strong evidence of period.
+  hint: Which one captures an instant of action?
+  why: Style is evidence. Composition, light and mood place a work even when its maker is unknown.
+P: Photography was announced in 1839. How did it change painting?
+  + It took over the task of recording appearances, freeing painters to explore light, feeling and form :: Painting no longer had to be a likeness.
+  - It ended painting :: [overstated] Painting changed direction. It did not stop.
+  - It had no effect :: [ignored-the-context] Many painters used, studied and reacted against photographs.
+  hint: What job had painting done that a camera could now do faster?
+  why: When a machine could make a likeness, painters asked what else a painting could be. Much of modern art is their answer.
+>P: A canvas of about 1911 shows a guitar and a bottle as overlapping flat planes, seen from several angles at once, in browns and greys. Which movement is it?
+  + Cubism :: Multiple viewpoints, fragmented planes, a restrained palette.
+  - Impressionism :: [wrong-hallmark] Impressionism dissolves objects in light and colour. It does not break them into planes.
+  - Surrealism :: [wrong-hallmark] Surrealism paints dreamlike scenes, usually with clear, illusionistic forms.
+  hint: Which movement shows an object from several sides at once?
+  why: The fragmentation of an object into planes seen from different viewpoints is the mark of Cubism.
+done: Look first, then place. In a gallery, try to date a painting before you read its label.
+
+@ arts.3.music-theory
+goal: Build triads and the primary chords of a key, relate keys by the circle of fifths, and recognise cadences.
+intro: Harmony is the study of notes sounding together. Its basic unit is the triad: three notes stacked in thirds. In any key the triads on the first, fourth and fifth notes carry most of the music.
+  show: table Chord | Built on | In C major ;; I, the tonic | the 1st note | C, E, G ;; IV, the subdominant | the 4th note | F, A, C ;; V, the dominant | the 5th note | G, B, D
+demo: A major triad stacks a major third, of four semitones, and then a minor third, of three, giving a perfect fifth of seven semitones from the bottom note to the top. On C that is C, E, G. Lower the middle note a semitone, to E flat, and the triad becomes minor.
+  show: table Triad | Lower third | Upper third ;; major | 4 semitones | 3 semitones ;; minor | 3 semitones | 4 semitones
+F: Build a major triad.
+  frame: The major triad on G is G, B and __
+  answer: D | d
+  x C :: [stacked-seconds] A triad is built in thirds: skip a letter each time.
+  x D sharp :: [too-wide] The fifth above G is D, seven semitones up.
+  hint: Go up a third from B.
+  why: G, B, D: a major third, then a minor third.
+X: Each semitone multiplies the frequency by the same factor, the twelfth root of 2. Count up in semitones from a starting note and watch the ratio of the frequencies.
+  param n: 0..12 /1 @0 | Semitones above the starting note
+  out ratio: 2**(n/12) | Frequency ratio
+  aim: Find the interval whose frequencies are almost exactly in the ratio 3 to 2, or 1.5.
+  target: abs(ratio-1.5) < 0.01
+  view: bars ratio over n
+  hint: Twelve semitones double the frequency. The answer lies a little past half-way.
+  why: Seven semitones give a ratio of 1.498: the perfect fifth. Its closeness to the simple ratio 3 to 2 is why the fifth sounds so stable.
+O: Each step round the circle of fifths adds one sharp. Put the keys in order, starting with no sharps.
+  items: C major | G major | D major | A major | E major
+  ends: No sharps | Four sharps
+  hint: Each key is five notes above the last.
+  why: C, G, D, A, E: each key note lies a fifth above the one before, and each key has one more sharp.
+M: Match each cadence to its chords.
+  pairs: Perfect cadence => V to I | Plagal cadence => IV to I | Imperfect cadence => Ending on V | Interrupted cadence => V to vi
+  hint: The "Amen" at the end of a hymn is plagal.
+  why: A cadence is musical punctuation. Perfect and plagal cadences close, the imperfect pauses, and the interrupted surprises.
+>P: A song in G major is accompanied throughout by just three chords. Which are they most likely to be?
+  + G, C and D :: The chords I, IV and V of G major.
+  - G, A and B :: [adjacent-letters] The primary chords lie on the 1st, 4th and 5th notes, not on neighbours.
+  - C, F and G :: [wrong-key] Those are I, IV and V in C major.
+  hint: Count up the scale of G major to its 4th and 5th notes.
+  why: I, IV and V between them contain every note of the scale, which is why three chords can harmonise a whole tune.
+done: Three chords carry most songs. Find the I, IV and V of a song you know.
+
+@ arts.3.design
+goal: Judge a design by how well it serves its use, apply the principles of visual design and revise a design that fails.
+intro: Design is making things for use. A good design tells people what it is for and how to work it, without instructions. A beautiful object that cannot be used has failed as design.
+  show: table Principle | Meaning ;; contrast | differences that draw the eye ;; alignment | edges that line up ;; proximity | related things placed together ;; repetition | consistent elements that unify ;; hierarchy | the most important thing made most prominent
+demo: A door with a flat plate can only be pushed, and so you push. A door with a handle invites pulling. When a door with a handle must in fact be pushed, people pull, fail and feel foolish. The fault is the design's, not theirs.
+  show: table What the door has | What it tells you ;; a flat plate | push ;; a handle | pull
+C: Two doors, both of which must be pushed. Which is the better design?
+  left: text A flat metal plate where the hand goes.
+  right: text A large handle, with a small sign reading "PUSH".
+  + The left: its form tells you what to do, and no sign is needed :: A thing should explain itself.
+  - The right: a sign makes it perfectly clear :: [sign-as-fix] The handle says "pull" more loudly than the sign says "push".
+  - They are equally good :: [ignored-the-user] People act on shape before they read.
+  hint: Which one would you use correctly without thinking?
+  why: Good design makes the right action obvious. If a thing needs a label to correct what its shape suggests, the shape is wrong.
+E: This exit sign cannot be read from across a hall. Revise it.
+  tokens: EXIT | in pale grey{in dark green,in pale yellow} | on a white wall | in letters 10 mm tall{in letters 100 mm tall}
+  limit: 2
+  aim: Change two things so that the sign can be read at a distance.
+  accept: 2=in dark green&4=in letters 100 mm tall
+  x 2=in pale yellow :: [too-little-contrast] Pale yellow on white is as hard to see as pale grey.
+  hint: A sign fails when its contrast is too low, or when it is too small.
+  why: Dark green on white gives strong contrast, and large letters carry across the hall. Both are needed.
+M: Match each principle to an example.
+  pairs: Contrast => A dark headline on a pale page | Alignment => Every paragraph starts at the same left edge | Proximity => A caption placed directly beneath its picture | Repetition => The same style of heading on every page | Hierarchy => The title is the largest thing on the cover
+  hint: Proximity is about what sits close together.
+  why: These five principles organise almost every page, poster and screen.
+P: Why are triangles used so much in bridges, cranes and roofs?
+  + A triangle cannot change its shape unless one of its sides changes length :: It is rigid by geometry.
+  - Triangles look modern :: [appearance-over-function] They have been used for centuries, for their strength.
+  - They use more material than squares :: [wrong-reason] They are used because they are rigid, often with less material.
+  hint: Push the corner of a square frame, and then of a triangular one.
+  why: A square frame can lean into a diamond. A triangle cannot deform, and so it braces a structure.
+>P: A kettle is strikingly beautiful. Its handle becomes too hot to hold, and its lid falls off when it is tipped. How should it be judged as a design?
+  + It fails: it cannot be used safely for its purpose, however good it looks :: Use comes first.
+  - It succeeds, because it is beautiful :: [form-over-function] Design is judged by use as well as by looks.
+  - It cannot be judged at all :: [no-standard] It can be tested against its purpose: pouring boiling water safely.
+  hint: What is a kettle for?
+  why: Design joins form to function. When they conflict, a designed object must first do its job.
+done: Good design explains itself. Find one badly designed thing at home and say exactly how you would revise it.
+
+@ arts.3.music-history
+goal: Place the main periods of Western music and the rise of jazz in order, and identify a period from what you hear.
+intro: Music changes with the instruments, the places and the people that it is made for. Each period has a characteristic sound, shaped by who paid for the music and where it was played.
+  show: time 1600=Baroque begins | 1750=Classical | 1820=Romantic | 1900=Modernism and early jazz | 1955=Rock and roll | 1975=Hip-hop
+demo: A Baroque piece keeps one mood and one steady motor rhythm throughout, over a continuous bass line. A Classical piece is built from short, balanced phrases, like questions and answers, with contrasts of mood. Listen for whether the music runs on unbroken, or breathes in phrases.
+  show: table Baroque | Classical ;; one mood throughout | contrasting moods ;; a continuous bass line | melody with accompaniment ;; interweaving lines | balanced phrases
+O: Put these kinds of music in order of when they arose.
+  items: Baroque | Classical | Romantic | Early jazz | Rock and roll | Hip-hop
+  ends: Earliest | Latest
+  hint: The first three follow one another from about 1600 to 1900.
+  why: About 1600, 1750, 1820, 1900, the 1950s and the 1970s.
+M: Match each musician to the music.
+  pairs: J. S. Bach => Baroque | Mozart => Classical | Chopin => Romantic | Stravinsky => Twentieth-century modernism | Louis Armstrong => Jazz
+  hint: Bach died in 1750, the year usually taken to close the Baroque period.
+  why: Each figure is a central example of the style of the time.
+G: Sort the features by period.
+  bin Baroque: a continuous bass line with harpsichord | interweaving independent lines | one mood kept up throughout
+  bin Classical: clear, balanced phrases | a tune with a simple accompaniment | contrasts of mood within one movement
+  bin Romantic: very large orchestras | intense personal expression | music that tells a story
+  hint: Which period prized balance, and which prized feeling?
+  why: The Baroque weaves lines together, the Classical balances phrases, and the Romantic expands everything in the service of feeling.
+P: Where and how did jazz begin?
+  + In the African American communities of New Orleans around 1900, from blues, ragtime and brass-band music :: With improvisation at its heart.
+  - In the royal courts of Europe :: [wrong-origin] Court music produced the Classical style, not jazz.
+  - In the recording studios of the 1950s :: [too-late] Jazz was half a century old by then.
+  hint: Which city at the mouth of the Mississippi is called the birthplace of jazz?
+  why: Jazz grew from African American musical traditions meeting European instruments and harmony. Improvisation and swing set it apart.
+>P: You hear a harpsichord, a steadily walking bass line, and two violins weaving separate lines that imitate each other. Which period is it?
+  + Baroque :: The harpsichord, the continuous bass and the interweaving lines are all Baroque.
+  - Classical :: [wrong-texture] Classical music favours one clear tune over an accompaniment.
+  - Romantic :: [wrong-forces] Romantic music uses the piano and large orchestras, not the harpsichord.
+  hint: Which period used the harpsichord and a continuous bass?
+  why: Instruments and texture are the quickest clues to a period.
+done: Every period has a sound. Listen to one minute from each, and say what changes.
+
+@ arts.3.film-studies
+goal: Analyse how a film makes meaning through what is placed in the frame, how shots are joined and how sound is used.
+intro: A film speaks through choices: what is in front of the camera, where the camera stands, how one shot is cut to the next, and what we hear. Analysing a film means noticing those choices and asking what each one does.
+  show: table Term | Meaning ;; mise-en-scène | everything placed in front of the camera ;; montage | meaning made by joining shots ;; diegetic sound | sound that comes from inside the story's world ;; continuity editing | cutting that keeps space and time clear
+demo: In a famous experiment of about 1920, audiences saw the same shot of an actor's blank face, followed by a bowl of soup, or a coffin, or a child at play. They praised his hunger, his grief, his tenderness. The face never changed. The meaning came from the joining of the shots.
+  show: flow a blank face > a bowl of soup > the audience sees hunger
+M: Match each term to its meaning.
+  pairs: Mise-en-scène => Everything placed in front of the camera | Montage => Meaning made by joining shots together | Diegetic sound => Sound that comes from inside the story's world | Non-diegetic sound => Sound added for the audience alone | Continuity editing => Cutting that keeps space and time clear
+  hint: The characters can hear diegetic sound.
+  why: These terms name the main channels through which a film communicates.
+G: Could the characters hear it?
+  bin Diegetic: a radio playing in the room | the characters' dialogue | footsteps in the corridor
+  bin Non-diegetic: the orchestral score | a narrator's commentary | a sound effect added to the titles
+  hint: Is the source of the sound inside the story?
+  why: Diegetic sound belongs to the world of the film. Non-diegetic sound speaks only to us.
+P: In the experiment with the blank face, where did the audience's sense of the actor's feeling come from?
+  + From the joining of two shots: each shot coloured the reading of the other :: Editing creates meaning that neither shot holds alone.
+  - From the actor's subtle performance :: [credited-the-performance] The shot of the face was the same every time.
+  - From the music :: [wrong-channel] The effect arises from the images alone.
+  hint: What changed between the three versions?
+  why: This is called the Kuleshov effect. It shows that the cut is itself a source of meaning.
+O: Put the parts of a conventional film story in order.
+  items: The setup | The inciting incident | Rising conflict | The climax | The resolution
+  ends: First | Last
+  hint: Something has to disturb the opening situation.
+  why: Setup, disturbance, mounting conflict, a decisive confrontation and a new balance.
+C: Two ways of filming a chase through a house. How do their effects differ?
+  left: text One unbroken shot follows the runner from room to room.
+  right: text Forty quick cuts from many angles, in thirty seconds.
+  + The long take builds tension in real time; the rapid cutting builds energy and disorientation :: Each suits a different aim.
+  - The right is better, because it has more shots :: [more-is-better] The number of shots is a means to an effect, not a measure of quality.
+  - They have the same effect :: [form-ignored] The pace of cutting changes how the scene feels.
+  hint: In which version do you know exactly where you are?
+  why: The length of a shot shapes the experience. The analyst asks what effect a choice produces, not which choice is better in the abstract.
+>P: A woman sits reading. We hear a floorboard creak upstairs, and then low strings begin on the soundtrack. Which sound belongs to the story's world, and what does the other do?
+  + The creak is diegetic; the strings are for the audience alone and tell us to feel dread :: She could hear the creak, but not the strings.
+  - Both sounds are in the story's world :: [score-as-diegetic] No orchestra is playing in her house.
+  - Neither is in the story's world :: [effects-as-non-diegetic] The creak comes from upstairs in the house.
+  hint: Which sound could she hear?
+  why: Films often pair a sound within the story with music from outside it: one gives the fact, and the other tells us how to feel.
+done: Notice the choice, then ask what it does. Watch one scene twice, the second time without the sound.
+
+@ arts.3.music-grade-4
+goal: Read the alto clef, name intervals by number and quality, spell chromatic notes correctly and find the primary triads of a key.
+intro: An interval is the distance between two notes. Its number counts letter-names, both ends included. Its quality (major, minor, perfect, augmented or diminished) depends on the exact number of semitones.
+  show: table From C up to | Interval | Semitones ;; E flat | minor third | 3 ;; E | major third | 4 ;; G | perfect fifth | 7 ;; B flat | minor seventh | 10 ;; B | major seventh | 11
+demo: From C up to F sharp and from C up to G flat sound the same on a piano, but they are different intervals. C to F spans four letter-names, so C to F sharp is an augmented fourth. C to G spans five, so C to G flat is a diminished fifth. The spelling decides the name.
+  show: table Written | Letters spanned | Name ;; C to F sharp | C D E F: four | augmented fourth ;; C to G flat | C D E F G: five | diminished fifth
+P: In the alto clef, used by the viola, which note lies on the middle line?
+  + Middle C :: The clef's centre points to middle C.
+  - B :: [read-as-treble] B is the middle line of the treble stave.
+  - D :: [read-as-bass] D is the middle line of the bass stave.
+  hint: The alto clef is a C clef: its centre marks middle C.
+  why: A C clef shows where middle C lies. In the alto clef that is the middle line.
+M: Name each interval above C.
+  pairs: C up to E => Major third | C up to E flat => Minor third | C up to G => Perfect fifth | C up to F sharp => Augmented fourth | C up to B flat => Minor seventh
+  hint: Count the letter-names first, and then the semitones.
+  why: The number comes from the letters spanned, and the quality from the semitones.
+F: Count the semitones.
+  frame: A perfect fifth contains __ semitones
+  answer: 7 | seven
+  x 5 :: [counted-letters] "Fifth" counts letter-names. The semitones number seven.
+  x 8 :: [miscounted] Count from C: C sharp, D, D sharp, E, F, F sharp, G.
+  hint: Count the steps from C up to G on a keyboard.
+  why: C to G is seven semitones. The name "fifth" comes from the five letters C, D, E, F, G.
+F: The dominant triad is built on the fifth note of the scale.
+  frame: In D major the dominant triad is built on the note __
+  answer: A | a
+  x G :: [took-the-fourth] G is the fourth note, the subdominant.
+  hint: Count up five notes from D: D, E, F sharp, G, …
+  why: D, E, F sharp, G, A: the fifth note is A, so the dominant triad is A, C sharp, E.
+>P: Name the interval from D up to B flat.
+  + Minor sixth :: D to B spans six letters. D to B is a major sixth, and the flat makes it a semitone smaller.
+  - Major sixth :: [ignored-the-flat] D to B natural is a major sixth. The flat reduces it.
+  - Augmented fifth :: [miscounted-letters] D to B spans six letter-names, so it is a sixth of some kind. An augmented fifth would be D to A sharp.
+  hint: Count the letters from D to B, then compare with D to B natural.
+  why: Six letter-names make a sixth, and eight semitones make it minor.
+done: Letters give the number and semitones give the quality. Name the interval between the first two notes of three tunes you know.
+
+@ arts.3.music-grade-5
+goal: Read music for transposing instruments, identify the inversions of chords and the cadences, and count irregular time signatures.
+intro: Some instruments are written at one pitch and sound at another. A chord may stand with any of its notes at the bottom. A phrase is closed, or left open, by its cadence. This grade brings together the notation needed to read a real score.
+  show: table Instrument | A written C sounds as ;; clarinet in B flat | B flat, a tone lower ;; trumpet in B flat | B flat, a tone lower ;; horn in F | F, a fifth lower
+demo: A triad is in root position when its root is the lowest note. Put the third at the bottom and it is in first inversion. Put the fifth at the bottom and it is in second inversion. The notes are the same; only the bass has changed.
+  show: table Lowest note of the C major triad | Position ;; C | root position ;; E | first inversion ;; G | second inversion
+P: A clarinet in B flat plays a written C. Which note do we hear?
+  + B flat :: The instrument sounds a tone lower than written.
+  - C :: [ignored-the-transposition] A transposing instrument does not sound as written.
+  - D :: [wrong-direction] It sounds lower, not higher.
+  hint: The instrument's name tells you what a written C sounds as.
+  why: "In B flat" means that a written C sounds as B flat.
+P: What must be written for a clarinet in B flat to sound the note G?
+  + A :: Write a tone higher than the sound required.
+  - F :: [wrong-direction] Writing a tone lower would give a sound two tones too low.
+  - G :: [ignored-the-transposition] A written G would sound as F.
+  hint: The instrument sounds a tone lower, so write a tone higher.
+  why: To cancel the instrument's downward shift, the part is written a tone above the sound that is wanted.
+M: Match the lowest note of a C major triad to its position.
+  pairs: C in the bass => Root position | E in the bass => First inversion | G in the bass => Second inversion
+  hint: The root of the chord is C.
+  why: The position of a chord is named by which of its notes is in the bass.
+F: Count an irregular bar.
+  frame: A bar of 7/8 contains __ quavers
+  answer: 7 | seven
+  x 8 :: [read-the-bottom-number] The 8 says that the unit is the quaver. The 7 says how many there are.
+  hint: The top number counts the units.
+  why: Seven quavers, usually grouped as 2 + 2 + 3 or 3 + 2 + 2.
+>P: A phrase in C major ends with a chord of G followed by a chord of A minor. Which cadence is it, and what is its effect?
+  + Interrupted: the ear expects C, and the surprise postpones the close :: V to vi.
+  - Perfect: it sounds finished :: [expected-resolution] A perfect cadence would go from G to C.
+  - Plagal: it sounds like "Amen" :: [wrong-chords] A plagal cadence goes from F to C.
+  hint: Which chord did you expect after G?
+  why: The dominant sets up the tonic. Moving to vi instead denies the expectation, and that is why the cadence is called interrupted.
+done: Written pitch, sounding pitch, bass note and cadence. Find a transposing instrument's part in a real score.
+
+@ arts.3.music-grade-6
+goal: Write and check four-part harmony: read figured bass, lead the voices correctly, resolve the dominant seventh and recognise a modulation.
+intro: Four-part harmony sets a melody for soprano, alto, tenor and bass. Each chord must be complete, and each voice must move smoothly and independently. Figures beneath a bass note are a shorthand for the chord above it.
+  show: table Figure | Chord ;; none, or 5 over 3 | root position ;; 6 | first inversion ;; 6 over 4 | second inversion ;; 7 | a seventh chord in root position
+demo: When two voices a fifth apart both move the same way to another fifth, they fuse into one sound and lose their independence. These "consecutive fifths" are the classic fault in four-part writing. Moving the voices in opposite directions avoids it.
+  show: table Movement | Result ;; C over F, moving to D over G | consecutive fifths: a fault ;; C over F, moving to B over G | contrary motion: good
+M: Match each figure to its chord.
+  pairs: No figure => A triad in root position | 6 => A triad in first inversion | 6 over 4 => A triad in second inversion | 7 => A seventh chord in root position
+  hint: The figures count intervals above the bass note.
+  why: Figured bass names the intervals to be sounded above the bass. A sixth above the bass implies first inversion.
+S: Select every fault in four-part writing.
+  + Two voices moving in consecutive fifths :: They lose their independence.
+  + Two voices moving in consecutive octaves :: One voice is merely doubling the other.
+  + The leading note doubled in two voices :: Both would need to rise to the tonic, giving consecutive octaves.
+  - The soprano and the bass moving in contrary motion :: [marked-good-practice] Contrary motion between the outer voices is encouraged.
+  - The root doubled in a root-position chord :: [marked-good-practice] Doubling the root is the normal choice.
+  hint: A fault is anything that makes two voices behave as one.
+  why: The rules protect the independence of the four voices and the natural pull of the notes.
+F: A dominant seventh adds a minor seventh above the root of chord V.
+  frame: In C major the dominant seventh is G, B, D and __
+  answer: F | f
+  x F sharp :: [major-seventh] F sharp would be a major seventh above G. The dominant seventh uses the note of the key, F.
+  x E :: [stopped-at-the-sixth] E is a sixth above G. The seventh is F.
+  hint: Count seven letters up from G, using the notes of C major.
+  why: G, B, D, F. The F, a minor seventh above G, makes the chord want to resolve.
+P: When the dominant seventh of C major moves to the tonic chord, where does its seventh, F, go?
+  + It falls a step, to E :: A seventh resolves downwards.
+  - It rises to G :: [wrong-direction] The seventh is a dissonance, and it resolves by falling.
+  - It stays on F :: [unresolved] F does not belong to the chord of C. It must move.
+  hint: Dissonant sevenths fall.
+  why: The seventh falls by step to the third of the tonic chord, while the leading note, B, rises to C.
+>P: A passage in C major begins to use F sharp consistently, and reaches a cadence on a chord of G. What has happened?
+  + The music has modulated to the dominant, G major :: F sharp is the leading note of the new key.
+  - It has modulated to the subdominant, F major :: [wrong-accidental] That would need B flat, not F sharp.
+  - It is still in C major :: [ignored-the-evidence] A persistent F sharp and a cadence in G establish a new key.
+  hint: Which key has one sharp, F sharp?
+  why: A modulation is confirmed by the new key's leading note and by a cadence in that key.
+done: Complete chords, independent voices, resolved dissonances. Check a hymn tune for each of these.
+
+@ arts.3.music-grade-7
+goal: Recognise and use chromatic chords (the Neapolitan sixth, the diminished seventh, secondary sevenths) and prepare and resolve suspensions.
+intro: Chromatic harmony colours a key with notes from outside it. Each such chord has a characteristic sound and a characteristic way of resolving. Suspensions add tension by holding a note over while the harmony changes beneath it.
+  show: table Chord | In C minor | Usually leads to ;; Neapolitan sixth | D flat, F, A flat, with F in the bass | V ;; diminished seventh | B, D, F, A flat | i ;; supertonic seventh | D, F, A flat, C | V
+demo: A suspension has three stages. A note is first sounded as part of a chord: the preparation. It is held while the harmony changes, and becomes a dissonance on the strong beat: the suspension. Then it falls by step to a note of the new chord: the resolution.
+  show: flow preparation: consonant > suspension: held and dissonant > resolution: falls by step
+O: Put the three stages of a suspension in order.
+  items: Preparation | Suspension | Resolution
+  ends: First | Last
+  hint: The note has to be sounded before it can be held over.
+  why: Prepared as a consonance, held as a dissonance, and resolved downwards by step.
+F: A diminished seventh chord is a stack of equal intervals.
+  frame: Each interval in a diminished seventh chord is a minor third, of __ semitones
+  answer: 3 | three
+  x 4 :: [major-third] Four semitones make a major third. This chord stacks minor thirds.
+  hint: A minor third is one semitone smaller than a major third.
+  why: Three minor thirds of 3 semitones each, with one more to complete the octave: the chord divides the octave into four equal parts.
+M: Match each suspension to its movement.
+  pairs: 4–3 suspension => The fourth above the bass falls to the third | 7–6 suspension => The seventh above the bass falls to the sixth | 9–8 suspension => The ninth above the bass falls to the octave
+  hint: The figures name the dissonance and then its resolution.
+  why: Each suspension is named by the interval of the held note above the bass, and by the interval to which it resolves.
+P: What is the Neapolitan sixth in C minor?
+  + A chord of D flat major in first inversion, with F in the bass :: The major chord on the flattened second note.
+  - A chord of D minor :: [missed-the-flat] The second note is flattened: D flat, not D.
+  - A chord of F minor :: [confused-with-the-subdominant] F minor shares the bass note F, but contains C in place of D flat.
+  hint: Flatten the second note of the scale, and build a major triad on it.
+  why: The Neapolitan is the major triad on the flattened supertonic, normally in first inversion, which is why it is called a "sixth".
+>P: In C minor, a chord of D flat, F and A flat, with F in the bass, moves to a chord of G major and then to C minor. Label the progression.
+  + Neapolitan sixth, V, i :: The flattened second resolves through the dominant to the tonic.
+  - iv, V, i :: [missed-the-flattened-second] Chord iv is F, A flat, C. This chord has D flat in place of C.
+  - ii, V, i :: [missed-the-flat] The ordinary supertonic chord would contain D natural.
+  hint: Compare the notes with those of F minor: which one differs?
+  why: The Neapolitan sixth shares its bass note with chord iv and plays the same part before the dominant, with a darker colour.
+done: A colour and a resolution for every chord. Find a Neapolitan sixth in a slow movement by Beethoven or Schubert.
+
+@ arts.3.music-grade-8
+goal: Write two-part counterpoint, resolve chromatic chords correctly, and write idiomatically within the ranges of instruments.
+intro: Counterpoint is the art of combining independent melodic lines. Each line must make sense alone, and the lines together must make sound harmony. The way the two parts move in relation to each other is the heart of the craft.
+  show: table Motion | The two parts ;; contrary | move in opposite directions ;; similar | move the same way, by different intervals ;; parallel | move the same way, by the same interval ;; oblique | one stays still while the other moves
+demo: Suppose the upper part moves C, D, E while the lower moves F, G, A, a fifth below each time. The parts are locked in parallel fifths and sound like one thickened line. Let the lower part move A, G, F instead, and the lines go in contrary motion and are heard as two.
+  show: table Upper part | Lower part | Result ;; C D E | F G A | parallel fifths: a fault ;; C D E | A G F | contrary motion: independent
+M: Match each kind of motion to its description.
+  pairs: Contrary motion => The parts move in opposite directions | Similar motion => The same direction, by different intervals | Parallel motion => The same direction, by the same interval | Oblique motion => One part stays while the other moves
+  hint: Oblique motion has one part standing still.
+  why: Contrary and oblique motion keep the lines independent. Parallel perfect intervals destroy that independence.
+G: Classify the intervals for two-part writing.
+  bin Perfect consonance: unison | fifth | octave
+  bin Imperfect consonance: third | sixth
+  bin Dissonance: second | seventh | tritone
+  hint: Thirds and sixths sound sweet; seconds and sevenths clash.
+  why: Perfect consonances are stable but must not move in parallel. Imperfect consonances may. Dissonances must be approached and resolved with care.
+P: In C minor an augmented sixth chord contains A flat in the bass and F sharp above it. How do these two notes resolve?
+  + Outwards by a semitone each, to an octave on G :: A flat falls to G, and F sharp rises to G.
+  - Inwards, to a fourth :: [wrong-direction] An augmented interval resolves by expanding.
+  - Both upwards :: [parallel-resolution] The two notes move in opposite directions.
+  hint: A flat wants to fall, and F sharp wants to rise.
+  why: Each note is a semitone away from the dominant, on either side of it, and both resolve onto it.
+P: A melody goes down to the F below middle C. Which of these instruments cannot play that note?
+  + The violin :: Its lowest note is the G below middle C.
+  - The viola :: [wrong-range] The viola goes down to the C below middle C, and so it can play the F.
+  - The cello :: [wrong-range] The cello goes down two octaves below middle C.
+  hint: The violin's lowest string is G.
+  why: Writing for an instrument starts with its range. A note below the lowest string simply does not exist on it.
+C: Two keyboard textures. How do they differ?
+  left: text A tune in the right hand over broken chords in the left.
+  right: text Four voices of equal importance, each with its own melodic line.
+  + The left is melody with accompaniment; the right is counterpoint :: One line leads, or all are equal.
+  - They are the same texture at different speeds :: [texture-ignored] The relationship between the parts differs, not the speed.
+  - The right is merely a thicker accompaniment :: [missed-the-independence] In counterpoint no voice merely accompanies.
+  hint: In which one could each part be sung as a melody of its own?
+  why: Texture describes how the lines relate. Recognising it is the first step in writing in a given style.
+>P: In a two-part exercise the upper part moves C, D, E while the lower part moves F, G, A. What is the fault?
+  + Parallel fifths: the parts move in step, a fifth apart, and lose their independence :: Three perfect fifths in a row.
+  - There is no fault :: [missed-the-parallels] Check the interval between the two parts at each step.
+  - The parts move too much by step :: [wrong-diagnosis] Movement by step is good. The fault lies in the interval between the parts.
+  hint: Work out the interval between the two parts at each of the three points.
+  why: C over F, D over G, E over A: each is a perfect fifth. Parallel perfect consonances are the first fault to check for in counterpoint.
+done: Two lines, each alive. Write eight bars for two voices and check every interval.
+
+@ arts.4.aesthetics
+goal: Compare the major theories of what art is and what makes it good, and test each against hard cases.
+intro: Aesthetics asks what beauty is, whether judgements of taste can be right or wrong, and what makes something a work of art. Each theory handles some cases well and stumbles on others.
+  show: table Thinker | Claim ;; Plato | art imitates appearances, and stands at a remove from truth ;; Aristotle | tragedy purges pity and fear ;; Hume | good taste is the joint verdict of practised, unprejudiced judges ;; Kant | a judgement of beauty is disinterested, and claims everyone's agreement ;; Tolstoy | art passes feeling from artist to audience
+demo: In 1917 Marcel Duchamp submitted a porcelain urinal to an exhibition under the title "Fountain". It imitates nothing, expresses little and was not made by the artist. If it is art, then imitation, expression and skill cannot be what makes something art. Theories of art have had to answer it ever since.
+  show: chips not an imitation | not an expression | not made by the artist
+M: Match each thinker to the claim.
+  pairs: Plato => Art imitates appearances, at a remove from truth | Aristotle => Tragedy purges pity and fear | Hume => Good taste is the joint verdict of practised, unprejudiced judges | Kant => A judgement of beauty is disinterested and claims everyone's agreement | Tolstoy => Art passes feeling from the artist to the audience
+  hint: Plato distrusted art; Aristotle defended it.
+  why: These five positions set the terms of nearly every later argument about art.
+G: Which theory of art lies behind each remark?
+  bin Art as imitation: A portrait succeeds when it resembles the sitter. | The best painted grapes are those that birds try to eat.
+  bin Art as expression: A song succeeds when it conveys what its composer felt. | The poem matters for the grief that it carries.
+  bin Art as form: What counts is the arrangement of line and colour. | A fugue is admired for its structure, whatever it expresses.
+  hint: Is the work valued for likeness, for feeling or for arrangement?
+  why: Imitation, expression and form are three rival answers to the question of what makes art valuable.
+P: A collector admires a painting because it will sell for a fortune. On Kant's view, is this a judgement of beauty?
+  + No: it depends on a desire for gain, and so it is not disinterested :: Aesthetic pleasure wants nothing from its object.
+  - Yes: any admiration is aesthetic :: [all-liking-is-aesthetic] Kant separates the beautiful from the useful and the profitable.
+  - Yes, provided that the painting really is valuable :: [price-as-beauty] Market value is beside the point.
+  hint: Would the pleasure remain if the painting could never be sold?
+  why: For Kant, a pure judgement of taste takes pleasure in how a thing appears, with no stake in owning or using it.
+C: Two views of taste. Which describes Hume's position?
+  left: text Beauty is entirely in the eye of the beholder, so no taste is better than another.
+  right: text Taste rests on feeling, yet some judges are better placed: practised, comparing widely and free from prejudice.
+  + The right: Hume roots taste in sentiment, and still finds a standard in qualified judges :: Feeling does not make all verdicts equal.
+  - The left: Hume held that all tastes are equal :: [pure-relativism] He thought it absurd to rank a minor writer with a great one.
+  - Neither: Hume held that beauty is a measurable property of objects :: [pure-objectivism] He denied that beauty lies in things themselves.
+  hint: Hume wanted to explain both the role of feeling and the fact that some judgements are better.
+  why: Hume's solution keeps beauty in the response while locating the standard in the best-qualified responders.
+>P: Imagine two red squares that are physically identical. One is a painting in a museum, entitled "Red Square". The other is a sample card from a paint shop. What does the pair show?
+  + What makes something art cannot lie only in how it looks; history, intention and context matter :: The eye cannot tell them apart.
+  - Both are artworks :: [looks-decide] Then every paint sample would be an artwork.
+  - Neither is an artwork :: [looks-decide-reversed] The painting was made, entitled and shown as art, within a tradition.
+  hint: What differs between them, if nothing visible does?
+  why: Arguments from indistinguishable pairs show that art cannot be defined by visible properties alone.
+done: Test every theory on its hardest case. Choose one work that you love and ask which theory best explains why.
+
+@ arts.4.art-theory
+goal: Criticise a work of art methodically (describe, analyse, interpret, judge) and read works from other traditions by their own conventions.
+intro: Criticism is disciplined looking. It keeps what can be seen apart from what is inferred, and what is inferred apart from what is judged. Across cultures it adds a rule: learn the conventions that a work follows before measuring it against your own.
+  show: flow describe > analyse > interpret > judge
+demo: Before a painting of an empty chair, a critic begins with description: "A wooden chair, alone, in yellow light." Then analysis: "The chair fills the frame and tilts towards us." Then interpretation: "It stands for someone absent." Only then judgement: "The plainness makes the absence felt."
+  show: steps Describe: a wooden chair, alone, in yellow light ;; Analyse: it fills the frame and tilts towards us ;; Interpret: it stands for someone absent ;; Judge: its plainness makes the absence felt
+O: Put the four stages of criticism in order.
+  items: Describe what is there | Analyse how it is organised | Interpret what it means | Judge how well it succeeds
+  ends: First | Last
+  hint: You cannot judge what you have not yet looked at.
+  why: Each stage rests on the one before. Judgement without description is mere opinion.
+G: Which stage of criticism is each sentence?
+  bin Describe: The canvas is two metres wide and mostly blue.
+  bin Analyse: The diagonal line leads the eye to the figure.
+  bin Interpret: The empty chair suggests someone who is absent.
+  bin Judge: The work succeeds in making stillness feel tense.
+  hint: Is it a fact, a relationship, a meaning or a verdict?
+  why: Keeping the four kinds of statement apart shows a reader exactly what your judgement is built upon.
+P: A still life of the 1600s shows a skull, a candle just gone out and an hourglass. What do these objects signify?
+  + The shortness of life and the certainty of death :: Such pictures are called vanitas paintings.
+  - The painter's skill with reflections :: [surface-only] The skill is real, but the objects were chosen for their meaning.
+  - Wealth and success :: [reversed-reading] They warn that wealth does not last.
+  hint: What do a skull, a spent candle and running sand have in common?
+  why: Reading the conventional meanings of objects is called iconography. Without it, half of the painting is silent.
+C: Two traditions of picturing space. How should they be compared?
+  left: text A European painting fixes the viewer at one point, with lines converging on the horizon.
+  right: text A Chinese handscroll is unrolled a little at a time, and the viewpoint shifts as the eye travels.
+  + As different conventions for different ways of viewing; neither is a failed attempt at the other :: Each solves its own problem.
+  - The left is more advanced, since it is more realistic :: [single-standard] It is realistic for a fixed eye. The scroll is true to a travelling one.
+  - They cannot be compared at all :: [incommensurable] They can be compared on what each sets out to do.
+  hint: How is each one actually looked at?
+  why: Conventions answer to purposes. Understanding the purpose comes before any ranking.
+>P: A critic writes of a medieval icon: "The figures are flat and out of proportion, so the painting is poor." What is wrong with this criticism?
+  + It applies a standard of naturalism at which the tradition never aimed; first ask what the conventions were for :: The flatness is deliberate.
+  - Nothing: the figures are flat :: [description-as-judgement] The description is accurate. The judgement assumes the wrong aim.
+  - Every judgement of art from another culture is invalid :: [relativism] Judgement is possible once the work's own aims are understood.
+  hint: Was the painter trying, and failing, to make the figures look solid?
+  why: A judgement presupposes an aim. Mistake the aim, and the judgement misses the work.
+done: Describe before you judge, and learn the conventions before you describe. Write four sentences, one for each stage, about a single work.
+
+@ arts.4.composition
+goal: Recognise the standard musical forms, trace a sonata movement's plan of keys, and assemble sections into a coherent form.
+intro: Form is how music is organised in time: what returns, what contrasts and where the music travels in key. A form is a plan of repetitions and departures that a listener can follow.
+  show: table Form | Plan ;; binary | A B ;; ternary | A B A ;; rondo | A B A C A ;; theme and variations | A, then A altered again and again ;; sonata form | exposition, development, recapitulation
+demo: Sonata form is a drama of keys. The exposition presents a first theme in the home key and a second in a different key. The development breaks the themes up and wanders through unstable keys. The recapitulation brings both themes back, now both in the home key. The conflict of keys has been resolved.
+  show: flow exposition: two keys > development: unstable > recapitulation: one key
+M: Match each form to its plan.
+  pairs: Binary => A B | Ternary => A B A | Rondo => A B A C A | Theme and variations => A, then A altered several times | Sonata form => Exposition, development, recapitulation
+  hint: In a rondo the main theme keeps coming back.
+  why: Each form is a different balance of return and contrast.
+O: Put the sections of a sonata-form movement in order.
+  items: First theme, in the home key | Transition | Second theme, in a new key | Development | Recapitulation: both themes in the home key | Coda
+  ends: First | Last
+  hint: The exposition has three parts, and the development follows it.
+  why: The exposition sets up two keys, the development unsettles them and the recapitulation reconciles them.
+B: Assemble a movement in ternary form from these sections.
+  bank: An opening theme in the home key | A contrasting middle section in a related key | A return of the opening theme | A development of fragments in unstable keys | A fugue on a new subject
+  answer: An opening theme in the home key | A contrasting middle section in a related key | A return of the opening theme
+  x A development of fragments in unstable keys :: [wrong-form] A development section belongs to sonata form.
+  x A fugue on a new subject :: [unrelated-section] A new fugue would not round off the form. Ternary form ends with a return.
+  hint: Ternary form is statement, contrast and return.
+  why: A, B, A: the return of the opening after a contrast gives the form its closed, balanced shape.
+P: In a fugue, the subject is first heard alone in the home key. What happens next?
+  + A second voice enters with the subject in the dominant, while the first voice continues against it :: The entry in the dominant is called the answer.
+  - The first voice repeats the subject, louder :: [repetition-not-imitation] A fugue is built from the entries of different voices.
+  - All the voices enter together in chords :: [wrong-texture] A fugue is contrapuntal: the voices enter one at a time.
+  hint: A fugue is a conversation in which the voices enter one after another.
+  why: Subject, then answer in the dominant, with a counter-melody against it: the exposition of a fugue introduces the voices one by one.
+>P: A movement opens in C major and settles in G major. Then fragments of its themes pass through several unstable keys. Finally the opening returns, and everything that follows is in C major. What is the form?
+  + Sonata form :: Two keys, then a development, then a recapitulation in the home key.
+  - Ternary form :: [missed-the-key-plan] Ternary form has a contrasting middle. It does not develop fragments or resolve a conflict of keys.
+  - Rondo :: [missed-the-plan] A rondo keeps returning to its main theme between episodes.
+  hint: What happens to the key of the material that first appeared in G major?
+  why: The defining feature of sonata form is that material first stated away from home is brought back in the home key.
+done: Listen for what returns. Map the sections of the first movement of a Classical sonata.
+
+@ arts.4.world-arts
+goal: Describe major artistic traditions from around the world in their own terms, and compare how different traditions organise sound and image.
+intro: Every culture has developed sophisticated arts, with their own instruments, scales, forms and purposes. To understand them, start from the tradition's own concepts, not from the nearest Western equivalent.
+  show: table Tradition | Where | Organised by ;; gamelan | Indonesia | interlocking patterns on bronze instruments ;; raga | India | a melodic framework with its own mood ;; maqam | the Arab world, Turkey, Iran | melodic modes that use small intervals ;; drum ensembles | West Africa | several rhythms sounding at once
+demo: In a West African drum ensemble, one player may sound three evenly spaced strokes in the time in which another sounds two. Neither is "the beat" with the other "against" it. The music is the composite pattern, and the smallest pulse that fits both has six parts.
+  show: table Pattern | Sounds on pulses ;; the pattern of three | 1, 3 and 5 ;; the pattern of two | 1 and 4 ;; both together | 1 only
+M: Match each art to its tradition.
+  pairs: Gamelan => An Indonesian ensemble of bronze gongs and keyed instruments | Raga => An Indian melodic framework with its own mood | Maqam => A Middle Eastern melodic mode using small intervals | Noh => A Japanese masked drama with chant and slow movement | Ukiyo-e => Japanese woodblock prints of the "floating world"
+  hint: Two of these are Japanese: one a kind of theatre, and one a kind of print.
+  why: Each term names a complete system with its own rules, not a local version of something Western.
+F: Find the smallest pulse that fits two patterns.
+  frame: A pattern of 3 against a pattern of 2 needs a shared pulse of __ equal parts
+  answer: 6 | six
+  x 5 :: [added] The shared pulse is the smallest number that both 3 and 2 divide into, not their sum.
+  hint: Look for the smallest number into which both 2 and 3 divide exactly.
+  why: Six is the lowest common multiple. The pattern of three sounds on pulses 1, 3 and 5, and the pattern of two on pulses 1 and 4.
+G: Sort the arts by region.
+  bin Indonesia: gamelan | shadow puppetry
+  bin Japan: Noh theatre | woodblock prints
+  bin West Africa: the kora, a harp with 21 strings | the djembe drum
+  bin India: the sitar | Bharatanatyam dance
+  hint: The kora and the djembe come from the same part of the world.
+  why: Placing an art in its region is the first step towards learning about the society that made it.
+C: Two ways of making a performance. How do they differ?
+  left: text An orchestra performs a symphony from a fixed, fully written score.
+  right: text A sitar player improvises on a raga within a framework learned over years from a teacher.
+  + In the first, the composing is finished before the performance; in the second, the performer composes in the moment, within strict rules :: Both are disciplined.
+  - The second is less skilled, because nothing is written down :: [notation-as-sophistication] Improvising on a raga takes years of training within an exacting system.
+  - The second has no rules :: [improvisation-as-freedom] The raga fixes the notes, the characteristic phrases and the mood.
+  hint: Where does the composing take place in each?
+  why: Traditions differ in how they divide the work between composer and performer. A score is one way of holding music; a trained memory is another.
+>P: A listener hearing gamelan for the first time says that the instruments are out of tune. What is the right response?
+  + Gamelan uses its own tuning systems, which divide the octave differently; "in tune" is defined within a tradition :: Each set of instruments is tuned to itself.
+  - The players need more practice :: [blamed-the-players] The tuning is built into the instruments, deliberately.
+  - The instruments must be old and damaged :: [blamed-the-instruments] They are made to that tuning.
+  hint: "Out of tune" compared with what?
+  why: Tuning is a convention. Judging one system by the standard of another mistakes difference for error.
+done: Start from the tradition's own terms. Listen to five minutes from a tradition new to you and write down what you notice first.
+
+@ arts.5.theory-advanced
+goal: Apply contemporary theories of art (reproduction, institutions, interpretation, taste) to cases, and identify what each explains and what it leaves open.
+intro: Twentieth-century theory moved the question from "what is beautiful?" to "what does art do, and who decides?" The answers examine reproduction, institutions, the authority of the artist and the social uses of taste.
+  show: table Thinker | Claim ;; Benjamin | mechanical reproduction strips the work of its aura ;; Greenberg | each art should pursue what is unique to its medium ;; Dickie | art is what the institutions of the artworld present as art ;; Bourdieu | taste marks and reproduces social class ;; Sontag | interpretation can smother the experience of a work
+demo: Walter Benjamin argued that an original painting has an "aura": a presence bound to its unique place and history. A photograph or a film has no original, and so no aura. For Benjamin that was a liberation as much as a loss: art, freed from ritual and from ownership, could reach everyone.
+  show: pair text The original: one place, one history, an aura || text The reproduction: everywhere, for everyone, no aura
+M: Match each thinker to the claim.
+  pairs: Benjamin => Mechanical reproduction strips the work of its aura | Greenberg => Each art should pursue what is unique to its medium | Dickie => Art is what the artworld's institutions present as art | Bourdieu => Taste marks and reproduces social class | Sontag => Interpretation can smother the experience of a work
+  hint: Bourdieu was a sociologist; Greenberg was a critic of painting.
+  why: Each claim moves attention away from the object alone: to technology, to medium, to institutions, to class or to the act of interpreting.
+C: A poet says that her poem is about a garden. Careful readers find that its imagery consistently supports a reading about grief. How do the two views treat the grief reading?
+  left: text The author's stated intention settles what a work means.
+  right: text A work means what its text supports, whatever the author says of it.
+  + The left rules it out; the right admits it, if the text supports it :: The views differ over where authority lies.
+  - Both rule it out :: [conflated-the-views] On the right-hand view the text, not the poet, decides.
+  - Both admit it :: [conflated-the-views] On the left-hand view the poet's statement is final.
+  hint: Who has the last word on each view?
+  why: The dispute over the place of intention shapes how every interpretation is argued. Treating the author's statement as decisive has been called "the intentional fallacy".
+P: The institutional theory says that art is whatever the artworld presents as art. What is the standard objection?
+  + It is circular: art is defined by the artworld, and the artworld by its dealings with art :: It explains status, but not value.
+  - It is too strict: it excludes most paintings :: [wrong-objection] It includes anything that the artworld accepts. It is permissive, not strict.
+  - It requires art to be beautiful :: [wrong-theory] It makes no reference to beauty at all.
+  hint: How is "the artworld" itself to be defined?
+  why: The theory accounts for how hard cases come to be art, but it defines its terms by one another and says nothing about what makes art good.
+P: A flawless digital copy of a painting hangs in a million homes. On Benjamin's account, what does the copy lack, and what does it gain?
+  + It lacks the original's unique presence, and gains access for everyone :: A loss of aura, and a democratisation.
+  - It lacks nothing, being visually identical :: [looks-only] Benjamin's point concerns history and presence, not appearance.
+  - It gains nothing, being only a copy :: [original-worship] He saw reproduction as freeing art for new uses.
+  hint: What can only one object have?
+  why: Benjamin held both thoughts together: something is lost, and something politically important is gained.
+>P: In 2019 a banana taped to a gallery wall was sold for a large sum. Which theory accounts most directly for its status as art, and what question does that theory leave open?
+  + The institutional theory: the artworld presented and accepted it; whether it is good art remains open :: Status is one question and value another.
+  - The imitation theory: it resembles a banana :: [wrong-theory] It is a banana. Nothing is being imitated.
+  - Formalism: its arrangement of line and colour is exceptional :: [wrong-theory] Its interest does not lie in its formal arrangement.
+  hint: Who decided that it could be exhibited and sold as art?
+  why: Theories of what art is and theories of what makes art good answer different questions. One can grant the status and still dispute the value.
+done: Ask what each theory explains, and what it cannot. Apply two of these theories to one work made in the last ten years.
+
+@ arts.5.creative-practice
+goal: Explain what sustains an original creative practice: deliberate practice, useful feedback, a question of one's own and ruthless selection.
+intro: Mastery does not come from talent or from hours alone. It comes from practice aimed at specific weaknesses, feedback precise enough to act on, and, in the end, a problem of one's own to pursue.
+  show: flow imitate > practise deliberately > seek critique > find your own question > select and revise
+demo: Two violinists practise for two hours. One plays her pieces through, enjoying the parts that she plays well. The other isolates the eight bars that keep going wrong, plays them at half speed, records herself and listens back. The second improves; the first rehearses her mistakes.
+  show: table Playing through | Deliberate practice ;; the whole piece | the hardest bars ;; at full speed | slowly enough to be accurate ;; no record | recorded and checked
+G: Deliberate practice, or mere repetition?
+  bin Deliberate practice: isolating the hardest passage and slowing it down | recording yourself and comparing with a model | asking a teacher for one specific correction
+  bin Mere repetition: playing favourite pieces straight through | practising only what is already easy | counting hours, with no aim for the session
+  hint: Does it target a weakness and give you feedback?
+  why: Deliberate practice works at the edge of your ability, with a specific aim and a prompt check on the result.
+O: Put the stages of a creative project in order.
+  items: Preparation: gather material and study the problem | Incubation: let it rest | Illumination: the idea arrives | Verification: test, revise and finish
+  ends: First | Last
+  hint: The idea seldom comes without the work that precedes it.
+  why: Insight tends to follow a period of hard preparation and a pause. The finishing that comes after is as much a part of the work as the idea.
+E: Revise this practice plan so that it produces improvement.
+  tokens: Practise | for two hours{the eight hardest bars at half speed,until tired} | and then | play the piece through{record it and listen back,stop}
+  limit: 2
+  aim: Change two things so that the session targets a weakness and checks the result.
+  accept: 2=the eight hardest bars at half speed&4=record it and listen back
+  x 2=until tired :: [effort-as-aim] Tiredness measures effort, not progress.
+  x 4=stop :: [no-feedback] Without a check, you cannot know whether the passage has improved.
+  hint: A good session names what will be worked on, and how you will know whether it worked.
+  why: A specific target and a prompt check turn time spent into skill gained.
+C: Two artists describe their work. Which statement can guide a body of work?
+  left: text I just make whatever I feel.
+  right: text I am testing how far a figure can be reduced before it stops being recognisable.
+  + The right: it poses a question that each new piece can answer, so that progress can be judged :: A practice needs a problem.
+  - The left: feeling is the source of all art :: [feeling-as-method] Feeling may start a work, but it gives no way to tell whether the work has succeeded.
+  - Neither: artists should not explain themselves :: [mystification] A stated question is a working tool, not an explanation offered to the public.
+  hint: Which statement tells you what the next piece should try?
+  why: A sustained practice is organised by a question. It turns separate pieces into an inquiry.
+>P: After years of study a painter can reproduce her teacher's style perfectly. Her work is skilful, and cannot be told from his. What should she do next?
+  + Set problems of her own: change the constraints, combine her influences, pursue a question that her teacher never asked :: Imitation was the apprenticeship.
+  - Copy the teacher even more exactly :: [imitation-as-end] She has already mastered that. More of the same adds nothing.
+  - Abandon technique altogether :: [rejected-the-craft] Technique is what will let her realise her own ideas.
+  hint: What was all the imitation for?
+  why: Imitation builds the means. An original practice begins when those means are turned on a problem of the artist's own.
+done: Target the weakness, check the result, and find your own question. Plan your next session with one aim and one check.
+
+@ arts.5.frontier
+goal: Analyse generative and computational art: where authorship lies, how large a system's space of outcomes is, and which questions remain open.
+intro: In generative art the artist does not make the image or the sound directly. The artist designs a system of rules, code or instructions, and the system produces the work, often differently on each run. Authorship moves from the object to the system and to the selection.
+  show: flow the artist writes rules > the system runs > many outputs > the artist selects
+demo: From the 1960s some artists issued their works as written instructions to be carried out by others: "draw straight lines from the centre of the wall to each of its corners". The drawing differs with every wall and every pair of hands, yet it is the same work. The work is the instruction.
+  show: flow the instruction > different walls, different hands > different drawings, one work
+M: Match each kind of work to its description.
+  pairs: Generative art => The artist writes rules and a system produces the output | Interactive art => The actions of the audience change the work | Net art => Work made for, and distributed on, the internet | Algorithmic composition => Music produced by rules or code | Data art => Sets of data given visible or audible form
+  hint: Which of these needs an audience to act before it is complete?
+  why: These forms share one move: the artist specifies a process, and not a finished object.
+X: A generative system fills a grid in which each cell is either black or white. Add cells and watch the number of possible pictures grow.
+  param n: 1..24 /1 @1 | Cells in the grid
+  out pictures: 2**n | Possible pictures
+  aim: Find the smallest grid that allows more than a million different pictures.
+  target: pictures > 1000000 and pictures < 2000001
+  view: bars pictures over n
+  hint: Each added cell doubles the count.
+  why: Twenty cells give 1,048,576 pictures. Even tiny systems have spaces of outcomes too large to look through, which is why selection becomes part of the art.
+G: In a generative work, who decides what?
+  bin The artist decides: the rules | the set of permitted elements | which outputs to keep
+  bin The system decides: the particular arrangement in each run | the values drawn at random within the limits
+  hint: What is fixed before the system runs, and what varies from run to run?
+  why: The artist authors the possibilities and the selection. Chance, or computation, fills in the particulars.
+P: An image generator has been trained on millions of pictures, many of them made by living artists who were not asked. Which statement is accurate?
+  + Whether such training is fair, and what is owed to those artists, are contested questions in law and in ethics :: They are not yet settled.
+  - It is settled that the practice is entirely acceptable :: [false-certainty] Courts, legislatures and artists are still disputing it.
+  - It is settled that every output is a copy of a training image :: [false-certainty] The outputs are generated from learned patterns. How close to the sources they may come is part of the dispute.
+  hint: Is there an agreed answer yet?
+  why: Part of knowing a frontier is knowing which questions are still open. This one involves consent, payment and the nature of style.
+>P: An artist writes a program that draws ten thousand different compositions, and exhibits twelve of them. Where does the creative work lie?
+  + In designing the system and in choosing from what it produces :: Rules and selection.
+  - Nowhere: the computer did it :: [tool-as-author] The computer carried out rules that the artist designed, and the artist chose among the results.
+  - Only in starting the program :: [trivialised] Running the program is the least of it. The decisions were made in the design and in the selection.
+  hint: Which decisions determined what could appear on the wall?
+  why: In generative practice the artist's judgement acts twice: in shaping the space of possibilities, and in choosing from it.
+done: The system is the work, and so is the selection. Write three rules for a drawing and ask two people to carry them out.
