@@ -48,7 +48,15 @@ with TestClient(app) as client:
     assert metadata['shapeSliceRowColumn'] == [241, 512, 512]
     assert metadata['nodalLabels'][18]['primaryStationLiteral'] == '11L - Interlobar (Right)'
     assert metadata['nodalLabels'][20]['primaryStationLiteral'] == 'Undefined - Outside the scope of IASLC'
-    assert 'javascript' in client.get(prefix + 'native-sections.mjs', auth=auth).headers['content-type']
+    for script in ('native-sections.mjs', 'mask-map.mjs'):
+        assert client.get(prefix + script).status_code == 401
+        response = client.get(prefix + script, auth=auth)
+        assert response.status_code == 200
+        assert 'javascript' in response.headers['content-type']
+    assert client.get(prefix + 'mask-map.css').status_code == 401
+    stylesheet = client.get(prefix + 'mask-map.css', auth=auth)
+    assert stylesheet.status_code == 200
+    assert 'text/css' in stylesheet.headers['content-type']
     result = client.get(prefix + 'ct-240.gz', auth=auth, headers={'Range': 'bytes=0-15'})
     assert result.status_code == 206 and result.content.startswith(b'\\x1f\\x8b')
     assert "frame-ancestors 'none';" in client.get('/app/', auth=auth).headers['content-security-policy']
@@ -64,3 +72,10 @@ with TestClient(app) as client:
         capture_output=True, text=True, timeout=90,
     )
     assert result.returncode == 0, result.stdout + result.stderr
+
+
+def test_mask_map_matches_independent_original_nifti_planes():
+    subprocess.run(
+        ['node', 'tools/anatomy_sources/check_pat9_mask_map.mjs'], cwd=ROOT,
+        check=True, timeout=90,
+    )

@@ -4,7 +4,7 @@ from pathlib import Path
 from tools.colonvessels_compatibility import _restore
 
 PROOF = Path(__file__).resolve().parents[1] / 'docs/lynos-pat9-source-review/runtime-inverse.json'
-PIN = '2bc07b44712c12a4ee8a9c1cb1a447e210aaa268c4d61f58be076562dee3f834'
+PIN = '266c0711c367a4f8b65a3e29041ef6cb300bb852946ef655665d204fca80ae56'
 PATHS = frozenset({
     'primer/server.py', 'primer/source_native_inspectors.py', 'vercel.json', 'web/app.js',
     'docs/radiology-fidelity-scope.json',

@@ -10,13 +10,13 @@ DIRECTORY = Path(__file__).resolve().parents[1] / 'web' / 'anatomy' / ATLAS
 SOURCE_URL = 'https://zenodo.org/records/10102261'
 LICENSE = 'https://creativecommons.org/licenses/by/4.0/'
 ARTICLE_URL = 'https://doi.org/10.1080/21681163.2022.2043778'
-DELIVERY_SHA256 = '6be3fbb7966a85c117bec90de05d2cedfa6894fd0af380ce2c5ff50e72d6b9ee'
+DELIVERY_SHA256 = '5c1f7340b7a752f7233e38878d0798ffd84b54d4b391df500f8bf643e2578b84'
 ROLES = ('ct', 'nodes', 'azygos', 'brachiocephalic-veins', 'esophagus', 'subclavian-carotid-arteries')
 SECTIONS = 241
 CHUNK_STARTS = tuple(range(0, SECTIONS, 16))
 FILE_GROUPS = {
     'index.html', 'surfaces.html', 'source.json', 'surfaces.json', 'viewer.js',
-    'surface-selection.js', 'native-sections.mjs',
+    'surface-selection.js', 'native-sections.mjs', 'mask-map.mjs', 'mask-map.css',
     *(f'{role}-{first:03d}.gz' for role in ROLES for first in CHUNK_STARTS),
     *(f'node-{index:02d}.mesh.gz' for index in range(1, 45)),
     *(f'{role}.mesh.gz' for role in ROLES[2:]),
@@ -67,10 +67,10 @@ def references():
     item = {
         'id': ATLAS,
         'title': 'LyNoS CT with source station assignments and nearby anatomy',
-        'caption': ('Inspect 44 original node masks on the complete Pat9 CT and isolate their '
-                    'sampled surfaces. Compare the authors’ literal station assignments and four '
-                    'separate nearby anatomy masks. The source labels individual nodes. Use the '
-                    'source assignments as recorded, including conflicts and undefined entries.'),
+        'caption': ('Inspect 44 original node masks on the complete Pat9 CT, compare their source '
+                    'mask map, and isolate their sampled surfaces. The map shows individual node and '
+                    'nearby anatomy masks at the acquired spacing, including their overlapping cells. '
+                    'Read the authors’ literal station assignments with their conflicts and undefined entries.'),
         'src': prefix + 'index.html',
         'manifest_url': prefix + 'source.json',
         'sha256': files['index.html']['sha256'],

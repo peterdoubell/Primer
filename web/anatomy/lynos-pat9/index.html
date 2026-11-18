@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Station-labelled mediastinal nodes on CT · Primer</title>
   <link rel="stylesheet" href="/app/anatomy/recist-pelvic-viewer.css">
+  <link rel="stylesheet" href="mask-map.css">
   <script type="module" src="viewer.js"></script>
 </head>
 <body>
@@ -29,7 +30,10 @@
       <button id="retry" type="button" hidden>Retry this section</button>
     </figure>
     <fieldset class="controls" id="controls" disabled>
-      <legend>CT display</legend>
+      <legend>Display controls</legend>
+      <label for="display-mode">Display
+        <select id="display-mode"><option value="ct">Acquired CT</option><option value="map">Anatomical mask map</option></select>
+      </label>
       <label for="node">Source node <select id="node"></select></label>
       <div id="assignments"></div>
       <label for="plane">View
@@ -51,7 +55,15 @@
       </div>
     </fieldset>
   </div>
-  <p>Select a pixel to read its stored CT value. Use the left and right arrow keys to move through the sections while the image has focus.</p>
+  <section id="mask-key" hidden aria-labelledby="map-heading">
+    <h2 id="map-heading">Structures in this field of view</h2>
+    <p>The map fills the original labelled cells at the acquired spacing. White marks cells shared by two masks. Select a cell to read every source label at that position.</p>
+    <table><thead><tr><th scope="col">Source structure</th><th scope="col">Primary station term</th><th scope="col">Area in view (mm²)</th></tr></thead>
+      <tbody id="map-rows"></tbody>
+    </table>
+    <p id="map-overlap"></p>
+  </section>
+  <p>Select a CT pixel to read its stored value. Use the left and right arrow keys to move through the sections while the image has focus.</p>
   <p>The station terms come from the publisher’s table. They describe the annotated nodes. The labels support comparison with the acquired anatomy, and whole-station boundaries require their own evidence.</p>
   <p>Bouget, Pedersen, Vanel, Leira and Langø. <a href="https://zenodo.org/records/10102261">LyNoS source dataset</a> · <a href="https://creativecommons.org/licenses/by/4.0/">CC BY 4.0</a></p>
 </main>
