@@ -18,6 +18,9 @@ DICTATION_LAYOUT = (
 
 
 def before_activity_registry_bytes(path, raw):
+    if str(path) == PATH:
+        from tools.recist_pelvic_runtime_compatibility import before_recist_pelvic_delivery_bytes
+        raw = before_recist_pelvic_delivery_bytes(path, raw)
     if str(path) == 'data/radiology/radiology-asset-evidence.json':
         # Newest links for the evidence file: sided Radiology Assistant figures, second-pass stored-caption bindings, first-pass stored-caption bindings,
         # Radiology Assistant figures, sided ultrasound panels.

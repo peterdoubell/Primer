@@ -135,4 +135,10 @@ def references():
     from .cortical_contact_reference import references as contact_references
     for identifier, entries in contact_references().items():
         result[identifier] = [*result.get(identifier, []), *entries]
+    from .recist_pelvic_reference import references as pelvis_references
+    for identifier, entries in pelvis_references().items():
+        result[identifier] = [*result.get(identifier, []), *entries]
+    from .lnq_nodal_reference import references as lnq_references
+    for identifier, entries in lnq_references().items():
+        result[identifier] = [*result.get(identifier, []), *entries]
     return result

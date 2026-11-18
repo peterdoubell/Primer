@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Mediastinal lymph node annotation on CT · Primer</title>
+  <link rel="stylesheet" href="/app/anatomy/recist-pelvic-viewer.css">
+  <script defer src="/app/anatomy/recist-pelvic-viewer.js"></script>
+</head>
+<body>
+<main data-source-sha256="c9308f6d835d40d95d20eca75998dd99e13f500a068426a44a4ca62f534babf9">
+  <nav aria-label="Reporting references"><a href="/app/#/radiology/ra.ct-mediastinum">CT mediastinum</a> · <a href="/app/#/radiology/ra.ct-lung-cancer">CT lung cancer staging</a></nav>
+  <h1>Mediastinal lymph node annotation on CT</h1>
+  <p>Inspect the manual LNQ annotation on the acquired chest CT of case 0571. The source supplies one mediastinal lymph-node label. The outline controls separate its five connected components.</p>
+  <p><a href="surfaces.html">Inspect the source contours in 3D</a></p>
+  <div class="ct-workspace">
+    <figure class="scan">
+      <div class="image-wrap" id="image-wrap" hidden>
+        <canvas id="ct" tabindex="0" role="img" aria-label="Acquired CT with optional source mask contours"></canvas>
+        <span class="edge top" id="direction-top" aria-hidden="true"></span>
+        <span class="edge bottom" id="direction-bottom" aria-hidden="true"></span>
+        <span class="edge left" id="direction-left" aria-hidden="true"></span>
+        <span class="edge right" id="direction-right" aria-hidden="true"></span>
+      </div>
+      <figcaption><span id="status" role="status">Verifying CT samples and label volume…</span><br><span id="pixel" aria-live="polite"></span></figcaption>
+      <button type="button" id="retry" hidden>Retry source viewer</button>
+    </figure>
+    <fieldset class="controls" id="controls" disabled>
+      <legend>CT display</legend>
+      <label for="node">Centre section on <select id="node"></select></label>
+      <label for="plane">View
+        <select id="plane"><option value="axial">Axial</option><option value="coronal">Coronal</option><option value="sagittal">Sagittal</option></select>
+      </label>
+      <label for="section">Section <output id="section-value" for="section"></output>
+        <input type="range" min="0" step="1" id="section">
+      </label>
+      <label for="view-size">Field of view
+        <select id="view-size"><option value="full">Full section</option><option value="detail">Close-up around selected component</option></select>
+      </label>
+      <label for="overlay">Publisher labels
+        <select id="overlay"><option value="selected">Selected component outline</option><option value="all">All source outlines</option><option value="off">Plain CT</option></select>
+      </label>
+      <div class="window-points">
+        <label for="black">Black point (HU) <input id="black" type="number" min="-2048" max="4096" value="-150"></label>
+        <label for="white">White point (HU) <input id="white" type="number" min="-2048" max="4096" value="250"></label>
+      </div>
+    </fieldset>
+  </div>
+  <p>Select a pixel to read its acquired intensity. Left and right arrow keys step through sections when the image has focus. The coronal and sagittal views show the source slice spacing; each cell keeps its acquired value.</p>
+  <p>Idris and colleagues, Mediastinal Lymph Node Quantification. <a href="https://doi.org/10.7937/QVAZ-JA09">The Cancer Imaging Archive</a> · <a href="https://creativecommons.org/licenses/by/4.0/">CC BY 4.0</a></p>
+  <p>The displayed band includes all 30 CT planes referenced by the source SEG. The annotation gives the published contour selection. Counts of anatomical nodes, station assignments and histological findings require separate evidence.</p>
+</main>
+</body>
+</html>

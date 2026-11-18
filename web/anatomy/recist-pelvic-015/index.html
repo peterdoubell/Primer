@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Pelvic lymph nodes on CT · Case 015 · Primer</title>
+  <link rel="stylesheet" href="/app/anatomy/recist-pelvic-viewer.css">
+  <script defer src="/app/anatomy/recist-pelvic-viewer.js"></script>
+</head>
+<body>
+<main data-source-sha256="cdf9d1700250b8e773c09ac72c657a135ee68ad75f4d020d281221941cf72a51">
+  <a href="/app/#/radiology/ra.mri-bladder">Return to Bladder Cancer and VI-RADS</a>
+  <h1>Pelvic lymph nodes on CT</h1>
+  <p>This baseline CT shows three pelvic nodes in the publisher's bladder cancer case. The masks label the outer contours. The CT provides nodal context for the MRI lesson.</p>
+  <p><a href="surfaces.html">Inspect the source contours in 3D</a></p>
+  <div class="ct-workspace">
+    <figure class="scan">
+      <div class="image-wrap" id="image-wrap" hidden>
+        <canvas id="ct" tabindex="0" role="img" aria-label="Acquired CT with optional source mask contours"></canvas>
+        <span class="edge top" id="direction-top" aria-hidden="true"></span>
+        <span class="edge bottom" id="direction-bottom" aria-hidden="true"></span>
+        <span class="edge left" id="direction-left" aria-hidden="true"></span>
+        <span class="edge right" id="direction-right" aria-hidden="true"></span>
+      </div>
+      <figcaption><span id="status" role="status">Verifying CT samples and label volume…</span><br><span id="pixel" aria-live="polite"></span></figcaption>
+      <button type="button" id="retry" hidden>Retry source viewer</button>
+    </figure>
+    <fieldset class="controls" id="controls" disabled>
+      <legend>CT display</legend>
+      <label for="node">Centre section on <select id="node"></select></label>
+      <label for="plane">View
+        <select id="plane"><option value="axial">Axial</option><option value="coronal">Coronal</option><option value="sagittal">Sagittal</option></select>
+      </label>
+      <label for="section">Section <output id="section-value" for="section"></output>
+        <input type="range" min="0" step="1" id="section">
+      </label>
+      <label for="view-size">Field of view
+        <select id="view-size"><option value="full">Full section</option><option value="detail">Close-up around selected node</option></select>
+      </label>
+      <label for="overlay">Publisher labels
+        <select id="overlay"><option value="selected">Selected node outline</option><option value="all">All nodal outlines</option><option value="off">Plain CT</option></select>
+      </label>
+      <div class="window-points">
+        <label for="black">Black point (HU) <input id="black" type="number" min="-2048" max="4096" value="-150"></label>
+        <label for="white">White point (HU) <input id="white" type="number" min="-2048" max="4096" value="250"></label>
+      </div>
+    </fieldset>
+  </div>
+  <p>Select a pixel to read its acquired intensity. Left and right arrow keys step through sections when the image has focus. The coronal and sagittal views show the source slice spacing; each cell keeps its acquired value.</p>
+  <p>Rojas-Pizarro, Vásquez-Venegas, Eyssautier Susarte, Pereira Retamales, Härtel and Cabrera-Vives. <a href="https://doi.org/10.5281/zenodo.17788162">A CT Dataset with RECIST Measurements and Comprehensive Segmentation Masks for Tumors and Lymph Nodes</a> · <a href="https://creativecommons.org/licenses/by/4.0/">CC BY 4.0</a></p>
+  <p>Primer displays a lossless pelvic band from the original study and builds each surface from the source mask cells. The publisher labels the gross nodes in this band; finer nodal anatomy and pathology are unspecified.</p>
+</main>
+</body>
+</html>

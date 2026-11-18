@@ -4272,17 +4272,43 @@ async def hva_ct_delivery(asset: str, request: Request):
     return await app.state.source_static.get_response("anatomy/hva-ct-318/" + asset, request.scope)
 
 
+# Resolve the route parameter to a directory constructed solely from registered names.
+from .lnq_nodal_reference import ATLAS as LNQ_NODE_ATLAS, delivery as lnq_nodal_delivery
+from .recist_pelvic_reference import CASES as RECIST_NODE_CASES, delivery as recist_nodal_delivery
+
+NODE_SOURCE_ATLASES = frozenset((*RECIST_NODE_CASES, LNQ_NODE_ATLAS))
+MESH_SOURCE_DIRECTORIES = {
+    name: "anatomy/" + name
+    for name in (
+        *NODE_SOURCE_ATLASES, "aneurysm-cta-018", "cmha-mca-005", "rhuh-sah-001",
+        "bp3d-dural-4.3", "ward-swi-s1", "illinois-uterus", "endometriosis-mri-evidence",
+        "hyperpic-venous", "venat", "ccth-a01-roi",
+    )
+}
+
+
 @app.api_route("/app/anatomy/{atlas}/{asset:path}", methods=["GET", "HEAD"], include_in_schema=False)
 async def source_mesh_delivery(atlas: str, asset: str, request: Request):
-    if atlas in {"aneurysm-cta-018", "cmha-mca-005", "rhuh-sah-001", "bp3d-dural-4.3", "ward-swi-s1", "illinois-uterus", "endometriosis-mri-evidence", "hyperpic-venous", "venat", "ccth-a01-roi"}:
-        directory = "anatomy/" + atlas
-        with open(os.path.join(WEB_DIR, directory, "delivery.json"), encoding="utf-8") as source:
-            files = json.load(source)["files"]
+    directory = MESH_SOURCE_DIRECTORIES.get(atlas)
+    if directory is not None:
+        registered_atlas = directory.removeprefix("anatomy/")
+        if registered_atlas in RECIST_NODE_CASES:
+            files = recist_nodal_delivery(registered_atlas)
+        elif registered_atlas == LNQ_NODE_ATLAS:
+            files = lnq_nodal_delivery()
+        else:
+            with open(os.path.join(WEB_DIR, directory, "delivery.json"), encoding="utf-8") as source:
+                files = json.load(source)["files"]
         if asset not in files and asset != "delivery.json":
             return JSONResponse({"detail": "Unknown source study asset"}, status_code=404)
         if asset.endswith(".gz") and os.environ.get("VERCEL"):
             return RedirectResponse("/source-media/" + directory + "/" + asset, status_code=307)
-        return await app.state.source_static.get_response(directory + "/" + asset, request.scope)
+        response = await app.state.source_static.get_response(directory + "/" + asset, request.scope)
+        if registered_atlas in NODE_SOURCE_ATLASES and asset in {"index.html", "surfaces.html", "comparison.html"}:
+            response.headers["Content-Security-Policy"] = CSP.replace(
+                "frame-ancestors 'none';", "frame-ancestors 'self';"
+            )
+        return response
 
     allowed = {"bodyparts3d", "hra-female-pelvis-v1.10", "bp3d-carotid-4.3", "bp3d-sella-4.3", "msk-atlas", "msk-cervical", "msk-mri-knee", "msk-mri-ankle", "liu-lumbosacral-sub03", "verse521", "hvsmr2-pat7", "openear-zeta", "totalseg-v3-s0358", "totalseg-v3-esophagus-s0358", "ispy1-expert1002", "prostate-biopsy0001"}
     mri_atlases = {"ispy1-expert1002", "prostate-biopsy0001", "fedbca-center1-001", "fedbca-center2-01", "fedbca-center3-01", "fedbca-center4-01"}

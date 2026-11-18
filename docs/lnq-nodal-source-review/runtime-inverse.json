@@ -1,0 +1,130 @@
+{
+  "lessons": {
+    "rad.4.lung-cancer": {
+      "id": "module-native-inspectors-rad.4.lung-cancer",
+      "kind": "source-native-inspectors",
+      "title": "Native source anatomy inspection",
+      "instructions": "Inspect the complete provided source selections against native images and separate atlas probabilities. Read population, sampling and anatomical limits before interpretation.",
+      "investigation_ids": [
+        "ra.ct-lung-cancer"
+      ]
+    },
+    "rad.5.mediastinum": {
+      "id": "module-native-inspectors-rad.5.mediastinum",
+      "kind": "source-native-inspectors",
+      "title": "Native source anatomy inspection",
+      "instructions": "Inspect the complete provided source selections against native images and separate atlas probabilities. Read population, sampling and anatomical limits before interpretation.",
+      "investigation_ids": [
+        "ra.ct-mediastinum"
+      ]
+    }
+  },
+  "primer/server.py": {
+    "before": "873988e7df06d8c42b84d7da5f99f4a77483a541615e93944111dd007089e870",
+    "after": "7154c06e5f0d71ab9bde3fda6cac5956b7c3245a91b4e2c905c6cc20b32a2b22",
+    "changes": [
+      {
+        "start": 4274,
+        "end": 4289,
+        "before": "",
+        "after": "# Resolve the route parameter to a directory constructed solely from registered names.\nfrom .lnq_nodal_reference import ATLAS as LNQ_NODE_ATLAS, delivery as lnq_nodal_delivery\nfrom .recist_pelvic_reference import CASES as RECIST_NODE_CASES, delivery as recist_nodal_delivery\n\nNODE_SOURCE_ATLASES = frozenset((*RECIST_NODE_CASES, LNQ_NODE_ATLAS))\nMESH_SOURCE_DIRECTORIES = {\n    name: \"anatomy/\" + name\n    for name in (\n        *NODE_SOURCE_ATLASES, \"aneurysm-cta-018\", \"cmha-mca-005\", \"rhuh-sah-001\",\n        \"bp3d-dural-4.3\", \"ward-swi-s1\", \"illinois-uterus\", \"endometriosis-mri-evidence\",\n        \"hyperpic-venous\", \"venat\", \"ccth-a01-roi\",\n    )\n}\n\n\n"
+      },
+      {
+        "start": 4291,
+        "end": 4298,
+        "before": "    from .recist_pelvic_reference import CASES as pelvic_cases, delivery as pelvic_delivery\n\n    if atlas in pelvic_cases or atlas in {\"aneurysm-cta-018\", \"cmha-mca-005\", \"rhuh-sah-001\", \"bp3d-dural-4.3\", \"ward-swi-s1\", \"illinois-uterus\", \"endometriosis-mri-evidence\", \"hyperpic-venous\", \"venat\", \"ccth-a01-roi\"}:\n        directory = \"anatomy/\" + atlas\n        if atlas in pelvic_cases:\n            files = pelvic_delivery(atlas)\n",
+        "after": "    directory = MESH_SOURCE_DIRECTORIES.get(atlas)\n    if directory is not None:\n        registered_atlas = directory.removeprefix(\"anatomy/\")\n        if registered_atlas in RECIST_NODE_CASES:\n            files = recist_nodal_delivery(registered_atlas)\n        elif registered_atlas == LNQ_NODE_ATLAS:\n            files = lnq_nodal_delivery()\n"
+      },
+      {
+        "start": 4306,
+        "end": 4307,
+        "before": "        if atlas in pelvic_cases and asset in {\"index.html\", \"surfaces.html\", \"comparison.html\"}:\n",
+        "after": "        if registered_atlas in NODE_SOURCE_ATLASES and asset in {\"index.html\", \"surfaces.html\", \"comparison.html\"}:\n"
+      }
+    ]
+  },
+  "primer/source_native_inspectors.py": {
+    "before": "da5d3ad9365380462c212ed66709c4457fa77b9b5562fa3dce0b463d3ae1e0bd",
+    "after": "cb9780518cebedcd14011ff15d70d5c79454b99a73c2b0fe3f738325fafe7187",
+    "changes": [
+      {
+        "start": 140,
+        "end": 143,
+        "before": "",
+        "after": "    from .lnq_nodal_reference import references as lnq_references\n    for identifier, entries in lnq_references().items():\n        result[identifier] = [*result.get(identifier, []), *entries]\n"
+      }
+    ]
+  },
+  "web/app.js": {
+    "before": "906f85ff90a60b0f48a2b01049325fd5dc2bf2fe4c8066bde7f53abefbaf51cc",
+    "after": "cce8ae6949dbc3d49089144b99765ceb78860e4a0dda1cf4a71e6ff7caa3d539",
+    "changes": [
+      {
+        "start": 2072,
+        "end": 2074,
+        "before": "  const pelvicNodeCT = ['recist-pelvic-015', 'recist-pelvic-023'].includes(asset.id) && asset.modality === 'CT';\n  const nativeCT = noduleCT || lungCT || basalCT || cardiacCT || pelvicNodeCT;\n",
+        "after": "  const nodalCT = ['recist-pelvic-015', 'recist-pelvic-023', 'lnq-case-0571'].includes(asset.id) && asset.modality === 'CT';\n  const nativeCT = noduleCT || lungCT || basalCT || cardiacCT || nodalCT;\n"
+      }
+    ]
+  },
+  "vercel.json": {
+    "before": "6a377ee10ecf31d327ebe766e303454aacb144730574d69f3572ec0434b4fdee",
+    "after": "0228ff9e6b5f36560164d99af8cd584190b34517c4e5318fc8193acace7a5043",
+    "changes": [
+      {
+        "start": 7,
+        "end": 8,
+        "before": "        \"excludeFiles\": \"{docs/radiology-fidelity-audit-*.json,docs/radiology-fidelity-scope.json,data/radiology/non-msk-structure-requirements.json,data/radiology/radiology-asset-evidence.json,data/radiology/descriptor-history/**,data/radiology/descriptor-reporting.json,.git/**,.github/**,.research/**,tests/**,tools/**,docs/*/**,public/**,web/anatomy/{bodyparts3d,msk-atlas,msk-cervical,msk-mri-knee,msk-mri-ankle,liu-lumbosacral-sub03,verse521,hvsmr2-pat7,openear-zeta,totalseg-v3-s0358,totalseg-v3-esophagus-s0358,ispy1-expert1002,prostate-biopsy0001}/**/*.bin,web/anatomy/{bodyparts3d,msk-atlas,msk-cervical,msk-mri-knee,msk-mri-ankle,liu-lumbosacral-sub03,verse521,hvsmr2-pat7,openear-zeta,totalseg-v3-s0358,totalseg-v3-esophagus-s0358,ispy1-expert1002,prostate-biopsy0001}/**/*.bin.gz,web/reference-media/prenatal-development/prenatal-development.gif,web/reference-media/prenatal-development/day-*.webp,web/illustrations/**/*.webp,web/reference-media/radiology-open/**/*.{jpg,jpeg,png,webp,gif,pdf},web/reference-media/radiology-motion/**,web/anatomy/totalseg-v3-esophagus-s0358/ct-reference.html,web/anatomy/ispy1-expert1002/mri-reference.html,web/anatomy/prostate-biopsy0001/mri-reference.html,web/studies/tcga-dk-aa6p/**,web/anatomy/fedbca-{center1-001,center2-01,center3-01,center4-01}/mri-reference.html,web/anatomy/fedbca-{center1-001,center2-01,center3-01,center4-01}/**/*.bin.gz,web/reference-media/annotated-ct/**/*.jpeg,web/anatomy/bp3d-sella-4.3/**/*.bin.gz,web/anatomy/bp3d-carotid-4.3/**/*.bin.gz,web/anatomy/hra-female-pelvis-v1.10/**/*.bin.gz,web/anatomy/brain-fine-massp2/*.gz,web/reference-media/radiology-open/traumatic-haemorrhage/**,web/anatomy/soop-stroke-sub342/*.gz,web/anatomy/soop-stroke-sub342/sub-342*.json,web/anatomy/lidc-idri-0525/original-ct/**,web/anatomy/lidc-idri-0525/*.gz,web/anatomy/lidc-idri-0525/source-*.zip,web/anatomy/lidc-idri-0525/original-0525.xml,web/anatomy/lidc-idri-0525/ct-source-md5.csv,web/anatomy/lidc-idri-0525/LICENSE,web/anatomy/lidc-idri-0525/ATTRIBUTION.txt,web/anatomy/bp3d-thoracic-4.3/transport/**,web/anatomy/bp3d-thoracic-4.3/originals/**,web/anatomy/totalseg-s0028-lungs/originals/**,web/anatomy/totalseg-s0028-lungs/surfaces/**,web/anatomy/totalseg-s0028-basal-context/originals/**,web/anatomy/totalseg-s0028-basal-context/surfaces/**,web/anatomy/totalseg-v1-s0028-cardiac/originals/**,web/anatomy/totalseg-v1-s0028-cardiac/surfaces/**,web/anatomy/bp3d-cardiac-4.3/originals/**,web/anatomy/bp3d-cardiac-4.3/transport/**,web/reference-media/cardiac-comparisons-2020/images/**,web/anatomy/hippunfold-hcp101006-registered/*.gz,web/anatomy/spl-nac-limbic/*.gz,web/anatomy/spl-nac-reporting/*.gz,web/anatomy/spl-nac-reporting/manifest.json,web/anatomy/spl-nac-limbic/originals/**,web/anatomy/holiatlas/*.pack,web/anatomy/holiatlas/*.mesh.gz,web/anatomy/holiatlas/*-faces.bin.gz,web/anatomy/holiatlas/manifest.json,web/anatomy/holiatlas/labels.json,web/anatomy/holiatlas/hierarchy.json,web/anatomy/schirmer-vascular/*.pack,web/anatomy/schirmer-vascular/*.mesh.gz,web/anatomy/schirmer-vascular/*.faces.gz,web/anatomy/schirmer-vascular/originals/**,web/anatomy/schirmer-vascular/manifest.json,web/anatomy/schirmer-vascular/labels.json,web/anatomy/schirmer-vascular/hierarchy.json,web/anatomy/schirmer-vascular/publication-figure1.webp,web/anatomy/spl-additional-source/*.gz,web/anatomy/spl-additional-source/manifest.json,web/anatomy/verse521/ct-reference.html,web/anatomy/totalseg-v3-s0358/ct-reference.html,web/anatomy/spl-sellar-interfaces/**/*.svg,web/anatomy/spl-sellar-interfaces/**/*.mesh.gz,web/anatomy/spl-sellar-interfaces/viewer/*.json,web/anatomy/cptac-endometrial/*.gz,web/anatomy/colonvessels-pat012/**/*.gz,web/anatomy/liver-regions-mri/*.gz,web/anatomy/bp3d-biliary-4.3/*.gz,web/anatomy/phlf-center2-24/*.gz,web/anatomy/hva-ct-318/*.gz,web/anatomy/aneurysm-cta-018/*.gz,web/anatomy/cmha-mca-005/*.gz,web/anatomy/rhuh-sah-001/*.gz,web/anatomy/bp3d-dural-4.3/*.gz,web/anatomy/ward-swi-s1/*.gz,web/anatomy/illinois-uterus/*.gz,web/anatomy/endometriosis-mri-evidence/*.gz,web/anatomy/hyperpic-venous/**/*.gz,web/anatomy/venat/*.gz,web/anatomy/ccth-a01-roi/*.gz,web/anatomy/{recist-pelvic-015,recist-pelvic-023,recist-pelvic-023-follow-up-1,recist-pelvic-023-follow-up-2}/*.gz}\"\n",
+        "after": "        \"excludeFiles\": \"{docs/radiology-fidelity-audit-*.json,docs/radiology-fidelity-scope.json,data/radiology/non-msk-structure-requirements.json,data/radiology/radiology-asset-evidence.json,data/radiology/descriptor-history/**,data/radiology/descriptor-reporting.json,.git/**,.github/**,.research/**,tests/**,tools/**,docs/*/**,public/**,web/anatomy/{bodyparts3d,msk-atlas,msk-cervical,msk-mri-knee,msk-mri-ankle,liu-lumbosacral-sub03,verse521,hvsmr2-pat7,openear-zeta,totalseg-v3-s0358,totalseg-v3-esophagus-s0358,ispy1-expert1002,prostate-biopsy0001}/**/*.bin,web/anatomy/{bodyparts3d,msk-atlas,msk-cervical,msk-mri-knee,msk-mri-ankle,liu-lumbosacral-sub03,verse521,hvsmr2-pat7,openear-zeta,totalseg-v3-s0358,totalseg-v3-esophagus-s0358,ispy1-expert1002,prostate-biopsy0001}/**/*.bin.gz,web/reference-media/prenatal-development/prenatal-development.gif,web/reference-media/prenatal-development/day-*.webp,web/illustrations/**/*.webp,web/reference-media/radiology-open/**/*.{jpg,jpeg,png,webp,gif,pdf},web/reference-media/radiology-motion/**,web/anatomy/totalseg-v3-esophagus-s0358/ct-reference.html,web/anatomy/ispy1-expert1002/mri-reference.html,web/anatomy/prostate-biopsy0001/mri-reference.html,web/studies/tcga-dk-aa6p/**,web/anatomy/fedbca-{center1-001,center2-01,center3-01,center4-01}/mri-reference.html,web/anatomy/fedbca-{center1-001,center2-01,center3-01,center4-01}/**/*.bin.gz,web/reference-media/annotated-ct/**/*.jpeg,web/anatomy/bp3d-sella-4.3/**/*.bin.gz,web/anatomy/bp3d-carotid-4.3/**/*.bin.gz,web/anatomy/hra-female-pelvis-v1.10/**/*.bin.gz,web/anatomy/brain-fine-massp2/*.gz,web/reference-media/radiology-open/traumatic-haemorrhage/**,web/anatomy/soop-stroke-sub342/*.gz,web/anatomy/soop-stroke-sub342/sub-342*.json,web/anatomy/lidc-idri-0525/original-ct/**,web/anatomy/lidc-idri-0525/*.gz,web/anatomy/lidc-idri-0525/source-*.zip,web/anatomy/lidc-idri-0525/original-0525.xml,web/anatomy/lidc-idri-0525/ct-source-md5.csv,web/anatomy/lidc-idri-0525/LICENSE,web/anatomy/lidc-idri-0525/ATTRIBUTION.txt,web/anatomy/bp3d-thoracic-4.3/transport/**,web/anatomy/bp3d-thoracic-4.3/originals/**,web/anatomy/totalseg-s0028-lungs/originals/**,web/anatomy/totalseg-s0028-lungs/surfaces/**,web/anatomy/totalseg-s0028-basal-context/originals/**,web/anatomy/totalseg-s0028-basal-context/surfaces/**,web/anatomy/totalseg-v1-s0028-cardiac/originals/**,web/anatomy/totalseg-v1-s0028-cardiac/surfaces/**,web/anatomy/bp3d-cardiac-4.3/originals/**,web/anatomy/bp3d-cardiac-4.3/transport/**,web/reference-media/cardiac-comparisons-2020/images/**,web/anatomy/hippunfold-hcp101006-registered/*.gz,web/anatomy/spl-nac-limbic/*.gz,web/anatomy/spl-nac-reporting/*.gz,web/anatomy/spl-nac-reporting/manifest.json,web/anatomy/spl-nac-limbic/originals/**,web/anatomy/holiatlas/*.pack,web/anatomy/holiatlas/*.mesh.gz,web/anatomy/holiatlas/*-faces.bin.gz,web/anatomy/holiatlas/manifest.json,web/anatomy/holiatlas/labels.json,web/anatomy/holiatlas/hierarchy.json,web/anatomy/schirmer-vascular/*.pack,web/anatomy/schirmer-vascular/*.mesh.gz,web/anatomy/schirmer-vascular/*.faces.gz,web/anatomy/schirmer-vascular/originals/**,web/anatomy/schirmer-vascular/manifest.json,web/anatomy/schirmer-vascular/labels.json,web/anatomy/schirmer-vascular/hierarchy.json,web/anatomy/schirmer-vascular/publication-figure1.webp,web/anatomy/spl-additional-source/*.gz,web/anatomy/spl-additional-source/manifest.json,web/anatomy/verse521/ct-reference.html,web/anatomy/totalseg-v3-s0358/ct-reference.html,web/anatomy/spl-sellar-interfaces/**/*.svg,web/anatomy/spl-sellar-interfaces/**/*.mesh.gz,web/anatomy/spl-sellar-interfaces/viewer/*.json,web/anatomy/cptac-endometrial/*.gz,web/anatomy/colonvessels-pat012/**/*.gz,web/anatomy/liver-regions-mri/*.gz,web/anatomy/bp3d-biliary-4.3/*.gz,web/anatomy/phlf-center2-24/*.gz,web/anatomy/hva-ct-318/*.gz,web/anatomy/aneurysm-cta-018/*.gz,web/anatomy/cmha-mca-005/*.gz,web/anatomy/rhuh-sah-001/*.gz,web/anatomy/bp3d-dural-4.3/*.gz,web/anatomy/ward-swi-s1/*.gz,web/anatomy/illinois-uterus/*.gz,web/anatomy/endometriosis-mri-evidence/*.gz,web/anatomy/hyperpic-venous/**/*.gz,web/anatomy/venat/*.gz,web/anatomy/ccth-a01-roi/*.gz,web/anatomy/{recist-pelvic-015,recist-pelvic-023,recist-pelvic-023-follow-up-1,recist-pelvic-023-follow-up-2}/*.gz,web/anatomy/lnq-case-0571/*.gz}\"\n"
+      },
+      {
+        "start": 233,
+        "end": 237,
+        "before": "",
+        "after": "    },\n    {\n      \"src\": \"web/anatomy/lnq-case-0571/*.gz\",\n      \"use\": \"@vercel/static\"\n"
+      }
+    ]
+  },
+  "docs/radiology-fidelity-scope.json": {
+    "before": "6577669644443bc786efafbeaf4d80f0237f2a100b5fe170db8dcf7ff836f62c",
+    "after": "1d48452aab3f60182a929d4c462fd220cae258790be75916f648e27efee66763",
+    "changes": [
+      {
+        "start": 73913,
+        "end": 73935,
+        "before": "        \"source_native_inspectors\": null\n",
+        "after": "        \"source_native_inspectors\": [\n          {\n            \"id\": \"lnq-case-0571\",\n            \"title\": \"Mediastinal lymph node annotation on source CT\",\n            \"caption\": \"Inspect the publisher\\u2019s original LNQ annotation on the acquired mediastinal CT of case 0571. Toggle its five connected components on unmarked images and isolate their sampled boundaries in 3D. The source records non-small-cell lung cancer as the primary condition. The components retain the publisher\\u2019s single lymph-node label.\",\n            \"src\": \"/app/anatomy/lnq-case-0571/index.html\",\n            \"manifest_url\": \"/app/anatomy/lnq-case-0571/source.json\",\n            \"sha256\": \"c5fd4c34532c9d9a82d4426be1e6c0c41cb9366ed85b6474cb7f40c77ac9596c\",\n            \"manifest_sha256\": \"c9308f6d835d40d95d20eca75998dd99e13f500a068426a44a4ca62f534babf9\",\n            \"modality\": \"CT\",\n            \"source_url\": \"https://doi.org/10.7937/QVAZ-JA09\",\n            \"publication_url\": \"https://lnqproject.org/datasets/#methodology\",\n            \"license\": \"CC BY 4.0\",\n            \"license_url\": \"https://creativecommons.org/licenses/by/4.0/\",\n            \"attribution\": \"Idris and colleagues, Mediastinal Lymph Node Quantification (LNQ), The Cancer Imaging Archive. Primer presents the lossless source CT band and manual SEG with separable display components.\",\n            \"clinical_approval\": false,\n            \"fine_anatomical_approval\": false,\n            \"current_patient_registration\": false,\n            \"normal_anatomical_atlas_approval\": false,\n            \"complete_reporting_anatomy_approved\": false\n          }\n        ]\n"
+      },
+      {
+        "start": 74394,
+        "end": 74416,
+        "before": "        \"source_native_inspectors\": null\n",
+        "after": "        \"source_native_inspectors\": [\n          {\n            \"id\": \"lnq-case-0571\",\n            \"title\": \"Mediastinal lymph node annotation on source CT\",\n            \"caption\": \"Inspect the publisher\\u2019s original LNQ annotation on the acquired mediastinal CT of case 0571. Toggle its five connected components on unmarked images and isolate their sampled boundaries in 3D. The source records non-small-cell lung cancer as the primary condition. The components retain the publisher\\u2019s single lymph-node label.\",\n            \"src\": \"/app/anatomy/lnq-case-0571/index.html\",\n            \"manifest_url\": \"/app/anatomy/lnq-case-0571/source.json\",\n            \"sha256\": \"c5fd4c34532c9d9a82d4426be1e6c0c41cb9366ed85b6474cb7f40c77ac9596c\",\n            \"manifest_sha256\": \"c9308f6d835d40d95d20eca75998dd99e13f500a068426a44a4ca62f534babf9\",\n            \"modality\": \"CT\",\n            \"source_url\": \"https://doi.org/10.7937/QVAZ-JA09\",\n            \"publication_url\": \"https://lnqproject.org/datasets/#methodology\",\n            \"license\": \"CC BY 4.0\",\n            \"license_url\": \"https://creativecommons.org/licenses/by/4.0/\",\n            \"attribution\": \"Idris and colleagues, Mediastinal Lymph Node Quantification (LNQ), The Cancer Imaging Archive. Primer presents the lossless source CT band and manual SEG with separable display components.\",\n            \"clinical_approval\": false,\n            \"fine_anatomical_approval\": false,\n            \"current_patient_registration\": false,\n            \"normal_anatomical_atlas_approval\": false,\n            \"complete_reporting_anatomy_approved\": false\n          }\n        ]\n"
+      },
+      {
+        "start": 140843,
+        "end": 140852,
+        "before": "",
+        "after": "          {\n            \"id\": \"module-native-inspectors-rad.4.lung-cancer\",\n            \"kind\": \"source-native-inspectors\",\n            \"title\": \"Native source anatomy inspection\",\n            \"instructions\": \"Inspect the complete provided source selections against native images and separate atlas probabilities. Read population, sampling and anatomical limits before interpretation.\",\n            \"investigation_ids\": [\n              \"ra.ct-lung-cancer\"\n            ]\n          },\n"
+      },
+      {
+        "start": 141030,
+        "end": 141031,
+        "before": "      \"module_contract_sha256\": \"1704bac59d8b4fa8e87ff601c221c26877b6f7a6d0c6c133aadfec7b907ae1de\",\n",
+        "after": "      \"module_contract_sha256\": \"6659daf0a893e746516f68fe3cbda7b5e22749b3b37fe04e92a6602af765d1dc\",\n"
+      },
+      {
+        "start": 170436,
+        "end": 170445,
+        "before": "",
+        "after": "          {\n            \"id\": \"module-native-inspectors-rad.5.mediastinum\",\n            \"kind\": \"source-native-inspectors\",\n            \"title\": \"Native source anatomy inspection\",\n            \"instructions\": \"Inspect the complete provided source selections against native images and separate atlas probabilities. Read population, sampling and anatomical limits before interpretation.\",\n            \"investigation_ids\": [\n              \"ra.ct-mediastinum\"\n            ]\n          },\n"
+      },
+      {
+        "start": 170621,
+        "end": 170622,
+        "before": "      \"module_contract_sha256\": \"e2d670f49ea41ca70557aabe61e240619405de0b58340b47fc24d27055d89859\",\n",
+        "after": "      \"module_contract_sha256\": \"a3499fe922f7a7ef07b53de0018f804ca0ab2105b9f1b3351a5651a3776436cd\",\n"
+      }
+    ]
+  }
+}

@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>The microwave blackbody spectrum · Primer</title>
+  <link rel="stylesheet" href="style.css">
+  <script type="module" src="lab.js"></script>
+</head>
+<body>
+<main>
+  <a href="/app/#/node/phys.5.gr-cosmo">Return to General Relativity and Cosmology</a>
+  <h1>The microwave blackbody spectrum</h1>
+  <p>Compare a Planck spectrum with the COBE FIRAS monopole. Then look at the differences on a much smaller intensity scale.</p>
+  <fieldset>
+    <legend>Compare temperatures</legend>
+    <label for="temperature">Model temperature <output for="temperature" id="temperature-value"></output></label>
+    <input type="range" id="temperature" min="2.700" max="2.750" value="2.725" step="0.001" disabled>
+    <button type="button" id="reset" disabled>Use 2.725 K</button>
+  </fieldset>
+  <p id="status" role="status">Verifying the published FIRAS channels…</p>
+  <div class="plots">
+    <section aria-labelledby="spectrum-title">
+      <h2 id="spectrum-title">Spectral radiance</h2>
+      <p><span class="mark curve"></span> Planck model <span class="mark dot"></span> Published monopole</p>
+      <canvas id="spectrum" role="img" aria-label="Planck model and published FIRAS spectral radiance in megajanskys per steradian as a function of frequency"></canvas>
+    </section>
+    <section aria-labelledby="residual-title">
+      <h2 id="residual-title">Published data minus the model</h2>
+      <p><span class="mark stem"></span> Residual with per-channel 1σ uncertainty</p>
+      <canvas id="residuals" role="img" aria-label="FIRAS residuals and one-sigma error bars in kilojanskys per steradian as a function of frequency"></canvas>
+    </section>
+  </div>
+  <section aria-labelledby="channels-title">
+    <h2 id="channels-title">Inspect a frequency channel</h2>
+    <label for="channel">Channel <output for="channel" id="channel-value"></output></label>
+    <input type="range" id="channel" min="0" value="0" step="1" disabled>
+    <dl class="readout">
+      <div><dt>Published monopole</dt><dd id="observed">—</dd></div>
+      <div><dt>Model radiance</dt><dd id="model">—</dd></div>
+      <div><dt>Residual at this temperature</dt><dd id="difference">—</dd></div>
+      <div><dt>Published 1σ per channel</dt><dd id="uncertainty">—</dd></div>
+    </dl>
+    <details>
+      <summary>Source channel table</summary>
+      <div class="table-wrap" tabindex="0" aria-label="Scrollable source channel table">
+        <table>
+          <thead><tr><th scope="col">Frequency (GHz)</th><th scope="col">Monopole (MJy/sr)</th><th scope="col">Original residual (kJy/sr)</th><th scope="col">1σ (kJy/sr)</th><th scope="col">Galaxy model at the Galactic poles (kJy/sr)</th></tr></thead>
+          <tbody id="channels"></tbody>
+        </table>
+      </div>
+    </details>
+  </section>
+  <p>The archive builds its published monopole by adding the measured residual to a 2.725 K blackbody. The residual plot preserves those original residuals at 2.725 K. At another temperature it adds the difference between the two Planck curves.</p>
+  <p>COBE FIRAS data from Fixsen and colleagues include the later FIRAS calibration. We acknowledge NASA Goddard’s LAMBDA archive, part of HEASARC. <a href="https://lambda.gsfc.nasa.gov/product/cobe/firas_monopole_spect.html">Product and calibration notes</a> · <a href="https://lambda.gsfc.nasa.gov/data/cobe/firas/monopole_spec/firas_monopole_spec_v1.txt">Published channel file</a></p>
+</main>
+</body>
+</html>

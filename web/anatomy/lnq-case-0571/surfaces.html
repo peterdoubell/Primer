@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Mediastinal annotation surfaces · Primer</title>
+  <link rel="stylesheet" href="/app/anatomy/bp3d-dural-4.3/viewer.css">
+  <script defer src="/app/anatomy/bp3d-dural-4.3/surface-viewer.js"></script>
+</head>
+<body>
+<main data-source-axes="xyz" data-surfaces-sha256="b1b6d16abc86ab9edb1cec44d0ce6320e6a593b7fe9e4f9868f87bb9323ab35b">
+  <a href="index.html">Return to the acquired CT and original masks</a>
+  <h1>Mediastinal annotation surfaces</h1>
+  <p>Rotate the original LNQ annotation and isolate each connected component. The surfaces come from interpolation of the published labels between acquired voxel centres. X points right, Y anterior and Z superior.</p>
+  <figure><canvas id="surface" width="640" height="480" role="img" aria-label="Three-dimensional surfaces of the LNQ mediastinal annotation"></canvas></figure>
+  <label>Rotation <input id="rotation" type="range" min="-180" max="180" value="30"></label>
+  <label>Tilt <input id="tilt" type="range" min="-90" max="90" value="18"></label>
+  <p id="surface-status" role="status">Verifying source surfaces…</p>
+  <fieldset><legend>Annotation components</legend>
+    <label><input class="layer" type="checkbox" checked>Annotation component 1</label>
+<label><input class="layer" type="checkbox" checked>Annotation component 2</label>
+<label><input class="layer" type="checkbox" checked>Annotation component 3</label>
+<label><input class="layer" type="checkbox" checked>Annotation component 4</label>
+<label><input class="layer" type="checkbox" checked>Annotation component 5</label>
+
+  </fieldset>
+  <table class="mrv-key"><caption>Source selection and verified display mesh</caption>
+    <thead><tr><th scope="col">Component</th><th scope="col">Selected voxels</th><th scope="col">Triangles</th></tr></thead>
+    <tbody><tr><th scope="row">Annotation component 1</th><td>355</td><td>1,204</td></tr>
+<tr><th scope="row">Annotation component 2</th><td>4,771</td><td>8,354</td></tr>
+<tr><th scope="row">Annotation component 3</th><td>2,197</td><td>4,896</td></tr>
+<tr><th scope="row">Annotation component 4</th><td>806</td><td>2,156</td></tr>
+<tr><th scope="row">Annotation component 5</th><td>1,294</td><td>2,464</td></tr>
+</tbody>
+  </table>
+  <p>Idris and colleagues, Mediastinal Lymph Node Quantification. <a href="https://doi.org/10.7937/QVAZ-JA09">The Cancer Imaging Archive</a> · <a href="https://creativecommons.org/licenses/by/4.0/">CC BY 4.0</a></p>
+</main>
+</body>
+</html>
