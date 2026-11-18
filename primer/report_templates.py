@@ -42,6 +42,35 @@ CONFIRMED_ACQUISITIONS = {
     'ra.thymus': ('Confirm performed contrast CT chest acquisition for thymic assessment', 'ref-thymic-masses-and-mimics'),
     'ra.venous-sinus-thrombosis': ('Confirm performed unenhanced CT head and CT venogram acquisition', 'neuro-ref-33'),
 }
+# These four authored fields explicitly declare an incompatible performed
+# modality or an unenhanced acquisition. Scope coordinates reuse the descriptor
+# representation used by requires_scope.
+CONFIRMED_ACQUISITION_CONFLICTS = {
+    'ra.craniosynostosis': {
+        'section_id': 'anatomy-examination',
+        'finding_id': 'ra.craniosynostosis:examination:method',
+        'slot_id': 'slot-1',
+        'values': ['cranial suture ultrasound'],
+    },
+    'ra.venous-sinus-thrombosis': {
+        'section_id': 'anatomy-examination',
+        'finding_id': 'ra.venous-sinus-thrombosis:examination:method',
+        'slot_id': 'slot-1',
+        'values': ['contrast-enhanced MR venography', 'non-contrast MR venography'],
+    },
+    'ra.cardiac-masses': {
+        'section_id': 'anatomy-contrast',
+        'finding_id': 'ra.cardiac-masses:contrast:assessment',
+        'slot_id': 'slot-1',
+        'values': ['unenhanced'],
+    },
+    'ra.thymus': {
+        'section_id': 'anatomy-contrast',
+        'finding_id': 'ra.thymus:contrast:assessment',
+        'slot_id': 'slot-1',
+        'values': ['unenhanced'],
+    },
+}
 BLANK_IMPRESSION = 'Impression:\n1. []\n2. []\n3. []'
 BLANK_RECOMMENDATION = 'Recommendation:\n1. []\n2. []\n3. []'
 BULLET = '• '
@@ -303,6 +332,14 @@ def align_builder_protocols(catalogue):
                     'sources': [source['url'] for source in investigation['sources'] if source['id'] == source_id],
                     'confirmed_only': True,
                 }
+            if identifier in CONFIRMED_ACQUISITION_CONFLICTS:
+                scope = CONFIRMED_ACQUISITION_CONFLICTS[identifier]
+                section = next(row for row in investigation['sections'] if row['id'] == scope['section_id'])
+                finding = next(row for row in section['findings'] if row['id'] == scope['finding_id'])
+                slot = next(row for row in finding['slots'] if row['id'] == scope['slot_id'])
+                if not set(scope['values']) <= {option['value'] for option in slot['options']}:
+                    raise ValueError('Confirmed acquisition scope changed: ' + identifier)
+                investigation['report_protocol']['incompatible_scopes'] = [scope]
     return catalogue
 
 

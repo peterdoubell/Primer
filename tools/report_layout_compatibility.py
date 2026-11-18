@@ -148,7 +148,16 @@ CONFIRMED_GROUP_CURRENT = b'      const genericAcquisition = !exam?.report_proto
 CONFIRMED_GROUP_PREVIOUS = b'      return exam?.report_format === 3 && !exam.report_protocol && /^(technique|protocol)$/i.test(name)'
 
 
+def before_acquisition_conflicts_bytes(path, raw):
+    if str(path) not in {'primer/descriptor_reporting.py', 'primer/report_templates.py', 'web/radiology-structured.js'}:
+        return raw
+    from tools.colonvessels_compatibility import _restore
+    proof = Path(__file__).resolve().parents[1] / 'docs/report-format-parity/acquisition-conflicts-inverse.json'
+    return _restore(path, raw, proof, 'fe75b9840fe850110d951649bd1ceae3ab450f48c12645be8317501542a35486')
+
+
 def before_confirmed_acquisition_group_bytes(path, raw):
+    raw = before_acquisition_conflicts_bytes(path, raw)
     if str(path) != PATH or hashlib.sha256(raw).hexdigest() != CONFIRMED_GROUP_AFTER:
         return raw
     restored = raw.replace(CONFIRMED_GROUP_CURRENT, CONFIRMED_GROUP_PREVIOUS, 1)
