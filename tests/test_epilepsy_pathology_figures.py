@@ -9,6 +9,7 @@ from PIL import Image
 
 from primer.curriculum import Curriculum
 from primer.radiology_catalog import _validate_source_panel_roles, detail, resolve
+from tools.anatomy_sources.repair_source_context_codes import catalog_view
 
 ROOT = Path(__file__).resolve().parents[1]
 DOC = ROOT / 'docs/epilepsy-pathology-figure-review-20261016'
@@ -200,7 +201,8 @@ def test_new_rights_evidence_does_not_grant_anatomical_or_clinical_coverage():
         assert asset['investigation_ids'] == [INV]
         assert not asset['structure_ids'] and not asset['requirement_coverage']
         assert asset['anatomical_review']['status'] == 'pending'
-        assert asset['source_context'] == rows[asset['id']]['source_context']
+        # The ledger copy's context codes were repaired later; the catalog keeps the originals.
+        assert catalog_view(asset['id'], asset['source_context']) == rows[asset['id']]['source_context']
         rights = asset['source']['license']
         assert rights['commercial_use'] and rights['redistribution'] and rights['review_status'] == 'verified'
         assert sha((ROOT / rights['evidence_path']).read_bytes()) == rights['evidence_sha256']
