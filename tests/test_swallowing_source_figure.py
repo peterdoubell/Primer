@@ -3,6 +3,7 @@ import hashlib,json
 from pathlib import Path
 from PIL import Image
 from primer.curriculum import Curriculum
+from tools.anatomy_sources.bind_stored_caption_assets import only_caption_bindings
 from primer.radiology_catalog import detail,resolve
 ROOT=Path(__file__).resolve().parents[1];INV='ra.swallowing';ID='open-swallowing-pmc12081525-fig2'
 def test_original_grayscale_master_and_case_context_survive():
@@ -13,7 +14,7 @@ def test_original_grayscale_master_and_case_context_survive():
     with Image.open(path) as image:assert image.mode=='L' and image.size==(1350,1022) and hashlib.sha256(image.tobytes()).hexdigest()==figure['decoded_pixel_sha256']
     c=row['source_context'];assert c['population']['age_not_supplied'] and c['population']['life_stage']=='unknown' and c['population']['sex']=='female'
     for key in ['full_original_cine_or_DICOM_available','frame_order_timestamps_or_frame_pulse_rates_supplied','source_views_independently_registered','still_implies_aspiration_absence_or_swallow_function','source_case_is_normal_reference','source_adult_consensus_is_patient_age_evidence']:assert c[key] is False
-    asset=next(a for a in json.loads((ROOT/'data/radiology/radiology-asset-evidence.json').read_text())['assets'] if a['id']==ID);assert not asset['structure_ids'] and not asset['requirement_coverage'] and asset['anatomical_review']['status']=='pending';assert asset['source']['license']['commercial_use'] and asset['source']['license']['redistribution']
+    asset=next(a for a in json.loads((ROOT/'data/radiology/radiology-asset-evidence.json').read_text())['assets'] if a['id']==ID);assert only_caption_bindings(asset) and asset['anatomical_review']['status']=='pending';assert asset['source']['license']['commercial_use'] and asset['source']['license']['redistribution']
 def test_FOV_example_does_not_fill_functional_steps_or_replace_other_investigations():
     ref=detail(Curriculum(),resolve(INV))['radiology_reference'];assert not ref['key_images'];w=ref['walkthrough'];assert w['start']['images']==[] and not w['start']['module_illustrations']
     assert all(not r['images'] and not r['normal'] for r in w['steps']);assert len(ref['structure_atlas'])==1

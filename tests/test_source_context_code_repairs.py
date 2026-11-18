@@ -3,12 +3,13 @@ import hashlib
 import json
 
 from tools.anatomy_sources import repair_source_context_codes as tool
+from tools.anatomy_sources.bind_unlocked_figures import before_unlocked_figure_bindings
 from tools.check_msk_fidelity import NORMAL_REFERENCE_STATES, inspect_binding, inspect_source_context
 
 
 def records():
     review = json.loads(tool.REVIEW.read_text())
-    raw = (tool.ROOT / tool.EVIDENCE).read_bytes()
+    raw = before_unlocked_figure_bindings((tool.ROOT / tool.EVIDENCE).read_bytes())  # The unlocked figures were bound afterwards.
     assets = {item['id']: item for item in json.loads(raw)['assets']}
     return review, raw, assets
 

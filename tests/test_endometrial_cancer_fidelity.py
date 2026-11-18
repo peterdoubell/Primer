@@ -6,6 +6,7 @@ import pytest
 
 from primer.curriculum import Curriculum
 from primer.radiology_catalog import detail, resolve
+from tools.anatomy_sources.bind_stored_caption_assets import only_caption_bindings
 from tools.check_msk_fidelity import audit, requirements_for, validate_reporting_snapshots
 from tools.check_radiology_fidelity import digest
 
@@ -101,4 +102,5 @@ def test_primary_staging_and_original_atlas_remain_independent(reference):
     evidence = json.loads((ROOT/'data/radiology/radiology-asset-evidence.json').read_text())
     assets = [asset for asset in evidence['assets'] if asset['id'].startswith('open-endometrial-cancer-')]
     assert len(assets) == 36
-    assert all(asset['anatomical_review']['status'] == 'pending' and not asset['requirement_coverage'] for asset in assets)
+    # Only the reviewed, partial caption bindings of the unlocked-figure pass; nothing is anatomically approved.
+    assert all(asset['anatomical_review']['status'] == 'pending' and only_caption_bindings(asset) for asset in assets)

@@ -5,6 +5,7 @@ from pathlib import Path
 from tools.anatomy_sources import bind_stored_caption_assets as tool
 from tools.anatomy_sources.bind_stored_caption_assets_pass2 import before_stored_caption_bindings_pass2
 from tools.anatomy_sources.bind_finding_figures import before_finding_figure_bindings as before_findings
+from tools.anatomy_sources.bind_unlocked_figures import before_unlocked_figure_bindings as before_unlocked
 from tools.anatomy_sources.repair_source_context_codes import before_source_context_repairs as before_repairs
 from tools.anatomy_sources.package_radiology_assistant_sided_figures import before_radiology_assistant_sided_figures as before_sided
 from tools.check_msk_fidelity import inspect_binding
@@ -41,7 +42,7 @@ def test_stored_figures_are_bound_only_to_structures_their_own_caption_names():
 
 def test_stored_caption_bindings_have_an_exact_inverse():
     receipt = json.loads(tool.RECEIPT.read_text())
-    raw = before_stored_caption_bindings_pass2(before_sided(before_findings(before_repairs('data/radiology/radiology-asset-evidence.json', tool.EVIDENCE.read_bytes()))))  # A second pass followed.
+    raw = before_stored_caption_bindings_pass2(before_sided(before_findings(before_repairs('data/radiology/radiology-asset-evidence.json', before_unlocked(tool.EVIDENCE.read_bytes())))))  # A second pass followed.
     assert tool.sha(raw) == receipt['after_sha256']
     before = tool.before_stored_caption_bindings(raw)
     assert tool.sha(before) == receipt['before_sha256']

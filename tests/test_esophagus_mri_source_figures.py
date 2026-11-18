@@ -3,6 +3,7 @@ from pathlib import Path
 import pytest
 from PIL import Image
 from primer.curriculum import Curriculum
+from tools.anatomy_sources.bind_stored_caption_assets import only_caption_bindings
 from primer.radiology_catalog import detail,resolve,_validate_source_panel_roles
 ROOT=Path(__file__).resolve().parents[1];PREFIX='open-esophagus-pmc11227487-fig'
 def rows():return [r for r in json.loads((ROOT/'data/radiology/radiology-open-images.json').read_text())['ra.esophagus'] if r['id'].startswith(PREFIX)]
@@ -24,5 +25,5 @@ def test_source_case_images_follow_wall_and_fistula_steps_without_anatomy_approv
     assert {i for i in w['steps'][4]['images'] if i.startswith(PREFIX)}=={PREFIX+'2'}
     assets=json.loads((ROOT/'data/radiology/radiology-asset-evidence.json').read_text())['assets']
     for a in assets:
-        if a['id'].startswith(PREFIX):assert a['anatomical_review']['status']=='pending' and not a['structure_ids'] and not a['requirement_coverage']
+        if a['id'].startswith(PREFIX):assert a['anatomical_review']['status']=='pending' and only_caption_bindings(a)
     other=detail(Curriculum(),resolve('ra.swallowing'))['radiology_reference'];assert not any(x['id'].startswith(PREFIX) for x in other.get('structure_atlas',[]))

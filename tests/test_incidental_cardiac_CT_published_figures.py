@@ -3,6 +3,7 @@ import hashlib,json
 from pathlib import Path
 from PIL import Image
 from primer.curriculum import Curriculum
+from tools.anatomy_sources.bind_stored_caption_assets import only_caption_bindings
 from primer.radiology_catalog import detail,resolve
 ROOT=Path(__file__).resolve().parents[1];OUT=ROOT/'docs/incidental-cardiac-CT-published-source-review';PREFIX='open-incidental-cardiac-ct-pmc6365314-fig'
 def sha(raw):return hashlib.sha256(raw).hexdigest()
@@ -31,4 +32,4 @@ def test_rights_and_pixels_do_not_approve_leaf_geometry_or_clinical_function():
     rows=[r for r in json.loads((ROOT/'data/radiology/radiology-asset-evidence.json').read_text())['assets'] if r['id'].startswith(PREFIX)];assert len(rows)==21
     for row in rows:
         lic=row['source']['license'];assert lic['name']=='CC BY 4.0' and lic['commercial_use'] and lic['redistribution'] and sha((ROOT/lic['evidence_path']).read_bytes())==lic['evidence_sha256']
-        assert not row['structure_ids'] and not row['requirement_coverage'] and row['anatomical_review']['status']=='pending'
+        assert only_caption_bindings(row) and row['anatomical_review']['status']=='pending'
