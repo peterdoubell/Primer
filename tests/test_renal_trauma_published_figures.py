@@ -5,6 +5,7 @@ from pathlib import Path
 from PIL import Image
 from primer.curriculum import Curriculum
 from primer.radiology_catalog import detail, resolve
+from tools.anatomy_sources.bind_stored_caption_assets import only_caption_bindings
 
 ROOT = Path(__file__).resolve().parents[1]
 REVIEW = ROOT / 'docs/renal-trauma-published-source-review'
@@ -77,7 +78,7 @@ def test_reader_links_preserve_pending_native_anatomical_and_model_review():
     assets = [r for r in json.loads((ROOT / 'data/radiology/radiology-asset-evidence.json').read_text())['assets'] if r['id'].startswith('open-renal-trauma-')]
     assert len(assets) == 11
     for row in assets:
-        assert row['structure_ids'] == [] and row['requirement_coverage'] == {} and row['anatomical_review']['status'] == 'pending'
+        assert only_caption_bindings(row) and row['anatomical_review']['status'] == 'pending'
         assert not row['source_context']['native_acquisition_and_registration_verified']
         assert not row['pixel_provenance']['highest_resolution_acquired_master_verified']
         rights = row['source']['license']

@@ -7,6 +7,7 @@ import pytest
 from PIL import Image
 from primer.curriculum import Curriculum
 from primer import radiology_catalog
+from tools.anatomy_sources.bind_stored_caption_assets import only_caption_bindings
 
 ROOT=Path(__file__).resolve().parents[1]
 
@@ -53,4 +54,4 @@ def test_no_new_gallbladder_image_claims_structure_or_clinical_approval():
     data=json.loads((ROOT/'data/radiology/radiology-asset-evidence.json').read_text())
     rows=[r for r in data['assets'] if r['id'].startswith('open-gallbladder-')]
     assert len(rows)==9
-    assert all(r['structure_ids']==[] and r['requirement_coverage']=={} and r['anatomical_review']['status']=='pending' for r in rows)
+    assert all(only_caption_bindings(r) and r['anatomical_review']['status']=='pending' for r in rows)

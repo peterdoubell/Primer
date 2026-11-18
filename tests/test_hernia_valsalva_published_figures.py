@@ -4,6 +4,7 @@ from pathlib import Path
 from PIL import Image
 from primer.curriculum import Curriculum
 from primer.radiology_catalog import detail,resolve
+from tools.anatomy_sources.bind_stored_caption_assets import only_caption_bindings
 
 ROOT=Path(__file__).resolve().parents[1];REVIEW=ROOT/'docs/hernia-valsalva-published-source-review'
 
@@ -50,6 +51,6 @@ def test_diastasis_does_not_become_true_defect_or_calibrated_volume_geometry():
     assets=[r for r in json.loads((ROOT/'data/radiology/radiology-asset-evidence.json').read_text())['assets'] if r['id'].startswith('open-hernia-valsalva-')]
     assert len(assets)==3
     for a in assets:
-        assert a['structure_ids']==[] and a['requirement_coverage']=={} and a['anatomical_review']['status']=='pending'
+        assert only_caption_bindings(a) and a['anatomical_review']['status']=='pending'
         rights=a['source']['license'];assert rights['commercial_use'] and rights['redistribution']
         assert hashlib.sha256((ROOT/rights['evidence_path']).read_bytes()).hexdigest()==rights['evidence_sha256']

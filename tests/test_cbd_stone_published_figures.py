@@ -5,6 +5,7 @@ from pathlib import Path
 from PIL import Image
 from primer.curriculum import Curriculum
 from primer.radiology_catalog import detail,resolve
+from tools.anatomy_sources.bind_stored_caption_assets import only_caption_bindings
 
 ROOT=Path(__file__).resolve().parents[1]
 REVIEW=ROOT/'docs/cbd-stone-published-source-review'
@@ -44,6 +45,6 @@ def test_new_sources_are_licensed_candidates_without_structure_credit():
     data=json.loads((ROOT/'data/radiology/radiology-asset-evidence.json').read_text());rows=[r for r in data['assets'] if r['id'].startswith('open-cbd-stone-')]
     assert len(rows)==5
     for r in rows:
-        assert r['structure_ids']==[] and r['requirement_coverage']=={} and r['anatomical_review']['status']=='pending'
+        assert only_caption_bindings(r) and r['anatomical_review']['status']=='pending'
         rights=r['source']['license'];assert rights['commercial_use'] and rights['redistribution']
         assert hashlib.sha256((ROOT/rights['evidence_path']).read_bytes()).hexdigest()==rights['evidence_sha256']
