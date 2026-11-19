@@ -139,14 +139,20 @@ def test_a_subheading_is_set_out_in_every_layout():
     assert '\n\n**Intrinsic ligaments:**\nScapholunate ligament: []\nLunotriquetral ligament: []\n\n**Extrinsic ligaments:**\n' in dictation['msk.mri-wrist']
     # Every template opens with clinical history and comparison, then the study title in Prism's capitals.
     assert dictation['msk.mri-wrist'].startswith(
-        '__Clinical history:__\n[]\n\n__Comparison:__\n[]\n\n**__MRI {SIDE} WRIST:__**\n__Protocol:__\n')
+        '**__Clinical history:__**\n[]\n\n**__Comparison:__**\n[]\n\n**__MRI {SIDE} WRIST:__**\n**__Protocol:__**\n')
     for text in dictation.values():
         lines = text.split('\n')
         assert lines[:6] == radproof_export.HISTORY and re.fullmatch(r'\*\*__[^a-z]+:__\*\*', lines[6]), lines[6]
-    assert '__Findings:__\n**Bones and alignment:**\nDistal radius and ulna: []\n' in dictation['msk.mri-wrist']
+    assert '**__Findings:__**\n**Bones and alignment:**\nDistal radius and ulna: []\n' in dictation['msk.mri-wrist']
     assert '\n\n**Lumbar discs:**\nT12-L1: []\nL1-L2: []\nL2-L3: []\nL3-L4: []\nL4-L5: []\nL5-S1: []\n\n' in dictation['ra.mri-lumbar-disc']
     for text in dictation.values():
-        assert text.count('**__') == 3 and '[ ]' not in text  # title, impression, recommendation
+        assert '[ ]' not in text
+        # Bold and underline only for headings: each is a whole line; subheadings are bold, blanks plain.
+        headings = [line for line in text.split('\n') if '__' in line]
+        assert all(re.fullmatch(r'\*\*__[^_*]+:__\*\*', line) for line in headings), headings
+        assert {'**__Clinical history:__**', '**__Comparison:__**', '**__Impression:__**', '**__Recommendation:__**'} <= set(headings)
+        assert all(not line.startswith('*') or line.startswith('**__') or re.fullmatch(r'\*\*[^*_]+:\*\*', line)
+                   for line in text.split('\n'))
 
 
 def test_the_normal_report_says_a_group_once_when_all_of_it_is_normal():

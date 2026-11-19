@@ -2,12 +2,12 @@
 
 Every template opens with the clinical history and the comparison, then the study name, as Peter asked
 (2026-11-19). RadProof puts a template's first line in Prism's title slot, so Clinical history takes it:
-  __Clinical history:__ []     underlined, each with a blank to fill
-  __Comparison:__ []
+  **__Clinical history:__** []  bold and underlined, each with a blank to fill
+  **__Comparison:__** []
   **__<STUDY TITLE>:__**       bold and underlined, in capitals with a colon, as Prism sets out a title;
                                {SIDE} where Prism supplies the side, RADIOGRAPH{S} for the views
-  __Protocol:__ / __Technique:__  underlined; MRI protocol or CT technique (no other modality has one)
-  __Findings:__                underlined, after a protocol or technique; radiographs, ultrasound and
+  **__Protocol:__** / **__Technique:__**  MRI protocol or CT technique (no other modality has one)
+  **__Findings:__**            after a protocol or technique; radiographs, ultrasound and
                                fluoroscopy run from the study title straight into their findings
   **__Impression:__** (dictation) or **__Conclusion:__** (normal report)
 The dictation layout (--dictation) lists every heading with a blank, one under another; a subheading over
@@ -120,7 +120,10 @@ def sentences(text):
 # Every template opens with the clinical history and the comparison, then the study name (Peter, 2026-11-19).
 # RadProof puts a template's first line in Prism's title slot, so Clinical history takes that line and the
 # study name follows in Prism's title style.
-HISTORY = ['__Clinical history:__', '[]', '', '__Comparison:__', '[]', '']
+HISTORY = ['**__Clinical history:__**', '[]', '', '**__Comparison:__**', '[]', '']
+# Bold and underline only for headings (Peter's M3GAN layout, 2026-11-19): every section heading is both,
+# as RadProof sets out a section heading; a subheading is bold, and a heading with a blank is plain.
+SECTION = {name + ':': '**__' + name + ':__**' for name in ('Protocol', 'Technique', 'Findings', 'Impression', 'Recommendation')}
 
 
 def caps_title(title):
@@ -133,9 +136,7 @@ def dictation_text(item, acquisition, title):
     draft = rt.render_dictation(item, acquisition)
     study = draft['text'].split('\n\n', 2)[2].splitlines()
     name = draft['title'] if item.get('dictation') else title
-    markup = {'Protocol:': '__Protocol:__', 'Technique:': '__Technique:__',
-              'Findings:': '__Findings:__', 'Impression:': '**__Impression:__**',
-              'Recommendation:': '**__Recommendation:__**'}
+    markup = dict(SECTION)
     # A subheading over the headings it groups is a part of the report: bold, as RadProof sets one out.
     markup.update({f'{section["group"]}:': f'**{section["group"]}:**'
                    for section in item['sections'] if section.get('group')})
@@ -168,9 +169,9 @@ def export(*, dictation=False):
         lines = [*HISTORY, caps_title(title)]
         acquisition = rt.acquisition_heading(identifier, item)
         if acquisition:
-            lines += [f'__{acquisition}:__', item['technique']['normal'], '']
+            lines += [SECTION[acquisition + ':'], item['technique']['normal'], '']
         if not radiograph:
-            lines.append('__Findings:__')
+            lines.append(SECTION['Findings:'])
         lines += findings(item, identifier in MULTI_REGION)
         lines += ['', '**__Conclusion:__**', *impression]
         text = dictation_text(item, acquisition, title) if dictation else '\n'.join(lines)

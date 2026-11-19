@@ -124,8 +124,10 @@ def test_radproof_export_keeps_every_normal_line_self_contained():
     for template in radproof_export.export():
         lines = template['text'].split('\n')
         heading = rt.acquisition_heading(template['id'], library[template['id']])
-        assert ('__Protocol:__' in lines) == (heading == 'Protocol'), template['id']
-        assert ('__Technique:__' in lines) == (heading == 'Technique'), template['id']
+        assert ('**__Protocol:__**' in lines) == (heading == 'Protocol'), template['id']
+        assert ('**__Technique:__**' in lines) == (heading == 'Technique'), template['id']
+        # Bold and underline only for headings: no heading is underlined alone.
+        assert not [line for line in lines if line.startswith('__') or (line.endswith('__') and not line.endswith(':__**'))], template['id']
         if template['id'] not in radproof_export.MULTI_REGION:
             assert not radproof_export.BARE & set(lines), template['id']
 
@@ -150,11 +152,11 @@ def test_radiographs_have_findings_under_the_title_and_count_their_views():
     exported = {t['id']: t['text'].split('\n') for t in radproof_export.export()}
     knee = exported['xr.knee']
     # Clinical history and comparison open every template; the study title follows in Prism's capitals.
-    assert knee[:7] == ['__Clinical history:__', '[]', '', '__Comparison:__', '[]', '', '**__{SIDE} KNEE RADIOGRAPH{S}:__**']
+    assert knee[:7] == ['**__Clinical history:__**', '[]', '', '**__Comparison:__**', '[]', '', '**__{SIDE} KNEE RADIOGRAPH{S}:__**']
     assert knee[7] == 'No fracture.'
-    assert '__Findings:__' not in knee and knee[-1] == 'Normal knee radiograph{s}.'
+    assert '**__Findings:__**' not in knee and knee[-1] == 'Normal knee radiograph{s}.'
     assert '**__CHEST RADIOGRAPH{S}:__**' in exported['ra.chest-radiography']
-    assert '__Findings:__' in exported['ct.trauma-panscan']
+    assert '**__Findings:__**' in exported['ct.trauma-panscan']
 
 
 def test_3d_uterus_is_reported_in_the_pelvic_ultrasound():
