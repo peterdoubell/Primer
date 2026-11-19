@@ -558,6 +558,45 @@ test('finite source shadows agree with independent ray interception and point-so
   assert.equal(lampView(1, 50, 56).kind, 'lit');
 });
 
+test('Wonderland samples retain chapter offsets and distinguish cumulative from local diversity', async () => {
+  const { tokenize, traceWords, frequentForms } = await import('../web/language/word-samples/counts.mjs');
+  const book = JSON.parse(fs.readFileSync(path.join(root, 'language/word-samples/corpus.json'), 'utf8'));
+  const sizes = [2157, 2115, 1702, 2658, 2172, 2609, 2307, 2493, 2294, 2038, 1898, 2127];
+  assert.equal(book.chapters.length, sizes.length);
+  assert.equal(book.chapters.reduce((sum, chapter) => sum + chapter.illustrations.length, 0), 41);
+  assert.deepEqual(tokenize("Rabbit rabbit’s rabbit's rabbit-hole").map(word => word.form),
+    ['rabbit', "rabbit's", "rabbit's", 'rabbit', 'hole']);
+  assert.deepEqual(tokenize('Alice ALICE', true).map(word => word.form), ['Alice', 'ALICE']);
+  for (const [index, chapter] of book.chapters.entries()) {
+    for (const keepCase of [false, true]) {
+      const tokens = tokenize(chapter.text, keepCase);
+      assert.equal(tokens.length, sizes[index]);
+      const first = Math.floor(tokens.length / 2);
+      const words = tokens.slice(first, first + 80);
+      for (const word of words) assert.equal(chapter.text.slice(word.start, word.end), word.text);
+      const trace = traceWords(words);
+      for (const count of [1, 24, 25, 26, 80]) {
+        const forms = words.slice(0, count).map(word => word.form);
+        const types = new Set(forms).size;
+        const state = trace[count - 1];
+        assert.equal(state.ratio, types / count);
+        assert.equal(state.first, forms.indexOf(forms[count - 1]));
+        assert.equal(state.count, forms.filter(form => form === forms[count - 1]).length);
+        const windows = [];
+        for (let i = 25; i <= count; i++) windows.push(new Set(forms.slice(i - 25, i)).size);
+        assert.equal(state.meanLocalRatio, windows.length ? windows.reduce((a, b) => a + b, 0) / (25 * windows.length) : null);
+      }
+    }
+    for (const figure of chapter.illustrations) {
+      assert.ok(figure.offset >= 0 && figure.offset <= chapter.text.length);
+      for (const link of [figure.file, figure.large]) assert.ok(fs.existsSync(path.join(root, link.slice('/app/'.length))), link);
+    }
+  }
+  const opening = tokenize(book.chapters[0].text).slice(0, 25);
+  assert.equal(traceWords(opening)[24].types, 23);
+  assert.deepEqual(frequentForms(opening, 25).slice(0, 2), [['to', 2], ['of', 2]]);
+});
+
 test('every registered activity has its page, script and a return link to its module', () => {
   const registry = JSON.parse(fs.readFileSync(path.join(root, 'activities', 'registry.json'), 'utf8'));
   const curriculum = fs.readdirSync(path.join(root, '..', 'data', 'curriculum')).map(f => fs.readFileSync(path.join(root, '..', 'data', 'curriculum', f), 'utf8')).join('');

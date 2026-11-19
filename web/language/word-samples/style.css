@@ -1,0 +1,40 @@
+:root { font:16px/1.5 "Instrument Sans",system-ui,sans-serif; color:#30332a; background:#f4f1e6; }
+body { margin:0; }
+main { max-width:78rem; margin:auto; padding:clamp(1rem,3vw,2.4rem); }
+a { color:#275c54; text-underline-offset:.15em; }
+h1,h2,h3 { font-family:"Instrument Serif",Georgia,serif; }
+h1 { font-size:clamp(2.6rem,7vw,5rem); line-height:1; margin:.4em 0 .15em; }
+h2 { font-size:1.7rem; line-height:1.1; margin:.3rem 0 .75rem; }
+h3 { font-size:1.25rem; margin-bottom:.35rem; }
+fieldset,section { padding:1rem; background:#fffdf5; border:1px solid #a2a894; border-radius:.5rem; min-width:0; }
+fieldset { display:grid; grid-template-columns:2fr 1fr 1fr; gap:.6rem; }
+.wide { grid-column:1/-1; }
+label { display:block; font-weight:650; }
+select,button { box-sizing:border-box; max-width:100%; min-height:2.6rem; border:1px solid #7f8e7f; background:#fffefa; color:inherit; font:inherit; border-radius:.3rem; padding:.3rem .5rem; }
+select { width:100%; }
+button { cursor:pointer; }
+button:disabled { opacity:.55; cursor:default; }
+input[type=range] { width:100%; accent-color:#2c685c; }
+output { color:#325b4c; }
+.buttons { display:flex; gap:.45rem; flex-wrap:wrap; }
+.layout { display:grid; grid-template-columns:minmax(0,1.05fr) minmax(0,.95fr); gap:.8rem; }
+dl { display:flex; flex-wrap:wrap; gap:.6rem 1rem; }
+dd { margin:0; font-weight:700; font-variant-numeric:tabular-nums; }
+canvas { display:block; width:100%; height:clamp(195px,31vw,290px); background:#f6f7ed; }
+.legend { font-size:.9rem; }
+.key { display:inline-block; width:1.1rem; height:3px; margin:0 .15rem .16rem 0; }
+.global { background:#28634d; }
+.local { border-top:3px dashed #9b4a28; height:0; margin-left:.5rem; }
+.passage { font-family:"Spectral",Georgia,serif; line-height:1.65; overflow:auto; max-height:13rem; padding:.5rem; border-left:3px solid #9aa58f; white-space:pre-wrap; }
+mark { background:#fde1a4; color:#292a22; }
+details { margin:1rem 0; }
+summary { cursor:pointer; }
+table { width:100%; border-collapse:collapse; }
+td,th { text-align:left; border-bottom:1px solid #d6dacb; padding:.25rem; }
+figure { margin:1rem 0 0; }
+img { display:block; max-width:100%; max-height:19rem; margin:auto; object-fit:contain; }
+figcaption { font-size:.9rem; margin-top:.4rem; }
+:focus-visible { outline:3px solid #32675e; outline-offset:2px; }
+@media(max-width:50rem) { .layout { grid-template-columns:minmax(0,1fr); } }
+@media(max-width:39rem) { fieldset { grid-template-columns:1fr 1fr; } fieldset label:first-of-type { grid-column:1/-1; } }
+#picture { width:auto; height:auto; }
