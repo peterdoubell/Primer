@@ -8,11 +8,17 @@ from tools import lesson_activities_compatibility as history
 from tools.anatomy_sources import bind_models as tool
 from tools.anatomy_sources import bind_stored_caption_assets_pass2 as second
 from tools.anatomy_sources import bind_unlocked_figures as unlocked
+from tools.anatomy_sources.bind_reader_models import before_reader_model_records
 from tools.anatomy_sources.bind_stored_caption_assets import only_caption_bindings
 from tools.check_msk_fidelity import inspect_binding, inspect_requirement_coverage, side_unstated
 
 PATH = 'data/radiology/radiology-asset-evidence.json'
 HRA = 'hra-female-pelvis-v1.10-'
+
+
+def current():
+    """The evidence file as this pass left it: the brain readers' label meshes were recorded afterwards."""
+    return before_reader_model_records(tool.EVIDENCE.read_bytes())
 
 
 def records():
@@ -113,7 +119,7 @@ def test_the_source_swaps_its_round_ligament_labels_and_neither_is_bound():
 
 def test_every_other_model_is_listed_with_its_reason_and_wholes_are_not_bound_to_parts():
     review, assets, _, _ = records()
-    before = {item['id']: item for item in json.loads(tool.before_model_bindings(tool.EVIDENCE.read_bytes()))['assets']}
+    before = {item['id']: item for item in json.loads(tool.before_model_bindings(current()))['assets']}
     unbound_before = {identifier for identifier, item in before.items() if item['kind'] == 'model' and not item['structure_ids']}
     assert len(unbound_before) == 142
     bound = {row['asset_id'] for row in review['accepted']}
@@ -132,7 +138,7 @@ def test_every_other_model_is_listed_with_its_reason_and_wholes_are_not_bound_to
 
 def test_model_bindings_have_an_exact_inverse_and_only_add_bindings():
     receipt = json.loads(tool.RECEIPT.read_text())
-    raw = tool.EVIDENCE.read_bytes()
+    raw = current()
     assert second.sha(raw) == receipt['after_sha256']
     before = tool.before_model_bindings(raw)
     assert second.sha(before) == receipt['before_sha256']
@@ -159,7 +165,7 @@ def test_model_bindings_have_an_exact_inverse_and_only_add_bindings():
 
 def test_the_tool_refuses_a_row_that_breaks_a_rule(tmp_path, monkeypatch):
     review = json.loads(tool.REVIEW.read_text())
-    before = tool.before_model_bindings(tool.EVIDENCE.read_bytes())
+    before = tool.before_model_bindings(current())
     ledger, document = tmp_path / 'evidence.json', tmp_path / 'review.json'
     ledger.write_bytes(before)
     monkeypatch.setattr(tool, 'EVIDENCE', ledger)
