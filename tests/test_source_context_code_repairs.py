@@ -4,13 +4,14 @@ import json
 
 from tools.anatomy_sources import repair_source_context_codes as tool
 from tools.anatomy_sources.bind_models import before_model_bindings
+from tools.anatomy_sources.bind_reader_models import before_reader_model_records
 from tools.anatomy_sources.bind_unlocked_figures import before_unlocked_figure_bindings
 from tools.check_msk_fidelity import NORMAL_REFERENCE_STATES, inspect_binding, inspect_source_context
 
 
 def records():
     review = json.loads(tool.REVIEW.read_text())
-    raw = before_unlocked_figure_bindings(before_model_bindings((tool.ROOT / tool.EVIDENCE).read_bytes()))  # The unlocked figures and the models were bound afterwards.
+    raw = before_unlocked_figure_bindings(before_model_bindings(before_reader_model_records((tool.ROOT / tool.EVIDENCE).read_bytes())))  # The unlocked figures, the models and the reader meshes followed.
     assets = {item['id']: item for item in json.loads(raw)['assets']}
     return review, raw, assets
 

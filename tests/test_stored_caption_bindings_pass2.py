@@ -7,6 +7,7 @@ from tools.anatomy_sources import bind_stored_caption_assets_pass2 as tool
 from tools.anatomy_sources.bind_finding_figures import before_finding_figure_bindings as before_findings
 from tools.anatomy_sources.bind_unlocked_figures import before_unlocked_figure_bindings as before_unlocked
 from tools.anatomy_sources.bind_models import before_model_bindings as before_models
+from tools.anatomy_sources.bind_reader_models import before_reader_model_records as before_readers
 from tools.anatomy_sources.repair_source_context_codes import before_source_context_repairs as before_repairs
 from tools.anatomy_sources.package_radiology_assistant_sided_figures import before_radiology_assistant_sided_figures as before_sided
 from tools.check_msk_fidelity import inspect_binding, inspect_requirement_coverage, side_unstated
@@ -81,7 +82,7 @@ def test_findings_and_diagnoses_are_not_bound():
 
 def test_second_pass_has_an_exact_inverse_and_only_rewrites_first_pass_quotes():
     receipt = json.loads(tool.RECEIPT.read_text())
-    raw = before_sided(before_findings(before_repairs('data/radiology/radiology-asset-evidence.json', before_unlocked(before_models(tool.EVIDENCE.read_bytes())))))  # Sided publisher figures and findings followed.
+    raw = before_sided(before_findings(before_repairs('data/radiology/radiology-asset-evidence.json', before_unlocked(before_models(before_readers(tool.EVIDENCE.read_bytes()))))))  # Sided publisher figures and findings followed.
     assert tool.sha(raw) == receipt['after_sha256']
     before = tool.before_stored_caption_bindings_pass2(raw)
     assert tool.sha(before) == receipt['before_sha256']

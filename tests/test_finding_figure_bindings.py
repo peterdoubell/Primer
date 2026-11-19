@@ -6,6 +6,7 @@ from tools.anatomy_sources import bind_stored_caption_assets_pass2 as second
 from tools.anatomy_sources.bind_stored_caption_assets import only_caption_bindings
 from tools.anatomy_sources.bind_unlocked_figures import before_unlocked_figure_bindings as before_unlocked
 from tools.anatomy_sources.bind_models import before_model_bindings as before_models
+from tools.anatomy_sources.bind_reader_models import before_reader_model_records as before_readers
 from tools.anatomy_sources.repair_source_context_codes import before_source_context_repairs as before_repairs
 from tools.check_msk_fidelity import inspect_binding, inspect_requirement_coverage, side_unstated
 
@@ -116,7 +117,7 @@ def test_catch_all_requirements_and_guarded_figures_stay_unbound():
 
 def test_finding_bindings_have_an_exact_inverse_and_only_add_bindings():
     receipt = json.loads(tool.RECEIPT.read_text())
-    raw = before_repairs('data/radiology/radiology-asset-evidence.json', before_unlocked(before_models(tool.EVIDENCE.read_bytes())))  # Context codes were repaired, and the unlocked figures and the models bound, after this pass.
+    raw = before_repairs('data/radiology/radiology-asset-evidence.json', before_unlocked(before_models(before_readers(tool.EVIDENCE.read_bytes()))))  # Context codes were repaired, and the unlocked figures and the models bound, after this pass.
     assert second.sha(raw) == receipt['after_sha256']
     before = tool.before_finding_figure_bindings(raw)
     assert second.sha(before) == receipt['before_sha256']

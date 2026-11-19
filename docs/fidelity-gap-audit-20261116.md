@@ -359,3 +359,14 @@ names, or one member of a named group. A whole is never bound to its regions, bu
 Where an investigation's 3D view shows a Z-Anatomy model that the record did not list, the investigation
 was added to the record (135 additions). An earlier Open Knee(s) review that left the tibial cartilages
 unbound was kept. Nothing is anatomically approved.
+
+## Brain reader meshes recorded and bound (2026-11-19)
+
+The brain readers show label-boundary meshes that no evidence record covered (`docs/reader-model-bindings-20261119`). Each
+SPL/NAC atlas, holiAtlas and HippUnfold mesh whose own label names a requirement of an investigation showing its reader now
+has a record: 186 records with 192 partial bindings, covering 103 requirement leaves. Bound structures 1,179 → 1,274 of
+57,985 (brain anatomy 8 → 72, neck spaces 10 → 23, epilepsy MRI 11 → 23, sella MRI 30 → 36). Each stated side was checked
+against the decoded mesh, a midsagittal plane fitted to the source's own midline structures, and the mirror mesh. The Schirmer
+territory masks, gyral parts, cerebellar lobules and wholes whose parts are required were not bound; all 567 unrecorded meshes
+are listed with their reasons. The body readers linked from module pages are a separate pass. Nothing is anatomically
+approved.
