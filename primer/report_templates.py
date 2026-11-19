@@ -296,7 +296,7 @@ def render_dictation(item, heading):
     title = draft['title'] if draft else item['title']
     study = title
     if heading:
-        label = 'Technique' if draft else heading
+        label = heading  # Protocol for an MRI, Technique for a CT: a department draft's too
         technique = draft['technique'] if draft else item['technique']['normal']
         study += f'\n{label}:\n{technique}'
     if draft:

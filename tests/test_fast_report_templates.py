@@ -106,7 +106,7 @@ def served_ids(curriculum):
 
 
 def test_every_served_examination_has_exactly_one_template(served_ids):
-    assert len(served_ids) == len(set(served_ids)) == 333
+    assert len(served_ids) == len(set(served_ids)) == 335
     assert set(served_ids) == set(rt.library())
 
 
@@ -444,6 +444,8 @@ def test_all_dictation_templates_use_study_specific_sections_and_simple_placehol
         heading = rt.acquisition_heading(identifier, item)
         if heading and 'dictation' not in item:
             assert f'\n{heading}:\n' + item['technique']['normal'] + '\n\nFindings:\n' in text
+        if heading:  # one heading for every MRI and one for every CT, a department draft's included
+            assert f"\n{draft['title']}\n{heading}:\n" in text
         if not heading:
             assert '\nTechnique:' not in text and '\nProtocol:' not in text
         if 'dictation' not in item:
@@ -486,7 +488,7 @@ def test_every_dictation_template_uses_inline_italics_without_changing_its_text(
 def test_prostate_dictation_encodes_the_departmental_template():
     draft = rt.quick_report('ra.mri-prostate')['dictation']
     assert draft['title'] == 'mpMRI prostate'
-    assert '\nTechnique:\nDepartmental 1.5 T' in draft['text']
+    assert '\nProtocol:\nDepartmental 1.5 T' in draft['text']  # headed as every MRI acquisition is
     assert 'PSA density [] ng/mL²' in draft['text']
     assert 'Location (PI-RADS sector, series and image): []' in draft['text']
     assert 'T2: []\nDWI: []\nDCE: []' in draft['text']
@@ -494,12 +496,28 @@ def test_prostate_dictation_encodes_the_departmental_template():
     assert 'Extraprostatic extension: []' in draft['text']
 
 
+def test_the_draft_acquisition_heading_has_an_exact_inverse():
+    from hashlib import sha256
+    from tools.report_layout_compatibility import before_draft_acquisition_heading_bytes
+    path = 'primer/report_templates.py'
+    row = json.loads((ROOT / 'docs/report-format-parity/draft-acquisition-heading-inverse.json').read_text())[path]
+    raw = (ROOT / path).read_bytes()
+    assert sha256(raw).hexdigest() == row['after']
+    restored = before_draft_acquisition_heading_bytes(path, raw)
+    assert sha256(restored).hexdigest() == row['before']
+    assert before_draft_acquisition_heading_bytes(path, restored) == restored
+    assert before_draft_acquisition_heading_bytes(path, raw + b'\n') == raw + b'\n'
+    assert before_draft_acquisition_heading_bytes('web/app.js', raw) == raw
+
+
 def test_the_stacked_heading_layout_has_an_exact_inverse():
     from hashlib import sha256
-    from tools.report_layout_compatibility import before_acquisition_conflicts_bytes, before_stacked_headings_bytes
+    from tools.report_layout_compatibility import (before_acquisition_conflicts_bytes,
+                                                   before_draft_acquisition_heading_bytes, before_stacked_headings_bytes)
     path = 'primer/report_templates.py'
     row = json.loads((ROOT / 'docs/report-format-parity/stacked-headings-inverse.json').read_text())[path]
-    raw = (ROOT / path).read_bytes()
+    # The later uniform acquisition heading (2026-11-19) is undone first, by its own exact inverse.
+    raw = before_draft_acquisition_heading_bytes(path, (ROOT / path).read_bytes())
     assert sha256(raw).hexdigest() == row['after']
     restored = before_stacked_headings_bytes(path, raw)
     assert sha256(restored).hexdigest() == row['before']

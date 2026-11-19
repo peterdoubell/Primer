@@ -32,7 +32,7 @@ ROUTINE = {
     """,
     3: """
         ct.guided-biopsy ct.urography mri.renal-cyst mri.renal-mass mri.kidneys
-        ct.oncology-staging ra.mri-lumbar-disc msk.mri-lumbosacral-plexus
+        ct.oncology-staging ct.chest-abdomen-pelvis ra.mri-lumbar-disc msk.mri-lumbosacral-plexus
         neuro.mri-spine-cervical neuro.mri-spine-thoracic mri.brain-stroke
         ra.ct-acute-aortic-syndrome ra.mri-bladder mri.whole-body ra.ct-bowel-ischaemia
         neuro.mri-brain-routine mri.brain-anatomy ra.mri-breast ct.cardiac-mass

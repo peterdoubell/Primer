@@ -55,15 +55,15 @@ PROTOCOLS = {
     'ra.ct-pancreatitis': 'Late arterial (35 s) phase through the pancreas and portal venous (70 s) phase through the abdomen and pelvis.',
     'ra.ct-pancreatic-cancer': ('Late arterial (35 s) phase through the pancreas and portal venous (70 s) phase through the abdomen and pelvis; '
                                 'thin reformats along the vessels.'),
-    'ra.ct-peritoneal-carcinomatosis': CT_CAP,
+    'ra.ct-peritoneal-carcinomatosis': 'Arterial phase chest and upper abdomen. Portal venous abdomen and pelvis.',
     'ct.liver-mass': 'Unenhanced, late arterial (35 s), portal venous (70 s) and delayed phases through the liver.',
     'ct.liver-lirads': CT_LIVER,
     'ct.liver-lirads-calculated': CT_LIVER,
     'ct.abdomen-multiphase': 'Unenhanced, late arterial (35 s), portal venous (70 s) and delayed phases, diaphragm to symphysis.',
     'ct.pelvis': 'Portal venous phase (70 s) after IV contrast, iliac crests to symphysis; coronal and sagittal reformats.',
-    'ct.oncology-staging': 'Portal venous phase (70 s) after IV contrast, skull base to symphysis; lung, soft tissue and bone reconstructions.',
-    'ra.recist': 'Portal venous phase (70 s) after IV contrast, lung apices to symphysis; sections of 5 mm or less.',
-    'oncology.recist-follow-up': 'Portal venous phase (70 s) after IV contrast, lung apices to symphysis; matched to the baseline protocol.',
+    'ct.oncology-staging': 'Arterial phase neck, chest and upper abdomen. Portal venous abdomen and pelvis.',  # the practice's own wording (Peter's photos, 2026-11-19)
+    'ra.recist': 'Arterial phase chest and upper abdomen. Portal venous abdomen and pelvis.',
+    'oncology.recist-follow-up': 'Arterial phase chest and upper abdomen. Portal venous abdomen and pelvis.',
     'ct.paediatric-abdomen-solid': CT_PAEDIATRIC,
     'ra.paediatric-renal-tumours': CT_PAEDIATRIC,
     'ct.trauma-panscan': ('Unenhanced head and cervical spine; arterial phase chest and portal venous phase abdomen and pelvis '
