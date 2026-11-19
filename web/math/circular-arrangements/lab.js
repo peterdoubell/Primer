@@ -65,6 +65,8 @@ function drawRings(map) {
 function showMovement() {
   const index = Number(movement.value);
   const map = analysis.results[index];
+  get('previous').disabled = index === 0;
+  get('next').disabled = index === analysis.results.length - 1;
   drawRings(map);
   const same = map.transformed.every((value, i)=>value === pattern[i]);
   const changed = pattern.flatMap((value, i)=>value === map.transformed[i] ? [] : [i+1]);
@@ -105,7 +107,10 @@ function update() {
     row.insertCell().textContent = pretty(map.fixedCount);
   }
   get('average').textContent = 'Averaging the fixed counts with Burnside’s lemma gives ' + pretty(analysis.fixedSum) + ' ÷ '
-    + analysis.results.length + ' = ' + pretty(analysis.classes) + (analysis.classes === 1 ? ' class.' : ' classes.');
+    + analysis.results.length + ' = ' + pretty(analysis.classes) + (analysis.classes === 1 ? ' class.' : ' classes.')
+    + ' In the displayed class, ' + analysis.orbitSize + ' numbered ' + (analysis.orbitSize === 1 ? 'view contributes ' : 'views contribute ')
+    + analysis.stabilizer + (analysis.stabilizer === 1 ? ' fixed count each.' : ' fixed counts each.')
+    + ' Every class contributes a total of ' + analysis.results.length + ', the number of allowed movements.';
   get('edit').textContent = guestMode() ? 'Swap with the next seat' : 'Change bead colour';
   showMovement();
 }
@@ -123,6 +128,12 @@ count.addEventListener('change',buildPattern);
 get('kind').addEventListener('change',buildPattern);
 get('group').addEventListener('change',update);
 movement.addEventListener('change',showMovement);
+for (const [id, step] of [['previous', -1], ['next', 1]]) {
+  get(id).addEventListener('click', () => {
+    movement.value = Number(movement.value) + step;
+    showMovement();
+  });
+}
 get('edit').addEventListener('click',()=>{
   const i = Number(position.value);
   if (guestMode()) {
