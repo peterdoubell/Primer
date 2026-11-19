@@ -1,0 +1,33 @@
+{
+  "schema": "primer.fast-report-templates/1",
+  "revision": "2026-11-19",
+  "templates": {
+    "us.soft-tissue-neck": {
+      "title": "Ultrasound soft tissue neck",
+      "radiograph": false,
+      "technique": {"normal": "Ultrasound of both sides of the neck, including the salivary glands, thyroid and cervical lymph nodes, with colour Doppler.",
+                    "options": []},
+      "sections": [
+        {"heading": "Area of concern", "normal": "No abnormality in the area of concern.",
+         "options": ["[Cyst / Solid lesion / Lymph node / Collection / Lipoma] [ ] mm in the [ ].",
+                     "Features of a [thyroglossal duct cyst / branchial cleft cyst / abscess / haematoma] [ ]."]},
+        {"heading": "Parotid glands", "group": "Salivary and thyroid glands", "normal": "Normal.",
+         "options": ["[Mass / Sialadenitis / Calculus / Duct dilatation] of the [right / left] parotid gland [ ]."]},
+        {"heading": "Submandibular glands", "group": "Salivary and thyroid glands", "normal": "Normal.",
+         "options": ["[Mass / Sialadenitis / Calculus / Duct dilatation] of the [right / left] submandibular gland [ ]."]},
+        {"heading": "Thyroid gland", "group": "Salivary and thyroid glands", "normal": "Normal thyroid size and echotexture. No thyroid nodule.",
+         "options": ["Thyroid nodule [ ] mm in the [right lobe / left lobe / isthmus], ACR TI-RADS [TR1 / TR2 / TR3 / TR4 / TR5].",
+                     "[Goitre / Thyroiditis / Heterogeneous echotexture] [ ]."]},
+        {"heading": "Right neck", "group": "Lymph nodes", "normal": "No abnormal lymph node in levels I to VI on the right.",
+         "options": ["Level [I / II / III / IV / V / VI] node, [ ] x [ ] mm, [loss of fatty hilum / round shape / necrosis / calcification / peripheral vascularity]."]},
+        {"heading": "Left neck", "group": "Lymph nodes", "normal": "No abnormal lymph node in levels I to VI on the left.",
+         "options": ["Level [I / II / III / IV / V / VI] node, [ ] x [ ] mm, [loss of fatty hilum / round shape / necrosis / calcification / peripheral vascularity]."]},
+        {"heading": "Vessels", "normal": "Patent carotid arteries and internal jugular veins.",
+         "options": ["[Thrombus / Stenosis / Occlusion] of the [right / left] [carotid artery / internal jugular vein] [ ]."]},
+        {"heading": "Muscles and soft tissues", "normal": "Normal.",
+         "options": ["[Collection / Oedema / Haematoma / Soft tissue mass / Fibromatosis colli] in the [ ]."]}
+      ],
+      "impression": "Normal ultrasound soft tissue neck."
+    }
+  }
+}

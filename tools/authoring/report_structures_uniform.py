@@ -218,6 +218,19 @@ Salivary and thyroid glands | Normal. | [Salivary gland atrophy / Sialadenitis /
 Vessels | Patent carotid arteries and internal jugular veins. | [Carotid stenosis / Internal jugular vein thrombosis] [ ].
 = Treatment effects and skull base
 
+# ---------------------------------------------------------------- neck ultrasound: the glands named as in every other neck study
+
+## ra.cervical-lymph-nodes
+= Right neck
+= Left neck
+= Thyroid and salivary glands -> Salivary and thyroid glands
+
+## ra.paediatric-neck-masses
+= Lesion
+= Vascularity
+= Lymph nodes
+= Thyroid and salivary glands -> Salivary and thyroid glands
+
 # ---------------------------------------------------------------- CT femur: each part by name, like the other CT joints
 
 ## ct.femur

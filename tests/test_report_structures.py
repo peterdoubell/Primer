@@ -215,10 +215,36 @@ def test_studies_of_one_kind_read_alike():
 
 
 def test_one_name_for_one_set_of_structures():
-    def parts(heading):
-        return frozenset(part.strip().lower() for part in re.split(r',| and ', heading) if part.strip())
+    def parts(heading):  # the words, in any order: "Thyroid and salivary glands" is "Salivary and thyroid glands"
+        return tuple(sorted(word for word in re.findall(r'[a-z0-9]+', heading.lower()) if word != 'and'))
     names = {}
     for item in _performed().values():
         for section in item['sections']:
             names.setdefault(parts(section['heading']), set()).add(section['heading'])
     assert [sorted(found) for found in names.values() if len(found) > 1] == []  # not "Bones and soft tissues" and "Soft tissues and bones"
+
+
+def test_the_soft_tissue_neck_ultrasound_surveys_the_whole_neck():
+    """Peter asked for it (2026-11-19): the general neck ultrasound, apart from the lymph node study."""
+    assert _headings('us.soft-tissue-neck') == [
+        'Area of concern', 'Parotid glands', 'Submandibular glands', 'Thyroid gland', 'Right neck', 'Left neck',
+        'Vessels', 'Muscles and soft tissues']
+    assert _groups('us.soft-tissue-neck') == {
+        'Salivary and thyroid glands': ['Parotid glands', 'Submandibular glands', 'Thyroid gland'],
+        'Lymph nodes': ['Right neck', 'Left neck']}
+    # The practice's general neck titles choose it; the lymph node study keeps its own.
+    assert {'ultrasound soft tissue neck', 'ultrasound neck', 'sonar neck'} <= set(PRISM['titles']['us.soft-tissue-neck'])
+    assert PRISM['titles']['ra.cervical-lymph-nodes'] == ['ultrasound neck lymph nodes', 'ultrasound cervical lymph nodes']
+    assert PRISM['practice_studies']['Ultrasound neck'] == 'us.soft-tissue-neck'
+    dictation = {template['id']: template for template in radproof_export.export(dictation=True)}
+    neck = dictation['us.soft-tissue-neck']
+    assert neck['name'] == 'Ultrasound soft tissue neck'
+    assert '**__ULTRASOUND SOFT TISSUE NECK:__**\nArea of concern: []\n\n**Salivary and thyroid glands:**\n' in neck['text']
+    # The click builder has the same structures, every finding enumerated.
+    from primer.reporting_bridge import descriptor_forms
+    investigation = next(i for form in descriptor_forms()['forms'].values() for i in form['investigations']
+                         if i['id'] == 'us.soft-tissue-neck')
+    assert investigation['modality'] == 'Ultrasound'
+    assert [section['label'] for section in investigation['sections']][1:] == [
+        'Area of concern', 'Parotid glands', 'Submandibular glands', 'Thyroid gland', 'Right neck', 'Left neck',
+        'Vessels', 'Muscles and soft tissues']

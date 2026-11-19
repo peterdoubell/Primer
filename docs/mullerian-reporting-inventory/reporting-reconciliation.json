@@ -2,10 +2,10 @@
   "schema_version": 1,
   "reviewed_at": "2026-10-26",
   "scope": "Every current authored and compiled reporting investigation, including supplementary cardiology and general templates",
-  "current_investigations": 333,
-  "current_report_rows": 7047,
+  "current_investigations": 334,
+  "current_report_rows": 7056,
   "expanded_investigation_identities": 99,
-  "without_dedicated_inventory": 234,
+  "without_dedicated_inventory": 235,
   "relationship_counts": {
     "aggregate_with_additional_targets": 6,
     "declared_duplicate_pathway_with_unresolved_instantiation": 1,
@@ -19,7 +19,7 @@
     "related_region_new_dedicated_scope": 1,
     "related_region_new_trauma_scope": 1,
     "same_investigation_identity_requires_row_reconciliation": 99,
-    "unexpanded_distinct_investigation": 193,
+    "unexpanded_distinct_investigation": 194,
     "unexpanded_procedure_or_general_template": 15
   },
   "clinical_completion_claim": false,
@@ -32,6 +32,7 @@
   "input_sha256": {
     "data/radiology/anatomic-additions-20261026.json": "21c15143ab0b8c7efc24bad14e4d80ccaec82770549d5168c6b2f89bc5618d42",
     "data/radiology/anatomic-additions-20261112.json": "ac4ad83d4622ce1a7ffe50fdbe6a731dc73fd525520e9def131124680fa2335b",
+    "data/radiology/anatomic-additions-20261119.json": "97b9223efed78669ad512c964faf3da37d335a619ec3efcf040b98c772fb17a8",
     "data/radiology/anatomic-body.json": "8a7088d7be07384a87934e5fc2e9e04c18de43152c8402f807e986ae5697f1c5",
     "data/radiology/anatomic-cardiorespiratory.json": "448688b1193ae5054ac1dcf81c7bd6c846c2b6f24488b63117e178223ebd73a0",
     "data/radiology/anatomic-neuro.json": "e34d5008fdb16620a3fb1a846f569be50b624ed2488d8b07d5f323be66f93ba3",
@@ -40,7 +41,7 @@
     "data/radiology/msk-anatomic-upper.json": "b3a45a93136c9b2389c177c386ae8c2efc59a9353131c3367882b111f7233632",
     "data/radiology/non-msk-structure-requirements.json": "31fdf084790bb82c1d010649dd19baeb0e0475077a9b0e41d98ed1e153a86374",
     "data/radiology/msk-structure-requirements.json": "46c9eb76d2160fa4a46e7ee2c6c9c9d1046fc64ecd953471c19af1c737d0aa18",
-    "data/radiology/descriptor-reporting.json": "7317f2ec3acf94b20dcab131abd3d5310dedbf396d7412dfdb893c67c25299cb"
+    "data/radiology/descriptor-reporting.json": "fa9c9adb6004c9737020a4c92aa6819a60f3b2320d619a26205384ff1b03a719"
   },
   "investigations": [
     {
@@ -73645,6 +73646,97 @@
           "section_id": "left-varicocele",
           "label": "Left pampiniform plexus",
           "section_sha256": "c374c9f1cf3d49d7f17157734b905c21d3da8d8138f20a166cd62afc72e3b2a6",
+          "candidate_requirements": [],
+          "reconciliation_status": "explicit_row_expansion_or_typed_nonanatomical_disposition_required",
+          "representation_completion_claim": false
+        }
+      ]
+    },
+    {
+      "investigation_id": "us.soft-tissue-neck",
+      "guide_id": "rad.5.neck-nodes",
+      "title": "Ultrasound soft tissue neck",
+      "report_source_file": "data/radiology/anatomic-additions-20261119.json",
+      "report_investigation_sha256": "4e9f7c44e788fca1e7c1ed9be061640583db002830b17f962679ee26cfdc8d39",
+      "relationship": "unexpanded_distinct_investigation",
+      "rationale": "No equivalent expanded investigation has been established. Current named report rows remain explicit expansion work; shared adult regions, titles or module membership cannot supply paediatric, developmental, disease or modality-specific scope.",
+      "related_expanded_investigation_ids": [],
+      "related_inventory_evidence": [],
+      "same_module_ids_not_accepted_as_equivalent": [
+        "ra.cervical-lymph-nodes"
+      ],
+      "existing_additional_scope_evidence": [],
+      "has_dedicated_requirement_inventory": false,
+      "clinical_representation_complete": false,
+      "report_rows": [
+        {
+          "section_id": "technique",
+          "label": "Examination performed",
+          "section_sha256": "4336137a743c189c369d53954401608f8386c3ae5c4b63e0a6a85201df0f23f3",
+          "candidate_requirements": [],
+          "reconciliation_status": "explicit_row_expansion_or_typed_nonanatomical_disposition_required",
+          "representation_completion_claim": false
+        },
+        {
+          "section_id": "area-of-concern",
+          "label": "Area of concern",
+          "section_sha256": "d0e7fbedf9b181748b85091135a12f02612f6cf41d1edcd53fade8d95df4aab6",
+          "candidate_requirements": [],
+          "reconciliation_status": "explicit_row_expansion_or_typed_nonanatomical_disposition_required",
+          "representation_completion_claim": false
+        },
+        {
+          "section_id": "parotid-glands",
+          "label": "Parotid glands",
+          "section_sha256": "80fb0e01f7dbd39685dad6596ea86be52ff86aeb15db00e2b1e79be460679b9e",
+          "candidate_requirements": [],
+          "reconciliation_status": "explicit_row_expansion_or_typed_nonanatomical_disposition_required",
+          "representation_completion_claim": false
+        },
+        {
+          "section_id": "submandibular-glands",
+          "label": "Submandibular glands",
+          "section_sha256": "e46bb412e962f5b38ba30f95695cda7adbd03a70df1d983905c7bffae779ddc8",
+          "candidate_requirements": [],
+          "reconciliation_status": "explicit_row_expansion_or_typed_nonanatomical_disposition_required",
+          "representation_completion_claim": false
+        },
+        {
+          "section_id": "thyroid-gland",
+          "label": "Thyroid gland",
+          "section_sha256": "0ebecbddf55a5010a85ccb5c9e5271dbf3380dd16160265b4c478293497a0c79",
+          "candidate_requirements": [],
+          "reconciliation_status": "explicit_row_expansion_or_typed_nonanatomical_disposition_required",
+          "representation_completion_claim": false
+        },
+        {
+          "section_id": "right-neck-nodes",
+          "label": "Right neck",
+          "section_sha256": "20dfac6f9ff2f86142e60575e66ab19995bd9f831657a2d7eda19bb8edc5dc1e",
+          "candidate_requirements": [],
+          "reconciliation_status": "explicit_row_expansion_or_typed_nonanatomical_disposition_required",
+          "representation_completion_claim": false
+        },
+        {
+          "section_id": "left-neck-nodes",
+          "label": "Left neck",
+          "section_sha256": "ee0fb81047d70e779f55f1c0c598fbc444281848235ce7700ec1bfb35d91c9bc",
+          "candidate_requirements": [],
+          "reconciliation_status": "explicit_row_expansion_or_typed_nonanatomical_disposition_required",
+          "representation_completion_claim": false
+        },
+        {
+          "section_id": "vessels",
+          "label": "Vessels",
+          "section_sha256": "f86c821a867bc76aaa579ac664def27d5de2bc4ce7998683a84eb57a1ff85d0e",
+          "candidate_requirements": [],
+          "reconciliation_status": "explicit_row_expansion_or_typed_nonanatomical_disposition_required",
+          "representation_completion_claim": false
+        },
+        {
+          "section_id": "muscles-and-soft-tissues",
+          "label": "Muscles and soft tissues",
+          "section_sha256": "b1d2043396ffdd9d77c83a0c61f654e12d98abc40a1ecbd2f56c8bb06bc56d6c",
           "candidate_requirements": [],
           "reconciliation_status": "explicit_row_expansion_or_typed_nonanatomical_disposition_required",
           "representation_completion_claim": false

@@ -825,7 +825,7 @@ Thyroid gland | Normal. | [Nodule / Goitre / Thyroiditis] [ ].
 = Right neck
 = Left neck
 Pharynx and larynx | Normal. No mucosal mass. | Mass [ ] mm of the [nasopharynx / oropharynx / oral cavity / hypopharynx / larynx].
-= Thyroid and salivary glands
+= Thyroid and salivary glands -> Salivary and thyroid glands
 Vessels | Patent carotid arteries and internal jugular veins. | [Thrombus / Encasement / Stenosis] of the [right / left] [carotid artery / internal jugular vein].
 Lung apices and bones | Clear lung apices. No destructive bone lesion. | [Apical nodule / Bone lesion] [ ].
 
