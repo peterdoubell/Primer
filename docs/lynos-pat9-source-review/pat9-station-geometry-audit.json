@@ -1,0 +1,1531 @@
+{
+  "sourceTitle": "LyNoS: Mediastinal lymph nodes segmentation using 3D convolutional neural network ensembles and anatomical prior guiding",
+  "recordURL": "https://zenodo.org/records/10102261",
+  "articleDOI": "10.1080/21681163.2022.2043778",
+  "sourceLicenseURL": "https://creativecommons.org/licenses/by/4.0/",
+  "archiveIdentity": {
+    "id": "fe2954f5-8068-473a-b996-789775bd3cfc",
+    "key": "LyNoS.zip",
+    "size": 2897541519,
+    "checksum": "md5:4574f24069d42bfb2faf76995fd5acc8",
+    "links": {
+      "self": "https://zenodo.org/api/records/10102261/files/LyNoS.zip/content"
+    }
+  },
+  "case": "Pat9",
+  "caseRole": "Contrast CT with annotated individual nodes and author-assigned station terms",
+  "ct": {
+    "member": "Benchmark/Pat9/pat9_data.nii.gz",
+    "bytes": 68175557,
+    "crc32": "b20d7343",
+    "sha256": "9702463bf22b1f5689a838c340aef5e3b85701c6ebba274e34c32d8d1c1b4a14",
+    "sourceNiftiShapeXYZ": [
+      512,
+      512,
+      241
+    ],
+    "sourceVoxelSpacingMm": [
+      0.703000009059906,
+      0.703000009059906,
+      1.25
+    ],
+    "sourceNiftiOrientation": [
+      "L",
+      "P",
+      "S"
+    ],
+    "sourceStorageDataType": "int16",
+    "sourceSlope": 1.0,
+    "sourceIntercept": 0.0,
+    "unscaledSourceValues": [
+      -3024,
+      3071
+    ],
+    "originalNiftiForms": {
+      "sform": {
+        "code": 1,
+        "matrix": [
+          [
+            -0.703000009059906,
+            0.0,
+            0.0,
+            180.0
+          ],
+          [
+            0.0,
+            -0.703000009059906,
+            0.0,
+            162.0
+          ],
+          [
+            0.0,
+            0.0,
+            1.25,
+            -241.5
+          ],
+          [
+            0.0,
+            0.0,
+            0.0,
+            1.0
+          ]
+        ]
+      },
+      "qform": {
+        "code": 2,
+        "matrix": [
+          [
+            -0.703000009059906,
+            0.0,
+            0.0,
+            180.0
+          ],
+          [
+            0.0,
+            -0.703000009059906,
+            0.0,
+            162.0
+          ],
+          [
+            0.0,
+            0.0,
+            1.25,
+            -241.5
+          ],
+          [
+            0.0,
+            0.0,
+            0.0,
+            1.0
+          ]
+        ]
+      }
+    },
+    "nativeXYZToRAS": [
+      [
+        -0.703000009059906,
+        0.0,
+        0.0,
+        180.0
+      ],
+      [
+        0.0,
+        -0.703000009059906,
+        0.0,
+        162.0
+      ],
+      [
+        0.0,
+        0.0,
+        1.25,
+        -241.5
+      ],
+      [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ]
+    ]
+  },
+  "lymphNodeMask": {
+    "member": "Benchmark/Pat9/pat9_labels_LymphNodes.nii.gz",
+    "bytes": 138600,
+    "crc32": "8af33635",
+    "sha256": "820d9f0adec9682f84586c16b10114b0e909d680af3737ab14e91140d9d678ff",
+    "sameEffectiveAffineAndShapeWithOriginalFormCodesRetained": true,
+    "originalNiftiForms": {
+      "sform": {
+        "code": 0,
+        "matrix": null
+      },
+      "qform": {
+        "code": 1,
+        "matrix": [
+          [
+            -0.703000009059906,
+            0.0,
+            0.0,
+            180.0
+          ],
+          [
+            0.0,
+            -0.703000009059906,
+            0.0,
+            162.0
+          ],
+          [
+            0.0,
+            0.0,
+            1.25,
+            -241.5
+          ],
+          [
+            0.0,
+            0.0,
+            0.0,
+            1.0
+          ]
+        ]
+      }
+    },
+    "sourceLabelValueCount": 44,
+    "allSourceLymphNodePositiveVoxels": 60440
+  },
+  "authorsStationAssignments": {
+    "member": "Benchmark/stations_sto.csv",
+    "bytes": 20201,
+    "crc32": "cb5e4315",
+    "sha256": "4e21e9268d99a9bd19629843a0d47171b7146f6ca30c6f41e4030b093cbf29ba",
+    "oneRowPerMaskValueInPat9": true,
+    "authorMirrorCsvBytesAlsoMatch": true,
+    "literalPrimaryTerms": {
+      "1L - Low cervical, supraclavicular, and sternal notch nodes (Left)": 1,
+      "3p - Retrotracheal": 9,
+      "4R - Lower paratracheal (Right)": 5,
+      "10R - Hilar (Right)": 1,
+      "4L - Lower paratracheal (Left)": 2,
+      "13L - Segmental (Left)": 1,
+      "11Rs - Interlobar middle-lower (Right)": 1,
+      "12L - Lobar (Left)": 3,
+      "7L - Subcarinal (Left)": 1,
+      "12R - Lobar (Right)": 1,
+      "7 - Subcarinal": 1,
+      "8L - Paraesophageal below carina (Left)": 3,
+      "11L - Interlobar (Right)": 1,
+      "13R - Segmental (Right)": 2,
+      "Undefined - Outside the scope of IASLC": 1,
+      "7R - Subcarinal (Right)": 1,
+      "2L - Upper paratracheal (Left)": 1,
+      "2R - Upper paratracheal (Right)": 7,
+      "3a - Prevascular": 1,
+      "8R - Paraesophageal below carina (Right)": 1
+    },
+    "targets": [
+      {
+        "sourceMaskValue": 1,
+        "primaryStationLiteral": "1L - Low cervical, supraclavicular, and sternal notch nodes (Left)",
+        "secondaryStationLiteral": "2L - Upper paratracheal (Left)",
+        "tertiaryStationLiteral": "",
+        "positiveVoxels": 206,
+        "sourceMaskVoxelBoundsInclusiveXYZ": [
+          [
+            285,
+            203,
+            210
+          ],
+          [
+            292,
+            213,
+            217
+          ]
+        ],
+        "sourceVoxelCentreInsideXYZ": [
+          288,
+          208,
+          213
+        ],
+        "connected6": 1,
+        "connected26": 1
+      },
+      {
+        "sourceMaskValue": 2,
+        "primaryStationLiteral": "3p - Retrotracheal",
+        "secondaryStationLiteral": "",
+        "tertiaryStationLiteral": "",
+        "positiveVoxels": 359,
+        "sourceMaskVoxelBoundsInclusiveXYZ": [
+          [
+            232,
+            209,
+            197
+          ],
+          [
+            239,
+            220,
+            205
+          ]
+        ],
+        "sourceVoxelCentreInsideXYZ": [
+          235,
+          215,
+          201
+        ],
+        "connected6": 1,
+        "connected26": 1
+      },
+      {
+        "sourceMaskValue": 3,
+        "primaryStationLiteral": "3p - Retrotracheal",
+        "secondaryStationLiteral": "",
+        "tertiaryStationLiteral": "",
+        "positiveVoxels": 184,
+        "sourceMaskVoxelBoundsInclusiveXYZ": [
+          [
+            230,
+            215,
+            189
+          ],
+          [
+            237,
+            226,
+            197
+          ]
+        ],
+        "sourceVoxelCentreInsideXYZ": [
+          233,
+          219,
+          193
+        ],
+        "connected6": 2,
+        "connected26": 1
+      },
+      {
+        "sourceMaskValue": 4,
+        "primaryStationLiteral": "3p - Retrotracheal",
+        "secondaryStationLiteral": "2R - Upper paratracheal (Right)",
+        "tertiaryStationLiteral": "",
+        "positiveVoxels": 72,
+        "sourceMaskVoxelBoundsInclusiveXYZ": [
+          [
+            224,
+            209,
+            191
+          ],
+          [
+            231,
+            213,
+            196
+          ]
+        ],
+        "sourceVoxelCentreInsideXYZ": [
+          228,
+          211,
+          194
+        ],
+        "connected6": 1,
+        "connected26": 1
+      },
+      {
+        "sourceMaskValue": 5,
+        "primaryStationLiteral": "4R - Lower paratracheal (Right)",
+        "secondaryStationLiteral": "",
+        "tertiaryStationLiteral": "",
+        "positiveVoxels": 207,
+        "sourceMaskVoxelBoundsInclusiveXYZ": [
+          [
+            230,
+            206,
+            152
+          ],
+          [
+            239,
+            214,
+            159
+          ]
+        ],
+        "sourceVoxelCentreInsideXYZ": [
+          234,
+          210,
+          156
+        ],
+        "connected6": 1,
+        "connected26": 1
+      },
+      {
+        "sourceMaskValue": 6,
+        "primaryStationLiteral": "4R - Lower paratracheal (Right)",
+        "secondaryStationLiteral": "",
+        "tertiaryStationLiteral": "",
+        "positiveVoxels": 161,
+        "sourceMaskVoxelBoundsInclusiveXYZ": [
+          [
+            236,
+            204,
+            149
+          ],
+          [
+            243,
+            210,
+            155
+          ]
+        ],
+        "sourceVoxelCentreInsideXYZ": [
+          240,
+          206,
+          152
+        ],
+        "connected6": 1,
+        "connected26": 1
+      },
+      {
+        "sourceMaskValue": 7,
+        "primaryStationLiteral": "10R - Hilar (Right)",
+        "secondaryStationLiteral": "4R - Lower paratracheal (Right)",
+        "tertiaryStationLiteral": "",
+        "positiveVoxels": 24120,
+        "sourceMaskVoxelBoundsInclusiveXYZ": [
+          [
+            186,
+            227,
+            115
+          ],
+          [
+            233,
+            278,
+            142
+          ]
+        ],
+        "sourceVoxelCentreInsideXYZ": [
+          208,
+          251,
+          129
+        ],
+        "connected6": 1,
+        "connected26": 1
+      },
+      {
+        "sourceMaskValue": 8,
+        "primaryStationLiteral": "4R - Lower paratracheal (Right)",
+        "secondaryStationLiteral": "",
+        "tertiaryStationLiteral": "",
+        "positiveVoxels": 1252,
+        "sourceMaskVoxelBoundsInclusiveXYZ": [
+          [
+            227,
+            219,
+            130
+          ],
+          [
+            240,
+            242,
+            139
+          ]
+        ],
+        "sourceVoxelCentreInsideXYZ": [
+          233,
+          231,
+          135
+        ],
+        "connected6": 1,
+        "connected26": 1
+      },
+      {
+        "sourceMaskValue": 9,
+        "primaryStationLiteral": "4R - Lower paratracheal (Right)",
+        "secondaryStationLiteral": "",
+        "tertiaryStationLiteral": "",
+        "positiveVoxels": 292,
+        "sourceMaskVoxelBoundsInclusiveXYZ": [
+          [
+            245,
+            223,
+            130
+          ],
+          [
+            255,
+            231,
+            135
+          ]
+        ],
+        "sourceVoxelCentreInsideXYZ": [
+          250,
+          227,
+          133
+        ],
+        "connected6": 1,
+        "connected26": 1
+      },
+      {
+        "sourceMaskValue": 10,
+        "primaryStationLiteral": "4L - Lower paratracheal (Left)",
+        "secondaryStationLiteral": "10L - Hilar (Left)",
+        "tertiaryStationLiteral": "",
+        "positiveVoxels": 1306,
+        "sourceMaskVoxelBoundsInclusiveXYZ": [
+          [
+            275,
+            245,
+            126
+          ],
+          [
+            299,
+            262,
+            134
+          ]
+        ],
+        "sourceVoxelCentreInsideXYZ": [
+          286,
+          254,
+          130
+        ],
+        "connected6": 1,
+        "connected26": 1
+      },
+      {
+        "sourceMaskValue": 11,
+        "primaryStationLiteral": "13L - Segmental (Left)",
+        "secondaryStationLiteral": "14L - Subsegmental (Left)",
+        "tertiaryStationLiteral": "",
+        "positiveVoxels": 2023,
+        "sourceMaskVoxelBoundsInclusiveXYZ": [
+          [
+            335,
+            228,
+            115
+          ],
+          [
+            351,
+            262,
+            130
+          ]
+        ],
+        "sourceVoxelCentreInsideXYZ": [
+          344,
+          244,
+          121
+        ],
+        "connected6": 1,
+        "connected26": 1
+      },
+      {
+        "sourceMaskValue": 12,
+        "primaryStationLiteral": "11Rs - Interlobar middle-lower (Right)",
+        "secondaryStationLiteral": "12R - Lobar (Right)",
+        "tertiaryStationLiteral": "13R - Segmental (Right)",
+        "positiveVoxels": 4044,
+        "sourceMaskVoxelBoundsInclusiveXYZ": [
+          [
+            167,
+            245,
+            93
+          ],
+          [
+            192,
+            303,
+            121
+          ]
+        ],
+        "sourceVoxelCentreInsideXYZ": [
+          179,
+          271,
+          109
+        ],
+        "connected6": 1,
+        "connected26": 1
+      },
+      {
+        "sourceMaskValue": 13,
+        "primaryStationLiteral": "12L - Lobar (Left)",
+        "secondaryStationLiteral": "10L - Hilar (Left)",
+        "tertiaryStationLiteral": "",
+        "positiveVoxels": 1271,
+        "sourceMaskVoxelBoundsInclusiveXYZ": [
+          [
+            315,
+            279,
+            108
+          ],
+          [
+            344,
+            294,
+            116
+          ]
+        ],
+        "sourceVoxelCentreInsideXYZ": [
+          329,
+          286,
+          112
+        ],
+        "connected6": 1,
+        "connected26": 1
+      },
+      {
+        "sourceMaskValue": 14,
+        "primaryStationLiteral": "7L - Subcarinal (Left)",
+        "secondaryStationLiteral": "8L - Paraesophageal below carina (Left)",
+        "tertiaryStationLiteral": "10L - Hilar (Left)",
+        "positiveVoxels": 4763,
+        "sourceMaskVoxelBoundsInclusiveXYZ": [
+          [
+            253,
+            249,
+            98
+          ],
+          [
+            293,
+            274,
+            112
+          ]
+        ],
+        "sourceVoxelCentreInsideXYZ": [
+          273,
+          263,
+          105
+        ],
+        "connected6": 1,
+        "connected26": 1
+      },
+      {
+        "sourceMaskValue": 15,
+        "primaryStationLiteral": "12R - Lobar (Right)",
+        "secondaryStationLiteral": "",
+        "tertiaryStationLiteral": "",
+        "positiveVoxels": 698,
+        "sourceMaskVoxelBoundsInclusiveXYZ": [
+          [
+            186,
+            218,
+            98
+          ],
+          [
+            196,
+            232,
+            109
+          ]
+        ],
+        "sourceVoxelCentreInsideXYZ": [
+          191,
+          226,
+          103
+        ],
+        "connected6": 1,
+        "connected26": 1
+      },
+      {
+        "sourceMaskValue": 16,
+        "primaryStationLiteral": "7 - Subcarinal",
+        "secondaryStationLiteral": "8R - Paraesophageal below carina (Right)",
+        "tertiaryStationLiteral": "",
+        "positiveVoxels": 3339,
+        "sourceMaskVoxelBoundsInclusiveXYZ": [
+          [
+            209,
+            267,
+            89
+          ],
+          [
+            259,
+            283,
+            109
+          ]
+        ],
+        "sourceVoxelCentreInsideXYZ": [
+          233,
+          274,
+          99
+        ],
+        "connected6": 1,
+        "connected26": 1
+      },
+      {
+        "sourceMaskValue": 17,
+        "primaryStationLiteral": "8L - Paraesophageal below carina (Left)",
+        "secondaryStationLiteral": "7L - Subcarinal (Left)",
+        "tertiaryStationLiteral": "",
+        "positiveVoxels": 361,
+        "sourceMaskVoxelBoundsInclusiveXYZ": [
+          [
+            302,
+            283,
+            99
+          ],
+          [
+            314,
+            293,
+            105
+          ]
+        ],
+        "sourceVoxelCentreInsideXYZ": [
+          308,
+          288,
+          102
+        ],
+        "connected6": 1,
+        "connected26": 1
+      },
+      {
+        "sourceMaskValue": 18,
+        "primaryStationLiteral": "8L - Paraesophageal below carina (Left)",
+        "secondaryStationLiteral": "7L - Subcarinal (Left)",
+        "tertiaryStationLiteral": "",
+        "positiveVoxels": 555,
+        "sourceMaskVoxelBoundsInclusiveXYZ": [
+          [
+            282,
+            274,
+            98
+          ],
+          [
+            304,
+            283,
+            104
+          ]
+        ],
+        "sourceVoxelCentreInsideXYZ": [
+          296,
+          278,
+          101
+        ],
+        "connected6": 1,
+        "connected26": 1
+      },
+      {
+        "sourceMaskValue": 19,
+        "primaryStationLiteral": "11L - Interlobar (Right)",
+        "secondaryStationLiteral": "",
+        "tertiaryStationLiteral": "",
+        "positiveVoxels": 1288,
+        "sourceMaskVoxelBoundsInclusiveXYZ": [
+          [
+            341,
+            261,
+            95
+          ],
+          [
+            365,
+            282,
+            104
+          ]
+        ],
+        "sourceVoxelCentreInsideXYZ": [
+          352,
+          271,
+          100
+        ],
+        "connected6": 1,
+        "connected26": 1
+      },
+      {
+        "sourceMaskValue": 20,
+        "primaryStationLiteral": "13R - Segmental (Right)",
+        "secondaryStationLiteral": "",
+        "tertiaryStationLiteral": "",
+        "positiveVoxels": 871,
+        "sourceMaskVoxelBoundsInclusiveXYZ": [
+          [
+            150,
+            291,
+            79
+          ],
+          [
+            167,
+            308,
+            89
+          ]
+        ],
+        "sourceVoxelCentreInsideXYZ": [
+          157,
+          300,
+          84
+        ],
+        "connected6": 1,
+        "connected26": 1
+      },
+      {
+        "sourceMaskValue": 21,
+        "primaryStationLiteral": "Undefined - Outside the scope of IASLC",
+        "secondaryStationLiteral": "",
+        "tertiaryStationLiteral": "",
+        "positiveVoxels": 354,
+        "sourceMaskVoxelBoundsInclusiveXYZ": [
+          [
+            233,
+            257,
+            17
+          ],
+          [
+            240,
+            272,
+            23
+          ]
+        ],
+        "sourceVoxelCentreInsideXYZ": [
+          237,
+          265,
+          20
+        ],
+        "connected6": 1,
+        "connected26": 1
+      },
+      {
+        "sourceMaskValue": 22,
+        "primaryStationLiteral": "12L - Lobar (Left)",
+        "secondaryStationLiteral": "",
+        "tertiaryStationLiteral": "",
+        "positiveVoxels": 586,
+        "sourceMaskVoxelBoundsInclusiveXYZ": [
+          [
+            333,
+            220,
+            109
+          ],
+          [
+            347,
+            231,
+            117
+          ]
+        ],
+        "sourceVoxelCentreInsideXYZ": [
+          338,
+          226,
+          113
+        ],
+        "connected6": 1,
+        "connected26": 1
+      },
+      {
+        "sourceMaskValue": 23,
+        "primaryStationLiteral": "3p - Retrotracheal",
+        "secondaryStationLiteral": "7 - Subcarinal",
+        "tertiaryStationLiteral": "",
+        "positiveVoxels": 907,
+        "sourceMaskVoxelBoundsInclusiveXYZ": [
+          [
+            235,
+            274,
+            120
+          ],
+          [
+            254,
+            283,
+            133
+          ]
+        ],
+        "sourceVoxelCentreInsideXYZ": [
+          244,
+          279,
+          126
+        ],
+        "connected6": 1,
+        "connected26": 1
+      },
+      {
+        "sourceMaskValue": 24,
+        "primaryStationLiteral": "3p - Retrotracheal",
+        "secondaryStationLiteral": "",
+        "tertiaryStationLiteral": "",
+        "positiveVoxels": 117,
+        "sourceMaskVoxelBoundsInclusiveXYZ": [
+          [
+            240,
+            217,
+            191
+          ],
+          [
+            246,
+            222,
+            195
+          ]
+        ],
+        "sourceVoxelCentreInsideXYZ": [
+          243,
+          219,
+          193
+        ],
+        "connected6": 1,
+        "connected26": 1
+      },
+      {
+        "sourceMaskValue": 25,
+        "primaryStationLiteral": "13R - Segmental (Right)",
+        "secondaryStationLiteral": "",
+        "tertiaryStationLiteral": "",
+        "positiveVoxels": 417,
+        "sourceMaskVoxelBoundsInclusiveXYZ": [
+          [
+            175,
+            229,
+            108
+          ],
+          [
+            185,
+            239,
+            116
+          ]
+        ],
+        "sourceVoxelCentreInsideXYZ": [
+          180,
+          234,
+          112
+        ],
+        "connected6": 1,
+        "connected26": 1
+      },
+      {
+        "sourceMaskValue": 26,
+        "primaryStationLiteral": "7R - Subcarinal (Right)",
+        "secondaryStationLiteral": "8L - Paraesophageal below carina (Left)",
+        "tertiaryStationLiteral": "",
+        "positiveVoxels": 1221,
+        "sourceMaskVoxelBoundsInclusiveXYZ": [
+          [
+            228,
+            266,
+            94
+          ],
+          [
+            267,
+            280,
+            99
+          ]
+        ],
+        "sourceVoxelCentreInsideXYZ": [
+          247,
+          272,
+          96
+        ],
+        "connected6": 1,
+        "connected26": 1
+      },
+      {
+        "sourceMaskValue": 27,
+        "primaryStationLiteral": "12L - Lobar (Left)",
+        "secondaryStationLiteral": "10L - Hilar (Left)",
+        "tertiaryStationLiteral": "",
+        "positiveVoxels": 2069,
+        "sourceMaskVoxelBoundsInclusiveXYZ": [
+          [
+            298,
+            236,
+            100
+          ],
+          [
+            351,
+            264,
+            108
+          ]
+        ],
+        "sourceVoxelCentreInsideXYZ": [
+          326,
+          248,
+          104
+        ],
+        "connected6": 1,
+        "connected26": 1
+      },
+      {
+        "sourceMaskValue": 28,
+        "primaryStationLiteral": "3p - Retrotracheal",
+        "secondaryStationLiteral": "",
+        "tertiaryStationLiteral": "",
+        "positiveVoxels": 1440,
+        "sourceMaskVoxelBoundsInclusiveXYZ": [
+          [
+            270,
+            205,
+            188
+          ],
+          [
+            292,
+            240,
+            207
+          ]
+        ],
+        "sourceVoxelCentreInsideXYZ": [
+          278,
+          223,
+          196
+        ],
+        "connected6": 1,
+        "connected26": 1
+      },
+      {
+        "sourceMaskValue": 29,
+        "primaryStationLiteral": "3p - Retrotracheal",
+        "secondaryStationLiteral": "",
+        "tertiaryStationLiteral": "",
+        "positiveVoxels": 246,
+        "sourceMaskVoxelBoundsInclusiveXYZ": [
+          [
+            265,
+            238,
+            182
+          ],
+          [
+            274,
+            245,
+            187
+          ]
+        ],
+        "sourceVoxelCentreInsideXYZ": [
+          269,
+          242,
+          185
+        ],
+        "connected6": 1,
+        "connected26": 1
+      },
+      {
+        "sourceMaskValue": 30,
+        "primaryStationLiteral": "2L - Upper paratracheal (Left)",
+        "secondaryStationLiteral": "4L - Lower paratracheal (Left)",
+        "tertiaryStationLiteral": "",
+        "positiveVoxels": 777,
+        "sourceMaskVoxelBoundsInclusiveXYZ": [
+          [
+            273,
+            211,
+            163
+          ],
+          [
+            285,
+            222,
+            172
+          ]
+        ],
+        "sourceVoxelCentreInsideXYZ": [
+          279,
+          216,
+          168
+        ],
+        "connected6": 1,
+        "connected26": 1
+      },
+      {
+        "sourceMaskValue": 31,
+        "primaryStationLiteral": "3p - Retrotracheal",
+        "secondaryStationLiteral": "",
+        "tertiaryStationLiteral": "",
+        "positiveVoxels": 58,
+        "sourceMaskVoxelBoundsInclusiveXYZ": [
+          [
+            241,
+            210,
+            193
+          ],
+          [
+            244,
+            216,
+            196
+          ]
+        ],
+        "sourceVoxelCentreInsideXYZ": [
+          243,
+          213,
+          195
+        ],
+        "connected6": 1,
+        "connected26": 1
+      },
+      {
+        "sourceMaskValue": 32,
+        "primaryStationLiteral": "2R - Upper paratracheal (Right)",
+        "secondaryStationLiteral": "",
+        "tertiaryStationLiteral": "",
+        "positiveVoxels": 59,
+        "sourceMaskVoxelBoundsInclusiveXYZ": [
+          [
+            231,
+            221,
+            174
+          ],
+          [
+            234,
+            227,
+            178
+          ]
+        ],
+        "sourceVoxelCentreInsideXYZ": [
+          233,
+          224,
+          176
+        ],
+        "connected6": 1,
+        "connected26": 1
+      },
+      {
+        "sourceMaskValue": 33,
+        "primaryStationLiteral": "2R - Upper paratracheal (Right)",
+        "secondaryStationLiteral": "",
+        "tertiaryStationLiteral": "",
+        "positiveVoxels": 40,
+        "sourceMaskVoxelBoundsInclusiveXYZ": [
+          [
+            231,
+            210,
+            178
+          ],
+          [
+            234,
+            213,
+            181
+          ]
+        ],
+        "sourceVoxelCentreInsideXYZ": [
+          233,
+          211,
+          180
+        ],
+        "connected6": 1,
+        "connected26": 1
+      },
+      {
+        "sourceMaskValue": 34,
+        "primaryStationLiteral": "2R - Upper paratracheal (Right)",
+        "secondaryStationLiteral": "",
+        "tertiaryStationLiteral": "",
+        "positiveVoxels": 101,
+        "sourceMaskVoxelBoundsInclusiveXYZ": [
+          [
+            225,
+            218,
+            163
+          ],
+          [
+            230,
+            224,
+            167
+          ]
+        ],
+        "sourceVoxelCentreInsideXYZ": [
+          227,
+          220,
+          165
+        ],
+        "connected6": 1,
+        "connected26": 1
+      },
+      {
+        "sourceMaskValue": 35,
+        "primaryStationLiteral": "3p - Retrotracheal",
+        "secondaryStationLiteral": "",
+        "tertiaryStationLiteral": "",
+        "positiveVoxels": 1820,
+        "sourceMaskVoxelBoundsInclusiveXYZ": [
+          [
+            233,
+            232,
+            168
+          ],
+          [
+            250,
+            251,
+            188
+          ]
+        ],
+        "sourceVoxelCentreInsideXYZ": [
+          242,
+          242,
+          177
+        ],
+        "connected6": 1,
+        "connected26": 1
+      },
+      {
+        "sourceMaskValue": 36,
+        "primaryStationLiteral": "2R - Upper paratracheal (Right)",
+        "secondaryStationLiteral": "4R - Lower paratracheal (Right)",
+        "tertiaryStationLiteral": "",
+        "positiveVoxels": 548,
+        "sourceMaskVoxelBoundsInclusiveXYZ": [
+          [
+            222,
+            188,
+            161
+          ],
+          [
+            238,
+            204,
+            168
+          ]
+        ],
+        "sourceVoxelCentreInsideXYZ": [
+          229,
+          195,
+          165
+        ],
+        "connected6": 1,
+        "connected26": 1
+      },
+      {
+        "sourceMaskValue": 37,
+        "primaryStationLiteral": "2R - Upper paratracheal (Right)",
+        "secondaryStationLiteral": "",
+        "tertiaryStationLiteral": "",
+        "positiveVoxels": 96,
+        "sourceMaskVoxelBoundsInclusiveXYZ": [
+          [
+            234,
+            202,
+            166
+          ],
+          [
+            239,
+            207,
+            171
+          ]
+        ],
+        "sourceVoxelCentreInsideXYZ": [
+          237,
+          204,
+          168
+        ],
+        "connected6": 1,
+        "connected26": 1
+      },
+      {
+        "sourceMaskValue": 38,
+        "primaryStationLiteral": "2R - Upper paratracheal (Right)",
+        "secondaryStationLiteral": "",
+        "tertiaryStationLiteral": "",
+        "positiveVoxels": 142,
+        "sourceMaskVoxelBoundsInclusiveXYZ": [
+          [
+            220,
+            180,
+            169
+          ],
+          [
+            226,
+            189,
+            174
+          ]
+        ],
+        "sourceVoxelCentreInsideXYZ": [
+          224,
+          184,
+          172
+        ],
+        "connected6": 1,
+        "connected26": 1
+      },
+      {
+        "sourceMaskValue": 39,
+        "primaryStationLiteral": "3a - Prevascular",
+        "secondaryStationLiteral": "2R - Upper paratracheal (Right)",
+        "tertiaryStationLiteral": "",
+        "positiveVoxels": 39,
+        "sourceMaskVoxelBoundsInclusiveXYZ": [
+          [
+            235,
+            172,
+            174
+          ],
+          [
+            239,
+            175,
+            176
+          ]
+        ],
+        "sourceVoxelCentreInsideXYZ": [
+          237,
+          174,
+          175
+        ],
+        "connected6": 1,
+        "connected26": 1
+      },
+      {
+        "sourceMaskValue": 40,
+        "primaryStationLiteral": "8L - Paraesophageal below carina (Left)",
+        "secondaryStationLiteral": "",
+        "tertiaryStationLiteral": "",
+        "positiveVoxels": 204,
+        "sourceMaskVoxelBoundsInclusiveXYZ": [
+          [
+            286,
+            283,
+            35
+          ],
+          [
+            294,
+            292,
+            40
+          ]
+        ],
+        "sourceVoxelCentreInsideXYZ": [
+          290,
+          287,
+          37
+        ],
+        "connected6": 1,
+        "connected26": 1
+      },
+      {
+        "sourceMaskValue": 41,
+        "primaryStationLiteral": "2R - Upper paratracheal (Right)",
+        "secondaryStationLiteral": "2L - Upper paratracheal (Left)",
+        "tertiaryStationLiteral": "",
+        "positiveVoxels": 690,
+        "sourceMaskVoxelBoundsInclusiveXYZ": [
+          [
+            257,
+            182,
+            171
+          ],
+          [
+            272,
+            195,
+            180
+          ]
+        ],
+        "sourceVoxelCentreInsideXYZ": [
+          264,
+          188,
+          175
+        ],
+        "connected6": 1,
+        "connected26": 1
+      },
+      {
+        "sourceMaskValue": 42,
+        "primaryStationLiteral": "8R - Paraesophageal below carina (Right)",
+        "secondaryStationLiteral": "",
+        "tertiaryStationLiteral": "",
+        "positiveVoxels": 222,
+        "sourceMaskVoxelBoundsInclusiveXYZ": [
+          [
+            239,
+            285,
+            82
+          ],
+          [
+            248,
+            291,
+            90
+          ]
+        ],
+        "sourceVoxelCentreInsideXYZ": [
+          243,
+          288,
+          86
+        ],
+        "connected6": 1,
+        "connected26": 1
+      },
+      {
+        "sourceMaskValue": 43,
+        "primaryStationLiteral": "4L - Lower paratracheal (Left)",
+        "secondaryStationLiteral": "10L - Hilar (Left)",
+        "tertiaryStationLiteral": "",
+        "positiveVoxels": 592,
+        "sourceMaskVoxelBoundsInclusiveXYZ": [
+          [
+            262,
+            230,
+            124
+          ],
+          [
+            282,
+            260,
+            132
+          ]
+        ],
+        "sourceVoxelCentreInsideXYZ": [
+          273,
+          246,
+          128
+        ],
+        "connected6": 1,
+        "connected26": 1
+      },
+      {
+        "sourceMaskValue": 44,
+        "primaryStationLiteral": "4R - Lower paratracheal (Right)",
+        "secondaryStationLiteral": "10R - Hilar (Right)",
+        "tertiaryStationLiteral": "10L - Hilar (Left)",
+        "positiveVoxels": 323,
+        "sourceMaskVoxelBoundsInclusiveXYZ": [
+          [
+            238,
+            231,
+            120
+          ],
+          [
+            250,
+            240,
+            125
+          ]
+        ],
+        "sourceVoxelCentreInsideXYZ": [
+          244,
+          236,
+          123
+        ],
+        "connected6": 1,
+        "connected26": 1
+      }
+    ]
+  },
+  "otherSameGridSourceAnnotations": [
+    {
+      "member": "Benchmark/Pat9/pat9_labels_Azygos.nii.gz",
+      "bytes": 128362,
+      "crc32": "c9b6944e",
+      "sha256": "3c13591155832c3427471bb865b64f0ba1450b0ae544151288a729407a0750aa",
+      "sourceStructureLabel": "Azygos",
+      "annotationVoxels": 18985,
+      "originalNiftiForms": {
+        "sform": {
+          "code": 0,
+          "matrix": null
+        },
+        "qform": {
+          "code": 1,
+          "matrix": [
+            [
+              -0.703000009059906,
+              0.0,
+              0.0,
+              180.0
+            ],
+            [
+              0.0,
+              -0.703000009059906,
+              0.0,
+              162.0
+            ],
+            [
+              0.0,
+              0.0,
+              1.25,
+              -241.5
+            ],
+            [
+              0.0,
+              0.0,
+              0.0,
+              1.0
+            ]
+          ]
+        }
+      }
+    },
+    {
+      "member": "Benchmark/Pat9/pat9_labels_BrachiocephalicVeins.nii.gz",
+      "bytes": 130108,
+      "crc32": "ed21132d",
+      "sha256": "52c9062406de60fef57c240f1bd72c0bb488cd610c89400a07c351a1f46cc7d0",
+      "sourceStructureLabel": "BrachiocephalicVeins",
+      "annotationVoxels": 37540,
+      "originalNiftiForms": {
+        "sform": {
+          "code": 0,
+          "matrix": null
+        },
+        "qform": {
+          "code": 1,
+          "matrix": [
+            [
+              -0.703000009059906,
+              0.0,
+              0.0,
+              180.0
+            ],
+            [
+              0.0,
+              -0.703000009059906,
+              0.0,
+              162.0
+            ],
+            [
+              0.0,
+              0.0,
+              1.25,
+              -241.5
+            ],
+            [
+              0.0,
+              0.0,
+              0.0,
+              1.0
+            ]
+          ]
+        }
+      }
+    },
+    {
+      "member": "Benchmark/Pat9/pat9_labels_Esophagus.nii.gz",
+      "bytes": 299915,
+      "crc32": "f4314f69",
+      "sha256": "1d710ebab3496cd3681bd2b89113bc0984c3142f4a570d557a66c8ea0c9978ea",
+      "sourceStructureLabel": "Esophagus",
+      "annotationVoxels": 78642,
+      "originalNiftiForms": {
+        "sform": {
+          "code": 2,
+          "matrix": [
+            [
+              -0.703000009059906,
+              0.0,
+              0.0,
+              180.0
+            ],
+            [
+              0.0,
+              -0.703000009059906,
+              0.0,
+              162.0
+            ],
+            [
+              0.0,
+              0.0,
+              1.25,
+              -241.5
+            ],
+            [
+              0.0,
+              0.0,
+              0.0,
+              1.0
+            ]
+          ]
+        },
+        "qform": {
+          "code": 0,
+          "matrix": null
+        }
+      }
+    },
+    {
+      "member": "Benchmark/Pat9/pat9_labels_SubCarArt.nii.gz",
+      "bytes": 133745,
+      "crc32": "1f697240",
+      "sha256": "17493d5a6b5ce636dffbb19e6ecb15d1346d226b09cc93f3be96c71e40014da6",
+      "sourceStructureLabel": "SubCarArt",
+      "annotationVoxels": 57293,
+      "originalNiftiForms": {
+        "sform": {
+          "code": 0,
+          "matrix": null
+        },
+        "qform": {
+          "code": 1,
+          "matrix": [
+            [
+              -0.703000009059906,
+              0.0,
+              0.0,
+              180.0
+            ],
+            [
+              0.0,
+              -0.703000009059906,
+              0.0,
+              162.0
+            ],
+            [
+              0.0,
+              0.0,
+              1.25,
+              -241.5
+            ],
+            [
+              0.0,
+              0.0,
+              0.0,
+              1.0
+            ]
+          ]
+        }
+      }
+    }
+  ],
+  "sourceRoleLimits": [
+    "The author CSV applies station terms to individual manually annotated nodal masks. The masks do not delineate whole station regions or establish international boundary definitions.",
+    "Track the literal station tuple keyed by patient and original label value. Secondary and tertiary fields carry source ambiguity.",
+    "Retain source conflicts verbatim. Mask 19 code 11L is paired with a Right descriptor. Mask 21 is indefinite. Source labels 7L/7R and the exact 11Rs wording require explicit source context before using the names normatively.",
+    "Original author NIfTI sampling is preserved. The source bundle does not supply DICOM objects or establish all patient anatomy, station boundaries or pathology."
+  ]
+}

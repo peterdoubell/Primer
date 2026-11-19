@@ -18,4 +18,7 @@ PIN = "abe3343bff1d0e4a1306d07b239838f6c9c59b416d7ff1fbb76fbe6eced92a4e"
 def before_learning_games_bytes(path, raw):
     if str(path) != "primer/server.py":
         return raw
+    # The later LyNoS binding restores these exact router-era bytes first.
+    from tools.lynos_pat9_runtime_compatibility import before_lynos_pat9_bytes
+    raw = before_lynos_pat9_bytes(path, raw)
     return _restore(path, raw, PROOF, PIN)

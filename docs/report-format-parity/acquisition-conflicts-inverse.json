@@ -1,0 +1,50 @@
+{
+  "primer/descriptor_reporting.py": {
+    "before": "f5d7dd398f4b86ea1b01c642c1b5fad305677483bb0e2351e5ac53adf2660556",
+    "after": "ea6cdfd48eee770a1da73760c2d7362a635329435bd5b028f250024e823c4b00",
+    "changes": [
+      {
+        "start": 153,
+        "end": 165,
+        "before": "",
+        "after": "    protocol = investigation.get('report_protocol') or {}\n    verbatim_confirmed = bool(fields.get('protocol_options')) or any(\n        option in fields.get('protocol', '') for option in protocol.get('options', []))\n    if protocol.get('confirmed_only') and verbatim_confirmed:\n        for scope in protocol.get('incompatible_scopes', []):\n            if section_scope_active({'requires_scope': scope}, selections):\n                section = next(row for row in investigation['sections'] if row['id'] == scope['section_id'])\n                value = selections[scope['section_id']]['findings'][scope['finding_id']][scope['slot_id']]\n                problem('conflicting_report_protocol', section_id=scope['section_id'],\n                        finding_id=scope['finding_id'], slot_id=scope['slot_id'],\n                        label='Confirmed acquisition conflicts with ' + section['label'] + ' (' + value +\n                              '). Clear that selection or unconfirm the acquisition.')\n"
+      }
+    ]
+  },
+  "primer/report_templates.py": {
+    "before": "72ebfeb4125da64bd24e31225e029879417f31085f73aa09f55eadaeb42a73eb",
+    "after": "3b7d30dd1fa9a7a5237b92285898f8ef20135a747a5792aef8aeba53a0207521",
+    "changes": [
+      {
+        "start": 43,
+        "end": 72,
+        "before": "",
+        "after": "}\n# These four authored fields explicitly declare an incompatible performed\n# modality or an unenhanced acquisition. Scope coordinates reuse the descriptor\n# representation used by requires_scope.\nCONFIRMED_ACQUISITION_CONFLICTS = {\n    'ra.craniosynostosis': {\n        'section_id': 'anatomy-examination',\n        'finding_id': 'ra.craniosynostosis:examination:method',\n        'slot_id': 'slot-1',\n        'values': ['cranial suture ultrasound'],\n    },\n    'ra.venous-sinus-thrombosis': {\n        'section_id': 'anatomy-examination',\n        'finding_id': 'ra.venous-sinus-thrombosis:examination:method',\n        'slot_id': 'slot-1',\n        'values': ['contrast-enhanced MR venography', 'non-contrast MR venography'],\n    },\n    'ra.cardiac-masses': {\n        'section_id': 'anatomy-contrast',\n        'finding_id': 'ra.cardiac-masses:contrast:assessment',\n        'slot_id': 'slot-1',\n        'values': ['unenhanced'],\n    },\n    'ra.thymus': {\n        'section_id': 'anatomy-contrast',\n        'finding_id': 'ra.thymus:contrast:assessment',\n        'slot_id': 'slot-1',\n        'values': ['unenhanced'],\n    },\n"
+      },
+      {
+        "start": 334,
+        "end": 342,
+        "before": "",
+        "after": "            if identifier in CONFIRMED_ACQUISITION_CONFLICTS:\n                scope = CONFIRMED_ACQUISITION_CONFLICTS[identifier]\n                section = next(row for row in investigation['sections'] if row['id'] == scope['section_id'])\n                finding = next(row for row in section['findings'] if row['id'] == scope['finding_id'])\n                slot = next(row for row in finding['slots'] if row['id'] == scope['slot_id'])\n                if not set(scope['values']) <= {option['value'] for option in slot['options']}:\n                    raise ValueError('Confirmed acquisition scope changed: ' + identifier)\n                investigation['report_protocol']['incompatible_scopes'] = [scope]\n"
+      }
+    ]
+  },
+  "web/radiology-structured.js": {
+    "before": "b3dde13d3ef7e9d192b50a0caa648a0938e9901ae99195c88f75181fbcc0ca77",
+    "after": "fcd275bf064be529f1476ca41af9aab6e6397259e1dc64ea95c17328782cacd6",
+    "changes": [
+      {
+        "start": 315,
+        "end": 328,
+        "before": "    const text = structured ? formatStudyReport(investigation, fields, sections)\n",
+        "after": "    const protocol = investigation.report_protocol;\n    const verbatimConfirmed = fields.protocol_options?.length || protocol?.options.some(option => fields.protocol?.includes(option));\n    const conflicts = protocol?.confirmed_only && verbatimConfirmed\n      ? (protocol.incompatible_scopes || []).filter(scope => sectionScopeActive({requires_scope: scope}, state.selections || {}))\n      : [];\n    for (const scope of conflicts) {\n      const section = investigation.sections.find(row => row.id === scope.section_id);\n      const value = state.selections[scope.section_id].findings[scope.finding_id][scope.slot_id];\n      missing.push({code: 'conflicting_report_protocol', section_id: scope.section_id, finding_id: scope.finding_id,\n        slot_id: scope.slot_id, label: 'Confirmed acquisition conflicts with ' + section.label + ' (' + value +\n          '). Clear that selection or unconfirm the acquisition.'});\n    }\n    const text = conflicts.length ? '' : structured ? formatStudyReport(investigation, fields, sections)\n"
+      },
+      {
+        "start": 819,
+        "end": 823,
+        "before": "      preview.textContent = result.text || 'Select findings to build the report.';\n",
+        "after": "      const acquisitionConflict = result.missing.some(item => item.code === 'conflicting_report_protocol');\n      preview.textContent = result.text || (acquisitionConflict\n        ? 'Resolve the acquisition conflict to preview and copy this report. Your other findings are retained.'\n        : 'Select findings to build the report.');\n"
+      }
+    ]
+  }
+}

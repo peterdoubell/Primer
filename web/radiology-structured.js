@@ -313,7 +313,19 @@ window.PrimerStructuredReporting = (() => {
       missing.push({label: 'Review report fields and protocol choices'});
       return {text: '', sections, missing, complete: false, selected_count: selectedCount};
     }
-    const text = structured ? formatStudyReport(investigation, fields, sections)
+    const protocol = investigation.report_protocol;
+    const verbatimConfirmed = fields.protocol_options?.length || protocol?.options.some(option => fields.protocol?.includes(option));
+    const conflicts = protocol?.confirmed_only && verbatimConfirmed
+      ? (protocol.incompatible_scopes || []).filter(scope => sectionScopeActive({requires_scope: scope}, state.selections || {}))
+      : [];
+    for (const scope of conflicts) {
+      const section = investigation.sections.find(row => row.id === scope.section_id);
+      const value = state.selections[scope.section_id].findings[scope.finding_id][scope.slot_id];
+      missing.push({code: 'conflicting_report_protocol', section_id: scope.section_id, finding_id: scope.finding_id,
+        slot_id: scope.slot_id, label: 'Confirmed acquisition conflicts with ' + section.label + ' (' + value +
+          '). Clear that selection or unconfirm the acquisition.'});
+    }
+    const text = conflicts.length ? '' : structured ? formatStudyReport(investigation, fields, sections)
       : sections.map(section => section.label + (compact ? ':\n' : '\n') + section.text).join('\n\n');
     return {text, sections, missing, complete: (structured ? Boolean(text) : selectedCount > 0) && missing.length === 0, selected_count: selectedCount};
   }
@@ -529,7 +541,8 @@ window.PrimerStructuredReporting = (() => {
     const selected = section => state.selections[section.id] || {normal: false, not_assessed: false, findings: {}};
     const displayGroup = name => {
       const exam = investigation();
-      return exam?.report_format === 3 && !exam.report_protocol && /^(technique|protocol)$/i.test(name)
+      const genericAcquisition = !exam?.report_protocol || exam.report_protocol.confirmed_only;
+      return exam?.report_format === 3 && genericAcquisition && /^(technique|protocol)$/i.test(name)
         ? 'Examination details' : name;
     };
     const compartmentOf = section => displayGroup(section.compartment || section.group || section.label);
@@ -804,7 +817,10 @@ window.PrimerStructuredReporting = (() => {
       const blocked = blockedNormals(exam, state.selections);
       normal.disabled = !(exam?.sections || []).some(section => canFillNormal(section, blocked));
       const result = reportResult();
-      preview.textContent = result.text || 'Select findings to build the report.';
+      const acquisitionConflict = result.missing.some(item => item.code === 'conflicting_report_protocol');
+      preview.textContent = result.text || (acquisitionConflict
+        ? 'Resolve the acquisition conflict to preview and copy this report. Your other findings are retained.'
+        : 'Select findings to build the report.');
       if (result.text) renderReportPreview(preview, result.text, exam?.title);
       copy.disabled = copying || !result.complete;
       const remaining = (investigation()?.sections || []).filter(section => { if(!sectionScopeActive(section,state.selections))return false; const value = selected(section); return !value.normal && !value.not_assessed && !Object.keys(value.findings || {}).length && !(value.instances || []).some?.(entry => entry?.not_assessed || Object.keys(entry?.findings || {}).length); }).length;

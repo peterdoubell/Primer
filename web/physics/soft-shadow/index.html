@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Make a shadow soft · Primer</title>
+  <link rel="stylesheet" href="style.css">
+  <script type="module" src="lab.js"></script>
+</head>
+<body>
+<main>
+  <a class="back" href="/app/#/node/phys.0.light-shadow">Return to Light and Shadow</a>
+  <header>
+    <h1>Make a<br class="title-line"> shadow soft</h1>
+    <p>A tiny lamp makes a sharp edge. Widen the lamp and move the blocker. Slide the dot across the screen to see how much of the lamp can still shine there.</p>
+  </header>
+
+  <div class="bench">
+    <fieldset>
+      <legend>Set up the shadow</legend>
+      <div class="range-label"><label for="lamp">Lamp width</label><output id="lamp-value" for="lamp"></output></div>
+      <input type="range" id="lamp" min="0" max="28" step="1" value="18">
+      <div class="range-label"><label for="blocker">Blocker distance from the lamp</label><output id="blocker-value" for="blocker"></output></div>
+      <input type="range" id="blocker" min="30" max="80" step="1" value="50">
+      <div class="preset-buttons">
+        <button type="button" id="tiny">Try a point lamp</button>
+        <button type="button" id="wide">Try a wide lamp</button>
+      </div>
+      <div class="range-label"><label for="probe">Dot on the screen</label><output id="probe-value" for="probe"></output></div>
+      <input type="range" id="probe" min="-56" max="56" step="1" value="12">
+      <p id="result" role="status"></p>
+    </fieldset>
+
+    <section class="plate" aria-labelledby="side-heading">
+      <h2 id="side-heading">Watch light travel</h2>
+      <canvas id="side" width="1000" height="590" role="img"></canvas>
+      <p>The bright rays reach the gold dot. The dashed rays stop at the blocker.</p>
+    </section>
+  </div>
+
+  <div class="comparisons">
+    <section class="plate" aria-labelledby="screen-heading">
+      <h2 id="screen-heading">Look at the screen</h2>
+      <canvas id="screen" width="760" height="590" role="img"></canvas>
+      <p id="screen-description"></p>
+    </section>
+    <section class="plate" aria-labelledby="lamp-heading">
+      <h2 id="lamp-heading">Look back from the dot</h2>
+      <canvas id="view" width="760" height="590" role="img"></canvas>
+      <p id="view-description"></p>
+    </section>
+  </div>
+
+  <details>
+    <summary>How the picture is calculated</summary>
+    <p>The round, opaque blocker is 12 cm wide. The screen sits 100 cm from the lamp. At the screen point <var>x</var>, project the blocker back onto the lamp with straight lines. If the blocker is at fraction <var>f</var> of the lamp-to-screen distance, the projected blocker has radius <var>R</var>/(1 − <var>f</var>) and is centred at −<var>fx</var>/(1 − <var>f</var>), where <var>R</var> is the blocker radius.</p>
+    <p>The screen diagram shades each point by the fraction of the round lamp left visible. The model treats light as straight rays and represents source area. It omits diffraction, scattered light and the variation of light intensity with distance and angle.</p>
+    <p>The fully blocked region is called the umbra. The partially blocked region is the penumbra. The same hiding geometry is visible during a <a href="https://science.nasa.gov/eclipses/geometry/">solar eclipse</a>, when the Moon covers some or all of the Sun.</p>
+  </details>
+</main>
+</body>
+</html>
