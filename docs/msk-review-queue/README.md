@@ -7,28 +7,28 @@ Changes must be made in the authoritative evidence ledger with actual reviewer i
 
 | Investigation | Verified | Unverified | Missing |
 |---|---:|---:|---:|
-| [Ankle fracture radiography](ra.ankle-fractures.md) | 0 | 0 | 330 |
-| [MRI ankle](ra.mri-ankle.md) | 0 | 19 | 497 |
+| [Ankle fracture radiography](ra.ankle-fractures.md) | 0 | 7 | 323 |
+| [MRI ankle](ra.mri-ankle.md) | 0 | 53 | 463 |
 | [Arthritis imaging](ra.arthritis.md) | 0 | 1 | 80 |
 | [Bone tumour imaging](ra.bone-tumours.md) | 0 | 0 | 96 |
 | [Cartilage tumour imaging](ra.cartilage-tumours.md) | 0 | 0 | 117 |
-| [Foot and ankle cases](ra.foot-ankle-cases.md) | 0 | 0 | 360 |
-| [MRI diabetic foot](ra.mri-diabetic-foot.md) | 0 | 17 | 724 |
-| [MRI elbow](ra.mri-elbow.md) | 0 | 11 | 274 |
+| [Foot and ankle cases](ra.foot-ankle-cases.md) | 0 | 7 | 353 |
+| [MRI diabetic foot](ra.mri-diabetic-foot.md) | 0 | 40 | 701 |
+| [MRI elbow](ra.mri-elbow.md) | 0 | 22 | 263 |
 | [Paediatric elbow radiography](ra.paediatric-elbow-fractures.md) | 0 | 0 | 147 |
 | [Hip arthroplasty radiography](ra.hip-arthroplasty.md) | 0 | 0 | 135 |
-| [Hip imaging — femoroacetabular impingement](ra.hip-fai.md) | 0 | 6 | 171 |
-| [MRI knee](ra.mri-knee.md) | 0 | 25 | 425 |
+| [Hip imaging — femoroacetabular impingement](ra.hip-fai.md) | 0 | 13 | 164 |
+| [MRI knee](ra.mri-knee.md) | 0 | 44 | 406 |
 | [MRI muscle injury](ra.mri-muscle-injury.md) | 0 | 0 | 69 |
 | [MRI non-traumatic muscle disease](ra.mri-muscle-disease.md) | 0 | 0 | 60 |
 | [MRI hamstring injury](ra.mri-hamstring.md) | 0 | 10 | 152 |
-| [MRI shoulder](ra.mri-shoulder.md) | 0 | 20 | 322 |
-| [Ultrasound shoulder](ra.ultrasound-shoulder.md) | 0 | 6 | 141 |
+| [MRI shoulder](ra.mri-shoulder.md) | 0 | 34 | 308 |
+| [Ultrasound shoulder](ra.ultrasound-shoulder.md) | 0 | 15 | 132 |
 | [CT and MRI thoracolumbar fractures](ra.thoracolumbar-fractures.md) | 0 | 6 | 168 |
 | [Stress fracture imaging](ra.stress-fractures.md) | 0 | 0 | 117 |
-| [Ultrasound-guided joint injections](ra.ultrasound-joint-injection.md) | 0 | 4 | 221 |
-| [Wrist radiography — carpal instability](ra.wrist-instability.md) | 0 | 24 | 267 |
-| [Wrist fracture imaging](ra.wrist-fractures.md) | 0 | 24 | 246 |
+| [Ultrasound-guided joint injections](ra.ultrasound-joint-injection.md) | 0 | 14 | 211 |
+| [Wrist radiography — carpal instability](ra.wrist-instability.md) | 0 | 30 | 261 |
+| [Wrist fracture imaging](ra.wrist-fractures.md) | 0 | 30 | 240 |
 
 ## Cross-module and specification blockers
 

@@ -5476,8 +5476,9 @@
       "regions": [
         "wrist"
       ],
-      "investigation_ids": [],
-      "structure_ids": [],
+      "investigation_ids": ["ra.ultrasound-joint-injection"],
+      "structure_ids": ["injection.radiocarpal_target.scaphoid"],
+      "requirement_coverage": {"injection.radiocarpal_target.scaphoid": {"extent": "partial", "basis": "The source label of this model names this part: “Scaphoid bone”. The requirement is for the examined side; the model is a right-side reference, a mirror image for the other side. One source-labelled model; the full extent and boundaries of the named anatomy are not established."}},
       "fidelity": "not_assessed",
       "representation": "source_surface_mesh",
       "geometry": {
@@ -6096,8 +6097,9 @@
       "regions": [
         "knee"
       ],
-      "investigation_ids": [],
-      "structure_ids": [],
+      "investigation_ids": ["ra.ultrasound-joint-injection"],
+      "structure_ids": ["injection.knee_intra_articular_target.patella"],
+      "requirement_coverage": {"injection.knee_intra_articular_target.patella": {"extent": "partial", "basis": "The source label of this model names this part: “Patella”. The requirement is for the examined side; the model is a right-side reference, a mirror image for the other side. One source-labelled model; the full extent and boundaries of the named anatomy are not established."}},
       "fidelity": "not_assessed",
       "representation": "source_surface_mesh",
       "geometry": {
@@ -6140,8 +6142,9 @@
       "regions": [
         "knee"
       ],
-      "investigation_ids": [],
-      "structure_ids": [],
+      "investigation_ids": ["ra.mri-knee"],
+      "structure_ids": ["knee.patellar_cartilage.articular_surface"],
+      "requirement_coverage": {"knee.patellar_cartilage.articular_surface": {"extent": "partial", "basis": "The source label of this model names the structure: “Patella · cartilage surface”. This part is the structure’s own body or surface, which the whole model shows; the model does not delineate the other parts. The requirement is for the examined side; the model is a right-side reference, a mirror image for the other side. One source-labelled model; the full extent and boundaries of the named anatomy are not established."}},
       "fidelity": "not_assessed",
       "representation": "source_material_surface",
       "geometry": {
@@ -6590,10 +6593,9 @@
       "regions": [
         "ankle"
       ],
-      "investigation_ids": [
-        "ra.mri-diabetic-foot"
-      ],
-      "structure_ids": [],
+      "investigation_ids": ["ra.mri-diabetic-foot", "ra.ultrasound-joint-injection"],
+      "structure_ids": ["injection.sinus_tarsi_target.talus"],
+      "requirement_coverage": {"injection.sinus_tarsi_target.talus": {"extent": "partial", "basis": "The source label of this model names this part: “Talus”. The requirement is for the examined side; the model is a right-side reference, a mirror image for the other side. One source-labelled model; the full extent and boundaries of the named anatomy are not established."}},
       "fidelity": "not_assessed",
       "representation": "source_surface_mesh",
       "geometry": {
@@ -6645,7 +6647,8 @@
       "investigation_ids": [
         "ra.mri-diabetic-foot"
       ],
-      "structure_ids": [],
+      "structure_ids": ["foot.talus.articular_surfaces"],
+      "requirement_coverage": {"foot.talus.articular_surfaces": {"extent": "partial", "basis": "The source label of this model names “cartilage surface”, another name for this requirement’s “articular surfaces”: “Talus · cartilage surface”. The requirement is for the examined side; the model is a right-side reference, a mirror image for the other side. One source-labelled model; the full extent and boundaries of the named anatomy are not established."}},
       "fidelity": "not_assessed",
       "representation": "source_material_surface",
       "geometry": {
@@ -6694,10 +6697,9 @@
       "regions": [
         "ankle"
       ],
-      "investigation_ids": [
-        "ra.mri-diabetic-foot"
-      ],
-      "structure_ids": [],
+      "investigation_ids": ["ra.mri-diabetic-foot", "ra.ultrasound-joint-injection"],
+      "structure_ids": ["injection.sinus_tarsi_target.calcaneus"],
+      "requirement_coverage": {"injection.sinus_tarsi_target.calcaneus": {"extent": "partial", "basis": "The source label of this model names this part: “Calcaneus”. The requirement is for the examined side; the model is a right-side reference, a mirror image for the other side. One source-labelled model; the full extent and boundaries of the named anatomy are not established."}},
       "fidelity": "not_assessed",
       "representation": "source_surface_mesh",
       "geometry": {
@@ -6749,7 +6751,8 @@
       "investigation_ids": [
         "ra.mri-diabetic-foot"
       ],
-      "structure_ids": [],
+      "structure_ids": ["foot.calcaneus.articular_surfaces"],
+      "requirement_coverage": {"foot.calcaneus.articular_surfaces": {"extent": "partial", "basis": "The source label of this model names “cartilage surface”, another name for this requirement’s “articular surfaces”: “Calcaneus · cartilage surface”. The requirement is for the examined side; the model is a right-side reference, a mirror image for the other side. One source-labelled model; the full extent and boundaries of the named anatomy are not established."}},
       "fidelity": "not_assessed",
       "representation": "source_material_surface",
       "geometry": {
@@ -6853,7 +6856,8 @@
       "investigation_ids": [
         "ra.mri-diabetic-foot"
       ],
-      "structure_ids": [],
+      "structure_ids": ["foot.navicular.articular_surfaces"],
+      "requirement_coverage": {"foot.navicular.articular_surfaces": {"extent": "partial", "basis": "The source label of this model names “cartilage surface”, another name for this requirement’s “articular surfaces”: “Navicular bone · cartilage surface”. The requirement is for the examined side; the model is a right-side reference, a mirror image for the other side. One source-labelled model; the full extent and boundaries of the named anatomy are not established."}},
       "fidelity": "not_assessed",
       "representation": "source_material_surface",
       "geometry": {
@@ -6954,10 +6958,9 @@
       "regions": [
         "ankle"
       ],
-      "investigation_ids": [
-        "ra.mri-diabetic-foot"
-      ],
-      "structure_ids": [],
+      "investigation_ids": ["ra.mri-diabetic-foot", "ra.mri-ankle"],
+      "structure_ids": ["foot.cuboid.articular_surfaces"],
+      "requirement_coverage": {"foot.cuboid.articular_surfaces": {"extent": "partial", "basis": "The source label of this model names “cartilage surface”, another name for this requirement’s “articular surfaces”: “Cuboid bone · cartilage surface”. The requirement is for the examined side; the model is a right-side reference, a mirror image for the other side. One source-labelled model; the full extent and boundaries of the named anatomy are not established."}},
       "fidelity": "not_assessed",
       "representation": "source_material_surface",
       "geometry": {
@@ -7058,10 +7061,9 @@
       "regions": [
         "ankle"
       ],
-      "investigation_ids": [
-        "ra.mri-diabetic-foot"
-      ],
-      "structure_ids": [],
+      "investigation_ids": ["ra.mri-diabetic-foot", "ra.ankle-fractures", "ra.foot-ankle-cases", "ra.mri-ankle"],
+      "structure_ids": ["foot.intermediate_cuneiform.articular_surfaces"],
+      "requirement_coverage": {"foot.intermediate_cuneiform.articular_surfaces": {"extent": "partial", "basis": "The source label of this model names “cartilage surface”, another name for this requirement’s “articular surfaces”: “Intermediate cuneiform bone · cartilage surface”. The requirement is for the examined side; the model is a right-side reference, a mirror image for the other side. One source-labelled model; the full extent and boundaries of the named anatomy are not established."}},
       "fidelity": "not_assessed",
       "representation": "source_material_surface",
       "geometry": {
@@ -7162,10 +7164,9 @@
       "regions": [
         "ankle"
       ],
-      "investigation_ids": [
-        "ra.mri-diabetic-foot"
-      ],
-      "structure_ids": [],
+      "investigation_ids": ["ra.mri-diabetic-foot", "ra.ankle-fractures", "ra.foot-ankle-cases", "ra.mri-ankle"],
+      "structure_ids": ["foot.lateral_cuneiform.articular_surfaces"],
+      "requirement_coverage": {"foot.lateral_cuneiform.articular_surfaces": {"extent": "partial", "basis": "The source label of this model names “cartilage surface”, another name for this requirement’s “articular surfaces”: “Lateral cuneiform bone · cartilage surface”. The requirement is for the examined side; the model is a right-side reference, a mirror image for the other side. One source-labelled model; the full extent and boundaries of the named anatomy are not established."}},
       "fidelity": "not_assessed",
       "representation": "source_material_surface",
       "geometry": {
@@ -7266,10 +7267,9 @@
       "regions": [
         "ankle"
       ],
-      "investigation_ids": [
-        "ra.mri-diabetic-foot"
-      ],
-      "structure_ids": [],
+      "investigation_ids": ["ra.mri-diabetic-foot", "ra.ankle-fractures", "ra.foot-ankle-cases", "ra.mri-ankle"],
+      "structure_ids": ["foot.medial_cuneiform.articular_surfaces"],
+      "requirement_coverage": {"foot.medial_cuneiform.articular_surfaces": {"extent": "partial", "basis": "The source label of this model names “cartilage surface”, another name for this requirement’s “articular surfaces”: “Medial cuneiform bone · cartilage surface”. The requirement is for the examined side; the model is a right-side reference, a mirror image for the other side. One source-labelled model; the full extent and boundaries of the named anatomy are not established."}},
       "fidelity": "not_assessed",
       "representation": "source_material_surface",
       "geometry": {
@@ -9294,8 +9294,9 @@
       "regions": [
         "shoulder"
       ],
-      "investigation_ids": [],
-      "structure_ids": [],
+      "investigation_ids": ["ra.mri-shoulder"],
+      "structure_ids": ["shoulder.coracoacromial_ligament.course"],
+      "requirement_coverage": {"shoulder.coracoacromial_ligament.course": {"extent": "partial", "basis": "The source label of this model names the structure: “Coraco-acromial ligament”. This part is the structure’s own body or surface, which the whole model shows; the model does not delineate the other parts. The requirement is for the examined side; the model is a right-side reference, a mirror image for the other side. One source-labelled model; the full extent and boundaries of the named anatomy are not established."}},
       "fidelity": "coarse_source_geometry",
       "representation": "source_surface_mesh",
       "geometry": {
@@ -9690,8 +9691,9 @@
       "regions": [
         "shoulder"
       ],
-      "investigation_ids": [],
-      "structure_ids": [],
+      "investigation_ids": ["ra.mri-shoulder"],
+      "structure_ids": ["shoulder.acromioclavicular_joint.joint_capsule"],
+      "requirement_coverage": {"shoulder.acromioclavicular_joint.joint_capsule": {"extent": "partial", "basis": "The source label of this model names this part: “Articular capsule of acromioclavicular joint”. The requirement is for the examined side; the model is a right-side reference, a mirror image for the other side. One source-labelled model; the full extent and boundaries of the named anatomy are not established."}},
       "fidelity": "not_assessed",
       "representation": "source_surface_mesh",
       "geometry": {
@@ -9954,8 +9956,9 @@
       "regions": [
         "elbow"
       ],
-      "investigation_ids": [],
-      "structure_ids": [],
+      "investigation_ids": ["ra.mri-elbow"],
+      "structure_ids": ["elbow.radial_collateral_ligament.complete_course"],
+      "requirement_coverage": {"elbow.radial_collateral_ligament.complete_course": {"extent": "partial", "basis": "The source label of this model names the structure: “Radial collateral ligament”. This part is the structure’s own body or surface, which the whole model shows; the model does not delineate the other parts. The requirement is for the examined side; the model is a right-side reference, a mirror image for the other side. One source-labelled model; the full extent and boundaries of the named anatomy are not established."}},
       "fidelity": "not_assessed",
       "representation": "source_surface_mesh",
       "geometry": {
@@ -10042,8 +10045,9 @@
       "regions": [
         "elbow"
       ],
-      "investigation_ids": [],
-      "structure_ids": [],
+      "investigation_ids": ["ra.mri-elbow"],
+      "structure_ids": ["elbow.annular_ligament.complete_course"],
+      "requirement_coverage": {"elbow.annular_ligament.complete_course": {"extent": "partial", "basis": "The source label of this model names the structure: “Annular ligament of radius”. This part is the structure’s own body or surface, which the whole model shows; the model does not delineate the other parts. The requirement is for the examined side; the model is a right-side reference, a mirror image for the other side. One source-labelled model; the full extent and boundaries of the named anatomy are not established."}},
       "fidelity": "not_assessed",
       "representation": "source_surface_mesh",
       "geometry": {
@@ -10130,8 +10134,9 @@
       "regions": [
         "shoulder"
       ],
-      "investigation_ids": [],
-      "structure_ids": [],
+      "investigation_ids": ["ra.mri-shoulder", "ra.ultrasound-shoulder"],
+      "structure_ids": ["shoulder.superior_glenohumeral_ligament.course", "shoulder.superior_glenohumeral_ligament"],
+      "requirement_coverage": {"shoulder.superior_glenohumeral_ligament.course": {"extent": "partial", "basis": "The source label of this model names the structure: “Superior glenohumeral ligament”. This part is the structure’s own body or surface, which the whole model shows; the model does not delineate the other parts. The requirement is for the examined side; the model is a right-side reference, a mirror image for the other side. One source-labelled model; the full extent and boundaries of the named anatomy are not established."}, "shoulder.superior_glenohumeral_ligament": {"extent": "partial", "basis": "The source label of this model names the structure: “Superior glenohumeral ligament”. The requirement is for the examined side; the model is a right-side reference, a mirror image for the other side. One source-labelled model; the full extent and boundaries of the named anatomy are not established."}},
       "fidelity": "not_assessed",
       "representation": "source_surface_mesh",
       "geometry": {
@@ -10174,8 +10179,9 @@
       "regions": [
         "shoulder"
       ],
-      "investigation_ids": [],
-      "structure_ids": [],
+      "investigation_ids": ["ra.mri-shoulder"],
+      "structure_ids": ["shoulder.middle_glenohumeral_ligament.capsular_course"],
+      "requirement_coverage": {"shoulder.middle_glenohumeral_ligament.capsular_course": {"extent": "partial", "basis": "The source label of this model names the structure: “Middle glenohumeral ligament”. This part is the structure’s own body or surface, which the whole model shows; the model does not delineate the other parts. The requirement is for the examined side; the model is a right-side reference, a mirror image for the other side. One source-labelled model; the full extent and boundaries of the named anatomy are not established."}},
       "fidelity": "not_assessed",
       "representation": "source_surface_mesh",
       "geometry": {
@@ -10350,8 +10356,9 @@
       "regions": [
         "shoulder"
       ],
-      "investigation_ids": [],
-      "structure_ids": [],
+      "investigation_ids": ["ra.mri-shoulder", "ra.ultrasound-shoulder"],
+      "structure_ids": ["shoulder.coracohumeral_ligament.course", "shoulder.coracohumeral_ligament"],
+      "requirement_coverage": {"shoulder.coracohumeral_ligament.course": {"extent": "partial", "basis": "The source label of this model names the structure: “Coracohumeral ligament”. This part is the structure’s own body or surface, which the whole model shows; the model does not delineate the other parts. The requirement is for the examined side; the model is a right-side reference, a mirror image for the other side. One source-labelled model; the full extent and boundaries of the named anatomy are not established."}, "shoulder.coracohumeral_ligament": {"extent": "partial", "basis": "The source label of this model names the structure: “Coracohumeral ligament”. The requirement is for the examined side; the model is a right-side reference, a mirror image for the other side. One source-labelled model; the full extent and boundaries of the named anatomy are not established."}},
       "fidelity": "not_assessed",
       "representation": "source_surface_mesh",
       "geometry": {
@@ -10438,8 +10445,9 @@
       "regions": [
         "wrist"
       ],
-      "investigation_ids": [],
-      "structure_ids": [],
+      "investigation_ids": ["ra.wrist-fractures", "ra.wrist-instability"],
+      "structure_ids": ["wrist.triangular_fibrocartilage_complex.articular_disc"],
+      "requirement_coverage": {"wrist.triangular_fibrocartilage_complex.articular_disc": {"extent": "partial", "basis": "The source label of this model names this part: “Articular disc of distal radio-ulnar joint”. The requirement is for the examined side; the model is a right-side reference, a mirror image for the other side. One source-labelled model; the full extent and boundaries of the named anatomy are not established."}},
       "fidelity": "coarse_source_geometry",
       "representation": "source_surface_mesh",
       "geometry": {
@@ -10482,8 +10490,9 @@
       "regions": [
         "wrist"
       ],
-      "investigation_ids": [],
-      "structure_ids": [],
+      "investigation_ids": ["ra.wrist-fractures", "ra.wrist-instability"],
+      "structure_ids": ["wrist.triangular_fibrocartilage_complex.volar_radioulnar_ligament"],
+      "requirement_coverage": {"wrist.triangular_fibrocartilage_complex.volar_radioulnar_ligament": {"extent": "partial", "basis": "The source label of this model names this part: “Palmar radio-ulnar ligament”. The requirement is for the examined side; the model is a right-side reference, a mirror image for the other side. One source-labelled model; the full extent and boundaries of the named anatomy are not established."}},
       "fidelity": "not_assessed",
       "representation": "source_surface_mesh",
       "geometry": {
@@ -10526,8 +10535,9 @@
       "regions": [
         "wrist"
       ],
-      "investigation_ids": [],
-      "structure_ids": [],
+      "investigation_ids": ["ra.wrist-fractures", "ra.wrist-instability"],
+      "structure_ids": ["wrist.triangular_fibrocartilage_complex.dorsal_radioulnar_ligament"],
+      "requirement_coverage": {"wrist.triangular_fibrocartilage_complex.dorsal_radioulnar_ligament": {"extent": "partial", "basis": "The source label of this model names this part: “Dorsal radio-ulnar ligament”. The requirement is for the examined side; the model is a right-side reference, a mirror image for the other side. One source-labelled model; the full extent and boundaries of the named anatomy are not established."}},
       "fidelity": "coarse_source_geometry",
       "representation": "source_surface_mesh",
       "geometry": {
@@ -10702,8 +10712,9 @@
       "regions": [
         "wrist"
       ],
-      "investigation_ids": [],
-      "structure_ids": [],
+      "investigation_ids": ["ra.wrist-fractures", "ra.wrist-instability"],
+      "structure_ids": ["wrist.triangular_fibrocartilage_complex.ulnocapitate_ligament"],
+      "requirement_coverage": {"wrist.triangular_fibrocartilage_complex.ulnocapitate_ligament": {"extent": "partial", "basis": "The source label of this model names this part: “Ulnocapitate ligament”. The requirement is for the examined side; the model is a right-side reference, a mirror image for the other side. One source-labelled model; the full extent and boundaries of the named anatomy are not established."}},
       "fidelity": "not_assessed",
       "representation": "source_surface_mesh",
       "geometry": {
@@ -10746,8 +10757,9 @@
       "regions": [
         "wrist"
       ],
-      "investigation_ids": [],
-      "structure_ids": [],
+      "investigation_ids": ["ra.wrist-fractures", "ra.wrist-instability"],
+      "structure_ids": ["wrist.triangular_fibrocartilage_complex.ulnotriquetral_ligament"],
+      "requirement_coverage": {"wrist.triangular_fibrocartilage_complex.ulnotriquetral_ligament": {"extent": "partial", "basis": "The source label of this model names this part: “Ulnotriquetral ligament”. The requirement is for the examined side; the model is a right-side reference, a mirror image for the other side. One source-labelled model; the full extent and boundaries of the named anatomy are not established."}},
       "fidelity": "coarse_source_geometry",
       "representation": "source_surface_mesh",
       "geometry": {
@@ -10790,8 +10802,9 @@
       "regions": [
         "wrist"
       ],
-      "investigation_ids": [],
-      "structure_ids": [],
+      "investigation_ids": ["ra.wrist-fractures", "ra.wrist-instability"],
+      "structure_ids": ["wrist.triangular_fibrocartilage_complex.ulnolunate_ligament"],
+      "requirement_coverage": {"wrist.triangular_fibrocartilage_complex.ulnolunate_ligament": {"extent": "partial", "basis": "The source label of this model names this part: “Ulnolunate ligament”. The requirement is for the examined side; the model is a right-side reference, a mirror image for the other side. One source-labelled model; the full extent and boundaries of the named anatomy are not established."}},
       "fidelity": "not_assessed",
       "representation": "source_surface_mesh",
       "geometry": {
@@ -11010,10 +11023,9 @@
       "regions": [
         "ankle"
       ],
-      "investigation_ids": [
-        "ra.mri-diabetic-foot"
-      ],
-      "structure_ids": [],
+      "investigation_ids": ["ra.mri-diabetic-foot", "ra.ankle-fractures", "ra.foot-ankle-cases", "ra.mri-ankle"],
+      "structure_ids": ["ankle.anterior_inferior_tibiofibular_ligament.course"],
+      "requirement_coverage": {"ankle.anterior_inferior_tibiofibular_ligament.course": {"extent": "partial", "basis": "The source label of this model names “anterior tibiofibular ligament”, another name for this requirement’s “anterior inferior tibiofibular ligament”: “Anterior tibiofibular ligament”. This part is the structure’s own body or surface, which the whole model shows; the model does not delineate the other parts. The requirement is for the examined side; the model is a right-side reference, a mirror image for the other side. One source-labelled model; the full extent and boundaries of the named anatomy are not established."}},
       "fidelity": "not_assessed",
       "representation": "source_surface_mesh",
       "geometry": {
@@ -11062,10 +11074,9 @@
       "regions": [
         "ankle"
       ],
-      "investigation_ids": [
-        "ra.mri-diabetic-foot"
-      ],
-      "structure_ids": [],
+      "investigation_ids": ["ra.mri-diabetic-foot", "ra.ankle-fractures", "ra.foot-ankle-cases", "ra.mri-ankle"],
+      "structure_ids": ["ankle.posterior_inferior_tibiofibular_ligament.course"],
+      "requirement_coverage": {"ankle.posterior_inferior_tibiofibular_ligament.course": {"extent": "partial", "basis": "The source label of this model names “posterior tibiofibular ligament”, another name for this requirement’s “posterior inferior tibiofibular ligament”: “Posterior tibiofibular ligament”. This part is the structure’s own body or surface, which the whole model shows; the model does not delineate the other parts. The requirement is for the examined side; the model is a right-side reference, a mirror image for the other side. One source-labelled model; the full extent and boundaries of the named anatomy are not established."}},
       "fidelity": "not_assessed",
       "representation": "source_surface_mesh",
       "geometry": {
@@ -11694,8 +11705,9 @@
       "regions": [
         "knee"
       ],
-      "investigation_ids": [],
-      "structure_ids": [],
+      "investigation_ids": ["ra.mri-knee"],
+      "structure_ids": ["knee.medial_meniscocapsular_attachments.posterior_meniscotibial_attachment"],
+      "requirement_coverage": {"knee.medial_meniscocapsular_attachments.posterior_meniscotibial_attachment": {"extent": "partial", "basis": "The source label of this model names “posterior meniscotibial ligament”, another name for this requirement’s “posterior meniscotibial attachment”: “Posterior meniscotibial ligament (Medial meniscus)”. The requirement is for the examined side; the model is a right-side reference, a mirror image for the other side. One source-labelled model; the full extent and boundaries of the named anatomy are not established."}},
       "fidelity": "not_assessed",
       "representation": "source_surface_mesh",
       "geometry": {
@@ -11870,8 +11882,9 @@
       "regions": [
         "knee"
       ],
-      "investigation_ids": [],
-      "structure_ids": [],
+      "investigation_ids": ["ra.mri-knee"],
+      "structure_ids": ["knee.medial_collateral_ligament.superficial_component"],
+      "requirement_coverage": {"knee.medial_collateral_ligament.superficial_component": {"extent": "partial", "basis": "The source label of this model names “superficial part of tibial collateral ligament”, another name for this requirement’s “medial collateral ligament superficial component”: “Superficial part of tibial collateral ligament”. The requirement is for the examined side; the model is a right-side reference, a mirror image for the other side. One source-labelled model; the full extent and boundaries of the named anatomy are not established."}},
       "fidelity": "not_assessed",
       "representation": "source_surface_mesh",
       "geometry": {
@@ -12002,8 +12015,9 @@
       "regions": [
         "knee"
       ],
-      "investigation_ids": [],
-      "structure_ids": [],
+      "investigation_ids": ["ra.ultrasound-joint-injection"],
+      "structure_ids": ["injection.knee_intra_articular_target.capsule"],
+      "requirement_coverage": {"injection.knee_intra_articular_target.capsule": {"extent": "partial", "basis": "The source label of this model names this part: “Articular capsule of knee joint”. The requirement is for the examined side; the model is a right-side reference, a mirror image for the other side. One source-labelled model; the full extent and boundaries of the named anatomy are not established."}},
       "fidelity": "not_assessed",
       "representation": "source_surface_mesh",
       "geometry": {
@@ -12090,8 +12104,9 @@
       "regions": [
         "knee"
       ],
-      "investigation_ids": [],
-      "structure_ids": [],
+      "investigation_ids": ["ra.mri-knee"],
+      "structure_ids": ["knee.transverse_intermeniscal_ligament.anterior_course"],
+      "requirement_coverage": {"knee.transverse_intermeniscal_ligament.anterior_course": {"extent": "partial", "basis": "The source label of this model names “transverse ligament of knee”, another name for this requirement’s “transverse intermeniscal ligament”: “Transverse ligament of knee”. This part is the structure’s own body or surface, which the whole model shows; the model does not delineate the other parts. The requirement is for the examined side; the model is a right-side reference, a mirror image for the other side. One source-labelled model; the full extent and boundaries of the named anatomy are not established."}},
       "fidelity": "not_assessed",
       "representation": "source_surface_mesh",
       "geometry": {
@@ -12222,8 +12237,9 @@
       "regions": [
         "knee"
       ],
-      "investigation_ids": [],
-      "structure_ids": [],
+      "investigation_ids": ["ra.mri-knee"],
+      "structure_ids": ["knee.fibular_collateral_ligament.midsubstance"],
+      "requirement_coverage": {"knee.fibular_collateral_ligament.midsubstance": {"extent": "partial", "basis": "The source label of this model names the structure: “Fibular collateral ligament”. This part is the structure’s own body or surface, which the whole model shows; the model does not delineate the other parts. The requirement is for the examined side; the model is a right-side reference, a mirror image for the other side. One source-labelled model; the full extent and boundaries of the named anatomy are not established."}},
       "fidelity": "not_assessed",
       "representation": "source_surface_mesh",
       "geometry": {
@@ -12349,8 +12365,9 @@
       "regions": [
         "knee"
       ],
-      "investigation_ids": [],
-      "structure_ids": [],
+      "investigation_ids": ["ra.mri-knee"],
+      "structure_ids": ["knee.hoffa_fat_pad.infrapatellar_fat"],
+      "requirement_coverage": {"knee.hoffa_fat_pad.infrapatellar_fat": {"extent": "partial", "basis": "The source label of this model names this part: “Infrapatellar fat pad”. The requirement is for the examined side; the model is a right-side reference, a mirror image for the other side. One source-labelled model; the full extent and boundaries of the named anatomy are not established."}},
       "fidelity": "not_assessed",
       "representation": "source_surface_mesh",
       "geometry": {
@@ -12393,8 +12410,9 @@
       "regions": [
         "knee"
       ],
-      "investigation_ids": [],
-      "structure_ids": [],
+      "investigation_ids": ["ra.mri-knee"],
+      "structure_ids": ["knee.arcuate_ligament.course"],
+      "requirement_coverage": {"knee.arcuate_ligament.course": {"extent": "partial", "basis": "The source label of this model names “arcuate popliteal ligament”, another name for this requirement’s “arcuate ligament”: “Arcuate popliteal ligament”. This part is the structure’s own body or surface, which the whole model shows; the model does not delineate the other parts. The requirement is for the examined side; the model is a right-side reference, a mirror image for the other side. One source-labelled model; the full extent and boundaries of the named anatomy are not established."}},
       "fidelity": "not_assessed",
       "representation": "source_surface_mesh",
       "geometry": {
@@ -12437,8 +12455,9 @@
       "regions": [
         "knee"
       ],
-      "investigation_ids": [],
-      "structure_ids": [],
+      "investigation_ids": ["ra.mri-knee"],
+      "structure_ids": ["knee.popliteofibular_ligament.course"],
+      "requirement_coverage": {"knee.popliteofibular_ligament.course": {"extent": "partial", "basis": "The source label of this model names the structure: “Popliteofibular ligament”. This part is the structure’s own body or surface, which the whole model shows; the model does not delineate the other parts. The requirement is for the examined side; the model is a right-side reference, a mirror image for the other side. One source-labelled model; the full extent and boundaries of the named anatomy are not established."}},
       "fidelity": "not_assessed",
       "representation": "source_surface_mesh",
       "geometry": {
@@ -14221,10 +14240,9 @@
       "regions": [
         "ankle"
       ],
-      "investigation_ids": [
-        "ra.mri-diabetic-foot"
-      ],
-      "structure_ids": [],
+      "investigation_ids": ["ra.mri-diabetic-foot", "ra.mri-ankle", "ra.ultrasound-joint-injection"],
+      "structure_ids": ["ankle.interosseous_talocalcaneal_ligament.sinus_tarsi_course", "injection.sinus_tarsi_target.cervical_and_interosseous_talocalcaneal_ligaments"],
+      "requirement_coverage": {"ankle.interosseous_talocalcaneal_ligament.sinus_tarsi_course": {"extent": "partial", "basis": "The source label of this model names the structure: “Talocalcaneal interosseous ligament”. This part is the structure’s own body or surface, which the whole model shows; the model does not delineate the other parts. The requirement is for the examined side; the model is a right-side reference, a mirror image for the other side. One source-labelled model; the full extent and boundaries of the named anatomy are not established."}, "injection.sinus_tarsi_target.cervical_and_interosseous_talocalcaneal_ligaments": {"extent": "partial", "basis": "The source label of this model names one of the structures this requirement groups: “Talocalcaneal interosseous ligament”. The requirement is for the examined side; the model is a right-side reference, a mirror image for the other side. One source-labelled model; the full extent and boundaries of the named anatomy are not established."}},
       "fidelity": "not_assessed",
       "representation": "source_surface_mesh",
       "geometry": {
@@ -15524,7 +15542,8 @@
       "investigation_ids": [
         "ra.mri-diabetic-foot"
       ],
-      "structure_ids": [],
+      "structure_ids": ["diabetic_foot.hallux_plantar_capsulosesamoid_complex.intersesamoid_ligament"],
+      "requirement_coverage": {"diabetic_foot.hallux_plantar_capsulosesamoid_complex.intersesamoid_ligament": {"extent": "partial", "basis": "The source label of this model names this part: “Intersesamoid ligament”. The requirement is for the examined side; the model is a right-side reference, a mirror image for the other side. One source-labelled model; the full extent and boundaries of the named anatomy are not established."}},
       "fidelity": "coarse_source_geometry",
       "representation": "source_surface_mesh",
       "geometry": {
@@ -16041,10 +16060,9 @@
       "regions": [
         "ankle"
       ],
-      "investigation_ids": [
-        "ra.mri-diabetic-foot"
-      ],
-      "structure_ids": [],
+      "investigation_ids": ["ra.mri-diabetic-foot", "ra.mri-ankle"],
+      "structure_ids": ["ankle.deltoid_ligament.deep_posterior_tibiotalar_fibres"],
+      "requirement_coverage": {"ankle.deltoid_ligament.deep_posterior_tibiotalar_fibres": {"extent": "partial", "basis": "The source label of this model names “posterior tibiotalar ligament”, another name for this requirement’s “deep posterior tibiotalar fibres”: “Posterior tibiotalar ligament”. The requirement is for the examined side; the model is a right-side reference, a mirror image for the other side. One source-labelled model; the full extent and boundaries of the named anatomy are not established."}},
       "fidelity": "coarse_source_geometry",
       "representation": "source_surface_mesh",
       "geometry": {
@@ -16093,10 +16111,9 @@
       "regions": [
         "ankle"
       ],
-      "investigation_ids": [
-        "ra.mri-diabetic-foot"
-      ],
-      "structure_ids": [],
+      "investigation_ids": ["ra.mri-diabetic-foot", "ra.mri-ankle"],
+      "structure_ids": ["ankle.deltoid_ligament.superficial_tibiocalcaneal_fibres"],
+      "requirement_coverage": {"ankle.deltoid_ligament.superficial_tibiocalcaneal_fibres": {"extent": "partial", "basis": "The source label of this model names “tibiocalcaneal ligament”, another name for this requirement’s “superficial tibiocalcaneal fibres”: “Tibiocalcaneal ligament”. The requirement is for the examined side; the model is a right-side reference, a mirror image for the other side. One source-labelled model; the full extent and boundaries of the named anatomy are not established."}},
       "fidelity": "coarse_source_geometry",
       "representation": "source_surface_mesh",
       "geometry": {
@@ -16145,10 +16162,9 @@
       "regions": [
         "ankle"
       ],
-      "investigation_ids": [
-        "ra.mri-diabetic-foot"
-      ],
-      "structure_ids": [],
+      "investigation_ids": ["ra.mri-diabetic-foot", "ra.mri-ankle"],
+      "structure_ids": ["ankle.deltoid_ligament.superficial_tibionavicular_fibres"],
+      "requirement_coverage": {"ankle.deltoid_ligament.superficial_tibionavicular_fibres": {"extent": "partial", "basis": "The source label of this model names “tibionavicular ligament”, another name for this requirement’s “superficial tibionavicular fibres”: “Tibionavicular ligament”. The requirement is for the examined side; the model is a right-side reference, a mirror image for the other side. One source-labelled model; the full extent and boundaries of the named anatomy are not established."}},
       "fidelity": "not_assessed",
       "representation": "source_surface_mesh",
       "geometry": {
@@ -16197,10 +16213,9 @@
       "regions": [
         "ankle"
       ],
-      "investigation_ids": [
-        "ra.mri-diabetic-foot"
-      ],
-      "structure_ids": [],
+      "investigation_ids": ["ra.mri-diabetic-foot", "ra.mri-ankle"],
+      "structure_ids": ["ankle.posterior_talofibular_ligament.course"],
+      "requirement_coverage": {"ankle.posterior_talofibular_ligament.course": {"extent": "partial", "basis": "The source label of this model names the structure: “Posterior talofibular ligament”. This part is the structure’s own body or surface, which the whole model shows; the model does not delineate the other parts. The requirement is for the examined side; the model is a right-side reference, a mirror image for the other side. One source-labelled model; the full extent and boundaries of the named anatomy are not established."}},
       "fidelity": "coarse_source_geometry",
       "representation": "source_surface_mesh",
       "geometry": {
@@ -16249,10 +16264,9 @@
       "regions": [
         "ankle"
       ],
-      "investigation_ids": [
-        "ra.mri-diabetic-foot"
-      ],
-      "structure_ids": [],
+      "investigation_ids": ["ra.mri-diabetic-foot", "ra.ankle-fractures", "ra.foot-ankle-cases", "ra.mri-ankle"],
+      "structure_ids": ["ankle.anterior_talofibular_ligament.course"],
+      "requirement_coverage": {"ankle.anterior_talofibular_ligament.course": {"extent": "partial", "basis": "The source label of this model names the structure: “Anterior talofibular ligament”. This part is the structure’s own body or surface, which the whole model shows; the model does not delineate the other parts. The requirement is for the examined side; the model is a right-side reference, a mirror image for the other side. One source-labelled model; the full extent and boundaries of the named anatomy are not established."}},
       "fidelity": "coarse_source_geometry",
       "representation": "source_surface_mesh",
       "geometry": {
@@ -16301,10 +16315,9 @@
       "regions": [
         "ankle"
       ],
-      "investigation_ids": [
-        "ra.mri-diabetic-foot"
-      ],
-      "structure_ids": [],
+      "investigation_ids": ["ra.mri-diabetic-foot", "ra.ankle-fractures", "ra.foot-ankle-cases", "ra.mri-ankle"],
+      "structure_ids": ["ankle.calcaneofibular_ligament.course"],
+      "requirement_coverage": {"ankle.calcaneofibular_ligament.course": {"extent": "partial", "basis": "The source label of this model names the structure: “Calcaneofibular ligament”. This part is the structure’s own body or surface, which the whole model shows; the model does not delineate the other parts. The requirement is for the examined side; the model is a right-side reference, a mirror image for the other side. One source-labelled model; the full extent and boundaries of the named anatomy are not established."}},
       "fidelity": "coarse_source_geometry",
       "representation": "source_surface_mesh",
       "geometry": {
@@ -16397,8 +16410,9 @@
       "regions": [
         "shoulder"
       ],
-      "investigation_ids": [],
-      "structure_ids": [],
+      "investigation_ids": ["ra.mri-shoulder", "ra.ultrasound-shoulder"],
+      "structure_ids": ["shoulder.long_head_biceps_tendon.tendon_sheath"],
+      "requirement_coverage": {"shoulder.long_head_biceps_tendon.tendon_sheath": {"extent": "partial", "basis": "The source label of this model names “intertubercular tendon sheath”, another name for this requirement’s “long head biceps tendon sheath”: “Intertubercular tendon sheath”. The requirement is for the examined side; the model is a right-side reference, a mirror image for the other side. One source-labelled model; the full extent and boundaries of the named anatomy are not established."}},
       "fidelity": "not_assessed",
       "representation": "source_surface_mesh",
       "geometry": {
@@ -16841,8 +16855,9 @@
       "regions": [
         "hip"
       ],
-      "investigation_ids": [],
-      "structure_ids": [],
+      "investigation_ids": ["ra.hip-fai"],
+      "structure_ids": ["hip.trochanteric_bursae"],
+      "requirement_coverage": {"hip.trochanteric_bursae": {"extent": "partial", "basis": "The source label of this model names one of the structures this requirement groups: “Trochanteric bursa of gluteus medius muscle”. The requirement is for the examined side; the model is a right-side reference, a mirror image for the other side. One source-labelled model; the full extent and boundaries of the named anatomy are not established."}},
       "fidelity": "not_assessed",
       "representation": "source_surface_mesh",
       "geometry": {
@@ -16885,8 +16900,9 @@
       "regions": [
         "hip"
       ],
-      "investigation_ids": [],
-      "structure_ids": [],
+      "investigation_ids": ["ra.hip-fai"],
+      "structure_ids": ["hip.trochanteric_bursae"],
+      "requirement_coverage": {"hip.trochanteric_bursae": {"extent": "partial", "basis": "The source label of this model names one of the structures this requirement groups: “Trochanteric bursa of gluteus minimus muscle”. The requirement is for the examined side; the model is a right-side reference, a mirror image for the other side. One source-labelled model; the full extent and boundaries of the named anatomy are not established."}},
       "fidelity": "not_assessed",
       "representation": "source_surface_mesh",
       "geometry": {
@@ -16929,8 +16945,9 @@
       "regions": [
         "hip"
       ],
-      "investigation_ids": [],
-      "structure_ids": [],
+      "investigation_ids": ["ra.hip-fai", "ra.ultrasound-joint-injection"],
+      "structure_ids": ["hip.iliopsoas_bursa", "injection.hip_anterior_recess_target.iliopsoas_tendon_and_bursa"],
+      "requirement_coverage": {"hip.iliopsoas_bursa": {"extent": "partial", "basis": "The source label of this model names “iliopectineal bursa”, another name for this requirement’s “iliopsoas bursa”: “(Iliopectineal bursa)”. The requirement is for the examined side; the model is a right-side reference, a mirror image for the other side. One source-labelled model; the full extent and boundaries of the named anatomy are not established."}, "injection.hip_anterior_recess_target.iliopsoas_tendon_and_bursa": {"extent": "partial", "basis": "The source label of this model names “iliopectineal bursa”, another name for this requirement’s “iliopsoas bursa”: “(Iliopectineal bursa)”. The requirement is for the examined side; the model is a right-side reference, a mirror image for the other side. One source-labelled model; the full extent and boundaries of the named anatomy are not established."}},
       "fidelity": "not_assessed",
       "representation": "source_surface_mesh",
       "geometry": {
@@ -16973,8 +16990,9 @@
       "regions": [
         "knee"
       ],
-      "investigation_ids": [],
-      "structure_ids": [],
+      "investigation_ids": ["ra.mri-knee"],
+      "structure_ids": ["knee.prepatellar_bursa.bursal_boundaries"],
+      "requirement_coverage": {"knee.prepatellar_bursa.bursal_boundaries": {"extent": "partial", "basis": "The source label of this model names the structure: “Subcutaneous prepatellar bursa”. This part is the structure’s own body or surface, which the whole model shows; the model does not delineate the other parts. The requirement is for the examined side; the model is a right-side reference, a mirror image for the other side. One source-labelled model; the full extent and boundaries of the named anatomy are not established."}},
       "fidelity": "not_assessed",
       "representation": "source_surface_mesh",
       "geometry": {
@@ -17017,8 +17035,9 @@
       "regions": [
         "knee"
       ],
-      "investigation_ids": [],
-      "structure_ids": [],
+      "investigation_ids": ["ra.mri-knee"],
+      "structure_ids": ["knee.deep_infrapatellar_bursa.bursal_boundaries"],
+      "requirement_coverage": {"knee.deep_infrapatellar_bursa.bursal_boundaries": {"extent": "partial", "basis": "The source label of this model names the structure: “Deep infrapatellar bursa”. This part is the structure’s own body or surface, which the whole model shows; the model does not delineate the other parts. The requirement is for the examined side; the model is a right-side reference, a mirror image for the other side. One source-labelled model; the full extent and boundaries of the named anatomy are not established."}},
       "fidelity": "not_assessed",
       "representation": "source_surface_mesh",
       "geometry": {
@@ -17061,8 +17080,9 @@
       "regions": [
         "knee"
       ],
-      "investigation_ids": [],
-      "structure_ids": [],
+      "investigation_ids": ["ra.mri-knee"],
+      "structure_ids": ["knee.knee_synovium_and_joint_recesses.suprapatellar_recess"],
+      "requirement_coverage": {"knee.knee_synovium_and_joint_recesses.suprapatellar_recess": {"extent": "partial", "basis": "The source label of this model names “suprapatellar bursa”, another name for this requirement’s “suprapatellar recess”: “Suprapatellar bursa”. The requirement is for the examined side; the model is a right-side reference, a mirror image for the other side. One source-labelled model; the full extent and boundaries of the named anatomy are not established."}},
       "fidelity": "not_assessed",
       "representation": "source_surface_mesh",
       "geometry": {
@@ -17105,8 +17125,9 @@
       "regions": [
         "knee"
       ],
-      "investigation_ids": [],
-      "structure_ids": [],
+      "investigation_ids": ["ra.mri-knee"],
+      "structure_ids": ["knee.pes_anserine_bursa.bursal_boundaries"],
+      "requirement_coverage": {"knee.pes_anserine_bursa.bursal_boundaries": {"extent": "partial", "basis": "The source label of this model names the structure: “Anserine bursa”. This part is the structure’s own body or surface, which the whole model shows; the model does not delineate the other parts. The requirement is for the examined side; the model is a right-side reference, a mirror image for the other side. One source-labelled model; the full extent and boundaries of the named anatomy are not established."}},
       "fidelity": "not_assessed",
       "representation": "source_surface_mesh",
       "geometry": {
@@ -17193,10 +17214,9 @@
       "regions": [
         "ankle"
       ],
-      "investigation_ids": [
-        "ra.mri-diabetic-foot"
-      ],
-      "structure_ids": [],
+      "investigation_ids": ["ra.mri-diabetic-foot", "ra.mri-ankle"],
+      "structure_ids": ["ankle.subcutaneous_calcaneal_bursa.bursal_boundaries"],
+      "requirement_coverage": {"ankle.subcutaneous_calcaneal_bursa.bursal_boundaries": {"extent": "partial", "basis": "The source label of this model names the structure: “Subcutaneous calcaneal bursa”. This part is the structure’s own body or surface, which the whole model shows; the model does not delineate the other parts. The requirement is for the examined side; the model is a right-side reference, a mirror image for the other side. One source-labelled model; the full extent and boundaries of the named anatomy are not established."}},
       "fidelity": "not_assessed",
       "representation": "source_surface_mesh",
       "geometry": {
@@ -17245,10 +17265,9 @@
       "regions": [
         "ankle"
       ],
-      "investigation_ids": [
-        "ra.mri-diabetic-foot"
-      ],
-      "structure_ids": [],
+      "investigation_ids": ["ra.mri-diabetic-foot", "ra.mri-ankle"],
+      "structure_ids": ["ankle.retrocalcaneal_bursa.bursal_boundaries"],
+      "requirement_coverage": {"ankle.retrocalcaneal_bursa.bursal_boundaries": {"extent": "partial", "basis": "The source label of this model names “subtendinous calcaneal bursa”, another name for this requirement’s “retrocalcaneal bursa”: “Subtendinous calcaneal bursa”. This part is the structure’s own body or surface, which the whole model shows; the model does not delineate the other parts. The requirement is for the examined side; the model is a right-side reference, a mirror image for the other side. One source-labelled model; the full extent and boundaries of the named anatomy are not established."}},
       "fidelity": "not_assessed",
       "representation": "source_surface_mesh",
       "geometry": {
@@ -17297,8 +17316,9 @@
       "regions": [
         "shoulder"
       ],
-      "investigation_ids": [],
-      "structure_ids": [],
+      "investigation_ids": ["ra.ultrasound-shoulder"],
+      "structure_ids": ["shoulder.subacromial_subdeltoid_bursa.subacromial_portion"],
+      "requirement_coverage": {"shoulder.subacromial_subdeltoid_bursa.subacromial_portion": {"extent": "partial", "basis": "The source label of this model names this part: “Subacromial bursa”. The requirement is for the examined side; the model is a right-side reference, a mirror image for the other side. One source-labelled model; the full extent and boundaries of the named anatomy are not established."}},
       "fidelity": "not_assessed",
       "representation": "source_surface_mesh",
       "geometry": {
@@ -17341,8 +17361,9 @@
       "regions": [
         "shoulder"
       ],
-      "investigation_ids": [],
-      "structure_ids": [],
+      "investigation_ids": ["ra.ultrasound-shoulder"],
+      "structure_ids": ["shoulder.subacromial_subdeltoid_bursa.subdeltoid_portion"],
+      "requirement_coverage": {"shoulder.subacromial_subdeltoid_bursa.subdeltoid_portion": {"extent": "partial", "basis": "The source label of this model names this part: “Subdeltoid bursa”. The requirement is for the examined side; the model is a right-side reference, a mirror image for the other side. One source-labelled model; the full extent and boundaries of the named anatomy are not established."}},
       "fidelity": "not_assessed",
       "representation": "source_surface_mesh",
       "geometry": {
@@ -17429,8 +17450,9 @@
       "regions": [
         "elbow"
       ],
-      "investigation_ids": [],
-      "structure_ids": [],
+      "investigation_ids": ["ra.mri-elbow"],
+      "structure_ids": ["elbow.bicipitoradial_bursa.bursal_boundaries"],
+      "requirement_coverage": {"elbow.bicipitoradial_bursa.bursal_boundaries": {"extent": "partial", "basis": "The source label of this model names the structure: “Bicipitoradial bursa”. This part is the structure’s own body or surface, which the whole model shows; the model does not delineate the other parts. The requirement is for the examined side; the model is a right-side reference, a mirror image for the other side. One source-labelled model; the full extent and boundaries of the named anatomy are not established."}},
       "fidelity": "not_assessed",
       "representation": "source_surface_mesh",
       "geometry": {
@@ -17517,8 +17539,9 @@
       "regions": [
         "knee"
       ],
-      "investigation_ids": [],
-      "structure_ids": [],
+      "investigation_ids": ["ra.mri-knee"],
+      "structure_ids": ["knee.lateral_patellar_retinaculum.course"],
+      "requirement_coverage": {"knee.lateral_patellar_retinaculum.course": {"extent": "partial", "basis": "The source label of this model names the structure: “Lateral patellar retinaculum”. This part is the structure’s own body or surface, which the whole model shows; the model does not delineate the other parts. The requirement is for the examined side; the model is a right-side reference, a mirror image for the other side. One source-labelled model; the full extent and boundaries of the named anatomy are not established."}},
       "fidelity": "not_assessed",
       "representation": "source_surface_mesh",
       "geometry": {
@@ -17561,8 +17584,9 @@
       "regions": [
         "knee"
       ],
-      "investigation_ids": [],
-      "structure_ids": [],
+      "investigation_ids": ["ra.mri-knee"],
+      "structure_ids": ["knee.medial_patellar_retinaculum.course"],
+      "requirement_coverage": {"knee.medial_patellar_retinaculum.course": {"extent": "partial", "basis": "The source label of this model names the structure: “Medial patellar retinaculum”. This part is the structure’s own body or surface, which the whole model shows; the model does not delineate the other parts. The requirement is for the examined side; the model is a right-side reference, a mirror image for the other side. One source-labelled model; the full extent and boundaries of the named anatomy are not established."}},
       "fidelity": "not_assessed",
       "representation": "source_surface_mesh",
       "geometry": {
@@ -17651,8 +17675,9 @@
         "hip",
         "knee"
       ],
-      "investigation_ids": [],
-      "structure_ids": [],
+      "investigation_ids": ["ra.hip-fai"],
+      "structure_ids": ["hip.rectus_femoris_tendon.visible_course"],
+      "requirement_coverage": {"hip.rectus_femoris_tendon.visible_course": {"extent": "partial", "basis": "The source label of this model names the structure: “Rectus femoris muscle · tendon surface”. This part is the structure’s own body or surface, which the whole model shows; the model does not delineate the other parts. The requirement is for the examined side; the model is a right-side reference, a mirror image for the other side. One source-labelled model; the full extent and boundaries of the named anatomy are not established."}},
       "fidelity": "not_assessed",
       "representation": "source_material_surface",
       "geometry": {
@@ -19209,10 +19234,9 @@
       "regions": [
         "ankle"
       ],
-      "investigation_ids": [
-        "ra.mri-diabetic-foot"
-      ],
-      "structure_ids": [],
+      "investigation_ids": ["ra.mri-diabetic-foot", "ra.mri-ankle", "ra.ultrasound-joint-injection"],
+      "structure_ids": ["ankle.extensor_digitorum_longus_tendon.retromalleolar_or_anterior_course", "diabetic_foot.extensor_digitorum_longus_tendons.visible_tendon_course", "injection.tibiotalar_target.anterior_tendons"],
+      "requirement_coverage": {"ankle.extensor_digitorum_longus_tendon.retromalleolar_or_anterior_course": {"extent": "partial", "basis": "The source label of this model names the structure: “Extensor digitorum longus · tendon surface”. This part is the structure’s own body or surface, which the whole model shows; the model does not delineate the other parts. The requirement is for the examined side; the model is a right-side reference, a mirror image for the other side. One source-labelled model; the full extent and boundaries of the named anatomy are not established."}, "diabetic_foot.extensor_digitorum_longus_tendons.visible_tendon_course": {"extent": "partial", "basis": "The source label of this model names the structure: “Extensor digitorum longus · tendon surface”. This part is the structure’s own body or surface, which the whole model shows; the model does not delineate the other parts. The requirement is for the examined side; the model is a right-side reference, a mirror image for the other side. One source-labelled model; the full extent and boundaries of the named anatomy are not established."}, "injection.tibiotalar_target.anterior_tendons": {"extent": "partial", "basis": "The source label of this model names “extensor digitorum longus”, one of this requirement’s “anterior tendons”: “Extensor digitorum longus · tendon surface”. The requirement is for the examined side; the model is a right-side reference, a mirror image for the other side. One source-labelled model; the full extent and boundaries of the named anatomy are not established."}},
       "fidelity": "not_assessed",
       "representation": "source_material_surface",
       "geometry": {
@@ -19313,10 +19337,9 @@
       "regions": [
         "ankle"
       ],
-      "investigation_ids": [
-        "ra.mri-diabetic-foot"
-      ],
-      "structure_ids": [],
+      "investigation_ids": ["ra.mri-diabetic-foot", "ra.mri-ankle", "ra.ultrasound-joint-injection"],
+      "structure_ids": ["ankle.tibialis_anterior_tendon.retromalleolar_or_anterior_course", "injection.tibiotalar_target.anterior_tendons"],
+      "requirement_coverage": {"ankle.tibialis_anterior_tendon.retromalleolar_or_anterior_course": {"extent": "partial", "basis": "The source label of this model names the structure: “Tibialis anterior muscle · tendon surface”. This part is the structure’s own body or surface, which the whole model shows; the model does not delineate the other parts. The requirement is for the examined side; the model is a right-side reference, a mirror image for the other side. One source-labelled model; the full extent and boundaries of the named anatomy are not established."}, "injection.tibiotalar_target.anterior_tendons": {"extent": "partial", "basis": "The source label of this model names “tibialis anterior”, one of this requirement’s “anterior tendons”: “Tibialis anterior muscle · tendon surface”. The requirement is for the examined side; the model is a right-side reference, a mirror image for the other side. One source-labelled model; the full extent and boundaries of the named anatomy are not established."}},
       "fidelity": "not_assessed",
       "representation": "source_material_surface",
       "geometry": {
@@ -19417,10 +19440,9 @@
       "regions": [
         "ankle"
       ],
-      "investigation_ids": [
-        "ra.mri-diabetic-foot"
-      ],
-      "structure_ids": [],
+      "investigation_ids": ["ra.mri-diabetic-foot", "ra.ultrasound-joint-injection"],
+      "structure_ids": ["injection.tibiotalar_target.anterior_tendons"],
+      "requirement_coverage": {"injection.tibiotalar_target.anterior_tendons": {"extent": "partial", "basis": "The source label of this model names “fibularis tertius”, one of this requirement’s “anterior tendons”: “Fibularis tertius muscle · tendon surface”. The requirement is for the examined side; the model is a right-side reference, a mirror image for the other side. One source-labelled model; the full extent and boundaries of the named anatomy are not established."}},
       "fidelity": "not_assessed",
       "representation": "source_material_surface",
       "geometry": {
@@ -19521,10 +19543,9 @@
       "regions": [
         "ankle"
       ],
-      "investigation_ids": [
-        "ra.mri-diabetic-foot"
-      ],
-      "structure_ids": [],
+      "investigation_ids": ["ra.mri-diabetic-foot", "ra.mri-ankle", "ra.ultrasound-joint-injection"],
+      "structure_ids": ["ankle.extensor_hallucis_longus_tendon.retromalleolar_or_anterior_course", "diabetic_foot.extensor_hallucis_longus_tendon.visible_tendon_course", "injection.tibiotalar_target.anterior_tendons"],
+      "requirement_coverage": {"ankle.extensor_hallucis_longus_tendon.retromalleolar_or_anterior_course": {"extent": "partial", "basis": "The source label of this model names the structure: “Extensor hallucis longus · tendon surface”. This part is the structure’s own body or surface, which the whole model shows; the model does not delineate the other parts. The requirement is for the examined side; the model is a right-side reference, a mirror image for the other side. One source-labelled model; the full extent and boundaries of the named anatomy are not established."}, "diabetic_foot.extensor_hallucis_longus_tendon.visible_tendon_course": {"extent": "partial", "basis": "The source label of this model names the structure: “Extensor hallucis longus · tendon surface”. This part is the structure’s own body or surface, which the whole model shows; the model does not delineate the other parts. The requirement is for the examined side; the model is a right-side reference, a mirror image for the other side. One source-labelled model; the full extent and boundaries of the named anatomy are not established."}, "injection.tibiotalar_target.anterior_tendons": {"extent": "partial", "basis": "The source label of this model names “extensor hallucis longus”, one of this requirement’s “anterior tendons”: “Extensor hallucis longus · tendon surface”. The requirement is for the examined side; the model is a right-side reference, a mirror image for the other side. One source-labelled model; the full extent and boundaries of the named anatomy are not established."}},
       "fidelity": "not_assessed",
       "representation": "source_material_surface",
       "geometry": {
@@ -19625,10 +19646,9 @@
       "regions": [
         "ankle"
       ],
-      "investigation_ids": [
-        "ra.mri-diabetic-foot"
-      ],
-      "structure_ids": [],
+      "investigation_ids": ["ra.mri-diabetic-foot", "ra.mri-ankle", "ra.ultrasound-joint-injection"],
+      "structure_ids": ["ankle.fibularis_longus_tendon.retromalleolar_or_anterior_course", "diabetic_foot.fibularis_longus_tendon.visible_tendon_course", "injection.posterior_subtalar_target.fibular_tendons"],
+      "requirement_coverage": {"ankle.fibularis_longus_tendon.retromalleolar_or_anterior_course": {"extent": "partial", "basis": "The source label of this model names the structure: “Fibularis longus muscle · tendon surface”. This part is the structure’s own body or surface, which the whole model shows; the model does not delineate the other parts. The requirement is for the examined side; the model is a right-side reference, a mirror image for the other side. One source-labelled model; the full extent and boundaries of the named anatomy are not established."}, "diabetic_foot.fibularis_longus_tendon.visible_tendon_course": {"extent": "partial", "basis": "The source label of this model names the structure: “Fibularis longus muscle · tendon surface”. This part is the structure’s own body or surface, which the whole model shows; the model does not delineate the other parts. The requirement is for the examined side; the model is a right-side reference, a mirror image for the other side. One source-labelled model; the full extent and boundaries of the named anatomy are not established."}, "injection.posterior_subtalar_target.fibular_tendons": {"extent": "partial", "basis": "The source label of this model names one of the structures this requirement groups: “Fibularis longus muscle · tendon surface”. The requirement is for the examined side; the model is a right-side reference, a mirror image for the other side. One source-labelled model; the full extent and boundaries of the named anatomy are not established."}},
       "fidelity": "not_assessed",
       "representation": "source_material_surface",
       "geometry": {
@@ -19729,10 +19749,9 @@
       "regions": [
         "ankle"
       ],
-      "investigation_ids": [
-        "ra.mri-diabetic-foot"
-      ],
-      "structure_ids": [],
+      "investigation_ids": ["ra.mri-diabetic-foot", "ra.mri-ankle", "ra.ultrasound-joint-injection"],
+      "structure_ids": ["ankle.fibularis_brevis_tendon.retromalleolar_or_anterior_course", "diabetic_foot.fibularis_brevis_tendon.visible_tendon_course", "injection.posterior_subtalar_target.fibular_tendons"],
+      "requirement_coverage": {"ankle.fibularis_brevis_tendon.retromalleolar_or_anterior_course": {"extent": "partial", "basis": "The source label of this model names the structure: “Fibularis brevis muscle · tendon surface”. This part is the structure’s own body or surface, which the whole model shows; the model does not delineate the other parts. The requirement is for the examined side; the model is a right-side reference, a mirror image for the other side. One source-labelled model; the full extent and boundaries of the named anatomy are not established."}, "diabetic_foot.fibularis_brevis_tendon.visible_tendon_course": {"extent": "partial", "basis": "The source label of this model names the structure: “Fibularis brevis muscle · tendon surface”. This part is the structure’s own body or surface, which the whole model shows; the model does not delineate the other parts. The requirement is for the examined side; the model is a right-side reference, a mirror image for the other side. One source-labelled model; the full extent and boundaries of the named anatomy are not established."}, "injection.posterior_subtalar_target.fibular_tendons": {"extent": "partial", "basis": "The source label of this model names one of the structures this requirement groups: “Fibularis brevis muscle · tendon surface”. The requirement is for the examined side; the model is a right-side reference, a mirror image for the other side. One source-labelled model; the full extent and boundaries of the named anatomy are not established."}},
       "fidelity": "not_assessed",
       "representation": "source_material_surface",
       "geometry": {
@@ -19825,8 +19844,9 @@
       "regions": [
         "elbow"
       ],
-      "investigation_ids": [],
-      "structure_ids": [],
+      "investigation_ids": ["ra.mri-elbow"],
+      "structure_ids": ["elbow.brachialis_muscle"],
+      "requirement_coverage": {"elbow.brachialis_muscle": {"extent": "partial", "basis": "The source label of this model names the structure: “Brachialis muscle”. The requirement is for the examined side; the model is a right-side reference, a mirror image for the other side. One source-labelled model; the full extent and boundaries of the named anatomy are not established."}},
       "fidelity": "not_assessed",
       "representation": "source_surface_mesh",
       "geometry": {
@@ -19869,8 +19889,9 @@
       "regions": [
         "elbow"
       ],
-      "investigation_ids": [],
-      "structure_ids": [],
+      "investigation_ids": ["ra.mri-elbow"],
+      "structure_ids": ["elbow.brachialis_tendon.tendon_substance"],
+      "requirement_coverage": {"elbow.brachialis_tendon.tendon_substance": {"extent": "partial", "basis": "The source label of this model names the structure: “Brachialis muscle · tendon surface”. This part is the structure’s own body or surface, which the whole model shows; the model does not delineate the other parts. The requirement is for the examined side; the model is a right-side reference, a mirror image for the other side. One source-labelled model; the full extent and boundaries of the named anatomy are not established."}},
       "fidelity": "not_assessed",
       "representation": "source_material_surface",
       "geometry": {
@@ -20089,8 +20110,9 @@
       "regions": [
         "hip"
       ],
-      "investigation_ids": [],
-      "structure_ids": [],
+      "investigation_ids": ["ra.hip-fai"],
+      "structure_ids": ["hip.gluteus_medius_muscle"],
+      "requirement_coverage": {"hip.gluteus_medius_muscle": {"extent": "partial", "basis": "The source label of this model names the structure: “Gluteus medius muscle”. The requirement is for the examined side; the model is a right-side reference, a mirror image for the other side. One source-labelled model; the full extent and boundaries of the named anatomy are not established."}},
       "fidelity": "not_assessed",
       "representation": "source_surface_mesh",
       "geometry": {
@@ -20133,8 +20155,9 @@
       "regions": [
         "hip"
       ],
-      "investigation_ids": [],
-      "structure_ids": [],
+      "investigation_ids": ["ra.hip-fai"],
+      "structure_ids": ["hip.gluteus_medius_tendon.visible_course"],
+      "requirement_coverage": {"hip.gluteus_medius_tendon.visible_course": {"extent": "partial", "basis": "The source label of this model names the structure: “Gluteus medius muscle · tendon surface”. This part is the structure’s own body or surface, which the whole model shows; the model does not delineate the other parts. The requirement is for the examined side; the model is a right-side reference, a mirror image for the other side. One source-labelled model; the full extent and boundaries of the named anatomy are not established."}},
       "fidelity": "not_assessed",
       "representation": "source_material_surface",
       "geometry": {
@@ -20221,8 +20244,9 @@
       "regions": [
         "hip"
       ],
-      "investigation_ids": [],
-      "structure_ids": [],
+      "investigation_ids": ["ra.hip-fai"],
+      "structure_ids": ["hip.gluteus_minimus_muscle"],
+      "requirement_coverage": {"hip.gluteus_minimus_muscle": {"extent": "partial", "basis": "The source label of this model names the structure: “Gluteus minimus muscle”. The requirement is for the examined side; the model is a right-side reference, a mirror image for the other side. One source-labelled model; the full extent and boundaries of the named anatomy are not established."}},
       "fidelity": "not_assessed",
       "representation": "source_surface_mesh",
       "geometry": {
@@ -20397,8 +20421,9 @@
       "regions": [
         "hip"
       ],
-      "investigation_ids": [],
-      "structure_ids": [],
+      "investigation_ids": ["ra.hip-fai"],
+      "structure_ids": ["hip.quadratus_femoris_muscle"],
+      "requirement_coverage": {"hip.quadratus_femoris_muscle": {"extent": "partial", "basis": "The source label of this model names the structure: “Quadratus femoris muscle”. The requirement is for the examined side; the model is a right-side reference, a mirror image for the other side. One source-labelled model; the full extent and boundaries of the named anatomy are not established."}},
       "fidelity": "not_assessed",
       "representation": "source_surface_mesh",
       "geometry": {
@@ -20705,10 +20730,9 @@
       "regions": [
         "ankle"
       ],
-      "investigation_ids": [
-        "ra.mri-diabetic-foot"
-      ],
-      "structure_ids": [],
+      "investigation_ids": ["ra.mri-diabetic-foot", "ra.mri-ankle"],
+      "structure_ids": ["ankle.tibialis_anterior_tendon.tendon_sheath"],
+      "requirement_coverage": {"ankle.tibialis_anterior_tendon.tendon_sheath": {"extent": "partial", "basis": "The source label of this model names this part: “Tendon sheath of tibialis anterior”. The requirement is for the examined side; the model is a right-side reference, a mirror image for the other side. One source-labelled model; the full extent and boundaries of the named anatomy are not established."}},
       "fidelity": "not_assessed",
       "representation": "source_surface_mesh",
       "geometry": {
@@ -20757,10 +20781,9 @@
       "regions": [
         "ankle"
       ],
-      "investigation_ids": [
-        "ra.mri-diabetic-foot"
-      ],
-      "structure_ids": [],
+      "investigation_ids": ["ra.mri-diabetic-foot", "ra.mri-ankle"],
+      "structure_ids": ["ankle.extensor_hallucis_longus_tendon.tendon_sheath", "diabetic_foot.extensor_hallucis_longus_tendon.sheath_or_achilles_paratenon"],
+      "requirement_coverage": {"ankle.extensor_hallucis_longus_tendon.tendon_sheath": {"extent": "partial", "basis": "The source label of this model names this part: “Tendon sheath of extensor hallucis longus”. The requirement is for the examined side; the model is a right-side reference, a mirror image for the other side. One source-labelled model; the full extent and boundaries of the named anatomy are not established."}, "diabetic_foot.extensor_hallucis_longus_tendon.sheath_or_achilles_paratenon": {"extent": "partial", "basis": "The source label of this model names this part: “Tendon sheath of extensor hallucis longus”. The requirement is for the examined side; the model is a right-side reference, a mirror image for the other side. One source-labelled model; the full extent and boundaries of the named anatomy are not established."}},
       "fidelity": "not_assessed",
       "representation": "source_surface_mesh",
       "geometry": {
@@ -20809,10 +20832,9 @@
       "regions": [
         "ankle"
       ],
-      "investigation_ids": [
-        "ra.mri-diabetic-foot"
-      ],
-      "structure_ids": [],
+      "investigation_ids": ["ra.mri-diabetic-foot", "ra.mri-ankle"],
+      "structure_ids": ["ankle.extensor_digitorum_longus_tendon.tendon_sheath", "diabetic_foot.extensor_digitorum_longus_tendons.sheath_or_achilles_paratenon"],
+      "requirement_coverage": {"ankle.extensor_digitorum_longus_tendon.tendon_sheath": {"extent": "partial", "basis": "The source label of this model names this part: “Tendon sheath of extensor digitorum longus”. The requirement is for the examined side; the model is a right-side reference, a mirror image for the other side. One source-labelled model; the full extent and boundaries of the named anatomy are not established."}, "diabetic_foot.extensor_digitorum_longus_tendons.sheath_or_achilles_paratenon": {"extent": "partial", "basis": "The source label of this model names this part: “Tendon sheath of extensor digitorum longus”. The requirement is for the examined side; the model is a right-side reference, a mirror image for the other side. One source-labelled model; the full extent and boundaries of the named anatomy are not established."}},
       "fidelity": "not_assessed",
       "representation": "source_surface_mesh",
       "geometry": {
@@ -20861,10 +20883,9 @@
       "regions": [
         "ankle"
       ],
-      "investigation_ids": [
-        "ra.mri-diabetic-foot"
-      ],
-      "structure_ids": [],
+      "investigation_ids": ["ra.mri-diabetic-foot", "ra.mri-ankle"],
+      "structure_ids": ["ankle.flexor_digitorum_longus_tendon.tendon_sheath", "diabetic_foot.flexor_digitorum_longus_tendons.sheath_or_achilles_paratenon"],
+      "requirement_coverage": {"ankle.flexor_digitorum_longus_tendon.tendon_sheath": {"extent": "partial", "basis": "The source label of this model names this part: “Tendon sheath of flexor digitorum longus”. The requirement is for the examined side; the model is a right-side reference, a mirror image for the other side. One source-labelled model; the full extent and boundaries of the named anatomy are not established."}, "diabetic_foot.flexor_digitorum_longus_tendons.sheath_or_achilles_paratenon": {"extent": "partial", "basis": "The source label of this model names this part: “Tendon sheath of flexor digitorum longus”. The requirement is for the examined side; the model is a right-side reference, a mirror image for the other side. One source-labelled model; the full extent and boundaries of the named anatomy are not established."}},
       "fidelity": "not_assessed",
       "representation": "source_surface_mesh",
       "geometry": {
@@ -20913,10 +20934,9 @@
       "regions": [
         "ankle"
       ],
-      "investigation_ids": [
-        "ra.mri-diabetic-foot"
-      ],
-      "structure_ids": [],
+      "investigation_ids": ["ra.mri-diabetic-foot", "ra.mri-ankle"],
+      "structure_ids": ["ankle.posterior_tibial_tendon.tendon_sheath", "diabetic_foot.posterior_tibial_tendon.sheath_or_achilles_paratenon"],
+      "requirement_coverage": {"ankle.posterior_tibial_tendon.tendon_sheath": {"extent": "partial", "basis": "The source label of this model names “tibialis posterior”, another name for this requirement’s “posterior tibial”: “Tendon sheath of tibialis posterior muscle”. The requirement is for the examined side; the model is a right-side reference, a mirror image for the other side. One source-labelled model; the full extent and boundaries of the named anatomy are not established."}, "diabetic_foot.posterior_tibial_tendon.sheath_or_achilles_paratenon": {"extent": "partial", "basis": "The source label of this model names “tibialis posterior”, another name for this requirement’s “posterior tibial”: “Tendon sheath of tibialis posterior muscle”. The requirement is for the examined side; the model is a right-side reference, a mirror image for the other side. One source-labelled model; the full extent and boundaries of the named anatomy are not established."}},
       "fidelity": "not_assessed",
       "representation": "source_surface_mesh",
       "geometry": {
@@ -20965,10 +20985,9 @@
       "regions": [
         "ankle"
       ],
-      "investigation_ids": [
-        "ra.mri-diabetic-foot"
-      ],
-      "structure_ids": [],
+      "investigation_ids": ["ra.mri-diabetic-foot", "ra.mri-ankle"],
+      "structure_ids": ["ankle.flexor_hallucis_longus_tendon.tendon_sheath", "diabetic_foot.flexor_hallucis_longus_tendon.sheath_or_achilles_paratenon"],
+      "requirement_coverage": {"ankle.flexor_hallucis_longus_tendon.tendon_sheath": {"extent": "partial", "basis": "The source label of this model names this part: “Tendon sheath of flexor hallucis longus”. The requirement is for the examined side; the model is a right-side reference, a mirror image for the other side. One source-labelled model; the full extent and boundaries of the named anatomy are not established."}, "diabetic_foot.flexor_hallucis_longus_tendon.sheath_or_achilles_paratenon": {"extent": "partial", "basis": "The source label of this model names this part: “Tendon sheath of flexor hallucis longus”. The requirement is for the examined side; the model is a right-side reference, a mirror image for the other side. One source-labelled model; the full extent and boundaries of the named anatomy are not established."}},
       "fidelity": "not_assessed",
       "representation": "source_surface_mesh",
       "geometry": {
@@ -21017,10 +21036,9 @@
       "regions": [
         "ankle"
       ],
-      "investigation_ids": [
-        "ra.mri-diabetic-foot"
-      ],
-      "structure_ids": [],
+      "investigation_ids": ["ra.mri-diabetic-foot", "ra.mri-ankle"],
+      "structure_ids": ["ankle.fibularis_longus_tendon.tendon_sheath", "ankle.fibularis_brevis_tendon.tendon_sheath", "diabetic_foot.fibularis_longus_tendon.sheath_or_achilles_paratenon", "diabetic_foot.fibularis_brevis_tendon.sheath_or_achilles_paratenon"],
+      "requirement_coverage": {"ankle.fibularis_longus_tendon.tendon_sheath": {"extent": "partial", "basis": "The source label of this model names this part: “Common tendon sheath of fibularis muscles”. The requirement is for the examined side; the model is a right-side reference, a mirror image for the other side. One source-labelled model; the full extent and boundaries of the named anatomy are not established."}, "ankle.fibularis_brevis_tendon.tendon_sheath": {"extent": "partial", "basis": "The source label of this model names this part: “Common tendon sheath of fibularis muscles”. The requirement is for the examined side; the model is a right-side reference, a mirror image for the other side. One source-labelled model; the full extent and boundaries of the named anatomy are not established."}, "diabetic_foot.fibularis_longus_tendon.sheath_or_achilles_paratenon": {"extent": "partial", "basis": "The source label of this model names this part: “Common tendon sheath of fibularis muscles”. The requirement is for the examined side; the model is a right-side reference, a mirror image for the other side. One source-labelled model; the full extent and boundaries of the named anatomy are not established."}, "diabetic_foot.fibularis_brevis_tendon.sheath_or_achilles_paratenon": {"extent": "partial", "basis": "The source label of this model names this part: “Common tendon sheath of fibularis muscles”. The requirement is for the examined side; the model is a right-side reference, a mirror image for the other side. One source-labelled model; the full extent and boundaries of the named anatomy are not established."}},
       "fidelity": "not_assessed",
       "representation": "source_surface_mesh",
       "geometry": {
@@ -21069,10 +21087,9 @@
       "regions": [
         "ankle"
       ],
-      "investigation_ids": [
-        "ra.mri-diabetic-foot"
-      ],
-      "structure_ids": [],
+      "investigation_ids": ["ra.mri-diabetic-foot", "ra.mri-ankle"],
+      "structure_ids": ["ankle.fibularis_longus_tendon.tendon_sheath", "diabetic_foot.fibularis_longus_tendon.sheath_or_achilles_paratenon"],
+      "requirement_coverage": {"ankle.fibularis_longus_tendon.tendon_sheath": {"extent": "partial", "basis": "The source label of this model names this part: “Plantar tendon sheath of fibularis longus muscle”. The requirement is for the examined side; the model is a right-side reference, a mirror image for the other side. One source-labelled model; the full extent and boundaries of the named anatomy are not established."}, "diabetic_foot.fibularis_longus_tendon.sheath_or_achilles_paratenon": {"extent": "partial", "basis": "The source label of this model names this part: “Plantar tendon sheath of fibularis longus muscle”. The requirement is for the examined side; the model is a right-side reference, a mirror image for the other side. One source-labelled model; the full extent and boundaries of the named anatomy are not established."}},
       "fidelity": "not_assessed",
       "representation": "source_surface_mesh",
       "geometry": {
@@ -21209,10 +21226,9 @@
       "regions": [
         "ankle"
       ],
-      "investigation_ids": [
-        "ra.mri-diabetic-foot"
-      ],
-      "structure_ids": [],
+      "investigation_ids": ["ra.mri-diabetic-foot", "ra.mri-ankle"],
+      "structure_ids": ["ankle.extensor_digitorum_longus_tendon.retromalleolar_or_anterior_course", "diabetic_foot.extensor_digitorum_longus_tendons.visible_tendon_course"],
+      "requirement_coverage": {"ankle.extensor_digitorum_longus_tendon.retromalleolar_or_anterior_course": {"extent": "partial", "basis": "The source label of this model names the structure: “Tendon of extensor digitorum longus”. This part is the structure’s own body or surface, which the whole model shows; the model does not delineate the other parts. The requirement is for the examined side; the model is a right-side reference, a mirror image for the other side. One source-labelled model; the full extent and boundaries of the named anatomy are not established."}, "diabetic_foot.extensor_digitorum_longus_tendons.visible_tendon_course": {"extent": "partial", "basis": "The source label of this model names the structure: “Tendon of extensor digitorum longus”. This part is the structure’s own body or surface, which the whole model shows; the model does not delineate the other parts. The requirement is for the examined side; the model is a right-side reference, a mirror image for the other side. One source-labelled model; the full extent and boundaries of the named anatomy are not established."}},
       "fidelity": "not_assessed",
       "representation": "source_surface_mesh",
       "geometry": {
@@ -21261,8 +21277,9 @@
       "regions": [
         "shoulder"
       ],
-      "investigation_ids": [],
-      "structure_ids": [],
+      "investigation_ids": ["ra.mri-shoulder"],
+      "structure_ids": ["shoulder.deltoid_muscle.middle"],
+      "requirement_coverage": {"shoulder.deltoid_muscle.middle": {"extent": "partial", "basis": "The source label of this model names “acromial part of deltoid muscle”, another name for this requirement’s “middle deltoid”: “Acromial part of deltoid muscle”. The requirement is for the examined side; the model is a right-side reference, a mirror image for the other side. One source-labelled model; the full extent and boundaries of the named anatomy are not established."}},
       "fidelity": "not_assessed",
       "representation": "source_surface_mesh",
       "geometry": {
@@ -21349,8 +21366,9 @@
       "regions": [
         "shoulder"
       ],
-      "investigation_ids": [],
-      "structure_ids": [],
+      "investigation_ids": ["ra.mri-shoulder"],
+      "structure_ids": ["shoulder.deltoid_muscle.anterior"],
+      "requirement_coverage": {"shoulder.deltoid_muscle.anterior": {"extent": "partial", "basis": "The source label of this model names “clavicular part of deltoid muscle”, another name for this requirement’s “anterior deltoid”: “Clavicular part of deltoid muscle”. The requirement is for the examined side; the model is a right-side reference, a mirror image for the other side. One source-labelled model; the full extent and boundaries of the named anatomy are not established."}},
       "fidelity": "not_assessed",
       "representation": "source_surface_mesh",
       "geometry": {
@@ -21437,8 +21455,9 @@
       "regions": [
         "shoulder"
       ],
-      "investigation_ids": [],
-      "structure_ids": [],
+      "investigation_ids": ["ra.mri-shoulder"],
+      "structure_ids": ["shoulder.deltoid_muscle.posterior"],
+      "requirement_coverage": {"shoulder.deltoid_muscle.posterior": {"extent": "partial", "basis": "The source label of this model names “scapular spinal part of deltoid muscle”, another name for this requirement’s “posterior deltoid”: “Scapular spinal part of deltoid muscle”. The requirement is for the examined side; the model is a right-side reference, a mirror image for the other side. One source-labelled model; the full extent and boundaries of the named anatomy are not established."}},
       "fidelity": "not_assessed",
       "representation": "source_surface_mesh",
       "geometry": {
@@ -21525,8 +21544,9 @@
       "regions": [
         "shoulder"
       ],
-      "investigation_ids": [],
-      "structure_ids": [],
+      "investigation_ids": ["ra.mri-shoulder", "ra.ultrasound-shoulder"],
+      "structure_ids": ["shoulder.subscapularis_muscle.muscle_belly", "shoulder.subscapularis_muscle"],
+      "requirement_coverage": {"shoulder.subscapularis_muscle.muscle_belly": {"extent": "partial", "basis": "The source label of this model names the structure: “Subscapularis muscle”. This part is the structure’s own body or surface, which the whole model shows; the model does not delineate the other parts. The requirement is for the examined side; the model is a right-side reference, a mirror image for the other side. One source-labelled model; the full extent and boundaries of the named anatomy are not established."}, "shoulder.subscapularis_muscle": {"extent": "partial", "basis": "The source label of this model names the structure: “Subscapularis muscle”. The requirement is for the examined side; the model is a right-side reference, a mirror image for the other side. One source-labelled model; the full extent and boundaries of the named anatomy are not established."}},
       "fidelity": "not_assessed",
       "representation": "source_surface_mesh",
       "geometry": {
@@ -21569,8 +21589,9 @@
       "regions": [
         "shoulder"
       ],
-      "investigation_ids": [],
-      "structure_ids": [],
+      "investigation_ids": ["ra.mri-shoulder", "ra.ultrasound-shoulder"],
+      "structure_ids": ["shoulder.supraspinatus_muscle.muscle_belly", "shoulder.supraspinatus_muscle"],
+      "requirement_coverage": {"shoulder.supraspinatus_muscle.muscle_belly": {"extent": "partial", "basis": "The source label of this model names the structure: “Supraspinatus muscle”. This part is the structure’s own body or surface, which the whole model shows; the model does not delineate the other parts. The requirement is for the examined side; the model is a right-side reference, a mirror image for the other side. One source-labelled model; the full extent and boundaries of the named anatomy are not established."}, "shoulder.supraspinatus_muscle": {"extent": "partial", "basis": "The source label of this model names the structure: “Supraspinatus muscle”. The requirement is for the examined side; the model is a right-side reference, a mirror image for the other side. One source-labelled model; the full extent and boundaries of the named anatomy are not established."}},
       "fidelity": "not_assessed",
       "representation": "source_surface_mesh",
       "geometry": {
@@ -21613,8 +21634,9 @@
       "regions": [
         "shoulder"
       ],
-      "investigation_ids": [],
-      "structure_ids": [],
+      "investigation_ids": ["ra.mri-shoulder", "ra.ultrasound-shoulder"],
+      "structure_ids": ["shoulder.teres_minor_muscle.muscle_belly", "shoulder.teres_minor_muscle"],
+      "requirement_coverage": {"shoulder.teres_minor_muscle.muscle_belly": {"extent": "partial", "basis": "The source label of this model names the structure: “Teres minor muscle”. This part is the structure’s own body or surface, which the whole model shows; the model does not delineate the other parts. The requirement is for the examined side; the model is a right-side reference, a mirror image for the other side. One source-labelled model; the full extent and boundaries of the named anatomy are not established."}, "shoulder.teres_minor_muscle": {"extent": "partial", "basis": "The source label of this model names the structure: “Teres minor muscle”. The requirement is for the examined side; the model is a right-side reference, a mirror image for the other side. One source-labelled model; the full extent and boundaries of the named anatomy are not established."}},
       "fidelity": "not_assessed",
       "representation": "source_surface_mesh",
       "geometry": {
@@ -21657,8 +21679,9 @@
       "regions": [
         "shoulder"
       ],
-      "investigation_ids": [],
-      "structure_ids": [],
+      "investigation_ids": ["ra.mri-shoulder", "ra.ultrasound-shoulder"],
+      "structure_ids": ["shoulder.infraspinatus_muscle.muscle_belly", "shoulder.infraspinatus_muscle"],
+      "requirement_coverage": {"shoulder.infraspinatus_muscle.muscle_belly": {"extent": "partial", "basis": "The source label of this model names the structure: “Infraspinatus muscle”. This part is the structure’s own body or surface, which the whole model shows; the model does not delineate the other parts. The requirement is for the examined side; the model is a right-side reference, a mirror image for the other side. One source-labelled model; the full extent and boundaries of the named anatomy are not established."}, "shoulder.infraspinatus_muscle": {"extent": "partial", "basis": "The source label of this model names the structure: “Infraspinatus muscle”. The requirement is for the examined side; the model is a right-side reference, a mirror image for the other side. One source-labelled model; the full extent and boundaries of the named anatomy are not established."}},
       "fidelity": "not_assessed",
       "representation": "source_surface_mesh",
       "geometry": {
@@ -21701,8 +21724,9 @@
       "regions": [
         "shoulder"
       ],
-      "investigation_ids": [],
-      "structure_ids": [],
+      "investigation_ids": ["ra.mri-shoulder", "ra.ultrasound-joint-injection"],
+      "structure_ids": ["shoulder.infraspinatus_tendon.tendon_substance", "injection.glenohumeral_posterior_target.infraspinatus_tendon"],
+      "requirement_coverage": {"shoulder.infraspinatus_tendon.tendon_substance": {"extent": "partial", "basis": "The source label of this model names the structure: “Infraspinatus muscle · tendon surface”. This part is the structure’s own body or surface, which the whole model shows; the model does not delineate the other parts. The requirement is for the examined side; the model is a right-side reference, a mirror image for the other side. One source-labelled model; the full extent and boundaries of the named anatomy are not established."}, "injection.glenohumeral_posterior_target.infraspinatus_tendon": {"extent": "partial", "basis": "The source label of this model names this part: “Infraspinatus muscle · tendon surface”. The requirement is for the examined side; the model is a right-side reference, a mirror image for the other side. One source-labelled model; the full extent and boundaries of the named anatomy are not established."}},
       "fidelity": "not_assessed",
       "representation": "source_material_surface",
       "geometry": {
@@ -21745,8 +21769,9 @@
       "regions": [
         "knee"
       ],
-      "investigation_ids": [],
-      "structure_ids": [],
+      "investigation_ids": ["ra.mri-knee"],
+      "structure_ids": ["knee.lateral_gastrocnemius_muscle"],
+      "requirement_coverage": {"knee.lateral_gastrocnemius_muscle": {"extent": "partial", "basis": "The source label of this model names the structure: “Lateral head of gastrocnemius”. The requirement is for the examined side; the model is a right-side reference, a mirror image for the other side. One source-labelled model; the full extent and boundaries of the named anatomy are not established."}},
       "fidelity": "not_assessed",
       "representation": "source_surface_mesh",
       "geometry": {
@@ -21833,8 +21858,9 @@
       "regions": [
         "knee"
       ],
-      "investigation_ids": [],
-      "structure_ids": [],
+      "investigation_ids": ["ra.mri-knee"],
+      "structure_ids": ["knee.medial_gastrocnemius_muscle"],
+      "requirement_coverage": {"knee.medial_gastrocnemius_muscle": {"extent": "partial", "basis": "The source label of this model names the structure: “Medial head of gastrocnemius”. The requirement is for the examined side; the model is a right-side reference, a mirror image for the other side. One source-labelled model; the full extent and boundaries of the named anatomy are not established."}},
       "fidelity": "not_assessed",
       "representation": "source_surface_mesh",
       "geometry": {
@@ -21921,10 +21947,9 @@
       "regions": [
         "ankle"
       ],
-      "investigation_ids": [
-        "ra.mri-diabetic-foot"
-      ],
-      "structure_ids": [],
+      "investigation_ids": ["ra.mri-diabetic-foot", "ra.mri-ankle"],
+      "structure_ids": ["ankle.achilles_tendon.midportion", "diabetic_foot.achilles_tendon.visible_tendon_course"],
+      "requirement_coverage": {"ankle.achilles_tendon.midportion": {"extent": "partial", "basis": "The source label of this model names “calcaneal tendon”, another name for this requirement’s “achilles tendon”: “Calcaneal tendon”. This part is the structure’s own body or surface, which the whole model shows; the model does not delineate the other parts. The requirement is for the examined side; the model is a right-side reference, a mirror image for the other side. One source-labelled model; the full extent and boundaries of the named anatomy are not established."}, "diabetic_foot.achilles_tendon.visible_tendon_course": {"extent": "partial", "basis": "The source label of this model names “calcaneal tendon”, another name for this requirement’s “achilles tendon”: “Calcaneal tendon”. This part is the structure’s own body or surface, which the whole model shows; the model does not delineate the other parts. The requirement is for the examined side; the model is a right-side reference, a mirror image for the other side. One source-labelled model; the full extent and boundaries of the named anatomy are not established."}},
       "fidelity": "not_assessed",
       "representation": "source_surface_mesh",
       "geometry": {
@@ -22025,10 +22050,9 @@
       "regions": [
         "ankle"
       ],
-      "investigation_ids": [
-        "ra.mri-diabetic-foot"
-      ],
-      "structure_ids": [],
+      "investigation_ids": ["ra.mri-diabetic-foot", "ra.mri-ankle"],
+      "structure_ids": ["ankle.flexor_digitorum_longus_tendon.retromalleolar_or_anterior_course", "diabetic_foot.flexor_digitorum_longus_tendons.visible_tendon_course"],
+      "requirement_coverage": {"ankle.flexor_digitorum_longus_tendon.retromalleolar_or_anterior_course": {"extent": "partial", "basis": "The source label of this model names the structure: “Flexor digitorum longus · tendon surface”. This part is the structure’s own body or surface, which the whole model shows; the model does not delineate the other parts. The requirement is for the examined side; the model is a right-side reference, a mirror image for the other side. One source-labelled model; the full extent and boundaries of the named anatomy are not established."}, "diabetic_foot.flexor_digitorum_longus_tendons.visible_tendon_course": {"extent": "partial", "basis": "The source label of this model names the structure: “Flexor digitorum longus · tendon surface”. This part is the structure’s own body or surface, which the whole model shows; the model does not delineate the other parts. The requirement is for the examined side; the model is a right-side reference, a mirror image for the other side. One source-labelled model; the full extent and boundaries of the named anatomy are not established."}},
       "fidelity": "not_assessed",
       "representation": "source_material_surface",
       "geometry": {
@@ -22077,8 +22101,9 @@
       "regions": [
         "knee"
       ],
-      "investigation_ids": [],
-      "structure_ids": [],
+      "investigation_ids": ["ra.mri-knee"],
+      "structure_ids": ["knee.popliteus_muscle"],
+      "requirement_coverage": {"knee.popliteus_muscle": {"extent": "partial", "basis": "The source label of this model names the structure: “Popliteus muscle”. The requirement is for the examined side; the model is a right-side reference, a mirror image for the other side. One source-labelled model; the full extent and boundaries of the named anatomy are not established."}},
       "fidelity": "not_assessed",
       "representation": "source_surface_mesh",
       "geometry": {
@@ -22217,10 +22242,9 @@
       "regions": [
         "ankle"
       ],
-      "investigation_ids": [
-        "ra.mri-diabetic-foot"
-      ],
-      "structure_ids": [],
+      "investigation_ids": ["ra.mri-diabetic-foot", "ra.mri-ankle"],
+      "structure_ids": ["ankle.posterior_tibial_tendon.retromalleolar_or_anterior_course", "diabetic_foot.posterior_tibial_tendon.visible_tendon_course"],
+      "requirement_coverage": {"ankle.posterior_tibial_tendon.retromalleolar_or_anterior_course": {"extent": "partial", "basis": "The source label of this model names “tibialis posterior”, another name for this requirement’s “posterior tibial”: “Tibialis posterior muscle · tendon surface”. This part is the structure’s own body or surface, which the whole model shows; the model does not delineate the other parts. The requirement is for the examined side; the model is a right-side reference, a mirror image for the other side. One source-labelled model; the full extent and boundaries of the named anatomy are not established."}, "diabetic_foot.posterior_tibial_tendon.visible_tendon_course": {"extent": "partial", "basis": "The source label of this model names “tibialis posterior”, another name for this requirement’s “posterior tibial”: “Tibialis posterior muscle · tendon surface”. This part is the structure’s own body or surface, which the whole model shows; the model does not delineate the other parts. The requirement is for the examined side; the model is a right-side reference, a mirror image for the other side. One source-labelled model; the full extent and boundaries of the named anatomy are not established."}},
       "fidelity": "not_assessed",
       "representation": "source_material_surface",
       "geometry": {
@@ -22321,10 +22345,9 @@
       "regions": [
         "ankle"
       ],
-      "investigation_ids": [
-        "ra.mri-diabetic-foot"
-      ],
-      "structure_ids": [],
+      "investigation_ids": ["ra.mri-diabetic-foot", "ra.mri-ankle"],
+      "structure_ids": ["ankle.flexor_hallucis_longus_tendon.retromalleolar_or_anterior_course", "diabetic_foot.flexor_hallucis_longus_tendon.visible_tendon_course"],
+      "requirement_coverage": {"ankle.flexor_hallucis_longus_tendon.retromalleolar_or_anterior_course": {"extent": "partial", "basis": "The source label of this model names the structure: “Flexor hallucis longus · tendon surface”. This part is the structure’s own body or surface, which the whole model shows; the model does not delineate the other parts. The requirement is for the examined side; the model is a right-side reference, a mirror image for the other side. One source-labelled model; the full extent and boundaries of the named anatomy are not established."}, "diabetic_foot.flexor_hallucis_longus_tendon.visible_tendon_course": {"extent": "partial", "basis": "The source label of this model names the structure: “Flexor hallucis longus · tendon surface”. This part is the structure’s own body or surface, which the whole model shows; the model does not delineate the other parts. The requirement is for the examined side; the model is a right-side reference, a mirror image for the other side. One source-labelled model; the full extent and boundaries of the named anatomy are not established."}},
       "fidelity": "not_assessed",
       "representation": "source_material_surface",
       "geometry": {
@@ -23262,8 +23285,9 @@
         "elbow",
         "wrist"
       ],
-      "investigation_ids": [],
-      "structure_ids": [],
+      "investigation_ids": ["ra.mri-elbow"],
+      "structure_ids": ["elbow.flexor_carpi_radialis_muscle"],
+      "requirement_coverage": {"elbow.flexor_carpi_radialis_muscle": {"extent": "partial", "basis": "The source label of this model names the structure: “Flexor carpi radialis”. The requirement is for the examined side; the model is a right-side reference, a mirror image for the other side. One source-labelled model; the full extent and boundaries of the named anatomy are not established."}},
       "fidelity": "not_assessed",
       "representation": "source_surface_mesh",
       "geometry": {
@@ -24146,8 +24170,9 @@
         "elbow",
         "wrist"
       ],
-      "investigation_ids": [],
-      "structure_ids": [],
+      "investigation_ids": ["ra.mri-elbow"],
+      "structure_ids": ["elbow.extensor_carpi_radialis_brevis_muscle"],
+      "requirement_coverage": {"elbow.extensor_carpi_radialis_brevis_muscle": {"extent": "partial", "basis": "The source label of this model names the structure: “Extensor carpi radialis brevis”. The requirement is for the examined side; the model is a right-side reference, a mirror image for the other side. One source-labelled model; the full extent and boundaries of the named anatomy are not established."}},
       "fidelity": "not_assessed",
       "representation": "source_surface_mesh",
       "geometry": {
@@ -24235,8 +24260,9 @@
       "regions": [
         "elbow"
       ],
-      "investigation_ids": [],
-      "structure_ids": [],
+      "investigation_ids": ["ra.mri-elbow"],
+      "structure_ids": ["elbow.anconeus_muscle"],
+      "requirement_coverage": {"elbow.anconeus_muscle": {"extent": "partial", "basis": "The source label of this model names the structure: “Anconeus muscle”. The requirement is for the examined side; the model is a right-side reference, a mirror image for the other side. One source-labelled model; the full extent and boundaries of the named anatomy are not established."}},
       "fidelity": "not_assessed",
       "representation": "source_surface_mesh",
       "geometry": {
@@ -24411,8 +24437,9 @@
       "regions": [
         "elbow"
       ],
-      "investigation_ids": [],
-      "structure_ids": [],
+      "investigation_ids": ["ra.mri-elbow"],
+      "structure_ids": ["elbow.supinator_muscle"],
+      "requirement_coverage": {"elbow.supinator_muscle": {"extent": "partial", "basis": "The source label of this model names the structure: “Supinator”. The requirement is for the examined side; the model is a right-side reference, a mirror image for the other side. One source-labelled model; the full extent and boundaries of the named anatomy are not established."}},
       "fidelity": "not_assessed",
       "representation": "source_surface_mesh",
       "geometry": {
@@ -25557,8 +25584,9 @@
       "regions": [
         "elbow"
       ],
-      "investigation_ids": [],
-      "structure_ids": [],
+      "investigation_ids": ["ra.mri-elbow"],
+      "structure_ids": ["elbow.radial_nerve.deep_branch"],
+      "requirement_coverage": {"elbow.radial_nerve.deep_branch": {"extent": "partial", "basis": "The source label of this model names this part: “Deep branch of radial nerve”. The requirement is for the examined side; the model is a right-side reference, a mirror image for the other side. One source-labelled model; the full extent and boundaries of the named anatomy are not established."}},
       "fidelity": "not_assessed",
       "representation": "source_surface_mesh",
       "geometry": {
@@ -25602,8 +25630,9 @@
         "elbow",
         "wrist"
       ],
-      "investigation_ids": [],
-      "structure_ids": [],
+      "investigation_ids": ["ra.mri-elbow"],
+      "structure_ids": ["elbow.radial_nerve.superficial_branch"],
+      "requirement_coverage": {"elbow.radial_nerve.superficial_branch": {"extent": "partial", "basis": "The source label of this model names this part: “Superficial branch of radial nerve”. The requirement is for the examined side; the model is a right-side reference, a mirror image for the other side. One source-labelled model; the full extent and boundaries of the named anatomy are not established."}},
       "fidelity": "not_assessed",
       "representation": "source_surface_mesh",
       "geometry": {
@@ -25735,10 +25764,9 @@
         "ankle",
         "knee"
       ],
-      "investigation_ids": [
-        "ra.mri-diabetic-foot"
-      ],
-      "structure_ids": [],
+      "investigation_ids": ["ra.mri-diabetic-foot", "ra.mri-knee"],
+      "structure_ids": ["knee.tibial_nerve"],
+      "requirement_coverage": {"knee.tibial_nerve": {"extent": "partial", "basis": "The source label of this model names the structure: “Tibial nerve”. The requirement is for the examined side; the model is a right-side reference, a mirror image for the other side. One source-labelled model; the full extent and boundaries of the named anatomy are not established."}},
       "fidelity": "not_assessed",
       "representation": "source_surface_mesh",
       "geometry": {
@@ -25963,10 +25991,9 @@
       "regions": [
         "ankle"
       ],
-      "investigation_ids": [
-        "ra.mri-diabetic-foot"
-      ],
-      "structure_ids": [],
+      "investigation_ids": ["ra.mri-diabetic-foot", "ra.mri-ankle"],
+      "structure_ids": ["ankle.tibial_nerve.lateral_plantar_branch"],
+      "requirement_coverage": {"ankle.tibial_nerve.lateral_plantar_branch": {"extent": "partial", "basis": "The source label of this model names “lateral plantar nerve”, another name for this requirement’s “lateral plantar branch”: “Lateral plantar nerve”. The requirement is for the examined side; the model is a right-side reference, a mirror image for the other side. One source-labelled model; the full extent and boundaries of the named anatomy are not established."}},
       "fidelity": "not_assessed",
       "representation": "source_surface_mesh",
       "geometry": {
@@ -26015,10 +26042,9 @@
       "regions": [
         "ankle"
       ],
-      "investigation_ids": [
-        "ra.mri-diabetic-foot"
-      ],
-      "structure_ids": [],
+      "investigation_ids": ["ra.mri-diabetic-foot", "ra.mri-ankle"],
+      "structure_ids": ["ankle.tibial_nerve.medial_plantar_branch"],
+      "requirement_coverage": {"ankle.tibial_nerve.medial_plantar_branch": {"extent": "partial", "basis": "The source label of this model names “medial plantar nerve”, another name for this requirement’s “medial plantar branch”: “Medial plantar nerve”. The requirement is for the examined side; the model is a right-side reference, a mirror image for the other side. One source-labelled model; the full extent and boundaries of the named anatomy are not established."}},
       "fidelity": "not_assessed",
       "representation": "source_surface_mesh",
       "geometry": {
@@ -27061,7 +27087,8 @@
       "investigation_ids": [
         "ra.mri-knee"
       ],
-      "structure_ids": [],
+      "structure_ids": ["knee.patellar_cartilage.articular_surface"],
+      "requirement_coverage": {"knee.patellar_cartilage.articular_surface": {"extent": "partial", "basis": "The source label of this model names the structure: “Patellar cartilage”. This part is the structure’s own body or surface, which the whole model shows; the model does not delineate the other parts. The requirement is for the examined side; the model is a right-side reference, a mirror image for the other side. One source-labelled model; the full extent and boundaries of the named anatomy are not established."}},
       "fidelity": "source_verified_not_clinically_approved",
       "representation": "segmented_mri_surface",
       "geometry": {
@@ -27223,7 +27250,8 @@
       "investigation_ids": [
         "ra.mri-knee"
       ],
-      "structure_ids": [],
+      "structure_ids": ["knee.fibular_collateral_ligament.midsubstance"],
+      "requirement_coverage": {"knee.fibular_collateral_ligament.midsubstance": {"extent": "partial", "basis": "The source label of this model names “lateral collateral ligament”, another name for this requirement’s “fibular collateral ligament”: “Lateral collateral ligament”. This part is the structure’s own body or surface, which the whole model shows; the model does not delineate the other parts. The requirement is for the examined side; the model is a right-side reference, a mirror image for the other side. One source-labelled model; the full extent and boundaries of the named anatomy are not established."}},
       "fidelity": "source_verified_not_clinically_approved",
       "representation": "segmented_mri_surface",
       "geometry": {
@@ -27331,7 +27359,8 @@
       "investigation_ids": [
         "ra.mri-knee"
       ],
-      "structure_ids": [],
+      "structure_ids": ["knee.patellar_tendon.midsubstance"],
+      "requirement_coverage": {"knee.patellar_tendon.midsubstance": {"extent": "partial", "basis": "The source label of this model names “patellar ligament”, another name for this requirement’s “patellar tendon”: “Patellar ligament”. This part is the structure’s own body or surface, which the whole model shows; the model does not delineate the other parts. The requirement is for the examined side; the model is a right-side reference, a mirror image for the other side. One source-labelled model; the full extent and boundaries of the named anatomy are not established."}},
       "fidelity": "source_verified_not_clinically_approved",
       "representation": "segmented_mri_surface",
       "geometry": {
@@ -27601,7 +27630,8 @@
       "investigation_ids": [
         "ra.mri-knee"
       ],
-      "structure_ids": [],
+      "structure_ids": ["knee.lateral_gastrocnemius_muscle"],
+      "requirement_coverage": {"knee.lateral_gastrocnemius_muscle": {"extent": "partial", "basis": "The source label of this model names the structure: “Lateral gastrocnemius”. The requirement is for the examined side; the model is a right-side reference, a mirror image for the other side. One source-labelled model; the full extent and boundaries of the named anatomy are not established."}},
       "fidelity": "source_verified_not_clinically_approved",
       "representation": "segmented_mri_surface",
       "geometry": {
@@ -27655,7 +27685,8 @@
       "investigation_ids": [
         "ra.mri-knee"
       ],
-      "structure_ids": [],
+      "structure_ids": ["knee.medial_gastrocnemius_muscle"],
+      "requirement_coverage": {"knee.medial_gastrocnemius_muscle": {"extent": "partial", "basis": "The source label of this model names the structure: “Medial gastrocnemius”. The requirement is for the examined side; the model is a right-side reference, a mirror image for the other side. One source-labelled model; the full extent and boundaries of the named anatomy are not established."}},
       "fidelity": "source_verified_not_clinically_approved",
       "representation": "segmented_mri_surface",
       "geometry": {
@@ -27763,7 +27794,8 @@
       "investigation_ids": [
         "ra.mri-knee"
       ],
-      "structure_ids": [],
+      "structure_ids": ["knee.popliteus_muscle"],
+      "requirement_coverage": {"knee.popliteus_muscle": {"extent": "partial", "basis": "The source label of this model names the structure: “Popliteus”. The requirement is for the examined side; the model is a right-side reference, a mirror image for the other side. One source-labelled model; the full extent and boundaries of the named anatomy are not established."}},
       "fidelity": "source_verified_not_clinically_approved",
       "representation": "segmented_mri_surface",
       "geometry": {
@@ -28249,7 +28281,8 @@
       "investigation_ids": [
         "ra.mri-knee"
       ],
-      "structure_ids": [],
+      "structure_ids": ["knee.quadriceps_tendon.midsubstance"],
+      "requirement_coverage": {"knee.quadriceps_tendon.midsubstance": {"extent": "partial", "basis": "The source label of this model names the structure: “Quadriceps tendon”. This part is the structure’s own body or surface, which the whole model shows; the model does not delineate the other parts. The requirement is for the examined side; the model is a right-side reference, a mirror image for the other side. One source-labelled model; the full extent and boundaries of the named anatomy are not established."}},
       "fidelity": "source_verified_not_clinically_approved",
       "representation": "segmented_mri_surface",
       "geometry": {
@@ -30402,7 +30435,8 @@
       "investigation_ids": [
         "ra.mri-ankle"
       ],
-      "structure_ids": [],
+      "structure_ids": ["ankle.achilles_tendon.midportion"],
+      "requirement_coverage": {"ankle.achilles_tendon.midportion": {"extent": "partial", "basis": "The source label of this model names the structure: “Achilles tendon”. This part is the structure’s own body or surface, which the whole model shows; the model does not delineate the other parts. The requirement is for the examined side; the model is a right-side reference, a mirror image for the other side. One source-labelled model; the full extent and boundaries of the named anatomy are not established."}},
       "fidelity": "source_verified_not_clinically_approved",
       "representation": "segmented_mri_surface",
       "geometry": {
@@ -60795,7 +60829,8 @@
       "investigation_ids": [
         "ra.mri-knee"
       ],
-      "structure_ids": [],
+      "structure_ids": ["knee.fibular_collateral_ligament.midsubstance"],
+      "requirement_coverage": {"knee.fibular_collateral_ligament.midsubstance": {"extent": "partial", "basis": "The source label of this model names “lateral collateral ligament”, another name for this requirement’s “fibular collateral ligament”: “Lateral collateral ligament”. This part is the structure’s own body or surface, which the whole model shows; the model does not delineate the other parts. The requirement is for the examined side; the model is a left-side reference, a mirror image for the other side. One source-labelled model; the full extent and boundaries of the named anatomy are not established."}},
       "fidelity": "source_verified_not_clinically_approved",
       "representation": "mri_derived_surface",
       "geometry": {
@@ -60897,7 +60932,8 @@
       "investigation_ids": [
         "ra.mri-knee"
       ],
-      "structure_ids": [],
+      "structure_ids": ["knee.patellar_tendon.midsubstance"],
+      "requirement_coverage": {"knee.patellar_tendon.midsubstance": {"extent": "partial", "basis": "The source label of this model names the structure: “Patellar tendon”. This part is the structure’s own body or surface, which the whole model shows; the model does not delineate the other parts. The requirement is for the examined side; the model is a left-side reference, a mirror image for the other side. One source-labelled model; the full extent and boundaries of the named anatomy are not established."}},
       "fidelity": "source_verified_not_clinically_approved",
       "representation": "mri_derived_surface",
       "geometry": {
@@ -60999,7 +61035,8 @@
       "investigation_ids": [
         "ra.mri-knee"
       ],
-      "structure_ids": [],
+      "structure_ids": ["knee.quadriceps_tendon.midsubstance"],
+      "requirement_coverage": {"knee.quadriceps_tendon.midsubstance": {"extent": "partial", "basis": "The source label of this model names the structure: “Quadriceps tendon”. This part is the structure’s own body or surface, which the whole model shows; the model does not delineate the other parts. The requirement is for the examined side; the model is a left-side reference, a mirror image for the other side. One source-labelled model; the full extent and boundaries of the named anatomy are not established."}},
       "fidelity": "source_verified_not_clinically_approved",
       "representation": "mri_derived_surface",
       "geometry": {

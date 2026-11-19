@@ -87,17 +87,17 @@ Investigation: `ra.wrist-fractures`
 | Dorsal component (`wrist.lunotriquetral_interosseous_ligament.dorsal_component`) | missing | unverified | missing | Anatomical support for injury mechanisms; routine radiographs show indirect alignment/avulsion signs, not ligament or TFCC fibre continuity. / MRI, MR arthrography |
 | Volar (palmar) component (`wrist.lunotriquetral_interosseous_ligament.volar_component`) | unverified | unverified | missing | Anatomical support for injury mechanisms; routine radiographs show indirect alignment/avulsion signs, not ligament or TFCC fibre continuity. / MRI, MR arthrography |
 | Proximal membranous component (`wrist.lunotriquetral_interosseous_ligament.proximal_membranous_component`) | missing | unverified | missing | Anatomical support for injury mechanisms; routine radiographs show indirect alignment/avulsion signs, not ligament or TFCC fibre continuity. / MRI, MR arthrography |
-| Articular disc (TFC proper) (`wrist.triangular_fibrocartilage_complex.articular_disc`) | unverified | unverified | missing | Anatomical support for injury mechanisms; routine radiographs show indirect alignment/avulsion signs, not ligament or TFCC fibre continuity. / MRI, MR arthrography |
+| Articular disc (TFC proper) (`wrist.triangular_fibrocartilage_complex.articular_disc`) | unverified | unverified | unverified | Anatomical support for injury mechanisms; routine radiographs show indirect alignment/avulsion signs, not ligament or TFCC fibre continuity. / MRI, MR arthrography |
 | Radial attachment (`wrist.triangular_fibrocartilage_complex.radial_attachment`) | missing | missing | missing | Anatomical support for injury mechanisms; routine radiographs show indirect alignment/avulsion signs, not ligament or TFCC fibre continuity. / MRI, MR arthrography |
 | Ulnar styloid attachment (superficial lamina) (`wrist.triangular_fibrocartilage_complex.ulnar_styloid_attachment`) | unverified | missing | missing | Anatomical support for injury mechanisms; routine radiographs show indirect alignment/avulsion signs, not ligament or TFCC fibre continuity. / MRI, MR arthrography |
 | Ulnar foveal attachment (deep lamina) (`wrist.triangular_fibrocartilage_complex.foveal_attachment`) | unverified | missing | missing | Anatomical support for injury mechanisms; routine radiographs show indirect alignment/avulsion signs, not ligament or TFCC fibre continuity. / MRI, MR arthrography |
-| Dorsal distal radioulnar ligament (`wrist.triangular_fibrocartilage_complex.dorsal_radioulnar_ligament`) | unverified | unverified | missing | Anatomical support for injury mechanisms; routine radiographs show indirect alignment/avulsion signs, not ligament or TFCC fibre continuity. / MRI, MR arthrography |
-| Volar (palmar) distal radioulnar ligament (`wrist.triangular_fibrocartilage_complex.volar_radioulnar_ligament`) | unverified | unverified | missing | Anatomical support for injury mechanisms; routine radiographs show indirect alignment/avulsion signs, not ligament or TFCC fibre continuity. / MRI, MR arthrography |
+| Dorsal distal radioulnar ligament (`wrist.triangular_fibrocartilage_complex.dorsal_radioulnar_ligament`) | unverified | unverified | unverified | Anatomical support for injury mechanisms; routine radiographs show indirect alignment/avulsion signs, not ligament or TFCC fibre continuity. / MRI, MR arthrography |
+| Volar (palmar) distal radioulnar ligament (`wrist.triangular_fibrocartilage_complex.volar_radioulnar_ligament`) | unverified | unverified | unverified | Anatomical support for injury mechanisms; routine radiographs show indirect alignment/avulsion signs, not ligament or TFCC fibre continuity. / MRI, MR arthrography |
 | Dorsal capsular attachment (`wrist.triangular_fibrocartilage_complex.dorsal_capsular_attachment`) | missing | missing | missing | Anatomical support for injury mechanisms; routine radiographs show indirect alignment/avulsion signs, not ligament or TFCC fibre continuity. / MRI, MR arthrography |
 | Volar capsular attachment (`wrist.triangular_fibrocartilage_complex.volar_capsular_attachment`) | missing | missing | missing | Anatomical support for injury mechanisms; routine radiographs show indirect alignment/avulsion signs, not ligament or TFCC fibre continuity. / MRI, MR arthrography |
-| Ulnolunate ligament (`wrist.triangular_fibrocartilage_complex.ulnolunate_ligament`) | missing | unverified | missing | Anatomical support for injury mechanisms; routine radiographs show indirect alignment/avulsion signs, not ligament or TFCC fibre continuity. / MRI, MR arthrography |
-| Ulnotriquetral ligament (`wrist.triangular_fibrocartilage_complex.ulnotriquetral_ligament`) | unverified | unverified | missing | Anatomical support for injury mechanisms; routine radiographs show indirect alignment/avulsion signs, not ligament or TFCC fibre continuity. / MRI, MR arthrography |
-| Ulnocapitate ligament (`wrist.triangular_fibrocartilage_complex.ulnocapitate_ligament`) | missing | unverified | missing | Anatomical support for injury mechanisms; routine radiographs show indirect alignment/avulsion signs, not ligament or TFCC fibre continuity. / MRI, MR arthrography |
+| Ulnolunate ligament (`wrist.triangular_fibrocartilage_complex.ulnolunate_ligament`) | missing | unverified | unverified | Anatomical support for injury mechanisms; routine radiographs show indirect alignment/avulsion signs, not ligament or TFCC fibre continuity. / MRI, MR arthrography |
+| Ulnotriquetral ligament (`wrist.triangular_fibrocartilage_complex.ulnotriquetral_ligament`) | unverified | unverified | unverified | Anatomical support for injury mechanisms; routine radiographs show indirect alignment/avulsion signs, not ligament or TFCC fibre continuity. / MRI, MR arthrography |
+| Ulnocapitate ligament (`wrist.triangular_fibrocartilage_complex.ulnocapitate_ligament`) | missing | unverified | unverified | Anatomical support for injury mechanisms; routine radiographs show indirect alignment/avulsion signs, not ligament or TFCC fibre continuity. / MRI, MR arthrography |
 | Ulnomeniscal homologue (`wrist.triangular_fibrocartilage_complex.ulnomeniscal_homologue`) | unverified | unverified | missing | Anatomical support for injury mechanisms; routine radiographs show indirect alignment/avulsion signs, not ligament or TFCC fibre continuity. / MRI, MR arthrography |
 | Extensor carpi ulnaris subsheath (`wrist.triangular_fibrocartilage_complex.ecu_subsheath`) | unverified | unverified | missing | Anatomical support for injury mechanisms; routine radiographs show indirect alignment/avulsion signs, not ligament or TFCC fibre continuity. / MRI, MR arthrography |
 | Dorsal (`wrist.periarticular_soft_tissues.dorsal`) | missing | missing | missing | Within the acquired anatomical coverage. / Radiography |
@@ -331,6 +331,25 @@ Investigation: `ra.wrist-fractures`
 - Limits: Mixed figure: panels a–d are authored schematics; e–g are actual MRI. The main structures_visible list is limited to clinically depicted structures identified by the caption and visible markers. Ulnolunate/ulnocapitate ligaments and vascular supply are schematic-only here. Static selected sections do not establish all TFCC bundles, full courses, subject-specific geometry or diagnostic performance.
 - Gate findings: anatomical_review_scope_missing_or_stale, anatomical_review_missing_or_stale, visual_review_scope_missing_or_stale, visual_review_missing_or_stale, high_fidelity_unproven, requirement_coverage_missing
 
+### wrist.triangular_fibrocartilage_complex.articular_disc — model
+
+- Asset: `za-joints-283420712`
+- Local file: [web/anatomy/msk-atlas/za-joints-283420712.bin](../../web/anatomy/msk-atlas/za-joints-283420712.bin)
+- Artifact SHA-256: `4254d2e12c196b58358ecb211a09afd64c319bb3233a476e26d486df757fe22d`
+- Review-scope SHA-256: `a7c51fd95491e8326c9413528479baa6f55d8f8d3be17cac4e9206a17f43dc00`
+- Source: [Original source](https://github.com/LluisV/Z-Anatomy/tree/6c7f9016bd5899ac8edafd31b9900c151df42ed6)
+- Licence: [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/)
+- Recorded rights: commercial use=True; redistribution=True; review status=verified
+- Attribution: BodyParts3D — The Database Center for Life Science — upstream lineage CC BY-SA 2.1 Japan; Z-Anatomy — The open source atlas of anatomy — CC BY-SA 4.0
+- Rights evidence: docs/msk-mesh-source-audit.md
+- Licence use plan: No separate use plan recorded; inspect the exact licence and rights evidence
+- Presentation dependencies: Not separately recorded
+- Coverage: {'extent': 'partial', 'basis': 'The source label of this model names this part: “Articular disc of distal radio-ulnar joint”. The requirement is for the examined side; the model is a right-side reference, a mirror image for the other side. One source-labelled model; the full extent and boundaries of the named anatomy are not established.'}
+- Selection: Not recorded
+- Source context: Not recorded
+- Limits: Not recorded
+- Gate findings: anatomical_review_scope_missing_or_stale, anatomical_review_missing_or_stale, visual_review_scope_missing_or_stale, visual_review_missing_or_stale, high_fidelity_unproven, requirement_coverage_partial
+
 ### wrist.triangular_fibrocartilage_complex.ulnar_styloid_attachment — clinical_image
 
 - Asset: `open-wrist-tfcc-normal-cerezal-fig1`
@@ -424,6 +443,25 @@ Investigation: `ra.wrist-fractures`
 - Limits: Directly labeled anatomical schematic. Does not demonstrate normal MR appearance, ligament sub-bundles or the full surrounding capsule. The ligament layout is source illustration, not registered clinical geometry.
 - Gate findings: anatomical_review_scope_missing_or_stale, anatomical_review_missing_or_stale, visual_review_scope_missing_or_stale, visual_review_missing_or_stale, high_fidelity_unproven, requirement_coverage_missing
 
+### wrist.triangular_fibrocartilage_complex.dorsal_radioulnar_ligament — model
+
+- Asset: `za-joints-342768763`
+- Local file: [web/anatomy/msk-atlas/za-joints-342768763.bin](../../web/anatomy/msk-atlas/za-joints-342768763.bin)
+- Artifact SHA-256: `5436e3f72fe749a98faf80a8db16286aa74e1e2800abd98d1d19227bd6492878`
+- Review-scope SHA-256: `2629df477b6fcef4863288cfb708795bd53270c9cd6cfac75f13ec7c2175de12`
+- Source: [Original source](https://github.com/LluisV/Z-Anatomy/tree/6c7f9016bd5899ac8edafd31b9900c151df42ed6)
+- Licence: [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/)
+- Recorded rights: commercial use=True; redistribution=True; review status=verified
+- Attribution: BodyParts3D — The Database Center for Life Science — upstream lineage CC BY-SA 2.1 Japan; Z-Anatomy — The open source atlas of anatomy — CC BY-SA 4.0
+- Rights evidence: docs/msk-mesh-source-audit.md
+- Licence use plan: No separate use plan recorded; inspect the exact licence and rights evidence
+- Presentation dependencies: Not separately recorded
+- Coverage: {'extent': 'partial', 'basis': 'The source label of this model names this part: “Dorsal radio-ulnar ligament”. The requirement is for the examined side; the model is a right-side reference, a mirror image for the other side. One source-labelled model; the full extent and boundaries of the named anatomy are not established.'}
+- Selection: Not recorded
+- Source context: Not recorded
+- Limits: Not recorded
+- Gate findings: anatomical_review_scope_missing_or_stale, anatomical_review_missing_or_stale, visual_review_scope_missing_or_stale, visual_review_missing_or_stale, high_fidelity_unproven, requirement_coverage_partial
+
 ### wrist.triangular_fibrocartilage_complex.volar_radioulnar_ligament — clinical_image
 
 - Asset: `open-wrist-tfcc-normal-cerezal-fig1`
@@ -479,6 +517,25 @@ Investigation: `ra.wrist-fractures`
 - Limits: Source nomenclature and visible leader labels are preserved. The named volar wrist ligaments are schematic evidence only; this image does not provide their normal MRI appearances, complete insertion footprints or high-fidelity 3D meshes.
 - Gate findings: anatomical_review_scope_missing_or_stale, anatomical_review_missing_or_stale, visual_review_scope_missing_or_stale, visual_review_missing_or_stale, high_fidelity_unproven, requirement_coverage_missing
 
+### wrist.triangular_fibrocartilage_complex.volar_radioulnar_ligament — model
+
+- Asset: `za-joints-340094425`
+- Local file: [web/anatomy/msk-atlas/za-joints-340094425.bin](../../web/anatomy/msk-atlas/za-joints-340094425.bin)
+- Artifact SHA-256: `1e3ea51421a0b20847be6930f6e8dab268f52fdf3d5932ea0c0f49d076b8f8c0`
+- Review-scope SHA-256: `c2dda0b3a12f473d2256ea7a0b4b96ea2c5d63f399e96363c522020bce6f0bc8`
+- Source: [Original source](https://github.com/LluisV/Z-Anatomy/tree/6c7f9016bd5899ac8edafd31b9900c151df42ed6)
+- Licence: [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/)
+- Recorded rights: commercial use=True; redistribution=True; review status=verified
+- Attribution: BodyParts3D — The Database Center for Life Science — upstream lineage CC BY-SA 2.1 Japan; Z-Anatomy — The open source atlas of anatomy — CC BY-SA 4.0
+- Rights evidence: docs/msk-mesh-source-audit.md
+- Licence use plan: No separate use plan recorded; inspect the exact licence and rights evidence
+- Presentation dependencies: Not separately recorded
+- Coverage: {'extent': 'partial', 'basis': 'The source label of this model names this part: “Palmar radio-ulnar ligament”. The requirement is for the examined side; the model is a right-side reference, a mirror image for the other side. One source-labelled model; the full extent and boundaries of the named anatomy are not established.'}
+- Selection: Not recorded
+- Source context: Not recorded
+- Limits: Not recorded
+- Gate findings: anatomical_review_scope_missing_or_stale, anatomical_review_missing_or_stale, visual_review_scope_missing_or_stale, visual_review_missing_or_stale, high_fidelity_unproven, requirement_coverage_partial
+
 ### wrist.triangular_fibrocartilage_complex.ulnolunate_ligament — schematic
 
 - Asset: `open-wrist-tfcc-normal-cerezal-fig1-schematic-panels`
@@ -514,6 +571,25 @@ Investigation: `ra.wrist-fractures`
 - Source context: Not recorded
 - Limits: Source nomenclature and visible leader labels are preserved. The named volar wrist ligaments are schematic evidence only; this image does not provide their normal MRI appearances, complete insertion footprints or high-fidelity 3D meshes.
 - Gate findings: anatomical_review_scope_missing_or_stale, anatomical_review_missing_or_stale, visual_review_scope_missing_or_stale, visual_review_missing_or_stale, high_fidelity_unproven, requirement_coverage_missing
+
+### wrist.triangular_fibrocartilage_complex.ulnolunate_ligament — model
+
+- Asset: `za-joints-86665965`
+- Local file: [web/anatomy/msk-atlas/za-joints-86665965.bin](../../web/anatomy/msk-atlas/za-joints-86665965.bin)
+- Artifact SHA-256: `75c02c495e0ffd1d58b165cb4f929eff5e34063cbdb890addf40c48fbc9b2abb`
+- Review-scope SHA-256: `0cf940346520b8947d6eb8378386979b5dc7f0be05c65c6b47d4de569ed1d11c`
+- Source: [Original source](https://github.com/LluisV/Z-Anatomy/tree/6c7f9016bd5899ac8edafd31b9900c151df42ed6)
+- Licence: [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/)
+- Recorded rights: commercial use=True; redistribution=True; review status=verified
+- Attribution: BodyParts3D — The Database Center for Life Science — upstream lineage CC BY-SA 2.1 Japan; Z-Anatomy — The open source atlas of anatomy — CC BY-SA 4.0
+- Rights evidence: docs/msk-mesh-source-audit.md
+- Licence use plan: No separate use plan recorded; inspect the exact licence and rights evidence
+- Presentation dependencies: Not separately recorded
+- Coverage: {'extent': 'partial', 'basis': 'The source label of this model names this part: “Ulnolunate ligament”. The requirement is for the examined side; the model is a right-side reference, a mirror image for the other side. One source-labelled model; the full extent and boundaries of the named anatomy are not established.'}
+- Selection: Not recorded
+- Source context: Not recorded
+- Limits: Not recorded
+- Gate findings: anatomical_review_scope_missing_or_stale, anatomical_review_missing_or_stale, visual_review_scope_missing_or_stale, visual_review_missing_or_stale, high_fidelity_unproven, requirement_coverage_partial
 
 ### wrist.triangular_fibrocartilage_complex.ulnotriquetral_ligament — clinical_image
 
@@ -570,6 +646,25 @@ Investigation: `ra.wrist-fractures`
 - Limits: Source nomenclature and visible leader labels are preserved. The named volar wrist ligaments are schematic evidence only; this image does not provide their normal MRI appearances, complete insertion footprints or high-fidelity 3D meshes.
 - Gate findings: anatomical_review_scope_missing_or_stale, anatomical_review_missing_or_stale, visual_review_scope_missing_or_stale, visual_review_missing_or_stale, high_fidelity_unproven, requirement_coverage_missing
 
+### wrist.triangular_fibrocartilage_complex.ulnotriquetral_ligament — model
+
+- Asset: `za-joints-38623813`
+- Local file: [web/anatomy/msk-atlas/za-joints-38623813.bin](../../web/anatomy/msk-atlas/za-joints-38623813.bin)
+- Artifact SHA-256: `9e9c9bc8b6d107c4242a5a257bcb2939981a59691e6c88605a0cad188cbedbdb`
+- Review-scope SHA-256: `d9346ba171c666cc147e681dcc323904cc07e37a5c62599d6e7baf5b023ec31f`
+- Source: [Original source](https://github.com/LluisV/Z-Anatomy/tree/6c7f9016bd5899ac8edafd31b9900c151df42ed6)
+- Licence: [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/)
+- Recorded rights: commercial use=True; redistribution=True; review status=verified
+- Attribution: BodyParts3D — The Database Center for Life Science — upstream lineage CC BY-SA 2.1 Japan; Z-Anatomy — The open source atlas of anatomy — CC BY-SA 4.0
+- Rights evidence: docs/msk-mesh-source-audit.md
+- Licence use plan: No separate use plan recorded; inspect the exact licence and rights evidence
+- Presentation dependencies: Not separately recorded
+- Coverage: {'extent': 'partial', 'basis': 'The source label of this model names this part: “Ulnotriquetral ligament”. The requirement is for the examined side; the model is a right-side reference, a mirror image for the other side. One source-labelled model; the full extent and boundaries of the named anatomy are not established.'}
+- Selection: Not recorded
+- Source context: Not recorded
+- Limits: Not recorded
+- Gate findings: anatomical_review_scope_missing_or_stale, anatomical_review_missing_or_stale, visual_review_scope_missing_or_stale, visual_review_missing_or_stale, high_fidelity_unproven, requirement_coverage_partial
+
 ### wrist.triangular_fibrocartilage_complex.ulnocapitate_ligament — schematic
 
 - Asset: `open-wrist-tfcc-normal-cerezal-fig1-schematic-panels`
@@ -605,6 +700,25 @@ Investigation: `ra.wrist-fractures`
 - Source context: Not recorded
 - Limits: Source nomenclature and visible leader labels are preserved. The named volar wrist ligaments are schematic evidence only; this image does not provide their normal MRI appearances, complete insertion footprints or high-fidelity 3D meshes.
 - Gate findings: anatomical_review_scope_missing_or_stale, anatomical_review_missing_or_stale, visual_review_scope_missing_or_stale, visual_review_missing_or_stale, high_fidelity_unproven, requirement_coverage_missing
+
+### wrist.triangular_fibrocartilage_complex.ulnocapitate_ligament — model
+
+- Asset: `za-joints-29406840`
+- Local file: [web/anatomy/msk-atlas/za-joints-29406840.bin](../../web/anatomy/msk-atlas/za-joints-29406840.bin)
+- Artifact SHA-256: `59f83be3d21590faaba038ea5c1b202fd7050e54e5c4ae6059ed82c8634e6bfc`
+- Review-scope SHA-256: `8c12ddfe0a7ea05322293a3bdfd3a87b34a62ed312e307379162ba3c402bc0e5`
+- Source: [Original source](https://github.com/LluisV/Z-Anatomy/tree/6c7f9016bd5899ac8edafd31b9900c151df42ed6)
+- Licence: [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/)
+- Recorded rights: commercial use=True; redistribution=True; review status=verified
+- Attribution: BodyParts3D — The Database Center for Life Science — upstream lineage CC BY-SA 2.1 Japan; Z-Anatomy — The open source atlas of anatomy — CC BY-SA 4.0
+- Rights evidence: docs/msk-mesh-source-audit.md
+- Licence use plan: No separate use plan recorded; inspect the exact licence and rights evidence
+- Presentation dependencies: Not separately recorded
+- Coverage: {'extent': 'partial', 'basis': 'The source label of this model names this part: “Ulnocapitate ligament”. The requirement is for the examined side; the model is a right-side reference, a mirror image for the other side. One source-labelled model; the full extent and boundaries of the named anatomy are not established.'}
+- Selection: Not recorded
+- Source context: Not recorded
+- Limits: Not recorded
+- Gate findings: anatomical_review_scope_missing_or_stale, anatomical_review_missing_or_stale, visual_review_scope_missing_or_stale, visual_review_missing_or_stale, high_fidelity_unproven, requirement_coverage_partial
 
 ### wrist.triangular_fibrocartilage_complex.ulnomeniscal_homologue — clinical_image
 
