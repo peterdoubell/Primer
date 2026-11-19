@@ -105,7 +105,7 @@ Bones | No pelvic, spinal or rib fracture. | [Pelvic / Spinal / Rib] fracture [ 
 = Mesenteric arteries
 = Mesenteric veins
 = Bowel wall
-= Mesentery and peritoneum
+= Mesentery and peritoneum -> Peritoneum and mesentery
 ! Other organs, lung bases and bones
 Aorta | Normal calibre aorta without dissection or mural thrombus. | [Aortic dissection / Mural thrombus / Aneurysm / Atherosclerosis] [ ].
 @SOLID_ORGANS
@@ -471,19 +471,17 @@ Prostate | Normal prostate size. | Prostate volume [ ] mL.
 
 ## ra.ultrasound-acute-abdomen
 = Symptomatic region
-! Bowel and appendix
 Appendix | Normal. | Non-compressible appendix, [ ] mm in diameter. | Appendix not visualised; no secondary signs of appendicitis.
 Bowel | No bowel wall thickening or dilated loops. | [Bowel wall thickening / Dilated loops / Intussusception] in the [ ].
-! Hepatobiliary and pancreas
-Liver | Normal. | [Increased echogenicity / Focal lesion / Hepatomegaly] [ ].
-Gallbladder and bile ducts | Normal gallbladder. No biliary dilatation. | [Gallstones / Wall thickening / Pericholecystic fluid / Biliary dilatation] [ ].
-Pancreas and spleen | Normal. | [Pancreatitis / Splenomegaly] [ ]. | Pancreas obscured by bowel gas.
-! Kidneys and bladder
-Kidneys | No hydronephrosis or calculus. | [Hydronephrosis / Calculus / Perinephric fluid] in the [right / left] kidney.
+! Liver
+! Gallbladder and bile ducts
+! Pancreas and spleen
+! Kidneys
+@US_UPPER_ABDOMEN
 Bladder | Normal. | [Wall thickening / Calculus / Debris] [ ].
 Uterus and ovaries | Normal. | [Ovarian cyst / Adnexal mass / Enlarged ovary with reduced flow] [ ].
-= Pelvis and peritoneum -> Peritoneum
-= Aorta
+= Peritoneum -> Free fluid | No free fluid or collection.
+! Aorta
 
 ## ra.appendicitis
 = Appendix
@@ -591,7 +589,7 @@ Left testis | Normal size, echotexture and position of the left testis. | [Enlar
 ! Epididymis and cord
 Epididymides and appendages | Normal epididymides. No torted appendage. | [Epididymitis / Torted appendix testis / Epididymal enlargement] on the [right / left].
 Spermatic cords | Normal. No whirlpool sign. | Whirlpool sign of the [right / left] spermatic cord.
-= Scrotal wall -> Scrotal wall and tunica
+= Scrotal wall and tunica -> Tunica and scrotal wall
 Inguinal canals | No hernia. | [Right / Left] inguinal hernia containing [fat / bowel].
 
 # ---------------------------------------------------------------- pelvis: gynaecology, bladder, prostate
@@ -648,7 +646,8 @@ Uterus and endometrium | Normal. | [Fibroid / Adenomyosis / Endometrial thickeni
 = Left ovary
 = Adnexa and peritoneum
 = O-RADS
-Bladder and bowel | Normal bladder and pelvic bowel. | [Bladder / Bowel] involvement [ ].
+! Bladder and bowel
+Bowel and bladder | Normal pelvic bowel and bladder. | [Bowel / Bladder] involvement [ ].
 Lymph nodes | No pelvic or para-aortic lymphadenopathy. | [Iliac / Obturator / Para-aortic] lymphadenopathy, [ ] mm short axis.
 Bones | Normal marrow signal. | Bone lesion in the [ ].
 

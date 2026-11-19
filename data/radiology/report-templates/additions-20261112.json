@@ -170,17 +170,27 @@
         {"heading": "Leak", "normal": "No contrast leak or extraluminal gas.",
          "options": ["Contrast leak at [ ] [ ].",
                      "[Pneumomediastinum / Extraluminal gas] [ ]."]},
-        {"heading": "Mediastinum and pleura", "normal": "No mediastinal collection. No pleural effusion.",
-         "options": ["[Mediastinal collection / Mediastinal fat stranding] [ ], [ ] mm.",
-                     "[Right / Left / Bilateral] pleural effusion [ ]."]},
         {"heading": "Lungs", "normal": "Clear.",
          "options": ["[Consolidation / Aspiration change / Collapse] in the [ ]."]},
-        {"heading": "Heart and great vessels", "normal": "Normal heart size. No pericardial effusion. Normal calibre thoracic aorta.",
-         "options": ["[Pericardial effusion / Pneumopericardium / Aortic involvement] [ ]."]},
+        {"heading": "Airways", "normal": "Patent trachea and central bronchi.",
+         "options": ["[Bronchial wall thickening / Mucus plugging / Endobronchial lesion / Tracheal narrowing] [ ]."]},
+        {"heading": "Pleura", "normal": "No pleural effusion, thickening or pneumothorax.",
+         "options": ["[Small / Moderate / Large] [right / left / bilateral] pleural effusion.",
+                     "[Pleural thickening / Pleural plaques / Pneumothorax] [ ]."]},
+        {"heading": "Mediastinum and hila", "normal": "No mediastinal collection or fat stranding.",
+         "options": ["[Mediastinal collection / Mediastinal fat stranding] [ ], [ ] mm."]},
+        {"heading": "Lymph nodes", "normal": "No mediastinal, hilar or axillary lymphadenopathy.",
+         "options": ["Enlarged [ ] lymph node, [ ] mm short axis."]},
+        {"heading": "Heart and pericardium", "normal": "Normal heart size. No pericardial effusion.",
+         "options": ["[Cardiomegaly / Pericardial effusion / Coronary artery calcification / Valve calcification] [ ]."]},
+        {"heading": "Aorta and pulmonary arteries", "normal": "Normal calibre thoracic aorta and pulmonary arteries.",
+         "options": ["[Aortic aneurysm / Aortic atherosclerosis / Enlarged pulmonary trunk] [ ] mm."]},
+        {"heading": "Chest wall", "normal": "Normal chest wall and axillae.",
+         "options": ["[Chest wall mass / Breast lesion / Gynaecomastia / Subcutaneous emphysema] [ ]."]},
         {"heading": "Stomach and upper abdomen", "normal": "Normal visualised stomach, liver, spleen and adrenal glands.",
          "options": ["[Hiatus hernia / Gastric wall thickening / Liver lesion / Subphrenic collection] [ ]."]},
-        {"heading": "Chest wall and bones", "normal": "Normal chest wall. No destructive bone lesion.",
-         "options": ["[Subcutaneous emphysema / Rib fracture / Bone lesion] [ ]."]}
+        {"heading": "Bones", "normal": "No destructive bone lesion.",
+         "options": ["[Fracture / Lytic lesion / Sclerotic lesion / Degenerative change] [ ]."]}
       ],
       "impression": "No oesophageal perforation or leak."
     },
@@ -304,14 +314,20 @@
                      "[Smooth / Lobulated] [homogeneous / heterogeneous] prevascular mass [ ] mm."]},
         {"heading": "Local extent", "normal": "No invasion of adjacent structures.",
          "options": ["[Pericardial / Pleural / Vascular / Lung] invasion [ ]."]},
-        {"heading": "Pleura and lymph nodes", "normal": "No pleural nodules, effusion or lymphadenopathy.",
-         "options": ["[Pleural drop metastases / Lymphadenopathy] [ ]."]},
         {"heading": "Lungs", "normal": "Clear.",
          "options": ["[Lung nodule / Consolidation / Atelectasis] [ ]."]},
-        {"heading": "Heart and great vessels", "normal": "Normal heart, pericardium and great vessels.",
-         "options": ["[Pericardial effusion / Vascular encasement / SVC compression] [ ]."]},
-        {"heading": "Chest wall and bones", "normal": "Normal chest wall and marrow signal.",
-         "options": ["[Chest wall invasion / Bone lesion] [ ]."]}
+        {"heading": "Pleura", "normal": "No pleural nodule or effusion.",
+         "options": ["[Pleural drop metastasis / Pleural effusion / Pleural thickening] [ ]."]},
+        {"heading": "Lymph nodes", "normal": "No mediastinal or hilar lymphadenopathy.",
+         "options": ["Enlarged [ ] lymph node, [ ] mm short axis."]},
+        {"heading": "Heart and pericardium", "normal": "Normal heart size. No pericardial effusion.",
+         "options": ["[Pericardial effusion / Pericardial invasion] [ ]."]},
+        {"heading": "Aorta and pulmonary arteries", "normal": "Normal calibre aorta and pulmonary arteries. No vascular encasement.",
+         "options": ["[Vascular encasement / SVC compression] [ ]."]},
+        {"heading": "Chest wall", "normal": "Normal chest wall and axillae.",
+         "options": ["[Chest wall invasion / Axillary lymphadenopathy] [ ]."]},
+        {"heading": "Bones", "normal": "Normal marrow signal.",
+         "options": ["[Bone lesion / Marrow infiltration] [ ]."]}
       ],
       "impression": "Normal MRI thymus."
     },
@@ -454,8 +470,8 @@
          "options": ["[Hydrosalpinx / Paraovarian cyst / Ascites / Peritoneal nodules] [ ]."]},
         {"heading": "O-RADS", "normal": "O-RADS 1: normal ovaries.",
          "options": ["O-RADS [2 / 3 / 4 / 5]: [ ]."]},
-        {"heading": "Bladder and bowel", "normal": "Normal bladder and pelvic bowel.",
-         "options": ["[Bladder / Bowel] involvement [ ]."]},
+        {"heading": "Bowel and bladder", "normal": "Normal pelvic bowel and bladder.",
+         "options": ["[Bowel / Bladder] involvement [ ]."]},
         {"heading": "Lymph nodes", "normal": "No pelvic or para-aortic lymphadenopathy.",
          "options": ["[Iliac / Obturator / Para-aortic] lymphadenopathy, [ ] mm short axis."]},
         {"heading": "Bones", "normal": "Normal marrow signal.",
@@ -634,8 +650,10 @@
          "options": ["[Venous infarct / Oedema / Haemorrhage] in the [ ]."]},
         {"heading": "Ventricles and extra-axial spaces", "normal": "Normal ventricles. No extra-axial collection.",
          "options": ["[Hydrocephalus / Subdural collection / Effaced sulci] [ ]."]},
-        {"heading": "Skull base, sinuses and mastoids", "normal": "Clear mastoids and paranasal sinuses. No skull base lesion.",
-         "options": ["[Mastoiditis / Sinusitis / Skull base lesion] [ ]."]}
+        {"heading": "Paranasal sinuses and mastoids", "normal": "Clear.",
+         "options": ["[Mastoiditis / Sinusitis] [ ]."]},
+        {"heading": "Skull and scalp", "normal": "No skull base lesion.",
+         "options": ["[Skull base lesion / Calvarial lesion] [ ]."]}
       ],
       "impression": "No cerebral venous thrombosis."
     },
@@ -740,7 +758,7 @@
          "options": ["Invasion of the [prevertebral fascia / mandible / laryngeal cartilage / skull base / pre-epiglottic space] [ ]."]},
         {"heading": "Perineural spread", "normal": "None.",
          "options": ["Perineural spread along [ ]."]},
-        {"heading": "Vessels and airway", "normal": "No carotid encasement. Patent airway.",
+        {"heading": "Airway and vessels", "normal": "No carotid encasement. Patent airway.",
          "options": ["Carotid contact [ ] degrees.",
                      "Airway narrowing [ ]."]},
         {"heading": "Lymph nodes", "normal": "No suspicious cervical lymph nodes.",
@@ -899,10 +917,10 @@
          "options": ["[Posterior ligamentous complex disruption / Facet distraction / Lamina fracture / Spinous process fracture] at [ ]."]},
         {"heading": "Canal and cord", "normal": "No canal compromise. Normal cord and conus.",
          "options": ["[Epidural haematoma / Cord contusion / Cord compression] at [ ]."]},
-        {"heading": "Classification", "normal": "No fracture to classify.",
-         "options": ["AO Spine [A0 / A1 / A2 / A3 / A4 / B1 / B2 / B3 / C] at [ ]; TLICS [ ]."]},
         {"heading": "Paraspinal and other injuries", "normal": "No paraspinal haematoma or other injury.",
-         "options": ["[Paraspinal haematoma / Rib fracture / Visceral injury] [ ]."]}
+         "options": ["[Paraspinal haematoma / Rib fracture / Visceral injury] [ ]."]},
+        {"heading": "Classification", "normal": "No fracture to classify.",
+         "options": ["AO Spine [A0 / A1 / A2 / A3 / A4 / B1 / B2 / B3 / C] at [ ]; TLICS [ ]."]}
       ],
       "impression": "No thoracolumbar spine fracture."
     },
@@ -934,7 +952,7 @@
       "sections": [
         {"heading": "Alignment", "normal": "Normal alignment, including the craniocervical and atlantoaxial relationships.",
          "options": ["[Anterolisthesis / Retrolisthesis / Facet subluxation / Perched facet / Facet dislocation] at [ ]."]},
-        {"heading": "Fracture", "normal": "None.",
+        {"heading": "Vertebrae", "normal": "No fracture.",
          "options": ["Fracture of [ ] [ ].",
                      "[Occipital condyle / Jefferson / Odontoid / Hangman / Teardrop / Clay-shoveler] fracture [ ]."]},
         {"heading": "Ligaments and discs", "normal": "No ligamentous injury or traumatic disc herniation on the available imaging.",
@@ -954,10 +972,10 @@
       "title": "Abdominal radiograph, supine, and chest radiograph, erect",
       "radiograph": true,
       "sections": [
-        {"heading": "Free gas", "normal": "No free subdiaphragmatic gas.",
-         "options": ["[Right / Left / Bilateral] free subdiaphragmatic gas."]},
         {"heading": "Bowel gas pattern", "normal": "Normal. No dilated small or large bowel.",
          "options": ["[Small bowel / Large bowel] dilatation to [ ] cm, [with / without] air-fluid levels."]},
+        {"heading": "Free gas", "normal": "No free subdiaphragmatic gas.",
+         "options": ["[Right / Left / Bilateral] free subdiaphragmatic gas."]},
         {"heading": "Calcification", "normal": "No abnormal calcification.",
          "options": ["[Renal / Ureteric / Gallstone / Vascular] calcification [ ]."]},
         {"heading": "Chest", "normal": "Clear lungs. No pleural effusion. Normal heart size.",
@@ -978,7 +996,9 @@
         {"heading": "Anterior drawer", "normal": "No abnormal anterior talar translation.",
          "options": ["Anterior translation [ ] mm."]},
         {"heading": "Bones", "normal": "No fracture.",
-         "options": ["[Fracture / Dislocation / Lytic lesion / Sclerotic lesion] [ ]."]}
+         "options": ["[Fracture / Dislocation / Lytic lesion / Sclerotic lesion] [ ]."]},
+        {"heading": "Soft tissues", "normal": "Normal.",
+         "options": ["Soft tissue swelling over the [lateral / medial] malleolus [ ]."]}
       ],
       "impression": "No ankle instability on stress views."
     },
@@ -1301,12 +1321,20 @@
       "technique": {"normal": "Unenhanced; thin bone-kernel axial with sagittal, coronal and 3D reformats.",
                     "options": []},
       "sections": [
-        {"heading": "Fracture", "normal": "None.",
-         "options": ["Fracture of the [proximal / mid / distal] femur [ ]."]},
-        {"heading": "Bones", "normal": "No focal bone lesion or periosteal reaction.",
-         "options": ["[Lytic / Sclerotic] lesion [ ]; periosteal reaction [ ]."]},
-        {"heading": "Joints and soft tissues", "normal": "Normal hip and knee alignment. Normal soft tissues.",
-         "options": ["[Effusion / Haematoma / Mass] [ ]."]}
+        {"heading": "Femoral head and neck", "group": "Bones", "normal": "No femoral head or neck fracture.",
+         "options": ["[Subcapital / Transcervical / Basicervical / Intertrochanteric] fracture [ ].",
+                     "[Lytic / Sclerotic] lesion [ ]."]},
+        {"heading": "Femoral shaft", "group": "Bones", "normal": "No femoral shaft fracture or focal bone lesion.",
+         "options": ["[Transverse / Oblique / Spiral / Comminuted / Atypical] fracture of the [proximal / mid / distal] femoral shaft [ ].",
+                     "[Lytic / Sclerotic] lesion [ ]; periosteal reaction [ ]."]},
+        {"heading": "Distal femur", "group": "Bones", "normal": "No distal femoral fracture.",
+         "options": ["[Supracondylar / Intercondylar / Condylar] fracture [ ]."]},
+        {"heading": "Hip joint", "group": "Joints", "normal": "Congruent hip joint.",
+         "options": ["[Dislocation / Effusion / Joint space narrowing] [ ]."]},
+        {"heading": "Knee joint", "group": "Joints", "normal": "Congruent knee joint. No effusion.",
+         "options": ["[Effusion / Lipohaemarthrosis / Joint space narrowing] [ ]."]},
+        {"heading": "Soft tissues", "normal": "Normal.",
+         "options": ["[Haematoma / Mass / Gas / Foreign body] [ ]."]}
       ],
       "impression": "Normal CT femur."
     },
@@ -1316,16 +1344,16 @@
       "technique": {"normal": "Unenhanced; thin bone-kernel axial with sagittal, coronal, oblique axial and 3D reformats.",
                     "options": []},
       "sections": [
-        {"heading": "Proximal femur", "normal": "No proximal femoral fracture or dislocation.",
+        {"heading": "Proximal femur", "group": "Bones", "normal": "No proximal femoral fracture or dislocation.",
          "options": ["[Femoral neck / Intertrochanteric / Acetabular] fracture [ ]."]},
-        {"heading": "Femoral head", "normal": "Normal femoral head contour.",
+        {"heading": "Femoral head", "group": "Bones", "normal": "Normal femoral head contour.",
          "options": ["[Femoral head fracture / Impaction / Avascular necrosis / Subchondral collapse] [ ]."]},
-        {"heading": "Acetabulum", "normal": "Intact acetabular walls and columns.",
+        {"heading": "Acetabulum", "group": "Bones", "normal": "Intact acetabular walls and columns.",
          "options": ["[Posterior wall / Anterior wall / Posterior column / Anterior column / Transverse] acetabular fracture, displacement [ ] mm."]},
+        {"heading": "Pelvis and sacroiliac joint", "group": "Bones", "normal": "Intact visualised hemipelvis. Normal sacroiliac joint.",
+         "options": ["[Pubic ramus fracture / Iliac fracture / Sacral fracture / Sacroiliac diastasis] [ ]."]},
         {"heading": "Hip joint", "normal": "Congruent hip joint with preserved joint space.",
          "options": ["[Joint space narrowing / Loose body] [ ]."]},
-        {"heading": "Pelvis and sacroiliac joint", "normal": "Intact visualised hemipelvis. Normal sacroiliac joint.",
-         "options": ["[Pubic ramus fracture / Iliac fracture / Sacral fracture / Sacroiliac diastasis] [ ]."]},
         {"heading": "Soft tissues", "normal": "Normal soft tissues and visualised pelvic organs.",
          "options": ["[Haematoma / Effusion / Heterotopic ossification] [ ]."]}
       ],
@@ -1580,6 +1608,8 @@
       "technique": {"normal": "Planning CT, intermittent CT guidance during needle placement and post-procedure CT.",
                     "options": []},
       "sections": [
+        {"heading": "Target", "normal": "Target lesion identified with a safe access route.",
+         "options": ["Lesion [ ] mm in the [ ]; route via [ ]."]},
         {"heading": "Procedure", "normal": "Informed consent obtained. Time-out completed. CT-guided biopsy of the target lesion.",
          "options": ["Needle [ ] G [core / FNA], [ ] passes, [ ] approach."]},
         {"heading": "Specimens", "normal": "Specimens sent for histology.",
@@ -1668,12 +1698,20 @@
       "sections": [
         {"heading": "Lungs", "normal": "Clear. No consolidation, cavitation, nodule or fibrosis.",
          "options": ["[Consolidation / Cavitation / Nodule / Fibrosis / Calcified granuloma] in the [ ]."]},
-        {"heading": "Hila and mediastinum", "normal": "Normal. No lymphadenopathy.",
-         "options": ["[Hilar / Mediastinal] lymphadenopathy [ ]."]},
         {"heading": "Pleura", "normal": "No pleural effusion or thickening.",
          "options": ["[Pleural effusion / Pleural thickening / Calcification] [ ]."]},
-        {"heading": "Heart and bones", "normal": "Normal heart size. No bone abnormality.",
-         "options": ["[Fracture / Dislocation / Lytic lesion / Sclerotic lesion] [ ]."]}
+        {"heading": "Heart and mediastinum", "normal": "Normal heart size and mediastinal contours. Central trachea.",
+         "options": ["[Cardiomegaly / Widened mediastinum / Tracheal deviation / Pneumomediastinum] [ ]."]},
+        {"heading": "Hila", "normal": "No hilar or mediastinal lymphadenopathy.",
+         "options": ["[Hilar / Mediastinal] lymphadenopathy [ ]."]},
+        {"heading": "Diaphragm", "normal": "Normal. No free subdiaphragmatic gas.",
+         "options": ["[Right / Left / Bilateral] free subdiaphragmatic gas.",
+                     "[Raised hemidiaphragm / Eventration / Hiatus hernia] [ ]."]},
+        {"heading": "Bones and soft tissues", "normal": "No acute bone abnormality. Normal soft tissues.",
+         "options": ["[Rib fracture / Vertebral fracture / Lytic lesion / Sclerotic lesion] [ ].",
+                     "[Subcutaneous emphysema / Soft tissue mass / Breast prosthesis] [ ]."]},
+        {"heading": "Lines and devices", "normal": "None.",
+         "options": ["[Endotracheal tube / Central venous catheter / Nasogastric tube / Pacemaker lead] tip [ ]."]}
       ],
       "impression": "Normal chest radiograph. No radiographic evidence of active or previous tuberculosis."
     },
@@ -2034,10 +2072,12 @@
       "sections": [
         {"heading": "Scapula", "normal": "No scapular fracture.",
          "options": ["Fracture of the [body / neck / glenoid / acromion / coracoid] [ ]."]},
+        {"heading": "Clavicle, humerus and ribs", "normal": "No fracture or focal bone lesion.",
+         "options": ["[Fracture / Dislocation / Lytic lesion / Sclerotic lesion] [ ]."]},
         {"heading": "Glenohumeral joint", "normal": "Congruent glenohumeral joint.",
          "options": ["[Dislocation / Subluxation] [ ]."]},
-        {"heading": "Bones", "normal": "No focal bone lesion.",
-         "options": ["[Fracture / Dislocation / Lytic lesion / Sclerotic lesion] [ ]."]}
+        {"heading": "Soft tissues", "normal": "Normal.",
+         "options": ["[Soft tissue swelling / Subcutaneous emphysema] [ ]."]}
       ],
       "impression": "Normal scapula radiographs."
     },
@@ -2048,7 +2088,9 @@
         {"heading": "Sesamoids", "normal": "Intact hallux sesamoids in normal position.",
          "options": ["[Fracture / Fragmentation / Sclerosis] of the [medial / lateral] sesamoid."]},
         {"heading": "First metatarsophalangeal joint", "normal": "Normal.",
-         "options": ["[Osteoarthritis / Hallux valgus] [ ]."]}
+         "options": ["[Osteoarthritis / Hallux valgus] [ ]."]},
+        {"heading": "Soft tissues", "normal": "Normal.",
+         "options": ["[Soft tissue swelling / Foreign body] [ ]."]}
       ],
       "impression": "Normal sesamoid radiographs."
     },
@@ -2179,10 +2221,12 @@
       "title": "Sternoclavicular joint radiographs",
       "radiograph": true,
       "sections": [
+        {"heading": "Bones", "normal": "No fracture, erosion or sclerosis.",
+         "options": ["[Fracture / Erosion / Sclerosis] [ ]."]},
         {"heading": "Alignment", "normal": "Symmetrical, normally aligned sternoclavicular joints.",
          "options": ["[Anterior / Posterior] dislocation of the [right / left] sternoclavicular joint."]},
-        {"heading": "Bones", "normal": "No fracture, erosion or sclerosis.",
-         "options": ["[Fracture / Erosion / Sclerosis] [ ]."]}
+        {"heading": "Soft tissues", "normal": "Normal.",
+         "options": ["[Soft tissue swelling / Retrosternal haematoma] [ ]."]}
       ],
       "impression": "Normal sternoclavicular joint radiographs."
     },

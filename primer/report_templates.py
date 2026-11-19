@@ -225,27 +225,56 @@ def _sections(item, heading):
              'options': [*technique.get('options', []), LIMITATION]}, *sections]
 
 
+def _findings(sections, part):
+    """The finding headings as paragraphs: headings on their own stack one to a line, and a
+    subheading with the headings under it stands apart as a paragraph of its own."""
+    paragraphs, stacking = [], False
+    for group, members in _blocks(sections):
+        lines = '\n'.join(part(section) for section in members)
+        if group:
+            paragraphs.append(group + ':\n' + lines)
+        elif stacking:
+            paragraphs[-1] += '\n' + lines
+        else:
+            paragraphs.append(lines)
+        stacking = not group
+    return paragraphs
+
+
+def _stack(paragraphs):
+    """A departmental draft's paragraphs as written, its one-line headings stacked like the rest."""
+    stacked, lone = [], False
+    for paragraph in paragraphs:
+        one_line = '\n' not in paragraph
+        if one_line and lone:
+            stacked[-1] += '\n' + paragraph
+        else:
+            stacked.append(paragraph)
+        lone = one_line
+    return stacked
+
+
 def render(item, normal=False, heading=None):
     """Render the editable template, or its normal findings variant.
 
     Layout: main headings (clinical history, comparison, study name, protocol or technique,
     findings, impression, recommendation), then anatomical subheadings whose findings are
-    bullet lines. Headings that share a group follow its subheading without a blank line.
-    The study name runs into its first heading and Findings into its first subheading;
-    impression and recommendation are numbered lists.
+    bullet lines. Finding headings follow one another without a blank line; a group's
+    subheading and its headings stand apart as a paragraph. The study name runs into its
+    first heading and Findings into its first subheading; impression and recommendation
+    are numbered lists.
     """
-    blocks = []
-    for group, members in _blocks(_sections(item, heading)):
-        parts = []
-        for section in members:
-            acquisition = bool(heading) and not blocks and not parts
-            # One sentence per bullet for the normal finding, as dictated.
-            first = [section['normal']] if acquisition else re.split(r'(?<=\.)\s+(?=[A-Z])', section['normal'])
-            lines = [*first, *([] if normal else section.get('options', []))]
-            parts.append(section['heading'] + ':\n' + '\n'.join(line if acquisition else BULLET + line for line in lines))
-        blocks.append((group + ':\n' if group else '') + '\n'.join(parts))
+    def part(section):
+        # One sentence per bullet for the normal finding, as dictated.
+        first = re.split(r'(?<=\.)\s+(?=[A-Z])', section['normal'])
+        lines = [*first, *([] if normal else section.get('options', []))]
+        return section['heading'] + ':\n' + '\n'.join(BULLET + line for line in lines)
+
+    blocks = _findings(item['sections'], part)
     if heading:
-        blocks[1] = 'Findings:\n' + blocks[1]
+        acquisition = _sections(item, heading)[0]
+        lines = [acquisition['normal'], *([] if normal else acquisition['options'])]
+        blocks = [acquisition['heading'] + ':\n' + '\n'.join(lines), 'Findings:\n' + blocks[0], *blocks[1:]]
     blocks[0] = item['title'] + '\n' + blocks[0]
     if normal:
         impression = item['impression']
@@ -258,7 +287,11 @@ def render(item, normal=False, heading=None):
 
 
 def render_dictation(item, heading):
-    """Render a fill-in report with the study's anatomical search pattern."""
+    """Render a fill-in report with the study's anatomical search pattern.
+
+    Clinical history, comparison, then the study name, which runs into its protocol or technique
+    (then Findings) or straight into its first heading; finding headings stack one to a line, and
+    a subheading with its headings stands apart as a paragraph."""
     draft = item.get('dictation')
     title = draft['title'] if draft else item['title']
     study = title
@@ -266,13 +299,16 @@ def render_dictation(item, heading):
         label = 'Technique' if draft else heading
         technique = draft['technique'] if draft else item['technique']['normal']
         study += f'\n{label}:\n{technique}'
-    findings = draft['findings'] if draft else [
-        (group + ':\n' if group else '') + '\n'.join(section['heading'] + ': []' for section in members)
-        for group, members in _blocks(item['sections'])]
+    if draft:
+        findings = _stack(draft['findings'])
+    else:
+        findings = _findings(item['sections'], lambda section: section['heading'] + ': []')
+    # As in the other layouts, the study name runs into its technique or its first heading.
     if heading:
-        findings = ['Findings:\n' + findings[0], *findings[1:]]
-    text = '\n\n'.join(['Clinical history:\n[]', 'Comparison:\n[]', study, *findings,
-                       'Impression:\n[]', 'Recommendation:\n[]'])
+        study = [study, 'Findings:\n' + findings[0], *findings[1:]]
+    else:
+        study = [study + '\n' + findings[0], *findings[1:]]
+    text = '\n\n'.join(['Clinical history:\n[]', 'Comparison:\n[]', *study, 'Impression:\n[]', 'Recommendation:\n[]'])
     return {'title': title, 'text': text}
 
 

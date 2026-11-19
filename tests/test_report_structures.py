@@ -137,7 +137,12 @@ def test_a_subheading_is_set_out_in_every_layout():
     dictation = {template['id']: template['text'] for template in radproof_export.export(dictation=True)}
     # RadProof sets out a part of a report in bold; the headings under it keep their blanks.
     assert '\n\n**Intrinsic ligaments:**\nScapholunate ligament: []\nLunotriquetral ligament: []\n\n**Extrinsic ligaments:**\n' in dictation['msk.mri-wrist']
-    assert dictation['msk.mri-wrist'].startswith('**__MRI {side} wrist__**\n__Protocol:__\n')
+    # Every template opens with clinical history and comparison, then the study title in Prism's capitals.
+    assert dictation['msk.mri-wrist'].startswith(
+        '__Clinical history:__\n[]\n\n__Comparison:__\n[]\n\n**__MRI {SIDE} WRIST:__**\n__Protocol:__\n')
+    for text in dictation.values():
+        lines = text.split('\n')
+        assert lines[:6] == radproof_export.HISTORY and re.fullmatch(r'\*\*__[^a-z]+:__\*\*', lines[6]), lines[6]
     assert '__Findings:__\n**Bones and alignment:**\nDistal radius and ulna: []\n' in dictation['msk.mri-wrist']
     assert '\n\n**Lumbar discs:**\nT12-L1: []\nL1-L2: []\nL2-L3: []\nL3-L4: []\nL4-L5: []\nL5-S1: []\n\n' in dictation['ra.mri-lumbar-disc']
     for text in dictation.values():
@@ -170,3 +175,50 @@ def test_ct_and_mri_of_the_same_organ_keep_their_own_vocabulary():
             assert not re.search(r'marrow signal|opposed phase|T2 hyperintens|flow void', text), identifier
         if re.search(r'\bMRI\b|\bMRCP\b', item['title']):
             assert not re.search(r'\[ \] HU\b|hyperdense', text), identifier
+
+
+def test_studies_of_one_kind_read_alike():
+    # Every adult chest radiograph has the same headings, after any heading of its own question.
+    chest = ['Lungs', 'Pleura', 'Heart and mediastinum', 'Hila', 'Diaphragm', 'Bones and soft tissues']
+    for identifier in ('ra.chest-radiography', 'xr.chest-immigration', 'ra.tuberculosis', 'ra.cardiovascular-devices'):
+        headings = _headings(identifier)
+        start = headings.index('Lungs')
+        assert headings[start:start + 6] == chest, identifier
+    # A limb radiograph reports its bones before alignment and joints, and its soft tissues last.
+    for identifier, item in _performed().items():
+        if re.fullmatch(r'Right [a-z ]+ radiographs / Left [a-z ]+ radiographs', item['title']):
+            headings = _headings(identifier)
+            assert headings[-1].lower().endswith('soft tissues'), identifier
+            if 'stress' not in identifier:
+                assert not re.search(r'joint|alignment|mortise', headings[0], re.I), identifier
+    # Every chest CT names the mediastinum, nodes, heart and great vessels as the general study does.
+    old = {'Heart and great vessels', 'Mediastinum and lymph nodes', 'Lungs and pleura', 'Chest wall and bones',
+           'Heart and aorta', 'Pulmonary arteries and heart', 'Mediastinum'}
+    for identifier, item in _performed().items():
+        if re.match(r'(?:HRCT|Low-dose CT|CT) chest(?!, abdomen)', item['title']):
+            assert not old & set(_headings(identifier)), identifier
+    # Spine injury: alignment and vertebrae first, the classification last.
+    for identifier in ('ra.cervical-spine-injury', 'mri.cervical-spine-trauma', 'ra.thoracolumbar-injury',
+                       'ra.thoracolumbar-fractures', 'mri.thoracolumbar-trauma'):
+        headings = _headings(identifier)
+        assert headings[:2] == ['Alignment', 'Vertebrae'] and headings[-1] == 'Classification', identifier
+    # Every procedure records consent and time-out, and ends with its complications.
+    for identifier, item in _performed().items():
+        sections = {section['heading']: section for section in item['sections']}
+        if 'Procedure' in sections:
+            assert sections['Procedure']['normal'].startswith('Informed consent obtained. Time-out completed.'), identifier
+            assert _headings(identifier)[-1] == 'Complications', identifier
+    # CT and MRI of the brain name its parts alike.
+    for identifier in ('neuro.ct-brain-routine', 'neuro.mri-brain-routine'):
+        assert {'Brainstem and cerebellum', 'Ventricles and basal cisterns', 'Sulci and extra-axial spaces', 'Orbits',
+                'Paranasal sinuses and mastoids', 'Skull and scalp'} <= set(_headings(identifier)), identifier
+
+
+def test_one_name_for_one_set_of_structures():
+    def parts(heading):
+        return frozenset(part.strip().lower() for part in re.split(r',| and ', heading) if part.strip())
+    names = {}
+    for item in _performed().values():
+        for section in item['sections']:
+            names.setdefault(parts(section['heading']), set()).add(section['heading'])
+    assert [sorted(found) for found in names.values() if len(found) > 1] == []  # not "Bones and soft tissues" and "Soft tissues and bones"
