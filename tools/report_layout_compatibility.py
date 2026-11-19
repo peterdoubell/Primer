@@ -142,7 +142,32 @@ def before_protocol_alignment_bytes(path, raw):
     return restored
 
 
+CONFIRMED_GROUP_BEFORE = '2ac59dc07009bee49f77ccb025e4daf403b0fe1da3f89a227ea8df557a622759'
+CONFIRMED_GROUP_AFTER = 'b3dde13d3ef7e9d192b50a0caa648a0938e9901ae99195c88f75181fbcc0ca77'
+CONFIRMED_GROUP_CURRENT = b'      const genericAcquisition = !exam?.report_protocol || exam.report_protocol.confirmed_only;\n      return exam?.report_format === 3 && genericAcquisition && /^(technique|protocol)$/i.test(name)'
+CONFIRMED_GROUP_PREVIOUS = b'      return exam?.report_format === 3 && !exam.report_protocol && /^(technique|protocol)$/i.test(name)'
+
+
+def before_acquisition_conflicts_bytes(path, raw):
+    if str(path) not in {'primer/descriptor_reporting.py', 'primer/report_templates.py', 'web/radiology-structured.js'}:
+        return raw
+    from tools.colonvessels_compatibility import _restore
+    proof = Path(__file__).resolve().parents[1] / 'docs/report-format-parity/acquisition-conflicts-inverse.json'
+    return _restore(path, raw, proof, 'fe75b9840fe850110d951649bd1ceae3ab450f48c12645be8317501542a35486')
+
+
+def before_confirmed_acquisition_group_bytes(path, raw):
+    raw = before_acquisition_conflicts_bytes(path, raw)
+    if str(path) != PATH or hashlib.sha256(raw).hexdigest() != CONFIRMED_GROUP_AFTER:
+        return raw
+    restored = raw.replace(CONFIRMED_GROUP_CURRENT, CONFIRMED_GROUP_PREVIOUS, 1)
+    if hashlib.sha256(restored).hexdigest() != CONFIRMED_GROUP_BEFORE:
+        raise ValueError('Acquisition group changed unrelated builder bytes')
+    return restored
+
+
 def before_performed_acquisition_bytes(path, raw):
+    raw = before_confirmed_acquisition_group_bytes(path, raw)
     if str(path) not in {'primer/descriptor_reporting.py', 'web/radiology-structured.js'}:
         return raw
     from tools.colonvessels_compatibility import _restore

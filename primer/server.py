@@ -4276,9 +4276,10 @@ async def hva_ct_delivery(asset: str, request: Request):
 
 # Resolve the route parameter to a directory constructed solely from registered names.
 from .lnq_nodal_reference import ATLAS as LNQ_NODE_ATLAS, delivery as lnq_nodal_delivery
+from .lynos_pat9_reference import ATLAS as LYNOS_NODE_ATLAS, delivery as lynos_nodal_delivery
 from .recist_pelvic_reference import CASES as RECIST_NODE_CASES, delivery as recist_nodal_delivery
 
-NODE_SOURCE_ATLASES = frozenset((*RECIST_NODE_CASES, LNQ_NODE_ATLAS))
+NODE_SOURCE_ATLASES = frozenset((*RECIST_NODE_CASES, LNQ_NODE_ATLAS, LYNOS_NODE_ATLAS))
 MESH_SOURCE_DIRECTORIES = {
     name: "anatomy/" + name
     for name in (
@@ -4298,6 +4299,8 @@ async def source_mesh_delivery(atlas: str, asset: str, request: Request):
             files = recist_nodal_delivery(registered_atlas)
         elif registered_atlas == LNQ_NODE_ATLAS:
             files = lnq_nodal_delivery()
+        elif registered_atlas == LYNOS_NODE_ATLAS:
+            files = lynos_nodal_delivery()
         else:
             with open(os.path.join(WEB_DIR, directory, "delivery.json"), encoding="utf-8") as source:
                 files = json.load(source)["files"]

@@ -151,6 +151,18 @@ def render_descriptors(form, state):
     selections = state.get('selections', {})
     if not isinstance(selections, dict) or len(selections) > 1000:
         return {'valid': False, 'text': '', 'sections': [], 'issues': [{'code': 'invalid_descriptor_selections', 'severity': 'error'}]}
+    protocol = investigation.get('report_protocol') or {}
+    verbatim_confirmed = bool(fields.get('protocol_options')) or any(
+        option in fields.get('protocol', '') for option in protocol.get('options', []))
+    if protocol.get('confirmed_only') and verbatim_confirmed:
+        for scope in protocol.get('incompatible_scopes', []):
+            if section_scope_active({'requires_scope': scope}, selections):
+                section = next(row for row in investigation['sections'] if row['id'] == scope['section_id'])
+                value = selections[scope['section_id']]['findings'][scope['finding_id']][scope['slot_id']]
+                problem('conflicting_report_protocol', section_id=scope['section_id'],
+                        finding_id=scope['finding_id'], slot_id=scope['slot_id'],
+                        label='Confirmed acquisition conflicts with ' + section['label'] + ' (' + value +
+                              '). Clear that selection or unconfirm the acquisition.')
     original_ids = {section['id'] for section in investigation['sections']}
     for key in selections:
         if key not in original_ids:

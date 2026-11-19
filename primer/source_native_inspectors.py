@@ -141,4 +141,7 @@ def references():
     from .lnq_nodal_reference import references as lnq_references
     for identifier, entries in lnq_references().items():
         result[identifier] = [*result.get(identifier, []), *entries]
+    from .lynos_pat9_reference import references as lynos_references
+    for identifier, entries in lynos_references().items():
+        result[identifier] = [*result.get(identifier, []), *entries]
     return result

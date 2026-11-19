@@ -64,10 +64,11 @@ def before_recist_pelvic_lesson_fields(identifier, fields):
 
 
 def before_recist_pelvic_bindings(bindings):
+    from tools.lynos_pat9_runtime_compatibility import before_lynos_pat9_bindings
     from primer.lnq_nodal_reference import references as lnq_references
     from primer.recist_pelvic_reference import references
 
-    previous = dict(bindings)
+    previous = before_lynos_pat9_bindings(bindings)
     additions_by_investigation = {**references(), **lnq_references()}
     for identifier, additions in additions_by_investigation.items():
         if identifier not in previous:

@@ -39,6 +39,7 @@ def test_reader_hook_is_registry_driven_with_an_exact_inverse():
         AFTER, BEFORE, BLOCK, DICTATION_LAYOUT, PATH, before_activity_registry_bytes,
     )
     from tools.lnq_nodal_runtime_compatibility import PROOF as LNQ_PROOF, before_lnq_nodal_bytes
+    from tools.lynos_pat9_runtime_compatibility import before_lynos_pat9_bytes
     from tools.recist_pelvic_runtime_compatibility import PROOF, before_recist_pelvic_delivery_bytes
     from tools.report_layout_compatibility import before_dictation_blanks_bytes, before_rich_report_format_bytes
     from tools.source_studies_compatibility import before_combined_source_release_bytes
@@ -50,8 +51,9 @@ def test_reader_hook_is_registry_driven_with_an_exact_inverse():
     blank_proof = ROOT / 'docs/report-format-parity/dictation-blanks-inverse.json'
     blanks = json.loads(blank_proof.read_bytes())[PATH]
     lnq = json.loads(LNQ_PROOF.read_bytes())[PATH]
-    assert hashlib.sha256(raw).hexdigest() == blanks['after']
-    assert hashlib.sha256(before_dictation_blanks_bytes(PATH, raw)).hexdigest() == blanks['before'] == lnq['after']
+    before_lynos = before_lynos_pat9_bytes(PATH, raw)
+    assert hashlib.sha256(before_lynos).hexdigest() == blanks['after']
+    assert hashlib.sha256(before_dictation_blanks_bytes(PATH, before_lynos)).hexdigest() == blanks['before'] == lnq['after']
     assert hashlib.sha256(before_lnq_nodal_bytes(PATH, raw)).hexdigest() == lnq['before']
     assert before_dictation_blanks_bytes(PATH, raw + b'\n') == raw + b'\n'
     pelvic_reader = before_rich_report_format_bytes(PATH, raw)

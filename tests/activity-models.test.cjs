@@ -512,6 +512,52 @@ test('Labov store observations keep all four Table 13.1 categories and their den
   near(coverage.points, -47.2, 1e-10);
 });
 
+test('finite source shadows agree with independent ray interception and point-source limits', async () => {
+  const { blockerRadius, circleOverlap, lampView, shadowEdges } = await import('../web/physics/soft-shadow/geometry.mjs');
+  near(circleOverlap(1, 1, 1), 2 * Math.PI / 3 - Math.sqrt(3) / 2);
+  near(circleOverlap(2, 3, 0), 4 * Math.PI);
+  near(circleOverlap(2, 3, 5), 0);
+  for (const distance of [30, 50, 80]) {
+    const expected = blockerRadius * 100 / distance;
+    near(shadowEdges(0, distance).inner, expected);
+    near(shadowEdges(0, distance).outer, expected);
+    assert.equal(lampView(0, distance, expected - 0.001).visible, 0);
+    assert.equal(lampView(0, distance, expected + 0.001).visible, 1);
+    for (const radius of [1, 6, 14]) {
+      const edges = shadowEdges(radius, distance);
+      if (edges.inner > 0) near(lampView(radius, distance, edges.inner).visible, 0, 1e-8);
+      near(lampView(radius, distance, edges.outer).visible, 1, 1e-8);
+      for (const point of [0, 4, 11, 17, 30, 56]) {
+        const view = lampView(radius, distance, point);
+        near(view.visible, lampView(radius, distance, -point).visible);
+        assert.ok(view.visible >= 0 && view.visible <= 1);
+        let illuminated = 0, total = 0;
+        // Each grid point stands for the same source area. Test the light ray
+        // at the blocker directly, independently of circle intersection areas.
+        const samples = 220;
+        const f = distance / 100;
+        for (let row = 0; row < samples; row++) {
+          const y = radius * (2 * (row + 0.5) / samples - 1);
+          for (let col = 0; col < samples; col++) {
+            const x = radius * (2 * (col + 0.5) / samples - 1);
+            if (x * x + y * y > radius * radius) continue;
+            total++;
+            const hitX = (1 - f) * x + f * point;
+            const hitY = (1 - f) * y;
+            if (hitX * hitX + hitY * hitY > blockerRadius * blockerRadius) illuminated++;
+          }
+        }
+        near(view.visible, illuminated / total, 0.0015);
+      }
+    }
+  }
+  // A wider lamp can remain partly visible at the centre beyond the umbra.
+  near(lampView(14, 30, 0).visible, 1 - (6 / 0.7 / 14) ** 2);
+  assert.equal(lampView(14, 30, 0).kind, 'partial');
+  assert.equal(lampView(1, 50, 0).kind, 'dark');
+  assert.equal(lampView(1, 50, 56).kind, 'lit');
+});
+
 test('every registered activity has its page, script and a return link to its module', () => {
   const registry = JSON.parse(fs.readFileSync(path.join(root, 'activities', 'registry.json'), 'utf8'));
   const curriculum = fs.readdirSync(path.join(root, '..', 'data', 'curriculum')).map(f => fs.readFileSync(path.join(root, '..', 'data', 'curriculum', f), 'utf8')).join('');
