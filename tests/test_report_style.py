@@ -151,11 +151,11 @@ def test_radiographs_have_findings_under_the_title_and_count_their_views():
     import radproof_export
     exported = {t['id']: t['text'].split('\n') for t in radproof_export.export()}
     knee = exported['xr.knee']
-    # Clinical history and comparison open every template; the study title follows in Prism's capitals.
-    assert knee[:7] == ['**__Clinical history:__**', '[]', '', '**__Comparison:__**', '[]', '', '**__{SIDE} KNEE RADIOGRAPH{S}:__**']
+    # Clinical history and comparison open every template; the study title follows, never in capitals.
+    assert knee[:7] == ['**__Clinical history:__**', '[]', '', '**__Comparison:__**', '[]', '', '**__{Side} knee radiograph{s}:__**']
     assert knee[7] == 'No fracture.'
     assert '**__Findings:__**' not in knee and knee[-1] == 'Normal knee radiograph{s}.'
-    assert '**__CHEST RADIOGRAPH{S}:__**' in exported['ra.chest-radiography']
+    assert '**__Chest radiograph{s}:__**' in exported['ra.chest-radiography']
     assert '**__Findings:__**' in exported['ct.trauma-panscan']
 
 
@@ -227,5 +227,5 @@ def test_exported_normal_reports_are_flat_self_contained_and_say_nothing_twice()
     exported = {template['id']: template['text'] for template in rx.export()}
     assert 'Normal pancreas.\nNormal spleen.\nNormal adrenal glands.' in exported['ra.acute-abdomen']
     assert 'Right carotid: no plaque or stenosis.\nLeft carotid: no plaque or stenosis.' in exported['ra.carotid-obstruction']
-    assert exported['ra.ultrasound-breast'].split('\n')[len(rx.HISTORY)] == '**__ULTRASOUND BREAST:__**'  # right, left or both
+    assert exported['ra.ultrasound-breast'].split('\n')[len(rx.HISTORY)] == '**__Ultrasound breast:__**'  # right, left or both
     assert 'BI-RADS 1' not in exported['ra.mammography'].split('**__Conclusion:__**')[0]

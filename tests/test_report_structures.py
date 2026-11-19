@@ -137,12 +137,16 @@ def test_a_subheading_is_set_out_in_every_layout():
     dictation = {template['id']: template['text'] for template in radproof_export.export(dictation=True)}
     # RadProof sets out a part of a report in bold; the headings under it keep their blanks.
     assert '\n\n**Intrinsic ligaments:**\nScapholunate ligament: []\nLunotriquetral ligament: []\n\n**Extrinsic ligaments:**\n' in dictation['msk.mri-wrist']
-    # Every template opens with clinical history and comparison, then the study title in Prism's capitals.
+    # Every template opens with clinical history and comparison, then the study title: no heading is all capitals.
     assert dictation['msk.mri-wrist'].startswith(
-        '**__Clinical history:__**\n[]\n\n**__Comparison:__**\n[]\n\n**__MRI {SIDE} WRIST:__**\n**__Protocol:__**\n')
-    for text in dictation.values():
+        '**__Clinical history:__**\n[]\n\n**__Comparison:__**\n[]\n\n**__MRI {side} wrist:__**\n**__Protocol:__**\n')
+    library = rt.library()
+    for identifier, text in dictation.items():
         lines = text.split('\n')
-        assert lines[:6] == radproof_export.HISTORY and re.fullmatch(r'\*\*__[^a-z]+:__\*\*', lines[6]), lines[6]
+        title = re.fullmatch(r'\*\*__(.+):__\*\*', lines[6]).group(1)
+        assert lines[:6] == radproof_export.HISTORY, identifier
+        # Only a title that is acronyms throughout (CT KUB, FDG PET/CT) is in capitals.
+        assert title != title.upper() or library[identifier]['title'] == library[identifier]['title'].upper(), title
     assert '**__Findings:__**\n**Bones and alignment:**\nDistal radius and ulna: []\n' in dictation['msk.mri-wrist']
     assert '\n\n**Lumbar discs:**\nT12-L1: []\nL1-L2: []\nL2-L3: []\nL3-L4: []\nL4-L5: []\nL5-S1: []\n\n' in dictation['ra.mri-lumbar-disc']
     for text in dictation.values():
@@ -245,7 +249,7 @@ def test_the_soft_tissue_neck_ultrasound_surveys_the_whole_neck():
     dictation = {template['id']: template for template in radproof_export.export(dictation=True)}
     neck = dictation['us.soft-tissue-neck']
     assert neck['name'] == 'Ultrasound soft tissue neck'
-    assert '**__ULTRASOUND SOFT TISSUE NECK:__**\nArea of concern: []\n\n**Salivary and thyroid glands:**\n' in neck['text']
+    assert '**__Ultrasound soft tissue neck:__**\nArea of concern: []\n\n**Salivary and thyroid glands:**\n' in neck['text']
     # The click builder has the same structures, every finding enumerated.
     from primer.reporting_bridge import descriptor_forms
     investigation = next(i for form in descriptor_forms()['forms'].values() for i in form['investigations']

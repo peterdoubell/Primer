@@ -4,8 +4,9 @@ Every template opens with the clinical history and the comparison, then the stud
 (2026-11-19). RadProof puts a template's first line in Prism's title slot, so Clinical history takes it:
   **__Clinical history:__** []  bold and underlined, each with a blank to fill
   **__Comparison:__** []
-  **__<STUDY TITLE>:__**       bold and underlined, in capitals with a colon, as Prism sets out a title;
-                               {SIDE} where Prism supplies the side, RADIOGRAPH{S} for the views
+  **__<Study title>:__**       bold and underlined, in sentence case: no heading is all capitals
+                               (Peter, 2026-11-19); {Side} where Prism supplies the side, radiograph{s}
+                               for the views. The bar itself prints the first line in capitals.
   **__Protocol:__** / **__Technique:__**  MRI protocol or CT technique (no other modality has one)
   **__Findings:__**            after a protocol or technique; radiographs, ultrasound and
                                fluoroscopy run from the study title straight into their findings
@@ -119,16 +120,16 @@ def sentences(text):
 
 # Every template opens with the clinical history and the comparison, then the study name (Peter, 2026-11-19).
 # RadProof puts a template's first line in Prism's title slot, so Clinical history takes that line and the
-# study name follows in Prism's title style.
+# study name follows, a heading like the others.
 HISTORY = ['**__Clinical history:__**', '[]', '', '**__Comparison:__**', '[]', '']
 # Bold and underline only for headings (Peter's M3GAN layout, 2026-11-19): every section heading is both,
 # as RadProof sets out a section heading; a subheading is bold, and a heading with a blank is plain.
 SECTION = {name + ':': '**__' + name + ':__**' for name in ('Protocol', 'Technique', 'Findings', 'Impression', 'Recommendation')}
 
 
-def caps_title(title):
-    """A study name as Prism sets out a title: capitals and a colon ({SIDE} and RADIOGRAPH{S} still fill in)."""
-    return '**__' + title.upper() + ':__**'
+def title_heading(title):
+    """The study name as a heading: bold, underlined and in sentence case, never all capitals (Peter, 2026-11-19)."""
+    return '**__' + title + ':__**'
 
 
 def dictation_text(item, acquisition, title):
@@ -140,7 +141,7 @@ def dictation_text(item, acquisition, title):
     # A subheading over the headings it groups is a part of the report: bold, as RadProof sets one out.
     markup.update({f'{section["group"]}:': f'**{section["group"]}:**'
                    for section in item['sections'] if section.get('group')})
-    return '\n'.join([*HISTORY, caps_title(name), *(markup.get(line, line) for line in study[1:])])
+    return '\n'.join([*HISTORY, title_heading(name), *(markup.get(line, line) for line in study[1:])])
 
 
 def export(*, dictation=False):
@@ -166,7 +167,7 @@ def export(*, dictation=False):
         if radiograph and COUNTED.match(VIEWS.sub('', title)):
             title = VIEWS.sub('', title)
             title, impression = counted(title), [counted(line) for line in impression]
-        lines = [*HISTORY, caps_title(title)]
+        lines = [*HISTORY, title_heading(title)]
         acquisition = rt.acquisition_heading(identifier, item)
         if acquisition:
             lines += [SECTION[acquisition + ':'], item['technique']['normal'], '']
