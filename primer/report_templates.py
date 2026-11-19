@@ -176,22 +176,14 @@ def validate(identifier, item):
         _normal(item['recommendation'], f'{identifier} recommendation')
     if 'dictation' in item:
         draft = item['dictation']
-        # A department's own dictation template, kept as written: a one-line title, a technique of one
-        # or more lines, findings blocks (normal sentences or [] blanks, at least one blank), and
-        # optionally its own closing headings (Conclusion in place of Impression and Recommendation).
-        if (not isinstance(draft, dict) or not {'title', 'technique', 'findings'} <= set(draft)
-                or set(draft) - {'title', 'technique', 'findings', 'closing'}
-                or any(not isinstance(draft[key], str) or not draft[key].strip() for key in ('title', 'technique'))
-                or '\n' in draft['title'] or any(not line.strip() for line in draft['technique'].split('\n'))
+        if (not isinstance(draft, dict) or set(draft) != {'title', 'technique', 'findings'}
+                or any(not isinstance(draft[key], str) or not draft[key].strip()
+                       or '\n' in draft[key] for key in ('title', 'technique'))
                 or not isinstance(draft['findings'], list) or not draft['findings']
-                or not any(isinstance(block, str) and '[]' in block for block in draft['findings'])
-                or any(not isinstance(block, str) or not block.strip()
+                or any(not isinstance(block, str) or '[]' not in block
                        or re.sub(r'\[\]', '', block).find('[') >= 0
                        or re.sub(r'\[\]', '', block).find(']') >= 0
-                       for block in draft['findings'])
-                or not isinstance(draft.get('closing', ['Impression']), list)
-                or not 1 <= len(draft.get('closing', ['Impression'])) <= 2
-                or set(draft.get('closing', [])) - {'Conclusion', 'Impression', 'Recommendation'}):
+                       for block in draft['findings'])):
             raise ValueError(f'{identifier}: invalid dictation layout')
     return item
 
@@ -304,7 +296,7 @@ def render_dictation(item, heading):
     title = draft['title'] if draft else item['title']
     study = title
     if heading:
-        label = 'Technique' if draft else heading
+        label = heading  # Protocol for an MRI, Technique for a CT: a department draft's too
         technique = draft['technique'] if draft else item['technique']['normal']
         study += f'\n{label}:\n{technique}'
     if draft:
@@ -316,8 +308,7 @@ def render_dictation(item, heading):
         study = [study, 'Findings:\n' + findings[0], *findings[1:]]
     else:
         study = [study + '\n' + findings[0], *findings[1:]]
-    closing = draft.get('closing', ['Impression', 'Recommendation']) if draft else ['Impression', 'Recommendation']
-    text = '\n\n'.join(['Clinical history:\n[]', 'Comparison:\n[]', *study, *(heading + ':\n[]' for heading in closing)])
+    text = '\n\n'.join(['Clinical history:\n[]', 'Comparison:\n[]', *study, 'Impression:\n[]', 'Recommendation:\n[]'])
     return {'title': title, 'text': text}
 
 

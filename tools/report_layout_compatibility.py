@@ -148,14 +148,14 @@ CONFIRMED_GROUP_CURRENT = b'      const genericAcquisition = !exam?.report_proto
 CONFIRMED_GROUP_PREVIOUS = b'      return exam?.report_format === 3 && !exam.report_protocol && /^(technique|protocol)$/i.test(name)'
 
 
-def before_department_drafts_bytes(path, raw):
-    """Undo the department-draft extension of primer/report_templates.py (2026-11-19): a draft may give a
-    technique of several lines, a block of normal sentences and its own closing headings (Conclusion)."""
+def before_draft_acquisition_heading_bytes(path, raw):
+    """Undo the uniform acquisition heading of primer/report_templates.py (2026-11-19): a department draft's
+    acquisition is headed Protocol for an MRI like every other template, where it was always Technique."""
     if str(path) != 'primer/report_templates.py':
         return raw
     from tools.colonvessels_compatibility import _restore
-    proof = Path(__file__).resolve().parents[1] / 'docs/report-format-parity/department-drafts-inverse.json'
-    return _restore(path, raw, proof, 'a1afeb78bf6fe38b1fc6283f48e3556877273d7fd3fa4c9d322030a9587d660e')
+    proof = Path(__file__).resolve().parents[1] / 'docs/report-format-parity/draft-acquisition-heading-inverse.json'
+    return _restore(path, raw, proof, 'df43b6176b205b9271f36672d15cd3b2ac27de44fc9429060e36bb7c85857ad2')
 
 
 def before_stacked_headings_bytes(path, raw):
@@ -163,7 +163,7 @@ def before_stacked_headings_bytes(path, raw):
     another without a blank line, and the dictation study name runs into its first heading."""
     if str(path) != 'primer/report_templates.py':
         return raw
-    raw = before_department_drafts_bytes(path, raw)
+    raw = before_draft_acquisition_heading_bytes(path, raw)
     from tools.colonvessels_compatibility import _restore
     proof = Path(__file__).resolve().parents[1] / 'docs/report-format-parity/stacked-headings-inverse.json'
     return _restore(path, raw, proof, '84005f5fb0870c2f38e4add4726db1d2d094efc8c3d6b6144e4bdf4f08873b03')
