@@ -1,0 +1,37 @@
+@ lang.5.comp-ling
+~ Chapter samples in Alice
+from: https://standardebooks.org/ebooks/lewis-carroll/alices-adventures-in-wonderland/john-tenniel
+goal: Audit chapter-based word samples from Alice: distinguish tokens from types, compare equal-length samples, recognise length effects, and calculate an observed share in held-out text.
+intro: Lewis Carroll’s Alice’s Adventures in Wonderland gives us a small real corpus. We count letter sequences, keep internal apostrophes, split hyphenated words and ignore case. A token is one occurrence; a type is a distinct counted form. A chapter’s opening is a particular sample of its vocabulary.
+  show: flow Choose chapter and sample length > Apply the same tokenization rule > Count tokens and types > State the denominator
+demo: Chapter I’s opening paragraph contains 57 tokens and 40 types under this rule. Its type–token ratio is 40 divided by 57, about 70.2%. Repeated occurrences add tokens; a repeated form contributes one type.
+  show: table Opening paragraph | Count ;; Tokens | 57 ;; Types | 40 ;; Type–token ratio | 40/57
+F: Count the types in this Chapter I excerpt, ignoring case: “Alice had not a moment to think about stopping herself before she found herself falling down a very deep well.”
+  frame: This excerpt has 20 tokens and __ types.
+  answer: 18
+  x 20 :: [types-as-occurrences] “A” and “herself” each occur twice. Count each form once when counting types.
+  x 2 :: [repeated-types-only] Two forms repeat, but the unique forms also contribute types.
+  hint: List each form once. Two forms each occur twice.
+  why: The twenty occurrences contain two repeated forms, “a” and “herself”. Removing one duplicate occurrence of each leaves eighteen distinct types.
+C: The same rule is applied to the first 200 tokens of two chapters. Which opening sample has the higher type–token ratio?
+  left: table Chapter I | Count ;; Tokens | 200 ;; Types | 116
+  right: table Chapter XII | Count ;; Tokens | 200 ;; Types | 118
+  + Chapter XII, at 59%, compared with Chapter I at 58% :: Both denominators are 200, so the larger type count gives the larger observed ratio.
+  - The ratios are equal because both contain 200 tokens :: [equal-denominator-equal-ratio] Equal denominators make the numerators comparable; the numerators still differ.
+  - Chapter I, because its type count is smaller :: [ratio-reversed] With the same denominator, fewer types give a lower ratio.
+  hint: Divide each type count by 200.
+  why: 118/200 is 59% and 116/200 is 58%. This one-percentage-point difference describes these equal-length opening samples.
+P: Within Chapter I, the first 100 tokens have 66 types, while the first 200 have 116. The ratios are 66% and 58%. What should guide a comparison with another chapter?
+  + Compare equal-length samples under the same counting rule, because this ratio changes with sample length :: The longer sample has more types but a lower ratio.
+  - Use the full length of each chapter and read any ratio difference as vocabulary richness :: [length-confounding] Different sample lengths can affect this ratio even within the same chapter.
+  - Conclude that the second sample lost fifty types :: [percentage-as-type-count] Its type count rose from 66 to 116; it is the proportion that fell.
+  hint: Compare the token denominator as well as the type numerator.
+  why: Doubling the sample adds fifty types but one hundred tokens. The numerator and denominator grow at different rates, so sample length affects the ratio.
+>F: Hold Chapter II aside while designing the count. Its first 500 tokens contain three occurrences of “rabbit”. Calculate the observed share in this fresh sample.
+  frame: “Rabbit” occurs __ times per 100 tokens.
+  answer: 0.6
+  x 3 :: [count-as-rate] Three is the number in 500 tokens. Convert it to a share per 100.
+  x 0.006 :: [proportion-as-percent] 3/500 is the proportion. Multiply by 100 for occurrences per 100 tokens.
+  hint: Divide three by 500, then multiply by 100.
+  why: 3/500 × 100 = 0.6 occurrences per 100 tokens. This is an observed share in a held-out chapter opening; its topic and position remain part of the sampling description.
+done: Take another equal-length chapter sample. Record the counting rule, sample boundary, token denominator and type count before comparing its ratio.
