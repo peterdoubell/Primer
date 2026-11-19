@@ -1,0 +1,437 @@
+# Environment, food and farming, stages 0 to 5.
+# Classify what you observe, put a process in order, balance a budget,
+# and predict what a change will do. All data are invented for teaching.
+
+@ env.0.places
+goal: Tell living things from things that are not alive, and watch them gently.
+intro: Outdoors there are living things, like plants and animals. There are also things that are not alive, like stones and water. Living things use the place around them.
+  show: emoji 🌳 🐦 🪨 💧
+demo: In the garden there is a tree, a stone and a bird. The tree and the bird are alive. The stone is not alive. The bird sits on a branch to rest, so the tree is part of the bird's home.
+  show: table Thing | Is it alive? ;; tree | yes ;; bird | yes ;; stone | no
+G: Is it living, or not living?
+  bin Living: tree | bird | beetle
+  bin Not living: stone | puddle | sand
+  hint: Does it grow?
+  why: Trees, birds and beetles are alive: they grow. Stones, puddles and sand are not alive.
+M: Match each animal to what it uses.
+  pairs: Bird => A branch to rest on | Worm => Soil to dig in | Bee => A flower to visit | Fish => Water to swim in
+  hint: Where does a worm live?
+  why: Every living thing uses the place around it.
+P: You find a snail on a leaf. What is the gentle thing to do?
+  + Look, and leave it where it is :: The leaf is where the snail lives.
+  - Take it home :: [took-it-away] The snail needs its own place.
+  - Poke it :: [disturbed-it] Poking could hurt it.
+  hint: Where does the snail live?
+  why: We can learn a lot just by looking. Gentle watchers leave living things in their homes.
+>P: A beetle is hiding under a log. What is the log for the beetle?
+  + A place to hide :: The log keeps the beetle safe.
+  - A toy :: [wrong-use] Beetles do not play with toys. The log is its shelter.
+  - Nothing at all :: [missed-the-link] The beetle is using the log to hide.
+  hint: Why is the beetle under the log?
+  why: Living things use things that are not alive, like logs and stones, for shelter.
+done: Look, listen, and leave things as you found them. Find one living thing and one thing that is not alive outside today.
+
+@ env.0.seeds
+goal: Know what a seed is, and put the stages of a growing plant in order.
+intro: A seed has a tiny baby plant inside it. With water and warmth, the seed starts to grow. First a root comes out. Then a shoot comes up. Then leaves open.
+  show: flow seed > root > shoot > leaves
+demo: A grown-up plants a bean in a clear pot. On day one we see only the bean. A few days later a little root pokes out. Then a green shoot climbs up. A second bean starts later. Seeds do not all grow at the same speed.
+  show: flow day 1: the bean > later: a root > later still: a shoot
+O: Put the growing bean in order.
+  items: A seed | A root comes out | A shoot comes up | Leaves open
+  ends: First | Last
+  hint: The root comes before the shoot.
+  why: Seed, root, shoot, leaves. The root comes first, to find water.
+G: Is it a seed?
+  bin A seed: a bean | a sunflower seed | an apple pip
+  bin Not a seed: a pebble | a button | a marble
+  hint: Could a plant grow from it?
+  why: Beans, sunflower seeds and apple pips can grow into plants. Pebbles, buttons and marbles cannot.
+P: Two beans are planted on the same day. One comes up first. Is the other one broken?
+  + No: seeds grow at different speeds :: It may come up later.
+  - Yes: it is broken :: [same-clock] Living things do not all grow at the same speed.
+  - Yes: it is not a real seed :: [same-clock] It may only need more time.
+  hint: Do all children grow at the same speed?
+  why: Living things do not all keep the same time. Wait and watch.
+>P: A little root has come out of the bean. What will you see next?
+  + A shoot growing up :: After the root comes the shoot.
+  - A flower, straight away :: [skipped-steps] Flowers come much later, after the shoot and the leaves.
+  - Nothing more :: [stopped-growing] The plant keeps on growing.
+  hint: What comes after the root?
+  why: Plants grow in order: root, then shoot, then leaves.
+done: Seeds grow in steps. Ask a grown-up to help you plant a bean and draw it each day.
+
+@ env.1.soil
+goal: Say what soil is made of, and compare two soils with a fair test.
+intro: Soil is more than dirt. It is a mixture: tiny bits of rock, bits of dead plants, water, air and living things such as worms. Soil is different from place to place.
+  show: chips bits of rock | dead leaves | water | air | worms
+demo: Put the same amount of two soils into two pots that are just the same, with holes in the bottom. Pour the same amount of water into each. In one pot the water runs through quickly. That tells us how water moves in these two soils. It does not tell us which soil is "best".
+  show: table Soil | Time for the water to run through ;; A | 1 minute ;; B | 5 minutes
+G: In soil, is it living or not living?
+  bin Living: worms | tiny bugs | plant roots
+  bin Not living: grains of sand | small stones | water
+  hint: Does it grow or move by itself?
+  why: Soil has living things and things that are not alive, all mixed together.
+P: You want to compare how fast water runs through two soils. What must be the same?
+  + The amount of soil, the amount of water and the pots :: Then only the soil is different.
+  - The colour of the pots :: [irrelevant-factor] Colour does not change how the water moves.
+  - Nothing at all :: [unfair-test] Then you cannot tell what made the difference.
+  hint: What might change the result apart from the soil?
+  why: In a fair test, only one thing is different.
+F: Read the table of results.
+  frame: Water runs through faster in soil __
+  taps: A | B
+  answer: A
+  x B :: [read-the-wrong-way] Soil B took 5 minutes. Soil A took only 1 minute.
+  hint: Which soil took less time?
+  why: One minute is less than five minutes, so the water ran through soil A faster.
+>P: Soil A is darker than soil B. Does that prove that soil A will grow every plant better?
+  + No: the colour alone does not tell us that :: You would need to test it by growing plants.
+  - Yes: dark soil is always the best :: [one-sign-tells-all] The colour is only one thing about the soil.
+  - Yes: light soil is always bad :: [one-sign-tells-all] The colour is only one thing about the soil.
+  hint: Can you tell everything about a soil just by looking at its colour?
+  why: One thing you can see does not tell you everything. Different plants also like different soils.
+done: Soil is a living mixture. Look closely at a handful of soil with a grown-up, and see what is in it.
+
+@ env.1.food-journey
+goal: Follow a food from the farm to your plate, and know how to waste less.
+intro: Food makes a long journey before you eat it. Someone grows it. Others pick it, carry it, sell it and cook it. Each step uses land, water, energy and people's work.
+  show: flow farm > lorry > shop > kitchen > plate
+demo: A carrot grows in a field. It is pulled up and taken to a shop. At home it is washed, peeled and cooked. The peel can go into a compost bin. But a whole carrot thrown away wastes all the water, land and work that grew it.
+  show: flow the carrot grows > it travels > it is cooked > the peel is composted
+O: Put the carrot's journey in order.
+  items: The carrot grows in a field | It is picked | A lorry takes it to a shop | Someone cooks it | It is eaten
+  ends: First | Last
+  hint: It has to grow before it can be picked.
+  why: Grow, pick, carry, cook, eat.
+M: Match each person to their job.
+  pairs: Farmer => Grows the food | Driver => Carries it to the shop | Shopkeeper => Sells it | Cook => Gets it ready to eat
+  hint: Who works in the field?
+  why: Many people work to bring food to your plate.
+G: Does it stop waste before it happens, or deal with scraps afterwards?
+  bin Stops waste: taking only what you will eat | keeping food where it stays fresh | saving leftovers for tomorrow
+  bin Deals with scraps: putting peelings in the compost bin | putting apple cores in the food-waste bin
+  hint: Is the food still good to eat?
+  why: It is best not to waste food in the first place. Composting is for the scraps that we cannot eat.
+>P: There is more rice on your plate than you can eat, and you have not started yet. What is the best thing to do?
+  + Put some back, or save it for later :: Then it is not wasted.
+  - Put it in the compost bin :: [binned-good-food] It is still good food. Composting is for scraps.
+  - Leave it on the plate :: [wasted-it] Then it will be thrown away.
+  hint: Is the rice still good to eat?
+  why: Stopping waste comes first. Good food is for eating, not for the bin.
+done: Food takes a lot of work to reach you. At your next meal, take only what you will eat.
+
+@ env.2.webs
+goal: Explain how crops, soil life, pollinators and predators depend on one another on a farm, and predict the effects of a change.
+intro: A farm is an ecosystem as well as a place for growing food. Crops live alongside soil organisms, pollinating insects, plant-eaters and the predators that eat those. Change one part and others change too.
+  show: table Organism | Role on the farm ;; bee | pollinates crop flowers ;; earthworm | mixes the soil and breaks down dead plants ;; aphid | feeds on the sap of crops ;; ladybird | eats aphids
+demo: A strip of flowers is planted beside a bean field. It shelters insects. Some of them visit the bean flowers and pollinate them. Others, such as ladybirds, eat the aphids that feed on the beans. One strip of flowers affects the crop in two different ways.
+  show: flow flower strip > insects > pollination and fewer aphids
+M: Match each organism to its role.
+  pairs: Bee => Pollinates crop flowers | Earthworm => Mixes the soil and breaks down dead plants | Ladybird => Eats aphids | Aphid => Feeds on the sap of crops | Fungus => Decomposes dead material and releases nutrients
+  hint: Which one eats the pest?
+  why: Each organism does something that affects the others, and the crop.
+O: Put this food chain in order, starting with the plant.
+  items: Bean plant | Aphid | Ladybird | Small bird
+  ends: Start of the chain | End of the chain
+  hint: Who eats whom?
+  why: The plant makes the food, the aphid eats the plant, the ladybird eats the aphid and the bird eats the ladybird.
+G: An ecosystem function, or a production result?
+  bin Ecosystem function: pollination | decomposition of dead plants | predators eating crop pests
+  bin Production result: tonnes of beans harvested | income from the crop
+  hint: Is it something that organisms do, or something that the farmer measures at the end?
+  why: Functions are processes. They can support production, but they do not guarantee a particular harvest.
+P: A spray kills the ladybirds as well as the aphids. Aphids breed much faster than ladybirds. What may happen in the weeks that follow?
+  + The aphids return in greater numbers, with few predators left to eat them :: An indirect effect.
+  - The aphids never return :: [direct-effect-only] The spray does not last, and the aphids recover quickly.
+  - Nothing changes :: [ignored-the-web] Removing a predator changes what happens to its prey.
+  hint: What kept the aphids in check before?
+  why: Killing a pest's predators can make the pest problem worse later. Effects travel along the links of the web.
+>P: Observers count more insects on the flower strip than on the bare edge of the field. Does that prove that the strip increases the harvest?
+  + No: more insects is a step in the chain, but harvests must be compared, allowing for weather and differences between fields :: The link has to be measured.
+  - Yes: more insects means more beans :: [function-as-outcome] More visitors may help, but the harvest depends on many other things.
+  - No: insects never affect harvests :: [overcorrection] Pollinators and predators can matter. The point is that it must be shown.
+  hint: What would you need to measure to know about the harvest?
+  why: A change in one part of the system is not yet a change in the result. A claim about production needs data about production.
+done: Follow the links. Draw a web for one garden plant: who visits it, who eats it and who eats them?
+
+@ env.2.water
+goal: Account for the water entering, leaving and stored in a garden, and judge a water-saving claim by its boundary.
+intro: A water budget follows water through a chosen place over a chosen time. Water enters as rain and irrigation. It leaves as runoff, as drainage below the roots, and as evaporation from the soil and from leaves. Whatever is left over changes the amount stored in the soil.
+  show: flow rain and irrigation > the soil store > runoff, drainage and evaporation
+demo: In one week an imaginary garden receives 35 litres of rain and 25 of irrigation: 60 litres in. It loses 10 as runoff, 15 as drainage and 30 through evaporation from soil and leaves: 55 litres out. The store in the soil rises by 60 − 55 = 5 litres.
+  show: table Flow | Litres ;; rain | 35 ;; irrigation | 25 ;; runoff | 10 ;; drainage | 15 ;; evaporation from soil and leaves | 30
+G: Sort the flows of the garden's water budget.
+  bin Input: rain | irrigation
+  bin Output: runoff over the surface | drainage below the roots | evaporation from soil and leaves
+  bin Storage: water held in the soil
+  hint: Does it bring water in, take it out, or hold it?
+  why: Inputs add to the store and outputs take from it. The change in storage is the difference between them.
+F: Balance a budget.
+  frame: Inputs of 70 litres and outputs of 55 litres change the soil's store by __ litres
+  answer: 15 | +15
+  x 125 :: [added] The change in storage is inputs minus outputs.
+  x -15 :: [reversed-the-subtraction] More came in than went out, so the store rises.
+  hint: Inputs minus outputs.
+  why: 70 − 55 = 15 litres more in the soil.
+X: This week the garden receives 20 litres of rain and loses 45 litres altogether. Add irrigation and watch the soil's store.
+  param irr: 0..50 /5 @0 | Irrigation | litres
+  out change: 20 + irr - 45 | Change in the water stored in the soil | litres
+  aim: Find the irrigation that keeps the soil's store exactly level.
+  target: change == 0
+  view: bars change over irr
+  hint: Inputs must equal outputs.
+  why: 20 + 25 = 45. Less irrigation draws the store down, and more builds it up, or adds to the drainage.
+P: Rain soaks into the surface of the soil. Has that water left the garden?
+  + No: it has moved into the soil's store :: It leaves only by drainage or by evaporation.
+  - Yes: once it has soaked in, it is lost :: [infiltration-as-loss] Soaking in is how the soil store is filled.
+  - Yes: it has become runoff :: [confused-the-flows] Runoff is water that does not soak in.
+  hint: Where is the water now?
+  why: Infiltration moves water into storage, where roots can reach it. Counting it as a loss would count it twice.
+>P: A new sprinkler is advertised as using "30% less water an hour". Will the garden use less water over the season?
+  + Not necessarily: that depends on how many hours it runs and how much area it waters, measured over the whole garden and season :: The claim covers one part of the budget.
+  - Yes: 30% less an hour means 30% less in total :: [rate-as-total] A lower rate, run for longer, can use just as much.
+  - No: sprinklers cannot save water :: [dismissed-the-claim] It may well save water. The claim alone does not show it.
+  hint: What is the boundary of the claim: an hour, or the season?
+  why: A claim about saving water needs a stated boundary and time span, and a measurement of the total.
+done: In, out and stored. Sketch the water budget of a plant pot on your windowsill.
+
+@ env.3.soil-cycles
+goal: Track a nutrient through a field without creating or destroying it, distinguish the ways in which it is lost and weigh up management choices.
+intro: Nutrients are not created when a field is fertilised. They move: between the soil, plants, water and air. What is added is taken off in the harvest, lost from the field, or stored. Erosion removes the soil itself, and the nutrients go with it.
+  show: flow added > the soil's store > harvested, lost or kept
+demo: An imaginary field receives 100 units of a nutrient in a year. The harvest carries away 60. An estimated 25 leave by other routes. The remaining 15 are added to the store in the soil. The budget balances: 100 = 60 + 25 + 15.
+  show: bars Added=100 Harvested=60 Lost=25 Stored=15 unit=units
+F: Balance a nutrient budget.
+  frame: A field receives 90 units, exports 55 in the harvest and loses 20. Its store changes by __ units
+  answer: 15 | +15
+  x 165 :: [added-everything] Subtract the harvest and the losses from the amount added.
+  x 35 :: [forgot-the-losses] Subtract the 20 lost as well as the 55 harvested.
+  hint: 90 − 55 − 20.
+  why: 90 − 55 − 20 = 15 units added to the soil's store. Matter is conserved: every unit is accounted for.
+M: Match each pathway of loss to how it works.
+  pairs: Erosion => Particles of soil are carried off by water or wind | Leaching => Dissolved nutrients are washed down below the roots | Runoff => Dissolved nutrients are carried over the surface | Gaseous loss => Nutrients escape into the air as gas
+  hint: Leaching goes downwards; runoff goes sideways.
+  why: Each pathway has a different cause, and so a different remedy.
+X: In this field the harvest removes 60 units a year, and a quarter of whatever is added is lost. Change the amount added.
+  param added: 40..120 /10 @40 | Nutrient added | units
+  out stored: added - 60 - 0.25*added | Change in the soil's store | units
+  aim: Find the addition at which the soil's store neither rises nor falls.
+  target: stored == 0
+  view: bars stored over added
+  hint: The store is level when what is added equals the harvest plus the losses.
+  why: At 80 units, 20 are lost and 60 are harvested. Adding less runs the soil down. Adding more builds the store up, and increases the losses too.
+C: Two ways of managing a sloping field through the winter. Which loses less soil?
+  left: text The soil is left bare after the harvest.
+  right: text A cover crop is grown until spring.
+  + The right: leaves soften the impact of the rain and roots hold the soil, though the cover crop uses water and needs managing :: Less erosion, at a cost.
+  - The left: bare soil soaks up the rain better :: [bare-soil-absorbs] Raindrops seal bare soil, and water runs off it carrying soil away.
+  - It makes no difference :: [ignored-cover] Plant cover is one of the strongest controls on erosion.
+  hint: What happens when heavy rain strikes bare, sloping ground?
+  why: Cover protects soil from rain and from flowing water. Every practice has costs as well, which depend on the place.
+>P: A field shows a surplus of 20 units of a nutrient each year. A manager proposes simply adding less. What else needs to be known first?
+  + By which pathway, and when, the nutrient is being lost :: If it goes with eroded soil in storms, cover matters more than the amount added.
+  - Nothing: a surplus always means that too much is added :: [one-number-diagnosis] The surplus does not say where the nutrient goes, or why.
+  - Nothing: surpluses do no harm :: [ignored-the-losses] Nutrients that leave a field can pollute water and air.
+  hint: The budget gives the size of the surplus. What does it not give?
+  why: A balance shows how much, but not by what route. Choosing a remedy needs the pathway and its timing.
+done: Nothing is created and nothing vanishes: follow it. Draw the nutrient budget of a compost heap.
+
+@ env.3.food-resources
+goal: Compare food systems with indicators that state their units, tell availability from access and avoid judging by a single measure.
+intro: A food system supplies food, supports livelihoods and uses land, water and energy. Any figure for its impact depends on the unit: per kilogram, per serving, per unit of nutrition or per hectare. Different units can rank the same foods differently.
+  show: table Unit | Question that it answers ;; per hectare | how much does the land yield? ;; per kilogram | what does each kilogram cost in resources? ;; per unit of nutrition | what does each unit of nourishment cost?
+demo: Imaginary food A causes 2 units of emissions per kilogram, and food B causes 3. Per kilogram, A is better. But B contains twice as much protein per kilogram. Per unit of protein, A scores 2 and B scores 1.5. Now B is better. Neither figure is wrong: they answer different questions.
+  show: table Food | Emissions per kg | Protein per kg | Emissions per unit of protein ;; A | 2 | 1 | 2 ;; B | 3 | 2 | 1.5
+F: Calculate a yield.
+  frame: A farm that harvests 9 tonnes from 3 hectares has a yield of __ tonnes per hectare
+  answer: 3 | three
+  x 27 :: [multiplied] Yield is the output divided by the area.
+  x 6 :: [subtracted] Divide the tonnes by the hectares.
+  hint: 9 ÷ 3.
+  why: 9 ÷ 3 = 3 tonnes per hectare. This measures how productive the land is, and nothing else.
+P: In the demonstration, food A has the lower emissions per kilogram and food B has the lower emissions per unit of protein. Which food is "better"?
+  + That depends on the unit, which must match the question being asked :: The unit has to be stated.
+  - A, because it is lower per kilogram :: [one-unit-is-the-unit] That is only one of the possible bases.
+  - B, because it is lower per unit of protein :: [one-unit-is-the-unit] That is only one of the possible bases.
+  hint: What is the food for?
+  why: An indicator without its unit is incomplete. Comparisons should say what they are measured per.
+G: Is it about availability, or about access?
+  bin Availability: the total food produced in a region | the amount of food in the shops
+  bin Access: whether households can afford it | whether there is a shop within reach | whether people have the time and the means to prepare it
+  hint: Is the food there? Can people actually get it?
+  why: Availability is about supply. Access is about whether particular people can obtain and use that supply.
+C: System X yields more per hectare than system Y, but uses more water per tonne. How should they be compared?
+  left: text Judge by yield per hectare alone.
+  right: text Set out both indicators, and who is affected by each.
+  + The right: each indicator captures one pressure, and the trade-off has to be faced openly :: No single number decides.
+  - The left: yield is the measure that matters :: [single-metric] Where water is scarce, the water figure may matter more.
+  - Neither: such systems cannot be compared :: [gave-up] They can be compared on stated indicators, with the trade-offs made plain.
+  hint: Where would land be the limit, and where would water?
+  why: Real choices involve several indicators that pull in different directions. Good analysis shows the trade-offs.
+>P: A region grows enough food to feed all its people, yet some households go hungry. What explains this?
+  + A problem of access: price, income, distance or the means to prepare food :: Supply is not the same as access.
+  - A problem of availability: too little is grown :: [availability-only] Enough is grown. The difficulty is in reaching it.
+  - It cannot happen :: [denied-the-case] It is common. Hunger usually exists alongside enough supply.
+  hint: The food is there. What stands between it and those households?
+  why: Food security requires both availability and access. Enough production does not ensure that everyone can obtain food.
+done: State the unit, show the trade-off, and ask who can get the food. Compare two foods you eat on two different bases.
+
+@ env.4.agroecology
+goal: Analyse a farming system's resilience: distinguish resistance from recovery, test when diversity protects and question claims about thresholds.
+intro: Agroecology studies farms as ecological systems that people manage. Its central question is how a system keeps functioning when it is disturbed. Resistance is how little a function falls. Recovery is how fast it returns. Resilience is the capacity to absorb a disturbance and reorganise without losing the function.
+  show: table Term | Meaning ;; resistance | how little a function falls during a disturbance ;; recovery | how quickly it returns afterwards ;; resilience | the capacity to absorb disturbance and keep functioning ;; threshold | a point beyond which the system shifts to another state
+demo: Suppose each of two crops fails in a dry year with probability 0.2. If their failures are independent, both fail together with probability 0.2 × 0.2 = 0.04. But if the same drought strikes both, their failures are linked. With complete linkage both fail together with probability 0.2: growing two crops has bought no protection at all.
+  show: bars Independent_failures=0.04 Completely_linked_failures=0.2
+M: Match each term to its meaning.
+  pairs: Resistance => How little a function falls during a disturbance | Recovery => How quickly it returns afterwards | Resilience => The capacity to absorb disturbance and keep functioning | Threshold => A point beyond which the system shifts to another state | Feedback => A process whose result alters its own cause
+  hint: Resistance is about the fall, and recovery is about the return.
+  why: These are distinct properties. A system can be strong in one and weak in another.
+P: After a drought, farm A's output fell by 10% and took three years to return to normal. Farm B's fell by 40% and returned in one year. How do they compare?
+  + A is the more resistant, and B recovers faster :: Two different properties.
+  - A is better in every respect :: [single-scale] A resisted better, but recovered more slowly.
+  - B is the more resistant :: [confused-the-terms] B fell further. That is lower resistance.
+  hint: Which fell less? Which came back sooner?
+  why: Resistance and recovery are measured separately. Which matters more depends on the function and on those who rely on it.
+X: Two crops each fail with probability 0.2 in a dry year. Change how strongly their failures are linked: 0 means independent, and 1 means that they always fail together.
+  param rho: 0..1 /0.1 @0 | Linkage between the two failures
+  out both: 0.04 + rho*0.16 | Probability that both crops fail
+  aim: Find the linkage at which the chance of losing both crops reaches 0.12.
+  target: abs(both-0.12) < 0.001
+  view: bars both over rho
+  hint: At a linkage of 0 the chance is 0.04, and at 1 it is 0.2.
+  why: At a linkage of 0.5 the chance of losing both has tripled from its independent value. Diversity protects only to the extent that the parts respond differently.
+P: A report says that a soil "will collapse beyond a tipping point", yet its data show only a steady, gradual decline. What is the criticism?
+  + A claim about a threshold needs evidence of an abrupt change, or of a change that is hard to reverse; a gradual trend does not supply it :: The claim outruns the data.
+  - None: every decline ends in collapse :: [threshold-assumed] Many systems degrade gradually, and recover gradually.
+  - The soil is plainly healthy :: [dismissed-the-decline] The decline is real. What is unsupported is the claim of a threshold.
+  hint: What would the data look like if there really were a threshold?
+  why: Thresholds are a specific and testable claim about how a system changes. They have to be shown, not presumed.
+>P: A farm grows five crops, all of which depend on the same summer rains. How much protection against drought does that diversity give?
+  + Little: a drought affects all five alike, so their failures are strongly linked :: Diversity of names is not diversity of response.
+  - A great deal: five crops are safer than one :: [counted-the-crops] Only if they respond differently to the disturbance.
+  - None against anything :: [overgeneralised] It may still protect against pests or prices that affect the crops differently.
+  hint: Do the five crops respond differently to a dry summer?
+  why: What counts is diversity in how the parts respond to a given disturbance. Against a shared threat, similar parts fail together.
+done: Resistance, recovery and difference of response. For one system you know, ask what would hit every part at once.
+
+@ env.4.field-methods
+goal: Design a field experiment with real replication, use blocking and randomisation to deal with variable ground, and criticise evidence drawn from samples and from sensors.
+intro: In the field, soil, slope and history vary from place to place. A treatment's effect has to be separated from that variation. The key question is what was independently assigned to a treatment. That unit, the plot or the field, sets the true number of replicates, however many samples are taken within it.
+  show: table Term | Meaning ;; experimental unit | what a treatment is assigned to ;; subsample | a measurement taken within one unit ;; block | a group of similar units ;; randomisation | assigning treatments by chance
+demo: A field is divided into four blocks. In each block one plot is chosen at random for the treatment, and another serves as the comparison. Five soil cores are taken from every plot. The cores describe each plot more accurately, but there are four treated plots, not twenty. The replication is four.
+  show: table Level | Number for each treatment ;; blocks | 4 ;; plots, the experimental units | 4 ;; cores, the subsamples | 20
+F: Count the true replication.
+  frame: Five blocks each contain one treated plot, and six cores are taken from each plot. The number of independent replicates of the treatment is __
+  answer: 5 | five
+  x 30 :: [pseudoreplication] The thirty cores come from only five treated plots. Cores within one plot are not independent.
+  x 6 :: [counted-subsamples] Six is the number of cores per plot. The treatment was assigned to plots.
+  hint: To what was the treatment assigned?
+  why: Replication is counted at the level at which the treatment was applied: five plots.
+G: Experimental unit or subsample?
+  bin Experimental unit: a plot assigned to a treatment | a field assigned to a treatment
+  bin Subsample: a soil core taken within a plot | a plant measured within a plot | a photographed square inside a plot
+  hint: Was the treatment assigned to it separately?
+  why: Units are what treatments are assigned to. Subsamples improve the measurement of a unit, without adding units.
+P: A field slopes, and its lower end is wetter. How should the blocks be laid out?
+  + Across the slope, so that each block is alike within itself and contains every treatment :: The wetness then varies between blocks, not within them.
+  - With all the treated plots at the lower end :: [confounded-with-the-gradient] The treatment could not then be separated from the wetness.
+  - It does not matter :: [ignored-heterogeneity] A known gradient that is ignored becomes noise, or bias.
+  hint: Which plots ought to be compared with one another?
+  why: Blocking groups similar ground together, so that treatments are compared under like conditions.
+K: A study reports that a soil treatment raised soil carbon. Turn over as few facts as you need to decide whether the design supports that claim.
+  clue Layout: The treatment was applied to one field, and a different field served as the comparison.
+  clue Sampling: Forty cores were taken from each field.
+  clue Statistics: The difference between the two sets of cores is highly significant.
+  clue Timing: Both fields were sampled in the same week.
+  need: 1
+  + No: with one treated field and one untreated, the treatment cannot be separated from the differences between the fields :: The replication is one.
+  - Yes: forty cores and a tiny p-value :: [pseudoreplication] The cores show that the two fields differ. They cannot show why.
+  hint: How many fields received the treatment?
+  why: Many subsamples from one treated unit cannot stand in for replicated units. This mistake is called pseudoreplication.
+>P: A team maps crop yield across a whole region from a satellite index of greenness, with no measurements on the ground. What is the criticism?
+  + The index measures greenness, not yield; the link has to be validated against ground data under the conditions mapped :: A stand-in needs checking.
+  - None: satellites measure yield directly :: [proxy-as-measurement] They measure reflected light. Yield is inferred from it.
+  - Satellite data are useless :: [dismissed-the-tool] They are valuable once calibrated and validated.
+  hint: What does the satellite actually record?
+  why: Remote sensing provides proxies. Their relation to the quantity of interest must be established, and re-checked wherever conditions change.
+done: Count the units, not the samples. Read the methods of one field study and find its true replication.
+
+@ env.5.transitions
+goal: Build and criticise scenarios for a transition in the food system: state the boundaries, and look for rebound, leakage and uneven effects.
+intro: A sustainability transition changes practices, equipment, rules and incentives across a connected system. A scenario explores a conditional future: if these things happen, then this follows. It is not a forecast. A system-wide analysis asks what a change sets in motion elsewhere.
+  show: table Effect | What happens ;; rebound | efficiency lowers the cost, and so use expands ;; leakage | the impact moves to somewhere else ;; path dependence | past investment narrows future choices ;; distributional effect | costs and benefits fall on different people
+demo: New equipment cuts the water needed for each tonne of a crop by 20%. If output stays the same, the total water withdrawn falls by 20%. But growing the crop is now cheaper, so farmers plant more. If output grows by 25%, the total withdrawn is 0.8 × 1.25 = 1: exactly what it was before. The gain in efficiency has been spent on expansion.
+  show: table Output | Water per tonne | Total water ;; unchanged | 80% | 80% ;; up by 25% | 80% | 100%
+X: Water per tonne has fallen to 80% of its former level. Let output grow and watch the total water withdrawn.
+  param growth: 0..50 /5 @0 | Growth in output | %
+  out total: 0.8*(100+growth) | Total water withdrawn | % of the original
+  aim: Find the growth in output at which the total water withdrawn is back at its original level.
+  target: total == 100
+  view: bars total over growth
+  hint: The saving is 20%. How much expansion uses it up?
+  why: At 25% growth, 0.8 × 125 = 100. Efficiency reduces the total only if expansion is limited, for instance by a cap on the irrigated area.
+M: Match each term to its meaning.
+  pairs: Rebound => Efficiency lowers the cost, and so use expands | Leakage => The impact is displaced to another place | Functional unit => The quantity to which impacts are scaled | System boundary => The processes included in the analysis | Scenario => A conditional future, not a forecast | Path dependence => Past investment narrows future choices
+  hint: Rebound happens within the system; leakage moves the problem outside it.
+  why: These terms name the ways in which a local improvement can fail to become an improvement of the whole system.
+P: A region restricts the clearing of forest for a crop. Imports of that crop then rise from another region, where forest is still being cleared. What is this?
+  + Leakage: the impact has moved and has not been removed :: The boundary of the policy was smaller than the system.
+  - Rebound :: [confused-the-effects] Rebound is expanded use within the same system after a gain in efficiency.
+  - A complete success :: [boundary-too-narrow] It is a success inside the region, and not for the system as a whole.
+  hint: Where is the forest being cleared now?
+  why: A policy judged within a narrow boundary can look effective while only relocating the problem.
+C: Two statements about the future. Which is a properly stated scenario?
+  left: text Water use will fall by 20% by 2040.
+  right: text If the equipment is adopted and the irrigated area is capped, water use falls by about 20% by 2040.
+  + The right: it states the conditions on which the result depends :: A scenario is conditional.
+  - The left: it is more definite :: [forecast-as-scenario] It hides the assumptions that produce the figure.
+  - They are equivalent :: [conditions-ignored] Without the cap on area, the same equipment could leave water use unchanged.
+  hint: Which statement tells you what must hold for the result to follow?
+  why: Scenario analysis makes its assumptions explicit, so that they can be examined and varied.
+>P: A lifecycle assessment finds that product A causes fewer emissions per kilogram than product B. A plan follows to move all production to A. What must still be asked?
+  + What the switch changes elsewhere (land, prices, substitutes), what other impacts matter, who bears the costs, and how far the result depends on the assumptions :: A consequential view.
+  - Nothing: A is lower per kilogram :: [attributional-as-consequential] A comparison per kilogram does not show what a wholesale switch would cause.
+  - Lifecycle assessment is worthless :: [dismissed-the-method] It answers one question well. The plan raises others.
+  hint: What happens to the whole system when everyone switches?
+  why: A description per unit and the consequences of a large change are different questions. A transition needs the second, and the views of those affected.
+done: If this, then what, and where else, and for whom? Take one "green" claim and ask what it sets in motion.
+
+@ env.5.research
+goal: Design environmental research that separates what is there from what was detected, tests rival hypotheses through monitoring and informs decisions.
+intro: Environmental systems change, can rarely be replicated, and call for decisions before the evidence is complete. Adaptive management answers this with structured learning: state rival hypotheses, choose actions and monitoring that can tell them apart, and revise the decision by rules set in advance.
+  show: flow objectives and hypotheses > action and monitoring > evaluation against predictions > revised decision
+demo: Before habitat work, observers recorded 40 birds in 2 hours of surveying. Afterwards they recorded 80 in 4 hours. The count has doubled. But so has the effort: both surveys found 20 birds an hour. The increase in detections cannot be credited to the habitat work.
+  show: table Survey | Birds recorded | Hours | Birds per hour ;; before | 40 | 2 | 20 ;; after | 80 | 4 | 20
+F: Allow for the survey effort.
+  frame: 80 birds recorded in 4 hours is __ birds an hour
+  answer: 20
+  x 80 :: [ignored-the-effort] Eighty is the raw count. Divide it by the hours of surveying.
+  x 320 :: [multiplied] Divide the count by the hours.
+  hint: 80 ÷ 4.
+  why: 80 ÷ 4 = 20 an hour: the same rate as before the work.
+G: Ecological state, or observation process?
+  bin Ecological state: how many birds live at the site | whether the species breeds there
+  bin Observation process: how long the observers surveyed | how skilled the observers were | the weather on the survey days
+  hint: Is it about the birds, or about the counting?
+  why: A count mixes what is there with how hard and how well people looked. Research has to separate the two.
+O: Put one cycle of adaptive management in order.
+  items: State the objectives and the rival hypotheses | Choose actions and monitoring that can tell the hypotheses apart | Carry out the action | Monitor by a fixed protocol | Compare the results with each hypothesis's prediction | Revise the decision by the rules set in advance
+  ends: First | Last
+  hint: The predictions and the rules for deciding come before the data.
+  why: Fixing the predictions and the rules first is what turns trial and error into learning.
+C: Two descriptions of changing a management plan. Which is adaptive management?
+  left: text The results were disappointing, so we tried something else.
+  right: text We stated what each hypothesis predicted, monitored, and changed course according to which prediction was borne out.
+  + The right: it is structured learning, with predictions made in advance :: The monitoring was designed to decide between hypotheses.
+  - The left: it adapts to the results :: [reaction-as-adaptation] Reacting to disappointment teaches little about why.
+  - Both are adaptive management :: [any-change-counts] Changing a plan is not enough. The change must follow from a test.
+  hint: Which approach could tell you why the first plan fell short?
+  why: Adaptive management treats each action as an experiment. Without stated hypotheses, a change of plan produces no cumulative knowledge.
+>P: A restoration method worked on a small wetland plot. It is now proposed for an entire river basin. What is the right caution?
+  + Results do not transfer automatically across scales: the processes that matter over a basin may differ, so the wider use should be staged and monitored :: Treat it as a new hypothesis.
+  - None: it worked, so it will work everywhere :: [scale-ignored] A plot and a basin are governed by different processes.
+  - It should never be tried at a larger scale :: [overcorrection] It can be tried, as a monitored test with decision rules.
+  hint: What is different about a basin, besides its size?
+  why: Evidence holds for the conditions and the scale at which it was gathered. Extending it is itself a hypothesis to be tested.
+done: Separate the state from the counting, and decide in advance what would change your mind. Design a monitoring plan for one question about a place you know.

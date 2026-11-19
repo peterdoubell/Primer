@@ -27,25 +27,25 @@ Investigation: `ra.mri-diabetic-foot`
 | Sinus tract route (`diabetic_foot.subcutaneous_tissues.sinus_tract_route`) | missing | missing | missing | Within the acquired anatomical coverage. / MRI |
 | Cortex (`foot.talus.cortex`) | missing | missing | missing | Include each bone within the acquired foot/ankle coverage. / MRI |
 | Marrow (`foot.talus.marrow`) | missing | missing | missing | Include each bone within the acquired foot/ankle coverage. / MRI |
-| Articular surfaces (`foot.talus.articular_surfaces`) | missing | missing | missing | Include each bone within the acquired foot/ankle coverage. / MRI |
+| Articular surfaces (`foot.talus.articular_surfaces`) | missing | missing | unverified | Include each bone within the acquired foot/ankle coverage. / MRI |
 | Cortex (`foot.calcaneus.cortex`) | missing | missing | missing | Include each bone within the acquired foot/ankle coverage. / MRI |
 | Marrow (`foot.calcaneus.marrow`) | missing | missing | missing | Include each bone within the acquired foot/ankle coverage. / MRI |
-| Articular surfaces (`foot.calcaneus.articular_surfaces`) | missing | missing | missing | Include each bone within the acquired foot/ankle coverage. / MRI |
+| Articular surfaces (`foot.calcaneus.articular_surfaces`) | missing | missing | unverified | Include each bone within the acquired foot/ankle coverage. / MRI |
 | Cortex (`foot.navicular.cortex`) | missing | missing | missing | Include each bone within the acquired foot/ankle coverage. / MRI |
 | Marrow (`foot.navicular.marrow`) | missing | missing | missing | Include each bone within the acquired foot/ankle coverage. / MRI |
-| Articular surfaces (`foot.navicular.articular_surfaces`) | missing | missing | missing | Include each bone within the acquired foot/ankle coverage. / MRI |
+| Articular surfaces (`foot.navicular.articular_surfaces`) | missing | missing | unverified | Include each bone within the acquired foot/ankle coverage. / MRI |
 | Cortex (`foot.cuboid.cortex`) | missing | missing | missing | Include each bone within the acquired foot/ankle coverage. / MRI |
 | Marrow (`foot.cuboid.marrow`) | missing | missing | missing | Include each bone within the acquired foot/ankle coverage. / MRI |
-| Articular surfaces (`foot.cuboid.articular_surfaces`) | missing | missing | missing | Include each bone within the acquired foot/ankle coverage. / MRI |
+| Articular surfaces (`foot.cuboid.articular_surfaces`) | missing | missing | unverified | Include each bone within the acquired foot/ankle coverage. / MRI |
 | Cortex (`foot.medial_cuneiform.cortex`) | missing | missing | missing | Include each bone within the acquired foot/ankle coverage. / MRI |
 | Marrow (`foot.medial_cuneiform.marrow`) | missing | missing | missing | Include each bone within the acquired foot/ankle coverage. / MRI |
-| Articular surfaces (`foot.medial_cuneiform.articular_surfaces`) | missing | missing | missing | Include each bone within the acquired foot/ankle coverage. / MRI |
+| Articular surfaces (`foot.medial_cuneiform.articular_surfaces`) | missing | missing | unverified | Include each bone within the acquired foot/ankle coverage. / MRI |
 | Cortex (`foot.intermediate_cuneiform.cortex`) | missing | missing | missing | Include each bone within the acquired foot/ankle coverage. / MRI |
 | Marrow (`foot.intermediate_cuneiform.marrow`) | missing | missing | missing | Include each bone within the acquired foot/ankle coverage. / MRI |
-| Articular surfaces (`foot.intermediate_cuneiform.articular_surfaces`) | missing | missing | missing | Include each bone within the acquired foot/ankle coverage. / MRI |
+| Articular surfaces (`foot.intermediate_cuneiform.articular_surfaces`) | missing | missing | unverified | Include each bone within the acquired foot/ankle coverage. / MRI |
 | Cortex (`foot.lateral_cuneiform.cortex`) | missing | missing | missing | Include each bone within the acquired foot/ankle coverage. / MRI |
 | Marrow (`foot.lateral_cuneiform.marrow`) | missing | missing | missing | Include each bone within the acquired foot/ankle coverage. / MRI |
-| Articular surfaces (`foot.lateral_cuneiform.articular_surfaces`) | missing | missing | missing | Include each bone within the acquired foot/ankle coverage. / MRI |
+| Articular surfaces (`foot.lateral_cuneiform.articular_surfaces`) | missing | missing | unverified | Include each bone within the acquired foot/ankle coverage. / MRI |
 | Base (`foot.metatarsal_1.base`) | missing | missing | missing | Within the acquired anatomical coverage. / MRI |
 | Shaft (`foot.metatarsal_1.shaft`) | missing | missing | missing | Within the acquired anatomical coverage. / MRI |
 | Head (`foot.metatarsal_1.head`) | missing | missing | missing | Within the acquired anatomical coverage. / MRI |
@@ -177,28 +177,28 @@ Investigation: `ra.mri-diabetic-foot`
 | Each involved joint capsule (`diabetic_foot.joint_capsules_and_synovium.each_involved_joint_capsule`) | missing | missing | missing | Within the acquired anatomical coverage. / MRI |
 | Joint recesses (`diabetic_foot.joint_capsules_and_synovium.joint_recesses`) | missing | missing | missing | Within the acquired anatomical coverage. / MRI |
 | Synovial lining (`diabetic_foot.joint_capsules_and_synovium.synovial_lining`) | missing | missing | missing | Within the acquired anatomical coverage. / MRI |
-| Visible tendon course (`diabetic_foot.flexor_hallucis_longus_tendon.visible_tendon_course`) | unverified | unverified | missing | Within acquired coverage; digital tendon groups must split by involved digit. / MRI |
+| Visible tendon course (`diabetic_foot.flexor_hallucis_longus_tendon.visible_tendon_course`) | unverified | unverified | unverified | Within acquired coverage; digital tendon groups must split by involved digit. / MRI |
 | Distal attachment (`diabetic_foot.flexor_hallucis_longus_tendon.distal_attachment`) | missing | missing | missing | Within acquired coverage; digital tendon groups must split by involved digit. / MRI |
-| Sheath or Achilles paratenon (`diabetic_foot.flexor_hallucis_longus_tendon.sheath_or_achilles_paratenon`) | missing | missing | missing | Within acquired coverage; digital tendon groups must split by involved digit. / MRI |
-| Visible tendon course (`diabetic_foot.flexor_digitorum_longus_tendons.visible_tendon_course`) | missing | missing | missing | Within acquired coverage; digital tendon groups must split by involved digit. / MRI |
+| Sheath or Achilles paratenon (`diabetic_foot.flexor_hallucis_longus_tendon.sheath_or_achilles_paratenon`) | missing | missing | unverified | Within acquired coverage; digital tendon groups must split by involved digit. / MRI |
+| Visible tendon course (`diabetic_foot.flexor_digitorum_longus_tendons.visible_tendon_course`) | missing | missing | unverified | Within acquired coverage; digital tendon groups must split by involved digit. / MRI |
 | Distal attachment (`diabetic_foot.flexor_digitorum_longus_tendons.distal_attachment`) | missing | missing | missing | Within acquired coverage; digital tendon groups must split by involved digit. / MRI |
-| Sheath or Achilles paratenon (`diabetic_foot.flexor_digitorum_longus_tendons.sheath_or_achilles_paratenon`) | missing | missing | missing | Within acquired coverage; digital tendon groups must split by involved digit. / MRI |
-| Visible tendon course (`diabetic_foot.extensor_hallucis_longus_tendon.visible_tendon_course`) | missing | missing | missing | Within acquired coverage; digital tendon groups must split by involved digit. / MRI |
+| Sheath or Achilles paratenon (`diabetic_foot.flexor_digitorum_longus_tendons.sheath_or_achilles_paratenon`) | missing | missing | unverified | Within acquired coverage; digital tendon groups must split by involved digit. / MRI |
+| Visible tendon course (`diabetic_foot.extensor_hallucis_longus_tendon.visible_tendon_course`) | missing | missing | unverified | Within acquired coverage; digital tendon groups must split by involved digit. / MRI |
 | Distal attachment (`diabetic_foot.extensor_hallucis_longus_tendon.distal_attachment`) | missing | missing | missing | Within acquired coverage; digital tendon groups must split by involved digit. / MRI |
-| Sheath or Achilles paratenon (`diabetic_foot.extensor_hallucis_longus_tendon.sheath_or_achilles_paratenon`) | missing | missing | missing | Within acquired coverage; digital tendon groups must split by involved digit. / MRI |
-| Visible tendon course (`diabetic_foot.extensor_digitorum_longus_tendons.visible_tendon_course`) | missing | missing | missing | Within acquired coverage; digital tendon groups must split by involved digit. / MRI |
+| Sheath or Achilles paratenon (`diabetic_foot.extensor_hallucis_longus_tendon.sheath_or_achilles_paratenon`) | missing | missing | unverified | Within acquired coverage; digital tendon groups must split by involved digit. / MRI |
+| Visible tendon course (`diabetic_foot.extensor_digitorum_longus_tendons.visible_tendon_course`) | missing | missing | unverified | Within acquired coverage; digital tendon groups must split by involved digit. / MRI |
 | Distal attachment (`diabetic_foot.extensor_digitorum_longus_tendons.distal_attachment`) | missing | missing | missing | Within acquired coverage; digital tendon groups must split by involved digit. / MRI |
-| Sheath or Achilles paratenon (`diabetic_foot.extensor_digitorum_longus_tendons.sheath_or_achilles_paratenon`) | missing | missing | missing | Within acquired coverage; digital tendon groups must split by involved digit. / MRI |
-| Visible tendon course (`diabetic_foot.posterior_tibial_tendon.visible_tendon_course`) | missing | missing | missing | Within acquired coverage; digital tendon groups must split by involved digit. / MRI |
+| Sheath or Achilles paratenon (`diabetic_foot.extensor_digitorum_longus_tendons.sheath_or_achilles_paratenon`) | missing | missing | unverified | Within acquired coverage; digital tendon groups must split by involved digit. / MRI |
+| Visible tendon course (`diabetic_foot.posterior_tibial_tendon.visible_tendon_course`) | missing | missing | unverified | Within acquired coverage; digital tendon groups must split by involved digit. / MRI |
 | Distal attachment (`diabetic_foot.posterior_tibial_tendon.distal_attachment`) | missing | missing | missing | Within acquired coverage; digital tendon groups must split by involved digit. / MRI |
-| Sheath or Achilles paratenon (`diabetic_foot.posterior_tibial_tendon.sheath_or_achilles_paratenon`) | missing | missing | missing | Within acquired coverage; digital tendon groups must split by involved digit. / MRI |
-| Visible tendon course (`diabetic_foot.fibularis_longus_tendon.visible_tendon_course`) | missing | missing | missing | Within acquired coverage; digital tendon groups must split by involved digit. / MRI |
+| Sheath or Achilles paratenon (`diabetic_foot.posterior_tibial_tendon.sheath_or_achilles_paratenon`) | missing | missing | unverified | Within acquired coverage; digital tendon groups must split by involved digit. / MRI |
+| Visible tendon course (`diabetic_foot.fibularis_longus_tendon.visible_tendon_course`) | missing | missing | unverified | Within acquired coverage; digital tendon groups must split by involved digit. / MRI |
 | Distal attachment (`diabetic_foot.fibularis_longus_tendon.distal_attachment`) | missing | missing | missing | Within acquired coverage; digital tendon groups must split by involved digit. / MRI |
-| Sheath or Achilles paratenon (`diabetic_foot.fibularis_longus_tendon.sheath_or_achilles_paratenon`) | missing | missing | missing | Within acquired coverage; digital tendon groups must split by involved digit. / MRI |
-| Visible tendon course (`diabetic_foot.fibularis_brevis_tendon.visible_tendon_course`) | missing | missing | missing | Within acquired coverage; digital tendon groups must split by involved digit. / MRI |
+| Sheath or Achilles paratenon (`diabetic_foot.fibularis_longus_tendon.sheath_or_achilles_paratenon`) | missing | missing | unverified | Within acquired coverage; digital tendon groups must split by involved digit. / MRI |
+| Visible tendon course (`diabetic_foot.fibularis_brevis_tendon.visible_tendon_course`) | missing | missing | unverified | Within acquired coverage; digital tendon groups must split by involved digit. / MRI |
 | Distal attachment (`diabetic_foot.fibularis_brevis_tendon.distal_attachment`) | missing | missing | missing | Within acquired coverage; digital tendon groups must split by involved digit. / MRI |
-| Sheath or Achilles paratenon (`diabetic_foot.fibularis_brevis_tendon.sheath_or_achilles_paratenon`) | missing | missing | missing | Within acquired coverage; digital tendon groups must split by involved digit. / MRI |
-| Visible tendon course (`diabetic_foot.achilles_tendon.visible_tendon_course`) | missing | missing | missing | Within acquired coverage; digital tendon groups must split by involved digit. / MRI |
+| Sheath or Achilles paratenon (`diabetic_foot.fibularis_brevis_tendon.sheath_or_achilles_paratenon`) | missing | missing | unverified | Within acquired coverage; digital tendon groups must split by involved digit. / MRI |
+| Visible tendon course (`diabetic_foot.achilles_tendon.visible_tendon_course`) | missing | missing | unverified | Within acquired coverage; digital tendon groups must split by involved digit. / MRI |
 | Distal attachment (`diabetic_foot.achilles_tendon.distal_attachment`) | missing | missing | missing | Within acquired coverage; digital tendon groups must split by involved digit. / MRI |
 | Sheath or Achilles paratenon (`diabetic_foot.achilles_tendon.sheath_or_achilles_paratenon`) | missing | missing | missing | Within acquired coverage; digital tendon groups must split by involved digit. / MRI |
 | Each plantar layer muscle by name (`diabetic_foot.intrinsic_muscles.each_plantar_layer_muscle_by_name`) | missing | missing | missing | Within the acquired anatomical coverage. / MRI |
@@ -226,7 +226,7 @@ Investigation: `ra.mri-diabetic-foot`
 | Plantar flexor-tendon interface (`diabetic_foot.lesser_mtp_plantar_plates.flexor_interface`) | missing | missing | missing | Within acquired coverage when required to describe an ulcer/sinus route, involved joint, collection, tendon relationship or soft-tissue spread. Not a blanket instability or tear-screening requirement. / MRI |
 | Central plantar portion (`diabetic_foot.hallux_plantar_capsulosesamoid_complex.central_plantar_portion`) | unverified | unverified | missing | Within acquired coverage when required to describe an ulcer/sinus route, involved joint, collection, tendon relationship or soft-tissue spread. Not a blanket instability or tear-screening requirement. / MRI |
 | Plantar capsular portion continuous with the hallux capsulosesamoid complex (`diabetic_foot.hallux_plantar_capsulosesamoid_complex.plantar_capsule`) | missing | missing | missing | Within acquired coverage when required to describe an ulcer/sinus route, involved joint, collection, tendon relationship or soft-tissue spread. Not a blanket instability or tear-screening requirement. / MRI |
-| Intersesamoid ligament (`diabetic_foot.hallux_plantar_capsulosesamoid_complex.intersesamoid_ligament`) | unverified | unverified | missing | Within acquired coverage when required to describe an ulcer/sinus route, involved joint, collection, tendon relationship or soft-tissue spread. Not a blanket instability or tear-screening requirement. / MRI |
+| Intersesamoid ligament (`diabetic_foot.hallux_plantar_capsulosesamoid_complex.intersesamoid_ligament`) | unverified | unverified | unverified | Within acquired coverage when required to describe an ulcer/sinus route, involved joint, collection, tendon relationship or soft-tissue spread. Not a blanket instability or tear-screening requirement. / MRI |
 | Medial metatarsosesamoid ligament (`diabetic_foot.hallux_plantar_capsulosesamoid_complex.medial_metatarsosesamoid_ligament`) | unverified | unverified | missing | Within acquired coverage when required to describe an ulcer/sinus route, involved joint, collection, tendon relationship or soft-tissue spread. Not a blanket instability or tear-screening requirement. / MRI |
 | Lateral metatarsosesamoid ligament (`diabetic_foot.hallux_plantar_capsulosesamoid_complex.lateral_metatarsosesamoid_ligament`) | missing | unverified | missing | Within acquired coverage when required to describe an ulcer/sinus route, involved joint, collection, tendon relationship or soft-tissue spread. Not a blanket instability or tear-screening requirement. / MRI |
 | Medial sesamoid-phalangeal ligament (`diabetic_foot.hallux_plantar_capsulosesamoid_complex.medial_sesamoid_phalangeal_ligament`) | unverified | unverified | missing | Within acquired coverage when required to describe an ulcer/sinus route, involved joint, collection, tendon relationship or soft-tissue spread. Not a blanket instability or tear-screening requirement. / MRI |
@@ -263,6 +263,139 @@ Investigation: `ra.mri-diabetic-foot`
 | Adjacent joint/tendon relationship (`diabetic_foot.intermetatarsal_bursae.adjacent_joint_tendon_relation`) | missing | missing | missing | Instantiate the imaged/affected interspace and any demonstrable bursa when mapping a collection or spread. Preserve variant presence/absence; no all-interspace normality or cross-compartment communication is inferred. / MRI |
 
 ## Candidate evidence
+
+### foot.talus.articular_surfaces — model
+
+- Asset: `za-bones-81077546-material-1`
+- Local file: [web/anatomy/msk-atlas/za-bones-81077546-material-1.bin](../../web/anatomy/msk-atlas/za-bones-81077546-material-1.bin)
+- Artifact SHA-256: `7db51ed5741a1b2086a1788cda47cf72348a5e30fb4557a904da491223f6c7c9`
+- Review-scope SHA-256: `cfde2dd169c99fe9c7f640de942251ae22a690d47d1f6182b1648fe68c53ccf6`
+- Source: [Original source](https://github.com/LluisV/Z-Anatomy/tree/6c7f9016bd5899ac8edafd31b9900c151df42ed6)
+- Licence: [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/)
+- Recorded rights: commercial use=True; redistribution=True; review status=verified
+- Attribution: BodyParts3D — The Database Center for Life Science — upstream lineage CC BY-SA 2.1 Japan; Z-Anatomy — The open source atlas of anatomy — CC BY-SA 4.0
+- Rights evidence: docs/msk-mesh-source-audit.md
+- Licence use plan: No separate use plan recorded; inspect the exact licence and rights evidence
+- Presentation dependencies: Not separately recorded
+- Coverage: {'extent': 'partial', 'basis': 'The source label of this model names “cartilage surface”, another name for this requirement’s “articular surfaces”: “Talus · cartilage surface”. The requirement is for the examined side; the model is a right-side reference, a mirror image for the other side. One source-labelled model; the full extent and boundaries of the named anatomy are not established.'}
+- Selection: Not recorded
+- Source context: Not recorded
+- Limits: Not recorded
+- Gate findings: anatomical_review_scope_missing_or_stale, anatomical_review_missing_or_stale, visual_review_scope_missing_or_stale, visual_review_missing_or_stale, high_fidelity_unproven, requirement_coverage_partial
+
+### foot.calcaneus.articular_surfaces — model
+
+- Asset: `za-bones-958396538-material-0`
+- Local file: [web/anatomy/msk-atlas/za-bones-958396538-material-0.bin](../../web/anatomy/msk-atlas/za-bones-958396538-material-0.bin)
+- Artifact SHA-256: `d3cfa21172290f73ab71e0c66c63d14de339279a84890af1abc64d12a2158a37`
+- Review-scope SHA-256: `be8d3d0ec134d2c128bc7ffb98980a7dc63080cbbfb6f90b72fbb082922c6c5c`
+- Source: [Original source](https://github.com/LluisV/Z-Anatomy/tree/6c7f9016bd5899ac8edafd31b9900c151df42ed6)
+- Licence: [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/)
+- Recorded rights: commercial use=True; redistribution=True; review status=verified
+- Attribution: BodyParts3D — The Database Center for Life Science — upstream lineage CC BY-SA 2.1 Japan; Z-Anatomy — The open source atlas of anatomy — CC BY-SA 4.0
+- Rights evidence: docs/msk-mesh-source-audit.md
+- Licence use plan: No separate use plan recorded; inspect the exact licence and rights evidence
+- Presentation dependencies: Not separately recorded
+- Coverage: {'extent': 'partial', 'basis': 'The source label of this model names “cartilage surface”, another name for this requirement’s “articular surfaces”: “Calcaneus · cartilage surface”. The requirement is for the examined side; the model is a right-side reference, a mirror image for the other side. One source-labelled model; the full extent and boundaries of the named anatomy are not established.'}
+- Selection: Not recorded
+- Source context: Not recorded
+- Limits: Not recorded
+- Gate findings: anatomical_review_scope_missing_or_stale, anatomical_review_missing_or_stale, visual_review_scope_missing_or_stale, visual_review_missing_or_stale, high_fidelity_unproven, requirement_coverage_partial
+
+### foot.navicular.articular_surfaces — model
+
+- Asset: `za-bones-487761000-material-1`
+- Local file: [web/anatomy/msk-atlas/za-bones-487761000-material-1.bin](../../web/anatomy/msk-atlas/za-bones-487761000-material-1.bin)
+- Artifact SHA-256: `988738701cbeab0e79e512408da7996ced2d5c0a4b66200ed2181262f6c61627`
+- Review-scope SHA-256: `ece5dfd82a449ff5ef7811a9090145d3c5025ad86905b020f5a68abbd2eb647e`
+- Source: [Original source](https://github.com/LluisV/Z-Anatomy/tree/6c7f9016bd5899ac8edafd31b9900c151df42ed6)
+- Licence: [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/)
+- Recorded rights: commercial use=True; redistribution=True; review status=verified
+- Attribution: BodyParts3D — The Database Center for Life Science — upstream lineage CC BY-SA 2.1 Japan; Z-Anatomy — The open source atlas of anatomy — CC BY-SA 4.0
+- Rights evidence: docs/msk-mesh-source-audit.md
+- Licence use plan: No separate use plan recorded; inspect the exact licence and rights evidence
+- Presentation dependencies: Not separately recorded
+- Coverage: {'extent': 'partial', 'basis': 'The source label of this model names “cartilage surface”, another name for this requirement’s “articular surfaces”: “Navicular bone · cartilage surface”. The requirement is for the examined side; the model is a right-side reference, a mirror image for the other side. One source-labelled model; the full extent and boundaries of the named anatomy are not established.'}
+- Selection: Not recorded
+- Source context: Not recorded
+- Limits: Not recorded
+- Gate findings: anatomical_review_scope_missing_or_stale, anatomical_review_missing_or_stale, visual_review_scope_missing_or_stale, visual_review_missing_or_stale, high_fidelity_unproven, requirement_coverage_partial
+
+### foot.cuboid.articular_surfaces — model
+
+- Asset: `za-bones-444117336-material-1`
+- Local file: [web/anatomy/msk-atlas/za-bones-444117336-material-1.bin](../../web/anatomy/msk-atlas/za-bones-444117336-material-1.bin)
+- Artifact SHA-256: `52e98581ecb038defaaa867f0242ff1e2f71a43b623ae281e867f17b92d37b6d`
+- Review-scope SHA-256: `024e43deab7e506da32534fb38ef8f045d8245865d41277783e8082a858ac6a8`
+- Source: [Original source](https://github.com/LluisV/Z-Anatomy/tree/6c7f9016bd5899ac8edafd31b9900c151df42ed6)
+- Licence: [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/)
+- Recorded rights: commercial use=True; redistribution=True; review status=verified
+- Attribution: BodyParts3D — The Database Center for Life Science — upstream lineage CC BY-SA 2.1 Japan; Z-Anatomy — The open source atlas of anatomy — CC BY-SA 4.0
+- Rights evidence: docs/msk-mesh-source-audit.md
+- Licence use plan: No separate use plan recorded; inspect the exact licence and rights evidence
+- Presentation dependencies: Not separately recorded
+- Coverage: {'extent': 'partial', 'basis': 'The source label of this model names “cartilage surface”, another name for this requirement’s “articular surfaces”: “Cuboid bone · cartilage surface”. The requirement is for the examined side; the model is a right-side reference, a mirror image for the other side. One source-labelled model; the full extent and boundaries of the named anatomy are not established.'}
+- Selection: Not recorded
+- Source context: Not recorded
+- Limits: Not recorded
+- Gate findings: anatomical_review_scope_missing_or_stale, anatomical_review_missing_or_stale, visual_review_scope_missing_or_stale, visual_review_missing_or_stale, high_fidelity_unproven, requirement_coverage_partial
+
+### foot.medial_cuneiform.articular_surfaces — model
+
+- Asset: `za-bones-734101807-material-1`
+- Local file: [web/anatomy/msk-atlas/za-bones-734101807-material-1.bin](../../web/anatomy/msk-atlas/za-bones-734101807-material-1.bin)
+- Artifact SHA-256: `f2f5c06485c0fb5480e80f0733cef626a9623e4e73d7a282a56df56e39291919`
+- Review-scope SHA-256: `a34a019c601489d7180f28c598bef63fb7c70a836c6e4343762eb5cf821abd64`
+- Source: [Original source](https://github.com/LluisV/Z-Anatomy/tree/6c7f9016bd5899ac8edafd31b9900c151df42ed6)
+- Licence: [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/)
+- Recorded rights: commercial use=True; redistribution=True; review status=verified
+- Attribution: BodyParts3D — The Database Center for Life Science — upstream lineage CC BY-SA 2.1 Japan; Z-Anatomy — The open source atlas of anatomy — CC BY-SA 4.0
+- Rights evidence: docs/msk-mesh-source-audit.md
+- Licence use plan: No separate use plan recorded; inspect the exact licence and rights evidence
+- Presentation dependencies: Not separately recorded
+- Coverage: {'extent': 'partial', 'basis': 'The source label of this model names “cartilage surface”, another name for this requirement’s “articular surfaces”: “Medial cuneiform bone · cartilage surface”. The requirement is for the examined side; the model is a right-side reference, a mirror image for the other side. One source-labelled model; the full extent and boundaries of the named anatomy are not established.'}
+- Selection: Not recorded
+- Source context: Not recorded
+- Limits: Not recorded
+- Gate findings: anatomical_review_scope_missing_or_stale, anatomical_review_missing_or_stale, visual_review_scope_missing_or_stale, visual_review_missing_or_stale, high_fidelity_unproven, requirement_coverage_partial
+
+### foot.intermediate_cuneiform.articular_surfaces — model
+
+- Asset: `za-bones-314913365-material-1`
+- Local file: [web/anatomy/msk-atlas/za-bones-314913365-material-1.bin](../../web/anatomy/msk-atlas/za-bones-314913365-material-1.bin)
+- Artifact SHA-256: `514a35965a0a3e2b459cb24310fbd575de7b96e43cc2578cb7ca9e331b76ee65`
+- Review-scope SHA-256: `677abb356d10bf9443e3a3706c5074c6571e4f82baafff8e1f8fd31bcf7741aa`
+- Source: [Original source](https://github.com/LluisV/Z-Anatomy/tree/6c7f9016bd5899ac8edafd31b9900c151df42ed6)
+- Licence: [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/)
+- Recorded rights: commercial use=True; redistribution=True; review status=verified
+- Attribution: BodyParts3D — The Database Center for Life Science — upstream lineage CC BY-SA 2.1 Japan; Z-Anatomy — The open source atlas of anatomy — CC BY-SA 4.0
+- Rights evidence: docs/msk-mesh-source-audit.md
+- Licence use plan: No separate use plan recorded; inspect the exact licence and rights evidence
+- Presentation dependencies: Not separately recorded
+- Coverage: {'extent': 'partial', 'basis': 'The source label of this model names “cartilage surface”, another name for this requirement’s “articular surfaces”: “Intermediate cuneiform bone · cartilage surface”. The requirement is for the examined side; the model is a right-side reference, a mirror image for the other side. One source-labelled model; the full extent and boundaries of the named anatomy are not established.'}
+- Selection: Not recorded
+- Source context: Not recorded
+- Limits: Not recorded
+- Gate findings: anatomical_review_scope_missing_or_stale, anatomical_review_missing_or_stale, visual_review_scope_missing_or_stale, visual_review_missing_or_stale, high_fidelity_unproven, requirement_coverage_partial
+
+### foot.lateral_cuneiform.articular_surfaces — model
+
+- Asset: `za-bones-962625739-material-1`
+- Local file: [web/anatomy/msk-atlas/za-bones-962625739-material-1.bin](../../web/anatomy/msk-atlas/za-bones-962625739-material-1.bin)
+- Artifact SHA-256: `08999cb6eb8e621d2a12eb7b7defc7ad9f1b01af93a73429d88722f6c4bd00a5`
+- Review-scope SHA-256: `7cf20f60e4819c50f8e7a4c02643addc4611c8a99d279f8e4aaca50aa282ae22`
+- Source: [Original source](https://github.com/LluisV/Z-Anatomy/tree/6c7f9016bd5899ac8edafd31b9900c151df42ed6)
+- Licence: [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/)
+- Recorded rights: commercial use=True; redistribution=True; review status=verified
+- Attribution: BodyParts3D — The Database Center for Life Science — upstream lineage CC BY-SA 2.1 Japan; Z-Anatomy — The open source atlas of anatomy — CC BY-SA 4.0
+- Rights evidence: docs/msk-mesh-source-audit.md
+- Licence use plan: No separate use plan recorded; inspect the exact licence and rights evidence
+- Presentation dependencies: Not separately recorded
+- Coverage: {'extent': 'partial', 'basis': 'The source label of this model names “cartilage surface”, another name for this requirement’s “articular surfaces”: “Lateral cuneiform bone · cartilage surface”. The requirement is for the examined side; the model is a right-side reference, a mirror image for the other side. One source-labelled model; the full extent and boundaries of the named anatomy are not established.'}
+- Selection: Not recorded
+- Source context: Not recorded
+- Limits: Not recorded
+- Gate findings: anatomical_review_scope_missing_or_stale, anatomical_review_missing_or_stale, visual_review_scope_missing_or_stale, visual_review_missing_or_stale, high_fidelity_unproven, requirement_coverage_partial
 
 ### diabetic_foot.flexor_hallucis_longus_tendon.visible_tendon_course — clinical_image
 
@@ -352,6 +485,325 @@ Investigation: `ra.mri-diabetic-foot`
 - Source context: Not recorded
 - Limits: Fresh-frozen right-foot specimen, age 45. Panels c/d are MRI; a is schematic, b is dissection, e/f are histology. The medial sesamoid-phalangeal marker described in the full caption is not separately counted as MRI evidence here. No inference to lesser-toe plates or complete hallux stability is made. Normal anatomical adjunct within the diabetic-foot reference; this image does not depict infection or Charcot disease, establish an instability indication, or equate hallux anatomy with the plantar plates of digits 2–5.
 - Gate findings: anatomical_review_scope_missing_or_stale, anatomical_review_missing_or_stale, visual_review_scope_missing_or_stale, visual_review_missing_or_stale, high_fidelity_unproven, requirement_coverage_missing
+
+### diabetic_foot.flexor_hallucis_longus_tendon.visible_tendon_course — model
+
+- Asset: `za-muscles-632232163-material-0`
+- Local file: [web/anatomy/msk-atlas/za-muscles-632232163-material-0.bin](../../web/anatomy/msk-atlas/za-muscles-632232163-material-0.bin)
+- Artifact SHA-256: `64133fbd72fa49a7047145a34c06f4f6763daa7dc2d05bc4c9e0a9833f534a43`
+- Review-scope SHA-256: `82eccf781c6e54ca93ddca7506c1dbe57c277d3a06cbe8056c02c6eda2831208`
+- Source: [Original source](https://github.com/LluisV/Z-Anatomy/tree/6c7f9016bd5899ac8edafd31b9900c151df42ed6)
+- Licence: [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/)
+- Recorded rights: commercial use=True; redistribution=True; review status=verified
+- Attribution: BodyParts3D — The Database Center for Life Science — upstream lineage CC BY-SA 2.1 Japan; Z-Anatomy — The open source atlas of anatomy — CC BY-SA 4.0
+- Rights evidence: docs/msk-mesh-source-audit.md
+- Licence use plan: No separate use plan recorded; inspect the exact licence and rights evidence
+- Presentation dependencies: Not separately recorded
+- Coverage: {'extent': 'partial', 'basis': 'The source label of this model names the structure: “Flexor hallucis longus · tendon surface”. This part is the structure’s own body or surface, which the whole model shows; the model does not delineate the other parts. The requirement is for the examined side; the model is a right-side reference, a mirror image for the other side. One source-labelled model; the full extent and boundaries of the named anatomy are not established.'}
+- Selection: Not recorded
+- Source context: Not recorded
+- Limits: Not recorded
+- Gate findings: anatomical_review_scope_missing_or_stale, anatomical_review_missing_or_stale, visual_review_scope_missing_or_stale, visual_review_missing_or_stale, high_fidelity_unproven, requirement_coverage_partial
+
+### diabetic_foot.flexor_hallucis_longus_tendon.sheath_or_achilles_paratenon — model
+
+- Asset: `za-muscles-275120679`
+- Local file: [web/anatomy/msk-atlas/za-muscles-275120679.bin](../../web/anatomy/msk-atlas/za-muscles-275120679.bin)
+- Artifact SHA-256: `d85b877f866ad31322f8f7cdedcc0e7a18f04829284ac61e01f613b7ae4c711d`
+- Review-scope SHA-256: `9fe5a21bc3657e32ae2f36767b274b6206056d4047791e44bd93424114ea6b1d`
+- Source: [Original source](https://github.com/LluisV/Z-Anatomy/tree/6c7f9016bd5899ac8edafd31b9900c151df42ed6)
+- Licence: [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/)
+- Recorded rights: commercial use=True; redistribution=True; review status=verified
+- Attribution: BodyParts3D — The Database Center for Life Science — upstream lineage CC BY-SA 2.1 Japan; Z-Anatomy — The open source atlas of anatomy — CC BY-SA 4.0
+- Rights evidence: docs/msk-mesh-source-audit.md
+- Licence use plan: No separate use plan recorded; inspect the exact licence and rights evidence
+- Presentation dependencies: Not separately recorded
+- Coverage: {'extent': 'partial', 'basis': 'The source label of this model names this part: “Tendon sheath of flexor hallucis longus”. The requirement is for the examined side; the model is a right-side reference, a mirror image for the other side. One source-labelled model; the full extent and boundaries of the named anatomy are not established.'}
+- Selection: Not recorded
+- Source context: Not recorded
+- Limits: Not recorded
+- Gate findings: anatomical_review_scope_missing_or_stale, anatomical_review_missing_or_stale, visual_review_scope_missing_or_stale, visual_review_missing_or_stale, high_fidelity_unproven, requirement_coverage_partial
+
+### diabetic_foot.flexor_digitorum_longus_tendons.visible_tendon_course — model
+
+- Asset: `za-muscles-622768040-material-0`
+- Local file: [web/anatomy/msk-atlas/za-muscles-622768040-material-0.bin](../../web/anatomy/msk-atlas/za-muscles-622768040-material-0.bin)
+- Artifact SHA-256: `6b71bdb3068055920827a0ac936117192e36f98c2c6b39fe0dbd16c9d4e5b8fc`
+- Review-scope SHA-256: `341e1b3b80ea7cb704d7271ff80f4a277d6445c0d455938c49b6bbfeec9b0fd3`
+- Source: [Original source](https://github.com/LluisV/Z-Anatomy/tree/6c7f9016bd5899ac8edafd31b9900c151df42ed6)
+- Licence: [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/)
+- Recorded rights: commercial use=True; redistribution=True; review status=verified
+- Attribution: BodyParts3D — The Database Center for Life Science — upstream lineage CC BY-SA 2.1 Japan; Z-Anatomy — The open source atlas of anatomy — CC BY-SA 4.0
+- Rights evidence: docs/msk-mesh-source-audit.md
+- Licence use plan: No separate use plan recorded; inspect the exact licence and rights evidence
+- Presentation dependencies: Not separately recorded
+- Coverage: {'extent': 'partial', 'basis': 'The source label of this model names the structure: “Flexor digitorum longus · tendon surface”. This part is the structure’s own body or surface, which the whole model shows; the model does not delineate the other parts. The requirement is for the examined side; the model is a right-side reference, a mirror image for the other side. One source-labelled model; the full extent and boundaries of the named anatomy are not established.'}
+- Selection: Not recorded
+- Source context: Not recorded
+- Limits: Not recorded
+- Gate findings: anatomical_review_scope_missing_or_stale, anatomical_review_missing_or_stale, visual_review_scope_missing_or_stale, visual_review_missing_or_stale, high_fidelity_unproven, requirement_coverage_partial
+
+### diabetic_foot.flexor_digitorum_longus_tendons.sheath_or_achilles_paratenon — model
+
+- Asset: `za-muscles-563214887`
+- Local file: [web/anatomy/msk-atlas/za-muscles-563214887.bin](../../web/anatomy/msk-atlas/za-muscles-563214887.bin)
+- Artifact SHA-256: `6fe8088d9645bb90086e79a20dc39d4988c5e0b8973ee224b095d481add559f7`
+- Review-scope SHA-256: `161a4c08c98f52e485ed5ea96192f7507295ef16a1e16b2b5371f7d08f270099`
+- Source: [Original source](https://github.com/LluisV/Z-Anatomy/tree/6c7f9016bd5899ac8edafd31b9900c151df42ed6)
+- Licence: [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/)
+- Recorded rights: commercial use=True; redistribution=True; review status=verified
+- Attribution: BodyParts3D — The Database Center for Life Science — upstream lineage CC BY-SA 2.1 Japan; Z-Anatomy — The open source atlas of anatomy — CC BY-SA 4.0
+- Rights evidence: docs/msk-mesh-source-audit.md
+- Licence use plan: No separate use plan recorded; inspect the exact licence and rights evidence
+- Presentation dependencies: Not separately recorded
+- Coverage: {'extent': 'partial', 'basis': 'The source label of this model names this part: “Tendon sheath of flexor digitorum longus”. The requirement is for the examined side; the model is a right-side reference, a mirror image for the other side. One source-labelled model; the full extent and boundaries of the named anatomy are not established.'}
+- Selection: Not recorded
+- Source context: Not recorded
+- Limits: Not recorded
+- Gate findings: anatomical_review_scope_missing_or_stale, anatomical_review_missing_or_stale, visual_review_scope_missing_or_stale, visual_review_missing_or_stale, high_fidelity_unproven, requirement_coverage_partial
+
+### diabetic_foot.extensor_hallucis_longus_tendon.visible_tendon_course — model
+
+- Asset: `za-muscles-120752132-material-0`
+- Local file: [web/anatomy/msk-atlas/za-muscles-120752132-material-0.bin](../../web/anatomy/msk-atlas/za-muscles-120752132-material-0.bin)
+- Artifact SHA-256: `92122db1bc652ef6b431beb7f453e2e47863cb7164e189e784a1220ee8551dad`
+- Review-scope SHA-256: `19e28f5200251eeb9bd0a7ac8be9887c272ae538dd288a83f693e91bdd7cbbd5`
+- Source: [Original source](https://github.com/LluisV/Z-Anatomy/tree/6c7f9016bd5899ac8edafd31b9900c151df42ed6)
+- Licence: [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/)
+- Recorded rights: commercial use=True; redistribution=True; review status=verified
+- Attribution: BodyParts3D — The Database Center for Life Science — upstream lineage CC BY-SA 2.1 Japan; Z-Anatomy — The open source atlas of anatomy — CC BY-SA 4.0
+- Rights evidence: docs/msk-mesh-source-audit.md
+- Licence use plan: No separate use plan recorded; inspect the exact licence and rights evidence
+- Presentation dependencies: Not separately recorded
+- Coverage: {'extent': 'partial', 'basis': 'The source label of this model names the structure: “Extensor hallucis longus · tendon surface”. This part is the structure’s own body or surface, which the whole model shows; the model does not delineate the other parts. The requirement is for the examined side; the model is a right-side reference, a mirror image for the other side. One source-labelled model; the full extent and boundaries of the named anatomy are not established.'}
+- Selection: Not recorded
+- Source context: Not recorded
+- Limits: Not recorded
+- Gate findings: anatomical_review_scope_missing_or_stale, anatomical_review_missing_or_stale, visual_review_scope_missing_or_stale, visual_review_missing_or_stale, high_fidelity_unproven, requirement_coverage_partial
+
+### diabetic_foot.extensor_hallucis_longus_tendon.sheath_or_achilles_paratenon — model
+
+- Asset: `za-muscles-417444599`
+- Local file: [web/anatomy/msk-atlas/za-muscles-417444599.bin](../../web/anatomy/msk-atlas/za-muscles-417444599.bin)
+- Artifact SHA-256: `8dd78ca597963a02c90ec3505fb26714cf23937d298ab5f1150757c029c81c6d`
+- Review-scope SHA-256: `d9cb341096b1283d7d20a5a826dd172d91a2ffa24090ad5adceac0b39ff6d952`
+- Source: [Original source](https://github.com/LluisV/Z-Anatomy/tree/6c7f9016bd5899ac8edafd31b9900c151df42ed6)
+- Licence: [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/)
+- Recorded rights: commercial use=True; redistribution=True; review status=verified
+- Attribution: BodyParts3D — The Database Center for Life Science — upstream lineage CC BY-SA 2.1 Japan; Z-Anatomy — The open source atlas of anatomy — CC BY-SA 4.0
+- Rights evidence: docs/msk-mesh-source-audit.md
+- Licence use plan: No separate use plan recorded; inspect the exact licence and rights evidence
+- Presentation dependencies: Not separately recorded
+- Coverage: {'extent': 'partial', 'basis': 'The source label of this model names this part: “Tendon sheath of extensor hallucis longus”. The requirement is for the examined side; the model is a right-side reference, a mirror image for the other side. One source-labelled model; the full extent and boundaries of the named anatomy are not established.'}
+- Selection: Not recorded
+- Source context: Not recorded
+- Limits: Not recorded
+- Gate findings: anatomical_review_scope_missing_or_stale, anatomical_review_missing_or_stale, visual_review_scope_missing_or_stale, visual_review_missing_or_stale, high_fidelity_unproven, requirement_coverage_partial
+
+### diabetic_foot.extensor_digitorum_longus_tendons.visible_tendon_course — model
+
+- Asset: `za-muscles-71171280-material-0`
+- Local file: [web/anatomy/msk-atlas/za-muscles-71171280-material-0.bin](../../web/anatomy/msk-atlas/za-muscles-71171280-material-0.bin)
+- Artifact SHA-256: `d218fdd3af39b544b182efbed6a0ea7b3eb59d50bf3ffb551d94a478c8ef8c8f`
+- Review-scope SHA-256: `f347ba500b09d21eec3ffef08a06d793b343ea783edd6edb9dad11bd3b7449b4`
+- Source: [Original source](https://github.com/LluisV/Z-Anatomy/tree/6c7f9016bd5899ac8edafd31b9900c151df42ed6)
+- Licence: [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/)
+- Recorded rights: commercial use=True; redistribution=True; review status=verified
+- Attribution: BodyParts3D — The Database Center for Life Science — upstream lineage CC BY-SA 2.1 Japan; Z-Anatomy — The open source atlas of anatomy — CC BY-SA 4.0
+- Rights evidence: docs/msk-mesh-source-audit.md
+- Licence use plan: No separate use plan recorded; inspect the exact licence and rights evidence
+- Presentation dependencies: Not separately recorded
+- Coverage: {'extent': 'partial', 'basis': 'The source label of this model names the structure: “Extensor digitorum longus · tendon surface”. This part is the structure’s own body or surface, which the whole model shows; the model does not delineate the other parts. The requirement is for the examined side; the model is a right-side reference, a mirror image for the other side. One source-labelled model; the full extent and boundaries of the named anatomy are not established.'}
+- Selection: Not recorded
+- Source context: Not recorded
+- Limits: Not recorded
+- Gate findings: anatomical_review_scope_missing_or_stale, anatomical_review_missing_or_stale, visual_review_scope_missing_or_stale, visual_review_missing_or_stale, high_fidelity_unproven, requirement_coverage_partial
+
+- Asset: `za-muscles-654616173`
+- Local file: [web/anatomy/msk-atlas/za-muscles-654616173.bin](../../web/anatomy/msk-atlas/za-muscles-654616173.bin)
+- Artifact SHA-256: `bf0229aa14dc3b4df7e61b8d242193a69eb0314dc2498ab8ae39f82ecaac272f`
+- Review-scope SHA-256: `a02791a3dca300ab7a791aeb6c43342de56159aceaddcc41b2d766a2685df75b`
+- Source: [Original source](https://github.com/LluisV/Z-Anatomy/tree/6c7f9016bd5899ac8edafd31b9900c151df42ed6)
+- Licence: [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/)
+- Recorded rights: commercial use=True; redistribution=True; review status=verified
+- Attribution: BodyParts3D — The Database Center for Life Science — upstream lineage CC BY-SA 2.1 Japan; Z-Anatomy — The open source atlas of anatomy — CC BY-SA 4.0
+- Rights evidence: docs/msk-mesh-source-audit.md
+- Licence use plan: No separate use plan recorded; inspect the exact licence and rights evidence
+- Presentation dependencies: Not separately recorded
+- Coverage: {'extent': 'partial', 'basis': 'The source label of this model names the structure: “Tendon of extensor digitorum longus”. This part is the structure’s own body or surface, which the whole model shows; the model does not delineate the other parts. The requirement is for the examined side; the model is a right-side reference, a mirror image for the other side. One source-labelled model; the full extent and boundaries of the named anatomy are not established.'}
+- Selection: Not recorded
+- Source context: Not recorded
+- Limits: Not recorded
+- Gate findings: anatomical_review_scope_missing_or_stale, anatomical_review_missing_or_stale, visual_review_scope_missing_or_stale, visual_review_missing_or_stale, high_fidelity_unproven, requirement_coverage_partial
+
+### diabetic_foot.extensor_digitorum_longus_tendons.sheath_or_achilles_paratenon — model
+
+- Asset: `za-muscles-212087649`
+- Local file: [web/anatomy/msk-atlas/za-muscles-212087649.bin](../../web/anatomy/msk-atlas/za-muscles-212087649.bin)
+- Artifact SHA-256: `7dd7f76564764765a67740814b55bc6353720e7cc4d6a31421163f5c5c98f449`
+- Review-scope SHA-256: `8fca88ca2c0b2574e1123848a776f9d216fae539a69d295a92b4e1fc16091af0`
+- Source: [Original source](https://github.com/LluisV/Z-Anatomy/tree/6c7f9016bd5899ac8edafd31b9900c151df42ed6)
+- Licence: [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/)
+- Recorded rights: commercial use=True; redistribution=True; review status=verified
+- Attribution: BodyParts3D — The Database Center for Life Science — upstream lineage CC BY-SA 2.1 Japan; Z-Anatomy — The open source atlas of anatomy — CC BY-SA 4.0
+- Rights evidence: docs/msk-mesh-source-audit.md
+- Licence use plan: No separate use plan recorded; inspect the exact licence and rights evidence
+- Presentation dependencies: Not separately recorded
+- Coverage: {'extent': 'partial', 'basis': 'The source label of this model names this part: “Tendon sheath of extensor digitorum longus”. The requirement is for the examined side; the model is a right-side reference, a mirror image for the other side. One source-labelled model; the full extent and boundaries of the named anatomy are not established.'}
+- Selection: Not recorded
+- Source context: Not recorded
+- Limits: Not recorded
+- Gate findings: anatomical_review_scope_missing_or_stale, anatomical_review_missing_or_stale, visual_review_scope_missing_or_stale, visual_review_missing_or_stale, high_fidelity_unproven, requirement_coverage_partial
+
+### diabetic_foot.posterior_tibial_tendon.visible_tendon_course — model
+
+- Asset: `za-muscles-498927038-material-0`
+- Local file: [web/anatomy/msk-atlas/za-muscles-498927038-material-0.bin](../../web/anatomy/msk-atlas/za-muscles-498927038-material-0.bin)
+- Artifact SHA-256: `4efbb3acc35b8c0c8439b4aa3d53f77951c0e71a37c33d6156edd3f36249ed5b`
+- Review-scope SHA-256: `6a5260b490fa1a62ce41394eccbf2de3cf647f58c08da9e275eceb5bd9fa2879`
+- Source: [Original source](https://github.com/LluisV/Z-Anatomy/tree/6c7f9016bd5899ac8edafd31b9900c151df42ed6)
+- Licence: [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/)
+- Recorded rights: commercial use=True; redistribution=True; review status=verified
+- Attribution: BodyParts3D — The Database Center for Life Science — upstream lineage CC BY-SA 2.1 Japan; Z-Anatomy — The open source atlas of anatomy — CC BY-SA 4.0
+- Rights evidence: docs/msk-mesh-source-audit.md
+- Licence use plan: No separate use plan recorded; inspect the exact licence and rights evidence
+- Presentation dependencies: Not separately recorded
+- Coverage: {'extent': 'partial', 'basis': 'The source label of this model names “tibialis posterior”, another name for this requirement’s “posterior tibial”: “Tibialis posterior muscle · tendon surface”. This part is the structure’s own body or surface, which the whole model shows; the model does not delineate the other parts. The requirement is for the examined side; the model is a right-side reference, a mirror image for the other side. One source-labelled model; the full extent and boundaries of the named anatomy are not established.'}
+- Selection: Not recorded
+- Source context: Not recorded
+- Limits: Not recorded
+- Gate findings: anatomical_review_scope_missing_or_stale, anatomical_review_missing_or_stale, visual_review_scope_missing_or_stale, visual_review_missing_or_stale, high_fidelity_unproven, requirement_coverage_partial
+
+### diabetic_foot.posterior_tibial_tendon.sheath_or_achilles_paratenon — model
+
+- Asset: `za-muscles-381356990`
+- Local file: [web/anatomy/msk-atlas/za-muscles-381356990.bin](../../web/anatomy/msk-atlas/za-muscles-381356990.bin)
+- Artifact SHA-256: `a2f931f33111631ba4ce5c0788cc992ba78357b049a4cad300547703fc3481f1`
+- Review-scope SHA-256: `f8924b9f4adb780f1da2b16a555f91f49ca8f5a6eb775941b43b0ae4fcd84ff9`
+- Source: [Original source](https://github.com/LluisV/Z-Anatomy/tree/6c7f9016bd5899ac8edafd31b9900c151df42ed6)
+- Licence: [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/)
+- Recorded rights: commercial use=True; redistribution=True; review status=verified
+- Attribution: BodyParts3D — The Database Center for Life Science — upstream lineage CC BY-SA 2.1 Japan; Z-Anatomy — The open source atlas of anatomy — CC BY-SA 4.0
+- Rights evidence: docs/msk-mesh-source-audit.md
+- Licence use plan: No separate use plan recorded; inspect the exact licence and rights evidence
+- Presentation dependencies: Not separately recorded
+- Coverage: {'extent': 'partial', 'basis': 'The source label of this model names “tibialis posterior”, another name for this requirement’s “posterior tibial”: “Tendon sheath of tibialis posterior muscle”. The requirement is for the examined side; the model is a right-side reference, a mirror image for the other side. One source-labelled model; the full extent and boundaries of the named anatomy are not established.'}
+- Selection: Not recorded
+- Source context: Not recorded
+- Limits: Not recorded
+- Gate findings: anatomical_review_scope_missing_or_stale, anatomical_review_missing_or_stale, visual_review_scope_missing_or_stale, visual_review_missing_or_stale, high_fidelity_unproven, requirement_coverage_partial
+
+### diabetic_foot.fibularis_longus_tendon.visible_tendon_course — model
+
+- Asset: `za-muscles-235597193-material-1`
+- Local file: [web/anatomy/msk-atlas/za-muscles-235597193-material-1.bin](../../web/anatomy/msk-atlas/za-muscles-235597193-material-1.bin)
+- Artifact SHA-256: `9b55c12a78e0c53fc79e5437f69a2a8d64b57b8cfafcc1fed6caeb00ad37a5bc`
+- Review-scope SHA-256: `ffc1a9c563a2229421cea8162c17eec8108aa5feea7b78858f8246ff56da5d0f`
+- Source: [Original source](https://github.com/LluisV/Z-Anatomy/tree/6c7f9016bd5899ac8edafd31b9900c151df42ed6)
+- Licence: [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/)
+- Recorded rights: commercial use=True; redistribution=True; review status=verified
+- Attribution: BodyParts3D — The Database Center for Life Science — upstream lineage CC BY-SA 2.1 Japan; Z-Anatomy — The open source atlas of anatomy — CC BY-SA 4.0
+- Rights evidence: docs/msk-mesh-source-audit.md
+- Licence use plan: No separate use plan recorded; inspect the exact licence and rights evidence
+- Presentation dependencies: Not separately recorded
+- Coverage: {'extent': 'partial', 'basis': 'The source label of this model names the structure: “Fibularis longus muscle · tendon surface”. This part is the structure’s own body or surface, which the whole model shows; the model does not delineate the other parts. The requirement is for the examined side; the model is a right-side reference, a mirror image for the other side. One source-labelled model; the full extent and boundaries of the named anatomy are not established.'}
+- Selection: Not recorded
+- Source context: Not recorded
+- Limits: Not recorded
+- Gate findings: anatomical_review_scope_missing_or_stale, anatomical_review_missing_or_stale, visual_review_scope_missing_or_stale, visual_review_missing_or_stale, high_fidelity_unproven, requirement_coverage_partial
+
+### diabetic_foot.fibularis_longus_tendon.sheath_or_achilles_paratenon — model
+
+- Asset: `za-muscles-69359382`
+- Local file: [web/anatomy/msk-atlas/za-muscles-69359382.bin](../../web/anatomy/msk-atlas/za-muscles-69359382.bin)
+- Artifact SHA-256: `599b509ca7088e596dd21087f7cc01f76b37c4327cdf2296dd124af8103fae23`
+- Review-scope SHA-256: `6fff5453927ff92a526cc492d0575959ce24c0b1510c7f67dc8022ddcd8742b7`
+- Source: [Original source](https://github.com/LluisV/Z-Anatomy/tree/6c7f9016bd5899ac8edafd31b9900c151df42ed6)
+- Licence: [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/)
+- Recorded rights: commercial use=True; redistribution=True; review status=verified
+- Attribution: BodyParts3D — The Database Center for Life Science — upstream lineage CC BY-SA 2.1 Japan; Z-Anatomy — The open source atlas of anatomy — CC BY-SA 4.0
+- Rights evidence: docs/msk-mesh-source-audit.md
+- Licence use plan: No separate use plan recorded; inspect the exact licence and rights evidence
+- Presentation dependencies: Not separately recorded
+- Coverage: {'extent': 'partial', 'basis': 'The source label of this model names this part: “Common tendon sheath of fibularis muscles”. The requirement is for the examined side; the model is a right-side reference, a mirror image for the other side. One source-labelled model; the full extent and boundaries of the named anatomy are not established.'}
+- Selection: Not recorded
+- Source context: Not recorded
+- Limits: Not recorded
+- Gate findings: anatomical_review_scope_missing_or_stale, anatomical_review_missing_or_stale, visual_review_scope_missing_or_stale, visual_review_missing_or_stale, high_fidelity_unproven, requirement_coverage_partial
+
+- Asset: `za-muscles-726761018`
+- Local file: [web/anatomy/msk-atlas/za-muscles-726761018.bin](../../web/anatomy/msk-atlas/za-muscles-726761018.bin)
+- Artifact SHA-256: `9d0dc1e901f0de3d9cb9bff8a0c7447f5f8eb77233a197f179c4c6a25023b794`
+- Review-scope SHA-256: `4f5270961156ccb8e235a4db9d6e1ff13f2b43a51c2a849db826edc1c088fbc0`
+- Source: [Original source](https://github.com/LluisV/Z-Anatomy/tree/6c7f9016bd5899ac8edafd31b9900c151df42ed6)
+- Licence: [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/)
+- Recorded rights: commercial use=True; redistribution=True; review status=verified
+- Attribution: BodyParts3D — The Database Center for Life Science — upstream lineage CC BY-SA 2.1 Japan; Z-Anatomy — The open source atlas of anatomy — CC BY-SA 4.0
+- Rights evidence: docs/msk-mesh-source-audit.md
+- Licence use plan: No separate use plan recorded; inspect the exact licence and rights evidence
+- Presentation dependencies: Not separately recorded
+- Coverage: {'extent': 'partial', 'basis': 'The source label of this model names this part: “Plantar tendon sheath of fibularis longus muscle”. The requirement is for the examined side; the model is a right-side reference, a mirror image for the other side. One source-labelled model; the full extent and boundaries of the named anatomy are not established.'}
+- Selection: Not recorded
+- Source context: Not recorded
+- Limits: Not recorded
+- Gate findings: anatomical_review_scope_missing_or_stale, anatomical_review_missing_or_stale, visual_review_scope_missing_or_stale, visual_review_missing_or_stale, high_fidelity_unproven, requirement_coverage_partial
+
+### diabetic_foot.fibularis_brevis_tendon.visible_tendon_course — model
+
+- Asset: `za-muscles-144360526-material-0`
+- Local file: [web/anatomy/msk-atlas/za-muscles-144360526-material-0.bin](../../web/anatomy/msk-atlas/za-muscles-144360526-material-0.bin)
+- Artifact SHA-256: `ff56a6ffc9964c811efd8793719a3b8cb1511b1d8f3fb136f771387d0cc43eaf`
+- Review-scope SHA-256: `30b6efa9136755ad6990f3b72423b6740c299041cf61d4623ab40111a9d44c69`
+- Source: [Original source](https://github.com/LluisV/Z-Anatomy/tree/6c7f9016bd5899ac8edafd31b9900c151df42ed6)
+- Licence: [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/)
+- Recorded rights: commercial use=True; redistribution=True; review status=verified
+- Attribution: BodyParts3D — The Database Center for Life Science — upstream lineage CC BY-SA 2.1 Japan; Z-Anatomy — The open source atlas of anatomy — CC BY-SA 4.0
+- Rights evidence: docs/msk-mesh-source-audit.md
+- Licence use plan: No separate use plan recorded; inspect the exact licence and rights evidence
+- Presentation dependencies: Not separately recorded
+- Coverage: {'extent': 'partial', 'basis': 'The source label of this model names the structure: “Fibularis brevis muscle · tendon surface”. This part is the structure’s own body or surface, which the whole model shows; the model does not delineate the other parts. The requirement is for the examined side; the model is a right-side reference, a mirror image for the other side. One source-labelled model; the full extent and boundaries of the named anatomy are not established.'}
+- Selection: Not recorded
+- Source context: Not recorded
+- Limits: Not recorded
+- Gate findings: anatomical_review_scope_missing_or_stale, anatomical_review_missing_or_stale, visual_review_scope_missing_or_stale, visual_review_missing_or_stale, high_fidelity_unproven, requirement_coverage_partial
+
+### diabetic_foot.fibularis_brevis_tendon.sheath_or_achilles_paratenon — model
+
+- Asset: `za-muscles-69359382`
+- Local file: [web/anatomy/msk-atlas/za-muscles-69359382.bin](../../web/anatomy/msk-atlas/za-muscles-69359382.bin)
+- Artifact SHA-256: `599b509ca7088e596dd21087f7cc01f76b37c4327cdf2296dd124af8103fae23`
+- Review-scope SHA-256: `6fff5453927ff92a526cc492d0575959ce24c0b1510c7f67dc8022ddcd8742b7`
+- Source: [Original source](https://github.com/LluisV/Z-Anatomy/tree/6c7f9016bd5899ac8edafd31b9900c151df42ed6)
+- Licence: [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/)
+- Recorded rights: commercial use=True; redistribution=True; review status=verified
+- Attribution: BodyParts3D — The Database Center for Life Science — upstream lineage CC BY-SA 2.1 Japan; Z-Anatomy — The open source atlas of anatomy — CC BY-SA 4.0
+- Rights evidence: docs/msk-mesh-source-audit.md
+- Licence use plan: No separate use plan recorded; inspect the exact licence and rights evidence
+- Presentation dependencies: Not separately recorded
+- Coverage: {'extent': 'partial', 'basis': 'The source label of this model names this part: “Common tendon sheath of fibularis muscles”. The requirement is for the examined side; the model is a right-side reference, a mirror image for the other side. One source-labelled model; the full extent and boundaries of the named anatomy are not established.'}
+- Selection: Not recorded
+- Source context: Not recorded
+- Limits: Not recorded
+- Gate findings: anatomical_review_scope_missing_or_stale, anatomical_review_missing_or_stale, visual_review_scope_missing_or_stale, visual_review_missing_or_stale, high_fidelity_unproven, requirement_coverage_partial
+
+### diabetic_foot.achilles_tendon.visible_tendon_course — model
+
+- Asset: `za-muscles-775355141`
+- Local file: [web/anatomy/msk-atlas/za-muscles-775355141.bin](../../web/anatomy/msk-atlas/za-muscles-775355141.bin)
+- Artifact SHA-256: `81b483bec85496085d2da0d106151dfd4a508db397dc0a7fa3c30eda6bb0d684`
+- Review-scope SHA-256: `c94cde3bc2055239b36eaa9820d171e3c9436b7a4f7c08005c568332a2fadb75`
+- Source: [Original source](https://github.com/LluisV/Z-Anatomy/tree/6c7f9016bd5899ac8edafd31b9900c151df42ed6)
+- Licence: [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/)
+- Recorded rights: commercial use=True; redistribution=True; review status=verified
+- Attribution: BodyParts3D — The Database Center for Life Science — upstream lineage CC BY-SA 2.1 Japan; Z-Anatomy — The open source atlas of anatomy — CC BY-SA 4.0
+- Rights evidence: docs/msk-mesh-source-audit.md
+- Licence use plan: No separate use plan recorded; inspect the exact licence and rights evidence
+- Presentation dependencies: Not separately recorded
+- Coverage: {'extent': 'partial', 'basis': 'The source label of this model names “calcaneal tendon”, another name for this requirement’s “achilles tendon”: “Calcaneal tendon”. This part is the structure’s own body or surface, which the whole model shows; the model does not delineate the other parts. The requirement is for the examined side; the model is a right-side reference, a mirror image for the other side. One source-labelled model; the full extent and boundaries of the named anatomy are not established.'}
+- Selection: Not recorded
+- Source context: Not recorded
+- Limits: Not recorded
+- Gate findings: anatomical_review_scope_missing_or_stale, anatomical_review_missing_or_stale, visual_review_scope_missing_or_stale, visual_review_missing_or_stale, high_fidelity_unproven, requirement_coverage_partial
 
 ### diabetic_foot.lesser_mtp_plantar_plates.body — clinical_image
 
@@ -515,6 +967,25 @@ Investigation: `ra.mri-diabetic-foot`
 - Source context: Not recorded
 - Limits: Fresh-frozen right-foot specimen, age 45. Panels c/d are MRI; a is schematic, b is dissection, e/f are histology. The medial sesamoid-phalangeal marker described in the full caption is not separately counted as MRI evidence here. No inference to lesser-toe plates or complete hallux stability is made. Normal anatomical adjunct within the diabetic-foot reference; this image does not depict infection or Charcot disease, establish an instability indication, or equate hallux anatomy with the plantar plates of digits 2–5.
 - Gate findings: anatomical_review_scope_missing_or_stale, anatomical_review_missing_or_stale, visual_review_scope_missing_or_stale, visual_review_missing_or_stale, high_fidelity_unproven, requirement_coverage_missing
+
+### diabetic_foot.hallux_plantar_capsulosesamoid_complex.intersesamoid_ligament — model
+
+- Asset: `za-joints-536305954`
+- Local file: [web/anatomy/msk-atlas/za-joints-536305954.bin](../../web/anatomy/msk-atlas/za-joints-536305954.bin)
+- Artifact SHA-256: `e8e3aa51e06ab644c8e263ab366e874f34a3ba62b5e92ba1b747601c780386d1`
+- Review-scope SHA-256: `b89f45a5faf03fbbbbacf7d3ec45fcc0b31d7ad2e5dc5f910b378686b83b55e9`
+- Source: [Original source](https://github.com/LluisV/Z-Anatomy/tree/6c7f9016bd5899ac8edafd31b9900c151df42ed6)
+- Licence: [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/)
+- Recorded rights: commercial use=True; redistribution=True; review status=verified
+- Attribution: BodyParts3D — The Database Center for Life Science — upstream lineage CC BY-SA 2.1 Japan; Z-Anatomy — The open source atlas of anatomy — CC BY-SA 4.0
+- Rights evidence: docs/msk-mesh-source-audit.md
+- Licence use plan: No separate use plan recorded; inspect the exact licence and rights evidence
+- Presentation dependencies: Not separately recorded
+- Coverage: {'extent': 'partial', 'basis': 'The source label of this model names this part: “Intersesamoid ligament”. The requirement is for the examined side; the model is a right-side reference, a mirror image for the other side. One source-labelled model; the full extent and boundaries of the named anatomy are not established.'}
+- Selection: Not recorded
+- Source context: Not recorded
+- Limits: Not recorded
+- Gate findings: anatomical_review_scope_missing_or_stale, anatomical_review_missing_or_stale, visual_review_scope_missing_or_stale, visual_review_missing_or_stale, high_fidelity_unproven, requirement_coverage_partial
 
 ### diabetic_foot.hallux_plantar_capsulosesamoid_complex.medial_metatarsosesamoid_ligament — clinical_image
 

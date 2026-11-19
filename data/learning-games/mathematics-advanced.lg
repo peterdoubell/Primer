@@ -1,0 +1,634 @@
+# Mathematics, stages 4 and 5 (undergraduate and master's level).
+
+@ math.4.diff-calc
+goal: Read a derivative as an instantaneous rate of change, compute it for powers, and use it to find and classify turning points.
+intro: The derivative of a function at a point is the slope of its tangent there: the rate at which the output is changing at that instant. For powers, the derivative of xⁿ is n·xⁿ⁻¹.
+  show: plot x*x x=0..4 mark=3
+demo: For f(x) = x² the derivative is f′(x) = 2x. At x = 3 the curve is rising with slope 6: near that point, each small step right raises the output about six times as much.
+  show: table x | f(x) = x² | f′(x) = 2x ;; 1 | 1 | 2 ;; 2 | 4 | 4 ;; 3 | 9 | 6
+F: Differentiate, then substitute.
+  frame: If f(x) = x³, then f′(2) = __
+  answer: 12
+  x 8 :: [gave-the-value] 8 is f(2), the height of the curve. The derivative is 3x², which is 12 at x = 2.
+  x 6 :: [dropped-a-power] The derivative of x³ is 3x², not 3x.
+  hint: Bring the power down and reduce it by one: 3x².
+  why: f′(x) = 3x², and 3 × 2² = 12.
+M: Match each function to its derivative.
+  pairs: x² => 2x | 5x => 5 | x³ => 3x² | 7 => 0
+  hint: A constant does not change, so its rate of change is zero.
+  why: The power rule gives 2x, 5 and 3x². A constant has slope 0 everywhere.
+P: On an interval, f′(x) is positive throughout. What follows?
+  + f is increasing on that interval :: A positive slope means the output rises as x increases.
+  - f is positive on that interval :: [confused-value-with-slope] The sign of f′ says which way f is heading, not where it is. A function can rise while still negative.
+  - f has a maximum in that interval :: [confused-sign-with-zero] At an interior maximum the derivative is zero, not positive.
+  - f is concave up on that interval :: [confused-first-with-second-derivative] Concavity is the sign of f″, the rate at which the slope changes.
+  hint: What does the sign of a slope tell you about a graph?
+  why: f′ > 0 means every tangent slopes upward, so f increases. Nothing is implied about the sign of f or of f″.
+X: Explore f(x) = x³ − 3x through its slope.
+  param x: -3..3 /0.25 @-3 | Position x
+  out s: 3*x*x-3 | Slope f′(x)
+  out c: 6*x | Second derivative f″(x)
+  aim: Find the point where the tangent is horizontal and the curve has a local minimum.
+  target: s == 0 and c > 0
+  view: graph x*x*x-3*x x=-3..3
+  hint: A horizontal tangent needs f′(x) = 0. There are two such points; the second derivative tells them apart.
+  why: f′(x) = 3x² − 3 is zero at x = −1 and x = 1. At x = 1, f″ = 6 > 0, so the curve bends upward: a local minimum. At x = −1 it is a local maximum.
+>P: A farmer has 40 m of fence for a rectangular pen built against a long wall, so only three sides need fencing. If the two sides at right angles to the wall are each x metres, the area is A = x(40 − 2x). Which x gives the largest pen?
+  + 10 m :: A′ = 40 − 4x = 0 at x = 10, giving a pen 10 m by 20 m.
+  - 20 m :: [used-all-the-fence-on-two-sides] Then the side along the wall has length 0 and the area is zero.
+  - About 13.3 m :: [assumed-equal-sides] Three equal sides give 177.8 m², less than the 200 m² at x = 10.
+  - 40 m :: [gave-a-given-number] There are only 40 m of fence in total.
+  hint: Differentiate A with respect to x and set the derivative to zero.
+  why: A = 40x − 2x², so A′ = 40 − 4x, zero at x = 10. A″ = −4 < 0 confirms a maximum.
+done: The derivative turns "where is it largest?" into "where is the slope zero?". Explore derivative signs in the activity.
+
+@ math.4.int-calc
+goal: Read an integral as accumulated change, evaluate it with an antiderivative, and state the fundamental theorem of calculus.
+intro: An integral adds up a quantity that is changing. The area under a rate curve between two times is the total change over that time.
+  show: plot 2*x x=0..3
+demo: A cart's speed is 2t metres per second. From t = 0 to t = 3 the area under the line is a triangle: ½ × 3 × 6 = 9 metres. The antiderivative t² gives the same thing: 3² − 0² = 9.
+  show: steps Area of the triangle: ½ × 3 × 6 = 9 ;; Antiderivative of 2t is t² ;; t² from 0 to 3: 9 − 0 = 9
+F: Evaluate the integral.
+  frame: ∫ from 0 to 2 of 3x² dx = __
+  answer: 8
+  x 12 :: [substituted-into-the-integrand] 12 is 3x² at x = 2. Integrate first: the antiderivative is x³.
+  hint: An antiderivative of 3x² is x³.
+  why: x³ evaluated from 0 to 2 is 8 − 0 = 8.
+M: Match each function to one of its antiderivatives.
+  pairs: 2x => x² | 3x² => x³ | 1 => x | cos x => sin x
+  hint: Differentiate the right-hand side and see whether you recover the left.
+  why: The derivatives of x², x³, x and sin x are 2x, 3x², 1 and cos x.
+P: Suppose F′(x) = f(x). What is the integral of f from a to b?
+  + F(b) − F(a) :: The total change in F is its value at the end minus its value at the start.
+  - F(a) − F(b) :: [reversed-the-limits] That is the integral from b to a, the negative.
+  - f(b) − f(a) :: [used-the-integrand] The integrand f is the rate. Its antiderivative F measures the accumulation.
+  - F(b) + F(a) :: [added-instead] Accumulated change is a difference between two states.
+  hint: If f is the rate of change of F, what does adding up f over an interval give?
+  why: This is the fundamental theorem of calculus: integrating a rate of change recovers the net change.
+>P: Water runs into a tank at 6 − 2t litres per minute for the first 3 minutes. How much water enters?
+  + 9 litres :: The integral of 6 − 2t from 0 to 3 is 6t − t² = 18 − 9.
+  - 18 litres :: [ignored-the-falling-rate] 6 × 3 assumes the rate stays at 6. It falls to zero.
+  - 0 litres :: [gave-the-final-rate] The rate reaches 0 at t = 3; the amount already in the tank does not.
+  - 6 litres :: [gave-the-initial-rate] 6 is the starting rate in litres per minute, not an amount.
+  hint: The amount is the area under the rate line from t = 0 to t = 3.
+  why: The area is a triangle of base 3 and height 6: ½ × 3 × 6 = 9 litres.
+done: Differentiation and integration undo each other. Build volume from slices in the activity.
+
+@ math.4.multivar
+goal: Take partial derivatives, interpret the gradient, and set up a simple double integral.
+intro: A function of two variables, f(x, y), is a surface over the plane. A partial derivative measures the slope in one direction while the other variable is held fixed.
+  show: table f(x, y) = x²y | Hold fixed | Result ;; ∂f/∂x | y | 2xy ;; ∂f/∂y | x | x²
+demo: For f(x, y) = x²y, treat y as a constant to get ∂f/∂x = 2xy, and treat x as a constant to get ∂f/∂y = x². The two partials collected into a vector form the gradient.
+  show: steps f(x, y) = x²y ;; ∂f/∂x = 2xy ;; ∂f/∂y = x² ;; ∇f = (2xy, x²)
+F: Take the partial derivative with respect to y.
+  frame: If f(x, y) = 3x + y², then ∂f/∂y at (1, 4) is __
+  answer: 8
+  x 11 :: [did-not-hold-x-fixed] The term 3x is a constant as far as y is concerned, so it contributes nothing.
+  x 19 :: [gave-the-value] 19 is f(1, 4). The partial derivative is 2y.
+  hint: Treat x as a constant. What is the derivative of y²?
+  why: ∂f/∂y = 2y, and 2 × 4 = 8.
+M: Match each partial derivative to its result.
+  pairs: ∂/∂x of x² + y² => 2x | ∂/∂y of x² + y² => 2y | ∂/∂x of xy => y | ∂/∂y of xy => x
+  hint: The variable you are not differentiating by behaves like a number.
+  why: Holding the other variable fixed turns each expression into a one-variable function.
+P: In which direction does the gradient ∇f point?
+  + The direction in which f increases fastest :: Its length is that greatest rate of increase.
+  - Along the contour line :: [confused-with-level-direction] Along a contour f does not change at all. The gradient is perpendicular to contours.
+  - Towards the nearest minimum :: [reversed-the-direction] That is the direction of −∇f, steepest descent.
+  - Always along the x-axis :: [ignored-the-second-variable] The gradient has a component for each variable.
+  hint: Think of a hillside. Which way is straight uphill?
+  why: The directional derivative in direction u is ∇f · u, which is largest when u points along ∇f.
+>P: A plate covers 0 ≤ x ≤ 2 and 0 ≤ y ≤ 3 (in metres) and its density is x kilograms per square metre. What is its mass?
+  + 6 kg :: Integrating x from 0 to 2 gives 2, and integrating over y multiplies by 3.
+  - 12 kg :: [used-the-largest-density] That uses density 2 everywhere. The density rises from 0 to 2 across the plate.
+  - 3 kg :: [forgot-one-integration] Both directions must be integrated.
+  - 2 kg :: [forgot-one-integration] That is the integral over x alone.
+  hint: Integrate the density over x first, then over y.
+  why: ∫₀³ ∫₀² x dx dy = ∫₀³ 2 dy = 6.
+done: Several variables, one at a time. Explore fields in the vector lab.
+
+@ math.4.linalg
+goal: Read a matrix as a linear map, compute a 2 by 2 determinant, and recognise eigenvectors and linear independence.
+intro: A matrix describes a linear map: it sends vectors to vectors, and its columns show where the basis vectors land.
+  show: table Matrix | Sends (1, 0) to | Sends (0, 1) to ;; diag(2, 3) | (2, 0) | (0, 3)
+demo: The matrix with 2 and 3 on its diagonal stretches the plane by 2 along x and by 3 along y. Vectors along the axes keep their direction: they are eigenvectors, with eigenvalues 2 and 3.
+  show: steps A(1, 0) = (2, 0) = 2 × (1, 0) ;; A(0, 1) = (0, 3) = 3 × (0, 1)
+F: Compute the determinant.
+  frame: The determinant of the matrix with rows (2, 1) and (1, 3) is __
+  answer: 5
+  x 6 :: [forgot-the-cross-term] 2 × 3 is only the first product. Subtract 1 × 1.
+  x 7 :: [added-the-cross-term] The off-diagonal product is subtracted.
+  hint: ad − bc.
+  why: 2 × 3 − 1 × 1 = 5.
+P: For the diagonal matrix diag(2, 3), what is the eigenvalue of the eigenvector (0, 1)?
+  + 3 :: The matrix sends (0, 1) to (0, 3).
+  - 2 :: [used-the-other-axis] 2 is the eigenvalue for (1, 0).
+  - 6 :: [gave-the-determinant] 6 is the product of the eigenvalues.
+  - 5 :: [gave-the-trace] 5 is the sum of the eigenvalues.
+  hint: Apply the matrix to (0, 1) and compare the result with (0, 1).
+  why: Av = λv with v = (0, 1) gives (0, 3) = 3v.
+S: Which sets of vectors in the plane are linearly independent? Choose every one.
+  + (1, 0) and (0, 1) :: Neither is a multiple of the other.
+  + (1, 1) and (1, −1) :: Neither is a multiple of the other.
+  - (1, 2) and (2, 4) :: [missed-a-multiple] The second is twice the first, so they lie on one line.
+  - (1, 0), (0, 1) and (1, 1) :: [too-many-for-the-dimension] Three vectors in a plane are always dependent: here the third is the sum of the first two.
+  hint: Can one vector be built from the others?
+  why: A set is independent when no vector is a combination of the rest. A plane has room for only two independent directions.
+>P: A linear map turns every vector in the plane through 90° and doubles its length. Does it have a real eigenvector?
+  + No: every non-zero vector changes direction :: An eigenvector must stay on its own line.
+  - Yes, with eigenvalue 2 :: [confused-scaling-with-eigenvalue] The length doubles, but the direction changes, so Av is never a multiple of v.
+  - Yes, the zero vector :: [counted-the-zero-vector] The zero vector is excluded from being an eigenvector by definition.
+  hint: An eigenvector is sent to a multiple of itself. What does a quarter turn do to a line through the origin?
+  why: A rotation by 90° moves every line through the origin to a different line. Its eigenvalues are the complex numbers ±2i.
+done: Matrices are maps; eigenvectors are the directions a map leaves alone. Explore the eigenspace lab.
+
+@ math.4.diffeq
+goal: Recognise what a differential equation says about change, and solve the simplest first-order cases.
+intro: A differential equation relates a function to its own rate of change. The equation y′ = ky says "the rate of growth is proportional to the amount", and its solutions are y = Ce^(kt).
+  show: plot exp(0.5*x) x=0..4
+demo: A cup of coffee cools at a rate proportional to how much hotter it is than the room: T′ = −k(T − 20). Whatever the starting temperature, the solution approaches 20 °C.
+  show: plot 20+60*exp(-0.5*x) x=0..8
+P: Which function solves y′ = 3y with y(0) = 2?
+  + y = 2e^(3t) :: Its derivative is 6e^(3t) = 3y, and it equals 2 at t = 0.
+  - y = 3e^(2t) :: [swapped-the-constants] The rate constant belongs in the exponent and the starting value in front.
+  - y = 2 + 3t :: [assumed-linear-growth] Its rate is the constant 3, not 3 times y.
+  - y = e^(3t) + 2 :: [added-the-initial-value] At t = 0 this is 3, not 2, and its derivative is not 3y.
+  hint: Differentiate each candidate and compare the result with 3 times the candidate.
+  why: y = Ce^(3t) solves y′ = 3y for every C, and y(0) = C, so C = 2.
+M: Match each equation to the behaviour of its solutions.
+  pairs: y′ = 2y => Exponential growth | y′ = −2y => Exponential decay towards zero | y″ = −4y => Steady oscillation | y′ = 2 => Growth at a constant rate
+  hint: Ask what the equation says about the rate when y is large and positive.
+  why: A rate proportional to y gives exponentials; a second derivative opposing y gives sines and cosines; a constant rate gives a straight line.
+O: Put the steps for solving y′ = xy by separation of variables in order.
+  items: Write dy/dx = xy | Separate the variables: dy/y = x dx | Integrate both sides: ln|y| = x²/2 + C | Solve for y: y = Ae^(x²/2)
+  ends: First | Last
+  hint: The variables must be separated before either side can be integrated.
+  why: Separation puts every y on one side and every x on the other, so each side can be integrated on its own.
+>P: A population follows P′ = 0.1 P (1 − P/1000). What happens if it starts at 1500?
+  + It decreases towards 1000 :: Above 1000 the bracket is negative, so P′ is negative.
+  - It grows without limit :: [ignored-the-limiting-term] The factor (1 − P/1000) turns negative once P exceeds 1000.
+  - It stays at 1500 :: [mistook-for-equilibrium] P′ is zero only at P = 0 and P = 1000.
+  - It falls to zero :: [overshot-the-equilibrium] The decline slows as P nears 1000 and stops there.
+  hint: Work out the sign of P′ when P = 1500.
+  why: At P = 1500, P′ = 0.1 × 1500 × (−0.5) = −75. The population falls until it reaches the carrying capacity, 1000.
+done: A differential equation is a rule for change; solving it reveals the history. Follow a slope field in the activity.
+
+@ math.4.discrete
+goal: Count arrangements and selections, and tell when order matters.
+intro: The multiplication principle: if one choice can be made in m ways and another in n ways, both can be made in m × n ways.
+  show: table Shirts | Trousers | Outfits ;; 3 | 2 | 3 × 2 = 6
+demo: Four books can be arranged in 4 × 3 × 2 × 1 = 24 orders. Choosing 2 of the 4 to take away, where order does not matter, gives (4 × 3) ÷ 2 = 6 pairs.
+  show: steps Arrange 4 books: 4 × 3 × 2 × 1 = 24 ;; Ordered pairs from 4: 4 × 3 = 12 ;; Unordered pairs: 12 ÷ 2 = 6
+F: Count the arrangements.
+  frame: Five runners can finish a race in __ different orders
+  answer: 120
+  x 25 :: [squared-instead] Once a runner has finished first, only four remain for second place.
+  x 15 :: [added-instead] The choices multiply: 5 × 4 × 3 × 2 × 1.
+  hint: 5 choices for first place, then 4 for second, and so on.
+  why: 5! = 5 × 4 × 3 × 2 × 1 = 120.
+P: In how many ways can a committee of 2 be chosen from 5 people?
+  + 10 :: 5 × 4 ordered choices, halved because each pair is counted twice.
+  - 20 :: [counted-order] Choosing Ana then Ben is the same committee as Ben then Ana.
+  - 25 :: [allowed-repeats] A person cannot be chosen twice.
+  - 7 :: [added-instead] The choices multiply and then the repeats are divided out.
+  hint: Count ordered pairs first, then ask how many times each committee was counted.
+  why: (5 × 4) ÷ 2 = 10.
+G: Does order matter?
+  bin Order matters: the digits of a PIN | gold, silver and bronze medals | letters in a password
+  bin Order does not matter: six lottery numbers | a hand of five cards | three toppings on a pizza
+  hint: Would swapping two of the chosen things give a different result?
+  why: A PIN, a podium and a password change when rearranged. A lottery ticket, a hand and a set of toppings do not.
+>P: Six people meet, and everyone shakes hands once with everyone else. How many handshakes are there?
+  + 15 :: Each handshake is a pair of people: (6 × 5) ÷ 2.
+  - 30 :: [counted-each-twice] 6 × 5 counts each handshake once for each of the two people.
+  - 36 :: [allowed-self-pairs] Nobody shakes their own hand, and each handshake involves two people.
+  - 12 :: [doubled-the-people] Each person shakes 5 hands, not 2.
+  hint: A handshake is an unordered pair of people.
+  why: Choosing 2 from 6 gives 15. It is also the number of edges in a complete graph on 6 vertices.
+done: Count carefully whether order matters before you count anything else.
+
+@ math.4.numtheory
+goal: Compute with congruences, run Euclid's algorithm, and use a modular inverse and Fermat's little theorem.
+intro: Two integers are congruent modulo n when they leave the same remainder on division by n: 17 ≡ 2 (mod 5). Congruences can be added and multiplied like equations.
+  show: table a | a mod 5 ;; 17 | 2 ;; 22 | 2 ;; 23 | 3
+demo: Euclid's algorithm finds a greatest common divisor by repeated division. For 84 and 30: 84 = 2 × 30 + 24, then 30 = 1 × 24 + 6, then 24 = 4 × 6 + 0. The last non-zero remainder, 6, is the gcd.
+  show: steps 84 = 2 × 30 + 24 ;; 30 = 1 × 24 + 6 ;; 24 = 4 × 6 + 0 ;; gcd(84, 30) = 6
+O: Put the lines of Euclid's algorithm for gcd(91, 35) in order.
+  items: 91 = 2 × 35 + 21 | 35 = 1 × 21 + 14 | 21 = 1 × 14 + 7 | 14 = 2 × 7 + 0
+  ends: First division | Last division
+  hint: Each line divides the previous divisor by the previous remainder.
+  why: The remainders 21, 14, 7, 0 shrink at each step, and the last non-zero remainder, 7, is gcd(91, 35).
+P: What is the multiplicative inverse of 3 modulo 7?
+  + 5 :: 3 × 5 = 15 = 2 × 7 + 1.
+  - 4 :: [additive-inverse] 3 + 4 ≡ 0, so 4 is the additive inverse. The multiplicative inverse satisfies 3x ≡ 1.
+  - 2 :: [stopped-at-minus-one] 3 × 2 = 6 ≡ −1, not 1.
+  - 1/3 :: [left-the-integers] Modular arithmetic stays inside the integers; the inverse is the integer x with 3x ≡ 1.
+  hint: Multiply 3 by 1, 2, 3, … until the product is 1 more than a multiple of 7.
+  why: 3 × 5 = 15 ≡ 1 (mod 7). An inverse exists because gcd(3, 7) = 1.
+F: Fermat's little theorem gives 2⁶ ≡ 1 (mod 7). Use it.
+  frame: 2¹⁰⁰ ≡ __ (mod 7)
+  answer: 2
+  x 1 :: [assumed-a-multiple] 100 is not a multiple of 6. Write 100 = 6 × 16 + 4.
+  x 4 :: [gave-the-exponent-remainder] 4 is what is left of the exponent. The answer is 2⁴ reduced modulo 7.
+  hint: 100 = 6 × 16 + 4, so 2¹⁰⁰ = (2⁶)¹⁶ × 2⁴.
+  why: (2⁶)¹⁶ ≡ 1, so 2¹⁰⁰ ≡ 2⁴ = 16 ≡ 2 (mod 7).
+>P: A twelve-hour clock shows 9 o'clock. What will it show 100 hours later?
+  + 1 o'clock :: 9 + 100 = 109, and 109 = 9 × 12 + 1.
+  - 4 o'clock :: [dropped-the-start] 100 ≡ 4 (mod 12) is the shift. Add it to the starting 9.
+  - 9 o'clock :: [assumed-a-full-cycle] 100 is not a multiple of 12.
+  - 7 o'clock :: [arithmetic-slip] 9 + 4 = 13, which is 1 on a twelve-hour clock.
+  hint: Clock arithmetic is arithmetic modulo 12. Reduce 100 first.
+  why: 100 ≡ 4 (mod 12), and 9 + 4 = 13 ≡ 1 (mod 12).
+done: Congruences make arithmetic finite and exact. Explore the number theory lab.
+
+@ math.4.analysis
+goal: State what it means for a sequence to converge, and use the definition to test claims.
+intro: A sequence converges to L when, however small a tolerance ε you choose, the terms eventually all lie within ε of L and stay there.
+  show: table n | 1/n ;; 10 | 0.1 ;; 100 | 0.01 ;; 1000 | 0.001
+demo: The sequence 1/n converges to 0. Given ε = 0.01, every term after the 100th is closer to 0 than 0.01. A smaller ε simply needs a later starting point.
+  show: steps Choose a tolerance ε > 0 ;; Find N so that 1/n < ε whenever n > N ;; N = 1/ε works
+O: Put the definition of "aₙ converges to L" in its correct order.
+  items: For every ε > 0 | there is an N | such that for all n > N | |aₙ − L| < ε
+  ends: Begins | Ends
+  hint: The tolerance is chosen first; N is then allowed to depend on it.
+  why: The order of the quantifiers matters. If N had to be chosen before ε, only eventually constant sequences would qualify.
+F: Apply the definition to aₙ = 1/n.
+  frame: For ε = 0.001, 1/n < ε for every n greater than __
+  answer: 1000
+  x 100 :: [one-power-short] 1/100 = 0.01, which is larger than 0.001.
+  hint: Solve 1/n < 0.001 for n.
+  why: 1/n < 1/1000 exactly when n > 1000.
+P: Which of these sequences converges?
+  + (−1)ⁿ / n :: Its terms alternate in sign but shrink towards 0.
+  - (−1)ⁿ :: [bounded-means-convergent] It is bounded, but it keeps jumping between −1 and 1 and never settles.
+  - √n :: [slow-growth-means-convergent] It grows slowly, but without bound.
+  - n × (−1)ⁿ :: [alternation-means-cancellation] Its terms alternate and grow in size.
+  hint: Do the terms get, and stay, arbitrarily close to one number?
+  why: |(−1)ⁿ/n| = 1/n, which is eventually smaller than any ε. Boundedness alone does not give convergence.
+>P: Every term of a sequence is positive, and each term is smaller than the one before. Must the sequence converge to 0?
+  + No: it converges, but possibly to a positive limit :: 1 + 1/n is positive and decreasing, and converges to 1.
+  - Yes, it must converge to 0 :: [decreasing-means-to-zero] Decreasing and positive only guarantees a limit that is at least 0.
+  - No: it might not converge at all :: [forgot-monotone-convergence] A decreasing sequence bounded below always converges.
+  hint: Try the example 1 + 1/n.
+  why: A decreasing sequence bounded below converges to its greatest lower bound, which need not be 0.
+done: Analysis replaces "gets close" with a statement you can check. Explore the convergence lab.
+
+@ math.4.prob-theory
+goal: Compute an expected value, and say what the law of large numbers does and does not promise.
+intro: A random variable assigns a number to each outcome. Its expected value is the average of those numbers, weighted by their probabilities.
+  show: table Face | 1 | 2 | 3 | 4 ;; Probability | 1/4 | 1/4 | 1/4 | 1/4
+demo: For a fair six-sided die the expected value is (1 + 2 + 3 + 4 + 5 + 6) ÷ 6 = 3.5. No single roll shows 3.5: the expectation describes the long-run average.
+  show: bars 1=1 2=2 3=3 4=4 5=5 6=6
+F: Find the expected winnings.
+  frame: A game pays £10 with probability 0.2 and nothing otherwise. Expected winnings: £__
+  answer: 2
+  x 10 :: [ignored-the-probability] £10 is the prize, won only one time in five.
+  x 5 :: [averaged-the-outcomes] The two outcomes are not equally likely, so they are not simply averaged.
+  hint: Multiply each amount by its probability and add.
+  why: 10 × 0.2 + 0 × 0.8 = 2.
+P: A fair die is rolled more and more times. What does the law of large numbers say about the average of the rolls?
+  + It is very likely to be close to 3.5, and more so as the rolls increase :: The average concentrates around the expected value.
+  - It will equal exactly 3.5 after enough rolls :: [expected-exactness] The law promises closeness with high probability, never exact equality.
+  - After a run of low rolls, high rolls become more likely :: [gamblers-fallacy] The die has no memory. Early runs are swamped by later rolls, not corrected by them.
+  - It says nothing useful about a real die :: [dismissed-the-law] It is exactly what links probability to observed frequency.
+  hint: The die is not influenced by its past. So how can the average settle?
+  why: Deviations are not compensated; they are diluted. Their share of the average shrinks as the number of rolls grows.
+M: Match each distribution to a situation it models.
+  pairs: Binomial => Number of heads in 10 coin flips | Uniform => The face shown by one fair die | Normal => A sum of many small independent effects | Poisson => Number of rare events in a fixed time
+  hint: Ask what is being counted or measured in each situation.
+  why: A fixed number of yes/no trials is binomial; equally likely faces are uniform; sums of many small effects tend to normal; rare independent events are Poisson.
+>P: A raffle ticket costs £2. One ticket in a hundred wins £100. What is the expected gain from buying a ticket?
+  + A loss of £1 :: The expected prize is 100 × 0.01 = £1, against a cost of £2.
+  - A gain of £1 :: [ignored-the-cost] £1 is the expected prize before the ticket is paid for.
+  - A loss of £2 :: [ignored-the-prize] That is the outcome for a losing ticket, not the average over all tickets.
+  - Nothing: it breaks even :: [assumed-fairness] A fair raffle would need a prize of £200.
+  hint: Expected gain = expected prize − cost.
+  why: 0.01 × 100 − 2 = −1. On average each ticket loses £1.
+done: Expectation is a long-run promise. Explore the probability lab.
+
+@ math.5.abstract
+goal: Check the group axioms on examples, and apply Lagrange's theorem.
+intro: A group is a set with one operation that is closed and associative, has an identity element, and gives every element an inverse.
+  show: table Axiom | For integers under addition ;; Closure | a sum of integers is an integer ;; Identity | 0 ;; Inverse | −a
+demo: The integers modulo 4 under addition form a group: adding two of 0, 1, 2, 3 and reducing modulo 4 stays in the set, 0 is the identity, and the inverse of 1 is 3 because 1 + 3 ≡ 0.
+  show: table + | 0 | 1 | 2 | 3 ;; 0 | 0 | 1 | 2 | 3 ;; 1 | 1 | 2 | 3 | 0 ;; 2 | 2 | 3 | 0 | 1 ;; 3 | 3 | 0 | 1 | 2
+G: Which of these are groups?
+  bin A group: the integers under addition | the non-zero rationals under multiplication | the rotations of a square
+  bin Not a group: the integers under multiplication | the natural numbers under addition | the odd integers under addition
+  note the integers under multiplication :: 2 has no integer inverse: no integer times 2 gives 1.
+  note the natural numbers under addition :: There are no negatives, so nothing undoes adding 1.
+  note the odd integers under addition :: Not closed: 1 + 3 = 4 is even.
+  hint: Test closure, identity and inverses in turn.
+  why: Each failure breaks one axiom: missing inverses twice, and lack of closure once.
+F: Count the symmetries.
+  frame: A square has __ symmetries in all (rotations and reflections)
+  answer: 8
+  x 4 :: [counted-rotations-only] There are 4 rotations and also 4 reflections.
+  hint: Four rotations, including the one that does nothing, and one reflection for each mirror line.
+  why: 4 rotations and 4 reflections make the dihedral group of order 8.
+P: In a group, how many solutions x does the equation a · x = b have?
+  + Exactly one: x = a⁻¹ · b :: Multiplying both sides on the left by the inverse of a isolates x.
+  - None, unless b is the identity :: [restricted-to-identity] Inverses let you solve the equation for any b.
+  - Possibly several :: [forgot-cancellation] If a·x = a·y then multiplying by a⁻¹ gives x = y.
+  hint: What can you do to both sides to remove a?
+  why: Existence comes from the inverse and uniqueness from cancellation: this is why every row of a group table contains each element once.
+>P: A group has 12 elements. Which of these cannot be the number of elements in a subgroup?
+  + 5 :: 5 does not divide 12.
+  - 4 :: [ignored-divisibility] 4 divides 12, so Lagrange's theorem does not rule it out.
+  - 6 :: [ignored-divisibility] 6 divides 12.
+  - 3 :: [ignored-divisibility] 3 divides 12.
+  hint: Lagrange's theorem relates the size of a subgroup to the size of the group.
+  why: The order of a subgroup divides the order of the group. The divisors of 12 are 1, 2, 3, 4, 6 and 12.
+done: An axiom list is a filter: test each example against it. Explore the algebra lab.
+
+@ math.5.measure
+goal: Explain why countable sets have measure zero and how the Lebesgue integral differs from the Riemann integral.
+intro: A measure assigns a size to sets so that the sizes of countably many disjoint pieces add up. On the line, Lebesgue measure extends the idea of length.
+  show: table Set | Lebesgue measure ;; [0, 1] | 1 ;; a single point | 0 ;; [0, 1] ∪ [3, 5] | 3
+demo: The rationals in [0, 1] can be listed. Cover the first with an interval of length ε/2, the second with ε/4, and so on. The covers have total length at most ε, for any ε. So the rationals have measure zero.
+  show: steps List the rationals: q₁, q₂, q₃, … ;; Cover qₙ with an interval of length ε/2ⁿ ;; Total length ≤ ε/2 + ε/4 + … = ε ;; True for every ε, so the measure is 0
+F: Add the lengths.
+  frame: The Lebesgue measure of [0, 1] ∪ [3, 5.5] is __
+  answer: 3.5
+  x 5.5 :: [measured-the-span] The gap from 1 to 3 is not part of the set.
+  hint: The two intervals are disjoint, so their lengths add.
+  why: 1 + 2.5 = 3.5.
+P: What is the Lebesgue measure of the rational numbers in [0, 1]?
+  + 0 :: They are countable, so they can be covered by intervals of arbitrarily small total length.
+  - 1 :: [dense-means-full] The rationals are dense, but density is not size. The irrationals carry all the measure.
+  - 1/2 :: [split-evenly] Rationals and irrationals do not share the interval equally: one is countable and the other is not.
+  - It is undefined :: [assumed-non-measurable] Every countable set is measurable, with measure zero.
+  hint: Use the covering argument from the worked example.
+  why: A countable union of points, each of measure zero, has measure zero by countable additivity.
+S: Choose every true statement.
+  + Every countable set of real numbers has measure zero :: The covering argument works for any countable set.
+  + The Cantor set is uncountable and has measure zero :: Removing middle thirds leaves total length 0 but uncountably many points.
+  - Every set of measure zero is countable :: [assumed-the-converse] The Cantor set is a counterexample.
+  - A dense set must have positive measure :: [dense-means-full] The rationals are dense with measure zero.
+  hint: Keep "how many points" separate from "how much length".
+  why: Cardinality and measure are different notions of size. Countable implies measure zero, but not the other way round.
+>P: Let f be 1 at every rational in [0, 1] and 0 at every irrational. What is its Lebesgue integral over [0, 1]?
+  + 0 :: f differs from the zero function only on a set of measure zero.
+  - 1 :: [dense-means-full] The rationals where f is 1 have measure zero.
+  - It does not exist :: [riemann-thinking] That is true of the Riemann integral, whose upper and lower sums never agree. The Lebesgue integral is defined.
+  - 1/2 :: [split-evenly] The two values are not taken on sets of equal measure.
+  hint: On how large a set, in measure, is f different from 0?
+  why: The integral is 1 × m(rationals) + 0 × m(irrationals) = 1 × 0 + 0 × 1 = 0.
+done: Measure makes "almost everywhere" precise. Explore the measure lab.
+
+@ math.5.topology
+goal: Recognise properties that survive continuous deformation, and connect them to what continuous functions can do.
+intro: Topology studies what stays the same when a shape is stretched or bent without tearing or gluing. Lengths and angles change; the number of holes does not.
+  show: flow doughnut > stretch and dent > mug with one handle
+demo: A mug with a handle can be deformed into a doughnut: each has exactly one hole going through it. A ball cannot become a doughnut without tearing, because it has none.
+  show: table Object | Holes through it ;; ball | 0 ;; doughnut | 1 ;; mug with a handle | 1
+G: Sort each object by the number of holes that go right through it.
+  bin No holes: a football | a dinner plate | a solid cube
+  bin One hole: a mug with one handle | a wedding ring | a drinking straw
+  bin Two holes: a pot with two handles | a figure-of-eight loop
+  note a drinking straw :: A straw is a stretched ring: one hole, running along its length.
+  hint: Imagine threading a string through the object.
+  why: Objects with the same number of holes can be deformed into one another; the count of holes is a topological invariant.
+F: Compute the Euler characteristic of a cube.
+  frame: Vertices − edges + faces = 8 − 12 + 6 = __
+  answer: 2
+  hint: Carry out the arithmetic in order.
+  why: 8 − 12 + 6 = 2. Every surface that deforms to a sphere gives 2, however it is cut into faces.
+P: Which of these is an open set of real numbers?
+  + (0, 1) :: Every point of it has a small interval around it lying entirely inside.
+  - [0, 1] :: [included-the-boundary] No interval around 0 stays inside the set.
+  - {0} :: [single-point] A single point contains no interval at all.
+  - [0, 1) :: [included-one-boundary] The point 0 is in the set but has no interval around it inside the set.
+  hint: A set is open when each of its points can move a little in every direction and stay inside.
+  why: Open intervals exclude their endpoints, so every point has room around it.
+>P: A continuous function on [0, 1] takes the value −1 at 0 and 3 at 1. Which property of the interval guarantees it is zero somewhere?
+  + Connectedness :: A continuous image of a connected set is connected, so it cannot skip 0.
+  - Compactness :: [named-the-wrong-property] Compactness guarantees a maximum and a minimum, not intermediate values.
+  - Being closed :: [named-the-wrong-property] The open interval (0, 1) is not closed, yet the intermediate value property still holds on it.
+  - Having length 1 :: [used-a-metric-property] Length is not preserved by continuous maps and plays no part here.
+  hint: The image of the interval is in one piece. What stops it jumping over 0?
+  why: The intermediate value theorem is the statement that continuous functions preserve connectedness.
+done: Topology keeps only what bending cannot break. Explore the topology lab.
+
+@ math.5.diffgeo
+goal: Relate curvature to radius, and explain why Gaussian curvature decides whether a surface can be flattened.
+intro: Curvature measures how sharply something bends. A circle of radius r has curvature 1/r: a small circle bends sharply, a large one gently.
+  show: table Radius | Curvature ;; 1 | 1 ;; 2 | 0.5 ;; 10 | 0.1
+demo: On a sphere, start at the north pole, walk to the equator, a quarter of the way round it, and back to the pole. The triangle traced has three right angles: 270°, not 180°. Positive curvature adds to the angle sum.
+  show: steps Pole to equator: turn 90° ;; A quarter of the equator: turn 90° ;; Back to the pole: the paths meet at 90° ;; Angle sum: 270°
+F: Find the curvature.
+  frame: A circle of radius 4 has curvature __
+  answer: 0.25 | 1/4
+  x 4 :: [gave-the-radius] Curvature is the reciprocal of the radius.
+  hint: Curvature = 1 ÷ radius.
+  why: 1/4 = 0.25. The larger the circle, the smaller its curvature.
+M: Match each surface to its Gaussian curvature.
+  pairs: A sphere => Positive everywhere | A flat plane or a cylinder => Zero everywhere | A saddle => Negative
+  hint: Gaussian curvature multiplies the bending in two perpendicular directions.
+  why: A sphere bends the same way in both directions (positive product). A cylinder is straight in one direction (zero). A saddle bends opposite ways (negative).
+P: A sheet of paper can be rolled into a cylinder but never smoothed onto a sphere. Why?
+  + Gaussian curvature cannot be changed by bending without stretching, and the two differ :: A cylinder has zero Gaussian curvature like the plane; a sphere's is positive.
+  - A cylinder is smaller than a sphere :: [appealed-to-size] Size plays no part: no sphere of any radius can be made from flat paper.
+  - A sphere has no edges :: [appealed-to-edges] A cylinder has no edges along its length either.
+  hint: Gauss showed that one kind of curvature depends only on distances measured within the surface.
+  why: This is Gauss's Theorema Egregium. Rolling paper preserves distances on it, so it preserves Gaussian curvature, which stays zero.
+>P: A triangle is drawn with the straightest possible sides on a saddle-shaped surface. What do its angles add up to?
+  + Less than 180° :: Negative curvature takes away from the angle sum.
+  - Exactly 180° :: [flat-thinking] That holds only where the curvature is zero.
+  - More than 180° :: [sphere-thinking] That is what positive curvature does.
+  hint: On the sphere, positive curvature added to the angle sum.
+  why: The angle sum of a geodesic triangle exceeds 180° by the total curvature inside it, which is negative on a saddle.
+done: Curvature is geometry you can measure from inside the surface. Explore the curvature lab.
+
+@ math.5.functional
+goal: Treat functions as vectors with an inner product, and say what changes in infinite dimensions.
+intro: Functions can be added and scaled like vectors. Give them an inner product, ⟨f, g⟩ = ∫ f(x) g(x) dx, and ideas such as length, angle and orthogonality carry over.
+  show: table For vectors | For functions ;; a list of components | a value at every point ;; a sum of products | an integral of a product
+demo: On the interval from 0 to 2π, the integral of sin x cos x is zero. In this sense sine and cosine are orthogonal, like perpendicular axes, which is what lets a signal be split into its frequencies.
+  show: plot sin(x)*cos(x) x=0..6.283
+M: Match each idea for vectors to its counterpart for functions.
+  pairs: Vector => Function | Dot product => Integral of a product | Matrix => Linear operator | Basis => Family of sines and cosines
+  hint: Each row replaces a finite list by something defined at every point.
+  why: Functional analysis is linear algebra in which the "vectors" are functions and sums become integrals.
+F: Compute the inner product on [0, 1].
+  frame: With f(x) = x and g(x) = 1, ⟨f, g⟩ = __
+  answer: 0.5 | 1/2
+  x 1 :: [evaluated-instead-of-integrating] The inner product integrates x from 0 to 1.
+  hint: ∫ x dx from 0 to 1.
+  why: The integral of x from 0 to 1 is x²/2 = 1/2.
+P: For two functions, ⟨f, g⟩ = 0. What does that say?
+  + They are orthogonal :: Zero inner product is the definition of orthogonality.
+  - They are equal :: [confused-zero-with-equal] ⟨f, f⟩ is the squared length of f, which is zero only for the zero function.
+  - One of them must be the zero function :: [zero-product-rule] Sine and cosine are both non-zero and still orthogonal.
+  hint: What does a zero dot product mean for two arrows?
+  why: Orthogonality generalises perpendicularity; it is what makes Fourier coefficients easy to compute.
+>P: Which fact about finite-dimensional spaces fails in infinite dimensions?
+  + Every bounded sequence has a convergent subsequence :: An infinite orthonormal family is bounded, yet its members stay a fixed distance apart.
+  - Vectors can be added and scaled :: [basic-structure-survives] That is part of the definition of a vector space in any dimension.
+  - An inner product defines lengths and angles :: [basic-structure-survives] Hilbert spaces keep exactly this structure.
+  - Linear maps send sums to sums :: [basic-structure-survives] Linearity means the same in every dimension.
+  hint: Consider the sequence of unit vectors e₁, e₂, e₃, … along infinitely many perpendicular axes.
+  why: Any two of them are √2 apart, so no subsequence converges. The closed unit ball is no longer compact, which is why new tools are needed.
+done: Linear algebra survives the move to infinitely many dimensions, but compactness does not. Explore the operator lab.
+
+@ math.5.complex-analysis
+goal: Say what makes a function holomorphic and why that condition is so strong.
+intro: A complex function is holomorphic when its derivative exists as a complex limit: the same value whichever direction the input approaches from. That is far more demanding than differentiability on the real line.
+  show: table Approach direction | Required slope ;; along the real axis | f′(z) ;; along the imaginary axis | the same f′(z)
+demo: f(z) = z² is holomorphic, with derivative 2z. But the conjugate function, sending x + iy to x − iy, is not: approaching along the real axis gives slope 1 and along the imaginary axis gives −1.
+  show: steps Conjugate of (z + h) minus conjugate of z = conjugate of h ;; h real: ratio = 1 ;; h imaginary: ratio = −1 ;; No single limit
+G: Which functions are holomorphic on the whole plane?
+  bin Holomorphic everywhere: z² | e^z | any polynomial in z
+  bin Not holomorphic: the conjugate of z | \|z\|² | the real part of z
+  note |z|² :: It equals z times its conjugate, so it depends on the conjugate; it is complex differentiable only at 0.
+  hint: A holomorphic function can be written using z alone, never its conjugate.
+  why: Depending on the conjugate breaks the Cauchy–Riemann equations, which express direction-independence of the derivative.
+P: f is holomorphic throughout a region with no holes. What is its integral round any closed loop in that region?
+  + 0 :: This is Cauchy's theorem.
+  - 2πi :: [applied-the-residue-case] That is the integral of 1/z round the origin, where 1/z fails to be holomorphic.
+  - The length of the loop :: [confused-with-arc-length] A contour integral weights dz, not |dz|, and the contributions cancel.
+  - It depends on the loop :: [expected-path-dependence] Holomorphy in a region without holes makes integrals independent of the path.
+  hint: Holomorphic functions have antiderivatives on regions without holes.
+  why: With an antiderivative F, the integral round a closed loop is F(end) − F(start) = 0.
+F: The one closed-loop integral that is not zero.
+  frame: The integral of 1/z once anticlockwise round the unit circle is __ × πi
+  answer: 2
+  x 0 :: [applied-cauchy-wrongly] 1/z is not holomorphic at 0, which lies inside the loop.
+  hint: Substitute z = e^(iθ), so dz = i e^(iθ) dθ.
+  why: The integrand becomes i dθ, and integrating from 0 to 2π gives 2πi.
+>P: A function is holomorphic on the entire plane and bounded. What must it be?
+  + Constant :: This is Liouville's theorem.
+  - A polynomial :: [too-weak-a-conclusion] A non-constant polynomial is unbounded.
+  - Periodic :: [named-an-example] sin z is periodic and entire but unbounded along the imaginary axis.
+  - Zero :: [too-strong-a-conclusion] Any constant, not only zero, is bounded and entire.
+  hint: On the real line sin x is bounded and smooth. Why does that fail to be an example here?
+  why: Cauchy's estimates bound the derivative by M/R on a disc of radius R; letting R grow forces f′ = 0 everywhere.
+done: One complex derivative gives all derivatives, and much more. Explore the complex lab.
+
+@ math.5.logic
+goal: Distinguish consistency, soundness and completeness, and state what Gödel's incompleteness theorem does and does not show.
+intro: A formal system has axioms and rules of proof. We can ask whether it never proves a contradiction (consistency), proves only truths (soundness), and settles every statement (completeness).
+  show: table Property | Meaning ;; Consistent | never proves both a statement and its negation ;; Sound | proves only true statements ;; Complete | proves or refutes every statement
+demo: Gödel built, inside arithmetic, a statement that says of itself: "I am not provable in this system." If the system is consistent, it cannot prove that statement, so the statement is true, and unprovable.
+  show: steps G says: "G is not provable here" ;; If G were provable, the system would prove a falsehood ;; So, if the system is sound, G is not provable ;; Then G is true
+M: Match each property of a formal system to its meaning.
+  pairs: Consistent => Never proves a statement and its negation | Complete => Proves or refutes every statement | Sound => Proves only true statements | Decidable => An algorithm settles what is provable
+  hint: Two of these are about what the system proves; one is about truth; one is about algorithms.
+  why: These are four different properties. Gödel showed that for arithmetic, consistency and completeness cannot both hold.
+P: What does the first incompleteness theorem say about a consistent, mechanically axiomatised system containing arithmetic?
+  + It contains true statements that it cannot prove :: The Gödel sentence is one of them.
+  - It proves some contradiction :: [confused-with-inconsistency] The theorem assumes consistency; it shows a gap, not a contradiction.
+  - It proves or refutes every statement :: [reversed-the-theorem] That is completeness, exactly what the theorem denies.
+  - It contains no true statements :: [overstated] Such systems prove a great deal of true mathematics.
+  hint: The Gödel sentence is true if the system is consistent. Can the system prove it?
+  why: The system cannot prove its own Gödel sentence without being inconsistent, so some truth always lies outside its proofs.
+P: Which of these is a misreading of Gödel's theorem?
+  + "Nothing in mathematics can be proved for certain" :: Proofs remain valid; the theorem concerns statements no proof in a given system reaches.
+  - "No single consistent system of this kind proves every arithmetical truth" :: [rejected-a-valid-reading] That is the theorem.
+  - "A stronger system can prove the old Gödel sentence but has a new one of its own" :: [rejected-a-valid-reading] Adding axioms moves the gap without closing it.
+  - "Such a system cannot prove its own consistency" :: [rejected-a-valid-reading] That is the second incompleteness theorem.
+  hint: The theorem limits what one system can reach. Does it undermine the proofs that system does contain?
+  why: Incompleteness says provability falls short of truth. It does not say that proved statements are uncertain.
+>P: Suppose a program H could decide, for any program and input, whether it halts. A program D runs H on itself and then does the opposite of what H predicts. What follows?
+  + No such program H can exist :: D halts exactly when H says it does not, a contradiction.
+  - D must run for ever :: [picked-one-branch] If D ran for ever, H would say so, and then D would halt.
+  - D must halt :: [picked-one-branch] If D halted, H would say so, and then D would loop for ever.
+  - H works for every program except D :: [exempted-the-counterexample] H was assumed to work for every program, and D is one.
+  hint: Follow both possibilities for what H says about D.
+  why: This is Turing's diagonal argument, the same self-reference that powers Gödel's proof.
+done: Proof has edges, and we can prove where they are. Explore the logic lab.
+
+@ math.5.numerical
+goal: Explain rounding error, apply one step of an iterative method, and choose computations that keep errors small.
+intro: A computer stores numbers with a fixed number of digits. Most results are rounded, so every calculation carries a small error, and a careless method can let those errors grow.
+  show: table In exact arithmetic | In binary floating point ;; 0.1 + 0.2 = 0.3 | 0.1 + 0.2 = 0.30000000000000004
+demo: Newton's method improves a guess for √2 by replacing x with the average of x and 2/x. From 1 it gives 1.5, then 1.4167, then 1.4142. The number of correct digits roughly doubles each step.
+  show: table Step | x ;; 0 | 1 ;; 1 | 1.5 ;; 2 | 1.41667 ;; 3 | 1.41422
+F: Take one Newton step for √2.
+  frame: Starting from x = 2, the next guess is (2 + 2/2) ÷ 2 = __
+  answer: 1.5 | 3/2
+  x 3 :: [forgot-to-halve] 3 is the sum of x and 2/x. The new guess is their average.
+  hint: 2/2 = 1, so average 2 and 1.
+  why: (2 + 1) ÷ 2 = 1.5.
+X: Bisection halves the interval that traps a root.
+  param n: 1..20 /1 @1 | Bisection steps
+  out w: 1/2^n | Width of the interval
+  aim: The root starts in an interval of width 1. Find the fewest steps that make the interval narrower than 0.001.
+  target: w < 0.001 and w > 0.0005
+  view: bars w over n
+  hint: Each step halves the width: 0.5, 0.25, 0.125…
+  why: 2¹⁰ = 1024, so ten halvings give a width of about 0.00098. Bisection gains one binary digit per step: slow but certain.
+P: Two nearly equal floating-point numbers are subtracted. What is the danger?
+  + Most of the significant digits cancel, leaving mainly rounding error :: This is catastrophic cancellation.
+  - The result overflows :: [named-the-wrong-failure] Overflow happens when results are too large; a difference of near-equal numbers is small.
+  - Nothing: subtraction is exact :: [assumed-exactness] The subtraction may be exact, but it exposes the rounding already present in the inputs.
+  hint: If two numbers agree in their first twelve digits, how many meaningful digits survive in their difference?
+  why: The leading digits that agree cancel. What remains was mostly beyond the stored precision, so its relative error is large.
+>P: You must add a long list of positive numbers of very different sizes in floating point. Which order is safest?
+  + Smallest first :: Small terms can accumulate into something large enough to register.
+  - Largest first :: [ignored-absorption] Once the running total is large, each small term is rounded away when added.
+  - Any order: addition is associative :: [assumed-exact-arithmetic] Floating-point addition is not associative, because each sum is rounded.
+  hint: What happens when a tiny number is added to a huge one with limited digits?
+  why: Adding a small number to a much larger one can leave the larger unchanged. Summing small terms first lets them count.
+done: Good numerical methods are the ones that keep their errors small. Explore the numerical lab.
+
+@ math.5.pde
+goal: Tell the heat, wave and Laplace equations apart by how their solutions behave.
+intro: A partial differential equation links how a quantity changes in time to how it varies in space. The heat equation says a point warms up when it is cooler than the average of its neighbours.
+  show: table Equation | Describes ;; heat equation | temperature spreading out ;; wave equation | a disturbance travelling ;; Laplace's equation | a steady state
+demo: Heat one spot on a metal rod. The heat equation flattens the peak: the hot spot cools, its surroundings warm, and sharp features disappear first.
+  show: plot exp(-x*x) x=-3..3
+M: Match each equation to the behaviour of its solutions.
+  pairs: The heat equation => Differences smooth out as time passes | The wave equation => Disturbances travel at a fixed speed | Laplace's equation => A steady state that does not change in time
+  hint: Which one involves no time at all?
+  why: Heat diffuses, waves propagate, and Laplace's equation describes the equilibrium that diffusion settles into.
+P: At one point of a rod the temperature profile is a local peak: hotter than the points on either side. According to the heat equation, what happens there?
+  + The temperature falls :: The rate of change follows the second space derivative, which is negative at a peak.
+  - The temperature rises :: [reversed-the-sign] Heat flows away from a hot spot, not towards it.
+  - The temperature stays the same :: [assumed-equilibrium] A peak is not a steady state unless the whole profile is straight.
+  hint: The heat equation sets the rate of change in time equal to a constant times the curvature of the profile.
+  why: uₜ = k·uₓₓ, and at a local maximum uₓₓ < 0, so uₜ < 0.
+G: Is each piece of information an initial condition or a boundary condition?
+  bin Initial condition: the rod's temperature profile at time 0 | a string's shape and velocity at the start
+  bin Boundary condition: both ends of the rod held at 0 °C | one end insulated, so no heat flows through it | both ends of the string fixed
+  hint: Does it describe the whole system at one moment, or the edges of the system at every moment?
+  why: Initial conditions fix the state at the start; boundary conditions constrain the edges for all time. A well-posed problem needs both.
+>P: A plucked guitar string and a cooling poker both start with a sharply peaked profile. Which keeps its sharp features as time passes?
+  + The string :: The wave equation carries shapes along without smoothing them.
+  - The poker :: [swapped-the-equations] The heat equation smooths sharp features almost immediately.
+  - Both :: [treated-the-equations-alike] Only the wave equation preserves the shape.
+  - Neither :: [treated-the-equations-alike] The string's corners travel and reflect; they do not melt away.
+  hint: One equation spreads; the other propagates.
+  why: Solutions of the wave equation are travelling copies of the initial shape. Solutions of the heat equation are instantly smooth.
+done: Know the behaviour and you know the equation. Explore the wave and field labs.
+
+@ math.5.frontier
+goal: Separate evidence from proof, and place open problems on the map of mathematics.
+intro: A conjecture is a statement mathematicians have reason to believe but have not proved. However much evidence gathers, it stays a conjecture until someone proves it.
+  show: table Statement | Status ;; Fermat's Last Theorem | proved in 1994 ;; The Riemann hypothesis | open ;; Goldbach's conjecture | open
+demo: Goldbach's conjecture says every even number greater than 2 is a sum of two primes: 4 = 2 + 2, 6 = 3 + 3, 8 = 3 + 5. Computers have checked it to enormous numbers. It is still unproved.
+  show: table Even number | Two primes ;; 4 | 2 + 2 ;; 6 | 3 + 3 ;; 8 | 3 + 5 ;; 10 | 3 + 7
+G: Proved, or still open?
+  bin Proved: Fermat's Last Theorem | the four colour theorem | the Poincaré conjecture
+  bin Still open: the Riemann hypothesis | the twin prime conjecture | P versus NP | Goldbach's conjecture
+  note the Poincaré conjecture :: It keeps its old name, but Perelman proved it in 2003.
+  hint: A name containing "conjecture" does not settle the question either way.
+  why: Wiles, Appel and Haken, and Perelman settled the first three. The other four remain unproved.
+P: A conjecture about all whole numbers has been checked for the first trillion cases. What has been established?
+  + Strong evidence, but not a proof :: Infinitely many cases remain unchecked.
+  - The conjecture is proved :: [evidence-as-proof] No finite check covers infinitely many numbers.
+  - The conjecture is probably false :: [reversed-the-evidence] A trillion confirmations are evidence in its favour.
+  hint: How many whole numbers lie beyond the first trillion?
+  why: A universal statement about infinitely many cases needs an argument that covers them all at once.
+O: Put the usual life of a major result in order.
+  items: A pattern is noticed and stated as a conjecture | Special cases are proved | A full proof is announced | Other mathematicians check the proof | The result becomes a theorem others build on
+  ends: Earliest | Latest
+  hint: A proof is trusted only after others have checked it.
+  why: Conjecture, partial progress, a claimed proof, verification, then acceptance: the checking stage is what turns a claim into a theorem.
+>P: A computer finds no counterexample to a claim among all numbers below 10²⁰. Later a counterexample is found near 10³⁰⁰. What does this episode show?
+  + Checking finitely many cases can never establish a claim about all numbers :: The first failure can lie far beyond any search.
+  - The computer must have made an error :: [blamed-the-tool] The search was correct for the range it covered.
+  - The claim is true for practical purposes :: [lowered-the-standard] In mathematics a single counterexample makes a universal claim false.
+  hint: Is the claim about numbers below 10²⁰, or about all numbers?
+  why: Several conjectures have failed only at astronomically large numbers. Size of the search is no substitute for proof.
+done: The frontier is where evidence is waiting for proof. Read on in the linked articles.

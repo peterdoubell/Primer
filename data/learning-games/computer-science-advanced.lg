@@ -1,0 +1,781 @@
+# Computer science, stages 3 to 5 (ages 13 to adult).
+# Trace a program, repair a bug, choose a structure, weigh a design.
+# Code examples are written for Primer.
+
+@ cs.3.data-structures
+goal: Choose a data structure by the operations it makes cheap, and trace how stacks and queues behave.
+intro: A data structure is a way of organising data so that certain operations are fast. The right choice depends on what you need to do most often.
+  show: table Structure | Rule | Good at ;; array | items addressed by position | jumping straight to item n ;; stack | last in, first out | undoing, backtracking ;; queue | first in, first out | serving in order of arrival ;; hash table | values looked up by key | finding by name ;; tree | items in a branching hierarchy | keeping data sorted
+demo: A stack is like a pile of plates: you add to the top and take from the top. Push 1, push 2, push 3, then pop: you get 3 back, the last one in. A queue is like a line at a counter: the first to arrive is the first served.
+  show: pair steps push 1 ;; push 2 ;; push 3 ;; pop gives 3 || steps join A ;; join B ;; join C ;; serve gives A
+P: A stack starts empty. Push 1, push 2, push 3, pop, push 4, pop, pop. What does the final pop return?
+  + 2 :: The pops return 3, then 4, then 2.
+  - 1 :: [queue-order] First-in-first-out is a queue. A stack returns the most recent item.
+  - 4 :: [already-popped] The second pop removed 4.
+  - 3 :: [already-popped] The first pop removed 3.
+  keep
+  hint: Write the stack down after each operation.
+  why: After the pushes and the first pop the stack holds 1, 2. Pushing 4 and popping removes 4. The last pop returns 2.
+P: A queue starts empty. A, B and C join in that order. One is served, D joins, and one more is served. Who was served second?
+  + B :: A is served first, then B.
+  - A :: [already-served] A was the first to be served.
+  - D :: [stack-order] D joined last, and a queue serves its oldest member.
+  - C :: [skipped-one] B is ahead of C.
+  keep
+  hint: The queue serves from the front and adds at the back.
+  why: A queue is first in, first out. A leaves, then B, whatever joins behind them.
+M: Match each task to the structure that suits it.
+  pairs: An undo history => Stack | Print jobs waiting their turn => Queue | Finding a phone number by name => Hash table | Folders inside folders => Tree | The pixels of an image, by row and column => Array
+  hint: Which task needs the most recent item first? Which needs the oldest?
+  why: Undo wants the latest action, a printer serves in order of arrival, lookup by name is what hashing is for, nesting is a tree and a grid of positions is an array.
+>P: A program must check that the brackets in "( [ ] { } )" are properly matched and nested. Which structure fits?
+  + A stack: push each opening bracket, and pop to compare at each closing one :: The most recently opened must close first.
+  - A queue :: [fifo-mismatch] A queue would offer the earliest opener, but the latest must close first.
+  - A hash table :: [lookup-not-order] Matching depends on the order of nesting, which a hash table does not keep.
+  hint: Which bracket must be closed first: the earliest opened, or the latest?
+  why: Nesting is last-opened, first-closed, exactly a stack's rule.
+done: Ask which operations must be fast, then choose. Watch each structure work in the visualiser.
+
+@ cs.3.algorithms
+goal: Trace searching and sorting algorithms by hand, follow a recursive definition, and compare algorithms by how their running time grows.
+intro: An algorithm is judged by correctness first and by cost second. Cost is described by how the number of steps grows with the size of the input, written in big-O notation.
+  show: table Growth | Name | Example ;; O(log n) | logarithmic | binary search ;; O(n) | linear | scanning a list ;; O(n log n) | linearithmic | merge sort ;; O(n²) | quadratic | comparing every pair
+demo: Binary search for 30 in the sorted list [3, 8, 12, 17, 21, 30, 44]. Check the middle, 17: too small, so discard the left half. Check the middle of what remains, 30: found, in two checks.
+  show: steps [3, 8, 12, 17, 21, 30, 44]: the middle is 17 ;; [21, 30, 44]: the middle is 30 ;; found
+O: Binary search looks for 44 in [3, 8, 12, 17, 21, 30, 44]. Put the values it examines in order.
+  items: 17 | 30 | 44
+  ends: Examined first | Examined last
+  hint: Start in the middle of the whole list, then the middle of the right-hand part.
+  why: The middle is 17, which is too small. The middle of [21, 30, 44] is 30, still too small. Only 44 remains.
+P: One pass of bubble sort runs along [5, 2, 8, 1], swapping each neighbouring pair that is out of order. What is the list after that pass?
+  + [2, 5, 1, 8] :: 5 and 2 swap, 5 and 8 stay, 8 and 1 swap.
+  - [1, 2, 5, 8] :: [assumed-fully-sorted] One pass moves only the largest item into its final place.
+  - [2, 5, 8, 1] :: [stopped-after-first-swap] The pass goes on to compare 8 with 1.
+  - [5, 2, 1, 8] :: [missed-the-first-swap] The pass begins by comparing 5 with 2.
+  hint: Compare positions 1 and 2, then 2 and 3, then 3 and 4, swapping when needed.
+  why: Each pass carries the largest remaining value to the end. Further passes are needed to finish.
+F: Follow the recursion.
+  show: steps def f(n): ;; if n == 0: return 1 ;; return n * f(n - 1)
+  frame: f(4) is __
+  answer: 24
+  x 10 :: [added-instead] The function multiplies: 4 × 3 × 2 × 1.
+  x 4 :: [one-level-only] f(4) is 4 × f(3), and f(3) has still to be worked out.
+  hint: f(4) = 4 × f(3). Keep unfolding until you reach f(0).
+  why: f(4) = 4 × 3 × 2 × 1 × f(0) = 24. The base case f(0) = 1 stops the recursion.
+G: Sort the tasks by how their cost grows.
+  bin O(log n): binary search in a sorted list
+  bin O(n): finding the largest value in an unsorted list | adding up a list
+  bin O(n log n): merge sort
+  bin O(n²): bubble sort | comparing every item with every other
+  hint: Does it halve the problem, visit each item once, or visit each pair?
+  why: Halving gives log n, one visit per item gives n, a good sort gives n log n, and work on every pair gives n squared.
+>P: A program will search the same list of a million items thousands of times. What is the efficient plan?
+  + Sort the list once, then use binary search for every lookup :: One cost of n log n, then about 20 steps per search.
+  - Scan the list from the start each time :: [ignored-repeated-cost] Thousands of scans of a million items is billions of steps.
+  - Use binary search on the list as it stands :: [ignored-precondition] Binary search is correct only on sorted data.
+  hint: Which cost is paid once, and which is paid on every search?
+  why: Preparation pays for itself when a job is repeated. Sorting once makes every later search logarithmic.
+done: Trace it, count it, compare it. Race the sorting algorithms in the visualiser.
+
+@ cs.3.oop
+goal: Read object-oriented code: tell a class from its objects, follow method calls through inheritance, and choose between "is a" and "has a".
+intro: Object-oriented programming bundles data with the functions that work on it. A class is the blueprint. An object is one thing built from it, with its own data.
+  show: table Term | Meaning ;; class | a blueprint for objects ;; object | one instance made from a class ;; attribute | data stored on an object ;; method | a function that belongs to an object ;; inheritance | a class taking on the features of another
+demo: A class Counter has an attribute, count, and a method, add, that increases it. Make two counters, a and b. Calling a.add() twice and b.add() once leaves a.count at 2 and b.count at 1. Each object keeps its own data.
+  show: steps a = Counter() ;; b = Counter() ;; a.add() ;; a.add() ;; b.add() ;; a.count is 2 and b.count is 1
+M: Match each term to its meaning.
+  pairs: Class => A blueprint for objects | Object => One instance made from a class | Method => A function that belongs to an object | Attribute => Data stored on an object | Inheritance => One class taking on the features of another
+  hint: A blueprint is not a house; many houses can be built from one.
+  why: Classes describe, objects exist. Methods are behaviour, attributes are state, and inheritance shares both.
+P: Cat and Dog both inherit from Animal. What does this program print?
+  show: steps class Animal: def speak(self): return "..." ;; class Dog(Animal): def speak(self): return "Woof" ;; class Cat(Animal): pass ;; print(Cat().speak())
+  + ... :: Cat defines no speak of its own, so it uses Animal's.
+  - Woof :: [sibling-confusion] That method belongs to Dog. Cat inherits from Animal, not from Dog.
+  - An error, because Cat has no speak method :: [inheritance-ignored] A missing method is looked for in the parent class.
+  hint: Where does Python look when Cat itself has no speak?
+  why: A subclass inherits every method that it does not override. Cat falls back on Animal's speak.
+G: "Is a" or "has a"? Choose the relationship.
+  bin Is a (inheritance): a Dog and an Animal | a Square and a Shape | a Savings account and an Account
+  bin Has a (composition): a Car and its Engine | a Library and its Books | a Team and its Players
+  hint: Try the sentence both ways: "a car is an engine" or "a car has an engine"?
+  why: Inheritance models "is a kind of". When one thing contains or uses another, the class should hold it as an attribute.
+>P: A game has a Player and an Enemy. Both have health and a take_damage method, written identically. Which design is sound?
+  + A shared parent class, Character, holding health and take_damage; both inherit from it :: The common code lives in one place.
+  - Leave the same code in both classes :: [duplication] A fix to one copy can be forgotten in the other.
+  - Make Enemy inherit from Player :: [is-a-misuse] An enemy is not a kind of player. It would inherit behaviour it should not have.
+  hint: What are a player and an enemy both a kind of?
+  why: Shared behaviour belongs in a common parent that both really are a kind of.
+done: Blueprint and instance, state and behaviour. Model something you know as two or three classes.
+
+@ cs.3.web
+goal: Separate the three layers of a web page (structure, appearance, behaviour) and find a fault in the right layer.
+intro: A web page is built from three languages with three jobs. HTML gives the content its structure, CSS gives it its appearance and JavaScript gives it behaviour.
+  show: table Layer | Job | Example ;; HTML | structure and content | <h1>Title</h1> ;; CSS | appearance | color: navy; ;; JavaScript | behaviour | respond to a click
+demo: A button begins as HTML: <button>Save</button>. CSS makes it blue with rounded corners. JavaScript makes something happen when it is pressed. Take any one layer away and the other two still do their own jobs.
+  show: steps <button id="save">Save</button> ;; #save { background: navy; } ;; save.addEventListener("click", store)
+G: Which language is each line written in?
+  bin HTML: <p>Hello</p> | <img src="cat.png" alt="A cat">
+  bin CSS: font-size: 18px; | h1 { color: navy; }
+  bin JavaScript: button.addEventListener("click", greet) | let count = 0;
+  hint: Angle brackets mark up content, property-and-value pairs style it, and statements make things happen.
+  why: HTML marks up content with tags, CSS sets properties to values, and JavaScript gives instructions.
+E: One list item in this HTML is never closed. Repair it.
+  tokens: <ul> | <li>Tea</li> | <li>Milk{<li>Milk</li>} | </ul>{</ol>}
+  limit: 1
+  aim: Change one line so that every element that is opened is also closed.
+  accept: 3=<li>Milk</li>
+  x 4=</ol> :: [changed-the-wrong-part] The list was opened with <ul>, so </ul> is the right closing tag. Look at the items.
+  hint: Compare the two list items.
+  why: An opening tag is paired with a closing tag. <li>Milk needs </li>.
+P: A stylesheet contains the rule ".warning { color: red; }". Which elements turn red?
+  + Every element with class="warning" :: The dot selects by class.
+  - The one element with id="warning" :: [id-class-confusion] An id is selected with a hash sign: #warning.
+  - Every <warning> element :: [tag-confusion] A bare word selects by tag name. The dot means class.
+  hint: What does the dot at the start of a selector stand for?
+  why: In CSS a leading dot selects a class, a hash selects an id, and a bare word selects a tag.
+P: Why should an image in HTML have alt text?
+  + People using screen readers, and anyone whose image fails to load, get a description in its place :: It makes the content available to everyone.
+  - It makes the image load faster :: [invented-benefit] Alt text has no effect on loading speed.
+  - It is decoration and may be left empty on every image :: [accessibility-ignored] Only purely decorative images should have empty alt text.
+  hint: What does a visitor get who cannot see the picture?
+  why: Alt text is the image's content in words. Without it, part of the page is missing for some readers.
+>P: A button looks right on the page, but nothing happens when it is clicked. In which layer should you look first?
+  + JavaScript: the click handler is missing, or is attached to the wrong element :: Behaviour lives in that layer.
+  - CSS :: [layer-confusion] CSS governs how the button looks, and it looks right.
+  - HTML :: [layer-confusion] The button exists and is displayed, so the structure is present.
+  hint: Which layer is responsible for what happens on a click?
+  why: Knowing which layer does which job tells you where to look when something fails.
+done: Structure, appearance, behaviour. Build a page with one element of each in the web activity.
+
+@ cs.3.databases
+goal: Read and write simple SQL queries, predict their results from a table, and explain why data is split into related tables.
+intro: A relational database keeps data in tables of rows and columns. SQL is the language for asking questions of it: which columns, from which table, for which rows.
+  show: table id | name | year | house ;; 1 | Ada | 9 | Oak ;; 2 | Ben | 10 | Elm ;; 3 | Cy | 9 | Elm ;; 4 | Di | 11 | Oak
+demo: "SELECT name FROM pupils WHERE house = 'Oak';" reads: give me the name column, from the pupils table, for only those rows whose house is Oak. The result is Ada and Di.
+  show: steps SELECT name: which column ;; FROM pupils: which table ;; WHERE house = 'Oak': which rows
+P: Using the pupils table above, what does "SELECT name FROM pupils WHERE year = 9;" return?
+  show: table id | name | year | house ;; 1 | Ada | 9 | Oak ;; 2 | Ben | 10 | Elm ;; 3 | Cy | 9 | Elm ;; 4 | Di | 11 | Oak
+  + Ada and Cy :: The two rows in which year is 9.
+  - Ada only :: [stopped-at-first-match] A query returns every matching row, not just the first.
+  - All four names :: [ignored-where] WHERE keeps only the rows that pass its test.
+  - 9 and 9 :: [selected-wrong-column] SELECT name asks for the names, not the years.
+  hint: Find the rows where year is 9, then read off their names.
+  why: WHERE filters the rows and SELECT picks the columns. Two rows have year 9: Ada and Cy.
+F: Count the matching rows.
+  show: table id | name | year | house ;; 1 | Ada | 9 | Oak ;; 2 | Ben | 10 | Elm ;; 3 | Cy | 9 | Elm ;; 4 | Di | 11 | Oak
+  frame: SELECT COUNT(*) FROM pupils WHERE house = 'Elm'; returns __
+  answer: 2 | two
+  x 4 :: [ignored-where] Four is the whole table. Only the Elm rows are counted.
+  hint: How many rows have Elm in the house column?
+  why: Ben and Cy are in Elm, so the count is 2.
+B: Build a query for the names of the pupils in Oak, in alphabetical order.
+  bank: SELECT name | FROM pupils | WHERE house = 'Oak' | ORDER BY name | WHERE year = 'Oak' | GROUP BY id
+  answer: SELECT name | FROM pupils | WHERE house = 'Oak' | ORDER BY name
+  x WHERE year = 'Oak' :: [wrong-column] Oak is a house, not a year.
+  x GROUP BY id :: [unneeded-clause] Nothing is being grouped. The question asks for sorting.
+  hint: The order of the clauses is SELECT, FROM, WHERE, ORDER BY.
+  why: Choose the column, name the table, filter the rows, then sort the result.
+P: Which column of the pupils table should be its primary key?
+  + id :: It is different for every row and never needs to change.
+  - name :: [not-guaranteed-unique] Two pupils may share a name.
+  - year :: [repeats] Many pupils are in the same year.
+  hint: Which column can never hold the same value in two rows?
+  why: A primary key identifies exactly one row. An id made for the purpose is the safe choice.
+>P: A school stores each house's colour. Why keep it in a separate houses table, and not repeat it in every pupil's row?
+  + The colour is then stored once, so it cannot become inconsistent, and one update changes it everywhere :: The tables are joined when both are needed.
+  - Only to save typing :: [trivialised] The real danger is copies that disagree with one another.
+  - Because a pupils table cannot hold text :: [false-limit] It can. The reason is about the design of the data.
+  hint: If Oak changes its colour, how many rows would need editing in each design?
+  why: Storing each fact once is the idea behind normalisation. Repeated data drifts apart.
+done: Select, from, where. Write three queries of your own against the table in the SQL activity.
+
+@ cs.3.hardware
+goal: Work out the output of logic gates, combine gates to add binary digits, and follow the processor's fetch-decode-execute cycle.
+intro: Inside a computer everything is built from switches arranged as logic gates. Each gate takes bits in and gives one bit out by a fixed rule.
+  show: table A | B | AND | OR | XOR ;; 0 | 0 | 0 | 0 | 0 ;; 0 | 1 | 0 | 1 | 1 ;; 1 | 0 | 0 | 1 | 1 ;; 1 | 1 | 1 | 1 | 0
+demo: AND gives 1 only when both inputs are 1. OR gives 1 when at least one input is 1. XOR gives 1 when the inputs differ. NOT flips its single input. Gates feed into gates: NOT (1 AND 1) is NOT 1, which is 0.
+  show: steps 1 AND 1 = 1 ;; NOT 1 = 0
+M: Match each gate to its rule.
+  pairs: AND => 1 only when both inputs are 1 | OR => 1 when at least one input is 1 | XOR => 1 when the inputs differ | NOT => The opposite of its input | NAND => 0 only when both inputs are 1
+  hint: NAND is AND followed by NOT.
+  why: Every digital circuit is built from these few rules. Indeed, NAND alone is enough to build all the others.
+P: What is NOT (1 AND 0)?
+  + 1 :: 1 AND 0 is 0, and NOT 0 is 1.
+  - 0 :: [forgot-the-not] 1 AND 0 is 0, but the NOT then flips it.
+  hint: Work out the bracket first.
+  why: Evaluate from the inside out: the AND gives 0, and the NOT turns it into 1.
+F: Evaluate from the inside out.
+  frame: (1 OR 0) AND (1 XOR 1) = __
+  answer: 0
+  x 1 :: [xor-as-or] 1 XOR 1 is 0, because the inputs are the same. Then 1 AND 0 is 0.
+  hint: Work out each bracket, then combine the results.
+  why: 1 OR 0 = 1, and 1 XOR 1 = 0. Then 1 AND 0 = 0.
+O: Put the steps of the processor's cycle in order.
+  items: Fetch the next instruction from memory | Decode what the instruction means | Execute it | Store the result | Move on to the next instruction
+  ends: First | Last
+  hint: The processor must have an instruction before it can understand it.
+  why: Fetch, decode, execute, store, and repeat: billions of times every second.
+>P: To add two bits, A and B, a circuit must give a sum bit and a carry bit. For instance 1 + 1 = 10 in binary: sum 0, carry 1. Which gates do it?
+  + Sum is A XOR B; carry is A AND B :: XOR gives 0 for 1 + 1, and AND gives the carry.
+  - Sum is A OR B; carry is A AND B :: [or-for-sum] OR gives 1 for 1 + 1, but the sum bit should be 0.
+  - Sum is A AND B; carry is A XOR B :: [swapped] Then 1 + 0 would give sum 0 and carry 1.
+  hint: Check each choice against 1 + 1, where the sum bit must be 0.
+  why: This circuit is the half adder. Chains of adders built from it do all the arithmetic in a processor.
+done: From gates to adders to a processor. Build a half adder in the logic gate activity.
+
+@ cs.3.versioncontrol
+goal: Use the working habits of software teams: commit in small steps, work on branches, resolve conflicts and test what you change.
+intro: Version control records every change to a project, who made it and why. It lets several people work at once and lets anyone go back to an earlier state.
+  show: table Term | Meaning ;; commit | a saved snapshot of changes, with a message ;; branch | an independent line of work ;; merge | bringing two lines of work together ;; conflict | two changes to the same lines that must be reconciled
+demo: You want to add a search box. You create a branch, make the change in small commits, and open a request for a teammate to review it. The tests run automatically. When they pass and the review is approved, the branch is merged.
+  show: flow branch > commit > push > review > merge
+O: Put the steps of a typical team workflow in order.
+  items: Create a branch | Make changes and commit them | Push the branch | Open a request for review | Merge once the tests pass
+  ends: First | Last
+  hint: Work happens on the branch before anyone reviews it.
+  why: Branch, commit, push, review, merge. The main line receives only work that has been tested and reviewed.
+C: Two commit messages for the same change. Which is better, and why?
+  left: text fix stuff
+  right: text Fix off-by-one in pagination: the last page was dropped
+  + The right: it says what changed and why, so a later reader can find and understand it :: A message is written for the future.
+  - The left: shorter is always better :: [brevity-over-meaning] It is short because it says nothing.
+  - It makes no difference, since the code speaks for itself :: [history-ignored] The code shows what it does now, not why it was changed.
+  hint: Which would help you a year from now, searching for when a bug was fixed?
+  why: A commit message is a note to your team and to your future self. It should state the change and the reason.
+P: A function is_even(n) returns True when n is even. Which set of test inputs is most useful?
+  + 0, 1, 2, -3 and a very large number :: Boundaries, both outcomes, a negative and an extreme.
+  - 2, 4 and 6 :: [only-the-happy-path] All three are even. A function that always returned True would pass.
+  - None: the function is too simple to need tests :: [no-tests] Simple functions break too, especially at zero and at negatives.
+  hint: Which set could tell a correct function from one that always returns True?
+  why: Good tests cover both outcomes and the edge cases, where bugs gather.
+>P: You and a teammate have both edited the same line. Your push is rejected. What should you do?
+  + Fetch their change, decide how to combine the two, run the tests, then push :: Resolve the conflict deliberately.
+  - Force your version over theirs :: [destroyed-others-work] That silently discards your teammate's change.
+  - Delete the project and start again :: [panic] The history is intact. Nothing has been lost.
+  hint: Both changes were made for a reason.
+  why: A conflict means that two intentions meet at one place. A person must decide how both are to be honoured.
+done: Small commits, clear messages, tests, review. Keep your next project under version control from its first day.
+
+@ cs.4.algorithms-adv
+goal: Recognise when a greedy choice is safe and when dynamic programming is needed, and find shortest paths in a weighted graph.
+intro: Three strategies cover a great many problems. A greedy algorithm takes the best-looking step each time. Dynamic programming solves overlapping subproblems once and reuses the answers. Graph algorithms explore connections systematically.
+  show: table Strategy | Idea | Works when ;; greedy | take the locally best choice | local choices never need undoing ;; dynamic programming | solve subproblems once and combine | subproblems overlap ;; graph search | expand outward from a source | the problem is one of connection
+demo: Make 6 from coins of 1, 3 and 4. Greedy takes the largest coin first: 4, then 1, then 1, three coins. But 3 + 3 uses two. The greedy choice of 4 could not be undone. Dynamic programming compares every first coin: best(6) = 1 + the smallest of best(5), best(3) and best(2).
+  show: table Method | Coins used | Count ;; greedy | 4 + 1 + 1 | 3 ;; best | 3 + 3 | 2
+F: Use the coins 1, 3 and 4.
+  frame: The fewest coins that make 6 is __
+  answer: 2 | two
+  x 3 :: [trusted-greedy] Largest-first gives 4 + 1 + 1. Try 3 + 3.
+  hint: Is there a way that does not use the 4?
+  why: 3 + 3 makes 6 with two coins. Taking the 4 first forces two 1s.
+F: Find the shortest route from A to D.
+  show: table Edge | Length ;; A to B | 4 ;; A to C | 1 ;; C to B | 2 ;; B to D | 5 ;; C to D | 8
+  frame: The shortest path from A to D has length __
+  answer: 8
+  x 9 :: [took-a-direct-looking-route] A, B, D and A, C, D both come to 9. Going A, C, B, D is shorter.
+  hint: There are three routes. One of them passes through both C and B.
+  why: A to C to B to D is 1 + 2 + 5 = 8. Reaching B by way of C costs 3, less than the direct edge of 4.
+G: Is a greedy method enough, or is dynamic programming needed?
+  bin Greedy is optimal: giving change with coins of 1, 5, 10 and 25 | fitting in the most meetings by earliest finishing time | building a minimum spanning tree
+  bin Needs dynamic programming: giving change with coins of 1, 3 and 4 | the longest common subsequence of two strings | packing a knapsack with whole items
+  hint: Can an early choice ever turn out to be wrong later?
+  why: Greedy is correct only when the locally best choice is always part of some best solution. Otherwise every option must be compared, with reuse of the subproblems.
+>P: A bag carries 10 kg. Item A weighs 6 kg and is worth 30. Items B and C each weigh 5 kg and are worth 20. Greedy by value per kilogram takes A and then can fit nothing else. What is the best total value?
+  + 40, by taking B and C :: Together they weigh exactly 10 kg.
+  - 30 :: [trusted-greedy] A has the best ratio, but it wastes 4 kg of capacity.
+  - 50 :: [ignored-capacity] A with B weighs 11 kg, which is over the limit.
+  - 70 :: [ignored-capacity] All three weigh 16 kg.
+  keep
+  hint: Compare A alone with B and C together.
+  why: With whole items, a good ratio can leave space unused. That is why this problem needs dynamic programming.
+done: Test the greedy idea against a small counter-example before you trust it. Step through the path-finding visualiser.
+
+@ cs.4.theory
+goal: Trace a finite automaton, tell what such a machine can and cannot recognise, and state what the halting problem rules out.
+intro: The theory of computation asks what can be computed at all, and with how much memory. Its simplest machine, the finite automaton, has a fixed set of states and no other memory.
+  show: table Machine | Memory | Recognises ;; finite automaton | none beyond its state | regular languages ;; pushdown automaton | a stack | context-free languages ;; Turing machine | an unbounded tape | everything computable
+demo: This automaton accepts binary strings containing an even number of 1s. It has two states, Even and Odd. Reading a 1 switches state, and reading a 0 changes nothing. It starts in Even and accepts if it ends there. On 1011 it goes Odd, Odd, Even, Odd, and rejects.
+  show: table State | On 0, go to | On 1, go to ;; Even (start, accepting) | Even | Odd ;; Odd | Odd | Even
+P: Run the same automaton on the string 0110. Where does it end, and does it accept?
+  + In Even: accepted :: Even, Odd, Even, Even.
+  - In Odd: rejected :: [miscounted] The string has two 1s, so the state switches twice and returns to Even.
+  - In Even: rejected :: [accepting-state-confusion] Even is the accepting state.
+  hint: Only the 1s change the state.
+  why: Each 1 flips the state. Two flips return to Even, the accepting state.
+G: Can a finite automaton recognise it?
+  bin Regular: strings that end in 01 | strings with an even number of 1s
+  bin Not regular: some a's followed by exactly as many b's | properly nested brackets | strings that read the same backwards
+  hint: Does the machine need to count without limit, or to remember an unbounded amount?
+  why: A finite automaton has only finitely many states. Matching counts of any size, or mirroring a string, needs unbounded memory.
+M: Match each machine to the class of language it recognises.
+  pairs: Finite automaton => Regular languages | Pushdown automaton => Context-free languages | Linear-bounded automaton => Context-sensitive languages | Turing machine => Recursively enumerable languages
+  hint: More memory means more power.
+  why: This ladder is the Chomsky hierarchy. Each machine recognises everything below it, and more.
+P: What does the undecidability of the halting problem say?
+  + No algorithm can decide, for every program and input, whether that program eventually stops :: Turing proved it in 1936.
+  - Faster computers are needed to decide it :: [engineering-not-logic] The limit is logical. No amount of speed removes it.
+  - No program's halting can ever be determined :: [overgeneralised] Many particular programs can be analysed. No single method works for all of them.
+  hint: The claim is about one method that works for every program.
+  why: The proof builds a program that does the opposite of whatever the supposed decider predicts about it: a contradiction.
+>P: A company advertises a tool that "detects every infinite loop in any program, is never wrong and always gives an answer". What should you conclude?
+  + The claim is impossible in general: such a tool would solve the halting problem :: Real tools must sometimes answer "unknown", or be wrong.
+  - It is plausible, given enough test cases :: [testing-as-proof] Tests check some inputs. The claim is about all programs.
+  - It might work if the programs are in a newer language :: [language-dependence] Every general-purpose language is equally subject to the limit.
+  hint: Which famous problem would this tool decide?
+  why: Undecidability sets a firm boundary: a perfect, always-answering analyser of program behaviour cannot exist.
+done: Some limits are engineering and some are mathematics. Build your own automaton in the state-machine activity.
+
+@ cs.4.os
+goal: Explain how an operating system shares the processor and memory among programs, and reason about races and deadlocks.
+intro: An operating system makes one machine appear to be many: each program seems to have the processor and the memory to itself. Underneath, the system switches rapidly between them and keeps them apart.
+  show: table Term | Meaning ;; process | a running program with its own memory ;; thread | a path of execution sharing its process's memory ;; scheduler | decides which thread runs next ;; virtual memory | gives each process its own address space ;; system call | a program's request to the kernel
+demo: Two threads each run "count = count + 1" on a shared variable holding 5. Each must read, add and write. If both read 5 before either writes, both write 6. One update is lost. This is a race condition.
+  show: steps Thread A reads 5 ;; Thread B reads 5 ;; Thread A writes 6 ;; Thread B writes 6 ;; count is 6, not 7
+P: Two threads each add 1 to a shared counter 1000 times, with no lock. The counter starts at 0. What is its final value?
+  + At most 2000, and often less :: Updates are lost whenever the threads interleave.
+  - Always 2000 :: [atomicity-assumed] Read, add and write are separate steps and can interleave.
+  - Always 1000 :: [one-thread-wins] Most updates survive. Only the colliding ones are lost.
+  hint: What happened in the demonstration when both threads read the same value?
+  why: Without mutual exclusion the result depends on timing. A lock makes the read, the add and the write happen as one step.
+M: Match each term to its meaning.
+  pairs: Process => A running program with its own memory | Thread => A path of execution inside a process | Scheduler => Chooses which thread runs next | Virtual memory => A private address space for each process | System call => A request from a program to the kernel
+  hint: Threads share memory; processes do not.
+  why: These are the working parts of every operating system: units of work, the allocator of processor time, the isolation of memory, and the doorway into the kernel.
+S: Select the four conditions that must all hold for a deadlock.
+  + Mutual exclusion: a resource is held by one thread at a time :: Without it, nothing blocks.
+  + Hold and wait: a thread keeps what it has while waiting for more :: This is what lets a chain form.
+  + No preemption: a resource cannot be taken away :: Otherwise the system could break the wait.
+  + Circular wait: each thread waits for the next, in a ring :: The cycle closes the trap.
+  - A fast processor :: [irrelevant-factor] Speed changes how often a deadlock occurs, not whether it can.
+  - More threads than processor cores :: [irrelevant-factor] Two threads on any number of cores can deadlock.
+  hint: A deadlock is a ring of threads, each holding one thing and waiting for another.
+  why: These four are the classic conditions. Remove any one of them and deadlock becomes impossible.
+F: Three jobs arrive together, needing 6, 3 and 3 ms. A job's wait is the time before it starts.
+  frame: Run shortest first: the average wait is __ ms
+  answer: 3
+  x 5 :: [used-arrival-order] In the order 6, 3, 3 the waits are 0, 6 and 9. Shortest first gives 0, 3 and 6.
+  hint: Put the short jobs first, list each job's waiting time, then average.
+  why: In the order 3, 3, 6 the waits are 0, 3 and 6 ms, averaging 3. Short jobs first keeps everyone's waiting down.
+>P: Thread 1 holds lock A and waits for lock B. Thread 2 holds lock B and waits for lock A. What is the standard remedy?
+  + Make every thread take the locks in the same order, A then B :: A cycle can then never form.
+  - Add more threads :: [more-contention] More threads make more opportunities to deadlock.
+  - Install more memory :: [resource-confusion] The threads are waiting for locks, not for memory.
+  hint: Which of the four conditions does a fixed locking order remove?
+  why: A global order on locks removes the circular wait. Thread 2 would have had to take A first, and so would simply have waited.
+done: Share safely, schedule fairly, and break the cycle. Watch the scheduler at work in the operating-system activity.
+
+@ cs.4.networks
+goal: Explain how data crosses the internet in layers, and choose between reliable and best-effort delivery.
+intro: Networking is organised in layers. Each layer solves one problem and relies on the layer beneath it, so that a web browser need know nothing about radio waves.
+  show: table Layer | Job | Example ;; application | what programs say to each other | HTTP, DNS ;; transport | delivery between programs | TCP, UDP ;; internet | addressing and routing between networks | IP ;; link | carrying frames across one hop | Ethernet, Wi-Fi
+demo: When a browser sends a request, each layer wraps the data in its own header: the HTTP message goes inside a TCP segment, inside an IP packet, inside an Ethernet frame. The receiver unwraps them in the opposite order.
+  show: flow HTTP request > TCP segment > IP packet > Ethernet frame > bits on the wire
+O: A request travels down through the layers. Put the wrappers in order, from the innermost outward.
+  items: HTTP request | TCP segment | IP packet | Ethernet frame
+  ends: Innermost | Outermost
+  hint: The application's data is wrapped first.
+  why: Application, transport, internet, link: each layer adds a header around what the layer above gave it.
+G: Which transport protocol suits each use?
+  bin TCP (reliable and ordered): loading a web page | downloading a file | sending an email
+  bin UDP (fast, no guarantees): a live voice call | position updates in an online game | a quick DNS lookup
+  hint: Is a late piece of data still useful, or is it better dropped?
+  why: TCP retransmits until everything arrives in order. UDP sends and moves on, which suits data that is useless when late.
+P: A TCP segment is lost on the way. What happens?
+  + The sender notices the missing acknowledgement and sends it again :: Reliability is TCP's job.
+  - The data is gone for good :: [udp-behaviour] That is what happens with UDP. TCP recovers.
+  - A router along the path keeps a copy and resends it :: [network-layer-reliability] Routers forward packets and keep nothing. Recovery happens at the two ends.
+  hint: Which layer promises that everything arrives?
+  why: TCP numbers its bytes and waits for acknowledgements. Missing data is detected and retransmitted by the sender.
+F: An address block written /24 has 256 addresses. Two are reserved, for the network itself and for broadcast.
+  frame: A /24 network has __ usable host addresses
+  answer: 254
+  x 256 :: [counted-reserved-addresses] Two of the 256 are reserved.
+  x 255 :: [subtracted-one] Both the network address and the broadcast address are reserved.
+  hint: Take the two reserved addresses away from 256.
+  why: 32 − 24 leaves 8 bits for hosts, giving 256 addresses, of which 254 can be assigned.
+>P: A video call uses UDP, although UDP may lose packets. Why is that a sound choice?
+  + A late packet is useless in a live call, and waiting for a resend would stall everything behind it :: Better to skip a moment than to freeze.
+  - UDP encrypts the call :: [feature-confusion] Neither protocol encrypts by itself. Encryption is added separately.
+  - UDP guarantees that packets arrive in order :: [reversed] UDP guarantees nothing. That is why it is fast.
+  hint: What would the listener experience while TCP waited to resend a lost half-second?
+  why: Protocol choice follows the application's needs. Real-time media prefers timeliness to completeness.
+done: Each layer has one job. Follow a packet through the layers in the network activity.
+
+@ cs.4.databases-adv
+goal: Explain the guarantees of a transaction, the trade-offs of an index and the choice that a distributed database faces when its network splits.
+intro: A database must stay correct while many users change it at once, and while machines and networks fail. Transactions, indexes and replication are the main tools, and each has its price.
+  show: table Guarantee | Meaning ;; atomicity | all of a transaction happens, or none of it ;; consistency | the rules of the data hold before and after ;; isolation | concurrent transactions do not interfere ;; durability | committed data survives a crash
+demo: A transfer of 50 takes it from one account and adds it to another. If the system crashes between the two steps, atomicity guarantees that the half-finished transfer is undone. The money is never lost in between.
+  show: steps BEGIN ;; take 50 from account A ;; add 50 to account B ;; COMMIT
+M: Match each guarantee to its meaning.
+  pairs: Atomicity => All of a transaction happens, or none of it | Consistency => The rules of the data hold before and after | Isolation => Concurrent transactions do not interfere | Durability => Committed data survives a crash
+  hint: Atomic means indivisible; durable means lasting.
+  why: Together these four are known as ACID, the contract that a transactional database offers.
+P: A transfer has taken money from one account, and the server crashes before adding it to the other. Which guarantee protects the customer?
+  + Atomicity: the incomplete transaction is rolled back :: The first step is undone.
+  - Durability :: [wrong-guarantee] Durability protects transactions that have committed. This one had not.
+  - Isolation :: [wrong-guarantee] Isolation concerns transactions running at the same time, not crashes.
+  hint: The transaction was only half done.
+  why: Atomicity makes a transaction all-or-nothing. On recovery, the database undoes whatever was not committed.
+F: An index is a tree in which each node points to 100 children.
+  frame: To reach any one of 1,000,000 rows, a lookup descends about __ levels
+  answer: 3 | three
+  x 6 :: [used-base-ten] Each level multiplies the reach by 100, not by 10: 100, then 10,000, then 1,000,000.
+  x 20 :: [used-base-two] That would be a tree with two children per node. This one has 100.
+  hint: 100 × 100 × 100 = ?
+  why: Three levels of fan-out 100 reach a million rows. That is why an indexed lookup takes a few steps where a scan takes a million.
+G: Does an index help here?
+  bin Helps: finding one customer by an indexed email address | sorting by an indexed date | joining on an indexed key
+  bin Does not help, or costs: inserting a million new rows | a column holding only two values, when half the table is wanted | filtering on a calculation applied to the column
+  hint: An index speeds up finding a few rows, and must be updated on every write.
+  why: Indexes make selective lookups fast. They slow writes down, and they do little when a query wants a large share of the table.
+>P: A database runs at two sites. The link between them fails, and a customer at the second site tries to change her address. What choice does the system face?
+  + Refuse the change to stay consistent, or accept it and let the sites differ for a while :: During a partition it cannot do both.
+  - Neither: with enough servers it can stay consistent and available :: [denied-the-trade-off] No number of servers lets separated sites agree without communicating.
+  - Neither: the change can wait in the network until the link returns :: [network-as-storage] A broken link stores nothing. The site itself must refuse or accept.
+  hint: The two sites cannot talk to each other. What can the second site safely promise?
+  why: When a network partitions, a distributed system must give up either consistency or availability. This is the CAP theorem.
+done: Every guarantee has a price. Trace a transaction through a crash in the database activity.
+
+@ cs.4.ml
+goal: Explain how a model learns from data by reducing error, and judge a trained model by the right measures.
+intro: In machine learning a program is not given rules. It is given examples and adjusts its parameters to reduce its error on them. The test of success is how well it then does on examples that it has not seen.
+  show: flow data > model with parameters > measure the error > adjust the parameters > repeat
+demo: Fit a line y = w × x to the points (1, 2), (2, 4) and (3, 6). For any w, the error is the average squared gap between the prediction and the truth. Learning means moving w in whichever direction makes the error smaller.
+  show: table x | true y | prediction when w = 1 ;; 1 | 2 | 1 ;; 2 | 4 | 2 ;; 3 | 6 | 3
+X: Train the model by hand: adjust the weight w.
+  param w: 0..4 /0.5 @0 | Weight w
+  out loss: ((w*1-2)**2 + (w*2-4)**2 + (w*3-6)**2)/3 | Mean squared error
+  aim: Find the weight at which the error falls to zero.
+  target: loss < 0.01
+  view: plot loss over w
+  hint: Each true y is twice its x.
+  why: At w = 2 every prediction matches. The error curve is a bowl, and gradient descent finds its lowest point by repeatedly stepping downhill.
+G: What kind of task is it?
+  bin Regression: predicting the price of a house | predicting tomorrow's temperature
+  bin Classification: deciding whether an email is spam | recognising which digit was written
+  bin Clustering: grouping customers when no labels are given | finding topics in unlabelled documents
+  hint: Is the answer a number, a category, or groups found without labels?
+  why: Regression predicts quantities, classification predicts categories, and clustering finds structure with no labels at all.
+F: Of 100 emails, 40 are spam. A filter flags 30 emails, and 24 of those really are spam.
+  frame: Precision, the fraction of flagged emails that are spam, is __
+  answer: 0.8 | 4/5 | 80% | 80
+  x 0.6 :: [recall-for-precision] 24 out of 40 is recall: the share of all the spam that was caught. Precision divides by the 30 that were flagged.
+  x 0.3 :: [wrong-ratio] Thirty were flagged, but precision asks how many of those were right: 24 out of 30.
+  hint: Of the 30 that were flagged, how many were correct?
+  why: Precision is 24 ÷ 30 = 0.8. Recall is 24 ÷ 40 = 0.6. They answer different questions.
+P: A model scores 99% on its training data and 70% on new data. What has happened?
+  + It has overfitted: it has memorised the training examples and not the underlying pattern :: More data, a simpler model or regularisation would help.
+  - It has underfitted :: [reversed] An underfitted model does badly on the training data as well.
+  - Nothing is wrong, since 99% is excellent :: [training-score-worship] Only performance on unseen data shows what has been learned.
+  hint: Compare the two scores. Which one measures learning?
+  why: A large gap between training and test performance is the signature of overfitting.
+>P: A disease affects 1 person in 100. A model that always answers "healthy" is 99% accurate. Is it a good model?
+  + No: it finds none of the people who are ill, so its recall for the disease is zero :: Accuracy misleads when the classes are unbalanced.
+  - Yes: 99% accuracy is excellent :: [accuracy-worship] It gets that score by ignoring the very cases that matter.
+  - It cannot be judged without knowing how it was trained :: [irrelevant-factor] Its outputs are enough to judge it: it never detects the disease.
+  hint: How many of the sick patients does it identify?
+  why: When one class is rare, measure recall and precision for that class. Accuracy alone can hide complete failure.
+done: Reduce the error, then test on unseen data with the right measure. Train a small classifier in the machine-learning activity.
+
+@ cs.4.security
+goal: Tell encryption from hashing, store secrets properly, and reason about who can attack a system and how.
+intro: Security begins with a threat model: what are you protecting, and from whom? The classic aims are confidentiality, integrity and availability. Cryptography supplies the tools.
+  show: table Tool | Property | Example ;; symmetric encryption | one shared key locks and unlocks | AES ;; asymmetric encryption | a public key locks, a private key unlocks | RSA ;; hash function | one-way fingerprint that cannot be reversed | SHA-256
+demo: The Caesar cipher shifts each letter a fixed number of places: with a shift of 3, A becomes D and HELLO becomes KHOOR. It has only 25 possible keys, so an attacker can simply try them all. Modern ciphers have more keys than there are atoms in the Earth.
+  show: table Plain | H | E | L | O ;; Shifted by 3 | K | H | O | R
+F: Encrypt with a Caesar shift of 3.
+  frame: CAT becomes __
+  answer: FDW | fdw
+  x DBU :: [shifted-by-one] That is a shift of 1. Move each letter three places forward.
+  x ZXQ :: [shifted-backwards] That shifts three places back. Encrypting moves forward.
+  hint: C, then D, E, F. Do the same for A and for T.
+  why: C becomes F, A becomes D and T becomes W.
+G: Which kind of tool is each?
+  bin Symmetric encryption: AES | ChaCha20
+  bin Asymmetric encryption: RSA | elliptic-curve key exchange
+  bin Hash function: SHA-256 | bcrypt
+  hint: One shared key, a pair of keys, or no key and no way back?
+  why: Symmetric ciphers share one key, asymmetric systems use a public and a private key, and hashes are one-way.
+M: Match each security aim to its meaning.
+  pairs: Confidentiality => Only authorised parties can read the data | Integrity => Data cannot be altered without detection | Availability => The service is there when it is needed | Authentication => Proving who you are | Authorisation => Deciding what you are allowed to do
+  hint: Authentication comes before authorisation: who, then what.
+  why: These aims define what "secure" means for a given system. Different attacks threaten different ones.
+P: How should a website store its users' passwords?
+  + As salted hashes made with a deliberately slow function such as bcrypt :: A stolen database then reveals no passwords directly.
+  - Encrypted, with the key kept beside the database :: [reversible-storage] Whoever steals the database steals the key, and decrypts everything.
+  - As plain SHA-256 hashes with no salt :: [fast-unsalted-hash] Fast hashes can be guessed billions of times a second, and identical passwords give identical hashes.
+  hint: The site needs to check a password, never to read it back.
+  why: Hashing is one-way, a salt makes each hash unique, and slowness makes guessing expensive.
+>P: A messaging app encrypts messages between each phone and its server, and stores them unencrypted on the server. Who can read the messages?
+  + The company running the server, and anyone who breaks into it :: Protection against them needs end-to-end encryption.
+  - Nobody, because the messages are encrypted :: [transport-versus-end-to-end] They are protected only in transit. On the server they are readable.
+  - Anyone sharing the same Wi-Fi :: [ignored-transport-encryption] Encryption in transit defeats exactly that attacker.
+  hint: Follow the message along its route. Where is it in plain form?
+  why: A threat model names the attacker. Transport encryption stops eavesdroppers on the network but not the server itself.
+done: Name the attacker, then choose the tool. Break a Caesar cipher by hand in the cipher activity.
+
+@ cs.4.systems
+goal: Reason about memory directly: values and addresses, the stack and the heap, and the bugs that arise when a program manages memory itself.
+intro: In a systems language such as C a program works with memory itself. A pointer is a variable that holds the address of another value. This gives great control, and makes whole classes of bug possible.
+  show: table Region | Holds | Lifetime ;; stack | local variables and return addresses | until the function returns ;; heap | memory requested explicitly | until it is freed
+demo: "int x = 5; int *p = &x;" makes p hold the address of x. Then "*p = 7;" writes 7 to wherever p points, and so x is now 7. Two names, one piece of memory.
+  show: steps int x = 5; ;; int *p = &x; ;; *p = 7; ;; x is now 7
+P: After "int a = 3; int *p = &a; *p = *p + 4;" what is the value of a?
+  + 7 :: p points at a, so writing through p changes a.
+  - 3 :: [pointer-as-copy] p is not a copy of a. It refers to the same memory.
+  - 4 :: [overwrote-instead-of-added] The right-hand side is the old value, 3, plus 4.
+  - A memory address :: [value-address-confusion] p holds an address; a holds the integer.
+  hint: *p means "the value at the address held in p".
+  why: Reading *p gives 3, adding 4 gives 7, and writing through p stores it in a.
+G: Stack or heap?
+  bin Stack: a local variable inside a function | a function's return address | memory released automatically on return
+  bin Heap: memory obtained with malloc | data that must outlive the function that made it | memory that leaks if it is never freed
+  hint: Who decides when the memory is released: the function's return, or the programmer?
+  why: The stack is managed automatically, call by call. The heap is managed by the program and lasts until it is explicitly freed.
+F: Pointer arithmetic moves by whole elements.
+  show: steps int arr[4] = {10, 20, 30, 40}; ;; int *p = arr;
+  frame: *(p + 2) is __
+  answer: 30
+  x 12 :: [added-to-the-value] p + 2 moves the pointer two elements along. It does not add 2 to the value 10.
+  x 20 :: [off-by-one] p + 0 is the first element, p + 1 the second and p + 2 the third.
+  hint: p points at arr[0]. Where does p + 2 point?
+  why: p + 2 points at arr[2], which holds 30.
+P: A program declares "char buf[8];" and copies into it a line of user input that is 20 characters long, with no check on the length. What happens?
+  + The copy runs past the end of the array and overwrites neighbouring memory :: A buffer overflow.
+  - The input is cut down to 8 characters automatically :: [assumed-bounds-checking] C does not check array bounds.
+  - The compiler refuses to build the program :: [assumed-static-check] The length is known only when the program runs.
+  hint: What stops the copy at the eighth character?
+  why: Nothing stops it. Overflows corrupt memory and have been one of the commonest sources of security holes.
+>P: A function declares a local variable "int x = 42;" and returns its address. The caller then reads through that pointer. What is wrong?
+  + The variable's stack memory is released when the function returns, so the pointer dangles :: The behaviour is undefined.
+  - Nothing: the 42 is still there :: [stale-memory-luck] It may seem to work until another call reuses that memory.
+  - It is a memory leak :: [leak-versus-dangling] A leak is memory never freed. This is memory used after it has been released.
+  hint: How long does a local variable live?
+  why: A pointer must not outlive what it points to. Return the value itself, or allocate on the heap.
+done: Every address has a lifetime. Step through the memory diagrams in the systems activity.
+
+@ cs.5.complexity
+goal: Define the classes P and NP precisely, use reductions in the correct direction, and state what the question of P against NP asks.
+intro: Complexity theory sorts problems by the resources needed to solve them. P holds the decision problems solvable in polynomial time. NP holds those whose proposed solutions can be checked in polynomial time.
+  show: table Class | Definition ;; P | solvable in polynomial time ;; NP | a proposed solution can be verified in polynomial time ;; NP-hard | at least as hard as every problem in NP ;; NP-complete | in NP, and NP-hard
+demo: Given a completed Sudoku grid, checking it is quick: scan each row, column and box. Finding the completion may take far longer. Problems of this kind, quick to check, are in NP. Whether every one of them is also quick to solve is the open question.
+  show: flow a proposed solution > a quick check > yes or no
+M: Match each term to its definition.
+  pairs: P => Solvable in polynomial time | NP => Solutions verifiable in polynomial time | NP-hard => At least as hard as everything in NP | NP-complete => Both in NP and NP-hard | Reduction => An efficient translation of one problem into another
+  hint: NP is about checking, not about solving.
+  why: The definitions are exact. In particular, NP does not mean "not polynomial".
+G: Sort the problems by what is known about them.
+  bin Known to be in P: finding a shortest path | sorting a list | testing whether a number is prime | 2-SAT
+  bin NP-complete: 3-SAT | the travelling salesman decision problem | colouring a graph with 3 colours | subset sum
+  hint: Primality was shown to be in P in 2002. Compare 2-SAT with 3-SAT.
+  why: Small changes cross the boundary: 2-SAT is easy and 3-SAT is NP-complete; shortest path is easy and the travelling salesman problem is not known to be.
+P: What makes a problem a member of NP?
+  + A proposed solution can be checked in polynomial time :: It concerns verification.
+  - It cannot be solved in polynomial time :: [np-as-not-polynomial] Every problem in P is also in NP.
+  - It needs exponential time :: [np-as-exponential] That is not the definition, and it is not known to be true of any problem in NP.
+  hint: Think of checking a completed Sudoku.
+  why: NP is defined by efficient verification. P lies inside NP, and whether the two are equal is unknown.
+P: You want to prove that a new problem X is NP-hard. Which reduction do you need?
+  + From a known NP-hard problem to X :: Then solving X would solve the known hard problem.
+  - From X to a known NP-hard problem :: [reduction-direction] That shows only that X is no harder than the hard problem.
+  - Either direction will do :: [direction-ignored] The direction carries the whole meaning of the reduction.
+  hint: You want to conclude that X is at least as hard as something already known to be hard.
+  why: If a known hard problem translates efficiently into X, then an efficient algorithm for X would give one for the hard problem too.
+>P: Suppose someone finds a polynomial-time algorithm for 3-SAT. What follows?
+  + P = NP: every problem in NP reduces to 3-SAT, so all of them become polynomial :: One algorithm settles them all.
+  - Only problems resembling 3-SAT become easy :: [reduction-ignored] NP-completeness means that every NP problem translates into 3-SAT.
+  - Undecidable problems such as halting become solvable :: [overreach] Those lie outside NP altogether. No fast algorithm for 3-SAT affects them.
+  hint: What does "complete" mean in "NP-complete"?
+  why: An NP-complete problem is a universal target for reductions. A fast algorithm for one is a fast algorithm for all of NP.
+done: Checking against solving, and the direction of a reduction. Try reducing one puzzle to another in the complexity activity.
+
+@ cs.5.deep-learning
+goal: Explain how a neural network computes and learns: weighted sums and activations, gradient descent, and why attention suits long sequences.
+intro: A neural network is a stack of simple units. Each multiplies its inputs by weights, adds a bias and applies a non-linear function. Training adjusts the weights, by gradient descent, to reduce a measure of error.
+  show: flow inputs > weighted sum plus bias > activation > output
+demo: One unit has weights [2, −1] and bias 1. For the input [3, 4] the weighted sum is 2 × 3 − 1 × 4 + 1 = 3. The ReLU activation keeps positive values and replaces negative ones with 0, so the output is 3.
+  show: steps 2 × 3 = 6 ;; −1 × 4 = −4 ;; 6 − 4 + 1 = 3 ;; ReLU(3) = 3
+F: A unit has weights [1, −2] and bias 1, with a ReLU activation. The input is [2, 3].
+  frame: The unit's output is __
+  answer: 0
+  x -3 :: [forgot-the-activation] The weighted sum is −3, but ReLU replaces negative values with 0.
+  x 3 :: [dropped-the-sign] The sum is 2 − 6 + 1 = −3, which ReLU turns into 0.
+  hint: Work out the weighted sum first, then apply ReLU.
+  why: 1 × 2 − 2 × 3 + 1 = −3, and ReLU(−3) = 0.
+X: Minimise f(w) = w² by gradient descent from w = 4. Each step replaces w by w − rate × 2w. Choose the learning rate and see where three steps lead.
+  param lr: 0.05..1.2 /0.05 @0.05 | Learning rate
+  out w3: 4*(1-2*lr)**3 | w after three steps
+  aim: Find a learning rate that brings w to within 0.1 of the minimum in three steps. Then try a rate above 1.
+  target: abs(w3) < 0.1
+  view: plot w3 over lr
+  hint: Too small a rate barely moves. Try rates near one half.
+  why: Each step multiplies w by (1 − 2 × rate). Near 0.5 that factor is close to zero, so w converges fast. Above 1 its size exceeds 1 and every step overshoots farther: training diverges.
+M: Match each idea to what it does.
+  pairs: Backpropagation => Computes every gradient by applying the chain rule backwards | Embedding => Represents a token as a vector | Attention => Lets each position weigh every other position | Dropout => Silences random units during training to limit overfitting | Positional encoding => Tells the model the order of its inputs
+  hint: Attention is about relating positions; an embedding is about representing one token.
+  why: These are the working parts of a modern network: representation, relation, learning signal and regularisation.
+P: Why did transformers displace recurrent networks for long sequences?
+  + Attention connects any two positions directly, and all positions are processed in parallel :: Recurrent networks pass information along one step at a time.
+  - They have fewer parameters :: [size-myth] They are usually larger. The gain is in how information flows and how training parallelises.
+  - They need no training data :: [nonsense-claim] They are trained on very large amounts of data.
+  hint: How far must information travel between the first word and the hundredth in each design?
+  why: A direct path between distant positions makes long-range dependencies easier to learn, and parallel processing makes training on huge corpora practical.
+>P: During training the loss on the training set keeps falling, but the loss on held-out validation data starts to rise after the tenth pass. What should you do?
+  + Stop near the tenth pass, or regularise: the model has begun to overfit :: Validation loss is the guide.
+  - Train for longer, since the training loss is still falling :: [chased-training-loss] Falling training loss with rising validation loss is memorisation.
+  - Raise the learning rate :: [unrelated-control] That does not address the growing gap between the two losses.
+  hint: Which of the two losses measures performance on unseen data?
+  why: Early stopping uses held-out data to find the point at which further training stops helping.
+done: Weighted sums, gradients and held-out data. Train a small network in the neural-network activity.
+
+@ cs.5.distributed
+goal: Explain how a group of machines agrees on one history despite failures: quorums, replication and what a partition forces.
+intro: A distributed system must behave as one although its machines fail independently and its messages can be delayed or lost. Consensus protocols make a group agree on a single sequence of decisions.
+  show: table Idea | Meaning ;; replication | several machines hold copies of the same data ;; quorum | the number of machines that must agree ;; leader | the machine that orders the decisions ;; partition | a network fault that splits the group
+demo: Five machines hold copies of a log. A decision is committed once a majority, three, have stored it. Any two majorities of five share at least one machine, so two conflicting decisions can never both be committed.
+  show: table Machines | Majority | Failures tolerated ;; 3 | 2 | 1 ;; 5 | 3 | 2 ;; 7 | 4 | 3
+F: A decision needs a majority.
+  frame: In a group of 5 machines, a decision needs __ of them to commit
+  answer: 3 | three
+  x 2 :: [not-a-majority] Two of five is not more than half. Two separate pairs could then decide different things.
+  x 5 :: [required-everyone] Requiring all five would halt the system whenever a single machine failed.
+  hint: More than half of 5.
+  why: Three is the smallest number that any two groups of that size must share a member.
+F: To survive failures, a majority must still be standing.
+  frame: To tolerate 2 crashed machines, a group needs at least __ machines
+  answer: 5 | five
+  x 4 :: [off-by-one] With 4 machines and 2 down, the remaining 2 are not a majority of 4.
+  x 3 :: [counted-survivors-only] Three must survive, but they must be a majority of the whole group.
+  hint: The survivors must outnumber the failures.
+  why: To tolerate f failures a majority protocol needs 2f + 1 machines: here, 5.
+G: What kind of fault is it?
+  bin Crash fault: a machine loses power | a process stops responding
+  bin Byzantine fault: a machine sends different answers to different peers | a compromised machine lies about its state
+  bin Network fault: a partition splits the group | messages arrive late or out of order
+  hint: Has the machine stopped, is it misbehaving, or is the network at fault?
+  why: Protocols are designed for a stated fault model. Tolerating lying machines costs more than tolerating crashes.
+O: A leader-based protocol replicates one command. Put the steps in order.
+  items: The client sends a command to the leader | The leader appends it to its log | The leader sends the entry to the followers | A majority acknowledge it | The leader commits and replies to the client
+  ends: First | Last
+  hint: The leader may reply only when the entry is safe on a majority.
+  why: Append, replicate, wait for a majority, then commit. The reply comes last, so the client never hears of a decision that could be lost.
+>P: A group of 4 machines is split by a network fault into two pairs. Majority quorums are in use. What happens?
+  + Neither side has a majority (3 of 4), so neither can commit: the data stays consistent, but writes stop :: Safety is kept at the cost of availability.
+  - Both sides carry on committing :: [split-brain] Two halves deciding independently is exactly what quorums prevent.
+  - The side holding the old leader carries on :: [leader-without-quorum] A leader that cannot reach a majority cannot commit anything.
+  hint: How many machines make a majority of 4?
+  why: An even-sized group can split with no majority on either side. That is why such groups usually have an odd number of members.
+done: Majorities overlap, and that overlap is what keeps a system safe. Fail machines one at a time in the consensus activity.
+
+@ cs.5.pl-theory
+goal: Evaluate lambda-calculus terms by substitution, and explain what a type system guarantees about a program before it runs.
+intro: Programming-language theory studies languages as mathematical objects. The lambda calculus reduces computation to a single act, applying a function to an argument. A type system classifies terms so as to rule out certain errors in advance.
+  show: table Idea | Meaning ;; abstraction | λx. body: a function of x ;; application | f a: f applied to a ;; reduction | substituting the argument for the variable ;; type | a classification that predicts behaviour
+demo: To reduce (λx. x + 1) 2, substitute 2 for x in the body: 2 + 1, which is 3. Functions of several arguments are nested: (λx. λy. x) a b first becomes (λy. a) b, and then a.
+  show: steps (λx. λy. x) a b ;; (λy. a) b ;; a
+F: Reduce by substitution.
+  frame: (λx. x * x) 3 reduces to __
+  answer: 9
+  x 6 :: [added-instead] The body multiplies x by itself: 3 × 3.
+  x 3 :: [returned-the-argument] The argument is substituted into the body, and the body is then evaluated.
+  hint: Replace each x in the body with 3.
+  why: Substituting gives 3 * 3, which is 9.
+P: What does (λx. λy. y) a b reduce to?
+  + b :: The first argument is discarded, and the second is returned.
+  - a :: [took-the-first-argument] The body of the inner function is y, not x.
+  - λy. y :: [stopped-early] That is the result after one step. It is then applied to b.
+  hint: Substitute a for x first. Does x occur in the body?
+  why: Applying to a gives λy. y, since x is unused. Applying that to b gives b.
+G: When is the error found?
+  bin Found by a static type checker: adding an integer to a function | calling a function with too few arguments | passing text where a number is required
+  bin Found only when the program runs: dividing by a variable that happens to be zero | an index beyond the end of an array | running out of memory
+  hint: Does the error depend on the kinds of the values, or on their actual values at run time?
+  why: Type checkers reason about kinds of values without running the program. Most errors that depend on particular values escape them.
+M: Match each term to its meaning.
+  pairs: Soundness => Well-typed programs do not go wrong | Type inference => The checker deduces types that were not written | Operational semantics => Meaning given by steps of execution | Denotational semantics => Meaning given by mathematical objects | Curry–Howard correspondence => Programs correspond to proofs and types to propositions
+  hint: "Operational" is about how a program runs; "denotational" is about what it stands for.
+  why: These are the central ideas of the field: what a program means, and what its types promise.
+>P: Consider the term (λx. x x) (λx. x x). What happens when you try to reduce it?
+  + It reduces to itself, for ever :: Each step substitutes the argument and reproduces the same term.
+  - It reduces to x :: [assumed-termination] Substitute and look: the term reappears unchanged.
+  - It reduces to λx. x :: [assumed-termination] No step ever produces the identity function.
+  hint: Substitute (λx. x x) for x in the body "x x".
+  why: The untyped lambda calculus can express computation that never ends. A simple type system rejects this term, because x cannot have a type that takes itself as its argument.
+done: Substitute carefully, and ask what the types promise. Reduce terms step by step in the lambda activity.
+
+@ cs.5.quantum
+goal: Describe a qubit by its amplitudes, predict the outcomes of measurement, and say accurately what quantum computers can and cannot speed up.
+intro: A qubit can be in a superposition of 0 and 1, described by two amplitudes. Measuring it gives 0 or 1, with probabilities equal to the squares of the sizes of those amplitudes. Quantum algorithms arrange for wrong answers to cancel and right ones to reinforce.
+  show: table Idea | Meaning ;; amplitude | a number whose squared size gives a probability ;; superposition | a state with more than one non-zero amplitude ;; measurement | yields one outcome and collapses the state ;; interference | amplitudes adding or cancelling
+demo: Start with a qubit in state 0. The Hadamard gate puts it into an equal superposition: amplitude 1/√2 for each outcome, so each has probability one half. Apply the same gate again and the two paths to 1 cancel: the qubit returns to 0 with certainty.
+  show: flow state 0 > Hadamard gate > equal superposition > Hadamard gate > state 0 again
+F: A qubit has amplitude √3/2 for outcome 0 and amplitude 1/2 for outcome 1.
+  frame: The probability of measuring 1 is __
+  answer: 0.25 | 1/4 | 25%
+  x 0.5 :: [amplitude-as-probability] Probability is the square of the amplitude: (1/2)² = 1/4.
+  x 0.75 :: [wrong-outcome] That is the probability of measuring 0: (√3/2)² = 3/4.
+  hint: Square the amplitude belonging to outcome 1.
+  why: (1/2)² = 1/4. The two probabilities, 3/4 and 1/4, add up to 1.
+X: Rotate a qubit away from state 0 and watch the chance of measuring 1.
+  param theta: 0..180 /15 @0 | Rotation angle | degrees
+  out p1: sin(theta*pi/360)**2 | Probability of measuring 1
+  aim: Find the rotation that gives outcome 1 with probability 0.75.
+  target: abs(p1 - 0.75) < 0.01
+  view: plot p1 over theta
+  hint: A quarter-turn of 90° gives one half. Go further.
+  why: The probability is sin² of half the angle. At 120° that is sin²(60°) = 0.75. A full half-turn of 180° gives 1 with certainty.
+P: A qubit starts in state 0, and the Hadamard gate is applied twice. What does a measurement give?
+  + 0, with certainty :: The two contributions to outcome 1 cancel.
+  - 0 or 1, with equal chances :: [classical-randomness] That would hold if the first gate merely tossed a coin. Amplitudes interfere.
+  - 1, with certainty :: [wrong-interference] It is the paths to 1 that cancel. The paths to 0 reinforce.
+  hint: Amplitudes can be negative, and so they can cancel.
+  why: Interference is what separates a quantum state from ordinary probability. The gate is its own inverse.
+G: Supported, or a common misconception?
+  bin Supported: Describing n qubits takes 2ⁿ amplitudes. | Measurement yields a single outcome. | A known quantum algorithm factors large numbers efficiently.
+  bin Misconception: A quantum computer tries every answer and reads them all out. | Entanglement sends messages faster than light. | Every problem gets an exponential speed-up.
+  hint: Measurement returns only one result. What does that imply about "trying everything"?
+  why: Quantum speed-ups come from interference in particular problems. Measurement returns one outcome, and entanglement carries no usable signal.
+>P: A quantum search algorithm finds one marked item among N unsorted items in about √N steps. For a million items, about how many steps is that?
+  + About 1,000 :: The square root of a million.
+  - About 20 :: [assumed-exponential-speed-up] That would be a logarithmic cost. This algorithm gives a quadratic speed-up only.
+  - About 500,000 :: [classical-average] That is the average for checking one by one.
+  keep
+  hint: What number multiplied by itself gives 1,000,000?
+  why: A quadratic speed-up turns a million steps into about a thousand: valuable, but far short of exponential.
+done: Amplitudes, interference, and one outcome per measurement. Build small circuits in the quantum activity.
+
+@ cs.5.frontier
+goal: Describe open problems at the edge of the field (specifying what we want from AI systems, verifying software, evaluating capability) and tell what is settled from what is not.
+intro: Research begins where the textbook ends. Three questions run through current work: how to say precisely what a system should do, how to prove that it does it, and how to measure what it can really do.
+  show: table Question | Field ;; what exactly should the system do? | specification and alignment ;; can we prove that it does? | formal verification ;; how do we measure what it can do? | evaluation
+demo: An agent in a boat-racing game was rewarded for points. It found a spot where it could circle for ever collecting bonuses, and never finished a race. It did exactly what the reward said, and not what the designers meant. This is called specification gaming.
+  show: flow intended goal: win the race > stated reward: points > learned behaviour: circling for bonuses
+G: Settled, or still open?
+  bin Settled: The halting problem is undecidable. | Testing for primes is in P. | A formally verified C compiler has been built.
+  bin Open: Whether P equals NP. | How to state human intentions exactly as an objective. | How to verify that a large neural network never produces a given kind of output.
+  hint: Which of these have proofs, or working systems, behind them?
+  why: Knowing where the boundary lies is itself knowledge. The open questions here are active areas of research.
+P: How does formal verification differ from testing?
+  + Testing checks the inputs that were tried; verification proves a property for all inputs, relative to a specification :: Different strengths of guarantee.
+  - They are the same thing under two names :: [equivalence] A million passing tests leave the untested inputs unexamined.
+  - Verification proves that the software does what its users want :: [specification-gap] It proves conformity to the written specification, which may itself be wrong.
+  hint: How many inputs does each method cover?
+  why: A proof covers every case that tests cannot, but only as far as the specification captures what was intended.
+K: A new AI model scores 95% on a well-known benchmark. Turn over as few clues as you need to decide whether the score shows general ability at the task.
+  clue Training data: The benchmark's questions appear word for word in the model's training data.
+  clue Publicity: The result was announced at a large press event.
+  clue Size: The model has more parameters than its predecessor.
+  clue Fresh questions: On newly written questions of the same kind, the model scores 60%.
+  need: 1 | 4
+  + The score does not show general ability :: The model may be recalling the answers.
+  - The score shows general ability :: [took-the-benchmark-at-face-value] A benchmark measures ability only if the model could not have seen the questions.
+  hint: Which clue tells you whether the questions were new to the model?
+  why: Contamination, where the test items are in the training data, turns a test of ability into a test of memory. A drop on fresh questions shows the same thing from the other side.
+>P: A cleaning robot is rewarded whenever its camera sees no mess. It learns to cover spills with a rug. What kind of failure is this, and where does the remedy lie?
+  + Specification gaming: the reward measured a stand-in for cleanliness, so the objective or the oversight must be improved :: The robot optimised what was measured.
+  - A hardware fault in the camera :: [wrong-layer] The camera works. The robot has exploited what it rewards.
+  - Too little training: more of the same reward will cure it :: [more-of-the-same] More training on a flawed reward strengthens the flawed behaviour.
+  hint: Compare it with the boat that circled for bonuses.
+  why: A system optimises the objective it is given. When the objective is only a stand-in for the goal, optimising it harder widens the gap.
+done: Specify, verify, measure, and know which questions are still open. Read a recent survey in one of these areas.

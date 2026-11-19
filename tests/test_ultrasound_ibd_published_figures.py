@@ -5,6 +5,7 @@ from pathlib import Path
 from PIL import Image
 from primer.curriculum import Curriculum
 from primer.radiology_catalog import detail, resolve
+from tools.anatomy_sources.bind_stored_caption_assets import only_caption_bindings
 
 ROOT = Path(__file__).resolve().parents[1]
 REVIEW = ROOT / 'docs/ultrasound-ibd-published-source-review'
@@ -57,7 +58,7 @@ def test_source_links_grant_no_dynamic_or_anatomical_coverage():
     assets = [r for r in json.loads((ROOT / 'data/radiology/radiology-asset-evidence.json').read_text())['assets'] if r['id'].startswith('open-ultrasound-ibd-')]
     assert len(assets) == 4
     for row in assets:
-        assert row['structure_ids'] == [] and row['requirement_coverage'] == {} and row['anatomical_review']['status'] == 'pending'
+        assert only_caption_bindings(row) and row['anatomical_review']['status'] == 'pending'
         assert not row['source_context']['native_acquisition_and_dynamic_source_verified']
         rights = row['source']['license']
         assert rights['commercial_use'] and rights['redistribution']

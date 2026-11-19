@@ -3,6 +3,7 @@ import hashlib,json
 from pathlib import Path
 from PIL import Image
 from primer.curriculum import Curriculum
+from tools.anatomy_sources.bind_stored_caption_assets import only_caption_bindings
 from primer.radiology_catalog import detail,resolve
 ROOT=Path(__file__).resolve().parents[1];INV='ra.esophagus';PREFIX='open-esophagus-pmc5438315-fig'
 def rows():return [r for r in json.loads((ROOT/'data/radiology/radiology-open-images.json').read_text())[INV] if r['id'].startswith(PREFIX)]
@@ -14,7 +15,7 @@ def test_complete_original_figures_and_nonsequential_PDF_bindings_preserved():
     for x in r:
         f=figures[x['figure_number']];path=ROOT/'web'/x['src'].removeprefix('/app/');assert hashlib.sha256(path.read_bytes()).hexdigest()==x['sha256']==f['source_master_sha256']
         with Image.open(path) as im:assert im.size==(f['width'],f['height']) and hashlib.sha256(im.tobytes()).hexdigest()==f['decoded_pixel_sha256']
-        asset=next(a for a in json.loads((ROOT/'data/radiology/radiology-asset-evidence.json').read_text())['assets'] if a['id']==x['id']);assert asset['anatomical_review']['status']=='pending' and not asset['structure_ids'] and not asset['requirement_coverage']
+        asset=next(a for a in json.loads((ROOT/'data/radiology/radiology-asset-evidence.json').read_text())['assets'] if a['id']==x['id']);assert asset['anatomical_review']['status']=='pending' and only_caption_bindings(asset)
 def test_drawing_is_not_histology_and_two_foreign_body_patients_are_not_merged():
     r={x['figure_number']:x for x in rows()};assert r[2]['kind']=='schematic' and r[2]['modality']=='Schematic' and r[2]['clinical_panels']==[] and r[2]['schematic_panels']==['full']
     assert r[6]['clinical_panels']==['a'] and r[6]['ancillary_panels'][0]['kind']=='Radiography' and r[6]['ancillary_panels'][0]['panels']==['b'];assert r[6]['source_context']['source_panels_are_different_patients']

@@ -4,6 +4,7 @@ from pathlib import Path
 from PIL import Image
 from primer.curriculum import Curriculum
 from primer.radiology_catalog import detail,resolve
+from tools.anatomy_sources.bind_stored_caption_assets import only_caption_bindings
 
 ROOT=Path(__file__).resolve().parents[1]
 REVIEW=ROOT/'docs/small-bowel-tumour-published-source-review'
@@ -69,7 +70,7 @@ def test_source_rights_and_exact_pixels_do_not_approve_tumour_or_interface_cover
     assets=json.loads((ROOT/'data/radiology/radiology-asset-evidence.json').read_text())['assets'];rows=[r for r in assets if r['id'].startswith('open-small-bowel-tumour-')]
     assert len(rows)==16
     for row in rows:
-        assert row['structure_ids']==[] and row['requirement_coverage']=={} and row['anatomical_review']['status']=='pending'
+        assert only_caption_bindings(row) and row['anatomical_review']['status']=='pending'
         rights=row['source']['license'];assert rights['commercial_use'] and rights['redistribution']
         assert hashlib.sha256((ROOT/rights['evidence_path']).read_bytes()).hexdigest()==rights['evidence_sha256']
         assert not row['pixel_provenance']['highest_resolution_acquired_master_verified']

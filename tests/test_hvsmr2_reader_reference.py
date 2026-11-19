@@ -3,6 +3,7 @@ import gzip,hashlib,json,math,struct
 from pathlib import Path
 from primer.curriculum import Curriculum
 from primer.radiology_catalog import detail,resolve
+from tools.anatomy_sources.bind_stored_caption_assets import only_caption_bindings
 ROOT=Path(__file__).resolve().parents[1];OUT=ROOT/'web/anatomy/hvsmr2-pat7';SOURCE=ROOT/'docs/hvsmr2-pat7-native-source-review'
 def sha(raw):return hashlib.sha256(raw).hexdigest()
 def test_every_original_source_surface_is_preserved_in_reader_transport():
@@ -34,7 +35,7 @@ def test_new_source_assets_have_rights_but_no_verified_leaf_bindings():
     assets=json.loads((ROOT/'data/radiology/radiology-asset-evidence.json').read_text())['assets'];selected=[a for a in assets if a['id'].startswith('hvsmr2-pat7-')]
     assert len(selected)==9 and sum(a['kind']=='model' for a in selected)==8
     for a in selected:
-        assert not a['structure_ids'] and not a['requirement_coverage'] and a['anatomical_review']['status']=='pending'
+        assert only_caption_bindings(a) and a['anatomical_review']['status']=='pending'
         license=a['source']['license'];assert license['review_status']=='verified' and license['commercial_use'] and license['redistribution']
         assert sha((ROOT/license['evidence_path']).read_bytes())==license['evidence_sha256']
 

@@ -35,6 +35,14 @@ function renderModuleMission(n, targets) {
     trail.append(button);
   });
   status.textContent = 'Choose a step to begin. Study steps do not award mastery; quiz results do.';
+  // A stop is promised before its section has loaded; one that turns out to
+  // have nothing behind it is withdrawn rather than left pointing at nothing.
+  root.dropStop = target => {
+    const index = targets.findIndex(item => item.target === target);
+    if (index < 0 || !buttons[index].isConnected) return;
+    buttons[index].remove(); visited.delete(index);
+    progress.max = trail.children.length; progress.value = visited.size;
+  };
   return root;
 }
 
@@ -90,16 +98,72 @@ renderNode = async function(page, nodeId) {
   const reading = page.querySelector('.lesson-card')?.parentElement;
   const actions = quiz.parentElement;
   const locked = page.querySelector('.req-chip')?.parentElement;
+  const play = learningGameSection(page, nodeId);
   const targets = [
     { title: 'Learn', hint: 'Discover the idea', target: teaching },
+    { title: 'Play', hint: 'Learn by doing', target: play },
     { title: 'Explore', hint: 'Investigate the visuals', target: media },
     { title: 'Read', hint: 'Make connections', target: reading },
     { title: 'Challenge', hint: quiz.disabled ? 'See what unlocks this lesson' : 'Show what you know', target: quiz.disabled ? locked : actions },
   ].filter(item => item.target);
-  if (targets.length) page.insertBefore(renderModuleMission({}, targets), page.children[2] || null);
+  if (!targets.length) return;
+  const mission = renderModuleMission({}, targets);
+  page.insertBefore(mission, page.children[2] || null);
+  if (play) { mission.after(play); mountLearningGame(play, page, nodeId, mission); }
 };
 
-// Load the original game only for its mapped lesson; source records stay static.
+// Learning sequences: one idea in a few small checked steps. The authored
+// models stay on the server, which marks every response; the player and its
+// stylesheet are fetched only when a lesson is opened.
+let learningGameAssets;
+function loadLearningGames(assets) {
+  if (!learningGameAssets) {
+    const wanted = [...assets.scripts, assets.style];
+    const add = url => new Promise((resolve, reject) => {
+      const style = url === assets.style;
+      const tag = document.createElement(style ? 'link' : 'script');
+      if (style) { tag.rel = 'stylesheet'; tag.href = url; } else { tag.src = url; tag.async = false; }
+      tag.dataset.learningGame = '';
+      tag.onload = resolve;
+      tag.onerror = () => { tag.remove(); reject(new Error('Activity file unavailable')); };
+      document.head.append(tag);
+    });
+    // Scripts in order, each waiting for the last: the player needs the drawings.
+    learningGameAssets = wanted.reduce((chain, url) => chain.then(() => add(url)), Promise.resolve())
+      .catch(error => {
+        learningGameAssets = null;
+        document.head.querySelectorAll('[data-learning-game]').forEach(tag => tag.remove());
+        throw error;
+      });
+  }
+  return learningGameAssets;
+}
+function learningGameSection(page, nodeId) {
+  if (typeof fetch !== 'function' || !nodeId) return null;
+  return el('section', { class: 'card lg-play', 'aria-label': 'Learn by doing' });
+}
+async function mountLearningGame(section, page, nodeId, mission) {
+  section.replaceChildren(el('p', { class: 'muted', role: 'status' }, 'Opening the activity…'));
+  try {
+    const response = await fetch('/api/learning-games/' + encodeURIComponent(nodeId));
+    if (response.status === 401 && typeof toSignIn === 'function') return toSignIn();
+    if (!response.ok) throw new Error('Activity unavailable');
+    const data = await response.json();
+    if (!section.isConnected) return;
+    if (!data.sequences.length) { if (mission) mission.dropStop(section); section.remove(); return; }
+    await loadLearningGames(data.assets);
+    if (!section.isConnected) return;
+    window.PrimerLearningGames.mount(section, data, { page });
+  } catch (error) {
+    if (!section.isConnected) return;
+    // The lesson never depends on this: say so, and offer the one thing that helps.
+    section.replaceChildren(el('h3', {}, 'Learn by doing'),
+      el('p', { role: 'alert' }, 'The activity could not load. Your lesson is still available.'),
+      btn({ class: 'btn', onclick: () => mountLearningGame(section, page, nodeId, mission) }, 'Try again'));
+  }
+}
+
+// The open number bench belongs to one lesson; it loads only there.
 let divisibilityGameAssets;
 function loadDivisibilityGame() {
   if (!divisibilityGameAssets) {
@@ -125,9 +189,9 @@ renderNode = async function(page, nodeId) {
   await divisibilityOriginalRenderNode(page, nodeId);
   if (nodeId !== 'math.2.primes' || !page.isConnected || !page.querySelector('.lesson-card')) return;
   const game = el('section', { class: 'card divisibility-game' });
-  game.append(el('p', {}, 'Loading Last-Digit Detective…'));
-  const trail = page.querySelector('.module-mission');
-  if (trail) trail.after(game); else page.append(game);
+  game.append(el('p', {}, 'Loading the number bench…'));
+  const anchor = page.querySelector('.lg-play') || page.querySelector('.module-mission');
+  if (anchor) anchor.after(game); else page.append(game);
   async function mountGame() {
     try {
       const model = await loadDivisibilityGame();
@@ -135,8 +199,8 @@ renderNode = async function(page, nodeId) {
       game.replaceChildren(); window.PrimerDivisibility.mount(game, model);
     } catch (error) {
       if (!game.isConnected) return;
-      game.replaceChildren(el('p', {}, 'The game could not load. Your lesson is still available.'),
-        btn({ class: 'btn', onclick: mountGame }, 'Retry game'));
+      game.replaceChildren(el('p', {}, 'The number bench could not load. Your lesson is still available.'),
+        btn({ class: 'btn', onclick: mountGame }, 'Retry'));
     }
   }
   await mountGame();

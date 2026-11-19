@@ -18,16 +18,33 @@ DICTATION_LAYOUT = (
 
 
 def before_activity_registry_bytes(path, raw):
+    # Newest link for the backend: the learning-sequence router (2026-11-18).
+    from tools.learning_games_compatibility import before_learning_games_bytes
+    raw = before_learning_games_bytes(path, raw)
+    if str(path) == 'data/radiology/radiology-asset-evidence.json':
+        # Newest link for the evidence file: records and bindings of the brain readers' label meshes.
+        from tools.anatomy_sources.bind_reader_models import before_reader_model_records
+        raw = before_reader_model_records(raw)
+        # Next link: bindings of the stored 3D models to the structures their labels name.
+        from tools.anatomy_sources.bind_models import before_model_bindings
+        raw = before_model_bindings(raw)
+        # Next link: bindings of the figures that the context-code repair unlocked.
+        from tools.anatomy_sources.bind_unlocked_figures import before_unlocked_figure_bindings
+        raw = before_unlocked_figure_bindings(raw)
+    # Next link for the evidence file, and the newest for the figure catalog: repaired figure-record context codes.
+    from tools.anatomy_sources.repair_source_context_codes import before_source_context_repairs
+    raw = before_source_context_repairs(path, raw)
     if str(path) == PATH:
         from tools.recist_pelvic_runtime_compatibility import before_recist_pelvic_delivery_bytes
         raw = before_recist_pelvic_delivery_bytes(path, raw)
     if str(path) == 'data/radiology/radiology-asset-evidence.json':
-        # Newest links for the evidence file: sided Radiology Assistant figures, second-pass stored-caption bindings, first-pass stored-caption bindings,
-        # Radiology Assistant figures, sided ultrasound panels.
+        # Newest links for the evidence file: finding-figure bindings, sided Radiology Assistant figures, second-pass stored-caption bindings,
+        # first-pass stored-caption bindings, Radiology Assistant figures, sided ultrasound panels.
         from tools.anatomy_sources.bind_stored_caption_assets import before_stored_caption_bindings
         from tools.anatomy_sources.bind_stored_caption_assets_pass2 import before_stored_caption_bindings_pass2
         from tools.anatomy_sources.package_radiology_assistant_sided_figures import before_radiology_assistant_sided_figures
-        raw = before_stored_caption_bindings_pass2(before_radiology_assistant_sided_figures(raw))
+        from tools.anatomy_sources.bind_finding_figures import before_finding_figure_bindings
+        raw = before_stored_caption_bindings_pass2(before_radiology_assistant_sided_figures(before_finding_figure_bindings(raw)))
         from tools.anatomy_sources.package_radiology_assistant_figures import before_radiology_assistant_figures
         from tools.anatomy_sources.package_thoracic_us_side_panels import before_side_panels
         return before_side_panels(before_radiology_assistant_figures(before_stored_caption_bindings(raw)))

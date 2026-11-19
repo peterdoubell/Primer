@@ -106,3 +106,25 @@ def test_mask_map_matches_independent_original_nifti_planes():
         ['node', 'tools/anatomy_sources/check_pat9_mask_map.mjs'], cwd=ROOT,
         check=True, timeout=90,
     )
+
+
+def test_lynos_binding_preserves_the_newer_learning_router_and_older_source_chain():
+    import hashlib
+    import json
+
+    from tools.learning_games_compatibility import before_learning_games_bytes
+    from tools.lnq_nodal_runtime_compatibility import before_lnq_nodal_bytes
+    from tools.lynos_pat9_runtime_compatibility import before_lynos_pat9_bytes
+
+    path = 'primer/server.py'
+    raw = (ROOT / path).read_bytes()
+    learning = json.loads((ROOT / 'docs/learning-games/runtime-inverse.json').read_bytes())[path]
+    ly_source = json.loads((ROOT / 'docs/lynos-pat9-source-review/runtime-inverse.json').read_bytes())[path]
+    lnq = json.loads((ROOT / 'docs/lnq-nodal-source-review/runtime-inverse.json').read_bytes())[path]
+    fingerprint = lambda value: hashlib.sha256(value).hexdigest()
+    assert b'from .learning_games import router as learning_games_router' in raw
+    assert fingerprint(raw) == ly_source['after']
+    assert fingerprint(before_lynos_pat9_bytes(path, raw)) == ly_source['before'] == learning['after']
+    assert fingerprint(before_learning_games_bytes(path, raw)) == learning['before'] == lnq['after']
+    assert fingerprint(before_lnq_nodal_bytes(path, raw)) == lnq['before']
+    assert before_learning_games_bytes(path, raw + b'\n') == raw + b'\n'

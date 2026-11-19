@@ -303,3 +303,70 @@ before this change.
 118 section figures naming unbound left or right structures were reviewed; 39 were stored with 62
 partial bindings on 54 structures. Bound structures 449 → 503 of 57,985; investigations with none
 73 → 67. Details: `docs/radiology-assistant-sided-figure-bindings-20261117/README.md`.
+
+## Figures of findings bound to finding requirements (2026-11-18)
+
+On 2026-11-18 the project owner decided that figures of findings are bound to finding requirements.
+The stored figures were reviewed for that (`docs/finding-figure-bindings-20261118`): 462 partial
+bindings on 245 figures, covering 237 finding requirements. Bound structures 503 → 739 of 57,985;
+investigations with none 67 → 51. Each binding quotes the sentence that names the finding; 34 rest
+on a listed kind-of pair (a contusion is an injury). Unsided lung findings, catch-all requirements,
+measurements and findings named only in a note that the source's suggestion is unconfirmed were not
+bound. Nothing is anatomically approved.
+
+## Figure-record context codes repaired (2026-11-18)
+
+256 stored figures and models carried a context code the checker could not read, so it refused every
+binding of them. 250 were repaired in the evidence ledger (`docs/source-context-code-repairs-20261118`):
+318 changes into the checker's vocabulary, each with its rule, and a reviewed state where the old code
+did not say what the figure shows. Six deliberate empty panel selections were left as they are, and
+nine context-only figures keep that restriction. On the repaired figures, 375 caption matches (318
+structure, 57 finding) can now be reviewed for binding. Bound structures stay at 739 of 57,985. The
+app's figure catalog keeps the original codes.
+
+## Unlocked figures bound (2026-11-18)
+
+The figures that the context-code repair unlocked were reviewed for binding, structures and findings
+alike (`docs/unlocked-figure-bindings-20261118`): 515 partial bindings on 138 figures, covering 283
+requirements. Bound structures 739 → 993 of 57,985; investigations with none 51 → 47 (oesophagus,
+epilepsy MRI, swallowing and cervical lymph nodes gain their first bindings). Each binding quotes the
+sentence that names the structure or finding; 51 rest on a listed kind-of pair (a carcinoma is a
+tumour) and 10 on a legend letter that a selected panel carries. After the figures were looked at,
+three bindings were withdrawn: an orbit cyst whose stated side conflicts with the image, and both sides
+of an unsided pouch above the diaphragm. The 69 repaired 3D models are reference-only and stay unbound. Nothing is
+anatomically approved.
+
+## 3D models bound (2026-11-18)
+
+The 142 stored 3D models without a binding were reviewed against the requirements of their
+investigations (`docs/model-bindings-20261118`): 108 partial bindings on 69 models, covering 94
+structure requirements. Bound structures 993 → 1,062 of 57,985; investigations with none 47 → 45
+(thyroid ultrasound and prostate MRI gain their first bindings). Each binding quotes the model's own
+source label. A label that names a whole is not bound to a requirement that names its parts. Where a
+label states a side, the stored mesh was checked to lie on that side of its source's midline. That
+check found that the HRA female pelvis source swaps its round ligament labels; neither is bound. The
+other 73 models are listed with their reasons. The MSK ledger's 636 models (12 bound) are a separate
+pass. Nothing is anatomically approved.
+
+## MSK 3D models bound (2026-11-18)
+
+The 624 unbound models of the MSK evidence ledger were reviewed (`docs/msk-model-bindings-20261118`):
+147 partial bindings on 115 models, covering 129 requirement parts and structures. Bound structures
+993 → 1,062 → 1,179 of 57,985 across the two model passes. In the MSK checker, unverified rows 173 → 326
+and missing rows 5,119 → 4,966. A model binds the structure itself (when it has no parts), the part that
+is the structure's own body (course, midsubstance, muscle belly, articular surface), a part its label
+names, or one member of a named group. A whole is never bound to its regions, bundles or components.
+Where an investigation's 3D view shows a Z-Anatomy model that the record did not list, the investigation
+was added to the record (135 additions). An earlier Open Knee(s) review that left the tibial cartilages
+unbound was kept. Nothing is anatomically approved.
+
+## Brain reader meshes recorded and bound (2026-11-19)
+
+The brain readers show label-boundary meshes that no evidence record covered (`docs/reader-model-bindings-20261119`). Each
+SPL/NAC atlas, holiAtlas and HippUnfold mesh whose own label names a requirement of an investigation showing its reader now
+has a record: 186 records with 192 partial bindings, covering 103 requirement leaves. Bound structures 1,179 → 1,274 of
+57,985 (brain anatomy 8 → 72, neck spaces 10 → 23, epilepsy MRI 11 → 23, sella MRI 30 → 36). Each stated side was checked
+against the decoded mesh, a midsagittal plane fitted to the source's own midline structures, and the mirror mesh. The Schirmer
+territory masks, gyral parts, cerebellar lobules and wholes whose parts are required were not bound; all 567 unrecorded meshes
+are listed with their reasons. The body readers linked from module pages are a separate pass. Nothing is anatomically
+approved.

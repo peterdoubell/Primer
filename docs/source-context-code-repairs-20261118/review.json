@@ -1,0 +1,3993 @@
+{
+ "reviewed_at": "2026-11-18",
+ "reviewer": "Claude record and caption comparison; not a radiologist review",
+ "decision": "On 2026-11-18 the project owner asked for the malformed figure-record context codes to be repaired.",
+ "rule": "A context value the fidelity checker cannot read is rewritten in the evidence ledger into the checker’s vocabulary with the same meaning. Where the old code did not say what the figure shows, the figure was looked at and its caption read. No binding, coverage, review status, caption or pixel changes.",
+ "catalog": "The app’s figure catalog keeps the packaging scripts’ original codes. The app reads none of the repaired fields, and the catalog copy is pinned by reader digests, lesson contracts and the saved fidelity scope; catalog_mirror marks the records whose catalog row still holds the ledger’s pre-repair context.",
+ "rules": {
+  "extent_vocabulary": "An extent written in the packaging script’s own words (“source_local_views”, “source_obtained_only”, a single local MPR, separate local examples, or “conceptual” on a schematic) becomes “local”, the ledger’s value for a figure that shows part of a structure.",
+  "setting_vocabulary": "An illustration is recorded with the setting “conceptual”, as the ledger’s other 48 schematics are.",
+  "laterality_vocabulary": "“not_applicable” and “not_independently_verified” become “not_reported”, the ledger’s value for a record that states no side; the checker treats both the same way.",
+  "laterality_stated": "A side the record called publisher-assigned becomes that side where the published caption itself states it.",
+  "life_stage_vocabulary": "“child” becomes “immature” and “mixed_or_not_reported” becomes “not_reported”.",
+  "state_lowercase": "A state code with capital letters is written in lower case. The figure was checked to show what the code says.",
+  "state_reviewed": "The old code did not say what the figure shows; the new code does (normal anatomy, an anatomical variant, or a named disease).",
+  "state_mixed_panels": "The record’s own selected panels show different states, so the figure-level state is “mixed”, as on 18 other records.",
+  "state_same_meaning": "The figure-level state and the single panel state said the same thing in different words; the figure-level state takes the panel’s code.",
+  "prose_to_record": "A sentence stored where a context record belongs becomes a record holding only what the sentence states, with the sentence kept as a note."
+ },
+ "vocabulary": {
+  "extent": {
+   "source_local_views": "local",
+   "source_obtained_only": "local",
+   "single_source_local_MPR": "local",
+   "separate_source_local_examples": "local",
+   "conceptual": "local"
+  },
+  "setting": {
+   "illustration": "conceptual",
+   "source_illustration": "conceptual"
+  },
+  "laterality": {
+   "not_applicable": "not_reported",
+   "not_independently_verified": "not_reported"
+  },
+  "life_stage": {
+   "child": "immature",
+   "mixed_or_not_reported": "not_reported"
+  }
+ },
+ "repairs": [
+  {
+   "asset_id": "open-incidental-cardiac-ct-pmc6365314-fig1",
+   "catalog_mirror": true,
+   "changes": [
+    {
+     "field": "depicted_state",
+     "old": "source_cardiac_CT_case",
+     "new": "source_cardiac_ct_case",
+     "rule": "state_lowercase"
+    },
+    {
+     "field": "panel_states",
+     "old": {
+      "a": "source_cardiac_CT_case",
+      "b": "source_cardiac_CT_case"
+     },
+     "new": {
+      "a": "source_cardiac_ct_case",
+      "b": "source_cardiac_ct_case"
+     },
+     "rule": "state_lowercase"
+    }
+   ]
+  },
+  {
+   "asset_id": "open-incidental-cardiac-ct-pmc6365314-fig2",
+   "catalog_mirror": true,
+   "changes": [
+    {
+     "field": "depicted_state",
+     "old": "source_cardiac_CT_case",
+     "new": "source_cardiac_ct_case",
+     "rule": "state_lowercase"
+    },
+    {
+     "field": "panel_states",
+     "old": {
+      "whole": "source_cardiac_CT_case"
+     },
+     "new": {
+      "whole": "source_cardiac_ct_case"
+     },
+     "rule": "state_lowercase"
+    }
+   ]
+  },
+  {
+   "asset_id": "open-incidental-cardiac-ct-pmc6365314-fig3",
+   "catalog_mirror": true,
+   "changes": [
+    {
+     "field": "depicted_state",
+     "old": "source_cardiac_CT_case",
+     "new": "source_cardiac_ct_case",
+     "rule": "state_lowercase"
+    },
+    {
+     "field": "panel_states",
+     "old": {
+      "whole": "source_cardiac_CT_case"
+     },
+     "new": {
+      "whole": "source_cardiac_ct_case"
+     },
+     "rule": "state_lowercase"
+    }
+   ]
+  },
+  {
+   "asset_id": "open-incidental-cardiac-ct-pmc6365314-fig4",
+   "catalog_mirror": true,
+   "changes": [
+    {
+     "field": "depicted_state",
+     "old": "source_cardiac_CT_case",
+     "new": "source_cardiac_ct_case",
+     "rule": "state_lowercase"
+    },
+    {
+     "field": "panel_states",
+     "old": {
+      "whole": "source_cardiac_CT_case"
+     },
+     "new": {
+      "whole": "source_cardiac_ct_case"
+     },
+     "rule": "state_lowercase"
+    }
+   ]
+  },
+  {
+   "asset_id": "open-incidental-cardiac-ct-pmc6365314-fig5",
+   "catalog_mirror": true,
+   "changes": [
+    {
+     "field": "depicted_state",
+     "old": "source_cardiac_CT_case",
+     "new": "source_cardiac_ct_case",
+     "rule": "state_lowercase"
+    },
+    {
+     "field": "panel_states",
+     "old": {
+      "a": "source_cardiac_CT_case",
+      "b": "source_cardiac_CT_case"
+     },
+     "new": {
+      "a": "source_cardiac_ct_case",
+      "b": "source_cardiac_ct_case"
+     },
+     "rule": "state_lowercase"
+    }
+   ]
+  },
+  {
+   "asset_id": "open-incidental-cardiac-ct-pmc6365314-fig6",
+   "catalog_mirror": true,
+   "changes": [
+    {
+     "field": "depicted_state",
+     "old": "source_cardiac_CT_case",
+     "new": "source_cardiac_ct_case",
+     "rule": "state_lowercase"
+    },
+    {
+     "field": "panel_states",
+     "old": {
+      "a": "source_cardiac_CT_case",
+      "b": "source_cardiac_CT_case"
+     },
+     "new": {
+      "a": "source_cardiac_ct_case",
+      "b": "source_cardiac_ct_case"
+     },
+     "rule": "state_lowercase"
+    }
+   ]
+  },
+  {
+   "asset_id": "open-incidental-cardiac-ct-pmc6365314-fig7",
+   "catalog_mirror": true,
+   "changes": [
+    {
+     "field": "depicted_state",
+     "old": "source_cardiac_CT_case",
+     "new": "source_cardiac_ct_case",
+     "rule": "state_lowercase"
+    },
+    {
+     "field": "panel_states",
+     "old": {
+      "whole": "source_cardiac_CT_case"
+     },
+     "new": {
+      "whole": "source_cardiac_ct_case"
+     },
+     "rule": "state_lowercase"
+    }
+   ]
+  },
+  {
+   "asset_id": "open-incidental-cardiac-ct-pmc6365314-fig8",
+   "catalog_mirror": true,
+   "changes": [
+    {
+     "field": "depicted_state",
+     "old": "source_cardiac_CT_case",
+     "new": "source_cardiac_ct_case",
+     "rule": "state_lowercase"
+    },
+    {
+     "field": "panel_states",
+     "old": {
+      "a": "source_cardiac_CT_case",
+      "b": "source_cardiac_CT_case",
+      "c": "source_cardiac_CT_case"
+     },
+     "new": {
+      "a": "source_cardiac_ct_case",
+      "b": "source_cardiac_ct_case",
+      "c": "source_cardiac_ct_case"
+     },
+     "rule": "state_lowercase"
+    }
+   ]
+  },
+  {
+   "asset_id": "open-incidental-cardiac-ct-pmc6365314-fig9",
+   "catalog_mirror": true,
+   "changes": [
+    {
+     "field": "depicted_state",
+     "old": "source_cardiac_CT_case",
+     "new": "source_cardiac_ct_case",
+     "rule": "state_lowercase"
+    },
+    {
+     "field": "panel_states",
+     "old": {
+      "whole": "source_cardiac_CT_case"
+     },
+     "new": {
+      "whole": "source_cardiac_ct_case"
+     },
+     "rule": "state_lowercase"
+    }
+   ]
+  },
+  {
+   "asset_id": "open-incidental-cardiac-ct-pmc6365314-fig10",
+   "catalog_mirror": true,
+   "changes": [
+    {
+     "field": "depicted_state",
+     "old": "source_cardiac_CT_case",
+     "new": "source_cardiac_ct_case",
+     "rule": "state_lowercase"
+    },
+    {
+     "field": "panel_states",
+     "old": {
+      "a": "source_cardiac_CT_case",
+      "b": "source_cardiac_CT_case"
+     },
+     "new": {
+      "a": "source_cardiac_ct_case",
+      "b": "source_cardiac_ct_case"
+     },
+     "rule": "state_lowercase"
+    }
+   ]
+  },
+  {
+   "asset_id": "open-incidental-cardiac-ct-pmc6365314-fig11",
+   "catalog_mirror": true,
+   "changes": [
+    {
+     "field": "depicted_state",
+     "old": "source_cardiac_CT_case",
+     "new": "source_cardiac_ct_case",
+     "rule": "state_lowercase"
+    },
+    {
+     "field": "panel_states",
+     "old": {
+      "whole": "source_cardiac_CT_case"
+     },
+     "new": {
+      "whole": "source_cardiac_ct_case"
+     },
+     "rule": "state_lowercase"
+    }
+   ]
+  },
+  {
+   "asset_id": "open-incidental-cardiac-ct-pmc6365314-fig12",
+   "catalog_mirror": true,
+   "changes": [
+    {
+     "field": "depicted_state",
+     "old": "source_cardiac_CT_case",
+     "new": "source_cardiac_ct_case",
+     "rule": "state_lowercase"
+    },
+    {
+     "field": "panel_states",
+     "old": {
+      "a": "source_cardiac_CT_case",
+      "b": "source_cardiac_CT_case"
+     },
+     "new": {
+      "a": "source_cardiac_ct_case",
+      "b": "source_cardiac_ct_case"
+     },
+     "rule": "state_lowercase"
+    }
+   ]
+  },
+  {
+   "asset_id": "open-incidental-cardiac-ct-pmc6365314-fig13",
+   "catalog_mirror": true,
+   "changes": [
+    {
+     "field": "depicted_state",
+     "old": "source_cardiac_CT_case",
+     "new": "source_cardiac_ct_case",
+     "rule": "state_lowercase"
+    },
+    {
+     "field": "panel_states",
+     "old": {
+      "whole": "source_cardiac_CT_case"
+     },
+     "new": {
+      "whole": "source_cardiac_ct_case"
+     },
+     "rule": "state_lowercase"
+    }
+   ]
+  },
+  {
+   "asset_id": "open-incidental-cardiac-ct-pmc6365314-fig14",
+   "catalog_mirror": true,
+   "changes": [
+    {
+     "field": "depicted_state",
+     "old": "source_cardiac_CT_case",
+     "new": "source_cardiac_ct_case",
+     "rule": "state_lowercase"
+    },
+    {
+     "field": "panel_states",
+     "old": {
+      "whole": "source_cardiac_CT_case"
+     },
+     "new": {
+      "whole": "source_cardiac_ct_case"
+     },
+     "rule": "state_lowercase"
+    }
+   ]
+  },
+  {
+   "asset_id": "open-incidental-cardiac-ct-pmc6365314-fig15",
+   "catalog_mirror": true,
+   "changes": [
+    {
+     "field": "depicted_state",
+     "old": "source_cardiac_CT_case",
+     "new": "source_cardiac_ct_case",
+     "rule": "state_lowercase"
+    },
+    {
+     "field": "panel_states",
+     "old": {
+      "whole": "source_cardiac_CT_case"
+     },
+     "new": {
+      "whole": "source_cardiac_ct_case"
+     },
+     "rule": "state_lowercase"
+    }
+   ]
+  },
+  {
+   "asset_id": "open-incidental-cardiac-ct-pmc6365314-fig16",
+   "catalog_mirror": true,
+   "changes": [
+    {
+     "field": "depicted_state",
+     "old": "source_cardiac_CT_case",
+     "new": "source_cardiac_ct_case",
+     "rule": "state_lowercase"
+    },
+    {
+     "field": "panel_states",
+     "old": {
+      "whole": "source_cardiac_CT_case"
+     },
+     "new": {
+      "whole": "source_cardiac_ct_case"
+     },
+     "rule": "state_lowercase"
+    }
+   ]
+  },
+  {
+   "asset_id": "open-incidental-cardiac-ct-pmc6365314-fig17",
+   "catalog_mirror": true,
+   "changes": [
+    {
+     "field": "depicted_state",
+     "old": "source_cardiac_CT_case",
+     "new": "source_cardiac_ct_case",
+     "rule": "state_lowercase"
+    },
+    {
+     "field": "panel_states",
+     "old": {
+      "whole": "source_cardiac_CT_case"
+     },
+     "new": {
+      "whole": "source_cardiac_ct_case"
+     },
+     "rule": "state_lowercase"
+    }
+   ]
+  },
+  {
+   "asset_id": "open-incidental-cardiac-ct-pmc6365314-fig18",
+   "catalog_mirror": true,
+   "changes": [
+    {
+     "field": "depicted_state",
+     "old": "source_cardiac_CT_case",
+     "new": "source_cardiac_ct_case",
+     "rule": "state_lowercase"
+    },
+    {
+     "field": "panel_states",
+     "old": {
+      "a": "source_cardiac_CT_case",
+      "b": "source_cardiac_CT_case"
+     },
+     "new": {
+      "a": "source_cardiac_ct_case",
+      "b": "source_cardiac_ct_case"
+     },
+     "rule": "state_lowercase"
+    }
+   ]
+  },
+  {
+   "asset_id": "open-incidental-cardiac-ct-pmc6365314-fig19",
+   "catalog_mirror": true,
+   "changes": [
+    {
+     "field": "depicted_state",
+     "old": "source_cardiac_CT_case",
+     "new": "source_cardiac_ct_case",
+     "rule": "state_lowercase"
+    },
+    {
+     "field": "panel_states",
+     "old": {
+      "whole": "source_cardiac_CT_case"
+     },
+     "new": {
+      "whole": "source_cardiac_ct_case"
+     },
+     "rule": "state_lowercase"
+    }
+   ]
+  },
+  {
+   "asset_id": "open-incidental-cardiac-ct-pmc6365314-fig20",
+   "catalog_mirror": true,
+   "changes": [
+    {
+     "field": "depicted_state",
+     "old": "source_cardiac_CT_case",
+     "new": "source_cardiac_ct_case",
+     "rule": "state_lowercase"
+    },
+    {
+     "field": "panel_states",
+     "old": {
+      "whole": "source_cardiac_CT_case"
+     },
+     "new": {
+      "whole": "source_cardiac_ct_case"
+     },
+     "rule": "state_lowercase"
+    }
+   ]
+  },
+  {
+   "asset_id": "open-incidental-cardiac-ct-pmc6365314-fig21",
+   "catalog_mirror": true,
+   "changes": [
+    {
+     "field": "depicted_state",
+     "old": "source_cardiac_CT_case",
+     "new": "source_cardiac_ct_case",
+     "rule": "state_lowercase"
+    },
+    {
+     "field": "panel_states",
+     "old": {
+      "whole": "source_cardiac_CT_case"
+     },
+     "new": {
+      "whole": "source_cardiac_ct_case"
+     },
+     "rule": "state_lowercase"
+    }
+   ]
+  },
+  {
+   "asset_id": "open-sinonasal-operative-pmc6472854-fig1",
+   "catalog_mirror": true,
+   "changes": [
+    {
+     "field": "depicted_state",
+     "old": "source_sinonasal_CT_variant_or_pathology_example",
+     "new": "normal_variant",
+     "rule": "state_reviewed"
+    },
+    {
+     "field": "panel_states",
+     "old": {
+      "whole": "source_sinonasal_CT_variant_or_pathology_example"
+     },
+     "new": {
+      "whole": "normal_variant"
+     },
+     "rule": "state_reviewed"
+    }
+   ],
+   "reason": "The figure shows an anatomical variant of sinus surgical anatomy, not disease; the old code said “variant or pathology”."
+  },
+  {
+   "asset_id": "open-sinonasal-operative-pmc6472854-fig2",
+   "catalog_mirror": true,
+   "changes": [
+    {
+     "field": "depicted_state",
+     "old": "source_sinonasal_CT_variant_or_pathology_example",
+     "new": "normal_variant",
+     "rule": "state_reviewed"
+    },
+    {
+     "field": "panel_states",
+     "old": {
+      "whole": "source_sinonasal_CT_variant_or_pathology_example"
+     },
+     "new": {
+      "whole": "normal_variant"
+     },
+     "rule": "state_reviewed"
+    }
+   ],
+   "reason": "The figure shows an anatomical variant of sinus surgical anatomy, not disease; the old code said “variant or pathology”."
+  },
+  {
+   "asset_id": "open-sinonasal-operative-pmc6472854-fig3",
+   "catalog_mirror": true,
+   "changes": [
+    {
+     "field": "depicted_state",
+     "old": "source_sinonasal_CT_variant_or_pathology_example",
+     "new": "normal_variant",
+     "rule": "state_reviewed"
+    },
+    {
+     "field": "panel_states",
+     "old": {
+      "whole": "source_sinonasal_CT_variant_or_pathology_example"
+     },
+     "new": {
+      "whole": "normal_variant"
+     },
+     "rule": "state_reviewed"
+    }
+   ],
+   "reason": "The figure shows an anatomical variant of sinus surgical anatomy, not disease; the old code said “variant or pathology”."
+  },
+  {
+   "asset_id": "open-sinonasal-operative-pmc6472854-fig4",
+   "catalog_mirror": true,
+   "changes": [
+    {
+     "field": "depicted_state",
+     "old": "source_sinonasal_CT_variant_or_pathology_example",
+     "new": "normal_variant",
+     "rule": "state_reviewed"
+    },
+    {
+     "field": "panel_states",
+     "old": {
+      "whole": "source_sinonasal_CT_variant_or_pathology_example"
+     },
+     "new": {
+      "whole": "normal_variant"
+     },
+     "rule": "state_reviewed"
+    }
+   ],
+   "reason": "The figure shows an anatomical variant of sinus surgical anatomy, not disease; the old code said “variant or pathology”."
+  },
+  {
+   "asset_id": "open-sinonasal-operative-pmc6472854-fig5",
+   "catalog_mirror": true,
+   "changes": [
+    {
+     "field": "depicted_state",
+     "old": "source_sinonasal_CT_variant_or_pathology_example",
+     "new": "source_sinonasal_ct_pathology_example",
+     "rule": "state_reviewed"
+    },
+    {
+     "field": "panel_states",
+     "old": {
+      "whole": "source_sinonasal_CT_variant_or_pathology_example"
+     },
+     "new": {
+      "whole": "source_sinonasal_ct_pathology_example"
+     },
+     "rule": "state_reviewed"
+    }
+   ],
+   "reason": "The figure shows atelectasis of the left maxillary sinus, an acquired disease."
+  },
+  {
+   "asset_id": "open-sinonasal-operative-pmc6472854-fig6",
+   "catalog_mirror": true,
+   "changes": [
+    {
+     "field": "depicted_state",
+     "old": "source_sinonasal_CT_variant_or_pathology_example",
+     "new": "normal_variant",
+     "rule": "state_reviewed"
+    },
+    {
+     "field": "panel_states",
+     "old": {
+      "whole": "source_sinonasal_CT_variant_or_pathology_example"
+     },
+     "new": {
+      "whole": "normal_variant"
+     },
+     "rule": "state_reviewed"
+    }
+   ],
+   "reason": "The figure shows an anatomical variant of sinus surgical anatomy, not disease; the old code said “variant or pathology”."
+  },
+  {
+   "asset_id": "open-sinonasal-operative-pmc6472854-fig7",
+   "catalog_mirror": true,
+   "changes": [
+    {
+     "field": "depicted_state",
+     "old": "source_sinonasal_CT_variant_or_pathology_example",
+     "new": "normal_variant",
+     "rule": "state_reviewed"
+    },
+    {
+     "field": "panel_states",
+     "old": {
+      "whole": "source_sinonasal_CT_variant_or_pathology_example"
+     },
+     "new": {
+      "whole": "normal_variant"
+     },
+     "rule": "state_reviewed"
+    }
+   ],
+   "reason": "The figure shows an anatomical variant of sinus surgical anatomy, not disease; the old code said “variant or pathology”."
+  },
+  {
+   "asset_id": "open-sinonasal-operative-pmc6472854-fig8",
+   "catalog_mirror": true,
+   "changes": [
+    {
+     "field": "depicted_state",
+     "old": "source_sinonasal_CT_variant_or_pathology_example",
+     "new": "normal_anatomy",
+     "rule": "state_reviewed"
+    },
+    {
+     "field": "panel_states",
+     "old": {
+      "whole": "source_sinonasal_CT_variant_or_pathology_example"
+     },
+     "new": {
+      "whole": "normal_anatomy"
+     },
+     "rule": "state_reviewed"
+    }
+   ],
+   "reason": "The figure shows the anterior ethmoidal arteries, normal anatomy; the old code said “variant or pathology”."
+  },
+  {
+   "asset_id": "open-sinonasal-operative-pmc6472854-fig9",
+   "catalog_mirror": true,
+   "changes": [
+    {
+     "field": "depicted_state",
+     "old": "source_sinonasal_CT_variant_or_pathology_example",
+     "new": "normal_variant",
+     "rule": "state_reviewed"
+    },
+    {
+     "field": "panel_states",
+     "old": {
+      "whole": "source_sinonasal_CT_variant_or_pathology_example"
+     },
+     "new": {
+      "whole": "normal_variant"
+     },
+     "rule": "state_reviewed"
+    }
+   ],
+   "reason": "The figure shows an anatomical variant of sinus surgical anatomy, not disease; the old code said “variant or pathology”."
+  },
+  {
+   "asset_id": "open-sinonasal-operative-pmc6472854-fig10",
+   "catalog_mirror": true,
+   "changes": [
+    {
+     "field": "depicted_state",
+     "old": "source_sinonasal_CT_variant_or_pathology_example",
+     "new": "normal_variant",
+     "rule": "state_reviewed"
+    },
+    {
+     "field": "panel_states",
+     "old": {
+      "whole": "source_sinonasal_CT_variant_or_pathology_example"
+     },
+     "new": {
+      "whole": "normal_variant"
+     },
+     "rule": "state_reviewed"
+    }
+   ],
+   "reason": "The figure shows an anatomical variant of sinus surgical anatomy, not disease; the old code said “variant or pathology”."
+  },
+  {
+   "asset_id": "open-sinonasal-operative-pmc6472854-fig11",
+   "catalog_mirror": true,
+   "changes": [
+    {
+     "field": "depicted_state",
+     "old": "source_sinonasal_CT_variant_or_pathology_example",
+     "new": "normal_variant",
+     "rule": "state_reviewed"
+    },
+    {
+     "field": "panel_states",
+     "old": {
+      "whole": "source_sinonasal_CT_variant_or_pathology_example"
+     },
+     "new": {
+      "whole": "normal_variant"
+     },
+     "rule": "state_reviewed"
+    }
+   ],
+   "reason": "The figure shows an anatomical variant of sinus surgical anatomy, not disease; the old code said “variant or pathology”."
+  },
+  {
+   "asset_id": "open-sinonasal-operative-pmc6472854-fig12",
+   "catalog_mirror": true,
+   "changes": [
+    {
+     "field": "depicted_state",
+     "old": "source_sinonasal_CT_variant_or_pathology_example",
+     "new": "normal_variant",
+     "rule": "state_reviewed"
+    },
+    {
+     "field": "panel_states",
+     "old": {
+      "whole": "source_sinonasal_CT_variant_or_pathology_example"
+     },
+     "new": {
+      "whole": "normal_variant"
+     },
+     "rule": "state_reviewed"
+    }
+   ],
+   "reason": "The figure shows an anatomical variant of sinus surgical anatomy, not disease; the old code said “variant or pathology”."
+  },
+  {
+   "asset_id": "open-sinonasal-operative-pmc6472854-fig13",
+   "catalog_mirror": true,
+   "changes": [
+    {
+     "field": "depicted_state",
+     "old": "source_sinonasal_CT_variant_or_pathology_example",
+     "new": "normal_variant",
+     "rule": "state_reviewed"
+    },
+    {
+     "field": "panel_states",
+     "old": {
+      "whole": "source_sinonasal_CT_variant_or_pathology_example"
+     },
+     "new": {
+      "whole": "normal_variant"
+     },
+     "rule": "state_reviewed"
+    }
+   ],
+   "reason": "The figure shows an anatomical variant of sinus surgical anatomy, not disease; the old code said “variant or pathology”."
+  },
+  {
+   "asset_id": "open-sinonasal-operative-pmc6472854-fig14",
+   "catalog_mirror": true,
+   "changes": [
+    {
+     "field": "depicted_state",
+     "old": "source_sinonasal_CT_variant_or_pathology_example",
+     "new": "normal_variant",
+     "rule": "state_reviewed"
+    },
+    {
+     "field": "panel_states",
+     "old": {
+      "whole": "source_sinonasal_CT_variant_or_pathology_example"
+     },
+     "new": {
+      "whole": "normal_variant"
+     },
+     "rule": "state_reviewed"
+    }
+   ],
+   "reason": "The figure shows an anatomical variant of sinus surgical anatomy, not disease; the old code said “variant or pathology”."
+  },
+  {
+   "asset_id": "open-sinonasal-operative-pmc6472854-fig15",
+   "catalog_mirror": true,
+   "changes": [
+    {
+     "field": "depicted_state",
+     "old": "source_sinonasal_CT_variant_or_pathology_example",
+     "new": "normal_variant",
+     "rule": "state_reviewed"
+    },
+    {
+     "field": "panel_states",
+     "old": {
+      "whole": "source_sinonasal_CT_variant_or_pathology_example"
+     },
+     "new": {
+      "whole": "normal_variant"
+     },
+     "rule": "state_reviewed"
+    }
+   ],
+   "reason": "The figure shows an anatomical variant of sinus surgical anatomy, not disease; the old code said “variant or pathology”."
+  },
+  {
+   "asset_id": "open-sinonasal-operative-pmc6472854-fig16",
+   "catalog_mirror": true,
+   "changes": [
+    {
+     "field": "depicted_state",
+     "old": "source_sinonasal_CT_variant_or_pathology_example",
+     "new": "normal_variant",
+     "rule": "state_reviewed"
+    },
+    {
+     "field": "panel_states",
+     "old": {
+      "whole": "source_sinonasal_CT_variant_or_pathology_example"
+     },
+     "new": {
+      "whole": "normal_variant"
+     },
+     "rule": "state_reviewed"
+    }
+   ],
+   "reason": "The figure shows an anatomical variant of sinus surgical anatomy, not disease; the old code said “variant or pathology”."
+  },
+  {
+   "asset_id": "open-sinonasal-operative-pmc6472854-fig17",
+   "catalog_mirror": true,
+   "changes": [
+    {
+     "field": "depicted_state",
+     "old": "source_sinonasal_CT_variant_or_pathology_example",
+     "new": "normal_variant",
+     "rule": "state_reviewed"
+    },
+    {
+     "field": "panel_states",
+     "old": {
+      "whole": "source_sinonasal_CT_variant_or_pathology_example"
+     },
+     "new": {
+      "whole": "normal_variant"
+     },
+     "rule": "state_reviewed"
+    }
+   ],
+   "reason": "The figure shows an anatomical variant of sinus surgical anatomy, not disease; the old code said “variant or pathology”."
+  },
+  {
+   "asset_id": "open-orbit-mri-pmc6095049-fig2",
+   "catalog_mirror": true,
+   "changes": [
+    {
+     "field": "depicted_state",
+     "old": "source_orbital_MRI_case_examples",
+     "new": "source_orbital_mri_case_examples",
+     "rule": "state_lowercase"
+    },
+    {
+     "field": "panel_states",
+     "old": {
+      "a": "source_orbital_MRI_case_examples",
+      "b": "source_orbital_MRI_case_examples",
+      "c": "source_orbital_MRI_case_examples"
+     },
+     "new": {
+      "a": "source_orbital_mri_case_examples",
+      "b": "source_orbital_mri_case_examples",
+      "c": "source_orbital_mri_case_examples"
+     },
+     "rule": "state_lowercase"
+    }
+   ]
+  },
+  {
+   "asset_id": "open-orbit-mri-pmc6095049-fig3",
+   "catalog_mirror": true,
+   "changes": [
+    {
+     "field": "depicted_state",
+     "old": "source_orbital_MRI_case_examples",
+     "new": "source_orbital_mri_case_examples",
+     "rule": "state_lowercase"
+    },
+    {
+     "field": "panel_states",
+     "old": {
+      "a": "source_orbital_MRI_case_examples",
+      "b": "source_orbital_MRI_case_examples"
+     },
+     "new": {
+      "a": "source_orbital_mri_case_examples",
+      "b": "source_orbital_mri_case_examples"
+     },
+     "rule": "state_lowercase"
+    }
+   ]
+  },
+  {
+   "asset_id": "open-orbit-mri-pmc6095049-fig4",
+   "catalog_mirror": true,
+   "changes": [
+    {
+     "field": "depicted_state",
+     "old": "source_orbital_MRI_case_examples",
+     "new": "source_orbital_mri_case_examples",
+     "rule": "state_lowercase"
+    },
+    {
+     "field": "panel_states",
+     "old": {
+      "a": "source_orbital_MRI_case_examples",
+      "b": "source_orbital_MRI_case_examples",
+      "c": "source_orbital_MRI_case_examples"
+     },
+     "new": {
+      "a": "source_orbital_mri_case_examples",
+      "b": "source_orbital_mri_case_examples",
+      "c": "source_orbital_mri_case_examples"
+     },
+     "rule": "state_lowercase"
+    }
+   ]
+  },
+  {
+   "asset_id": "open-orbit-mri-pmc6095049-fig5",
+   "catalog_mirror": true,
+   "changes": [
+    {
+     "field": "depicted_state",
+     "old": "source_orbital_MRI_case_examples",
+     "new": "source_orbital_mri_case_examples",
+     "rule": "state_lowercase"
+    },
+    {
+     "field": "panel_states",
+     "old": {
+      "a": "source_orbital_MRI_case_examples",
+      "b": "source_orbital_MRI_case_examples"
+     },
+     "new": {
+      "a": "source_orbital_mri_case_examples",
+      "b": "source_orbital_mri_case_examples"
+     },
+     "rule": "state_lowercase"
+    }
+   ]
+  },
+  {
+   "asset_id": "open-orbit-mri-pmc6095049-fig6",
+   "catalog_mirror": true,
+   "changes": [
+    {
+     "field": "depicted_state",
+     "old": "source_orbital_MRI_case_examples",
+     "new": "source_orbital_mri_case_examples",
+     "rule": "state_lowercase"
+    },
+    {
+     "field": "panel_states",
+     "old": {
+      "a": "source_orbital_MRI_case_examples",
+      "b": "source_orbital_MRI_case_examples"
+     },
+     "new": {
+      "a": "source_orbital_mri_case_examples",
+      "b": "source_orbital_mri_case_examples"
+     },
+     "rule": "state_lowercase"
+    }
+   ]
+  },
+  {
+   "asset_id": "open-orbit-mri-pmc6095049-fig7",
+   "catalog_mirror": true,
+   "changes": [
+    {
+     "field": "depicted_state",
+     "old": "source_orbital_MRI_case_examples",
+     "new": "source_orbital_mri_case_examples",
+     "rule": "state_lowercase"
+    },
+    {
+     "field": "panel_states",
+     "old": {
+      "a": "source_orbital_MRI_case_examples",
+      "b": "source_orbital_MRI_case_examples",
+      "c": "source_orbital_MRI_case_examples"
+     },
+     "new": {
+      "a": "source_orbital_mri_case_examples",
+      "b": "source_orbital_mri_case_examples",
+      "c": "source_orbital_mri_case_examples"
+     },
+     "rule": "state_lowercase"
+    }
+   ]
+  },
+  {
+   "asset_id": "open-orbit-mri-pmc6095049-fig8",
+   "catalog_mirror": true,
+   "changes": [
+    {
+     "field": "depicted_state",
+     "old": "source_orbital_MRI_case_examples",
+     "new": "source_orbital_mri_case_examples",
+     "rule": "state_lowercase"
+    },
+    {
+     "field": "panel_states",
+     "old": {
+      "a": "source_orbital_MRI_case_examples",
+      "b": "source_orbital_MRI_case_examples",
+      "c": "source_orbital_MRI_case_examples"
+     },
+     "new": {
+      "a": "source_orbital_mri_case_examples",
+      "b": "source_orbital_mri_case_examples",
+      "c": "source_orbital_mri_case_examples"
+     },
+     "rule": "state_lowercase"
+    }
+   ]
+  },
+  {
+   "asset_id": "open-orbit-mri-pmc6095049-fig9",
+   "catalog_mirror": true,
+   "changes": [
+    {
+     "field": "depicted_state",
+     "old": "source_orbital_MRI_case_examples",
+     "new": "source_orbital_mri_case_examples",
+     "rule": "state_lowercase"
+    },
+    {
+     "field": "panel_states",
+     "old": {
+      "a": "source_orbital_MRI_case_examples",
+      "b": "source_orbital_MRI_case_examples",
+      "c": "source_orbital_MRI_case_examples",
+      "d": "source_orbital_MRI_case_examples"
+     },
+     "new": {
+      "a": "source_orbital_mri_case_examples",
+      "b": "source_orbital_mri_case_examples",
+      "c": "source_orbital_mri_case_examples",
+      "d": "source_orbital_mri_case_examples"
+     },
+     "rule": "state_lowercase"
+    }
+   ]
+  },
+  {
+   "asset_id": "open-orbit-mri-pmc6095049-fig10",
+   "catalog_mirror": true,
+   "changes": [
+    {
+     "field": "depicted_state",
+     "old": "source_orbital_MRI_case_examples",
+     "new": "source_orbital_mri_case_examples",
+     "rule": "state_lowercase"
+    },
+    {
+     "field": "panel_states",
+     "old": {
+      "a": "source_orbital_MRI_case_examples",
+      "b": "source_orbital_MRI_case_examples"
+     },
+     "new": {
+      "a": "source_orbital_mri_case_examples",
+      "b": "source_orbital_mri_case_examples"
+     },
+     "rule": "state_lowercase"
+    }
+   ]
+  },
+  {
+   "asset_id": "open-orbit-mri-pmc6095049-fig11",
+   "catalog_mirror": true,
+   "changes": [
+    {
+     "field": "depicted_state",
+     "old": "source_orbital_MRI_case_examples",
+     "new": "source_orbital_mri_case_examples",
+     "rule": "state_lowercase"
+    },
+    {
+     "field": "panel_states",
+     "old": {
+      "a": "source_orbital_MRI_case_examples",
+      "b": "source_orbital_MRI_case_examples",
+      "c": "source_orbital_MRI_case_examples"
+     },
+     "new": {
+      "a": "source_orbital_mri_case_examples",
+      "b": "source_orbital_mri_case_examples",
+      "c": "source_orbital_mri_case_examples"
+     },
+     "rule": "state_lowercase"
+    }
+   ]
+  },
+  {
+   "asset_id": "open-orbit-mri-pmc6095049-fig12",
+   "catalog_mirror": true,
+   "changes": [
+    {
+     "field": "depicted_state",
+     "old": "source_orbital_MRI_case_examples",
+     "new": "source_orbital_mri_case_examples",
+     "rule": "state_lowercase"
+    },
+    {
+     "field": "panel_states",
+     "old": {
+      "a": "source_orbital_MRI_case_examples",
+      "b": "source_orbital_MRI_case_examples",
+      "c": "source_orbital_MRI_case_examples"
+     },
+     "new": {
+      "a": "source_orbital_mri_case_examples",
+      "b": "source_orbital_mri_case_examples",
+      "c": "source_orbital_mri_case_examples"
+     },
+     "rule": "state_lowercase"
+    }
+   ]
+  },
+  {
+   "asset_id": "open-orbit-mri-pmc6095049-fig13",
+   "catalog_mirror": true,
+   "changes": [
+    {
+     "field": "depicted_state",
+     "old": "source_orbital_MRI_case_examples",
+     "new": "source_orbital_mri_case_examples",
+     "rule": "state_lowercase"
+    },
+    {
+     "field": "panel_states",
+     "old": {
+      "a": "source_orbital_MRI_case_examples",
+      "b": "source_orbital_MRI_case_examples"
+     },
+     "new": {
+      "a": "source_orbital_mri_case_examples",
+      "b": "source_orbital_mri_case_examples"
+     },
+     "rule": "state_lowercase"
+    }
+   ]
+  },
+  {
+   "asset_id": "open-orbit-mri-pmc6095049-fig14",
+   "catalog_mirror": true,
+   "changes": [
+    {
+     "field": "depicted_state",
+     "old": "source_orbital_MRI_case_examples",
+     "new": "source_orbital_mri_case_examples",
+     "rule": "state_lowercase"
+    },
+    {
+     "field": "panel_states",
+     "old": {
+      "a": "source_orbital_MRI_case_examples",
+      "b": "source_orbital_MRI_case_examples"
+     },
+     "new": {
+      "a": "source_orbital_mri_case_examples",
+      "b": "source_orbital_mri_case_examples"
+     },
+     "rule": "state_lowercase"
+    }
+   ]
+  },
+  {
+   "asset_id": "open-orbit-mri-pmc6095049-fig15",
+   "catalog_mirror": true,
+   "changes": [
+    {
+     "field": "depicted_state",
+     "old": "source_orbital_MRI_case_examples",
+     "new": "source_orbital_mri_case_examples",
+     "rule": "state_lowercase"
+    },
+    {
+     "field": "panel_states",
+     "old": {
+      "a": "source_orbital_MRI_case_examples",
+      "b": "source_orbital_MRI_case_examples"
+     },
+     "new": {
+      "a": "source_orbital_mri_case_examples",
+      "b": "source_orbital_mri_case_examples"
+     },
+     "rule": "state_lowercase"
+    }
+   ]
+  },
+  {
+   "asset_id": "open-orbit-mri-pmc6095049-fig16",
+   "catalog_mirror": true,
+   "changes": [
+    {
+     "field": "depicted_state",
+     "old": "source_orbital_MRI_case_examples",
+     "new": "source_orbital_mri_case_examples",
+     "rule": "state_lowercase"
+    },
+    {
+     "field": "panel_states",
+     "old": {
+      "a": "source_orbital_MRI_case_examples",
+      "b": "source_orbital_MRI_case_examples"
+     },
+     "new": {
+      "a": "source_orbital_mri_case_examples",
+      "b": "source_orbital_mri_case_examples"
+     },
+     "rule": "state_lowercase"
+    }
+   ]
+  },
+  {
+   "asset_id": "open-orbit-mri-pmc6095049-fig17",
+   "catalog_mirror": true,
+   "changes": [
+    {
+     "field": "depicted_state",
+     "old": "source_orbital_MRI_case_examples",
+     "new": "source_orbital_mri_case_examples",
+     "rule": "state_lowercase"
+    },
+    {
+     "field": "panel_states",
+     "old": {
+      "a": "source_orbital_MRI_case_examples",
+      "b": "source_orbital_MRI_case_examples",
+      "c": "source_orbital_MRI_case_examples"
+     },
+     "new": {
+      "a": "source_orbital_mri_case_examples",
+      "b": "source_orbital_mri_case_examples",
+      "c": "source_orbital_mri_case_examples"
+     },
+     "rule": "state_lowercase"
+    }
+   ]
+  },
+  {
+   "asset_id": "open-cervical-nodes-pmc10548228-fig5",
+   "catalog_mirror": true,
+   "changes": [
+    {
+     "field": "depicted_state",
+     "old": "source_distinct_nodal_CT_pathology_comparisons",
+     "new": "source_nodal_imaging_suspicion",
+     "rule": "state_same_meaning"
+    }
+   ],
+   "reason": "Both selected panels show a node suspicious for extranodal extension; the figure-level code summarised them as pathology comparisons."
+  },
+  {
+   "asset_id": "open-cervical-nodes-pmc13049566-fig3",
+   "catalog_mirror": true,
+   "changes": [
+    {
+     "field": "depicted_state",
+     "old": "source_distinct_PTC_cohort_nodal_US_comparisons",
+     "new": "mixed",
+     "rule": "state_mixed_panels"
+    },
+    {
+     "field": "panel_states",
+     "old": {
+      "r1c1": "source_benign_PTC_cohort_node",
+      "r1c2": "source_benign_PTC_cohort_node",
+      "r1c3": "source_benign_PTC_cohort_node",
+      "r1c4": "source_malignant_PTC_cohort_node",
+      "r1c5": "source_malignant_PTC_cohort_node",
+      "r1c6": "source_malignant_PTC_cohort_node",
+      "r2c1": "source_benign_PTC_cohort_node",
+      "r2c2": "source_benign_PTC_cohort_node",
+      "r2c3": "source_benign_PTC_cohort_node",
+      "r2c4": "source_malignant_PTC_cohort_node",
+      "r2c5": "source_malignant_PTC_cohort_node",
+      "r2c6": "source_malignant_PTC_cohort_node"
+     },
+     "new": {
+      "r1c1": "source_benign_ptc_cohort_node",
+      "r1c2": "source_benign_ptc_cohort_node",
+      "r1c3": "source_benign_ptc_cohort_node",
+      "r1c4": "source_malignant_ptc_cohort_node",
+      "r1c5": "source_malignant_ptc_cohort_node",
+      "r1c6": "source_malignant_ptc_cohort_node",
+      "r2c1": "source_benign_ptc_cohort_node",
+      "r2c2": "source_benign_ptc_cohort_node",
+      "r2c3": "source_benign_ptc_cohort_node",
+      "r2c4": "source_malignant_ptc_cohort_node",
+      "r2c5": "source_malignant_ptc_cohort_node",
+      "r2c6": "source_malignant_ptc_cohort_node"
+     },
+     "rule": "state_lowercase"
+    }
+   ],
+   "reason": "The record’s own selected panels show different states."
+  },
+  {
+   "asset_id": "open-trigeminal-pmc6420596-fig6",
+   "catalog_mirror": true,
+   "changes": [
+    {
+     "field": "extent",
+     "old": "conceptual",
+     "new": "local",
+     "rule": "extent_vocabulary"
+    }
+   ]
+  },
+  {
+   "asset_id": "open-neck-spaces-pmc6377693-fig1",
+   "catalog_mirror": true,
+   "changes": [
+    {
+     "field": "extent",
+     "old": "conceptual",
+     "new": "local",
+     "rule": "extent_vocabulary"
+    }
+   ]
+  },
+  {
+   "asset_id": "open-neck-spaces-pmc6377693-fig6",
+   "catalog_mirror": true,
+   "changes": [
+    {
+     "field": "extent",
+     "old": "conceptual",
+     "new": "local",
+     "rule": "extent_vocabulary"
+    }
+   ]
+  },
+  {
+   "asset_id": "open-neck-spaces-pmc6377693-fig11",
+   "catalog_mirror": true,
+   "changes": [
+    {
+     "field": "extent",
+     "old": "conceptual",
+     "new": "local",
+     "rule": "extent_vocabulary"
+    }
+   ]
+  },
+  {
+   "asset_id": "open-neck-spaces-pmc6377693-fig13",
+   "catalog_mirror": true,
+   "changes": [
+    {
+     "field": "extent",
+     "old": "conceptual",
+     "new": "local",
+     "rule": "extent_vocabulary"
+    }
+   ]
+  },
+  {
+   "asset_id": "open-parotid-pmc11719534-fig3",
+   "catalog_mirror": true,
+   "changes": [
+    {
+     "field": "population.life_stage",
+     "old": "child",
+     "new": "immature",
+     "rule": "life_stage_vocabulary"
+    }
+   ]
+  },
+  {
+   "asset_id": "open-swallowing-pmc12081525-fig2",
+   "catalog_mirror": true,
+   "changes": [
+    {
+     "field": "laterality",
+     "old": "not_applicable",
+     "new": "not_reported",
+     "rule": "laterality_vocabulary"
+    }
+   ]
+  },
+  {
+   "asset_id": "open-esophagus-pmc5438315-fig2",
+   "catalog_mirror": true,
+   "changes": [
+    {
+     "field": "setting",
+     "old": "illustration",
+     "new": "conceptual",
+     "rule": "setting_vocabulary"
+    },
+    {
+     "field": "laterality",
+     "old": "not_applicable",
+     "new": "not_reported",
+     "rule": "laterality_vocabulary"
+    }
+   ]
+  },
+  {
+   "asset_id": "open-esophagus-pmc5438315-fig3",
+   "catalog_mirror": true,
+   "changes": [
+    {
+     "field": "laterality",
+     "old": "not_applicable",
+     "new": "not_reported",
+     "rule": "laterality_vocabulary"
+    }
+   ]
+  },
+  {
+   "asset_id": "open-esophagus-pmc5438315-fig4",
+   "catalog_mirror": true,
+   "changes": [
+    {
+     "field": "laterality",
+     "old": "not_applicable",
+     "new": "not_reported",
+     "rule": "laterality_vocabulary"
+    }
+   ]
+  },
+  {
+   "asset_id": "open-esophagus-pmc5438315-fig5",
+   "catalog_mirror": true,
+   "changes": [
+    {
+     "field": "laterality",
+     "old": "not_applicable",
+     "new": "not_reported",
+     "rule": "laterality_vocabulary"
+    }
+   ]
+  },
+  {
+   "asset_id": "open-esophagus-pmc5438315-fig6",
+   "catalog_mirror": true,
+   "changes": [
+    {
+     "field": "laterality",
+     "old": "not_applicable",
+     "new": "not_reported",
+     "rule": "laterality_vocabulary"
+    }
+   ]
+  },
+  {
+   "asset_id": "open-esophagus-pmc5438315-fig7",
+   "catalog_mirror": true,
+   "changes": [
+    {
+     "field": "laterality",
+     "old": "not_applicable",
+     "new": "not_reported",
+     "rule": "laterality_vocabulary"
+    }
+   ]
+  },
+  {
+   "asset_id": "open-esophagus-pmc5438315-fig8",
+   "catalog_mirror": true,
+   "changes": [
+    {
+     "field": "laterality",
+     "old": "not_applicable",
+     "new": "not_reported",
+     "rule": "laterality_vocabulary"
+    }
+   ]
+  },
+  {
+   "asset_id": "open-esophagus-pmc5438315-fig9",
+   "catalog_mirror": true,
+   "changes": [
+    {
+     "field": "laterality",
+     "old": "not_applicable",
+     "new": "not_reported",
+     "rule": "laterality_vocabulary"
+    }
+   ]
+  },
+  {
+   "asset_id": "open-esophagus-pmc5438315-fig10",
+   "catalog_mirror": true,
+   "changes": [
+    {
+     "field": "laterality",
+     "old": "not_applicable",
+     "new": "not_reported",
+     "rule": "laterality_vocabulary"
+    }
+   ]
+  },
+  {
+   "asset_id": "open-esophagus-pmc5438315-fig11",
+   "catalog_mirror": true,
+   "changes": [
+    {
+     "field": "laterality",
+     "old": "not_applicable",
+     "new": "not_reported",
+     "rule": "laterality_vocabulary"
+    }
+   ]
+  },
+  {
+   "asset_id": "open-esophagus-pmc5438315-fig12",
+   "catalog_mirror": true,
+   "changes": [
+    {
+     "field": "laterality",
+     "old": "not_applicable",
+     "new": "not_reported",
+     "rule": "laterality_vocabulary"
+    }
+   ]
+  },
+  {
+   "asset_id": "open-esophagus-pmc5438315-fig13",
+   "catalog_mirror": true,
+   "changes": [
+    {
+     "field": "laterality",
+     "old": "not_applicable",
+     "new": "not_reported",
+     "rule": "laterality_vocabulary"
+    }
+   ]
+  },
+  {
+   "asset_id": "open-esophagus-pmc5438315-fig14",
+   "catalog_mirror": true,
+   "changes": [
+    {
+     "field": "laterality",
+     "old": "not_applicable",
+     "new": "not_reported",
+     "rule": "laterality_vocabulary"
+    }
+   ]
+  },
+  {
+   "asset_id": "open-esophagus-pmc5438315-fig15",
+   "catalog_mirror": true,
+   "changes": [
+    {
+     "field": "laterality",
+     "old": "not_applicable",
+     "new": "not_reported",
+     "rule": "laterality_vocabulary"
+    }
+   ]
+  },
+  {
+   "asset_id": "open-esophagus-pmc5438315-fig16",
+   "catalog_mirror": true,
+   "changes": [
+    {
+     "field": "laterality",
+     "old": "not_applicable",
+     "new": "not_reported",
+     "rule": "laterality_vocabulary"
+    }
+   ]
+  },
+  {
+   "asset_id": "open-esophagus-pmc5438315-fig17",
+   "catalog_mirror": true,
+   "changes": [
+    {
+     "field": "laterality",
+     "old": "not_applicable",
+     "new": "not_reported",
+     "rule": "laterality_vocabulary"
+    }
+   ]
+  },
+  {
+   "asset_id": "open-esophagus-pmc5438315-fig18",
+   "catalog_mirror": true,
+   "changes": [
+    {
+     "field": "laterality",
+     "old": "not_applicable",
+     "new": "not_reported",
+     "rule": "laterality_vocabulary"
+    }
+   ]
+  },
+  {
+   "asset_id": "open-esophagus-pmc5438315-fig19",
+   "catalog_mirror": true,
+   "changes": [
+    {
+     "field": "laterality",
+     "old": "not_applicable",
+     "new": "not_reported",
+     "rule": "laterality_vocabulary"
+    }
+   ]
+  },
+  {
+   "asset_id": "open-esophagus-pmc5438315-fig20",
+   "catalog_mirror": true,
+   "changes": [
+    {
+     "field": "laterality",
+     "old": "not_applicable",
+     "new": "not_reported",
+     "rule": "laterality_vocabulary"
+    }
+   ]
+  },
+  {
+   "asset_id": "open-esophagus-pmc11227487-fig1",
+   "catalog_mirror": true,
+   "changes": [
+    {
+     "field": "laterality",
+     "old": "not_applicable",
+     "new": "not_reported",
+     "rule": "laterality_vocabulary"
+    }
+   ]
+  },
+  {
+   "asset_id": "open-esophagus-pmc11227487-fig2",
+   "catalog_mirror": true,
+   "changes": [
+    {
+     "field": "laterality",
+     "old": "not_applicable",
+     "new": "not_reported",
+     "rule": "laterality_vocabulary"
+    }
+   ]
+  },
+  {
+   "asset_id": "open-esophagus-pmc11227487-fig3",
+   "catalog_mirror": true,
+   "changes": [
+    {
+     "field": "laterality",
+     "old": "not_applicable",
+     "new": "not_reported",
+     "rule": "laterality_vocabulary"
+    }
+   ]
+  },
+  {
+   "asset_id": "open-esophagus-pmc11227487-fig4",
+   "catalog_mirror": true,
+   "changes": [
+    {
+     "field": "laterality",
+     "old": "not_applicable",
+     "new": "not_reported",
+     "rule": "laterality_vocabulary"
+    }
+   ]
+  },
+  {
+   "asset_id": "open-esophagus-pmc11227487-fig5",
+   "catalog_mirror": true,
+   "changes": [
+    {
+     "field": "laterality",
+     "old": "not_applicable",
+     "new": "not_reported",
+     "rule": "laterality_vocabulary"
+    }
+   ]
+  },
+  {
+   "asset_id": "open-esophagus-pmc11227487-fig6",
+   "catalog_mirror": true,
+   "changes": [
+    {
+     "field": "laterality",
+     "old": "not_applicable",
+     "new": "not_reported",
+     "rule": "laterality_vocabulary"
+    }
+   ]
+  },
+  {
+   "asset_id": "open-appendix-pmc6497212-fig1",
+   "catalog_mirror": true,
+   "changes": [
+    {
+     "field": "population.life_stage",
+     "old": "child",
+     "new": "immature",
+     "rule": "life_stage_vocabulary"
+    }
+   ]
+  },
+  {
+   "asset_id": "open-appendix-pmc6497212-fig2",
+   "catalog_mirror": true,
+   "changes": [
+    {
+     "field": "population.life_stage",
+     "old": "child",
+     "new": "immature",
+     "rule": "life_stage_vocabulary"
+    }
+   ]
+  },
+  {
+   "asset_id": "open-appendix-pmc6497212-fig3",
+   "catalog_mirror": true,
+   "changes": [
+    {
+     "field": "population.life_stage",
+     "old": "child",
+     "new": "immature",
+     "rule": "life_stage_vocabulary"
+    }
+   ]
+  },
+  {
+   "asset_id": "open-appendix-pmc4330234-fig3",
+   "catalog_mirror": true,
+   "changes": [
+    {
+     "field": "population.life_stage",
+     "old": "child",
+     "new": "immature",
+     "rule": "life_stage_vocabulary"
+    }
+   ]
+  },
+  {
+   "asset_id": "open-appendix-pmc4330234-fig7",
+   "catalog_mirror": true,
+   "changes": [
+    {
+     "field": "population.life_stage",
+     "old": "child",
+     "new": "immature",
+     "rule": "life_stage_vocabulary"
+    }
+   ]
+  },
+  {
+   "asset_id": "open-prostate-biopsy0001-T2-15",
+   "catalog_mirror": true,
+   "changes": [
+    {
+     "field": "depicted_state",
+     "old": "source_prostate_case_with_suspicious_ROI",
+     "new": "source_prostate_case_with_suspicious_roi",
+     "rule": "state_lowercase"
+    }
+   ]
+  },
+  {
+   "asset_id": "open-prostate-biopsy0001-T2-25",
+   "catalog_mirror": true,
+   "changes": [
+    {
+     "field": "depicted_state",
+     "old": "source_prostate_case_with_suspicious_ROI",
+     "new": "source_prostate_case_with_suspicious_roi",
+     "rule": "state_lowercase"
+    }
+   ]
+  },
+  {
+   "asset_id": "open-prostate-biopsy0001-T2-35",
+   "catalog_mirror": true,
+   "changes": [
+    {
+     "field": "depicted_state",
+     "old": "source_prostate_case_with_suspicious_ROI",
+     "new": "source_prostate_case_with_suspicious_roi",
+     "rule": "state_lowercase"
+    }
+   ]
+  },
+  {
+   "asset_id": "open-anorectal-pmc13512459-fig1-mri-perianal-fistula",
+   "catalog_mirror": true,
+   "changes": [
+    {
+     "field": "setting",
+     "old": "source_illustration",
+     "new": "conceptual",
+     "rule": "setting_vocabulary"
+    }
+   ]
+  },
+  {
+   "asset_id": "open-sella-pmc10366012-fig3",
+   "catalog_mirror": true,
+   "changes": [
+    {
+     "field": "population.life_stage",
+     "old": "child",
+     "new": "immature",
+     "rule": "life_stage_vocabulary"
+    }
+   ]
+  },
+  {
+   "asset_id": "open-sella-pmc10366287-fig1",
+   "catalog_mirror": true,
+   "changes": [
+    {
+     "field": "population.life_stage",
+     "old": "child",
+     "new": "immature",
+     "rule": "life_stage_vocabulary"
+    }
+   ]
+  },
+  {
+   "asset_id": "source-only-bp3d-sella-4.3-fj7505",
+   "catalog_mirror": false,
+   "changes": [
+    {
+     "field": "source_context",
+     "old": "Curated adult source atlas objects; original acquisition, fine anatomical interfaces and current-patient correspondence unverified.",
+     "new": {
+      "population": {
+       "life_stage": "adult"
+      },
+      "source_note": "Curated adult source atlas objects; original acquisition, fine anatomical interfaces and current-patient correspondence unverified."
+     },
+     "rule": "prose_to_record"
+    }
+   ],
+   "reason": "The record held a sentence where a context record belongs; only what the sentence states (an adult atlas) is recorded, and the sentence is kept as a note."
+  },
+  {
+   "asset_id": "source-only-bp3d-sella-4.3-fj1682",
+   "catalog_mirror": false,
+   "changes": [
+    {
+     "field": "source_context",
+     "old": "Curated adult source atlas objects; original acquisition, fine anatomical interfaces and current-patient correspondence unverified.",
+     "new": {
+      "population": {
+       "life_stage": "adult"
+      },
+      "source_note": "Curated adult source atlas objects; original acquisition, fine anatomical interfaces and current-patient correspondence unverified."
+     },
+     "rule": "prose_to_record"
+    }
+   ],
+   "reason": "The record held a sentence where a context record belongs; only what the sentence states (an adult atlas) is recorded, and the sentence is kept as a note."
+  },
+  {
+   "asset_id": "source-only-bp3d-sella-4.3-fj7502",
+   "catalog_mirror": false,
+   "changes": [
+    {
+     "field": "source_context",
+     "old": "Curated adult source atlas objects; original acquisition, fine anatomical interfaces and current-patient correspondence unverified.",
+     "new": {
+      "population": {
+       "life_stage": "adult"
+      },
+      "source_note": "Curated adult source atlas objects; original acquisition, fine anatomical interfaces and current-patient correspondence unverified."
+     },
+     "rule": "prose_to_record"
+    }
+   ],
+   "reason": "The record held a sentence where a context record belongs; only what the sentence states (an adult atlas) is recorded, and the sentence is kept as a note."
+  },
+  {
+   "asset_id": "source-only-bp3d-sella-4.3-fj7503",
+   "catalog_mirror": false,
+   "changes": [
+    {
+     "field": "source_context",
+     "old": "Curated adult source atlas objects; original acquisition, fine anatomical interfaces and current-patient correspondence unverified.",
+     "new": {
+      "population": {
+       "life_stage": "adult"
+      },
+      "source_note": "Curated adult source atlas objects; original acquisition, fine anatomical interfaces and current-patient correspondence unverified."
+     },
+     "rule": "prose_to_record"
+    }
+   ],
+   "reason": "The record held a sentence where a context record belongs; only what the sentence states (an adult atlas) is recorded, and the sentence is kept as a note."
+  },
+  {
+   "asset_id": "source-only-bp3d-sella-4.3-fj4993",
+   "catalog_mirror": false,
+   "changes": [
+    {
+     "field": "source_context",
+     "old": "Curated adult source atlas objects; original acquisition, fine anatomical interfaces and current-patient correspondence unverified.",
+     "new": {
+      "population": {
+       "life_stage": "adult"
+      },
+      "source_note": "Curated adult source atlas objects; original acquisition, fine anatomical interfaces and current-patient correspondence unverified."
+     },
+     "rule": "prose_to_record"
+    }
+   ],
+   "reason": "The record held a sentence where a context record belongs; only what the sentence states (an adult atlas) is recorded, and the sentence is kept as a note."
+  },
+  {
+   "asset_id": "source-only-bp3d-sella-4.3-fj7501m",
+   "catalog_mirror": false,
+   "changes": [
+    {
+     "field": "source_context",
+     "old": "Curated adult source atlas objects; original acquisition, fine anatomical interfaces and current-patient correspondence unverified.",
+     "new": {
+      "population": {
+       "life_stage": "adult"
+      },
+      "source_note": "Curated adult source atlas objects; original acquisition, fine anatomical interfaces and current-patient correspondence unverified."
+     },
+     "rule": "prose_to_record"
+    }
+   ],
+   "reason": "The record held a sentence where a context record belongs; only what the sentence states (an adult atlas) is recorded, and the sentence is kept as a note."
+  },
+  {
+   "asset_id": "source-only-bp3d-sella-4.3-fj3848",
+   "catalog_mirror": false,
+   "changes": [
+    {
+     "field": "source_context",
+     "old": "Curated adult source atlas objects; original acquisition, fine anatomical interfaces and current-patient correspondence unverified.",
+     "new": {
+      "population": {
+       "life_stage": "adult"
+      },
+      "source_note": "Curated adult source atlas objects; original acquisition, fine anatomical interfaces and current-patient correspondence unverified."
+     },
+     "rule": "prose_to_record"
+    }
+   ],
+   "reason": "The record held a sentence where a context record belongs; only what the sentence states (an adult atlas) is recorded, and the sentence is kept as a note."
+  },
+  {
+   "asset_id": "source-only-bp3d-sella-4.3-fj7502m",
+   "catalog_mirror": false,
+   "changes": [
+    {
+     "field": "source_context",
+     "old": "Curated adult source atlas objects; original acquisition, fine anatomical interfaces and current-patient correspondence unverified.",
+     "new": {
+      "population": {
+       "life_stage": "adult"
+      },
+      "source_note": "Curated adult source atlas objects; original acquisition, fine anatomical interfaces and current-patient correspondence unverified."
+     },
+     "rule": "prose_to_record"
+    }
+   ],
+   "reason": "The record held a sentence where a context record belongs; only what the sentence states (an adult atlas) is recorded, and the sentence is kept as a note."
+  },
+  {
+   "asset_id": "source-only-bp3d-sella-4.3-fj7505m",
+   "catalog_mirror": false,
+   "changes": [
+    {
+     "field": "source_context",
+     "old": "Curated adult source atlas objects; original acquisition, fine anatomical interfaces and current-patient correspondence unverified.",
+     "new": {
+      "population": {
+       "life_stage": "adult"
+      },
+      "source_note": "Curated adult source atlas objects; original acquisition, fine anatomical interfaces and current-patient correspondence unverified."
+     },
+     "rule": "prose_to_record"
+    }
+   ],
+   "reason": "The record held a sentence where a context record belongs; only what the sentence states (an adult atlas) is recorded, and the sentence is kept as a note."
+  },
+  {
+   "asset_id": "source-only-bp3d-sella-4.3-fj7501",
+   "catalog_mirror": false,
+   "changes": [
+    {
+     "field": "source_context",
+     "old": "Curated adult source atlas objects; original acquisition, fine anatomical interfaces and current-patient correspondence unverified.",
+     "new": {
+      "population": {
+       "life_stage": "adult"
+      },
+      "source_note": "Curated adult source atlas objects; original acquisition, fine anatomical interfaces and current-patient correspondence unverified."
+     },
+     "rule": "prose_to_record"
+    }
+   ],
+   "reason": "The record held a sentence where a context record belongs; only what the sentence states (an adult atlas) is recorded, and the sentence is kept as a note."
+  },
+  {
+   "asset_id": "source-only-bp3d-sella-4.3-fj1796",
+   "catalog_mirror": false,
+   "changes": [
+    {
+     "field": "source_context",
+     "old": "Curated adult source atlas objects; original acquisition, fine anatomical interfaces and current-patient correspondence unverified.",
+     "new": {
+      "population": {
+       "life_stage": "adult"
+      },
+      "source_note": "Curated adult source atlas objects; original acquisition, fine anatomical interfaces and current-patient correspondence unverified."
+     },
+     "rule": "prose_to_record"
+    }
+   ],
+   "reason": "The record held a sentence where a context record belongs; only what the sentence states (an adult atlas) is recorded, and the sentence is kept as a note."
+  },
+  {
+   "asset_id": "source-only-bp3d-sella-4.3-fj7503m",
+   "catalog_mirror": false,
+   "changes": [
+    {
+     "field": "source_context",
+     "old": "Curated adult source atlas objects; original acquisition, fine anatomical interfaces and current-patient correspondence unverified.",
+     "new": {
+      "population": {
+       "life_stage": "adult"
+      },
+      "source_note": "Curated adult source atlas objects; original acquisition, fine anatomical interfaces and current-patient correspondence unverified."
+     },
+     "rule": "prose_to_record"
+    }
+   ],
+   "reason": "The record held a sentence where a context record belongs; only what the sentence states (an adult atlas) is recorded, and the sentence is kept as a note."
+  },
+  {
+   "asset_id": "open-carotid-obstruction-neck-spaces-fig11",
+   "catalog_mirror": true,
+   "changes": [
+    {
+     "field": "extent",
+     "old": "conceptual",
+     "new": "local",
+     "rule": "extent_vocabulary"
+    }
+   ]
+  },
+  {
+   "asset_id": "open-carotid-obstruction-neck-spaces-fig13",
+   "catalog_mirror": true,
+   "changes": [
+    {
+     "field": "extent",
+     "old": "conceptual",
+     "new": "local",
+     "rule": "extent_vocabulary"
+    }
+   ]
+  },
+  {
+   "asset_id": "bp3d-carotid-4.3-fj4993",
+   "catalog_mirror": false,
+   "changes": [
+    {
+     "field": "extent",
+     "old": "source_obtained_only",
+     "new": "local",
+     "rule": "extent_vocabulary"
+    }
+   ]
+  },
+  {
+   "asset_id": "bp3d-carotid-4.3-fj4989",
+   "catalog_mirror": false,
+   "changes": [
+    {
+     "field": "extent",
+     "old": "source_obtained_only",
+     "new": "local",
+     "rule": "extent_vocabulary"
+    }
+   ]
+  },
+  {
+   "asset_id": "bp3d-carotid-4.3-fj4986",
+   "catalog_mirror": false,
+   "changes": [
+    {
+     "field": "extent",
+     "old": "source_obtained_only",
+     "new": "local",
+     "rule": "extent_vocabulary"
+    }
+   ]
+  },
+  {
+   "asset_id": "open-endometriosis-esur-2025-fig1",
+   "catalog_mirror": true,
+   "changes": [
+    {
+     "field": "population.life_stage",
+     "old": "mixed_or_not_reported",
+     "new": "not_reported",
+     "rule": "life_stage_vocabulary"
+    }
+   ]
+  },
+  {
+   "asset_id": "open-endometriosis-esur-2025-fig3",
+   "catalog_mirror": true,
+   "changes": [
+    {
+     "field": "population.life_stage",
+     "old": "mixed_or_not_reported",
+     "new": "not_reported",
+     "rule": "life_stage_vocabulary"
+    }
+   ]
+  },
+  {
+   "asset_id": "open-endometriosis-esur-2025-fig4",
+   "catalog_mirror": true,
+   "changes": [
+    {
+     "field": "population.life_stage",
+     "old": "mixed_or_not_reported",
+     "new": "not_reported",
+     "rule": "life_stage_vocabulary"
+    }
+   ]
+  },
+  {
+   "asset_id": "open-endometriosis-esur-2025-fig5",
+   "catalog_mirror": true,
+   "changes": [
+    {
+     "field": "population.life_stage",
+     "old": "mixed_or_not_reported",
+     "new": "not_reported",
+     "rule": "life_stage_vocabulary"
+    }
+   ]
+  },
+  {
+   "asset_id": "open-endometriosis-esur-2025-fig6",
+   "catalog_mirror": true,
+   "changes": [
+    {
+     "field": "population.life_stage",
+     "old": "mixed_or_not_reported",
+     "new": "not_reported",
+     "rule": "life_stage_vocabulary"
+    }
+   ]
+  },
+  {
+   "asset_id": "hra-female-pelvis-v1.10-n0437-p0-vh_f_vagina",
+   "catalog_mirror": false,
+   "changes": [
+    {
+     "field": "extent",
+     "old": "source_obtained_only",
+     "new": "local",
+     "rule": "extent_vocabulary"
+    }
+   ]
+  },
+  {
+   "asset_id": "hra-female-pelvis-v1.10-n0438-p0-vh_f_cervicovaginal_junction",
+   "catalog_mirror": false,
+   "changes": [
+    {
+     "field": "extent",
+     "old": "source_obtained_only",
+     "new": "local",
+     "rule": "extent_vocabulary"
+    }
+   ]
+  },
+  {
+   "asset_id": "hra-female-pelvis-v1.10-n0441-p0-vh_f_ampulla_of_uterine_tube_r",
+   "catalog_mirror": false,
+   "changes": [
+    {
+     "field": "extent",
+     "old": "source_obtained_only",
+     "new": "local",
+     "rule": "extent_vocabulary"
+    }
+   ]
+  },
+  {
+   "asset_id": "hra-female-pelvis-v1.10-n0442-p0-vh_f_isthmus_of_fallopian_tube_r",
+   "catalog_mirror": false,
+   "changes": [
+    {
+     "field": "extent",
+     "old": "source_obtained_only",
+     "new": "local",
+     "rule": "extent_vocabulary"
+    }
+   ]
+  },
+  {
+   "asset_id": "hra-female-pelvis-v1.10-n0443-p0-vh_f_fibria_of_uterine_tube_r",
+   "catalog_mirror": false,
+   "changes": [
+    {
+     "field": "extent",
+     "old": "source_obtained_only",
+     "new": "local",
+     "rule": "extent_vocabulary"
+    }
+   ]
+  },
+  {
+   "asset_id": "hra-female-pelvis-v1.10-n0444-p0-vh_f_uterine_tube_infundibulum_r",
+   "catalog_mirror": false,
+   "changes": [
+    {
+     "field": "extent",
+     "old": "source_obtained_only",
+     "new": "local",
+     "rule": "extent_vocabulary"
+    }
+   ]
+  },
+  {
+   "asset_id": "hra-female-pelvis-v1.10-n0446-p0-vh_f_uterine_tube_infundibulum_l",
+   "catalog_mirror": false,
+   "changes": [
+    {
+     "field": "extent",
+     "old": "source_obtained_only",
+     "new": "local",
+     "rule": "extent_vocabulary"
+    }
+   ]
+  },
+  {
+   "asset_id": "hra-female-pelvis-v1.10-n0447-p0-vh_f_fibria_of_uterine_tube_l",
+   "catalog_mirror": false,
+   "changes": [
+    {
+     "field": "extent",
+     "old": "source_obtained_only",
+     "new": "local",
+     "rule": "extent_vocabulary"
+    }
+   ]
+  },
+  {
+   "asset_id": "hra-female-pelvis-v1.10-n0448-p0-vh_f_isthmus_of_fallopian_tube_l",
+   "catalog_mirror": false,
+   "changes": [
+    {
+     "field": "extent",
+     "old": "source_obtained_only",
+     "new": "local",
+     "rule": "extent_vocabulary"
+    }
+   ]
+  },
+  {
+   "asset_id": "hra-female-pelvis-v1.10-n0449-p0-vh_f_ampulla_of_uterine_tube_l",
+   "catalog_mirror": false,
+   "changes": [
+    {
+     "field": "extent",
+     "old": "source_obtained_only",
+     "new": "local",
+     "rule": "extent_vocabulary"
+    }
+   ]
+  },
+  {
+   "asset_id": "hra-female-pelvis-v1.10-n0451-p0-vh_f_uterovesical_pouch",
+   "catalog_mirror": false,
+   "changes": [
+    {
+     "field": "extent",
+     "old": "source_obtained_only",
+     "new": "local",
+     "rule": "extent_vocabulary"
+    }
+   ]
+  },
+  {
+   "asset_id": "hra-female-pelvis-v1.10-n0453-p0-vh_f_right_round_ligament_of_uterus",
+   "catalog_mirror": false,
+   "changes": [
+    {
+     "field": "extent",
+     "old": "source_obtained_only",
+     "new": "local",
+     "rule": "extent_vocabulary"
+    }
+   ]
+  },
+  {
+   "asset_id": "hra-female-pelvis-v1.10-n0454-p0-vh_f_left_round_ligament_of_uterus",
+   "catalog_mirror": false,
+   "changes": [
+    {
+     "field": "extent",
+     "old": "source_obtained_only",
+     "new": "local",
+     "rule": "extent_vocabulary"
+    }
+   ]
+  },
+  {
+   "asset_id": "hra-female-pelvis-v1.10-n0456-p0-vh_f_right_uterosacral_ligament",
+   "catalog_mirror": false,
+   "changes": [
+    {
+     "field": "extent",
+     "old": "source_obtained_only",
+     "new": "local",
+     "rule": "extent_vocabulary"
+    }
+   ]
+  },
+  {
+   "asset_id": "hra-female-pelvis-v1.10-n0457-p0-vh_f_left_uterosacral_ligament",
+   "catalog_mirror": false,
+   "changes": [
+    {
+     "field": "extent",
+     "old": "source_obtained_only",
+     "new": "local",
+     "rule": "extent_vocabulary"
+    }
+   ]
+  },
+  {
+   "asset_id": "hra-female-pelvis-v1.10-n0459-p0-vh_f_right_cardinal_ligament_of_uterus",
+   "catalog_mirror": false,
+   "changes": [
+    {
+     "field": "extent",
+     "old": "source_obtained_only",
+     "new": "local",
+     "rule": "extent_vocabulary"
+    }
+   ]
+  },
+  {
+   "asset_id": "hra-female-pelvis-v1.10-n0460-p0-vh_f_left_cardinal_ligament_of_uterus",
+   "catalog_mirror": false,
+   "changes": [
+    {
+     "field": "extent",
+     "old": "source_obtained_only",
+     "new": "local",
+     "rule": "extent_vocabulary"
+    }
+   ]
+  },
+  {
+   "asset_id": "hra-female-pelvis-v1.10-n0462-p0-vh_f_suspensory_ligament_of_ovary_r",
+   "catalog_mirror": false,
+   "changes": [
+    {
+     "field": "extent",
+     "old": "source_obtained_only",
+     "new": "local",
+     "rule": "extent_vocabulary"
+    }
+   ]
+  },
+  {
+   "asset_id": "hra-female-pelvis-v1.10-n0463-p0-vh_f_suspensory_ligament_of_ovary_l",
+   "catalog_mirror": false,
+   "changes": [
+    {
+     "field": "extent",
+     "old": "source_obtained_only",
+     "new": "local",
+     "rule": "extent_vocabulary"
+    }
+   ]
+  },
+  {
+   "asset_id": "hra-female-pelvis-v1.10-n0465-p0-vh_f_ovarian_ligament_l",
+   "catalog_mirror": false,
+   "changes": [
+    {
+     "field": "extent",
+     "old": "source_obtained_only",
+     "new": "local",
+     "rule": "extent_vocabulary"
+    }
+   ]
+  },
+  {
+   "asset_id": "hra-female-pelvis-v1.10-n0466-p0-vh_f_ovarian_ligament_r",
+   "catalog_mirror": false,
+   "changes": [
+    {
+     "field": "extent",
+     "old": "source_obtained_only",
+     "new": "local",
+     "rule": "extent_vocabulary"
+    }
+   ]
+  },
+  {
+   "asset_id": "hra-female-pelvis-v1.10-n0467-p0-vh_f_broad_ligament",
+   "catalog_mirror": false,
+   "changes": [
+    {
+     "field": "extent",
+     "old": "source_obtained_only",
+     "new": "local",
+     "rule": "extent_vocabulary"
+    }
+   ]
+  },
+  {
+   "asset_id": "hra-female-pelvis-v1.10-n0469-p0-vh_f_mesosalpinx_l",
+   "catalog_mirror": false,
+   "changes": [
+    {
+     "field": "extent",
+     "old": "source_obtained_only",
+     "new": "local",
+     "rule": "extent_vocabulary"
+    }
+   ]
+  },
+  {
+   "asset_id": "hra-female-pelvis-v1.10-n0470-p0-vh_f_mesosalpinx_r",
+   "catalog_mirror": false,
+   "changes": [
+    {
+     "field": "extent",
+     "old": "source_obtained_only",
+     "new": "local",
+     "rule": "extent_vocabulary"
+    }
+   ]
+  },
+  {
+   "asset_id": "hra-female-pelvis-v1.10-n0472-p0-vh_f_mesovarium_r",
+   "catalog_mirror": false,
+   "changes": [
+    {
+     "field": "extent",
+     "old": "source_obtained_only",
+     "new": "local",
+     "rule": "extent_vocabulary"
+    }
+   ]
+  },
+  {
+   "asset_id": "hra-female-pelvis-v1.10-n0473-p0-vh_f_mesovarium_l",
+   "catalog_mirror": false,
+   "changes": [
+    {
+     "field": "extent",
+     "old": "source_obtained_only",
+     "new": "local",
+     "rule": "extent_vocabulary"
+    }
+   ]
+  },
+  {
+   "asset_id": "hra-female-pelvis-v1.10-n0475-p0-vh_f_left_ovary",
+   "catalog_mirror": false,
+   "changes": [
+    {
+     "field": "extent",
+     "old": "source_obtained_only",
+     "new": "local",
+     "rule": "extent_vocabulary"
+    }
+   ]
+  },
+  {
+   "asset_id": "hra-female-pelvis-v1.10-n0476-p0-vh_f_right_ovary",
+   "catalog_mirror": false,
+   "changes": [
+    {
+     "field": "extent",
+     "old": "source_obtained_only",
+     "new": "local",
+     "rule": "extent_vocabulary"
+    }
+   ]
+  },
+  {
+   "asset_id": "hra-female-pelvis-v1.10-n0478-p0-vh_f_abdominal_ostium_of_uterine_tube",
+   "catalog_mirror": false,
+   "changes": [
+    {
+     "field": "extent",
+     "old": "source_obtained_only",
+     "new": "local",
+     "rule": "extent_vocabulary"
+    }
+   ]
+  },
+  {
+   "asset_id": "hra-female-pelvis-v1.10-n0479-p0-vh_f_body_of_uterus",
+   "catalog_mirror": false,
+   "changes": [
+    {
+     "field": "extent",
+     "old": "source_obtained_only",
+     "new": "local",
+     "rule": "extent_vocabulary"
+    }
+   ]
+  },
+  {
+   "asset_id": "hra-female-pelvis-v1.10-n0480-p0-vh_f_fundus_of_uterus",
+   "catalog_mirror": false,
+   "changes": [
+    {
+     "field": "extent",
+     "old": "source_obtained_only",
+     "new": "local",
+     "rule": "extent_vocabulary"
+    }
+   ]
+  },
+  {
+   "asset_id": "hra-female-pelvis-v1.10-n0481-p0-vh_f_cornua",
+   "catalog_mirror": false,
+   "changes": [
+    {
+     "field": "extent",
+     "old": "source_obtained_only",
+     "new": "local",
+     "rule": "extent_vocabulary"
+    }
+   ]
+  },
+  {
+   "asset_id": "hra-female-pelvis-v1.10-n0482-p0-vh_f_lower_uterine_segment",
+   "catalog_mirror": false,
+   "changes": [
+    {
+     "field": "extent",
+     "old": "source_obtained_only",
+     "new": "local",
+     "rule": "extent_vocabulary"
+    }
+   ]
+  },
+  {
+   "asset_id": "hra-female-pelvis-v1.10-n0483-p0-vh_f_posterior_wall_of_uterus",
+   "catalog_mirror": false,
+   "changes": [
+    {
+     "field": "extent",
+     "old": "source_obtained_only",
+     "new": "local",
+     "rule": "extent_vocabulary"
+    }
+   ]
+  },
+  {
+   "asset_id": "hra-female-pelvis-v1.10-n0484-p0-vh_f_anterior_wall_of_uterus",
+   "catalog_mirror": false,
+   "changes": [
+    {
+     "field": "extent",
+     "old": "source_obtained_only",
+     "new": "local",
+     "rule": "extent_vocabulary"
+    }
+   ]
+  },
+  {
+   "asset_id": "hra-female-pelvis-v1.10-n0485-p0-vh_f_cervix",
+   "catalog_mirror": false,
+   "changes": [
+    {
+     "field": "extent",
+     "old": "source_obtained_only",
+     "new": "local",
+     "rule": "extent_vocabulary"
+    }
+   ]
+  },
+  {
+   "asset_id": "hra-female-pelvis-v1.10-n0486-p0-vh_f_internal_cervical_os",
+   "catalog_mirror": false,
+   "changes": [
+    {
+     "field": "extent",
+     "old": "source_obtained_only",
+     "new": "local",
+     "rule": "extent_vocabulary"
+    }
+   ]
+  },
+  {
+   "asset_id": "hra-female-pelvis-v1.10-n0487-p0-vh_f_external_cervical_os",
+   "catalog_mirror": false,
+   "changes": [
+    {
+     "field": "extent",
+     "old": "source_obtained_only",
+     "new": "local",
+     "rule": "extent_vocabulary"
+    }
+   ]
+  },
+  {
+   "asset_id": "hra-female-pelvis-v1.10-n0598-p0-vh_f_rectum",
+   "catalog_mirror": false,
+   "changes": [
+    {
+     "field": "extent",
+     "old": "source_obtained_only",
+     "new": "local",
+     "rule": "extent_vocabulary"
+    }
+   ]
+  },
+  {
+   "asset_id": "hra-female-pelvis-v1.10-n0599-p0-vh_f_sigmoid_colon",
+   "catalog_mirror": false,
+   "changes": [
+    {
+     "field": "extent",
+     "old": "source_obtained_only",
+     "new": "local",
+     "rule": "extent_vocabulary"
+    }
+   ]
+  },
+  {
+   "asset_id": "hra-female-pelvis-v1.10-n0685-p0-vh_f_right_ureter",
+   "catalog_mirror": false,
+   "changes": [
+    {
+     "field": "extent",
+     "old": "source_obtained_only",
+     "new": "local",
+     "rule": "extent_vocabulary"
+    }
+   ]
+  },
+  {
+   "asset_id": "hra-female-pelvis-v1.10-n0705-p0-vh_f_left_ureter",
+   "catalog_mirror": false,
+   "changes": [
+    {
+     "field": "extent",
+     "old": "source_obtained_only",
+     "new": "local",
+     "rule": "extent_vocabulary"
+    }
+   ]
+  },
+  {
+   "asset_id": "hra-female-pelvis-v1.10-n0707-p0-vh_f_fundus_of_urinary_bladder_dome",
+   "catalog_mirror": false,
+   "changes": [
+    {
+     "field": "extent",
+     "old": "source_obtained_only",
+     "new": "local",
+     "rule": "extent_vocabulary"
+    }
+   ]
+  },
+  {
+   "asset_id": "hra-female-pelvis-v1.10-n0708-p0-vh_f_urinary_bladder_neck_smooth_muscle",
+   "catalog_mirror": false,
+   "changes": [
+    {
+     "field": "extent",
+     "old": "source_obtained_only",
+     "new": "local",
+     "rule": "extent_vocabulary"
+    }
+   ]
+  },
+  {
+   "asset_id": "hra-female-pelvis-v1.10-n0709-p0-vh_f_fundus_of_urinary_bladder_base",
+   "catalog_mirror": false,
+   "changes": [
+    {
+     "field": "extent",
+     "old": "source_obtained_only",
+     "new": "local",
+     "rule": "extent_vocabulary"
+    }
+   ]
+  },
+  {
+   "asset_id": "hra-female-pelvis-v1.10-n0710-p0-vh_f_trigone_of_urinary_bladder",
+   "catalog_mirror": false,
+   "changes": [
+    {
+     "field": "extent",
+     "old": "source_obtained_only",
+     "new": "local",
+     "rule": "extent_vocabulary"
+    }
+   ]
+  },
+  {
+   "asset_id": "hra-female-pelvis-v1.10-n0712-p0-vh_f_ureteral_orifice_r",
+   "catalog_mirror": false,
+   "changes": [
+    {
+     "field": "extent",
+     "old": "source_obtained_only",
+     "new": "local",
+     "rule": "extent_vocabulary"
+    }
+   ]
+  },
+  {
+   "asset_id": "hra-female-pelvis-v1.10-n0713-p0-vh_f_ureteral_orifice_l",
+   "catalog_mirror": false,
+   "changes": [
+    {
+     "field": "extent",
+     "old": "source_obtained_only",
+     "new": "local",
+     "rule": "extent_vocabulary"
+    }
+   ]
+  },
+  {
+   "asset_id": "hra-female-pelvis-v1.10-n1007-p0-vh_f_sacrum",
+   "catalog_mirror": false,
+   "changes": [
+    {
+     "field": "extent",
+     "old": "source_obtained_only",
+     "new": "local",
+     "rule": "extent_vocabulary"
+    }
+   ]
+  },
+  {
+   "asset_id": "hra-female-pelvis-v1.10-n1008-p0-vh_f_coccyx",
+   "catalog_mirror": false,
+   "changes": [
+    {
+     "field": "extent",
+     "old": "source_obtained_only",
+     "new": "local",
+     "rule": "extent_vocabulary"
+    }
+   ]
+  },
+  {
+   "asset_id": "hra-female-pelvis-v1.10-n1011-p0-vh_f_ilium_compact_bone_r",
+   "catalog_mirror": false,
+   "changes": [
+    {
+     "field": "extent",
+     "old": "source_obtained_only",
+     "new": "local",
+     "rule": "extent_vocabulary"
+    }
+   ]
+  },
+  {
+   "asset_id": "hra-female-pelvis-v1.10-n1012-p0-vh_f_ilium_compact_bone_l",
+   "catalog_mirror": false,
+   "changes": [
+    {
+     "field": "extent",
+     "old": "source_obtained_only",
+     "new": "local",
+     "rule": "extent_vocabulary"
+    }
+   ]
+  },
+  {
+   "asset_id": "hra-female-pelvis-v1.10-n1014-p0-vh_f_ilium_spongy_bone_l",
+   "catalog_mirror": false,
+   "changes": [
+    {
+     "field": "extent",
+     "old": "source_obtained_only",
+     "new": "local",
+     "rule": "extent_vocabulary"
+    }
+   ]
+  },
+  {
+   "asset_id": "hra-female-pelvis-v1.10-n1015-p0-vh_f_ilium_spongy_bone_r",
+   "catalog_mirror": false,
+   "changes": [
+    {
+     "field": "extent",
+     "old": "source_obtained_only",
+     "new": "local",
+     "rule": "extent_vocabulary"
+    }
+   ]
+  },
+  {
+   "asset_id": "open-cervical-cancer-pmc10605640-fig1",
+   "catalog_mirror": true,
+   "changes": [
+    {
+     "field": "extent",
+     "old": "source_local_views",
+     "new": "local",
+     "rule": "extent_vocabulary"
+    }
+   ]
+  },
+  {
+   "asset_id": "open-cervical-cancer-pmc10605640-fig2",
+   "catalog_mirror": true,
+   "changes": [
+    {
+     "field": "extent",
+     "old": "source_local_views",
+     "new": "local",
+     "rule": "extent_vocabulary"
+    }
+   ]
+  },
+  {
+   "asset_id": "open-cervical-cancer-pmc10605640-fig3",
+   "catalog_mirror": true,
+   "changes": [
+    {
+     "field": "extent",
+     "old": "source_local_views",
+     "new": "local",
+     "rule": "extent_vocabulary"
+    }
+   ]
+  },
+  {
+   "asset_id": "open-cervical-cancer-pmc10605640-fig4",
+   "catalog_mirror": true,
+   "changes": [
+    {
+     "field": "extent",
+     "old": "source_local_views",
+     "new": "local",
+     "rule": "extent_vocabulary"
+    }
+   ]
+  },
+  {
+   "asset_id": "open-cervical-cancer-pmc10605640-fig5",
+   "catalog_mirror": true,
+   "changes": [
+    {
+     "field": "extent",
+     "old": "source_local_views",
+     "new": "local",
+     "rule": "extent_vocabulary"
+    }
+   ]
+  },
+  {
+   "asset_id": "open-cervical-cancer-pmc10605640-fig6",
+   "catalog_mirror": true,
+   "changes": [
+    {
+     "field": "extent",
+     "old": "source_local_views",
+     "new": "local",
+     "rule": "extent_vocabulary"
+    }
+   ]
+  },
+  {
+   "asset_id": "open-cervical-cancer-pmc10605640-fig7",
+   "catalog_mirror": true,
+   "changes": [
+    {
+     "field": "extent",
+     "old": "source_local_views",
+     "new": "local",
+     "rule": "extent_vocabulary"
+    }
+   ]
+  },
+  {
+   "asset_id": "open-cervical-cancer-pmc10605640-fig8",
+   "catalog_mirror": true,
+   "changes": [
+    {
+     "field": "extent",
+     "old": "source_local_views",
+     "new": "local",
+     "rule": "extent_vocabulary"
+    }
+   ]
+  },
+  {
+   "asset_id": "open-cervical-cancer-pmc10605640-fig9",
+   "catalog_mirror": true,
+   "changes": [
+    {
+     "field": "extent",
+     "old": "source_local_views",
+     "new": "local",
+     "rule": "extent_vocabulary"
+    }
+   ]
+  },
+  {
+   "asset_id": "open-cervical-cancer-pmc10605640-fig10",
+   "catalog_mirror": true,
+   "changes": [
+    {
+     "field": "extent",
+     "old": "source_local_views",
+     "new": "local",
+     "rule": "extent_vocabulary"
+    }
+   ]
+  },
+  {
+   "asset_id": "open-cervical-cancer-pmc10605640-fig11",
+   "catalog_mirror": true,
+   "changes": [
+    {
+     "field": "extent",
+     "old": "source_local_views",
+     "new": "local",
+     "rule": "extent_vocabulary"
+    }
+   ]
+  },
+  {
+   "asset_id": "open-cervical-cancer-pmc10605640-fig12",
+   "catalog_mirror": true,
+   "changes": [
+    {
+     "field": "extent",
+     "old": "source_local_views",
+     "new": "local",
+     "rule": "extent_vocabulary"
+    }
+   ]
+  },
+  {
+   "asset_id": "open-cervical-cancer-pmc10605640-fig13",
+   "catalog_mirror": true,
+   "changes": [
+    {
+     "field": "extent",
+     "old": "source_local_views",
+     "new": "local",
+     "rule": "extent_vocabulary"
+    }
+   ]
+  },
+  {
+   "asset_id": "open-cervical-cancer-pmc10605640-fig14",
+   "catalog_mirror": true,
+   "changes": [
+    {
+     "field": "extent",
+     "old": "source_local_views",
+     "new": "local",
+     "rule": "extent_vocabulary"
+    }
+   ]
+  },
+  {
+   "asset_id": "open-cervical-cancer-pmc10605640-fig15",
+   "catalog_mirror": true,
+   "changes": [
+    {
+     "field": "extent",
+     "old": "source_local_views",
+     "new": "local",
+     "rule": "extent_vocabulary"
+    }
+   ]
+  },
+  {
+   "asset_id": "open-cervical-cancer-pmc10605640-fig16",
+   "catalog_mirror": true,
+   "changes": [
+    {
+     "field": "extent",
+     "old": "source_local_views",
+     "new": "local",
+     "rule": "extent_vocabulary"
+    }
+   ]
+  },
+  {
+   "asset_id": "open-cervical-cancer-pmc10605640-fig17",
+   "catalog_mirror": true,
+   "changes": [
+    {
+     "field": "extent",
+     "old": "source_local_views",
+     "new": "local",
+     "rule": "extent_vocabulary"
+    }
+   ]
+  },
+  {
+   "asset_id": "open-cervical-cancer-pmc10605640-fig18",
+   "catalog_mirror": true,
+   "changes": [
+    {
+     "field": "extent",
+     "old": "source_local_views",
+     "new": "local",
+     "rule": "extent_vocabulary"
+    }
+   ]
+  },
+  {
+   "asset_id": "open-cervical-cancer-pmc10886638-fig1",
+   "catalog_mirror": true,
+   "changes": [
+    {
+     "field": "extent",
+     "old": "source_local_views",
+     "new": "local",
+     "rule": "extent_vocabulary"
+    }
+   ]
+  },
+  {
+   "asset_id": "open-cervical-cancer-pmc10886638-fig2",
+   "catalog_mirror": true,
+   "changes": [
+    {
+     "field": "extent",
+     "old": "source_local_views",
+     "new": "local",
+     "rule": "extent_vocabulary"
+    }
+   ]
+  },
+  {
+   "asset_id": "open-cervical-cancer-pmc10886638-fig3",
+   "catalog_mirror": true,
+   "changes": [
+    {
+     "field": "extent",
+     "old": "source_local_views",
+     "new": "local",
+     "rule": "extent_vocabulary"
+    }
+   ]
+  },
+  {
+   "asset_id": "open-cervical-cancer-pmc10886638-fig4",
+   "catalog_mirror": true,
+   "changes": [
+    {
+     "field": "extent",
+     "old": "source_local_views",
+     "new": "local",
+     "rule": "extent_vocabulary"
+    }
+   ]
+  },
+  {
+   "asset_id": "open-cervical-cancer-pmc10886638-fig6",
+   "catalog_mirror": true,
+   "changes": [
+    {
+     "field": "extent",
+     "old": "source_local_views",
+     "new": "local",
+     "rule": "extent_vocabulary"
+    }
+   ]
+  },
+  {
+   "asset_id": "open-cervical-cancer-pmc10886638-fig8",
+   "catalog_mirror": true,
+   "changes": [
+    {
+     "field": "extent",
+     "old": "source_local_views",
+     "new": "local",
+     "rule": "extent_vocabulary"
+    }
+   ]
+  },
+  {
+   "asset_id": "open-cervical-cancer-pmc10886638-fig10",
+   "catalog_mirror": true,
+   "changes": [
+    {
+     "field": "extent",
+     "old": "source_local_views",
+     "new": "local",
+     "rule": "extent_vocabulary"
+    }
+   ]
+  },
+  {
+   "asset_id": "open-cervical-cancer-pmc10886638-fig11",
+   "catalog_mirror": true,
+   "changes": [
+    {
+     "field": "extent",
+     "old": "source_local_views",
+     "new": "local",
+     "rule": "extent_vocabulary"
+    }
+   ]
+  },
+  {
+   "asset_id": "open-cervical-cancer-pmc11171278-fig1",
+   "catalog_mirror": true,
+   "changes": [
+    {
+     "field": "extent",
+     "old": "source_local_views",
+     "new": "local",
+     "rule": "extent_vocabulary"
+    },
+    {
+     "field": "depicted_state",
+     "old": "published_normal_T2_appearance_with_author_annotations",
+     "new": "normal_anatomy",
+     "rule": "state_reviewed"
+    }
+   ],
+   "reason": "The caption describes “Normal MRI cervical appearances”."
+  },
+  {
+   "asset_id": "open-cervical-cancer-pmc11171278-fig2",
+   "catalog_mirror": true,
+   "changes": [
+    {
+     "field": "extent",
+     "old": "source_local_views",
+     "new": "local",
+     "rule": "extent_vocabulary"
+    },
+    {
+     "field": "depicted_state",
+     "old": "separate_source_local_MRI_appearance_examples",
+     "new": "separate_source_local_mri_appearance_examples",
+     "rule": "state_lowercase"
+    }
+   ]
+  },
+  {
+   "asset_id": "open-cervical-cancer-pmc7338830-fig3",
+   "catalog_mirror": true,
+   "changes": [
+    {
+     "field": "extent",
+     "old": "source_local_views",
+     "new": "local",
+     "rule": "extent_vocabulary"
+    }
+   ]
+  },
+  {
+   "asset_id": "open-cervical-cancer-pmc7338830-fig4",
+   "catalog_mirror": true,
+   "changes": [
+    {
+     "field": "extent",
+     "old": "source_local_views",
+     "new": "local",
+     "rule": "extent_vocabulary"
+    }
+   ]
+  },
+  {
+   "asset_id": "open-cervical-cancer-pmc7338830-fig6",
+   "catalog_mirror": true,
+   "changes": [
+    {
+     "field": "extent",
+     "old": "source_local_views",
+     "new": "local",
+     "rule": "extent_vocabulary"
+    }
+   ]
+  },
+  {
+   "asset_id": "open-cervical-cancer-normal-uterus-2018-fig3-1",
+   "catalog_mirror": true,
+   "changes": [
+    {
+     "field": "extent",
+     "old": "single_source_local_MPR",
+     "new": "local",
+     "rule": "extent_vocabulary"
+    }
+   ]
+  },
+  {
+   "asset_id": "open-endometrial-cancer-pmc11119523-fig4",
+   "catalog_mirror": true,
+   "changes": [
+    {
+     "field": "extent",
+     "old": "source_local_views",
+     "new": "local",
+     "rule": "extent_vocabulary"
+    }
+   ]
+  },
+  {
+   "asset_id": "open-endometrial-cancer-pmc11119523-fig5",
+   "catalog_mirror": true,
+   "changes": [
+    {
+     "field": "extent",
+     "old": "source_local_views",
+     "new": "local",
+     "rule": "extent_vocabulary"
+    }
+   ]
+  },
+  {
+   "asset_id": "open-endometrial-cancer-pmc11119523-fig6",
+   "catalog_mirror": true,
+   "changes": [
+    {
+     "field": "extent",
+     "old": "source_local_views",
+     "new": "local",
+     "rule": "extent_vocabulary"
+    }
+   ]
+  },
+  {
+   "asset_id": "open-endometrial-cancer-pmc11119523-fig7",
+   "catalog_mirror": true,
+   "changes": [
+    {
+     "field": "extent",
+     "old": "source_local_views",
+     "new": "local",
+     "rule": "extent_vocabulary"
+    }
+   ]
+  },
+  {
+   "asset_id": "open-endometrial-cancer-pmc11119523-fig8",
+   "catalog_mirror": true,
+   "changes": [
+    {
+     "field": "extent",
+     "old": "source_local_views",
+     "new": "local",
+     "rule": "extent_vocabulary"
+    }
+   ]
+  },
+  {
+   "asset_id": "open-endometrial-cancer-pmc11119523-fig9",
+   "catalog_mirror": true,
+   "changes": [
+    {
+     "field": "extent",
+     "old": "source_local_views",
+     "new": "local",
+     "rule": "extent_vocabulary"
+    }
+   ]
+  },
+  {
+   "asset_id": "open-endometrial-cancer-pmc11119523-fig10",
+   "catalog_mirror": true,
+   "changes": [
+    {
+     "field": "extent",
+     "old": "source_local_views",
+     "new": "local",
+     "rule": "extent_vocabulary"
+    }
+   ]
+  },
+  {
+   "asset_id": "open-endometrial-cancer-pmc11119523-fig11",
+   "catalog_mirror": true,
+   "changes": [
+    {
+     "field": "extent",
+     "old": "source_local_views",
+     "new": "local",
+     "rule": "extent_vocabulary"
+    }
+   ]
+  },
+  {
+   "asset_id": "open-endometrial-cancer-pmc11119523-fig12",
+   "catalog_mirror": true,
+   "changes": [
+    {
+     "field": "extent",
+     "old": "source_local_views",
+     "new": "local",
+     "rule": "extent_vocabulary"
+    }
+   ]
+  },
+  {
+   "asset_id": "open-endometrial-cancer-pmc11119523-fig13",
+   "catalog_mirror": true,
+   "changes": [
+    {
+     "field": "extent",
+     "old": "source_local_views",
+     "new": "local",
+     "rule": "extent_vocabulary"
+    }
+   ]
+  },
+  {
+   "asset_id": "open-endometrial-cancer-pmc11119523-fig14",
+   "catalog_mirror": true,
+   "changes": [
+    {
+     "field": "extent",
+     "old": "source_local_views",
+     "new": "local",
+     "rule": "extent_vocabulary"
+    }
+   ]
+  },
+  {
+   "asset_id": "open-endometrial-cancer-pmc11119523-fig15",
+   "catalog_mirror": true,
+   "changes": [
+    {
+     "field": "extent",
+     "old": "source_local_views",
+     "new": "local",
+     "rule": "extent_vocabulary"
+    }
+   ]
+  },
+  {
+   "asset_id": "open-endometrial-cancer-pmc11119523-fig16",
+   "catalog_mirror": true,
+   "changes": [
+    {
+     "field": "extent",
+     "old": "source_local_views",
+     "new": "local",
+     "rule": "extent_vocabulary"
+    }
+   ]
+  },
+  {
+   "asset_id": "open-endometrial-cancer-pmc11119523-fig18",
+   "catalog_mirror": true,
+   "changes": [
+    {
+     "field": "extent",
+     "old": "source_local_views",
+     "new": "local",
+     "rule": "extent_vocabulary"
+    },
+    {
+     "field": "depicted_state",
+     "old": "published_normal_T2_zonal_anatomy",
+     "new": "normal_anatomy",
+     "rule": "state_reviewed"
+    }
+   ],
+   "reason": "The caption describes “the normal trilaminar appearance of the uterus”."
+  },
+  {
+   "asset_id": "open-endometrial-cancer-pmc11119523-fig19",
+   "catalog_mirror": true,
+   "changes": [
+    {
+     "field": "extent",
+     "old": "source_local_views",
+     "new": "local",
+     "rule": "extent_vocabulary"
+    }
+   ]
+  },
+  {
+   "asset_id": "open-endometrial-cancer-pmc12830431-fig1",
+   "catalog_mirror": true,
+   "changes": [
+    {
+     "field": "extent",
+     "old": "source_local_views",
+     "new": "local",
+     "rule": "extent_vocabulary"
+    }
+   ]
+  },
+  {
+   "asset_id": "open-endometrial-cancer-pmc12830431-fig2",
+   "catalog_mirror": true,
+   "changes": [
+    {
+     "field": "extent",
+     "old": "source_local_views",
+     "new": "local",
+     "rule": "extent_vocabulary"
+    }
+   ]
+  },
+  {
+   "asset_id": "open-endometrial-cancer-pmc12830431-fig3",
+   "catalog_mirror": true,
+   "changes": [
+    {
+     "field": "extent",
+     "old": "source_local_views",
+     "new": "local",
+     "rule": "extent_vocabulary"
+    }
+   ]
+  },
+  {
+   "asset_id": "open-endometrial-cancer-pmc12830431-fig4",
+   "catalog_mirror": true,
+   "changes": [
+    {
+     "field": "extent",
+     "old": "source_local_views",
+     "new": "local",
+     "rule": "extent_vocabulary"
+    }
+   ]
+  },
+  {
+   "asset_id": "open-endometrial-cancer-pmc12830431-fig5",
+   "catalog_mirror": true,
+   "changes": [
+    {
+     "field": "extent",
+     "old": "source_local_views",
+     "new": "local",
+     "rule": "extent_vocabulary"
+    }
+   ]
+  },
+  {
+   "asset_id": "open-endometrial-cancer-pmc12830431-fig6",
+   "catalog_mirror": true,
+   "changes": [
+    {
+     "field": "extent",
+     "old": "source_local_views",
+     "new": "local",
+     "rule": "extent_vocabulary"
+    }
+   ]
+  },
+  {
+   "asset_id": "open-endometrial-cancer-pmc12830431-fig7",
+   "catalog_mirror": true,
+   "changes": [
+    {
+     "field": "extent",
+     "old": "source_local_views",
+     "new": "local",
+     "rule": "extent_vocabulary"
+    }
+   ]
+  },
+  {
+   "asset_id": "open-endometrial-cancer-pmc12830431-fig8",
+   "catalog_mirror": true,
+   "changes": [
+    {
+     "field": "extent",
+     "old": "source_local_views",
+     "new": "local",
+     "rule": "extent_vocabulary"
+    }
+   ]
+  },
+  {
+   "asset_id": "open-endometrial-cancer-pmc12830431-fig9",
+   "catalog_mirror": true,
+   "changes": [
+    {
+     "field": "extent",
+     "old": "source_local_views",
+     "new": "local",
+     "rule": "extent_vocabulary"
+    }
+   ]
+  },
+  {
+   "asset_id": "open-endometrial-cancer-pmc12830431-fig10",
+   "catalog_mirror": true,
+   "changes": [
+    {
+     "field": "extent",
+     "old": "source_local_views",
+     "new": "local",
+     "rule": "extent_vocabulary"
+    }
+   ]
+  },
+  {
+   "asset_id": "open-endometrial-cancer-pmc12830431-fig11",
+   "catalog_mirror": true,
+   "changes": [
+    {
+     "field": "extent",
+     "old": "source_local_views",
+     "new": "local",
+     "rule": "extent_vocabulary"
+    }
+   ]
+  },
+  {
+   "asset_id": "open-endometrial-cancer-pmc12830431-fig12",
+   "catalog_mirror": true,
+   "changes": [
+    {
+     "field": "extent",
+     "old": "source_local_views",
+     "new": "local",
+     "rule": "extent_vocabulary"
+    }
+   ]
+  },
+  {
+   "asset_id": "open-endometrial-cancer-pmc12830431-fig13",
+   "catalog_mirror": true,
+   "changes": [
+    {
+     "field": "extent",
+     "old": "source_local_views",
+     "new": "local",
+     "rule": "extent_vocabulary"
+    }
+   ]
+  },
+  {
+   "asset_id": "open-endometrial-cancer-pmc12830431-fig14",
+   "catalog_mirror": true,
+   "changes": [
+    {
+     "field": "extent",
+     "old": "source_local_views",
+     "new": "local",
+     "rule": "extent_vocabulary"
+    }
+   ]
+  },
+  {
+   "asset_id": "open-endometrial-cancer-pmc13025262-fig1",
+   "catalog_mirror": true,
+   "changes": [
+    {
+     "field": "extent",
+     "old": "source_local_views",
+     "new": "local",
+     "rule": "extent_vocabulary"
+    }
+   ]
+  },
+  {
+   "asset_id": "open-endometrial-cancer-pmc13025262-fig2",
+   "catalog_mirror": true,
+   "changes": [
+    {
+     "field": "extent",
+     "old": "source_local_views",
+     "new": "local",
+     "rule": "extent_vocabulary"
+    }
+   ]
+  },
+  {
+   "asset_id": "open-endometrial-cancer-pmc7643338-fig2",
+   "catalog_mirror": true,
+   "changes": [
+    {
+     "field": "extent",
+     "old": "source_local_views",
+     "new": "local",
+     "rule": "extent_vocabulary"
+    }
+   ]
+  },
+  {
+   "asset_id": "open-endometrial-cancer-pmc7643338-fig3",
+   "catalog_mirror": true,
+   "changes": [
+    {
+     "field": "extent",
+     "old": "source_local_views",
+     "new": "local",
+     "rule": "extent_vocabulary"
+    }
+   ]
+  },
+  {
+   "asset_id": "open-endometrial-cancer-pmc8648287-fig4",
+   "catalog_mirror": true,
+   "changes": [
+    {
+     "field": "extent",
+     "old": "source_local_views",
+     "new": "local",
+     "rule": "extent_vocabulary"
+    }
+   ]
+  },
+  {
+   "asset_id": "open-endometrial-cancer-pmc8648287-fig5",
+   "catalog_mirror": true,
+   "changes": [
+    {
+     "field": "extent",
+     "old": "source_local_views",
+     "new": "local",
+     "rule": "extent_vocabulary"
+    }
+   ]
+  },
+  {
+   "asset_id": "open-endometrial-cancer-esr2026-fig5",
+   "catalog_mirror": true,
+   "changes": [
+    {
+     "field": "extent",
+     "old": "separate_source_local_examples",
+     "new": "local",
+     "rule": "extent_vocabulary"
+    }
+   ]
+  },
+  {
+   "asset_id": "open-thoracic-us-pmc5401877-fig13",
+   "catalog_mirror": true,
+   "changes": [
+    {
+     "field": "panel_states",
+     "old": {
+      "A": "conceptual_respiratory_inflow",
+      "B": "source_mitral_Doppler",
+      "C": "source_tricuspid_Doppler"
+     },
+     "new": {
+      "A": "conceptual_respiratory_inflow",
+      "B": "source_mitral_doppler",
+      "C": "source_tricuspid_doppler"
+     },
+     "rule": "state_lowercase"
+    },
+    {
+     "field": "depicted_state",
+     "old": "published_case_examples",
+     "new": "mixed",
+     "rule": "state_mixed_panels"
+    }
+   ],
+   "reason": "The record’s own selected panels show different states."
+  },
+  {
+   "asset_id": "open-epilepsy-pmc4557590-fig1",
+   "catalog_mirror": true,
+   "changes": [
+    {
+     "field": "laterality",
+     "old": "publisher_assigned_right",
+     "new": "right",
+     "rule": "laterality_stated"
+    },
+    {
+     "field": "depicted_state",
+     "old": "source_reported_epilepsy_pathology_examples",
+     "new": "source_reported_case_image",
+     "rule": "state_same_meaning"
+    }
+   ],
+   "reason": "The caption states the side: “refractory right mesial temporal sclerosis”. Every selected panel is a reported case image of the epilepsy pathology the figure-level code names."
+  },
+  {
+   "asset_id": "open-epilepsy-pmc8353251-fig4",
+   "catalog_mirror": true,
+   "changes": [
+    {
+     "field": "laterality",
+     "old": "not_independently_verified",
+     "new": "not_reported",
+     "rule": "laterality_vocabulary"
+    },
+    {
+     "field": "panel_states",
+     "old": {
+      "upper_left": "source_reported_case_image",
+      "lower_left": "source_HS_image_enlargement",
+      "upper_right": "source_labelled_normal_comparison",
+      "lower_right": "source_labelled_normal_comparison_enlargement"
+     },
+     "new": {
+      "upper_left": "source_reported_case_image",
+      "lower_left": "source_hs_image_enlargement",
+      "upper_right": "source_labelled_normal_comparison",
+      "lower_right": "source_labelled_normal_comparison_enlargement"
+     },
+     "rule": "state_lowercase"
+    },
+    {
+     "field": "depicted_state",
+     "old": "source_reported_epilepsy_pathology_examples",
+     "new": "mixed",
+     "rule": "state_mixed_panels"
+    }
+   ],
+   "reason": "The record’s own selected panels show different states."
+  },
+  {
+   "asset_id": "open-epilepsy-pmc8353251-fig3",
+   "catalog_mirror": true,
+   "changes": [
+    {
+     "field": "laterality",
+     "old": "not_independently_verified",
+     "new": "not_reported",
+     "rule": "laterality_vocabulary"
+    },
+    {
+     "field": "panel_states",
+     "old": {
+      "A1": "source_reported_case_image",
+      "A2": "source_reported_case_image",
+      "A3": "source_reported_case_image",
+      "A4": "source_reported_case_image",
+      "A5": "source_reported_case_image",
+      "A6": "source_reported_case_image",
+      "B1": "source_reported_case_image",
+      "B2": "source_reported_case_image",
+      "B3": "source_reported_case_image",
+      "B4": "source_reported_case_image",
+      "B5": "source_reported_case_image",
+      "B6": "source_reported_case_image",
+      "C1": "altered_display_range_of_B_not_independent_acquisition",
+      "C2": "altered_display_range_of_B_not_independent_acquisition",
+      "C3": "altered_display_range_of_B_not_independent_acquisition",
+      "C4": "altered_display_range_of_B_not_independent_acquisition",
+      "C5": "altered_display_range_of_B_not_independent_acquisition",
+      "C6": "altered_display_range_of_B_not_independent_acquisition"
+     },
+     "new": {
+      "A1": "source_reported_case_image",
+      "A2": "source_reported_case_image",
+      "A3": "source_reported_case_image",
+      "A4": "source_reported_case_image",
+      "A5": "source_reported_case_image",
+      "A6": "source_reported_case_image",
+      "B1": "source_reported_case_image",
+      "B2": "source_reported_case_image",
+      "B3": "source_reported_case_image",
+      "B4": "source_reported_case_image",
+      "B5": "source_reported_case_image",
+      "B6": "source_reported_case_image",
+      "C1": "altered_display_range_of_b_not_independent_acquisition",
+      "C2": "altered_display_range_of_b_not_independent_acquisition",
+      "C3": "altered_display_range_of_b_not_independent_acquisition",
+      "C4": "altered_display_range_of_b_not_independent_acquisition",
+      "C5": "altered_display_range_of_b_not_independent_acquisition",
+      "C6": "altered_display_range_of_b_not_independent_acquisition"
+     },
+     "rule": "state_lowercase"
+    },
+    {
+     "field": "depicted_state",
+     "old": "source_reported_epilepsy_pathology_examples",
+     "new": "mixed",
+     "rule": "state_mixed_panels"
+    }
+   ],
+   "reason": "The record’s own selected panels show different states."
+  },
+  {
+   "asset_id": "open-epilepsy-pmc4557590-fig6",
+   "catalog_mirror": true,
+   "changes": [
+    {
+     "field": "laterality",
+     "old": "publisher_assigned_left",
+     "new": "left",
+     "rule": "laterality_stated"
+    },
+    {
+     "field": "depicted_state",
+     "old": "source_reported_epilepsy_pathology_examples",
+     "new": "source_reported_case_image",
+     "rule": "state_same_meaning"
+    }
+   ],
+   "reason": "The caption states the side: “a solid-cystic lesion in the mesial left temporal lobe”. Every selected panel is a reported case image of the epilepsy pathology the figure-level code names."
+  },
+  {
+   "asset_id": "open-epilepsy-pmc4557590-fig7",
+   "catalog_mirror": true,
+   "changes": [
+    {
+     "field": "laterality",
+     "old": "not_independently_verified",
+     "new": "not_reported",
+     "rule": "laterality_vocabulary"
+    },
+    {
+     "field": "depicted_state",
+     "old": "source_reported_epilepsy_pathology_examples",
+     "new": "source_reported_case_image",
+     "rule": "state_same_meaning"
+    }
+   ],
+   "reason": "Every selected panel is a reported case image of the epilepsy pathology the figure-level code names."
+  },
+  {
+   "asset_id": "open-epilepsy-pmc8353251-fig2",
+   "catalog_mirror": true,
+   "changes": [
+    {
+     "field": "laterality",
+     "old": "not_independently_verified",
+     "new": "not_reported",
+     "rule": "laterality_vocabulary"
+    },
+    {
+     "field": "depicted_state",
+     "old": "source_reported_epilepsy_pathology_examples",
+     "new": "source_reported_case_image",
+     "rule": "state_same_meaning"
+    }
+   ],
+   "reason": "Every selected panel is a reported case image of the epilepsy pathology the figure-level code names."
+  }
+ ],
+ "left_unchanged": [
+  {
+   "asset_id": "open-acute-aortic-pmc3505562-fig2",
+   "issue": "source_context_panel_selection_invalid",
+   "reason": "The figure record and its catalog row both select no panel on purpose; choosing panels to credit is a content decision for a binding review, not a code repair."
+  },
+  {
+   "asset_id": "open-tavi-pmc9743261-fig1",
+   "issue": "source_context_panel_selection_invalid",
+   "reason": "The figure record and its catalog row both select no panel on purpose; choosing panels to credit is a content decision for a binding review, not a code repair."
+  },
+  {
+   "asset_id": "open-tavi-access-pmc3948900-fig22",
+   "issue": "source_context_panel_selection_invalid",
+   "reason": "The figure record and its catalog row both select no panel on purpose; choosing panels to credit is a content decision for a binding review, not a code repair."
+  },
+  {
+   "asset_id": "open-vascular-ring-pmc4141344-fig1",
+   "issue": "source_context_panel_selection_invalid",
+   "reason": "The figure record and its catalog row both select no panel on purpose; choosing panels to credit is a content decision for a binding review, not a code repair."
+  },
+  {
+   "asset_id": "open-vascular-ring-pmc4141344-fig4",
+   "issue": "source_context_panel_selection_invalid",
+   "reason": "The figure record and its catalog row both select no panel on purpose; choosing panels to credit is a content decision for a binding review, not a code repair."
+  },
+  {
+   "asset_id": "open-cardiac-support-pmc10350447-fig1",
+   "issue": "source_context_panel_selection_invalid",
+   "reason": "The figure record and its catalog row both select no panel on purpose; choosing panels to credit is a content decision for a binding review, not a code repair."
+  }
+ ],
+ "still_refused": [
+  {
+   "asset_id": "open-appendix-pmc6497212-fig1",
+   "issue": "source_context_selected_panel_state_mismatch",
+   "reason": "The record’s panel state (source_case_context_only) marks the panel as context only, which disagrees with its figure-level state; that restriction is kept, so the checker still refuses the figure."
+  },
+  {
+   "asset_id": "open-appendix-pmc6497212-fig2",
+   "issue": "source_context_selected_panel_state_mismatch",
+   "reason": "The record’s panel state (source_case_context_only) marks the panel as context only, which disagrees with its figure-level state; that restriction is kept, so the checker still refuses the figure."
+  },
+  {
+   "asset_id": "open-appendix-pmc6497212-fig3",
+   "issue": "source_context_selected_panel_state_mismatch",
+   "reason": "The record’s panel state (source_case_context_only) marks the panel as context only, which disagrees with its figure-level state; that restriction is kept, so the checker still refuses the figure."
+  },
+  {
+   "asset_id": "open-appendix-pmc4330234-fig3",
+   "issue": "source_context_selected_panel_state_mismatch",
+   "reason": "The record’s panel state (source_case_context_only) marks the panel as context only, which disagrees with its figure-level state; that restriction is kept, so the checker still refuses the figure."
+  },
+  {
+   "asset_id": "open-appendix-pmc4330234-fig7",
+   "issue": "source_context_selected_panel_state_mismatch",
+   "reason": "The record’s panel state (source_case_context_only) marks the panel as context only, which disagrees with its figure-level state; that restriction is kept, so the checker still refuses the figure."
+  },
+  {
+   "asset_id": "open-prostate-biopsy0001-T2-15",
+   "issue": "source_context_selected_panel_state_mismatch",
+   "reason": "The record’s panel state (source_case_context_only) marks the panel as context only, which disagrees with its figure-level state; that restriction is kept, so the checker still refuses the figure."
+  },
+  {
+   "asset_id": "open-prostate-biopsy0001-T2-25",
+   "issue": "source_context_selected_panel_state_mismatch",
+   "reason": "The record’s panel state (source_case_context_only) marks the panel as context only, which disagrees with its figure-level state; that restriction is kept, so the checker still refuses the figure."
+  },
+  {
+   "asset_id": "open-prostate-biopsy0001-T2-35",
+   "issue": "source_context_selected_panel_state_mismatch",
+   "reason": "The record’s panel state (source_case_context_only) marks the panel as context only, which disagrees with its figure-level state; that restriction is kept, so the checker still refuses the figure."
+  },
+  {
+   "asset_id": "open-anorectal-pmc13512459-fig1-mri-perianal-fistula",
+   "issue": "source_context_selected_panel_state_mismatch",
+   "reason": "The record’s panel state (source_only_case_or_illustration) marks the panel as context only, which disagrees with its figure-level state; that restriction is kept, so the checker still refuses the figure."
+  }
+ ]
+}

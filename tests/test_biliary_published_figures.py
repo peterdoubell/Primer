@@ -7,6 +7,7 @@ from PIL import Image
 from primer.curriculum import Curriculum
 from primer.radiology_catalog import detail, resolve
 from tools.check_msk_fidelity import inspect_binding, requirements_for
+from tools.anatomy_sources.bind_stored_caption_assets import only_caption_bindings
 
 ROOT = Path(__file__).resolve().parents[1]
 REVIEW = ROOT / 'docs/biliary-published-source-review'
@@ -57,7 +58,7 @@ def test_licensed_biliary_candidates_have_no_structure_or_clinical_approval():
     rows = [r for r in data['assets'] if r['id'].startswith('open-biliary-')]
     assert len(rows) == 6
     for row in rows:
-        assert row['structure_ids'] == [] and row['requirement_coverage'] == {}
+        assert only_caption_bindings(row)
         assert row['anatomical_review']['status'] == 'pending'
         license = row['source']['license']
         assert license['commercial_use'] and license['redistribution']

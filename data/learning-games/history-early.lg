@@ -1,0 +1,370 @@
+# History and social studies, stages 0 to 2 (ages 3 to 13).
+# Put events in order, match claims to the evidence for them, compare accounts.
+
+@ hist.0.family
+goal: Use the words yesterday, today and tomorrow, and know that families have a past.
+intro: Yesterday is the day before today. Tomorrow is the day after today. Things that have happened already are in the past.
+  show: flow yesterday > today > tomorrow
+demo: Grandma was a little girl long ago. She grew up and had a child. That child grew up too, and is now your mum or dad. Families go back and back in time.
+  show: flow grandma was little > mum was little > now you are little
+O: Put the days in order.
+  items: yesterday | today | tomorrow
+  ends: First | Last
+  hint: Which day has already gone?
+  why: Yesterday came first. Today is now. Tomorrow has not come yet.
+G: Has it happened already, or is it still to come?
+  bin Already happened: yesterday | when I was a baby | last night
+  bin Still to come: tomorrow | when I am grown up | next week
+  hint: Can you remember it, or are you waiting for it?
+  why: The past has happened already. The future is still to come.
+O: Who was born first?
+  items: grandma | mum | me
+  ends: Born first | Born last
+  hint: Who is the oldest?
+  why: Grandma was born first. Then mum. Then you.
+>P: Dad shows you a photo of himself as a baby. When was the photo taken?
+  + Long ago :: Dad was a baby in the past.
+  - Tomorrow :: [mixed-up-time] Tomorrow has not happened yet.
+  - Today :: [mixed-up-time] Today, Dad is grown up.
+  hint: Is Dad a baby now?
+  why: Dad was a baby long ago. Old photos show us the past.
+done: Ask someone in your family what they did when they were little.
+
+@ hist.0.community
+goal: Know who helps in a community and what each helper does.
+intro: A community is the people who live near you. Many people have jobs that help everyone.
+  show: emoji 🚒 🏥 🏫 📮
+demo: When there is a fire, firefighters come with a fire engine and long hoses. They put the fire out and keep people safe.
+  show: flow a fire starts > someone calls for help > firefighters come > the fire is out
+M: Match each helper to the job.
+  pairs: Firefighter => Puts out fires | Doctor => Helps sick people get better | Teacher => Helps children learn | Postal worker => Brings letters and parcels
+  hint: Who comes with a hose? Who comes with letters?
+  why: Each helper has a special job that helps the whole community.
+P: Your tooth hurts. Who can help?
+  + A dentist :: A dentist looks after teeth.
+  - A firefighter :: [wrong-helper] Firefighters put out fires.
+  - A postal worker :: [wrong-helper] Postal workers bring letters.
+  hint: Who looks after teeth?
+  why: Different helpers help with different things. A dentist helps with teeth.
+P: You are lost in a big shop. Who is a safe person to ask for help?
+  + Someone who works in the shop :: They can help you find your grown-up.
+  - Nobody: go outside alone :: [unsafe-choice] Stay in the shop, where you can be found.
+  - Hide and wait :: [unsafe-choice] Nobody can help you if they cannot see you.
+  hint: Who knows the shop best?
+  why: People who work there can help. Stay where you are and ask them.
+>P: The bins in your street are full. Who takes the rubbish away?
+  + The bin lorry crew :: They empty the bins and take the rubbish away.
+  - The teacher :: [wrong-helper] Teachers help children learn.
+  - The doctor :: [wrong-helper] Doctors help sick people.
+  hint: Which helpers come with a big lorry?
+  why: The crew of the bin lorry keep the streets clean for everyone.
+done: Say thank you to a helper you meet this week.
+
+@ hist.0.longago
+goal: Tell how life long ago was different from life today.
+intro: Long ago there were no cars, no phones and no electric lights. People walked or rode horses. They lit candles when it got dark.
+  show: emoji 🕯️ 🐴 ✉️
+demo: Today you can phone a friend far away and talk at once. Long ago you had to write a letter. A rider carried it, and it took many days to arrive.
+  show: flow write a letter > a rider carries it > it arrives days later
+G: Long ago, or today?
+  bin Long ago: a candle for light | a horse and cart | a feather pen
+  bin Today: an electric lamp | a car | a mobile phone
+  hint: Does it need electricity or an engine?
+  why: Candles, carts and feather pens were used long ago. Lamps, cars and phones came much later.
+M: Match the old thing to the new thing that does the same job.
+  pairs: Candle => Electric light | Horse and cart => Car | Letter => Phone call | Washing tub => Washing machine
+  hint: Which two give light? Which two carry people?
+  why: People long ago had the same needs. They met them in different ways.
+P: Long ago, how did people send news to a friend far away?
+  + They sent a letter :: Someone carried it there.
+  - They sent a text message :: [not-invented-yet] There were no phones.
+  - They watched television :: [not-invented-yet] There was no television.
+  hint: There were no phones. What could they write?
+  why: Before phones, news travelled by letter, and it travelled slowly.
+>P: Long ago, children had no tablets or video games. What did they play with?
+  + Wooden toys, and games outside :: Toys were made by hand.
+  - A tablet :: [not-invented-yet] Tablets had not been invented.
+  - A video game :: [not-invented-yet] Video games had not been invented.
+  hint: What could be made by hand from wood or cloth?
+  why: Children have always played. Long ago their toys were simple and made by hand.
+done: Ask an older person what they played with as a child.
+
+@ hist.1.timelines
+goal: Put events in order of time and read a simple timeline.
+intro: A timeline is a line that shows when things happened. The oldest things are at one end. The newest are at the other end.
+  show: time 2018=Mia is born | 2019=Mia walks | 2023=Mia starts school | 2025=Mia learns to swim
+demo: Read the timeline from left to right. Mia was born in 2018. She started school in 2023. That is 5 years later.
+  show: time 2018=born | 2023=starts school
+O: Put the events of Mia's life in order.
+  items: Mia is born | Mia learns to walk | Mia starts school | Mia learns to swim
+  ends: First | Last
+  hint: Look at the years on the timeline.
+  why: 2018, 2019, 2023, 2025. A smaller year number comes first.
+F: Count the years on the timeline.
+  frame: From 2018 to 2023 is __ years
+  taps: 3 | 5 | 23
+  answer: 5
+  x 23 :: [read-the-year] 23 is the end of the year 2023. Count on from 2018.
+  x 3 :: [miscounted] Count on: 2019, 2020, 2021, 2022, 2023.
+  hint: Count from 2018 up to 2023.
+  why: 2023 − 2018 = 5. Mia was 5 when she started school.
+P: Which of these happened before Mia started school?
+  + She learned to walk :: 2019 comes before 2023.
+  - She learned to swim :: [read-the-wrong-side] That was in 2025, after she started school.
+  hint: Look to the left of "starts school" on the timeline.
+  why: Things on the left of an event happened before it.
+>P: Grandpa was born in 1950, Mum in 1980 and Sam in 2015. Which year goes at the start of their timeline?
+  + 1950 :: It is the earliest year.
+  - 2015 :: [newest-first] 2015 is the latest year. It goes at the end.
+  - 1980 :: [took-the-middle] 1980 is in between.
+  keep
+  hint: Which year has the smallest number?
+  why: A timeline starts with the oldest event. 1950 comes before 1980 and 2015.
+done: Make a timeline of your own life, with one thing for each year.
+
+@ hist.1.ancient
+goal: Explain why the first cities grew beside rivers, and name what the people of Egypt and Mesopotamia built and invented.
+intro: Thousands of years ago, people began to farm beside great rivers. Farming gave enough food for many people to live together in the first cities.
+  show: table Place | River | Known for ;; Egypt | the Nile | pyramids and picture writing ;; Mesopotamia | the Tigris and Euphrates | the first cities and writing on clay
+demo: Every year the River Nile flooded and left rich, dark mud. Crops grew well in the mud. With plenty of food, some people could be builders, writers and rulers and not farmers.
+  show: flow the river floods > rich mud is left > crops grow well > cities grow
+M: Match each word to its meaning.
+  pairs: Pyramid => A great stone tomb for a king of Egypt | Pharaoh => A king of Egypt | Hieroglyphs => Egyptian picture writing | Scribe => A person whose job was to write
+  hint: Which word is a building? Which is a person?
+  why: These words come from ancient Egypt, where kings were buried in pyramids and scribes kept the records.
+G: Egypt or Mesopotamia?
+  bin Egypt: the River Nile | pyramids | hieroglyphs
+  bin Mesopotamia: the Tigris and Euphrates | wedge-shaped writing on clay | the city of Ur
+  hint: The pyramids stand beside the Nile.
+  why: Both places grew beside rivers. Each had its own writing, buildings and cities.
+P: Why did the first cities grow beside rivers?
+  + Rivers gave water and rich soil for farming :: Farming fed many people in one place.
+  - Rivers were pretty to look at :: [not-a-cause] People needed food and water most of all.
+  - People wanted to swim :: [not-a-cause] It was farming that let cities grow.
+  hint: What do crops need?
+  why: Water and rich mud meant good harvests. Good harvests could feed a city.
+>P: A land has a big river that floods every year and leaves rich mud. What would people long ago most likely do there?
+  + Farm beside the river, in villages that grow into towns :: The mud makes good farmland.
+  - Stay away, because of the floods :: [saw-only-the-harm] The floods brought the rich soil that crops need.
+  - Live only by hunting :: [ignored-the-soil] With such good soil, farming could feed far more people.
+  hint: What happened beside the Nile?
+  why: Where rivers left rich soil, farming grew, and towns followed.
+done: Rivers, farms, cities, writing. Find the Nile and the Euphrates on a map.
+
+@ hist.1.maps
+goal: Name the continents and oceans, and read a simple map using directions and a key.
+intro: A map is a drawing of a place seen from above. The world has seven continents, which are great pieces of land, and five oceans.
+  show: chips Africa | Antarctica | Asia | Europe | North America | Oceania | South America
+demo: A compass shows four directions: north, east, south and west. On most maps north is at the top. A key tells you what the little pictures on the map mean.
+  show: table Direction | On most maps ;; north | at the top ;; south | at the bottom ;; east | on the right ;; west | on the left
+G: Continent or ocean?
+  bin Continent: Africa | Asia | Europe
+  bin Ocean: Pacific | Atlantic | Indian
+  hint: A continent is land. An ocean is water.
+  why: Africa, Asia and Europe are land. The Pacific, Atlantic and Indian are oceans.
+F: North is at the top of the map.
+  frame: East is on the __
+  taps: left | right | bottom
+  answer: right
+  x left :: [mixed-up-east-and-west] West is on the left. East is on the right.
+  x bottom :: [mixed-up-direction] South is at the bottom.
+  hint: Look at the table of directions.
+  why: With north at the top, east is on the right and west on the left.
+P: The key shows a little tree for "forest". You see many little trees in one part of the map. What is there?
+  + A forest :: The key says a tree means forest.
+  - A lake :: [ignored-the-key] The key did not say that. A tree means forest.
+  - A town :: [ignored-the-key] The key did not say that. A tree means forest.
+  hint: What does the key say a tree means?
+  why: The key explains the map's pictures. Always check the key.
+>P: On a map, the school is at the bottom and the park is at the top. You walk from the school to the park. Which way do you go?
+  + North :: North is at the top of the map.
+  - South :: [reversed] South is towards the bottom.
+  - East :: [mixed-up-direction] East is towards the right.
+  hint: Where is north on most maps?
+  why: Going towards the top of the map means going north.
+done: Find north on a real map, then find your own town.
+
+@ hist.1.inventions
+goal: Explain how fire, the wheel and writing changed people's lives, and put inventions in order.
+intro: An invention is something new that people make to solve a problem. Some inventions changed the lives of everyone who came after.
+  show: chips fire | the wheel | writing
+demo: Before writing, people had to remember everything. With writing they could keep records, send messages far away and pass on stories to people not yet born.
+  show: flow remember everything > write it down > others can read it later
+M: Match each invention to what it made possible.
+  pairs: Fire => Warmth, light and cooked food | The wheel => Carts that carry heavy loads | Writing => Keeping records and sending messages | The plough => Turning the soil to grow crops
+  hint: Which one helps you move things? Which helps you remember?
+  why: Each invention solved a problem that people had every day.
+O: Put the inventions in order, from the oldest to the newest.
+  items: Using fire | The wheel | The printing press | The telephone | The computer
+  ends: Oldest | Newest
+  hint: People used fire long before anything else here.
+  why: Fire came first, long before the wheel. Printing, the telephone and the computer are much newer.
+P: What problem did the wheel solve?
+  + Moving heavy things more easily :: Loads could roll and need not be dragged.
+  - Keeping warm at night :: [wrong-invention] That was fire.
+  - Remembering who owes what :: [wrong-invention] That was writing.
+  hint: What do carts have?
+  why: With wheels, a cart can carry what many people could not lift.
+>P: A village has a great deal of grain to count, and needs to remember who has paid. Which invention helps most?
+  + Writing :: Marks on clay or paper keep the record.
+  - Fire :: [wrong-invention] Fire cooks and warms. It keeps no records.
+  - The wheel :: [wrong-invention] The wheel moves the grain. It cannot count it.
+  hint: Which invention helps people remember?
+  why: Writing began largely as a way of keeping records of goods.
+done: Look around you and find three inventions. What problem does each one solve?
+
+@ hist.2.civilizations
+goal: Compare the great ancient civilizations by what each achieved, and link claims about them to the evidence that survives.
+intro: Between about 2,500 and 1,500 years ago, great civilizations flourished in many parts of the world. Each left ideas and inventions that we still use.
+  show: table Civilization | Known for ;; Greece | democracy in Athens, philosophy, theatre ;; Rome | roads, law and a vast empire ;; China | a unified empire, paper, the Great Wall ;; India | the idea of zero, the emperor Ashoka ;; The Maya | a calendar, writing and stone cities
+demo: How do we know about people who lived so long ago? From what they left: writing carved in stone, buildings, coins, pottery and tools. Ashoka had his laws carved on pillars, and some still stand.
+  show: flow something survives > historians study it > it supports a claim about the past
+M: Match each claim to the evidence that supports it.
+  pairs: The Romans built roads across Europe => Stretches of road and milestones that survive | Athenians voted to send men into exile => Pieces of pottery scratched with names | Ashoka urged his people to live without violence => His words carved on stone pillars | The Maya tracked the movements of Venus => Tables in their surviving books | Early Chinese kings asked questions of their ancestors => Bones inscribed with questions
+  hint: Each claim rests on something that people of the time made or wrote.
+  why: A claim about the past needs evidence. Here every claim rests on objects or writing from the time itself.
+O: Put these events in order.
+  items: Athens begins its democracy | Ashoka rules much of India | The Qin unite China | Rome becomes an empire under Augustus | The Roman Empire in the west falls
+  ends: Earliest | Latest
+  hint: Athens comes first, about 2,500 years ago. Rome in the west fell in the year 476.
+  why: About 508 BCE, 268 BCE, 221 BCE, 27 BCE, and then 476 CE. Before the year 1, the bigger number is the earlier date.
+P: In the democracy of ancient Athens, who could vote?
+  + Free adult men who were citizens :: Women, enslaved people and foreigners could not.
+  - Everyone who lived in Athens :: [modern-assumption] Most of the people of Athens were excluded.
+  - Only the king :: [wrong-system] Athens had no king. Citizens voted in an assembly.
+  hint: It was a democracy, but not as we would define one today.
+  why: Athens gave power to citizens, but citizenship was narrow. The idea was new; its reach was limited.
+>P: Rome and Han China were far apart and hardly knew of each other. Both built long roads, used standard coins and sent out officials. What does that suggest?
+  + Large empires faced the same problems and found similar answers :: Moving armies, collecting taxes, sending orders.
+  - One must have copied the other's plans :: [contact-assumed] There is no evidence that they shared plans.
+  - It is pure chance :: [no-explanation] Similar needs explain the similar solutions.
+  hint: What does any large empire need in order to hold together?
+  why: Comparing civilizations shows which solutions arise from shared needs and not from contact.
+done: Achievements, evidence, comparison. Choose one civilization and find out what survives of it.
+
+@ hist.2.middle-ages
+goal: Describe how power, faith and daily life were organised across the medieval world, between about 500 and 1500.
+intro: The Middle Ages lasted about a thousand years. In that time great cities of learning rose in the Islamic world, China invented printing and gunpowder, West African empires grew rich on gold, and Europe was a land of kings, lords and peasants.
+  show: table Region | In the Middle Ages ;; Europe | kings, lords, knights and peasants ;; The Islamic world | cities of learning such as Baghdad ;; West Africa | the gold-rich empire of Mali ;; China | printing, gunpowder and the compass ;; The steppes of Asia | the Mongol Empire
+demo: In much of medieval Europe, land was power. A king granted land to lords in return for loyalty and soldiers. Lords granted land to knights. Peasants farmed it in return for protection, and most were not free to leave.
+  show: flow the king grants land > lords supply knights > peasants farm the land
+O: Put the ranks of feudal society in order, from the most powerful to the least.
+  items: King | Lords | Knights | Peasants
+  ends: Most powerful | Least powerful
+  hint: Who granted land, and who worked on it?
+  why: The king stood at the top, lords held land from him, knights served the lords and peasants worked the land.
+M: Match each place or people to what it is remembered for.
+  pairs: Baghdad => A house of scholars who translated and extended ancient learning | Mali => A ruler whose pilgrimage showed the world his kingdom's gold | The Mongols => The largest land empire in history | Song China => Printing, gunpowder and the compass | Constantinople => The capital of the Byzantine Empire
+  hint: Mali's wealth was gold; the Mongols' was land.
+  why: The medieval world was far wider than Europe, and much of its learning and wealth lay elsewhere.
+P: The Black Death of 1347 to 1351 killed perhaps a third or more of the people of Europe. What happened to the peasants who survived?
+  + Workers were scarce, so many could demand better pay and more freedom :: Fewer hands made each pair worth more.
+  - Nothing changed for them :: [ignored-the-consequence] So many deaths changed who had bargaining power.
+  - They all became lords :: [overstated] They gained ground, but the ranks of society remained.
+  hint: What happens to wages when there are far fewer workers?
+  why: The shortage of labour weakened the old ties that bound peasants to the land.
+>P: A monk's chronicle calls a group of invaders "devils". Digging in the same town shows that the invaders also traded there peacefully. How should a historian use the two?
+  + Together: the chronicle shows how one side saw the invaders; the finds show what else happened :: Each fills gaps left by the other.
+  - Trust only the chronicle, because it is written down :: [text-over-objects] Objects are evidence too, and they have no point of view to defend.
+  - Ignore the chronicle, because it is biased :: [discarded-a-biased-source] A biased source still tells us what its writer believed and feared.
+  hint: What does each kind of evidence tell you that the other cannot?
+  why: Every source has a point of view. Historians compare different kinds of evidence to build a fuller picture.
+done: The medieval world stretched from Mali to China. Follow one trade route across it on a map.
+
+@ hist.2.exploration
+goal: Explain how trade routes and sea voyages joined distant parts of the world, and weigh their consequences for the peoples involved.
+intro: For centuries goods and ideas crossed Asia by the Silk Roads. Then, from the 1400s, long sea voyages linked continents that had been apart.
+  show: time 1271=Marco Polo sets out for China | 1405=Zheng He's first voyage | 1492=Columbus crosses the Atlantic | 1498=Da Gama reaches India | 1522=Magellan's crew sails round the world
+demo: Along the Silk Roads, silk and paper travelled west, and horses, glass and gold travelled east. Religions, inventions and diseases travelled too. Trade never moves goods alone.
+  show: flow silk and paper go west > glass and gold go east > ideas travel both ways
+O: Put the voyages in order.
+  items: Marco Polo sets out for China | Zheng He's fleets sail from China | Columbus crosses the Atlantic | Da Gama reaches India by sea | Magellan's crew completes a voyage round the world
+  ends: Earliest | Latest
+  hint: Zheng He sailed nearly ninety years before Columbus.
+  why: 1271, 1405, 1492, 1498 and 1522. China's great voyages came well before Europe's.
+G: After 1492, plants, animals and diseases crossed the Atlantic. Which way did each travel?
+  bin From the Americas: potatoes | maize | tomatoes
+  bin To the Americas: horses | wheat | smallpox
+  hint: Potatoes and maize were first grown by the peoples of the Americas.
+  why: This two-way movement is called the Columbian Exchange. It changed what people ate and how they lived on every continent.
+C: Two sentences describe the same event. Which is more accurate?
+  left: text Columbus discovered a new world.
+  right: text Columbus reached lands where millions of people already lived.
+  + The right: the lands were new only to Europeans :: People had lived there for thousands of years.
+  - The left: nobody knew of the lands before :: [one-point-of-view] The peoples who lived there knew them very well.
+  - They say exactly the same thing :: [wording-is-neutral] "Discovered" leaves out the people who were already there.
+  hint: From whose point of view were the lands "new"?
+  why: The words we choose carry a point of view. Good history asks whose view a sentence takes.
+P: What was the most devastating result of the voyages for the peoples of the Americas?
+  + Diseases such as smallpox, which killed a very large part of the population :: They had no resistance to them.
+  - The arrival of wheat :: [minor-effect] New crops mattered far less than new diseases.
+  - Nothing much changed :: [ignored-the-consequence] Conquest, enslavement and disease transformed the Americas.
+  hint: Look at what travelled to the Americas.
+  why: Diseases new to the Americas spread ahead of the Europeans themselves, and conquest and enslavement followed.
+>P: Why did Portuguese sailors search for a sea route around Africa to India?
+  + To buy spices directly, avoiding the costly routes overland :: Every middleman added to the price.
+  - To prove that the Earth is round :: [popular-myth] Educated people already knew that. The motive was trade.
+  - Because nobody had ever traded with India :: [ignored-earlier-trade] Trade with India was ancient. They wanted a cheaper way into it.
+  hint: Who made money each time the spices changed hands on the way?
+  why: The voyages were driven largely by trade: the wish to reach the sources of valuable goods directly.
+done: Routes carry goods, ideas and diseases alike. Trace where three foods in your kitchen first came from.
+
+@ hist.2.geography
+goal: Locate major countries, capitals, rivers and mountains, and explain how geography shapes where people live.
+intro: Geography describes the Earth's surface and the people on it. Knowing where the mountains, rivers and deserts lie helps to explain where cities grew and why.
+  show: table Feature | Example ;; the longest rivers | the Nile and the Amazon ;; the highest mountain | Everest, in the Himalayas ;; the largest hot desert | the Sahara ;; the largest ocean | the Pacific
+demo: Cairo, the capital of Egypt, stands on the Nile. Almost all Egyptians live close to the river, because nearly everything beyond it is desert. One map of rivers explains the map of people.
+  show: flow the river brings water > farms line the river > the cities stand beside it
+M: Match each country to its capital.
+  pairs: Canada => Ottawa | Brazil => Brasília | Japan => Tokyo | Kenya => Nairobi | Egypt => Cairo
+  hint: Brazil's capital was built specially, and is named after the country.
+  why: A capital is where a country's government sits. It is not always the largest city.
+G: Sort the countries by continent.
+  bin Africa: Nigeria | Egypt | Kenya
+  bin Asia: India | Japan | Vietnam
+  bin South America: Brazil | Peru | Argentina
+  hint: Egypt and Kenya share a continent; so do Peru and Brazil.
+  why: Knowing which continent a country is on is the first step in finding it on a map.
+P: What is the capital of Australia?
+  + Canberra :: It was built to be the capital.
+  - Sydney :: [largest-city-assumed] Sydney is the largest city, but not the capital.
+  - Melbourne :: [largest-city-assumed] Melbourne is a great city, but the capital is Canberra.
+  hint: It is neither of the two largest cities.
+  why: Many countries have a capital that is not their biggest city.
+>P: Very few people live in the middle of the Sahara or high in the Himalayas. Very many live in river valleys and on coastal plains. What explains this?
+  + People settle where there is water, a mild climate and land that can be farmed :: Geography sets the conditions.
+  - It is chance where people live :: [no-explanation] The same pattern appears on every continent.
+  - Governments forbid people to live in deserts :: [invented-rule] No law is needed. Life there is simply hard.
+  hint: What does a large population need every day?
+  why: Water, food and shelter decide where people can live in large numbers.
+done: Where the water is, the people are. Find the five cities nearest to you and see what they stand beside.
+
+@ hist.2.civics-intro
+goal: Explain why groups need rules, how rights are matched by responsibilities, and what makes a rule fair.
+intro: Wherever people live, work or play together, they need rules. Good rules keep people safe and treat everyone fairly. A right is something you are entitled to. A responsibility is something you owe to others.
+  show: table A right | The matching responsibility ;; to be heard | to listen to others ;; to be safe | not to harm others ;; to learn | to let others learn
+demo: Imagine a football match with no rules. Players would argue over every goal. Rules make the game fair because they are the same for everyone and are known before the game starts.
+  show: chips the same for everyone | known in advance | made for a good reason
+G: Right or responsibility?
+  bin Right: to be treated fairly | to give your opinion | to be safe at school
+  bin Responsibility: to take turns | to tell the truth | to look after shared things
+  hint: Is it something you are owed, or something you owe?
+  why: Rights and responsibilities belong together. Your right to be heard depends on others listening, and theirs depends on you.
+P: A class rule says: "Only tall children may use the computers." Is the rule fair?
+  + No: height has nothing to do with using a computer :: It treats people differently for no good reason.
+  - Yes: every rule is fair if the teacher makes it :: [authority-makes-it-fair] A rule is fair because of what it says, not because of who made it.
+  - Yes, as long as it is written down :: [written-means-fair] Writing a rule down does not make it fair.
+  hint: Does the reason for treating people differently have anything to do with computers?
+  why: A fair rule treats people the same unless there is a good reason, connected with the matter, to treat them differently.
+O: A class wants a new rule about the playground. Put the steps in order.
+  items: A problem is noticed | Ideas are suggested | Everyone discusses them | The class votes | The rule is written down and followed
+  ends: First | Last
+  hint: People need to hear the ideas before they vote.
+  why: Notice, suggest, discuss, vote, follow. Hearing every side before voting is what makes the decision fair.
+>P: Twenty of the twenty-five pupils in a class vote that the five newest pupils must always tidy up. Is that fair, since most people voted for it?
+  + No: a majority may not take equal treatment away from a few :: Some things are not for voting away.
+  - Yes: the majority always decides :: [majority-is-always-right] A vote does not make it fair to pick on a small group.
+  - Yes: the newest pupils have fewer rights :: [unequal-rights] Everyone in the class has the same rights.
+  hint: Would the twenty accept the rule if they were the five?
+  why: Voting is a fair way to decide many things, but rights protect everyone, including those who are outvoted.
+done: Fair rules are the same for everyone. Look at one rule at home or at school and ask what it is for.

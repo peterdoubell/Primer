@@ -3,6 +3,7 @@ import gzip,hashlib,json,struct
 from pathlib import Path
 from primer.curriculum import Curriculum
 from primer.radiology_catalog import detail,resolve
+from tools.anatomy_sources.bind_stored_caption_assets import only_caption_bindings
 ROOT=Path(__file__).resolve().parents[1];OUT=ROOT/'web/anatomy/openear-zeta';PROOF=ROOT/'docs/openear-native-source-review'
 def sha(raw):return hashlib.sha256(raw).hexdigest()
 
@@ -31,11 +32,11 @@ def test_reader_attaches_original_specimen_photograph_without_calling_it_patient
     assert 'Patient anatomical directions and laterality are not independently verified' in e['population_note']
 
 
-def test_every_source_model_keeps_empty_leaf_coverage_and_pending_review():
+def test_every_source_model_keeps_only_reviewed_partial_coverage_and_pending_review():
     assets=json.loads((ROOT/'data/radiology/radiology-asset-evidence.json').read_text())['assets'];rows=[a for a in assets if a['id'].startswith('openear-zeta-')]
     assert len(rows)==13
     for a in rows:
-        assert a['kind']=='model' and not a['structure_ids'] and not a['requirement_coverage'] and a['anatomical_review']['status']=='pending'
+        assert a['kind']=='model' and only_caption_bindings(a) and a['anatomical_review']['status']=='pending'
         rights=a['source']['license'];assert rights['commercial_use'] and rights['redistribution']
         assert sha((ROOT/rights['evidence_path']).read_bytes())==rights['evidence_sha256']
 

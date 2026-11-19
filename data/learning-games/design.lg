@@ -1,0 +1,450 @@
+# Design, architecture and the built environment, stages 0 to 5.
+# Compare arrangements, find what a design does for its users,
+# assemble a layout and revise a design that fails.
+
+@ design.0.spaces
+goal: Say what a place is for, and arrange a pretend room so that everyone can do what they need.
+intro: Places are for doing things. A reading corner is for looking at books. An open floor is for a running game. Paths join the places, so that people can get to them.
+  show: emoji 📚 🧸 🚗
+demo: Two dolls want to read. One doll wants to roll a toy car. Put the reading mat beside the basket of books. Leave a clear path for the car somewhere else. Now everyone can do what they want.
+  show: flow reading mat by the books > a clear path for the car > everyone is happy
+M: Match each place to what it is for.
+  pairs: Reading corner => Looking at books | Table => Drawing | Open floor => A running game | Soft mat => Having a rest
+  hint: Where would you go to draw?
+  why: Every place has a job. We choose a place to fit what we want to do.
+G: Is it a quiet thing to do, or a noisy one?
+  bin Quiet: reading | resting | drawing
+  bin Noisy: drumming | a running game | singing loudly
+  hint: Would it wake someone who is having a rest?
+  why: Quiet things and noisy things need different places.
+P: Two dolls are reading on a mat. Another doll wants to roll a car. Where should the car's path go?
+  + Away from the reading mat :: Then the readers are not bumped.
+  - Right across the reading mat :: [paths-cross] The car would bump into the readers.
+  - Nowhere: no cars allowed :: [left-someone-out] The third doll wants to play too.
+  hint: How can everyone do what they want?
+  why: A good room has a place for each thing, and clear paths between them.
+>P: A friend cannot get to the toy shelf. A big box is in the way. What should you do?
+  + Move the box to make a clear path :: Then your friend can reach the toys.
+  - Tell your friend to play with something else :: [changed-the-person-not-the-space] Your friend wants the toys. The box is the problem.
+  - Leave it :: [ignored-the-problem] The box will still be in the way.
+  hint: What is in the way?
+  why: When someone cannot get to a place, we can change the room.
+done: Places are for doing things. Look at a room at home: what is each part for?
+
+@ design.0.shelters
+goal: Find the roof, the walls and the door of a shelter, and build one that fits who it is for.
+intro: A shelter keeps you safe from rain, wind and sun. It has walls, a roof on top and a way in. Shelters around the world look different, because places and people are different.
+  show: shapes triangle square rectangle
+demo: Stand two blocks up as walls. Fold a card and rest it across the top as a roof. Leave a gap at the front. That gap is the door. A toy can go in! If you fill the gap, the toy cannot get in.
+  show: flow two walls > a roof on top > a gap for the door > the toy goes in
+M: Match each part of a shelter to its job.
+  pairs: Roof => Keeps the rain off | Walls => Hold the roof up | Door => Lets you go in and out | Window => Lets the light in
+  hint: Which part is on top?
+  why: Each part of a shelter has a job.
+O: Put the steps in order to build a toy shelter.
+  items: Stand up two walls | Put the roof across the top | Leave a gap for the door | Put the toy inside
+  ends: First | Last
+  hint: The walls have to stand before the roof can go on.
+  why: Walls, roof, door, and then the toy can move in.
+P: The toy bear is too big to get through the door. What should you change?
+  + Make the door bigger :: The door must fit whoever uses it.
+  - Squash the bear :: [changed-the-user-not-the-design] The shelter is for the bear. Change the shelter.
+  - Take the door away :: [removed-the-entrance] Then nobody could get in at all.
+  hint: Who is the shelter for?
+  why: A door has to fit the one who will use it.
+>P: You are building a shelter for a tall toy giraffe. What must be tall?
+  + The walls and the door :: The giraffe has to fit underneath.
+  - Only the floor :: [wrong-part] A floor cannot be tall. The giraffe needs high walls.
+  - Nothing :: [ignored-the-user] A low shelter would not fit a tall giraffe.
+  hint: How tall is a giraffe?
+  why: A shelter is shaped to fit whoever will use it.
+done: Roof, walls and a way in. Build a shelter for a toy, and check that the toy fits through the door.
+
+@ design.1.plans
+goal: Measure a small space with one unit, and draw a plan of it seen from above.
+intro: A plan is a drawing of a place seen from above, as a bird would see it. It shows where the walls, the doors and the furniture are. To draw a plan you measure, using the same unit every time.
+  show: grid 4x6 on=8,9
+demo: A toy room is 6 blocks wide and 4 blocks deep. On squared paper, let one square stand for one block. Draw the room as 6 squares by 4 squares. A table 2 blocks wide takes up 2 squares.
+  show: table The real thing | On the plan ;; a room 6 blocks wide | 6 squares ;; a table 2 blocks wide | 2 squares
+P: What does a plan show?
+  + A place seen from above :: Like a bird looking down.
+  - A place seen from the side :: [wrong-view] From the side you see how tall things are. A plan looks down.
+  - The inside of a drawer :: [wrong-idea] A plan shows where things are in a room.
+  hint: Where is a bird when it looks at a room?
+  why: A plan looks straight down. It shows where things are on the floor.
+F: One square on the plan stands for one block.
+  frame: A bed 3 blocks long is drawn __ squares long
+  taps: 1 | 3 | 6
+  answer: 3
+  x 1 :: [drew-it-too-small] One square is only one block. The bed is 3 blocks long.
+  x 6 :: [used-the-room-width] Six is how wide the room is. The bed is 3 blocks long.
+  hint: One square for each block.
+  why: 3 blocks need 3 squares. The plan keeps the sizes right.
+P: You measure the room in blocks, and the bed in hand spans. Why is that a problem?
+  + The two units are different, so you cannot compare the sizes :: Use the same unit for everything.
+  - It is not a problem :: [mixed-units] A block and a hand span are different lengths.
+  - Hands are too small to measure with :: [wrong-reason] Hands are fine. Mixing units is the problem.
+  hint: Is a hand span the same length as a block?
+  why: To compare lengths, you must measure them with the same unit.
+M: Match each word to its meaning.
+  pairs: Plan => A view from above | Grid square => One block of the floor | Key => A list saying what the symbols mean | Outline => The edge of the room
+  hint: Which one explains the symbols?
+  why: These are the parts of a plan. The key lets anyone read it.
+>P: A plan shows where the bookcase stands. What can the plan not tell you?
+  + How tall the bookcase is :: A view from above does not show height.
+  - Where the bookcase is :: [missed-what-a-plan-shows] That is exactly what a plan shows.
+  - How wide the bookcase is :: [missed-what-a-plan-shows] The plan shows its width along the floor.
+  hint: What can you not see when you look straight down?
+  why: A plan shows positions on the floor. To see heights, you need a view from the side.
+done: Look down, measure and draw. Make a plan of your table, using one square for each hand span.
+
+@ design.1.users
+goal: Ask what someone needs, make a quick model, watch them use it and make it better.
+intro: Designers make things for people. People do not all want the same thing, so a good designer asks first. Then they make a quick model, called a prototype, and watch someone use it.
+  show: flow ask > make > watch > change > try again
+demo: A friend wants both hands free while she draws from a book. You make a cardboard book stand. When she tries it, the front edge hides the bottom line of the page. So you make the front edge lower. She tries again, and now she can see the whole page.
+  show: table Try | What happened ;; the first stand | the bottom line was hidden ;; with a lower front edge | the whole page shows
+O: Put the designer's steps in order.
+  items: Ask what the person needs | Make a quick model | Watch them use it | Change one thing | Try it again
+  ends: First | Last
+  hint: You ask before you make.
+  why: Ask, make, watch, change, try again.
+C: Two ways to begin making a book stand for a friend. Which is better?
+  left: text I think my friend would like a red one, so I shall make that.
+  right: text I ask my friend what she needs the stand for.
+  + The right: asking tells you what she really needs :: Guessing might miss it.
+  - The left: the designer knows best :: [guessed-not-asked] You cannot know what she needs without asking.
+  - It makes no difference :: [asking-is-optional] If you make the wrong thing, you have to start again.
+  hint: Who knows what your friend needs?
+  why: A design starts with listening. The person who will use it knows the most about what they need.
+P: Your friend cannot see the bottom line of the page on your book stand. Whose problem is it?
+  + The design's: change the stand :: Her trouble tells you what to fix.
+  - Your friend's: she should look harder :: [blamed-the-user] She is using it just as she needs to. The stand must fit her.
+  - Nobody's :: [ignored-the-evidence] The stand is not yet doing its job.
+  hint: What could you change so that she can see the page?
+  why: When someone has trouble with a design, that is information about the design.
+>P: You make a paper sign for the class pet. Children walk past without reading it. What should you do?
+  + Watch, and ask them why; then change one thing and try again :: Perhaps it is too small, or too high up.
+  - Tell them off for not reading it :: [blamed-the-user] If nobody reads it, the sign needs changing.
+  - Leave it as it is :: [ignored-the-evidence] It is not working yet.
+  hint: What did you do when the book stand did not work?
+  why: Watching people use a design shows what to change.
+done: Ask, make, watch, change. Make something small for someone, and watch them use it.
+
+@ design.2.scale
+goal: Convert between lengths on a scale drawing and real lengths, and use a plan, an elevation and a section together.
+intro: A scale drawing keeps every length in the same ratio to the real thing. At a scale of 1:50, one centimetre on paper stands for 50 centimetres in the room. Different drawings show different things, so designers use several together.
+  show: table Drawing | What it shows ;; plan | the layout seen from above ;; elevation | one vertical face, seen straight on ;; section | what an imaginary cut passes through
+demo: At 1:50, a wall 6 metres long is drawn 600 ÷ 50 = 12 centimetres long. The plan shows where a window lies along that wall. The elevation shows how high the window is. A section shows how thick the wall is, and how the floor meets the ceiling.
+  show: steps 6 m = 600 cm ;; 600 ÷ 50 = 12 cm on paper
+F: Convert a real length into a length on the drawing.
+  frame: At a scale of 1:50, a wall 8 metres long is drawn __ cm long
+  answer: 16
+  x 400 :: [multiplied] The drawing is smaller than the room: divide by 50.
+  x 0.16 :: [forgot-to-convert-units] 8 metres is 800 centimetres, and 800 ÷ 50 = 16.
+  hint: Change the metres into centimetres, then divide by 50.
+  why: 800 cm ÷ 50 = 16 cm.
+F: Convert a length on the drawing into a real length.
+  frame: On a plan at 1:100, a line 3 cm long stands for __ metres
+  answer: 3 | three
+  x 300 :: [left-it-in-centimetres] 3 × 100 = 300 centimetres, which is 3 metres.
+  x 0.03 :: [divided] The real room is larger than the drawing: multiply.
+  hint: Multiply by 100, then change the centimetres into metres.
+  why: 3 cm × 100 = 300 cm = 3 m.
+X: A room is 10 metres long. Change the scale and watch how long it is on paper.
+  param s: 20..200 /10 @200 | Scale: one to this number
+  out paper: 1000/s | Length on paper | cm
+  aim: Find the scale at which the room is drawn 20 cm long.
+  target: paper == 20
+  view: bars paper over s
+  hint: The length on paper is the real length in centimetres divided by the scale number.
+  why: 1,000 cm ÷ 50 = 20 cm. A smaller scale number gives a larger drawing.
+M: Match each drawing to what it shows.
+  pairs: Plan => The layout seen from above | Elevation => One vertical face, seen straight on | Section => What an imaginary cut passes through | Model => Volume and relationships in three dimensions
+  hint: A section is like slicing through a cake.
+  why: No single drawing shows everything. Each one hides what another reveals.
+>P: A plan shows a door 0.9 metres wide. The elevation of the same wall shows it 1.2 metres wide. What does this tell you?
+  + The drawings are inconsistent, and at least one is wrong: it must be checked before anything is built :: The views must agree.
+  - Nothing: different drawings show different sizes :: [views-may-disagree] They show different aspects of the same object, which has one width.
+  - The elevation is always the correct one :: [privileged-view] Neither view is automatically right.
+  hint: How wide is the real door?
+  why: Every view describes the same object. Checking that the views agree catches mistakes before they are built.
+done: The same ratio everywhere, and several views that agree. Draw a plan of your room at 1:50.
+
+@ design.2.inclusive
+goal: Explain a barrier as a mismatch between a person and a design, and offer more than one way of doing the same task.
+intro: People differ in their bodies, their senses, their languages and their circumstances. A barrier arises when a design does not fit a person. It is the design that can be changed. Inclusive design gives more than one way of perceiving information and of doing a task.
+  show: table Barrier | Another way ;; a sign that uses colour alone | add words and symbols ;; stairs only | add a ramp or a lift ;; spoken announcements only | add a written display
+demo: Three recycling bins are told apart only by being red, green and blue. Some people cannot tell those colours apart, and nobody new knows what each colour means. Adding clear words, pictures and a fixed position for each bin gives everyone several ways of finding the right one.
+  show: table Cue | Who is helped ;; colour | those who know the code and can see it ;; words | readers ;; pictures | people who do not read the language ;; position | everyone, once it is learned
+E: Revise the recycling station so that more people can use it.
+  tokens: Three bins, | told apart by colour alone{told apart by colour with words and pictures,told apart by brighter colours}
+  limit: 1
+  aim: Change the design so that there is more than one way of telling the bins apart.
+  accept: 2=told apart by colour with words and pictures
+  x 2=told apart by brighter colours :: [more-of-the-same-cue] Brighter colours are still colour alone.
+  hint: What helps someone who cannot tell the colours apart?
+  why: Information that matters should be carried by more than one cue, so that no single ability is required.
+M: Match each barrier to a change in the design.
+  pairs: A sign that uses colour alone => Add words and symbols | A heavy door => Add a button that opens it | Stairs only => Add a ramp or a lift | Spoken announcements only => Add a written display | Small, pale text => Use large text with strong contrast
+  hint: Each change adds another way of doing or perceiving the same thing.
+  why: The fix is made to the design. Each one gives a second route to the same goal.
+P: A door is fitted with a push-button opener. Who benefits?
+  + Many people: those with limited strength, and anyone carrying bags or pushing a pram :: Inclusive design helps more people than it was first aimed at.
+  - Only wheelchair users :: [single-group] Many people, in many situations, find a heavy door hard to open.
+  - Nobody: it is an unnecessary cost :: [dismissed-the-need] A door that some people cannot open keeps them out.
+  hint: Think of everyone who struggles with a heavy door, even occasionally.
+  why: Barriers depend on circumstances as well as on bodies. Removing them helps a wide range of people.
+P: A new sign is tested with five classmates, all of the same age, and all of them can read it. What may be concluded?
+  + It works for those five; it must be tested more widely before a claim is made that it works for everyone :: A small, similar group cannot represent everyone.
+  - It works for everybody :: [overgeneralised] Five similar people tell you little about people who differ from them.
+  - The test was useless :: [overcorrection] It showed something real. It simply has limits.
+  hint: Who was not in the test?
+  why: Testing with a varied group, and being honest about who was missing, is part of inclusive design.
+>P: A ticket machine gives its instructions only as small text on a screen. What is the best revision?
+  + Give several ways: larger text, spoken instructions, clear symbols and buttons that can be felt :: More than one route to the same task.
+  - Add a notice telling people to read carefully :: [blamed-the-user] Those who cannot read the screen cannot read the notice either.
+  - Make the text a different colour :: [single-cue-still] It is still text alone, and still small.
+  hint: Who cannot use small text on a screen?
+  why: A task that can be done in only one way shuts out everyone who cannot use that way.
+done: More than one way in. Find one design near you that relies on a single cue, and add a second.
+
+@ design.3.climate
+goal: Tell insulation, thermal mass, shading and ventilation apart, and match passive strategies to a site and a season.
+intro: A building exchanges heat, air and light with its surroundings. Passive design shapes those exchanges by the form and fabric of the building itself: which way it faces, what shades it, what it is made of and how air moves through it.
+  show: table Strategy | What it does ;; insulation | slows the flow of heat through walls and roof ;; thermal mass | stores heat and gives it back later ;; shading | stops the sun before it gets in ;; ventilation | exchanges the air indoors with the air outside
+demo: A window has a horizontal overhang one metre deep above it. When the midday sun is high, at 60 degrees, the overhang casts its shadow about 1.7 metres down the glass. In the late afternoon, with the sun at 20 degrees, the shadow reaches down less than 0.4 of a metre, and the sun shines in beneath it.
+  show: bars Sun_at_60_degrees=1.7 Sun_at_20_degrees=0.4 unit=m_of_shadow
+M: Match each strategy to what it does.
+  pairs: Insulation => Slows the flow of heat through walls and roof | Thermal mass => Stores heat and gives it back later | Shading => Stops the sun before it gets in | Ventilation => Exchanges indoor air with outdoor air | Orientation => Decides which way the windows face
+  hint: Insulation resists; thermal mass stores.
+  why: Each strategy acts on a different exchange: conduction, storage, sunlight or air.
+C: Two thick walls. Do they do the same job?
+  left: text A wall of lightweight foam.
+  right: text A wall of dense stone.
+  + No: the foam resists the flow of heat, while the stone stores heat and evens out the swing between day and night :: Insulation and thermal mass are different things.
+  - Yes: any thick wall keeps the heat in :: [thickness-is-all] Dense stone conducts heat fairly well. It stores heat and does not block it.
+  - Yes: both store heat :: [confused-the-properties] Lightweight foam stores very little heat.
+  hint: One of them slows heat down, and the other soaks it up.
+  why: Resisting heat flow and storing heat are separate properties. A building may need either, or both, in the right places.
+X: A horizontal overhang one metre deep shades the window below it. Raise the sun and watch the depth of the shadow on the glass.
+  param alt: 10..80 /10 @10 | Height of the sun above the horizon | degrees
+  out shade: tan(alt*pi/180) | Depth of shadow down the window | m
+  aim: Find the lowest height of the sun at which the overhang shades at least 1.7 m of the window.
+  target: shade >= 1.7 and shade < 2
+  view: bars shade over alt
+  hint: A higher sun casts a deeper shadow from an overhang.
+  why: At 60 degrees the shadow is 1.73 m deep. Below about 40 degrees it covers less than a metre: an overhang works against a high sun, not a low one.
+G: Which season does each strategy mainly help in?
+  bin Keeping cool in a hot summer: shading the windows | opening up at night to flush out the heat | a light-coloured roof
+  bin Keeping warm in a cold winter: thick insulation | sealing up draughts | glass facing the low winter sun
+  hint: Is it keeping heat out, or keeping it in?
+  why: A strategy that helps in one season may hinder in another. Good design balances them for the climate of the place.
+>P: A west-facing window receives low sun late in the afternoon. A designer proposes a horizontal overhang, and shows a sketch at midday in midsummer as proof that the room will be comfortable. What is wrong?
+  + A low sun passes beneath an overhang, and one sketch at one time says nothing about other hours and seasons :: Vertical fins or outside blinds would suit a low sun.
+  - Nothing: the sketch shows the window in shade :: [one-moment-as-proof] It shows one moment, and not the hours when the sun is low in the west.
+  - Overhangs never work :: [overgeneralised] They work well against a high sun.
+  hint: Where is the sun when it shines on a west-facing window?
+  why: Shading has to be tested across times of day and of year. Comfort also depends on much more than geometry.
+done: Resist, store, shade, ventilate, each in its place and season. Notice where the sun enters your home in the morning and in the evening.
+
+@ design.3.communication
+goal: Use visual hierarchy to show what matters most, place wayfinding information where decisions are made, and test whether people succeed.
+intro: Information design helps people to find, understand and act. Hierarchy makes the most important thing the most noticeable. Wayfinding puts the right information at the point where a person has to choose a direction. Whether a design works is settled by watching people use it.
+  show: table Tool | Effect ;; size | larger is read first ;; position | what comes first is seen first ;; contrast | what differs stands out ;; spacing | grouping shows what belongs together ;; consistent naming | the same word everywhere
+demo: A library sign lists every room in the same small type, and hangs just beyond a junction of corridors. Visitors read it after they have already chosen a direction. A revised design puts a short directional sign before the junction, with the main destinations in large type and the same names as the map.
+  show: table Before | After ;; beyond the junction | before the junction ;; every room in equal small type | the main destinations in large type ;; names that differ from the map | the same names as the map
+C: Where should a directional sign go?
+  left: text A detailed sign just beyond a junction of corridors.
+  right: text A short sign just before the junction.
+  + The right: the information arrives when the decision has to be made :: Beyond the junction is too late.
+  - The left: it gives more detail :: [detail-over-timing] Detail that comes after the choice cannot guide the choice.
+  - It makes no difference :: [placement-ignored] Where a sign stands decides whether it can be used.
+  hint: When does a visitor need to know which way to turn?
+  why: Wayfinding information belongs at the decision point, and should say just enough to decide.
+E: Revise the library sign.
+  tokens: A sign listing fourteen rooms | in equal small type{with the three main destinations in large type,in equal small capitals} | placed | beyond the junction{before the junction,behind a pillar}
+  limit: 2
+  aim: Change two things so that visitors can choose their direction at a glance.
+  accept: 2=with the three main destinations in large type&4=before the junction
+  x 2=in equal small capitals :: [no-hierarchy] Capital letters of the same size still give nothing any priority.
+  x 4=behind a pillar :: [hidden-sign] A sign that cannot be seen cannot be used.
+  hint: The sign needs a hierarchy, and it needs to be met before the turn.
+  why: Hierarchy shows what matters. Position delivers it in time. A sign needs both.
+M: Match each tool of hierarchy to an example.
+  pairs: Size => The destination is in the largest type | Position => The most important line is at the top | Contrast => Dark text on a pale ground | Spacing => A gap separates one floor's rooms from the next | Consistent naming => The sign and the map use the same word
+  hint: Which tool is about what things are called?
+  why: Each tool gives the eye a reason to go to one thing before another.
+P: Visitors say that they love the new signs. But in a test, half of them still cannot find the reading room. What should the designer conclude?
+  + The signs are liked but do not yet work: success at the task is the measure :: Preference is not performance.
+  - The signs are a success, since people like them :: [preference-as-success] Liking a sign does not get anyone to the room.
+  - The visitors are at fault :: [blamed-the-user] If half fail, the design is failing.
+  hint: What are the signs for?
+  why: A design for wayfinding is judged by whether people arrive, tested without coaching.
+>P: A building's map labels an area "Zone C". The signs on the walls call the same area "East Wing". What is the problem, and the remedy?
+  + The names are inconsistent, so that people must translate between them: use one name everywhere :: Consistency lets people recognise and not have to remember.
+  - There is no problem: both names are correct :: [correct-but-inconsistent] Each is correct, and together they confuse.
+  - Add a third name, to explain the other two :: [more-names] More names make matters worse.
+  hint: What must a visitor do to connect the map with the signs?
+  why: People find their way by matching what they see to what they are looking for. The same thing must carry the same name on every sign and map.
+done: Show what matters first, where it is needed, and then test it. Follow the signs to somewhere unfamiliar and note where you hesitate.
+
+@ design.4.performance
+goal: Link a spatial decision to all the systems it affects, separate evidence from assumption in a model, and read distributions as well as averages.
+intro: A building's performance comes from systems that interact. Enlarging a window changes daylight, views, solar gain and heat loss all at once. A simulation is useful only if its inputs are honest about what is known, what was chosen and what was assumed.
+  show: table Decision | Systems that it affects ;; larger windows | daylight, views, solar gain, heat loss ;; a deeper floor | floor area, daylight at the centre ;; wider corridors | ease of movement, usable room area
+demo: Two layouts have the same average daylight score at the desks: 50. In layout A every desk scores 50. In layout B half the desks score 95 and half score 5. The averages agree, yet B gives some people glare and others gloom.
+  show: table Layout | Desk scores | Average ;; A | 50, 50, 50, 50 | 50 ;; B | 95, 95, 5, 5 | 50
+F: Check the average for layout B.
+  frame: Desk scores of 95, 95, 5 and 5 have an average of __
+  answer: 50
+  x 200 :: [did-not-divide] Two hundred is the total. Divide by the four desks.
+  x 95 :: [took-the-largest] The average takes account of every desk.
+  hint: Add the four scores and divide by 4.
+  why: (95 + 95 + 5 + 5) ÷ 4 = 50: the same average as layout A, with a completely different experience.
+G: In a building simulation, what kind of input is each?
+  bin Known from evidence: measured weather records | tested properties of materials
+  bin A design choice: the size of the windows | the orientation of the building
+  bin An uncertain assumption: how the occupants will use the blinds | how many people will occupy the building
+  hint: Was it measured, decided or guessed?
+  why: Results are only as reliable as their weakest inputs. Keeping the three kinds apart shows where the uncertainty lies.
+M: Match each decision to its consequences.
+  pairs: Larger windows => More daylight and view, and more solar gain and heat loss | A deeper floor => More floor area, and less daylight at the centre | Wider corridors => Easier movement, and less usable room area | External shading => Less glare and summer heat, and less winter sun
+  hint: Every decision gains something and costs something.
+  why: Spatial decisions pass through several systems at once. A change is never a single effect.
+P: A simulation predicts that a building will use 30% less energy than it actually does once it is occupied. What is the likeliest explanation?
+  + The assumptions about how people would use the building differ from what they really do :: The model's inputs, not its arithmetic.
+  - The simulation contains an arithmetical error :: [blamed-the-calculation] That is possible, but mistaken assumptions about occupancy and controls are far more common.
+  - The occupants are using the building wrongly :: [blamed-the-users] The users are the reality that the model was supposed to represent.
+  hint: Which of the inputs were assumed and not measured?
+  why: The gap between predicted and measured performance usually comes from assumptions about use. That is why they should be stated and tested.
+>P: Design A has the best annual energy score. Its meeting rooms, however, overheat on summer afternoons. What does that show about the score?
+  + An annual total conceals when and where the problems occur: peaks and particular rooms must be examined as well :: Distribution in time and in space.
+  - Nothing: A is still the best design :: [aggregate-as-verdict] Best on one aggregate measure, with a failure that the measure cannot see.
+  - The annual score is meaningless :: [overcorrection] It measures something real. It simply does not measure everything.
+  hint: What does a yearly total do to an afternoon in July?
+  why: Aggregates average away the extremes. Performance has to be read as a distribution over space and time as well as a single figure.
+done: Trace every consequence, label every assumption, and look beneath every average. Take one room you know and list what its windows affect.
+
+@ design.4.evaluation
+goal: Investigate how a building performs in use by combining methods, recognise bias in the evidence and turn the findings into justified recommendations.
+intro: A post-occupancy evaluation studies a place once people are using it. Measurements, observations, questionnaires and interviews each reveal something different. None of them alone shows whether a design is working, and each can mislead in its own way.
+  show: table Method | What it reveals ;; measurement | physical conditions ;; observation | what people actually do ;; questionnaire | what people report ;; interview | why
+demo: A new study room receives high satisfaction scores. But nearly all the replies came from daytime users, and those who use it in the evening scarcely answered. A second survey reaches people at all hours, and is paired with measurements of the lighting. It finds that the evening light is poor. The first sample had hidden the problem.
+  show: table Survey | Who answered | Finding ;; first | daytime users | high satisfaction ;; second | users at all hours | poor light in the evening
+M: Match each question to the method that suits it.
+  pairs: How warm is the room through the day? => Logging the temperature | How comfortable do users say they are? => A questionnaire | Where do people actually sit? => Observing how the room is used | Why do people avoid the corner desks? => Interviews | What problems can be seen on the spot? => A walk through the building with its users
+  hint: "How warm" needs an instrument. "Why" needs a conversation.
+  why: Each method answers a different kind of question. A report of comfort is not a measurement of temperature.
+G: Which threat to the evidence is it?
+  bin Response bias: only the satisfied users reply | the survey reaches only daytime users
+  bin Timing: the building is visited on one mild day in spring
+  bin Observer effect: people behave differently because they are being watched
+  hint: Who answered, when was it studied, and did the studying change anything?
+  why: Who responds, when you look and whether looking changes behaviour all shape what you find.
+K: Is the new study room working well for its users? Turn over as few findings as you need to decide whether that has been established.
+  clue Daytime: Daytime users rate it 4.5 out of 5.
+  clue Evening: Evening users account for 40% of its use, and almost none of them replied.
+  clue Light: Light levels measured in the evening fall below the design target.
+  clue Award: The room has won a design award.
+  need: 2 | 3
+  + Not established: the evening use is missing from the evidence, or shows a problem :: A favourable result from part of the users is not a result for all.
+  - Established: the ratings are high :: [partial-sample] The ratings come from daytime users alone.
+  hint: Which findings show a gap, or a problem, behind the daytime ratings?
+  why: Evidence from one part of the users cannot stand for the whole. Missing groups and contradictory measurements must be resolved first.
+P: An evaluation team wants to record where people sit, and for how long. What protects the occupants' privacy?
+  + Telling people about the study, recording positions without identities, and reporting only grouped results :: Observe the space, not the individuals.
+  - Filming everyone secretly, so that they behave naturally :: [covert-observation] That removes the observer effect by removing consent.
+  - Nothing is needed in a shared building :: [privacy-ignored] People in shared buildings still have an interest in how they are recorded.
+  hint: What does the study need to know: who sat where, or how the seats are used?
+  why: An evaluation can answer its questions with anonymous, grouped data. Collecting more than is needed creates a risk for no benefit.
+>P: In a survey, 70% of users call an atrium noisy. Measurements show high sound levels at lunchtime only. What recommendation follows?
+  + A targeted one, such as sound-absorbing surfaces near the café and a quiet room at midday, with the limits of the evidence stated :: Match the remedy to when and where the problem occurs.
+  - Rebuild the whole atrium :: [disproportionate-remedy] The evidence points to a problem at one time of day.
+  - Do nothing, since it is noisy only at lunchtime :: [dismissed-the-finding] Seven in ten users report it. It is a real problem, with a definite timing.
+  hint: What do the two kinds of evidence, taken together, say about when the problem occurs?
+  why: Combining what people report with what is measured locates the problem. Good recommendations are specific, proportionate and honest about uncertainty.
+done: Measure, observe, ask, and check who was missed. Evaluate one room that you use: what would you measure, and whom would you ask?
+
+@ design.5.methods
+goal: Design a reproducible study of design performance that keeps exploration, optimisation, confirmation and validation apart, and question what its metrics leave out.
+intro: A parametric model can generate thousands of design alternatives. That power needs discipline. Exploring for patterns, searching for an optimum, testing a claim and checking the model against reality are four different activities, and mixing them up produces confident results that mean little.
+  show: table Activity | Question ;; exploration | what patterns appear? ;; optimisation | which design is best for this stated problem? ;; confirmation | does a claim made in advance hold on fresh cases? ;; validation | does the model match measured reality?
+demo: A study varies the ratio of window to wall and the depth of the shading across a grid of designs. One region looks promising. The researcher then tests that region on cases held back for the purpose, and varies the assumptions about occupancy and weather. A design with a slightly worse average may be preferred because it performs consistently and causes less glare.
+  show: flow explore the grid > choose a region > confirm on held-back cases > validate against measurements
+G: Which activity is it?
+  bin Exploration: sweeping the window ratio and the shading depth to see what patterns appear
+  bin Optimisation: searching for the lowest energy use subject to a limit on daylight
+  bin Confirmation: testing a claim written down in advance, on cases held back for the purpose
+  bin Validation: comparing the model's predictions with measurements from a real building
+  hint: Looking, searching, testing or checking against reality?
+  why: Each activity supports a different kind of claim. A pattern found by exploration is a hypothesis until it has been confirmed.
+O: Put the stages of a defensible parametric study in order.
+  items: State the hypotheses and the metrics | Build and document the parametric model | Explore, and select a promising region | Confirm on cases held back for the purpose | Validate against measured data | Report the sensitivity and the limits
+  ends: First | Last
+  hint: Hypotheses come before the search, and held-back cases after it.
+  why: Stating the hypotheses first, and reserving cases for confirmation, keeps the search from manufacturing its own evidence.
+C: Two designs emerge from a study. Which should be preferred?
+  left: text Design A: the best average energy score, though its results swing widely with occupancy and weather.
+  right: text Design B: a slightly worse average, steady across the assumptions, with less glare.
+  + B may well be preferred: it is robust, and serves a value that the energy score ignores; the choice depends on stated priorities :: The average is not the whole of performance.
+  - A, necessarily: it has the best score :: [metric-as-verdict] Best on average, under one set of assumptions.
+  - Neither can be chosen :: [gave-up] They can be compared, once the priorities and the uncertainties are made explicit.
+  hint: What would happen to design A if the building were used differently from the way assumed?
+  why: Robustness across assumptions, and qualities that the main metric leaves out, are legitimate grounds for preferring a design.
+P: A study generates ten thousand alternatives from a model that has never been compared with a real building. What is the weakness?
+  + The number of alternatives cannot make up for a model whose credibility is unknown :: More outputs from an unvalidated model are still unvalidated.
+  - None: ten thousand cases are convincing :: [volume-as-validity] They are ten thousand answers from the same unchecked source.
+  - Ten thousand cases are too many to analyse :: [wrong-objection] The trouble lies in the model, not in the count.
+  hint: What do all ten thousand results depend upon?
+  why: A parametric study inherits all the assumptions of its model. Validation is what gives the outputs their meaning.
+>P: A paper claims that its generated building form is "optimal for wellbeing", on the strength of a single simulated measure of daylight. What is the criticism?
+  + The measure is a narrow stand-in for wellbeing, there is no evidence from users, and no validation or uncertainty is reported :: The claim far outruns the method.
+  - None: daylight improves wellbeing :: [proxy-as-outcome] Daylight is one contributor, and the measure may be bought with glare or overheating.
+  - Simulation has no place in design research :: [dismissed-the-method] It has a place. The claim simply goes beyond what was done.
+  hint: What was actually measured, and what was claimed?
+  why: A metric is not the value that it stands for. Research claims have to be scaled to what was measured and validated.
+done: Explore, optimise, confirm and validate are four different things. Read one performance claim and decide which of the four supports it.
+
+@ design.5.participation
+goal: Design participation that gives the people affected a real influence, learn from contrasting prototypes and report honestly on disagreement and limits.
+intro: Participatory design gives the people affected by a design a real say over the questions asked, the options considered and the judgement of the result. Inviting comments after the decisions have been made is not participation. Who is able to take part, and on what terms, shapes whose needs the design will meet.
+  show: table Barrier to taking part | Remedy ;; meetings at one time and place | several formats, times and places ;; technical language | plain language and models ;; unpaid time | payment for participants' time ;; decisions already taken | involvement from the first question
+demo: A workshop on redesigning a library draws staff and frequent visitors, but nobody who finds the building hard to get into. The team changes how it recruits, offers other ways of taking part, and records the disagreement between those who want quiet and those who want sociable space. Two prototypes test different layouts. The final proposal explains the trade-off that was chosen and the concerns that remain.
+  show: flow recruit widely > record the disagreement > test contrasting prototypes > explain the trade-off
+C: Two ways of involving residents in a design. Which is participation?
+  left: text Residents are shown the finished design and asked for comments.
+  right: text Residents help to set the questions, compare alternatives and judge the results.
+  + The right: they influence decisions that are still open; the left is consultation after the fact :: Influence is the test.
+  - The left: their opinions were asked :: [consultation-as-participation] Nothing that they say can change a decision already taken.
+  - Both, equally :: [any-contact-counts] Being asked is not the same as having influence.
+  hint: In which case could the residents change the outcome?
+  why: Participation means real influence over choices that matter. Asking for comments on a finished design gives none.
+G: What kind of barrier to taking part is each?
+  bin Access: the meeting is held up a flight of stairs | sessions are held only on weekday mornings
+  bin Language: the materials are in one language only | the drawings are full of technical terms
+  bin Power: the main decisions have already been made | only the officials are allowed to speak
+  hint: Can people get there, can they understand, and will it make any difference?
+  why: People are shut out by where and when, by how things are explained, and by whether their say counts for anything.
+P: Why test two contrasting prototypes, and not one preferred design?
+  + The contrast reveals the trade-offs, and gives people something concrete to react to :: People judge alternatives better than abstractions.
+  - To double the amount of work :: [missed-the-purpose] The purpose is what the comparison reveals.
+  - Because the first prototype is always wrong :: [overgeneralised] Neither is assumed wrong. The contrast is what teaches.
+  hint: What do you learn from comparing a quiet layout with a sociable one?
+  why: Contrasting prototypes turn a vague disagreement into an observable choice between consequences.
+S: Select everything that an honest report of a participatory project includes.
+  + Who took part, and who was missing :: Representation shapes the result.
+  + The disagreements that were left unresolved :: Dissent is evidence.
+  + How the participants' input changed the design :: Evidence of influence.
+  + The limits of what was learned :: An honest statement of scope.
+  - Only the favourable comments :: [selective-reporting] Leaving out criticism misrepresents what happened.
+  - A statement that everyone agreed :: [false-consensus] Real projects involve disagreement. To claim otherwise is to conceal it.
+  hint: What would a sceptical reader need in order to trust the account?
+  why: An account is defensible when it shows who was heard, what changed as a result and what was left unresolved.
+>P: A final report says, "The community supports the design." The records show a sharp disagreement between two groups, and a third group that never took part. What should the report have said?
+  + It should have set out the disagreement, named who was missing, and explained the trade-off chosen and the reasons for it :: Support for the whole cannot be claimed from a part.
+  - Nothing different: a majority supported it :: [majority-as-community] The disagreement, and the absent group, are part of the truth.
+  - That the project had failed :: [overcorrection] It did not fail. Its conclusion was overstated.
+  hint: Who is "the community" in that sentence?
+  why: Honest reporting includes dissent and absence. It makes the trade-off visible, and does not dissolve it into a claim of consensus.
+done: Influence, contrast, and honesty about who was missing. Ask, of the next consultation you see, what could still be changed.

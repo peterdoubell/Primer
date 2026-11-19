@@ -1,6 +1,7 @@
 import copy,hashlib,json
 from pathlib import Path
 import pytest
+from tools.anatomy_sources.bind_stored_caption_assets import only_caption_bindings
 ROOT=Path(__file__).resolve().parents[1];INV='ra.head-neck-malignancy'
 def rows():return json.loads((ROOT/'data/radiology/radiology-open-images.json').read_text())[INV]
 def test_adult_adolescent_and_sequence_roles_are_preserved_without_classifier_approval():
@@ -19,7 +20,7 @@ def test_adult_adolescent_and_sequence_roles_are_preserved_without_classifier_ap
         assert not row['source_context']['source_classifier_is_current_patient_diagnostic_guarantee']
         assert not row['source_context']['source_normalized_signal_or_ADC_are_independent_new_measurements']
         assert hashlib.sha256((ROOT/'web'/row['src'].removeprefix('/app/')).read_bytes()).hexdigest()==row['sha256']
-        asset=next(x for x in ledger if x['id']==row['id']);assert asset['anatomical_review']['status']=='pending' and not asset['structure_ids'] and not asset['requirement_coverage']
+        asset=next(x for x in ledger if x['id']==row['id']);assert asset['anatomical_review']['status']=='pending' and only_caption_bindings(asset)
     node=json.loads((ROOT/'data/radiology/reporting-steps/head-neck.json').read_text())['investigations'][INV]
     assert node['start']['images']==[] and all(x['normal']=={} for x in node['steps'])
     assert not any(x['images'] for x in node['steps'][2:])

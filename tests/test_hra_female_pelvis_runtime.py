@@ -6,6 +6,7 @@ from pathlib import Path
 import struct
 
 import pytest
+from tools.anatomy_sources.bind_stored_caption_assets import only_caption_bindings
 
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -135,7 +136,7 @@ def test_source_assets_remain_reference_only_with_pending_anatomical_coverage():
         part = MANIFEST['parts'][record['id']]
         assert record['reference_only'] is True
         assert record['investigation_ids'] == ['ra.mri-endometriosis', 'ra.mri-cervical-cancer', 'ra.mri-endometrial-cancer']
-        assert record['structure_ids'] == [] and record['requirement_coverage'] == {}
+        assert only_caption_bindings(record)
         assert record['representation'] == 'complete_original_curated_source_surface'
         assert record['anatomical_review']['status'] == 'pending'
         assert record['sha256'] == part['sha256']
