@@ -597,6 +597,40 @@ test('Wonderland samples retain chapter offsets and distinguish cumulative from 
   assert.deepEqual(frequentForms(opening, 25).slice(0, 2), [['to', 2], ['of', 2]]);
 });
 
+test('circular arrangement classes agree with explicit necklaces and bracelets', async () => {
+  const { analyse } = await import('../web/math/circular-arrangements/symmetry.mjs');
+  // Independently rotate and reverse literal strings and count equivalence classes.
+  const rotations = word => Array.from({ length: word.length }, (_, i) => word.slice(i) + word.slice(0, i));
+  for (let n = 3; n <= 12; n++) {
+    for (const flip of [false, true]) {
+      const classes = Array.from({ length: n + 1 }, () => new Set());
+      const populations = Array(n + 1).fill(0);
+      for (let bits = 0; bits < 2 ** n; bits++) {
+        const word = bits.toString(2).padStart(n, '0');
+        const k = [...word].filter(bit => bit === '1').length;
+        const views = rotations(word);
+        if (flip) views.push(...rotations([...word].reverse().join('')));
+        classes[k].add(views.sort()[0]);
+        populations[k]++;
+      }
+      for (let k = 0; k <= n; k++) {
+        const pattern = Array.from({ length: n }, (_, i) => Number(i < k));
+        const result = analyse(pattern, false, flip);
+        assert.equal(result.labelled, populations[k]);
+        assert.equal(result.classes, classes[k].size);
+        assert.equal(result.orbitSize * result.stabilizer, result.results.length);
+      }
+    }
+  }
+  const alternating = analyse([0, 1, 0, 1, 0, 1], false, false);
+  assert.deepEqual(alternating.results.map(row => row.fixedCount), [20, 0, 2, 0, 2, 0]);
+  assert.equal(alternating.orbitSize, 2);
+  assert.equal(alternating.classes, 4);
+  const guests = Array.from({ length: 8 }, (_, i) => i);
+  assert.equal(analyse(guests, true, false).classes, 5040);
+  assert.equal(analyse(guests, true, true).classes, 2520);
+});
+
 test('every registered activity has its page, script and a return link to its module', () => {
   const registry = JSON.parse(fs.readFileSync(path.join(root, 'activities', 'registry.json'), 'utf8'));
   const curriculum = fs.readdirSync(path.join(root, '..', 'data', 'curriculum')).map(f => fs.readFileSync(path.join(root, '..', 'data', 'curriculum', f), 'utf8')).join('');
