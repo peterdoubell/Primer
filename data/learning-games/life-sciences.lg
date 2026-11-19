@@ -1,0 +1,1145 @@
+# Life sciences, all six stages.
+# Assemble structures, order processes and classify observations using evidence.
+
+@ bio.0.living
+goal: Tell living things from things that are not alive, and say how you know.
+intro: Living things grow. They need food and water. They can make more living things like themselves. Things that are not alive do none of these.
+  show: emoji 🐕 🌳 🪨
+demo: A puppy eats, grows bigger and one day may have puppies of its own. A toy dog does not eat or grow. The puppy is alive. The toy is not.
+  show: table Thing | Grows? | Needs food? ;; puppy | yes | yes ;; toy dog | no | no
+G: Is it alive?
+  bin Alive: a cat | a tree | a fish | a flower
+  bin Not alive: a rock | a toy car | a cup
+  hint: Does it grow? Does it need food or water?
+  why: Cats, trees, fish and flowers grow and need food or water. Rocks, toy cars and cups do not.
+P: A sunflower stays in one place all day. Is it alive?
+  + Yes, it grows and needs water :: A sunflower is a living thing.
+  - No, because it does not walk about :: [alive-means-moving] Living things do not all move about. A sunflower grows and needs water.
+  hint: Does a sunflower grow?
+  why: A sunflower grows, needs water and light, and makes seeds. It is alive.
+P: A toy robot walks and talks. Is it alive?
+  + No, it does not grow or eat :: Moving is not enough.
+  - Yes, because it moves :: [alive-means-moving] A thing can move and still not be alive.
+  hint: Does the robot grow? Does it need food?
+  why: The robot moves, but it does not grow, eat or make more robots.
+>P: A dry seed sits in a packet. You plant it and water it, and it grows. Was the seed alive?
+  + Yes, it could grow into a plant :: A seed is a living thing that is waiting.
+  - No, it looked like a little stone :: [judged-by-looks] It looked still, but it was able to grow.
+  hint: Could a stone grow into a plant?
+  why: A seed is alive. It waits until it has water and warmth, and then it grows.
+done: Look for living things on your next walk. How do you know each one is alive?
+
+@ bio.0.animals
+goal: Name some animals, say where they live, and group them by what covers their bodies.
+intro: There are many kinds of animal. Some live on land and some live in water. Birds have feathers, fish have scales, and cats and dogs have fur.
+  show: emoji 🐦 🐟 🐈
+demo: A fish lives in water. It has fins to swim and scales on its skin. A bird has feathers and wings, and most birds can fly.
+  show: table Animal | Covered in ;; bird | feathers ;; fish | scales ;; cat | fur
+G: Where does it live?
+  bin In water: a fish | a whale | an octopus
+  bin On land: a cow | a lion | a rabbit
+  hint: Does it swim all the time, or walk on the ground?
+  why: Fish, whales and octopuses live in water. Cows, lions and rabbits live on land.
+M: Match each animal to what covers its body.
+  pairs: A bird => Feathers | A fish => Scales | A cat => Fur
+  hint: What do you feel when you stroke a cat?
+  why: Birds have feathers, fish have scales and cats have fur.
+P: Which of these animals can fly?
+  + A sparrow :: It is a bird with wings.
+  - A cow :: [all-animals-alike] A cow has no wings.
+  - A goldfish :: [all-animals-alike] A fish has fins for swimming, not wings.
+  hint: Which one has wings?
+  why: A sparrow is a bird. It uses its wings to fly.
+>P: You find a new animal. It has feathers and it lays eggs. What kind of animal is it?
+  + A bird :: Only birds have feathers.
+  - A fish :: [ignored-feathers] Fish have scales, not feathers.
+  - A cat :: [ignored-feathers] Cats have fur and do not lay eggs.
+  hint: Which animals have feathers?
+  why: Feathers tell you it is a bird, even if you have never seen it before.
+done: What covers an animal's body is a good clue to its kind. Go animal spotting.
+
+@ bio.0.plants
+goal: Put the growth of a plant in order and say what a plant needs.
+intro: A plant starts as a seed. With water, light and air it grows roots, then a shoot, then leaves, and at last a flower.
+  show: emoji 🌱 🌿 🌻
+demo: Put a bean seed in wet soil. First a root grows down. Then a shoot pushes up into the light. Soon green leaves open.
+  show: flow seed > root grows down > shoot comes up > leaves open
+O: Put the life of a plant in order.
+  items: A seed | A root grows down | A shoot comes up | Leaves open | A flower blooms
+  ends: First | Last
+  hint: It all begins with a seed.
+  why: Seed, root, shoot, leaves, flower: a plant grows in that order.
+G: What does a plant need to grow?
+  bin A plant needs it: water | sunlight | air
+  bin A plant does not need it: shoes | a blanket | sweets
+  hint: What do you give a plant on the window sill?
+  why: Plants need water, light and air. They do not need shoes, blankets or sweets.
+P: Which part of a new plant grows first?
+  + The root :: It grows down to find water.
+  - The flower :: [last-part-first] The flower comes last of all.
+  - The leaves :: [skipped-a-step] A root and a shoot come before the leaves.
+  hint: What does the seed need to drink?
+  why: The root comes first, to take in water for the rest of the plant.
+>P: A plant is shut in a dark cupboard for two weeks. What happens to it?
+  + It goes pale and weak :: It has no light to make its food.
+  - It grows faster :: [dark-helps-plants] Plants need light to grow well.
+  - Nothing changes :: [light-does-not-matter] A plant needs light as well as water.
+  hint: What does a plant need besides water?
+  why: Without light a plant cannot make its food, so it becomes pale and weak.
+done: Plant a bean in a jar and watch each stage. Then try the life cycle model.
+
+@ bio.0.body
+goal: Name the five senses and the part of the body that does each one.
+intro: You have five senses. You see with your eyes, hear with your ears, smell with your nose, taste with your tongue, and feel with your skin.
+  show: emoji 👀 👂 👃 👅 ✋
+demo: You hold an orange. Your eyes see that it is round and orange. Your nose smells it. Your skin feels its bumpy peel. Your tongue tastes that it is sweet.
+  show: table Sense | Body part ;; seeing | eyes ;; hearing | ears ;; smelling | nose
+M: Match each body part to its sense.
+  pairs: Eyes => See | Ears => Hear | Nose => Smell | Tongue => Taste | Skin => Touch
+  hint: What do you use to hear a song?
+  why: Eyes see, ears hear, the nose smells, the tongue tastes and the skin feels.
+P: Which part of you smells a flower?
+  + Your nose :: You breathe the smell in through it.
+  - Your ears :: [mixed-up-senses] Ears are for hearing.
+  - Your eyes :: [mixed-up-senses] Eyes are for seeing.
+  hint: Which part do you sniff with?
+  why: Your nose does the smelling.
+P: A bell rings behind you. Which part of you tells you?
+  + Your ears :: They pick up the sound.
+  - Your eyes :: [mixed-up-senses] The bell is behind you, so you cannot see it.
+  - Your tongue :: [mixed-up-senses] The tongue is for tasting.
+  hint: A ringing bell makes a sound.
+  why: Your ears hear sounds, even ones you cannot see.
+>P: Your eyes are shut. How can you tell a kitten from a ball?
+  + Feel it with your hands :: The kitten is soft, warm and furry.
+  - Look harder :: [ignored-the-rule] Your eyes are shut, so you cannot look.
+  - You cannot tell at all :: [one-sense-only] You have other senses besides seeing.
+  hint: Which senses still work when your eyes are shut?
+  why: When one sense is not working, another can tell you about the world.
+done: Use all five senses on your lunch today. What does each one tell you?
+
+@ bio.0.seasons
+goal: Put the four seasons in order and say how plants and animals change in each.
+intro: The year has four seasons: spring, summer, autumn and winter. Plants and animals change as the seasons change.
+  show: chips Spring | Summer | Autumn | Winter
+demo: In spring, flowers open and lambs are born. In summer the days are long and warm. In autumn many leaves fall. In winter it is cold and some animals sleep.
+  show: table Season | What you see ;; spring | new flowers ;; autumn | falling leaves ;; winter | bare trees
+O: Put the seasons in order, starting with spring.
+  items: Spring | Summer | Autumn | Winter
+  ends: First | Last
+  hint: Which season is the warmest? It comes after spring.
+  why: Spring, summer, autumn, winter, and then spring comes round again.
+M: Match each season to what happens.
+  pairs: Spring => Flowers open and baby animals are born | Summer => Long, warm days | Autumn => Leaves fall from many trees | Winter => It is cold and some animals sleep
+  hint: When do leaves fall?
+  why: Each season brings its own changes for living things.
+P: What do many trees do in autumn?
+  + Lose their leaves :: The leaves change colour and fall.
+  - Grow new flowers :: [mixed-up-seasons] New flowers come in spring.
+  - Nothing at all :: [nothing-changes] Many trees change a lot in autumn.
+  hint: What do you see on the ground under trees in autumn?
+  why: In autumn the leaves of many trees turn brown and fall.
+>P: A squirrel hides nuts in the ground in autumn. Why?
+  + To have food in winter :: Little grows when it is cold.
+  - To grow a nut tree for shade :: [wrong-reason] The squirrel is saving food, not gardening.
+  - Because it is full up :: [wrong-reason] It is saving food for later.
+  hint: Is there much food about in winter?
+  why: Food is hard to find in winter, so some animals store it in autumn.
+done: What season is it now? Look for one sign of it outside.
+
+@ bio.1.lifecycles
+goal: Put the life cycles of a frog and a butterfly in order, and say what changes at each stage.
+intro: Every animal has a life cycle: it is born, it grows, it has young, and the cycle starts again. Some animals change shape completely on the way.
+  show: flow egg > tadpole > froglet > frog
+demo: A frog lays eggs in water. A tadpole hatches. It has a tail and breathes under water. It grows legs, loses its tail, and becomes a frog that breathes air.
+  show: table Stage | Lives | Breathes with ;; tadpole | in water | gills ;; frog | on land and in water | lungs
+O: Put the life of a frog in order.
+  items: Egg | Tadpole | Froglet with legs and a tail | Frog
+  ends: Start | Grown up
+  hint: A tadpole hatches from the egg.
+  why: Egg, tadpole, froglet, frog. Then the frog lays eggs and it begins again.
+O: Put the life of a butterfly in order.
+  items: Egg | Caterpillar | Chrysalis | Butterfly
+  ends: Start | Grown up
+  hint: The caterpillar comes before the chrysalis.
+  why: The egg hatches into a caterpillar. It makes a chrysalis, and a butterfly comes out.
+P: A tadpole breathes under water with gills. What does a grown frog breathe with?
+  + Lungs :: A frog breathes air.
+  - Gills :: [stage-does-not-change] The frog's body has changed. It now has lungs for air.
+  - It does not breathe :: [not-alive] All animals need to breathe.
+  hint: A frog can sit on land. What does it breathe there?
+  why: As a tadpole becomes a frog, it grows lungs so that it can breathe air.
+>P: A hen lays an egg. What comes next in a chicken's life cycle?
+  + A chick :: It hatches out of the egg.
+  - A hen :: [skipped-a-step] A chick has to grow before it is a hen.
+  - Another egg :: [repeated-a-step] The egg hatches first.
+  hint: What hatches out of a hen's egg?
+  why: Egg, chick, hen: and then the hen lays eggs of her own.
+done: Every living thing has a life cycle. Explore the life cycle model.
+
+@ bio.1.habitats
+goal: Explain how the features of an animal or plant fit the place where it lives.
+intro: A habitat is the place where a living thing makes its home. Each living thing has features that help it to live there.
+  show: table Animal | Feature | Helps it to ;; polar bear | thick fur | keep warm ;; duck | webbed feet | swim ;; camel | hump of fat | go without food
+demo: A polar bear lives in the freezing Arctic. Thick fur and a layer of fat keep its body warm. In a hot desert that fur would be far too warm.
+  show: flow cold Arctic > thick fur and fat > the bear keeps warm
+M: Match each animal to the feature that helps it.
+  pairs: Polar bear => Thick fur and fat for the cold | Camel => Stores fat and goes a long time without water | Fish => Gills to breathe under water | Duck => Webbed feet for swimming
+  hint: Think about where each one lives.
+  why: Each feature fits the animal's home: cold, dry, under water, or on a pond.
+G: Which habitat?
+  bin Desert: a camel | a cactus | a scorpion
+  bin Ocean: a shark | seaweed | a crab
+  bin Forest: an owl | a fern | a deer
+  hint: Is the place dry, wet and salty, or full of trees?
+  why: Camels, cacti and scorpions live in dry deserts. Sharks, seaweed and crabs live in the sea. Owls, ferns and deer live in forests.
+P: Why does an Arctic fox have white fur in winter?
+  + It is hard to see against the snow :: It can hide from danger and creep up on food.
+  - White fur is cooler :: [wrong-reason] The fox needs to stay warm, not cool.
+  - It likes the colour :: [animals-choose] Animals do not choose their colour.
+  hint: What colour is the ground in an Arctic winter?
+  why: A white coat on white snow hides the fox.
+>P: A fish cannot live in a desert, and a camel cannot live in the sea. What does that tell you?
+  + Each living thing has features that fit its own home :: Away from that home, the features do not help.
+  - Animals do not like moving house :: [animals-choose] It is about their bodies, not their wishes.
+  - Deserts and seas are the same :: [habitats-alike] They are very different places.
+  hint: Could gills help in a desert? Could a hump help in the sea?
+  why: A living thing is fitted to its habitat. Change the habitat and it may not survive.
+done: Features fit homes. Choose an animal and work out what its features are for.
+
+@ bio.1.food-chains
+goal: Build a food chain and say which way the energy goes.
+intro: Living things need energy. Plants make their own food using sunlight. Animals get energy by eating plants or other animals. A food chain shows who eats whom.
+  show: flow sun > grass > rabbit > fox
+demo: Grass grows in the sun. A rabbit eats the grass. A fox eats the rabbit. The arrows show the energy moving along.
+  show: table Living thing | Gets energy from ;; grass | the sun ;; rabbit | grass ;; fox | rabbit
+O: Put this food chain in order.
+  items: The sun | Grass | A rabbit | A fox
+  ends: Where the energy starts | Top of the chain
+  hint: The energy starts at the sun.
+  why: Sunlight feeds the grass, grass feeds the rabbit, and the rabbit feeds the fox.
+G: Does it make its own food, or eat other living things?
+  bin Makes its own food: grass | a tree | seaweed
+  bin Eats other living things: a rabbit | a fox | a hawk
+  hint: Green plants make food from sunlight.
+  why: Plants are producers. Animals are consumers.
+P: What do the arrows in a food chain show?
+  + Where the energy goes :: From the one that is eaten to the one that eats it.
+  - Which animal is bigger :: [arrow-means-size] The arrow is about energy, not size.
+  - Which animal is faster :: [arrow-means-speed] The arrow is about energy, not speed.
+  hint: The rabbit gets energy from the grass.
+  why: Each arrow points from the food to the eater, the way the energy moves.
+>P: All the rabbits in a field fall ill and die. What happens to the foxes?
+  + There is less food, so there are fewer foxes :: The foxes depended on the rabbits.
+  - There are more foxes :: [reversed-effect] With less food, fewer foxes can live.
+  - Nothing happens :: [links-ignored] The foxes need the rabbits for food.
+  hint: What did the foxes eat?
+  why: Living things in a food chain depend on each other. Lose one link and the others are affected.
+done: Every chain starts with the sun and a plant. Make up a food chain for the sea.
+
+@ bio.1.plants-parts
+goal: Name the main parts of a plant and say what each one does.
+intro: A plant has parts, and each part has a job. Roots take in water. The stem carries it up. Leaves make food from sunlight. Flowers make seeds.
+  show: table Part | Job ;; roots | take in water ;; stem | carries water up ;; leaves | make food ;; flower | makes seeds
+demo: Stand a stick of celery in coloured water. Next day the colour has moved up into the leaves. The stem has carried the water up.
+  show: flow water in the jar > up the stem > into the leaves
+M: Match each part of a plant to its job.
+  pairs: Roots => Take in water and hold the plant in the ground | Stem => Carries water up and holds up the leaves | Leaves => Make food using sunlight | Flower => Makes seeds
+  hint: Which part is under the ground?
+  why: Roots, stem, leaves and flower each do a different job for the plant.
+G: Which part of the plant do we eat?
+  bin The root: a carrot | a beetroot
+  bin The leaves: lettuce | spinach
+  bin The seeds: peas | sweetcorn
+  hint: A carrot grows under the ground.
+  why: Carrots and beetroot are roots. Lettuce and spinach are leaves. Peas and sweetcorn are seeds.
+P: Which part of a plant makes its food?
+  + The leaves :: They use sunlight to make food.
+  - The roots :: [roots-eat-soil] Roots take in water. They do not make the food.
+  - The flower :: [flower-does-all] The flower makes seeds.
+  hint: Which part is flat, green and turned to the light?
+  why: Leaves catch sunlight and use it to make the plant's food.
+>P: You stand a white flower in blue water. Next day its petals are blue. Why?
+  + The stem carried the blue water up to the petals :: That is the stem's job.
+  - The flower drank through its petals :: [wrong-part] The water came up from below, through the stem.
+  - The light turned it blue :: [wrong-cause] The colour came from the water.
+  hint: How does water get from the jar to the top of the plant?
+  why: The stem carries water from the bottom of the plant to every part.
+done: Next time you eat a vegetable, ask which part of the plant it is.
+
+@ bio.1.human-body
+goal: Name the jobs of the heart, lungs, bones, muscles and brain.
+intro: Inside your body are parts that keep you alive and moving. Your heart pumps blood. Your lungs take in air. Your bones hold you up, and your muscles pull on them so that you can move.
+  show: table Part | Job ;; heart | pumps blood ;; lungs | take in air ;; bones | hold you up ;; muscles | make you move
+demo: Put your hand on your chest. You can feel your heart beating. Run on the spot for a minute and feel again: it is beating faster.
+  show: bars Sitting=80 After_running=140 unit=beats_a_minute
+M: Match each part of the body to its job.
+  pairs: Heart => Pumps blood round the body | Lungs => Take in air | Bones => Hold you up and protect you | Muscles => Pull on bones to move you | Brain => Tells the body what to do
+  hint: Which part can you feel beating?
+  why: Each part has its own job, and they all work together.
+F: What does your skull protect?
+  frame: Your skull protects your __
+  taps: brain | heart | stomach
+  answer: brain
+  x heart :: [wrong-part] Your ribs protect your heart.
+  x stomach :: [wrong-part] Your skull is in your head.
+  hint: Your skull is the hard bone of your head.
+  why: The skull is a hard case round the brain.
+P: After you run, your heart beats faster. Why?
+  + Your muscles need more of what the blood carries :: So the heart pumps blood round more quickly.
+  - Your heart is frightened :: [body-has-feelings] The heart is doing a job, not feeling scared.
+  - Running shakes your heart :: [wrong-cause] It speeds up because your muscles need more.
+  hint: What does blood carry to your muscles?
+  why: Blood carries food and oxygen. Busy muscles need more, so the heart pumps faster.
+>P: You bend your arm. What makes the bone move?
+  + A muscle gets shorter and pulls it :: Muscles move bones.
+  - The bone bends by itself :: [bones-move-themselves] Bones cannot move alone. Muscles pull them.
+  - Blood pushes it :: [wrong-part] Blood carries things. It does not push bones.
+  hint: Feel the top of your arm as you bend it.
+  why: A muscle pulls on the bone when it shortens. That is how every part of you moves.
+done: Your body is a team. Feel your pulse before and after a run.
+
+@ bio.1.health
+goal: Choose what keeps a body healthy, and explain why hands need washing.
+intro: To stay healthy, your body needs good food, enough sleep, exercise and clean hands. Each one helps in a different way.
+  show: chips good food | sleep | exercise | clean hands
+demo: Germs are tiny living things, too small to see. Some can make you ill. Washing your hands with soap takes them away before they can get inside you.
+  show: flow germs on hands > wash with soap > germs washed away
+G: Is it good for your health?
+  bin Good for you: eating vegetables | sleeping well | washing your hands | running and playing
+  bin Not so good: sweets all day | staying up very late | never brushing your teeth
+  hint: Which ones help your body to grow and stay strong?
+  why: Good food, sleep, clean hands and exercise keep a body healthy.
+O: Put the steps of washing your hands in order.
+  items: Wet your hands | Add soap | Rub for 20 seconds | Rinse | Dry
+  ends: First | Last
+  hint: You need water before the soap.
+  why: Wet, soap, rub, rinse, dry. Rubbing with soap is what lifts the germs off.
+P: Why do we wash our hands before eating?
+  + To wash off germs that are too small to see :: Clean hands keep germs out of our food.
+  - To make our hands smell nice :: [wrong-reason] The main reason is to remove germs.
+  - Because hands get tired :: [wrong-reason] Washing is about germs.
+  hint: Can you see germs?
+  why: Germs on your hands can get onto your food and make you ill.
+>P: You went to bed very late and feel tired and grumpy at school. What would help most?
+  + More sleep tonight :: Your body and brain need rest.
+  - More sweets :: [quick-fix] Sweets do not replace sleep.
+  - Staying up later :: [more-of-the-same] That would make it worse.
+  hint: What did your body miss?
+  why: Sleep lets your body and brain rest and get ready for the next day.
+done: Food, sleep, exercise and clean hands. Which will you do today?
+
+@ bio.2.cells
+goal: Name the main parts of a cell and tell a plant cell from an animal cell.
+intro: Every living thing is made of cells. Plant and animal cells share a nucleus, a cell membrane, cytoplasm and mitochondria. Plant cells also have a cell wall, chloroplasts and a large vacuole.
+  show: table Part | Job ;; nucleus | holds the genetic instructions ;; cell membrane | controls what goes in and out ;; mitochondria | release energy from food ;; chloroplast | makes food from light
+demo: Under a microscope, onion cells look like bricks in a wall: the cell wall gives each a firm, regular shape. Cheek cells have no wall, so they are rounded and irregular.
+  show: table Cell | Shape | Cell wall ;; onion | regular, box-like | yes ;; cheek | rounded, irregular | no
+M: Match each part of a cell to its job.
+  pairs: Nucleus => Holds the genetic instructions | Cell membrane => Controls what enters and leaves | Mitochondria => Release energy from food | Chloroplast => Makes food from light | Cell wall => Gives stiff support
+  hint: Two of these are found only in plant cells.
+  why: Each structure has one main job, and together they keep the cell alive.
+G: Where is each part found?
+  bin In plant and animal cells: nucleus | cell membrane | mitochondria
+  bin In plant cells only: cell wall | chloroplasts | large central vacuole
+  hint: Which parts does a plant need to stand up and make food?
+  why: All cells need instructions, a boundary and energy. Only plants need a stiff wall and chloroplasts.
+P: Under a microscope a cell has a firm outer wall and green chloroplasts. What is it from?
+  + A plant :: Only plant cells have both.
+  - An animal :: [ignored-the-wall] Animal cells have neither a cell wall nor chloroplasts.
+  - It could be either :: [parts-do-not-identify] These two structures settle it.
+  hint: Which kind of cell makes its own food from light?
+  why: A cell wall and chloroplasts identify a plant cell.
+>P: Cells in the root of a plant have no chloroplasts. Why?
+  + No light reaches them underground, so chloroplasts would be useless :: A cell's structure fits its job.
+  - Root cells are not really plant cells :: [all-cells-alike] They are plant cells, specialised for another job.
+  - Roots are dead :: [not-alive] Root cells are alive and busy taking in water.
+  hint: What do chloroplasts need in order to work?
+  why: Cells are specialised. A root cell absorbs water and has no use for light-capturing parts.
+done: Structure fits function, even inside a cell. Compare cells under the microscope model.
+
+@ bio.2.classification
+goal: Sort living things into groups by shared features and place them in the levels of classification.
+intro: Biologists sort living things into groups by the features they share. The groups nest inside each other, from kingdom down to species. Each species has a two-part name, such as Homo sapiens.
+  show: chips Kingdom | Phylum | Class | Order | Family | Genus | Species
+demo: A whale lives in the sea and has fins, but it breathes air with lungs and feeds its young on milk. Those features put it with the mammals, not with the fish.
+  show: table Feature | Whale | Fish ;; breathes with | lungs | gills ;; feeds young on milk | yes | no
+O: Put the levels of classification in order, from largest group to smallest.
+  items: Kingdom | Phylum | Class | Order | Family | Genus | Species
+  ends: Largest group | Smallest group
+  hint: A species is the smallest group, and a kingdom the largest.
+  why: Each level sits inside the one before: kingdom, phylum, class, order, family, genus, species.
+G: Sort the animals.
+  bin Mammal: a bat | a whale | a human
+  bin Bird: a penguin | an ostrich
+  bin Reptile: a snake | a crocodile
+  note a bat :: A bat flies, but it has fur and feeds its young on milk.
+  note a penguin :: A penguin cannot fly, but it has feathers and lays eggs.
+  hint: Fur and milk, feathers, or dry scales?
+  why: Mammals have hair and make milk, birds have feathers, and reptiles have dry scaly skin.
+K: An unknown animal has been described. Turn over as few facts as you need to place it in its group.
+  clue Home: It lives by the sea.
+  clue Covering: Its body is covered in feathers.
+  clue Movement: It cannot fly.
+  clue Food: It eats fish.
+  need: 2
+  + A bird :: Only birds have feathers.
+  - A fish :: [habitat-decides] Living by the sea and eating fish do not make an animal a fish.
+  - A mammal :: [flightless-means-mammal] Not flying does not make it a mammal. Some birds do not fly.
+  - It cannot be decided :: [needs-every-fact] One feature here belongs to a single group only.
+  hint: Which one feature is found in only one group of animals?
+  why: Feathers alone identify a bird. Where it lives, how it moves and what it eats are shared with many groups. The animal is a penguin.
+>P: Two animals belong to the same genus but to different species. What does that tell you?
+  + They are closely related but distinct kinds :: They share the first part of their names.
+  - They are exactly the same animal :: [genus-is-species] The same species would be the same kind. These are different species.
+  - They are not related at all :: [levels-ignored] Sharing a genus means a close relationship.
+  hint: A genus is the level just above species.
+  why: Species in one genus, such as the lion and the tiger in Panthera, are close relatives.
+done: Classify by features, not by first impressions. Explore the tree of life.
+
+@ bio.2.photosynthesis
+goal: Say what goes into photosynthesis and what comes out, and explain what limits its rate.
+intro: Green plants make their own food. Using the energy of light, they turn carbon dioxide and water into sugar, and release oxygen. This happens in the chloroplasts.
+  show: flow carbon dioxide + water > light energy > sugar + oxygen
+demo: A water plant in bright light gives off bubbles of oxygen. Move the lamp away and the bubbles slow down. With less light, less food is made.
+  show: bars Dim_light=4 Bright_light=12 unit=bubbles_a_minute
+B: Choose the two things a plant takes in for photosynthesis.
+  bank: carbon dioxide | water | sugar | oxygen | nitrogen
+  answer: carbon dioxide | water
+  any-order
+  x oxygen :: [mixed-up-in-and-out] Oxygen is given out, not taken in.
+  x sugar :: [mixed-up-in-and-out] Sugar is what the plant makes.
+  hint: One is a gas from the air. The other comes up from the roots.
+  why: Carbon dioxide and water go in. Sugar and oxygen come out.
+O: Put the events of photosynthesis in order.
+  items: Light is absorbed by chlorophyll | Water is split and oxygen is released | Carbon dioxide is built into sugar | Sugar is stored as starch or used for energy
+  ends: First | Last
+  hint: The energy has to be captured before anything can be built.
+  why: Light energy is captured first, used to split water, and then to build sugar, which is stored or used.
+X: Shine a lamp on a water plant and count the bubbles.
+  param l: 0..10 /1 @0 | Light intensity
+  out r: min(l*2, 12) | Rate of photosynthesis | bubbles a minute
+  aim: Find the lowest light intensity at which more light makes no more bubbles.
+  target: r == 12 and l < 7
+  view: bars r over l
+  hint: The rate rises with light at first. Look for where it stops rising.
+  why: Above an intensity of 6 the rate stays at 12. Something else, such as carbon dioxide, is now in short supply: a limiting factor.
+>P: A mouse in a sealed jar soon runs short of air. A mouse sealed in with a green plant, in the light, lasts much longer. Why?
+  + The plant releases oxygen :: Photosynthesis replaces the oxygen the mouse uses.
+  - The plant keeps the mouse company :: [non-biological-reason] The difference is chemical: the plant makes oxygen.
+  - The plant uses up carbon dioxide only :: [half-the-story] It does, but what the mouse needs is the oxygen the plant gives out.
+  hint: What does photosynthesis release?
+  why: Plants in light release oxygen, which animals need. This is how the gases in the air stay in balance.
+done: Light in, sugar and oxygen out. Explore the limiting factors further.
+
+@ bio.2.digestion
+goal: Match each body system to its job and trace the path of food through the gut.
+intro: The body is organised into systems, each with a job. The digestive system breaks down food. The circulatory system carries blood. The respiratory system exchanges gases. The nervous system carries signals.
+  show: table System | Job ;; digestive | breaks down and absorbs food ;; circulatory | carries blood round the body ;; respiratory | takes in oxygen, removes carbon dioxide ;; nervous | senses and sends signals
+demo: A bite of bread is chewed in the mouth, pushed down the oesophagus, churned with acid in the stomach, and broken down further in the small intestine, where the useful parts pass into the blood.
+  show: flow mouth > oesophagus > stomach > small intestine > large intestine
+M: Match each system to its job.
+  pairs: Digestive => Breaks down food and absorbs it | Circulatory => Carries blood, oxygen and nutrients | Respiratory => Takes in oxygen and removes carbon dioxide | Nervous => Senses and sends signals
+  hint: Which system contains the heart? Which contains the lungs?
+  why: Each system does one main job, and they depend on each other.
+O: Put the path of food through the gut in order.
+  items: Mouth | Oesophagus | Stomach | Small intestine | Large intestine
+  ends: Enters | Leaves
+  hint: Food is swallowed down the oesophagus into the stomach.
+  why: Mouth, oesophagus, stomach, small intestine, large intestine.
+P: Where does most digested food pass into the blood?
+  + The small intestine :: Its lining is folded to give a huge surface.
+  - The stomach :: [stomach-does-everything] The stomach mainly churns and begins digesting protein.
+  - The large intestine :: [confused-the-intestines] The large intestine mainly takes back water.
+  hint: Which part is long, narrow and lined with tiny folds?
+  why: The small intestine's enormous surface area makes it the main site of absorption.
+>P: During a sprint, which two systems must speed up together to deliver more oxygen to the muscles?
+  + The respiratory and circulatory systems :: One takes the oxygen in; the other carries it.
+  - The digestive and nervous systems :: [wrong-systems] Neither of those takes in or transports oxygen.
+  - The respiratory system alone :: [one-system-is-enough] Oxygen in the lungs is no use until the blood carries it to the muscles.
+  hint: Oxygen must be taken in and then carried.
+  why: Faster breathing brings in oxygen and a faster heartbeat delivers it. Systems work together.
+done: No system works alone. Explore the circulation route model.
+
+@ bio.2.reproduction
+goal: Tell asexual from sexual reproduction and explain why variation matters.
+intro: Living things reproduce in two ways. In asexual reproduction one parent makes offspring identical to itself. In sexual reproduction two parents each contribute, and the offspring differ from both.
+  show: table Kind | Parents | Offspring ;; asexual | one | identical to the parent ;; sexual | two | a mixture of both
+demo: A strawberry plant sends out runners that root and become new plants, each a copy of the parent. Its flowers, pollinated by bees, make seeds that grow into plants a little different from either parent.
+  show: flow one plant > runners > identical copies
+G: Asexual or sexual?
+  bin Asexual: a bacterium splitting in two | a strawberry plant sending out runners | a potato sprouting from a tuber
+  bin Sexual: a bird hatching from a fertilised egg | a flower pollinated by a bee | a human baby
+  hint: Is there one parent or two?
+  why: Splitting, runners and tubers need one parent. Fertilised eggs, pollination and human reproduction need two.
+O: Put the reproduction of a flowering plant in order.
+  items: Pollination | Fertilisation | A seed forms | The seed is dispersed | Germination
+  ends: First | Last
+  hint: Pollen must arrive before fertilisation can happen.
+  why: Pollen arrives, fertilises the egg cell, a seed forms and is carried away, and then it germinates.
+P: Why do offspring from sexual reproduction differ from each parent?
+  + They inherit a mixture of genes from both :: Each parent passes on half.
+  - They choose their features :: [offspring-choose] Features are inherited, not chosen.
+  - They copy only the mother :: [one-parent-only] Both parents contribute.
+  hint: Where do the offspring's genes come from?
+  why: Half the genes come from each parent, so every offspring is a new combination.
+>P: A disease sweeps through a field of genetically identical plants and destroys nearly all of them. Why was the crop so vulnerable?
+  + With no variation, if one plant is susceptible they all are :: Identical plants share every weakness.
+  - Identical plants are always weaker :: [clones-are-weak] They are not weaker in general. They are all alike.
+  - The disease chose that field :: [purposeful-disease] Diseases do not choose. The uniformity is the cause.
+  hint: What would have been different in a varied crop?
+  why: Variation means some individuals may resist a new threat. A uniform population has no such reserve.
+done: Variation is a population's insurance. Explore the allele model.
+
+@ bio.2.ecosystems
+goal: Trace energy through a food web and explain how species in an ecosystem depend on each other.
+intro: In an ecosystem, energy flows from producers to the animals that eat them. Only about a tenth of the energy at one level reaches the next; the rest is used for living or lost as heat.
+  show: bars Plants=1000 Herbivores=100 Carnivores=10
+demo: A meadow's plants hold 1000 units of energy. The rabbits that eat them hold about 100, and the foxes that eat the rabbits about 10. That is why there are far fewer foxes than rabbits.
+  show: flow plants: 1000 > rabbits: 100 > foxes: 10
+F: Use the one-tenth rule.
+  frame: Plants hold 5000 units of energy. The herbivores that eat them hold about __ units
+  answer: 500
+  x 5000 :: [all-energy-passes-on] Most of the energy is used by the plants themselves or lost as heat.
+  x 50 :: [skipped-a-level] 50 would be the level after the herbivores.
+  hint: About one tenth passes to the next level.
+  why: 5000 ÷ 10 = 500.
+G: What role does each play?
+  bin Producer: an oak tree | algae
+  bin Primary consumer: a caterpillar | a rabbit
+  bin Secondary consumer: a fox | a blue tit
+  bin Decomposer: fungi | soil bacteria
+  hint: Who makes food, who eats plants, who eats animals, and who breaks down the dead?
+  why: Producers make food, primary consumers eat producers, secondary consumers eat them, and decomposers recycle what is left.
+P: Why are there fewer foxes than rabbits in a field?
+  + Energy is lost at each step of the food chain :: Less energy supports fewer animals.
+  - Foxes are bad at breeding :: [blamed-the-animal] The limit is the energy available, not the foxes.
+  - Rabbits hide the foxes :: [non-biological-reason] The numbers follow from the flow of energy.
+  hint: How much of the rabbits' energy reaches the foxes?
+  why: Only about a tenth of the energy passes on, so each level supports far fewer individuals than the one below.
+>P: Wolves are removed from a park. The deer multiply, and young trees stop growing. What does this show?
+  + Species are linked: removing a predator changes far more than its prey :: The effect ripples down the food web.
+  - Wolves used to plant the trees :: [direct-cause-only] The wolves' effect on the trees was indirect, through the deer.
+  - Deer and trees are unconnected :: [links-ignored] The deer eat the young trees.
+  hint: Follow the chain: wolves, deer, young trees.
+  why: Fewer wolves means more deer, and more deer means more browsing of young trees.
+done: Energy flows one way; the effects of change flow every way. Build a food web.
+
+@ bio.2.microbes
+goal: Tell bacteria, viruses and fungi apart and explain why antibiotics work on only one of them.
+intro: Microbes are living things too small to see without a microscope. Bacteria are single cells. Fungi include yeasts and moulds. Viruses are not cells at all: they can copy themselves only inside the cells of a host.
+  show: table Microbe | Made of cells? | Example ;; bacterium | yes, one cell | the yoghurt bacteria ;; fungus | yes | yeast ;; virus | no | the cold virus
+demo: Most microbes are harmless and many are useful. Yeast makes bread rise. Bacteria turn milk into yoghurt. Others cause disease, and the right treatment depends on which kind is to blame.
+  show: chips yeast in bread | bacteria in yoghurt | moulds that recycle dead leaves
+G: Which kind of microbe?
+  bin Bacteria: single cells without a nucleus | some turn milk into yoghurt | treated with antibiotics
+  bin Viruses: not cells; copy themselves inside a host cell | cause colds and flu | not affected by antibiotics
+  bin Fungi: yeasts and moulds | make bread rise
+  hint: Which kind is not made of cells?
+  why: Bacteria are simple cells, viruses are not cells, and fungi include yeasts and moulds.
+M: Match each helpful microbe to what it does.
+  pairs: Yeast => Makes bread rise | Gut bacteria => Help to digest food | Decomposers => Recycle dead material | Penicillium mould => Source of an antibiotic
+  hint: One of these lives inside you.
+  why: Microbes feed us, recycle nutrients and supply medicines.
+P: Why will an antibiotic not cure a cold?
+  + A cold is caused by a virus, and antibiotics act only on bacteria :: There is nothing in a virus for the antibiotic to attack.
+  - Colds are too mild to treat :: [strength-decides] Mildness is not the reason. The wrong kind of microbe is.
+  - Antibiotics work only on children :: [non-biological-reason] Age is not the issue.
+  hint: What kind of microbe causes a cold?
+  why: Antibiotics damage structures that bacteria have and viruses lack.
+>P: Milk left out on a warm day goes sour. Milk in the fridge lasts for days. Why?
+  + Bacteria multiply much more slowly in the cold :: The souring is their work.
+  - The fridge kills every bacterium :: [cold-sterilises] The cold slows them. It does not kill them all.
+  - Cold milk has no sugar :: [non-biological-reason] The milk is the same. The bacteria are slower.
+  hint: What makes milk go sour?
+  why: Bacteria feeding on the milk turn it sour, and low temperature slows their growth.
+done: Know the microbe and you know the remedy. Explore microbes further.
+
+@ bio.3.genetics
+goal: Predict the outcome of a genetic cross and reason from offspring back to their parents.
+intro: A gene is a stretch of DNA, and its different versions are called alleles. You inherit one allele of each gene from each parent. A dominant allele shows even when only one copy is present; a recessive allele shows only when there are two.
+  show: table × | B | b ;; B | BB | Bb ;; b | Bb | bb
+demo: Cross two parents who are both Bb. The square shows four equally likely outcomes: BB, Bb, Bb and bb. Three show the dominant feature and one shows the recessive: a ratio of 3 to 1.
+  show: bars Dominant_feature=3 Recessive_feature=1
+F: Read the square for Bb × Bb.
+  frame: __ out of every 4 offspring, on average, show the recessive feature
+  answer: 1
+  x 2 :: [counted-carriers] Bb offspring carry the allele but show the dominant feature.
+  x 3 :: [gave-the-dominant-count] Three show the dominant feature; one shows the recessive.
+  hint: Only bb shows the recessive feature.
+  why: One of the four boxes is bb.
+F: Now cross Bb with bb.
+  frame: __ % of the offspring, on average, show the recessive feature
+  answer: 50
+  x 25 :: [used-the-other-cross] 25% belongs to Bb × Bb. Here one parent can pass on only b.
+  hint: The bb parent always gives b. What can the Bb parent give?
+  why: Half the offspring are Bb and half are bb.
+M: Match each term to its meaning.
+  pairs: Gene => A section of DNA that codes for a protein | Allele => One version of a gene | Genotype => The alleles an organism has | Phenotype => The features that show
+  hint: Genotype is what is inherited. Phenotype is what is seen.
+  why: Genes come in alleles; the pair you carry is your genotype; what it produces is your phenotype.
+K: Brown eyes (B) are dominant over blue (b). Turn over as few facts as you need to find the genotype of parent 1.
+  clue Parent 1: Has brown eyes.
+  clue Parent 2: Has blue eyes.
+  clue Child A: Has brown eyes.
+  clue Child B: Has blue eyes.
+  need: 1,4
+  + Bb :: Brown-eyed, yet able to pass on a b allele.
+  - BB :: [dominant-means-pure] A BB parent could never have a blue-eyed child.
+  - bb :: [ignored-the-phenotype] A bb parent would have blue eyes.
+  - It cannot be worked out :: [needs-every-fact] Two of the facts settle it.
+  hint: A blue-eyed child is bb. Where did each b come from?
+  why: Child B is bb, so each parent gave a b. Parent 1 therefore carries b, and having brown eyes must also carry B: Bb. A brown-eyed child would not have told you this.
+>P: Two healthy parents have a child with cystic fibrosis, which is caused by a recessive allele. What must be true of the parents?
+  + Both carry one copy of the recessive allele :: Each passed one on.
+  - Only the mother carries it :: [one-parent-only] The child needs two copies, one from each parent.
+  - Neither carries it: the condition appeared by chance :: [ignored-inheritance] Two copies are needed, and they came from the parents.
+  hint: The child has two recessive alleles. Where did each come from?
+  why: A recessive condition needs two copies. Healthy parents who each pass one on must both be carriers.
+done: A Punnett square is a table of chances. Explore the allele segregation model.
+
+@ bio.3.evolution
+goal: Explain evolution by natural selection, step by step, and separate it from common misreadings.
+intro: Evolution by natural selection needs three things: individuals vary, some of that variation is inherited, and some variants leave more offspring than others. Over generations the helpful variants become more common.
+  show: flow variation > inheritance > unequal survival > the population changes
+demo: Among beetles, some are green and some brown. On brown soil, birds find the green ones more easily. Brown beetles survive more often and pass on the brown allele, so after several generations most beetles are brown.
+  show: bars Brown_before=50 Brown_after=85 unit=%
+O: Put the argument for natural selection in order.
+  items: Individuals in a population vary | Some of the variation is inherited | More offspring are born than can survive | Those with helpful variations leave more offspring | Helpful variations become more common
+  ends: Starting point | Result
+  hint: Variation must exist before anything can be selected.
+  why: Variation, inheritance, competition, unequal reproduction, change: each step depends on the one before.
+P: Bacteria are exposed to an antibiotic. A few days later nearly all of them are resistant. What happened?
+  + A few resistant bacteria were already there, survived and multiplied :: The antibiotic selected them.
+  - The bacteria tried hard to become resistant :: [need-drives-change] Organisms cannot change their genes because they need to.
+  - The antibiotic taught them to resist :: [environment-instructs] The drug does not create resistance. It removes the bacteria that lack it.
+  hint: Was the variation there before the antibiotic arrived?
+  why: Selection acts on variation that already exists. Resistant variants survive and their descendants take over.
+S: Which of these are evidence for evolution? Choose every one.
+  + Fossils showing how groups changed over time :: The rock record preserves earlier forms.
+  + DNA sequences shared between species :: Closer relatives share more of their sequence.
+  + The same bones arranged differently in an arm, a wing and a flipper :: A shared plan points to a shared ancestor.
+  - Organisms wanting to improve themselves :: [evolution-has-a-purpose] Evolution has no aim and involves no wanting.
+  - An animal changing during its life and passing that change on :: [acquired-traits-inherited] Changes acquired in a lifetime are not written into the genes.
+  hint: Evidence is something observed. Two of these are mistaken ideas, not observations.
+  why: Fossils, shared DNA and shared anatomy are observed facts. Purpose and inheritance of acquired changes are not part of the theory.
+>P: Dark peppered moths became common in sooty industrial cities, then rare again after clean-air laws. What explains both changes?
+  + Birds ate whichever colour stood out against the tree bark :: The better-hidden form survived to breed.
+  - Soot stained the moths dark :: [environment-instructs] The colour is inherited, not painted on.
+  - Moths changed colour to hide :: [need-drives-change] Individual moths did not change. The proportions in the population did.
+  hint: Which moths were easiest for birds to find on dark bark, and on clean bark?
+  why: Selection favoured the better camouflaged form in each environment, and reversed when the environment did.
+done: Selection needs variation, inheritance and unequal survival. Nothing more.
+
+@ bio.3.cell-bio
+goal: Relate organelles to their functions, order the stages of mitosis, and explain why cells are small.
+intro: A cell is a busy factory. Each organelle does a job: the nucleus stores DNA, ribosomes build proteins, mitochondria release energy, and membranes control what crosses them.
+  show: table Organelle | Job ;; ribosome | builds proteins ;; mitochondrion | releases energy by respiration ;; Golgi apparatus | packages and ships proteins ;; lysosome | digests waste
+demo: When a cell divides by mitosis, it first copies its chromosomes. The copies line up across the middle and are pulled to opposite ends, and the cell splits into two identical cells.
+  show: flow chromosomes copied > line up in the middle > pulled apart > two identical cells
+M: Match each organelle to its job.
+  pairs: Ribosome => Builds proteins | Mitochondrion => Releases energy by respiration | Golgi apparatus => Packages and ships proteins | Lysosome => Digests waste | Nucleus => Stores DNA
+  hint: One makes, one ships, one powers, one clears up, one holds the plans.
+  why: Proteins are made on ribosomes, processed by the Golgi, and the whole operation is powered by mitochondria.
+O: Put the stages of mitosis in order.
+  items: Prophase: the chromosomes condense | Metaphase: they line up in the middle | Anaphase: the copies are pulled apart | Telophase: two nuclei form | Cytokinesis: the cell divides
+  ends: First | Last
+  hint: The chromosomes must line up before they can be pulled apart.
+  why: Condense, line up, separate, re-form nuclei, divide.
+X: A cube-shaped cell takes in food across its surface and uses it throughout its volume.
+  param s: 1..10 /1 @1 | Side of the cell | μm
+  out r: 6/s | Surface area ÷ volume
+  aim: Find the largest cell whose surface-to-volume ratio is still at least 2.
+  target: r >= 2 and r < 3
+  view: bars r over s
+  hint: As the cell grows, its volume grows faster than its surface.
+  why: A cube of side s has ratio 6 ÷ s. At 3 μm it is 2; beyond that there is too little surface for the volume it must supply.
+>P: Why are most cells microscopically small?
+  + A large cell has too little surface for its volume, so exchange cannot keep up :: Supply depends on surface; demand depends on volume.
+  - Small cells are easier to see :: [non-biological-reason] Small cells are harder to see. The reason is supply and demand.
+  - Cells run out of DNA when large :: [wrong-limit] The limit is exchange across the membrane.
+  hint: Use what the exploration showed about surface and volume.
+  why: Doubling the side doubles the demand per unit of surface. Large organisms are made of many small cells for this reason.
+done: Organelles divide the labour, and size is limited by surface. Explore the cell model.
+
+@ bio.3.human-anatomy
+goal: Trace blood through the heart and lungs, and relate specialised structures to their functions.
+intro: The human body is organised in levels: cells form tissues, tissues form organs, and organs work together in systems. Circulation, gas exchange and control are coordinated so that every cell is supplied.
+  show: flow cells > tissues > organs > systems
+demo: Blood returns from the body to the right side of the heart, is pumped to the lungs to pick up oxygen, returns to the left side, and is pumped out to the body. The heart is two pumps side by side.
+  show: flow body > right side of heart > lungs > left side of heart > body
+O: Put the path of blood in order, starting as it returns from the body.
+  items: Right atrium | Right ventricle | Lungs | Left atrium | Left ventricle | The rest of the body
+  ends: Returning from the body | Leaving for the body
+  hint: Blood goes to the lungs from the right side and returns to the left.
+  why: Right atrium, right ventricle, lungs, left atrium, left ventricle, body: a double circulation.
+M: Match each structure to its function.
+  pairs: Alveoli => Exchange gases in the lungs | Nephrons => Filter the blood in the kidney | Neurons => Carry nerve signals | Villi => Absorb nutrients in the gut
+  hint: Each is a tiny unit repeated many thousands of times.
+  why: Each organ gains a huge working surface or capacity by repeating a small specialised unit.
+P: Why is the wall of the left ventricle thicker than that of the right?
+  + It pumps blood round the whole body, which needs much higher pressure :: The right ventricle pumps only to the nearby lungs.
+  - It holds more blood :: [thicker-means-bigger] Both ventricles pump the same volume. The left does so at higher pressure.
+  - It was damaged at birth :: [abnormal-explanation] A thicker left wall is normal in every healthy heart.
+  hint: How far must each ventricle push its blood?
+  why: Structure matches function: more muscle generates the greater force needed for the long circuit.
+>P: At high altitude the air holds less oxygen. Over several weeks the body makes more red blood cells. What does this illustrate?
+  + The body adjusts to keep its oxygen supply steady :: A slow response that restores delivery to the tissues.
+  - The body is being damaged :: [change-means-harm] The change is a useful adjustment, not damage.
+  - Red blood cells grow bigger in thin air :: [wrong-mechanism] There are more cells, not larger ones.
+  hint: What is the body trying to keep constant?
+  why: Homeostasis: when oxygen supply falls, the body responds in a way that restores it.
+done: Structure serves function at every level. Explore the circulation model.
+
+@ bio.3.ecology
+goal: Describe how populations grow and are limited, and trace matter through a cycle.
+intro: A population cannot grow for ever. As it approaches the carrying capacity of its environment, the largest number the environment can support, its growth slows and stops.
+  show: plot 1000/(1+9*exp(-0.8*x)) x=0..12
+demo: Rabbits released on an island multiply fast while food is plentiful. As they near the number the island can feed, each has less, fewer young survive, and the population levels off.
+  show: flow few rabbits: fast growth > many rabbits: food runs short > growth stops at carrying capacity
+X: A population's yearly growth depends on its size. The carrying capacity is 1000.
+  param n: 0..1000 /100 @0 | Population size
+  out g: 0.5*n*(1-n/1000) | Growth in one year
+  aim: Find the population size at which growth is fastest.
+  target: g == 125
+  view: bars g over n
+  hint: Growth is slow when there are few to breed, and slow again when resources run short.
+  why: Growth peaks at half the carrying capacity, 500. Below it there are few breeders; above it competition takes over.
+M: Match each process to its part in the carbon cycle.
+  pairs: Photosynthesis => Takes carbon dioxide from the air | Respiration => Returns carbon dioxide to the air | Decomposition => Releases carbon from dead matter | Combustion => Releases carbon from fuels
+  hint: Only one of these removes carbon dioxide from the air.
+  why: Photosynthesis fixes carbon; respiration, decay and burning all return it.
+P: What is meant by the carrying capacity of an environment?
+  + The largest population it can support in the long run :: It is set by food, space and other resources.
+  - The number of species living there :: [confused-with-diversity] That is species richness.
+  - The fastest a population can grow :: [confused-with-rate] That is the growth rate, not a population size.
+  hint: What stops a population growing for ever?
+  why: Carrying capacity is where births and deaths balance because resources are limiting.
+>P: Fertiliser washes into a lake. Algae bloom, and soon afterwards fish die. What links the two?
+  + The algae die and the bacteria that decompose them use up the oxygen :: The fish suffocate.
+  - The fertiliser poisons the fish directly :: [direct-cause-only] The fertiliser feeds the algae. The fish die from lack of oxygen.
+  - The algae eat the fish :: [wrong-mechanism] Algae are producers.
+  hint: What happens to all those algae when they die?
+  why: A bloom is followed by mass decay, and decomposers consume the dissolved oxygen.
+done: Populations are limited, and matter cycles. Compare population models.
+
+@ bio.3.microbiology
+goal: Order the events of an immune response and explain how vaccination protects individuals and communities.
+intro: When a pathogen enters the body, white blood cells recognise molecules on its surface called antigens. Some cells make antibodies that lock on to the antigen. Afterwards, memory cells remain, ready to respond faster next time.
+  show: flow pathogen enters > antigens recognised > antibodies made > pathogen destroyed > memory cells remain
+demo: A vaccine contains a harmless form of an antigen. The body responds as if to a real infection and makes memory cells, without the illness. A later meeting with the real pathogen is dealt with quickly.
+  show: bars First_response=10 Second_response=100
+O: Put the events of an immune response in order.
+  items: A pathogen enters the body | White blood cells recognise its antigens | Antibodies are produced | The pathogen is destroyed | Memory cells remain
+  ends: First | Last
+  hint: Recognition must come before the response.
+  why: Entry, recognition, antibody production, destruction, memory.
+G: Which kind of pathogen causes each disease?
+  bin Bacterium: tuberculosis | cholera
+  bin Virus: measles | influenza
+  bin Fungus: athlete's foot
+  bin Protist: malaria
+  hint: Flu and measles are viral. Malaria is carried by mosquitoes.
+  why: Knowing the kind of pathogen decides the treatment: antibiotics for bacteria only.
+P: How does a vaccine protect you?
+  + A harmless antigen trains memory cells in advance :: The real pathogen then meets a ready response.
+  - It kills pathogens already in your body :: [vaccine-is-a-cure] A vaccine prepares the immune system. It does not act as a medicine.
+  - It keeps pathogens out of the body :: [vaccine-is-a-barrier] Pathogens can still enter. They are destroyed quickly.
+  hint: What do memory cells do when the same antigen appears again?
+  why: Memory cells give a faster, larger second response, often before symptoms appear.
+>P: Why does vaccinating most of a community protect a baby who is too young to be vaccinated?
+  + The pathogen cannot find enough people to pass between, so it rarely reaches the baby :: Chains of infection break.
+  - Vaccines spread from person to person :: [vaccine-is-contagious] Vaccines do not spread. Fewer infections do the protecting.
+  - Babies cannot catch diseases :: [non-biological-reason] Babies are often the most vulnerable.
+  hint: How does an infection get from one person to the next?
+  why: Herd immunity: when most people are immune, an infection cannot spread to those who are not.
+done: Memory is the immune system's advantage. Explore how infections spread.
+
+@ bio.3.botany
+goal: Explain how water and sugar move through a plant and how a leaf balances gas exchange against water loss.
+intro: A plant has two transport systems. Xylem carries water and minerals up from the roots. Phloem carries sugars from the leaves to wherever they are needed.
+  show: table Tissue | Carries | Direction ;; xylem | water and minerals | upwards ;; phloem | sugars | up and down
+demo: Water evaporates from the leaves through tiny pores called stomata. That loss pulls more water up the xylem, like sucking on a straw. The flow is called the transpiration stream.
+  show: flow water enters root hairs > up the xylem > into the leaves > out through the stomata
+M: Match each structure to its job.
+  pairs: Xylem => Carries water up from the roots | Phloem => Carries sugars round the plant | Stomata => Pores for gas exchange | Root hairs => Absorb water and minerals
+  hint: Two are transport tissues, one is a pore, one is an absorbing surface.
+  why: Root hairs take water in, xylem lifts it, stomata exchange gases, and phloem distributes the sugar made.
+O: Put the transpiration stream in order.
+  items: Water enters the root hairs | It moves up the xylem | It reaches the leaves | It evaporates through the stomata
+  ends: Enters the plant | Leaves the plant
+  hint: Water enters at the bottom and leaves at the top.
+  why: Root hairs, xylem, leaves, stomata.
+P: On a hot, dry day a plant closes its stomata. What is the gain, and what is the cost?
+  + It saves water but takes in less carbon dioxide :: Photosynthesis slows.
+  - It saves water at no cost :: [no-trade-off] The same pores let carbon dioxide in.
+  - It takes in more carbon dioxide :: [reversed-effect] Closed pores let less in.
+  hint: What else passes through the stomata besides water vapour?
+  why: Stomata are a compromise. Open pores admit carbon dioxide but lose water.
+>P: A complete ring of bark, including the phloem, is cut from a tree trunk. The leaves stay green for a while but the tree slowly dies. Why?
+  + Sugars made in the leaves can no longer reach the roots :: The roots starve.
+  - Water can no longer reach the leaves :: [confused-xylem-and-phloem] Water travels in the xylem, deeper in the wood, and still arrives.
+  - The tree loses its sap and dries out :: [wrong-mechanism] The loss of the route for sugar is what kills it.
+  hint: Which tissue lies in the bark, and what does it carry?
+  why: Ringing removes the phloem. The roots, cut off from their sugar supply, die, and the tree follows.
+done: Two pipelines, and a trade-off at every pore. Explore plant structure.
+
+@ bio.4.molecular
+goal: Follow information from DNA to protein and predict the effect of a mutation.
+intro: A gene is expressed in two steps. In transcription, RNA polymerase copies one strand of DNA into messenger RNA. In translation, a ribosome reads the mRNA three bases at a time, and each triplet specifies one amino acid.
+  show: flow DNA > transcription > mRNA > translation > protein
+demo: DNA uses the bases A, T, G and C. RNA uses U in place of T. A template strand reading TAC is transcribed into the mRNA codon AUG, which is the signal to start a protein.
+  show: table DNA template base | mRNA base ;; T | A ;; A | U ;; C | G ;; G | C
+O: Put the steps of gene expression in order.
+  items: The DNA double helix is unwound | RNA polymerase builds an mRNA copy | The mRNA leaves the nucleus | A ribosome reads the codons | tRNAs bring amino acids and the chain grows
+  ends: First | Last
+  hint: Transcription happens in the nucleus; translation happens at the ribosome.
+  why: Unwind, transcribe, export, read, build.
+B: The DNA template strand reads T, A, C. Build the mRNA made from it.
+  bank: A | U | G | C | T
+  answer: A | U | G
+  x T :: [used-a-dna-base] RNA contains uracil, U, in place of thymine.
+  hint: A pairs with U in RNA, T with A, and C with G.
+  why: T → A, A → U, C → G gives AUG, the start codon.
+F: Count the bases needed.
+  frame: A protein of 100 amino acids needs at least __ coding bases
+  answer: 300
+  x 100 :: [one-base-per-amino-acid] Each amino acid is specified by a codon of three bases.
+  hint: Three bases code for one amino acid.
+  why: 100 × 3 = 300.
+>P: A single base is deleted near the start of a gene. Why is this usually more damaging than swapping one base for another?
+  + It shifts the reading frame, so every later codon is misread :: The whole protein downstream is changed.
+  - It removes exactly one amino acid :: [deletion-is-local] Removing one amino acid would need three bases deleted.
+  - Deletions cannot be copied :: [wrong-mechanism] The altered gene is copied and read perfectly well, just wrongly.
+  hint: The ribosome reads in threes from a fixed starting point.
+  why: A frameshift changes every codon after it and often creates an early stop.
+done: Three bases, one amino acid, and the frame is everything. Explore the gene expression stepper.
+
+@ bio.4.biochem
+goal: Locate the stages of respiration, read an enzyme's kinetics, and explain how an inhibitor acts.
+intro: Cells release energy from glucose in stages. Glycolysis in the cytoplasm splits glucose. The Krebs cycle in the mitochondrial matrix releases carbon dioxide. The electron transport chain on the inner membrane makes most of the ATP.
+  show: table Stage | Where | Main result ;; glycolysis | cytoplasm | glucose to pyruvate ;; Krebs cycle | mitochondrial matrix | carbon dioxide released ;; electron transport chain | inner mitochondrial membrane | most of the ATP
+demo: An enzyme's rate rises with substrate concentration and then levels off: once every active site is busy, adding more substrate cannot help. The concentration giving half the maximum rate is called Km.
+  show: plot 100*x/(4+x) x=0..20
+M: Match each stage of respiration to its location and result.
+  pairs: Glycolysis => Cytoplasm: glucose to pyruvate | Krebs cycle => Mitochondrial matrix: carbon dioxide released | Electron transport chain => Inner mitochondrial membrane: most of the ATP | Fermentation => Regenerates NAD⁺ without oxygen
+  hint: Only one of these happens outside the mitochondrion when oxygen is present.
+  why: Glycolysis is in the cytoplasm; the later, oxygen-dependent stages are in the mitochondrion.
+X: An enzyme has a maximum rate of 100% and a Km of 4 mM.
+  param s: 0..20 /1 @0 | Substrate concentration | mM
+  out v: 100*s/(4+s) | Rate | % of maximum
+  aim: Find the substrate concentration that gives exactly half the maximum rate.
+  target: v == 50
+  view: plot v over s
+  hint: Half the sites are occupied when the substrate concentration equals Km.
+  why: v = Vmax × S ÷ (Km + S). When S = Km the rate is Vmax ÷ 2: here at 4 mM.
+P: A competitive inhibitor is added to an enzyme. How does it act, and how can its effect be overcome?
+  + It competes for the active site, and more substrate outcompetes it :: The maximum rate can still be reached.
+  - It destroys the enzyme permanently :: [inhibitor-destroys] Competitive inhibition is reversible.
+  - It binds elsewhere, and more substrate makes no difference :: [confused-inhibitor-types] That describes non-competitive inhibition.
+  hint: The word "competitive" tells you what it competes for.
+  why: Inhibitor and substrate compete for one site, so a high substrate concentration restores the rate.
+>P: Cyanide blocks the last step of the electron transport chain. Why is it so rapidly fatal?
+  + Cells can no longer make ATP using oxygen :: Tissues with high energy demand fail within minutes.
+  - It stops glycolysis :: [wrong-stage] Glycolysis continues, but yields far too little ATP.
+  - It removes oxygen from the blood :: [wrong-mechanism] Oxygen is still delivered. The cells cannot use it.
+  hint: Which stage makes most of a cell's ATP?
+  why: With the chain blocked, electrons cannot reach oxygen and oxidative ATP production stops.
+done: Location, rate and regulation: the three questions of metabolism. Explore enzyme kinetics.
+
+@ bio.4.genomics
+goal: Match the main tools of genomics to their uses and interpret what a genome-wide study can and cannot show.
+intro: Genomics reads, compares and edits whole genomes. Sequencing reads the order of bases. PCR copies a chosen stretch of DNA. CRISPR cuts DNA at a chosen sequence.
+  show: table Tool | What it does ;; sequencing | reads the order of bases ;; PCR | copies a chosen segment many times ;; CRISPR–Cas9 | cuts DNA at a chosen sequence
+demo: PCR doubles the number of copies in every cycle. One molecule becomes 2, then 4, then 8. After 10 cycles there are 1024; after 30, about a billion.
+  show: bars 1=2 2=4 3=8 4=16 5=32
+M: Match each tool to its use.
+  pairs: Sequencing => Reading the order of bases | PCR => Copying a chosen DNA segment many times | CRISPR–Cas9 => Cutting DNA at a chosen sequence | Genome-wide association study => Linking variants to traits across many people
+  hint: Read, copy, cut, compare.
+  why: Together these let biologists read a genome, amplify part of it, change it, and connect it to traits.
+F: Count the copies.
+  frame: Starting from one DNA molecule, 10 cycles of PCR give __ copies
+  answer: 1024
+  x 20 :: [doubled-the-cycles] The number doubles each cycle: 2¹⁰, not 2 × 10.
+  x 100 :: [squared-instead] It is 2 to the power 10.
+  hint: 2, 4, 8, 16, …
+  why: 2¹⁰ = 1024.
+O: Put the steps of a CRISPR edit in order.
+  items: Design a guide RNA that matches the target | Deliver Cas9 and the guide into the cell | The guide pairs with the target DNA | Cas9 cuts both strands | The cell repairs the break, changing the sequence
+  ends: First | Last
+  hint: The guide has to find its target before anything is cut.
+  why: Design, deliver, find, cut, repair.
+>P: A genome-wide study finds a DNA variant that is more common in people with a disease. What can be concluded?
+  + The variant is associated with the disease, which is not yet proof that it causes it :: It may simply lie near the real cause.
+  - The variant causes the disease :: [association-is-causation] Association alone does not show cause.
+  - Everyone with the variant will get the disease :: [gene-is-destiny] Most such variants shift risk only slightly.
+  hint: What is the difference between two things occurring together and one causing the other?
+  why: Variants are inherited in blocks, so an associated variant may only be a marker for a nearby causal one.
+done: Reading a genome is easier than understanding it. Explore sequence data.
+
+@ bio.4.neuro
+goal: Order the events of an action potential and predict how changes to a neuron alter signalling.
+intro: A neuron carries signals as brief electrical pulses called action potentials. At rest the inside of the cell is negative. When a stimulus reaches threshold, ion channels open in sequence and the voltage flips and recovers.
+  show: plot -70+110*exp(-(x-2)*(x-2)*4) x=0..5
+demo: Sodium channels open first and sodium ions rush in, making the inside positive. Then potassium channels open and potassium ions leave, restoring the negative charge. Pumps then reset the ion balance.
+  show: flow threshold reached > sodium in > potassium out > resting state restored
+O: Put the events of an action potential in order.
+  items: A stimulus depolarises the membrane to threshold | Sodium channels open and sodium rushes in | Potassium channels open and potassium leaves | The membrane repolarises | Pumps restore the resting ion balance
+  ends: First | Last
+  hint: Sodium moves in before potassium moves out.
+  why: Threshold, sodium in, potassium out, repolarisation, reset.
+M: Match each part of a neuron to its role.
+  pairs: Dendrite => Receives signals | Axon => Carries the impulse away from the cell body | Synapse => Gap crossed by a chemical transmitter | Myelin => Insulation that speeds conduction
+  hint: Signals arrive on dendrites and leave along the axon.
+  why: Information flows from dendrites, down the axon, and across synapses to the next cell.
+P: A stimulus well above threshold is applied. Compared with one just above threshold, what changes?
+  + Action potentials are fired more often, but each is the same size :: Intensity is coded by frequency.
+  - Each action potential is larger :: [graded-action-potential] Action potentials are all-or-none.
+  - Nothing changes :: [intensity-ignored] A stronger stimulus raises the firing rate.
+  hint: An action potential either happens fully or not at all.
+  why: Size is fixed by the ion channels. A stronger stimulus is signalled by a higher rate of firing.
+>P: Multiple sclerosis damages the myelin round axons. What effect would you predict?
+  + Signals travel more slowly or fail to arrive :: Myelin lets the impulse jump quickly along the axon.
+  - Signals travel faster :: [insulation-slows] Myelin speeds conduction. Losing it slows conduction.
+  - Neurons stop making transmitter :: [wrong-mechanism] The damage is to conduction along the axon.
+  hint: What is myelin for?
+  why: Without insulation the impulse leaks and slows, which explains the weakness and loss of sensation in the disease.
+done: An impulse is a sequence of gates opening. Explore neuron models.
+
+@ bio.4.evo-bio
+goal: Use the Hardy–Weinberg principle and identify the forces that change allele frequencies.
+intro: In a large population with random mating and no selection, mutation or migration, allele frequencies stay the same from one generation to the next. That is the Hardy–Weinberg principle, and departures from it reveal evolution at work.
+  show: table Genotype | Frequency ;; AA | p² ;; Aa | 2pq ;; aa | q²
+demo: Suppose 4% of a population shows a recessive condition, so q² = 0.04 and q = 0.2. Then p = 0.8, and carriers, 2pq, make up 2 × 0.8 × 0.2 = 32%.
+  show: steps q² = 0.04, so q = 0.2 ;; p = 1 − q = 0.8 ;; Carriers: 2pq = 0.32
+F: Apply Hardy–Weinberg.
+  frame: If 9% of a population shows a recessive trait, then q = 0.3 and carriers make up __ %
+  answer: 42
+  x 9 :: [gave-the-affected] 9% is q². Carriers are 2pq.
+  x 21 :: [forgot-the-two] Carriers are 2 × p × q, not p × q.
+  hint: p = 0.7. Work out 2 × 0.7 × 0.3.
+  why: 2 × 0.7 × 0.3 = 0.42 = 42%.
+M: Match each force to its effect on allele frequencies.
+  pairs: Mutation => Creates new alleles | Natural selection => Changes frequencies according to fitness | Genetic drift => Changes frequencies at random | Gene flow => Moves alleles between populations
+  hint: Only one of these is driven by fitness, and only one is purely random.
+  why: Mutation supplies variation; selection, drift and gene flow change how common each variant is.
+P: A handful of birds colonise a remote island. Generations later the island population lacks several alleles common on the mainland. What is the most likely cause?
+  + Genetic drift: the founders carried only a sample of the alleles :: Chance matters most in small populations.
+  - Selection against those alleles :: [selection-explains-all] Possible, but loss of several unrelated alleles in a tiny founding group points to chance.
+  - The island caused mutations :: [environment-instructs] Mutation creates alleles. It does not selectively remove them.
+  hint: How many alleles can a handful of founders carry?
+  why: A small founding group is a random sample. Alleles it happens to lack are absent from all its descendants.
+>P: Species A and B share a more recent common ancestor with each other than either does with C. On an evolutionary tree, which are sister groups?
+  + A and B :: They branch from the same node.
+  - A and C :: [ignored-recency] C split off earlier.
+  - All three equally :: [all-related-equally] Relatedness is measured by how recently lineages diverged.
+  hint: Which two share the most recent ancestor?
+  why: Sister groups are each other's closest relatives: the two branches from the most recent shared node.
+done: Evolution is change in allele frequencies. Explore population models.
+
+@ bio.4.physiology
+goal: Explain homeostasis through feedback loops and predict the effect when one fails.
+intro: The body holds its internal conditions steady. Most control works by negative feedback: a change is detected, and the response opposes it. Positive feedback, which amplifies a change, is rarer and used for events that must run to completion.
+  show: flow change detected > response opposes it > level returns to normal
+demo: After a meal, blood glucose rises. The pancreas releases insulin, cells take up glucose and the liver stores it. Blood glucose falls, and insulin release falls with it.
+  show: flow glucose rises > insulin released > glucose taken up and stored > glucose falls
+O: Put the control of blood glucose after a meal in order.
+  items: Blood glucose rises | The pancreas releases insulin | Cells take up glucose and the liver stores it | Blood glucose falls | Insulin release decreases
+  ends: Disturbance | Back to normal
+  hint: The response has to follow the detection of the change.
+  why: Rise, detect and respond, correct, and switch the response off again.
+G: Negative or positive feedback?
+  bin Negative feedback: control of body temperature | control of blood glucose | control of blood pressure
+  bin Positive feedback: contractions during childbirth | the blood-clotting cascade
+  hint: Does the response oppose the change or amplify it?
+  why: Negative feedback keeps a level steady. Positive feedback drives a process to completion.
+S: The body is too hot. Which responses help to cool it? Choose every one.
+  + Sweating :: Evaporation carries heat away.
+  + Blood vessels in the skin widen :: More warm blood flows near the surface.
+  - Shivering :: [heating-response] Shivering generates heat.
+  - Blood vessels in the skin narrow :: [heating-response] That conserves heat.
+  hint: Which responses move heat from the body to the surroundings?
+  why: Sweating and vasodilation lose heat; shivering and vasoconstriction produce or conserve it.
+>P: In type 1 diabetes the pancreas makes no insulin. What happens to blood glucose after a meal?
+  + It stays high, because cells cannot take it up :: The corrective step is missing.
+  - It falls dangerously low :: [reversed-effect] Without insulin, glucose stays in the blood.
+  - It is controlled as normal :: [loop-intact] The loop has lost its effector.
+  hint: Which step of the feedback loop is missing?
+  why: With no insulin the response to rising glucose cannot occur, so the level remains high.
+done: Detect, respond, correct, switch off. Explore feedback models.
+
+@ bio.4.ethology
+goal: Ask the four kinds of question about behaviour and explain how costly behaviours can evolve.
+intro: Any behaviour can be explained in four complementary ways: what triggers it now, how it develops in the individual, what it is for, and how it evolved. These are Tinbergen's four questions.
+  show: table Question | It asks ;; causation | what triggers the behaviour now ;; development | how it arises during the animal's life ;; function | how it aids survival and reproduction ;; evolution | how it arose over generations
+demo: Why does a bird sing in spring? Because lengthening days raise its hormone levels; because it learned the song from its father; because song attracts a mate; and because its ancestors that sang left more offspring. All four are true.
+  show: chips hormones rise | song is learned | song attracts a mate | singers left more offspring
+M: Match each of Tinbergen's questions to what it asks.
+  pairs: Causation => What triggers the behaviour now | Development => How it arises in the individual's life | Function => How it aids survival and reproduction | Evolution => How it arose over generations
+  hint: Two are about the individual and two about the species' history.
+  why: A full account of a behaviour answers all four, and none replaces another.
+G: Innate or learned?
+  bin Innate: a spider spinning its first web | a newborn baby gripping a finger | a cuckoo chick pushing eggs out of the nest
+  bin Learned: a dog sitting on command | a chimpanzee copying how to crack nuts | a rat pressing a lever for food
+  hint: Could the animal do it without any experience or example?
+  why: Innate behaviours appear fully formed without practice. Learned ones depend on experience.
+P: A ground squirrel gives an alarm call that draws a predator's attention to itself. How can such behaviour evolve?
+  + The relatives it warns share its genes :: Copies of the gene for calling survive in them.
+  - Animals act for the good of the species :: [good-of-the-species] Selection acts on genes and individuals, not on species.
+  - The squirrel does not understand the danger :: [non-biological-reason] The behaviour is inherited whether or not it is understood.
+  hint: Who lives near the caller, and what do they share with it?
+  why: Kin selection: a gene can spread by helping relatives who carry copies of it.
+>P: A peacock's huge tail makes it easier for predators to catch. Why has it evolved?
+  + Females prefer males with showier tails, so those males leave more offspring :: The mating advantage outweighs the risk.
+  - It helps the peacock to fly :: [wrong-function] The tail is a handicap in flight.
+  - Peacocks want to look beautiful :: [evolution-has-a-purpose] No intention is involved. Female choice does the selecting.
+  hint: Survival is not the only thing selection rewards.
+  why: Sexual selection favours traits that win matings, even at some cost to survival.
+done: Four questions, four answers, all needed. Observe an animal and try each.
+
+@ bio.5.systems-bio
+goal: Recognise the recurring designs in gene networks and explain what each does.
+intro: Genes regulate one another in networks. A few small wiring patterns turn up again and again, each with a characteristic behaviour: stabilising a level, flipping a switch, filtering noise or keeping time.
+  show: table Motif | Behaviour ;; negative feedback | stabilises a level ;; positive feedback | creates a switch ;; feed-forward loop | filters brief signals ;; oscillator | produces a rhythm
+demo: Two genes that each repress the other form a toggle switch. Whichever is active keeps the other off, so the circuit has two stable states and remembers which it was last put in.
+  show: flow gene A on > represses gene B > B stays off > A stays on
+M: Match each network motif to its behaviour.
+  pairs: Negative feedback loop => Stabilises a level | Positive feedback loop => Creates a switch | Feed-forward loop => Filters out brief signals | Oscillator => Produces a rhythm
+  hint: Which motif would you use to keep something constant? Which to keep time?
+  why: These motifs are the building blocks from which larger regulatory networks are assembled.
+O: Put the engineering cycle of synthetic biology in order.
+  items: Design the genetic circuit | Build the DNA | Test it in living cells | Learn from the results and revise
+  ends: First | Last
+  hint: It is the cycle of any engineering discipline.
+  why: Design, build, test, learn: and then round again.
+P: Two genes each repress the other. What behaviour results?
+  + Two stable states, with a memory of which was set :: A toggle switch.
+  - A steady middle level of both :: [averaging-outcome] Mutual repression pushes the system to one extreme or the other.
+  - Endless oscillation :: [confused-with-oscillator] A two-gene mutual repressor is bistable. Oscillation typically needs a longer loop with delay.
+  hint: If A is high, what happens to B, and then to A?
+  why: Mutual repression is a positive feedback loop: each state reinforces itself.
+>P: A gene network gives the same output even when one of its components varies twofold. What property is this?
+  + Robustness :: The design buffers the output against variation.
+  - Redundancy of every gene :: [robustness-is-duplication] Duplication is one route to robustness, not the same thing.
+  - A design fault :: [variation-is-failure] Insensitivity to variation is usually an advantage in living cells.
+  hint: Living cells are noisy. What must a reliable circuit tolerate?
+  why: Robust networks keep functioning despite fluctuations in the amounts of their parts.
+done: Small motifs, large behaviours. Explore network models.
+
+@ bio.5.developmental
+goal: Order the stages of development and explain how cells learn where they are.
+intro: A single fertilised egg becomes a whole organism through division, movement and specialisation of cells. Cells work out where they are from signals, and switch on different genes accordingly.
+  show: flow fertilisation > cleavage > gastrulation > organ formation > growth
+demo: A morphogen is a signal released from one place that spreads out and becomes more dilute with distance. Cells read its concentration: high means "near the source", low means "far away", and they develop accordingly.
+  show: plot 100*0.7^x x=0..10
+O: Put the stages of early development in order.
+  items: Fertilisation | Cleavage: rapid cell divisions | Gastrulation: the layers form | Organ formation | Growth and maturation
+  ends: First | Last
+  hint: The body layers must form before the organs.
+  why: Fertilisation, cleavage, gastrulation, organogenesis, growth.
+M: Match each term to its meaning.
+  pairs: Morphogen => A signal whose concentration tells cells their position | Hox genes => Assign identity along the head-to-tail axis | Stem cell => Can divide and specialise | Apoptosis => Programmed cell death that sculpts tissue
+  hint: One is a signal, one a family of genes, one a kind of cell, one a process.
+  why: Position, identity, potential and removal: four ingredients of building a body.
+X: A morphogen spreads from its source and falls to 70% of its value with each cell it crosses.
+  param x: 0..10 /1 @0 | Distance from the source | cells
+  out c: 100*0.7^x | Morphogen concentration | %
+  aim: Cells switch on gene A wherever the concentration is above 30%. Find the furthest cell that still switches it on.
+  target: c > 30 and c < 40
+  view: bars c over x
+  hint: Multiply by 0.7 for each cell further from the source.
+  why: 0.7³ ≈ 0.34, so the third cell reads 34% and switches on. The fourth reads 24% and does not. A smooth gradient becomes a sharp boundary.
+>P: In an embryo the hand starts as a paddle. Separate fingers appear because the cells between them die. Which process is this?
+  + Apoptosis :: Programmed cell death carves the fingers apart.
+  - Mitosis :: [growth-explains-shape] Mitosis adds cells. The gaps come from removing them.
+  - Injury :: [death-is-damage] The death is programmed and orderly, not accidental.
+  hint: Which developmental process removes cells on purpose?
+  why: Development sculpts as well as builds: apoptosis removes tissue that is no longer wanted.
+done: Position becomes fate. Explore the morphogen gradient lab.
+
+@ bio.5.immunology
+goal: Distinguish innate from adaptive immunity and explain clonal selection and self-tolerance.
+intro: The immune system has two arms. Innate immunity is fast and general: barriers, and cells that engulf anything foreign. Adaptive immunity is slower, specific to one antigen, and leaves memory.
+  show: table Arm | Speed | Specific? | Memory? ;; innate | minutes to hours | no | no ;; adaptive | days | yes | yes
+demo: The body holds millions of lymphocytes, each with a different receptor. When an antigen arrives, the few that happen to fit it are selected. They divide into a large clone: some fight the infection and some remain as memory cells.
+  show: flow antigen arrives > the matching lymphocyte binds > it divides into a clone > effector cells and memory cells
+G: Innate or adaptive?
+  bin Innate: the barrier of the skin | macrophages engulfing microbes | inflammation
+  bin Adaptive: B cells making antibodies | cytotoxic T cells | memory cells
+  hint: Is the response general and immediate, or specific and slow to build?
+  why: Barriers, phagocytes and inflammation act on anything foreign. B cells, T cells and memory are specific to one antigen.
+O: Put the steps of clonal selection in order.
+  items: An antigen enters the body | A lymphocyte with a matching receptor binds it | That lymphocyte divides into a clone | Effector cells clear the antigen | Memory cells persist
+  ends: First | Last
+  hint: Selection comes before expansion.
+  why: Entry, selection, expansion, clearance, memory.
+P: What is the role of MHC molecules?
+  + They display fragments of proteins on the cell surface for T cells to inspect :: T cells recognise antigen only when it is presented this way.
+  - They kill infected cells directly :: [presenter-is-killer] MHC presents. Cytotoxic T cells do the killing.
+  - They are antibodies attached to cells :: [confused-molecules] Antibodies are made by B cells and are a different family.
+  hint: T cells cannot see whole pathogens. What do they need to be shown?
+  why: MHC molecules sample what is inside a cell and present it, allowing T cells to detect infection.
+>P: In type 1 diabetes, T cells destroy the body's own insulin-producing cells. This is a failure of what?
+  + Self-tolerance :: The immune system has attacked a normal part of the body.
+  - Innate immunity :: [wrong-arm] The damage is done by specific T cells of the adaptive arm.
+  - Antibody production :: [wrong-mechanism] The destruction here is carried out by T cells.
+  hint: What normally stops lymphocytes from attacking the body's own cells?
+  why: Lymphocytes that react to the body's own molecules are normally deleted or silenced. When that fails, autoimmune disease results.
+done: Selection, expansion, memory, and restraint. Explore immune models.
+
+@ bio.5.comp-bio
+goal: Score a sequence alignment and match computational methods to biological questions.
+intro: Computational biology turns biological questions into problems about data. Comparing two sequences means aligning them and scoring the matches and mismatches; similar sequences often point to shared ancestry or shared function.
+  show: table Position | 1 | 2 | 3 | 4 ;; Sequence 1 | A | C | G | T ;; Sequence 2 | A | C | C | T
+demo: Score +1 for a match and −1 for a mismatch. Aligning ACGT with ACCT gives three matches and one mismatch: a score of 3 − 1 = 2.
+  show: steps A with A: +1 ;; C with C: +1 ;; G with C: −1 ;; T with T: +1 ;; Total: 2
+F: Score the alignment, with +1 for a match and −1 for a mismatch.
+  frame: GATTACA aligned with GACTATA scores __
+  answer: 3
+  x 5 :: [ignored-mismatches] Five positions match, but two mismatches each subtract 1.
+  x 7 :: [counted-the-length] Seven is the length of the sequences.
+  hint: Count the matches, count the mismatches, and subtract.
+  why: Five matches and two mismatches give 5 − 2 = 3.
+M: Match each method to the question it answers.
+  pairs: Sequence alignment => Which regions of two sequences correspond? | Phylogenetic inference => How are these species related? | Structure prediction => What shape does this protein fold into? | Genome assembly => How do these short reads fit together?
+  hint: Compare, relate, fold, assemble.
+  why: Each method addresses a different kind of biological question from sequence data.
+P: Why is dynamic programming used to align sequences?
+  + It reuses the answers to smaller sub-problems instead of testing every alignment :: The number of possible alignments is astronomically large.
+  - It guesses at random and keeps the best :: [confused-with-sampling] Dynamic programming is exact and systematic.
+  - It only works on very short sequences :: [wrong-limit] It is what makes longer alignments feasible at all.
+  hint: The best alignment of two long sequences contains the best alignments of their beginnings.
+  why: Optimal alignments are built from optimal alignments of prefixes, so each sub-problem need be solved only once.
+>P: Two genes in different species have similar sequences along their whole length. What is the most likely explanation?
+  + They descend from a common ancestral gene :: Similarity over the whole length points to homology.
+  - Pure coincidence :: [similarity-is-chance] Chance similarity over a long sequence is vanishingly unlikely.
+  - One species copied the other :: [evolution-has-a-purpose] Species do not copy. Genes are inherited, and occasionally transferred.
+  hint: How likely are hundreds of bases to match by accident?
+  why: Extensive similarity is best explained by inheritance from a shared ancestor.
+done: Biology's questions, computation's methods. Explore sequence comparison.
+
+@ bio.5.frontier
+goal: Separate what biology has established from what remains open, and judge how far a result can be generalised.
+intro: Biology has settled much, including the structure of DNA and the genetic code. It has not settled how life began, why we age, or how a brain gives rise to experience.
+  show: table Question | Status ;; What is the structure of DNA? | settled in 1953 ;; How did life begin? | open ;; Why do organisms age? | open
+demo: One proposal for the origin of life is the RNA world. RNA can both store information, as DNA does, and speed up reactions, as proteins do. A single kind of molecule doing both jobs could have come before the division of labour we see now.
+  show: table Molecule | Stores information | Catalyses reactions ;; DNA | yes | no ;; protein | no | yes ;; RNA | yes | yes
+G: Established, or still open?
+  bin Established: the structure of DNA | how neurons fire | the genetic code
+  bin Still open: how life began | why organisms age | how the brain produces consciousness
+  hint: Which of these appear in every textbook as settled fact?
+  why: The first three are understood in molecular detail. The last three have competing hypotheses and no agreed answer.
+S: Which statements about ageing are supported by evidence? Choose every one.
+  + Telomeres shorten as cells divide :: This limits how many times many cells can divide.
+  + Damage to DNA and proteins accumulates with age :: Repair is never perfect.
+  - Ageing is caused by a single gene :: [single-cause] Many processes contribute, and no one gene controls it.
+  - Cells in the body can divide without limit :: [no-limit] Most cells stop after a limited number of divisions.
+  hint: Ageing has many contributing processes rather than one cause.
+  why: Shortening telomeres and accumulating damage are well documented. A single cause is not.
+>P: A drug extends the lifespan of worms in the laboratory. What must be shown before claiming that it will do the same in people?
+  + Evidence from trials in humans :: Worms and humans differ in lifespan, physiology and metabolism.
+  - Nothing more: all animals age alike :: [overgeneralised] Mechanisms can differ greatly between species.
+  - That the worms liked the drug :: [irrelevant-detail] Preference has no bearing on the claim.
+  hint: How similar are a worm and a human?
+  why: A result in a model organism is a hypothesis about humans, not a conclusion.
+done: Know where the map ends. Read on in the linked articles.

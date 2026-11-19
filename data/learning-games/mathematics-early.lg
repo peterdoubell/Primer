@@ -1,0 +1,436 @@
+# Mathematics, stages 0 and 1 (ages 3 to 9).
+# Short sentences, things to tap, nothing to type. Every prompt is also spoken.
+
+@ math.0.counting
+goal: Count up to ten things, one number for each thing, and count back down again.
+intro: Counting gives every thing one number. Touch one thing, say one number. The last number you say tells how many there are.
+  show: emoji 🍎 🍎 🍎
+demo: Touch each star and count: one, two, three, four. The last number is four, so there are four stars.
+  show: emoji ⭐ ⭐ ⭐ ⭐
+P: How many ducks are there?
+  show: emoji 🦆 🦆 🦆 🦆 🦆
+  + 5 :: One, two, three, four, five ducks.
+  - 4 :: [skipped-one] One duck was missed. Touch every duck once.
+  - 6 :: [counted-twice] One duck was counted two times. Each duck gets one number.
+  hint: Touch each duck once. Say one number each time.
+  why: Each duck gets one number. The last number you say is how many: five.
+O: Count up. Tap the numbers in order.
+  items: 1 | 2 | 3 | 4 | 5
+  ends: Start | End
+  hint: Start with 1. What comes after 1?
+  why: Counting goes 1, 2, 3, 4, 5. Each number is one more than the one before.
+F: Count back like a rocket. What comes next?
+  frame: 5, 4, 3, __
+  taps: 1 | 2 | 6
+  answer: 2
+  x 6 :: [counted-up] We are counting back, so the numbers get smaller.
+  x 1 :: [skipped-one] After 3 comes 2. Then comes 1.
+  hint: Counting back takes one away each time. One less than 3 is…
+  why: Counting back goes 5, 4, 3, 2, 1. Each number is one less.
+>P: Mum puts out one plate for each bear. How many plates?
+  show: emoji 🐻 🐻 🐻
+  + 3 :: One plate for each of the three bears.
+  - 2 :: [skipped-one] One bear would have no plate. Count every bear.
+  - 4 :: [one-too-many] There would be a plate left over. Count the bears again.
+  hint: Count the bears. Each bear needs one plate.
+  why: There are three bears, so three plates: one for each.
+done: You can count things now. Try the counting pebbles next, or take the quiz.
+
+@ math.0.shapes
+goal: Name circles, triangles and squares, and count the sides of a shape.
+intro: Shapes have names. A circle is round. A triangle has three straight sides. A square has four sides that are all the same.
+  show: shapes circle triangle square
+demo: Run a finger round the triangle and count each straight side: one, two, three. Three sides make a triangle.
+  show: shapes triangle
+M: Match each shape name to what it looks like.
+  pairs: Circle => Round, with no corners | Triangle => Three straight sides | Square => Four sides the same
+  hint: Count the sides. A circle has none to count.
+  why: A circle is round. A triangle has three sides. A square has four sides the same.
+P: How many sides does a square have?
+  show: shapes square
+  + 4 :: One, two, three, four sides.
+  - 3 :: [named-triangle] Three sides make a triangle. Count round the square again.
+  - 5 :: [counted-twice] One side was counted two times.
+  hint: Touch each side once as you count.
+  why: A square has four sides, and they are all the same length.
+G: Sort the things by their shape.
+  bin Round like a circle: a wheel | a coin | a clock face
+  bin Has corners: a book | a window | a slice of pizza
+  hint: Can it roll all the way round? Then it is round.
+  why: A wheel, a coin and a clock face are round. A book, a window and a pizza slice have corners.
+>P: A road sign has three sides and three corners. What shape is it?
+  + A triangle :: Three sides and three corners make a triangle.
+  - A square :: [counted-wrong] A square has four sides, not three.
+  - A circle :: [ignored-sides] A circle has no straight sides and no corners.
+  hint: Which shape has three sides?
+  why: Any shape with three straight sides is a triangle, even on a road sign.
+done: Look for circles, triangles and squares around you. Then try the shape explorer.
+
+@ math.0.compare
+goal: Say which is more, which is fewer, and which is the same.
+intro: To compare two groups, match them up one to one. The group with some left over has more.
+  show: pair emoji 🍎 🍎 🍎 || emoji 🍐 🍐
+demo: Give each pear an apple. One apple is left over. So there are more apples than pears.
+  show: pair emoji 🍎 🍎 🍎 || emoji 🍐 🍐
+C: Which side has more?
+  left: emoji 🐟 🐟 🐟 🐟
+  right: emoji 🐟 🐟 🐟 🐟 🐟 🐟
+  + The second side :: Six fish is more than four fish.
+  - The first side :: [counted-wrong] Count each side. The first has four and the second has six.
+  - They are the same :: [did-not-match-up] Match them up one to one. Two fish are left over on the second side.
+  hint: Count each side, or match the fish up one to one.
+  why: The first side has 4 fish and the second has 6. Six is more than four.
+O: Put these numbers in order, smallest first.
+  items: 2 | 5 | 7 | 9
+  ends: Smallest | Biggest
+  hint: Which number comes first when you count?
+  why: When you count, 2 comes first, then 5, then 7, then 9. Later numbers are bigger.
+P: Which number is fewer: 3 or 8?
+  + 3 :: You say 3 before 8 when you count.
+  - 8 :: [chose-bigger] Fewer means the smaller number. 8 is more than 3.
+  hint: Fewer means less. Which number do you say first when you count?
+  why: 3 comes before 8 when you count, so 3 is fewer.
+>P: Sam has 5 stickers. Ana has 5 stickers. Who has more?
+  + They have the same :: Five and five are equal.
+  - Sam :: [first-named] Both have five. Neither has more.
+  - Ana :: [last-named] Both have five. Neither has more.
+  hint: Are the two numbers different?
+  why: 5 and 5 are the same number, so nobody has more.
+done: You can compare groups now. Next, look for patterns.
+
+@ math.0.patterns
+goal: Find the rule in a pattern and say what comes next.
+intro: A pattern follows a rule. Some patterns repeat the same part again and again.
+  show: emoji 🔴 🔵 🔴 🔵 🔴 🔵
+demo: Red, blue, red, blue. The part that repeats is red then blue. After blue comes red again.
+  show: emoji 🔴 🔵 🔴 🔵
+P: What comes next?
+  show: emoji 🌙 ⭐ 🌙 ⭐ 🌙
+  + ⭐ :: Moon, star, moon, star, moon, then star.
+  - 🌙 :: [repeated-last] The moon was just used. After a moon comes a star.
+  - ☀️ :: [new-thing] The pattern only uses moons and stars.
+  hint: Say it out loud: moon, star, moon, star, moon…
+  why: The part that repeats is moon then star. After a moon comes a star.
+F: This pattern grows. What number comes next?
+  frame: 2, 4, 6, __
+  taps: 7 | 8 | 10
+  answer: 8
+  x 7 :: [added-one] It goes up by two each time, not by one.
+  x 10 :: [skipped-one] 6 and two more is 8. Ten comes after that.
+  hint: How much bigger is each number than the one before?
+  why: Each number is two more than the last: 2, 4, 6, 8.
+B: Build the part that repeats in this pattern: clap, clap, stamp, clap, clap, stamp.
+  bank: clap | clap | stamp | jump | stamp
+  answer: clap | clap | stamp
+  x jump :: [new-thing] There is no jump in this pattern.
+  hint: Where does the pattern start again? Everything before that is the part that repeats.
+  why: Clap, clap, stamp is said, and then it starts again. That is the repeating part.
+>P: Beads on a string go: big, small, small, big, small, small. What comes next?
+  + big :: Big, small, small is the part that repeats, so big comes again.
+  - small :: [repeated-last] Two smalls have already come. The part starts again with big.
+  - medium :: [new-thing] The pattern only uses big and small beads.
+  hint: Find the part that repeats. How long is it?
+  why: The repeating part is big, small, small. After it ends, it begins again with big.
+done: Patterns are everywhere: in songs, tiles and numbers. Next, meet the numbers up to twenty.
+
+@ math.0.numbers20
+goal: Read and order the numbers up to 20, and see each teen number as ten and some more.
+intro: After ten, the numbers keep going: eleven, twelve, thirteen, all the way to twenty. Each teen number is ten and some more.
+  show: dots 13 /10
+demo: Thirteen is one full ten and three more. That is why we write a 1 and a 3: 13.
+  show: digits 13
+F: Fourteen is ten and how many more?
+  show: dots 14 /10
+  frame: 14 = 10 + __
+  taps: 1 | 4 | 14
+  answer: 4
+  x 14 :: [whole-number] Fourteen is the whole number. Take ten away and four are left.
+  x 1 :: [read-first-digit] The 1 stands for the ten. The other digit tells how many more.
+  hint: One row is a full ten. Count the dots left over.
+  why: 14 is one ten and four more, so 14 = 10 + 4.
+O: Put these numbers in order, smallest first.
+  items: 8 | 11 | 15 | 20
+  ends: Smallest | Biggest
+  hint: Which one do you say first when you count to twenty?
+  why: Counting goes 8, then 11, then 15, then 20.
+P: Which number is "seventeen"?
+  + 17 :: One ten and seven more.
+  - 71 :: [swapped-digits] 71 is seventy-one. For seventeen the ten comes first: 1 then 7.
+  - 7 :: [dropped-the-ten] Seven is on its own. Seventeen is ten and seven.
+  hint: Seventeen is ten and seven more.
+  why: We write the ten first and the ones second: 1 then 7 makes 17.
+>P: There are 12 eggs in a box. Two more hens lay one egg each. How many eggs now?
+  + 14 :: Count on from 12: thirteen, fourteen.
+  - 13 :: [added-one] Two hens means two more eggs, not one.
+  - 22 :: [joined-digits] Adding two does not put a 2 in front. Count on two from 12.
+  hint: Start at 12 and count on two more.
+  why: After 12 come 13 and 14. So there are 14 eggs.
+done: Now you know the numbers to twenty. Next comes adding.
+
+@ math.1.addition
+goal: Add two numbers by making a ten first, and add tens and ones up to 100.
+intro: Adding puts two amounts together. A quick way is to make a ten first, then add what is left.
+  show: line 0..20 mark=8 hop=8>10,10>13
+demo: 8 + 5: take 2 from the 5 to make 10. That leaves 3. Then 10 + 3 = 13.
+  show: line 0..20 mark=8,13 hop=8>10,10>13
+F: Make a ten first. What is 9 + 4?
+  frame: 9 + 4 = __
+  taps: 12 | 13 | 14
+  answer: 13
+  x 12 :: [one-short] 9 needs 1 to make ten. That leaves 3, and 10 + 3 is 13.
+  x 14 :: [one-over] One of the four is used to make ten. Only three are left to add.
+  hint: 9 needs 1 more to make 10. Take that 1 from the 4.
+  why: 9 + 1 makes 10, and 3 are left: 10 + 3 = 13.
+M: Match each sum to its answer.
+  pairs: 7 + 3 => 10 | 6 + 6 => 12 | 8 + 7 => 15 | 9 + 9 => 18
+  hint: Find the ones that make ten first.
+  why: 7 + 3 = 10. 6 + 6 = 12. 8 + 7 is 8 + 2 + 5 = 15. 9 + 9 is 9 + 1 + 8 = 18.
+P: What is 34 + 25?
+  + 59 :: 30 + 20 = 50 and 4 + 5 = 9.
+  - 69 :: [added-a-ten-extra] 30 + 20 is 50, not 60.
+  - 14 :: [added-all-digits] 3, 4, 2 and 5 are not all ones. The 3 and the 2 are tens.
+  - 95 :: [swapped-places] The tens make 50 and the ones make 9: fifty-nine.
+  hint: Add the tens. Add the ones. Then put them together.
+  why: Tens: 30 + 20 = 50. Ones: 4 + 5 = 9. Together, 59.
+>P: A bus has 28 children. At the next stop 6 more get on. How many children now?
+  + 34 :: 28 + 2 makes 30, and 4 more makes 34.
+  - 32 :: [lost-count] 28 + 2 is 30. There are still 4 more to add.
+  - 88 :: [joined-digits] The 6 is six ones, not six tens.
+  hint: How many does 28 need to reach 30?
+  why: 28 + 2 = 30, and the other 4 make 34.
+done: Making a ten works for any sum. Practise, then try taking away.
+
+@ math.1.subtraction
+goal: Take away, and find the difference between two numbers by counting on.
+intro: Subtraction can mean taking some away. It can also mean finding how far apart two numbers are.
+  show: line 0..12 mark=12 hop=12>7
+demo: 12 − 5: start at 12 and hop back 5. You land on 7. So 12 − 5 = 7.
+  show: line 0..12 mark=12,7 hop=12>7
+F: Hop back on the number line. What is 11 − 4?
+  show: line 0..12 mark=11
+  frame: 11 − 4 = __
+  taps: 6 | 7 | 8
+  answer: 7
+  x 8 :: [one-short] Count the hops, not the numbers you start on: 10, 9, 8, 7.
+  x 6 :: [one-over] That is five hops. Four hops from 11 lands on 7.
+  hint: Hop back four times from 11.
+  why: From 11, four hops back go 10, 9, 8, 7.
+P: What is the difference between 9 and 6?
+  + 3 :: From 6 it takes three steps to reach 9.
+  - 15 :: [added-instead] Difference means how far apart, not how many altogether.
+  - 6 :: [gave-a-number-back] Count the steps from 6 up to 9.
+  hint: Start at 6 and count on to 9.
+  why: 7, 8, 9: three steps. The difference is 3.
+M: Match each take-away to its answer.
+  pairs: 10 − 4 => 6 | 15 − 5 => 10 | 13 − 9 => 4 | 20 − 2 => 18
+  hint: For 13 − 9, count on from 9 to 13.
+  why: 10 − 4 = 6. 15 − 5 = 10. From 9 to 13 is 4. 20 − 2 = 18.
+>P: A tree is 9 metres tall. A house is 5 metres tall. How much taller is the tree?
+  + 4 metres :: From 5 up to 9 is four.
+  - 14 metres :: [added-instead] Taller by asks for the difference, not the total.
+  - 5 metres :: [gave-a-number-back] That is the height of the house.
+  hint: Count on from 5 to 9.
+  why: 9 − 5 = 4. The tree is 4 metres taller.
+done: Taking away and finding the difference are the same sum. Next comes place value.
+
+@ math.1.place-value
+goal: Say what each digit in a number is worth: hundreds, tens or ones.
+intro: Where a digit sits tells what it is worth. In 352, the 3 means three hundreds, the 5 means five tens, and the 2 means two ones.
+  show: table Hundreds | Tens | Ones ;; 3 | 5 | 2
+demo: 352 is 300 and 50 and 2. Move a digit to another place and its worth changes: the 5 in 325 would be only five ones.
+  show: digits 352
+P: What is the 4 worth in 248?
+  show: digits 248 mark=2
+  + 40 :: The 4 is in the tens place: four tens.
+  - 4 :: [face-value] On its own it would be 4. In the tens place it is four tens.
+  - 400 :: [wrong-place] The hundreds digit is the 2. The 4 is one place to the right.
+  hint: Is the 4 in the hundreds, the tens or the ones place?
+  why: 248 is 200 + 40 + 8. The middle digit counts tens, so the 4 is worth 40.
+B: Build the number that is 6 hundreds, 0 tens and 3 ones.
+  bank: 6 | 0 | 3 | 3 | 0
+  answer: 6 | 0 | 3
+  hint: Write the hundreds first, then the tens, then the ones.
+  why: Six hundreds, no tens and three ones is 603. The 0 holds the tens place open.
+O: Put these numbers in order, smallest first.
+  items: 78 | 107 | 170 | 701
+  ends: Smallest | Biggest
+  hint: Look at the hundreds first. A number with no hundreds is smallest.
+  why: 78 has no hundreds. 107 and 170 each have one hundred, and 107 has fewer tens. 701 has seven hundreds.
+>P: A shop has 3 boxes of 100 pencils, 2 packs of 10 and 5 single pencils. How many pencils?
+  + 325 :: Three hundreds, two tens and five ones.
+  - 10 :: [added-digits] 3 + 2 + 5 counts boxes and packs, not pencils.
+  - 352 :: [swapped-places] There are two tens and five ones, so the tens digit is 2.
+  hint: Boxes are hundreds, packs are tens, singles are ones.
+  why: 300 + 20 + 5 = 325.
+done: Place value is why big numbers are easy to write. Next comes multiplying.
+
+@ math.1.multiplication
+goal: See multiplication as equal groups, and use facts you know to find ones you do not.
+intro: Multiplying counts equal groups. 3 × 4 means three groups of four.
+  show: dots 3x4
+demo: Three rows of four dots make 12 dots. Turn it round and it is four rows of three: still 12. So 3 × 4 = 4 × 3.
+  show: dots 4x3
+F: How many dots are in 5 rows of 3?
+  show: dots 5x3
+  frame: 5 × 3 = __
+  taps: 8 | 15 | 53
+  answer: 15
+  x 8 :: [added-instead] 5 + 3 is 8. Five rows of three is 3 + 3 + 3 + 3 + 3.
+  x 53 :: [joined-digits] The 5 and the 3 are not written side by side. Count the dots.
+  hint: Count in threes: 3, 6, 9…
+  why: Counting in threes five times gives 3, 6, 9, 12, 15.
+M: Match each times sum to its answer.
+  pairs: 2 × 6 => 12 | 4 × 5 => 20 | 3 × 9 => 27 | 7 × 7 => 49
+  hint: 3 × 9 is three less than 3 × 10.
+  why: 2 × 6 = 12. 4 × 5 = 20. 3 × 9 = 30 − 3 = 27. 7 × 7 = 49.
+P: You know 6 × 5 = 30. What is 6 × 6?
+  + 36 :: One more group of 6: 30 + 6.
+  - 31 :: [added-one] One more group means six more, not one more.
+  - 35 :: [added-five] The extra group is a group of 6, not of 5.
+  hint: 6 × 6 is one more group of six than 6 × 5.
+  why: 6 × 6 = 6 × 5 + 6 = 30 + 6 = 36.
+>P: Eggs come in boxes of 6. How many eggs are in 4 boxes?
+  + 24 :: Four groups of six: 6, 12, 18, 24.
+  - 10 :: [added-instead] 4 + 6 counts one box and one egg. There are four full boxes.
+  - 46 :: [joined-digits] Count in sixes four times.
+  hint: Count in sixes, once for each box.
+  why: 4 × 6 = 24.
+done: Every times fact you know helps you find another. Next comes sharing: division.
+
+@ math.1.division
+goal: Share into equal groups, and use times facts to divide.
+intro: Dividing shares things into equal groups. 12 ÷ 3 asks: if 12 things are shared among 3, how many does each get?
+  show: dots 12 /4
+demo: Share 12 into 3 equal groups and each group gets 4. Check with times: 3 × 4 = 12.
+  show: dots 3x4
+F: Share 15 sweets equally among 5 children. How many each?
+  show: dots 15 /3
+  frame: 15 ÷ 5 = __
+  taps: 3 | 5 | 10
+  answer: 3
+  x 10 :: [subtracted-instead] 15 − 5 is 10. Sharing asks how many in each equal group.
+  x 5 :: [gave-a-number-back] Five is the number of children. Each child gets three.
+  hint: Five times what makes 15?
+  why: 5 × 3 = 15, so 15 ÷ 5 = 3.
+M: Match each division to the times fact that checks it.
+  pairs: 20 ÷ 4 = 5 => 4 × 5 = 20 | 18 ÷ 3 = 6 => 3 × 6 = 18 | 24 ÷ 8 = 3 => 8 × 3 = 24
+  hint: Multiply the answer by the number you divided by.
+  why: Division undoes multiplication, so each division has a times fact that gives the starting number back.
+P: 14 cards are shared between 4 friends. What happens?
+  + Each gets 3 and 2 are left over :: 4 × 3 = 12, and 14 − 12 = 2.
+  - Each gets 4 with none left over :: [ignored-leftover] 4 × 4 = 16, which is more than 14.
+  - Each gets 3 with none left over :: [ignored-leftover] 4 × 3 is only 12. Two cards are still in your hand.
+  hint: How many fours fit into 14? What is left?
+  why: Three each uses 12 cards. The 2 left cannot be shared fairly, so they are the remainder.
+>P: 30 children get into teams of 6. How many teams?
+  + 5 :: 6 × 5 = 30.
+  - 24 :: [subtracted-instead] 30 − 6 is 24, but the question asks how many groups of six.
+  - 6 :: [gave-a-number-back] Six is the size of each team.
+  hint: How many sixes make 30?
+  why: 6, 12, 18, 24, 30: five sixes. So there are 5 teams.
+done: Dividing and multiplying undo each other. Next, measure things.
+
+@ math.1.measurement
+goal: Choose the right unit for length, mass and capacity, and read a measurement.
+intro: We measure with units so that everyone gets the same answer. Length uses centimetres and metres. Mass uses grams and kilograms. Liquid uses millilitres and litres.
+  show: table We measure | Small unit | Big unit ;; How long | centimetre | metre ;; How heavy | gram | kilogram ;; How much liquid | millilitre | litre
+demo: A pencil is about 15 centimetres long. A door is about 2 metres tall. We pick the unit that gives a sensible number.
+  show: line 0..15 mark=15
+G: What would you measure each thing with?
+  bin Metres or centimetres: how tall you are | the length of a room
+  bin Kilograms or grams: how heavy a dog is | flour for a cake
+  bin Litres or millilitres: juice in a jug | water in a bath
+  hint: Is it about how long, how heavy, or how much liquid?
+  why: Height and room length are lengths. A dog and flour have mass. Juice and bath water are liquids.
+P: Which is the best unit for the length of a football pitch?
+  + Metres :: A pitch is about 100 metres long.
+  - Centimetres :: [unit-too-small] It would be about ten thousand centimetres: too big a number to use.
+  - Kilograms :: [wrong-kind] Kilograms measure how heavy something is.
+  hint: Is a pitch closer to the size of a finger or a long stride?
+  why: Metres give a sensible number for something as long as a pitch.
+F: There are 100 centimetres in a metre. How many centimetres are in 3 metres?
+  frame: 3 m = __ cm
+  taps: 30 | 103 | 300
+  answer: 300
+  x 30 :: [ten-per-metre] Each metre is 100 centimetres, not 10.
+  x 103 :: [added-instead] Three metres is three lots of 100.
+  hint: Three lots of 100.
+  why: 3 × 100 = 300.
+>P: A recipe needs 2 litres of water. Your jug holds 500 millilitres. How many jugs do you need? (1 litre = 1000 millilitres.)
+  + 4 :: Two jugs make one litre, so four jugs make two.
+  - 2 :: [one-litre-only] Two jugs make only one litre.
+  - 500 :: [gave-a-number-back] That is how much one jug holds.
+  hint: How many 500s make 1000?
+  why: 500 + 500 = 1000 millilitres, which is 1 litre. For 2 litres you need 4 jugs.
+done: Units make measuring fair. Next, measure time.
+
+@ math.1.time
+goal: Read the time on a clock to the half hour, and use days, weeks and months.
+intro: A clock has two hands. The short hand shows the hour. The long hand shows the minutes. When the long hand points straight up, it is something o'clock.
+  show: clock 3:00
+demo: The long hand points down at the 6. That is half past. The short hand is halfway between 3 and 4, so it is half past three.
+  show: clock 3:30
+P: What time does this clock show?
+  show: clock 7:00
+  + 7 o'clock :: The long hand is straight up and the short hand is on the 7.
+  - 12 o'clock :: [read-long-hand] The long hand on 12 means o'clock. The short hand tells the hour.
+  - Half past 7 :: [mixed-up-half] For half past, the long hand points down at the 6.
+  hint: The short hand tells the hour. Where is it pointing?
+  why: Short hand on 7, long hand straight up: 7 o'clock.
+P: The long hand points at the 6. The short hand is between 9 and 10. What time is it?
+  show: clock 9:30
+  + Half past 9 :: The hour is the one the short hand has just passed.
+  - Half past 10 :: [next-hour] The short hand has not reached 10 yet.
+  - 6 o'clock :: [read-long-hand] The long hand on 6 means half past, not six.
+  hint: Which hour has the short hand already gone past?
+  why: The short hand is past 9 and the long hand shows half an hour gone: half past 9.
+O: Put the days in order, starting with Monday.
+  items: Monday | Tuesday | Wednesday | Thursday | Friday
+  ends: First | Last
+  hint: Which day comes after Monday?
+  why: The school week runs Monday, Tuesday, Wednesday, Thursday, Friday.
+>F: A week has 7 days. Your holiday is 2 weeks long. How many days is that?
+  frame: 2 weeks = __ days
+  taps: 9 | 14 | 27
+  answer: 14
+  x 9 :: [added-instead] Two weeks is two lots of seven, not 2 + 7.
+  x 27 :: [joined-digits] Count seven days twice.
+  hint: Seven days, and then seven more.
+  why: 7 + 7 = 14.
+done: Clocks and calendars both measure time. Try the clock activity next.
+
+@ math.1.fractions-intro
+goal: Split a whole into equal parts and name halves and quarters.
+intro: A fraction names equal parts of one whole. Cut something into two equal parts and each part is one half.
+  show: frac 1/2
+demo: Cut it into four equal parts and each part is one quarter. Two quarters cover the same amount as one half.
+  show: frac 1/4 2/4
+P: This shape is cut into four equal parts and one is shaded. What fraction is shaded?
+  show: frac 1/4
+  + One quarter :: One part out of four equal parts.
+  - One half :: [counted-wrong] A half is one of two equal parts. Here there are four.
+  - Four :: [counted-all-parts] Four is how many parts there are. One of the four is shaded.
+  hint: How many equal parts are there? How many are shaded?
+  why: One out of four equal parts is one quarter.
+C: Which picture shows a half?
+  left: frac 1/2
+  right: frac 1/3
+  + The first one :: It has two equal parts, and one is shaded.
+  - The second one :: [counted-wrong] That one is cut into three equal parts. One of three is a third.
+  - Both of them :: [ignored-part-count] One shaded part is a half only when there are two equal parts.
+  hint: A half means one of two equal parts.
+  why: The first picture has two equal parts, so each is a half.
+G: Is each one a fair half?
+  bin Two equal parts: a sandwich cut corner to corner | an apple cut down the middle | 10 sweets shared 5 and 5
+  bin Not equal parts: a pizza cut into a big piece and a small piece | 10 sweets shared 7 and 3
+  hint: A half means both parts are exactly the same size.
+  why: Halves must be equal. A big piece and a small piece, or 7 and 3, are not equal.
+>F: You have 8 grapes and eat half of them. How many do you eat?
+  frame: Half of 8 is __
+  taps: 2 | 4 | 6
+  answer: 4
+  x 2 :: [halved-twice] Half of 8 is 4. Half of that would be 2, which is a quarter of 8.
+  x 6 :: [subtracted-two] Half means two equal groups: 4 and 4.
+  hint: Share the 8 grapes into two equal groups.
+  why: 8 shared into two equal groups gives 4 and 4. Half of 8 is 4.
+done: Halves and quarters are your first fractions. Try the halves and quarters model next.

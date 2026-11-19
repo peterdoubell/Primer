@@ -1,89 +1,118 @@
-/* Original Primer practice model: exact decimal arithmetic and limited clues. */
+/* Original Primer practice model: exact decimal arithmetic and limited clues.
+
+   The guided challenges that used to live here are now two learning sequences
+   on the shared player ("Last-Digit Detective" and "Longer Endings", authored
+   in data/learning-games/number-theory.lg and marked on the server).  What
+   remains is the part a sequence cannot be: an open bench where the reader
+   tests any whole number they like, of any length, with exact arithmetic. */
 (function (scope) {
   'use strict';
   function digits(value) {
     if (typeof value !== 'string' || !/^\d{1,80}$/.test(value)) throw new Error('Use 1–80 decimal digits, without spaces or signs.');
     return value;
   }
-  function evaluate(challenge) {
+  // d divides 10^k exactly, so the last k digits fix the remainder.
+  const suffixWidths = {2:1, 4:2, 5:1, 8:3, 10:1, 16:4, 125:3};
+  function english(template, values = {}) {
+    return template.replace(/\{(\w+)\}/g, (_, name) => String(values[name]));
+  }
+
+  function evaluate(challenge, format = english) {
     const d = challenge.divisor;
-    if (![2, 4, 5, 10].includes(d)) throw new Error('Choose 2, 4, 5 or 10.');
+    if (!Number.isInteger(d) || !Object.hasOwn(suffixWidths, d)) {
+      throw new Error('Choose 2, 4, 5, 8, 10, 16 or 125.');
+    }
+    const width = suffixWidths[d];
+    const divisor = BigInt(d);
+    const base = 10n ** BigInt(width);
+
+    if (challenge.kind === 'suffix_width') {
+      const previousBase = base / 10n;
+      return {
+        answer: String(width),
+        explanation: format('{base} is divisible by {divisor}. Checking an ending of length {width} is enough. Compare {base} with {other}. They agree in their last {shortWidth} digits, but only the first is divisible by {divisor}.',
+          {base, divisor: d, width, other: base + previousBase, shortWidth: width - 1}),
+      };
+    }
+
     const hidden = challenge.kind === 'hidden';
     const text = digits(hidden ? challenge.suffix : challenge.number);
-    if (hidden && (!Number.isInteger(challenge.prefix_digits) || challenge.prefix_digits < 1 || challenge.prefix_digits > 20)) throw new Error('Invalid hidden prefix.');
-    const divisor = BigInt(d), value = BigInt(text);
-    if (hidden && (10n ** BigInt(text.length)) % divisor !== 0n) {
-      if (value % 2n !== 0n) return { answer: 'no', explanation: 'The visible final digit is odd. Every multiple of 4 is even, so no hidden prefix can make this number divisible by 4.' };
-      const first = (10n ** BigInt(challenge.prefix_digits - 1)) * (10n ** BigInt(text.length)) + value;
-      const second = first + (10n ** BigInt(text.length));
-      return { answer: 'unknown', explanation: 'The same ending can hide different outcomes: ' + first + ' leaves remainder ' + first % divisor + '; ' + second + ' leaves remainder ' + second % divisor + ' when divided by ' + d + '. Reveal another digit to decide.' };
+    const value = BigInt(text);
+    if (challenge.kind === 'repair_count') {
+      const fixes = [];
+      for (let index = 0; index < text.length; index++) {
+        for (const digit of '0123456789') {
+          if (digit === text[index]) continue;
+          const candidate = text.slice(0, index) + digit + text.slice(index + 1);
+          if (BigInt(candidate) % divisor === 0n) {
+            fixes.push(format('position {position} → {candidate}', {position: text.length - index, candidate}));
+            break;
+          }
+        }
+      }
+      return {
+        answer: String(fixes.length),
+        explanation: (fixes.length
+          ? format('Working edits, counted from the right: {edits}.', {edits: fixes.join(', ')})
+          : format('No single replacement produces a multiple.'))
+          + ' ' + format('Changing a digit before the ending of length {width} adds or subtracts a multiple of {base} and preserves the remainder.', {width, base}),
+      };
     }
-    const width = d === 4 ? 2 : 1;
-    const base = d === 4 ? 100n : 10n;
-    const tail = hidden ? value % base : BigInt(text.slice(-width));
+
+    if (hidden) {
+      if (!Number.isInteger(challenge.prefix_digits) || challenge.prefix_digits < 1 || challenge.prefix_digits > 20) {
+        throw new Error('Invalid hidden prefix.');
+      }
+      const shift = 10n ** BigInt(text.length);
+      if (shift % divisor !== 0n) {
+        const start = 10n ** BigInt(challenge.prefix_digits - 1);
+        const end = 10n * start;
+        let multiple, nonmultiple;
+        // After d prefix increments the residue repeats. Check at most one cycle.
+        for (let prefix = start; prefix < end && prefix < start + divisor; prefix++) {
+          const candidate = prefix * shift + value;
+          if (candidate % divisor === 0n) multiple = candidate;
+          else nonmultiple = candidate;
+        }
+        if (multiple !== undefined && nonmultiple !== undefined) {
+          return { answer: 'unknown', explanation: format('{multiple} and {nonmultiple} share this ending. Only the first is divisible by {divisor}.', {multiple, nonmultiple, divisor: d}) };
+        }
+        return { answer: multiple !== undefined ? 'yes' : 'no',
+          explanation: format('Every possible prefix gives the same divisibility result for this ending.') };
+      }
+    }
+
+    const tail = value % base;
     const remainder = tail % divisor;
     return { answer: remainder === 0n ? 'yes' : 'no', explanation:
-      (hidden ? 'Every hidden prefix contributes a multiple of ' + String(10n ** BigInt(text.length)) + '. '
-        : value + ' = ' + base + ' × ' + value / base + ' + ' + tail + '. ')
-      + base + ' is divisible by ' + d + ', so the final ' + (width === 1 ? 'digit' : 'two digits')
-      + ' decide. ' + tail + ' leaves remainder ' + remainder + ' when divided by ' + d + '.' };
+      (hidden ? format('The hidden prefix contributes a multiple of {shift}.', {shift: 10n ** BigInt(text.length)})
+        : value + ' = ' + base + ' × ' + value / base + ' + ' + tail + '.')
+      + ' ' + (width === 1
+        ? format('{base} is divisible by {divisor}, so the final digit determines divisibility.', {base, divisor: d})
+        : format('{base} is divisible by {divisor}, so the final {width} digits determine divisibility.', {base, divisor: d, width}))
+      + ' ' + format('Dividing {tail} by {divisor} leaves a remainder of {remainder}.', {tail, divisor: d, remainder}) };
   }
+
+  // The open bench: any number, any allowed divisor, worked exactly.
   function mount(root, model) {
     const doc = root.ownerDocument;
     function make(tag, text, cls) { const e = doc.createElement(tag); if (text != null) e.textContent = text; if (cls) e.className = cls; return e; }
-    function button(text, action) { const b = make('button', text, 'btn'); b.type = 'button'; b.addEventListener('click', action); return b; }
     root.className = 'card divisibility-game'; root.setAttribute('aria-label', model.title);
-    root.append(make('h3', model.title), make('p', 'Use place value to unlock the clues. This is practice; official mastery comes from your module quiz.', 'muted'));
-    const progress = make('progress'); progress.max = model.challenges.length; progress.value = 0; progress.setAttribute('aria-label', 'Challenges solved');
-    const counter = make('p', '', 'muted'), question = make('section');
-    root.append(progress, counter, question);
-    let index = 0;
-    function draw(focus) {
-      question.replaceChildren();
-      counter.textContent = index + ' of ' + model.challenges.length + ' challenges solved';
-      if (index === model.challenges.length) {
-        question.append(make('h4', 'Case solved!'), make('p', model.knowledge.one_digit), make('p', model.knowledge.two_digits), make('p', 'Try a new number below, or take the module quiz when you are ready.'), button('Play again', () => { index = 0; progress.value = 0; draw(true); }));
-      } else {
-        const c = model.challenges[index], result = evaluate(c);
-        const heading = make('h4', c.kind === 'hidden' ? 'Do the visible digits settle the question?' : 'Can it divide evenly?');
-        const number = make('p', c.kind === 'hidden' ? 'Hidden digits: ' + '□'.repeat(c.prefix_digits) + c.suffix : c.number, 'divisibility-number');
-        const prompt = make('p', 'Divisible by ' + c.divisor + '?');
-        const feedback = make('p'); feedback.setAttribute('role', 'status'); feedback.setAttribute('aria-live', 'polite');
-        const choices = make('div', null, 'divisibility-choices');
-        let selection = null, solved = false;
-        ['yes', 'no', ...(c.kind === 'hidden' ? ['unknown'] : [])].forEach(answer => {
-          const b = button({yes:'Yes',no:'No',unknown:'Not enough information'}[answer], () => {
-            selection = answer;
-            for (const sibling of choices.children) sibling.setAttribute('aria-pressed', String(sibling === b));
-            check.disabled = false;
-          });
-          b.setAttribute('aria-pressed', 'false'); choices.append(b);
-        });
-        const next = button('Continue', () => { index++; draw(true); }); next.hidden = true;
-        const check = button('Check answer', () => {
-          if (solved || selection === null) return;
-          if (selection !== result.answer) { feedback.textContent = 'Try again. ' + result.explanation; return; }
-          solved = true; progress.value = index + 1;
-          feedback.textContent = 'Correct. ' + result.explanation;
-          check.disabled = true; for (const b of choices.children) b.disabled = true;
-          next.hidden = false;
-        }); check.disabled = true;
-        question.append(heading, number, prompt, choices, check, feedback, next);
-      }
-      const heading = question.querySelector('h4'); heading.tabIndex = -1;
-      if (focus) heading.focus();
-    }
-    draw(false);
-    const sandbox = make('details'), summary = make('summary', 'Experiment with your own number'); sandbox.append(summary);
+    root.append(make('h3', model.title), make('p', model.invitation, 'muted'));
     const label = make('label', 'Whole number '), input = make('input'); input.type = 'text'; input.inputMode = 'numeric'; input.maxLength = 80; input.value = '54280'; label.append(input);
     const divLabel = make('label', ' Divide by '), select = make('select');
     for (const d of model.game_model.allowed_divisors) { const opt = make('option', String(d)); opt.value = String(d); select.append(opt); } divLabel.append(select);
-    const output = make('p'); output.setAttribute('role', 'status');
-    const tryIt = button('Test my number', () => {
-      try { const r = evaluate({kind:'exact', number:input.value, divisor:Number(select.value)}); output.textContent = (r.answer === 'yes' ? 'Divides evenly. ' : 'Does not divide evenly. ') + r.explanation; }
-      catch (e) { output.textContent = e.message; }
-    });
-    sandbox.append(label, divLabel, tryIt, output); root.append(sandbox);
+    const output = make('p'); output.setAttribute('role', 'status'); output.setAttribute('aria-live', 'polite');
+    const tryIt = make('button', 'Test my number', 'btn'); tryIt.type = 'button';
+    const run = () => {
+      try {
+        const result = evaluate({kind:'exact', number:input.value.trim(), divisor:Number(select.value)});
+        output.textContent = (result.answer === 'yes' ? 'Divides evenly.' : 'Does not divide evenly.') + ' ' + result.explanation;
+      } catch (error) { output.textContent = error.message; }
+    };
+    tryIt.addEventListener('click', run);
+    input.addEventListener('keydown', event => { if (event.key === 'Enter') run(); });
+    root.append(label, divLabel, tryIt, output, make('p', model.knowledge.suffix_rule, 'muted'));
     return root;
   }
   scope.PrimerDivisibility = Object.freeze({ evaluate, mount });

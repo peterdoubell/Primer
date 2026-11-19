@@ -18,6 +18,9 @@ DICTATION_LAYOUT = (
 
 
 def before_activity_registry_bytes(path, raw):
+    # Newest link for the backend: the learning-sequence router (2026-11-18).
+    from tools.learning_games_compatibility import before_learning_games_bytes
+    raw = before_learning_games_bytes(path, raw)
     if str(path) == 'data/radiology/radiology-asset-evidence.json':
         # Newest link for the evidence file: bindings of the stored 3D models to the structures their labels name.
         from tools.anatomy_sources.bind_models import before_model_bindings

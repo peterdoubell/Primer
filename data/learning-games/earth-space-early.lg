@@ -1,0 +1,447 @@
+# Earth and space, stages 0 to 2 (ages 3 to 13).
+# Sort what you see, put a process in order, predict, then explain.
+
+@ earth.0.sky
+goal: Tell day from night, and know what we see in the sky at each.
+intro: In the day the Sun is up and the sky is light. At night the Sun has gone down. The sky is dark, and we can see the Moon and the stars.
+  show: emoji ☀️ 🌙 ⭐
+demo: In the morning the Sun comes up. At midday it is high in the sky. In the evening it goes down. Then it is night.
+  show: flow the Sun comes up > the Sun is high > the Sun goes down > night
+G: Day or night?
+  bin Day: the Sun is up | the sky is light | we eat lunch
+  bin Night: we see the stars | the sky is dark | we go to sleep
+  hint: When is the Sun in the sky?
+  why: In the day the Sun lights the sky. At night it is dark and the stars come out.
+P: What gives us light in the day?
+  + The Sun :: The Sun lights up the sky.
+  - The Moon :: [mixed-up-day-and-night] We see the Moon best at night. It is not bright enough to make the day.
+  - The stars :: [mixed-up-day-and-night] The stars come out at night.
+  hint: What is the big bright thing in the day sky?
+  why: The Sun gives us daylight and warmth.
+O: Put the day in order.
+  items: The Sun comes up | The Sun is high in the sky | The Sun goes down | The stars come out
+  ends: First | Last
+  hint: The day starts when the Sun comes up.
+  why: Morning, midday, evening, night. Then it all starts again.
+>P: The Sun has just gone down. What happens next?
+  + It gets dark and the stars come out :: Night is beginning.
+  - It is time for lunch :: [mixed-up-day-and-night] Lunch is in the middle of the day.
+  - The Sun comes straight back up :: [wrong-order] The night comes first. The Sun comes up in the morning.
+  hint: What comes after evening?
+  why: When the Sun goes down, night begins.
+done: Look at the sky tonight. Can you see the Moon?
+
+@ earth.0.weather
+goal: Name kinds of weather and choose what to wear for each.
+intro: Weather is what it is like outside. It can be sunny, rainy, windy or snowy. The weather changes from day to day.
+  show: emoji ☀️ 🌧️ 💨 ❄️
+demo: Look out of the window before you go out. If you see rain, take a raincoat. If you see snow, put on a warm coat and gloves.
+  show: flow look outside > see the weather > choose what to wear
+M: Match the weather to what you need.
+  pairs: Rain => A raincoat | Sun => A sun hat | Snow => A warm coat and gloves | Wind => A kite to fly
+  hint: What keeps you dry? What keeps you warm?
+  why: We choose clothes and things to do to suit the weather.
+G: A hot day or a cold day?
+  bin Hot day: an ice lolly | a sun hat | a paddling pool
+  bin Cold day: a woolly hat | a scarf | a snowman
+  hint: When do you want to cool down? When do you want to keep warm?
+  why: On hot days we cool down. On cold days we wrap up warm.
+P: Dark grey clouds fill the sky. What may happen soon?
+  + It may rain :: Dark clouds are full of water.
+  - It will be sunny all day :: [ignored-the-clue] The clouds are hiding the Sun.
+  - Nothing will change :: [ignored-the-clue] Dark clouds are a sign that rain is on the way.
+  hint: What falls from dark clouds?
+  why: Dark clouds often bring rain. Looking at the sky helps us to guess the weather.
+>P: The trees are bending and leaves are flying about. What is the weather?
+  + Windy :: The wind is pushing the trees and the leaves.
+  - Still :: [ignored-the-clue] On a still day the trees do not bend.
+  - Foggy :: [wrong-weather] Fog makes it hard to see. It does not blow leaves about.
+  hint: What pushes the leaves along?
+  why: We cannot see the wind, but we can see what it does.
+done: Be a weather watcher. Look outside each morning this week.
+
+@ earth.0.land-water
+goal: Tell land from water, and name mountains, rivers, seas and islands.
+intro: The Earth has land and water. Mountains and hills are land. Rivers, lakes and seas are water.
+  show: emoji ⛰️ 🏞️ 🌊 🏝️
+demo: Rain falls on the mountain. The water runs down in little streams. The streams join to make a river. The river runs all the way to the sea.
+  show: flow rain on the mountain > streams > a river > the sea
+G: Land or water?
+  bin Land: mountain | hill | field
+  bin Water: river | sea | lake
+  hint: Could you walk on it, or would you need a boat?
+  why: Mountains, hills and fields are land. Rivers, seas and lakes are water.
+M: Match each word to what it means.
+  pairs: Mountain => Very high land | River => Water that flows across the land | Sea => Very big, salty water | Island => Land with water all round it
+  hint: Which one is high? Which one flows?
+  why: These are names for the shapes of the land and the water.
+P: Where does a river end up?
+  + In the sea :: Rivers flow down to the sea.
+  - At the top of a mountain :: [water-flows-uphill] Water runs downhill, not uphill.
+  - In the sky :: [wrong-place] Rivers run along the ground.
+  hint: Which way does water run: up or down?
+  why: Water always runs downhill. Rivers start high up and end in the sea.
+>P: You are standing on land. There is water all round you. Where are you?
+  + On an island :: An island has water all round it.
+  - On a mountain :: [wrong-landform] A mountain is high land. It need not have water round it.
+  - In a river :: [wrong-landform] You are on land, not in the water.
+  hint: Which word means land with water all round?
+  why: An island is land with water on every side.
+done: Find some land and some water on a map or a globe.
+
+@ earth.1.seasons
+goal: Explain that the seasons come from the Earth's tilt as it goes round the Sun.
+intro: The Earth goes round the Sun once every year. The Earth is tilted, like a spinning top that leans. That tilt gives us the seasons.
+  show: flow spring > summer > autumn > winter
+demo: When your part of the Earth leans towards the Sun, the Sun is high and the days are long. That is summer. When it leans away, the Sun is low and the days are short. That is winter.
+  show: table Your part of the Earth | Season ;; leans towards the Sun | summer ;; leans away from the Sun | winter
+O: Put the seasons in order, starting with spring.
+  items: Spring | Summer | Autumn | Winter
+  ends: First | Last
+  hint: What comes after the flowers of spring?
+  why: Spring, summer, autumn, winter. Then spring comes round again.
+F: How long does it take?
+  frame: The Earth goes once round the Sun in one __
+  taps: day | month | year
+  answer: year
+  x day :: [mixed-up-spin-and-orbit] In one day the Earth spins round once. Going round the Sun takes much longer.
+  x month :: [wrong-length] A month is about how long the Moon takes to go round the Earth.
+  hint: How long is it from one birthday to the next?
+  why: One trip round the Sun takes one year. That is why the seasons come once a year.
+P: Why is it warm in summer?
+  + Our part of the Earth leans towards the Sun :: The Sun is higher and the days are longer.
+  - The Earth is closer to the Sun :: [distance-idea] The Earth's distance from the Sun hardly changes. It is the tilt that matters.
+  - The Sun gets hotter :: [sun-changes] The Sun stays the same. The Earth's lean changes how much sunlight we get.
+  hint: Think about the tilt.
+  why: Leaning towards the Sun gives stronger sunlight and longer days. That makes summer warm.
+G: Summer or winter?
+  bin Summer: long days | the Sun high in the sky | warm weather
+  bin Winter: short days | the Sun low in the sky | cold weather
+  hint: When does it stay light late in the evening?
+  why: In summer the Sun climbs high and stays up for a long time. In winter it stays low, and the days are short.
+>P: It is summer in the top half of the Earth. What season is it in the bottom half?
+  + Winter :: The bottom half is leaning away from the Sun.
+  - Summer too :: [same-everywhere] When one half leans towards the Sun, the other half leans away.
+  - Spring :: [wrong-season] The two halves have opposite seasons.
+  hint: If the top half leans towards the Sun, which way does the bottom half lean?
+  why: The two halves of the Earth have opposite seasons, because they lean opposite ways.
+done: The tilt makes the seasons. Watch how high the Sun is at midday this month.
+
+@ earth.1.solar-system
+goal: Name the Sun and the planets, and put the planets in order.
+intro: The Sun is a star. Eight planets go round it. The Earth is one of them. Together they make the solar system.
+  show: chips Mercury | Venus | Earth | Mars | Jupiter | Saturn | Uranus | Neptune
+demo: The four planets nearest the Sun are small and rocky: Mercury, Venus, Earth and Mars. The four farther out are giants: Jupiter, Saturn, Uranus and Neptune.
+  show: table Near the Sun: small and rocky | Far from the Sun: giants ;; Mercury, Venus, Earth, Mars | Jupiter, Saturn, Uranus, Neptune
+O: Put the four rocky planets in order, starting nearest the Sun.
+  items: Mercury | Venus | Earth | Mars
+  ends: Nearest the Sun | Farthest
+  hint: The Earth is the third planet from the Sun.
+  why: Mercury, Venus, Earth, Mars. Our Earth is the third.
+O: Now put the four giant planets in order, starting nearest the Sun.
+  items: Jupiter | Saturn | Uranus | Neptune
+  ends: Nearest the Sun | Farthest
+  hint: Jupiter comes first. Neptune is the farthest of all.
+  why: Jupiter, Saturn, Uranus, Neptune. Neptune is the farthest planet from the Sun.
+M: Match each planet to what it is known for.
+  pairs: Jupiter => The biggest planet | Saturn => Bright rings | Mars => The red planet | Earth => Our home, with water and life
+  hint: Which planet has rings?
+  why: Each planet is different. Jupiter is the biggest, Saturn has rings and Mars looks red.
+P: What is the Sun?
+  + A star :: It is the star nearest to us.
+  - A planet :: [mixed-up-star-and-planet] Planets go round the Sun. The Sun is a star.
+  - A moon :: [mixed-up-star-and-moon] Moons go round planets.
+  hint: The Sun makes its own light.
+  why: The Sun is a star. It looks big and bright because it is so much nearer than the other stars.
+>P: What goes round the Earth?
+  + The Moon :: The Moon goes round the Earth about once a month.
+  - The Sun :: [earth-at-the-centre] The Earth goes round the Sun, not the other way.
+  - Mars :: [mixed-up-orbits] Mars goes round the Sun, as the Earth does.
+  hint: What do we see in the night sky that changes shape through the month?
+  why: Moons go round planets, and planets go round the Sun.
+done: Eight planets and one star. Make up a sentence to remember the order of the planets.
+
+@ earth.1.rocks
+goal: Tell the three kinds of rock apart by how they formed, and say how soil is made.
+intro: There are three kinds of rock. Some rock was once melted and then cooled. Some is made from layers of sand and mud pressed together. Some has been changed by heat and squeezing.
+  show: table Kind of rock | How it forms ;; igneous | melted rock cools and hardens ;; sedimentary | layers are pressed together ;; metamorphic | heat and squeezing change the rock
+demo: Sand settles on the sea bed, layer on layer. Over a very long time the layers are pressed into hard rock. Shells trapped in the layers can become fossils.
+  show: flow sand settles > layers build up > the layers are pressed > rock forms
+M: Match each word to what it means.
+  pairs: Igneous => Melted rock that cooled | Sedimentary => Layers pressed together | Metamorphic => Rock changed by heat and squeezing | Soil => Tiny bits of rock mixed with dead plants
+  hint: Which one comes from layers?
+  why: Rocks are named by how they were made.
+G: Sort the rocks by how they formed.
+  bin From melted rock: granite | pumice
+  bin From layers: sandstone | chalk
+  bin Changed by heat and squeezing: marble | slate
+  hint: Pumice comes out of volcanoes. Sandstone is made of sand.
+  why: Granite and pumice cooled from melted rock. Sandstone and chalk formed in layers. Marble and slate were changed deep underground.
+O: Put the steps in order to show how soil forms.
+  items: Rain and frost crack the rock | The rock breaks into small bits | Dead leaves and plants mix in | Soil forms
+  ends: First | Last
+  hint: The rock has to break up first.
+  why: Rock is broken into tiny pieces, and dead plants mix in. That makes soil.
+>P: You find a rock with stripes, like layers of sand, and the shape of a shell in it. What kind of rock is it?
+  + Rock made from layers :: The stripes are layers, and the shell is a fossil.
+  - Rock that was once melted :: [melting-would-destroy] Melted rock would have burned the shell away.
+  - It is not a rock :: [gave-up] It is a rock, with clues to how it formed.
+  hint: What do the stripes tell you?
+  why: Layers and fossils are signs of sedimentary rock.
+done: Rocks tell how they were made. Start a rock collection and sort it.
+
+@ earth.1.water-cycle
+goal: Follow water round the water cycle: from the sea to the sky and back again.
+intro: Water is always on the move. It goes up from the sea into the air, makes clouds, falls as rain and runs back to the sea. This is the water cycle.
+  show: flow the sea > vapour rises > clouds form > rain falls > rivers run to the sea
+demo: The Sun warms a puddle. The water turns into a gas called water vapour, which we cannot see, and rises into the air. High up it is cold. The vapour turns back into tiny drops and makes a cloud.
+  show: flow the Sun warms the water > the water becomes vapour > the vapour cools > a cloud forms
+O: Put the steps of the water cycle in order.
+  items: The Sun warms the sea | Water rises as vapour | The vapour cools into clouds | Rain falls | Water runs back to the sea
+  ends: First | Last
+  hint: The Sun starts it off.
+  why: Warm, rise, cool, fall, run back. Then it happens all over again.
+M: Match each word to what happens.
+  pairs: Evaporation => Water turns into vapour and rises | Condensation => Vapour cools into tiny drops | Precipitation => Rain or snow falls | Collection => Water gathers in rivers, lakes and seas
+  hint: Which word sounds like "vapour"?
+  why: These are the four big steps of the water cycle.
+F: What are clouds made of?
+  frame: Clouds are made of tiny drops of __
+  taps: water | smoke | cotton
+  answer: water
+  x smoke :: [looks-like] Clouds can look like smoke, but they are made of water.
+  x cotton :: [looks-like] Clouds look fluffy, but they are made of water.
+  hint: What falls out of clouds?
+  why: A cloud is millions of tiny drops of water floating in the air.
+P: A puddle on the playground dries up in the sun. Where did the water go?
+  + It turned into vapour and rose into the air :: This is evaporation.
+  - It is gone for ever :: [water-is-destroyed] Water is not destroyed. It has moved into the air.
+  - The Sun drank it :: [story-explanation] The Sun warmed it, and it became vapour in the air.
+  hint: What does the Sun's warmth do to water?
+  why: The water evaporated. It is still there, in the air, as vapour.
+>P: You breathe on a cold window and it mists up. Which part of the water cycle is this like?
+  + Condensation :: The vapour in your breath cools into tiny drops.
+  - Evaporation :: [reversed] Evaporation is water turning into vapour. Here vapour is turning into water.
+  - Rain :: [wrong-step] The drops form on the glass. They do not fall from a cloud.
+  hint: Your breath has water vapour in it. What happens when vapour cools?
+  why: When water vapour meets something cold, it turns back into drops. Clouds form in the same way.
+done: The same water goes round and round. Watch a puddle after rain and see how long it lasts.
+
+@ earth.2.geology
+goal: Explain earthquakes, volcanoes and mountains by the movement of the Earth's plates.
+intro: The Earth's outer shell is broken into huge slabs called plates. They move a few centimetres a year, about as fast as your fingernails grow. Most earthquakes, volcanoes and mountain ranges lie along their edges.
+  show: table Plates are | What forms there ;; moving apart | new crust and ridges on the ocean floor ;; coming together | mountains, deep trenches and volcanoes ;; sliding past each other | earthquakes
+demo: India was once a separate landmass. Its plate drifted north and collided with Asia. Neither would sink, and the crust between them crumpled upwards. The result is the Himalayas, which are still rising.
+  show: flow India drifts north > it collides with Asia > the crust crumples > the Himalayas rise
+O: Put the Earth's layers in order, from the surface to the centre.
+  items: Crust | Mantle | Outer core | Inner core
+  ends: Surface | Centre
+  hint: We live on the thinnest layer.
+  why: A thin crust, a thick mantle, a liquid outer core and a solid inner core.
+G: Sort the places by what the plates are doing there.
+  bin Moving apart: the Mid-Atlantic Ridge | the rift in Iceland
+  bin Coming together: the Himalayas | the Andes
+  bin Sliding past: the San Andreas Fault
+  hint: Mountain ranges mean plates pushing together.
+  why: Ridges form where plates part, mountains where they meet, and great faults where they slide past.
+X: The Atlantic Ocean widens by about 25 km every million years. Wind the clock forward.
+  param my: 0..200 /10 @0 | Time | million years
+  out width: 25*my | Width of the ocean | km
+  aim: Find how long it takes to open an ocean 3000 km wide.
+  target: width == 3000
+  view: bars width over my
+  hint: Each million years adds 25 km.
+  why: 3000 ÷ 25 = 120 million years. Movements far too slow to see can build oceans and mountains, given enough time.
+P: Why do most earthquakes and volcanoes lie in narrow belts?
+  + They occur along the edges of the plates :: That is where plates collide, part and grind past one another.
+  - They occur where the weather is hottest :: [weather-explanation] They are caused deep underground, not by the weather.
+  - They are scattered at random :: [no-pattern] A map shows them lined up along the plate edges.
+  hint: Where do the plates meet?
+  why: The edges of the plates are where the Earth's crust is being made, destroyed or strained.
+>P: Fossils of the same land reptile are found in South America and in Africa, and the two coastlines fit like pieces of a puzzle. What is the best explanation?
+  + The continents were once joined and have drifted apart :: Two separate lines of evidence agree.
+  - The reptiles swam across the ocean :: [ad-hoc-explanation] A land reptile could not cross thousands of kilometres of sea, and that would not explain the coastlines.
+  - It is a coincidence :: [no-explanation] Matching fossils and matching coastlines together call for an explanation.
+  hint: What single idea explains both the fossils and the coastlines?
+  why: Evidence of this kind led to the idea of continental drift, which plate tectonics later explained.
+done: Slow plates build mountains. Find the ring of volcanoes round the Pacific on a map.
+
+@ earth.2.atmosphere
+goal: Tell weather from climate, read simple signs of the weather and explain why climates differ around the world.
+intro: Weather is what the air is doing here and now. Climate is the pattern of weather over many years. A desert may have a rainy day, and its climate is still dry.
+  show: table Weather | Climate ;; today, here | the average over many years ;; changes from hour to hour | changes slowly ;; "it is raining" | "winters here are wet"
+demo: Air presses down on us, and that pressure changes. Where air sinks, pressure is high and the weather is usually settled and dry. Where air rises, pressure is low: the rising air cools, clouds form and rain follows.
+  show: table Pressure | The air is | Weather ;; high | sinking | settled and dry ;; low | rising | cloud, wind and rain
+G: Weather or climate?
+  bin Weather: It rained this afternoon. | Tomorrow will be windy. | A storm passed over on Tuesday.
+  bin Climate: Deserts get very little rain. | Winters here are usually mild. | The tropics are warm all year.
+  hint: Is it about one day, or about what is usual over many years?
+  why: Weather is a single event. Climate is the long-run pattern.
+M: Match each term to its meaning.
+  pairs: High pressure => Sinking air and settled weather | Low pressure => Rising air, cloud and rain | Front => The boundary between warm air and cold air | Humidity => The amount of water vapour in the air | Climate zone => A region with a similar pattern of weather over many years
+  hint: Rising air cools and makes clouds.
+  why: These are the words that forecasters use to describe what the air is doing.
+P: Why is it colder at the poles than at the equator?
+  + Sunlight strikes the poles at a low angle, so it is spread over more ground :: The same light warms a larger area less.
+  - The poles are much farther from the Sun :: [distance-idea] The difference in distance is far too small to matter.
+  - The ice makes it cold :: [effect-as-cause] The ice is there because it is cold, though it does reflect sunlight too.
+  hint: Shine a torch straight down, then at a slant. Which patch of light is brighter?
+  why: Slanting sunlight is spread thinly. That is the main reason why climate depends on latitude.
+F: Air gets colder as you climb: about 6.5 °C colder for every kilometre.
+  frame: If it is 20 °C at sea level, at the top of a mountain 2 km high it is about __ °C
+  answer: 7
+  x 13 :: [stopped-at-the-drop] Thirteen is the fall in temperature. Take it away from 20.
+  x 13.5 :: [one-kilometre-only] That is the temperature 1 km up. The mountain is 2 km high.
+  hint: The fall is 2 × 6.5. Take it away from 20.
+  why: 2 × 6.5 = 13, and 20 − 13 = 7 °C. That is why high mountains have snow even in warm countries.
+>P: One town has an unusually cold week. Someone says, "So the world's climate cannot be warming." What is wrong with this?
+  + One week in one place is weather; climate is the average over many years and the whole globe :: A single event cannot settle it.
+  - Nothing: a cold week disproves it :: [weather-as-climate] A long-term global average is not overturned by one local week.
+  - Cold weeks never happen in a warming world :: [overcorrection] They still happen. They become less common on average.
+  hint: Is the claim about a week or about decades? About a town or about the globe?
+  why: Climate is a statement about long-run averages. It is tested with many years of measurements from many places.
+done: Weather is the mood and climate is the character. Keep a weather diary for two weeks.
+
+@ earth.2.planets
+goal: Describe the character of each planet, and tell comets from asteroids.
+intro: The eight planets are very different worlds. Four are small and rocky. Four are giants made mostly of gas and ice. Smaller bodies, comets and asteroids, orbit the Sun as well.
+  show: table Planet | Known for ;; Mercury | the smallest and nearest; almost no air ;; Venus | the hottest; thick clouds trap its heat ;; Mars | rusty red, with a giant extinct volcano ;; Jupiter | the largest, with a storm bigger than the Earth ;; Saturn | bright rings of ice ;; Uranus | spins on its side
+demo: Venus is farther from the Sun than Mercury, yet hotter. Mercury has almost no air to hold its heat. Venus is wrapped in thick carbon dioxide, which traps heat like a blanket. Its surface is hot enough to melt lead.
+  show: bars Mercury_by_day=430 Venus=465 Earth=15 unit=°C
+M: Match each planet to its character.
+  pairs: Mercury => The smallest and nearest to the Sun | Venus => The hottest, under thick clouds | Mars => Rusty red, with a giant extinct volcano | Jupiter => The largest, with a giant storm | Saturn => Bright rings of ice | Uranus => Spins on its side
+  hint: The red colour of one of them is rust.
+  why: Each planet has features that set it apart. Knowing them is the beginning of understanding why they differ.
+G: Rocky planet or giant?
+  bin Rocky: Mercury | Venus | Earth | Mars
+  bin Giant: Jupiter | Saturn | Uranus | Neptune
+  hint: The four nearest the Sun are rocky.
+  why: The inner planets are small and rocky. The outer planets are giants of gas and ice.
+P: Why is Venus hotter than Mercury, although it is farther from the Sun?
+  + Its thick atmosphere of carbon dioxide traps heat :: Mercury has almost no air to hold heat in.
+  - It is really closer to the Sun :: [distance-only] It is farther away. The explanation is its atmosphere.
+  - It has more volcanoes :: [wrong-cause] The heat is the Sun's, trapped by the atmosphere.
+  hint: What does Venus have that Mercury lacks?
+  why: An atmosphere can matter more than distance. Trapped heat makes Venus the hottest planet.
+P: A comet grows a long tail as it nears the Sun. Which way does the tail point?
+  + Away from the Sun :: Sunlight, and the stream of particles from the Sun, push it outwards.
+  - Behind the comet, like smoke from a train :: [trail-assumption] The tail is not left behind. It is blown away from the Sun, whichever way the comet is going.
+  - Towards the Sun :: [reversed] The Sun pushes the gas and dust away.
+  hint: What is pushing on the gas and dust?
+  why: A comet's tail always points away from the Sun, even when the comet is heading outwards and the tail goes first.
+>P: Astronomers find a small icy body with a long, stretched orbit. As it nears the Sun it grows a glowing tail. What is it?
+  + A comet :: Ice that turns to gas near the Sun makes the tail.
+  - An asteroid :: [rock-not-ice] Asteroids are rocky or metallic and do not grow tails.
+  - A moon :: [wrong-orbit] A moon orbits a planet, not the Sun.
+  hint: Which kind of body is made largely of ice?
+  why: Comets are icy bodies from the outer solar system. Near the Sun their ice turns to gas and streams away.
+done: Eight worlds, each one different. Choose one planet and find out how long its day and its year are.
+
+@ earth.2.stars
+goal: Explain what stars are and why they differ, and use the light-year to describe distance and time.
+intro: A star is a huge ball of hot gas that makes its own light. The Sun is a star. The others look tiny only because they are so far away. Stars gather in vast systems called galaxies. Ours is the Milky Way.
+  show: table Colour | Surface | Example ;; red | the coolest | Betelgeuse ;; yellow | medium | the Sun ;; blue | the hottest | Rigel
+demo: Light is the fastest thing there is, yet the stars are so far away that their light takes years to arrive. A light-year is the distance that light travels in one year. The nearest star beyond the Sun is about 4 light-years away, so we see it as it was about 4 years ago.
+  show: flow light leaves the star > it travels for years > it reaches your eye
+O: Put the colours of stars in order, from the coolest to the hottest.
+  items: red | orange | yellow | white | blue
+  ends: Coolest | Hottest
+  hint: Think of a piece of metal being heated: it glows red first.
+  why: Red stars are the coolest and blue stars the hottest. Colour tells us temperature.
+M: Match each word to its meaning.
+  pairs: Star => A ball of hot gas that makes its own light | Planet => A world that orbits a star and shines by reflected light | Galaxy => A vast system of billions of stars | Light-year => The distance that light travels in a year | Constellation => A pattern of stars as seen from the Earth
+  hint: A light-year measures distance, not time.
+  why: These are the basic terms of astronomy. Notice that a light-year is a distance.
+P: What makes a star shine?
+  + Hydrogen is fused into helium in its core, releasing energy :: This is nuclear fusion.
+  - It burns like a fire :: [burning] Burning needs oxygen and would have used the star up long ago.
+  - It reflects the light of the Sun :: [shines-like-a-planet] Stars make their own light. The Sun is one of them.
+  hint: Stars are mostly hydrogen, squeezed and heated in the core.
+  why: Fusion in the core powers a star for millions or billions of years.
+F: A light-year is the distance that light travels in one year.
+  frame: Light from a star 4 light-years away has taken __ years to reach us
+  answer: 4 | four
+  x 1 :: [one-year-only] One light-year takes one year. Four light-years take four.
+  hint: One year for each light-year.
+  why: Light crosses one light-year in one year, so 4 light-years take 4 years. We see the star as it was 4 years ago.
+>P: You look through a telescope at a galaxy 2 million light-years away. What are you seeing?
+  + The galaxy as it was 2 million years ago :: The light has been travelling all that time.
+  - The galaxy as it is at this moment :: [light-is-instant] Light takes time to travel. This light left 2 million years ago.
+  - The galaxy as it will be in the future :: [reversed] We can see only light that has already arrived.
+  hint: When did the light that enters your eye leave the galaxy?
+  why: Looking far into space is looking back in time. That is how astronomers study the history of the universe.
+done: Starlight is old light. Find one bright star tonight and look up how far away it is.
+
+@ earth.2.oceans
+goal: Explain tides and the saltiness of the sea, and follow a river from its source to its mouth.
+intro: Water covers about seven tenths of the Earth. The oceans are always moving: waves are driven by the wind, tides by the Moon, and great currents by wind and by differences in temperature and saltiness.
+  show: table Movement | Driven by ;; waves | the wind ;; tides | the pull of the Moon and the Sun ;; currents | wind, temperature and saltiness
+demo: The Moon's gravity pulls the ocean into two bulges, one on the side facing the Moon and one on the far side. As the Earth turns, each coast passes through both bulges, and so most coasts have two high tides a day.
+  show: flow the Moon pulls > the ocean bulges > the Earth turns > the tide rises and falls
+P: What causes the tides?
+  + The pull of the Moon, with some help from the Sun :: Gravity raises bulges in the ocean.
+  - The wind :: [waves-and-tides-confused] The wind makes waves. Tides are far larger and regular.
+  - Rivers flowing in :: [wrong-cause] Rivers add water steadily. They cannot make the sea rise and fall twice a day.
+  hint: Tides keep time with the Moon.
+  why: Tides follow the Moon's position, rising and falling on a schedule that can be predicted years ahead.
+F: Each coast passes through two bulges of water as the Earth turns.
+  frame: Most coasts have about __ high tides a day
+  answer: 2 | two
+  x 1 :: [one-bulge-only] There are two bulges: one facing the Moon and one on the far side.
+  hint: Count the bulges.
+  why: Two bulges and one turn of the Earth give two high tides and two low tides each day.
+O: Follow a river from its source to the sea.
+  items: A spring rises in the hills | A fast stream cuts a steep valley | The river widens and winds across the plain | It drops its mud as a delta | It reaches the sea
+  ends: Source | Mouth
+  hint: Rivers are steep and fast at first, and wide and slow at the end.
+  why: A river wears away the land where it runs fast, and drops what it carries where it slows.
+G: Is the water wearing the land away, or building it up?
+  bin Wearing away: a waterfall cutting back | a steep V-shaped valley | a cliff worn by waves
+  bin Building up: a delta | a sandy beach | mud left on a flood plain
+  hint: Fast water carries material away. Slow water drops it.
+  why: Erosion happens where water moves fast and deposition where it slows. Between them they shape the land.
+>P: Rivers are fresh and they flow into the sea, yet the sea is salty. Why?
+  + Rivers carry tiny amounts of dissolved salt; water evaporates from the sea, and the salt stays behind :: Over millions of years it has built up.
+  - The salt comes from the fish :: [wrong-source] The salt comes from rocks on land, dissolved by rain and carried by rivers.
+  - Rivers lose their salt before they reach the sea :: [reversed] They deliver salt to the sea. They do not remove it.
+  hint: When sea water evaporates, what is left behind?
+  why: Evaporation removes water but not salt. The sea is where the salt from the land collects.
+done: The Moon moves the sea, and rivers carry the land into it. Look up the tide times for a coast near you.
+
+@ earth.2.environment
+goal: Tell renewable resources from non-renewable ones, and choose actions that reduce waste and pollution.
+intro: Everything we use comes from the Earth. Some resources are renewed by nature as fast as we use them. Others took millions of years to form, and once used they are gone.
+  show: table Renewable | Non-renewable ;; sunlight | coal ;; wind | oil ;; wood from managed forests | natural gas
+demo: A tap that drips once a second looks harmless. Yet it wastes about a litre every hour, 24 litres a day and nearly 9,000 litres a year. Small wastes, repeated, become large ones, and so do small savings.
+  show: bars One_hour=1 One_day=24 One_week=168 unit=litres
+G: Renewable or non-renewable?
+  bin Renewable: sunlight | wind | wood from managed forests
+  bin Non-renewable: coal | oil | natural gas
+  hint: Will there be more tomorrow, whatever we use today?
+  why: The Sun and the wind are not used up. Coal, oil and gas formed over millions of years and are not replaced.
+O: Put these ways of dealing with waste in order, from the best to the worst.
+  items: Reduce: use less in the first place | Reuse: use it again | Recycle: turn it into something new | Throw it away
+  ends: Best | Worst
+  hint: The best waste is the waste that is never made.
+  why: Reducing avoids the waste altogether, reusing avoids making something new, and recycling saves materials but still costs energy.
+X: A tap drips one litre every hour. Leave it and watch the waste add up.
+  param days: 1..30 /1 @1 | Time | days
+  out litres: 24*days | Water wasted | litres
+  aim: Find how many days it takes to waste a bathful of 240 litres.
+  target: litres == 240
+  view: bars litres over days
+  hint: How many litres are wasted in one day?
+  why: 24 litres a day for 10 days is 240 litres. A fault that looks tiny wastes a bathful in less than a fortnight.
+P: Why is reducing better than recycling?
+  + It avoids using the materials and the energy in the first place :: Recycling still needs collection, transport and processing.
+  - Recycling does not work at all :: [overcorrection] Recycling helps. It is simply less good than not making the waste.
+  - It makes no difference which you do :: [ignored-the-costs] Recycling has costs that reducing avoids.
+  hint: Which uses less energy: remaking a bottle, or never needing it?
+  why: The order of reduce, reuse, recycle reflects how much each one saves.
+>P: A third of what a town throws away is food waste. The town can build a bigger landfill, or start collecting food waste for compost. Which is the better choice, and why?
+  + Composting: it cuts the waste by a third and returns nutrients to the soil :: The waste becomes a resource.
+  - The landfill: it makes the waste disappear :: [out-of-sight] The waste is still there, taking up land and giving off gases.
+  - It makes no difference :: [ignored-the-consequences] One choice stores the problem and the other removes a third of it.
+  hint: What happens to the food waste in each plan?
+  why: The best solutions turn waste back into something useful, as natural cycles do.
+done: Use less, use it again, then recycle. Find one thing at home that could be reused and not thrown away.

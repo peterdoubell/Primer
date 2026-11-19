@@ -1,0 +1,476 @@
+# Business, enterprise and economics, stages 0 to 5.
+# Choose within a limit, read a table, balance an account, and ask what
+# a comparison can really show. All firms and figures are invented.
+
+@ business.0.needs
+goal: Tell a need from a want, and make a choice when you cannot have everything.
+intro: People need food, water, care and a safe place to sleep. People also want lots of nice things. When we cannot have everything, we have to choose.
+  show: emoji 💧 🍞 🛏️ 🧸
+demo: Nia's bag has room for two toys. She wants a ball, a book and a drum. She chooses the ball and the book. The drum stays on the shelf for another day. Choosing means leaving something for later.
+  show: flow three toys > room for two > choose two > one waits for later
+G: A need or a want?
+  bin Need: water | food | a safe place to sleep
+  bin Want: a toy | sweets | a sticker
+  hint: Could you stay well without it?
+  why: Needs are things we must have. Wants are nice to have.
+P: Your bag has room for two toys. You would like three. What do you do?
+  + Choose two, and leave one for later :: You cannot fit all three.
+  - Squash all three in :: [ignored-the-limit] The bag has room for only two.
+  - Take none :: [gave-up] You can still choose two.
+  hint: How many toys fit in the bag?
+  why: When there is a limit, we choose. That is all right.
+P: Nia chose the ball and the book. What did she give up?
+  + The drum :: She left it on the shelf for another day.
+  - The ball :: [mixed-up-chosen-and-given-up] She chose the ball.
+  - The book :: [mixed-up-chosen-and-given-up] She chose the book.
+  hint: Which toy stayed on the shelf?
+  why: When we choose some things, we give up others.
+>P: There is time for one turn: on the swing or on the slide. You choose the swing. What did you give up?
+  + The slide :: You chose the swing, so you gave up the slide.
+  - The swing :: [mixed-up-chosen-and-given-up] The swing is what you chose.
+  - Nothing :: [no-trade-off] There was time for only one, so the other one was given up.
+  hint: What did you not have a turn on?
+  why: Every choice gives up something. Naming it helps us to choose well.
+done: Needs come first, and choices mean giving something up. Tell someone about a choice you made today.
+
+@ business.0.helpers
+goal: Know that people's work makes things and helps others, and share a job with a team.
+intro: Work makes things or helps people. A baker makes bread. A driver takes people where they need to go. Someone who cooks dinner at home is working too. Some work is paid and some is not. All of it matters.
+  show: emoji 🍞 🚌 🤲
+demo: For a pretend picnic, one child puts out the cups. Another carries the napkins. A grown-up gets the food ready. The picnic works because all the jobs fit together.
+  show: flow cups > napkins > food > picnic!
+M: Match each worker to their work.
+  pairs: Baker => Makes bread | Driver => Takes people to places | Carer => Looks after someone | Builder => Makes houses
+  hint: Who works with flour?
+  why: Different people do different kinds of work.
+G: Does the work make a thing, or help by doing something?
+  bin Makes a thing: a baker | a builder | a toy maker
+  bin Helps by doing: a driver | a carer | a teacher
+  hint: At the end, is there a new thing to hold?
+  why: Some work makes things. Other work helps people by doing something for them.
+P: Dad cooks dinner at home. Nobody pays him. Is it work that matters?
+  + Yes: it helps the whole family :: Work matters whether or not it is paid.
+  - No: only paid work counts :: [paid-work-only] Cooking dinner helps everyone, paid or not.
+  hint: Who gets to eat the dinner?
+  why: Unpaid work, like cooking and caring, helps people just as much.
+>P: Three children have to tidy the room. What is the best way?
+  + Share out the jobs: one does books, one does bricks, one does crayons :: Then everything gets done.
+  - All three do the books and leave the rest :: [did-not-share-out] The bricks and crayons would still be on the floor.
+  - One child does it all :: [one-does-everything] That is slow, and not fair.
+  hint: How did the picnic get ready?
+  why: A team works well when the jobs are shared and everyone knows who is doing what.
+done: Work makes things and helps people. Thank someone today for work they do for you.
+
+@ business.1.exchange
+goal: Tell goods from services, and explain why money makes swapping easier.
+intro: A good is a thing, like a pencil. A service is something that someone does for you, like mending your bike. People swap goods and services. Swapping one thing straight for another is called barter.
+  show: table Goods: things | Services: things people do ;; a pencil | a haircut ;; a loaf of bread | a bus ride
+demo: Ada has a bookmark and wants Ben's marble. But Ben does not want a bookmark, so they cannot swap. With tokens it is easy. Ada sells her bookmark to Cara for tokens. Then she buys the marble from Ben with the tokens.
+  show: flow Ada sells the bookmark > Ada gets tokens > Ada buys the marble
+G: Is it a good or a service?
+  bin Good: a pencil | a loaf of bread | a bicycle
+  bin Service: a haircut | a bus ride | mending a bicycle
+  hint: Is it a thing, or something that someone does for you?
+  why: Goods are things you can hold. Services are things that people do.
+P: Ada wants Ben's marble. Ben does not want Ada's bookmark. Why can they not swap?
+  + Each must want what the other has :: Ben does not want the bookmark.
+  - Marbles cannot be swapped :: [wrong-reason] They can, if both people want to.
+  - Ada has no bookmark :: [misread-the-story] Ada does have a bookmark. Ben does not want it.
+  hint: What does Ben want?
+  why: A straight swap works only when each person wants what the other one has.
+F: Finish the sentence.
+  frame: A good is a thing. A service is an __
+  taps: action | object | animal
+  answer: action
+  x object :: [goods-and-services-confused] An object is a thing, which makes it a good.
+  x animal :: [wrong-word] A service is something that someone does.
+  hint: A haircut is something that someone does for you.
+  why: A service is an action that one person does for another.
+P: What makes a swap fair?
+  + Both people know what they are getting, and either can say no :: Nobody is tricked, and nobody is forced.
+  - The bigger child decides :: [power-decides] A fair swap needs both people to agree.
+  - It is quick :: [speed-is-fairness] A quick swap can still be unfair.
+  hint: Would you want to be tricked or forced?
+  why: A fair exchange needs clear information and a free choice.
+>P: A baker wants shoes. The shoemaker does not want bread; he wants a hat. How does money help?
+  + The baker sells bread for money and pays the shoemaker, who then buys a hat :: Everyone accepts money.
+  - It does not help: the baker must find a hat first :: [barter-thinking] With money, the baker does not need to have what the shoemaker wants.
+  - The shoemaker has to take the bread :: [forced-exchange] Nobody has to take what they do not want.
+  hint: What will both the baker's customers and the shoemaker accept?
+  why: Money is something that everyone accepts, so each person can sell to one person and buy from another.
+done: Goods, services and money. Spot one good and one service that your family paid for this week.
+
+@ business.1.resources
+goal: Plan a small pretend business: what it needs, what it earns, what it costs and what is left.
+intro: A business makes or does something that other people value. To make things you need materials, tools, time and know-how. The money that comes in from selling is called revenue. What you spend is the cost. What is left is the profit.
+  show: flow materials, tools and time > make > sell > count
+demo: A class uses 5 sheets of paper, costing 1 token each, to make 5 cards. They sell every card for 3 tokens. That brings in 15 tokens. The paper cost 5 tokens. So 10 tokens are left.
+  show: table Item | Tokens ;; 5 cards sold at 3 tokens each | 15 in ;; 5 sheets of paper at 1 token each | 5 out ;; left over | 10
+M: Match each word to its meaning.
+  pairs: Revenue => Money that comes in from selling | Cost => What you spend to make the thing | Profit => What is left after the costs | Input => Something you need in order to make the thing
+  hint: Which word means the money coming in?
+  why: Revenue comes in, costs go out, and profit is what is left.
+F: Work out the revenue.
+  frame: You sell 4 cards at 5 tokens each. You get __ tokens
+  taps: 9 | 20 | 45
+  answer: 20
+  x 9 :: [added-instead] It is 4 lots of 5, not 4 and 5.
+  x 45 :: [joined-the-digits] Multiply: 4 × 5.
+  hint: Four lots of five.
+  why: 4 × 5 = 20 tokens of revenue.
+G: For a lemonade stall, sort the things you need.
+  bin Things you use up: lemons | sugar | paper cups
+  bin Other things you need: time | a jug | someone who knows the recipe
+  hint: Which ones are gone once the lemonade is sold?
+  why: A business needs materials, and also tools, time and know-how.
+>P: A class sells cards and says, "We made 12 tokens of profit." But the paper was a gift, and nobody counted the teacher's time. What should they add?
+  + Say what was left out: the true cost would be higher :: The profit is only a classroom estimate.
+  - Nothing: 12 tokens is the profit :: [ignored-the-hidden-costs] Gifts of paper and time are still costs to somebody.
+  - Say that they made a loss :: [overcorrection] We do not know that. We know only that some costs were not counted.
+  hint: Was the paper really free?
+  why: A simple account leaves things out. An honest one says what it has left out.
+done: In, out and what is left. Plan a pretend stall: what would you need?
+
+@ business.2.markets
+goal: Read a table of supply and demand, calculate a shortage or a surplus, and tell a change in price from a change in demand.
+intro: A demand schedule lists how much buyers would buy at each price. A supply schedule lists how much sellers would offer. Where the two amounts match, plans agree. Elsewhere there is a shortage or a surplus.
+  show: table Price in tokens | Buyers want | Sellers offer ;; 1 | 12 | 2 ;; 2 | 10 | 5 ;; 3 | 8 | 8 ;; 4 | 6 | 11 ;; 5 | 4 | 14
+demo: Look at the row for a price of 2 tokens. Buyers want 10 bookmarks, but sellers offer only 5. That is a shortage of 5. Sellers notice the queue and can raise the price. At 3 tokens, buyers want 8 and sellers offer 8: the plans agree.
+  show: bars Buyers_want=10 Sellers_offer=5 unit=bookmarks_at_2_tokens
+F: Use the table. At a price of 2 tokens:
+  show: table Price in tokens | Buyers want | Sellers offer ;; 1 | 12 | 2 ;; 2 | 10 | 5 ;; 3 | 8 | 8 ;; 4 | 6 | 11 ;; 5 | 4 | 14
+  frame: The shortage is __ bookmarks
+  answer: 5 | five
+  x 15 :: [added] A shortage is the amount wanted less the amount offered.
+  x 10 :: [quantity-demanded-only] Ten are wanted, and 5 are offered. The shortage is the gap between them.
+  hint: Wanted, less offered.
+  why: 10 − 5 = 5. Buyers want five more than sellers are offering.
+F: Use the table again. At a price of 5 tokens:
+  show: table Price in tokens | Buyers want | Sellers offer ;; 1 | 12 | 2 ;; 2 | 10 | 5 ;; 3 | 8 | 8 ;; 4 | 6 | 11 ;; 5 | 4 | 14
+  frame: The surplus is __ bookmarks
+  answer: 10 | ten
+  x 18 :: [added] A surplus is the amount offered less the amount wanted.
+  x 4 :: [quantity-demanded-only] Four are wanted, and 14 are offered. The surplus is the gap between them.
+  hint: Offered, less wanted.
+  why: 14 − 4 = 10. Sellers offer ten more than buyers want.
+P: At which price in the table do buyers' and sellers' plans agree?
+  + 3 tokens :: Eight wanted and eight offered.
+  - 1 token :: [chose-the-cheapest] At 1 token buyers want 12 and sellers offer only 2.
+  - 5 tokens :: [chose-the-dearest] At 5 tokens sellers offer 14 and buyers want only 4.
+  keep
+  hint: Find the row in which the two amounts are equal.
+  why: At 3 tokens the amount wanted equals the amount offered. This is the equilibrium of the model.
+G: Did the price change, or did demand itself shift?
+  bin A change in price: The price of bookmarks rises from 2 tokens to 3.
+  bin A shift in demand: A popular film makes everybody want bookmarks. | Pupils are given more pocket money. | Reading on screens becomes cheaper.
+  hint: Did the price move along the same table, or did the whole "buyers want" column change?
+  why: A change in price moves buyers along the same schedule. A change in tastes, incomes or alternatives shifts the whole schedule.
+>P: A popular film makes bookmarks fashionable, and at every price buyers now want 3 more than before. At the old price of 3 tokens, what happens?
+  + A shortage of 3 appears, and the price tends to rise :: Buyers want 11 and sellers offer 8.
+  - Nothing: 3 tokens is still the price at which plans agree :: [ignored-the-shift] The "buyers want" column has changed, so the old agreement no longer holds.
+  - A surplus appears :: [reversed] Buyers want more, not less.
+  hint: Add 3 to the "buyers want" figure at 3 tokens.
+  why: When demand shifts, the old price leaves a shortage or a surplus, and in a competitive model the price moves towards a new agreement. Real markets also depend on information, rules and market power.
+done: Read the schedules, find the gap, and ask what moved. Watch for a queue, or a clearance sale, and say which it signals.
+
+@ business.2.spillovers
+goal: Recognise effects on bystanders, test whether a good is rival and whether people can be excluded from it, and weigh ways of providing shared benefits.
+intro: Some exchanges affect people who took no part in them. A noisy workshop disturbs its neighbours even when its customers are content. Such a spillover is called an externality. Some goods, too, are shared by their nature, and markets alone tend to provide too little of them.
+  show: table Kind of good | Does one person's use leave less for others? | Can people be kept out? ;; private good | yes | yes ;; common resource | yes | no ;; club good | no | yes ;; public good | no | no
+demo: A lighthouse beam guides one more ship without being used up, and no ship can be stopped from seeing it. Fish in an open lake are different: nobody can be kept away, but a fish that one person catches cannot be caught by anyone else. The two tests, rivalry and exclusion, are separate.
+  show: table Thing | Is it used up? | Can people be kept out? ;; a lighthouse beam | no | no ;; fish in an open lake | yes | no
+G: Does the spillover help the bystanders, or harm them?
+  bin Helps bystanders: a householder plants trees that shade the street | a beekeeper's bees pollinate a neighbour's orchard
+  bin Harms bystanders: smoke from a workshop drifts over the houses | loud music is played late at night | litter is left in the park
+  hint: Is someone outside the exchange better off, or worse off?
+  why: A positive externality gives bystanders a benefit that they did not pay for. A negative one imposes a cost that they did not agree to.
+M: Match each example to its kind of good.
+  pairs: A sandwich => Private good | Fish in an open lake => Common resource | A film shown to subscribers only => Club good | A lighthouse beam => Public good
+  hint: Ask two questions of each: is it used up, and can people be kept out?
+  why: A sandwich is used up and can be withheld. Lake fish are used up but cannot be withheld. A subscribers' film is not used up but can be withheld. A beam is neither.
+P: A town's firework display is paid for by voluntary donations. Why may too little money be raised?
+  + People can enjoy it without paying, so many leave the paying to others :: The free-rider problem.
+  - People dislike fireworks :: [wrong-explanation] They enjoy them. That is precisely why they can watch without paying.
+  - Fireworks cannot be bought by a group :: [false-limit] Groups buy them often. The difficulty lies in collecting the money.
+  hint: What happens if you do not donate?
+  why: When people cannot be excluded, each has a reason to let others pay. Communities respond with taxes, subscriptions or shared rules.
+P: Is a quiet, uncrowded public park rival in use?
+  + Hardly: one more visitor leaves it almost as good for everyone else :: Until it becomes crowded.
+  - Yes: every visitor uses part of it up :: [use-as-rivalry] Walking in a park does not consume it as eating a sandwich consumes the sandwich.
+  - The question cannot be asked of a park :: [dismissed-the-test] The same test of rivalry applies to any good.
+  hint: Does your walk leave less park for the next person?
+  why: Rivalry is a matter of whether one person's use reduces what is left. It can change with crowding.
+>P: A village pond is open to everyone for fishing, and the number of fish is collapsing. Which proposal addresses the cause?
+  + Agreed limits: a catch allowance, a closed season or permits :: The fish are rival, and nobody is excluded.
+  - An advertising campaign to attract more anglers :: [more-pressure] More fishing would speed the collapse.
+  - Nothing: the pond is free for all :: [open-access-as-solution] Open access to a rival resource is the cause of the collapse.
+  hint: Apply the two tests to the fish in the pond.
+  why: A resource that is rival, and from which nobody is excluded, tends to be overused. Shared rules, made and enforced by the community, are one remedy.
+done: Who else is affected, is it used up, and can anyone be kept out? Find one shared resource near you and apply the two tests.
+
+@ business.3.accounts
+goal: Read simplified accounts: tell profit from cash, use the accounting equation and find the step that limits an operation.
+intro: Three statements describe an enterprise. The income statement sets revenue against expenses over a period. The balance sheet lists what is owned and what is owed at one moment. The cash-flow statement follows the money actually received and paid. They can tell different stories.
+  show: table Statement | Shows | Over ;; income statement | revenue, expenses and profit | a period ;; balance sheet | assets, liabilities and equity | a moment ;; cash-flow statement | cash received and cash paid | a period
+demo: A studio records revenue of 2,400 and expenses of 1,900, and so a profit of 500. But its customers have so far paid only 1,500, while the studio has paid out the full 1,900. Its cash has fallen by 400, although it made a profit. Profit and cash are different things.
+  show: table Measure | Amount ;; revenue recorded | 2,400 ;; expenses recorded | 1,900 ;; profit | 500 ;; cash received | 1,500 ;; cash paid out | 1,900
+F: Follow the cash, not the profit.
+  frame: With 1,500 received and 1,900 paid out, the change in cash is __
+  answer: -400 | −400
+  x 500 :: [profit-as-cash] Five hundred is the profit. The cash actually received is less than the revenue recorded.
+  x 400 :: [dropped-the-sign] More was paid out than came in, so the cash has fallen.
+  hint: Cash in, less cash out.
+  why: 1,500 − 1,900 = −400. The business is profitable, and is running short of cash.
+F: Use the accounting equation: assets = liabilities + equity.
+  frame: With assets of 9,000 and liabilities of 5,500, the equity is __
+  answer: 3500 | 3,500
+  x 14500 :: [added] Equity is what remains of the assets after the liabilities.
+  hint: Assets, less liabilities.
+  why: 9,000 − 5,500 = 3,500. Equity is the owners' residual claim.
+G: On which statement does each item appear?
+  bin Income statement: revenue | expenses
+  bin Balance sheet: assets | liabilities | equity
+  bin Cash-flow statement: cash received from customers | cash paid to suppliers
+  hint: Is it about a period's performance, a moment's position, or the movement of money?
+  why: Performance, position and cash are recorded separately, because each answers a different question.
+X: A workshop cuts 30 pieces an hour and packs 20 an hour. Its sewing step is slower. Raise the sewing capacity and watch the output of the whole line.
+  param sew: 12..40 /4 @12 | Sewing capacity | pieces an hour
+  out output: min(30, sew, 20) | Output of the whole line | pieces an hour
+  aim: Find the sewing capacity beyond which adding more no longer raises the output.
+  target: output == 20 and sew == 20
+  view: bars output over sew
+  hint: The line can go no faster than its slowest step.
+  why: Up to 20 an hour, sewing is the bottleneck. Beyond that, packing limits the line, and further sewing capacity is wasted.
+>P: A firm reports a healthy profit, yet cannot pay its wages this month. How can that be?
+  + Its customers have not yet paid: revenue has been recorded, but the cash has not arrived :: Profit is not cash.
+  - The accounts must be wrong :: [profit-equals-cash] Both statements can be right. They measure different things.
+  - It cannot happen :: [profit-equals-cash] It is a common way for growing firms to fail.
+  hint: When is revenue recorded, and when does the money arrive?
+  why: Revenue is recorded when it is earned, and cash arrives when customers pay. The gap between them has to be planned for.
+done: Profit, position and cash are three different stories. Ask of any business in the news which of the three is being reported.
+
+@ business.3.macro
+goal: Read economic indicators correctly: tell nominal from real, a level from a rate, and an indicator from wellbeing.
+intro: A few numbers summarise a whole economy: output, the level of prices, and unemployment. Each is defined in a particular way and leaves things out. Nominal figures mix changes in price with changes in quantity. Real figures remove the effect of prices.
+  show: table Indicator | Measures | Leaves out ;; gross domestic product | the value of final production | unpaid work, distribution, damage to the environment ;; inflation | the rate of change of a price index | how prices differ for different households ;; the unemployment rate | job-seekers as a share of the labour force | those who have stopped looking
+demo: An invented price index stands at 200, then 220, then 231. In the first year prices rise by 10%. In the second they rise by 5%. Inflation has fallen from 10% to 5%, yet prices rose in both years. A falling rate of inflation means that prices are rising more slowly, not that they are falling.
+  show: bars Year_0=200 Year_1=220 Year_2=231 unit=price_index
+F: Calculate a rate of inflation.
+  frame: A price index rises from 200 to 210. Inflation is __ %
+  answer: 5
+  x 10 :: [points-as-percentage] The index rose by 10 points, from a base of 200: 10 ÷ 200.
+  x 210 :: [level-as-rate] Two hundred and ten is the level of the index, not its rate of change.
+  hint: Divide the rise by the starting level.
+  why: 10 ÷ 200 = 0.05, or 5%.
+F: Separate the real from the nominal.
+  frame: If nominal output grows by 7% while prices rise by 4%, real output grows by about __ %
+  answer: 3
+  x 11 :: [added] Remove the rise in prices: subtract it.
+  x 7 :: [nominal-as-real] Seven per cent includes the rise in prices.
+  hint: Take the rise in prices away from the nominal growth.
+  why: 7 − 4 = 3. About three percentage points of the growth were real production, and the rest was higher prices.
+G: A level, or a rate of change?
+  bin Level: The price index stands at 120. | Output is 500 billion. | Two million people are unemployed.
+  bin Rate of change: Inflation is 3% a year. | Output grew by 2%. | Unemployment fell by a tenth.
+  hint: Does it say how much there is, or how fast it is changing?
+  why: Many confusions come from mixing levels with rates. A low rate of inflation can go with a very high level of prices.
+P: Inflation falls from 8% to 3%. What is happening to prices?
+  + They are still rising, but more slowly :: A positive rate means rising prices.
+  - They are falling :: [rate-as-level] Prices fall only when inflation is negative.
+  - They have stopped changing :: [rate-as-level] That would be inflation of zero.
+  hint: Is 3% above or below zero?
+  why: Inflation is the rate at which prices rise. A lower positive rate means a slower rise.
+P: A person who has given up looking for work is not counted as unemployed. Why does that matter?
+  + The unemployment rate can fall without anyone finding a job :: The definition shapes the number.
+  - It does not: the rate counts everyone without a job :: [definition-ignored] It counts only those who are actively looking.
+  - It makes the rate useless :: [overcorrection] The rate remains useful, read alongside its definition and other measures.
+  hint: Who is counted in the labour force?
+  why: Every indicator rests on a definition. A change in who is counted can move the number without any change in people's lives.
+>P: A headline says, "Wages up 4% this year!" Over the same year, prices rose by 6%. What happened to what wages can buy?
+  + It fell by about 2%: real wages went down :: Prices outran pay.
+  - It rose by 4% :: [nominal-as-real] That is the nominal rise, before allowing for prices.
+  - It rose by 10% :: [added] The rise in prices works against the rise in pay.
+  hint: Compare the rise in pay with the rise in prices.
+  why: 4 − 6 = −2. Real wages measure purchasing power, and here it has shrunk.
+done: Nominal or real, level or rate, and what is left out? Check one economic headline against all three questions.
+
+@ business.4.incentives
+goal: Apply marginal reasoning to a choice under a constraint, find best responses and a Nash equilibrium, and judge whether the equilibrium is a good outcome.
+intro: Microeconomics studies choice under constraints. Marginal reasoning asks what one more unit adds in benefit and in cost. Strategic reasoning asks what is best given what others will do. An equilibrium describes where the incentives lead, which is not the same as where anyone would wish to end up.
+  show: table Idea | Meaning ;; marginal benefit | the extra benefit from one more unit ;; marginal cost | the extra cost of one more unit ;; best response | the best choice given the other's choice ;; Nash equilibrium | no player gains by changing alone
+demo: Two cafés each set a High or a Low price. If both choose High, each earns 6. If both choose Low, each earns 4. If one chooses Low while the other stays High, the low-priced café earns 8 and the other 2. Whatever the rival does, Low earns more. So both choose Low, and each earns 4.
+  show: table Your price | Rival charges High | Rival charges Low ;; High | you earn 6 | you earn 2 ;; Low | you earn 8 | you earn 4
+F: Find a best response.
+  frame: If the rival charges High, your best response earns you __
+  answer: 8
+  x 6 :: [stayed-with-the-rival] Matching the High price earns 6. Undercutting earns 8.
+  hint: Compare the two entries in the column "Rival charges High".
+  why: Against a High price, Low earns 8 and High earns 6. Low is the best response.
+P: What is the Nash equilibrium of the café game?
+  + Both charge Low, and each earns 4 :: Neither can gain by changing alone.
+  - Both charge High, and each earns 6 :: [best-joint-outcome] From there, either café gains by cutting its price to earn 8.
+  - One charges High and the other Low :: [not-stable] The café charging High would gain by switching to Low, earning 4 where it earned 2.
+  hint: From each outcome, ask whether one café could do better by switching alone.
+  why: Low is the best response to either choice by the rival, so both charging Low is the only stable outcome.
+X: A firm chooses how many units to produce. The marginal benefit of each further unit falls, and its marginal cost rises.
+  param q: 0..8 /1 @0 | Units produced
+  out mb: 20 - 2*q | Marginal benefit of the next unit
+  out mc: 4 + 2*q | Marginal cost of the next unit
+  out net: 16*q - 2*q*q | Total net benefit
+  aim: Find the quantity at which marginal benefit equals marginal cost.
+  target: mb == mc
+  view: bars net over q
+  hint: Go on producing while a further unit adds more benefit than cost.
+  why: At 4 units both are 12, and the total net benefit is at its peak of 32. Stopping sooner leaves gains untaken, and going further costs more than it brings.
+P: A firm has spent 2 million developing a product. Finishing it will cost 1 million more, and it is then expected to bring in 0.8 million. Should the firm finish it?
+  + No: the 2 million is gone either way, and the further 1 million would bring back only 0.8 million :: Compare only what can still be changed.
+  - Yes: otherwise the 2 million is wasted :: [sunk-cost] It is spent whatever is decided. Finishing adds a further loss of 0.2 million.
+  - Yes: 0.8 million is better than nothing :: [ignored-the-marginal-cost] It costs 1 million to obtain it.
+  hint: Which costs does the decision still affect?
+  why: A rational choice compares marginal benefit with marginal cost. Sunk costs are the same under every option.
+>P: Two firms each choose whether to advertise. If neither does, each earns 10. If both do, each earns 7. If one alone advertises, it earns 12 and the other earns 5. What is the equilibrium, and is it good for the firms?
+  + Both advertise and earn 7 each, although each would earn 10 if neither did :: Individually rational, and jointly worse.
+  - Neither advertises, and each earns 10 :: [best-joint-outcome] Either firm could then gain by advertising alone, to earn 12.
+  - Only one advertises :: [not-stable] The firm that does not advertise would gain by starting: 7 is more than 5.
+  hint: Check what each firm's best response is to each choice by the other.
+  why: Advertising is the best response either way, and so both advertise. An equilibrium shows where the incentives lead. Whether that is desirable, and for whom, is a separate question.
+done: Think at the margin, think about the other player, and then judge the result. Find a real case in which everyone would gain if all held back.
+
+@ business.4.evidence
+goal: Turn a business claim into a causal question, identify confounding and spillovers, and specify an evaluation in advance.
+intro: "Did it work?" is a causal question. It asks what happened compared with what would have happened otherwise. That alternative, the counterfactual, can never be observed directly, and so everything depends on how the comparison is built.
+  show: table Term | Meaning ;; intervention | the change being evaluated ;; counterfactual | what would have happened without it ;; confounder | a cause of both the choice and the outcome ;; spillover | an effect on those who were not treated
+demo: Customers who choose to install a shop's loyalty app spend more than those who do not. But the keenest customers are the ones who install it. Their higher spending may owe nothing to the app. Offering the app at random to some eligible customers would give a clear comparison of what the offer does.
+  show: flow keenness > installs the app ;; keenness > spends more
+M: Match each term to its meaning.
+  pairs: Intervention => The change being evaluated | Counterfactual => What would have happened without it | Confounder => A cause of both the choice and the outcome | Spillover => An effect on those who were not treated | Primary outcome => The main measure, chosen in advance | Attrition => Participants lost before the outcome is measured
+  hint: The counterfactual is the thing that we can never observe.
+  why: These terms name what an evaluation has to define and defend.
+K: Did a new shop layout raise sales? Turn over as few findings as you need to give the best estimate of its effect.
+  clue Before and after: Sales rose by 10% in the month after the change.
+  clue Comparison: In comparable shops that kept the old layout, sales rose by 9% over the same month.
+  clue Staff: The staff say that they prefer the new layout.
+  clue Season: The change was made at the beginning of December.
+  need: 2
+  + About one percentage point: most of the rise would have happened anyway :: The comparison shops estimate the counterfactual.
+  - Ten per cent: sales rose by that much after the change :: [before-after-as-effect] Sales rose by nearly as much where nothing was changed.
+  - It reduced sales :: [misread-the-comparison] Sales rose slightly more with the new layout than without it.
+  hint: Which finding shows what happened where the layout was not changed?
+  why: A comparison of before with after includes everything else that changed, such as the season. A comparison group removes that.
+P: A discount is offered to half the customers of a town. The other half hear of it, and delay their purchases in the hope of receiving it too. What does that do to the comparison?
+  + It contaminates it: the untreated group's behaviour has been changed by the treatment :: A spillover.
+  - Nothing: only the treated half received the discount :: [no-interference-assumed] The others reacted to it all the same.
+  - It makes the estimate more precise :: [confused-bias-with-precision] It biases the estimate, and does nothing for its precision.
+  hint: Is the comparison group still showing what would have happened without the discount?
+  why: A comparison group must be unaffected by the intervention. Where spillovers are likely, whole stores or towns are assigned and not individuals.
+O: Put the parts of an evaluation plan in order.
+  items: Define the intervention and the alternative | Choose the primary outcome in advance | Assign at random where that is possible | Measure over a fixed period | Compare the groups as they were assigned | Report the limits of the result
+  ends: First | Last
+  hint: The outcome is chosen before the data are seen.
+  why: Deciding the outcome and the comparison in advance prevents the most flattering result from being picked afterwards.
+>P: Employees who volunteer for a training course are promoted more often than those who do not. May the firm conclude that the course causes promotion?
+  + No: volunteers may be more ambitious to begin with; offering places at random among those eligible would test the offer's effect :: Selection, not yet causation.
+  - Yes: the promoted employees took the course :: [association-as-causation] They may have been promoted in any case.
+  - No: training never affects promotion :: [overcorrection] It may. This comparison simply cannot show it.
+  hint: How do volunteers differ from those who do not volunteer?
+  why: People who choose a treatment differ from those who do not. Random assignment of the offer removes that difference, and estimates the effect of the offer in the population studied.
+done: Compared with what? Take one "it worked" claim at work or in the news and name its counterfactual.
+
+@ business.5.econometrics
+goal: Compute a difference-in-differences estimate, judge its identifying assumptions separately from its precision, and design robustness checks.
+intro: Applied econometrics starts from a precisely defined effect and an argument for why the comparison observed recovers it. That argument, the identification strategy, rests on assumptions that statistics alone cannot check. A small standard error says nothing about whether those assumptions hold.
+  show: table Question | It concerns ;; is the comparison valid? | identification: the assumptions ;; how exact is the estimate? | precision: sampling variation
+demo: A treated region's average outcome rises from 80 to 95, a gain of 15. A comparison region's rises from 70 to 76, a gain of 6. The difference in differences is 15 − 6 = 9. Reading that as the policy's effect assumes that, without the policy, the treated region too would have gained 6.
+  show: table Region | Before | After | Change ;; treated | 80 | 95 | 15 ;; comparison | 70 | 76 | 6
+F: Compute the estimate from the table.
+  frame: The difference in differences is __
+  answer: 9 | nine
+  x 15 :: [ignored-the-comparison] Fifteen is the treated region's raw change. Subtract the comparison region's change.
+  x 19 :: [compared-the-endpoints] 95 − 76 ignores the fact that the regions began at different levels.
+  hint: The change in the treated region, less the change in the comparison region.
+  why: (95 − 80) − (76 − 70) = 15 − 6 = 9.
+G: Is it about identification, or about precision?
+  bin Identification: parallel trends in the absence of the policy | no response in anticipation of the policy | no other reform in the treated region at the same time
+  bin Precision: the size of the sample | the variability of the outcome | the number of independent regions
+  hint: Would more data of the same kind put it right?
+  why: More data shrink the standard errors. They do not make an invalid comparison valid.
+P: A difference-in-differences estimate has a very small standard error. Does that show that the parallel-trends assumption holds?
+  + No: precision and validity are separate, and a biased estimate can be very precise :: The assumption has to be argued for on other grounds.
+  - Yes: a precise estimate is a reliable one :: [precision-as-validity] Precision concerns sampling variation only.
+  - Yes, if the p-value is small enough :: [significance-as-identification] No p-value tests an assumption about what was never observed.
+  hint: What does a standard error measure?
+  why: Identification concerns a counterfactual that no sample contains. It is supported by reasoning and by indirect checks.
+K: Can the estimate of 9 be attributed entirely to the policy of interest? Turn over as few facts as you need to decide.
+  clue Earlier trends: For five years before the policy, the two regions' outcomes moved in parallel.
+  clue Second reform: In the same year, a separate reform took effect in the treated region only.
+  clue Precision: The standard error of the estimate is 0.8.
+  clue Sample: Each region contributes thousands of observations.
+  need: 2
+  + No: a second reform in the treated region alone is mixed into the estimate :: The 9 units are the two reforms together.
+  - Yes: the earlier trends were parallel and the estimate is precise :: [pre-trends-as-proof] Parallel trends beforehand cannot rule out another shock in the same year.
+  hint: Which fact names something else that changed for the treated region alone?
+  why: The design attributes to the policy everything that differed for the treated region in that period. A simultaneous reform breaks the attribution.
+S: Select every check that properly tests the robustness of the estimate.
+  + A placebo test on the years before the policy :: A false "effect" before the policy is a warning.
+  + Estimates for each year before and after, to look for diverging trends :: This shows the timing of any effect.
+  + A different, equally plausible comparison region :: The result should not hang on one choice.
+  + An outcome that the policy should not affect :: An "effect" there points to a confounder.
+  - Removing observations until the result is significant :: [specification-searching] That manufactures a result.
+  - Reporting only the specification with the largest effect :: [selective-reporting] That hides how sensitive the result is.
+  hint: A real check is one that could have gone against you.
+  why: A robustness check probes an assumption and can fail. Searching for a favourable specification is the opposite of a check.
+>P: Firms learned of a policy a year before it took effect, and began adjusting at once. What does that do to a comparison of "before" with "after" dated from the official start?
+  + It biases it: the "before" period already contains part of the response, so the effect is misstated :: The no-anticipation assumption fails.
+  - Nothing: the policy had not started :: [official-date-as-start] Behaviour changed when the policy was announced.
+  - It makes the estimate more precise :: [confused-bias-with-precision] It distorts the baseline, and has no bearing on precision.
+  hint: Is the "before" period really free of the policy's influence?
+  why: The baseline must be untouched by the treatment. If firms anticipate it, the reference period has to be moved to before the announcement.
+done: First ask whether the comparison is valid, and then how exact it is. In an empirical paper, find the sentence that states the identifying assumption.
+
+@ business.5.strategy-research
+goal: Develop a research-based recommendation for an organisation: compare rival explanations, avoid survivorship bias and propose a pilot that could fail.
+intro: Strategy research asks why some organisations do better than others. A useful explanation names a mechanism and predicts something that can be observed. It has to be tested against rivals: that successful firms were different from the start, were lucky in their timing, or can afford the practice only because they succeed.
+  show: table Rival explanation | The worry ;; selection | firms with able staff both adopt the practice and succeed ;; timing | they entered a rising market ;; reverse causation | success pays for the practice ;; survivorship | the failures that used it were never examined
+demo: Three thriving firms all use flexible teams. It is tempting to conclude that flexible teams cause success. But nobody looked at the firms that failed. Suppose that 30 of 50 successful firms use flexible teams, and that 36 of 60 failed firms use them too: 60% in each group. The practice does not distinguish success from failure at all.
+  show: table Firms | Use flexible teams | Total | Share ;; successful | 30 | 50 | 60% ;; failed | 36 | 60 | 60%
+F: Complete the comparison.
+  frame: 36 of 60 failed firms use flexible teams: a share of __ %
+  answer: 60
+  x 36 :: [count-as-share] Thirty-six is the count. Divide it by 60.
+  x 40 :: [counted-the-others] Forty per cent is the share that do not.
+  hint: 36 ÷ 60.
+  why: 36 ÷ 60 = 60%, the same share as among the successful firms.
+P: Flexible teams are used by 60% of successful firms and by 60% of failed firms. What follows?
+  + These data show no association between the practice and success :: Studying only the successes concealed that.
+  - Flexible teams cause success :: [survivorship-bias] They are just as common among the failures.
+  - Flexible teams cause failure :: [reversed-inference] They are no commoner among the failures than among the successes.
+  hint: Compare the two shares.
+  why: A practice shared by winners is evidence of nothing until the losers have been examined too.
+G: The proposed mechanism, or a rival explanation?
+  bin Proposed mechanism: Flexible teams speed up coordination, and so improve service.
+  bin Rival explanation: Firms with highly skilled staff both adopt flexible teams and succeed. | The firms entered the market as it was rising. | Successful firms can afford to reorganise.
+  hint: Which statement says how the practice produces the result?
+  why: An explanation becomes credible as its rivals are ruled out. Each rival predicts something different that can be checked.
+C: Two kinds of evidence about flexible teams. How do they compare?
+  left: text A detailed case study of one firm.
+  right: text A survey of 500 firms.
+  + They are complementary: the case shows how the process works, and the survey shows how common the pattern is :: Neither does the other's job.
+  - The survey replaces the case study :: [numbers-over-process] It estimates patterns, and misses how things actually happen.
+  - The case study proves the general rule :: [single-case-generalisation] One firm shows what is possible, not what is usual.
+  hint: What can each tell you that the other cannot?
+  why: Cases illuminate mechanisms. Samples estimate prevalence. Sound research uses each for what it can do.
+B: Choose the three elements of a pilot that could show the idea to be wrong.
+  bank: Introduce flexible teams in four of eight comparable units, chosen at random | Fix the measures of coordination and service in advance | State the result that would count against the idea | Introduce it everywhere at once | Decide afterwards which measures look best
+  answer: Introduce flexible teams in four of eight comparable units, chosen at random | Fix the measures of coordination and service in advance | State the result that would count against the idea
+  any-order
+  x Introduce it everywhere at once :: [no-comparison] With no comparison units, nothing can be learned about its effect.
+  x Decide afterwards which measures look best :: [outcome-switching] Measures chosen afterwards will always find something favourable.
+  hint: A fair pilot needs a comparison, measures fixed beforehand and a way to fail.
+  why: A recommendation is credible when it is framed as a test that could come out against it.
+>P: A best-selling book studies twenty "great" companies and lists the traits that they share. What is the criticism?
+  + The companies were chosen for their success, and no failures with the same traits were examined; the traits may be common to everyone :: Selection on the outcome.
+  - None: twenty great companies cannot all be wrong :: [survivorship-bias] They may share those traits with many companies that failed.
+  - Business cannot be studied systematically :: [dismissed-the-field] It can be. This design simply cannot support the conclusion.
+  hint: Who was left out of the sample?
+  why: Selecting cases by their outcome, and then looking for what they share, cannot separate causes from coincidences.
+done: Name the mechanism, test the rivals, and propose a pilot that could fail. Look for the missing failures in the next success story you read.

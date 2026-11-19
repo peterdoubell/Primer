@@ -1,0 +1,460 @@
+# Computer science, stages 0 to 2 (ages 3 to 13).
+# Order the steps, follow the rule, trace a program, repair a bug.
+# Program examples are written for Primer, in Python from stage 2.
+
+@ cs.0.instructions
+goal: Give clear instructions, one step at a time, in the right order.
+intro: A robot does just what you say. It cannot guess. So you must tell it every step, in order.
+  show: emoji 🤖
+demo: To brush your teeth: put toothpaste on the brush, brush your teeth, then rinse. If you change the order, it goes wrong!
+  show: flow toothpaste on the brush > brush your teeth > rinse
+O: Put the steps in order to brush your teeth.
+  items: Put toothpaste on the brush | Brush your teeth | Rinse your mouth
+  ends: First | Last
+  hint: What goes on the brush before you start?
+  why: Toothpaste first, then brush, then rinse.
+O: Put the steps in order to make a jam sandwich.
+  items: Get two slices of bread | Spread the jam | Put the slices together | Eat the sandwich
+  ends: First | Last
+  hint: You need the bread before you can spread jam on it.
+  why: Bread, jam, together, eat. Each step needs the one before it.
+P: The robot can go forward one step at a time. The door is 3 steps away. What do you tell it?
+  + Forward, forward, forward :: Three steps take it to the door.
+  - Forward :: [too-few-steps] One step is not enough. The door is 3 steps away.
+  - Go to the door :: [not-exact] The robot does not know where the door is. Tell it each step.
+  hint: Count the steps to the door.
+  why: A robot needs every step. Three steps away means "forward" three times.
+>P: You tell the robot: "Put on your shoes. Then put on your socks." What goes wrong?
+  + The socks go on over the shoes :: The steps are in the wrong order.
+  - Nothing goes wrong :: [order-does-not-matter] The robot does just what you said, in the order you said it.
+  - The robot falls over :: [not-the-problem] The trouble is the order of the steps.
+  hint: Which do you put on first, socks or shoes?
+  why: The order of the steps matters. Socks go on before shoes.
+done: Good instructions have every step in the right order. Try giving a grown-up instructions to draw a house.
+
+@ cs.0.sorting
+goal: Sort things into groups, and put things in order.
+intro: Sorting means putting things that are alike together. You can sort by colour, by size or by shape.
+  show: shapes circle circle square square triangle triangle
+demo: Here are some toys. The balls go in one box. The blocks go in another box. Now it is easy to find a ball!
+  show: chips box of balls | box of blocks
+G: Sort the things by shape.
+  bin Round: ball | coin | orange
+  bin Has corners: box | book | dice
+  hint: Can it roll all the way round?
+  why: A ball, a coin and an orange are round. A box, a book and a dice have corners.
+O: Put the animals in order, from smallest to biggest.
+  items: mouse | cat | horse | elephant
+  ends: Smallest | Biggest
+  hint: Which animal could sit in your hand?
+  why: A mouse is smaller than a cat, a cat is smaller than a horse, and an elephant is the biggest.
+P: Sam puts red buttons in one pot and blue buttons in another pot. What is Sam sorting by?
+  + Colour :: Red in one pot, blue in the other.
+  - Size :: [wrong-rule] Sam did not look at big and small.
+  - Shape :: [wrong-rule] Sam did not look at round and square.
+  hint: What is the same about all the buttons in one pot?
+  why: All the buttons in a pot have the same colour. Colour is Sam's rule.
+>P: One box is for things with wheels. One box is for soft toys. Where does a toy bus go?
+  + With the things with wheels :: A bus has wheels.
+  - With the soft toys :: [ignored-the-rule] A toy bus is not soft, and it has wheels.
+  - On the floor :: [missed-the-match] A bus has wheels, so there is a box for it.
+  hint: Does a bus have wheels?
+  why: To sort, check the rule. The bus has wheels, so it goes with the wheels.
+done: Sorting makes things easy to find. Sort your socks by colour.
+
+@ cs.0.patterns
+goal: Find what comes next in a pattern, and follow a simple rule.
+intro: A pattern is something that repeats. Red, blue, red, blue. When you know the pattern, you know what comes next.
+  show: emoji 🔴 🔵 🔴 🔵 🔴 🔵
+demo: Look: moon, star, moon, star. The part that repeats is "moon, star". So after a moon comes a star.
+  show: emoji 🌙 ⭐ 🌙 ⭐
+P: What comes next? Red, blue, red, blue, …
+  show: emoji 🔴 🔵 🔴 🔵
+  + Red :: Red comes after blue.
+  - Blue :: [repeated-the-last] Blue was the last one. After blue comes red.
+  - Green :: [new-item] There is no green in this pattern.
+  keep
+  hint: What came after blue before?
+  why: The pattern is red, blue, again and again. After blue comes red.
+F: Finish the pattern.
+  frame: moon, star, star, moon, star, star, moon, __
+  taps: moon | star | sun
+  answer: star
+  x moon :: [lost-the-pattern] After a moon come two stars.
+  x sun :: [new-item] There is no sun in this pattern.
+  hint: What comes after each moon?
+  why: The part that repeats is "moon, star, star". After a moon comes a star.
+P: The rule is: if the light is green, go. If the light is red, stop. The light is red. What do you do?
+  show: emoji 🔴
+  + Stop :: Red means stop.
+  - Go :: [wrong-branch] Go is for the green light.
+  - Jump :: [not-in-the-rule] The rule says go or stop.
+  hint: What does the rule say about red?
+  why: A rule tells you what to do each time. Red light: stop.
+>P: Clap, stamp, stamp. Clap, stamp, stamp. Clap, … What comes next?
+  + Stamp, stamp :: After a clap come two stamps.
+  - Clap, clap :: [lost-the-pattern] There is only one clap each time.
+  - Stamp, clap :: [lost-the-pattern] Two stamps come before the next clap.
+  hint: Say the part that repeats: clap, stamp, stamp.
+  why: The part that repeats is "clap, stamp, stamp". After a clap come two stamps.
+done: Patterns help you guess what comes next. Make a pattern with your toys.
+
+@ cs.1.algorithms
+goal: Write a set of exact steps that someone else could follow, and work out what a set of steps will do.
+intro: An algorithm is a list of exact steps for doing a job. A recipe is an algorithm. So are the steps for crossing the road.
+  show: flow step 1 > step 2 > step 3 > done
+demo: Here is an algorithm: start with 2. Add 3. Double it. Follow the steps: 2, then 5, then 10. Anyone who follows the same steps gets 10.
+  show: steps Start with 2 ;; Add 3: now 5 ;; Double it: now 10
+O: Put the steps for crossing the road in order.
+  items: Stop at the kerb | Look both ways | Wait until it is clear | Walk across
+  ends: First | Last
+  hint: You stop before you look.
+  why: Stop, look, wait, walk. Each step makes the next one safe.
+P: Which instruction is exact enough for a robot?
+  + Walk forward 3 steps :: The robot knows which way and how far.
+  - Walk a bit :: [vague] How far is a bit? The robot cannot tell.
+  - Go over there :: [vague] The robot does not know where "there" is.
+  hint: Which one says how far?
+  why: An algorithm needs exact steps. "Forward 3 steps" leaves nothing to guess.
+P: Follow the steps: start with 4. Add 1. Double it. What do you get?
+  + 10 :: 4 and 1 make 5. Double 5 is 10.
+  - 9 :: [doubled-first] That doubles 4 first and then adds 1. Add first, then double.
+  - 5 :: [stopped-early] There is one more step: double it.
+  keep
+  hint: Do the steps in order. What is 4 add 1?
+  why: The order of the steps matters. Add first: 5. Then double: 10.
+>P: Here are steps for washing your hands: 1. Dry your hands. 2. Wet your hands. 3. Rub them with soap. 4. Rinse. What should you change?
+  + Move "Dry your hands" to the end :: You dry your hands last.
+  - Take out the soap :: [removed-a-needed-step] Soap is what gets hands clean.
+  - Nothing :: [order-does-not-matter] Drying your hands first does no good. They get wet again.
+  hint: Which step is in the wrong place?
+  why: Finding and fixing a mistake in the steps is called debugging.
+done: An algorithm is exact steps in the right order. Write the steps for getting ready for bed.
+
+@ cs.1.binary
+goal: Count in binary, using only ones and zeros.
+intro: Computers use only two digits: 0 and 1. Think of a switch that is off or on. Each place in a binary number is worth double the place on its right: 8, 4, 2, 1.
+  show: table 8 | 4 | 2 | 1 ;; off | on | off | on
+demo: Look at 0101. There is a 1 in the fours place and a 1 in the ones place. 4 and 1 make 5. So binary 0101 is the number 5.
+  show: table 8 | 4 | 2 | 1 ;; 0 | 1 | 0 | 1
+F: What number is binary 0011?
+  show: table 8 | 4 | 2 | 1 ;; 0 | 0 | 1 | 1
+  frame: 0011 = __
+  taps: 2 | 3 | 11
+  answer: 3
+  x 11 :: [read-as-ordinary-number] In binary the places are worth 2 and 1. 2 and 1 make 3.
+  x 2 :: [counted-the-ones] There are two 1s, but they are worth 2 and 1. That makes 3.
+  hint: Which places have a 1? Add what they are worth.
+  why: A 1 in the twos place and a 1 in the ones place: 2 + 1 = 3.
+M: Match each binary number to what it is worth.
+  pairs: 0001 => 1 | 0010 => 2 | 0100 => 4 | 1000 => 8
+  hint: Which place is the 1 in?
+  why: One switch on at a time gives 1, 2, 4 and 8. Each place is double the one before.
+P: Which binary number is 6?
+  + 0110 :: A 4 and a 2 make 6.
+  - 0101 :: [wrong-places] That is a 4 and a 1, which make 5.
+  - 0011 :: [wrong-places] That is a 2 and a 1, which make 3.
+  keep
+  hint: Which two place values add up to 6?
+  why: 6 is 4 + 2. So the fours place and the twos place are on: 0110.
+>P: You have 3 switches, worth 4, 2 and 1. What is the biggest number you can make?
+  + 7 :: All three on: 4 + 2 + 1.
+  - 3 :: [counted-the-switches] There are 3 switches, but they are worth 4, 2 and 1.
+  - 8 :: [one-too-many] You would need a fourth switch, worth 8.
+  keep
+  hint: Turn every switch on and add them up.
+  why: With all three on you get 4 + 2 + 1 = 7. Three switches can show every number from 0 to 7.
+done: Ones and zeros can make any number. Try the binary counting activity.
+
+@ cs.1.blocks
+goal: Read and build programs made of blocks: steps in order, steps that repeat, and steps that depend on a test.
+intro: In block coding you snap blocks together. Blocks in a row run one after another. A "repeat" block runs its blocks again and again. An "if" block runs only when its test is true.
+  show: chips in order | repeat | if
+demo: Here is a program: repeat 4 times: go forward, turn right. The cat walks along one side and turns, four times. It draws a square.
+  show: steps repeat 4 times: ;; go forward ;; turn right
+P: A program says: repeat 3 times: clap, clap. How many claps is that?
+  + 6 :: Two claps, three times.
+  - 3 :: [counted-the-repeats] It repeats 3 times, but there are 2 claps each time.
+  - 5 :: [added] It is 3 lots of 2, not 3 and 2.
+  keep
+  hint: How many claps each time round? How many times round?
+  why: The repeat block runs "clap, clap" three times: 2 + 2 + 2 = 6.
+B: The fish is 2 steps ahead of the cat and then to the right. Build a program so that the cat faces the fish.
+  bank: repeat 2 times: | step forward | turn right | turn left | jump
+  answer: repeat 2 times: | step forward | turn right
+  x turn left :: [wrong-direction] The fish is on the right.
+  x jump :: [unneeded-block] The cat has no need to jump.
+  hint: First walk the 2 steps. Then turn towards the fish.
+  why: Repeat "step forward" twice to walk 2 steps, then turn right to face the fish.
+P: A program says: if it is raining, take an umbrella. Otherwise, wear a sun hat. Today it is sunny. What happens?
+  + Wear a sun hat :: It is not raining, so the "otherwise" part runs.
+  - Take an umbrella :: [wrong-branch] That part runs only when it is raining.
+  - Both :: [ran-both-branches] Only one part of an "if" runs each time.
+  hint: Is the test "it is raining" true today?
+  why: An "if" block checks its test. When the test is false, the "otherwise" part runs.
+>P: Which program draws a triangle?
+  + Repeat 3 times: go forward, turn :: Three sides and three turns.
+  - Repeat 4 times: go forward, turn :: [square-not-triangle] Four sides make a square.
+  - Go forward, go forward, go forward :: [no-turns] With no turns you get one long straight line.
+  hint: How many sides does a triangle have?
+  why: A triangle has 3 sides. So the side-and-turn blocks repeat 3 times.
+done: Order, repeat, if: three ideas build every program. Try the block coding activity.
+
+@ cs.1.parts
+goal: Name the main parts of a computer and say what each one does.
+intro: A computer takes things in, works on them and gives things out. Things going in are input. Things coming out are output.
+  show: flow input > processor and memory > output
+demo: You press the A key. That is input. The processor works out which letter it is. The letter A shows on the screen. That is output.
+  show: flow you press a key > the processor works > a letter shows
+G: Input or output?
+  bin Input: keyboard | mouse | microphone
+  bin Output: screen | speaker | printer
+  hint: Does it send things into the computer, or bring things out?
+  why: A keyboard, a mouse and a microphone send things in. A screen, a speaker and a printer bring things out.
+M: Match each part to its job.
+  pairs: Processor => Does the working out | Memory => Remembers things | Keyboard => Lets you type | Screen => Shows you things
+  hint: Which part is like a brain? Which is like a notebook?
+  why: The processor works things out, the memory stores them, the keyboard takes input and the screen gives output.
+O: You type a letter. Put what happens in order.
+  items: You press a key | The processor works out which letter | The letter shows on the screen
+  ends: First | Last
+  hint: Input, then working out, then output.
+  why: Input comes first, the processor works on it, and then the output appears.
+>P: You can touch a tablet's screen to choose things, and it also shows pictures. Is the screen input or output?
+  + Both :: You touch it (input) and it shows things (output).
+  - Only input :: [one-job-only] It also shows you pictures, and that is output.
+  - Only output :: [one-job-only] It also feels your touch, and that is input.
+  hint: Does it take things in? Does it show things?
+  why: Some parts do two jobs. A touch screen is input and output together.
+done: Input, working out, output. Spot the inputs and outputs on a device at home.
+
+@ cs.2.programming
+goal: Trace a short program by hand: follow variables, loops and conditions to predict exactly what it prints.
+intro: A program is a list of instructions carried out one at a time. A variable is a named box that holds a value, and the value can change as the program runs.
+  show: steps x = 3 ;; x = x + 2 ;; print(x)
+demo: Trace it line by line. First x holds 3. Then "x = x + 2" takes the old value, adds 2 and stores 5 back in x. The last line prints 5. The sign = means "store", not "is equal to".
+  show: table Line | x afterwards ;; x = 3 | 3 ;; x = x + 2 | 5 ;; print(x) | 5 is printed
+P: A loop adds up a list. What does the program print?
+  show: steps total = 0 ;; for n in [1, 2, 3]: ;; total = total + n ;; print(total)
+  + 6 :: 0 + 1 + 2 + 3.
+  - 3 :: [last-value-only] The loop adds every value to the total, not only the last.
+  - 123 :: [joined-not-added] The numbers are added together, not written side by side.
+  - 0 :: [never-updated] The total changes each time the loop goes round.
+  keep
+  hint: Write down the value of total after each turn of the loop.
+  why: The loop runs three times. The total goes 0, 1, 3, 6.
+F: Trace the variable.
+  show: steps x = 4 ;; x = x * 2 ;; x = x - 3 ;; print(x)
+  frame: The program prints __
+  answer: 5
+  x 8 :: [stopped-early] There is one more line: subtract 3.
+  x 1 :: [subtracted-first] The lines run in order: double first, then subtract.
+  hint: Take one line at a time: 4, then double it, then take away 3.
+  why: 4 doubled is 8, and 8 − 3 is 5.
+P: This program makes a choice. What does it print?
+  show: steps age = 12 ;; if age >= 13: ;; print("teen") ;; else: ;; print("child")
+  + child :: 12 is not 13 or more, so the "else" branch runs.
+  - teen :: [boundary-misread] The test is "13 or more", and 12 is less than 13.
+  - teen and then child :: [ran-both-branches] An if-else runs exactly one of its branches.
+  hint: Is 12 >= 13 true or false?
+  why: The condition is false, so the program skips the first branch and runs the "else" branch.
+E: This loop should print 1, 2, 3, 4, 5, but it stops at 4. Repair it.
+  tokens: for i in range(1, | 5{6,4} | ): print(i)
+  limit: 1
+  aim: Change one value so that the loop prints the numbers 1 to 5.
+  accept: 2=6
+  x 2=4 :: [made-it-shorter] range(1, 4) stops even sooner, at 3.
+  hint: range(1, n) stops just before n.
+  why: range(1, 6) gives 1, 2, 3, 4, 5. The end value is never included: a classic off-by-one bug.
+>P: This loop counts down in threes. What does the program print once the loop has finished?
+  show: steps n = 10 ;; while n > 0: ;; n = n - 3 ;; print(n)
+  + -2 :: n goes 10, 7, 4, 1, −2. Then the test fails.
+  - 1 :: [stopped-one-early] 1 is still greater than 0, so the loop runs once more.
+  - 0 :: [assumed-it-lands-on-zero] Counting down in threes from 10 misses zero.
+  - 10 :: [never-updated] n changes every time the loop goes round.
+  keep
+  hint: List the values of n, and check the test before each turn.
+  why: The loop stops only when n > 0 is false. From 1 it runs once more, giving −2.
+done: You can run a program in your head. Trace before you run, and predict before you check.
+
+@ cs.2.data-types
+goal: Tell numbers, strings, booleans and lists apart, and predict how each behaves.
+intro: Every value in a program has a type. The type decides what you can do with the value. Numbers can be added, strings are pieces of text, booleans are true or false, and lists hold several values in order.
+  show: table Type | Example | Used for ;; integer | 42 | counting ;; string | "hello" | text ;; boolean | True | yes or no ;; list | [1, 2, 3] | several values in order
+demo: 42 is a number. "42", in quotation marks, is text that happens to look like a number. 42 + 1 is 43, but "42" + "1" is "421", because adding strings joins them end to end.
+  show: table Expression | Result ;; 42 + 1 | 43 ;; "42" + "1" | "421"
+G: Sort the values by type.
+  bin Integer: 42 | -7
+  bin String: "hello" | "42"
+  bin Boolean: True | False
+  bin List: [1, 2, 3]
+  note "42" :: The quotation marks make it text, even though it looks like a number.
+  hint: Look for quotation marks and for square brackets.
+  why: Quotation marks make a string, square brackets make a list, True and False are booleans, and bare whole numbers are integers.
+P: In Python, what is "3" + "4"?
+  + "34" :: Adding strings joins them.
+  - 7 :: [added-as-numbers] These are strings. The quotation marks make them text.
+  - An error :: [assumed-illegal] Two strings can be added. The result is one longer string.
+  hint: Both values are in quotation marks.
+  why: For strings, + means join. "3" followed by "4" is "34".
+F: Positions in a list are counted from 0.
+  show: text nums = [10, 20, 30]
+  frame: nums[1] is __
+  answer: 20
+  x 10 :: [counted-from-one] The first item is nums[0]. So nums[1] is the second.
+  hint: nums[0] is 10.
+  why: Positions start at 0: nums[0] is 10, nums[1] is 20 and nums[2] is 30.
+>P: A form stores an age as the string "15". The program then works out age + 1. What happens in Python, and what is the remedy?
+  + It fails, because text and a number cannot be added; convert first with int(age) :: Then int("15") + 1 is 16.
+  - It gives 16 :: [assumed-automatic-conversion] Python does not turn text into a number for you.
+  - It gives "151" :: [joined-a-number] Joining needs two strings. Here one is a string and the other a number.
+  hint: What are the types of the two values being added?
+  why: Mixing types is a common bug. Text that has been typed in must be converted before arithmetic.
+done: The type of a value decides what you can do with it. Check the types whenever an answer surprises you.
+
+@ cs.2.functions
+goal: Read and write functions: pass values in, get a value back, and reuse the same steps without copying them.
+intro: A function is a named set of steps. You give it inputs, called arguments, and it gives a result back with "return". Write it once and use it as often as you like.
+  show: steps def double(n): ;; return n * 2 ;; print(double(5))
+demo: Calling double(5) puts 5 into n, works out 5 * 2 and returns 10. So the program prints 10. Calling double(8) with the same function gives 16.
+  show: flow 5 goes in as n > n * 2 > 10 comes back
+P: What does this program print?
+  show: steps def area(w, h): ;; return w * h ;; print(area(3, 4))
+  + 12 :: 3 × 4.
+  - 7 :: [added] The function multiplies its two inputs.
+  - 34 :: [joined] 3 and 4 are numbers, and they are multiplied.
+  keep
+  hint: w is 3 and h is 4. What does the function return?
+  why: The arguments 3 and 4 become w and h, and the function returns their product.
+F: A function can be called on its own result.
+  show: steps def add_one(n): ;; return n + 1
+  frame: add_one(add_one(5)) is __
+  answer: 7
+  x 6 :: [called-once] The inner call gives 6. The outer call then adds 1 more.
+  hint: Work out the inner call first.
+  why: The inner call returns 6. The outer call receives 6 and returns 7.
+P: Look closely at the body of this function. What does the program print?
+  show: steps def twice(n): ;; n * 2 ;; print(twice(4))
+  + None :: The function works out 8 but never returns it.
+  - 8 :: [assumed-return] Without "return", the result is thrown away.
+  - 4 :: [returned-the-input] Nothing is returned at all, not even the input.
+  hint: Look for the word "return".
+  why: A function gives back a value only through "return". Without it, Python returns None.
+>P: A shop program works out the price with tax in three places, using the same three lines each time. The tax rate is about to change. What is the best design?
+  + Put the lines in one function, with_tax(price), and call it three times :: The rate then changes in one place.
+  - Copy the three lines a fourth time for safety :: [duplication] More copies mean more places to forget when the rate changes.
+  - Put the whole program into one enormous function :: [no-decomposition] That does nothing to remove the repeated lines.
+  hint: How many places should need editing when the rate changes?
+  why: A function gives a job one name and one home. Fix it there and every caller gets the fix.
+done: Name it once, use it everywhere. Turn a repeated piece of your own code into a function.
+
+@ cs.2.debugging
+goal: Find and fix bugs methodically: read the error message, tell the kinds of bug apart, and test one change at a time.
+intro: Every programmer writes bugs. Debugging is a method: make the bug happen again, read what the computer tells you, form a guess, change one thing and test.
+  show: table Kind of bug | What happens ;; syntax error | the program will not start: it breaks the rules of the language ;; runtime error | the program starts, then crashes ;; logic error | the program runs, but gives the wrong answer
+demo: The average of 4 and 8 should be 6. The line "average = 4 + 8 / 2" gives 8.0. There is no error message. Division is done before addition, so it works out 4 + 4. This is a logic error, and the cure is a pair of brackets.
+  show: table Code | Result ;; 4 + 8 / 2 | 8.0 ;; (4 + 8) / 2 | 6.0
+G: What kind of bug is it?
+  bin Syntax error: print("hi" with the closing bracket missing | if x = 3: where == was meant
+  bin Runtime error: dividing 10 by 0 | asking for item 5 of a list of 3
+  bin Logic error: an average worked out as a + b / 2 | a loop that stops one item too early
+  hint: Does it fail to start, crash while running, or run and give the wrong answer?
+  why: Syntax errors break the language's rules, runtime errors crash part-way, and logic errors run to the end and are wrong.
+E: This line should give the average of a and b. Repair it.
+  tokens: average = | a + b{(a + b)} | / 2{* 2}
+  limit: 1
+  aim: Change one part so that the sum is worked out before the division.
+  accept: 2=(a + b)
+  x 3=* 2 :: [changed-the-wrong-part] Multiplying by 2 makes the answer bigger still. The problem is the order of the operations.
+  hint: Which operation does the computer do first, + or / ?
+  why: Division comes before addition unless brackets say otherwise. (a + b) / 2 adds first.
+O: Put the steps of debugging in order.
+  items: Make the bug happen again | Read the error message and find the line | Form a guess about the cause | Change one thing | Test again
+  ends: First | Last
+  hint: You cannot fix what you cannot reproduce.
+  why: Reproduce, read, guess, change one thing, test. Changing one thing at a time tells you what made the difference.
+P: A program stops with the message: "TypeError: can only concatenate str (not "int") to str, line 4". What should you do first?
+  + Go to line 4 and check which value is text and which is a number :: The message names the line and the problem.
+  - Rewrite the whole program :: [panic-rewrite] The message points to one line. Start there.
+  - Run it again and hope :: [hoping] The same code with the same input fails in the same way.
+  hint: The message gives you a line number and two types.
+  why: An error message is information: where the fault is, and what kind it is. Read it before you change anything.
+>P: This program should add up all three scores and print 240, but it prints 170. Where is the bug?
+  show: steps scores = [70, 80, 90] ;; total = 0 ;; for i in range(1, 3): ;; total = total + scores[i] ;; print(total)
+  + The loop starts at position 1, so it skips scores[0] :: 80 + 90 = 170.
+  - The list is too short :: [blamed-the-data] The list holds all three scores.
+  - total should start at 1 :: [changed-the-wrong-part] That would give 171. The missing 70 is the clue.
+  hint: 240 − 170 = 70. Which score is missing?
+  why: Positions start at 0, so range(1, 3) covers only positions 1 and 2. The difference between the expected and the actual answer pointed to the skipped item.
+done: Reproduce, read, guess, change one thing, test. Keep a note of the bugs you fix: they repeat.
+
+@ cs.2.internet
+goal: Explain how a web page reaches your screen, and recognise the commonest risks online.
+intro: The internet is a network of networks: billions of computers joined by cables and radio links. Data crosses it in small pieces called packets, each labelled with the address it is going to.
+  show: flow your device > router > more routers > server
+demo: You type an address such as primer.example. A service called DNS looks up the server's numeric address. Your browser sends a request, the server sends the page back in packets, and the browser puts them together again.
+  show: steps You type a name ;; DNS finds the server's number ;; The browser sends a request ;; The server replies in packets ;; The browser builds the page
+O: You open a web page. Put what happens in order.
+  items: You type the address | DNS finds the server's numeric address | Your browser sends a request | The server sends the page back in packets | The browser puts the page together
+  ends: First | Last
+  hint: The browser must know where the server is before it can ask it for anything.
+  why: Name, lookup, request, reply, display. Each step needs the result of the one before.
+M: Match each part to its job.
+  pairs: Router => Passes packets on towards their destination | DNS => Turns names into numeric addresses | Server => Stores pages and sends them out | Browser => Requests pages and displays them | Packet => A small labelled piece of data
+  hint: Which one is like a phone book? Which is like a sorting office?
+  why: DNS is the lookup, routers do the forwarding, servers hold the content and browsers show it.
+P: What is the difference between the internet and the web?
+  + The internet is the network; the web is one service that runs on it :: Email and video calls use the internet too.
+  - They are two names for the same thing :: [conflated] The web is only one of many things carried by the internet.
+  - The web is the cables and the internet is the pages :: [reversed] It is the other way round.
+  hint: Does email use the web, or only the internet?
+  why: The internet carries the data. The web is pages and links travelling over it.
+G: Safe or risky?
+  bin Safer: a long password used on only one site | checking the address before you log in | asking a trusted adult about a strange message
+  bin Risky: sharing your password with a friend | clicking a link that promises a free prize | posting your home address in public
+  hint: Could a stranger use it to pretend to be you, or to find you?
+  why: Passwords, links and personal details are the three things attackers most often go after.
+>P: An email says: "Your account will be closed today! Click here and enter your password." What is the best thing to do?
+  + Do not click; go to the real site yourself, or ask a trusted adult :: The hurry is the warning sign.
+  - Click quickly, before the account is closed :: [urgency-pressure] Pressure to act at once is the commonest trick of all.
+  - Reply to the email with your password :: [trusted-the-sender] A real service never asks for your password by email.
+  hint: Why might the message want you to hurry?
+  why: This is phishing: a fake message that tries to steal a password. Going to the site by your own route defeats it.
+done: Packets, addresses, requests and replies, and a healthy suspicion of anything urgent. Trace a web request in the packet activity.
+
+@ cs.2.bigo-intro
+goal: Compare two ways of doing the same job by counting steps, and see why some methods stay fast as the job grows.
+intro: Two programs can both be correct and yet differ hugely in speed. What matters most is how the number of steps grows as the input gets bigger.
+  show: table Names in the list | Checks, one by one | Checks, by halving ;; 10 | up to 10 | up to 4 ;; 100 | up to 100 | up to 7 ;; 1000 | up to 1000 | up to 10
+demo: To find a name in a sorted list of 1000 you could check each name in turn: up to 1000 checks. Or open the list in the middle, see which half the name is in, and repeat. Each check halves what is left: 1000, 500, 250 and so on. About 10 checks are enough.
+  show: flow 1000 > 500 > 250 > 125 > … > 1
+X: Grow the list and compare the two ways of searching it.
+  param n: 10..2000 /10 @10 | Names in the list
+  out one: n | Checks, one by one
+  out half: floor(log(n)/log(2)) + 1 | Checks, by halving
+  aim: Find a list long enough that searching one by one needs at least 100 times as many checks as halving.
+  target: one >= 100*half
+  view: bars half over n
+  hint: Halving hardly grows at all. Make the list much longer.
+  why: At 1000 names, one-by-one needs up to 1000 checks and halving needs 10. Doubling the list adds only one more halving step.
+F: You must guess a number from 1 to 100, and each time you are told "higher" or "lower".
+  frame: Guessing the middle each time, you always get it within __ guesses
+  answer: 7
+  x 50 :: [halved-once] After one guess 50 numbers remain, and you keep halving: 50, 25, 13, 7, 4, 2, 1.
+  x 100 :: [checked-every-one] That is guessing 1, 2, 3 and so on. Halving is far quicker.
+  hint: How many times can 100 be halved before one number is left?
+  why: Seven halvings are enough, because 2 multiplied by itself seven times is 128, which is more than 100.
+P: Halving works only if the list has one particular property. Which?
+  + It is sorted :: Otherwise the middle item tells you nothing about which half to keep.
+  - It is short :: [size-confusion] Halving matters most when the list is long.
+  - It holds numbers and not names :: [type-confusion] Names can be put in order too.
+  hint: After looking at the middle, how do you know which half to throw away?
+  why: Halving throws away half the list at every step, and that is safe only when the order tells you where the answer must lie.
+>P: A sorted phone book has 1,000,000 names. Checking one by one could take a million checks. About how many does halving need?
+  + About 20 :: Halving a million twenty times leaves one name.
+  - About 500,000 :: [halved-once] That is the first halving only. Keep going.
+  - About 1,000 :: [guessed-a-root] Halving is much faster still: 2 multiplied by itself 20 times is over a million.
+  keep
+  hint: 1000 names needed about 10 checks. A million is 1000 times 1000.
+  why: Each extra halving doubles the size of list you can handle. Ten halvings cover a thousand and twenty cover a million.
+done: Count the steps, and ask how the count grows. Race the two searches in the sorting and searching activity.

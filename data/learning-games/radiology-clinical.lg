@@ -1,0 +1,493 @@
+# Radiology modules that have no reviewed reporting reference yet (stage 5).
+# Each sequence is written from the module's own goal and question bank,
+# kept to well-established teaching points, and marked for a radiologist's
+# review before it can be called reviewed. Cases are invented. Not for
+# clinical use.
+
+@ rad.5.sella
+from: the module's goal and question bank
+review: radiologist
+goal: Localise sellar and parasellar lesions by their epicentre, assess the optic and cavernous-sinus relationships, recognise vascular mimics and connect the imaging with endocrine and visual findings.
+intro: Read a sellar region lesion by location first: is its centre within the sella, above it or beside it? Then by its neighbours: the optic chiasm above, and the cavernous sinuses, with the internal carotid arteries, to either side. Then answer the endocrine or visual question that prompted the scan.
+  show: table Region | Neighbours that matter ;; sella | pituitary gland, sphenoid sinus below ;; suprasellar cistern | optic chiasm, hypothalamus, third ventricle ;; parasellar | cavernous sinus, internal carotid artery, cranial nerves III, IV, V1, V2 and VI
+demo: A pituitary macroadenoma arises within the gland, expands the sella and often grows upwards through the diaphragma sellae, which can pinch its waist into a "snowman" shape. As it rises it may lift and compress the optic chiasm. Laterally it may extend into the cavernous sinus around the carotid artery. Each relationship belongs in the report.
+  show: flow arises in the gland > expands the sella > rises through the diaphragma > meets the chiasm
+M: Match each lesion to a typical imaging feature.
+  pairs: Pituitary macroadenoma => Expands the sella, with a waist at the diaphragma | Rathke cleft cyst => A non-enhancing midline cyst, sometimes with a small nodule inside | Adamantinomatous craniopharyngioma => Calcification with cystic and solid parts, usually in a child | Meningioma => A dural tail, and may narrow an encased carotid artery | Aneurysm => Flow-related signal continuous with the carotid artery
+  hint: Which lesion is a vessel? Which one calcifies?
+  why: Pattern narrows the differential, but only after the epicentre has been established.
+F: Size separates two groups of pituitary adenoma.
+  frame: An adenoma smaller than __ mm is called a microadenoma
+  answer: 10 | ten
+  x 5 :: [wrong-threshold] The conventional threshold is 10 mm.
+  x 20 :: [wrong-threshold] The conventional threshold is 10 mm.
+  hint: Macroadenomas are 10 mm or more.
+  why: Below 10 mm an adenoma is a microadenoma, and at 10 mm or more a macroadenoma.
+K: A rounded parasellar mass is found on MRI. Turn over as few findings as you need to decide whether tissue sampling can be planned.
+  clue Signal: Part of the mass shows flow-related signal.
+  clue Continuity: The mass is continuous with the cavernous internal carotid artery.
+  clue Size: The mass measures 14 mm.
+  clue Age: The patient is 58.
+  need: 1 | 2
+  + Not yet: a vascular lesion such as an aneurysm must be assessed first :: Sampling an aneurysm could be catastrophic.
+  - Yes: it is a solid mass suitable for sampling :: [ignored-the-vascular-mimic] Flow signal or continuity with the carotid demands vascular assessment first.
+  hint: Which findings suggest that the "mass" might be a vessel?
+  why: Vascular mimics are a classic parasellar trap. Size and age do not exclude them.
+P: Biochemistry shows pituitary overactivity, and a small adenoma is suspected. Why are early images after contrast especially useful?
+  + A microadenoma usually enhances later than the normal gland, so on early images it may stand out as a less-enhancing area :: Timing is part of the technique.
+  - A microadenoma enhances more brightly than any other tissue :: [reversed-enhancement] It usually enhances less, and later, than the normal gland.
+  - Contrast is never needed for the pituitary :: [technique-ignored] A dedicated contrast-enhanced study is often what finds a small adenoma.
+  hint: Compare how quickly the adenoma and the normal gland enhance.
+  why: Dedicated thin-section imaging with early post-contrast images is designed for this endocrine question.
+>P: A man with a known macroadenoma has a sudden, severe headache, double vision and falling vision. MRI shows new blood within the enlarged mass. What does this suggest, and how should it be communicated?
+  + Pituitary apoplexy: an emergency, to be communicated directly and urgently to the clinical team :: Vision and hormone function are at risk.
+  - A stable adenoma, for a routine report :: [missed-the-emergency] Sudden symptoms with new haemorrhage are not routine.
+  - A second, unrelated tumour :: [misread-the-change] New blood within a known adenoma is the key finding.
+  hint: What does sudden bleeding into a pituitary tumour cause?
+  why: Pituitary apoplexy can threaten vision and life. Urgent communication is part of the radiological finding.
+done: Epicentre, neighbours, vessels, and the clinical question. Next, read a sellar MRI by naming each relationship in turn.
+
+@ rad.5.esophagus-swallowing
+from: the module's goal and question bank
+review: radiologist
+goal: Choose the study for the phase of swallowing that is causing symptoms, distinguish structural obstruction from disordered transit, and report airway invasion and oesophageal warning signs.
+intro: Swallowing has an oral, a pharyngeal and an oesophageal phase. The complaint points to a phase. Coughing or choking during the swallow points to the oropharynx. Food sticking a little later, behind the breastbone, points to the oesophagus. The phase decides the study.
+  show: table Phase | Typical complaint | Study that shows it ;; oral and pharyngeal | coughing or choking while swallowing | videofluoroscopic swallowing study ;; oesophageal | food sticking behind the breastbone | barium swallow, with endoscopy where indicated
+demo: In a videofluoroscopic study, contrast that enters the laryngeal vestibule but stays above the vocal folds is penetration. Contrast that passes below the vocal folds is aspiration. Aspiration without any cough is silent aspiration, and matters all the more because nothing warns of it.
+  show: table Where the contrast goes | Term ;; into the laryngeal vestibule, above the vocal folds | penetration ;; below the vocal folds | aspiration ;; below the vocal folds, with no cough | silent aspiration
+G: Which phase does each complaint point to?
+  bin Oropharyngeal: coughing as soon as a drink is swallowed | food left in the throat after swallowing | liquid coming back through the nose
+  bin Oesophageal: food sticking behind the breastbone after swallowing | difficulty with solid food that has slowly worsened
+  hint: Is the trouble during the swallow, or after it?
+  why: The symptom's timing and site point to the phase, and the phase selects the study.
+M: Match each finding to its term.
+  pairs: A posterior pouch arising above the cricopharyngeus => Zenker diverticulum | A thin ring-like narrowing at the gastro-oesophageal junction => Lower oesophageal (Schatzki) ring | A dilated oesophagus with absent peristalsis and smooth distal tapering => Achalasia pattern | Contrast passing below the vocal folds => Aspiration | Contrast entering the laryngeal vestibule but staying above the vocal folds => Penetration
+  hint: Penetration stops above the vocal folds.
+  why: Precise terms make a report actionable for the clinician and the speech and language therapist.
+K: An oesophagram shows a dilated oesophagus with smooth distal tapering. Turn over as few facts as you need to decide whether primary achalasia can be reported confidently.
+  clue Age: The patient is 74, and the symptoms began three months ago.
+  clue Weight: The patient has lost 9 kg.
+  clue Contrast: The study used barium.
+  clue Position: The images were taken upright.
+  need: 1 | 2
+  + Not confidently: these features raise concern for an obstructing tumour mimicking achalasia, so endoscopic assessment is needed :: Pseudoachalasia must be excluded.
+  - Yes: smooth tapering is diagnostic of achalasia :: [tapering-as-proof] A tumour at the gastro-oesophageal junction can produce the same appearance.
+  hint: Which facts are warning signs, and which are only about the technique?
+  why: Older age, a short history and weight loss are warning signs that make a mimic more likely.
+P: Why is barium usually avoided as the first contrast agent when an oesophageal perforation is suspected?
+  + Barium leaking into the mediastinum can cause serious inflammation, so a water-soluble agent or CT is used first :: Safety governs the choice.
+  - Barium cannot show the oesophagus :: [false-limit] Barium shows the oesophagus in fine detail.
+  - Barium is reserved for children :: [invented-rule] The concern is barium outside the oesophagus.
+  hint: What happens to contrast that leaks through a tear?
+  why: The choice of agent depends on the question, and on what a leak of that agent would do.
+>P: An older patient's barium swallow shows a short mid-oesophageal narrowing, with irregular, ulcerated mucosa and abrupt, shouldered margins. How should it be reported?
+  + As suspicious for carcinoma, with a recommendation for endoscopy and biopsy :: Irregularity and shouldering are warning signs.
+  - As a benign peptic stricture :: [benign-assumed] Peptic strictures are usually distal, smooth and tapered.
+  - As normal peristalsis :: [missed-the-lesion] A fixed, shouldered narrowing is not peristalsis.
+  hint: Smooth and tapered, or irregular and shouldered?
+  why: Shouldered, irregular narrowing is a classic warning sign that requires tissue diagnosis.
+done: Phase, study, airway, warning signs. Next, practise naming penetration and aspiration on a swallow study.
+
+@ rad.5.tinnitus
+from: the module's goal and question bank
+review: radiologist
+goal: Use pulsatility, otoscopy, hearing and neurological findings to choose targeted imaging, and identify vascular, temporal-bone and retrocochlear causes of tinnitus.
+intro: Tinnitus is sound heard with no outside source. The first question is whether it follows the pulse. Pulsatile tinnitus sends the search to arteries, veins, venous sinuses and the skull base. Non-pulsatile tinnitus that is one-sided, with asymmetric hearing loss, sends it to the internal auditory canals and cerebellopontine angles.
+  show: table Kind of tinnitus | Where to look ;; pulsatile | arteries, veins, venous sinuses, middle ear and skull base ;; one-sided and non-pulsatile, with asymmetric hearing loss | internal auditory canals and cerebellopontine angles
+demo: A patient hears a whooshing in time with the pulse, and otoscopy shows a red mass behind the eardrum. Thin-section temporal-bone CT comes before any biopsy. It shows whether the mass is a tumour such as a paraganglioma, or an aberrant internal carotid artery crossing the middle ear, which must never be biopsied.
+  show: flow pulsatile tinnitus > red mass behind the eardrum > temporal-bone CT > tumour or aberrant artery?
+G: Is each a cause of pulsatile or of non-pulsatile tinnitus?
+  bin Pulsatile: dural arteriovenous fistula | paraganglioma of the middle ear or jugular foramen | thinning or dehiscence of the sigmoid sinus wall | idiopathic intracranial hypertension
+  bin Non-pulsatile: vestibular schwannoma | noise-induced hearing loss | age-related hearing loss
+  hint: Does the cause involve flowing blood or venous pressure?
+  why: Pulsatile tinnitus usually reflects blood flow or venous pressure. Non-pulsatile tinnitus usually reflects the hearing pathway.
+M: Match each finding to the likely cause.
+  pairs: An enhancing mass within the internal auditory canal => Vestibular schwannoma | An enhancing mass at the jugular foramen containing flow voids => Paraganglioma | A vessel crossing the middle ear, with a deficient bony carotid canal => Aberrant internal carotid artery | Enlarged cortical veins that fill early => Dural arteriovenous fistula | Thin or absent bone over the sigmoid sinus => Sigmoid sinus wall dehiscence
+  hint: Which finding is in the canal that carries the hearing nerve?
+  why: Each cause has a characteristic location and appearance, which is why the imaging target matters.
+P: Tinnitus is constant, non-pulsatile and the same in both ears, with symmetric hearing and a normal neurological examination. What is usually appropriate?
+  + Imaging is usually not needed, because it is unlikely to change management :: Imaging is targeted at red flags.
+  - MRI of the internal auditory canals for everyone with tinnitus :: [image-everyone] Without asymmetry, pulsatility or neurological signs, the yield is low.
+  - Catheter angiography :: [invasive-first] An invasive test is not justified for this presentation.
+  hint: Which features would justify imaging?
+  why: One-sided or pulsatile tinnitus, asymmetric hearing loss and neurological signs are the usual triggers for imaging.
+K: A dural arteriovenous fistula is suspected in a patient with pulsatile tinnitus. Turn over as few facts as you need to decide whether it has been excluded.
+  clue MRI: Routine brain MRI is normal.
+  clue MRA: Non-contrast MR angiography is normal.
+  clue Bruit: The examining doctor can hear a bruit behind the ear.
+  clue Hearing: The hearing test is normal.
+  need: 3
+  + Not excluded: a persisting objective sign means that catheter angiography may be needed, after specialist review :: Normal non-invasive studies do not exclude every fistula.
+  - Excluded: the normal MRI and MRA rule it out :: [normal-noninvasive-excludes] Small fistulas can be invisible on routine non-invasive imaging.
+  hint: Which fact shows that suspicion should persist?
+  why: Catheter angiography remains the reference standard when clinical suspicion stays high.
+>P: A young woman with headaches, blurred vision and swollen optic discs has pulsatile tinnitus. Which MRI findings support the suspected cause, idiopathic intracranial hypertension?
+  + A partly empty sella, flattened backs of the eyeballs and narrowed transverse sinuses :: Signs of raised pressure without a mass.
+  - Enlarged ventricles with a blocked aqueduct :: [different-cause-of-raised-pressure] That would be obstructive hydrocephalus, which must be excluded first.
+  - An enhancing mass within the internal auditory canal :: [wrong-pathway] That fits a schwannoma and non-pulsatile, one-sided symptoms.
+  hint: Which findings point to raised pressure with no obstruction or mass?
+  why: Idiopathic intracranial hypertension is diagnosed after excluding other causes, and has supportive imaging signs.
+done: Pulsatile or not, then target the search. Next, map one patient's findings to the imaging they justify.
+
+@ rad.5.trigeminal
+from: the module's goal and question bank
+review: radiologist
+goal: Follow the trigeminal pathway from the brainstem to its branches, distinguish vascular contact from compression that changes the nerve, and search for secondary disease.
+intro: The trigeminal nerve runs from nuclei in the brainstem, through the root entry zone at the pons, across the prepontine cistern into Meckel's cave, where its ganglion lies, and out through the skull base in three divisions. Pain or numbness can arise anywhere along that course.
+  show: flow brainstem nuclei > root entry zone > cisternal segment > Meckel's cave > skull-base foramina > branches
+demo: Classical trigeminal neuralgia is brief, triggered, electric-shock pain. A vessel touching the nerve is common on MRI, even in people with no symptoms. What supports a symptomatic neurovascular conflict is change in the nerve itself: displacement, indentation or thinning at the point of contact.
+  show: table Finding | Weight ;; a vessel touches the nerve | common, even without symptoms ;; the nerve is displaced, indented or thinned | supports a symptomatic conflict
+O: Put the parts of the trigeminal pathway in order, from the brainstem to the jaw.
+  items: Trigeminal nuclei in the brainstem | Root entry zone | Cisternal segment | Meckel's cave | Foramen ovale | Mandibular branch
+  ends: Brainstem | Periphery
+  hint: The ganglion lies in Meckel's cave, before the nerve divides.
+  why: Knowing the course lets the search follow the nerve wherever the symptoms point.
+M: Match each part of the nerve to where it lies or exits.
+  pairs: Ophthalmic division (V1) => Superior orbital fissure | Maxillary division (V2) => Foramen rotundum | Mandibular division (V3) => Foramen ovale | Trigeminal ganglion => Meckel's cave
+  hint: The mandibular division leaves through an oval opening.
+  why: The foramina are where perineural disease and skull-base masses are sought.
+G: How should each finding be weighed?
+  bin Supports a symptomatic vascular conflict: the nerve is displaced by the vessel | the nerve is thinned where the vessel meets it
+  bin Suggests a secondary cause: a demyelinating plaque at the root entry zone | an enhancing mass in Meckel's cave | a thickened, enhancing mandibular nerve after a facial cancer
+  bin Common, and not decisive by itself: a vessel touching the nerve without deforming it
+  hint: Does the nerve change shape? Is there another disease?
+  why: Contact alone is not a diagnosis. Morphological change and secondary disease are what change management.
+C: Two reports describe the same MRI. Which is more useful?
+  left: text A vessel contacts the right trigeminal nerve.
+  right: text The superior cerebellar artery indents and displaces the right trigeminal nerve at the root entry zone, where the nerve is thinned.
+  + The right: it names the vessel, the site and the change in the nerve :: The details bear on whether surgery could help.
+  - The left: it is shorter :: [brevity-over-content] It leaves out whether the nerve is deformed.
+  - They say the same thing :: [contact-equals-compression] Only the right reports morphological change.
+  hint: Which report could a surgeon act on?
+  why: Location and morphology turn an incidental contact into a reportable conflict.
+>P: A 28-year-old has trigeminal neuralgia on both sides. What should the MRI search for in particular?
+  + Demyelination, as in multiple sclerosis, in the pons and at the root entry zones :: Bilateral neuralgia in a young adult is a warning sign.
+  - A vessel on each side, since that would settle it :: [contact-as-cause] Contact is common, and would not explain this pattern.
+  - Nothing: neuralgia in young adults is never secondary :: [young-means-primary] Youth and bilaterality make a secondary cause more likely.
+  hint: Which disease affects the brainstem and young adults?
+  why: Bilateral symptoms and young age raise the likelihood of multiple sclerosis or another secondary cause.
+done: Trace the whole nerve, weigh contact against change, and search for secondary disease. Next, follow V3 from the brainstem to the jaw on a real study.
+
+@ rad.5.anal-cancer
+from: the module's goal and question bank
+review: radiologist
+goal: Map the extent of an anal tumour, its sphincter involvement and its nodal stations, separate local staging from distant staging, and assess treatment response with its timing recorded.
+intro: Anal cancer, usually squamous cell carcinoma, is staged on pelvic MRI by the size of the primary tumour, its relation to the sphincters and neighbouring organs, and its regional lymph nodes. Disease beyond the pelvis needs separate imaging of the chest, abdomen and pelvis.
+  show: table T category | Primary tumour (TNM, 8th edition) ;; T1 | 2 cm or less ;; T2 | more than 2 cm, up to 5 cm ;; T3 | more than 5 cm ;; T4 | any size, invading an adjacent organ such as the vagina, urethra or bladder
+demo: A 6 cm tumour grows into the external sphincter but invades no other organ. By size it is T3. The sphincter involvement is described in detail, because it matters for planning, but invasion of the sphincter muscle alone does not make a tumour T4.
+  show: steps longest dimension 6 cm: more than 5 cm ;; no adjacent organ invaded ;; so T3, with sphincter involvement described
+F: Use the table of T categories.
+  frame: A 1.8 cm tumour that invades no adjacent organ is T__
+  answer: 1 | one
+  x 2 :: [threshold-misread] T2 begins above 2 cm. This tumour is 1.8 cm.
+  hint: Is it 2 cm or less?
+  why: 1.8 cm is 2 cm or less, so it is T1.
+P: A 4.5 cm tumour invades the posterior wall of the vagina. Which T category fits?
+  + T4 :: Invasion of an adjacent organ makes it T4, whatever its size.
+  - T2 :: [size-only] By size alone it would be T2, but organ invasion overrides size.
+  - T3 :: [size-misread] It is not larger than 5 cm, and in any case organ invasion makes it T4.
+  hint: Does it invade an adjacent organ?
+  why: T4 is defined by invasion of an adjacent organ, not by size.
+G: Regional nodal disease, or distant disease?
+  bin Regional nodes: inguinal nodes | mesorectal nodes | internal iliac nodes
+  bin Distant disease: para-aortic nodes | liver metastases | lung metastases
+  hint: Which nodes drain the anal canal directly?
+  why: Regional nodes belong to N staging. Disease further away is M1, and needs imaging beyond the pelvis.
+>P: MRI ten weeks after chemoradiotherapy shows residual intermediate signal at the site of the tumour. How should the report frame it?
+  + State the interval since treatment; residual signal this early may still regress, so correlate clinically and reassess rather than call failure :: Timing is part of the finding.
+  - Report treatment failure :: [early-residual-as-failure] Anal cancer can continue to regress for months after chemoradiotherapy.
+  - Report a complete response, since the tumour has shrunk :: [overcalled-response] Residual signal means that a complete response cannot yet be stated.
+  hint: Has enough time passed for the response to be complete?
+  why: Response assessment depends on timing, and the report should say when the study was done in relation to treatment.
+done: Size, sphincters, organs, nodes, distant disease and timing. Next, stage an anal tumour from a full description.
+
+@ rad.5.gi-tumours-foreign-bodies
+from: the module's goal and question bank
+review: radiologist
+goal: Recognise the CT patterns of small-bowel masses, map obstruction and spread, and search actively for a sharp foreign body when there is focal inflammation or an unexplained abscess.
+intro: Small-bowel tumours are uncommon, and their CT pattern narrows the differential: how the mass relates to the wall, whether it obstructs, what the lumen does and what lies in the mesentery. Sharp foreign bodies are a separate trap: they can perforate quietly, and the patient often recalls no ingestion.
+  show: table Pattern | Points towards ;; an exophytic mass with central necrosis | gastrointestinal stromal tumour ;; bulky wall thickening with a widened lumen | lymphoma ;; a short annular stricture causing obstruction | adenocarcinoma ;; a small mucosal lesion with a spiculated, calcified mesenteric mass | neuroendocrine tumour
+demo: An older patient has an inflammatory mass beside the sigmoid colon. A thin, high-density line about 3 cm long crosses the bowel wall into the inflamed fat. Traced on multiplanar images it is a sharp bone fragment. The patient remembers no such meal, and that does not change the finding.
+  show: flow focal inflammation > look for a linear high density > trace it in several planes > report a possible perforating foreign body
+G: Which features favour lymphoma, and which favour adenocarcinoma?
+  bin Lymphoma: long-segment, bulky wall thickening | a widened, aneurysmal lumen | bulky mesenteric lymph nodes
+  bin Adenocarcinoma: a short, annular "apple-core" stricture | obstruction of the bowel upstream | abrupt, shouldered margins
+  hint: Does the lumen narrow or widen?
+  why: Lymphoma rarely obstructs and can widen the lumen. Adenocarcinoma typically forms a short, obstructing stricture.
+O: Put the steps of reading a CT for small-bowel obstruction in order.
+  items: Confirm dilated loops upstream and collapsed loops downstream | Find the transition point | Identify the cause at the transition | Look for complications such as ischaemia or perforation | Search for spread to nodes, liver and peritoneum
+  ends: First | Last
+  hint: You cannot find the cause until you have found where the calibre changes.
+  why: Confirming, locating, explaining and then checking for complications and spread keeps the search complete.
+P: Why does an exophytic gastrointestinal stromal tumour seldom cause obstruction?
+  + Its bulk grows outward from the wall, sparing the lumen :: The mass projects away from the bowel.
+  - It is always too small :: [size-assumed] Stromal tumours can be large. Their growth direction spares the lumen.
+  - It dissolves the bowel wall :: [invented-mechanism] It arises from the wall and grows outward.
+  hint: In which direction does an exophytic mass grow?
+  why: The growth pattern explains the clinical behaviour, and helps to separate it from adenocarcinoma.
+>P: A large exophytic jejunal mass with central necrosis is found, together with several liver lesions. The lymph nodes are not enlarged. Which interpretation fits best?
+  + A stromal tumour with liver metastases, since such tumours seldom spread to lymph nodes :: The pattern fits.
+  - Lymphoma, since lymphoma never involves the liver :: [false-rule] The pattern is exophytic and necrotic, and nodes are normal.
+  - Adenocarcinoma, because the nodes are normal :: [pattern-ignored] An exophytic, necrotic mass is not an annular stricture.
+  hint: Which tumour spreads to the liver and peritoneum but rarely to nodes?
+  why: The mass's pattern and its pattern of spread point together towards a stromal tumour, to be confirmed by tissue.
+done: Pattern, obstruction, spread, and a deliberate search for foreign bodies. Next, read an obstruction CT from the transition point outwards.
+
+@ rad.5.pelvic-floor
+from: the module's goal and question bank
+review: radiologist
+goal: Acquire and interpret rest, squeeze, strain and evacuation imaging, report prolapse by compartment and evacuation, and distinguish rectocele, enterocele and intussusception.
+intro: Dynamic MR defecography images the pelvic floor at rest, while squeezing, while straining and during evacuation. Prolapse is described by compartment, anterior, middle and posterior, and measured against a fixed reference line.
+  show: table Compartment | Organ | Term for its descent ;; anterior | bladder | cystocele ;; middle | uterus or vaginal vault | uterine or vault prolapse ;; posterior | rectum | rectocele, intussusception
+demo: Descent is measured at right angles to the pubococcygeal line, drawn from the lower edge of the pubic symphysis to the last coccygeal joint. The evacuation phase matters most, because some prolapses appear only as the rectum empties. A study without evacuation may underestimate them, and the report should say so.
+  show: flow rest > squeeze > strain > evacuation
+O: Put the phases of a dynamic study in order.
+  items: Rest | Squeeze | Strain | Evacuation
+  ends: First | Last
+  hint: The rectum empties in the final phase.
+  why: Each phase stresses the pelvic floor differently, and evacuation is the most demanding.
+F: Name the reference.
+  frame: In this method, organ descent is measured at right angles to the __ line
+  answer: pubococcygeal | pubococcygeal line | PCL
+  x midpubic :: [different-system] Another system uses a midpubic line. Serial studies must use the same reference.
+  hint: It runs from the pubic symphysis to the coccyx.
+  why: A fixed bony reference lets descent be measured and compared between studies.
+G: Which compartment does each finding belong to?
+  bin Anterior: cystocele | urethral hypermobility
+  bin Middle: uterine prolapse | vaginal vault prolapse
+  bin Posterior: anterior rectocele | rectal intussusception
+  hint: Bladder in front, uterus or vault in the middle, rectum behind.
+  why: Reporting by compartment matches how the conditions are managed.
+M: Match each finding to its term.
+  pairs: Small-bowel loops descend between the vagina and the rectum => Enterocele | Only peritoneal fat descends into that space => Peritoneocele | The front wall of the rectum bulges forward => Anterior rectocele | The bladder base descends below the reference line => Cystocele
+  hint: Which finding contains bowel, and which only fat?
+  why: The contents of a hernia, and the wall that bulges, determine the term.
+>P: During evacuation, the rectal wall folds inward, and its leading edge enters the anal canal without passing beyond the anal verge. How is it described?
+  + Intra-anal (rectoanal) intussusception :: It reaches the anal canal but not the outside.
+  - External rectal prolapse :: [overstaged] That would protrude beyond the anal verge.
+  - Anterior rectocele :: [wrong-direction] A rectocele is a forward bulge, not an infolding.
+  hint: How far does the leading edge reach?
+  why: Intussusception is graded by how far it reaches: within the rectum, into the anal canal or beyond the anus.
+done: Four phases, three compartments, one reference line. Next, report a dynamic study compartment by compartment.
+
+@ rad.5.gi-ultrasound
+from: the module's goal and question bank
+review: radiologist
+goal: Optimise bowel ultrasound for depth and resolution, use graded compression and anatomical landmarks, assess the wall and the mesentery, and state which segments were not seen.
+intro: Bowel ultrasound depends on technique. A low-frequency curved probe surveys the abdomen and reaches deep loops. A high-frequency linear probe resolves the wall of superficial loops. Graded compression displaces gas, and landmarks keep track of which segment is being examined.
+  show: table Probe | Strength | Limitation ;; low-frequency curved | deep penetration, a wide view | less detail ;; high-frequency linear | fine detail of superficial bowel | shallow penetration
+demo: The normal bowel wall has alternating bright and dark layers. In a distended loop it is thin. A segment that looks thick on a single oblique image may simply be cut obliquely, or poorly distended, so it is measured at right angles to the wall before it is called abnormal.
+  show: flow find the segment > image it at right angles > check distension and layers > then measure
+M: Match each layer of the bowel wall to its usual appearance.
+  pairs: Mucosa => A dark inner layer beside the bright lumen interface | Submucosa => The bright middle layer | Muscularis propria => The dark outer layer | Serosa => A thin bright outer line
+  hint: The submucosa is the bright layer in the middle.
+  why: Preserved layers are reassuring. Loss of the layers is a sign of active disease.
+F: Use the usual threshold.
+  frame: In a distended small-bowel loop, a wall thicker than about __ mm is usually considered thickened
+  answer: 3 | three
+  x 10 :: [threshold-too-high] Ten millimetres would miss most thickening. The usual threshold is about 3 mm.
+  hint: The normal wall is only a few millimetres thick.
+  why: About 3 mm is the threshold commonly used, provided the loop is distended and measured correctly.
+G: Normal bowel, or signs of active inflammation?
+  bin Active inflammation: a thickened wall that has lost its layers | increased colour Doppler signal in the wall | bright, thickened fat wrapping the loop | a stiff loop that does not compress
+  bin Normal: a thin wall with clear layers | a loop that compresses and moves with peristalsis
+  hint: Does the loop look thick, stiff and hyperaemic?
+  why: Thickness, layers, blood flow, compressibility and the surrounding fat together judge activity.
+P: Gas hides the sigmoid colon despite graded compression. What belongs in the report?
+  + That the sigmoid was not seen, and how that limits the conclusion :: Unseen segments must be named.
+  - A statement that the bowel is normal :: [unseen-as-normal] A segment that was not seen cannot be called normal.
+  - Nothing about it :: [omitted-the-limitation] Silence would imply that it was examined.
+  hint: Can you vouch for a segment you did not see?
+  why: Reporting the segments that were not visualised tells the reader what the study can and cannot exclude.
+>P: A teenager has right lower abdominal pain. The terminal ileum, found by following the caecum, has a 6 mm wall with increased Doppler signal and bright fat around it. How should this be reported?
+  + A thickened, hyperaemic terminal ileum with inflamed surrounding fat: active inflammation, with its possible causes discussed :: Describe, then interpret.
+  - A normal ileum: 6 mm is within normal limits :: [threshold-misread] Six millimetres is well above the usual threshold.
+  - Crohn disease, certain from ultrasound alone :: [overdiagnosis] Infectious ileitis and other causes can look similar.
+  hint: Compare 6 mm with the threshold, and think of the other signs.
+  why: Ultrasound shows inflammation well. The cause needs the clinical picture and often other tests.
+done: Choose the probe, compress, measure correctly, and name what you did not see. Next, scan the terminal ileum from the caecum.
+
+@ rad.5.breast-implants-male
+from: the module's goal and question bank
+review: radiologist
+goal: Keep implant integrity apart from assessment of the breast tissue, recognise rupture and implant-associated warning signs, and distinguish typical gynaecomastia from a suspicious male breast lesion.
+intro: Implant imaging and breast-tissue imaging answer different questions. For the integrity of a silicone implant, MRI uses a dedicated protocol without contrast, with silicone-sensitive sequences, and ultrasound also helps. For the breast tissue, mammography and ultrasound are used, with contrast-enhanced MRI where indicated.
+  show: table Question | Approach ;; is a silicone implant ruptured? | non-contrast MRI with silicone-sensitive sequences, or ultrasound ;; is there a cancer in the breast? | mammography and ultrasound, with contrast MRI where indicated
+demo: In intracapsular rupture the shell collapses, but the silicone stays within the fibrous capsule. The collapsed shell appears as wavy lines floating in silicone, the "linguine" sign. In extracapsular rupture, silicone escapes beyond the capsule into the breast tissue. Radial folds, normal infoldings of an intact shell, can mimic rupture, but they reach the edge of the implant.
+  show: table Finding | Interpretation ;; wavy shell lines floating within the silicone | intracapsular rupture ;; silicone outside the fibrous capsule | extracapsular rupture ;; infoldings that reach the edge of the implant | radial folds, a normal finding
+G: How should each implant finding be interpreted?
+  bin Intracapsular rupture: wavy shell lines floating within the silicone | silicone trapped inside a radial fold, forming a teardrop shape
+  bin Extracapsular rupture: silicone droplets in the breast tissue outside the capsule
+  bin Normal: a radial fold that reaches the implant's edge | a smooth, intact shell
+  hint: Where is the silicone, and where is the shell?
+  why: Integrity is read from the relation of shell, silicone and capsule. Normal folds must not be called rupture.
+K: A new swelling of one breast appears eight years after textured implants were placed. Turn over as few findings as you need to decide whether routine reassurance is appropriate.
+  clue Fluid: Ultrasound shows a large fluid collection around the implant.
+  clue Shell: The implant shell appears intact.
+  clue History: There has been no injury or infection.
+  clue Side: Only one side is affected.
+  need: 1
+  + No: a late collection around an implant needs aspiration for cytology, including tests for implant-associated lymphoma :: A late effusion is a warning sign.
+  - Yes: the shell is intact :: [intact-shell-reassures] An intact shell does not exclude disease of the capsule.
+  hint: Which finding is a warning sign in its own right?
+  why: A collection appearing a year or more after implantation calls for targeted assessment, whatever the state of the shell.
+C: Two men have breast lumps. How do the patterns compare?
+  left: text Tender tissue directly behind the nipple, spreading out in a fan shape.
+  right: text A hard, irregular mass in the upper outer breast, away from the nipple.
+  + The left is typical gynaecomastia; the right is suspicious and needs biopsy :: Position and shape separate them.
+  - Both are gynaecomastia :: [any-male-lump-is-gynaecomastia] An eccentric, irregular mass is not gynaecomastia.
+  - Both are suspicious for cancer :: [overcalled-gynaecomastia] Fan-shaped tissue centred on the nipple is the typical benign pattern.
+  hint: Is the tissue centred on the nipple?
+  why: Gynaecomastia is centred behind the nipple. Male breast cancer is usually eccentric and irregular.
+>P: A 68-year-old man has a hard mass with irregular margins in the upper outer breast, separate from the nipple. How should it be managed?
+  + As suspicious for carcinoma, with a recommendation for biopsy :: Eccentric and irregular is the warning pattern.
+  - As gynaecomastia, with reassurance :: [location-ignored] Gynaecomastia lies behind the nipple.
+  - As fatty enlargement only, needing no tissue diagnosis :: [ignored-the-mass] A discrete, irregular mass is not fat.
+  hint: Where is the mass, and what are its margins like?
+  why: A suspicious male breast mass needs tissue diagnosis, just as in a woman.
+done: Integrity, tissue, warning signs and the male breast, each with its own question. Next, read an implant MRI for shell, silicone and capsule.
+
+@ rad.5.elbow-mri
+from: the module's goal and question bank
+review: radiologist
+goal: Read the elbow by compartments, link ligament and tendon injuries to their mechanisms, recognise normal pseudodefects, and describe nerve and osteochondral abnormalities.
+intro: Read the elbow compartment by compartment. Laterally: the common extensor origin and the lateral collateral ligament complex. Medially: the common flexor origin, the ulnar collateral ligament and the ulnar nerve. In front: the biceps and brachialis tendons. Behind: the triceps tendon and the olecranon.
+  show: table Compartment | Structures ;; lateral | common extensor origin, lateral collateral ligament complex, radial head, capitellum ;; medial | common flexor origin, ulnar collateral ligament, ulnar nerve ;; anterior | biceps and brachialis tendons, median nerve ;; posterior | triceps tendon, olecranon
+demo: A normal groove at the back of the capitellum, where it meets the lateral epicondyle, can look like a defect on coronal images. This pseudodefect lies on a non-articular surface. True osteochondritis dissecans of the capitellum affects the anterolateral articular surface, typically in adolescent throwers and gymnasts.
+  show: table Feature | Pseudodefect | Osteochondritis dissecans ;; position | posterior, non-articular | anterolateral, articular ;; who | anyone, as a normal variant | adolescent throwers and gymnasts
+G: Which compartment does each structure belong to?
+  bin Lateral: lateral collateral ligament complex | common extensor origin
+  bin Medial: ulnar collateral ligament | ulnar nerve
+  bin Anterior: distal biceps tendon
+  bin Posterior: triceps tendon
+  hint: The ulnar nerve runs behind the medial epicondyle.
+  why: Reading by compartment makes sure that every structure is checked.
+M: Match each mechanism to the injury it typically causes.
+  pairs: Repeated valgus stress from throwing => Ulnar collateral ligament injury | Forced extension of a flexed, supinated forearm => Distal biceps tendon rupture | Repetitive gripping with the wrist extended => Common extensor tendinosis | A fall with a posterolateral rotatory force => Lateral ulnar collateral ligament tear
+  hint: Throwing stresses the medial side.
+  why: Mechanism directs the search and explains the findings.
+P: A distal biceps tendon is completely torn, yet it has barely retracted. What may be holding it?
+  + An intact lacertus fibrosus (bicipital aponeurosis) :: It can tether the tendon.
+  - The triceps tendon :: [wrong-structure] The triceps lies behind the elbow and does not tether the biceps.
+  - Nothing: a complete tear always retracts far :: [false-rule] Retraction varies, partly with the aponeurosis.
+  hint: Which band runs from the biceps tendon to the forearm fascia?
+  why: The degree of retraction affects surgical planning and depends partly on the aponeurosis.
+>P: An adolescent gymnast has lateral elbow pain. MRI shows a lesion of the anterolateral articular surface of the capitellum, with fluid signal undercutting the fragment. How should it be reported?
+  + Osteochondritis dissecans, with features suggesting an unstable fragment :: Location and fluid undercutting both matter.
+  - A normal pseudodefect :: [location-ignored] The pseudodefect is posterior and non-articular.
+  - Lateral epicondylitis :: [wrong-structure] That affects the common extensor tendon, not the capitellum.
+  hint: Where is the lesion, and what does fluid beneath a fragment suggest?
+  why: Stability of an osteochondral fragment guides treatment, so its signs must be described.
+done: Compartments, mechanisms, normal variants and fragments. Next, read an elbow MRI compartment by compartment.
+
+@ rad.4.paediatric
+from: the module's goal and question bank
+review: radiologist
+goal: Read the neonatal chest and abdomen, image the infant hip at the right age with the right test, and recognise the injuries that oblige a safeguarding referral.
+intro: Imaging a child starts with the right test for the age and the question, uses the lowest dose that answers it, and reads the whole study, including any clue that a child may have been harmed.
+  show: table Question | Usual first test ;; breathing difficulty in a newborn | chest radiograph ;; hip development in a young infant | ultrasound ;; hip development once the femoral head has begun to ossify | radiograph ;; bilious vomiting in a newborn | urgent upper gastrointestinal contrast study
+demo: A 3-month-old has a clicking hip. The femoral head is still cartilage, so ultrasound shows it and the acetabulum directly, without radiation. By 9 months the femoral head has begun to ossify, ultrasound can no longer see the joint well, and a radiograph becomes the better test.
+  show: flow young infant: cartilage head > ultrasound ;; older infant: ossifying head > radiograph
+G: Which neonatal chest condition fits each feature?
+  bin Transient tachypnoea of the newborn: a term baby born by caesarean section without labour | fluid in the fissures | clears within a few days
+  bin Surfactant deficiency: a very preterm baby | small lungs with a fine granular pattern and air bronchograms
+  bin Meconium aspiration: a term or post-term baby with meconium-stained liquor | patchy, asymmetric opacities with over-inflated lungs
+  hint: Gestation and lung volume are the first clues.
+  why: Gestation, history and lung volume, with the pattern, separate the common causes of newborn breathlessness.
+G: Which test fits the hip question at each age?
+  bin Ultrasound: a 6-week-old born by breech delivery | a 3-month-old with a clicking hip
+  bin Radiograph: a 9-month-old with limited hip abduction | an 18-month-old with a limp
+  hint: Has the femoral head begun to ossify?
+  why: Ultrasound suits the cartilaginous hip of young infants. Radiographs suit the hip once it ossifies.
+G: How specific is each injury for abuse?
+  bin Highly specific in an infant: a classic metaphyseal lesion | posterior rib fractures | several fractures of different ages, unexplained
+  bin Common after ordinary accidents in a walking child: a spiral tibial fracture in a toddler | a clavicle fracture after a fall in a school-age child | a forearm fracture after a fall from a climbing frame
+  hint: Could a child of that age have done this to themselves?
+  why: Specificity depends on the injury and on the child's age and mobility. Recognising the specific patterns is part of the radiologist's duty.
+P: A 3-day-old baby vomits green bile, and the abdominal radiograph is non-specific. What is the next imaging step?
+  + An urgent upper gastrointestinal contrast study, to look for malrotation with volvulus :: Time matters.
+  - Routine follow-up radiographs in a week :: [delayed-the-emergency] Volvulus can cause loss of the bowel within hours.
+  - Nothing, since the radiograph is not clearly abnormal :: [normal-film-reassures] A non-specific radiograph does not exclude volvulus.
+  hint: What must be excluded urgently in a newborn with bilious vomiting?
+  why: Bilious vomiting in a newborn is malrotation with volvulus until proved otherwise.
+>P: A 4-month-old who cannot yet roll has a femoral fracture. The carer says the baby rolled off a sofa. What does good practice require?
+  + Follow safeguarding procedures: a full skeletal survey and referral to the child-protection team :: The history does not fit the child's development.
+  - Treat the fracture and do nothing more :: [accepted-implausible-history] A baby who cannot roll cannot roll off a sofa.
+  - Confront the carer directly about abuse :: [improper-response] Concerns go through safeguarding procedures, not personal confrontation.
+  hint: Does the history match what the baby can do?
+  why: A fracture in a non-mobile infant with an implausible history requires a structured safeguarding response.
+done: The right test for the age, the whole study, and the child's safety. Next, read a neonatal chest film with the gestation in mind.
+
+@ rad.5.neonatal-spine
+from: the module's goal and question bank
+review: radiologist
+goal: Perform an age-appropriate spinal ultrasound, record vertebral numbering and the position of the conus, assess the filum and root movement, and recognise dysraphism and the study's limits.
+intro: In the first months of life, the posterior elements of the spine are not yet fully ossified, so ultrasound can see into the spinal canal. A complete study counts the vertebrae from a stated landmark, finds the level of the conus, checks the filum and the movement of the cord and roots, and traces any tract from the skin.
+  show: flow count from a stated landmark > level of the conus > filum and root movement > skin to canal
+demo: A conus ending at or above the L2–L3 disc level is generally considered normal at term. But the level is only as good as the count. If the lumbosacral junction is uncertain, the report states which landmark was used to count, and how sure the count is.
+  show: table Conus ends | Usual interpretation ;; at or above L2–L3 | generally normal ;; below L3 | low-lying: abnormal
+S: Select everything that a complete neonatal spinal ultrasound records.
+  + The vertebral level, counted from a stated landmark :: Without it, the conus level means little.
+  + The level at which the conus ends :: A key measurement.
+  + The thickness of the filum :: A thick filum suggests tethering.
+  + The movement of the cord and roots :: Reduced movement suggests tethering.
+  - The head circumference :: [irrelevant-measurement] It belongs to a different examination.
+  - A single midline sagittal image, and nothing else :: [incomplete-study] Transverse images and a record of movement are needed too.
+  hint: Number first, then cord and filum, then skin to canal.
+  why: Each element answers part of the question of whether the cord is tethered.
+F: Use the usual threshold.
+  frame: A filum terminale thicker than about __ mm raises concern for tethering
+  answer: 2 | two
+  x 5 :: [threshold-too-high] The commonly used threshold is about 2 mm.
+  hint: The normal filum is very thin.
+  why: A filum thicker than about 2 mm, or one containing fat, raises concern for a tethered cord.
+G: A low-risk skin finding, or one that justifies imaging?
+  bin Low risk: a single small midline dimple close to the anal verge, with its base visible
+  bin Justifies imaging: a dimple more than 2.5 cm above the anal verge | a hairy patch over the lower spine | a haemangioma over the lumbosacral spine | a soft fatty lump over the spine
+  hint: Is it small, low and isolated, or higher, larger or accompanied by other marks?
+  why: Simple low dimples carry little risk. Atypical dimples and other cutaneous markers are associated with occult dysraphism.
+P: An infant's conus ends at L1–L2, the filum is 1 mm thick and the roots move freely. How should this be reported?
+  + A normal conus position, filum and root movement :: Every element is within normal limits.
+  - A low-lying conus :: [level-misread] L1–L2 is above the L2–L3 level.
+  - A tethered cord :: [overcall] Nothing here suggests tethering.
+  hint: Compare each finding with its threshold.
+  why: A normal study says plainly what was normal, with the count that supports the level.
+>P: A 5-month-old has an atypical dimple. The posterior elements are ossifying, the acoustic window is poor and the findings are indeterminate. What is the right conclusion?
+  + Report the limited window and the uncertainty, and recommend MRI :: The study cannot exclude tethering.
+  - Report a normal spine, since no abnormality was seen :: [absence-in-a-limited-study] A poor window cannot show normality.
+  - Diagnose tethering from the poor images :: [overcall] Indeterminate images cannot establish tethering either.
+  hint: What can a poor window show, and what can it not?
+  why: The value of a negative study depends on its quality. When the window closes, MRI answers the question.
+done: Count first, then cord, filum, movement and skin, and state the limits. Next, report a neonatal spinal ultrasound in that order.
+
+@ rad.5.craniosynostosis
+from: the module's goal and question bank
+review: radiologist
+goal: Relate skull shape to suture anatomy, distinguish positional deformity from suspected synostosis, choose proportionate imaging and describe involvement of one suture or several.
+intro: Craniosynostosis is the premature fusion of one or more cranial sutures. Growth is restricted at right angles to the fused suture and compensates elsewhere, so the shape of the head points to the suture. Positional flattening, which is far more common, comes from how an infant lies, and involves no fused suture.
+  show: table Fused suture | Head shape ;; sagittal | long and narrow (scaphocephaly) ;; metopic | triangular forehead (trigonocephaly) ;; both coronal | short and wide (brachycephaly) ;; one coronal | asymmetric forehead (anterior plagiocephaly)
+demo: Positional plagiocephaly and lambdoid synostosis can both flatten the back of the head on one side. Seen from above, positional flattening gives a parallelogram: the ear on the flat side moves forward, and the forehead on that side bulges. Lambdoid synostosis gives a trapezoid: the ear on the affected side moves back and down, with a bulge behind it.
+  show: table Feature | Positional | Lambdoid synostosis ;; shape from above | parallelogram | trapezoid ;; ear on the flat side | moved forward | moved back and down
+M: Match each fused suture to the head shape it produces.
+  pairs: Sagittal suture => Scaphocephaly: long and narrow | Metopic suture => Trigonocephaly: triangular forehead | Both coronal sutures => Brachycephaly: short and wide | One coronal suture => Anterior plagiocephaly: asymmetric forehead | One lambdoid suture => Posterior plagiocephaly: asymmetric back of the head
+  hint: Growth stops at right angles to the fused suture.
+  why: Each shape follows from where growth is blocked and where it compensates.
+P: Seen from above, an infant's head is a parallelogram: the right side of the back is flat, the right ear is forward and the right forehead bulges. Which is more likely?
+  + Positional plagiocephaly :: The forward ear and same-side frontal bulge fit positional flattening.
+  - Right lambdoid synostosis :: [ear-direction-misread] Lambdoid synostosis moves the ear back and down, giving a trapezoid.
+  - Sagittal synostosis :: [wrong-shape] That makes the head long and narrow, not asymmetric.
+  hint: Which way has the ear moved?
+  why: The direction of the ear shift and the overall shape separate positional flattening from lambdoid synostosis.
+G: Which imaging approach is proportionate?
+  bin Usually no imaging: typical positional plagiocephaly with no worrying features
+  bin A targeted first test when the diagnosis is uncertain: ultrasound of the suspected suture, where expertise exists | skull radiographs
+  bin Low-dose CT with three-dimensional reconstruction: planning surgery for confirmed synostosis | complex or multisuture cases
+  hint: How much does the answer change what happens next?
+  why: Imaging is matched to the question: none for typical positional shape, a targeted test for doubt, and CT for planning complex care.
+>P: An infant has fusion of both coronal sutures and the sagittal suture, with an underdeveloped midface. Beyond the sutures, what should the report assess?
+  + Signs of raised intracranial pressure, the ventricles, the position of the cerebellar tonsils and the venous drainage :: Multisuture and syndromic forms have associated anomalies.
+  - Nothing beyond the sutures :: [sutures-only] Associated intracranial anomalies change management.
+  - Only the shape of the face :: [face-only] The brain and its fluid spaces matter as much.
+  hint: What can several fused sutures do to the contents of the skull?
+  why: Multisuture synostosis can raise intracranial pressure and accompany hydrocephalus, tonsillar descent and venous anomalies.
+done: Shape points to suture, ear and form separate positional flattening, and imaging stays proportionate. Next, describe a skull from above and name the suture.

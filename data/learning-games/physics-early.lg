@@ -1,0 +1,539 @@
+# Physics, stages 0 to 2 (ages 3 to 13).
+# Predict what will happen, try it, then say why.
+
+@ phys.0.push-pull
+goal: Tell a push from a pull, and say what a force can do to a thing.
+intro: A push or a pull is called a force. A force can make a thing start to move, stop, or go a new way.
+  show: emoji ⚽ 👟
+demo: Push a toy car and it rolls away from you. Pull a wagon and it comes towards you. A bigger push makes the car go faster.
+  show: flow push > the car moves away > push harder > it goes faster
+G: Is it a push or a pull?
+  bin Push: kicking a ball | pressing a button | shutting a door in front of you
+  bin Pull: opening a drawer | tugging a rope | pulling up your socks
+  hint: Does the thing move away from you, or towards you?
+  why: A push moves a thing away from you. A pull brings it towards you.
+P: You push a ball harder. What happens?
+  + It goes faster :: A bigger push gives more speed.
+  - It goes slower :: [bigger-is-slower] A harder push makes it go faster, not slower.
+  - Nothing changes :: [force-does-nothing] A bigger force changes the motion more.
+  hint: Think of a soft kick and a hard kick.
+  why: The harder you push, the faster the ball goes.
+P: A ball is rolling along. What can stop it?
+  + Your hand in its way :: Your hand pushes back on the ball.
+  - Looking at it :: [no-force] Looking does not push or pull.
+  - Saying "stop" :: [no-force] Words do not push or pull the ball.
+  hint: Only a push or a pull can change how a thing moves.
+  why: To stop a moving thing, something must push or pull on it.
+>P: The swing is still. How do you make it go?
+  + Give it a push :: A force starts it moving.
+  - Wait for it to start :: [starts-by-itself] A still thing stays still until a force acts on it.
+  - Look at it :: [no-force] Looking does not push or pull.
+  hint: What makes a still thing start to move?
+  why: Things do not start moving by themselves. They need a push or a pull.
+done: Pushes and pulls are everywhere. Look for them when you play.
+
+@ phys.0.light-shadow
+goal: Say how a shadow is made, and how it changes when the light or the thing moves.
+intro: Light travels in straight lines. When a thing blocks the light, a dark shape appears behind it. That dark shape is a shadow.
+  show: flow torch > your hand > shadow on the wall
+demo: Shine a torch at a wall. Put your hand in the light. Your hand stops some of the light, so a hand shape goes dark on the wall.
+  show: steps The torch shines ;; Your hand blocks some light ;; A dark hand shape shows on the wall
+O: Put it in order.
+  items: The torch shines | A hand blocks some light | A shadow shows on the wall
+  ends: First | Last
+  hint: The light has to come first.
+  why: First there is light. Then something blocks it. Then you see the shadow.
+P: The sun is in front of you. Where is your shadow?
+  + Behind you :: You block the light, so the dark shape is on the far side.
+  - In front of you :: [same-side-as-light] The shadow falls on the side away from the light.
+  - Under the sun :: [shadow-near-light] A shadow is where the light cannot reach.
+  hint: The shadow is on the side away from the light.
+  why: Your body blocks the sunlight. The dark place is behind you.
+P: You move your toy closer to the torch. What happens to its shadow?
+  + It gets bigger :: The toy now blocks more of the light.
+  - It gets smaller :: [closer-is-smaller] Close to the torch the toy blocks more light, so the shadow grows.
+  - It stays the same :: [nothing-changes] Moving the toy changes how much light it blocks.
+  hint: Try it with your hand near a lamp.
+  why: Near the light, a thing blocks more of it and makes a bigger shadow.
+>P: It is night and there is no light at all. Can you see your shadow?
+  + No :: A shadow needs light to make it.
+  - Yes, a big one :: [dark-is-shadow] With no light there is nothing to block.
+  - Yes, a small one :: [dark-is-shadow] With no light there is nothing to block.
+  hint: What makes a shadow?
+  why: A shadow is a place the light cannot reach. With no light, there is no shadow.
+done: Try making shadow shapes with a lamp. Then explore the shadow model.
+
+@ phys.0.hot-cold
+goal: Tell hot from cold, and say which way heat moves.
+intro: Some things are hot and some are cold. Heat moves from the warmer thing to the cooler thing.
+  show: emoji ☀️ 🧊
+demo: Hold an ice lolly. Your warm hand gives heat to the lolly, so the lolly melts. Your hand loses heat, so it feels cold.
+  show: flow warm hand > heat moves > cold lolly melts
+G: Is it hot or cold?
+  bin Hot: soup from the pan | the sun | a warm bath
+  bin Cold: ice | snow | inside a fridge
+  hint: Would it warm your hand or cool it?
+  why: Soup, the sun and a bath are hot. Ice, snow and a fridge are cold.
+P: A hot drink sits on the table for a long time. What is it like now?
+  + Cooler :: Its heat has moved into the cooler air.
+  - Hotter :: [heat-appears] Heat leaves a hot thing in a cool room. It does not get hotter by itself.
+  - Just the same :: [nothing-changes] Heat keeps moving out until the drink is as warm as the room.
+  hint: Which is warmer, the drink or the room?
+  why: Heat moves from the hot drink to the cooler room, so the drink cools.
+P: You hold an ice cube. Which way does heat move?
+  + From your hand to the ice :: Heat goes from warm to cold.
+  - From the ice to your hand :: [cold-moves] Cold does not move. Heat moves out of your warm hand.
+  - It does not move :: [nothing-changes] The ice melts because heat goes into it.
+  hint: Heat goes from the warmer thing to the cooler thing.
+  why: Your hand is warmer, so heat leaves your hand and goes into the ice.
+>P: Why do we wear a coat on a cold day?
+  + It keeps our body heat in :: The coat slows the heat leaving us.
+  - The coat makes heat :: [coat-is-a-heater] A coat is not hot by itself. It keeps your own heat from getting away.
+  - It lets the cold in :: [cold-moves] Cold does not come in. Heat goes out, and the coat slows that.
+  hint: Where does the warmth come from, the coat or you?
+  why: Your body makes the heat. The coat stops it moving away so fast.
+done: Heat always goes from warm to cool. Feel it next time you hold something cold.
+
+@ phys.0.float-sink
+goal: Guess whether a thing will float or sink, and test what makes the difference.
+intro: Some things float on water and some sink. It does not depend only on how big a thing is. It depends on what it is made of and on its shape.
+  show: emoji 🪵 🪨
+demo: A big log floats. A tiny pebble sinks. So being big does not make a thing sink.
+  show: table Thing | In water ;; big log | floats ;; tiny pebble | sinks
+G: Will it float or sink?
+  bin Floats: a cork | a rubber duck | a wooden spoon
+  bin Sinks: a coin | a stone | a metal key
+  hint: Think about what each thing is made of.
+  why: Cork, rubber ducks and wood float. Coins, stones and metal keys sink.
+P: A big wooden log and a small pebble go into a pond. What happens?
+  + The log floats and the pebble sinks :: Wood floats, stone sinks, whatever the size.
+  - They both sink :: [big-things-sink] Big things can float. Wood floats even when it is huge.
+  - The log sinks and the pebble floats :: [small-things-float] Small things can sink. Stone sinks even when it is tiny.
+  hint: What is each one made of?
+  why: It is the stuff a thing is made of that matters most, not its size.
+P: A ball of clay sinks. You press the same clay into a boat shape. What can happen?
+  + It can float :: A boat shape pushes more water aside.
+  - It must still sink :: [shape-does-not-matter] The same clay can float when its shape holds air and spreads out.
+  - It melts :: [not-about-floating] Clay does not melt in water.
+  hint: Think of a heavy metal ship.
+  why: Shape matters too. A hollow boat shape floats where a solid ball sinks.
+>P: An apple floats. You cut it in half. What does each half do?
+  + Each half floats :: It is still the same stuff.
+  - Each half sinks :: [small-things-sink] Being smaller does not make it sink.
+  - One floats and one sinks :: [parts-differ] Both halves are made of the same apple.
+  hint: Is each half still made of apple?
+  why: A piece of something that floats will float too, because it is made of the same stuff.
+done: Guess first, then test. Try the floating and sinking activity.
+
+@ phys.1.motion
+goal: Compare speeds, and explain why moving things slow down.
+intro: Speed tells how far a thing goes in a set time. Moving things slow down because of friction, a rubbing force.
+  show: table Runner | Distance | Time ;; A | 10 metres | 2 seconds ;; B | 10 metres | 5 seconds
+demo: Runner A and runner B both go 10 metres. A takes 2 seconds and B takes 5 seconds. A takes less time, so A is faster.
+  show: bars A_seconds=2 B_seconds=5
+P: Two cars go the same way for 10 seconds. The red car goes 50 metres and the blue car goes 30 metres. Which is faster?
+  + The red car :: It goes further in the same time.
+  - The blue car :: [smaller-is-faster] In the same time, the faster car goes further.
+  - They are the same :: [ignored-distance] They went different distances in the same time.
+  hint: Which one went further in 10 seconds?
+  why: Faster means more distance in the same time.
+F: A snail moves 2 centimetres every minute. How far does it go in 5 minutes?
+  frame: 5 minutes: __ cm
+  taps: 7 | 10 | 25
+  answer: 10
+  x 7 :: [added-instead] It goes 2 centimetres each minute, five times over.
+  x 25 :: [squared-instead] Count 2 centimetres five times.
+  hint: 2 centimetres, five times.
+  why: 2 + 2 + 2 + 2 + 2 = 10 centimetres.
+G: Where is there a lot of friction?
+  bin Lots of friction: carpet | sand | long grass
+  bin Little friction: ice | a polished floor | a wet slide
+  hint: On which ones would a ball roll a long way?
+  why: Rough things rub hard and slow you down. Smooth, slippery things rub very little.
+>P: A ball rolls across the grass and stops. Why?
+  + Friction with the grass slows it down :: The grass rubs on the ball.
+  - It ran out of push :: [push-gets-used-up] A push is not something a ball carries and uses up. A force slowed it.
+  - It got tired :: [things-get-tired] A ball cannot get tired. A force made it stop.
+  hint: What is touching the ball as it rolls?
+  why: A moving thing keeps going until a force stops it. Here that force is friction.
+done: Speed is distance in a time, and friction is what slows things. Try the motion practice.
+
+@ phys.1.machines
+goal: Name four simple machines and say how each makes a job easier.
+intro: A simple machine lets a small push do a big job. You push a longer way, but each push is easier.
+  show: table Machine | Example ;; lever | a seesaw ;; ramp | a slide ;; pulley | a flagpole rope ;; wheel | a cart
+demo: Lifting a heavy barrel straight up is hard. Rolling it up a ramp is easier. The ramp is longer, but you never have to lift the whole weight at once.
+  show: flow heavy barrel > long ramp > small push all the way > barrel is up
+M: Match each machine to something that uses it.
+  pairs: Lever => A seesaw | Ramp => A slide | Pulley => A rope on a flagpole | Wheel => A cart
+  hint: A ramp is a slope. A lever is a bar that tips.
+  why: A seesaw is a lever. A slide is a ramp. A flagpole rope runs over a pulley. A cart rolls on wheels.
+P: A grown-up and a small child sit on a seesaw. Where should the child sit to balance it?
+  + Far from the middle :: Further out, a small weight has more turning power.
+  - Close to the middle :: [nearer-is-stronger] Near the middle a weight has little turning power.
+  - It does not matter :: [distance-ignored] Where you sit changes how hard you turn the seesaw.
+  hint: Where do you sit on a seesaw to lift a heavy friend?
+  why: On a lever, a small weight far out can balance a big weight close in.
+X: A grown-up of weight 4 sits 3 steps from the middle. A child of weight 2 sits on the other side.
+  param d: 1..6 /1 @1 | Child's steps from the middle | steps
+  out t: 2*d | Child's turning power
+  out g: 4*3 | Grown-up's turning power
+  aim: Move the child until the seesaw balances.
+  target: t == g
+  view: bars t over d
+  hint: Turning power is weight times steps from the middle. The grown-up has 4 times 3.
+  why: The grown-up's turning power is 4 × 3 = 12. The child needs 2 × 6 = 12, so the child sits 6 steps out.
+>P: You must get a heavy box up into a van. What helps most?
+  + A ramp :: You push a longer way with a smaller push.
+  - Lifting it straight up :: [short-way-is-easy] The short way needs the biggest push of all.
+  - A heavier box :: [not-a-machine] A heavier box is harder to move.
+  hint: Which simple machine is a slope?
+  why: A ramp trades a longer path for an easier push.
+done: Machines trade distance for ease. Balance the lever in the activity.
+
+@ phys.1.magnets
+goal: Say which poles pull and which push, and which things a magnet sticks to.
+intro: A magnet has two ends called poles: north and south. Different poles pull together. Poles that are the same push apart.
+  show: table Poles | What happens ;; north and south | pull together ;; north and north | push apart ;; south and south | push apart
+demo: Bring a north pole to a south pole and they snap together. Bring two north poles together and you feel them push away.
+  show: chips N | S | N | S
+G: Will a magnet stick to it?
+  bin Sticks: a steel paperclip | an iron nail | a fridge door
+  bin Does not stick: a wooden pencil | a plastic cup | a glass marble | a copper coin
+  note a copper coin :: Not every metal is magnetic. Copper is not; iron and steel are.
+  hint: Magnets pull on iron and steel.
+  why: Magnets pull on iron and steel. They do not pull on wood, plastic, glass, or metals such as copper.
+P: You push two north poles together. What do they do?
+  + Push apart :: Poles that are the same push each other away.
+  - Pull together :: [same-attracts] Only different poles pull together.
+  - Nothing :: [no-force] You can feel the push between them.
+  hint: Are the two poles the same or different?
+  why: Same poles push apart. Different poles pull together.
+P: A compass needle is a tiny magnet. Which way does it point?
+  + North :: The Earth acts like a giant magnet.
+  - At the nearest wall :: [points-at-things] It lines up with the Earth's magnetism, not with the room.
+  - Wherever you walk :: [follows-you] It keeps pointing the same way as you turn.
+  hint: People use a compass to find their way.
+  why: The Earth is like a big magnet, so a free magnet lines up north to south.
+>P: A paperclip lies under a sheet of paper. Can a magnet on top move it?
+  + Yes :: Magnets can pull through paper.
+  - No, the magnet must touch it :: [needs-touching] A magnet pulls without touching.
+  - Only if the paper is wet :: [not-about-magnets] Water makes no difference here.
+  hint: Does a magnet have to touch a paperclip to move it?
+  why: A magnet's pull reaches through thin things like paper.
+done: Same poles push, different poles pull. Go magnet hunting at home.
+
+@ phys.1.sound
+goal: Say what makes a sound, and what makes it high, low, loud or quiet.
+intro: A sound is made when something shakes back and forth very fast. We call that vibrating. Fast vibrations make a high sound. Big vibrations make a loud sound.
+  show: table Vibration | Sound ;; fast | high ;; slow | low ;; big | loud ;; small | quiet
+demo: Hold a ruler over the edge of a table and twang it. A long piece wobbles slowly and sounds low. A short piece wobbles fast and sounds high.
+  show: flow long ruler > slow wobble > low sound
+M: Match each sound to its vibrations.
+  pairs: Loud => Big vibrations | Quiet => Small vibrations | High => Fast vibrations | Low => Slow vibrations
+  hint: Size goes with loudness. Speed goes with high or low.
+  why: Bigger vibrations are louder. Faster vibrations are higher.
+P: You make a guitar string tighter. What happens to its sound?
+  + It gets higher :: A tight string vibrates faster.
+  - It gets lower :: [tight-is-low] Tighter strings wobble faster, and fast means high.
+  - It gets quieter :: [mixed-up-loud-and-high] Tightness changes how high it is, not how loud.
+  hint: Does a tight string wobble faster or slower?
+  why: A tighter string vibrates faster, so its sound is higher.
+P: You bang a drum harder. What happens?
+  + It gets louder :: A harder hit makes bigger vibrations.
+  - It gets higher :: [mixed-up-loud-and-high] Hitting harder makes it louder, not higher.
+  - Nothing changes :: [force-does-nothing] The drum skin moves further when you hit it harder.
+  hint: A harder hit makes the drum skin move further.
+  why: Bigger vibrations give a louder sound.
+>P: Out in space there is no air. An astronaut claps. What does she hear?
+  + Nothing :: Sound needs something to travel through.
+  - A very loud clap :: [sound-needs-nothing] With no air, the vibrations have nothing to pass through.
+  - An echo :: [sound-needs-nothing] An echo is sound bouncing back, and here no sound can travel at all.
+  hint: What carries a sound from your hands to your ears?
+  why: Vibrations travel through air, water or solids. With nothing there, sound cannot travel.
+done: Every sound starts with a vibration. Explore the sound wave activity.
+
+@ phys.1.light
+goal: Explain how we see things, and where the colours of a rainbow come from.
+intro: We see a thing when light bounces off it and into our eyes. White light is really all the colours mixed together.
+  show: flow the sun > light hits a tree > light bounces off > into your eye
+demo: When sunlight passes through raindrops it spreads out into its colours. That makes a rainbow: red on the outside, then orange, yellow, green, blue, indigo and violet.
+  show: chips Red | Orange | Yellow | Green | Blue | Indigo | Violet
+O: Put the colours of the rainbow in order, starting with red.
+  items: Red | Orange | Yellow | Green | Blue | Indigo | Violet
+  ends: Outside of the bow | Inside of the bow
+  hint: Red comes first and violet comes last.
+  why: The order is always red, orange, yellow, green, blue, indigo, violet.
+P: How do you see a tree?
+  + Light bounces off the tree into your eyes :: Your eyes catch the light.
+  - Your eyes send out light to the tree :: [eyes-send-light] Eyes take light in. They do not send it out.
+  - The tree makes its own light :: [things-glow] A tree does not glow. It bounces back light from the sun.
+  hint: Can you see a tree in a dark room?
+  why: We see things because light from the sun or a lamp bounces off them into our eyes.
+P: Why can you see yourself in a mirror but not in a brick wall?
+  + The mirror is smooth, so light bounces back in order :: Rough bricks scatter the light every way.
+  - The wall soaks up all the light :: [wall-is-black] If it soaked up all the light you could not see the wall at all.
+  - Mirrors make light :: [things-glow] A mirror only bounces light back.
+  hint: Think about how smooth each one is.
+  why: A smooth, shiny surface bounces light back neatly and makes a picture. A rough one scatters it.
+>P: A red apple sits in white light. Why does it look red?
+  + It bounces back red light and soaks up the other colours :: Only the red reaches your eye.
+  - It makes red light :: [things-glow] The apple does not glow. It bounces back part of the white light.
+  - White light is red :: [white-is-one-colour] White light is all the colours together.
+  hint: White light has every colour in it. Which colour comes back to your eye?
+  why: A thing has the colour of the light it bounces back.
+done: Seeing is catching light. Mix coloured light in the activity.
+
+@ phys.1.energy
+goal: Name some forms of energy and follow energy as it changes from one form to another.
+intro: Energy makes things happen. It comes in many forms: movement, heat, light, sound, and energy stored in food or batteries. Energy can change form, but it never just disappears.
+  show: chips movement | heat | light | sound | stored
+demo: In a torch, the battery holds stored energy. Switch it on and that energy turns into light and a little heat.
+  show: flow stored in the battery > electricity > light and heat
+M: Match each thing to the energy it gives or holds.
+  pairs: A battery => Stored energy | A fire => Heat and light | A drum => Sound | A rolling ball => Movement
+  hint: What does each one do?
+  why: A battery stores energy. A fire gives heat and light. A drum gives sound. A rolling ball has movement energy.
+O: Follow the energy from the sun to you.
+  items: The sun shines | A plant grows | You eat the plant | You run
+  ends: First | Last
+  hint: Energy starts at the sun.
+  why: Sunlight feeds the plant. The plant feeds you. You use that energy to run.
+P: A bouncing ball bounces lower each time. Where does its energy go?
+  + Into heat and sound :: Each bounce warms the ball a little and makes a noise.
+  - It disappears :: [energy-vanishes] Energy never vanishes. It changes into another form.
+  - Back to the sun :: [energy-returns] The energy spreads out as heat and sound nearby.
+  hint: What do you hear each time it bounces?
+  why: Some movement energy turns into sound and heat at every bounce, so less is left to bounce with.
+>P: You rub your hands together fast. What energy change happens?
+  + Movement turns into heat :: That is why your hands feel warm.
+  - Heat turns into movement :: [reversed-change] Your hands start by moving and end up warm.
+  - Light turns into sound :: [wrong-forms] No light is involved here.
+  hint: What do your hands feel like afterwards?
+  why: Rubbing turns movement energy into heat.
+done: Energy changes form but is never lost. Spot three energy changes today.
+
+@ phys.2.forces
+goal: Find the net force on an object and predict whether its motion will change.
+intro: Forces are measured in newtons. When the forces on an object balance, its motion does not change. When they do not balance, it speeds up, slows down or turns.
+  show: table Left pull | Right pull | Net force ;; 300 N | 300 N | 0 N ;; 300 N | 350 N | 50 N to the right
+demo: In a tug of war both teams pull with 300 N and the rope does not move. If one team pulls with 350 N, the forces no longer balance: there is a net force of 50 N towards that team.
+  show: bars Left=300 Right=350 unit=N
+F: A box is pushed to the right with 12 N while friction pushes left with 5 N. What is the net force?
+  frame: Net force = __ N to the right
+  answer: 7
+  x 17 :: [added-opposing-forces] Forces in opposite directions work against each other, so subtract.
+  hint: The two forces point in opposite directions.
+  why: 12 − 5 = 7 N to the right.
+P: A book lies still on a table. Which statement about the forces on it is right?
+  + Its weight is balanced by the table pushing up :: Two forces, equal and opposite.
+  - There are no forces on it :: [rest-means-no-force] Gravity still pulls on the book. It stays still because another force balances that pull.
+  - Only gravity acts on it :: [missed-the-support-force] With gravity alone the book would accelerate downwards.
+  hint: If gravity were the only force, what would the book do?
+  why: At rest means the net force is zero, not that there are no forces.
+X: A crate has 8 N of friction to overcome before it will move.
+  param p: 0..20 /1 @0 | Your push | N
+  out n: max(p-8, 0) | Net force on the crate | N
+  aim: Find the push that leaves a net force of exactly 4 N.
+  target: n == 4
+  view: bars n over p
+  hint: The first 8 N of your push only cancels the friction.
+  why: A push of 12 N beats 8 N of friction by 4 N. Below 8 N the crate does not move at all.
+>P: A skydiver is falling at a steady speed. What can you say about the forces on her?
+  + Air resistance equals her weight :: The net force is zero, so her speed stays the same.
+  - There are no forces on her :: [steady-means-no-force] Gravity and air resistance both act. They balance.
+  - Her weight is greater than the air resistance :: [moving-needs-net-force] A net downward force would make her speed up.
+  hint: Is her speed changing?
+  why: Steady speed in a straight line means balanced forces, just as being at rest does.
+done: Net force changes motion; balanced forces do not. Test friction on the tilting slope.
+
+@ phys.2.gravity
+goal: Tell mass from weight, and describe how gravity changes with distance.
+intro: Every object with mass pulls on every other. The pull is stronger for bigger masses and weaker when they are further apart. Your weight is the pull of gravity on your mass.
+  show: table Place | Mass | Weight ;; Earth | 60 kg | about 600 N ;; Moon | 60 kg | about 100 N
+demo: A 60 kg astronaut has the same mass on the Moon as on Earth: the same amount of matter. But the Moon pulls about one sixth as hard, so she weighs about 100 N instead of 600 N.
+  show: bars Earth=600 Moon=100 unit=N
+P: On the Moon, where there is no air, a hammer and a feather are dropped together. What happens?
+  + They land at the same time :: Without air, gravity gives every object the same acceleration.
+  - The hammer lands first :: [heavier-falls-faster] On Earth the feather is slowed by air. With no air, mass makes no difference.
+  - The feather floats away :: [no-air-means-no-gravity] The Moon has gravity even though it has no air.
+  hint: What slows a feather on Earth?
+  why: Gravity pulls harder on a heavier object, but a heavier object is also harder to speed up. The two effects cancel exactly.
+F: On Earth each kilogram weighs about 10 N. What does a 5 kg bag weigh?
+  frame: Weight = __ N
+  answer: 50
+  x 5 :: [gave-the-mass] 5 kg is the mass. Weight is the force, in newtons.
+  x 15 :: [added-instead] Each of the 5 kilograms is pulled with 10 N.
+  hint: 10 N for every kilogram.
+  why: 5 × 10 = 50 N.
+X: Gravity weakens as you move away from the centre of the Earth.
+  param r: 1..5 /1 @1 | Distance from Earth's centre | Earth radii
+  out g: 100/(r*r) | Strength of gravity | % of surface value
+  aim: Find the distance at which gravity has fallen to a quarter of its surface strength.
+  target: g == 25
+  view: bars g over r
+  hint: Doubling the distance does more than halve the pull.
+  why: Gravity follows an inverse-square law. At twice the distance it is 1 ÷ 2² = one quarter as strong.
+>P: Why does the Moon not fall straight down onto the Earth?
+  + It is falling, but it is also moving sideways fast enough to keep missing :: That is what an orbit is.
+  - There is no gravity in space :: [no-gravity-in-space] Earth's gravity reaches the Moon. It is what holds the Moon in orbit.
+  - The Moon's own gravity cancels the Earth's :: [gravity-cancels] The Earth's pull on the Moon is not cancelled. It bends the Moon's path into a circle.
+  hint: Imagine throwing a ball sideways so fast that the ground curves away beneath it.
+  why: An orbiting body is in free fall. Its sideways speed makes it fall around the Earth rather than into it.
+done: Mass is what you are made of; weight is how hard gravity pulls. Compare orbits in the activity.
+
+@ phys.2.electricity
+goal: Trace a complete circuit, sort conductors from insulators, and compare series and parallel wiring.
+intro: An electric current flows only round a complete loop, called a circuit. A battery pushes the current round. A switch breaks the loop to stop it.
+  show: flow battery > wire > bulb > wire > back to the battery
+demo: Connect a battery to a bulb with two wires and the bulb lights. Take one wire away and the loop is broken: the bulb goes out at once.
+  show: steps Loop complete: the bulb is lit ;; One wire removed: the loop is broken ;; The bulb goes out
+O: Trace the path of the current round the circuit.
+  items: Positive end of the battery | First wire | Bulb | Second wire | Negative end of the battery
+  ends: Leaves the battery | Returns to the battery
+  hint: The current leaves one end of the battery and must get back to the other.
+  why: Current needs an unbroken path from one terminal of the battery, through the bulb, to the other terminal.
+G: Conductor or insulator?
+  bin Conductor: copper wire | a steel spoon | aluminium foil
+  bin Insulator: plastic | rubber | dry wood | glass
+  hint: Metals let current through.
+  why: Metals conduct electricity. Plastic, rubber, dry wood and glass do not, which is why wires are coated in plastic.
+P: Two bulbs are connected one after the other in a single loop. One bulb is unscrewed. What happens to the other?
+  + It goes out :: The single loop is now broken.
+  - It gets brighter :: [more-for-the-rest] Brightness cannot rise if no current can flow at all.
+  - It stays the same :: [bulbs-are-independent] In one loop every bulb depends on the others.
+  hint: Is there still a complete loop?
+  why: In a series circuit there is only one path. Breaking it anywhere stops the current everywhere.
+>P: At home, one light bulb fails and the others stay on. How must the lights be wired?
+  + In parallel, each on its own branch :: Every bulb has its own complete loop.
+  - In series, one after another :: [assumed-one-loop] In series a single failed bulb would put them all out.
+  - They are not connected to each other at all :: [separate-supplies] They share one supply, but on separate branches.
+  hint: What would happen if they were all in one loop?
+  why: Parallel branches each form their own loop with the supply, so one can break without stopping the others.
+done: No loop, no current. Build and break circuits in the circuits lab.
+
+@ phys.2.heat
+goal: Tell conduction, convection and radiation apart, and predict the temperature of a mixture.
+intro: Heat moves in three ways. Conduction passes it through solids that touch. Convection carries it in moving liquid or gas. Radiation sends it as invisible light, even across empty space.
+  show: table Way | How it moves ;; conduction | through touching solids ;; convection | carried by moving fluid ;; radiation | as light, even through space
+demo: A pan on a stove shows all three. The handle warms by conduction. Hot water rises and cooler water sinks: convection. Hold a hand beside the pan and you feel radiation.
+  show: steps Handle warms: conduction ;; Water circulates: convection ;; Warmth on your hand: radiation
+M: Match each example to the way the heat travels.
+  pairs: A metal spoon warming in hot soup => Conduction | Warm air rising above a radiator => Convection | Sunlight warming your face => Radiation
+  hint: Does the heat pass through a solid, ride on a moving fluid, or cross empty space?
+  why: The spoon is a touching solid, the rising air is a moving fluid, and sunlight crosses the vacuum of space.
+P: A metal bench and a wooden bench are at the same temperature. Why does the metal one feel colder?
+  + Metal conducts heat away from your skin faster :: You feel the rate at which you lose heat.
+  - The metal really is colder :: [feeling-is-temperature] Both benches are at the temperature of the air.
+  - Wood makes its own heat :: [materials-make-heat] Wood is a poor conductor; it does not produce heat.
+  hint: Your skin senses heat leaving it, not temperature itself.
+  why: Metal is a good conductor, so it carries your body heat away quickly. Wood is an insulator.
+X: A bath holds 10 cups of cold water at 20 °C. You add hot water at 80 °C.
+  param h: 0..10 /1 @0 | Cups of hot water added | cups
+  out t: (h*80+10*20)/(h+10) | Temperature of the mixture | °C
+  aim: Add hot water until the bath reaches 40 °C.
+  target: t == 40
+  view: bars t over h
+  hint: Each cup of hot water has to warm ten cups of cold. The mixture never reaches 80 °C.
+  why: With 5 cups, the heat lost by the hot water (5 cups cooling by 40 °C) equals the heat gained by the cold (10 cups warming by 20 °C).
+>P: A vacuum flask has a gap with no air between its two walls. Which kinds of heat flow does the gap stop?
+  + Conduction and convection :: Both need matter, and the gap has none.
+  - Radiation only :: [vacuum-blocks-radiation] Radiation crosses a vacuum easily. The silvered walls deal with that.
+  - All three :: [vacuum-blocks-everything] Radiation still crosses the gap, which is why the walls are shiny.
+  hint: Which kinds of heat flow need a material to travel through?
+  why: With no material in the gap, nothing can conduct or convect. Only radiation can cross, and reflective walls reduce it.
+done: Three routes for heat, each blocked in a different way. Mix warm and cool water in the activity.
+
+@ phys.2.waves
+goal: Describe a wave by its wavelength, frequency and amplitude, and use speed = frequency × wavelength.
+intro: A wave carries energy from place to place without carrying matter along with it. Three numbers describe it: wavelength, frequency and amplitude.
+  show: plot sin(x) x=0..12.566
+demo: The wavelength is the distance from one crest to the next. The frequency is how many crests pass each second. Multiply them and you get the wave's speed.
+  show: table Frequency | Wavelength | Speed ;; 2 per second | 3 m | 6 m/s ;; 4 per second | 3 m | 12 m/s
+M: Match each word to its meaning.
+  pairs: Wavelength => Distance from one crest to the next | Frequency => Number of waves passing each second | Amplitude => Height of a crest above the rest position
+  hint: One is a distance along the wave, one is a count per second, one is a height.
+  why: Wavelength measures along the wave, amplitude measures up from rest, and frequency counts waves in time.
+F: Use speed = frequency × wavelength.
+  frame: Frequency 4 Hz and wavelength 3 m give a speed of __ m/s
+  answer: 12
+  x 7 :: [added-instead] Speed is the product of frequency and wavelength.
+  hint: Four waves pass each second, and each is 3 m long.
+  why: 4 × 3 = 12 m/s.
+X: Waves travel along a rope at a fixed speed of 12 m/s.
+  param f: 1..10 /1 @1 | Frequency | Hz
+  out w: 12/f | Wavelength | m
+  aim: Shake the rope at the frequency that makes the wavelength 2 m.
+  target: w == 2
+  view: bars w over f
+  hint: The speed is fixed, so a higher frequency must mean a shorter wavelength.
+  why: Wavelength = speed ÷ frequency = 12 ÷ 6 = 2 m. At a fixed speed, frequency and wavelength are inversely related.
+>P: A duck floats on a pond as a wave passes. What happens to the duck?
+  + It bobs up and down and ends up where it started :: The wave passes through; the water stays.
+  - It is carried along with the wave :: [waves-carry-matter] A wave moves energy forward. The water, and the duck, only move up and down.
+  - It does not move at all :: [waves-carry-nothing] The wave's energy lifts and lowers the duck.
+  hint: Does the water travel across the pond, or just the shape of the wave?
+  why: Waves transfer energy, not matter. Each bit of water returns to where it began.
+done: A wave is a moving pattern, not a moving thing. Compare reflections in the activity.
+
+@ phys.2.matter
+goal: Explain solids, liquids and gases by how their particles are arranged and move, and describe a change of state.
+intro: Everything is made of tiny particles. In a solid they are held in place and only vibrate. In a liquid they stay close but slide past one another. In a gas they are far apart and move fast.
+  show: table State | Particles ;; solid | fixed places, vibrating ;; liquid | close together, sliding ;; gas | far apart, fast
+demo: Heat a block of ice and its temperature climbs to 0 °C, then stops while the ice melts. Only when all the ice has gone does the water warm again, until it boils at 100 °C.
+  show: flow ice warms > melts at 0 °C > water warms > boils at 100 °C > steam
+G: Which state does each description fit?
+  bin Solid: keeps its own shape | particles vibrate in fixed places
+  bin Liquid: takes the shape of its container but keeps its volume | particles slide past each other
+  bin Gas: spreads out to fill any container | particles are far apart and fast
+  hint: Ask what the particles are free to do.
+  why: Fixed particles give a fixed shape. Sliding particles let a liquid flow. Free particles let a gas fill any space.
+O: Put the stages of heating ice in order.
+  items: Ice below 0 °C | Ice melting at 0 °C | Liquid water warming | Water boiling at 100 °C | Steam
+  ends: Coldest | Hottest
+  hint: The substance warms, changes state, warms again, and changes state again.
+  why: Solid, then melting, then liquid, then boiling, then gas.
+P: A beaker holds melting ice. What happens to its temperature while the ice is melting?
+  + It stays at 0 °C until all the ice has melted :: The heat goes into loosening the particles.
+  - It rises steadily :: [heat-always-raises-temperature] During a change of state the energy breaks bonds instead of raising temperature.
+  - It falls :: [melting-cools] Heat is still going in; it simply is not raising the temperature.
+  hint: Where does the heat go if the temperature does not change?
+  why: During melting, the energy supplied separates the particles rather than making them move faster.
+>P: A puddle dries up on a sunny day, yet it never gets near 100 °C. How?
+  + The fastest particles at the surface escape: evaporation :: A liquid can turn to gas below its boiling point.
+  - It boils quietly :: [evaporation-is-boiling] Boiling happens throughout the liquid at 100 °C. Evaporation happens at the surface at any temperature.
+  - The water soaks away completely :: [ignored-evaporation] Puddles dry up even on solid concrete.
+  hint: Do all the particles in a liquid move at the same speed?
+  why: Particles have a spread of speeds. The fastest ones at the surface can break free at any temperature.
+done: State is about how particles are arranged. Explore the phase lab.
+
+@ phys.2.units
+goal: Use SI units and prefixes, and report a measurement no more precisely than it was made.
+intro: Scientists everywhere measure with the same units: the metre for length, the kilogram for mass, the second for time. Prefixes scale them: kilo means a thousand, milli means a thousandth.
+  show: table Prefix | Means | Example ;; kilo | × 1000 | 1 km = 1000 m ;; milli | ÷ 1000 | 1 mm = 0.001 m
+demo: A ruler marked in millimetres shows a pencil is 12.3 cm long. You can trust that to the nearest millimetre, so the honest result is 12.3 cm, give or take 0.1 cm.
+  show: line 12..13 step=0.1 mark=12.3
+M: Match each quantity to its SI unit.
+  pairs: Length => metre | Mass => kilogram | Time => second | Temperature => kelvin
+  hint: These are four of the seven SI base units.
+  why: The metre, kilogram, second and kelvin are the base units for length, mass, time and temperature.
+F: Convert the distance.
+  frame: 2.5 km = __ m
+  answer: 2500
+  x 250 :: [used-the-wrong-factor] Kilo means a thousand, not a hundred.
+  x 0.0025 :: [divided-instead] There are more metres than kilometres in the same distance.
+  hint: Kilo means × 1000.
+  why: 2.5 × 1000 = 2500 m.
+P: You measure a pencil with a ruler marked in millimetres. Which is the honest way to report its length?
+  + 12.3 cm :: That is as fine as the ruler can show.
+  - 12.3000 cm :: [false-precision] The extra zeros claim a precision the ruler does not have.
+  - About 10 cm :: [threw-away-precision] The ruler shows more than that; rounding so far loses real information.
+  hint: How small a difference can the ruler actually show?
+  why: A measurement should carry as many digits as the instrument justifies: no more and no fewer.
+>P: A recipe from abroad says "bake at 350". What is missing?
+  + The unit :: 350 °F is a moderate oven; 350 °C would burn the cake.
+  - Nothing: a number is enough :: [number-without-unit] The same number means very different things in different units.
+  - The time of day :: [irrelevant-detail] The time of day does not affect the oven setting.
+  hint: 350 of what?
+  why: A measurement is a number and a unit together. Without the unit, the number cannot be used.
+done: A number without a unit is not a measurement. Explore the measurement lab.

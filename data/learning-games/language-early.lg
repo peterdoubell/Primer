@@ -1,0 +1,659 @@
+# Language and literature, stages 0 to 2 (ages 3 to 13).
+# Revise a sentence, compare readings, put a telling in order.
+# Example sentences and verses are written for Primer.
+
+@ lang.0.alphabet
+goal: Know the letters by sight, in order, in their big and small shapes.
+intro: The alphabet has 26 letters. Each letter has a big shape and a small shape. A and a are the same letter.
+  show: chips A a | B b | C c | D d
+demo: A is for apple. B is for ball. C is for cat. The letters always come in the same order: A, B, C.
+  show: chips A | B | C
+O: Put the letters in order.
+  items: A | B | C | D | E
+  ends: First | Last
+  hint: Sing the alphabet song. Which letter starts it?
+  why: The alphabet goes A, B, C, D, E. The order never changes.
+M: Match each big letter to its small letter.
+  pairs: A => a | B => b | D => d | G => g
+  hint: Big B and small b both have a round tummy.
+  why: Every letter has a big shape and a small shape.
+P: Which letter comes after C?
+  + D :: A, B, C, D.
+  - B :: [went-backwards] B comes before C, not after.
+  - E :: [skipped-one] D comes next. E comes after D.
+  hint: Say them: A, B, C, and then…
+  why: After C comes D.
+>P: Which name starts with the letter S?
+  + Sam :: S for Sam.
+  - Tom :: [wrong-letter] Tom starts with T.
+  - Ben :: [wrong-letter] Ben starts with B.
+  hint: Listen to the first sound of each name.
+  why: Sam begins with S. The first letter of a word tells you where to find it.
+done: Find the first letter of your own name. Try the alphabet grid next.
+
+@ lang.0.phonics
+goal: Match letters to their sounds and blend sounds into a word.
+intro: Letters stand for sounds. The letter m makes the sound "mmm". Put sounds together and you get a word.
+  show: chips m | s | b | t
+demo: Say the sounds one at a time: c, a, t. Now say them quickly together: cat.
+  show: chips c | a | t
+M: Match each letter to a word that starts with its sound.
+  pairs: m => moon | s => sun | b => ball | t => tap
+  hint: Say each word slowly. What is its first sound?
+  why: Moon starts with m, sun with s, ball with b and tap with t.
+B: Build the word "dog".
+  bank: d | o | g | a | t
+  answer: d | o | g
+  x a :: [wrong-sound] Dog has an "o" sound in the middle, not "a".
+  x t :: [wrong-sound] Dog ends with a "g" sound.
+  hint: Say dog slowly: d, o, g.
+  why: The sounds d, o and g, in that order, make dog.
+P: Which word starts with the same sound as "fish"?
+  + fox :: Fish and fox both start with f.
+  - dish :: [matched-the-ending] Dish sounds like fish at the end, but it starts with d.
+  - ship :: [wrong-sound] Ship starts with a "sh" sound.
+  hint: Listen to the very first sound.
+  why: Fish and fox both begin with the sound f.
+>B: Now build the word "sun".
+  bank: s | u | n | a | m
+  answer: s | u | n
+  x a :: [wrong-sound] Sun has a "u" sound in the middle.
+  x m :: [wrong-sound] Sun ends with an "n" sound.
+  hint: Say sun slowly: s, u, n.
+  why: The sounds s, u and n make sun.
+done: You can blend sounds into words. Try the letter sounds activity.
+
+@ lang.0.rhymes
+goal: Hear when two words rhyme, and finish a rhyme.
+intro: Two words rhyme when they end with the same sound. Cat and hat rhyme. So do bee and tree.
+  show: chips cat | hat | mat
+demo: Listen: "The cat sat on the mat." Cat, sat and mat all end with "at". They rhyme.
+  show: chips c-at | s-at | m-at
+M: Match each word to a word that rhymes with it.
+  pairs: cat => hat | dog => log | sun => bun | bee => tree
+  hint: Say the two words. Do the ends sound the same?
+  why: Cat and hat, dog and log, sun and bun, bee and tree: each pair ends with the same sound.
+G: Does it rhyme with "cat"?
+  bin Rhymes with cat: hat | mat | bat
+  bin Does not rhyme with cat: cup | dog | sun
+  hint: Does it end with "at"?
+  why: Hat, mat and bat end with "at", like cat. Cup, dog and sun do not.
+P: Which word rhymes with "star"?
+  + car :: Star and car end the same way.
+  - stop :: [same-start] Stop starts like star, but it does not end like it.
+  - moon :: [meaning-not-sound] The moon is in the sky with the stars, but the words do not rhyme.
+  hint: Listen to the end of the word, not the start.
+  why: Rhyming is about the end sound. Star and car both end with "ar".
+>P: Finish the rhyme: "I saw a mouse run into the…"
+  + house :: Mouse and house rhyme.
+  - hole :: [meaning-not-sound] A mouse may live in a hole, but hole does not rhyme with mouse.
+  - cat :: [meaning-not-sound] A cat chases a mouse, but cat does not rhyme with mouse.
+  hint: Which word ends like "mouse"?
+  why: A rhyme needs the same end sound: mouse, house.
+done: Listen for rhymes in songs. Try the rhyme activity.
+
+@ lang.0.stories
+goal: Say who a story is about, where it happens and what happens in order.
+intro: A story has someone in it. It happens in a place. Things happen: first, then next, then last.
+  show: chips who | where | what happened
+demo: "A little duck lived by a pond. One day she lost her hat. A frog found the hat and gave it back." Who? A duck and a frog. Where? By a pond.
+  show: flow the duck loses her hat > the frog finds it > the frog gives it back
+P: Who lost a hat?
+  + The duck :: The story says she lost her hat.
+  - The frog :: [mixed-up-characters] The frog found the hat.
+  - The pond :: [not-a-character] The pond is the place.
+  hint: Listen again: "One day she lost her hat."
+  why: The duck lost her hat. The frog found it.
+P: Where does the story happen?
+  + By a pond :: The duck lived by a pond.
+  - In a shop :: [not-in-the-story] There is no shop in this story.
+  - On a bus :: [not-in-the-story] There is no bus in this story.
+  hint: Where did the little duck live?
+  why: The place where a story happens is called the setting. Here it is a pond.
+O: Put the story in order.
+  items: The duck loses her hat | The frog finds the hat | The frog gives it back
+  ends: First | Last
+  hint: The hat has to be lost before it can be found.
+  why: First it is lost, then it is found, then it is given back.
+>P: What do you think the duck says to the frog at the end?
+  + Thank you! :: The frog was kind to her.
+  - Go away! :: [ignored-what-happened] The frog helped her, so she would be pleased.
+  - I am a frog. :: [mixed-up-characters] She is a duck.
+  hint: How does the duck feel when she gets her hat back?
+  why: A story does not say everything. We can work things out from what happened.
+done: After your next story, tell someone who was in it and what happened.
+
+@ lang.0.speaking
+goal: Take turns in talk, listen, and ask a question about what you heard.
+intro: Talking together means taking turns. One person talks and the other listens. Then they swap.
+  show: flow you talk > I listen > I talk > you listen
+demo: Ana says, "I went to the park." Ben listens. Then Ben asks, "What did you do there?" Ana tells him more.
+  show: chips talk | listen | ask
+G: Is it good listening?
+  bin Good listening: looking at the speaker | waiting for your turn | asking a question about it
+  bin Not good listening: talking at the same time | walking away | shouting over them
+  hint: How do you like people to listen to you?
+  why: Good listeners look, wait and ask. That shows they care about what is said.
+P: Your friend says, "I got a new puppy!" What is a good thing to say?
+  + "What is its name?" :: You are asking about what they told you.
+  - "I like trains." :: [changed-the-subject] That is about something else.
+  - Nothing, and walk away :: [did-not-answer] Your friend wants to share the news.
+  hint: Ask about the puppy.
+  why: A good question shows that you listened.
+O: Tell about your day in order.
+  items: First I woke up | Then I went to school | After that I played | Last I went to bed
+  ends: Start of the day | End of the day
+  hint: The words first, then, after that and last help you.
+  why: Telling things in order helps the listener to follow.
+>P: Two children both want to talk first. What is fair?
+  + Take turns: one talks, then the other :: Both get to speak.
+  - The loudest one talks :: [loudest-wins] Being loud is not being fair.
+  - Nobody talks :: [gave-up] Then nobody is heard.
+  hint: How can both of them have a go?
+  why: Taking turns is fair, and everyone gets heard.
+done: Today, ask someone a question about what they tell you.
+
+@ lang.1.reading
+goal: Read a sentence, work out what it means, and find what the words do not say outright.
+intro: Reading is two jobs. First you work out the words. Then you think about what they mean together.
+  show: flow read the words > think what they mean > picture it
+demo: "The fox hid under the bridge because it was raining." Why did the fox hide? Because of the rain. The word "because" tells us why.
+  show: chips The fox hid | because | it was raining
+P: "Sam put on his coat and boots and took an umbrella." What is the weather like?
+  + Rainy :: A coat, boots and an umbrella are for rain.
+  - Sunny :: [ignored-the-clues] You would not take an umbrella and boots on a sunny day.
+  - The sentence gives no clue :: [only-what-is-stated] It does not say "rain", but the clues tell you.
+  hint: When do you take an umbrella?
+  why: Good readers use clues. The sentence never says "rain", but we can work it out.
+O: Put the sentences in order to make a story.
+  items: Mia planted a seed. | She watered it every day. | A green shoot came up. | At last a flower opened.
+  ends: First | Last
+  hint: The seed has to be planted before it can grow.
+  why: Plant, water, shoot, flower: a story has to make sense in order.
+F: Choose the word that makes sense.
+  frame: The cat sat on the __.
+  taps: mat | ran | blue
+  answer: mat
+  x ran :: [wrong-kind-of-word] "The cat sat on the ran" does not make sense. We need a thing.
+  x blue :: [wrong-kind-of-word] Blue is a colour, not a thing to sit on.
+  hint: What could a cat sit on?
+  why: The missing word has to be a thing, and it has to make sense.
+>P: "Tom's tummy rumbled, so he opened the fridge." Why did Tom open the fridge?
+  + He was hungry :: A rumbling tummy means hunger.
+  - He was cold :: [ignored-the-clues] The clue is his tummy, not the cold.
+  - He was tidying up :: [not-in-the-story] Nothing in the sentence is about tidying.
+  hint: What does a rumbling tummy mean?
+  why: The word "so" joins the reason to what he did.
+done: When you read, ask "why?" and look for clues. Try the reading path.
+
+@ lang.1.spelling
+goal: Use spelling patterns to add endings to words.
+intro: Many words follow patterns. Learn the pattern and you can spell lots of words.
+  show: table Word | Add -ing | Rule ;; hop | hopping | double the last letter ;; hope | hoping | drop the e
+demo: "Hop" has a short sound, so we double the p: hopping. "Hope" ends in e, so we drop the e: hoping. One letter changes the meaning.
+  show: chips hop → hopping | hope → hoping
+F: Add -ing to "run".
+  frame: run + ing = __
+  taps: runing | running | runeing
+  answer: running
+  x runing :: [forgot-to-double] Run has a short sound, so the n is doubled.
+  x runeing :: [added-a-letter] There is no e in run.
+  hint: Run has a short sound, like hop.
+  why: After a short sound, double the last letter: running.
+E: This sentence has the wrong word in it. Fix it.
+  tokens: I | am | hoping{hopping} | on | one | leg
+  limit: 1
+  aim: Change one word so that the sentence makes sense.
+  accept: 3=hopping
+  hint: What do you do on one leg?
+  why: You hop on one leg, so the word is hopping, with two p's. Hoping means wishing.
+G: Is it spelled the right way?
+  bin Spelled right: because | friend | said
+  bin Spelled wrong: becos | frend | sed
+  hint: Some words are not spelled the way they sound.
+  why: Because, friend and said are tricky words. They have to be learned.
+>P: Add -ing to "make".
+  + making :: Drop the e, then add -ing.
+  - makeing :: [kept-the-e] When a word ends in e, the e is dropped before -ing.
+  - makking :: [doubled-wrongly] Make has a long sound, so nothing is doubled.
+  hint: Make ends in e, like hope.
+  why: Drop the e and add -ing: making.
+done: Patterns make spelling easier. Practise adding -ing and -ed.
+
+@ lang.1.vocabulary
+goal: Choose a stronger word, find opposites, and work out a new word from its sentence.
+intro: There are many words for one idea. Something big can be huge, enormous or gigantic. Choosing the best word makes your meaning clear.
+  show: chips big | huge | enormous | gigantic
+demo: "The dog is big." "The dog is enormous." The second sentence gives a much stronger picture.
+  show: table Plain word | Stronger word ;; big | enormous ;; small | tiny ;; happy | delighted
+M: Match each word to one that means nearly the same.
+  pairs: big => enormous | small => tiny | happy => cheerful | fast => speedy
+  hint: Which word could you swap in without changing the meaning?
+  why: Words that mean nearly the same are called synonyms.
+E: Choose the best word for a whale.
+  tokens: We | saw | a | big{gigantic,tiny} | whale
+  limit: 1
+  aim: Change one word to give a stronger picture of the whale.
+  accept: 4=gigantic
+  x 4=tiny :: [chose-the-opposite] A whale is the biggest animal there is. Tiny says the opposite.
+  hint: A whale is much bigger than "big".
+  why: Gigantic is a stronger word than big, and it suits a whale.
+P: Which word means the opposite of "empty"?
+  + full :: A full cup has no room left.
+  - hollow :: [chose-a-synonym] Hollow is close in meaning to empty.
+  - small :: [unrelated-word] Small is about size.
+  hint: What is a cup when you cannot fit any more in?
+  why: Opposites are called antonyms. Full is the opposite of empty.
+>P: "The puppy was famished, so it gobbled up all its food." What does "famished" mean?
+  + Very hungry :: It gobbled all its food.
+  - Very sleepy :: [ignored-the-clues] A sleepy puppy would not gobble its food.
+  - Very clean :: [ignored-the-clues] Nothing in the sentence is about being clean.
+  hint: What did the puppy do next?
+  why: The rest of the sentence gives the clue. This is how readers learn new words.
+done: Collect a new word today and use it three times.
+
+@ lang.1.sentences
+goal: Build a whole sentence with a capital letter at the start and the right mark at the end.
+intro: A sentence tells a whole idea. It starts with a capital letter. It ends with a full stop, a question mark or an exclamation mark.
+  show: table Mark | Used for ;; . | telling ;; ? | asking ;; ! | strong feeling
+demo: "the dog ran" is not finished. Give it a capital letter and a full stop: "The dog ran."
+  show: chips The | dog | ran | .
+B: Build a sentence.
+  bank: The | bird | sings | . | and
+  answer: The | bird | sings | .
+  x and :: [did-not-finish] A sentence cannot stop at "and".
+  hint: Start with the capital letter. End with the full stop.
+  why: "The bird sings." has a capital letter, a whole idea and a full stop.
+E: This sentence has one mistake. Fix it.
+  tokens: my{My} | dog | is | brown{Brown} | .{?}
+  limit: 1
+  aim: Change one thing so that the sentence is written correctly.
+  accept: 1=My
+  x 4=Brown :: [capital-in-the-middle] Brown is not a name, and it is not the first word.
+  x 5=? :: [wrong-end-mark] The sentence tells something. It does not ask.
+  hint: How should every sentence begin?
+  why: A sentence begins with a capital letter: "My dog is brown."
+G: Is it a whole sentence?
+  bin A whole sentence: The sun is hot. | Birds can fly. | I like apples.
+  bin Not a whole sentence: the big red | running fast | on the table
+  hint: Does it tell a whole idea? Does it have a capital letter and a full stop?
+  why: A whole sentence says who or what, and what happens.
+>P: Which one needs a question mark?
+  + Where is my hat :: It asks something.
+  - I have a hat :: [telling-not-asking] That tells something, so it needs a full stop.
+  - Hats are warm :: [telling-not-asking] That tells something, so it needs a full stop.
+  hint: Which one is asking?
+  why: A question ends with a question mark.
+done: Capital letter, whole idea, end mark. Try the sentence activity.
+
+@ lang.1.handwriting
+goal: Form letters of the right height, and space words so that writing is easy to read.
+intro: Good handwriting is easy to read. Letters sit on the line. Tall letters are tall, small letters are small, and some letters have a tail below the line.
+  show: table Kind | Letters ;; tall | b d h l ;; small | a c e o ;; with a tail | g j p y
+demo: In the word "dog", d is tall, o is small, and g has a tail that hangs below the line.
+  show: chips d: tall | o: small | g: tail
+G: What kind of letter is it?
+  bin Tall: b | d | h
+  bin Small: a | c | e
+  bin Has a tail: g | p | y
+  hint: Does it reach up, stay small, or hang down?
+  why: Tall letters reach up, small letters stay between the lines, and tails hang below.
+P: What goes between two words?
+  + A space :: A space shows where one word ends.
+  - Nothing :: [no-spaces] Without spaces the words run together.
+  - A full stop :: [wrong-mark] A full stop ends a sentence, not a word.
+  hint: Look at the gaps on this page.
+  why: A finger space between words makes writing easy to read.
+O: Get ready to write. Put the steps in order.
+  items: Sit up with your feet on the floor | Hold the pencil gently | Start each letter at the top | Leave a space after each word
+  ends: First | Last
+  hint: You sit down before you pick up the pencil.
+  why: Sit well, hold the pencil, form each letter, then space the words.
+>P: A friend cannot read your writing because the words run together. What should you fix?
+  + Leave spaces between the words :: Then each word stands alone.
+  - Write much bigger :: [size-not-spacing] Bigger words that still touch are still hard to read.
+  - Press harder :: [pressure-not-spacing] Pressing harder does not separate the words.
+  hint: What shows where one word ends and the next begins?
+  why: Spaces between words matter as much as the letters.
+done: Write your name with tall letters tall and tails hanging down.
+
+@ lang.1.childrens-lit
+goal: Find the characters, setting, problem and ending of a story, and the lesson it teaches.
+intro: Most stories have characters, a setting, a problem and an ending. Many old stories also teach a lesson.
+  show: chips characters | setting | problem | ending
+demo: In an old fable, a hare laughs at a slow tortoise and they race. The hare is so far ahead that he stops for a nap. The tortoise keeps plodding and wins.
+  show: flow the hare races ahead > the hare naps > the tortoise keeps going > the tortoise wins
+M: Match each word to what it means.
+  pairs: Characters => Who is in the story | Setting => Where and when it happens | Problem => What goes wrong | Ending => How it turns out
+  hint: Who, where, what goes wrong, and how it ends.
+  why: These four parts are in almost every story.
+P: Why does the hare lose the race?
+  + He stops to rest because he is too sure of winning :: He thinks he cannot lose.
+  - The tortoise runs faster :: [ignored-what-happened] The tortoise is slow. He just never stops.
+  - The hare gets lost :: [not-in-the-story] He does not get lost. He falls asleep.
+  hint: What does the hare do when he is far ahead?
+  why: The hare is too sure of himself and stops trying.
+P: What lesson does the fable teach?
+  + Keep going steadily and do not give up :: The tortoise wins by keeping on.
+  - The fastest one always wins :: [ignored-what-happened] The fastest one lost.
+  - Always have a nap :: [wrong-lesson] The nap is why the hare lost.
+  hint: Who won, and how?
+  why: Slow and steady wins the race.
+>P: A boy shouts "Wolf!" for fun, twice. People run to help and find no wolf. Then a real wolf comes, he shouts, and nobody comes. What is the lesson?
+  + If you tell lies, people stop believing you :: Even when you tell the truth.
+  - Wolves are friendly :: [wrong-lesson] The wolf is the danger in the story.
+  - Shout louder :: [wrong-lesson] They heard him. They did not believe him.
+  hint: Why did nobody come the third time?
+  why: A fable is a short story with a lesson. This one is about telling the truth.
+done: Next time you read a story, name its problem and its ending.
+
+@ lang.1.writing-stories
+goal: Plan a story with a beginning, a middle and an end.
+intro: A story has three parts. The beginning tells who and where. In the middle a problem happens. At the end the problem is solved.
+  show: flow beginning: who and where > middle: a problem > end: it is solved
+demo: Beginning: "Once there was a little robot." Middle: "One day its battery ran out." End: "A girl found it and plugged it in."
+  show: steps Once there was a little robot. ;; One day its battery ran out. ;; A girl found it and plugged it in.
+O: Put the parts of a story in order.
+  items: Beginning: meet the character | Middle: a problem happens | End: the problem is solved
+  ends: First | Last
+  hint: We meet the character before anything goes wrong.
+  why: Beginning, middle, end: every story needs all three.
+G: Which part of the story is each sentence from?
+  bin Beginning: Once there was a little robot.
+  bin Middle: One day its battery ran out. | It rolled slower and slower.
+  bin End: A girl found it and plugged it in. | The robot beeped with joy.
+  hint: Where do we meet the robot? Where does the trouble start? Where is it put right?
+  why: The beginning introduces, the middle brings trouble, and the end puts it right.
+E: Choose the word that fits what the dragon does.
+  tokens: The | dragon | was | sad{furious,sleepy} | and | breathed | fire
+  limit: 1
+  aim: Change one word so that the feeling matches the action.
+  accept: 4=furious
+  x 4=sleepy :: [feeling-does-not-match] A sleepy dragon would yawn, not breathe fire.
+  hint: How does a dragon feel when it breathes fire?
+  why: Furious matches breathing fire. Words should fit what the character does.
+>P: Your story begins: "Zara found a tiny door in the garden wall." What would make a good middle?
+  + She goes through the door and meets a problem :: Something has to happen.
+  - "The end." :: [skipped-the-middle] Nothing has happened yet.
+  - What Zara had for breakfast :: [off-the-story] That does not follow from the door.
+  hint: What does the middle of a story need?
+  why: The middle is where something goes wrong or gets exciting.
+done: Plan your own story: who, what problem, how it ends.
+
+@ lang.1.dictionary
+goal: Put words in alphabetical order and use guide words to find a word.
+intro: A dictionary lists words in alphabetical order. It tells you how to spell a word and what it means.
+  show: chips apple | ball | cat | dog
+demo: To find "cat", go to the C words. If two words start with the same letter, look at the second letter: "cab" comes before "cup" because a comes before u.
+  show: table Word | Second letter ;; cab | a ;; cup | u
+O: Put the words in alphabetical order.
+  items: apple | ball | cat | dog | egg
+  ends: First in the dictionary | Last
+  hint: Look at the first letter of each word.
+  why: A, b, c, d, e: the words follow the alphabet.
+O: These words all start with c. Put them in alphabetical order.
+  items: cab | can | cat | cup
+  ends: First in the dictionary | Last
+  hint: When the first letters match, look at the next letter, and the next.
+  why: Cab, can and cat share "ca", so the third letter decides: b, n, t. Cup comes last because u comes after a.
+P: The guide words at the top of a page are "frog" and "gate". Which word is on that page?
+  + fun :: It comes after frog and before gate.
+  - fish :: [before-the-page] Fish comes before frog, because i comes before r.
+  - goat :: [after-the-page] Goat comes after gate, because o comes after a.
+  hint: The word must come between the two guide words.
+  why: Guide words show the first and last words on a page. Fun lies between frog and gate.
+>P: You read the word "enormous" and do not know it. Where do you look first?
+  + Under E :: Words are listed by their first letter.
+  - Under N :: [not-the-first-letter] Look at the first letter of the word, e.
+  - At the very back :: [ignored-order] The back has the last letters of the alphabet.
+  hint: What is the first letter of "enormous"?
+  why: A dictionary is in alphabetical order by the first letter, then the second, and so on.
+done: Look up one new word today. Play the guide-word hunt.
+
+@ lang.2.grammar
+goal: Identify nouns, verbs and adjectives, make a subject and verb agree, and see how punctuation changes meaning.
+intro: Words do different jobs in a sentence. A noun names a person, place, thing or idea. A verb tells what happens. An adjective describes a noun.
+  show: table Word class | Job | Example ;; noun | names | river ;; verb | tells what happens | gallop ;; adjective | describes a noun | silver
+demo: In "The brave girl climbed the tall tree", girl and tree are nouns, climbed is the verb, and brave and tall are adjectives.
+  show: chips brave: adjective | girl: noun | climbed: verb | tall: adjective | tree: noun
+G: Sort the words by the job they do.
+  bin Noun: river | happiness | teacher
+  bin Verb: gallop | think | become
+  bin Adjective: silver | brave | enormous
+  note happiness :: A noun can name an idea or a feeling, not only something you can touch.
+  hint: Does it name, tell what happens, or describe?
+  why: Nouns name, verbs tell what happens, and adjectives describe nouns.
+E: The subject and the verb do not agree. Repair the sentence.
+  tokens: The | dogs{dog} | barks{bark} | loudly
+  limit: 1
+  aim: Change one word so that the subject and the verb agree.
+  accept: 2=dog | 3=bark
+  hint: Either both are about one dog, or both are about several.
+  why: "The dogs bark" and "The dog barks" both agree. A plural subject takes a plural verb.
+C: Compare the two sentences. Only the comma differs.
+  left: text Let's eat, Grandma.
+  right: text Let's eat Grandma.
+  + In the first, Grandma is being spoken to; in the second, she is the meal :: The comma changes who does what.
+  - They mean exactly the same :: [punctuation-is-decoration] Punctuation can change the meaning completely.
+  - The second is simply more polite :: [misread-the-structure] Without the comma, Grandma becomes the object of "eat".
+  hint: Who is being talked to, and what is being eaten?
+  why: A comma separates the person addressed from the rest of the sentence. Remove it and the grammar changes.
+>P: Which word is the verb in "The old lighthouse guided ships safely home"?
+  + guided :: It tells what the lighthouse did.
+  - lighthouse :: [chose-the-subject] Lighthouse names the thing doing the action: a noun.
+  - safely :: [chose-an-adverb] Safely tells how it was done: an adverb.
+  - old :: [chose-an-adjective] Old describes the lighthouse: an adjective.
+  hint: Which word tells what happened?
+  why: The verb is the action or state. Here the action is "guided".
+done: Every word has a job. Name the parts of speech in the activity.
+
+@ lang.2.paragraphs
+goal: Build a paragraph from a topic sentence, supporting details and a conclusion.
+intro: A paragraph is about one main idea. A topic sentence states the idea, supporting sentences give details, and a final sentence rounds it off.
+  show: flow topic sentence > supporting details > concluding sentence
+demo: "Owls are well suited to hunting at night. Their large eyes gather faint light. Soft feathers let them fly silently. Together these features make them superb night hunters."
+  show: steps Topic: owls suit night hunting ;; Detail: large eyes ;; Detail: silent feathers ;; Conclusion: superb night hunters
+O: Put the sentences in order to make a paragraph.
+  items: Owls are well suited to hunting at night. | Their large eyes gather faint light. | Soft feathers let them fly silently. | Together these features make them superb night hunters.
+  ends: Opens the paragraph | Closes it
+  hint: Which sentence states the main idea? Which one sums up?
+  why: The topic sentence comes first, the details follow, and the conclusion draws them together.
+G: Topic sentence or supporting detail?
+  bin Topic sentence: Recycling helps the environment in several ways. | Dogs make excellent companions.
+  bin Supporting detail: It reduces the rubbish sent to landfill. | They greet you at the door. | It saves energy in factories.
+  hint: A topic sentence is broad enough to cover a whole paragraph.
+  why: A topic sentence makes a general claim. Details give the particular facts that support it.
+P: A paragraph is about how owls hunt. Which sentence does not belong in it?
+  + My uncle has a red bicycle. :: It has nothing to do with owls.
+  - Owls can turn their heads a long way round. :: [removed-a-relevant-detail] That is about how owls find their prey.
+  - Their hearing can pinpoint a mouse in the dark. :: [removed-a-relevant-detail] That is about how owls hunt.
+  hint: Which sentence is about a different subject altogether?
+  why: Every sentence in a paragraph should support its one main idea.
+>P: You are writing a paragraph on why sleep matters. Which is the best topic sentence?
+  + Sleep is essential for a healthy body and mind. :: It states the main idea the paragraph will support.
+  - I went to bed at nine. :: [detail-not-topic] That is one small fact, not the main idea.
+  - Sleep. :: [not-a-sentence] One word states no idea at all.
+  hint: Which one could the rest of the paragraph go on to explain?
+  why: A topic sentence makes a claim broad enough for the paragraph and clear enough to guide it.
+done: One paragraph, one idea. Build a paragraph in the activity.
+
+@ lang.2.poetry
+goal: Recognise simile, metaphor and personification, and hear the rhythm and rhyme of a verse.
+intro: Poetry packs meaning into few words. It uses pictures made of words, called images, and it uses sound: rhythm and rhyme.
+  show: table Device | How it works | Example ;; simile | compares using like or as | quiet as snow ;; metaphor | says one thing is another | the moon is a silver coin ;; personification | gives human actions to things | the wind whispered
+demo: "The moon is a silver coin, tossed across the night." The moon is not really a coin. The metaphor makes us see it as small, bright and round.
+  show: chips moon | silver coin | tossed across the night
+G: Which device is it?
+  bin Simile: as brave as a lion | runs like the wind
+  bin Metaphor: the classroom was a zoo | time is a thief
+  bin Personification: the wind whispered | the sun smiled down
+  hint: Is there "like" or "as"? Is one thing said to be another? Does a thing act like a person?
+  why: A simile compares with like or as. A metaphor says one thing is another. Personification makes a thing act like a person.
+F: Count the beats.
+  frame: The word "butterfly" has __ syllables
+  answer: 3 | three
+  x 2 :: [missed-a-beat] But-ter-fly: clap it and you will hear three.
+  hint: Clap as you say it: but, ter, fly.
+  why: But-ter-fly has three syllables. Counting syllables is how poets measure a line.
+P: Four lines end with the words day, play, tree and free. What is the rhyme pattern?
+  + AABB :: The first two lines rhyme, and so do the last two.
+  - ABAB :: [alternating-pattern] That would need lines one and three to rhyme.
+  - ABBA :: [enclosed-pattern] That would need lines one and four to rhyme.
+  hint: Give the same letter to lines that rhyme.
+  why: Day and play share A. Tree and free share B. So the pattern is AABB.
+>P: "The old house groaned and settled its tired bones." Which device is this?
+  + Personification :: A house cannot groan or have tired bones.
+  - Simile :: [looked-for-any-comparison] There is no "like" or "as".
+  - Rhyme :: [confused-sound-with-image] No words rhyme here. The effect is an image.
+  hint: What is the house doing that only a living thing could do?
+  why: Giving a thing human actions and feelings is personification.
+done: Images and sounds are a poet's tools. Scan a line in the meter activity.
+
+@ lang.2.mythology
+goal: Recognise figures from several mythologies and explain what myths were for.
+intro: Myths are very old stories that people told to explain the world: why the seasons change, where thunder comes from, how people began. They are full of gods, heroes and monsters.
+  show: table Tradition | A figure ;; Greek | Zeus ;; Norse | Thor ;; West African | Anansi ;; Egyptian | Ra
+demo: The Greeks told how Persephone was taken to the underworld. While she was there her mother, the goddess of the harvest, grieved and nothing grew. When she returned, the earth bloomed again. The story explained winter and spring.
+  show: flow Persephone goes below > her mother grieves: winter > Persephone returns > the earth blooms: spring
+M: Match each figure to its tradition.
+  pairs: Zeus => Greek king of the gods | Thor => Norse god of thunder | Anansi => West African trickster spider | Ra => Egyptian sun god
+  hint: Thunder, tricks, the sun, and the king of the gods.
+  why: Each culture had its own gods and heroes, though many play similar roles.
+G: Greek or Norse?
+  bin Greek: Athena | Hercules | Medusa
+  bin Norse: Odin | Loki | Yggdrasil
+  hint: The Norse myths come from Scandinavia.
+  why: Athena, Hercules and Medusa belong to Greek myth. Odin, Loki and the world tree Yggdrasil are Norse.
+P: What did the story of Persephone explain to the ancient Greeks?
+  + Why winter comes and spring returns :: The seasons follow her going and coming back.
+  - Why the sea is salty :: [wrong-myth] That is not what this story is about.
+  - How people learned to use fire :: [wrong-myth] The Greeks told that story about Prometheus.
+  hint: What happens to the earth while she is away?
+  why: Many myths explain something in nature. This one explains the cycle of the seasons.
+>P: Cultures that never met each other tell stories of a great flood, and of a clever trickster. What does that suggest?
+  + People everywhere used stories to make sense of experiences they shared :: Floods and cleverness are found everywhere.
+  - Every culture copied one original book :: [single-source] Peoples with no contact could not have copied each other.
+  - The stories must record exactly the same event :: [literal-reading] Similar stories need not describe one event.
+  hint: What do people in very different places have in common?
+  why: Shared human experience gives rise to shared kinds of story.
+done: Myths are the stories under our stories. Compare traditions in the activity.
+
+@ lang.2.novels
+goal: Follow a long story by tracking character, plot, setting and theme.
+intro: A novel is a long story. To follow it, keep track of four things: the characters, the plot, the setting and the theme.
+  show: table Element | Meaning ;; character | the people in the story ;; plot | the chain of events ;; setting | the time and place ;; theme | the big idea the story explores
+demo: Most plots have a shape. They set the scene, build tension, reach a turning point, and then wind down to an ending.
+  show: flow exposition > rising action > climax > falling action > resolution
+M: Match each element to its meaning.
+  pairs: Character => The people in the story | Plot => The chain of events | Setting => The time and place | Theme => The big idea the story explores
+  hint: Who, what happens, where and when, and what it is really about.
+  why: These four elements work together in every novel.
+O: Put the stages of a plot in order.
+  items: Exposition | Rising action | Climax | Falling action | Resolution
+  ends: Beginning | End
+  hint: Tension rises to the climax and then falls.
+  why: The scene is set, tension builds to a turning point, and then events settle to an ending.
+P: At the start of a novel Mara refuses to share her map. At the end she gives it to her rival to save the crew. What does this show?
+  + Character development :: She has changed because of what happened to her.
+  - A change of setting :: [confused-the-elements] Setting is the time and place, not how a person changes.
+  - Foreshadowing :: [confused-the-elements] Foreshadowing is a hint of what is to come.
+  hint: What is different about Mara by the end?
+  why: Characters in good novels change. Tracing that change is a key to the book.
+>P: A boy lies to win a race, wins, feels hollow, and at last confesses. What is a likely theme of the story?
+  + Honesty matters more than winning :: His victory brings him no joy until he tells the truth.
+  - Running is good exercise :: [topic-not-theme] The race is the subject. The theme is the idea beneath it.
+  - Always win at any cost :: [reversed-the-theme] The story shows the cost of winning dishonestly.
+  hint: How does he feel after winning, and what puts it right?
+  why: A theme is the idea a story explores through what its characters go through.
+done: Character, plot, setting, theme. Trace them in your next book.
+
+@ lang.2.research
+goal: Plan an enquiry, judge how far to trust a source, and resolve a disagreement between sources.
+intro: Finding something out has steps: ask a clear question, find several sources, check who wrote them, and keep notes. Not all sources deserve the same trust.
+  show: flow ask a question > find sources > check them > take notes > list your sources
+demo: You want to know how volcanoes erupt. An encyclopedia entry written by geologists is a better source than an anonymous comment, because you know who wrote it and that it was checked.
+  show: table Source | Who wrote it? | Was it checked? ;; encyclopedia entry | named experts | yes ;; anonymous comment | unknown | no
+G: How far can you trust it?
+  bin More reliable: an encyclopedia entry | a museum's website | a science textbook
+  bin Less reliable: an anonymous comment | an advertisement | a rumour from a friend
+  hint: Do you know who wrote it, and whether anyone checked it?
+  why: Reliable sources name their authors and are checked. Adverts and rumours have other aims or no checking at all.
+O: Put the steps of an enquiry in order.
+  items: Ask a clear question | Find several sources | Check who wrote each one and when | Take notes in your own words | List your sources
+  ends: First | Last
+  hint: You cannot look for sources until you know your question.
+  why: Question, sources, checking, notes, references: each step depends on the one before.
+P: Which fact tells you most about whether to trust a web article on volcanoes?
+  + Who wrote it and what they know about the subject :: Expertise and accountability matter most.
+  - How colourful the page is :: [judged-by-appearance] Design says nothing about accuracy.
+  - How long the article is :: [more-is-better] A long article can be wrong from start to finish.
+  hint: What would make you trust a person telling you this?
+  why: The author's knowledge of the subject is the best single guide to a source's reliability.
+>P: Two of your sources give different dates for the same event. What should you do?
+  + Check a third reliable source :: And see which of the two it supports.
+  - Use the date you saw first :: [first-is-right] Being first tells you nothing about being right.
+  - Use the average of the two dates :: [split-the-difference] An event happened on one date, not on an average.
+  hint: How could you find out which source is mistaken?
+  why: When sources disagree, look for more evidence rather than guessing.
+done: Ask, find, check, note, credit. Use the encyclopedia in this book to practise.
+
+@ lang.2.etymology
+goal: Use word roots to work out what an unfamiliar word means.
+intro: Words have histories. Many English words are built from Greek and Latin parts called roots. Learn a root and you unlock a whole family of words.
+  show: table Root | Meaning | Example ;; tele | far | telephone ;; bio | life | biology ;; aqua | water | aquarium ;; port | carry | transport
+demo: "Telephone" joins tele, far, with phone, sound: sound from far away. "Telescope" joins tele with scope, look: looking far.
+  show: chips tele + phone | tele + scope
+M: Match each root to a word built from it.
+  pairs: tele (far) => telephone | bio (life) => biology | aqua (water) => aquarium | port (carry) => transport
+  hint: Look for the root hiding inside each word.
+  why: Each word carries its root's meaning: far sound, the study of life, a place for water, carrying across.
+B: Build the word that means "far sight".
+  bank: tele | vision | micro | phone | graph
+  answer: tele | vision
+  x micro :: [wrong-root] Micro means small.
+  x phone :: [wrong-root] Phone means sound. The meaning asked for is sight.
+  hint: Tele means far. Which part means seeing?
+  why: Tele, far, and vision, sight, make television.
+P: "Geo" means earth and "logy" means study. What is geology?
+  + The study of the earth :: Join the meanings of the two parts.
+  - The study of life :: [confused-the-roots] That would be biology, from bio.
+  - A map of the earth :: [ignored-a-root] Logy means study, not map.
+  hint: Join the two meanings.
+  why: Geo plus logy gives "earth study". Roots let you decode words you have never seen.
+>P: "Hydro" means water and "phobia" means fear. What would "hydrophobia" most likely mean?
+  + A fear of water :: Join the two meanings.
+  - A love of water :: [reversed-a-root] Phobia means fear, not love.
+  - A fear of heights :: [ignored-a-root] Hydro means water.
+  hint: Take the word apart and translate each piece.
+  why: An unfamiliar word often gives up its meaning when you split it into its roots.
+done: Roots are keys. Trace word histories in the activity.
+
+@ lang.2.speaking
+goal: Plan a short talk and deliver it so that an audience can follow.
+intro: A good talk is planned and practised. It says what it is about, makes a few clear points with examples, and sums up at the end.
+  show: flow say your topic > main points with examples > sum up > invite questions
+demo: Explaining your favourite game, you might say: "I am going to tell you about chess. First, the aim. Second, how two of the pieces move. To sum up, it is a battle of plans."
+  show: steps Topic: chess ;; Point 1: the aim of the game ;; Point 2: how two pieces move ;; Summary: a battle of plans
+G: Does it help a talk or hurt it?
+  bin Helps: looking at the audience | speaking slowly and clearly | giving an example
+  bin Hurts: reading every word from the page | mumbling | rushing
+  hint: What helps you when you are the listener?
+  why: Eye contact, a steady pace and examples help listeners. Reading, mumbling and rushing lose them.
+O: Put the parts of a talk in order.
+  items: Greet the audience and say your topic | Give your first point with an example | Give your second point | Sum up | Invite questions
+  ends: First | Last
+  hint: Tell them what you will say, say it, then say what you said.
+  why: An opening, the points in turn, a summary and then questions.
+P: You feel nervous before giving a talk. What helps most?
+  + Practising it aloud beforehand :: The words feel familiar when the time comes.
+  - Learning nothing, to keep it fresh :: [no-preparation] Without preparation the nerves get worse.
+  - Speaking as fast as you can :: [rushing] Rushing makes a talk harder to follow.
+  hint: What makes any hard thing easier?
+  why: Practice turns a frightening unknown into something you have already done.
+>P: You are explaining chess to someone who has never played. What should you do first?
+  + Explain the aim of the game in simple words :: A beginner needs the big picture.
+  - List the advanced openings :: [ignored-the-audience] That means nothing to someone who does not yet know the aim.
+  - Speak faster to fit more in :: [rushing] More, faster, is harder to follow.
+  hint: What does this listener already know?
+  why: A good speaker starts from what the audience knows and builds from there.
+done: Know your audience, plan your points, practise aloud.
