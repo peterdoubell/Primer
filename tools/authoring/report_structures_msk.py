@@ -353,12 +353,13 @@ Adductor origin | Intact. | [Tendinosis / Tear] of the adductor origin.
 = Soft tissues
 
 ## ct.hip
-= Fracture -> Proximal femur | No proximal femoral fracture or dislocation.
-! Femoral head and acetabulum
+> Bones
+= Proximal femur
 Femoral head | Normal femoral head contour. | [Femoral head fracture / Impaction / Avascular necrosis / Subchondral collapse] [ ].
 Acetabulum | Intact acetabular walls and columns. | [Posterior wall / Anterior wall / Posterior column / Anterior column / Transverse] acetabular fracture, displacement [ ] mm.
-= Joint -> Hip joint
 Pelvis and sacroiliac joint | Intact visualised hemipelvis. Normal sacroiliac joint. | [Pubic ramus fracture / Iliac fracture / Sacral fracture / Sacroiliac diastasis] [ ].
+>
+= Hip joint
 Soft tissues | Normal soft tissues and visualised pelvic organs. | [Haematoma / Effusion / Heterotopic ossification] [ ].
 
 ## ct.pelvis-hips
@@ -629,5 +630,5 @@ Midfoot and hindfoot bones | No osteomyelitis of the tarsal bones or calcaneus. 
 >
 = Joints and neuroarthropathy
 Tendon sheaths | No septic tenosynovitis. | Tenosynovitis of the [ ] tendon sheath, in continuity with the ulcer.
-= Soft tissues -> Soft tissues and muscles | No abscess, cellulitis or devitalised tissue. No muscle denervation change.
+= Soft tissues and muscles -> Muscles and soft tissues | No abscess, cellulitis or devitalised tissue. No muscle denervation change.
 '''

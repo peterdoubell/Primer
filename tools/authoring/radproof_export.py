@@ -1,26 +1,26 @@
-"""Export every performed study's normal report as RadProof (M3GAN) template text.
+"""Export every performed study's report template as RadProof (M3GAN) template text.
 
-Layout follows the practice's Prism reports, from the study title down:
-  **__<Study title>__**        bold and underlined; {Side} where Prism supplies the side
+Every template opens with the clinical history and the comparison, then the study name, as Peter asked
+(2026-11-19). RadProof puts a template's first line in Prism's title slot, so Clinical history takes it:
+  __Clinical history:__ []     underlined, each with a blank to fill
+  __Comparison:__ []
+  **__<STUDY TITLE>:__**       bold and underlined, in capitals with a colon, as Prism sets out a title;
+                               {SIDE} where Prism supplies the side, RADIOGRAPH{S} for the views
   __Protocol:__ / __Technique:__  underlined; MRI protocol or CT technique (no other modality has one)
-  __Findings:__                underlined; one sentence per line (radiographs have no Findings
-                               heading: the findings follow the title); multi-region studies keep
-                               plain region subheadings (RadProof text has no italics). Every
-                               line reads on its own, adjective first: a bare "Normal." under
-                               Spleen is written "Normal spleen.", and a line that two sections
-                               share takes its heading ("Right vertebral artery: patent ...").
-                               Headings under one subheading that are normal in the same words
-                               are said once ("Intact intrinsic ligaments.", "Right carotid: no
-                               plaque or stenosis."). A section that only restates the
-                               conclusion (stage, category) is left out
-  **__Conclusion:__**          bold and underlined; the normal impression
-A single-region radiograph says radiograph{s}: the bar adds the s for two or more views, which it
-reads from Prism's title ("Right knee, two views").
-The dictation layout (--dictation) lists every heading with a blank to fill; a subheading over
-the headings it groups is bold, as RadProof sets out a part of a report (**Intrinsic ligaments:**).
-Clinical history and comparison sit above the inserted template in Prism.
-RadProof markup: ** toggles bold, __ toggles underline; a short line ending in a colon is a
-heading, so subheadings carry no colon.
+  __Findings:__                underlined, after a protocol or technique; radiographs, ultrasound and
+                               fluoroscopy run from the study title straight into their findings
+  **__Impression:__** (dictation) or **__Conclusion:__** (normal report)
+The dictation layout (--dictation) lists every heading with a blank, one under another; a subheading over
+the headings it groups is bold (**Intrinsic ligaments:**), RadProof's markup for a part of a report, and
+stands apart with a blank line around it.
+The normal-report layout writes one sentence per line. Every line reads on its own, adjective first: a
+bare "Normal." under Spleen is written "Normal spleen.", and a line that two sections share takes its
+heading ("Right vertebral artery: patent ..."). Headings under one subheading that are normal in the same
+words are said once ("Intact intrinsic ligaments.", "Right carotid: no plaque or stenosis."). A section
+that only restates the conclusion (stage, category) is left out.
+A single-region radiograph says radiograph{s}: the bar adds the s for two or more views, which it reads
+from Prism's title ("Right knee, two views").
+RadProof markup: ** toggles bold, __ toggles underline; a short line ending in a colon is a heading.
 
 Usage: python3 tools/authoring/radproof_export.py --dictation > radproof-templates.json
 """
@@ -117,18 +117,29 @@ def sentences(text):
     return [s if s.endswith('.') else s + '.' for s in re.split(r'(?<=\.)\s+(?=[A-Z])', text.strip()) if s]
 
 
+# Every template opens with the clinical history and the comparison, then the study name (Peter, 2026-11-19).
+# RadProof puts a template's first line in Prism's title slot, so Clinical history takes that line and the
+# study name follows in Prism's title style.
+HISTORY = ['__Clinical history:__', '[]', '', '__Comparison:__', '[]', '']
+
+
+def caps_title(title):
+    """A study name as Prism sets out a title: capitals and a colon ({SIDE} and RADIOGRAPH{S} still fill in)."""
+    return '**__' + title.upper() + ':__**'
+
+
 def dictation_text(item, acquisition, title):
+    """Clinical history, comparison, the study name, then the study's headings, each with a blank to fill."""
     draft = rt.render_dictation(item, acquisition)
-    # Prism supplies history and comparison above the inserted study body.
     study = draft['text'].split('\n\n', 2)[2].splitlines()
-    study[0] = '**__' + (draft['title'] if item.get('dictation') else title) + '__**'
+    name = draft['title'] if item.get('dictation') else title
     markup = {'Protocol:': '__Protocol:__', 'Technique:': '__Technique:__',
               'Findings:': '__Findings:__', 'Impression:': '**__Impression:__**',
               'Recommendation:': '**__Recommendation:__**'}
     # A subheading over the headings it groups is a part of the report: bold, as RadProof sets one out.
     markup.update({f'{section["group"]}:': f'**{section["group"]}:**'
                    for section in item['sections'] if section.get('group')})
-    return '\n'.join(markup.get(line, line) for line in study)
+    return '\n'.join([*HISTORY, caps_title(name), *(markup.get(line, line) for line in study[1:])])
 
 
 def export(*, dictation=False):
@@ -154,7 +165,7 @@ def export(*, dictation=False):
         if radiograph and COUNTED.match(VIEWS.sub('', title)):
             title = VIEWS.sub('', title)
             title, impression = counted(title), [counted(line) for line in impression]
-        lines = ['**__' + title + '__**']
+        lines = [*HISTORY, caps_title(title)]
         acquisition = rt.acquisition_heading(identifier, item)
         if acquisition:
             lines += [f'__{acquisition}:__', item['technique']['normal'], '']

@@ -21,28 +21,34 @@ Comparison:
 []
 
 Chest radiographs, PA and lateral / Chest radiograph, AP
-Airways and cardiomediastinum:
-• Central trachea.
-• Normal heart size, mediastinal contours and hila.
-• [Cardiomegaly / Widened mediastinum / Hilar enlargement / Tracheal deviation] []
-
 Lungs:
 • Clear.
 • [Consolidation / Collapse / Nodule / Mass / Interstitial opacity] in the []
 • [Pulmonary oedema / Hyperinflation / Cavitation] []
-
-Pleura and diaphragm:
+Pleura:
 • No pleural effusion or pneumothorax.
-• Normal diaphragm.
 • [Small / Moderate / Large] [right / left / bilateral] pleural effusion.
 • [Right / Left] pneumothorax, [] cm at the level of the hilum.
+Heart and mediastinum:
+• Normal heart size and mediastinal contours.
+• Central trachea.
+• [Cardiomegaly / Widened mediastinum / Tracheal deviation / Pneumomediastinum] []
+Hila:
+• Normal.
+• [Hilar enlargement / Hilar lymphadenopathy / Hilar mass] on the [right / left / both sides] []
+Diaphragm:
+• Normal.
+• No free subdiaphragmatic gas.
 • [Right / Left / Bilateral] free subdiaphragmatic gas.
-
-Devices and bones:
-• No lines or devices.
+• [Raised hemidiaphragm / Eventration / Hiatus hernia] []
+Bones and soft tissues:
 • No acute bone abnormality.
-• [Endotracheal tube / Central venous catheter / Nasogastric tube / Pacemaker lead] tip []
+• Normal soft tissues.
 • [Rib fracture / Vertebral fracture / Lytic lesion / Sclerotic lesion] []
+• [Subcutaneous emphysema / Soft tissue mass / Breast prosthesis] []
+Lines and devices:
+• None.
+• [Endotracheal tube / Central venous catheter / Nasogastric tube / Pacemaker lead] tip []
 
 Impression:
 1. []
@@ -61,20 +67,23 @@ Comparison:
 []
 
 Chest radiographs, PA and lateral / Chest radiograph, AP
-Airways and cardiomediastinum:
-• Central trachea.
-• Normal heart size, mediastinal contours and hila.
-
 Lungs:
 • Clear.
-
-Pleura and diaphragm:
+Pleura:
 • No pleural effusion or pneumothorax.
-• Normal diaphragm.
-
-Devices and bones:
-• No lines or devices.
+Heart and mediastinum:
+• Normal heart size and mediastinal contours.
+• Central trachea.
+Hila:
+• Normal.
+Diaphragm:
+• Normal.
+• No free subdiaphragmatic gas.
+Bones and soft tissues:
 • No acute bone abnormality.
+• Normal soft tissues.
+Lines and devices:
+• None.
 
 Impression:
 1. Normal chest radiograph.
@@ -106,7 +115,8 @@ def test_chest_radiograph_matches_the_paste_layout_exactly():
     assert report['template'] == CXR_TEMPLATE
     assert report['normal'] == CXR_NORMAL
     assert report['radiograph'] is True
-    assert report['headings'] == ['Airways and cardiomediastinum', 'Lungs', 'Pleura and diaphragm', 'Devices and bones']
+    assert report['headings'] == ['Lungs', 'Pleura', 'Heart and mediastinum', 'Hila', 'Diaphragm', 'Bones and soft tissues',
+                                  'Lines and devices']
 
 
 @pytest.mark.parametrize('identifier', sorted(rt.library()))
@@ -142,15 +152,18 @@ def test_layout_rules_hold_for_every_template(identifier):
     assert report['normal'].endswith('Impression:\n' + '\n'.join(f'{n}. {line}' for n, line in enumerate(impression, 1))
                                      + '\n\nRecommendation:\n1. ' + item.get('recommendation', 'None.'))
     # Under each subheading every finding is a bullet: the normal sentences first, then the selectable findings.
-    for section in item['sections']:
+    sections = item['sections']
+    for index, section in enumerate(sections):
         start = template.index(section['heading'] + ':')
         sentences = re.split(r'(?<=\.)\s+(?=[A-Z])', section['normal'])
         options = [option.replace('[ ].', '[]').replace('[ ]', '[]') for option in section.get('options', [])]
         expected = ['\u2022 ' + line for line in [*sentences, *options]]
         assert template[start + 1:start + 1 + len(expected)] == expected
-        after = template[start + 1 + len(expected):start + 2 + len(expected)]
-        # A blank line ends the block; inside a group the next heading follows at once.
-        assert after in ([''], []) or (section.get('group') and after[0].endswith(':')), (identifier, after)
+        after = template[start + 1 + len(expected)]
+        # Headings follow one another without a blank line; a subheading and its headings stand apart.
+        following = sections[index + 1] if index + 1 < len(sections) else None
+        stacked = following is not None and following.get('group') == section.get('group')
+        assert after == (following['heading'] + ':' if stacked else ''), (identifier, section['heading'], after)
     for group, members in rt._blocks(item['sections']):
         if group:
             start = template.index(group + ':')
@@ -182,7 +195,7 @@ def test_malformed_templates_are_refused():
         ('sections', 0, 'heading', 'LUNGS AND PLEURA', 'sentence case'),
         ('sections', 0, 'heading', 'Lungs:', 'sentence case'),
         ('sections', 0, 'heading', 'Impression', 'reserved'),
-        ('sections', 1, 'heading', 'Airways and cardiomediastinum', 'reserved or repeated'),
+        ('sections', 1, 'heading', 'Lungs', 'reserved or repeated'),
     ]
     for key, index, field, value, message in cases:
         bad = copy.deepcopy(good)
@@ -220,10 +233,12 @@ def test_a_subheading_groups_two_or_more_adjacent_headings():
             rt.validate('bad', grouped(*groups))
     item = grouped('Chest', 'Chest', None, None)
     text = rt.render(item)
-    assert '\nChest:\nAirways and cardiomediastinum:\n• Central trachea.' in text
-    assert '\nLungs:\n• Clear.' in text and '\n\nLungs:' not in text
+    assert '\nChest:\nLungs:\n• Clear.' in text
+    assert '\nPleura:\n• No pleural effusion or pneumothorax.' in text and '\n\nPleura:' not in text
+    # The headings after the subheading's paragraph stack one under another.
+    assert '\n\nHeart and mediastinum:\n' in text and '\n\nHila:' not in text and '\nCentral trachea.' not in text
     draft = rt.render_dictation(item, None)['text']
-    assert '\n\nChest:\nAirways and cardiomediastinum: []\nLungs: []\n\nPleura and diaphragm: []' in draft
+    assert '\nChest:\nLungs: []\nPleura: []\n\nHeart and mediastinum: []\nHila: []\nDiaphragm: []\n' in draft
 
 
 def test_library_files_are_schema_tagged_and_ids_unique(tmp_path, monkeypatch):
@@ -433,6 +448,12 @@ def test_all_dictation_templates_use_study_specific_sections_and_simple_placehol
             assert '\nTechnique:' not in text and '\nProtocol:' not in text
         if 'dictation' not in item:
             assert all(f"\n{section['heading']}: []" in text for section in item['sections'])
+            # Headings stack one to a line; only a subheading's paragraph has a blank line around it.
+            for first, second in zip(item['sections'], item['sections'][1:]):
+                pair = f"{first['heading']}: []\n{second['heading']}: []"
+                assert (pair in text) == (first.get('group') == second.get('group')), (identifier, pair)
+            # The study name runs into its technique or its first heading.
+            assert '\n' + draft['title'] + '\n' in text
 
 
 def test_every_dictation_template_uses_inline_italics_without_changing_its_text():
@@ -471,3 +492,19 @@ def test_prostate_dictation_encodes_the_departmental_template():
     assert 'T2: []\nDWI: []\nDCE: []' in draft['text']
     assert 'Lesion PI-RADS category: []' in draft['text']
     assert 'Extraprostatic extension: []' in draft['text']
+
+
+def test_the_stacked_heading_layout_has_an_exact_inverse():
+    from hashlib import sha256
+    from tools.report_layout_compatibility import before_acquisition_conflicts_bytes, before_stacked_headings_bytes
+    path = 'primer/report_templates.py'
+    row = json.loads((ROOT / 'docs/report-format-parity/stacked-headings-inverse.json').read_text())[path]
+    raw = (ROOT / path).read_bytes()
+    assert sha256(raw).hexdigest() == row['after']
+    restored = before_stacked_headings_bytes(path, raw)
+    assert sha256(restored).hexdigest() == row['before']
+    assert before_stacked_headings_bytes(path, restored) == restored
+    assert before_stacked_headings_bytes(path, raw + b'\n') == raw + b'\n'
+    assert before_stacked_headings_bytes('web/app.js', raw) == raw
+    # The chain head undoes it before the acquisition-conflict link.
+    assert before_acquisition_conflicts_bytes(path, raw) == before_acquisition_conflicts_bytes(path, restored)

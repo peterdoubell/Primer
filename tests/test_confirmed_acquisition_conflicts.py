@@ -103,13 +103,14 @@ def test_conflict_inverse_restores_the_reviewed_acquisition_layer():
     from hashlib import sha256
     from tools.report_layout_compatibility import (
         CONFIRMED_GROUP_AFTER, PATH, before_acquisition_conflicts_bytes,
-        before_confirmed_acquisition_group_bytes, before_performed_acquisition_bytes,
+        before_confirmed_acquisition_group_bytes, before_performed_acquisition_bytes, before_stacked_headings_bytes,
     )
     folder = ROOT / 'docs/report-format-parity'
     proof = json.loads((folder / 'acquisition-conflicts-inverse.json').read_text())
     performed = json.loads((folder / 'performed-acquisition-inverse.json').read_text())
     for path, row in proof.items():
-        raw = (ROOT / path).read_bytes()
+        # The later stacked-heading layout (2026-11-19) is undone first, by its own exact inverse.
+        raw = before_stacked_headings_bytes(path, (ROOT / path).read_bytes())
         assert sha256(raw).hexdigest() == row['after']
         assert sha256(before_acquisition_conflicts_bytes(path, raw)).hexdigest() == row['before']
         assert before_acquisition_conflicts_bytes(path, raw + b'\n') == raw + b'\n'

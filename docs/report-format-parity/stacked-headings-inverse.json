@@ -1,0 +1,50 @@
+{
+  "primer/report_templates.py": {
+    "before": "3b7d30dd1fa9a7a5237b92285898f8ef20135a747a5792aef8aeba53a0207521",
+    "after": "c51703450a07f3798101d2d928bef20ab56c928f7fe6865fa7ec325eea31d4f2",
+    "changes": [
+      {
+        "start": 227,
+        "end": 256,
+        "before": "",
+        "after": "def _findings(sections, part):\n    \"\"\"The finding headings as paragraphs: headings on their own stack one to a line, and a\n    subheading with the headings under it stands apart as a paragraph of its own.\"\"\"\n    paragraphs, stacking = [], False\n    for group, members in _blocks(sections):\n        lines = '\\n'.join(part(section) for section in members)\n        if group:\n            paragraphs.append(group + ':\\n' + lines)\n        elif stacking:\n            paragraphs[-1] += '\\n' + lines\n        else:\n            paragraphs.append(lines)\n        stacking = not group\n    return paragraphs\n\n\ndef _stack(paragraphs):\n    \"\"\"A departmental draft's paragraphs as written, its one-line headings stacked like the rest.\"\"\"\n    stacked, lone = [], False\n    for paragraph in paragraphs:\n        one_line = '\\n' not in paragraph\n        if one_line and lone:\n            stacked[-1] += '\\n' + paragraph\n        else:\n            stacked.append(paragraph)\n        lone = one_line\n    return stacked\n\n\n"
+      },
+      {
+        "start": 261,
+        "end": 265,
+        "before": "    bullet lines. Headings that share a group follow its subheading without a blank line.\n    The study name runs into its first heading and Findings into its first subheading;\n    impression and recommendation are numbered lists.\n",
+        "after": "    bullet lines. Finding headings follow one another without a blank line; a group's\n    subheading and its headings stand apart as a paragraph. The study name runs into its\n    first heading and Findings into its first subheading; impression and recommendation\n    are numbered lists.\n"
+      },
+      {
+        "start": 266,
+        "end": 273,
+        "before": "    blocks = []\n    for group, members in _blocks(_sections(item, heading)):\n        parts = []\n        for section in members:\n            acquisition = bool(heading) and not blocks and not parts\n            # One sentence per bullet for the normal finding, as dictated.\n            first = [section['normal']] if acquisition else re.split(r'(?<=\\.)\\s+(?=[A-Z])', section['normal'])\n            lines = [*first, *([] if normal else section.get('options', []))]\n            parts.append(section['heading'] + ':\\n' + '\\n'.join(line if acquisition else BULLET + line for line in lines))\n        blocks.append((group + ':\\n' if group else '') + '\\n'.join(parts))\n",
+        "after": "    def part(section):\n        # One sentence per bullet for the normal finding, as dictated.\n        first = re.split(r'(?<=\\.)\\s+(?=[A-Z])', section['normal'])\n        lines = [*first, *([] if normal else section.get('options', []))]\n        return section['heading'] + ':\\n' + '\\n'.join(BULLET + line for line in lines)\n\n    blocks = _findings(item['sections'], part)\n"
+      },
+      {
+        "start": 274,
+        "end": 277,
+        "before": "        blocks[1] = 'Findings:\\n' + blocks[1]\n",
+        "after": "        acquisition = _sections(item, heading)[0]\n        lines = [acquisition['normal'], *([] if normal else acquisition['options'])]\n        blocks = [acquisition['heading'] + ':\\n' + '\\n'.join(lines), 'Findings:\\n' + blocks[0], *blocks[1:]]\n"
+      },
+      {
+        "start": 289,
+        "end": 294,
+        "before": "    \"\"\"Render a fill-in report with the study's anatomical search pattern.\"\"\"\n",
+        "after": "    \"\"\"Render a fill-in report with the study's anatomical search pattern.\n\n    Clinical history, comparison, then the study name, which runs into its protocol or technique\n    (then Findings) or straight into its first heading; finding headings stack one to a line, and\n    a subheading with its headings stands apart as a paragraph.\"\"\"\n"
+      },
+      {
+        "start": 301,
+        "end": 306,
+        "before": "    findings = draft['findings'] if draft else [\n        (group + ':\\n' if group else '') + '\\n'.join(section['heading'] + ': []' for section in members)\n        for group, members in _blocks(item['sections'])]\n",
+        "after": "    if draft:\n        findings = _stack(draft['findings'])\n    else:\n        findings = _findings(item['sections'], lambda section: section['heading'] + ': []')\n    # As in the other layouts, the study name runs into its technique or its first heading.\n"
+      },
+      {
+        "start": 307,
+        "end": 311,
+        "before": "        findings = ['Findings:\\n' + findings[0], *findings[1:]]\n    text = '\\n\\n'.join(['Clinical history:\\n[]', 'Comparison:\\n[]', study, *findings,\n                       'Impression:\\n[]', 'Recommendation:\\n[]'])\n",
+        "after": "        study = [study, 'Findings:\\n' + findings[0], *findings[1:]]\n    else:\n        study = [study + '\\n' + findings[0], *findings[1:]]\n    text = '\\n\\n'.join(['Clinical history:\\n[]', 'Comparison:\\n[]', *study, 'Impression:\\n[]', 'Recommendation:\\n[]'])\n"
+      }
+    ]
+  }
+}

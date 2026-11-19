@@ -9,10 +9,25 @@ Airways | Patent trachea and central bronchi. | [Bronchial wall thickening / Muc
 Pleura | No pleural effusion, thickening or pneumothorax. | [Small / Moderate / Large] [right / left / bilateral] pleural effusion. | [Pleural thickening / Pleural plaques / Pneumothorax] [ ].
 
 ## @CHEST_MEDIASTINUM
+@MEDIASTINUM_HILA
+@CHEST_NODES
+@HEART
+@GREAT_VESSELS
+@OESOPHAGUS_THYROID
+
+## @MEDIASTINUM_HILA
 Mediastinum and hila | No mediastinal or hilar mass. | [Prevascular / Visceral / Paravertebral] mediastinal mass, [ ] mm.
+
+## @CHEST_NODES
 Lymph nodes | No mediastinal, hilar or axillary lymphadenopathy. | Enlarged [ ] lymph node, [ ] mm short axis.
+
+## @HEART
 Heart and pericardium | Normal heart size. No pericardial effusion. | [Cardiomegaly / Pericardial effusion / Coronary artery calcification / Valve calcification] [ ].
+
+## @GREAT_VESSELS
 Aorta and pulmonary arteries | Normal calibre thoracic aorta and pulmonary arteries. | [Aortic aneurysm / Aortic atherosclerosis / Enlarged pulmonary trunk] [ ] mm.
+
+## @OESOPHAGUS_THYROID
 Oesophagus and thyroid | Normal. | [Hiatus hernia / Oesophageal wall thickening / Thyroid nodule / Goitre] [ ].
 
 ## @CHEST_REST
@@ -22,11 +37,8 @@ Bones | No destructive bone lesion. | [Fracture / Lytic lesion / Sclerotic lesio
 
 ## ra.ct-mediastinum
 @CHEST_LUNGS
-= Mediastinum
-= Lymph nodes
-! Heart and great vessels
-! Lungs and pleura
-! Upper abdomen and bones
+= Mediastinum -> Mediastinum and hila | No mediastinal or hilar mass.
+= Lymph nodes | No mediastinal, hilar or axillary lymphadenopathy.
 @CHEST_MEDIASTINUM except Mediastinum and hila; Lymph nodes
 @CHEST_REST
 
@@ -34,23 +46,26 @@ Bones | No destructive bone lesion. | [Fracture / Lytic lesion / Sclerotic lesio
 = Interstitium
 Nodules and airspaces | No nodule, consolidation or emphysema. | [Nodule / Consolidation / Emphysema / Cysts] in the [ ] [ ].
 = Airways
-! Pleura and mediastinum
 Pleura | No pleural thickening, plaques or effusion. | [Pleural plaques / Pleural thickening / Pleural effusion] [ ].
-Mediastinum and lymph nodes | No mediastinal or hilar lymphadenopathy. | [Mediastinal / Hilar] lymphadenopathy, [ ] mm short axis.
-= Pulmonary arteries and heart
-! Upper abdomen, oesophagus and bones
-Oesophagus | Normal. | [Oesophageal dilatation / Hiatus hernia] [ ].
+@MEDIASTINUM_HILA
+! Mediastinum and lymph nodes
+Lymph nodes | No mediastinal or hilar lymphadenopathy. | [Mediastinal / Hilar] lymphadenopathy, [ ] mm short axis.
+@HEART
+= Pulmonary arteries and heart -> Aorta and pulmonary arteries | Normal calibre thoracic aorta and pulmonary arteries.
+! Oesophagus
+Oesophagus and thyroid | Normal. | [Oesophageal dilatation / Hiatus hernia] [ ]. | [Thyroid nodule / Goitre] [ ].
 @CHEST_REST
 
 ## ra.ct-lung-cancer
 = Primary tumour
-Airways | Patent trachea and central bronchi. | [Endobronchial tumour / Bronchial occlusion / Tracheal invasion] [ ].
-= Background lungs
 Other lung nodules | No separate tumour nodule. | Separate tumour nodule in the [same / different ipsilateral / contralateral] lobe, [ ] mm.
-= Lymph nodes
-! Metastases
+= Background lungs
+Airways | Patent trachea and central bronchi. | [Endobronchial tumour / Bronchial occlusion / Tracheal invasion] [ ].
 Pleura | No pleural effusion or nodularity. | [Pleural effusion / Pleural nodularity] on the [right / left].
-= Heart and great vessels
+= Lymph nodes
+! Heart and great vessels
+@HEART
+Aorta and pulmonary arteries | Normal calibre thoracic aorta and pulmonary arteries. No pulmonary embolism. | [Aortic aneurysm / Pulmonary embolism / Vascular invasion] [ ].
 Oesophagus and thyroid | Normal. | [Oesophageal invasion / Hiatus hernia / Thyroid nodule] [ ].
 Chest wall | No chest wall invasion. Normal axillae. | Chest wall invasion at the [ ]. | Axillary or supraclavicular lymph node [ ] mm.
 Adrenal glands and liver | No adrenal or liver metastasis. | [Adrenal / Liver] metastasis [ ].
@@ -73,20 +88,26 @@ Pleura | No pleural effusion or thickening. | [Pleural effusion / Pleural thicke
 = Lungs
 Airways | Patent trachea and central bronchi. | [Bronchial wall thickening / Mucus plugging / Endobronchial lesion] [ ].
 Pleura | No pleural effusion or thickening. | [Pleural effusion / Pleural thickening / Pleural plaques] [ ].
-Mediastinum and lymph nodes | No mediastinal mass or lymphadenopathy. | [Mediastinal mass / Lymphadenopathy] [ ] mm.
+! Mediastinum and lymph nodes
+@MEDIASTINUM_HILA
+@CHEST_NODES
 = Coronary arteries
-Heart and aorta | Normal heart size. Normal calibre thoracic aorta. | [Cardiomegaly / Pericardial effusion / Aortic aneurysm / Aortic valve calcification] [ ].
-! Upper abdomen and bones
+! Heart and aorta
+@HEART
+@GREAT_VESSELS
+@OESOPHAGUS_THYROID
 @CHEST_REST
 = Lung-RADS
 
 ## oncology.lesion-growth
 = Index nodule
 = Other nodules
-Lungs and pleura | No consolidation, emphysema or pleural effusion. | [Consolidation / Emphysema / Pleural effusion] [ ].
-Mediastinum and lymph nodes | No mediastinal mass or lymphadenopathy. | [Mediastinal mass / Lymphadenopathy] [ ] mm.
-Heart and great vessels | Normal. | [Cardiomegaly / Pericardial effusion / Coronary artery calcification / Aortic aneurysm] [ ].
-! Upper abdomen and bones
+! Lungs and pleura
+! Mediastinum and lymph nodes
+! Heart and great vessels
+Lungs | No consolidation, emphysema or interstitial abnormality. | [Consolidation / Emphysema / Interstitial abnormality / Atelectasis] [ ].
+@CHEST_LUNGS except Lungs
+@CHEST_MEDIASTINUM
 @CHEST_REST
 
 ## ra.ct-airways
@@ -100,54 +121,64 @@ Pleura | No pleural effusion or thickening. | [Pleural effusion / Pleural thicke
 
 ## ra.ct-covid
 = Lungs
-! Pleura and mediastinum
 Airways | Patent trachea and central bronchi. | [Bronchial wall thickening / Mucus plugging / Traction bronchiectasis] [ ].
-Pleura | No pleural effusion. | [Small / Moderate / Large] [right / left / bilateral] pleural effusion.
-Mediastinum and lymph nodes | No mediastinal or hilar lymphadenopathy. | [Mediastinal / Hilar] lymphadenopathy, [ ] mm short axis.
-Heart and great vessels | Normal heart size. Normal calibre pulmonary trunk. | [Cardiomegaly / Pericardial effusion / Enlarged pulmonary trunk / Coronary artery calcification] [ ].
-! Upper abdomen and bones
+@CHEST_LUNGS except Lungs; Airways
+! Mediastinum and lymph nodes
+! Heart and great vessels
+@CHEST_MEDIASTINUM
 @CHEST_REST
 = CO-RADS
 
 ## ra.thymus
 = Thymus
 = Local extent
-= Pleura and lymph nodes
 @CHEST_LUNGS except Pleura
-Heart and great vessels | Normal heart, pericardium and great vessels. | [Pericardial effusion / Vascular encasement / SVC compression] [ ].
-! Upper abdomen and bones
+! Pleura and lymph nodes
+Pleura | No pleural nodule or effusion. | [Pleural drop metastasis / Pleural effusion / Pleural thickening] [ ].
+@CHEST_NODES
+! Heart and great vessels
+@HEART
+@GREAT_VESSELS
+@OESOPHAGUS_THYROID
 @CHEST_REST
 
 ## mri.thymus
 = Thymus
 = Local extent
-= Pleura and lymph nodes
-! Remaining chest
 Lungs | Clear. | [Lung nodule / Consolidation / Atelectasis] [ ].
-Heart and great vessels | Normal heart, pericardium and great vessels. | [Pericardial effusion / Vascular encasement / SVC compression] [ ].
-Chest wall and bones | Normal chest wall and marrow signal. | [Chest wall invasion / Bone lesion] [ ].
+! Pleura and lymph nodes
+Pleura | No pleural nodule or effusion. | [Pleural drop metastasis / Pleural effusion / Pleural thickening] [ ].
+Lymph nodes | No mediastinal or hilar lymphadenopathy. | Enlarged [ ] lymph node, [ ] mm short axis.
+! Heart and great vessels
+Heart and pericardium | Normal heart size. No pericardial effusion. | [Pericardial effusion / Pericardial invasion] [ ].
+Aorta and pulmonary arteries | Normal calibre aorta and pulmonary arteries. No vascular encasement. | [Vascular encasement / SVC compression] [ ].
+! Chest wall and bones
+Chest wall | Normal chest wall and axillae. | [Chest wall invasion / Axillary lymphadenopathy] [ ].
+Bones | Normal marrow signal. | [Bone lesion / Marrow infiltration] [ ].
 
 ## ra.pulmonary-hypertension
 = Pulmonary arteries
-= Heart -> Heart and pericardium
+= Heart and pericardium
 Thoracic aorta | Normal calibre thoracic aorta. | [Aortic aneurysm / Aortic dissection / Atherosclerosis] [ ].
 = Lungs
 Airways | Patent trachea and central bronchi. | [Bronchial wall thickening / Mucus plugging / Bronchiectasis] [ ].
 Pleura | No pleural effusion. | [Small / Moderate / Large] [right / left / bilateral] pleural effusion.
-Mediastinum and lymph nodes | No mediastinal or hilar lymphadenopathy. | [Mediastinal / Hilar] lymphadenopathy, [ ] mm short axis.
-! Upper abdomen and bones
+! Mediastinum and lymph nodes
+@MEDIASTINUM_HILA
+@CHEST_NODES
+@OESOPHAGUS_THYROID
 @CHEST_REST
 
 ## ra.paediatric-chest-ct
 = Lungs
 = Airways
-! Mediastinum
+Pleura | No pleural effusion or pneumothorax. | [Pleural effusion / Empyema / Pneumothorax] on the [right / left].
 Thymus and mediastinum | Normal thymus for age. No mediastinal mass. | [Mediastinal mass / Thymic enlargement / Pneumomediastinum] [ ].
 Lymph nodes | No hilar or mediastinal lymphadenopathy. | [Hilar / Mediastinal] lymphadenopathy, [ ] mm short axis.
-Heart and great vessels | Normal. | [Cardiomegaly / Pericardial effusion / Vascular ring / Aberrant vessel] [ ].
-! Pleura and chest wall
-Pleura | No pleural effusion or pneumothorax. | [Pleural effusion / Empyema / Pneumothorax] on the [right / left].
-! Upper abdomen and bones
+! Heart and great vessels
+Heart and pericardium | Normal heart size. No pericardial effusion. | [Cardiomegaly / Pericardial effusion / Congenital heart disease] [ ].
+Aorta and pulmonary arteries | Normal aortic arch and pulmonary arteries. | [Vascular ring / Aberrant subclavian artery / Pulmonary artery sling / Right-sided aortic arch] [ ].
+@OESOPHAGUS_THYROID
 @CHEST_REST
 
 ## ra.paediatric-mediastinum
@@ -174,21 +205,28 @@ Upper abdomen | Normal visualised liver, spleen, adrenal glands and kidneys. | [
 = Heart and pericardium
 = Coronary arteries and valves
 = Aorta and pulmonary arteries
-! Lungs and pleura
 @CHEST_LUNGS
-Mediastinum and lymph nodes | No mediastinal mass or lymphadenopathy. | [Mediastinal mass / Lymphadenopathy] [ ] mm.
-Oesophagus and thyroid | Normal. | [Hiatus hernia / Oesophageal wall thickening / Thyroid nodule / Goitre] [ ].
-! Upper abdomen and bones
+! Mediastinum and lymph nodes
+@MEDIASTINUM_HILA
+@CHEST_NODES
+@OESOPHAGUS_THYROID
 @CHEST_REST
 
 ## ct.oesophagus
 = Oesophagus
 = Leak
-= Mediastinum and pleura
 = Lungs
-Heart and great vessels | Normal heart size. No pericardial effusion. Normal calibre thoracic aorta. | [Pericardial effusion / Pneumopericardium / Aortic involvement] [ ].
+@CHEST_LUNGS except Lungs
+! Mediastinum and pleura
+Mediastinum and hila | No mediastinal collection or fat stranding. | [Mediastinal collection / Mediastinal fat stranding] [ ], [ ] mm.
+@CHEST_NODES
+! Heart and great vessels
+@HEART
+@GREAT_VESSELS
+! Chest wall and bones
+@CHEST_REST except Upper abdomen; Bones
 Stomach and upper abdomen | Normal visualised stomach, liver, spleen and adrenal glands. | [Hiatus hernia / Gastric wall thickening / Liver lesion / Subphrenic collection] [ ].
-Chest wall and bones | Normal chest wall. No destructive bone lesion. | [Subcutaneous emphysema / Rib fracture / Bone lesion] [ ].
+@CHEST_REST except Chest wall; Upper abdomen
 
 # ---------------------------------------------------------------- heart
 
@@ -479,7 +517,8 @@ Brainstem and cerebellum | Normal. | [Infarct / Mass / Atrophy / Signal abnormal
 >
 = Diffusion and susceptibility
 ! Ventricles and extra-axial spaces
-Ventricles | Normal ventricular size for age. No midline shift. | [Hydrocephalus / Ventriculomegaly / Ventricular asymmetry] [ ]. | Midline shift [ ] mm to the [right / left].
+! Ventricles
+Ventricles and basal cisterns | Normal ventricular size for age. Patent basal cisterns. No midline shift. | [Hydrocephalus / Ventriculomegaly / Ventricular asymmetry] [ ]. | Midline shift [ ] mm to the [right / left].
 Sulci and extra-axial spaces | Normal sulci for age. No extra-axial collection. | [Atrophy / Subdural collection / Arachnoid cyst / Sulcal effacement] [ ].
 ! Midline structures
 Pituitary and sella | Normal. | [Pituitary lesion / Empty sella / Stalk deviation] [ ].
@@ -492,26 +531,30 @@ Paranasal sinuses and mastoids | Clear. | [Sinus mucosal thickening / Mastoid ef
 Skull and scalp | Normal. | [Calvarial lesion / Scalp lesion] [ ].
 
 ## neuro.ct-brain-routine
-= Brain parenchyma -> Cerebral hemispheres
+= Cerebral hemispheres
 Basal ganglia and thalami | Normal. | [Lacune / Haemorrhage / Calcification] in the [ ].
-Posterior fossa | Normal brainstem and cerebellum. | [Infarct / Haemorrhage / Mass] in the [brainstem / cerebellum].
-= Extra-axial spaces
-= Ventricles -> Ventricles and basal cisterns | Normal ventricular size. Patent basal cisterns. No midline shift.
-Intracranial vessels | No hyperdense artery or venous sinus. | Hyperdense [right / left] [middle cerebral artery / basilar artery / venous sinus].
+! Posterior fossa
+Brainstem and cerebellum | Normal. | [Infarct / Haemorrhage / Mass] in the [brainstem / cerebellum].
+= Ventricles and basal cisterns
+= Extra-axial spaces -> Sulci and extra-axial spaces | Normal sulci for age. No extra-axial collection.
 Sella and craniocervical junction | Normal. | [Sellar enlargement / Tonsillar descent] [ ].
+Intracranial vessels | No hyperdense artery or venous sinus. | Hyperdense [right / left] [middle cerebral artery / basilar artery / venous sinus].
 Orbits | Normal. | [Globe / Optic nerve / Orbital wall] abnormality [ ].
-= Sinuses and mastoids -> Paranasal sinuses and mastoids | Clear.
-= Skull and soft tissues -> Skull and scalp
+= Paranasal sinuses and mastoids
+= Skull and scalp
 
 ## ra.acute-stroke
 = Brain parenchyma
 = Haemorrhage
-= Arteries -> Cervical and intracranial arteries
+= Cervical and intracranial arteries
 = Collaterals and perfusion
 = Mass effect and background brain
 Ventricles and extra-axial spaces | Normal ventricles. No extra-axial collection. | [Hydrocephalus / Subdural collection / Effaced sulci] [ ].
 Aortic arch and lung apices | Normal arch branch origins. Clear lung apices. | [Arch atheroma / Origin stenosis / Apical lung lesion] [ ].
-Skull, sinuses and orbits | No skull lesion. Clear paranasal sinuses and mastoids. Normal orbits. | [Skull lesion / Sinus opacification / Orbital abnormality] [ ].
+! Skull, sinuses and orbits
+Orbits | Normal. | [Globe / Optic nerve / Orbital wall] abnormality [ ].
+Paranasal sinuses and mastoids | Clear. | [Sinus opacification / Mastoid effusion] [ ].
+Skull and scalp | Normal. | [Calvarial lesion / Scalp haematoma] [ ].
 
 ## mri.brain-stroke
 = Brain parenchyma
@@ -524,9 +567,9 @@ Skull, sinuses and orbits | No skull lesion. Clear paranasal sinuses and mastoid
 ## ra.ct-traumatic-haemorrhage
 = Extra-axial blood
 = Parenchymal injury
-= Ventricles
+= Ventricles -> Ventricles and basal cisterns | Normal ventricular size. Patent basal cisterns. No intraventricular haemorrhage.
 = Mass effect
-= Bones -> Skull vault and base | No skull vault or skull base fracture.
+= Skull vault and base
 Facial bones and orbits | No facial or orbital fracture on the included images. | [Orbital / Nasal / Zygomatic / Maxillary] fracture [ ]. | [Globe injury / Retrobulbar haematoma] [ ].
 Paranasal sinuses and mastoids | Clear. | [Haemosinus / Mastoid effusion / Pneumocephalus] [ ].
 Scalp | No scalp haematoma or laceration. | Scalp [haematoma / laceration] over the [ ].
@@ -539,7 +582,11 @@ Intracranial arteries | Patent intracranial arteries without stenosis or vasospa
 Venous sinuses | Patent visualised dural venous sinuses. | Thrombus in the [ ] sinus.
 = Mass effect
 = Background brain
-Skull, sinuses and orbits | No skull fracture. Clear paranasal sinuses and mastoids. Normal orbits. | [Skull fracture / Sinus opacification / Orbital abnormality] [ ].
+Ventricles and extra-axial spaces | Normal ventricles. No extra-axial collection. | [Hydrocephalus / Intraventricular extension / Subdural collection] [ ].
+! Skull, sinuses and orbits
+Orbits | Normal. | [Globe / Optic nerve / Orbital wall] abnormality [ ].
+Paranasal sinuses and mastoids | Clear. | [Sinus opacification / Mastoid effusion] [ ].
+Skull and scalp | No skull fracture. | [Skull fracture / Calvarial lesion / Scalp haematoma] [ ].
 
 ## mri.brain-haemorrhage
 = Haemorrhage
@@ -574,7 +621,8 @@ Amygdalae and parahippocampal gyri | Normal. | [Amygdala enlargement / Signal ab
 = Cortex
 = Focal lesions
 White matter and deep grey matter | Normal. | [Heterotopia / Gliosis / White matter signal abnormality] in the [ ].
-Cerebellum and brainstem | Normal. | [Cerebellar atrophy / Brainstem lesion] [ ].
+! Cerebellum and brainstem
+Brainstem and cerebellum | Normal. | [Brainstem lesion / Cerebellar atrophy] [ ].
 ! Ventricles, vessels and skull base
 @BRAIN_REST
 
@@ -616,7 +664,9 @@ Cortical veins | Patent. | Thrombus in the [vein of Trolard / vein of Labbé / c
 @VENOUS_SINUSES
 = Parenchyma -> Brain parenchyma
 Ventricles and extra-axial spaces | Normal ventricles. No extra-axial collection. | [Hydrocephalus / Subdural collection / Effaced sulci] [ ].
-= Skull base, sinuses and mastoids
+! Skull base, sinuses and mastoids
+Paranasal sinuses and mastoids | Clear. | [Mastoiditis / Sinusitis] [ ].
+Skull and scalp | No skull base lesion. | [Skull base lesion / Calvarial lesion] [ ].
 
 ## ra.mri-sella
 = Pituitary gland
@@ -783,7 +833,7 @@ Lung apices and bones | Clear lung apices. No destructive bone lesion. | [Apical
 = Primary tumour
 = Local extent
 = Perineural spread
-= Vessels and airway
+= Vessels and airway -> Airway and vessels
 = Lymph nodes
 Salivary and thyroid glands | Normal. | [Parotid / Submandibular / Thyroid] [mass / invasion] [ ].
 Skull base, brain and orbits | No skull base, intracranial or orbital involvement. | [Skull base invasion / Intracranial extension / Orbital invasion] [ ].
@@ -852,7 +902,8 @@ Posterior mediastinum and lungs | Normal visualised aorta, lungs and pleura. | [
 = Structural change
 = ASAS definition
 = Spine and other findings -> Lower lumbar spine
-Hips and pelvis | Normal visualised hip joints and pelvic marrow. No enthesitis. | [Hip effusion / Enthesitis / Insufficiency fracture / Osteitis pubis] [ ].
+! Hips and pelvis
+Pelvis and hips | Normal visualised pelvic marrow and hip joints. No enthesitis. | [Insufficiency fracture / Osteitis pubis / Enthesitis / Hip effusion] [ ].
 
 # ---------------------------------------------------------------- whole-body and multi-region studies
 

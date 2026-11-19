@@ -149,9 +149,11 @@ def test_radiographs_have_findings_under_the_title_and_count_their_views():
     import radproof_export
     exported = {t['id']: t['text'].split('\n') for t in radproof_export.export()}
     knee = exported['xr.knee']
-    assert knee[0] == '**__{Side} knee radiograph{s}__**' and knee[1] == 'No fracture.'
+    # Clinical history and comparison open every template; the study title follows in Prism's capitals.
+    assert knee[:7] == ['__Clinical history:__', '[]', '', '__Comparison:__', '[]', '', '**__{SIDE} KNEE RADIOGRAPH{S}:__**']
+    assert knee[7] == 'No fracture.'
     assert '__Findings:__' not in knee and knee[-1] == 'Normal knee radiograph{s}.'
-    assert exported['ra.chest-radiography'][0] == '**__Chest radiograph{s}__**'
+    assert '**__CHEST RADIOGRAPH{S}:__**' in exported['ra.chest-radiography']
     assert '__Findings:__' in exported['ct.trauma-panscan']
 
 
@@ -211,7 +213,8 @@ def test_exported_normal_reports_are_flat_self_contained_and_say_nothing_twice()
         lines = template['text'].split('\n')
         if template['id'] in rx.MULTI_REGION:
             continue
-        findings = [line for line in lines[1:lines.index('**__Conclusion:__**')] if line and not line.startswith('__')]
+        # Clinical history, comparison and the study title come first.
+        findings = [line for line in lines[len(rx.HISTORY) + 1:lines.index('**__Conclusion:__**')] if line and not line.startswith('__')]
         if rt.acquisition_heading(template['id'], library[template['id']]):
             findings = findings[1:]  # the protocol line
         assert len(findings) == len(set(findings)), (template['id'], findings)
@@ -222,5 +225,5 @@ def test_exported_normal_reports_are_flat_self_contained_and_say_nothing_twice()
     exported = {template['id']: template['text'] for template in rx.export()}
     assert 'Normal pancreas.\nNormal spleen.\nNormal adrenal glands.' in exported['ra.acute-abdomen']
     assert 'Right carotid: no plaque or stenosis.\nLeft carotid: no plaque or stenosis.' in exported['ra.carotid-obstruction']
-    assert exported['ra.ultrasound-breast'].startswith('**__Ultrasound breast__**')  # right, left or both
+    assert exported['ra.ultrasound-breast'].split('\n')[len(rx.HISTORY)] == '**__ULTRASOUND BREAST:__**'  # right, left or both
     assert 'BI-RADS 1' not in exported['ra.mammography'].split('**__Conclusion:__**')[0]

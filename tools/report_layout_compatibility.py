@@ -148,9 +148,20 @@ CONFIRMED_GROUP_CURRENT = b'      const genericAcquisition = !exam?.report_proto
 CONFIRMED_GROUP_PREVIOUS = b'      return exam?.report_format === 3 && !exam.report_protocol && /^(technique|protocol)$/i.test(name)'
 
 
+def before_stacked_headings_bytes(path, raw):
+    """Undo the stacked-heading layout of primer/report_templates.py (2026-11-19): finding headings follow one
+    another without a blank line, and the dictation study name runs into its first heading."""
+    if str(path) != 'primer/report_templates.py':
+        return raw
+    from tools.colonvessels_compatibility import _restore
+    proof = Path(__file__).resolve().parents[1] / 'docs/report-format-parity/stacked-headings-inverse.json'
+    return _restore(path, raw, proof, '84005f5fb0870c2f38e4add4726db1d2d094efc8c3d6b6144e4bdf4f08873b03')
+
+
 def before_acquisition_conflicts_bytes(path, raw):
     if str(path) not in {'primer/descriptor_reporting.py', 'primer/report_templates.py', 'web/radiology-structured.js'}:
         return raw
+    raw = before_stacked_headings_bytes(path, raw)
     from tools.colonvessels_compatibility import _restore
     proof = Path(__file__).resolve().parents[1] / 'docs/report-format-parity/acquisition-conflicts-inverse.json'
     return _restore(path, raw, proof, 'fe75b9840fe850110d951649bd1ceae3ab450f48c12645be8317501542a35486')
