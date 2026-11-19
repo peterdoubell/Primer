@@ -58,10 +58,10 @@ Investigation: `ra.foot-ankle-cases`
 | Anterior relationship (`ankle.distal_tibiofibular_syndesmosis.anterior_relationship`) | missing | missing | missing | Within the acquired anatomical coverage. / Radiography, CT |
 | Posterior relationship (`ankle.distal_tibiofibular_syndesmosis.posterior_relationship`) | missing | missing | missing | Within the acquired anatomical coverage. / Radiography, CT |
 | Origins (`ankle.anterior_inferior_tibiofibular_ligament.origins`) | missing | missing | missing | Soft-tissue anatomy for injury-mechanism explanation; radiographs demonstrate avulsion/alignment clues rather than direct ligament continuity. / MRI, Ultrasound when accessible |
-| Course (`ankle.anterior_inferior_tibiofibular_ligament.course`) | missing | missing | missing | Soft-tissue anatomy for injury-mechanism explanation; radiographs demonstrate avulsion/alignment clues rather than direct ligament continuity. / MRI, Ultrasound when accessible |
+| Course (`ankle.anterior_inferior_tibiofibular_ligament.course`) | missing | missing | unverified | Soft-tissue anatomy for injury-mechanism explanation; radiographs demonstrate avulsion/alignment clues rather than direct ligament continuity. / MRI, Ultrasound when accessible |
 | Insertions (`ankle.anterior_inferior_tibiofibular_ligament.insertions`) | missing | missing | missing | Soft-tissue anatomy for injury-mechanism explanation; radiographs demonstrate avulsion/alignment clues rather than direct ligament continuity. / MRI, Ultrasound when accessible |
 | Origins (`ankle.posterior_inferior_tibiofibular_ligament.origins`) | missing | missing | missing | Soft-tissue anatomy for injury-mechanism explanation; radiographs demonstrate avulsion/alignment clues rather than direct ligament continuity. / MRI, Ultrasound when accessible |
-| Course (`ankle.posterior_inferior_tibiofibular_ligament.course`) | missing | missing | missing | Soft-tissue anatomy for injury-mechanism explanation; radiographs demonstrate avulsion/alignment clues rather than direct ligament continuity. / MRI, Ultrasound when accessible |
+| Course (`ankle.posterior_inferior_tibiofibular_ligament.course`) | missing | missing | unverified | Soft-tissue anatomy for injury-mechanism explanation; radiographs demonstrate avulsion/alignment clues rather than direct ligament continuity. / MRI, Ultrasound when accessible |
 | Insertions (`ankle.posterior_inferior_tibiofibular_ligament.insertions`) | missing | missing | missing | Soft-tissue anatomy for injury-mechanism explanation; radiographs demonstrate avulsion/alignment clues rather than direct ligament continuity. / MRI, Ultrasound when accessible |
 | Origins (`ankle.interosseous_ligament.origins`) | missing | missing | missing | Soft-tissue anatomy for injury-mechanism explanation; radiographs demonstrate avulsion/alignment clues rather than direct ligament continuity. / MRI, Ultrasound when accessible |
 | Course (`ankle.interosseous_ligament.course`) | missing | missing | missing | Soft-tissue anatomy for injury-mechanism explanation; radiographs demonstrate avulsion/alignment clues rather than direct ligament continuity. / MRI, Ultrasound when accessible |
@@ -73,23 +73,23 @@ Investigation: `ra.foot-ankle-cases`
 | Course (`ankle.deltoid_ligament.course`) | missing | missing | missing | Soft-tissue anatomy for injury-mechanism explanation; radiographs demonstrate avulsion/alignment clues rather than direct ligament continuity. / MRI, Ultrasound when accessible |
 | Insertions (`ankle.deltoid_ligament.insertions`) | missing | missing | missing | Soft-tissue anatomy for injury-mechanism explanation; radiographs demonstrate avulsion/alignment clues rather than direct ligament continuity. / MRI, Ultrasound when accessible |
 | Origins (`ankle.anterior_talofibular_ligament.origins`) | missing | missing | missing | Soft-tissue anatomy for injury-mechanism explanation; radiographs demonstrate avulsion/alignment clues rather than direct ligament continuity. / MRI, Ultrasound when accessible |
-| Course (`ankle.anterior_talofibular_ligament.course`) | missing | missing | missing | Soft-tissue anatomy for injury-mechanism explanation; radiographs demonstrate avulsion/alignment clues rather than direct ligament continuity. / MRI, Ultrasound when accessible |
+| Course (`ankle.anterior_talofibular_ligament.course`) | missing | missing | unverified | Soft-tissue anatomy for injury-mechanism explanation; radiographs demonstrate avulsion/alignment clues rather than direct ligament continuity. / MRI, Ultrasound when accessible |
 | Insertions (`ankle.anterior_talofibular_ligament.insertions`) | missing | missing | missing | Soft-tissue anatomy for injury-mechanism explanation; radiographs demonstrate avulsion/alignment clues rather than direct ligament continuity. / MRI, Ultrasound when accessible |
 | Origins (`ankle.calcaneofibular_ligament.origins`) | missing | missing | missing | Soft-tissue anatomy for injury-mechanism explanation; radiographs demonstrate avulsion/alignment clues rather than direct ligament continuity. / MRI, Ultrasound when accessible |
-| Course (`ankle.calcaneofibular_ligament.course`) | missing | missing | missing | Soft-tissue anatomy for injury-mechanism explanation; radiographs demonstrate avulsion/alignment clues rather than direct ligament continuity. / MRI, Ultrasound when accessible |
+| Course (`ankle.calcaneofibular_ligament.course`) | missing | missing | unverified | Soft-tissue anatomy for injury-mechanism explanation; radiographs demonstrate avulsion/alignment clues rather than direct ligament continuity. / MRI, Ultrasound when accessible |
 | Insertions (`ankle.calcaneofibular_ligament.insertions`) | missing | missing | missing | Soft-tissue anatomy for injury-mechanism explanation; radiographs demonstrate avulsion/alignment clues rather than direct ligament continuity. / MRI, Ultrasound when accessible |
 | Talar dome cartilage (`ankle.talar_and_tibial_articular_cartilage.talar_dome_cartilage`) | missing | missing | missing | Direct chondral injury needs cross-sectional cartilage imaging; radiographic/CT articular contours are osseous surrogates. / MRI |
 | Tibial plafond cartilage (`ankle.talar_and_tibial_articular_cartilage.tibial_plafond_cartilage`) | missing | missing | missing | Direct chondral injury needs cross-sectional cartilage imaging; radiographic/CT articular contours are osseous surrogates. / MRI |
 | Body (`foot.cuboid.body`) | missing | missing | missing | Within the acquired anatomical coverage. / Radiography, CT |
 | Calcaneocuboid surface (`foot.cuboid.calcaneocuboid_surface`) | missing | missing | missing | Within the acquired anatomical coverage. / Radiography, CT |
 | Fourth and fifth tarsometatarsal surfaces (`foot.cuboid.fourth_and_fifth_tarsometatarsal_surfaces`) | missing | missing | missing | Within the acquired anatomical coverage. / Radiography, CT |
-| Articular surfaces (`foot.medial_cuneiform.articular_surfaces`) | missing | missing | missing | Within the acquired anatomical coverage. / Radiography, CT |
+| Articular surfaces (`foot.medial_cuneiform.articular_surfaces`) | missing | missing | unverified | Within the acquired anatomical coverage. / Radiography, CT |
 | Cortex (`foot.medial_cuneiform.cortex`) | missing | missing | missing | Within the acquired anatomical coverage. / Radiography, CT |
 | Marrow (`foot.medial_cuneiform.marrow`) | missing | missing | missing | Within the acquired anatomical coverage. / Radiography, CT |
-| Articular surfaces (`foot.intermediate_cuneiform.articular_surfaces`) | missing | missing | missing | Within the acquired anatomical coverage. / Radiography, CT |
+| Articular surfaces (`foot.intermediate_cuneiform.articular_surfaces`) | missing | missing | unverified | Within the acquired anatomical coverage. / Radiography, CT |
 | Cortex (`foot.intermediate_cuneiform.cortex`) | missing | missing | missing | Within the acquired anatomical coverage. / Radiography, CT |
 | Marrow (`foot.intermediate_cuneiform.marrow`) | missing | missing | missing | Within the acquired anatomical coverage. / Radiography, CT |
-| Articular surfaces (`foot.lateral_cuneiform.articular_surfaces`) | missing | missing | missing | Within the acquired anatomical coverage. / Radiography, CT |
+| Articular surfaces (`foot.lateral_cuneiform.articular_surfaces`) | missing | missing | unverified | Within the acquired anatomical coverage. / Radiography, CT |
 | Cortex (`foot.lateral_cuneiform.cortex`) | missing | missing | missing | Within the acquired anatomical coverage. / Radiography, CT |
 | Marrow (`foot.lateral_cuneiform.marrow`) | missing | missing | missing | Within the acquired anatomical coverage. / Radiography, CT |
 | Base (`foot.metatarsal_1.base`) | missing | missing | missing | Within the acquired anatomical coverage. / Radiography, CT |
@@ -136,6 +136,139 @@ Investigation: `ra.foot-ankle-cases`
 | Visible distal course (`foot.posterior_tibial_tendon.visible_distal_course`) | missing | missing | missing | Within the acquired anatomical coverage. / MRI, Ultrasound |
 
 ## Candidate evidence
+
+### ankle.anterior_inferior_tibiofibular_ligament.course — model
+
+- Asset: `za-joints-995232359`
+- Local file: [web/anatomy/msk-atlas/za-joints-995232359.bin](../../web/anatomy/msk-atlas/za-joints-995232359.bin)
+- Artifact SHA-256: `a76947186612923861f4d1b24ddb934134bc38830f27b4e251891b858da293ba`
+- Review-scope SHA-256: `36d5a5b4f3ff2cd4846949e10bfa3178c02dfe179c441819ba056fb8d347e786`
+- Source: [Original source](https://github.com/LluisV/Z-Anatomy/tree/6c7f9016bd5899ac8edafd31b9900c151df42ed6)
+- Licence: [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/)
+- Recorded rights: commercial use=True; redistribution=True; review status=verified
+- Attribution: BodyParts3D — The Database Center for Life Science — upstream lineage CC BY-SA 2.1 Japan; Z-Anatomy — The open source atlas of anatomy — CC BY-SA 4.0
+- Rights evidence: docs/msk-mesh-source-audit.md
+- Licence use plan: No separate use plan recorded; inspect the exact licence and rights evidence
+- Presentation dependencies: Not separately recorded
+- Coverage: {'extent': 'partial', 'basis': 'The source label of this model names “anterior tibiofibular ligament”, another name for this requirement’s “anterior inferior tibiofibular ligament”: “Anterior tibiofibular ligament”. This part is the structure’s own body or surface, which the whole model shows; the model does not delineate the other parts. The requirement is for the examined side; the model is a right-side reference, a mirror image for the other side. One source-labelled model; the full extent and boundaries of the named anatomy are not established.'}
+- Selection: Not recorded
+- Source context: Not recorded
+- Limits: Not recorded
+- Gate findings: anatomical_review_scope_missing_or_stale, anatomical_review_missing_or_stale, visual_review_scope_missing_or_stale, visual_review_missing_or_stale, high_fidelity_unproven, requirement_coverage_partial
+
+### ankle.posterior_inferior_tibiofibular_ligament.course — model
+
+- Asset: `za-joints-614802793`
+- Local file: [web/anatomy/msk-atlas/za-joints-614802793.bin](../../web/anatomy/msk-atlas/za-joints-614802793.bin)
+- Artifact SHA-256: `9c93a153213acaa39e297e813c7be3ded5dfd71307f49ed47ba150193b9f35c0`
+- Review-scope SHA-256: `ef7591fad098a98bcbbd4b43d5646d335b5dffbb4d08b74d0914d8cd5987ca6f`
+- Source: [Original source](https://github.com/LluisV/Z-Anatomy/tree/6c7f9016bd5899ac8edafd31b9900c151df42ed6)
+- Licence: [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/)
+- Recorded rights: commercial use=True; redistribution=True; review status=verified
+- Attribution: BodyParts3D — The Database Center for Life Science — upstream lineage CC BY-SA 2.1 Japan; Z-Anatomy — The open source atlas of anatomy — CC BY-SA 4.0
+- Rights evidence: docs/msk-mesh-source-audit.md
+- Licence use plan: No separate use plan recorded; inspect the exact licence and rights evidence
+- Presentation dependencies: Not separately recorded
+- Coverage: {'extent': 'partial', 'basis': 'The source label of this model names “posterior tibiofibular ligament”, another name for this requirement’s “posterior inferior tibiofibular ligament”: “Posterior tibiofibular ligament”. This part is the structure’s own body or surface, which the whole model shows; the model does not delineate the other parts. The requirement is for the examined side; the model is a right-side reference, a mirror image for the other side. One source-labelled model; the full extent and boundaries of the named anatomy are not established.'}
+- Selection: Not recorded
+- Source context: Not recorded
+- Limits: Not recorded
+- Gate findings: anatomical_review_scope_missing_or_stale, anatomical_review_missing_or_stale, visual_review_scope_missing_or_stale, visual_review_missing_or_stale, high_fidelity_unproven, requirement_coverage_partial
+
+### ankle.anterior_talofibular_ligament.course — model
+
+- Asset: `za-joints-413029801`
+- Local file: [web/anatomy/msk-atlas/za-joints-413029801.bin](../../web/anatomy/msk-atlas/za-joints-413029801.bin)
+- Artifact SHA-256: `acbc57f4cf411ed79c61e63e6f5c1ca332c55cb168e6417dc75bb1b60a5a0267`
+- Review-scope SHA-256: `b61c73f7059f084498ea2503430766c5815843fb538251bd7011585bdd388d94`
+- Source: [Original source](https://github.com/LluisV/Z-Anatomy/tree/6c7f9016bd5899ac8edafd31b9900c151df42ed6)
+- Licence: [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/)
+- Recorded rights: commercial use=True; redistribution=True; review status=verified
+- Attribution: BodyParts3D — The Database Center for Life Science — upstream lineage CC BY-SA 2.1 Japan; Z-Anatomy — The open source atlas of anatomy — CC BY-SA 4.0
+- Rights evidence: docs/msk-mesh-source-audit.md
+- Licence use plan: No separate use plan recorded; inspect the exact licence and rights evidence
+- Presentation dependencies: Not separately recorded
+- Coverage: {'extent': 'partial', 'basis': 'The source label of this model names the structure: “Anterior talofibular ligament”. This part is the structure’s own body or surface, which the whole model shows; the model does not delineate the other parts. The requirement is for the examined side; the model is a right-side reference, a mirror image for the other side. One source-labelled model; the full extent and boundaries of the named anatomy are not established.'}
+- Selection: Not recorded
+- Source context: Not recorded
+- Limits: Not recorded
+- Gate findings: anatomical_review_scope_missing_or_stale, anatomical_review_missing_or_stale, visual_review_scope_missing_or_stale, visual_review_missing_or_stale, high_fidelity_unproven, requirement_coverage_partial
+
+### ankle.calcaneofibular_ligament.course — model
+
+- Asset: `za-joints-285034228`
+- Local file: [web/anatomy/msk-atlas/za-joints-285034228.bin](../../web/anatomy/msk-atlas/za-joints-285034228.bin)
+- Artifact SHA-256: `6594ca4434a8bff7ac8ce9540e763cb85e730a17f7b7b20ca7cf54b2a274c873`
+- Review-scope SHA-256: `f07db556ab891d82a52c76d9b4c989a348b7f9a34c1a8f2084b7fdb24a74b72d`
+- Source: [Original source](https://github.com/LluisV/Z-Anatomy/tree/6c7f9016bd5899ac8edafd31b9900c151df42ed6)
+- Licence: [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/)
+- Recorded rights: commercial use=True; redistribution=True; review status=verified
+- Attribution: BodyParts3D — The Database Center for Life Science — upstream lineage CC BY-SA 2.1 Japan; Z-Anatomy — The open source atlas of anatomy — CC BY-SA 4.0
+- Rights evidence: docs/msk-mesh-source-audit.md
+- Licence use plan: No separate use plan recorded; inspect the exact licence and rights evidence
+- Presentation dependencies: Not separately recorded
+- Coverage: {'extent': 'partial', 'basis': 'The source label of this model names the structure: “Calcaneofibular ligament”. This part is the structure’s own body or surface, which the whole model shows; the model does not delineate the other parts. The requirement is for the examined side; the model is a right-side reference, a mirror image for the other side. One source-labelled model; the full extent and boundaries of the named anatomy are not established.'}
+- Selection: Not recorded
+- Source context: Not recorded
+- Limits: Not recorded
+- Gate findings: anatomical_review_scope_missing_or_stale, anatomical_review_missing_or_stale, visual_review_scope_missing_or_stale, visual_review_missing_or_stale, high_fidelity_unproven, requirement_coverage_partial
+
+### foot.medial_cuneiform.articular_surfaces — model
+
+- Asset: `za-bones-734101807-material-1`
+- Local file: [web/anatomy/msk-atlas/za-bones-734101807-material-1.bin](../../web/anatomy/msk-atlas/za-bones-734101807-material-1.bin)
+- Artifact SHA-256: `f2f5c06485c0fb5480e80f0733cef626a9623e4e73d7a282a56df56e39291919`
+- Review-scope SHA-256: `a34a019c601489d7180f28c598bef63fb7c70a836c6e4343762eb5cf821abd64`
+- Source: [Original source](https://github.com/LluisV/Z-Anatomy/tree/6c7f9016bd5899ac8edafd31b9900c151df42ed6)
+- Licence: [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/)
+- Recorded rights: commercial use=True; redistribution=True; review status=verified
+- Attribution: BodyParts3D — The Database Center for Life Science — upstream lineage CC BY-SA 2.1 Japan; Z-Anatomy — The open source atlas of anatomy — CC BY-SA 4.0
+- Rights evidence: docs/msk-mesh-source-audit.md
+- Licence use plan: No separate use plan recorded; inspect the exact licence and rights evidence
+- Presentation dependencies: Not separately recorded
+- Coverage: {'extent': 'partial', 'basis': 'The source label of this model names “cartilage surface”, another name for this requirement’s “articular surfaces”: “Medial cuneiform bone · cartilage surface”. The requirement is for the examined side; the model is a right-side reference, a mirror image for the other side. One source-labelled model; the full extent and boundaries of the named anatomy are not established.'}
+- Selection: Not recorded
+- Source context: Not recorded
+- Limits: Not recorded
+- Gate findings: anatomical_review_scope_missing_or_stale, anatomical_review_missing_or_stale, visual_review_scope_missing_or_stale, visual_review_missing_or_stale, high_fidelity_unproven, requirement_coverage_partial
+
+### foot.intermediate_cuneiform.articular_surfaces — model
+
+- Asset: `za-bones-314913365-material-1`
+- Local file: [web/anatomy/msk-atlas/za-bones-314913365-material-1.bin](../../web/anatomy/msk-atlas/za-bones-314913365-material-1.bin)
+- Artifact SHA-256: `514a35965a0a3e2b459cb24310fbd575de7b96e43cc2578cb7ca9e331b76ee65`
+- Review-scope SHA-256: `677abb356d10bf9443e3a3706c5074c6571e4f82baafff8e1f8fd31bcf7741aa`
+- Source: [Original source](https://github.com/LluisV/Z-Anatomy/tree/6c7f9016bd5899ac8edafd31b9900c151df42ed6)
+- Licence: [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/)
+- Recorded rights: commercial use=True; redistribution=True; review status=verified
+- Attribution: BodyParts3D — The Database Center for Life Science — upstream lineage CC BY-SA 2.1 Japan; Z-Anatomy — The open source atlas of anatomy — CC BY-SA 4.0
+- Rights evidence: docs/msk-mesh-source-audit.md
+- Licence use plan: No separate use plan recorded; inspect the exact licence and rights evidence
+- Presentation dependencies: Not separately recorded
+- Coverage: {'extent': 'partial', 'basis': 'The source label of this model names “cartilage surface”, another name for this requirement’s “articular surfaces”: “Intermediate cuneiform bone · cartilage surface”. The requirement is for the examined side; the model is a right-side reference, a mirror image for the other side. One source-labelled model; the full extent and boundaries of the named anatomy are not established.'}
+- Selection: Not recorded
+- Source context: Not recorded
+- Limits: Not recorded
+- Gate findings: anatomical_review_scope_missing_or_stale, anatomical_review_missing_or_stale, visual_review_scope_missing_or_stale, visual_review_missing_or_stale, high_fidelity_unproven, requirement_coverage_partial
+
+### foot.lateral_cuneiform.articular_surfaces — model
+
+- Asset: `za-bones-962625739-material-1`
+- Local file: [web/anatomy/msk-atlas/za-bones-962625739-material-1.bin](../../web/anatomy/msk-atlas/za-bones-962625739-material-1.bin)
+- Artifact SHA-256: `08999cb6eb8e621d2a12eb7b7defc7ad9f1b01af93a73429d88722f6c4bd00a5`
+- Review-scope SHA-256: `7cf20f60e4819c50f8e7a4c02643addc4611c8a99d279f8e4aaca50aa282ae22`
+- Source: [Original source](https://github.com/LluisV/Z-Anatomy/tree/6c7f9016bd5899ac8edafd31b9900c151df42ed6)
+- Licence: [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/)
+- Recorded rights: commercial use=True; redistribution=True; review status=verified
+- Attribution: BodyParts3D — The Database Center for Life Science — upstream lineage CC BY-SA 2.1 Japan; Z-Anatomy — The open source atlas of anatomy — CC BY-SA 4.0
+- Rights evidence: docs/msk-mesh-source-audit.md
+- Licence use plan: No separate use plan recorded; inspect the exact licence and rights evidence
+- Presentation dependencies: Not separately recorded
+- Coverage: {'extent': 'partial', 'basis': 'The source label of this model names “cartilage surface”, another name for this requirement’s “articular surfaces”: “Lateral cuneiform bone · cartilage surface”. The requirement is for the examined side; the model is a right-side reference, a mirror image for the other side. One source-labelled model; the full extent and boundaries of the named anatomy are not established.'}
+- Selection: Not recorded
+- Source context: Not recorded
+- Limits: Not recorded
+- Gate findings: anatomical_review_scope_missing_or_stale, anatomical_review_missing_or_stale, visual_review_scope_missing_or_stale, visual_review_missing_or_stale, high_fidelity_unproven, requirement_coverage_partial
 
 ## Scope blockers
 

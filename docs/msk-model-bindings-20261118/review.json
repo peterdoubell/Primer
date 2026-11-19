@@ -1,0 +1,3676 @@
+{
+ "reviewed_at": "2026-11-18",
+ "reviewer": "Claude review of stored model labels, MSK requirement parts and the investigations’ 3D views; not a radiologist review",
+ "decision": "On 2026-11-18 the project owner asked for the 3D models to be bound; this pass covers the MSK evidence ledger.",
+ "rule": "A stored MSK model is bound to a requirement when its own source label names the structure and the requirement is the structure itself (no parts), the part that is the structure’s own body (its course, midsubstance, muscle belly, tendon substance, articular surface or bursal boundaries), a part that the label names, or a small named group or union of which the label names one member. A whole is not bound to a requirement that names its regions, bundles or components, and a part is not bound to its whole. The requirement must belong to an investigation that lists the model or shows it in its 3D view; where the view shows it but the record did not list the investigation, the investigation is added to the record. Coverage is always partial.",
+ "method": "The labels of all 624 MSK models without a binding were compared with the structure and part names of the 22 MSK investigations, within the investigations that list each model or show it in their 3D view (displays). Every candidate was reviewed by hand; 147 bindings on 115 models were accepted. Every other model is listed under not_bound with its reason.",
+ "evidence_values": {
+  "own_word": "the label and the requirement share the words that name the structure (term)",
+  "another_name": "the label names the structure or part by another name",
+  "kind_of": "the label names one member of the group that the requirement names"
+ },
+ "leaf_basis_values": {
+  "structure": "the requirement is a structure without parts, and the label names it",
+  "body_part": "the label names the structure, and the requirement is the part that is the structure’s own body (body_parts)",
+  "named_part": "the label names the part itself",
+  "group_member": "the requirement names a small named group or a union, and the label names one member"
+ },
+ "body_parts": [
+  "anterior course",
+  "articular surface",
+  "bursal boundaries",
+  "capsular course",
+  "complete course",
+  "course",
+  "midportion",
+  "midsubstance",
+  "muscle belly",
+  "retromalleolar or anterior course",
+  "sinus tarsi course",
+  "tendon substance",
+  "visible course",
+  "visible tendon course"
+ ],
+ "side_values": {
+  "examined_side": "the requirement is for the examined side; the source model is a reference of the side in model_side"
+ },
+ "atlases": {
+  "z-anatomy": "web/anatomy/msk-atlas/manifest.json",
+  "malaya-mri": "web/anatomy/msk-mri-knee/manifest.json",
+  "malaya-ankle": "web/anatomy/msk-mri-ankle/manifest.json",
+  "openknee-oks003": "web/anatomy/openknee-oks003/manifest.json",
+  "bodyparts3d": "web/anatomy/bodyparts3d/manifest.json",
+  "cervical-bones": "web/anatomy/msk-cervical/manifest.json"
+ },
+ "displays": {
+  "ra.ankle-fractures": [
+   [
+    "z-anatomy",
+    "ankle"
+   ],
+   [
+    "malaya-ankle",
+    "ankle"
+   ]
+  ],
+  "ra.mri-ankle": [
+   [
+    "z-anatomy",
+    "ankle"
+   ],
+   [
+    "malaya-ankle",
+    "ankle"
+   ]
+  ],
+  "ra.arthritis": [
+   [
+    "z-anatomy",
+    "wrist"
+   ],
+   [
+    "z-anatomy",
+    "ankle"
+   ],
+   [
+    "z-anatomy",
+    "knee"
+   ],
+   [
+    "z-anatomy",
+    "hip"
+   ],
+   [
+    "cervical-bones",
+    "cervical"
+   ]
+  ],
+  "ra.bone-tumours": [
+   [
+    "bodyparts3d",
+    "longbone"
+   ]
+  ],
+  "ra.cartilage-tumours": [
+   [
+    "bodyparts3d",
+    "longbone"
+   ]
+  ],
+  "ra.foot-ankle-cases": [
+   [
+    "z-anatomy",
+    "ankle"
+   ],
+   [
+    "malaya-ankle",
+    "ankle"
+   ]
+  ],
+  "ra.mri-diabetic-foot": [
+   [
+    "z-anatomy",
+    "ankle"
+   ]
+  ],
+  "ra.mri-elbow": [
+   [
+    "z-anatomy",
+    "elbow"
+   ]
+  ],
+  "ra.paediatric-elbow-fractures": [
+   [
+    "z-anatomy",
+    "elbow"
+   ]
+  ],
+  "ra.hip-arthroplasty": [
+   [
+    "z-anatomy",
+    "hip"
+   ]
+  ],
+  "ra.hip-fai": [
+   [
+    "z-anatomy",
+    "hip"
+   ]
+  ],
+  "ra.mri-knee": [
+   [
+    "malaya-mri",
+    "knee"
+   ],
+   [
+    "openknee-oks003",
+    "knee"
+   ],
+   [
+    "z-anatomy",
+    "knee"
+   ]
+  ],
+  "ra.mri-muscle-injury": [
+   [
+    "z-anatomy",
+    "shoulder"
+   ],
+   [
+    "z-anatomy",
+    "elbow"
+   ],
+   [
+    "z-anatomy",
+    "wrist"
+   ],
+   [
+    "z-anatomy",
+    "hip"
+   ],
+   [
+    "z-anatomy",
+    "knee"
+   ],
+   [
+    "z-anatomy",
+    "ankle"
+   ]
+  ],
+  "ra.mri-muscle-disease": [
+   [
+    "z-anatomy",
+    "shoulder"
+   ],
+   [
+    "z-anatomy",
+    "elbow"
+   ],
+   [
+    "z-anatomy",
+    "wrist"
+   ],
+   [
+    "z-anatomy",
+    "hip"
+   ],
+   [
+    "z-anatomy",
+    "knee"
+   ],
+   [
+    "z-anatomy",
+    "ankle"
+   ]
+  ],
+  "ra.mri-hamstring": [
+   [
+    "z-anatomy",
+    "knee"
+   ]
+  ],
+  "ra.mri-shoulder": [
+   [
+    "z-anatomy",
+    "shoulder"
+   ]
+  ],
+  "ra.ultrasound-shoulder": [
+   [
+    "z-anatomy",
+    "shoulder"
+   ]
+  ],
+  "ra.thoracolumbar-fractures": [
+   [
+    "bodyparts3d",
+    "spine"
+   ]
+  ],
+  "ra.stress-fractures": [
+   [
+    "bodyparts3d",
+    "longbone"
+   ]
+  ],
+  "ra.ultrasound-joint-injection": [
+   [
+    "z-anatomy",
+    "shoulder"
+   ],
+   [
+    "z-anatomy",
+    "elbow"
+   ],
+   [
+    "z-anatomy",
+    "wrist"
+   ],
+   [
+    "z-anatomy",
+    "hip"
+   ],
+   [
+    "z-anatomy",
+    "knee"
+   ],
+   [
+    "z-anatomy",
+    "ankle"
+   ]
+  ],
+  "ra.wrist-instability": [
+   [
+    "z-anatomy",
+    "wrist"
+   ]
+  ],
+  "ra.wrist-fractures": [
+   [
+    "z-anatomy",
+    "wrist"
+   ]
+  ]
+ },
+ "another_name_pairs": [
+  {
+   "label_word": "superficial part of tibial collateral ligament",
+   "requirement_word": "medial collateral ligament superficial component"
+  },
+  {
+   "label_word": "arcuate popliteal ligament",
+   "requirement_word": "arcuate ligament"
+  },
+  {
+   "label_word": "transverse ligament of knee",
+   "requirement_word": "transverse intermeniscal ligament"
+  },
+  {
+   "label_word": "posterior meniscotibial ligament",
+   "requirement_word": "posterior meniscotibial attachment"
+  },
+  {
+   "label_word": "patellar ligament",
+   "requirement_word": "patellar tendon"
+  },
+  {
+   "label_word": "lateral collateral ligament",
+   "requirement_word": "fibular collateral ligament"
+  },
+  {
+   "label_word": "suprapatellar bursa",
+   "requirement_word": "suprapatellar recess"
+  },
+  {
+   "label_word": "anterior tibiofibular ligament",
+   "requirement_word": "anterior inferior tibiofibular ligament"
+  },
+  {
+   "label_word": "posterior tibiofibular ligament",
+   "requirement_word": "posterior inferior tibiofibular ligament"
+  },
+  {
+   "label_word": "tibionavicular ligament",
+   "requirement_word": "superficial tibionavicular fibres"
+  },
+  {
+   "label_word": "tibiocalcaneal ligament",
+   "requirement_word": "superficial tibiocalcaneal fibres"
+  },
+  {
+   "label_word": "posterior tibiotalar ligament",
+   "requirement_word": "deep posterior tibiotalar fibres"
+  },
+  {
+   "label_word": "tibialis posterior",
+   "requirement_word": "posterior tibial"
+  },
+  {
+   "label_word": "calcaneal tendon",
+   "requirement_word": "achilles tendon"
+  },
+  {
+   "label_word": "subtendinous calcaneal bursa",
+   "requirement_word": "retrocalcaneal bursa"
+  },
+  {
+   "label_word": "medial plantar nerve",
+   "requirement_word": "medial plantar branch"
+  },
+  {
+   "label_word": "lateral plantar nerve",
+   "requirement_word": "lateral plantar branch"
+  },
+  {
+   "label_word": "cartilage surface",
+   "requirement_word": "articular surfaces"
+  },
+  {
+   "label_word": "clavicular part of deltoid muscle",
+   "requirement_word": "anterior deltoid"
+  },
+  {
+   "label_word": "acromial part of deltoid muscle",
+   "requirement_word": "middle deltoid"
+  },
+  {
+   "label_word": "scapular spinal part of deltoid muscle",
+   "requirement_word": "posterior deltoid"
+  },
+  {
+   "label_word": "intertubercular tendon sheath",
+   "requirement_word": "long head biceps tendon sheath"
+  },
+  {
+   "label_word": "iliopectineal bursa",
+   "requirement_word": "iliopsoas bursa"
+  }
+ ],
+ "another_name_reasons": {
+  "superficial part of tibial collateral ligament>medial collateral ligament superficial component": "the tibial collateral ligament is the medial collateral ligament; its superficial part is the superficial component",
+  "arcuate popliteal ligament>arcuate ligament": "another name for the arcuate ligament of the knee",
+  "transverse ligament of knee>transverse intermeniscal ligament": "another name for the transverse intermeniscal ligament",
+  "posterior meniscotibial ligament>posterior meniscotibial attachment": "the meniscotibial ligament is the attachment of the meniscus to the tibia",
+  "patellar ligament>patellar tendon": "the anatomical name of the patellar tendon",
+  "lateral collateral ligament>fibular collateral ligament": "another name for the fibular collateral ligament",
+  "suprapatellar bursa>suprapatellar recess": "the suprapatellar bursa is the suprapatellar recess of the knee joint",
+  "anterior tibiofibular ligament>anterior inferior tibiofibular ligament": "the anterior tibiofibular ligament of the ankle syndesmosis",
+  "posterior tibiofibular ligament>posterior inferior tibiofibular ligament": "the posterior tibiofibular ligament of the ankle syndesmosis",
+  "tibionavicular ligament>superficial tibionavicular fibres": "the tibionavicular part of the deltoid ligament is superficial",
+  "tibiocalcaneal ligament>superficial tibiocalcaneal fibres": "the tibiocalcaneal part of the deltoid ligament is superficial",
+  "posterior tibiotalar ligament>deep posterior tibiotalar fibres": "the posterior tibiotalar part of the deltoid ligament is deep",
+  "tibialis posterior>posterior tibial": "the tibialis posterior tendon is the posterior tibial tendon",
+  "calcaneal tendon>achilles tendon": "the anatomical name of the Achilles tendon",
+  "subtendinous calcaneal bursa>retrocalcaneal bursa": "the bursa between the calcaneal tendon and the calcaneus",
+  "medial plantar nerve>medial plantar branch": "the medial plantar nerve is the medial plantar branch of the tibial nerve",
+  "lateral plantar nerve>lateral plantar branch": "the lateral plantar nerve is the lateral plantar branch of the tibial nerve",
+  "cartilage surface>articular surfaces": "the cartilage-covered surfaces of a bone are its articular surfaces",
+  "clavicular part of deltoid muscle>anterior deltoid": "the clavicular part is the anterior deltoid",
+  "acromial part of deltoid muscle>middle deltoid": "the acromial part is the middle deltoid",
+  "scapular spinal part of deltoid muscle>posterior deltoid": "the spinal part is the posterior deltoid",
+  "intertubercular tendon sheath>long head biceps tendon sheath": "the intertubercular sheath encloses the long head of biceps tendon",
+  "iliopectineal bursa>iliopsoas bursa": "another name for the iliopsoas bursa"
+ },
+ "kind_of_pairs": [
+  {
+   "label_word": "tibialis anterior",
+   "requirement_word": "anterior tendons"
+  },
+  {
+   "label_word": "extensor hallucis longus",
+   "requirement_word": "anterior tendons"
+  },
+  {
+   "label_word": "extensor digitorum longus",
+   "requirement_word": "anterior tendons"
+  },
+  {
+   "label_word": "fibularis tertius",
+   "requirement_word": "anterior tendons"
+  }
+ ],
+ "kind_of_reasons": {
+  "tibialis anterior>anterior tendons": "one of the anterior tendons of the ankle",
+  "extensor hallucis longus>anterior tendons": "one of the anterior tendons of the ankle",
+  "extensor digitorum longus>anterior tendons": "one of the anterior tendons of the ankle",
+  "fibularis tertius>anterior tendons": "one of the anterior tendons of the ankle"
+ },
+ "not_bound": {
+  "bodyparts3d.FJ1394": "No MSK investigation lists this model or shows it in its 3D view.",
+  "bodyparts3d.FJ1397": "No MSK investigation lists this model or shows it in its 3D view.",
+  "bodyparts3d.FJ1405": "No MSK investigation lists this model or shows it in its 3D view.",
+  "bodyparts3d.FJ1419": "No MSK investigation lists this model or shows it in its 3D view.",
+  "bodyparts3d.FJ1420": "No MSK investigation lists this model or shows it in its 3D view.",
+  "bodyparts3d.FJ1422": "No MSK investigation lists this model or shows it in its 3D view.",
+  "bodyparts3d.FJ1431": "No MSK investigation lists this model or shows it in its 3D view.",
+  "bodyparts3d.FJ1439": "No MSK investigation lists this model or shows it in its 3D view.",
+  "bodyparts3d.FJ1440": "No MSK investigation lists this model or shows it in its 3D view.",
+  "bodyparts3d.FJ1442": "No MSK investigation lists this model or shows it in its 3D view.",
+  "bodyparts3d.FJ1443": "No MSK investigation lists this model or shows it in its 3D view.",
+  "bodyparts3d.FJ1478": "No MSK investigation lists this model or shows it in its 3D view.",
+  "bodyparts3d.FJ1479": "No MSK investigation lists this model or shows it in its 3D view.",
+  "bodyparts3d.FJ1486": "No MSK investigation lists this model or shows it in its 3D view.",
+  "bodyparts3d.FJ1490": "No MSK investigation lists this model or shows it in its 3D view.",
+  "bodyparts3d.FJ1496": "No MSK investigation lists this model or shows it in its 3D view.",
+  "bodyparts3d.FJ1500": "No MSK investigation lists this model or shows it in its 3D view.",
+  "bodyparts3d.FJ1504": "No MSK investigation lists this model or shows it in its 3D view.",
+  "bodyparts3d.FJ1506": "No MSK investigation lists this model or shows it in its 3D view.",
+  "bodyparts3d.FJ1508": "No MSK investigation lists this model or shows it in its 3D view.",
+  "bodyparts3d.FJ3152": "No MSK investigation lists this model or shows it in its 3D view.",
+  "bodyparts3d.FJ3308": "No MSK investigation lists this model or shows it in its 3D view.",
+  "bodyparts3d.FJ3349": "No MSK investigation lists this model or shows it in its 3D view.",
+  "bodyparts3d.FJ3350": "No MSK investigation lists this model or shows it in its 3D view.",
+  "bodyparts3d.FJ3351": "No MSK investigation lists this model or shows it in its 3D view.",
+  "bodyparts3d.FJ3352": "No MSK investigation lists this model or shows it in its 3D view.",
+  "bodyparts3d.FJ3353": "No MSK investigation lists this model or shows it in its 3D view.",
+  "bodyparts3d.FJ3354": "No MSK investigation lists this model or shows it in its 3D view.",
+  "bodyparts3d.FJ3355": "No MSK investigation lists this model or shows it in its 3D view.",
+  "bodyparts3d.FJ3356": "No MSK investigation lists this model or shows it in its 3D view.",
+  "bodyparts3d.FJ3357": "No MSK investigation lists this model or shows it in its 3D view.",
+  "bodyparts3d.FJ3358": "No MSK investigation lists this model or shows it in its 3D view.",
+  "bodyparts3d.FJ3359": "No MSK investigation lists this model or shows it in its 3D view.",
+  "bodyparts3d.FJ3360": "No MSK investigation lists this model or shows it in its 3D view.",
+  "bodyparts3d.FJ3361": "No MSK investigation lists this model or shows it in its 3D view.",
+  "bodyparts3d.FJ3362": "No MSK investigation lists this model or shows it in its 3D view.",
+  "bodyparts3d.FJ3364": "No MSK investigation lists this model or shows it in its 3D view.",
+  "bodyparts3d.FJ3365": "No MSK investigation lists this model or shows it in its 3D view.",
+  "bodyparts3d.FJ3366": "No MSK investigation lists this model or shows it in its 3D view.",
+  "bodyparts3d.FJ3367": "No MSK investigation lists this model or shows it in its 3D view.",
+  "bodyparts3d.FJ3368": "No MSK investigation lists this model or shows it in its 3D view.",
+  "bodyparts3d.FJ3370": "No MSK investigation lists this model or shows it in its 3D view.",
+  "bodyparts3d.FJ3373": "No MSK investigation lists this model or shows it in its 3D view.",
+  "bodyparts3d.FJ3374": "No MSK investigation lists this model or shows it in its 3D view.",
+  "bodyparts3d.FJ3377": "No MSK investigation lists this model or shows it in its 3D view.",
+  "bodyparts3d.FJ3381": "No MSK investigation lists this model or shows it in its 3D view.",
+  "bodyparts3d.FJ3382": "No MSK investigation lists this model or shows it in its 3D view.",
+  "bodyparts3d.FJ3383": "No MSK investigation lists this model or shows it in its 3D view.",
+  "bodyparts3d.FJ3384": "No MSK investigation lists this model or shows it in its 3D view.",
+  "bodyparts3d.FJ3385": "No MSK investigation lists this model or shows it in its 3D view.",
+  "bodyparts3d.FJ3387": "No MSK investigation lists this model or shows it in its 3D view.",
+  "bodyparts3d.FJ3388": "No MSK investigation lists this model or shows it in its 3D view.",
+  "bodyparts3d.FJ3389": "No MSK investigation lists this model or shows it in its 3D view.",
+  "bodyparts3d.FJ3390": "No MSK investigation lists this model or shows it in its 3D view.",
+  "bodyparts3d.FJ3391": "No MSK investigation lists this model or shows it in its 3D view.",
+  "bodyparts3d.FJ3393": "No MSK investigation lists this model or shows it in its 3D view.",
+  "bodyparts3d.FMA38507": "No MSK investigation lists this model or shows it in its 3D view.",
+  "za-bones-157346641": "No requirement of an investigation that lists or shows this model names this structure.",
+  "za-bones-157346641-material-0": "The model covers the cartilage of several joint surfaces; each requirement names one surface, or a region of one, and a whole is not bound to its parts.",
+  "za-bones-790019466": "The bone requirements name its regions, cortex and marrow; a whole-bone surface does not delineate them, and a whole is not bound to its parts.",
+  "za-bones-790019466-material-0": "The model covers the cartilage of several joint surfaces; each requirement names one surface, or a region of one, and a whole is not bound to its parts.",
+  "za-bones-253295747": "The bone requirements name its regions, cortex and marrow; a whole-bone surface does not delineate them, and a whole is not bound to its parts.",
+  "za-bones-253295747-material-0": "The model covers the cartilage of several joint surfaces; each requirement names one surface, or a region of one, and a whole is not bound to its parts.",
+  "za-bones-182055279": "The bone requirements name its regions, cortex and marrow; a whole-bone surface does not delineate them, and a whole is not bound to its parts.",
+  "za-bones-182055279-material-0": "The model covers the cartilage of several joint surfaces; each requirement names one surface, or a region of one, and a whole is not bound to its parts.",
+  "za-bones-737843148": "No requirement of an investigation that lists or shows this model names this structure.",
+  "za-bones-737843148-material-0": "The model covers the cartilage of several joint surfaces; each requirement names one surface, or a region of one, and a whole is not bound to its parts.",
+  "za-bones-820509740": "No requirement of an investigation that lists or shows this model names this structure.",
+  "za-bones-820509740-material-0": "The model covers the cartilage of several joint surfaces; each requirement names one surface, or a region of one, and a whole is not bound to its parts.",
+  "za-bones-881053541": "No requirement of an investigation that lists or shows this model names this structure.",
+  "za-bones-881053541-material-0": "The model covers the cartilage of several joint surfaces; each requirement names one surface, or a region of one, and a whole is not bound to its parts.",
+  "za-bones-552924046": "No requirement of an investigation that lists or shows this model names this structure.",
+  "za-bones-552924046-material-0": "The model covers the cartilage of several joint surfaces; each requirement names one surface, or a region of one, and a whole is not bound to its parts.",
+  "za-bones-809204707": "No requirement of an investigation that lists or shows this model names this structure.",
+  "za-bones-809204707-material-0": "The model covers the cartilage of several joint surfaces; each requirement names one surface, or a region of one, and a whole is not bound to its parts.",
+  "za-bones-596666712": "No requirement of an investigation that lists or shows this model names this structure.",
+  "za-bones-596666712-material-0": "The model covers the cartilage of several joint surfaces; each requirement names one surface, or a region of one, and a whole is not bound to its parts.",
+  "za-bones-976357831": "No requirement of an investigation that lists or shows this model names this structure.",
+  "za-bones-976357831-material-0": "The model covers the cartilage of several joint surfaces; each requirement names one surface, or a region of one, and a whole is not bound to its parts.",
+  "za-bones-166014089": "No requirement of an investigation that lists or shows this model names this structure.",
+  "za-bones-166014089-material-0": "The model covers the cartilage of several joint surfaces; each requirement names one surface, or a region of one, and a whole is not bound to its parts.",
+  "za-bones-352352420": "No requirement of an investigation that lists or shows this model names this structure.",
+  "za-bones-352352420-material-0": "The model covers the cartilage of several joint surfaces; each requirement names one surface, or a region of one, and a whole is not bound to its parts.",
+  "za-bones-132596225": "No requirement of an investigation that lists or shows this model names this structure.",
+  "za-bones-132596225-material-1": "The model covers the cartilage of several joint surfaces; each requirement names one surface, or a region of one, and a whole is not bound to its parts.",
+  "za-bones-150797896": "No requirement of an investigation that lists or shows this model names this structure.",
+  "za-bones-150797896-material-1": "The model covers the cartilage of several joint surfaces; each requirement names one surface, or a region of one, and a whole is not bound to its parts.",
+  "za-bones-165068577": "No requirement of an investigation that lists or shows this model names this structure.",
+  "za-bones-165068577-material-1": "The model covers the cartilage of several joint surfaces; each requirement names one surface, or a region of one, and a whole is not bound to its parts.",
+  "za-bones-510086973": "No requirement of an investigation that lists or shows this model names this structure.",
+  "za-bones-510086973-material-1": "The model covers the cartilage of several joint surfaces; each requirement names one surface, or a region of one, and a whole is not bound to its parts.",
+  "za-bones-74747612": "No requirement of an investigation that lists or shows this model names this structure.",
+  "za-bones-74747612-material-1": "The model covers the cartilage of several joint surfaces; each requirement names one surface, or a region of one, and a whole is not bound to its parts.",
+  "za-bones-416182835": "No requirement of an investigation that lists or shows this model names this structure.",
+  "za-bones-416182835-material-0": "The model covers the cartilage of several joint surfaces; each requirement names one surface, or a region of one, and a whole is not bound to its parts.",
+  "za-bones-341971365": "No requirement of an investigation that lists or shows this model names this structure.",
+  "za-bones-341971365-material-0": "The model covers the cartilage of several joint surfaces; each requirement names one surface, or a region of one, and a whole is not bound to its parts.",
+  "za-bones-795100603": "No requirement of an investigation that lists or shows this model names this structure.",
+  "za-bones-795100603-material-0": "The model covers the cartilage of several joint surfaces; each requirement names one surface, or a region of one, and a whole is not bound to its parts.",
+  "za-bones-337449242": "No requirement of an investigation that lists or shows this model names this structure.",
+  "za-bones-337449242-material-0": "The model covers the cartilage of several joint surfaces; each requirement names one surface, or a region of one, and a whole is not bound to its parts.",
+  "za-bones-614544724": "No requirement of an investigation that lists or shows this model names this structure.",
+  "za-bones-614544724-material-0": "The model covers the cartilage of several joint surfaces; each requirement names one surface, or a region of one, and a whole is not bound to its parts.",
+  "za-bones-612730781": "The bone requirements name its regions, cortex and marrow; a whole-bone surface does not delineate them, and a whole is not bound to its parts.",
+  "za-bones-612730781-material-0": "The model covers the cartilage of several joint surfaces; each requirement names one surface, or a region of one, and a whole is not bound to its parts.",
+  "za-bones-832512231": "The bone requirements name its regions, cortex and marrow; a whole-bone surface does not delineate them, and a whole is not bound to its parts.",
+  "za-bones-832512231-material-0": "The model covers the cartilage of several joint surfaces; each requirement names one surface, or a region of one, and a whole is not bound to its parts.",
+  "za-bones-351627303": "The bone requirements name its regions, cortex and marrow; a whole-bone surface does not delineate them, and a whole is not bound to its parts.",
+  "za-bones-351627303-material-1": "The model covers the cartilage of several joint surfaces; each requirement names one surface, or a region of one, and a whole is not bound to its parts.",
+  "za-bones-689786370": "The bone requirements name its regions, cortex and marrow; a whole-bone surface does not delineate them, and a whole is not bound to its parts.",
+  "za-bones-689786370-material-0": "The model covers the cartilage of several joint surfaces; each requirement names one surface, or a region of one, and a whole is not bound to its parts.",
+  "za-bones-367424422-material-1": "The model covers the cartilage of several joint surfaces; each requirement names one surface, or a region of one, and a whole is not bound to its parts.",
+  "za-bones-903303769": "The bone requirements name its regions, cortex and marrow; a whole-bone surface does not delineate them, and a whole is not bound to its parts.",
+  "za-bones-903303769-material-0": "The model covers the cartilage of several joint surfaces; each requirement names one surface, or a region of one, and a whole is not bound to its parts.",
+  "za-bones-878805469": "The bone requirements name its regions, cortex and marrow; a whole-bone surface does not delineate them, and a whole is not bound to its parts.",
+  "za-bones-878805469-material-1": "The model covers the cartilage of several joint surfaces; each requirement names one surface, or a region of one, and a whole is not bound to its parts.",
+  "za-bones-356927805": "The bone requirements name its regions, cortex and marrow; a whole-bone surface does not delineate them, and a whole is not bound to its parts.",
+  "za-bones-356927805-material-1": "The model covers the cartilage of several joint surfaces; each requirement names one surface, or a region of one, and a whole is not bound to its parts.",
+  "za-bones-967327869": "The bone requirements name its regions, cortex and marrow; a whole-bone surface does not delineate them, and a whole is not bound to its parts.",
+  "za-bones-967327869-material-0": "The model covers the cartilage of several joint surfaces; each requirement names one surface, or a region of one, and a whole is not bound to its parts.",
+  "za-bones-578190046": "The bone requirements name its regions, cortex and marrow; a whole-bone surface does not delineate them, and a whole is not bound to its parts.",
+  "za-bones-578190046-material-0": "The model covers the cartilage of several joint surfaces; each requirement names one surface, or a region of one, and a whole is not bound to its parts.",
+  "za-bones-83785534": "No requirement of an investigation that lists or shows this model names this structure.",
+  "za-bones-83785534-material-2": "The model covers the cartilage of several joint surfaces; each requirement names one surface, or a region of one, and a whole is not bound to its parts.",
+  "za-bones-768159355": "The bone requirements name its regions, cortex and marrow; a whole-bone surface does not delineate them, and a whole is not bound to its parts.",
+  "za-bones-768159355-material-0": "The model covers the cartilage of several joint surfaces; each requirement names one surface, or a region of one, and a whole is not bound to its parts.",
+  "za-bones-179386668": "The bone requirements name its regions, cortex and marrow; a whole-bone surface does not delineate them, and a whole is not bound to its parts.",
+  "za-bones-179386668-material-0": "The model covers the cartilage of several joint surfaces; each requirement names one surface, or a region of one, and a whole is not bound to its parts.",
+  "za-bones-485011202": "The bone requirements name its regions, cortex and marrow; a whole-bone surface does not delineate them, and a whole is not bound to its parts.",
+  "za-bones-485011202-material-0": "The model covers the cartilage of several joint surfaces; each requirement names one surface, or a region of one, and a whole is not bound to its parts.",
+  "za-bones-600592424": "No requirement of an investigation that lists or shows this model names this structure.",
+  "za-bones-600592424-material-1": "The model covers the cartilage of several joint surfaces; each requirement names one surface, or a region of one, and a whole is not bound to its parts.",
+  "za-bones-487761000": "The bone requirements name its regions, cortex and marrow; a whole-bone surface does not delineate them, and a whole is not bound to its parts.",
+  "za-bones-444117336": "The bone requirements name its regions, cortex and marrow; a whole-bone surface does not delineate them, and a whole is not bound to its parts.",
+  "za-bones-314913365": "The bone requirements name its regions, cortex and marrow; a whole-bone surface does not delineate them, and a whole is not bound to its parts.",
+  "za-bones-962625739": "The bone requirements name its regions, cortex and marrow; a whole-bone surface does not delineate them, and a whole is not bound to its parts.",
+  "za-bones-734101807": "The bone requirements name its regions, cortex and marrow; a whole-bone surface does not delineate them, and a whole is not bound to its parts.",
+  "za-bones-71872664": "No requirement of an investigation that lists or shows this model names this structure.",
+  "za-bones-71872664-material-0": "The model covers the cartilage of several joint surfaces; each requirement names one surface, or a region of one, and a whole is not bound to its parts.",
+  "za-bones-69651960": "No requirement of an investigation that lists or shows this model names this structure.",
+  "za-bones-69651960-material-0": "The model covers the cartilage of several joint surfaces; each requirement names one surface, or a region of one, and a whole is not bound to its parts.",
+  "za-bones-825680108": "No requirement of an investigation that lists or shows this model names this structure.",
+  "za-bones-825680108-material-0": "The model covers the cartilage of several joint surfaces; each requirement names one surface, or a region of one, and a whole is not bound to its parts.",
+  "za-bones-126800031": "No requirement of an investigation that lists or shows this model names this structure.",
+  "za-bones-126800031-material-0": "The model covers the cartilage of several joint surfaces; each requirement names one surface, or a region of one, and a whole is not bound to its parts.",
+  "za-bones-482649735": "No requirement of an investigation that lists or shows this model names this structure.",
+  "za-bones-482649735-material-0": "The model covers the cartilage of several joint surfaces; each requirement names one surface, or a region of one, and a whole is not bound to its parts.",
+  "za-bones-634302512": "No requirement of an investigation that lists or shows this model names this structure.",
+  "za-bones-634302512-material-0": "The model covers the cartilage of several joint surfaces; each requirement names one surface, or a region of one, and a whole is not bound to its parts.",
+  "za-bones-470392727": "No requirement of an investigation that lists or shows this model names this structure.",
+  "za-bones-470392727-material-0": "The model covers the cartilage of several joint surfaces; each requirement names one surface, or a region of one, and a whole is not bound to its parts.",
+  "za-bones-651075231": "No requirement of an investigation that lists or shows this model names this structure.",
+  "za-bones-651075231-material-0": "The model covers the cartilage of several joint surfaces; each requirement names one surface, or a region of one, and a whole is not bound to its parts.",
+  "za-bones-441905918": "No requirement of an investigation that lists or shows this model names this structure.",
+  "za-bones-441905918-material-0": "The model covers the cartilage of several joint surfaces; each requirement names one surface, or a region of one, and a whole is not bound to its parts.",
+  "za-bones-225701867": "No requirement of an investigation that lists or shows this model names this structure.",
+  "za-bones-225701867-material-0": "The model covers the cartilage of several joint surfaces; each requirement names one surface, or a region of one, and a whole is not bound to its parts.",
+  "za-bones-922716480": "No requirement of an investigation that lists or shows this model names this structure.",
+  "za-bones-922716480-material-0": "The model covers the cartilage of several joint surfaces; each requirement names one surface, or a region of one, and a whole is not bound to its parts.",
+  "za-bones-357880105": "No requirement of an investigation that lists or shows this model names this structure.",
+  "za-bones-357880105-material-0": "The model covers the cartilage of several joint surfaces; each requirement names one surface, or a region of one, and a whole is not bound to its parts.",
+  "za-bones-575321222": "No requirement of an investigation that lists or shows this model names this structure.",
+  "za-bones-575321222-material-0": "The model covers the cartilage of several joint surfaces; each requirement names one surface, or a region of one, and a whole is not bound to its parts.",
+  "za-bones-290886934": "No requirement of an investigation that lists or shows this model names this structure.",
+  "za-bones-290886934-material-0": "The model covers the cartilage of several joint surfaces; each requirement names one surface, or a region of one, and a whole is not bound to its parts.",
+  "za-bones-292104824": "No requirement of an investigation that lists or shows this model names this structure.",
+  "za-bones-292104824-material-1": "The model covers the cartilage of several joint surfaces; each requirement names one surface, or a region of one, and a whole is not bound to its parts.",
+  "za-bones-981629279": "No requirement of an investigation that lists or shows this model names this structure.",
+  "za-bones-981629279-material-1": "The model covers the cartilage of several joint surfaces; each requirement names one surface, or a region of one, and a whole is not bound to its parts.",
+  "za-bones-630288525": "No requirement of an investigation that lists or shows this model names this structure.",
+  "za-bones-630288525-material-1": "The model covers the cartilage of several joint surfaces; each requirement names one surface, or a region of one, and a whole is not bound to its parts.",
+  "za-bones-953594762": "No requirement of an investigation that lists or shows this model names this structure.",
+  "za-bones-953594762-material-1": "The model covers the cartilage of several joint surfaces; each requirement names one surface, or a region of one, and a whole is not bound to its parts.",
+  "za-bones-812296112": "No requirement of an investigation that lists or shows this model names this structure.",
+  "za-bones-812296112-material-1": "The model covers the cartilage of several joint surfaces; each requirement names one surface, or a region of one, and a whole is not bound to its parts.",
+  "za-joints-905353925": "No requirement of an investigation that lists or shows this model names this structure.",
+  "za-joints-544097772": "No requirement of an investigation that lists or shows this model names this structure.",
+  "za-joints-665079841": "No requirement of an investigation that lists or shows this model names this structure.",
+  "za-joints-558314782": "No requirement of an investigation that lists or shows this model names this structure.",
+  "za-joints-674690912": "No requirement of an investigation that lists or shows this model names this structure.",
+  "za-joints-146670435": "No requirement of an investigation that lists or shows this model names this structure.",
+  "za-joints-434424601": "No requirement of an investigation that lists or shows this model names this structure.",
+  "za-joints-111050045": "No requirement of an investigation that lists or shows this model names this structure.",
+  "za-joints-210835309": "No requirement of an investigation that lists or shows this model names this structure.",
+  "za-joints-858616769": "No requirement of an investigation that lists or shows this model names this structure.",
+  "za-joints-135719051": "No requirement of an investigation that lists or shows this model names this structure.",
+  "za-joints-66248089": "No requirement of an investigation that lists or shows this model names this structure.",
+  "za-joints-569988606": "No requirement of an investigation that lists or shows this model names this structure.",
+  "za-joints-590000818": "The requirement “Ulnar collateral ligament” names its parts (anterior bundle, posterior bundle, transverse bundle, medial epicondylar origin, sublime tubercle attachment); none is the structure’s own body or named by the label, and the model does not separate them.",
+  "za-joints-413224043": "No requirement of an investigation that lists or shows this model names this structure.",
+  "za-joints-303605000": "No requirement of an investigation that lists or shows this model names this structure.",
+  "za-joints-558719528": "No requirement of an investigation that lists or shows this model names this structure.",
+  "za-joints-679717148": "The requirement “Glenoid labrum” names its parts (superior biceps-labral junction, anterosuperior segment, anteroinferior segment, inferior segment, posteroinferior segment, posterosuperior segment, …); none is the structure’s own body or named by the label, and the model does not separate them.",
+  "za-joints-910581941": "No requirement of an investigation that lists or shows this model names this structure.",
+  "za-joints-773412423": "No requirement of an investigation that lists or shows this model names this structure.",
+  "za-joints-376689043": "No requirement of an investigation that lists or shows this model names this structure.",
+  "za-joints-397723587": "No requirement of an investigation that lists or shows this model names this structure.",
+  "za-joints-277396982": "No requirement of an investigation that lists or shows this model names this structure.",
+  "za-joints-530915538": "No requirement of an investigation that lists or shows this model names this structure.",
+  "za-joints-344659359": "No requirement of an investigation that lists or shows this model names this structure.",
+  "za-joints-923086234": "No requirement of an investigation that lists or shows this model names this structure.",
+  "za-joints-126098189": "No requirement of an investigation that lists or shows this model names this structure.",
+  "za-joints-318012956": "No requirement of an investigation that lists or shows this model names this structure.",
+  "za-joints-347770529": "No requirement of an investigation that lists or shows this model names this structure.",
+  "za-joints-67141269": "No requirement of an investigation that lists or shows this model names this structure.",
+  "za-joints-548917746": "The requirement “Acetabular labrum” names its parts (anterosuperior, anterior, anteroinferior, posterior, posterosuperior, chondrolabral junction); none is the structure’s own body or named by the label, and the model does not separate them.",
+  "za-joints-548917746-material-0": "The model covers the cartilage of several joint surfaces; each requirement names one surface, or a region of one, and a whole is not bound to its parts.",
+  "za-joints-142701643": "No requirement of an investigation that lists or shows this model names this structure.",
+  "za-joints-503151816": "No requirement of an investigation that lists or shows this model names this structure.",
+  "za-joints-731742504": "No requirement of an investigation that lists or shows this model names this structure.",
+  "za-joints-355794469": "No requirement of an investigation that lists or shows this model names this structure.",
+  "za-joints-50434999": "No requirement of an investigation that lists or shows this model names this structure.",
+  "za-joints-62637128": "No requirement of an investigation that lists or shows this model names this structure.",
+  "za-joints-350294630": "No requirement of an investigation that lists or shows this model names this structure.",
+  "za-joints-392921810": "The requirement “Medial meniscus” names its parts (anterior horn, body, posterior horn, anterior root, posterior root, superior surface, …); none is the structure’s own body or named by the label, and the model does not separate them.",
+  "za-joints-574045296": "No requirement of an investigation that lists or shows this model names this structure.",
+  "za-joints-659815217": "No requirement of an investigation that lists or shows this model names this structure.",
+  "za-joints-137191166": "No requirement of an investigation that lists or shows this model names this structure.",
+  "za-joints-678781775": "The requirement “Lateral meniscus” names its parts (anterior horn, body, posterior horn, anterior root, posterior root, superior surface, …); none is the structure’s own body or named by the label, and the model does not separate them.",
+  "za-joints-656266195": "No requirement of an investigation that lists or shows this model names this structure.",
+  "za-joints-675812189": "The requirement “Posterior cruciate ligament” names its parts (anterolateral bundle, posteromedial bundle, femoral attachment, tibial attachment); none is the structure’s own body or named by the label, and the model does not separate them.",
+  "za-joints-279508809": "The requirement “Anterior cruciate ligament” names its parts (anteromedial bundle, posterolateral bundle, femoral attachment, tibial attachment); none is the structure’s own body or named by the label, and the model does not separate them.",
+  "za-joints-183900872": "No requirement of an investigation that lists or shows this model names this structure.",
+  "za-joints-669929147": "No requirement of an investigation that lists or shows this model names this structure.",
+  "za-joints-475030279": "No requirement of an investigation that lists or shows this model names this structure.",
+  "za-joints-844395848": "No requirement of an investigation that lists or shows this model names this structure.",
+  "za-joints-754578652": "No requirement of an investigation that lists or shows this model names this structure.",
+  "za-joints-593153940": "No requirement of an investigation that lists or shows this model names this structure.",
+  "za-joints-345117320": "No requirement of an investigation that lists or shows this model names this structure.",
+  "za-joints-60838700": "No requirement of an investigation that lists or shows this model names this structure.",
+  "za-joints-160503274": "No requirement of an investigation that lists or shows this model names this structure.",
+  "za-joints-423852924": "No requirement of an investigation that lists or shows this model names this structure.",
+  "za-joints-397211831": "No requirement of an investigation that lists or shows this model names this structure.",
+  "za-joints-731225725": "No requirement of an investigation that lists or shows this model names this structure.",
+  "za-joints-468534518": "No requirement of an investigation that lists or shows this model names this structure.",
+  "za-joints-619879102": "The requirement “Scapholunate interosseous ligament” names its parts (dorsal component, volar (palmar) component, proximal membranous component); none is the structure’s own body or named by the label, and the model does not separate them.",
+  "za-joints-655446711": "No requirement of an investigation that lists or shows this model names this structure.",
+  "za-joints-947255308": "No requirement of an investigation that lists or shows this model names this structure.",
+  "za-joints-146289442": "No requirement of an investigation that lists or shows this model names this structure.",
+  "za-joints-958342336": "The requirement “Lunotriquetral interosseous ligament” names its parts (dorsal component, volar (palmar) component, proximal membranous component); none is the structure’s own body or named by the label, and the model does not separate them.",
+  "za-joints-949747202": "No requirement of an investigation that lists or shows this model names this structure.",
+  "za-joints-112070449": "No requirement of an investigation that lists or shows this model names this structure.",
+  "za-joints-667088472": "No requirement of an investigation that lists or shows this model names this structure.",
+  "za-joints-746239986": "No requirement of an investigation that lists or shows this model names this structure.",
+  "za-joints-84837254": "No requirement of an investigation that lists or shows this model names this structure.",
+  "za-joints-661482051": "No requirement of an investigation that lists or shows this model names this structure.",
+  "za-joints-818917166": "No requirement of an investigation that lists or shows this model names this structure.",
+  "za-joints-895347341": "No requirement of an investigation that lists or shows this model names this structure.",
+  "za-joints-270332318": "No requirement of an investigation that lists or shows this model names this structure.",
+  "za-joints-140542557": "No requirement of an investigation that lists or shows this model names this structure.",
+  "za-joints-563410096": "No requirement of an investigation that lists or shows this model names this structure.",
+  "za-joints-341786242": "No requirement of an investigation that lists or shows this model names this structure.",
+  "za-joints-397747422": "No requirement of an investigation that lists or shows this model names this structure.",
+  "za-joints-607265478": "No requirement of an investigation that lists or shows this model names this structure.",
+  "za-joints-641137408": "No requirement of an investigation that lists or shows this model names this structure.",
+  "za-joints-179884510": "No requirement of an investigation that lists or shows this model names this structure.",
+  "za-joints-345447910": "No requirement of an investigation that lists or shows this model names this structure.",
+  "za-joints-253985813": "No requirement of an investigation that lists or shows this model names this structure.",
+  "za-joints-326248986": "No requirement of an investigation that lists or shows this model names this structure.",
+  "za-joints-731883379": "No requirement of an investigation that lists or shows this model names this structure.",
+  "za-joints-556937348": "No requirement of an investigation that lists or shows this model names this structure.",
+  "za-joints-153736207": "No requirement of an investigation that lists or shows this model names this structure.",
+  "za-joints-48009778": "No requirement of an investigation that lists or shows this model names this structure.",
+  "za-joints-221730568": "No requirement of an investigation that lists or shows this model names this structure.",
+  "za-joints-786338318": "No requirement of an investigation that lists or shows this model names this structure.",
+  "za-joints-234256381": "No requirement of an investigation that lists or shows this model names this structure.",
+  "za-joints-111407357": "No requirement of an investigation that lists or shows this model names this structure.",
+  "za-joints-805349247": "No requirement of an investigation that lists or shows this model names this structure.",
+  "za-joints-992347697": "No requirement of an investigation that lists or shows this model names this structure.",
+  "za-joints-580947968": "No requirement of an investigation that lists or shows this model names this structure.",
+  "za-joints-37391829": "No requirement of an investigation that lists or shows this model names this structure.",
+  "za-joints-532281409": "No requirement of an investigation that lists or shows this model names this structure.",
+  "za-joints-667507066": "No requirement of an investigation that lists or shows this model names this structure.",
+  "za-joints-354693950": "No requirement of an investigation that lists or shows this model names this structure.",
+  "za-joints-365528985": "No requirement of an investigation that lists or shows this model names this structure.",
+  "za-joints-488840894": "No requirement of an investigation that lists or shows this model names this structure.",
+  "za-joints-210106391": "No requirement of an investigation that lists or shows this model names this structure.",
+  "za-joints-363047048": "No requirement of an investigation that lists or shows this model names this structure.",
+  "za-joints-319519232": "No requirement of an investigation that lists or shows this model names this structure.",
+  "za-joints-640549422": "No requirement of an investigation that lists or shows this model names this structure.",
+  "za-joints-889909977": "No requirement of an investigation that lists or shows this model names this structure.",
+  "za-joints-607693348": "No requirement of an investigation that lists or shows this model names this structure.",
+  "za-joints-706278781": "No requirement of an investigation that lists or shows this model names this structure.",
+  "za-joints-647393838": "No requirement of an investigation that lists or shows this model names this structure.",
+  "za-joints-891588806": "No requirement of an investigation that lists or shows this model names this structure.",
+  "za-joints-235399302": "No requirement of an investigation that lists or shows this model names this structure.",
+  "za-joints-65797189": "No requirement of an investigation that lists or shows this model names this structure.",
+  "za-joints-689114574": "No requirement of an investigation that lists or shows this model names this structure.",
+  "za-joints-360059433": "No requirement of an investigation that lists or shows this model names this structure.",
+  "za-joints-522864495": "No requirement of an investigation that lists or shows this model names this structure.",
+  "za-joints-951292263": "No requirement of an investigation that lists or shows this model names this structure.",
+  "za-joints-198825488": "No requirement of an investigation that lists or shows this model names this structure.",
+  "za-joints-194780309": "No requirement of an investigation that lists or shows this model names this structure.",
+  "za-joints-671133189": "No requirement of an investigation that lists or shows this model names this structure.",
+  "za-joints-647524794": "No requirement of an investigation that lists or shows this model names this structure.",
+  "za-muscles-516571620": "No requirement of an investigation that lists or shows this model names this structure.",
+  "za-muscles-547570908": "No requirement of an investigation that lists or shows this model names this structure.",
+  "za-muscles-316486140": "No requirement of an investigation that lists or shows this model names this structure.",
+  "za-muscles-372542288": "No requirement of an investigation that lists or shows this model names this structure.",
+  "za-muscles-653592180": "The requirement “Superior fibular retinaculum” names its parts (attachments, tendon relationship); none is the structure’s own body or named by the label, and the model does not separate them.",
+  "za-muscles-419234530": "The requirement “Inferior fibular retinaculum” names its parts (attachments, tendon relationship); none is the structure’s own body or named by the label, and the model does not separate them.",
+  "za-muscles-753149753": "No requirement of an investigation that lists or shows this model names this structure.",
+  "za-muscles-818253022": "No requirement of an investigation that lists or shows this model names this structure.",
+  "za-muscles-462823453": "No requirement of an investigation that lists or shows this model names this structure.",
+  "za-muscles-978598636": "No requirement of an investigation that lists or shows this model names this structure.",
+  "za-muscles-330125342": "No requirement of an investigation that lists or shows this model names this structure.",
+  "za-muscles-771346357": "The requirement “Rectus femoris tendon” names the tendon of this muscle-tendon unit; this model is the whole unit, and the two are not separated.",
+  "za-muscles-118609166": "No requirement of an investigation that lists or shows this model names this structure.",
+  "za-muscles-118609166-material-0": "No requirement of an investigation that lists or shows this model names this structure.",
+  "za-muscles-644184362": "No requirement of an investigation that lists or shows this model names this structure.",
+  "za-muscles-644184362-material-0": "No requirement of an investigation that lists or shows this model names this structure.",
+  "za-muscles-916015942": "No requirement of an investigation that lists or shows this model names this structure.",
+  "za-muscles-916015942-material-0": "No requirement of an investigation that lists or shows this model names this structure.",
+  "za-muscles-711036340": "The requirement “Sartorius tendon” names the tendon of this muscle-tendon unit; this model is the whole unit, and the two are not separated.",
+  "za-muscles-711036340-material-0": "The requirement “Sartorius tendon” names its parts (distal course, tibial attachment); none is the structure’s own body or named by the label, and the model does not separate them.",
+  "za-muscles-906368294-material-0": "The requirement “Biceps femoris tendon” names the whole structure; this model is one head or part of it, and a part is not bound to its whole.",
+  "za-muscles-266598907-material-0": "The requirement “Biceps femoris tendon” names the whole structure; this model is one head or part of it, and a part is not bound to its whole.",
+  "za-muscles-312860247-material-0": "The requirement “Semimembranosus tendon” names its parts (origin or proximal attachment, free tendon if present, intramuscular tendon, myotendinous junction, distal tendon and insertion if covered); none is the structure’s own body or named by the label, and the model does not separate them.",
+  "za-muscles-63886170-material-0": "The requirement “Semitendinosus tendon” names its parts (origin or proximal attachment, free tendon if present, intramuscular tendon, myotendinous junction, distal tendon and insertion if covered); none is the structure’s own body or named by the label, and the model does not separate them.",
+  "za-muscles-986487575": "No requirement of an investigation that lists or shows this model names this structure.",
+  "za-muscles-986487575-material-0": "No requirement of an investigation that lists or shows this model names this structure.",
+  "za-muscles-942819798": "No requirement of an investigation that lists or shows this model names this structure.",
+  "za-muscles-942819798-material-0": "No requirement of an investigation that lists or shows this model names this structure.",
+  "za-muscles-944732284": "No requirement of an investigation that lists or shows this model names this structure.",
+  "za-muscles-944732284-material-1": "No requirement of an investigation that lists or shows this model names this structure.",
+  "za-muscles-46522600": "No requirement of an investigation that lists or shows this model names this structure.",
+  "za-muscles-610284590": "The requirement “Gracilis tendon” names the tendon of this muscle-tendon unit; this model is the whole unit, and the two are not separated.",
+  "za-muscles-610284590-material-0": "The requirement “Gracilis tendon” names its parts (distal course, tibial attachment); none is the structure’s own body or named by the label, and the model does not separate them.",
+  "za-muscles-530208388": "No requirement of an investigation that lists or shows this model names this structure.",
+  "za-muscles-71171280": "The requirement “Extensor digitorum longus tendon” names the tendon of this muscle-tendon unit; this model is the whole unit, and the two are not separated.",
+  "za-muscles-245217129": "The requirement “Tibialis anterior tendon” names the tendon of this muscle-tendon unit; this model is the whole unit, and the two are not separated.",
+  "za-muscles-65307038": "No requirement of an investigation that lists or shows this model names this structure.",
+  "za-muscles-120752132": "The requirement “Extensor hallucis longus tendon” names the tendon of this muscle-tendon unit; this model is the whole unit, and the two are not separated.",
+  "za-muscles-235597193": "The requirement “Fibularis longus tendon” names the tendon of this muscle-tendon unit; this model is the whole unit, and the two are not separated.",
+  "za-muscles-144360526": "The requirement “Fibularis brevis tendon” names the tendon of this muscle-tendon unit; this model is the whole unit, and the two are not separated.",
+  "za-muscles-795125640": "No requirement of an investigation that lists or shows this model names this structure.",
+  "za-muscles-888473793": "No requirement of an investigation that lists or shows this model names this structure.",
+  "za-muscles-888473793-material-0": "No requirement of an investigation that lists or shows this model names this structure.",
+  "za-muscles-127513549": "No requirement of an investigation that lists or shows this model names this structure.",
+  "za-muscles-127513549-material-0": "No requirement of an investigation that lists or shows this model names this structure.",
+  "za-muscles-649439011": "No requirement of an investigation that lists or shows this model names this structure.",
+  "za-muscles-625532537": "No requirement of an investigation that lists or shows this model names this structure.",
+  "za-muscles-625532537-material-0": "No requirement of an investigation that lists or shows this model names this structure.",
+  "za-muscles-867718655": "No requirement of an investigation that lists or shows this model names this structure.",
+  "za-muscles-315870314": "No requirement of an investigation that lists or shows this model names this structure.",
+  "za-muscles-315870314-material-0": "No requirement of an investigation that lists or shows this model names this structure.",
+  "za-muscles-513223513": "No requirement of an investigation that lists or shows this model names this structure.",
+  "za-muscles-513223513-material-0": "No requirement of an investigation that lists or shows this model names this structure.",
+  "za-muscles-176848128": "No requirement of an investigation that lists or shows this model names this structure.",
+  "za-muscles-176848128-material-0": "No requirement of an investigation that lists or shows this model names this structure.",
+  "za-muscles-739238967": "No requirement of an investigation that lists or shows this model names this structure.",
+  "za-muscles-739238967-material-0": "No requirement of an investigation that lists or shows this model names this structure.",
+  "za-muscles-969083175-material-0": "The requirement “Deltoid muscle” names the whole structure; this model is one head or part of it, and a part is not bound to its whole.",
+  "za-muscles-506767053-material-0": "The requirement “Deltoid muscle” names the whole structure; this model is one head or part of it, and a part is not bound to its whole.",
+  "za-muscles-806276737-material-0": "The requirement “Deltoid muscle” names the whole structure; this model is one head or part of it, and a part is not bound to its whole.",
+  "za-muscles-508386731-material-0": "The requirement “Lateral gastrocnemius muscle” names the muscle of this muscle-tendon unit; this model is the tendon surface, and the two are not separated.",
+  "za-muscles-783417961-material-0": "The requirement “Medial gastrocnemius muscle” names the muscle of this muscle-tendon unit; this model is the tendon surface, and the two are not separated.",
+  "za-muscles-622768040": "The requirement “Flexor digitorum longus tendon” names the tendon of this muscle-tendon unit; this model is the whole unit, and the two are not separated.",
+  "za-muscles-115201106-material-1": "The requirement “Popliteus tendon” names its parts (femoral attachment, intra-articular segment, popliteal hiatus segment, myotendinous junction); none is the structure’s own body or named by the label, and the model does not separate them.",
+  "za-muscles-498927038": "No requirement of an investigation that lists or shows this model names this structure.",
+  "za-muscles-632232163": "The requirement “Flexor hallucis longus tendon” names the tendon of this muscle-tendon unit; this model is the whole unit, and the two are not separated.",
+  "za-muscles-290927627": "No requirement of an investigation that lists or shows this model names this structure.",
+  "za-muscles-290927627-material-0": "No requirement of an investigation that lists or shows this model names this structure.",
+  "za-muscles-163633076": "No requirement of an investigation that lists or shows this model names this structure.",
+  "za-muscles-163633076-material-0": "No requirement of an investigation that lists or shows this model names this structure.",
+  "za-muscles-820488147": "No requirement of an investigation that lists or shows this model names this structure.",
+  "za-muscles-820488147-material-0": "No requirement of an investigation that lists or shows this model names this structure.",
+  "za-muscles-538338170": "No requirement of an investigation that lists or shows this model names this structure.",
+  "za-muscles-538338170-material-0": "No requirement of an investigation that lists or shows this model names this structure.",
+  "za-muscles-487589403": "No requirement of an investigation that lists or shows this model names this structure.",
+  "za-muscles-487589403-material-0": "No requirement of an investigation that lists or shows this model names this structure.",
+  "za-muscles-613075022": "The requirement “Pronator teres muscle” names the whole structure; this model is one head or part of it, and a part is not bound to its whole.",
+  "za-muscles-613075022-material-0": "The requirement “Pronator teres muscle” names the whole structure; this model is one head or part of it, and a part is not bound to its whole.",
+  "za-muscles-840440777": "The requirement “Pronator teres muscle” names the whole structure; this model is one head or part of it, and a part is not bound to its whole.",
+  "za-muscles-840440777-material-0": "The requirement “Pronator teres muscle” names the whole structure; this model is one head or part of it, and a part is not bound to its whole.",
+  "za-muscles-36958809": "The requirement “Flexor carpi ulnaris muscle” names the whole structure; this model is one head or part of it, and a part is not bound to its whole.",
+  "za-muscles-36958809-material-0": "The requirement “Flexor carpi ulnaris muscle” names the whole structure; this model is one head or part of it, and a part is not bound to its whole.",
+  "za-muscles-645838197": "The requirement “Flexor carpi ulnaris muscle” names the whole structure; this model is one head or part of it, and a part is not bound to its whole.",
+  "za-muscles-645838197-material-0": "The requirement “Flexor carpi ulnaris muscle” names the whole structure; this model is one head or part of it, and a part is not bound to its whole.",
+  "za-muscles-118551750": "No requirement of an investigation that lists or shows this model names this structure.",
+  "za-muscles-118551750-material-0": "No requirement of an investigation that lists or shows this model names this structure.",
+  "za-muscles-672824902-material-0": "The requirement “Flexor carpi radialis muscle” names the muscle of this muscle-tendon unit; this model is the tendon surface, and the two are not separated.",
+  "za-muscles-425487108": "No requirement of an investigation that lists or shows this model names this structure.",
+  "za-muscles-425487108-material-0": "No requirement of an investigation that lists or shows this model names this structure.",
+  "za-muscles-277369719": "No requirement of an investigation that lists or shows this model names this structure.",
+  "za-muscles-277369719-material-0": "No requirement of an investigation that lists or shows this model names this structure.",
+  "za-muscles-400633043": "No requirement of an investigation that lists or shows this model names this structure.",
+  "za-muscles-400633043-material-0": "No requirement of an investigation that lists or shows this model names this structure.",
+  "za-muscles-809095169": "No requirement of an investigation that lists or shows this model names this structure.",
+  "za-muscles-809095169-material-0": "No requirement of an investigation that lists or shows this model names this structure.",
+  "za-muscles-685970060": "The elbow MRI requirement names this muscle, but the elbow 3D view does not show this model; it belongs to the wrist region.",
+  "za-muscles-685970060-material-0": "No requirement of an investigation that lists or shows this model names this structure.",
+  "za-muscles-936196450": "No requirement of an investigation that lists or shows this model names this structure.",
+  "za-muscles-936196450-material-0": "No requirement of an investigation that lists or shows this model names this structure.",
+  "za-muscles-991010553": "No requirement of an investigation that lists or shows this model names this structure.",
+  "za-muscles-991010553-material-0": "No requirement of an investigation that lists or shows this model names this structure.",
+  "za-muscles-666199939": "No requirement of an investigation that lists or shows this model names this structure.",
+  "za-muscles-666199939-material-0": "No requirement of an investigation that lists or shows this model names this structure.",
+  "za-muscles-669653987": "No requirement of an investigation that lists or shows this model names this structure.",
+  "za-muscles-669653987-material-0": "No requirement of an investigation that lists or shows this model names this structure.",
+  "za-muscles-579432817-material-0": "The requirement “Extensor carpi radialis brevis muscle” names the muscle of this muscle-tendon unit; this model is the tendon surface, and the two are not separated.",
+  "za-muscles-229882640-material-0": "The requirement “Anconeus muscle” names the muscle of this muscle-tendon unit; this model is the tendon surface, and the two are not separated.",
+  "za-muscles-468756190": "No requirement of an investigation that lists or shows this model names this structure.",
+  "za-muscles-468756190-material-0": "No requirement of an investigation that lists or shows this model names this structure.",
+  "za-muscles-119299853": "No requirement of an investigation that lists or shows this model names this structure.",
+  "za-muscles-119299853-material-0": "No requirement of an investigation that lists or shows this model names this structure.",
+  "za-muscles-139021293": "No requirement of an investigation that lists or shows this model names this structure.",
+  "za-muscles-139021293-material-0": "No requirement of an investigation that lists or shows this model names this structure.",
+  "za-muscles-95762172": "No requirement of an investigation that lists or shows this model names this structure.",
+  "za-muscles-95762172-material-0": "No requirement of an investigation that lists or shows this model names this structure.",
+  "za-muscles-16666752": "No requirement of an investigation that lists or shows this model names this structure.",
+  "za-muscles-16666752-material-0": "No requirement of an investigation that lists or shows this model names this structure.",
+  "za-muscles-922871258": "No requirement of an investigation that lists or shows this model names this structure.",
+  "za-muscles-188565181": "No requirement of an investigation that lists or shows this model names this structure.",
+  "za-muscles-245349215": "No requirement of an investigation that lists or shows this model names this structure.",
+  "za-muscles-110595580": "No requirement of an investigation that lists or shows this model names this structure.",
+  "za-muscles-737551946": "No requirement of an investigation that lists or shows this model names this structure.",
+  "za-muscles-852266459": "No requirement of an investigation that lists or shows this model names this structure.",
+  "za-muscles-276003646": "No requirement of an investigation that lists or shows this model names this structure.",
+  "za-muscles-721817264": "No requirement of an investigation that lists or shows this model names this structure.",
+  "za-nerves-874085510": "The requirement “Median nerve” names its parts (antecubital course, pronator teres passage, anterior interosseous branch); none is the structure’s own body or named by the label, and the model does not separate them.",
+  "za-nerves-183457789": "No requirement of an investigation that lists or shows this model names this structure.",
+  "za-nerves-122786892": "No requirement of an investigation that lists or shows this model names this structure.",
+  "za-nerves-168765396": "The requirement “Axillary nerve” names its parts (quadrilateral space segment, teres minor motor branch); none is the structure’s own body or named by the label, and the model does not separate them.",
+  "za-nerves-41491164": "The requirement “Radial nerve” names its parts (antecubital course, superficial branch, deep branch, posterior interosseous nerve at supinator); none is the structure’s own body or named by the label, and the model does not separate them.",
+  "za-nerves-649745495": "The requirement “Ulnar nerve” names its parts (retrocondylar groove, cubital tunnel, flexor carpi ulnaris entry); none is the structure’s own body or named by the label, and the model does not separate them.",
+  "za-nerves-809851269": "No requirement of an investigation that lists or shows this model names this structure.",
+  "za-nerves-905776914": "No requirement of an investigation that lists or shows this model names this structure.",
+  "za-nerves-114726656": "The requirement “Suprascapular nerve” names its parts (suprascapular notch segment, spinoglenoid notch segment, cuff motor branches); none is the structure’s own body or named by the label, and the model does not separate them.",
+  "za-nerves-562498712": "No requirement of an investigation that lists or shows this model names this structure.",
+  "za-nerves-34206970": "No requirement of an investigation that lists or shows this model names this structure.",
+  "za-nerves-713806063": "The requirement “Common fibular nerve” names its parts (posterolateral knee, fibular neck course); none is the structure’s own body or named by the label, and the model does not separate them.",
+  "za-nerves-728835402": "No requirement of an investigation that lists or shows this model names this structure.",
+  "za-nerves-285921066": "No requirement of an investigation that lists or shows this model names this structure.",
+  "za-nerves-895453984": "No requirement of an investigation that lists or shows this model names this structure.",
+  "za-nerves-649582416": "No requirement of an investigation that lists or shows this model names this structure.",
+  "za-nerves-804557147": "No requirement of an investigation that lists or shows this model names this structure.",
+  "za-nerves-627998463": "No requirement of an investigation that lists or shows this model names this structure.",
+  "um-knee-bone-femur": "The bone requirements name its regions, cortex and marrow; a whole-bone surface does not delineate them, and a whole is not bound to its parts.",
+  "um-knee-bone-fibula": "The bone requirements name its regions, cortex and marrow; a whole-bone surface does not delineate them, and a whole is not bound to its parts.",
+  "um-knee-bone-patella": "The bone requirements name its regions, cortex and marrow; a whole-bone surface does not delineate them, and a whole is not bound to its parts.",
+  "um-knee-bone-tibia": "The bone requirements name its regions, cortex and marrow; a whole-bone surface does not delineate them, and a whole is not bound to its parts.",
+  "um-knee-cartilage-femur-distal": "The model covers the cartilage of several joint surfaces; each requirement names one surface, or a region of one, and a whole is not bound to its parts.",
+  "um-knee-cartilage-tibia": "The model covers the cartilage of several joint surfaces; each requirement names one surface, or a region of one, and a whole is not bound to its parts.",
+  "um-knee-ligament-acl": "The requirement “Anterior cruciate ligament” names its parts (anteromedial bundle, posterolateral bundle, femoral attachment, tibial attachment); none is the structure’s own body or named by the label, and the model does not separate them.",
+  "um-knee-ligament-mcl": "The requirement “Medial collateral ligament” names its parts (superficial component, deep meniscofemoral component, deep meniscotibial component, femoral attachment, tibial attachment); none is the structure’s own body or named by the label, and the model does not separate them.",
+  "um-knee-ligament-pcl": "The requirement “Posterior cruciate ligament” names its parts (anterolateral bundle, posteromedial bundle, femoral attachment, tibial attachment); none is the structure’s own body or named by the label, and the model does not separate them.",
+  "um-knee-meniscus-knee": "No requirement of an investigation that lists or shows this model names this structure.",
+  "um-knee-muscle-bicep-femoris-longhead": "No requirement of an investigation that lists or shows this model names this structure.",
+  "um-knee-muscle-bicep-femoris-shorthead": "No requirement of an investigation that lists or shows this model names this structure.",
+  "um-knee-muscle-gracilis": "The requirement “Gracilis tendon” names the tendon of this muscle-tendon unit; this model is the whole unit, and the two are not separated.",
+  "um-knee-muscle-rectus-femoris": "No requirement of an investigation that lists or shows this model names this structure.",
+  "um-knee-muscle-sartorius": "The requirement “Sartorius tendon” names the tendon of this muscle-tendon unit; this model is the whole unit, and the two are not separated.",
+  "um-knee-muscle-semimembranosus": "The requirement “Semimembranosus tendon” names the tendon of this muscle-tendon unit; this model is the whole unit, and the two are not separated.",
+  "um-knee-muscle-semitendinosus": "The requirement “Semitendinosus tendon” names the tendon of this muscle-tendon unit; this model is the whole unit, and the two are not separated.",
+  "um-knee-muscle-soleus": "No requirement of an investigation that lists or shows this model names this structure.",
+  "um-knee-muscle-vastus-intermedius": "No requirement of an investigation that lists or shows this model names this structure.",
+  "um-knee-muscle-vastus-lateralis": "No requirement of an investigation that lists or shows this model names this structure.",
+  "um-knee-muscle-vastus-medialis": "No requirement of an investigation that lists or shows this model names this structure.",
+  "um-ankle-bone-calcaneus": "The bone requirements name its regions, cortex and marrow; a whole-bone surface does not delineate them, and a whole is not bound to its parts.",
+  "um-ankle-bone-cuboid": "The bone requirements name its regions, cortex and marrow; a whole-bone surface does not delineate them, and a whole is not bound to its parts.",
+  "um-ankle-bone-fibula": "The bone requirements name its regions, cortex and marrow; a whole-bone surface does not delineate them, and a whole is not bound to its parts.",
+  "um-ankle-bone-intermediate-cuneiform": "The bone requirements name its regions, cortex and marrow; a whole-bone surface does not delineate them, and a whole is not bound to its parts.",
+  "um-ankle-bone-lateral-cuneiform": "The bone requirements name its regions, cortex and marrow; a whole-bone surface does not delineate them, and a whole is not bound to its parts.",
+  "um-ankle-bone-medial-cuneiform": "The bone requirements name its regions, cortex and marrow; a whole-bone surface does not delineate them, and a whole is not bound to its parts.",
+  "um-ankle-bone-navicular": "The bone requirements name its regions, cortex and marrow; a whole-bone surface does not delineate them, and a whole is not bound to its parts.",
+  "um-ankle-bone-talus": "The bone requirements name its regions, cortex and marrow; a whole-bone surface does not delineate them, and a whole is not bound to its parts.",
+  "um-ankle-bone-tibia": "The bone requirements name its regions, cortex and marrow; a whole-bone surface does not delineate them, and a whole is not bound to its parts.",
+  "um-ankle-muscle-extensor-digitorum-longus": "The requirement “Extensor digitorum longus tendon” names the tendon of this muscle-tendon unit; this model is the whole unit, and the two are not separated.",
+  "um-ankle-muscle-extensor-hallucis-longus": "The requirement “Extensor hallucis longus tendon” names the tendon of this muscle-tendon unit; this model is the whole unit, and the two are not separated.",
+  "um-ankle-muscle-flexor-digitorum-longus": "The requirement “Flexor digitorum longus tendon” names the tendon of this muscle-tendon unit; this model is the whole unit, and the two are not separated.",
+  "um-ankle-muscle-flexor-hallucis-longus": "The requirement “Flexor hallucis longus tendon” names the tendon of this muscle-tendon unit; this model is the whole unit, and the two are not separated.",
+  "um-ankle-muscle-gastrocnemius-lateral": "No requirement of an investigation that lists or shows this model names this structure.",
+  "um-ankle-muscle-gastrocnemius-medial": "No requirement of an investigation that lists or shows this model names this structure.",
+  "um-ankle-muscle-peroneus-longus": "The requirement “Fibularis longus tendon” names the tendon of this muscle-tendon unit; this model is the whole unit, and the two are not separated.",
+  "um-ankle-muscle-soleus": "No requirement of an investigation that lists or shows this model names this structure.",
+  "um-ankle-muscle-tibialis-anterior": "The requirement “Tibialis anterior tendon” names the tendon of this muscle-tendon unit; this model is the whole unit, and the two are not separated.",
+  "um-ankle-muscle-tibialis-posterior": "No requirement of an investigation that lists or shows this model names this structure.",
+  "oks003-fmb": "The bone requirements name its regions, cortex and marrow; a whole-bone surface does not delineate them, and a whole is not bound to its parts.",
+  "oks003-tbb": "The bone requirements name its regions, cortex and marrow; a whole-bone surface does not delineate them, and a whole is not bound to its parts.",
+  "oks003-fbb": "The bone requirements name its regions, cortex and marrow; a whole-bone surface does not delineate them, and a whole is not bound to its parts.",
+  "oks003-ptb": "The bone requirements name its regions, cortex and marrow; a whole-bone surface does not delineate them, and a whole is not bound to its parts.",
+  "oks003-fmc": "The model covers the cartilage of several joint surfaces; each requirement names one surface, or a region of one, and a whole is not bound to its parts.",
+  "oks003-tbc-l": "An earlier Open Knee(s) review (docs/msk-openknee-schematic-review) left this mesh unbound: the selected _02 mask revision lineage is unresolved, and no tissue boundary is approved.",
+  "oks003-tbc-m": "An earlier Open Knee(s) review (docs/msk-openknee-schematic-review) left this mesh unbound: the selected _02 mask revision lineage is unresolved, and no tissue boundary is approved.",
+  "oks003-acl": "The requirement “Anterior cruciate ligament” names its parts (anteromedial bundle, posterolateral bundle, femoral attachment, tibial attachment); none is the structure’s own body or named by the label, and the model does not separate them.",
+  "oks003-pcl": "The requirement “Posterior cruciate ligament” names its parts (anterolateral bundle, posteromedial bundle, femoral attachment, tibial attachment); none is the structure’s own body or named by the label, and the model does not separate them.",
+  "oks003-mcl": "The requirement “Medial collateral ligament” names its parts (superficial component, deep meniscofemoral component, deep meniscotibial component, femoral attachment, tibial attachment); none is the structure’s own body or named by the label, and the model does not separate them.",
+  "za-bones-672122883": "No requirement of an investigation that lists or shows this model names this structure.",
+  "za-bones-454295794": "No requirement of an investigation that lists or shows this model names this structure.",
+  "liu-sub03-cord-contour-envelope": "No requirement of an investigation that lists or shows this model names this structure.",
+  "liu-sub03-dura-contour-envelope": "No requirement of an investigation that lists or shows this model names this structure.",
+  "verse521-t1": "No requirement of an investigation that lists or shows this model names this structure.",
+  "verse521-t2": "No requirement of an investigation that lists or shows this model names this structure.",
+  "verse521-t3": "No requirement of an investigation that lists or shows this model names this structure.",
+  "verse521-t4": "No requirement of an investigation that lists or shows this model names this structure.",
+  "verse521-t5": "No requirement of an investigation that lists or shows this model names this structure.",
+  "verse521-t6": "No requirement of an investigation that lists or shows this model names this structure.",
+  "verse521-t7": "No requirement of an investigation that lists or shows this model names this structure.",
+  "verse521-t8": "No requirement of an investigation that lists or shows this model names this structure.",
+  "verse521-t9": "No requirement of an investigation that lists or shows this model names this structure.",
+  "verse521-t10": "No requirement of an investigation that lists or shows this model names this structure.",
+  "verse521-t11": "No requirement of an investigation that lists or shows this model names this structure.",
+  "verse521-t12": "No requirement of an investigation that lists or shows this model names this structure.",
+  "verse521-l1": "No requirement of an investigation that lists or shows this model names this structure.",
+  "verse521-l2": "No requirement of an investigation that lists or shows this model names this structure.",
+  "verse521-l3": "No requirement of an investigation that lists or shows this model names this structure.",
+  "verse521-l4": "No requirement of an investigation that lists or shows this model names this structure.",
+  "verse521-l5": "No requirement of an investigation that lists or shows this model names this structure."
+ },
+ "accepted": [
+  {
+   "asset_id": "um-knee-cartilage-patella",
+   "structure_id": "knee.patellar_cartilage.articular_surface",
+   "name": "Patellar cartilage: Articular surface",
+   "kind": "structure",
+   "quote": "Patellar cartilage",
+   "evidence": "own_word",
+   "term": "patellar cartilage",
+   "leaf_basis": "body_part",
+   "investigations": [
+    "ra.mri-knee"
+   ],
+   "added_investigations": [],
+   "side": "examined_side",
+   "model_side": "right"
+  },
+  {
+   "asset_id": "za-bones-330368362-material-4",
+   "structure_id": "knee.patellar_cartilage.articular_surface",
+   "name": "Patellar cartilage: Articular surface",
+   "kind": "structure",
+   "quote": "Patella · cartilage surface",
+   "evidence": "own_word",
+   "term": "patella cartilage surface",
+   "leaf_basis": "body_part",
+   "investigations": [
+    "ra.mri-knee"
+   ],
+   "added_investigations": [
+    "ra.mri-knee"
+   ],
+   "side": "examined_side",
+   "model_side": "right"
+  },
+  {
+   "asset_id": "um-knee-muscle-gastrocnemius-lateral",
+   "structure_id": "knee.lateral_gastrocnemius_muscle",
+   "name": "Lateral gastrocnemius muscle",
+   "kind": "structure",
+   "quote": "Lateral gastrocnemius",
+   "evidence": "own_word",
+   "term": "lateral gastrocnemius",
+   "leaf_basis": "structure",
+   "investigations": [
+    "ra.mri-knee"
+   ],
+   "added_investigations": [],
+   "side": "examined_side",
+   "model_side": "right"
+  },
+  {
+   "asset_id": "um-knee-muscle-gastrocnemius-medial",
+   "structure_id": "knee.medial_gastrocnemius_muscle",
+   "name": "Medial gastrocnemius muscle",
+   "kind": "structure",
+   "quote": "Medial gastrocnemius",
+   "evidence": "own_word",
+   "term": "medial gastrocnemius",
+   "leaf_basis": "structure",
+   "investigations": [
+    "ra.mri-knee"
+   ],
+   "added_investigations": [],
+   "side": "examined_side",
+   "model_side": "right"
+  },
+  {
+   "asset_id": "um-knee-muscle-popliteus",
+   "structure_id": "knee.popliteus_muscle",
+   "name": "Popliteus muscle",
+   "kind": "structure",
+   "quote": "Popliteus",
+   "evidence": "own_word",
+   "term": "popliteus",
+   "leaf_basis": "structure",
+   "investigations": [
+    "ra.mri-knee"
+   ],
+   "added_investigations": [],
+   "side": "examined_side",
+   "model_side": "right"
+  },
+  {
+   "asset_id": "za-muscles-115201106",
+   "structure_id": "knee.popliteus_muscle",
+   "name": "Popliteus muscle",
+   "kind": "structure",
+   "quote": "Popliteus muscle",
+   "evidence": "own_word",
+   "term": "popliteus muscle",
+   "leaf_basis": "structure",
+   "investigations": [
+    "ra.mri-knee"
+   ],
+   "added_investigations": [
+    "ra.mri-knee"
+   ],
+   "side": "examined_side",
+   "model_side": "right"
+  },
+  {
+   "asset_id": "za-muscles-508386731",
+   "structure_id": "knee.lateral_gastrocnemius_muscle",
+   "name": "Lateral gastrocnemius muscle",
+   "kind": "structure",
+   "quote": "Lateral head of gastrocnemius",
+   "evidence": "own_word",
+   "term": "lateral gastrocnemius",
+   "leaf_basis": "structure",
+   "investigations": [
+    "ra.mri-knee"
+   ],
+   "added_investigations": [
+    "ra.mri-knee"
+   ],
+   "side": "examined_side",
+   "model_side": "right"
+  },
+  {
+   "asset_id": "za-muscles-783417961",
+   "structure_id": "knee.medial_gastrocnemius_muscle",
+   "name": "Medial gastrocnemius muscle",
+   "kind": "structure",
+   "quote": "Medial head of gastrocnemius",
+   "evidence": "own_word",
+   "term": "medial gastrocnemius",
+   "leaf_basis": "structure",
+   "investigations": [
+    "ra.mri-knee"
+   ],
+   "added_investigations": [
+    "ra.mri-knee"
+   ],
+   "side": "examined_side",
+   "model_side": "right"
+  },
+  {
+   "asset_id": "za-joints-193731724",
+   "structure_id": "knee.medial_collateral_ligament.superficial_component",
+   "name": "Medial collateral ligament: Superficial component",
+   "kind": "structure",
+   "quote": "Superficial part of tibial collateral ligament",
+   "evidence": "another_name",
+   "another_name": {
+    "label_word": "superficial part of tibial collateral ligament",
+    "requirement_word": "medial collateral ligament superficial component"
+   },
+   "leaf_basis": "named_part",
+   "investigations": [
+    "ra.mri-knee"
+   ],
+   "added_investigations": [
+    "ra.mri-knee"
+   ],
+   "side": "examined_side",
+   "model_side": "right"
+  },
+  {
+   "asset_id": "za-joints-85929803",
+   "structure_id": "knee.popliteofibular_ligament.course",
+   "name": "Popliteofibular ligament: Course",
+   "kind": "structure",
+   "quote": "Popliteofibular ligament",
+   "evidence": "own_word",
+   "term": "popliteofibular ligament",
+   "leaf_basis": "body_part",
+   "investigations": [
+    "ra.mri-knee"
+   ],
+   "added_investigations": [
+    "ra.mri-knee"
+   ],
+   "side": "examined_side",
+   "model_side": "right"
+  },
+  {
+   "asset_id": "za-joints-179388422",
+   "structure_id": "knee.arcuate_ligament.course",
+   "name": "Arcuate ligament: Course",
+   "kind": "structure",
+   "quote": "Arcuate popliteal ligament",
+   "evidence": "another_name",
+   "another_name": {
+    "label_word": "arcuate popliteal ligament",
+    "requirement_word": "arcuate ligament"
+   },
+   "leaf_basis": "body_part",
+   "investigations": [
+    "ra.mri-knee"
+   ],
+   "added_investigations": [
+    "ra.mri-knee"
+   ],
+   "side": "examined_side",
+   "model_side": "right"
+  },
+  {
+   "asset_id": "za-joints-49279403",
+   "structure_id": "knee.transverse_intermeniscal_ligament.anterior_course",
+   "name": "Transverse intermeniscal ligament: Anterior course",
+   "kind": "structure",
+   "quote": "Transverse ligament of knee",
+   "evidence": "another_name",
+   "another_name": {
+    "label_word": "transverse ligament of knee",
+    "requirement_word": "transverse intermeniscal ligament"
+   },
+   "leaf_basis": "body_part",
+   "investigations": [
+    "ra.mri-knee"
+   ],
+   "added_investigations": [
+    "ra.mri-knee"
+   ],
+   "side": "examined_side",
+   "model_side": "right"
+  },
+  {
+   "asset_id": "za-joints-146002912",
+   "structure_id": "knee.medial_meniscocapsular_attachments.posterior_meniscotibial_attachment",
+   "name": "Medial meniscocapsular attachments: Posterior meniscotibial attachment",
+   "kind": "structure",
+   "quote": "Posterior meniscotibial ligament (Medial meniscus)",
+   "evidence": "another_name",
+   "another_name": {
+    "label_word": "posterior meniscotibial ligament",
+    "requirement_word": "posterior meniscotibial attachment"
+   },
+   "leaf_basis": "named_part",
+   "investigations": [
+    "ra.mri-knee"
+   ],
+   "added_investigations": [
+    "ra.mri-knee"
+   ],
+   "side": "examined_side",
+   "model_side": "right"
+  },
+  {
+   "asset_id": "za-muscles-344109556",
+   "structure_id": "knee.medial_patellar_retinaculum.course",
+   "name": "Medial patellar retinaculum: Course",
+   "kind": "structure",
+   "quote": "Medial patellar retinaculum",
+   "evidence": "own_word",
+   "term": "medial patellar retinaculum",
+   "leaf_basis": "body_part",
+   "investigations": [
+    "ra.mri-knee"
+   ],
+   "added_investigations": [
+    "ra.mri-knee"
+   ],
+   "side": "examined_side",
+   "model_side": "right"
+  },
+  {
+   "asset_id": "za-muscles-497593817",
+   "structure_id": "knee.lateral_patellar_retinaculum.course",
+   "name": "Lateral patellar retinaculum: Course",
+   "kind": "structure",
+   "quote": "Lateral patellar retinaculum",
+   "evidence": "own_word",
+   "term": "lateral patellar retinaculum",
+   "leaf_basis": "body_part",
+   "investigations": [
+    "ra.mri-knee"
+   ],
+   "added_investigations": [
+    "ra.mri-knee"
+   ],
+   "side": "examined_side",
+   "model_side": "right"
+  },
+  {
+   "asset_id": "za-joints-899021983",
+   "structure_id": "knee.hoffa_fat_pad.infrapatellar_fat",
+   "name": "Hoffa fat pad: Infrapatellar fat",
+   "kind": "structure",
+   "quote": "Infrapatellar fat pad",
+   "evidence": "own_word",
+   "term": "infrapatellar fat",
+   "leaf_basis": "named_part",
+   "investigations": [
+    "ra.mri-knee"
+   ],
+   "added_investigations": [
+    "ra.mri-knee"
+   ],
+   "side": "examined_side",
+   "model_side": "right"
+  },
+  {
+   "asset_id": "za-nerves-85997353",
+   "structure_id": "knee.tibial_nerve",
+   "name": "Tibial nerve",
+   "kind": "structure",
+   "quote": "Tibial nerve",
+   "evidence": "own_word",
+   "term": "tibial nerve",
+   "leaf_basis": "structure",
+   "investigations": [
+    "ra.mri-knee"
+   ],
+   "added_investigations": [
+    "ra.mri-knee"
+   ],
+   "side": "examined_side",
+   "model_side": "right"
+  },
+  {
+   "asset_id": "um-knee-tendon-quadriceps",
+   "structure_id": "knee.quadriceps_tendon.midsubstance",
+   "name": "Quadriceps tendon: Midsubstance",
+   "kind": "structure",
+   "quote": "Quadriceps tendon",
+   "evidence": "own_word",
+   "term": "quadriceps tendon",
+   "leaf_basis": "body_part",
+   "investigations": [
+    "ra.mri-knee"
+   ],
+   "added_investigations": [],
+   "side": "examined_side",
+   "model_side": "right"
+  },
+  {
+   "asset_id": "oks003-qat",
+   "structure_id": "knee.quadriceps_tendon.midsubstance",
+   "name": "Quadriceps tendon: Midsubstance",
+   "kind": "structure",
+   "quote": "Quadriceps tendon",
+   "evidence": "own_word",
+   "term": "quadriceps tendon",
+   "leaf_basis": "body_part",
+   "investigations": [
+    "ra.mri-knee"
+   ],
+   "added_investigations": [],
+   "side": "examined_side",
+   "model_side": "left"
+  },
+  {
+   "asset_id": "um-knee-ligament-patella",
+   "structure_id": "knee.patellar_tendon.midsubstance",
+   "name": "Patellar tendon: Midsubstance",
+   "kind": "structure",
+   "quote": "Patellar ligament",
+   "evidence": "another_name",
+   "another_name": {
+    "label_word": "patellar ligament",
+    "requirement_word": "patellar tendon"
+   },
+   "leaf_basis": "body_part",
+   "investigations": [
+    "ra.mri-knee"
+   ],
+   "added_investigations": [],
+   "side": "examined_side",
+   "model_side": "right"
+  },
+  {
+   "asset_id": "oks003-ptl",
+   "structure_id": "knee.patellar_tendon.midsubstance",
+   "name": "Patellar tendon: Midsubstance",
+   "kind": "structure",
+   "quote": "Patellar tendon",
+   "evidence": "own_word",
+   "term": "patellar tendon",
+   "leaf_basis": "body_part",
+   "investigations": [
+    "ra.mri-knee"
+   ],
+   "added_investigations": [],
+   "side": "examined_side",
+   "model_side": "left"
+  },
+  {
+   "asset_id": "um-knee-ligament-lcl",
+   "structure_id": "knee.fibular_collateral_ligament.midsubstance",
+   "name": "Fibular collateral ligament: Midsubstance",
+   "kind": "structure",
+   "quote": "Lateral collateral ligament",
+   "evidence": "another_name",
+   "another_name": {
+    "label_word": "lateral collateral ligament",
+    "requirement_word": "fibular collateral ligament"
+   },
+   "leaf_basis": "body_part",
+   "investigations": [
+    "ra.mri-knee"
+   ],
+   "added_investigations": [],
+   "side": "examined_side",
+   "model_side": "right"
+  },
+  {
+   "asset_id": "oks003-lcl",
+   "structure_id": "knee.fibular_collateral_ligament.midsubstance",
+   "name": "Fibular collateral ligament: Midsubstance",
+   "kind": "structure",
+   "quote": "Lateral collateral ligament",
+   "evidence": "another_name",
+   "another_name": {
+    "label_word": "lateral collateral ligament",
+    "requirement_word": "fibular collateral ligament"
+   },
+   "leaf_basis": "body_part",
+   "investigations": [
+    "ra.mri-knee"
+   ],
+   "added_investigations": [],
+   "side": "examined_side",
+   "model_side": "left"
+  },
+  {
+   "asset_id": "za-joints-353278166",
+   "structure_id": "knee.fibular_collateral_ligament.midsubstance",
+   "name": "Fibular collateral ligament: Midsubstance",
+   "kind": "structure",
+   "quote": "Fibular collateral ligament",
+   "evidence": "own_word",
+   "term": "fibular collateral ligament",
+   "leaf_basis": "body_part",
+   "investigations": [
+    "ra.mri-knee"
+   ],
+   "added_investigations": [
+    "ra.mri-knee"
+   ],
+   "side": "examined_side",
+   "model_side": "right"
+  },
+  {
+   "asset_id": "za-muscles-192883580",
+   "structure_id": "knee.prepatellar_bursa.bursal_boundaries",
+   "name": "Prepatellar bursa: Bursal boundaries",
+   "kind": "structure",
+   "quote": "Subcutaneous prepatellar bursa",
+   "evidence": "own_word",
+   "term": "prepatellar bursa",
+   "leaf_basis": "body_part",
+   "investigations": [
+    "ra.mri-knee"
+   ],
+   "added_investigations": [
+    "ra.mri-knee"
+   ],
+   "side": "examined_side",
+   "model_side": "right"
+  },
+  {
+   "asset_id": "za-muscles-846877236",
+   "structure_id": "knee.deep_infrapatellar_bursa.bursal_boundaries",
+   "name": "Deep infrapatellar bursa: Bursal boundaries",
+   "kind": "structure",
+   "quote": "Deep infrapatellar bursa",
+   "evidence": "own_word",
+   "term": "deep infrapatellar bursa",
+   "leaf_basis": "body_part",
+   "investigations": [
+    "ra.mri-knee"
+   ],
+   "added_investigations": [
+    "ra.mri-knee"
+   ],
+   "side": "examined_side",
+   "model_side": "right"
+  },
+  {
+   "asset_id": "za-muscles-320904578",
+   "structure_id": "knee.pes_anserine_bursa.bursal_boundaries",
+   "name": "Pes anserine bursa: Bursal boundaries",
+   "kind": "structure",
+   "quote": "Anserine bursa",
+   "evidence": "own_word",
+   "term": "anserine bursa",
+   "leaf_basis": "body_part",
+   "investigations": [
+    "ra.mri-knee"
+   ],
+   "added_investigations": [
+    "ra.mri-knee"
+   ],
+   "side": "examined_side",
+   "model_side": "right"
+  },
+  {
+   "asset_id": "za-muscles-408909323",
+   "structure_id": "knee.knee_synovium_and_joint_recesses.suprapatellar_recess",
+   "name": "Knee synovium and joint recesses: Suprapatellar recess",
+   "kind": "structure",
+   "quote": "Suprapatellar bursa",
+   "evidence": "another_name",
+   "another_name": {
+    "label_word": "suprapatellar bursa",
+    "requirement_word": "suprapatellar recess"
+   },
+   "leaf_basis": "named_part",
+   "investigations": [
+    "ra.mri-knee"
+   ],
+   "added_investigations": [
+    "ra.mri-knee"
+   ],
+   "side": "examined_side",
+   "model_side": "right"
+  },
+  {
+   "asset_id": "za-bones-330368362",
+   "structure_id": "injection.knee_intra_articular_target.patella",
+   "name": "Knee intra-articular target: Patella",
+   "kind": "structure",
+   "quote": "Patella",
+   "evidence": "own_word",
+   "term": "patella",
+   "leaf_basis": "named_part",
+   "investigations": [
+    "ra.ultrasound-joint-injection"
+   ],
+   "added_investigations": [
+    "ra.ultrasound-joint-injection"
+   ],
+   "side": "examined_side",
+   "model_side": "right"
+  },
+  {
+   "asset_id": "za-joints-356912233",
+   "structure_id": "injection.knee_intra_articular_target.capsule",
+   "name": "Knee intra-articular target: Capsule",
+   "kind": "structure",
+   "quote": "Articular capsule of knee joint",
+   "evidence": "own_word",
+   "term": "knee capsule",
+   "leaf_basis": "named_part",
+   "investigations": [
+    "ra.ultrasound-joint-injection"
+   ],
+   "added_investigations": [
+    "ra.ultrasound-joint-injection"
+   ],
+   "side": "examined_side",
+   "model_side": "right"
+  },
+  {
+   "asset_id": "za-joints-413029801",
+   "structure_id": "ankle.anterior_talofibular_ligament.course",
+   "name": "Anterior talofibular ligament: Course",
+   "kind": "structure",
+   "quote": "Anterior talofibular ligament",
+   "evidence": "own_word",
+   "term": "anterior talofibular ligament",
+   "leaf_basis": "body_part",
+   "investigations": [
+    "ra.ankle-fractures",
+    "ra.foot-ankle-cases",
+    "ra.mri-ankle"
+   ],
+   "added_investigations": [
+    "ra.ankle-fractures",
+    "ra.foot-ankle-cases",
+    "ra.mri-ankle"
+   ],
+   "side": "examined_side",
+   "model_side": "right"
+  },
+  {
+   "asset_id": "za-joints-285034228",
+   "structure_id": "ankle.calcaneofibular_ligament.course",
+   "name": "Calcaneofibular ligament: Course",
+   "kind": "structure",
+   "quote": "Calcaneofibular ligament",
+   "evidence": "own_word",
+   "term": "calcaneofibular ligament",
+   "leaf_basis": "body_part",
+   "investigations": [
+    "ra.ankle-fractures",
+    "ra.foot-ankle-cases",
+    "ra.mri-ankle"
+   ],
+   "added_investigations": [
+    "ra.ankle-fractures",
+    "ra.foot-ankle-cases",
+    "ra.mri-ankle"
+   ],
+   "side": "examined_side",
+   "model_side": "right"
+  },
+  {
+   "asset_id": "za-joints-947478872",
+   "structure_id": "ankle.posterior_talofibular_ligament.course",
+   "name": "Posterior talofibular ligament: Course",
+   "kind": "structure",
+   "quote": "Posterior talofibular ligament",
+   "evidence": "own_word",
+   "term": "posterior talofibular ligament",
+   "leaf_basis": "body_part",
+   "investigations": [
+    "ra.mri-ankle"
+   ],
+   "added_investigations": [
+    "ra.mri-ankle"
+   ],
+   "side": "examined_side",
+   "model_side": "right"
+  },
+  {
+   "asset_id": "za-joints-995232359",
+   "structure_id": "ankle.anterior_inferior_tibiofibular_ligament.course",
+   "name": "Anterior inferior tibiofibular ligament: Course",
+   "kind": "structure",
+   "quote": "Anterior tibiofibular ligament",
+   "evidence": "another_name",
+   "another_name": {
+    "label_word": "anterior tibiofibular ligament",
+    "requirement_word": "anterior inferior tibiofibular ligament"
+   },
+   "leaf_basis": "body_part",
+   "investigations": [
+    "ra.ankle-fractures",
+    "ra.foot-ankle-cases",
+    "ra.mri-ankle"
+   ],
+   "added_investigations": [
+    "ra.ankle-fractures",
+    "ra.foot-ankle-cases",
+    "ra.mri-ankle"
+   ],
+   "side": "examined_side",
+   "model_side": "right"
+  },
+  {
+   "asset_id": "za-joints-614802793",
+   "structure_id": "ankle.posterior_inferior_tibiofibular_ligament.course",
+   "name": "Posterior inferior tibiofibular ligament: Course",
+   "kind": "structure",
+   "quote": "Posterior tibiofibular ligament",
+   "evidence": "another_name",
+   "another_name": {
+    "label_word": "posterior tibiofibular ligament",
+    "requirement_word": "posterior inferior tibiofibular ligament"
+   },
+   "leaf_basis": "body_part",
+   "investigations": [
+    "ra.ankle-fractures",
+    "ra.foot-ankle-cases",
+    "ra.mri-ankle"
+   ],
+   "added_investigations": [
+    "ra.ankle-fractures",
+    "ra.foot-ankle-cases",
+    "ra.mri-ankle"
+   ],
+   "side": "examined_side",
+   "model_side": "right"
+  },
+  {
+   "asset_id": "za-joints-744517071",
+   "structure_id": "ankle.deltoid_ligament.superficial_tibionavicular_fibres",
+   "name": "Deltoid ligament: Superficial tibionavicular fibres",
+   "kind": "structure",
+   "quote": "Tibionavicular ligament",
+   "evidence": "another_name",
+   "another_name": {
+    "label_word": "tibionavicular ligament",
+    "requirement_word": "superficial tibionavicular fibres"
+   },
+   "leaf_basis": "named_part",
+   "investigations": [
+    "ra.mri-ankle"
+   ],
+   "added_investigations": [
+    "ra.mri-ankle"
+   ],
+   "side": "examined_side",
+   "model_side": "right"
+  },
+  {
+   "asset_id": "za-joints-268562447",
+   "structure_id": "ankle.deltoid_ligament.superficial_tibiocalcaneal_fibres",
+   "name": "Deltoid ligament: Superficial tibiocalcaneal fibres",
+   "kind": "structure",
+   "quote": "Tibiocalcaneal ligament",
+   "evidence": "another_name",
+   "another_name": {
+    "label_word": "tibiocalcaneal ligament",
+    "requirement_word": "superficial tibiocalcaneal fibres"
+   },
+   "leaf_basis": "named_part",
+   "investigations": [
+    "ra.mri-ankle"
+   ],
+   "added_investigations": [
+    "ra.mri-ankle"
+   ],
+   "side": "examined_side",
+   "model_side": "right"
+  },
+  {
+   "asset_id": "za-joints-62709733",
+   "structure_id": "ankle.deltoid_ligament.deep_posterior_tibiotalar_fibres",
+   "name": "Deltoid ligament: Deep posterior tibiotalar fibres",
+   "kind": "structure",
+   "quote": "Posterior tibiotalar ligament",
+   "evidence": "another_name",
+   "another_name": {
+    "label_word": "posterior tibiotalar ligament",
+    "requirement_word": "deep posterior tibiotalar fibres"
+   },
+   "leaf_basis": "named_part",
+   "investigations": [
+    "ra.mri-ankle"
+   ],
+   "added_investigations": [
+    "ra.mri-ankle"
+   ],
+   "side": "examined_side",
+   "model_side": "right"
+  },
+  {
+   "asset_id": "za-joints-343680498",
+   "structure_id": "ankle.interosseous_talocalcaneal_ligament.sinus_tarsi_course",
+   "name": "Interosseous talocalcaneal ligament: Sinus tarsi course",
+   "kind": "structure",
+   "quote": "Talocalcaneal interosseous ligament",
+   "evidence": "own_word",
+   "term": "talocalcaneal interosseous ligament",
+   "leaf_basis": "body_part",
+   "investigations": [
+    "ra.mri-ankle"
+   ],
+   "added_investigations": [
+    "ra.mri-ankle"
+   ],
+   "side": "examined_side",
+   "model_side": "right"
+  },
+  {
+   "asset_id": "za-joints-343680498",
+   "structure_id": "injection.sinus_tarsi_target.cervical_and_interosseous_talocalcaneal_ligaments",
+   "name": "Sinus tarsi target: Cervical and interosseous talocalcaneal ligaments",
+   "kind": "structure",
+   "quote": "Talocalcaneal interosseous ligament",
+   "evidence": "own_word",
+   "term": "talocalcaneal interosseous ligament",
+   "leaf_basis": "group_member",
+   "investigations": [
+    "ra.ultrasound-joint-injection"
+   ],
+   "added_investigations": [
+    "ra.ultrasound-joint-injection"
+   ],
+   "side": "examined_side",
+   "model_side": "right"
+  },
+  {
+   "asset_id": "za-muscles-498927038-material-0",
+   "structure_id": "ankle.posterior_tibial_tendon.retromalleolar_or_anterior_course",
+   "name": "Posterior tibial tendon: Retromalleolar or anterior course",
+   "kind": "structure",
+   "quote": "Tibialis posterior muscle · tendon surface",
+   "evidence": "another_name",
+   "another_name": {
+    "label_word": "tibialis posterior",
+    "requirement_word": "posterior tibial"
+   },
+   "leaf_basis": "body_part",
+   "investigations": [
+    "ra.mri-ankle"
+   ],
+   "added_investigations": [
+    "ra.mri-ankle"
+   ],
+   "side": "examined_side",
+   "model_side": "right"
+  },
+  {
+   "asset_id": "za-muscles-498927038-material-0",
+   "structure_id": "diabetic_foot.posterior_tibial_tendon.visible_tendon_course",
+   "name": "Posterior tibial tendon: Visible tendon course",
+   "kind": "structure",
+   "quote": "Tibialis posterior muscle · tendon surface",
+   "evidence": "another_name",
+   "another_name": {
+    "label_word": "tibialis posterior",
+    "requirement_word": "posterior tibial"
+   },
+   "leaf_basis": "body_part",
+   "investigations": [
+    "ra.mri-diabetic-foot"
+   ],
+   "added_investigations": [],
+   "side": "examined_side",
+   "model_side": "right"
+  },
+  {
+   "asset_id": "za-muscles-622768040-material-0",
+   "structure_id": "ankle.flexor_digitorum_longus_tendon.retromalleolar_or_anterior_course",
+   "name": "Flexor digitorum longus tendon: Retromalleolar or anterior course",
+   "kind": "structure",
+   "quote": "Flexor digitorum longus · tendon surface",
+   "evidence": "own_word",
+   "term": "flexor digitorum longus tendon",
+   "leaf_basis": "body_part",
+   "investigations": [
+    "ra.mri-ankle"
+   ],
+   "added_investigations": [
+    "ra.mri-ankle"
+   ],
+   "side": "examined_side",
+   "model_side": "right"
+  },
+  {
+   "asset_id": "za-muscles-622768040-material-0",
+   "structure_id": "diabetic_foot.flexor_digitorum_longus_tendons.visible_tendon_course",
+   "name": "Flexor digitorum longus tendons: Visible tendon course",
+   "kind": "structure",
+   "quote": "Flexor digitorum longus · tendon surface",
+   "evidence": "own_word",
+   "term": "flexor digitorum longus tendon",
+   "leaf_basis": "body_part",
+   "investigations": [
+    "ra.mri-diabetic-foot"
+   ],
+   "added_investigations": [],
+   "side": "examined_side",
+   "model_side": "right"
+  },
+  {
+   "asset_id": "za-muscles-632232163-material-0",
+   "structure_id": "ankle.flexor_hallucis_longus_tendon.retromalleolar_or_anterior_course",
+   "name": "Flexor hallucis longus tendon: Retromalleolar or anterior course",
+   "kind": "structure",
+   "quote": "Flexor hallucis longus · tendon surface",
+   "evidence": "own_word",
+   "term": "flexor hallucis longus tendon",
+   "leaf_basis": "body_part",
+   "investigations": [
+    "ra.mri-ankle"
+   ],
+   "added_investigations": [
+    "ra.mri-ankle"
+   ],
+   "side": "examined_side",
+   "model_side": "right"
+  },
+  {
+   "asset_id": "za-muscles-632232163-material-0",
+   "structure_id": "diabetic_foot.flexor_hallucis_longus_tendon.visible_tendon_course",
+   "name": "Flexor hallucis longus tendon: Visible tendon course",
+   "kind": "structure",
+   "quote": "Flexor hallucis longus · tendon surface",
+   "evidence": "own_word",
+   "term": "flexor hallucis longus tendon",
+   "leaf_basis": "body_part",
+   "investigations": [
+    "ra.mri-diabetic-foot"
+   ],
+   "added_investigations": [],
+   "side": "examined_side",
+   "model_side": "right"
+  },
+  {
+   "asset_id": "za-muscles-245217129-material-0",
+   "structure_id": "ankle.tibialis_anterior_tendon.retromalleolar_or_anterior_course",
+   "name": "Tibialis anterior tendon: Retromalleolar or anterior course",
+   "kind": "structure",
+   "quote": "Tibialis anterior muscle · tendon surface",
+   "evidence": "own_word",
+   "term": "tibialis anterior tendon",
+   "leaf_basis": "body_part",
+   "investigations": [
+    "ra.mri-ankle"
+   ],
+   "added_investigations": [
+    "ra.mri-ankle"
+   ],
+   "side": "examined_side",
+   "model_side": "right"
+  },
+  {
+   "asset_id": "za-muscles-120752132-material-0",
+   "structure_id": "ankle.extensor_hallucis_longus_tendon.retromalleolar_or_anterior_course",
+   "name": "Extensor hallucis longus tendon: Retromalleolar or anterior course",
+   "kind": "structure",
+   "quote": "Extensor hallucis longus · tendon surface",
+   "evidence": "own_word",
+   "term": "extensor hallucis longus tendon",
+   "leaf_basis": "body_part",
+   "investigations": [
+    "ra.mri-ankle"
+   ],
+   "added_investigations": [
+    "ra.mri-ankle"
+   ],
+   "side": "examined_side",
+   "model_side": "right"
+  },
+  {
+   "asset_id": "za-muscles-120752132-material-0",
+   "structure_id": "diabetic_foot.extensor_hallucis_longus_tendon.visible_tendon_course",
+   "name": "Extensor hallucis longus tendon: Visible tendon course",
+   "kind": "structure",
+   "quote": "Extensor hallucis longus · tendon surface",
+   "evidence": "own_word",
+   "term": "extensor hallucis longus tendon",
+   "leaf_basis": "body_part",
+   "investigations": [
+    "ra.mri-diabetic-foot"
+   ],
+   "added_investigations": [],
+   "side": "examined_side",
+   "model_side": "right"
+  },
+  {
+   "asset_id": "za-muscles-71171280-material-0",
+   "structure_id": "ankle.extensor_digitorum_longus_tendon.retromalleolar_or_anterior_course",
+   "name": "Extensor digitorum longus tendon: Retromalleolar or anterior course",
+   "kind": "structure",
+   "quote": "Extensor digitorum longus · tendon surface",
+   "evidence": "own_word",
+   "term": "extensor digitorum longus tendon",
+   "leaf_basis": "body_part",
+   "investigations": [
+    "ra.mri-ankle"
+   ],
+   "added_investigations": [
+    "ra.mri-ankle"
+   ],
+   "side": "examined_side",
+   "model_side": "right"
+  },
+  {
+   "asset_id": "za-muscles-71171280-material-0",
+   "structure_id": "diabetic_foot.extensor_digitorum_longus_tendons.visible_tendon_course",
+   "name": "Extensor digitorum longus tendons: Visible tendon course",
+   "kind": "structure",
+   "quote": "Extensor digitorum longus · tendon surface",
+   "evidence": "own_word",
+   "term": "extensor digitorum longus tendon",
+   "leaf_basis": "body_part",
+   "investigations": [
+    "ra.mri-diabetic-foot"
+   ],
+   "added_investigations": [],
+   "side": "examined_side",
+   "model_side": "right"
+  },
+  {
+   "asset_id": "za-muscles-654616173",
+   "structure_id": "ankle.extensor_digitorum_longus_tendon.retromalleolar_or_anterior_course",
+   "name": "Extensor digitorum longus tendon: Retromalleolar or anterior course",
+   "kind": "structure",
+   "quote": "Tendon of extensor digitorum longus",
+   "evidence": "own_word",
+   "term": "extensor digitorum longus tendon",
+   "leaf_basis": "body_part",
+   "investigations": [
+    "ra.mri-ankle"
+   ],
+   "added_investigations": [
+    "ra.mri-ankle"
+   ],
+   "side": "examined_side",
+   "model_side": "right"
+  },
+  {
+   "asset_id": "za-muscles-654616173",
+   "structure_id": "diabetic_foot.extensor_digitorum_longus_tendons.visible_tendon_course",
+   "name": "Extensor digitorum longus tendons: Visible tendon course",
+   "kind": "structure",
+   "quote": "Tendon of extensor digitorum longus",
+   "evidence": "own_word",
+   "term": "extensor digitorum longus tendon",
+   "leaf_basis": "body_part",
+   "investigations": [
+    "ra.mri-diabetic-foot"
+   ],
+   "added_investigations": [],
+   "side": "examined_side",
+   "model_side": "right"
+  },
+  {
+   "asset_id": "za-muscles-235597193-material-1",
+   "structure_id": "ankle.fibularis_longus_tendon.retromalleolar_or_anterior_course",
+   "name": "Fibularis longus tendon: Retromalleolar or anterior course",
+   "kind": "structure",
+   "quote": "Fibularis longus muscle · tendon surface",
+   "evidence": "own_word",
+   "term": "fibularis longus tendon",
+   "leaf_basis": "body_part",
+   "investigations": [
+    "ra.mri-ankle"
+   ],
+   "added_investigations": [
+    "ra.mri-ankle"
+   ],
+   "side": "examined_side",
+   "model_side": "right"
+  },
+  {
+   "asset_id": "za-muscles-235597193-material-1",
+   "structure_id": "diabetic_foot.fibularis_longus_tendon.visible_tendon_course",
+   "name": "Fibularis longus tendon: Visible tendon course",
+   "kind": "structure",
+   "quote": "Fibularis longus muscle · tendon surface",
+   "evidence": "own_word",
+   "term": "fibularis longus tendon",
+   "leaf_basis": "body_part",
+   "investigations": [
+    "ra.mri-diabetic-foot"
+   ],
+   "added_investigations": [],
+   "side": "examined_side",
+   "model_side": "right"
+  },
+  {
+   "asset_id": "za-muscles-144360526-material-0",
+   "structure_id": "ankle.fibularis_brevis_tendon.retromalleolar_or_anterior_course",
+   "name": "Fibularis brevis tendon: Retromalleolar or anterior course",
+   "kind": "structure",
+   "quote": "Fibularis brevis muscle · tendon surface",
+   "evidence": "own_word",
+   "term": "fibularis brevis tendon",
+   "leaf_basis": "body_part",
+   "investigations": [
+    "ra.mri-ankle"
+   ],
+   "added_investigations": [
+    "ra.mri-ankle"
+   ],
+   "side": "examined_side",
+   "model_side": "right"
+  },
+  {
+   "asset_id": "za-muscles-144360526-material-0",
+   "structure_id": "diabetic_foot.fibularis_brevis_tendon.visible_tendon_course",
+   "name": "Fibularis brevis tendon: Visible tendon course",
+   "kind": "structure",
+   "quote": "Fibularis brevis muscle · tendon surface",
+   "evidence": "own_word",
+   "term": "fibularis brevis tendon",
+   "leaf_basis": "body_part",
+   "investigations": [
+    "ra.mri-diabetic-foot"
+   ],
+   "added_investigations": [],
+   "side": "examined_side",
+   "model_side": "right"
+  },
+  {
+   "asset_id": "za-muscles-775355141",
+   "structure_id": "ankle.achilles_tendon.midportion",
+   "name": "Achilles tendon: Midportion",
+   "kind": "structure",
+   "quote": "Calcaneal tendon",
+   "evidence": "another_name",
+   "another_name": {
+    "label_word": "calcaneal tendon",
+    "requirement_word": "achilles tendon"
+   },
+   "leaf_basis": "body_part",
+   "investigations": [
+    "ra.mri-ankle"
+   ],
+   "added_investigations": [
+    "ra.mri-ankle"
+   ],
+   "side": "examined_side",
+   "model_side": "right"
+  },
+  {
+   "asset_id": "za-muscles-775355141",
+   "structure_id": "diabetic_foot.achilles_tendon.visible_tendon_course",
+   "name": "Achilles tendon: Visible tendon course",
+   "kind": "structure",
+   "quote": "Calcaneal tendon",
+   "evidence": "another_name",
+   "another_name": {
+    "label_word": "calcaneal tendon",
+    "requirement_word": "achilles tendon"
+   },
+   "leaf_basis": "body_part",
+   "investigations": [
+    "ra.mri-diabetic-foot"
+   ],
+   "added_investigations": [],
+   "side": "examined_side",
+   "model_side": "right"
+  },
+  {
+   "asset_id": "um-ankle-tendon-archilles",
+   "structure_id": "ankle.achilles_tendon.midportion",
+   "name": "Achilles tendon: Midportion",
+   "kind": "structure",
+   "quote": "Achilles tendon",
+   "evidence": "own_word",
+   "term": "achilles tendon",
+   "leaf_basis": "body_part",
+   "investigations": [
+    "ra.mri-ankle"
+   ],
+   "added_investigations": [],
+   "side": "examined_side",
+   "model_side": "right"
+  },
+  {
+   "asset_id": "za-muscles-921875828",
+   "structure_id": "ankle.tibialis_anterior_tendon.tendon_sheath",
+   "name": "Tibialis anterior tendon: Tendon sheath",
+   "kind": "structure",
+   "quote": "Tendon sheath of tibialis anterior",
+   "evidence": "own_word",
+   "term": "tibialis anterior tendon sheath",
+   "leaf_basis": "named_part",
+   "investigations": [
+    "ra.mri-ankle"
+   ],
+   "added_investigations": [
+    "ra.mri-ankle"
+   ],
+   "side": "examined_side",
+   "model_side": "right"
+  },
+  {
+   "asset_id": "za-muscles-417444599",
+   "structure_id": "ankle.extensor_hallucis_longus_tendon.tendon_sheath",
+   "name": "Extensor hallucis longus tendon: Tendon sheath",
+   "kind": "structure",
+   "quote": "Tendon sheath of extensor hallucis longus",
+   "evidence": "own_word",
+   "term": "extensor hallucis longus tendon sheath",
+   "leaf_basis": "named_part",
+   "investigations": [
+    "ra.mri-ankle"
+   ],
+   "added_investigations": [
+    "ra.mri-ankle"
+   ],
+   "side": "examined_side",
+   "model_side": "right"
+  },
+  {
+   "asset_id": "za-muscles-417444599",
+   "structure_id": "diabetic_foot.extensor_hallucis_longus_tendon.sheath_or_achilles_paratenon",
+   "name": "Extensor hallucis longus tendon: Sheath or Achilles paratenon",
+   "kind": "structure",
+   "quote": "Tendon sheath of extensor hallucis longus",
+   "evidence": "own_word",
+   "term": "extensor hallucis longus tendon sheath",
+   "leaf_basis": "named_part",
+   "investigations": [
+    "ra.mri-diabetic-foot"
+   ],
+   "added_investigations": [],
+   "side": "examined_side",
+   "model_side": "right"
+  },
+  {
+   "asset_id": "za-muscles-212087649",
+   "structure_id": "ankle.extensor_digitorum_longus_tendon.tendon_sheath",
+   "name": "Extensor digitorum longus tendon: Tendon sheath",
+   "kind": "structure",
+   "quote": "Tendon sheath of extensor digitorum longus",
+   "evidence": "own_word",
+   "term": "extensor digitorum longus tendon sheath",
+   "leaf_basis": "named_part",
+   "investigations": [
+    "ra.mri-ankle"
+   ],
+   "added_investigations": [
+    "ra.mri-ankle"
+   ],
+   "side": "examined_side",
+   "model_side": "right"
+  },
+  {
+   "asset_id": "za-muscles-212087649",
+   "structure_id": "diabetic_foot.extensor_digitorum_longus_tendons.sheath_or_achilles_paratenon",
+   "name": "Extensor digitorum longus tendons: Sheath or Achilles paratenon",
+   "kind": "structure",
+   "quote": "Tendon sheath of extensor digitorum longus",
+   "evidence": "own_word",
+   "term": "extensor digitorum longus tendon sheath",
+   "leaf_basis": "named_part",
+   "investigations": [
+    "ra.mri-diabetic-foot"
+   ],
+   "added_investigations": [],
+   "side": "examined_side",
+   "model_side": "right"
+  },
+  {
+   "asset_id": "za-muscles-563214887",
+   "structure_id": "ankle.flexor_digitorum_longus_tendon.tendon_sheath",
+   "name": "Flexor digitorum longus tendon: Tendon sheath",
+   "kind": "structure",
+   "quote": "Tendon sheath of flexor digitorum longus",
+   "evidence": "own_word",
+   "term": "flexor digitorum longus tendon sheath",
+   "leaf_basis": "named_part",
+   "investigations": [
+    "ra.mri-ankle"
+   ],
+   "added_investigations": [
+    "ra.mri-ankle"
+   ],
+   "side": "examined_side",
+   "model_side": "right"
+  },
+  {
+   "asset_id": "za-muscles-563214887",
+   "structure_id": "diabetic_foot.flexor_digitorum_longus_tendons.sheath_or_achilles_paratenon",
+   "name": "Flexor digitorum longus tendons: Sheath or Achilles paratenon",
+   "kind": "structure",
+   "quote": "Tendon sheath of flexor digitorum longus",
+   "evidence": "own_word",
+   "term": "flexor digitorum longus tendon sheath",
+   "leaf_basis": "named_part",
+   "investigations": [
+    "ra.mri-diabetic-foot"
+   ],
+   "added_investigations": [],
+   "side": "examined_side",
+   "model_side": "right"
+  },
+  {
+   "asset_id": "za-muscles-381356990",
+   "structure_id": "ankle.posterior_tibial_tendon.tendon_sheath",
+   "name": "Posterior tibial tendon: Tendon sheath",
+   "kind": "structure",
+   "quote": "Tendon sheath of tibialis posterior muscle",
+   "evidence": "another_name",
+   "another_name": {
+    "label_word": "tibialis posterior",
+    "requirement_word": "posterior tibial"
+   },
+   "leaf_basis": "named_part",
+   "investigations": [
+    "ra.mri-ankle"
+   ],
+   "added_investigations": [
+    "ra.mri-ankle"
+   ],
+   "side": "examined_side",
+   "model_side": "right"
+  },
+  {
+   "asset_id": "za-muscles-381356990",
+   "structure_id": "diabetic_foot.posterior_tibial_tendon.sheath_or_achilles_paratenon",
+   "name": "Posterior tibial tendon: Sheath or Achilles paratenon",
+   "kind": "structure",
+   "quote": "Tendon sheath of tibialis posterior muscle",
+   "evidence": "another_name",
+   "another_name": {
+    "label_word": "tibialis posterior",
+    "requirement_word": "posterior tibial"
+   },
+   "leaf_basis": "named_part",
+   "investigations": [
+    "ra.mri-diabetic-foot"
+   ],
+   "added_investigations": [],
+   "side": "examined_side",
+   "model_side": "right"
+  },
+  {
+   "asset_id": "za-muscles-275120679",
+   "structure_id": "ankle.flexor_hallucis_longus_tendon.tendon_sheath",
+   "name": "Flexor hallucis longus tendon: Tendon sheath",
+   "kind": "structure",
+   "quote": "Tendon sheath of flexor hallucis longus",
+   "evidence": "own_word",
+   "term": "flexor hallucis longus tendon sheath",
+   "leaf_basis": "named_part",
+   "investigations": [
+    "ra.mri-ankle"
+   ],
+   "added_investigations": [
+    "ra.mri-ankle"
+   ],
+   "side": "examined_side",
+   "model_side": "right"
+  },
+  {
+   "asset_id": "za-muscles-275120679",
+   "structure_id": "diabetic_foot.flexor_hallucis_longus_tendon.sheath_or_achilles_paratenon",
+   "name": "Flexor hallucis longus tendon: Sheath or Achilles paratenon",
+   "kind": "structure",
+   "quote": "Tendon sheath of flexor hallucis longus",
+   "evidence": "own_word",
+   "term": "flexor hallucis longus tendon sheath",
+   "leaf_basis": "named_part",
+   "investigations": [
+    "ra.mri-diabetic-foot"
+   ],
+   "added_investigations": [],
+   "side": "examined_side",
+   "model_side": "right"
+  },
+  {
+   "asset_id": "za-muscles-69359382",
+   "structure_id": "ankle.fibularis_longus_tendon.tendon_sheath",
+   "name": "Fibularis longus tendon: Tendon sheath",
+   "kind": "structure",
+   "quote": "Common tendon sheath of fibularis muscles",
+   "evidence": "own_word",
+   "term": "fibularis tendon sheath",
+   "leaf_basis": "named_part",
+   "investigations": [
+    "ra.mri-ankle"
+   ],
+   "added_investigations": [
+    "ra.mri-ankle"
+   ],
+   "side": "examined_side",
+   "model_side": "right"
+  },
+  {
+   "asset_id": "za-muscles-69359382",
+   "structure_id": "ankle.fibularis_brevis_tendon.tendon_sheath",
+   "name": "Fibularis brevis tendon: Tendon sheath",
+   "kind": "structure",
+   "quote": "Common tendon sheath of fibularis muscles",
+   "evidence": "own_word",
+   "term": "fibularis tendon sheath",
+   "leaf_basis": "named_part",
+   "investigations": [
+    "ra.mri-ankle"
+   ],
+   "added_investigations": [
+    "ra.mri-ankle"
+   ],
+   "side": "examined_side",
+   "model_side": "right"
+  },
+  {
+   "asset_id": "za-muscles-69359382",
+   "structure_id": "diabetic_foot.fibularis_longus_tendon.sheath_or_achilles_paratenon",
+   "name": "Fibularis longus tendon: Sheath or Achilles paratenon",
+   "kind": "structure",
+   "quote": "Common tendon sheath of fibularis muscles",
+   "evidence": "own_word",
+   "term": "fibularis tendon sheath",
+   "leaf_basis": "named_part",
+   "investigations": [
+    "ra.mri-diabetic-foot"
+   ],
+   "added_investigations": [],
+   "side": "examined_side",
+   "model_side": "right"
+  },
+  {
+   "asset_id": "za-muscles-69359382",
+   "structure_id": "diabetic_foot.fibularis_brevis_tendon.sheath_or_achilles_paratenon",
+   "name": "Fibularis brevis tendon: Sheath or Achilles paratenon",
+   "kind": "structure",
+   "quote": "Common tendon sheath of fibularis muscles",
+   "evidence": "own_word",
+   "term": "fibularis tendon sheath",
+   "leaf_basis": "named_part",
+   "investigations": [
+    "ra.mri-diabetic-foot"
+   ],
+   "added_investigations": [],
+   "side": "examined_side",
+   "model_side": "right"
+  },
+  {
+   "asset_id": "za-muscles-726761018",
+   "structure_id": "ankle.fibularis_longus_tendon.tendon_sheath",
+   "name": "Fibularis longus tendon: Tendon sheath",
+   "kind": "structure",
+   "quote": "Plantar tendon sheath of fibularis longus muscle",
+   "evidence": "own_word",
+   "term": "fibularis longus tendon sheath",
+   "leaf_basis": "named_part",
+   "investigations": [
+    "ra.mri-ankle"
+   ],
+   "added_investigations": [
+    "ra.mri-ankle"
+   ],
+   "side": "examined_side",
+   "model_side": "right"
+  },
+  {
+   "asset_id": "za-muscles-726761018",
+   "structure_id": "diabetic_foot.fibularis_longus_tendon.sheath_or_achilles_paratenon",
+   "name": "Fibularis longus tendon: Sheath or Achilles paratenon",
+   "kind": "structure",
+   "quote": "Plantar tendon sheath of fibularis longus muscle",
+   "evidence": "own_word",
+   "term": "fibularis longus tendon sheath",
+   "leaf_basis": "named_part",
+   "investigations": [
+    "ra.mri-diabetic-foot"
+   ],
+   "added_investigations": [],
+   "side": "examined_side",
+   "model_side": "right"
+  },
+  {
+   "asset_id": "za-muscles-448210086",
+   "structure_id": "ankle.retrocalcaneal_bursa.bursal_boundaries",
+   "name": "Retrocalcaneal bursa: Bursal boundaries",
+   "kind": "structure",
+   "quote": "Subtendinous calcaneal bursa",
+   "evidence": "another_name",
+   "another_name": {
+    "label_word": "subtendinous calcaneal bursa",
+    "requirement_word": "retrocalcaneal bursa"
+   },
+   "leaf_basis": "body_part",
+   "investigations": [
+    "ra.mri-ankle"
+   ],
+   "added_investigations": [
+    "ra.mri-ankle"
+   ],
+   "side": "examined_side",
+   "model_side": "right"
+  },
+  {
+   "asset_id": "za-muscles-674249050",
+   "structure_id": "ankle.subcutaneous_calcaneal_bursa.bursal_boundaries",
+   "name": "Subcutaneous calcaneal bursa: Bursal boundaries",
+   "kind": "structure",
+   "quote": "Subcutaneous calcaneal bursa",
+   "evidence": "own_word",
+   "term": "subcutaneous calcaneal bursa",
+   "leaf_basis": "body_part",
+   "investigations": [
+    "ra.mri-ankle"
+   ],
+   "added_investigations": [
+    "ra.mri-ankle"
+   ],
+   "side": "examined_side",
+   "model_side": "right"
+  },
+  {
+   "asset_id": "za-nerves-473222863",
+   "structure_id": "ankle.tibial_nerve.medial_plantar_branch",
+   "name": "Tibial nerve: Medial plantar branch",
+   "kind": "structure",
+   "quote": "Medial plantar nerve",
+   "evidence": "another_name",
+   "another_name": {
+    "label_word": "medial plantar nerve",
+    "requirement_word": "medial plantar branch"
+   },
+   "leaf_basis": "named_part",
+   "investigations": [
+    "ra.mri-ankle"
+   ],
+   "added_investigations": [
+    "ra.mri-ankle"
+   ],
+   "side": "examined_side",
+   "model_side": "right"
+  },
+  {
+   "asset_id": "za-nerves-356827246",
+   "structure_id": "ankle.tibial_nerve.lateral_plantar_branch",
+   "name": "Tibial nerve: Lateral plantar branch",
+   "kind": "structure",
+   "quote": "Lateral plantar nerve",
+   "evidence": "another_name",
+   "another_name": {
+    "label_word": "lateral plantar nerve",
+    "requirement_word": "lateral plantar branch"
+   },
+   "leaf_basis": "named_part",
+   "investigations": [
+    "ra.mri-ankle"
+   ],
+   "added_investigations": [
+    "ra.mri-ankle"
+   ],
+   "side": "examined_side",
+   "model_side": "right"
+  },
+  {
+   "asset_id": "za-bones-81077546-material-1",
+   "structure_id": "foot.talus.articular_surfaces",
+   "name": "Talus: Articular surfaces",
+   "kind": "structure",
+   "quote": "Talus · cartilage surface",
+   "evidence": "another_name",
+   "another_name": {
+    "label_word": "cartilage surface",
+    "requirement_word": "articular surfaces"
+   },
+   "leaf_basis": "named_part",
+   "investigations": [
+    "ra.mri-diabetic-foot"
+   ],
+   "added_investigations": [],
+   "side": "examined_side",
+   "model_side": "right"
+  },
+  {
+   "asset_id": "za-bones-958396538-material-0",
+   "structure_id": "foot.calcaneus.articular_surfaces",
+   "name": "Calcaneus: Articular surfaces",
+   "kind": "structure",
+   "quote": "Calcaneus · cartilage surface",
+   "evidence": "another_name",
+   "another_name": {
+    "label_word": "cartilage surface",
+    "requirement_word": "articular surfaces"
+   },
+   "leaf_basis": "named_part",
+   "investigations": [
+    "ra.mri-diabetic-foot"
+   ],
+   "added_investigations": [],
+   "side": "examined_side",
+   "model_side": "right"
+  },
+  {
+   "asset_id": "za-bones-487761000-material-1",
+   "structure_id": "foot.navicular.articular_surfaces",
+   "name": "Navicular: Articular surfaces",
+   "kind": "structure",
+   "quote": "Navicular bone · cartilage surface",
+   "evidence": "another_name",
+   "another_name": {
+    "label_word": "cartilage surface",
+    "requirement_word": "articular surfaces"
+   },
+   "leaf_basis": "named_part",
+   "investigations": [
+    "ra.mri-diabetic-foot"
+   ],
+   "added_investigations": [],
+   "side": "examined_side",
+   "model_side": "right"
+  },
+  {
+   "asset_id": "za-bones-444117336-material-1",
+   "structure_id": "foot.cuboid.articular_surfaces",
+   "name": "Cuboid: Articular surfaces",
+   "kind": "structure",
+   "quote": "Cuboid bone · cartilage surface",
+   "evidence": "another_name",
+   "another_name": {
+    "label_word": "cartilage surface",
+    "requirement_word": "articular surfaces"
+   },
+   "leaf_basis": "named_part",
+   "investigations": [
+    "ra.mri-ankle",
+    "ra.mri-diabetic-foot"
+   ],
+   "added_investigations": [
+    "ra.mri-ankle"
+   ],
+   "side": "examined_side",
+   "model_side": "right"
+  },
+  {
+   "asset_id": "za-bones-734101807-material-1",
+   "structure_id": "foot.medial_cuneiform.articular_surfaces",
+   "name": "Medial cuneiform: Articular surfaces",
+   "kind": "structure",
+   "quote": "Medial cuneiform bone · cartilage surface",
+   "evidence": "another_name",
+   "another_name": {
+    "label_word": "cartilage surface",
+    "requirement_word": "articular surfaces"
+   },
+   "leaf_basis": "named_part",
+   "investigations": [
+    "ra.ankle-fractures",
+    "ra.foot-ankle-cases",
+    "ra.mri-ankle",
+    "ra.mri-diabetic-foot"
+   ],
+   "added_investigations": [
+    "ra.ankle-fractures",
+    "ra.foot-ankle-cases",
+    "ra.mri-ankle"
+   ],
+   "side": "examined_side",
+   "model_side": "right"
+  },
+  {
+   "asset_id": "za-bones-314913365-material-1",
+   "structure_id": "foot.intermediate_cuneiform.articular_surfaces",
+   "name": "Intermediate cuneiform: Articular surfaces",
+   "kind": "structure",
+   "quote": "Intermediate cuneiform bone · cartilage surface",
+   "evidence": "another_name",
+   "another_name": {
+    "label_word": "cartilage surface",
+    "requirement_word": "articular surfaces"
+   },
+   "leaf_basis": "named_part",
+   "investigations": [
+    "ra.ankle-fractures",
+    "ra.foot-ankle-cases",
+    "ra.mri-ankle",
+    "ra.mri-diabetic-foot"
+   ],
+   "added_investigations": [
+    "ra.ankle-fractures",
+    "ra.foot-ankle-cases",
+    "ra.mri-ankle"
+   ],
+   "side": "examined_side",
+   "model_side": "right"
+  },
+  {
+   "asset_id": "za-bones-962625739-material-1",
+   "structure_id": "foot.lateral_cuneiform.articular_surfaces",
+   "name": "Lateral cuneiform: Articular surfaces",
+   "kind": "structure",
+   "quote": "Lateral cuneiform bone · cartilage surface",
+   "evidence": "another_name",
+   "another_name": {
+    "label_word": "cartilage surface",
+    "requirement_word": "articular surfaces"
+   },
+   "leaf_basis": "named_part",
+   "investigations": [
+    "ra.ankle-fractures",
+    "ra.foot-ankle-cases",
+    "ra.mri-ankle",
+    "ra.mri-diabetic-foot"
+   ],
+   "added_investigations": [
+    "ra.ankle-fractures",
+    "ra.foot-ankle-cases",
+    "ra.mri-ankle"
+   ],
+   "side": "examined_side",
+   "model_side": "right"
+  },
+  {
+   "asset_id": "za-joints-536305954",
+   "structure_id": "diabetic_foot.hallux_plantar_capsulosesamoid_complex.intersesamoid_ligament",
+   "name": "Hallux plantar capsulosesamoid complex: Intersesamoid ligament",
+   "kind": "structure",
+   "quote": "Intersesamoid ligament",
+   "evidence": "own_word",
+   "term": "intersesamoid ligament",
+   "leaf_basis": "named_part",
+   "investigations": [
+    "ra.mri-diabetic-foot"
+   ],
+   "added_investigations": [],
+   "side": "examined_side",
+   "model_side": "right"
+  },
+  {
+   "asset_id": "za-bones-81077546",
+   "structure_id": "injection.sinus_tarsi_target.talus",
+   "name": "Sinus tarsi target: Talus",
+   "kind": "structure",
+   "quote": "Talus",
+   "evidence": "own_word",
+   "term": "talus",
+   "leaf_basis": "named_part",
+   "investigations": [
+    "ra.ultrasound-joint-injection"
+   ],
+   "added_investigations": [
+    "ra.ultrasound-joint-injection"
+   ],
+   "side": "examined_side",
+   "model_side": "right"
+  },
+  {
+   "asset_id": "za-bones-958396538",
+   "structure_id": "injection.sinus_tarsi_target.calcaneus",
+   "name": "Sinus tarsi target: Calcaneus",
+   "kind": "structure",
+   "quote": "Calcaneus",
+   "evidence": "own_word",
+   "term": "calcaneus",
+   "leaf_basis": "named_part",
+   "investigations": [
+    "ra.ultrasound-joint-injection"
+   ],
+   "added_investigations": [
+    "ra.ultrasound-joint-injection"
+   ],
+   "side": "examined_side",
+   "model_side": "right"
+  },
+  {
+   "asset_id": "za-muscles-235597193-material-1",
+   "structure_id": "injection.posterior_subtalar_target.fibular_tendons",
+   "name": "Posterior subtalar target: Fibular tendons",
+   "kind": "structure",
+   "quote": "Fibularis longus muscle · tendon surface",
+   "evidence": "own_word",
+   "term": "fibularis tendon",
+   "leaf_basis": "group_member",
+   "investigations": [
+    "ra.ultrasound-joint-injection"
+   ],
+   "added_investigations": [
+    "ra.ultrasound-joint-injection"
+   ],
+   "side": "examined_side",
+   "model_side": "right"
+  },
+  {
+   "asset_id": "za-muscles-144360526-material-0",
+   "structure_id": "injection.posterior_subtalar_target.fibular_tendons",
+   "name": "Posterior subtalar target: Fibular tendons",
+   "kind": "structure",
+   "quote": "Fibularis brevis muscle · tendon surface",
+   "evidence": "own_word",
+   "term": "fibularis tendon",
+   "leaf_basis": "group_member",
+   "investigations": [
+    "ra.ultrasound-joint-injection"
+   ],
+   "added_investigations": [
+    "ra.ultrasound-joint-injection"
+   ],
+   "side": "examined_side",
+   "model_side": "right"
+  },
+  {
+   "asset_id": "za-muscles-245217129-material-0",
+   "structure_id": "injection.tibiotalar_target.anterior_tendons",
+   "name": "Tibiotalar target: Anterior tendons",
+   "kind": "structure",
+   "quote": "Tibialis anterior muscle · tendon surface",
+   "evidence": "kind_of",
+   "kind_of": {
+    "label_word": "tibialis anterior",
+    "requirement_word": "anterior tendons"
+   },
+   "leaf_basis": "group_member",
+   "investigations": [
+    "ra.ultrasound-joint-injection"
+   ],
+   "added_investigations": [
+    "ra.ultrasound-joint-injection"
+   ],
+   "side": "examined_side",
+   "model_side": "right"
+  },
+  {
+   "asset_id": "za-muscles-120752132-material-0",
+   "structure_id": "injection.tibiotalar_target.anterior_tendons",
+   "name": "Tibiotalar target: Anterior tendons",
+   "kind": "structure",
+   "quote": "Extensor hallucis longus · tendon surface",
+   "evidence": "kind_of",
+   "kind_of": {
+    "label_word": "extensor hallucis longus",
+    "requirement_word": "anterior tendons"
+   },
+   "leaf_basis": "group_member",
+   "investigations": [
+    "ra.ultrasound-joint-injection"
+   ],
+   "added_investigations": [
+    "ra.ultrasound-joint-injection"
+   ],
+   "side": "examined_side",
+   "model_side": "right"
+  },
+  {
+   "asset_id": "za-muscles-71171280-material-0",
+   "structure_id": "injection.tibiotalar_target.anterior_tendons",
+   "name": "Tibiotalar target: Anterior tendons",
+   "kind": "structure",
+   "quote": "Extensor digitorum longus · tendon surface",
+   "evidence": "kind_of",
+   "kind_of": {
+    "label_word": "extensor digitorum longus",
+    "requirement_word": "anterior tendons"
+   },
+   "leaf_basis": "group_member",
+   "investigations": [
+    "ra.ultrasound-joint-injection"
+   ],
+   "added_investigations": [
+    "ra.ultrasound-joint-injection"
+   ],
+   "side": "examined_side",
+   "model_side": "right"
+  },
+  {
+   "asset_id": "za-muscles-65307038-material-0",
+   "structure_id": "injection.tibiotalar_target.anterior_tendons",
+   "name": "Tibiotalar target: Anterior tendons",
+   "kind": "structure",
+   "quote": "Fibularis tertius muscle · tendon surface",
+   "evidence": "kind_of",
+   "kind_of": {
+    "label_word": "fibularis tertius",
+    "requirement_word": "anterior tendons"
+   },
+   "leaf_basis": "group_member",
+   "investigations": [
+    "ra.ultrasound-joint-injection"
+   ],
+   "added_investigations": [
+    "ra.ultrasound-joint-injection"
+   ],
+   "side": "examined_side",
+   "model_side": "right"
+  },
+  {
+   "asset_id": "za-joints-283420712",
+   "structure_id": "wrist.triangular_fibrocartilage_complex.articular_disc",
+   "name": "Triangular fibrocartilage complex: Articular disc (TFC proper)",
+   "kind": "structure",
+   "quote": "Articular disc of distal radio-ulnar joint",
+   "evidence": "own_word",
+   "term": "articular disc",
+   "leaf_basis": "named_part",
+   "investigations": [
+    "ra.wrist-fractures",
+    "ra.wrist-instability"
+   ],
+   "added_investigations": [
+    "ra.wrist-fractures",
+    "ra.wrist-instability"
+   ],
+   "side": "examined_side",
+   "model_side": "right"
+  },
+  {
+   "asset_id": "za-joints-340094425",
+   "structure_id": "wrist.triangular_fibrocartilage_complex.volar_radioulnar_ligament",
+   "name": "Triangular fibrocartilage complex: Volar (palmar) distal radioulnar ligament",
+   "kind": "structure",
+   "quote": "Palmar radio-ulnar ligament",
+   "evidence": "own_word",
+   "term": "palmar radioulnar ligament",
+   "leaf_basis": "named_part",
+   "investigations": [
+    "ra.wrist-fractures",
+    "ra.wrist-instability"
+   ],
+   "added_investigations": [
+    "ra.wrist-fractures",
+    "ra.wrist-instability"
+   ],
+   "side": "examined_side",
+   "model_side": "right"
+  },
+  {
+   "asset_id": "za-joints-342768763",
+   "structure_id": "wrist.triangular_fibrocartilage_complex.dorsal_radioulnar_ligament",
+   "name": "Triangular fibrocartilage complex: Dorsal distal radioulnar ligament",
+   "kind": "structure",
+   "quote": "Dorsal radio-ulnar ligament",
+   "evidence": "own_word",
+   "term": "dorsal radioulnar ligament",
+   "leaf_basis": "named_part",
+   "investigations": [
+    "ra.wrist-fractures",
+    "ra.wrist-instability"
+   ],
+   "added_investigations": [
+    "ra.wrist-fractures",
+    "ra.wrist-instability"
+   ],
+   "side": "examined_side",
+   "model_side": "right"
+  },
+  {
+   "asset_id": "za-joints-86665965",
+   "structure_id": "wrist.triangular_fibrocartilage_complex.ulnolunate_ligament",
+   "name": "Triangular fibrocartilage complex: Ulnolunate ligament",
+   "kind": "structure",
+   "quote": "Ulnolunate ligament",
+   "evidence": "own_word",
+   "term": "ulnolunate ligament",
+   "leaf_basis": "named_part",
+   "investigations": [
+    "ra.wrist-fractures",
+    "ra.wrist-instability"
+   ],
+   "added_investigations": [
+    "ra.wrist-fractures",
+    "ra.wrist-instability"
+   ],
+   "side": "examined_side",
+   "model_side": "right"
+  },
+  {
+   "asset_id": "za-joints-38623813",
+   "structure_id": "wrist.triangular_fibrocartilage_complex.ulnotriquetral_ligament",
+   "name": "Triangular fibrocartilage complex: Ulnotriquetral ligament",
+   "kind": "structure",
+   "quote": "Ulnotriquetral ligament",
+   "evidence": "own_word",
+   "term": "ulnotriquetral ligament",
+   "leaf_basis": "named_part",
+   "investigations": [
+    "ra.wrist-fractures",
+    "ra.wrist-instability"
+   ],
+   "added_investigations": [
+    "ra.wrist-fractures",
+    "ra.wrist-instability"
+   ],
+   "side": "examined_side",
+   "model_side": "right"
+  },
+  {
+   "asset_id": "za-joints-29406840",
+   "structure_id": "wrist.triangular_fibrocartilage_complex.ulnocapitate_ligament",
+   "name": "Triangular fibrocartilage complex: Ulnocapitate ligament",
+   "kind": "structure",
+   "quote": "Ulnocapitate ligament",
+   "evidence": "own_word",
+   "term": "ulnocapitate ligament",
+   "leaf_basis": "named_part",
+   "investigations": [
+    "ra.wrist-fractures",
+    "ra.wrist-instability"
+   ],
+   "added_investigations": [
+    "ra.wrist-fractures",
+    "ra.wrist-instability"
+   ],
+   "side": "examined_side",
+   "model_side": "right"
+  },
+  {
+   "asset_id": "za-bones-367424422",
+   "structure_id": "injection.radiocarpal_target.scaphoid",
+   "name": "Radiocarpal target: Scaphoid",
+   "kind": "structure",
+   "quote": "Scaphoid bone",
+   "evidence": "own_word",
+   "term": "scaphoid",
+   "leaf_basis": "named_part",
+   "investigations": [
+    "ra.ultrasound-joint-injection"
+   ],
+   "added_investigations": [
+    "ra.ultrasound-joint-injection"
+   ],
+   "side": "examined_side",
+   "model_side": "right"
+  },
+  {
+   "asset_id": "za-muscles-72952947",
+   "structure_id": "shoulder.supraspinatus_muscle.muscle_belly",
+   "name": "Supraspinatus muscle: Muscle belly",
+   "kind": "structure",
+   "quote": "Supraspinatus muscle",
+   "evidence": "own_word",
+   "term": "supraspinatus muscle",
+   "leaf_basis": "body_part",
+   "investigations": [
+    "ra.mri-shoulder"
+   ],
+   "added_investigations": [
+    "ra.mri-shoulder"
+   ],
+   "side": "examined_side",
+   "model_side": "right"
+  },
+  {
+   "asset_id": "za-muscles-72952947",
+   "structure_id": "shoulder.supraspinatus_muscle",
+   "name": "Supraspinatus muscle",
+   "kind": "structure",
+   "quote": "Supraspinatus muscle",
+   "evidence": "own_word",
+   "term": "supraspinatus muscle",
+   "leaf_basis": "structure",
+   "investigations": [
+    "ra.ultrasound-shoulder"
+   ],
+   "added_investigations": [
+    "ra.ultrasound-shoulder"
+   ],
+   "side": "examined_side",
+   "model_side": "right"
+  },
+  {
+   "asset_id": "za-muscles-805853519",
+   "structure_id": "shoulder.infraspinatus_muscle.muscle_belly",
+   "name": "Infraspinatus muscle: Muscle belly",
+   "kind": "structure",
+   "quote": "Infraspinatus muscle",
+   "evidence": "own_word",
+   "term": "infraspinatus muscle",
+   "leaf_basis": "body_part",
+   "investigations": [
+    "ra.mri-shoulder"
+   ],
+   "added_investigations": [
+    "ra.mri-shoulder"
+   ],
+   "side": "examined_side",
+   "model_side": "right"
+  },
+  {
+   "asset_id": "za-muscles-805853519",
+   "structure_id": "shoulder.infraspinatus_muscle",
+   "name": "Infraspinatus muscle",
+   "kind": "structure",
+   "quote": "Infraspinatus muscle",
+   "evidence": "own_word",
+   "term": "infraspinatus muscle",
+   "leaf_basis": "structure",
+   "investigations": [
+    "ra.ultrasound-shoulder"
+   ],
+   "added_investigations": [
+    "ra.ultrasound-shoulder"
+   ],
+   "side": "examined_side",
+   "model_side": "right"
+  },
+  {
+   "asset_id": "za-muscles-599750783",
+   "structure_id": "shoulder.subscapularis_muscle.muscle_belly",
+   "name": "Subscapularis muscle: Muscle belly",
+   "kind": "structure",
+   "quote": "Subscapularis muscle",
+   "evidence": "own_word",
+   "term": "subscapularis muscle",
+   "leaf_basis": "body_part",
+   "investigations": [
+    "ra.mri-shoulder"
+   ],
+   "added_investigations": [
+    "ra.mri-shoulder"
+   ],
+   "side": "examined_side",
+   "model_side": "right"
+  },
+  {
+   "asset_id": "za-muscles-599750783",
+   "structure_id": "shoulder.subscapularis_muscle",
+   "name": "Subscapularis muscle",
+   "kind": "structure",
+   "quote": "Subscapularis muscle",
+   "evidence": "own_word",
+   "term": "subscapularis muscle",
+   "leaf_basis": "structure",
+   "investigations": [
+    "ra.ultrasound-shoulder"
+   ],
+   "added_investigations": [
+    "ra.ultrasound-shoulder"
+   ],
+   "side": "examined_side",
+   "model_side": "right"
+  },
+  {
+   "asset_id": "za-muscles-822740360",
+   "structure_id": "shoulder.teres_minor_muscle.muscle_belly",
+   "name": "Teres minor muscle: Muscle belly",
+   "kind": "structure",
+   "quote": "Teres minor muscle",
+   "evidence": "own_word",
+   "term": "teres minor muscle",
+   "leaf_basis": "body_part",
+   "investigations": [
+    "ra.mri-shoulder"
+   ],
+   "added_investigations": [
+    "ra.mri-shoulder"
+   ],
+   "side": "examined_side",
+   "model_side": "right"
+  },
+  {
+   "asset_id": "za-muscles-822740360",
+   "structure_id": "shoulder.teres_minor_muscle",
+   "name": "Teres minor muscle",
+   "kind": "structure",
+   "quote": "Teres minor muscle",
+   "evidence": "own_word",
+   "term": "teres minor muscle",
+   "leaf_basis": "structure",
+   "investigations": [
+    "ra.ultrasound-shoulder"
+   ],
+   "added_investigations": [
+    "ra.ultrasound-shoulder"
+   ],
+   "side": "examined_side",
+   "model_side": "right"
+  },
+  {
+   "asset_id": "za-muscles-805853519-material-1",
+   "structure_id": "shoulder.infraspinatus_tendon.tendon_substance",
+   "name": "Infraspinatus tendon: Tendon substance",
+   "kind": "structure",
+   "quote": "Infraspinatus muscle · tendon surface",
+   "evidence": "own_word",
+   "term": "infraspinatus tendon",
+   "leaf_basis": "body_part",
+   "investigations": [
+    "ra.mri-shoulder"
+   ],
+   "added_investigations": [
+    "ra.mri-shoulder"
+   ],
+   "side": "examined_side",
+   "model_side": "right"
+  },
+  {
+   "asset_id": "za-muscles-805853519-material-1",
+   "structure_id": "injection.glenohumeral_posterior_target.infraspinatus_tendon",
+   "name": "Glenohumeral posterior target: Infraspinatus tendon",
+   "kind": "structure",
+   "quote": "Infraspinatus muscle · tendon surface",
+   "evidence": "own_word",
+   "term": "infraspinatus tendon",
+   "leaf_basis": "named_part",
+   "investigations": [
+    "ra.ultrasound-joint-injection"
+   ],
+   "added_investigations": [
+    "ra.ultrasound-joint-injection"
+   ],
+   "side": "examined_side",
+   "model_side": "right"
+  },
+  {
+   "asset_id": "za-muscles-506767053",
+   "structure_id": "shoulder.deltoid_muscle.anterior",
+   "name": "Deltoid muscle: Anterior",
+   "kind": "structure",
+   "quote": "Clavicular part of deltoid muscle",
+   "evidence": "another_name",
+   "another_name": {
+    "label_word": "clavicular part of deltoid muscle",
+    "requirement_word": "anterior deltoid"
+   },
+   "leaf_basis": "named_part",
+   "investigations": [
+    "ra.mri-shoulder"
+   ],
+   "added_investigations": [
+    "ra.mri-shoulder"
+   ],
+   "side": "examined_side",
+   "model_side": "right"
+  },
+  {
+   "asset_id": "za-muscles-969083175",
+   "structure_id": "shoulder.deltoid_muscle.middle",
+   "name": "Deltoid muscle: Middle",
+   "kind": "structure",
+   "quote": "Acromial part of deltoid muscle",
+   "evidence": "another_name",
+   "another_name": {
+    "label_word": "acromial part of deltoid muscle",
+    "requirement_word": "middle deltoid"
+   },
+   "leaf_basis": "named_part",
+   "investigations": [
+    "ra.mri-shoulder"
+   ],
+   "added_investigations": [
+    "ra.mri-shoulder"
+   ],
+   "side": "examined_side",
+   "model_side": "right"
+  },
+  {
+   "asset_id": "za-muscles-806276737",
+   "structure_id": "shoulder.deltoid_muscle.posterior",
+   "name": "Deltoid muscle: Posterior",
+   "kind": "structure",
+   "quote": "Scapular spinal part of deltoid muscle",
+   "evidence": "another_name",
+   "another_name": {
+    "label_word": "scapular spinal part of deltoid muscle",
+    "requirement_word": "posterior deltoid"
+   },
+   "leaf_basis": "named_part",
+   "investigations": [
+    "ra.mri-shoulder"
+   ],
+   "added_investigations": [
+    "ra.mri-shoulder"
+   ],
+   "side": "examined_side",
+   "model_side": "right"
+  },
+  {
+   "asset_id": "za-muscles-848390498",
+   "structure_id": "shoulder.long_head_biceps_tendon.tendon_sheath",
+   "name": "Long head biceps tendon: Tendon sheath",
+   "kind": "structure",
+   "quote": "Intertubercular tendon sheath",
+   "evidence": "another_name",
+   "another_name": {
+    "label_word": "intertubercular tendon sheath",
+    "requirement_word": "long head biceps tendon sheath"
+   },
+   "leaf_basis": "named_part",
+   "investigations": [
+    "ra.mri-shoulder",
+    "ra.ultrasound-shoulder"
+   ],
+   "added_investigations": [
+    "ra.mri-shoulder",
+    "ra.ultrasound-shoulder"
+   ],
+   "side": "examined_side",
+   "model_side": "right"
+  },
+  {
+   "asset_id": "za-joints-538546670",
+   "structure_id": "shoulder.superior_glenohumeral_ligament.course",
+   "name": "Superior glenohumeral ligament: Course",
+   "kind": "structure",
+   "quote": "Superior glenohumeral ligament",
+   "evidence": "own_word",
+   "term": "superior glenohumeral ligament",
+   "leaf_basis": "body_part",
+   "investigations": [
+    "ra.mri-shoulder"
+   ],
+   "added_investigations": [
+    "ra.mri-shoulder"
+   ],
+   "side": "examined_side",
+   "model_side": "right"
+  },
+  {
+   "asset_id": "za-joints-538546670",
+   "structure_id": "shoulder.superior_glenohumeral_ligament",
+   "name": "Superior glenohumeral ligament",
+   "kind": "structure",
+   "quote": "Superior glenohumeral ligament",
+   "evidence": "own_word",
+   "term": "superior glenohumeral ligament",
+   "leaf_basis": "structure",
+   "investigations": [
+    "ra.ultrasound-shoulder"
+   ],
+   "added_investigations": [
+    "ra.ultrasound-shoulder"
+   ],
+   "side": "examined_side",
+   "model_side": "right"
+  },
+  {
+   "asset_id": "za-joints-348735722",
+   "structure_id": "shoulder.coracohumeral_ligament.course",
+   "name": "Coracohumeral ligament: Course",
+   "kind": "structure",
+   "quote": "Coracohumeral ligament",
+   "evidence": "own_word",
+   "term": "coracohumeral ligament",
+   "leaf_basis": "body_part",
+   "investigations": [
+    "ra.mri-shoulder"
+   ],
+   "added_investigations": [
+    "ra.mri-shoulder"
+   ],
+   "side": "examined_side",
+   "model_side": "right"
+  },
+  {
+   "asset_id": "za-joints-348735722",
+   "structure_id": "shoulder.coracohumeral_ligament",
+   "name": "Coracohumeral ligament",
+   "kind": "structure",
+   "quote": "Coracohumeral ligament",
+   "evidence": "own_word",
+   "term": "coracohumeral ligament",
+   "leaf_basis": "structure",
+   "investigations": [
+    "ra.ultrasound-shoulder"
+   ],
+   "added_investigations": [
+    "ra.ultrasound-shoulder"
+   ],
+   "side": "examined_side",
+   "model_side": "right"
+  },
+  {
+   "asset_id": "za-joints-982736080",
+   "structure_id": "shoulder.middle_glenohumeral_ligament.capsular_course",
+   "name": "Middle glenohumeral ligament: Capsular course",
+   "kind": "structure",
+   "quote": "Middle glenohumeral ligament",
+   "evidence": "own_word",
+   "term": "middle glenohumeral ligament",
+   "leaf_basis": "body_part",
+   "investigations": [
+    "ra.mri-shoulder"
+   ],
+   "added_investigations": [
+    "ra.mri-shoulder"
+   ],
+   "side": "examined_side",
+   "model_side": "right"
+  },
+  {
+   "asset_id": "za-joints-758236691",
+   "structure_id": "shoulder.coracoacromial_ligament.course",
+   "name": "Coracoacromial ligament: Course",
+   "kind": "structure",
+   "quote": "Coraco-acromial ligament",
+   "evidence": "own_word",
+   "term": "coracoacromial ligament",
+   "leaf_basis": "body_part",
+   "investigations": [
+    "ra.mri-shoulder"
+   ],
+   "added_investigations": [
+    "ra.mri-shoulder"
+   ],
+   "side": "examined_side",
+   "model_side": "right"
+  },
+  {
+   "asset_id": "za-joints-64020006",
+   "structure_id": "shoulder.acromioclavicular_joint.joint_capsule",
+   "name": "Acromioclavicular joint: Joint capsule",
+   "kind": "structure",
+   "quote": "Articular capsule of acromioclavicular joint",
+   "evidence": "own_word",
+   "term": "acromioclavicular joint capsule",
+   "leaf_basis": "named_part",
+   "investigations": [
+    "ra.mri-shoulder"
+   ],
+   "added_investigations": [
+    "ra.mri-shoulder"
+   ],
+   "side": "examined_side",
+   "model_side": "right"
+  },
+  {
+   "asset_id": "za-muscles-766711871",
+   "structure_id": "shoulder.subacromial_subdeltoid_bursa.subacromial_portion",
+   "name": "Subacromial-subdeltoid bursa: Subacromial portion",
+   "kind": "structure",
+   "quote": "Subacromial bursa",
+   "evidence": "own_word",
+   "term": "subacromial",
+   "leaf_basis": "named_part",
+   "investigations": [
+    "ra.ultrasound-shoulder"
+   ],
+   "added_investigations": [
+    "ra.ultrasound-shoulder"
+   ],
+   "side": "examined_side",
+   "model_side": "right"
+  },
+  {
+   "asset_id": "za-muscles-161668141",
+   "structure_id": "shoulder.subacromial_subdeltoid_bursa.subdeltoid_portion",
+   "name": "Subacromial-subdeltoid bursa: Subdeltoid portion",
+   "kind": "structure",
+   "quote": "Subdeltoid bursa",
+   "evidence": "own_word",
+   "term": "subdeltoid",
+   "leaf_basis": "named_part",
+   "investigations": [
+    "ra.ultrasound-shoulder"
+   ],
+   "added_investigations": [
+    "ra.ultrasound-shoulder"
+   ],
+   "side": "examined_side",
+   "model_side": "right"
+  },
+  {
+   "asset_id": "za-muscles-120536626",
+   "structure_id": "elbow.brachialis_muscle",
+   "name": "Brachialis muscle",
+   "kind": "structure",
+   "quote": "Brachialis muscle",
+   "evidence": "own_word",
+   "term": "brachialis muscle",
+   "leaf_basis": "structure",
+   "investigations": [
+    "ra.mri-elbow"
+   ],
+   "added_investigations": [
+    "ra.mri-elbow"
+   ],
+   "side": "examined_side",
+   "model_side": "right"
+  },
+  {
+   "asset_id": "za-muscles-120536626-material-0",
+   "structure_id": "elbow.brachialis_tendon.tendon_substance",
+   "name": "Brachialis tendon: Tendon substance",
+   "kind": "structure",
+   "quote": "Brachialis muscle · tendon surface",
+   "evidence": "own_word",
+   "term": "brachialis tendon",
+   "leaf_basis": "body_part",
+   "investigations": [
+    "ra.mri-elbow"
+   ],
+   "added_investigations": [
+    "ra.mri-elbow"
+   ],
+   "side": "examined_side",
+   "model_side": "right"
+  },
+  {
+   "asset_id": "za-muscles-210170064",
+   "structure_id": "elbow.supinator_muscle",
+   "name": "Supinator muscle",
+   "kind": "structure",
+   "quote": "Supinator",
+   "evidence": "own_word",
+   "term": "supinator",
+   "leaf_basis": "structure",
+   "investigations": [
+    "ra.mri-elbow"
+   ],
+   "added_investigations": [
+    "ra.mri-elbow"
+   ],
+   "side": "examined_side",
+   "model_side": "right"
+  },
+  {
+   "asset_id": "za-muscles-229882640",
+   "structure_id": "elbow.anconeus_muscle",
+   "name": "Anconeus muscle",
+   "kind": "structure",
+   "quote": "Anconeus muscle",
+   "evidence": "own_word",
+   "term": "anconeus",
+   "leaf_basis": "structure",
+   "investigations": [
+    "ra.mri-elbow"
+   ],
+   "added_investigations": [
+    "ra.mri-elbow"
+   ],
+   "side": "examined_side",
+   "model_side": "right"
+  },
+  {
+   "asset_id": "za-muscles-672824902",
+   "structure_id": "elbow.flexor_carpi_radialis_muscle",
+   "name": "Flexor carpi radialis muscle",
+   "kind": "structure",
+   "quote": "Flexor carpi radialis",
+   "evidence": "own_word",
+   "term": "flexor carpi radialis",
+   "leaf_basis": "structure",
+   "investigations": [
+    "ra.mri-elbow"
+   ],
+   "added_investigations": [
+    "ra.mri-elbow"
+   ],
+   "side": "examined_side",
+   "model_side": "right"
+  },
+  {
+   "asset_id": "za-muscles-579432817",
+   "structure_id": "elbow.extensor_carpi_radialis_brevis_muscle",
+   "name": "Extensor carpi radialis brevis muscle",
+   "kind": "structure",
+   "quote": "Extensor carpi radialis brevis",
+   "evidence": "own_word",
+   "term": "extensor carpi radialis brevis",
+   "leaf_basis": "structure",
+   "investigations": [
+    "ra.mri-elbow"
+   ],
+   "added_investigations": [
+    "ra.mri-elbow"
+   ],
+   "side": "examined_side",
+   "model_side": "right"
+  },
+  {
+   "asset_id": "za-joints-657138113",
+   "structure_id": "elbow.radial_collateral_ligament.complete_course",
+   "name": "Radial collateral ligament: Complete course",
+   "kind": "structure",
+   "quote": "Radial collateral ligament",
+   "evidence": "own_word",
+   "term": "radial collateral ligament",
+   "leaf_basis": "body_part",
+   "investigations": [
+    "ra.mri-elbow"
+   ],
+   "added_investigations": [
+    "ra.mri-elbow"
+   ],
+   "side": "examined_side",
+   "model_side": "right"
+  },
+  {
+   "asset_id": "za-joints-878872661",
+   "structure_id": "elbow.annular_ligament.complete_course",
+   "name": "Annular ligament: Complete course",
+   "kind": "structure",
+   "quote": "Annular ligament of radius",
+   "evidence": "own_word",
+   "term": "annular ligament",
+   "leaf_basis": "body_part",
+   "investigations": [
+    "ra.mri-elbow"
+   ],
+   "added_investigations": [
+    "ra.mri-elbow"
+   ],
+   "side": "examined_side",
+   "model_side": "right"
+  },
+  {
+   "asset_id": "za-nerves-281977780",
+   "structure_id": "elbow.radial_nerve.superficial_branch",
+   "name": "Radial nerve: Superficial branch",
+   "kind": "structure",
+   "quote": "Superficial branch of radial nerve",
+   "evidence": "own_word",
+   "term": "radial nerve superficial branch",
+   "leaf_basis": "named_part",
+   "investigations": [
+    "ra.mri-elbow"
+   ],
+   "added_investigations": [
+    "ra.mri-elbow"
+   ],
+   "side": "examined_side",
+   "model_side": "right"
+  },
+  {
+   "asset_id": "za-nerves-744841522",
+   "structure_id": "elbow.radial_nerve.deep_branch",
+   "name": "Radial nerve: Deep branch",
+   "kind": "structure",
+   "quote": "Deep branch of radial nerve",
+   "evidence": "own_word",
+   "term": "radial nerve deep branch",
+   "leaf_basis": "named_part",
+   "investigations": [
+    "ra.mri-elbow"
+   ],
+   "added_investigations": [
+    "ra.mri-elbow"
+   ],
+   "side": "examined_side",
+   "model_side": "right"
+  },
+  {
+   "asset_id": "za-muscles-861554301",
+   "structure_id": "elbow.bicipitoradial_bursa.bursal_boundaries",
+   "name": "Bicipitoradial bursa: Bursal boundaries",
+   "kind": "structure",
+   "quote": "Bicipitoradial bursa",
+   "evidence": "own_word",
+   "term": "bicipitoradial bursa",
+   "leaf_basis": "body_part",
+   "investigations": [
+    "ra.mri-elbow"
+   ],
+   "added_investigations": [
+    "ra.mri-elbow"
+   ],
+   "side": "examined_side",
+   "model_side": "right"
+  },
+  {
+   "asset_id": "za-muscles-1562777",
+   "structure_id": "hip.gluteus_medius_muscle",
+   "name": "Gluteus medius muscle",
+   "kind": "structure",
+   "quote": "Gluteus medius muscle",
+   "evidence": "own_word",
+   "term": "gluteus medius muscle",
+   "leaf_basis": "structure",
+   "investigations": [
+    "ra.hip-fai"
+   ],
+   "added_investigations": [
+    "ra.hip-fai"
+   ],
+   "side": "examined_side",
+   "model_side": "right"
+  },
+  {
+   "asset_id": "za-muscles-965185828",
+   "structure_id": "hip.gluteus_minimus_muscle",
+   "name": "Gluteus minimus muscle",
+   "kind": "structure",
+   "quote": "Gluteus minimus muscle",
+   "evidence": "own_word",
+   "term": "gluteus minimus muscle",
+   "leaf_basis": "structure",
+   "investigations": [
+    "ra.hip-fai"
+   ],
+   "added_investigations": [
+    "ra.hip-fai"
+   ],
+   "side": "examined_side",
+   "model_side": "right"
+  },
+  {
+   "asset_id": "za-muscles-919705750",
+   "structure_id": "hip.quadratus_femoris_muscle",
+   "name": "Quadratus femoris muscle",
+   "kind": "structure",
+   "quote": "Quadratus femoris muscle",
+   "evidence": "own_word",
+   "term": "quadratus femoris muscle",
+   "leaf_basis": "structure",
+   "investigations": [
+    "ra.hip-fai"
+   ],
+   "added_investigations": [
+    "ra.hip-fai"
+   ],
+   "side": "examined_side",
+   "model_side": "right"
+  },
+  {
+   "asset_id": "za-muscles-1562777-material-0",
+   "structure_id": "hip.gluteus_medius_tendon.visible_course",
+   "name": "Gluteus medius tendon: Visible course",
+   "kind": "structure",
+   "quote": "Gluteus medius muscle · tendon surface",
+   "evidence": "own_word",
+   "term": "gluteus medius tendon",
+   "leaf_basis": "body_part",
+   "investigations": [
+    "ra.hip-fai"
+   ],
+   "added_investigations": [
+    "ra.hip-fai"
+   ],
+   "side": "examined_side",
+   "model_side": "right"
+  },
+  {
+   "asset_id": "za-muscles-771346357-material-0",
+   "structure_id": "hip.rectus_femoris_tendon.visible_course",
+   "name": "Rectus femoris tendon: Visible course",
+   "kind": "structure",
+   "quote": "Rectus femoris muscle · tendon surface",
+   "evidence": "own_word",
+   "term": "rectus femoris tendon",
+   "leaf_basis": "body_part",
+   "investigations": [
+    "ra.hip-fai"
+   ],
+   "added_investigations": [
+    "ra.hip-fai"
+   ],
+   "side": "examined_side",
+   "model_side": "right"
+  },
+  {
+   "asset_id": "za-muscles-307679662",
+   "structure_id": "hip.iliopsoas_bursa",
+   "name": "Iliopsoas bursa",
+   "kind": "structure",
+   "quote": "(Iliopectineal bursa)",
+   "evidence": "another_name",
+   "another_name": {
+    "label_word": "iliopectineal bursa",
+    "requirement_word": "iliopsoas bursa"
+   },
+   "leaf_basis": "structure",
+   "investigations": [
+    "ra.hip-fai"
+   ],
+   "added_investigations": [
+    "ra.hip-fai"
+   ],
+   "side": "examined_side",
+   "model_side": "right"
+  },
+  {
+   "asset_id": "za-muscles-307679662",
+   "structure_id": "injection.hip_anterior_recess_target.iliopsoas_tendon_and_bursa",
+   "name": "Hip anterior recess target: Iliopsoas tendon and bursa",
+   "kind": "structure",
+   "quote": "(Iliopectineal bursa)",
+   "evidence": "another_name",
+   "another_name": {
+    "label_word": "iliopectineal bursa",
+    "requirement_word": "iliopsoas bursa"
+   },
+   "leaf_basis": "group_member",
+   "investigations": [
+    "ra.ultrasound-joint-injection"
+   ],
+   "added_investigations": [
+    "ra.ultrasound-joint-injection"
+   ],
+   "side": "examined_side",
+   "model_side": "right"
+  },
+  {
+   "asset_id": "za-muscles-167745672",
+   "structure_id": "hip.trochanteric_bursae",
+   "name": "Trochanteric bursae",
+   "kind": "structure",
+   "quote": "Trochanteric bursa of gluteus medius muscle",
+   "evidence": "own_word",
+   "term": "trochanteric bursa",
+   "leaf_basis": "group_member",
+   "investigations": [
+    "ra.hip-fai"
+   ],
+   "added_investigations": [
+    "ra.hip-fai"
+   ],
+   "side": "examined_side",
+   "model_side": "right"
+  },
+  {
+   "asset_id": "za-muscles-762817357",
+   "structure_id": "hip.trochanteric_bursae",
+   "name": "Trochanteric bursae",
+   "kind": "structure",
+   "quote": "Trochanteric bursa of gluteus minimus muscle",
+   "evidence": "own_word",
+   "term": "trochanteric bursa",
+   "leaf_basis": "group_member",
+   "investigations": [
+    "ra.hip-fai"
+   ],
+   "added_investigations": [
+    "ra.hip-fai"
+   ],
+   "side": "examined_side",
+   "model_side": "right"
+  }
+ ]
+}

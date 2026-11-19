@@ -20,7 +20,7 @@ Investigation: `ra.mri-shoulder`
 | Bursal surface (`shoulder.supraspinatus_tendon.bursal_surface`) | missing | missing | missing | Within the acquired anatomical coverage. / MRI |
 | Humeral footprint (`shoulder.supraspinatus_tendon.humeral_footprint`) | unverified | unverified | missing | Within the acquired anatomical coverage. / MRI |
 | Myotendinous junction (`shoulder.infraspinatus_tendon.myotendinous_junction`) | missing | missing | missing | Within the acquired anatomical coverage. / MRI |
-| Tendon substance (`shoulder.infraspinatus_tendon.tendon_substance`) | unverified | missing | missing | Within the acquired anatomical coverage. / MRI |
+| Tendon substance (`shoulder.infraspinatus_tendon.tendon_substance`) | unverified | missing | unverified | Within the acquired anatomical coverage. / MRI |
 | Articular surface (`shoulder.infraspinatus_tendon.articular_surface`) | missing | missing | missing | Within the acquired anatomical coverage. / MRI |
 | Bursal surface (`shoulder.infraspinatus_tendon.bursal_surface`) | missing | missing | missing | Within the acquired anatomical coverage. / MRI |
 | Humeral footprint (`shoulder.infraspinatus_tendon.humeral_footprint`) | missing | unverified | missing | Within the acquired anatomical coverage. / MRI |
@@ -34,31 +34,31 @@ Investigation: `ra.mri-shoulder`
 | Articular surface (`shoulder.teres_minor_tendon.articular_surface`) | missing | missing | missing | Within the acquired anatomical coverage. / MRI |
 | Bursal surface (`shoulder.teres_minor_tendon.bursal_surface`) | missing | missing | missing | Within the acquired anatomical coverage. / MRI |
 | Humeral footprint (`shoulder.teres_minor_tendon.humeral_footprint`) | missing | missing | missing | Within the acquired anatomical coverage. / MRI |
-| Muscle belly (`shoulder.supraspinatus_muscle.muscle_belly`) | unverified | unverified | missing | Within the acquired anatomical coverage. / MRI |
+| Muscle belly (`shoulder.supraspinatus_muscle.muscle_belly`) | unverified | unverified | unverified | Within the acquired anatomical coverage. / MRI |
 | Intramuscular architecture (`shoulder.supraspinatus_muscle.intramuscular_architecture`) | missing | missing | missing | Within the acquired anatomical coverage. / MRI |
 | Myotendinous junction (`shoulder.supraspinatus_muscle.myotendinous_junction`) | missing | missing | missing | Within the acquired anatomical coverage. / MRI |
-| Muscle belly (`shoulder.infraspinatus_muscle.muscle_belly`) | missing | missing | missing | Within the acquired anatomical coverage. / MRI |
+| Muscle belly (`shoulder.infraspinatus_muscle.muscle_belly`) | missing | missing | unverified | Within the acquired anatomical coverage. / MRI |
 | Intramuscular architecture (`shoulder.infraspinatus_muscle.intramuscular_architecture`) | missing | missing | missing | Within the acquired anatomical coverage. / MRI |
 | Myotendinous junction (`shoulder.infraspinatus_muscle.myotendinous_junction`) | missing | missing | missing | Within the acquired anatomical coverage. / MRI |
-| Muscle belly (`shoulder.subscapularis_muscle.muscle_belly`) | missing | missing | missing | Within the acquired anatomical coverage. / MRI |
+| Muscle belly (`shoulder.subscapularis_muscle.muscle_belly`) | missing | missing | unverified | Within the acquired anatomical coverage. / MRI |
 | Intramuscular architecture (`shoulder.subscapularis_muscle.intramuscular_architecture`) | missing | missing | missing | Within the acquired anatomical coverage. / MRI |
 | Myotendinous junction (`shoulder.subscapularis_muscle.myotendinous_junction`) | missing | missing | missing | Within the acquired anatomical coverage. / MRI |
-| Muscle belly (`shoulder.teres_minor_muscle.muscle_belly`) | missing | missing | missing | Within the acquired anatomical coverage. / MRI |
+| Muscle belly (`shoulder.teres_minor_muscle.muscle_belly`) | missing | missing | unverified | Within the acquired anatomical coverage. / MRI |
 | Intramuscular architecture (`shoulder.teres_minor_muscle.intramuscular_architecture`) | missing | missing | missing | Within the acquired anatomical coverage. / MRI |
 | Myotendinous junction (`shoulder.teres_minor_muscle.myotendinous_junction`) | missing | missing | missing | Within the acquired anatomical coverage. / MRI |
 | Biceps anchor (`shoulder.long_head_biceps_tendon.biceps_anchor`) | missing | missing | missing | Within the acquired anatomical coverage. / MRI |
 | Intra-articular segment (`shoulder.long_head_biceps_tendon.intra_articular_segment`) | missing | missing | missing | Within the acquired anatomical coverage. / MRI |
 | Rotator interval segment (`shoulder.long_head_biceps_tendon.rotator_interval_segment`) | unverified | unverified | missing | Within the acquired anatomical coverage. / MRI |
 | Intertubercular groove segment (`shoulder.long_head_biceps_tendon.intertubercular_groove_segment`) | missing | missing | missing | Within the acquired anatomical coverage. / MRI |
-| Tendon sheath (`shoulder.long_head_biceps_tendon.tendon_sheath`) | missing | missing | missing | Within the acquired anatomical coverage. / MRI |
+| Tendon sheath (`shoulder.long_head_biceps_tendon.tendon_sheath`) | missing | missing | unverified | Within the acquired anatomical coverage. / MRI |
 | Origin (`shoulder.superior_glenohumeral_ligament.origin`) | missing | missing | missing | Within the acquired anatomical coverage. / MRI |
-| Course (`shoulder.superior_glenohumeral_ligament.course`) | unverified | unverified | missing | Within the acquired anatomical coverage. / MRI |
+| Course (`shoulder.superior_glenohumeral_ligament.course`) | unverified | unverified | unverified | Within the acquired anatomical coverage. / MRI |
 | Insertion (`shoulder.superior_glenohumeral_ligament.insertion`) | missing | missing | missing | Within the acquired anatomical coverage. / MRI |
 | Origin (`shoulder.coracohumeral_ligament.origin`) | missing | missing | missing | Within the acquired anatomical coverage. / MRI |
-| Course (`shoulder.coracohumeral_ligament.course`) | unverified | unverified | missing | Within the acquired anatomical coverage. / MRI |
+| Course (`shoulder.coracohumeral_ligament.course`) | unverified | unverified | unverified | Within the acquired anatomical coverage. / MRI |
 | Insertion (`shoulder.coracohumeral_ligament.insertion`) | missing | missing | missing | Within the acquired anatomical coverage. / MRI |
 | Glenoid origin (`shoulder.middle_glenohumeral_ligament.glenoid_origin`) | missing | missing | missing | Within the acquired anatomical coverage. / MRI |
-| Capsular course (`shoulder.middle_glenohumeral_ligament.capsular_course`) | missing | missing | missing | Within the acquired anatomical coverage. / MRI |
+| Capsular course (`shoulder.middle_glenohumeral_ligament.capsular_course`) | missing | missing | unverified | Within the acquired anatomical coverage. / MRI |
 | Humeral insertion (`shoulder.middle_glenohumeral_ligament.humeral_insertion`) | missing | missing | missing | Within the acquired anatomical coverage. / MRI |
 | Anterior band (`shoulder.inferior_glenohumeral_ligament_complex.anterior_band`) | missing | unverified | missing | Within the acquired anatomical coverage. / MRI |
 | Posterior band (`shoulder.inferior_glenohumeral_ligament_complex.posterior_band`) | missing | unverified | missing | Within the acquired anatomical coverage. / MRI |
@@ -108,19 +108,19 @@ Investigation: `ra.mri-shoulder`
 | Cortex (`shoulder.distal_clavicle.cortex`) | missing | missing | missing | Within the acquired anatomical coverage. / MRI |
 | Marrow (`shoulder.distal_clavicle.marrow`) | missing | missing | missing | Within the acquired anatomical coverage. / MRI |
 | Articular surfaces (`shoulder.acromioclavicular_joint.articular_surfaces`) | missing | missing | missing | Within the acquired anatomical coverage. / MRI |
-| Joint capsule (`shoulder.acromioclavicular_joint.joint_capsule`) | missing | missing | missing | Within the acquired anatomical coverage. / MRI |
+| Joint capsule (`shoulder.acromioclavicular_joint.joint_capsule`) | missing | missing | unverified | Within the acquired anatomical coverage. / MRI |
 | Superior and inferior margins (`shoulder.acromioclavicular_joint.superior_and_inferior_margins`) | missing | missing | missing | Within the acquired anatomical coverage. / MRI |
 | Bursal boundaries (`shoulder.subacromial_subdeltoid_bursa.bursal_boundaries`) | missing | missing | missing | Within the acquired anatomical coverage. / MRI |
 | Relationship to adjacent tendons (`shoulder.subacromial_subdeltoid_bursa.relationship_to_adjacent_tendons`) | missing | missing | missing | Within the acquired anatomical coverage. / MRI |
 | Bursal boundaries (`shoulder.subcoracoid_bursa.bursal_boundaries`) | missing | missing | missing | Within the acquired anatomical coverage. / MRI |
 | Relationship to adjacent tendons (`shoulder.subcoracoid_bursa.relationship_to_adjacent_tendons`) | missing | missing | missing | Within the acquired anatomical coverage. / MRI |
 | Attachments (`shoulder.coracoacromial_ligament.attachments`) | missing | missing | missing | Within the acquired anatomical coverage. / MRI |
-| Course (`shoulder.coracoacromial_ligament.course`) | missing | missing | missing | Within the acquired anatomical coverage. / MRI |
+| Course (`shoulder.coracoacromial_ligament.course`) | missing | missing | unverified | Within the acquired anatomical coverage. / MRI |
 | Attachments (`shoulder.coracoclavicular_ligament.attachments`) | missing | missing | missing | Within the acquired anatomical coverage. / MRI |
 | Course (`shoulder.coracoclavicular_ligament.course`) | missing | missing | missing | Within the acquired anatomical coverage. / MRI |
-| Anterior (`shoulder.deltoid_muscle.anterior`) | missing | missing | missing | For visible muscle abnormalities, outlet relationships or denervation pattern. / MRI |
-| Middle (`shoulder.deltoid_muscle.middle`) | missing | missing | missing | For visible muscle abnormalities, outlet relationships or denervation pattern. / MRI |
-| Posterior (`shoulder.deltoid_muscle.posterior`) | missing | missing | missing | For visible muscle abnormalities, outlet relationships or denervation pattern. / MRI |
+| Anterior (`shoulder.deltoid_muscle.anterior`) | missing | missing | unverified | For visible muscle abnormalities, outlet relationships or denervation pattern. / MRI |
+| Middle (`shoulder.deltoid_muscle.middle`) | missing | missing | unverified | For visible muscle abnormalities, outlet relationships or denervation pattern. / MRI |
+| Posterior (`shoulder.deltoid_muscle.posterior`) | missing | missing | unverified | For visible muscle abnormalities, outlet relationships or denervation pattern. / MRI |
 | Suprascapular notch segment (`shoulder.suprascapular_nerve.suprascapular_notch_segment`) | missing | missing | missing | Within the acquired anatomical coverage. / MRI |
 | Spinoglenoid notch segment (`shoulder.suprascapular_nerve.spinoglenoid_notch_segment`) | missing | missing | missing | Within the acquired anatomical coverage. / MRI |
 | Cuff motor branches (`shoulder.suprascapular_nerve.cuff_motor_branches`) | missing | missing | missing | Within the acquired anatomical coverage. / MRI |
@@ -277,6 +277,25 @@ Investigation: `ra.mri-shoulder`
 - Limits: One native sagittal oblique slice, not a complete MRI series or segmented anatomy. Labels identify local tendon/ligament portions; they do not establish complete courses, separate pulley bundles or all humeral footprint margins. This is supplemental panel B; source panels A/C and their other numbered structures are not displayed. The full source caption is retained for provenance and is not a claim that all 55 labels appear here. Source laterality is not explicitly stated.
 - Gate findings: anatomical_review_scope_missing_or_stale, anatomical_review_missing_or_stale, visual_review_scope_missing_or_stale, visual_review_missing_or_stale, high_fidelity_unproven, requirement_coverage_missing
 
+### shoulder.infraspinatus_tendon.tendon_substance — model
+
+- Asset: `za-muscles-805853519-material-1`
+- Local file: [web/anatomy/msk-atlas/za-muscles-805853519-material-1.bin](../../web/anatomy/msk-atlas/za-muscles-805853519-material-1.bin)
+- Artifact SHA-256: `e0740e72d1b66b5f715ec763b1d5b11ec2d4814e587a31c39e7bd7279d1371f1`
+- Review-scope SHA-256: `e7c612af6798b45d3ccff7eb9b306fcd2eff4e2fc3ba2b4334ad5f9d3b05448c`
+- Source: [Original source](https://github.com/LluisV/Z-Anatomy/tree/6c7f9016bd5899ac8edafd31b9900c151df42ed6)
+- Licence: [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/)
+- Recorded rights: commercial use=True; redistribution=True; review status=verified
+- Attribution: BodyParts3D — The Database Center for Life Science — upstream lineage CC BY-SA 2.1 Japan; Z-Anatomy — The open source atlas of anatomy — CC BY-SA 4.0
+- Rights evidence: docs/msk-mesh-source-audit.md
+- Licence use plan: No separate use plan recorded; inspect the exact licence and rights evidence
+- Presentation dependencies: Not separately recorded
+- Coverage: {'extent': 'partial', 'basis': 'The source label of this model names the structure: “Infraspinatus muscle · tendon surface”. This part is the structure’s own body or surface, which the whole model shows; the model does not delineate the other parts. The requirement is for the examined side; the model is a right-side reference, a mirror image for the other side. One source-labelled model; the full extent and boundaries of the named anatomy are not established.'}
+- Selection: Not recorded
+- Source context: Not recorded
+- Limits: Not recorded
+- Gate findings: anatomical_review_scope_missing_or_stale, anatomical_review_missing_or_stale, visual_review_scope_missing_or_stale, visual_review_missing_or_stale, high_fidelity_unproven, requirement_coverage_partial
+
 ### shoulder.infraspinatus_tendon.humeral_footprint — schematic
 
 - Asset: `open-shoulder-cuff-footprints-perez-fig2`
@@ -408,6 +427,82 @@ Investigation: `ra.mri-shoulder`
 - Limits: Clinical structures_visible applies only to MRI panels b/c. Panel a is an authored schematic and cannot establish MRI depiction. The two MRI slices show selected supraspinatus components, not a complete cuff footprint map or a full multiplanar MRI examination. No normal infraspinatus or teres minor insertion claim is inferred from these panels. Source laterality is not explicitly stated.
 - Gate findings: anatomical_review_scope_missing_or_stale, anatomical_review_missing_or_stale, visual_review_scope_missing_or_stale, visual_review_missing_or_stale, high_fidelity_unproven, requirement_coverage_missing
 
+### shoulder.supraspinatus_muscle.muscle_belly — model
+
+- Asset: `za-muscles-72952947`
+- Local file: [web/anatomy/msk-atlas/za-muscles-72952947.bin](../../web/anatomy/msk-atlas/za-muscles-72952947.bin)
+- Artifact SHA-256: `c0b635e463e891657fe2c9e96fb1d9f0f9e061d784f96fd5a341cfb868304875`
+- Review-scope SHA-256: `a31d269a289ade18324373b9c4a94afdcd1bf826959b1c3f96373b38307455a8`
+- Source: [Original source](https://github.com/LluisV/Z-Anatomy/tree/6c7f9016bd5899ac8edafd31b9900c151df42ed6)
+- Licence: [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/)
+- Recorded rights: commercial use=True; redistribution=True; review status=verified
+- Attribution: BodyParts3D — The Database Center for Life Science — upstream lineage CC BY-SA 2.1 Japan; Z-Anatomy — The open source atlas of anatomy — CC BY-SA 4.0
+- Rights evidence: docs/msk-mesh-source-audit.md
+- Licence use plan: No separate use plan recorded; inspect the exact licence and rights evidence
+- Presentation dependencies: Not separately recorded
+- Coverage: {'extent': 'partial', 'basis': 'The source label of this model names the structure: “Supraspinatus muscle”. This part is the structure’s own body or surface, which the whole model shows; the model does not delineate the other parts. The requirement is for the examined side; the model is a right-side reference, a mirror image for the other side. One source-labelled model; the full extent and boundaries of the named anatomy are not established.'}
+- Selection: Not recorded
+- Source context: Not recorded
+- Limits: Not recorded
+- Gate findings: anatomical_review_scope_missing_or_stale, anatomical_review_missing_or_stale, visual_review_scope_missing_or_stale, visual_review_missing_or_stale, high_fidelity_unproven, requirement_coverage_partial
+
+### shoulder.infraspinatus_muscle.muscle_belly — model
+
+- Asset: `za-muscles-805853519`
+- Local file: [web/anatomy/msk-atlas/za-muscles-805853519.bin](../../web/anatomy/msk-atlas/za-muscles-805853519.bin)
+- Artifact SHA-256: `a3992b1ed659f1df24b21fcac11adda769bf8337ad63ae5c84b032109c8082fc`
+- Review-scope SHA-256: `818e7ea400276e6487f2a2cb66be85b3f73841d934761f1ab092a243b4567066`
+- Source: [Original source](https://github.com/LluisV/Z-Anatomy/tree/6c7f9016bd5899ac8edafd31b9900c151df42ed6)
+- Licence: [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/)
+- Recorded rights: commercial use=True; redistribution=True; review status=verified
+- Attribution: BodyParts3D — The Database Center for Life Science — upstream lineage CC BY-SA 2.1 Japan; Z-Anatomy — The open source atlas of anatomy — CC BY-SA 4.0
+- Rights evidence: docs/msk-mesh-source-audit.md
+- Licence use plan: No separate use plan recorded; inspect the exact licence and rights evidence
+- Presentation dependencies: Not separately recorded
+- Coverage: {'extent': 'partial', 'basis': 'The source label of this model names the structure: “Infraspinatus muscle”. This part is the structure’s own body or surface, which the whole model shows; the model does not delineate the other parts. The requirement is for the examined side; the model is a right-side reference, a mirror image for the other side. One source-labelled model; the full extent and boundaries of the named anatomy are not established.'}
+- Selection: Not recorded
+- Source context: Not recorded
+- Limits: Not recorded
+- Gate findings: anatomical_review_scope_missing_or_stale, anatomical_review_missing_or_stale, visual_review_scope_missing_or_stale, visual_review_missing_or_stale, high_fidelity_unproven, requirement_coverage_partial
+
+### shoulder.subscapularis_muscle.muscle_belly — model
+
+- Asset: `za-muscles-599750783`
+- Local file: [web/anatomy/msk-atlas/za-muscles-599750783.bin](../../web/anatomy/msk-atlas/za-muscles-599750783.bin)
+- Artifact SHA-256: `621168d428882635fecdfd8ab094a6e494f295097414d1112dd512fcebcd6480`
+- Review-scope SHA-256: `726a126b05c8b648f5254096ada9bd6dc5363f80729f421be72573276239f110`
+- Source: [Original source](https://github.com/LluisV/Z-Anatomy/tree/6c7f9016bd5899ac8edafd31b9900c151df42ed6)
+- Licence: [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/)
+- Recorded rights: commercial use=True; redistribution=True; review status=verified
+- Attribution: BodyParts3D — The Database Center for Life Science — upstream lineage CC BY-SA 2.1 Japan; Z-Anatomy — The open source atlas of anatomy — CC BY-SA 4.0
+- Rights evidence: docs/msk-mesh-source-audit.md
+- Licence use plan: No separate use plan recorded; inspect the exact licence and rights evidence
+- Presentation dependencies: Not separately recorded
+- Coverage: {'extent': 'partial', 'basis': 'The source label of this model names the structure: “Subscapularis muscle”. This part is the structure’s own body or surface, which the whole model shows; the model does not delineate the other parts. The requirement is for the examined side; the model is a right-side reference, a mirror image for the other side. One source-labelled model; the full extent and boundaries of the named anatomy are not established.'}
+- Selection: Not recorded
+- Source context: Not recorded
+- Limits: Not recorded
+- Gate findings: anatomical_review_scope_missing_or_stale, anatomical_review_missing_or_stale, visual_review_scope_missing_or_stale, visual_review_missing_or_stale, high_fidelity_unproven, requirement_coverage_partial
+
+### shoulder.teres_minor_muscle.muscle_belly — model
+
+- Asset: `za-muscles-822740360`
+- Local file: [web/anatomy/msk-atlas/za-muscles-822740360.bin](../../web/anatomy/msk-atlas/za-muscles-822740360.bin)
+- Artifact SHA-256: `a19d12b77c9d716d2f4958f16581f1466af406c0d5290ee6aacd004197d30fe4`
+- Review-scope SHA-256: `233473b999cd28a3e449cf64e49831e23f7734f546164fa1ae72e75e1247b4d3`
+- Source: [Original source](https://github.com/LluisV/Z-Anatomy/tree/6c7f9016bd5899ac8edafd31b9900c151df42ed6)
+- Licence: [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/)
+- Recorded rights: commercial use=True; redistribution=True; review status=verified
+- Attribution: BodyParts3D — The Database Center for Life Science — upstream lineage CC BY-SA 2.1 Japan; Z-Anatomy — The open source atlas of anatomy — CC BY-SA 4.0
+- Rights evidence: docs/msk-mesh-source-audit.md
+- Licence use plan: No separate use plan recorded; inspect the exact licence and rights evidence
+- Presentation dependencies: Not separately recorded
+- Coverage: {'extent': 'partial', 'basis': 'The source label of this model names the structure: “Teres minor muscle”. This part is the structure’s own body or surface, which the whole model shows; the model does not delineate the other parts. The requirement is for the examined side; the model is a right-side reference, a mirror image for the other side. One source-labelled model; the full extent and boundaries of the named anatomy are not established.'}
+- Selection: Not recorded
+- Source context: Not recorded
+- Limits: Not recorded
+- Gate findings: anatomical_review_scope_missing_or_stale, anatomical_review_missing_or_stale, visual_review_scope_missing_or_stale, visual_review_missing_or_stale, high_fidelity_unproven, requirement_coverage_partial
+
 ### shoulder.long_head_biceps_tendon.rotator_interval_segment — clinical_image
 
 - Asset: `open-shoulder-normal-interval-mri-kadi-supp-fig3b`
@@ -445,6 +540,25 @@ Investigation: `ra.mri-shoulder`
 - Source context: {'laterality': 'not_reported', 'population': {'life_stage': 'unknown'}, 'depicted_state': 'normal_anatomical_reference', 'extent': 'local', 'selected_panels': ['whole'], 'panel_types': {'whole': 'Schematic'}, 'anatomical_site': {'region': 'shoulder'}, 'source_evidence': {'url': 'https://pmc.ncbi.nlm.nih.gov/articles/PMC6251069/', 'locator': 'Selected source figure/caption; local component boundaries and native annotations reviewed'}, 'unknowns': ['Preparation/in-vivo status and patient age not established in this reconciliation.', 'No complete course, footprint metric or unmarked component claim.']}
 - Limits: Authored anatomical schematic, not clinical imaging, scale-accurate geometry or a measured tendon footprint. Depicts local relationships in one sagittal section; it does not resolve individual medial/lateral pulley bundles or prove MRI visibility. Original drawing signature A.M. is retained without inferring an unverified full illustrator name.
 - Gate findings: anatomical_review_scope_missing_or_stale, anatomical_review_missing_or_stale, visual_review_scope_missing_or_stale, visual_review_missing_or_stale, high_fidelity_unproven, requirement_coverage_missing
+
+### shoulder.long_head_biceps_tendon.tendon_sheath — model
+
+- Asset: `za-muscles-848390498`
+- Local file: [web/anatomy/msk-atlas/za-muscles-848390498.bin](../../web/anatomy/msk-atlas/za-muscles-848390498.bin)
+- Artifact SHA-256: `f61127a2a0c36a187d1c8473170df751cddbbd0d842a91235aee464dff95ca25`
+- Review-scope SHA-256: `6111c036aac47ea10a91112c64e9f3bc9792dc6199fff1c896a5ce03c7f4bc51`
+- Source: [Original source](https://github.com/LluisV/Z-Anatomy/tree/6c7f9016bd5899ac8edafd31b9900c151df42ed6)
+- Licence: [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/)
+- Recorded rights: commercial use=True; redistribution=True; review status=verified
+- Attribution: BodyParts3D — The Database Center for Life Science — upstream lineage CC BY-SA 2.1 Japan; Z-Anatomy — The open source atlas of anatomy — CC BY-SA 4.0
+- Rights evidence: docs/msk-mesh-source-audit.md
+- Licence use plan: No separate use plan recorded; inspect the exact licence and rights evidence
+- Presentation dependencies: Not separately recorded
+- Coverage: {'extent': 'partial', 'basis': 'The source label of this model names “intertubercular tendon sheath”, another name for this requirement’s “long head biceps tendon sheath”: “Intertubercular tendon sheath”. The requirement is for the examined side; the model is a right-side reference, a mirror image for the other side. One source-labelled model; the full extent and boundaries of the named anatomy are not established.'}
+- Selection: Not recorded
+- Source context: Not recorded
+- Limits: Not recorded
+- Gate findings: anatomical_review_scope_missing_or_stale, anatomical_review_missing_or_stale, visual_review_scope_missing_or_stale, visual_review_missing_or_stale, high_fidelity_unproven, requirement_coverage_partial
 
 ### shoulder.superior_glenohumeral_ligament.course — clinical_image
 
@@ -501,6 +615,25 @@ Investigation: `ra.mri-shoulder`
 - Limits: Authored anatomical schematic, not clinical imaging, scale-accurate geometry or a measured tendon footprint. Depicts local relationships in one sagittal section; it does not resolve individual medial/lateral pulley bundles or prove MRI visibility. Original drawing signature A.M. is retained without inferring an unverified full illustrator name.
 - Gate findings: anatomical_review_scope_missing_or_stale, anatomical_review_missing_or_stale, visual_review_scope_missing_or_stale, visual_review_missing_or_stale, high_fidelity_unproven, requirement_coverage_missing
 
+### shoulder.superior_glenohumeral_ligament.course — model
+
+- Asset: `za-joints-538546670`
+- Local file: [web/anatomy/msk-atlas/za-joints-538546670.bin](../../web/anatomy/msk-atlas/za-joints-538546670.bin)
+- Artifact SHA-256: `edcdccf9753bcc8b50bedd51024ffdf8a5c06310eb839478f9a921c289cf6593`
+- Review-scope SHA-256: `0e4c7c5662fe1e08d69637224d49a68b688e11c1356cacbb9b53ec4ec5bee3ef`
+- Source: [Original source](https://github.com/LluisV/Z-Anatomy/tree/6c7f9016bd5899ac8edafd31b9900c151df42ed6)
+- Licence: [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/)
+- Recorded rights: commercial use=True; redistribution=True; review status=verified
+- Attribution: BodyParts3D — The Database Center for Life Science — upstream lineage CC BY-SA 2.1 Japan; Z-Anatomy — The open source atlas of anatomy — CC BY-SA 4.0
+- Rights evidence: docs/msk-mesh-source-audit.md
+- Licence use plan: No separate use plan recorded; inspect the exact licence and rights evidence
+- Presentation dependencies: Not separately recorded
+- Coverage: {'extent': 'partial', 'basis': 'The source label of this model names the structure: “Superior glenohumeral ligament”. This part is the structure’s own body or surface, which the whole model shows; the model does not delineate the other parts. The requirement is for the examined side; the model is a right-side reference, a mirror image for the other side. One source-labelled model; the full extent and boundaries of the named anatomy are not established.'}
+- Selection: Not recorded
+- Source context: Not recorded
+- Limits: Not recorded
+- Gate findings: anatomical_review_scope_missing_or_stale, anatomical_review_missing_or_stale, visual_review_scope_missing_or_stale, visual_review_missing_or_stale, high_fidelity_unproven, requirement_coverage_partial
+
 ### shoulder.coracohumeral_ligament.course — clinical_image
 
 - Asset: `open-shoulder-normal-interval-mri-kadi-supp-fig3b`
@@ -538,6 +671,44 @@ Investigation: `ra.mri-shoulder`
 - Source context: {'laterality': 'not_reported', 'population': {'life_stage': 'unknown'}, 'depicted_state': 'normal_anatomical_reference', 'extent': 'local', 'selected_panels': ['whole'], 'panel_types': {'whole': 'Schematic'}, 'anatomical_site': {'region': 'shoulder'}, 'source_evidence': {'url': 'https://pmc.ncbi.nlm.nih.gov/articles/PMC6251069/', 'locator': 'Selected source figure/caption; local component boundaries and native annotations reviewed'}, 'unknowns': ['Preparation/in-vivo status and patient age not established in this reconciliation.', 'No complete course, footprint metric or unmarked component claim.']}
 - Limits: Authored anatomical schematic, not clinical imaging, scale-accurate geometry or a measured tendon footprint. Depicts local relationships in one sagittal section; it does not resolve individual medial/lateral pulley bundles or prove MRI visibility. Original drawing signature A.M. is retained without inferring an unverified full illustrator name.
 - Gate findings: anatomical_review_scope_missing_or_stale, anatomical_review_missing_or_stale, visual_review_scope_missing_or_stale, visual_review_missing_or_stale, high_fidelity_unproven, requirement_coverage_missing
+
+### shoulder.coracohumeral_ligament.course — model
+
+- Asset: `za-joints-348735722`
+- Local file: [web/anatomy/msk-atlas/za-joints-348735722.bin](../../web/anatomy/msk-atlas/za-joints-348735722.bin)
+- Artifact SHA-256: `c32a1c327330b5a3f5e9b4101757e1d191e9c79cf2adb386b4608ff4a3d46806`
+- Review-scope SHA-256: `7fbd31f5c8639e6647772a8cfecad08c8082d0f2083f610369b8bde3add71704`
+- Source: [Original source](https://github.com/LluisV/Z-Anatomy/tree/6c7f9016bd5899ac8edafd31b9900c151df42ed6)
+- Licence: [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/)
+- Recorded rights: commercial use=True; redistribution=True; review status=verified
+- Attribution: BodyParts3D — The Database Center for Life Science — upstream lineage CC BY-SA 2.1 Japan; Z-Anatomy — The open source atlas of anatomy — CC BY-SA 4.0
+- Rights evidence: docs/msk-mesh-source-audit.md
+- Licence use plan: No separate use plan recorded; inspect the exact licence and rights evidence
+- Presentation dependencies: Not separately recorded
+- Coverage: {'extent': 'partial', 'basis': 'The source label of this model names the structure: “Coracohumeral ligament”. This part is the structure’s own body or surface, which the whole model shows; the model does not delineate the other parts. The requirement is for the examined side; the model is a right-side reference, a mirror image for the other side. One source-labelled model; the full extent and boundaries of the named anatomy are not established.'}
+- Selection: Not recorded
+- Source context: Not recorded
+- Limits: Not recorded
+- Gate findings: anatomical_review_scope_missing_or_stale, anatomical_review_missing_or_stale, visual_review_scope_missing_or_stale, visual_review_missing_or_stale, high_fidelity_unproven, requirement_coverage_partial
+
+### shoulder.middle_glenohumeral_ligament.capsular_course — model
+
+- Asset: `za-joints-982736080`
+- Local file: [web/anatomy/msk-atlas/za-joints-982736080.bin](../../web/anatomy/msk-atlas/za-joints-982736080.bin)
+- Artifact SHA-256: `738700a6e91a9b213392b0f7ec51c019e8ebc07a24d5cc8f7e9c53f012a4ebd5`
+- Review-scope SHA-256: `c8b9af2947c5b9bcfe10d8b25e2b3ce32aa524955ec4eff5463590b5ac15b3e0`
+- Source: [Original source](https://github.com/LluisV/Z-Anatomy/tree/6c7f9016bd5899ac8edafd31b9900c151df42ed6)
+- Licence: [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/)
+- Recorded rights: commercial use=True; redistribution=True; review status=verified
+- Attribution: BodyParts3D — The Database Center for Life Science — upstream lineage CC BY-SA 2.1 Japan; Z-Anatomy — The open source atlas of anatomy — CC BY-SA 4.0
+- Rights evidence: docs/msk-mesh-source-audit.md
+- Licence use plan: No separate use plan recorded; inspect the exact licence and rights evidence
+- Presentation dependencies: Not separately recorded
+- Coverage: {'extent': 'partial', 'basis': 'The source label of this model names the structure: “Middle glenohumeral ligament”. This part is the structure’s own body or surface, which the whole model shows; the model does not delineate the other parts. The requirement is for the examined side; the model is a right-side reference, a mirror image for the other side. One source-labelled model; the full extent and boundaries of the named anatomy are not established.'}
+- Selection: Not recorded
+- Source context: Not recorded
+- Limits: Not recorded
+- Gate findings: anatomical_review_scope_missing_or_stale, anatomical_review_missing_or_stale, visual_review_scope_missing_or_stale, visual_review_missing_or_stale, high_fidelity_unproven, requirement_coverage_partial
 
 ### shoulder.inferior_glenohumeral_ligament_complex.anterior_band — schematic
 
@@ -595,6 +766,101 @@ Investigation: `ra.mri-shoulder`
 - Source context: {'setting': 'unknown', 'laterality': 'unknown', 'population': {'life_stage': 'unknown'}, 'depicted_state': 'unknown', 'extent': 'unknown'}
 - Limits: Two selected MR arthrogram slices of a normal variant, not a tear or full scrollable study. Coverage does not establish integrity of the rest of the labrum or biceps anchor.
 - Gate findings: anatomical_review_scope_missing_or_stale, anatomical_review_missing_or_stale, visual_review_scope_missing_or_stale, visual_review_missing_or_stale, high_fidelity_unproven, clinical_image_modality_not_in_requirement_scope, requirement_coverage_missing
+
+### shoulder.acromioclavicular_joint.joint_capsule — model
+
+- Asset: `za-joints-64020006`
+- Local file: [web/anatomy/msk-atlas/za-joints-64020006.bin](../../web/anatomy/msk-atlas/za-joints-64020006.bin)
+- Artifact SHA-256: `f1980e0e7c719d34a1b3c38663013b401fc0615a071a463ef147ad061369c581`
+- Review-scope SHA-256: `3ccfde2d9e470d795ed8a2f930dcc06e00612cfa7c2f9197cd4a13706a4e7f20`
+- Source: [Original source](https://github.com/LluisV/Z-Anatomy/tree/6c7f9016bd5899ac8edafd31b9900c151df42ed6)
+- Licence: [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/)
+- Recorded rights: commercial use=True; redistribution=True; review status=verified
+- Attribution: BodyParts3D — The Database Center for Life Science — upstream lineage CC BY-SA 2.1 Japan; Z-Anatomy — The open source atlas of anatomy — CC BY-SA 4.0
+- Rights evidence: docs/msk-mesh-source-audit.md
+- Licence use plan: No separate use plan recorded; inspect the exact licence and rights evidence
+- Presentation dependencies: Not separately recorded
+- Coverage: {'extent': 'partial', 'basis': 'The source label of this model names this part: “Articular capsule of acromioclavicular joint”. The requirement is for the examined side; the model is a right-side reference, a mirror image for the other side. One source-labelled model; the full extent and boundaries of the named anatomy are not established.'}
+- Selection: Not recorded
+- Source context: Not recorded
+- Limits: Not recorded
+- Gate findings: anatomical_review_scope_missing_or_stale, anatomical_review_missing_or_stale, visual_review_scope_missing_or_stale, visual_review_missing_or_stale, high_fidelity_unproven, requirement_coverage_partial
+
+### shoulder.coracoacromial_ligament.course — model
+
+- Asset: `za-joints-758236691`
+- Local file: [web/anatomy/msk-atlas/za-joints-758236691.bin](../../web/anatomy/msk-atlas/za-joints-758236691.bin)
+- Artifact SHA-256: `c16f5f7fbd525aae05c7d54a7596b9e899f313c408408e6da9176648dedec6fa`
+- Review-scope SHA-256: `6e95adc29eab55e128ae7a2002f34477a43aca580c7991fa42d55d05b4d89e94`
+- Source: [Original source](https://github.com/LluisV/Z-Anatomy/tree/6c7f9016bd5899ac8edafd31b9900c151df42ed6)
+- Licence: [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/)
+- Recorded rights: commercial use=True; redistribution=True; review status=verified
+- Attribution: BodyParts3D — The Database Center for Life Science — upstream lineage CC BY-SA 2.1 Japan; Z-Anatomy — The open source atlas of anatomy — CC BY-SA 4.0
+- Rights evidence: docs/msk-mesh-source-audit.md
+- Licence use plan: No separate use plan recorded; inspect the exact licence and rights evidence
+- Presentation dependencies: Not separately recorded
+- Coverage: {'extent': 'partial', 'basis': 'The source label of this model names the structure: “Coraco-acromial ligament”. This part is the structure’s own body or surface, which the whole model shows; the model does not delineate the other parts. The requirement is for the examined side; the model is a right-side reference, a mirror image for the other side. One source-labelled model; the full extent and boundaries of the named anatomy are not established.'}
+- Selection: Not recorded
+- Source context: Not recorded
+- Limits: Not recorded
+- Gate findings: anatomical_review_scope_missing_or_stale, anatomical_review_missing_or_stale, visual_review_scope_missing_or_stale, visual_review_missing_or_stale, high_fidelity_unproven, requirement_coverage_partial
+
+### shoulder.deltoid_muscle.anterior — model
+
+- Asset: `za-muscles-506767053`
+- Local file: [web/anatomy/msk-atlas/za-muscles-506767053.bin](../../web/anatomy/msk-atlas/za-muscles-506767053.bin)
+- Artifact SHA-256: `cbb5fdfe70473256fdff7292c547771a2fe60e48d0ee90e7bcad9e79cf9e389d`
+- Review-scope SHA-256: `bc0442cb8ba1320344ca308816244be3cbb2d1315e402ba86bce6b8cb96b8f59`
+- Source: [Original source](https://github.com/LluisV/Z-Anatomy/tree/6c7f9016bd5899ac8edafd31b9900c151df42ed6)
+- Licence: [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/)
+- Recorded rights: commercial use=True; redistribution=True; review status=verified
+- Attribution: BodyParts3D — The Database Center for Life Science — upstream lineage CC BY-SA 2.1 Japan; Z-Anatomy — The open source atlas of anatomy — CC BY-SA 4.0
+- Rights evidence: docs/msk-mesh-source-audit.md
+- Licence use plan: No separate use plan recorded; inspect the exact licence and rights evidence
+- Presentation dependencies: Not separately recorded
+- Coverage: {'extent': 'partial', 'basis': 'The source label of this model names “clavicular part of deltoid muscle”, another name for this requirement’s “anterior deltoid”: “Clavicular part of deltoid muscle”. The requirement is for the examined side; the model is a right-side reference, a mirror image for the other side. One source-labelled model; the full extent and boundaries of the named anatomy are not established.'}
+- Selection: Not recorded
+- Source context: Not recorded
+- Limits: Not recorded
+- Gate findings: anatomical_review_scope_missing_or_stale, anatomical_review_missing_or_stale, visual_review_scope_missing_or_stale, visual_review_missing_or_stale, high_fidelity_unproven, requirement_coverage_partial
+
+### shoulder.deltoid_muscle.middle — model
+
+- Asset: `za-muscles-969083175`
+- Local file: [web/anatomy/msk-atlas/za-muscles-969083175.bin](../../web/anatomy/msk-atlas/za-muscles-969083175.bin)
+- Artifact SHA-256: `da24da2010fa0456ff6c0640558948536c8e77bf853ebca958eee4eb7fa8abdd`
+- Review-scope SHA-256: `64dd60f2b979acceb68c887ceda47bc9e1d3daf563588bff67478acaf6f6a84b`
+- Source: [Original source](https://github.com/LluisV/Z-Anatomy/tree/6c7f9016bd5899ac8edafd31b9900c151df42ed6)
+- Licence: [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/)
+- Recorded rights: commercial use=True; redistribution=True; review status=verified
+- Attribution: BodyParts3D — The Database Center for Life Science — upstream lineage CC BY-SA 2.1 Japan; Z-Anatomy — The open source atlas of anatomy — CC BY-SA 4.0
+- Rights evidence: docs/msk-mesh-source-audit.md
+- Licence use plan: No separate use plan recorded; inspect the exact licence and rights evidence
+- Presentation dependencies: Not separately recorded
+- Coverage: {'extent': 'partial', 'basis': 'The source label of this model names “acromial part of deltoid muscle”, another name for this requirement’s “middle deltoid”: “Acromial part of deltoid muscle”. The requirement is for the examined side; the model is a right-side reference, a mirror image for the other side. One source-labelled model; the full extent and boundaries of the named anatomy are not established.'}
+- Selection: Not recorded
+- Source context: Not recorded
+- Limits: Not recorded
+- Gate findings: anatomical_review_scope_missing_or_stale, anatomical_review_missing_or_stale, visual_review_scope_missing_or_stale, visual_review_missing_or_stale, high_fidelity_unproven, requirement_coverage_partial
+
+### shoulder.deltoid_muscle.posterior — model
+
+- Asset: `za-muscles-806276737`
+- Local file: [web/anatomy/msk-atlas/za-muscles-806276737.bin](../../web/anatomy/msk-atlas/za-muscles-806276737.bin)
+- Artifact SHA-256: `7a30381a0f62398c3e62b0dc7b38d98f49645655a7fe869ba763fcf97b18a0f4`
+- Review-scope SHA-256: `e6c352dcc48ebd8125cffc8c450d29f1eda2b383b0bcf0ee05980333eed7d527`
+- Source: [Original source](https://github.com/LluisV/Z-Anatomy/tree/6c7f9016bd5899ac8edafd31b9900c151df42ed6)
+- Licence: [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/)
+- Recorded rights: commercial use=True; redistribution=True; review status=verified
+- Attribution: BodyParts3D — The Database Center for Life Science — upstream lineage CC BY-SA 2.1 Japan; Z-Anatomy — The open source atlas of anatomy — CC BY-SA 4.0
+- Rights evidence: docs/msk-mesh-source-audit.md
+- Licence use plan: No separate use plan recorded; inspect the exact licence and rights evidence
+- Presentation dependencies: Not separately recorded
+- Coverage: {'extent': 'partial', 'basis': 'The source label of this model names “scapular spinal part of deltoid muscle”, another name for this requirement’s “posterior deltoid”: “Scapular spinal part of deltoid muscle”. The requirement is for the examined side; the model is a right-side reference, a mirror image for the other side. One source-labelled model; the full extent and boundaries of the named anatomy are not established.'}
+- Selection: Not recorded
+- Source context: Not recorded
+- Limits: Not recorded
+- Gate findings: anatomical_review_scope_missing_or_stale, anatomical_review_missing_or_stale, visual_review_scope_missing_or_stale, visual_review_missing_or_stale, high_fidelity_unproven, requirement_coverage_partial
 
 ## Scope blockers
 

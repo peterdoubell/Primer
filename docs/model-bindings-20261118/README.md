@@ -144,7 +144,7 @@ All 73 other models are listed in `review.json` under `not_bound`, each with its
 ## Not in this pass
 
 - The MSK ledger (`data/radiology/msk-asset-evidence.json`) holds 636 models, of which 12 are bound. It
-  is a separate, larger pass.
+  is a separate, larger pass. (It was reviewed later on 2026-11-18: see `docs/msk-model-bindings-20261118`.)
 - No model record, mesh, source context or reader file changed. The app does not read ledger bindings.
 
 ## Limits of this pass

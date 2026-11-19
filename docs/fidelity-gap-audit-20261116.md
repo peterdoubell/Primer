@@ -347,3 +347,15 @@ label states a side, the stored mesh was checked to lie on that side of its sour
 check found that the HRA female pelvis source swaps its round ligament labels; neither is bound. The
 other 73 models are listed with their reasons. The MSK ledger's 636 models (12 bound) are a separate
 pass. Nothing is anatomically approved.
+
+## MSK 3D models bound (2026-11-18)
+
+The 624 unbound models of the MSK evidence ledger were reviewed (`docs/msk-model-bindings-20261118`):
+147 partial bindings on 115 models, covering 129 requirement parts and structures. Bound structures
+993 → 1,062 → 1,179 of 57,985 across the two model passes. In the MSK checker, unverified rows 173 → 326
+and missing rows 5,119 → 4,966. A model binds the structure itself (when it has no parts), the part that
+is the structure's own body (course, midsubstance, muscle belly, articular surface), a part its label
+names, or one member of a named group. A whole is never bound to its regions, bundles or components.
+Where an investigation's 3D view shows a Z-Anatomy model that the record did not list, the investigation
+was added to the record (135 additions). An earlier Open Knee(s) review that left the tibial cartilages
+unbound was kept. Nothing is anatomically approved.
