@@ -9,7 +9,7 @@ import sys
 from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0,str(ROOT))
-from primer.source_mesh_integrity import CDN_ATLASES
+from primer.source_mesh_integrity import CDN_ATLASES, is_reviewed_manifest
 
 
 def inventory():
@@ -20,7 +20,7 @@ def inventory():
             if entry['atlas'] not in CDN_ATLASES: continue
             root = (ROOT/'web/anatomy'/entry['atlas']).resolve()
             manifest_raw = (root/'manifest.json').read_bytes()
-            if hashlib.sha256(manifest_raw).hexdigest() != entry['manifest_sha256']:
+            if not is_reviewed_manifest(entry['atlas'], manifest_raw, entry['manifest_sha256']):
                 raise ValueError('Source manifest changed')
             manifest = json.loads(manifest_raw)
             for selected in manifest['regions'][entry['family']]['parts']:

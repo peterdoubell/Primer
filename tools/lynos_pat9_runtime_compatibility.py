@@ -12,6 +12,9 @@ PATHS = frozenset({
 
 
 def before_lynos_pat9_bytes(path, raw):
+    # The later BodyParts3D liver correction restores its own recorded lines first.
+    from tools.liver_atlas_compatibility import before_liver_correction_bytes
+    raw = before_liver_correction_bytes(path, raw)
     if str(path) not in PATHS:
         return raw
     return _restore(path, raw, PROOF, PIN)

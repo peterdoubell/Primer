@@ -6,7 +6,7 @@
   "source_archive": "https://dbarchive.biosciencedbc.jp/data/bodyparts3d/LATEST/isa_BP3D_4.0_obj_99.zip",
   "license_evidence": "https://dbarchive.biosciencedbc.jp/data/bodyparts3d/LATEST/README_e.html#license",
   "attribution": "BodyParts3D, \u00a9 The Database Center for Life Science licensed under CC Attribution 4.0 International",
-  "adaptations": "Selected meshes from the 99% polygon-reduced archive, converted to indexed binary geometry with averaged vertex normals. Registered source coordinates preserved. Display cropping only; no generated anatomy.",
+  "adaptations": "Selected meshes from the 99% polygon-reduced archive, converted to indexed binary geometry with averaged vertex normals. Registered source coordinates preserved. Display cropping only; no generated anatomy. Hepatovenous segments VII and VIII use the objects that the BodyParts3D 4.3 object table assigns them; each records the official 4.0 table assignment under source_correction.",
   "parts": {
     "FJ3413": {
       "name": "ascending aorta",
@@ -328,63 +328,74 @@
       "sha256": "19c9b3be2e0677f3fea6454c625abec893538529fdfff1e544c10afa5c93026a",
       "bytes": 473124
     },
-    "FJ2409": {
+    "FJ2823": {
       "name": "hepatovenous segment vii",
       "fma": "FMA15745",
       "source_ids": [
-        "FJ2409"
+        "FJ2823"
       ],
-      "id": "FJ2409",
-      "file": "/app/anatomy/bodyparts3d/FJ2409.bin",
-      "vertices": 5091,
-      "triangles": 8534,
-      "bounds": [
-        [
-          -114.768,
-          -165.212,
-          1027.94
+      "source_correction": {
+        "official_table_source_ids": [
+          "FJ2409"
         ],
-        [
-          -21.0945,
-          -44.2721,
-          1110.78
-        ]
-      ],
-      "source_sha256": {
-        "FJ2409": "6d7b0d3d2fc1f1e4255f8b665a61bbbf3ea6712cea85a95246851acbfda0c98f"
+        "reason": "The official 4.0 table assigns FJ2409, whose bounds equal those of segment VI (FJ2822) to within 0.4 mm. The BodyParts3D 4.3 object table lists FJ2409 as hepatovenous segment VI and FJ2823 as hepatovenous segment VII. FJ2823 lies above segment VI and behind segment VIII."
       },
-      "sha256": "a27f04a15f2355df1b76d6f6081f0baa2b6a3449030d8c063f6c04e04d55dcb2",
-      "bytes": 224604
-    },
-    "FMA15746": {
-      "name": "hepatovenous segment viii",
-      "fma": "FMA15746",
-      "source_ids": [
-        "FJ2823",
-        "FJ2824"
-      ],
-      "id": "FMA15746",
-      "file": "/app/anatomy/bodyparts3d/FMA15746.bin",
-      "vertices": 21689,
-      "triangles": 40748,
+      "id": "FJ2823",
+      "file": "/app/anatomy/bodyparts3d/FJ2823.bin",
+      "vertices": 10230,
+      "triangles": 19156,
       "bounds": [
         [
           -115.064,
-          -198.73,
+          -151.812,
           1090.15
         ],
         [
-          -17.5186,
+          -20.192,
           -43.3287,
+          1174.84
+        ]
+      ],
+      "source_sha256": {
+        "FJ2823": "9c8659ff030e9e48504c0faccad1af0f45b865220e013fdaafb1ccd2c7168e79"
+      },
+      "sha256": "c3b8d12b559140e01b4c06def76f4942252429c93eef0fbe024f00f28abfecba",
+      "bytes": 475404
+    },
+    "FJ2824": {
+      "name": "hepatovenous segment viii",
+      "fma": "FMA15746",
+      "source_ids": [
+        "FJ2824"
+      ],
+      "source_correction": {
+        "official_table_source_ids": [
+          "FJ2823",
+          "FJ2824"
+        ],
+        "reason": "The official 4.0 table unites FJ2823 and FJ2824. The BodyParts3D 4.3 object table lists FJ2823 as hepatovenous segment VII and FJ2824 as hepatovenous segment VIII. FJ2824 lies above segment V and in front of segment VII."
+      },
+      "id": "FJ2824",
+      "file": "/app/anatomy/bodyparts3d/FJ2824.bin",
+      "vertices": 11459,
+      "triangles": 21592,
+      "bounds": [
+        [
+          -109.329,
+          -198.73,
+          1108.18
+        ],
+        [
+          -17.5186,
+          -70.8945,
           1183.14
         ]
       ],
       "source_sha256": {
-        "FJ2823": "9c8659ff030e9e48504c0faccad1af0f45b865220e013fdaafb1ccd2c7168e79",
         "FJ2824": "f91e3c89b4db356fa5e8b03dbbb38b2dbebe358788ba1eb01d2c6ecc2ac94c2d"
       },
-      "sha256": "f8dd2407b9ff1a2f8c46dac54522f51e8cedfa96d57790330c9e3356d46b5cee",
-      "bytes": 1009524
+      "sha256": "68a565eaebae16b10ae276b5e1e4a744362fd8f1069e76ba3746fd781eeb74e6",
+      "bytes": 534132
     },
     "FJ1394": {
       "name": "lateral head of right gastrocnemius",
@@ -829,6 +840,34 @@
       },
       "sha256": "ca8e447d4614cd931455fc7c07d8d75490a9bd68fe79e4158793e9007bb761e0",
       "bytes": 103380
+    },
+    "FJ3082": {
+      "name": "pre-hepatic portal vein",
+      "fma": "FMA71904",
+      "source_ids": [
+        "FJ3082"
+      ],
+      "id": "FJ3082",
+      "file": "/app/anatomy/bodyparts3d/FJ3082.bin",
+      "vertices": 1793,
+      "triangles": 3582,
+      "bounds": [
+        [
+          -21.4488,
+          -144.215,
+          1062.32
+        ],
+        [
+          -7.08181,
+          -123.593,
+          1111.13
+        ]
+      ],
+      "source_sha256": {
+        "FJ3082": "e8406cbbab2424ca45d0a46ac672c9fc8b2d5fc1149cf0494a61234fe46380e4"
+      },
+      "sha256": "d609a9bf3b32ad0ec63b0e8d6af8685d56125112853594e816d1a508fbc150c7",
+      "bytes": 86028
     },
     "FJ3139": {
       "name": "prostate",
@@ -2632,20 +2671,19 @@
       "sha256": "eb677714fd37c3f1c92ae8f2c012aa4481e8ec61bcfbd51025f57c51492ae4e8",
       "bytes": 5364
     },
-    "FMA14329": {
-      "name": "trunk of portal vein",
-      "fma": "FMA14329",
+    "FJ3102": {
+      "name": "trunk of left portal vein",
+      "fma": "FMA82697",
       "source_ids": [
-        "FJ3102",
-        "FJ3122"
+        "FJ3102"
       ],
-      "id": "FMA14329",
-      "file": "/app/anatomy/bodyparts3d/FMA14329.bin",
-      "vertices": 472,
-      "triangles": 936,
+      "id": "FJ3102",
+      "file": "/app/anatomy/bodyparts3d/FJ3102.bin",
+      "vertices": 367,
+      "triangles": 730,
       "bounds": [
         [
-          -28.9291,
+          -21.2142,
           -158.299,
           1104.08
         ],
@@ -2656,11 +2694,10 @@
         ]
       ],
       "source_sha256": {
-        "FJ3102": "10a59163098dd1896bd60a0893e4084f4b37660b9443bad284489999b3763749",
-        "FJ3122": "0396415a16fc85e933ca43ca30fd55289cbb7fd412f1a33a004dc5b2f485acd3"
+        "FJ3102": "10a59163098dd1896bd60a0893e4084f4b37660b9443bad284489999b3763749"
       },
-      "sha256": "c87331d6f694abbc3e0c329cac6f36d87d96c6030a6a0e195664e1a03281536b",
-      "bytes": 22572
+      "sha256": "f2aa4a74ad0167a544b95cbcb986e73d0f77ef58aa553a4e692ff7e71a44ab70",
+      "bytes": 17580
     },
     "FJ2723": {
       "name": "trunk of right coronary artery",
@@ -2689,6 +2726,34 @@
       },
       "sha256": "5336c5e023f598579f95c7b8c24fa3663478441ba3ee10280fce3aea43822c9b",
       "bytes": 108156
+    },
+    "FJ3122": {
+      "name": "trunk of right portal vein",
+      "fma": "FMA82695",
+      "source_ids": [
+        "FJ3122"
+      ],
+      "id": "FJ3122",
+      "file": "/app/anatomy/bodyparts3d/FJ3122.bin",
+      "vertices": 105,
+      "triangles": 206,
+      "bounds": [
+        [
+          -28.9291,
+          -144.206,
+          1104.62
+        ],
+        [
+          -14.9449,
+          -137.749,
+          1113.79
+        ]
+      ],
+      "source_sha256": {
+        "FJ3122": "0396415a16fc85e933ca43ca30fd55289cbb7fd412f1a33a004dc5b2f485acd3"
+      },
+      "sha256": "bab526eb7a8a5aec89958f843790e27030789f1661e18bb086313196661ba353",
+      "bytes": 5004
     },
     "FJ3149": {
       "name": "urinary bladder",
@@ -3263,11 +3328,11 @@
           "layer": "bone"
         },
         {
-          "id": "FJ2409",
+          "id": "FJ2823",
           "layer": "bone"
         },
         {
-          "id": "FMA15746",
+          "id": "FJ2824",
           "layer": "bone"
         },
         {
@@ -3275,7 +3340,15 @@
           "layer": "soft"
         },
         {
-          "id": "FMA14329",
+          "id": "FJ3082",
+          "layer": "soft"
+        },
+        {
+          "id": "FJ3122",
+          "layer": "soft"
+        },
+        {
+          "id": "FJ3102",
           "layer": "soft"
         },
         {

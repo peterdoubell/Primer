@@ -13,15 +13,15 @@ of these readers is listed with its reason.
 
 ## What was recorded and bound
 
-119 new model records carry 204 partial bindings and cover 134 requirement leaves. Bound structures and parts go from 1,274
-to 1,400 of 57,985, and investigations with none fall from 45 to 36. Nothing is anatomically approved, and no radiologist
+123 new model records carry 212 partial bindings and cover 138 requirement leaves. Bound structures and parts go from 1,274
+to 1,404 of 57,985, and investigations with none fall from 45 to 36. Nothing is anatomically approved, and no radiologist
 has reviewed these bindings.
 
 | Investigation | Meshes | Bindings | Bound requirements |
 | --- | --- | --- | --- |
+| `ra.liver-lirads` | 25 | 26 | 0 → 17 |
+| `ra.liver-masses` | 25 | 26 | 0 → 17 |
 | `ra.ct-bowel-ischaemia` | 22 | 22 | 6 → 25 |
-| `ra.liver-lirads` | 21 | 22 | 0 → 15 |
-| `ra.liver-masses` | 21 | 22 | 0 → 15 |
 | `ra.ultrasound-gallbladder` | 19 | 21 | 3 → 9 |
 | `ra.cardiac-masses` | 18 | 18 | 28 → 36 |
 | `ra.mri-cardiomyopathy` | 18 | 18 | 12 → 20 |
@@ -45,7 +45,7 @@ has reviewed these bindings.
 
 | Reader | Meshes recorded | Bindings |
 | --- | --- | --- |
-| BodyParts3D 4.0 atlas: liver, renal, coronary and brain regions | 23 | 59 |
+| BodyParts3D 4.0 atlas: liver, renal, coronary and brain regions | 27 | 67 |
 | ColonVessels case pat_012 | 28 | 37 |
 | BodyParts3D 4.3 biliary objects | 19 | 33 |
 | BodyParts3D 4.3 cardiac objects | 12 | 26 |
@@ -58,25 +58,28 @@ has reviewed these bindings.
 
 ## Source findings
 
-Decoding the meshes showed that four source objects do not match their labels. None of them is bound. The first three also
-affect what the app shows, and fixing the display is a separate task.
+Decoding the meshes showed that four source objects did not match the labels the app gave them. Three were in the
+BodyParts3D 4.0 atlas of the liver. The project owner asked for those to be fixed the same day, and that correction is part
+of this change (`docs/bodyparts3d-liver-correction-20261119`). The bindings here are to the corrected atlas.
 
-- **The app's "hepatovenous segment vii" mesh is a second copy of segment VI.** The official BodyParts3D 4.0 table assigns
-  object FJ2409 to segment VII. Its bounds equal those of segment VI (FJ2822) to within 0.4 mm, and BodyParts3D 4.3 lists
-  FJ2409 as segment VI (original file "Hepatovenous segment VI.obj").
-- **The app's "hepatovenous segment viii" mesh holds segments VII and VIII.** The 4.0 table assigns two objects to segment
+- **The mesh labelled "hepatovenous segment vii" was a second mesh of segment VI.** The official BodyParts3D 4.0 table
+  assigns object FJ2409 to segment VII. Its bounds equal those of segment VI (FJ2822) to within 0.4 mm, and BodyParts3D 4.3
+  lists FJ2409 as segment VI (original file "Hepatovenous segment VI.obj"). The atlas no longer delivers it.
+- **The mesh labelled "hepatovenous segment viii" held segments VII and VIII.** The 4.0 table assigns two objects to segment
   VIII. They are separate pieces. FJ2823 is posterior superior, where segment VII lies, and BodyParts3D 4.3 lists it as
-  segment VII. FJ2824 is anterior superior.
-- **The app's "trunk of portal vein" mesh is the left and right portal branches.** The 4.0 table assigns objects FJ3102 and
-  FJ3122, which BodyParts3D 4.3 names the trunks of the left and right portal vein.
+  segment VII. FJ2824 is anterior superior. The atlas now shows FJ2823 as segment VII and FJ2824 as segment VIII. Both are
+  bound.
+- **The mesh labelled "trunk of portal vein" was the left and right portal trunks.** The 4.0 table assigns objects FJ3102 and
+  FJ3122 to that class, and lists the same objects as the trunk of the left and of the right portal vein. The atlas now shows
+  the two trunks under their own names, and both are bound. It also shows the pre-hepatic portal vein (FJ3082) as the main
+  trunk. That mesh is not bound, because the requirements split the main portal vein into lumen and wall.
 - **The "common hepatic duct" object also holds the common bile duct.** BodyParts3D 4.3 object FJ3079 spans 84 mm in height
   and ends 60 mm below the cystic duct. The source labels no common bile duct. An earlier source review
-  (`docs/bodyparts-biliary-source-review.md`) had flagged its extent.
+  (`docs/bodyparts-biliary-source-review.md`) had flagged its extent. It is not bound.
 
-Segments VII and VIII stay covered by the liver-region MRI and the PHLF case, whose meshes lie where their numbers say. A
-test checks that against the source axes: right lobe against left lateral section, superior above inferior, anterior before
-posterior. Another test checks that each of the 12 bound bile duct tributaries lies inside the segment it is bound to; for
-segments VII and VIII it uses the two pieces of the mesh labelled VIII.
+A test checks that the segment meshes of each source lie where their numbers say, against the source's own axes: right lobe
+against left lateral section, superior above inferior, anterior before posterior. Another test checks that each of the 12
+bound bile duct tributaries lies inside the segment it is bound to.
 
 Further findings, recorded in `review.json` under `source_findings`:
 
@@ -109,19 +112,19 @@ Readers linked only from curriculum module pages (`kidney-adrenal-s0028`, `cptac
 
 1. The mesh's own source label names the requirement:
    - in its own words (84 bindings);
-   - in another name (60). Examples: BodyParts3D's hepatovenous segment II is Couinaud II; the source dataset's
+   - in another name (68). Examples: BodyParts3D's hepatovenous segment II is Couinaud II; the source dataset's
      liver_segment_2 is Couinaud II; the right branch of the proper hepatic artery is the right hepatic artery; the sinus
      confluence is the torcular; the HRA region named for the bladder neck's smooth muscle is the wall of the bladder neck;
    - or as one member of a group the requirement names (60). Examples: a papillary muscle of the papillary groups, a valve
      cusp of the leaflets, Trolard's and Labbé's veins of the right cortical veins, a colic vein of the colic tributaries.
 
-   All 59 pairs in other words are listed with their reasons, and each is used by a binding. A listed label word must match
+   All 63 pairs in other words are listed with their reasons, and each is used by a binding. A listed label word must match
    whole words, so hepatovenous segment II cannot name segment III. Removing a pair makes the tool refuse its bindings.
 2. The requirement leaf is one of:
-   - the structure's own body (88), for example a Couinaud segment's actual parenchymal territory, a kidney's complete
+   - the structure's own body (92), for example a Couinaud segment's actual parenchymal territory, a kidney's complete
      renal extent, a gallbladder's complete surface or a vessel's lumen;
    - one member of a named group or union (57);
-   - the part the label names (48);
+   - the part the label names (52);
    - the structure itself, when it has no parts (11): the dural sinuses, the jugular bulb and the deep veins, and the diaphragm.
 3. The requirement is anatomy. A leaf whose context asks for an example of pathology is never bound to these sources.
 4. A leaf that names a lumen is bound only to ColonVessels. Its surgeons segmented each vessel on contrast-enhanced CT, so
@@ -174,8 +177,8 @@ A side can mean two things:
 - **A side of the body** (29 bindings: the kidneys, lateral ventricles, renal and colic vessels, ureteral orifices and the
   right-sided dural objects). Most of the mesh must lie on that side of the midline, and its centroid on that side of its
   mirror mesh's centroid where the source has one. The dural objects are right-sided only, so they have no mirror.
-- **A half of one organ** (78 bindings). The side word names a half of an organ, not a side of the body: the hepatic veins
-  and ducts, the hepatic artery branches, the atria, the coronary arteries, the ventricles' papillary muscles and the valve
+- **A half of one organ** (82 bindings). The side word names a half of an organ, not a side of the body: the hepatic veins
+  and ducts, the portal vein trunks, the hepatic artery branches, the atria, the coronary arteries, the ventricles' papillary muscles and the valve
   cusps. The mesh's centroid must lie on that side of its named partner. The organ itself may lie across the midline:
   - the left hepatic duct has 72% of its vertices right of the body's midline;
   - the right coronary trunk has 43%;
@@ -191,7 +194,7 @@ exists to check against.
 
 ## What was not recorded
 
-All 142 other label meshes of these readers are listed under `not_recorded`, each with its reason:
+All 140 other label meshes of these readers are listed under `not_recorded`, each with its reason:
 
 | Meshes | Reason |
 | --- | --- |
@@ -204,7 +207,7 @@ All 142 other label meshes of these readers are listed under `not_recorded`, eac
 | 4 | Dural sinuses that no requirement names (cavernous, petrosal, occipital) |
 | 4 | HRA regions both labelled "fundus of urinary bladder", which the source's node names call dome and base |
 | 4 | Whole lower lobes, where the requirement names the lung base |
-| 29 | The four objects under "Source findings"; wholes whose parts are required (segment IV twice, both venous systems, the two vessel unions, both ventricular walls); lumen and wall splits (the BodyParts3D renal arteries, the oesophagus); the paediatric-only ureters and bladder; the unshown prostate region; the cerebral hemispheres; the PHLF tumour mask; the great cerebral vein labelled with a side; the posterior interventricular branch; one papillary head; the plural right renal arteries; and the source's right supracolic vein |
+| 27 | The common hepatic duct object under "Source findings"; wholes whose parts are required (segment IV twice, both venous systems, the two vessel unions, both ventricular walls); lumen and wall splits (the BodyParts3D main portal vein and renal arteries, the oesophagus); the paediatric-only ureters and bladder; the unshown prostate region; the cerebral hemispheres; the PHLF tumour mask; the great cerebral vein labelled with a side; the posterior interventricular branch; one papillary head; the plural right renal arteries; and the source's right supracolic vein |
 
 ## The records
 

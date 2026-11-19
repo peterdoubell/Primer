@@ -6,6 +6,7 @@ from pathlib import Path
 
 from primer.curriculum import Curriculum, _validate_lesson_media
 from primer.module_media import source_model_bindings
+from primer.source_mesh_integrity import is_reviewed_manifest
 from tools.check_radiology_fidelity import digest
 from tools.anatomy_sources import apply_native_source_presentation_review as presentation
 
@@ -98,9 +99,10 @@ def build_review():
         contract, props = scoped_contract(node)
         for source in props['source_references']:
             path = 'web/' + source['manifest_url'].removeprefix('/app/')
-            if sha(ROOT / path) != source['manifest_sha256']:
+            # A manifest may be the one recorded successor of its reviewed bytes; the row records the delivered bytes.
+            if not is_reviewed_manifest(source['atlas'], (ROOT / path).read_bytes(), source['manifest_sha256']):
                 raise ValueError('Source manifest bytes changed')
-            files[path] = source['manifest_sha256']
+            files[path] = sha(ROOT / path)
             if source['id'] == 'verse521-bones':
                 volume = source['source_volume']
                 path = 'web/' + volume['src'].removeprefix('/app/')

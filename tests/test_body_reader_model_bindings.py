@@ -24,7 +24,7 @@ def records():
 def test_every_record_quotes_its_meshs_own_label_and_passes_the_checker():
     review, assets, leaves, names = records()
     rows = review['accepted']
-    assert len(rows) == 204 and len({row['asset_id'] for row in rows}) == 119 and len({row['structure_id'] for row in rows}) == 134
+    assert len(rows) == 212 and len({row['asset_id'] for row in rows}) == 123 and len({row['structure_id'] for row in rows}) == 138
     assert 'not a radiologist review' in review['reviewer'] and '2026-11-19' in review['decision']
     for row in rows:
         asset = assets[row['asset_id']]
@@ -51,12 +51,12 @@ def test_every_record_quotes_its_meshs_own_label_and_passes_the_checker():
 def test_each_label_names_the_requirement_and_the_leaf_is_the_recorded_kind():
     review, _, _, names = records()
     rows = review['accepted']
-    assert collections.Counter(row['evidence'] for row in rows) == {'own_word': 84, 'another_name': 60, 'kind_of': 60}
-    assert collections.Counter(row['leaf_basis'] for row in rows) == {'body_part': 88, 'group_member': 57, 'named_part': 48, 'structure': 11}
+    assert collections.Counter(row['evidence'] for row in rows) == {'own_word': 84, 'another_name': 68, 'kind_of': 60}
+    assert collections.Counter(row['leaf_basis'] for row in rows) == {'body_part': 92, 'group_member': 57, 'named_part': 52, 'structure': 11}
     pairs = {'another_name': review['another_name_pairs'], 'kind_of': review['kind_of_pairs']}
     for row in rows:
         assert tool.evidence_fits(row, names[row['structure_id']], pairs)
-    assert len(pairs['another_name']) == 36 and len(pairs['kind_of']) == 23
+    assert len(pairs['another_name']) == 40 and len(pairs['kind_of']) == 23
     for kind in pairs:
         assert {'%s>%s' % (pair['label_word'], pair['requirement_word']) for pair in pairs[kind]} == set(review[kind + '_reasons'])
         # Every listed pair is used by a binding.
@@ -152,7 +152,7 @@ def test_frames_follow_the_sources_own_anatomy():
     cache = {}
     offset = lambda key: tool.measure(key, meshes, review, cache)['centroid_mm']  # noqa: E731
     # BodyParts3D: the liver's right lobe lies right of the midline, and the ventricular wall and the circumflex artery left of it.
-    for code in ('FJ2821', 'FJ2822', 'FJ2409', 'FMA15746', 'FJ2817'):
+    for code in ('FJ2821', 'FJ2822', 'FJ2823', 'FJ2824', 'FJ2817'):
         assert offset('bodyparts3d/%s.bin' % code) > 40
     assert offset('bodyparts3d/FJ2428.bin') < -25 and offset('bodyparts3d/FMA3895.bin') < -50
     # The BodyParts3D 4.3 readers use the same coordinates as the 4.0 atlas.
@@ -197,7 +197,7 @@ def test_sides_agree_with_where_the_decoded_meshes_lie():
         else:
             assert 'laterality' not in context
         counts[row['side_basis']] += 1
-    assert counts == {'unsided': 95, 'organ_left': 43, 'organ_right': 35, 'right': 20, 'left': 9, 'both': 2}
+    assert counts == {'unsided': 99, 'organ_left': 45, 'organ_right': 37, 'right': 20, 'left': 9, 'both': 2}
     # The right coronary trunk lies mostly left of the body midline, so its label's side names the heart's right, checked against the left trunk.
     rca = tool.mesh_side('bodyparts3d/FJ2723.bin', meshes, review, cache)
     assert rca['share_right'] < 0.5 and rca['located'] == 'right' and rca['partner_kind'] == 'organ_half'
@@ -212,7 +212,7 @@ def test_sides_agree_with_where_the_decoded_meshes_lie():
 def test_every_other_mesh_of_the_readers_is_listed_with_its_reason():
     review, assets, _, _ = records()
     meshes = tool.inventory(review)
-    assert len(meshes) == 261 and len(review['readers']) == 17
+    assert len(meshes) == 263 and len(review['readers']) == 17
     recorded = {row['mesh'] for row in review['accepted']}
     assert recorded | set(review['not_recorded']) == set(meshes) and not recorded & set(review['not_recorded'])
     recorded_paths = {asset['local_path'] for asset in assets.values()}
@@ -268,38 +268,12 @@ def test_lumens_populations_and_the_source_reviews_limits():
     assert 'convention' not in assets['hra-bladder-female-v1.1-vh_f_ureteral_orifice_r']['requirement_coverage']['bladder.uvj.right.ureteral_orifice']['basis']
 
 
-def components(key, mesh):
-    """Vertex index lists of a BP3D mesh's connected components, after joining vertices with identical positions."""
-    import struct
-    raw = (tool.ANATOMY / key).read_bytes()
-    _, vertices, indices = struct.unpack('<4sII', raw[:12])
-    points = tool.positions(key, mesh)[0]
-    faces = struct.unpack('<%dI' % indices, raw[12 + vertices * 24:])
-    first = {}
-    same = [first.setdefault(point, index) for index, point in enumerate(points)]
-    parent = list(range(vertices))
-
-    def find(index):
-        while parent[index] != index:
-            parent[index] = parent[parent[index]]
-            index = parent[index]
-        return index
-    for start in range(0, indices, 3):
-        a, b, c = (same[faces[start + offset]] for offset in range(3))
-        for u, v in ((a, b), (b, c)):
-            parent[find(u)] = find(v)
-    groups = collections.defaultdict(list)
-    for index in range(vertices):
-        groups[find(same[index])].append(index)
-    return sorted(groups.values(), key=min), points
-
-
 def bounds(key, meshes):
     xs, ys, zs = zip(*tool.positions(key, meshes[key])[0])
     return (min(xs), max(xs), min(ys), max(ys), min(zs), max(zs))
 
 
-def test_source_objects_whose_labels_disagree_with_their_geometry_are_not_bound():
+def test_source_objects_whose_labels_disagree_with_their_geometry_are_corrected_or_not_bound():
     review, _, _, _ = records()
     meshes = tool.inventory(review)
     recorded = {row['mesh'] for row in review['accepted']}
@@ -309,11 +283,9 @@ def test_source_objects_whose_labels_disagree_with_their_geometry_are_not_bound(
     for line in excerpt['lines'].values():
         concept, name, element = line.split('\t')
         official[name].append(element)
-    # The official 4.0 table assigns these objects, and the app's atlas follows it.
+    # The official 4.0 table assigns these objects.
     assert official == {'trunk of portal vein': ['FJ3102', 'FJ3122'], 'hepatovenous segment v': ['FJ2821'], 'hepatovenous segment vi': ['FJ2822'],
                         'hepatovenous segment vii': ['FJ2409'], 'hepatovenous segment viii': ['FJ2823', 'FJ2824']}
-    for code, name in (('FJ2409', 'hepatovenous segment vii'), ('FMA15746', 'hepatovenous segment viii'), ('FMA14329', 'trunk of portal vein')):
-        assert manifest[code]['name'] == name and manifest[code]['source_ids'] == official[name]
     # BodyParts3D 4.3 names the same objects differently.
     table = (tool.ROOT / 'docs/cardiac-wall-context-review-20261016/obj2FMA-4.3.html').read_text(encoding='utf-8', errors='replace')
 
@@ -323,23 +295,30 @@ def test_source_objects_whose_labels_disagree_with_their_geometry_are_not_bound(
     assert later_name('FJ2409') == 'Hepatovenous segment VI' and later_name('FJ2822') == 'Hepatovenous segment VI'
     assert later_name('FJ2823') == 'Hepatovenous segment VII' and later_name('FJ2824') == 'Hepatovenous segment VIII'
     assert later_name('FJ3102') == 'Trunk of left portal vein' and later_name('FJ3122') == 'Trunk of right portal vein'
-    # The object labelled segment VII fills segment VI's volume, and no other segment's.
-    seven, six = bounds('bodyparts3d/FJ2409.bin', meshes), bounds('bodyparts3d/FJ2822.bin', meshes)
-    assert max(abs(a - b) for a, b in zip(seven, six)) < 0.5
-    for code in ('FJ2816', 'FJ2818', 'FJ2819', 'FJ2820', 'FJ2821', 'FMA15746'):
-        assert max(abs(a - b) for a, b in zip(seven, bounds('bodyparts3d/%s.bin' % code, meshes))) > 50
-    # The mesh labelled segment VIII is two separate pieces: the first source object lies behind the second (BodyParts3D: -Y is anterior).
-    groups, points = components('bodyparts3d/FMA15746.bin', meshes['bodyparts3d/FMA15746.bin'])
-    assert len(groups) == 2 and groups[0][0] == 0
-    depth = [sum(points[index][1] for index in group) / len(group) for group in groups]
-    assert depth[0] - depth[1] > 30
-    # The object labelled common hepatic duct runs far below the cystic duct.
+    # The atlas follows the later table for the two segments, records what the official table says, and shows each portal trunk by its own name.
+    assert not {'FJ2409', 'FMA15746', 'FMA14329'} & set(manifest)
+    for code, name, was in (('FJ2823', 'hepatovenous segment vii', ['FJ2409']), ('FJ2824', 'hepatovenous segment viii', ['FJ2823', 'FJ2824'])):
+        assert manifest[code]['name'] == name and manifest[code]['source_ids'] == [code]
+        assert manifest[code]['source_correction']['official_table_source_ids'] == was == official[name]
+    assert manifest['FJ3102']['name'] == 'trunk of left portal vein' and manifest['FJ3122']['name'] == 'trunk of right portal vein'
+    assert 'source_correction' not in manifest['FJ3102'] and 'source_correction' not in manifest['FJ3122']
+    # No segment mesh now has another segment's bounds: the object the official table calls segment VII had segment VI's.
+    codes = ('FJ2816', 'FJ2818', 'FJ2819', 'FJ2820', 'FJ2821', 'FJ2822', 'FJ2823', 'FJ2824')
+    boxes = {code: bounds('bodyparts3d/%s.bin' % code, meshes) for code in codes}
+    for first in codes:
+        for second_code in codes:
+            if first < second_code:
+                assert max(abs(a - b) for a, b in zip(boxes[first], boxes[second_code])) > 15, (first, second_code)
+    # The four corrected meshes are bound; the main portal vein is not, because the requirements split it into lumen and wall.
+    assert {'bodyparts3d/%s.bin' % code for code in ('FJ2823', 'FJ2824', 'FJ3102', 'FJ3122')} <= recorded
+    assert 'bodyparts3d/FJ3082.bin' not in recorded and 'lumen' in review['not_recorded']['bodyparts3d/FJ3082.bin']
+    # The object labelled common hepatic duct runs far below the cystic duct, and stays unbound.
     duct, cystic = bounds('bp3d-biliary-4.3/FJ3079.mesh.gz', meshes), bounds('bp3d-biliary-4.3/FJ3080.mesh.gz', meshes)
     assert duct[5] - duct[4] > 80 and cystic[4] - duct[4] > 55
-    for key, words in (('bodyparts3d/FJ2409.bin', 'segment VI'), ('bodyparts3d/FMA15746.bin', 'bound to neither'),
-                       ('bodyparts3d/FMA14329.bin', 'left and right'), ('bp3d-biliary-4.3/FJ3079.mesh.gz', 'common bile duct')):
-        assert key not in recorded and words in review['not_recorded'][key]
-    assert len(review['source_findings']) == 8 and all(review['source_findings'])
+    key = 'bp3d-biliary-4.3/FJ3079.mesh.gz'
+    assert key not in recorded and 'common bile duct' in review['not_recorded'][key]
+    assert len(review['source_findings']) == 7 and all(review['source_findings'])
+    assert 'corrected' in review['source_findings'][0] and 'FJ2823' in review['source_findings'][0]
     # Repeated source objects keep their own records; the cystic duct pair fills the same place.
     assert max(abs(a - b) for a, b in zip(cystic, bounds('bp3d-biliary-4.3/FJ4526.mesh.gz', meshes))) < 0.5
     assert {'bp3d-biliary-4.3/FJ3080.mesh.gz', 'bp3d-biliary-4.3/FJ4526.mesh.gz'} <= recorded
@@ -366,10 +345,10 @@ def test_recorded_bodyparts3d_labels_agree_with_the_later_object_table():
         for element in elements:
             assert later[element] == {reader_names.get(label, label)}, (key, element)
             checked += 1
-    # 71 recorded meshes; the circumflex artery has six source objects and the cerebellum two.
-    assert checked == 77
-    # The same check finds the objects that are not bound.
-    assert later['FJ2409'] == {'hepatovenous segment vi'} and manifest['FJ2409']['name'] == 'hepatovenous segment vii'
+    # 75 recorded meshes; the circumflex artery has six source objects and the cerebellum two.
+    assert checked == 81
+    # The object the official 4.0 table calls segment VII is a second segment VI; the atlas no longer delivers it.
+    assert later['FJ2409'] == {'hepatovenous segment vi'} and 'FJ2409' not in manifest
 
 
 def test_bound_liver_segments_lie_where_their_numbers_say():
@@ -390,23 +369,26 @@ def test_bound_liver_segments_lie_where_their_numbers_say():
     assert region[2][0] < region[1][0] < region[5][0]                                                     # the caudate lies between
     # PHLF: region 7 lies above region 6.
     assert centre('phlf-center2-24/regions-7.mesh.gz')[2] > centre('phlf-center2-24/regions-6.mesh.gz')[2] + 30
-    # BodyParts3D (-X right, -Y anterior, +Z up): II above III on the left; V in front of VI on the right.
-    part = {name: centre('bodyparts3d/%s.bin' % code) for name, code in (('ii', 'FJ2818'), ('iii', 'FJ2819'), ('v', 'FJ2821'), ('vi', 'FJ2822'))}
+    # BodyParts3D (-X right, -Y anterior, +Z up): II above III on the left; on the right, V in front of VI, VIII in front of VII,
+    # VII above VI and VIII above V.
+    part = {name: centre('bodyparts3d/%s.bin' % code) for name, code in (
+        ('ii', 'FJ2818'), ('iii', 'FJ2819'), ('v', 'FJ2821'), ('vi', 'FJ2822'), ('vii', 'FJ2823'), ('viii', 'FJ2824'))}
     assert part['ii'][2] > part['iii'][2] and part['ii'][0] > 0 and part['iii'][0] > 0
-    assert part['v'][0] < -40 and part['vi'][0] < -40 and part['v'][1] < part['vi'][1] - 30
+    assert all(part[name][0] < -40 for name in ('v', 'vi', 'vii', 'viii'))
+    assert part['v'][1] < part['vi'][1] - 30 and part['viii'][1] < part['vii'][1] - 30
+    assert part['vii'][2] > part['vi'][2] + 30 and part['viii'][2] > part['v'][2] + 30
 
 
 def test_each_bound_bile_duct_tributary_lies_inside_the_segment_it_is_bound_to():
     review, _, _, _ = records()
     meshes = tool.inventory(review)
-    groups, points = components('bodyparts3d/FMA15746.bin', meshes['bodyparts3d/FMA15746.bin'])
 
     def box(found):
         return [(min(point[axis] for point in found), max(point[axis] for point in found)) for axis in range(3)]
-    # The 4.3 biliary objects share the 4.0 atlas's coordinates. Segments VII and VIII are the two pieces of the mesh labelled VIII.
+    # The 4.3 biliary objects share the 4.0 atlas's coordinates.
     segment = {name: box(tool.positions('bodyparts3d/%s.bin' % code, meshes['bodyparts3d/%s.bin' % code])[0])
-               for name, code in (('II', 'FJ2818'), ('III', 'FJ2819'), ('IV', 'FJ2820'), ('V', 'FJ2821'), ('VI', 'FJ2822'))}
-    segment['VII'], segment['VIII'] = (box([points[index] for index in group]) for group in groups)
+               for name, code in (('II', 'FJ2818'), ('III', 'FJ2819'), ('IV', 'FJ2820'), ('V', 'FJ2821'), ('VI', 'FJ2822'),
+                                  ('VII', 'FJ2823'), ('VIII', 'FJ2824'))}
     checked = 0
     for row in review['accepted']:
         found = re.fullmatch(r'biliary\.segment_(?:left|right)_[a-z]+_([IV]+)\..*', row['structure_id'])
@@ -433,7 +415,7 @@ def test_body_reader_model_records_have_an_exact_inverse_and_only_add_records():
     old_view, new_view = json.loads(before), json.loads(raw)
     assert {k: v for k, v in old_view.items() if k != 'assets'} == {k: v for k, v in new_view.items() if k != 'assets'}
     added = new_view['assets'][len(old_view['assets']):]
-    assert new_view['assets'][:len(old_view['assets'])] == old_view['assets'] and len(added) == 119
+    assert new_view['assets'][:len(old_view['assets'])] == old_view['assets'] and len(added) == 123
     assert [item['id'] for item in added] == sorted({row['asset_id'] for row in json.loads(tool.REVIEW.read_text())['accepted']})
     # The history chain peels this pass first.
     assert history.before_activity_registry_bytes(PATH, raw) == history.before_activity_registry_bytes(PATH, before)
@@ -448,7 +430,7 @@ def test_the_tool_refuses_a_row_that_breaks_a_rule(tmp_path, monkeypatch):
     monkeypatch.setattr(tool, 'REVIEW', document)
     document.write_text(json.dumps(review))
     made = tool.plan()
-    assert len(made) == 119 and sum(len(item['structure_ids']) for item in made) == 204
+    assert len(made) == 123 and sum(len(item['structure_ids']) for item in made) == 212
     rows = review['accepted']
     kidney = next(i for i, row in enumerate(rows) if row['structure_id'] == 'renal_mass.right_kidney.whole_extent')
     segment = next(i for i, row in enumerate(rows) if row['quote'] == 'hepatovenous segment iii' and row['structure_id'].startswith('liver_mass.'))
@@ -488,8 +470,8 @@ def test_the_tool_refuses_a_row_that_breaks_a_rule(tmp_path, monkeypatch):
         with pytest.raises(ValueError, match=problem):
             tool.plan()
     # A pair that no binding uses may not stay in the list.
-    unused = {'label_word': 'hepatovenous segment vii', 'requirement_word': 'couinaud vii'}
+    unused = {'label_word': 'hepatovenous segment iv', 'requirement_word': 'couinaud iv'}
     document.write_text(json.dumps(dict(review, another_name_pairs=review['another_name_pairs'] + [unused],
-                                        another_name_reasons=dict(review['another_name_reasons'], **{'hepatovenous segment vii>couinaud vii': 'unused'}))))
+                                        another_name_reasons=dict(review['another_name_reasons'], **{'hepatovenous segment iv>couinaud iv': 'unused'}))))
     with pytest.raises(ValueError, match='pair is used by no binding'):
         tool.plan()

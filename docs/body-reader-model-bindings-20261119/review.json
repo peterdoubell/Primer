@@ -763,6 +763,14 @@
    "partner": "bodyparts3d/FJ2723.bin",
    "kind": "organ_half"
   },
+  "bodyparts3d/FJ3102.bin": {
+   "partner": "bodyparts3d/FJ3122.bin",
+   "kind": "organ_half"
+  },
+  "bodyparts3d/FJ3122.bin": {
+   "partner": "bodyparts3d/FJ3102.bin",
+   "kind": "organ_half"
+  },
   "bodyparts3d/FJ3145.bin": {
    "partner": "bodyparts3d/FJ3147.bin",
    "kind": "mirror"
@@ -950,9 +958,8 @@
   "hva-ct": "both labels are whole venous systems, and the requirements name their parts"
  },
  "source_findings": [
-  "BodyParts3D 4.0, hepatovenous segment VII: the official table assigns object FJ2409 to segment VII. Its bounds equal those of segment VI (FJ2822) to within 0.4 mm, and BodyParts3D 4.3 lists FJ2409 as segment VI (original file “Hepatovenous segment VI.obj”). The app’s liver model therefore shows a mesh labelled segment VII in segment VI’s place.",
-  "BodyParts3D 4.0, hepatovenous segment VIII: the official table assigns objects FJ2823 and FJ2824 to segment VIII. The atlas mesh has two separate components. The first, FJ2823, is posterior superior, where segment VII lies; BodyParts3D 4.3 lists it as segment VII (original file “Hepatovenous segment VII.obj”). The second, FJ2824, is anterior superior. The app’s mesh labelled segment VIII therefore holds segments VII and VIII.",
-  "BodyParts3D 4.0, trunk of portal vein: the official table assigns objects FJ3102 and FJ3122, which BodyParts3D 4.3 names the trunks of the left and right portal vein. The app’s mesh labelled trunk of portal vein is those two branches.",
+  "BodyParts3D 4.0, hepatovenous segments VII and VIII: the official table assigns object FJ2409 to segment VII, and objects FJ2823 and FJ2824 to segment VIII. FJ2409 has the bounds of segment VI (FJ2822) to within 0.4 mm, and BodyParts3D 4.3 lists it as segment VI. FJ2823 lies posterior and superior, where segment VII lies, and BodyParts3D 4.3 lists it as segment VII. The atlas is corrected with this change (docs/bodyparts3d-liver-correction-20261119): it builds segment VII from FJ2823 and segment VIII from FJ2824, and no longer delivers FJ2409. The two corrected meshes are bound.",
+  "BodyParts3D 4.0, trunk of portal vein: the concept is the class of both portal trunks. The official table assigns it objects FJ3102 and FJ3122, and lists the same objects as the trunk of the left and of the right portal vein. The atlas united them under the class name, which reads as the main portal trunk. It now shows the two trunks under their own names, and the pre-hepatic portal vein (FJ3082) as the main trunk.",
   "BodyParts3D 4.3, common hepatic duct: object FJ3079 spans 84 mm in height and ends 60 mm below the cystic duct, so it holds the common bile duct as well. The source labels no common bile duct.",
   "BodyParts3D 4.3 biliary objects: six labels have two objects each. Three pairs occupy nearly the same place (cystic duct FJ3080 and FJ4526; medial inferior tributary FJ3103 and FJ5819; caudate tributary FJ1883 and FJ5812). Each object has its own record; a pair is not two independent observations.",
   "The gallbladder and both atrial walls have identical geometry in the BodyParts3D 4.0 atlas and in the 4.3 readers. Each file has its own record, because a different reader delivers it.",
@@ -975,6 +982,22 @@
   {
    "label_word": "hepatovenous segment vi",
    "requirement_word": "couinaud vi"
+  },
+  {
+   "label_word": "hepatovenous segment vii",
+   "requirement_word": "couinaud vii"
+  },
+  {
+   "label_word": "hepatovenous segment viii",
+   "requirement_word": "couinaud viii"
+  },
+  {
+   "label_word": "trunk of right portal vein",
+   "requirement_word": "right portal branch"
+  },
+  {
+   "label_word": "trunk of left portal vein",
+   "requirement_word": "left portal branch"
   },
   {
    "label_word": "source segment 1",
@@ -1110,6 +1133,10 @@
   "hepatovenous segment iii>couinaud iii": "BodyParts3D names the Couinaud segments by the FMA term hepatovenous segment; hepatovenous segment III is Couinaud III",
   "hepatovenous segment v>couinaud v": "BodyParts3D names the Couinaud segments by the FMA term hepatovenous segment; hepatovenous segment V is Couinaud V",
   "hepatovenous segment vi>couinaud vi": "BodyParts3D names the Couinaud segments by the FMA term hepatovenous segment; hepatovenous segment VI is Couinaud VI",
+  "hepatovenous segment vii>couinaud vii": "BodyParts3D names the Couinaud segments by the FMA term hepatovenous segment; hepatovenous segment VII is Couinaud VII. The atlas builds this mesh from object FJ2823, which the BodyParts3D 4.3 object table names segment VII and which lies above segment VI and behind segment VIII",
+  "hepatovenous segment viii>couinaud viii": "BodyParts3D names the Couinaud segments by the FMA term hepatovenous segment; hepatovenous segment VIII is Couinaud VIII. The atlas builds this mesh from object FJ2824, which the BodyParts3D 4.3 object table names segment VIII and which lies above segment V and in front of segment VII",
+  "trunk of right portal vein>right portal branch": "the right portal vein is the right branch of the portal vein; its trunk is that branch without the sector and segmental branches, which the requirement lists separately",
+  "trunk of left portal vein>left portal branch": "the left portal vein is the left branch of the portal vein; its trunk is that branch without the caudate and segmental branches, which the requirement lists separately",
   "source segment 1>couinaud i": "the source dataset names this label liver_segment_1 and describes its labels as Couinaud segments; segment 1 is Couinaud I",
   "source segment 2>couinaud ii": "the source dataset names this label liver_segment_2 and describes its labels as Couinaud segments; segment 2 is Couinaud II",
   "source segment 3>couinaud iii": "the source dataset names this label liver_segment_3 and describes its labels as Couinaud segments; segment 3 is Couinaud III",
@@ -1286,17 +1313,15 @@
  "not_recorded": {
   "bodyparts3d/FJ2038.bin": "The renal mass requirements split the main renal artery into lumina and walls, and a BodyParts3D vessel surface shows neither alone; the adrenal requirements name only the renal arterial origin, and this adult male source is not bound to paediatric anatomy.",
   "bodyparts3d/FJ2046.bin": "The renal mass requirements split the main renal artery into lumina and walls, and a BodyParts3D vessel surface shows neither alone; the adrenal requirements name only the renal arterial origin, and this adult male source is not bound to paediatric anatomy.",
-  "bodyparts3d/FJ2409.bin": "The BodyParts3D 4.0 table assigns this object to segment VII, but it fills the same volume as segment VI (FJ2822), and BodyParts3D 4.3 lists it as segment VI. Its label is wrong for its geometry, so it is not bound.",
   "bodyparts3d/FJ2428.bin": "The source holds both ventricular walls in one class; the requirements name the left and right ventricular walls, the septum and the cavities separately, and a whole is not bound to its parts.",
   "bodyparts3d/FJ2820.bin": "The requirements name segments IVa and IVb separately; the label names the whole of segment IV, and a whole is not bound to its parts.",
+  "bodyparts3d/FJ3082.bin": "The liver requirements split the main portal vein into its lumen and its wall, and a BodyParts3D vessel surface shows neither alone.",
   "bodyparts3d/FJ3137.bin": "No investigation shows the BodyParts3D prostate region: the prostate investigation has its own source reference.",
   "bodyparts3d/FJ3139.bin": "No investigation shows the BodyParts3D prostate region: the prostate investigation has its own source reference.",
   "bodyparts3d/FJ3143.bin": "No investigation shows the BodyParts3D prostate region: the prostate investigation has its own source reference.",
   "bodyparts3d/FJ3144.bin": "Only the paediatric investigation names the whole ureter, and this adult male source is not bound to paediatric anatomy; the renal mass requirements name only the covered proximal ureter, a part of it.",
   "bodyparts3d/FJ3146.bin": "Only the paediatric investigation names the whole ureter, and this adult male source is not bound to paediatric anatomy; the renal mass requirements name only the covered proximal ureter, a part of it.",
   "bodyparts3d/FJ3149.bin": "Only the paediatric investigation names the bladder, and this adult male source is not bound to paediatric anatomy.",
-  "bodyparts3d/FMA14329.bin": "The atlas mesh unites the source objects FJ3102 and FJ3122, which BodyParts3D 4.3 names the trunks of the left and right portal vein, so it is not the main portal trunk its label suggests. The requirements also split the main portal vein into lumen and wall.",
-  "bodyparts3d/FMA15746.bin": "The BodyParts3D 4.0 table assigns two objects to segment VIII. They are separate pieces: FJ2824 is anterior superior, where segment VIII lies, and FJ2823 is posterior superior, where segment VII lies; BodyParts3D 4.3 lists FJ2823 as segment VII. A mesh that holds both segments is bound to neither.",
   "bodyparts3d/FMA3840.bin": "The label’s side names its parent artery, but the posterior interventricular groove lies left of the body midline, and the source has no left-named partner against which to check an organ half. The coronary CT requirements split this artery into origin, proximal and distal lumen and wall.",
   "bodyparts3d/FMA61819.bin": "No requirement of the investigations that show it names the whole cerebral hemisphere.",
   "bodyparts3d/FMA67292.bin": "No requirement of the investigations that show it names the whole cerebral hemisphere.",
@@ -1427,7 +1452,7 @@
   "totalseg-v1-s0028-cardiac/surfaces/heart_ventricle_left-review-buffer.bin.gz": "The source review (docs/cardiac-native-source-review-v1-s0028) limits these labels to CT context: the chamber regions do not establish walls, appendages or valve-defined blood pools, and the LV myocardium label is context only.",
   "totalseg-v1-s0028-cardiac/surfaces/heart_ventricle_right-review-buffer.bin.gz": "The source review (docs/cardiac-native-source-review-v1-s0028) limits these labels to CT context: the chamber regions do not establish walls, appendages or valve-defined blood pools, and the LV myocardium label is context only."
  },
- "method": "All 261 label meshes of 17 body readers were compared with the requirement leaves of the investigations that show each reader. Candidates were reviewed by hand; 204 bindings on 119 meshes were accepted. Every other mesh is listed under not_recorded with its reason.",
+ "method": "All 263 label meshes of 17 body readers were compared with the requirement leaves of the investigations that show each reader. Candidates were reviewed by hand; 212 bindings on 123 meshes were accepted. Every other mesh is listed under not_recorded with its reason.",
  "accepted": [
   {
    "mesh": "bodyparts3d/FJ2816.bin",
@@ -1568,6 +1593,48 @@
    "region": "abdomen"
   },
   {
+   "mesh": "bodyparts3d/FJ2823.bin",
+   "asset_id": "bodyparts3d-FJ2823",
+   "atlas": "bodyparts3d",
+   "quote": "hepatovenous segment vii",
+   "structure_id": "liver_mass.segment_vii.parenchymal_territory",
+   "name": "Source-defined Couinaud VII right posterior superior: Actual parenchymal territory",
+   "kind": "structure",
+   "evidence": "another_name",
+   "another_name": {
+    "label_word": "hepatovenous segment vii",
+    "requirement_word": "couinaud vii"
+   },
+   "leaf_basis": "body_part",
+   "investigations": [
+    "ra.liver-masses"
+   ],
+   "side_basis": "unsided",
+   "mesh_side": "right",
+   "region": "abdomen"
+  },
+  {
+   "mesh": "bodyparts3d/FJ2824.bin",
+   "asset_id": "bodyparts3d-FJ2824",
+   "atlas": "bodyparts3d",
+   "quote": "hepatovenous segment viii",
+   "structure_id": "liver_mass.segment_viii.parenchymal_territory",
+   "name": "Source-defined Couinaud VIII right anterior superior: Actual parenchymal territory",
+   "kind": "structure",
+   "evidence": "another_name",
+   "another_name": {
+    "label_word": "hepatovenous segment viii",
+    "requirement_word": "couinaud viii"
+   },
+   "leaf_basis": "body_part",
+   "investigations": [
+    "ra.liver-masses"
+   ],
+   "side_basis": "unsided",
+   "mesh_side": "right",
+   "region": "abdomen"
+  },
+  {
    "mesh": "bodyparts3d/FJ2415.bin",
    "asset_id": "bodyparts3d-FJ2415",
    "atlas": "bodyparts3d",
@@ -1619,6 +1686,48 @@
    ],
    "side_basis": "organ_right",
    "mesh_side": "right",
+   "region": "abdomen"
+  },
+  {
+   "mesh": "bodyparts3d/FJ3122.bin",
+   "asset_id": "bodyparts3d-FJ3122",
+   "atlas": "bodyparts3d",
+   "quote": "trunk of right portal vein",
+   "structure_id": "liver_mass.portal_anatomy.right_branch",
+   "name": "Portal venous anatomy: Right portal branch",
+   "kind": "structure",
+   "evidence": "another_name",
+   "another_name": {
+    "label_word": "trunk of right portal vein",
+    "requirement_word": "right portal branch"
+   },
+   "leaf_basis": "named_part",
+   "investigations": [
+    "ra.liver-masses"
+   ],
+   "side_basis": "organ_right",
+   "mesh_side": "right",
+   "region": "abdomen"
+  },
+  {
+   "mesh": "bodyparts3d/FJ3102.bin",
+   "asset_id": "bodyparts3d-FJ3102",
+   "atlas": "bodyparts3d",
+   "quote": "trunk of left portal vein",
+   "structure_id": "liver_mass.portal_anatomy.left_branch",
+   "name": "Portal venous anatomy: Left portal branch",
+   "kind": "structure",
+   "evidence": "another_name",
+   "another_name": {
+    "label_word": "trunk of left portal vein",
+    "requirement_word": "left portal branch"
+   },
+   "leaf_basis": "named_part",
+   "investigations": [
+    "ra.liver-masses"
+   ],
+   "side_basis": "organ_left",
+   "mesh_side": "left",
    "region": "abdomen"
   },
   {
@@ -2009,6 +2118,48 @@
    "region": "abdomen"
   },
   {
+   "mesh": "bodyparts3d/FJ2823.bin",
+   "asset_id": "bodyparts3d-FJ2823",
+   "atlas": "bodyparts3d",
+   "quote": "hepatovenous segment vii",
+   "structure_id": "lirads.segment_vii.parenchymal_territory",
+   "name": "Source-defined Couinaud VII right posterior superior: Actual parenchymal territory",
+   "kind": "structure",
+   "evidence": "another_name",
+   "another_name": {
+    "label_word": "hepatovenous segment vii",
+    "requirement_word": "couinaud vii"
+   },
+   "leaf_basis": "body_part",
+   "investigations": [
+    "ra.liver-lirads"
+   ],
+   "side_basis": "unsided",
+   "mesh_side": "right",
+   "region": "abdomen"
+  },
+  {
+   "mesh": "bodyparts3d/FJ2824.bin",
+   "asset_id": "bodyparts3d-FJ2824",
+   "atlas": "bodyparts3d",
+   "quote": "hepatovenous segment viii",
+   "structure_id": "lirads.segment_viii.parenchymal_territory",
+   "name": "Source-defined Couinaud VIII right anterior superior: Actual parenchymal territory",
+   "kind": "structure",
+   "evidence": "another_name",
+   "another_name": {
+    "label_word": "hepatovenous segment viii",
+    "requirement_word": "couinaud viii"
+   },
+   "leaf_basis": "body_part",
+   "investigations": [
+    "ra.liver-lirads"
+   ],
+   "side_basis": "unsided",
+   "mesh_side": "right",
+   "region": "abdomen"
+  },
+  {
    "mesh": "bodyparts3d/FJ2415.bin",
    "asset_id": "bodyparts3d-FJ2415",
    "atlas": "bodyparts3d",
@@ -2060,6 +2211,48 @@
    ],
    "side_basis": "organ_right",
    "mesh_side": "right",
+   "region": "abdomen"
+  },
+  {
+   "mesh": "bodyparts3d/FJ3122.bin",
+   "asset_id": "bodyparts3d-FJ3122",
+   "atlas": "bodyparts3d",
+   "quote": "trunk of right portal vein",
+   "structure_id": "lirads.portal_anatomy.right_branch",
+   "name": "Portal venous anatomy: Right portal branch",
+   "kind": "structure",
+   "evidence": "another_name",
+   "another_name": {
+    "label_word": "trunk of right portal vein",
+    "requirement_word": "right portal branch"
+   },
+   "leaf_basis": "named_part",
+   "investigations": [
+    "ra.liver-lirads"
+   ],
+   "side_basis": "organ_right",
+   "mesh_side": "right",
+   "region": "abdomen"
+  },
+  {
+   "mesh": "bodyparts3d/FJ3102.bin",
+   "asset_id": "bodyparts3d-FJ3102",
+   "atlas": "bodyparts3d",
+   "quote": "trunk of left portal vein",
+   "structure_id": "lirads.portal_anatomy.left_branch",
+   "name": "Portal venous anatomy: Left portal branch",
+   "kind": "structure",
+   "evidence": "another_name",
+   "another_name": {
+    "label_word": "trunk of left portal vein",
+    "requirement_word": "left portal branch"
+   },
+   "leaf_basis": "named_part",
+   "investigations": [
+    "ra.liver-lirads"
+   ],
+   "side_basis": "organ_left",
+   "mesh_side": "left",
    "region": "abdomen"
   },
   {

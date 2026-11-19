@@ -16,7 +16,7 @@ from pathlib import Path
 
 from .radiology import DATA, validate_reference, validate_reporting_guide
 from .source_raster_integrity import verified_raster_header
-from .source_mesh_integrity import verified_mesh_contract
+from .source_mesh_integrity import is_reviewed_manifest, verified_mesh_contract
 from .source_motion import validate_motion_references
 
 STEP_DIR = DATA / 'reporting-steps'
@@ -102,7 +102,7 @@ def _source_anatomy_references():
                 raise ValueError('Source anatomy manifest or initial framing is invalid')
             path = web / expected_url.removeprefix('/app/')
             raw = path.read_bytes()
-            if hashlib.sha256(raw).hexdigest() != entry['manifest_sha256']:
+            if not is_reviewed_manifest(entry['atlas'], raw, entry['manifest_sha256']):
                 raise ValueError('Source anatomy manifest changed')
             manifest = json.loads(raw)
             region = manifest.get('regions', {}).get(entry['family'])
