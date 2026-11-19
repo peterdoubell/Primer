@@ -1,0 +1,14 @@
+{
+  "primer/report_templates.py": {
+    "before": "c51703450a07f3798101d2d928bef20ab56c928f7fe6865fa7ec325eea31d4f2",
+    "after": "9dea795363cafcdb0a879b9c0b0e0030c5adce2a464da820381f792baf76174d",
+    "changes": [
+      {
+        "start": 298,
+        "end": 299,
+        "before": "        label = 'Technique' if draft else heading\n",
+        "after": "        label = heading  # Protocol for an MRI, Technique for a CT: a department draft's too\n"
+      }
+    ]
+  }
+}

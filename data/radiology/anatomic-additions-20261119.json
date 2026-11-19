@@ -1,0 +1,663 @@
+{
+ "version": "2026-11-19",
+ "sources": [
+  {
+   "id": "acr-parameters",
+   "title": "ACR practice parameters and technical standards",
+   "url": "https://www.acr.org/clinical-resources/clinical-tools-and-reference/practice-parameters-and-technical-standards"
+  }
+ ],
+ "investigations": {
+  "us.soft-tissue-neck": {
+   "guide_id": "rad.5.neck-nodes",
+   "title": "Ultrasound soft tissue neck",
+   "modality": "Ultrasound",
+   "base_investigation_id": "ra.cervical-lymph-nodes",
+   "sections": [
+    {
+     "id": "technique",
+     "label": "Examination performed",
+     "group": "Technique",
+     "normal": null,
+     "source_ids": [
+      "acr-parameters"
+     ],
+     "findings": [
+      {
+       "id": "assessment",
+       "label": "Examination performed",
+       "text": "The examination was performed [to the standard protocol / with a modified protocol / as a limited examination]."
+      }
+     ],
+     "exclude_from_bulk_normal": true
+    },
+    {
+     "id": "area-of-concern",
+     "label": "Area of concern",
+     "group": "Area of concern",
+     "normal": "No abnormality is identified in the area of concern.",
+     "source_ids": [
+      "acr-parameters"
+     ],
+     "findings": [
+      {
+       "id": "lesion",
+       "label": "Lesion",
+       "text": "A [cystic / solid / mixed cystic and solid / fatty] lesion is present in the area of concern."
+      },
+      {
+       "id": "size",
+       "label": "Size",
+       "text": "The lesion measures __ × __ × __ mm.",
+       "requires_any": [
+        "lesion"
+       ]
+      },
+      {
+       "id": "vascularity",
+       "label": "Vascularity",
+       "text": "The lesion shows [no / peripheral / internal] Doppler vascularity.",
+       "requires_any": [
+        "lesion"
+       ]
+      },
+      {
+       "id": "nature",
+       "label": "Appearance",
+       "text": "The appearances are of [a lymph node / a thyroglossal duct cyst / a branchial cleft cyst / a lipoma / an abscess / a haematoma].",
+       "requires_any": [
+        "lesion"
+       ]
+      }
+     ]
+    },
+    {
+     "id": "parotid-glands",
+     "label": "Parotid glands",
+     "group": "Salivary and thyroid glands",
+     "normal": "The parotid glands are normal in size and echotexture, with no focal lesion.",
+     "source_ids": [
+      "acr-parameters"
+     ],
+     "findings": [
+      {
+       "id": "lesion",
+       "label": "Parotid lesion",
+       "text": "A [solid / cystic / mixed] lesion is present in the [right / left] parotid gland."
+      },
+      {
+       "id": "size",
+       "label": "Lesion size",
+       "text": "The parotid lesion measures __ mm.",
+       "requires_any": [
+        "lesion"
+       ]
+      },
+      {
+       "id": "diffuse",
+       "label": "Diffuse change",
+       "text": "The [right / left / both] parotid glands are [enlarged and hypoechoic / heterogeneous / atrophic]."
+      },
+      {
+       "id": "calculus",
+       "label": "Calculus",
+       "text": "There is a [right / left] parotid duct calculus [with / without] duct dilatation."
+      }
+     ]
+    },
+    {
+     "id": "submandibular-glands",
+     "label": "Submandibular glands",
+     "group": "Salivary and thyroid glands",
+     "normal": "The submandibular glands are normal in size and echotexture, with no focal lesion.",
+     "source_ids": [
+      "acr-parameters"
+     ],
+     "findings": [
+      {
+       "id": "lesion",
+       "label": "Submandibular lesion",
+       "text": "A [solid / cystic / mixed] lesion is present in the [right / left] submandibular gland."
+      },
+      {
+       "id": "size",
+       "label": "Lesion size",
+       "text": "The submandibular lesion measures __ mm.",
+       "requires_any": [
+        "lesion"
+       ]
+      },
+      {
+       "id": "diffuse",
+       "label": "Diffuse change",
+       "text": "The [right / left / both] submandibular glands are [enlarged and hypoechoic / heterogeneous / atrophic]."
+      },
+      {
+       "id": "calculus",
+       "label": "Calculus",
+       "text": "There is a [right / left] submandibular duct calculus [with / without] duct dilatation."
+      }
+     ]
+    },
+    {
+     "id": "thyroid-gland",
+     "label": "Thyroid gland",
+     "group": "Salivary and thyroid glands",
+     "normal": "The thyroid gland is normal in size and echotexture, with no nodule.",
+     "source_ids": [
+      "acr-parameters"
+     ],
+     "findings": [
+      {
+       "id": "nodule",
+       "label": "Thyroid nodule",
+       "text": "A thyroid nodule is present in the [right lobe / left lobe / isthmus]."
+      },
+      {
+       "id": "size",
+       "label": "Nodule size",
+       "text": "The thyroid nodule measures __ mm.",
+       "requires_any": [
+        "nodule"
+       ]
+      },
+      {
+       "id": "tirads",
+       "label": "ACR TI-RADS",
+       "text": "The nodule is ACR TI-RADS [TR1 / TR2 / TR3 / TR4 / TR5].",
+       "requires_any": [
+        "nodule"
+       ]
+      },
+      {
+       "id": "diffuse",
+       "label": "Diffuse change",
+       "text": "The thyroid gland is [enlarged / heterogeneous / diffusely hypoechoic / hypervascular]."
+      }
+     ]
+    },
+    {
+     "id": "right-neck-nodes",
+     "label": "Right neck",
+     "group": "Lymph nodes",
+     "normal": "No morphologically abnormal lymph node is seen in levels I to VI of the right neck.",
+     "source_ids": [
+      "acr-parameters"
+     ],
+     "findings": [
+      {
+       "id": "node",
+       "label": "Abnormal right neck node",
+       "text": "An abnormal right level [I / II / III / IV / V / VI] lymph node is present."
+      },
+      {
+       "id": "size",
+       "label": "Short axis",
+       "text": "The right neck node measures __ mm in short axis.",
+       "requires_any": [
+        "node"
+       ]
+      },
+      {
+       "id": "features",
+       "label": "Node features",
+       "text": "The node shows [loss of the fatty hilum / a round shape / cystic change / necrosis / calcification / peripheral vascularity].",
+       "requires_any": [
+        "node"
+       ]
+      }
+     ]
+    },
+    {
+     "id": "left-neck-nodes",
+     "label": "Left neck",
+     "group": "Lymph nodes",
+     "normal": "No morphologically abnormal lymph node is seen in levels I to VI of the left neck.",
+     "source_ids": [
+      "acr-parameters"
+     ],
+     "findings": [
+      {
+       "id": "node",
+       "label": "Abnormal left neck node",
+       "text": "An abnormal left level [I / II / III / IV / V / VI] lymph node is present."
+      },
+      {
+       "id": "size",
+       "label": "Short axis",
+       "text": "The left neck node measures __ mm in short axis.",
+       "requires_any": [
+        "node"
+       ]
+      },
+      {
+       "id": "features",
+       "label": "Node features",
+       "text": "The node shows [loss of the fatty hilum / a round shape / cystic change / necrosis / calcification / peripheral vascularity].",
+       "requires_any": [
+        "node"
+       ]
+      }
+     ]
+    },
+    {
+     "id": "vessels",
+     "label": "Vessels",
+     "group": "Vessels and soft tissues",
+     "normal": "The carotid arteries and internal jugular veins are patent.",
+     "source_ids": [
+      "acr-parameters"
+     ],
+     "findings": [
+      {
+       "id": "thrombus",
+       "label": "Venous thrombus",
+       "text": "There is thrombus in the [right / left] internal jugular vein."
+      },
+      {
+       "id": "carotid",
+       "label": "Carotid disease",
+       "text": "There is [plaque / stenosis / occlusion] of the [right / left] common carotid artery."
+      }
+     ]
+    },
+    {
+     "id": "muscles-and-soft-tissues",
+     "label": "Muscles and soft tissues",
+     "group": "Vessels and soft tissues",
+     "normal": "The neck muscles and subcutaneous soft tissues are normal.",
+     "source_ids": [
+      "acr-parameters"
+     ],
+     "findings": [
+      {
+       "id": "abnormal",
+       "label": "Soft tissue abnormality",
+       "text": "There is [a collection / oedema / a haematoma / a soft tissue mass / fibromatosis colli] in the [right / left / midline] neck."
+      }
+     ]
+    }
+   ]
+  },
+  "ct.chest-abdomen-pelvis": {
+   "guide_id": "rad.4.oncology-response",
+   "title": "CT chest, abdomen and pelvis with contrast",
+   "modality": "CT",
+   "base_investigation_id": "ra.recist",
+   "sections": [
+    {
+     "id": "technique",
+     "label": "Examination performed",
+     "group": "Technique",
+     "normal": null,
+     "source_ids": [
+      "acr-parameters"
+     ],
+     "findings": [
+      {
+       "id": "assessment",
+       "label": "Examination performed",
+       "text": "The examination was performed [to the standard protocol / with a modified protocol / as a limited examination]."
+      }
+     ],
+     "exclude_from_bulk_normal": true
+    },
+    {
+     "id": "lungs-and-airways",
+     "label": "Lungs and airways",
+     "group": "Chest",
+     "normal": "The lungs are clear, with no pulmonary nodule, mass or consolidation, and the central airways are patent.",
+     "source_ids": [
+      "acr-parameters"
+     ],
+     "findings": [
+      {
+       "id": "nodule",
+       "label": "Pulmonary nodule",
+       "text": "A pulmonary nodule is present in the [right upper lobe / right middle lobe / right lower lobe / left upper lobe / lingula / left lower lobe]."
+      },
+      {
+       "id": "size",
+       "label": "Nodule size",
+       "text": "The pulmonary nodule measures __ mm.",
+       "requires_any": [
+        "nodule"
+       ]
+      },
+      {
+       "id": "parenchyma",
+       "label": "Lung abnormality",
+       "text": "There is [a mass / consolidation / lymphangitic thickening / atelectasis] in the [right lung / left lung / both lungs]."
+      },
+      {
+       "id": "airway",
+       "label": "Airway abnormality",
+       "text": "There is [bronchial wall thickening / an endobronchial lesion / bronchial obstruction]."
+      }
+     ]
+    },
+    {
+     "id": "pleura-and-pericardium",
+     "label": "Pleura and pericardium",
+     "group": "Chest",
+     "normal": "No pleural or pericardial effusion.",
+     "source_ids": [
+      "acr-parameters"
+     ],
+     "findings": [
+      {
+       "id": "effusion",
+       "label": "Pleural effusion",
+       "text": "There is a [small / moderate / large] [right / left / bilateral] pleural effusion."
+      },
+      {
+       "id": "pleura",
+       "label": "Pleural disease",
+       "text": "There is [right / left / bilateral] pleural [thickening / nodularity]."
+      },
+      {
+       "id": "pericardium",
+       "label": "Pericardial effusion",
+       "text": "There is a [small / moderate / large] pericardial effusion."
+      }
+     ]
+    },
+    {
+     "id": "thoracic-lymph-nodes",
+     "label": "Thoracic lymph nodes",
+     "group": "Chest",
+     "normal": "No mediastinal, hilar or axillary lymphadenopathy.",
+     "source_ids": [
+      "acr-parameters"
+     ],
+     "findings": [
+      {
+       "id": "node",
+       "label": "Enlarged node",
+       "text": "An enlarged [mediastinal / hilar / axillary / supraclavicular] lymph node is present."
+      },
+      {
+       "id": "size",
+       "label": "Short axis",
+       "text": "The thoracic lymph node measures __ mm in short axis.",
+       "requires_any": [
+        "node"
+       ]
+      }
+     ]
+    },
+    {
+     "id": "heart-and-great-vessels",
+     "label": "Heart and great vessels",
+     "group": "Chest",
+     "normal": "The heart and great vessels are normal.",
+     "source_ids": [
+      "acr-parameters"
+     ],
+     "findings": [
+      {
+       "id": "abnormal",
+       "label": "Cardiovascular abnormality",
+       "text": "There is [a pulmonary embolus / tumour thrombus / cardiomegaly / an aortic aneurysm / coronary artery calcification]."
+      }
+     ]
+    },
+    {
+     "id": "liver",
+     "label": "Liver",
+     "group": "Abdomen and pelvis",
+     "normal": "No focal liver lesion.",
+     "source_ids": [
+      "acr-parameters"
+     ],
+     "findings": [
+      {
+       "id": "lesion",
+       "label": "Liver lesion",
+       "text": "A focal liver lesion is present in the [right lobe / left lobe / caudate lobe]."
+      },
+      {
+       "id": "size",
+       "label": "Lesion size",
+       "text": "The liver lesion measures __ mm.",
+       "requires_any": [
+        "lesion"
+       ]
+      },
+      {
+       "id": "nature",
+       "label": "Lesion appearance",
+       "text": "The liver lesion is [hypodense / hyperenhancing / cystic / indeterminate].",
+       "requires_any": [
+        "lesion"
+       ]
+      },
+      {
+       "id": "diffuse",
+       "label": "Diffuse liver disease",
+       "text": "The liver shows [steatosis / cirrhotic morphology / hepatomegaly]."
+      }
+     ]
+    },
+    {
+     "id": "gallbladder-pancreas-and-spleen",
+     "label": "Gallbladder, pancreas and spleen",
+     "group": "Abdomen and pelvis",
+     "normal": "The gallbladder, pancreas and spleen are normal.",
+     "source_ids": [
+      "acr-parameters"
+     ],
+     "findings": [
+      {
+       "id": "abnormal",
+       "label": "Abnormality",
+       "text": "There is [a pancreatic lesion / pancreatic duct dilatation / a splenic lesion / splenomegaly / gallstones / biliary dilatation]."
+      }
+     ]
+    },
+    {
+     "id": "adrenal-glands",
+     "label": "Adrenal glands",
+     "group": "Abdomen and pelvis",
+     "normal": "The adrenal glands are normal.",
+     "source_ids": [
+      "acr-parameters"
+     ],
+     "findings": [
+      {
+       "id": "nodule",
+       "label": "Adrenal nodule",
+       "text": "There is a [right / left] adrenal nodule."
+      },
+      {
+       "id": "size",
+       "label": "Nodule size",
+       "text": "The adrenal nodule measures __ mm.",
+       "requires_any": [
+        "nodule"
+       ]
+      }
+     ]
+    },
+    {
+     "id": "kidneys-and-bladder",
+     "label": "Kidneys and bladder",
+     "group": "Abdomen and pelvis",
+     "normal": "The kidneys and bladder are normal, with no hydronephrosis.",
+     "source_ids": [
+      "acr-parameters"
+     ],
+     "findings": [
+      {
+       "id": "renal",
+       "label": "Renal lesion",
+       "text": "There is a [renal cyst / renal mass / renal calculus] in the [right / left] kidney."
+      },
+      {
+       "id": "hydronephrosis",
+       "label": "Hydronephrosis",
+       "text": "There is [right / left / bilateral] hydronephrosis."
+      },
+      {
+       "id": "bladder",
+       "label": "Bladder abnormality",
+       "text": "There is [bladder wall thickening / a bladder mass]."
+      }
+     ]
+    },
+    {
+     "id": "bowel-and-peritoneum",
+     "label": "Bowel and peritoneum",
+     "group": "Abdomen and pelvis",
+     "normal": "The bowel is normal in calibre, with no wall thickening, ascites or peritoneal nodularity.",
+     "source_ids": [
+      "acr-parameters"
+     ],
+     "findings": [
+      {
+       "id": "bowel",
+       "label": "Bowel abnormality",
+       "text": "There is [bowel wall thickening / a bowel mass / bowel obstruction] involving the [stomach / small bowel / colon / rectum]."
+      },
+      {
+       "id": "peritoneum",
+       "label": "Peritoneal disease",
+       "text": "There is [ascites / peritoneal nodularity / omental disease / a collection]."
+      }
+     ]
+    },
+    {
+     "id": "reproductive-organs",
+     "label": "Reproductive organs",
+     "group": "Abdomen and pelvis",
+     "normal": "The reproductive organs are unremarkable.",
+     "source_ids": [
+      "acr-parameters"
+     ],
+     "findings": [
+      {
+       "id": "abnormal",
+       "label": "Abnormality",
+       "text": "There is [an adnexal mass / a uterine mass / prostatic enlargement / a prostatic lesion]."
+      }
+     ]
+    },
+    {
+     "id": "abdominal-and-pelvic-lymph-nodes",
+     "label": "Abdominal and pelvic lymph nodes",
+     "group": "Abdomen and pelvis",
+     "normal": "No abdominal or pelvic lymphadenopathy.",
+     "source_ids": [
+      "acr-parameters"
+     ],
+     "findings": [
+      {
+       "id": "node",
+       "label": "Enlarged node",
+       "text": "An enlarged [retroperitoneal / mesenteric / pelvic / inguinal] lymph node is present."
+      },
+      {
+       "id": "size",
+       "label": "Short axis",
+       "text": "The abdominal or pelvic lymph node measures __ mm in short axis.",
+       "requires_any": [
+        "node"
+       ]
+      }
+     ]
+    },
+    {
+     "id": "bones",
+     "label": "Bones",
+     "group": "Bones",
+     "normal": "No suspicious bone lesion.",
+     "source_ids": [
+      "acr-parameters"
+     ],
+     "findings": [
+      {
+       "id": "lesion",
+       "label": "Bone lesion",
+       "text": "There is a [lytic / sclerotic / mixed] bone lesion in the [spine / ribs / pelvis / sternum / proximal femur / proximal humerus]."
+      },
+      {
+       "id": "fracture",
+       "label": "Pathological fracture",
+       "text": "The bone lesion [has / does not have] an associated pathological fracture.",
+       "requires_any": [
+        "lesion"
+       ]
+      }
+     ]
+    },
+    {
+     "id": "target-lesions",
+     "label": "Target lesions",
+     "group": "Target lesions",
+     "normal": "No measurable disease.",
+     "source_ids": [
+      "acr-parameters"
+     ],
+     "findings": [
+      {
+       "id": "measurable",
+       "label": "Measurable disease",
+       "text": "Measurable disease is present."
+      },
+      {
+       "id": "sum",
+       "label": "Sum of diameters",
+       "text": "The sum of target lesion diameters is __ mm.",
+       "requires_any": [
+        "measurable"
+       ]
+      },
+      {
+       "id": "response",
+       "label": "Response",
+       "text": "The response is [complete response / partial response / stable disease / progressive disease] by RECIST 1.1.",
+       "requires_any": [
+        "measurable"
+       ]
+      }
+     ]
+    }
+   ]
+  }
+ },
+ "coverage": [
+  {
+   "investigation_id": "us.soft-tissue-neck",
+   "expected_anatomy_ids": [
+    "technique",
+    "area-of-concern",
+    "parotid-glands",
+    "submandibular-glands",
+    "thyroid-gland",
+    "right-neck-nodes",
+    "left-neck-nodes",
+    "vessels",
+    "muscles-and-soft-tissues"
+   ]
+  },
+  {
+   "investigation_id": "ct.chest-abdomen-pelvis",
+   "expected_anatomy_ids": [
+    "technique",
+    "lungs-and-airways",
+    "pleura-and-pericardium",
+    "thoracic-lymph-nodes",
+    "heart-and-great-vessels",
+    "liver",
+    "gallbladder-pancreas-and-spleen",
+    "adrenal-glands",
+    "kidneys-and-bladder",
+    "bowel-and-peritoneum",
+    "reproductive-organs",
+    "abdominal-and-pelvic-lymph-nodes",
+    "bones",
+    "target-lesions"
+   ]
+  }
+ ]
+}

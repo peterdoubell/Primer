@@ -825,7 +825,7 @@ Thyroid gland | Normal. | [Nodule / Goitre / Thyroiditis] [ ].
 = Right neck
 = Left neck
 Pharynx and larynx | Normal. No mucosal mass. | Mass [ ] mm of the [nasopharynx / oropharynx / oral cavity / hypopharynx / larynx].
-= Thyroid and salivary glands
+= Thyroid and salivary glands -> Salivary and thyroid glands
 Vessels | Patent carotid arteries and internal jugular veins. | [Thrombus / Encasement / Stenosis] of the [right / left] [carotid artery / internal jugular vein].
 Lung apices and bones | Clear lung apices. No destructive bone lesion. | [Apical nodule / Bone lesion] [ ].
 
@@ -862,8 +862,12 @@ Isthmus | Normal isthmus thickness. | Isthmus [ ] mm.
 Alignment | Normal lumbar alignment and lordosis. | [Anterolisthesis / Retrolisthesis] of [ ] on [ ], grade [1 / 2 / 3 / 4]. | [Scoliosis / Loss of lordosis] [ ]. | Transitional lumbosacral vertebra [ ].
 Vertebrae | Normal vertebral heights and marrow signal. | Modic type [1 / 2 / 3] endplate change at [ ]. | [Compression fracture / Haemangioma / Marrow lesion / Pars defect] at [ ].
 Conus and cauda equina | Normal conus position and signal. Normal cauda equina. | Conus terminates at [ ]. | [Clumped nerve roots / Tethered cord / Intradural lesion] [ ].
+! L1-L2
+! L2-L3
+! L3-L4
+! L4-L5
 > Lumbar discs
-T12-L1 ;; L1-L2 ;; L2-L3 ;; L3-L4 ;; L4-L5 ;; L5-S1 | No disc herniation, canal stenosis or foraminal stenosis. | Disc [bulge / protrusion / extrusion / sequestration], [central / right paracentral / left paracentral / foraminal / extraforaminal]. | [Mild / Moderate / Severe] central canal stenosis; lateral recess narrowing [contacting / compressing] the [right / left] traversing root. | [Mild / Moderate / Severe] [right / left / bilateral] foraminal stenosis; exiting root [contacted / compressed]. | Annular fissure.
+T12-L1 ;; L1-2 ;; L2-3 ;; L3-4 ;; L4-5 ;; L5-S1 | No disc herniation, canal stenosis or foraminal stenosis. | Disc [bulge / protrusion / extrusion / sequestration], [central / right paracentral / left paracentral / foraminal / extraforaminal]. | [Mild / Moderate / Severe] central canal stenosis; lateral recess narrowing [contacting / compressing] the [right / left] traversing root. | [Mild / Moderate / Severe] [right / left / bilateral] foraminal stenosis; exiting root [contacted / compressed]. | Annular fissure.
 >
 Facet joints and ligamentum flavum | Normal. | [Facet arthropathy / Facet effusion / Synovial cyst / Ligamentum flavum hypertrophy] at [ ].
 Sacrum and sacroiliac joints | Normal. | [Sacral insufficiency fracture / Sacroiliitis / Tarlov cyst] [ ].
@@ -871,20 +875,26 @@ Paraspinal soft tissues | Normal. | [Paraspinal mass / Muscle atrophy / Collecti
 Retroperitoneum | Normal visualised kidneys and aorta. | [Renal cyst / Hydronephrosis / Aortic aneurysm] [ ].
 
 ## neuro.mri-spine-cervical
-! Alignment and vertebrae
-! Discs and canal
-! Foramina
-! Craniocervical junction and soft tissues
-Alignment | Normal cervical alignment and lordosis. | [Loss of lordosis / Kyphosis / Listhesis] at [ ].
-Vertebrae | Normal vertebral heights and marrow signal. | [Marrow lesion / Endplate change / Compression fracture] at [ ].
-Craniocervical junction | Normal. No cerebellar tonsillar ectopia. | Cerebellar tonsillar descent [ ] mm. | [Basilar invagination / Atlantoaxial subluxation / Pannus] [ ].
-= Spinal cord
+# Peter's own template (photo, 2026-11-19) supplies the protocol and the wording of the normal lines:
+# vertebral body alignment, marrow and disc signal, CSF signal, cord calibre and signal, and the posterior
+# fossa and lung apices, which the study also shows.
+! Craniocervical junction
+! C2-C3
+! C3-C4
+! C4-C5
+! C5-C6
+! C6-C7
+Alignment | Normal vertebral body alignment. | [Loss of lordosis / Kyphosis / Listhesis] at [ ].
+Vertebrae | Normal vertebral heights. Normal marrow and intervertebral disc signal. | [Marrow lesion / Endplate change / Compression fracture / Disc desiccation] at [ ].
+Posterior fossa and craniocervical junction | Normal visualised posterior fossa structures. No cerebellar tonsillar ectopia. | Cerebellar tonsillar descent [ ] mm. | [Basilar invagination / Atlantoaxial subluxation / Pannus] [ ]. | [Cerebellar lesion / Brainstem lesion] [ ].
+= Spinal cord | Normal cord calibre and signal. Normal CSF signal. | + [Syrinx / Arachnoid cyst / Intradural lesion] at [ ].
 > Cervical discs
-C2-C3 ;; C3-C4 ;; C4-C5 ;; C5-C6 ;; C6-C7 ;; C7-T1 | No disc herniation, canal stenosis or foraminal stenosis. | Disc [bulge / protrusion / extrusion] or disc-osteophyte complex, [central / right paracentral / left paracentral]. | [Mild / Moderate / Severe] central canal stenosis, [with / without] cord contact. | [Mild / Moderate / Severe] [right / left / bilateral] foraminal stenosis from uncovertebral and facet hypertrophy.
+C2-3 ;; C3-4 ;; C4-5 ;; C5-6 ;; C6-7 ;; C7-T1 | No disc herniation, canal stenosis or foraminal stenosis. | Disc [bulge / protrusion / extrusion] or disc-osteophyte complex, [central / right paracentral / left paracentral]. | [Mild / Moderate / Severe] central canal stenosis, [with / without] cord contact. | [Mild / Moderate / Severe] [right / left / bilateral] foraminal stenosis from uncovertebral and facet hypertrophy.
 >
 Facet and uncovertebral joints | Normal. | [Facet arthropathy / Uncovertebral hypertrophy] at [ ].
 Paraspinal soft tissues | Normal. | [Prevertebral swelling / Paraspinal mass / Lymphadenopathy] [ ].
 Vertebral arteries and thyroid | Normal vertebral artery flow voids. Normal visualised thyroid. | [Absent vertebral artery flow void / Thyroid nodule] [ ].
+Lung apices | Clear. | [Apical nodule / Apical mass / Pleural thickening] [ ].
 
 ## neuro.mri-spine-thoracic
 ! Alignment and vertebrae
