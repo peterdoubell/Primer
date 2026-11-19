@@ -291,3 +291,11 @@ def test_mri_cervical_spine_keeps_its_protocol_in_the_uniform_layout():
     assert '\n**__Protocol:__**\nDepartmental 1.5 T' in dictation['ra.mri-prostate']
     assert not [identifier for identifier, text in dictation.items()
                 if re.search(r'\bMRI?\b|\bMRCP\b', rt.library()[identifier]['title']) and '**__Technique:__**' in text]
+
+
+def test_oncology_scans_state_the_practices_own_technique():
+    """Peter's photos of the practice's oncology reports (2026-11-19) give the wording, kept word for word."""
+    technique = lambda identifier: rt.library()[identifier]['technique']['normal']
+    assert technique('ct.oncology-staging') == 'Arterial phase neck, chest and upper abdomen. Portal venous abdomen and pelvis.'
+    for identifier in ('ra.recist', 'oncology.recist-follow-up', 'ra.ct-peritoneal-carcinomatosis'):
+        assert technique(identifier) == 'Arterial phase chest and upper abdomen. Portal venous abdomen and pelvis.', identifier
