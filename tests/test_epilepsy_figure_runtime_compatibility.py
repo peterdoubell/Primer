@@ -7,6 +7,7 @@ import pytest
 
 from tools import epilepsy_figure_runtime_compatibility as bridge
 from tools.anatomy_sources.bind_models import before_model_bindings
+from tools.anatomy_sources.bind_body_reader_models import before_body_reader_model_records
 from tools.anatomy_sources.bind_reader_models import before_reader_model_records
 from tools.anatomy_sources.bind_unlocked_figures import before_unlocked_figure_bindings
 from tools.anatomy_sources.repair_source_context_codes import before_source_context_repairs
@@ -51,7 +52,7 @@ def test_only_exact_source_gallery_is_removed_from_the_observed_lesson():
 def test_semantic_inverse_preserves_unknown_records_and_rejects_changed_added_records(path):
     record = bridge.reviewed()['data_values'][path]
     # Later passes repaired the context codes of these figure records in the evidence file and then bound them; peel both.
-    data = json.loads(before_source_context_repairs(path, before_unlocked_figure_bindings(before_model_bindings(before_reader_model_records((bridge.ROOT / path).read_bytes())))))
+    data = json.loads(before_source_context_repairs(path, before_unlocked_figure_bindings(before_model_bindings(before_reader_model_records(before_body_reader_model_records((bridge.ROOT / path).read_bytes()))))))
     if record['kind'] == 'added_array_records':
         tokens = {'assets:' + key: value for key, value in record['raw_token_sha256'].items()}
         data['assets'].append({'id': 'unreviewed-figure', 'unverified_claim': True})

@@ -370,3 +370,24 @@ against the decoded mesh, a midsagittal plane fitted to the source's own midline
 territory masks, gyral parts, cerebellar lobules and wholes whose parts are required were not bound; all 567 unrecorded meshes
 are listed with their reasons. The body readers linked from module pages are a separate pass. Nothing is anatomically
 approved.
+
+## Body reader meshes recorded and bound (2026-11-19)
+
+The body readers show label meshes that no evidence record covered (`docs/body-reader-model-bindings-20261119`). Each mesh whose
+own label names a requirement of an investigation showing its reader now has a record: 119 records with 204 partial bindings,
+covering 134 requirement leaves. The readers are BodyParts3D 4.0 and 4.3 (liver, renal, coronary, brain, biliary, dural,
+cardiac and thoracic objects), the ColonVessels segments, the liver-region and PHLF MRI cases, the HRA bladders and LyNoS.
+Bound structures 1,274 → 1,400 of 57,985; investigations with none 45 → 36 (both liver investigations 0 → 15, bowel
+ischaemia 6 → 25, venous sinus thrombosis 3 → 11). A body side was checked against the decoded mesh, a midline from the
+source's own anatomy and the mirror mesh. Where right and left name halves of one organ (hepatic veins and ducts, atria,
+coronary arteries, papillary muscles, valve cusps), the mesh was checked against its named partner. Lumen leaves bind only the
+contrast-enhanced CT vessel segmentations. Adult sources were not bound in paediatric or neonatal investigations, nor the
+pregnancy cervix atlases in cervical cancer staging. The TotalSegmentator cardiac labels stay CT context, as their source review
+says, and the HyperPIC cut planes are not sinuses.
+
+Decoding the meshes found four source objects whose labels do not match their geometry; none is bound. The app's BodyParts3D
+"hepatovenous segment vii" mesh is a second copy of segment VI. Its "segment viii" mesh holds segments VII and VIII. Its
+"trunk of portal vein" mesh is the left and right portal branches. The BodyParts3D 4.3 "common hepatic duct" object also
+holds the common bile duct. BodyParts3D 4.3's own object table confirms the first three. The app still shows these labels;
+correcting the display is a separate task. All 142 unrecorded meshes are listed with their reasons. Nothing is anatomically
+approved.

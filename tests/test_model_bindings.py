@@ -8,6 +8,7 @@ from tools import lesson_activities_compatibility as history
 from tools.anatomy_sources import bind_models as tool
 from tools.anatomy_sources import bind_stored_caption_assets_pass2 as second
 from tools.anatomy_sources import bind_unlocked_figures as unlocked
+from tools.anatomy_sources.bind_body_reader_models import before_body_reader_model_records
 from tools.anatomy_sources.bind_reader_models import before_reader_model_records
 from tools.anatomy_sources.bind_stored_caption_assets import only_caption_bindings
 from tools.check_msk_fidelity import inspect_binding, inspect_requirement_coverage, side_unstated
@@ -17,8 +18,8 @@ HRA = 'hra-female-pelvis-v1.10-'
 
 
 def current():
-    """The evidence file as this pass left it: the brain readers' label meshes were recorded afterwards."""
-    return before_reader_model_records(tool.EVIDENCE.read_bytes())
+    """The evidence file as this pass left it: the brain and body readers' label meshes were recorded afterwards."""
+    return before_reader_model_records(before_body_reader_model_records(tool.EVIDENCE.read_bytes()))
 
 
 def records():
