@@ -12,8 +12,8 @@ Every template opens with the clinical history and the comparison, then the stud
                                fluoroscopy run from the study title straight into their findings
   **__Impression:__** (dictation) or **__Conclusion:__** (normal report)
 The dictation layout (--dictation) lists every heading with a blank, one under another; a subheading over
-the headings it groups is bold (**Intrinsic ligaments:**), RadProof's markup for a part of a report, and
-stands apart with a blank line around it.
+the headings it groups (Intrinsic ligaments:) stands apart with a blank line around it. Bold and underline
+are only for section headings (Peter, 2026-11-19): subheadings and the headings with a blank are plain.
 The normal-report layout writes one sentence per line. Every line reads on its own, adjective first: a
 bare "Normal." under Spleen is written "Normal spleen.", and a line that two sections share takes its
 heading ("Right vertebral artery: patent ..."). Headings under one subheading that are normal in the same
@@ -123,7 +123,7 @@ def sentences(text):
 # study name follows, a heading like the others.
 HISTORY = ['**__Clinical history:__**', '[]', '', '**__Comparison:__**', '[]', '']
 # Bold and underline only for headings (Peter's M3GAN layout, 2026-11-19): every section heading is both,
-# as RadProof sets out a section heading; a subheading is bold, and a heading with a blank is plain.
+# as RadProof sets out a section heading; subheadings and the headings with a blank are plain.
 SECTION = {name + ':': '**__' + name + ':__**' for name in ('Protocol', 'Technique', 'Findings', 'Impression', 'Recommendation')}
 
 
@@ -137,11 +137,7 @@ def dictation_text(item, acquisition, title):
     draft = rt.render_dictation(item, acquisition)
     study = draft['text'].split('\n\n', 2)[2].splitlines()
     name = draft['title'] if item.get('dictation') else title
-    markup = dict(SECTION)
-    # A subheading over the headings it groups is a part of the report: bold, as RadProof sets one out.
-    markup.update({f'{section["group"]}:': f'**{section["group"]}:**'
-                   for section in item['sections'] if section.get('group')})
-    return '\n'.join([*HISTORY, title_heading(name), *(markup.get(line, line) for line in study[1:])])
+    return '\n'.join([*HISTORY, title_heading(name), *(SECTION.get(line, line) for line in study[1:])])
 
 
 def export(*, dictation=False):

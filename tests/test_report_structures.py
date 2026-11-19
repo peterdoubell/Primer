@@ -136,7 +136,8 @@ def test_a_subheading_is_set_out_in_every_layout():
     assert 'Scapholunate ligament:\n• Intact.\n• [Partial / Complete] tear of the [volar / membranous / dorsal] component' in report['template']
     dictation = {template['id']: template['text'] for template in radproof_export.export(dictation=True)}
     # RadProof sets out a part of a report in bold; the headings under it keep their blanks.
-    assert '\n\n**Intrinsic ligaments:**\nScapholunate ligament: []\nLunotriquetral ligament: []\n\n**Extrinsic ligaments:**\n' in dictation['msk.mri-wrist']
+    # Bold and underline only for section headings: a subheading stands apart, plain.
+    assert '\n\nIntrinsic ligaments:\nScapholunate ligament: []\nLunotriquetral ligament: []\n\nExtrinsic ligaments:\n' in dictation['msk.mri-wrist']
     # Every template opens with clinical history and comparison, then the study title: no heading is all capitals.
     assert dictation['msk.mri-wrist'].startswith(
         '**__Clinical history:__**\n[]\n\n**__Comparison:__**\n[]\n\n**__MRI {side} wrist:__**\n**__Protocol:__**\n')
@@ -147,16 +148,14 @@ def test_a_subheading_is_set_out_in_every_layout():
         assert lines[:6] == radproof_export.HISTORY, identifier
         # Only a title that is acronyms throughout (CT KUB, FDG PET/CT) is in capitals.
         assert title != title.upper() or library[identifier]['title'] == library[identifier]['title'].upper(), title
-    assert '**__Findings:__**\n**Bones and alignment:**\nDistal radius and ulna: []\n' in dictation['msk.mri-wrist']
-    assert '\n\n**Lumbar discs:**\nT12-L1: []\nL1-L2: []\nL2-L3: []\nL3-L4: []\nL4-L5: []\nL5-S1: []\n\n' in dictation['ra.mri-lumbar-disc']
+    assert '**__Findings:__**\nBones and alignment:\nDistal radius and ulna: []\n' in dictation['msk.mri-wrist']
+    assert '\n\nLumbar discs:\nT12-L1: []\nL1-L2: []\nL2-L3: []\nL3-L4: []\nL4-L5: []\nL5-S1: []\n\n' in dictation['ra.mri-lumbar-disc']
     for text in dictation.values():
         assert '[ ]' not in text
-        # Bold and underline only for headings: each is a whole line; subheadings are bold, blanks plain.
-        headings = [line for line in text.split('\n') if '__' in line]
+        # Bold and underline only for section headings, each a whole line; everything else is plain.
+        headings = [line for line in text.split('\n') if '*' in line or '__' in line]
         assert all(re.fullmatch(r'\*\*__[^_*]+:__\*\*', line) for line in headings), headings
         assert {'**__Clinical history:__**', '**__Comparison:__**', '**__Impression:__**', '**__Recommendation:__**'} <= set(headings)
-        assert all(not line.startswith('*') or line.startswith('**__') or re.fullmatch(r'\*\*[^*_]+:\*\*', line)
-                   for line in text.split('\n'))
 
 
 def test_the_normal_report_says_a_group_once_when_all_of_it_is_normal():
@@ -249,7 +248,7 @@ def test_the_soft_tissue_neck_ultrasound_surveys_the_whole_neck():
     dictation = {template['id']: template for template in radproof_export.export(dictation=True)}
     neck = dictation['us.soft-tissue-neck']
     assert neck['name'] == 'Ultrasound soft tissue neck'
-    assert '**__Ultrasound soft tissue neck:__**\nArea of concern: []\n\n**Salivary and thyroid glands:**\n' in neck['text']
+    assert '**__Ultrasound soft tissue neck:__**\nArea of concern: []\n\nSalivary and thyroid glands:\n' in neck['text']
     # The click builder has the same structures, every finding enumerated.
     from primer.reporting_bridge import descriptor_forms
     investigation = next(i for form in descriptor_forms()['forms'].values() for i in form['investigations']
