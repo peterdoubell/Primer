@@ -98,7 +98,7 @@ def test_every_study_of_a_region_lists_the_whole_region():
         (r'^(?:HRCT|Low-dose CT|CT) chest(?!, abdomen)', ['lung|nodule|interstitium', 'pleura', 'mediastin|lymph nodes',
                                                          'heart|pericardium', 'upper abdomen|adrenal', 'bones']),
         (r'^MRI brain(?! and spine)', ['ventricles', 'orbits', 'sinuses', 'skull']),
-        (r'^MRI (?:lumbar|cervical) spine$', ['alignment', 'vertebrae', 'l4-l5|c5-c6', 'paraspinal']),
+        (r'^MRI (?:lumbar|cervical) spine$', ['alignment', 'vertebrae', 'l4-l5|c5-6', 'paraspinal']),
         (r'^Ultrasound abdomen(?: and pelvis, (?:fe)?male)?$', ['liver', 'gallbladder', 'bile ducts', 'pancreas', 'spleen',
                                                                'right kidney', 'left kidney', 'aorta']),
     ]
@@ -115,7 +115,8 @@ def test_every_study_of_a_region_lists_the_whole_region():
 
 def test_spine_mri_reports_every_disc_level():
     assert _groups('ra.mri-lumbar-disc')['Lumbar discs'] == ['T12-L1', 'L1-L2', 'L2-L3', 'L3-L4', 'L4-L5', 'L5-S1']
-    assert _groups('neuro.mri-spine-cervical')['Cervical discs'] == ['C2-C3', 'C3-C4', 'C4-C5', 'C5-C6', 'C6-C7', 'C7-T1']
+    # Cervical levels are written as the department writes them (C2-3), lumbar as before (L4-L5).
+    assert _groups('neuro.mri-spine-cervical')['Cervical discs'] == ['C2-3', 'C3-4', 'C4-5', 'C5-6', 'C6-7', 'C7-T1']
 
 
 def test_bilateral_and_multi_region_studies_group_their_headings():
@@ -153,9 +154,10 @@ def test_a_subheading_is_set_out_in_every_layout():
     for text in dictation.values():
         assert '[ ]' not in text
         # Bold and underline only for section headings, each a whole line; everything else is plain.
-        headings = [line for line in text.split('\n') if '*' in line or '__' in line]
+        headings = [line for line in text.split('\n') if '**' in line or '__' in line]  # not T2*
         assert all(re.fullmatch(r'\*\*__[^_*]+:__\*\*', line) for line in headings), headings
-        assert {'**__Clinical history:__**', '**__Comparison:__**', '**__Impression:__**', '**__Recommendation:__**'} <= set(headings)
+        assert {'**__Clinical history:__**', '**__Comparison:__**'} <= set(headings)
+        assert ({'**__Impression:__**', '**__Recommendation:__**'} <= set(headings)) != ('**__Conclusion:__**' in headings)
 
 
 def test_the_normal_report_says_a_group_once_when_all_of_it_is_normal():
@@ -257,3 +259,51 @@ def test_the_soft_tissue_neck_ultrasound_surveys_the_whole_neck():
     assert [section['label'] for section in investigation['sections']][1:] == [
         'Area of concern', 'Parotid glands', 'Submandibular glands', 'Thyroid gland', 'Right neck', 'Left neck',
         'Vessels', 'Muscles and soft tissues']
+
+
+CERVICAL_SPINE = """**__Clinical history:__**
+[]
+
+**__Comparison:__**
+[]
+
+**__MRI cervical spine:__**
+**__Technique:__**
+Sagittal T1 and T2 weighted sequences.
+Axial T2 and T2* sequences.
+Right and left sagittal oblique T2 sequences.
+
+**__Findings:__**
+The visualised posterior fossa structures and lung apices are normal.
+Normal vertebral body alignment.
+Normal marrow and intervertebral disc signal.
+Normal CSF signal.
+Normal cord calibre and signal.
+
+C2-3: []
+
+C3-4: []
+
+C4-5: []
+
+C5-6: []
+
+C6-7: []
+
+C7-T1: []
+
+**__Conclusion:__**
+[]"""
+
+
+def test_mri_cervical_spine_dictates_as_the_department_writes_it():
+    """Peter's own template (photo, 2026-11-19): its sequences, normal sentences, levels and Conclusion."""
+    dictation = {template['id']: template for template in radproof_export.export(dictation=True)}
+    assert dictation['neuro.mri-spine-cervical']['text'] == CERVICAL_SPINE
+    # Primer's own dictation template is the same text without RadProof's markup (and no colon after the name).
+    primer = rt.quick_report('neuro.mri-spine-cervical')['dictation']['text']
+    plain = re.sub(r'\*\*__(.+?):__\*\*', r'\1:', CERVICAL_SPINE).replace('MRI cervical spine:\n', 'MRI cervical spine\n')
+    assert primer == plain
+    # The fast template and click builder use the same acquisition.
+    assert rt.library()['neuro.mri-spine-cervical']['technique']['normal'] == (
+        'Sagittal T1 and T2 weighted sequences. Axial T2 and T2* sequences. Right and left sagittal oblique T2 sequences.')

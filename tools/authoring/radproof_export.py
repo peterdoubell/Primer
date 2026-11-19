@@ -124,7 +124,7 @@ def sentences(text):
 HISTORY = ['**__Clinical history:__**', '[]', '', '**__Comparison:__**', '[]', '']
 # Bold and underline only for headings (Peter's M3GAN layout, 2026-11-19): every section heading is both,
 # as RadProof sets out a section heading; subheadings and the headings with a blank are plain.
-SECTION = {name + ':': '**__' + name + ':__**' for name in ('Protocol', 'Technique', 'Findings', 'Impression', 'Recommendation')}
+SECTION = {name + ':': '**__' + name + ':__**' for name in ('Protocol', 'Technique', 'Findings', 'Impression', 'Recommendation', 'Conclusion')}
 
 
 def title_heading(title):

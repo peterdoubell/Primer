@@ -1,0 +1,32 @@
+{
+  "primer/report_templates.py": {
+    "before": "c51703450a07f3798101d2d928bef20ab56c928f7fe6865fa7ec325eea31d4f2",
+    "after": "d1700460a8843c15da00c2cb50e18ef9b09d8b6d769221c2fb78dabaea336497",
+    "changes": [
+      {
+        "start": 178,
+        "end": 185,
+        "before": "        if (not isinstance(draft, dict) or set(draft) != {'title', 'technique', 'findings'}\n                or any(not isinstance(draft[key], str) or not draft[key].strip()\n                       or '\\n' in draft[key] for key in ('title', 'technique'))\n",
+        "after": "        # A department's own dictation template, kept as written: a one-line title, a technique of one\n        # or more lines, findings blocks (normal sentences or [] blanks, at least one blank), and\n        # optionally its own closing headings (Conclusion in place of Impression and Recommendation).\n        if (not isinstance(draft, dict) or not {'title', 'technique', 'findings'} <= set(draft)\n                or set(draft) - {'title', 'technique', 'findings', 'closing'}\n                or any(not isinstance(draft[key], str) or not draft[key].strip() for key in ('title', 'technique'))\n                or '\\n' in draft['title'] or any(not line.strip() for line in draft['technique'].split('\\n'))\n"
+      },
+      {
+        "start": 186,
+        "end": 188,
+        "before": "                or any(not isinstance(block, str) or '[]' not in block\n",
+        "after": "                or not any(isinstance(block, str) and '[]' in block for block in draft['findings'])\n                or any(not isinstance(block, str) or not block.strip()\n"
+      },
+      {
+        "start": 190,
+        "end": 194,
+        "before": "                       for block in draft['findings'])):\n",
+        "after": "                       for block in draft['findings'])\n                or not isinstance(draft.get('closing', ['Impression']), list)\n                or not 1 <= len(draft.get('closing', ['Impression'])) <= 2\n                or set(draft.get('closing', [])) - {'Conclusion', 'Impression', 'Recommendation'}):\n"
+      },
+      {
+        "start": 318,
+        "end": 320,
+        "before": "    text = '\\n\\n'.join(['Clinical history:\\n[]', 'Comparison:\\n[]', *study, 'Impression:\\n[]', 'Recommendation:\\n[]'])\n",
+        "after": "    closing = draft.get('closing', ['Impression', 'Recommendation']) if draft else ['Impression', 'Recommendation']\n    text = '\\n\\n'.join(['Clinical history:\\n[]', 'Comparison:\\n[]', *study, *(heading + ':\\n[]' for heading in closing)])\n"
+      }
+    ]
+  }
+}

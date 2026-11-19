@@ -439,7 +439,8 @@ def test_all_dictation_templates_use_study_specific_sections_and_simple_placehol
         draft = rt.quick_report(identifier)['dictation']
         text = draft['text']
         assert text.startswith('Clinical history:\n[]\n\nComparison:\n[]\n\n' + draft['title'])
-        assert text.endswith('\n\nImpression:\n[]\n\nRecommendation:\n[]')
+        closing = item.get('dictation', {}).get('closing', ['Impression', 'Recommendation'])
+        assert text.endswith(''.join(f'\n\n{heading}:\n[]' for heading in closing))
         assert '[ ]' not in text and '• ' not in text
         heading = rt.acquisition_heading(identifier, item)
         if heading and 'dictation' not in item:
@@ -494,12 +495,28 @@ def test_prostate_dictation_encodes_the_departmental_template():
     assert 'Extraprostatic extension: []' in draft['text']
 
 
+def test_department_drafts_have_an_exact_inverse():
+    from hashlib import sha256
+    from tools.report_layout_compatibility import before_department_drafts_bytes
+    path = 'primer/report_templates.py'
+    row = json.loads((ROOT / 'docs/report-format-parity/department-drafts-inverse.json').read_text())[path]
+    raw = (ROOT / path).read_bytes()
+    assert sha256(raw).hexdigest() == row['after']
+    restored = before_department_drafts_bytes(path, raw)
+    assert sha256(restored).hexdigest() == row['before']
+    assert before_department_drafts_bytes(path, restored) == restored
+    assert before_department_drafts_bytes(path, raw + b'\n') == raw + b'\n'
+    assert before_department_drafts_bytes('web/app.js', raw) == raw
+
+
 def test_the_stacked_heading_layout_has_an_exact_inverse():
     from hashlib import sha256
-    from tools.report_layout_compatibility import before_acquisition_conflicts_bytes, before_stacked_headings_bytes
+    from tools.report_layout_compatibility import (before_acquisition_conflicts_bytes, before_department_drafts_bytes,
+                                                   before_stacked_headings_bytes)
     path = 'primer/report_templates.py'
     row = json.loads((ROOT / 'docs/report-format-parity/stacked-headings-inverse.json').read_text())[path]
-    raw = (ROOT / path).read_bytes()
+    # The later department-draft extension (2026-11-19) is undone first, by its own exact inverse.
+    raw = before_department_drafts_bytes(path, (ROOT / path).read_bytes())
     assert sha256(raw).hexdigest() == row['after']
     restored = before_stacked_headings_bytes(path, raw)
     assert sha256(restored).hexdigest() == row['before']

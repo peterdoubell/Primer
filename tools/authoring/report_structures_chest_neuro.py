@@ -879,8 +879,13 @@ Alignment | Normal cervical alignment and lordosis. | [Loss of lordosis / Kyphos
 Vertebrae | Normal vertebral heights and marrow signal. | [Marrow lesion / Endplate change / Compression fracture] at [ ].
 Craniocervical junction | Normal. No cerebellar tonsillar ectopia. | Cerebellar tonsillar descent [ ] mm. | [Basilar invagination / Atlantoaxial subluxation / Pannus] [ ].
 = Spinal cord
+! C2-C3
+! C3-C4
+! C4-C5
+! C5-C6
+! C6-C7
 > Cervical discs
-C2-C3 ;; C3-C4 ;; C4-C5 ;; C5-C6 ;; C6-C7 ;; C7-T1 | No disc herniation, canal stenosis or foraminal stenosis. | Disc [bulge / protrusion / extrusion] or disc-osteophyte complex, [central / right paracentral / left paracentral]. | [Mild / Moderate / Severe] central canal stenosis, [with / without] cord contact. | [Mild / Moderate / Severe] [right / left / bilateral] foraminal stenosis from uncovertebral and facet hypertrophy.
+C2-3 ;; C3-4 ;; C4-5 ;; C5-6 ;; C6-7 ;; C7-T1 | No disc herniation, canal stenosis or foraminal stenosis. | Disc [bulge / protrusion / extrusion] or disc-osteophyte complex, [central / right paracentral / left paracentral]. | [Mild / Moderate / Severe] central canal stenosis, [with / without] cord contact. | [Mild / Moderate / Severe] [right / left / bilateral] foraminal stenosis from uncovertebral and facet hypertrophy.
 >
 Facet and uncovertebral joints | Normal. | [Facet arthropathy / Uncovertebral hypertrophy] at [ ].
 Paraspinal soft tissues | Normal. | [Prevertebral swelling / Paraspinal mass / Lymphadenopathy] [ ].
