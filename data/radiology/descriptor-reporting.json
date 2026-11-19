@@ -214261,6 +214261,2721 @@
             "study_specific": true,
             "standard_text": "Postcontrast chest acquisition after IV iodinated contrast. Portal venous phase through the included abdomen and pelvis. Thin-section lung and soft-tissue reconstructions."
           }
+        },
+        {
+          "id": "ct.chest-abdomen-pelvis",
+          "title": "CT chest, abdomen and pelvis with contrast",
+          "modality": "CT",
+          "sections": [
+            {
+              "id": "anatomy-technique",
+              "anatomy_id": "technique",
+              "label": "Examination performed",
+              "group": "Technique",
+              "source_sections": [
+                "Technique"
+              ],
+              "report_section_id": "compartment-technique",
+              "report_section_label": "TECHNIQUE",
+              "normal": null,
+              "findings": [
+                {
+                  "id": "ct.chest-abdomen-pelvis:technique:assessment",
+                  "label": "Examination performed",
+                  "text": "The examination was performed [to the standard protocol / with a modified protocol / as a limited examination].",
+                  "segments": [
+                    {
+                      "text": "The examination was performed "
+                    },
+                    {
+                      "slot": "slot-1"
+                    },
+                    {
+                      "text": "."
+                    }
+                  ],
+                  "slots": [
+                    {
+                      "id": "slot-1",
+                      "kind": "choice",
+                      "label": "The examination was performed",
+                      "required": true,
+                      "options": [
+                        {
+                          "value": "to the standard protocol",
+                          "label": "to the standard protocol"
+                        },
+                        {
+                          "value": "with a modified protocol",
+                          "label": "with a modified protocol"
+                        },
+                        {
+                          "value": "as a limited examination",
+                          "label": "as a limited examination"
+                        }
+                      ],
+                      "source_token": "[to the standard protocol / with a modified protocol / as a limited examination]",
+                      "source_span": {
+                        "start": 30,
+                        "end": 110,
+                        "unit": "unicode_code_points"
+                      }
+                    }
+                  ],
+                  "source": {
+                    "source_file": "data/radiology/anatomic-additions-20261119.json",
+                    "source_kind": "curated-anatomic-report",
+                    "investigation_id": "ct.chest-abdomen-pelvis",
+                    "step_index": 0,
+                    "reviewed_at": "2026-11-19",
+                    "source_ids": [
+                      "acr-parameters"
+                    ],
+                    "reference_ids": [
+                      "anatomic-additions-20261119:acr-parameters"
+                    ],
+                    "clinical_approval": false,
+                    "kind": "finding",
+                    "statement_sha256": "6404c3cd22f5471291b84000495c4dd6f8a8379ff2e3e0819c1275eba804ed02"
+                  },
+                  "requires_context": false
+                }
+              ],
+              "exclude_from_bulk_normal": true,
+              "compartment": "Technique"
+            },
+            {
+              "id": "anatomy-lungs-and-airways",
+              "anatomy_id": "lungs-and-airways",
+              "label": "Lungs and airways",
+              "group": "Chest",
+              "source_sections": [
+                "Chest"
+              ],
+              "report_section_id": "compartment-chest",
+              "report_section_label": "CHEST",
+              "normal": {
+                "id": "ct.chest-abdomen-pelvis:lungs-and-airways:normal",
+                "label": "Normal",
+                "text": "The lungs are clear, with no pulmonary nodule, mass or consolidation, and the central airways are patent.",
+                "segments": [
+                  {
+                    "text": "The lungs are clear, with no pulmonary nodule, mass or consolidation, and the central airways are patent."
+                  }
+                ],
+                "slots": [],
+                "source": {
+                  "source_file": "data/radiology/anatomic-additions-20261119.json",
+                  "source_kind": "curated-anatomic-report",
+                  "investigation_id": "ct.chest-abdomen-pelvis",
+                  "step_index": 1,
+                  "reviewed_at": "2026-11-19",
+                  "source_ids": [
+                    "acr-parameters"
+                  ],
+                  "reference_ids": [
+                    "anatomic-additions-20261119:acr-parameters"
+                  ],
+                  "clinical_approval": false,
+                  "kind": "normal",
+                  "statement_sha256": "85d6aedf3639dd904e9a3c780260e75404c70eb3e4864b38321b8edb4954261a"
+                },
+                "requires_context": false
+              },
+              "findings": [
+                {
+                  "id": "ct.chest-abdomen-pelvis:lungs-and-airways:nodule",
+                  "label": "Pulmonary nodule",
+                  "text": "A pulmonary nodule is present in the [right upper lobe / right middle lobe / right lower lobe / left upper lobe / lingula / left lower lobe].",
+                  "segments": [
+                    {
+                      "text": "A pulmonary nodule is present in the "
+                    },
+                    {
+                      "slot": "slot-1"
+                    },
+                    {
+                      "text": "."
+                    }
+                  ],
+                  "slots": [
+                    {
+                      "id": "slot-1",
+                      "kind": "choice",
+                      "label": "A pulmonary nodule is present in",
+                      "required": true,
+                      "options": [
+                        {
+                          "value": "right upper lobe",
+                          "label": "right upper lobe"
+                        },
+                        {
+                          "value": "right middle lobe",
+                          "label": "right middle lobe"
+                        },
+                        {
+                          "value": "right lower lobe",
+                          "label": "right lower lobe"
+                        },
+                        {
+                          "value": "left upper lobe",
+                          "label": "left upper lobe"
+                        },
+                        {
+                          "value": "lingula",
+                          "label": "lingula"
+                        },
+                        {
+                          "value": "left lower lobe",
+                          "label": "left lower lobe"
+                        }
+                      ],
+                      "source_token": "[right upper lobe / right middle lobe / right lower lobe / left upper lobe / lingula / left lower lobe]",
+                      "source_span": {
+                        "start": 37,
+                        "end": 140,
+                        "unit": "unicode_code_points"
+                      }
+                    }
+                  ],
+                  "source": {
+                    "source_file": "data/radiology/anatomic-additions-20261119.json",
+                    "source_kind": "curated-anatomic-report",
+                    "investigation_id": "ct.chest-abdomen-pelvis",
+                    "step_index": 1,
+                    "reviewed_at": "2026-11-19",
+                    "source_ids": [
+                      "acr-parameters"
+                    ],
+                    "reference_ids": [
+                      "anatomic-additions-20261119:acr-parameters"
+                    ],
+                    "clinical_approval": false,
+                    "kind": "finding",
+                    "statement_sha256": "484b4079ee205a6688007b72a998c9a9df905e2963cfa98a816fe0cbea6f639f"
+                  },
+                  "requires_context": false
+                },
+                {
+                  "id": "ct.chest-abdomen-pelvis:lungs-and-airways:size",
+                  "label": "Nodule size",
+                  "text": "The pulmonary nodule measures __ mm.",
+                  "segments": [
+                    {
+                      "text": "The pulmonary nodule measures "
+                    },
+                    {
+                      "slot": "slot-1"
+                    },
+                    {
+                      "text": " mm."
+                    }
+                  ],
+                  "slots": [
+                    {
+                      "id": "slot-1",
+                      "kind": "number",
+                      "label": "The pulmonary nodule measures (mm)",
+                      "required": true,
+                      "options": [],
+                      "source_token": "__",
+                      "source_span": {
+                        "start": 30,
+                        "end": 32,
+                        "unit": "unicode_code_points"
+                      },
+                      "unit": "mm"
+                    }
+                  ],
+                  "source": {
+                    "source_file": "data/radiology/anatomic-additions-20261119.json",
+                    "source_kind": "curated-anatomic-report",
+                    "investigation_id": "ct.chest-abdomen-pelvis",
+                    "step_index": 1,
+                    "reviewed_at": "2026-11-19",
+                    "source_ids": [
+                      "acr-parameters"
+                    ],
+                    "reference_ids": [
+                      "anatomic-additions-20261119:acr-parameters"
+                    ],
+                    "clinical_approval": false,
+                    "kind": "finding",
+                    "statement_sha256": "5ad1bac5d8a55818585db0c252bacba6e6c01b94494e568ae73b8298ef7d2807"
+                  },
+                  "requires_context": false,
+                  "requires_any": [
+                    "ct.chest-abdomen-pelvis:lungs-and-airways:nodule"
+                  ]
+                },
+                {
+                  "id": "ct.chest-abdomen-pelvis:lungs-and-airways:parenchyma",
+                  "label": "Lung abnormality",
+                  "text": "There is [a mass / consolidation / lymphangitic thickening / atelectasis] in the [right lung / left lung / both lungs].",
+                  "segments": [
+                    {
+                      "text": "There is "
+                    },
+                    {
+                      "slot": "slot-1"
+                    },
+                    {
+                      "text": " in the "
+                    },
+                    {
+                      "slot": "slot-2"
+                    },
+                    {
+                      "text": "."
+                    }
+                  ],
+                  "slots": [
+                    {
+                      "id": "slot-1",
+                      "kind": "choice",
+                      "label": "There is",
+                      "required": true,
+                      "options": [
+                        {
+                          "value": "a mass",
+                          "label": "a mass"
+                        },
+                        {
+                          "value": "consolidation",
+                          "label": "consolidation"
+                        },
+                        {
+                          "value": "lymphangitic thickening",
+                          "label": "lymphangitic thickening"
+                        },
+                        {
+                          "value": "atelectasis",
+                          "label": "atelectasis"
+                        }
+                      ],
+                      "source_token": "[a mass / consolidation / lymphangitic thickening / atelectasis]",
+                      "source_span": {
+                        "start": 9,
+                        "end": 73,
+                        "unit": "unicode_code_points"
+                      }
+                    },
+                    {
+                      "id": "slot-2",
+                      "kind": "choice",
+                      "label": "There is in",
+                      "required": true,
+                      "options": [
+                        {
+                          "value": "right lung",
+                          "label": "right lung"
+                        },
+                        {
+                          "value": "left lung",
+                          "label": "left lung"
+                        },
+                        {
+                          "value": "both lungs",
+                          "label": "both lungs"
+                        }
+                      ],
+                      "source_token": "[right lung / left lung / both lungs]",
+                      "source_span": {
+                        "start": 81,
+                        "end": 118,
+                        "unit": "unicode_code_points"
+                      }
+                    }
+                  ],
+                  "source": {
+                    "source_file": "data/radiology/anatomic-additions-20261119.json",
+                    "source_kind": "curated-anatomic-report",
+                    "investigation_id": "ct.chest-abdomen-pelvis",
+                    "step_index": 1,
+                    "reviewed_at": "2026-11-19",
+                    "source_ids": [
+                      "acr-parameters"
+                    ],
+                    "reference_ids": [
+                      "anatomic-additions-20261119:acr-parameters"
+                    ],
+                    "clinical_approval": false,
+                    "kind": "finding",
+                    "statement_sha256": "09e135b0dbafba5bd496ea44ce1f8825a2fd149df064b6c0a04c84399ecbdcde"
+                  },
+                  "requires_context": false
+                },
+                {
+                  "id": "ct.chest-abdomen-pelvis:lungs-and-airways:airway",
+                  "label": "Airway abnormality",
+                  "text": "There is [bronchial wall thickening / an endobronchial lesion / bronchial obstruction].",
+                  "segments": [
+                    {
+                      "text": "There is "
+                    },
+                    {
+                      "slot": "slot-1"
+                    },
+                    {
+                      "text": "."
+                    }
+                  ],
+                  "slots": [
+                    {
+                      "id": "slot-1",
+                      "kind": "choice",
+                      "label": "There is",
+                      "required": true,
+                      "options": [
+                        {
+                          "value": "bronchial wall thickening",
+                          "label": "bronchial wall thickening"
+                        },
+                        {
+                          "value": "an endobronchial lesion",
+                          "label": "an endobronchial lesion"
+                        },
+                        {
+                          "value": "bronchial obstruction",
+                          "label": "bronchial obstruction"
+                        }
+                      ],
+                      "source_token": "[bronchial wall thickening / an endobronchial lesion / bronchial obstruction]",
+                      "source_span": {
+                        "start": 9,
+                        "end": 86,
+                        "unit": "unicode_code_points"
+                      }
+                    }
+                  ],
+                  "source": {
+                    "source_file": "data/radiology/anatomic-additions-20261119.json",
+                    "source_kind": "curated-anatomic-report",
+                    "investigation_id": "ct.chest-abdomen-pelvis",
+                    "step_index": 1,
+                    "reviewed_at": "2026-11-19",
+                    "source_ids": [
+                      "acr-parameters"
+                    ],
+                    "reference_ids": [
+                      "anatomic-additions-20261119:acr-parameters"
+                    ],
+                    "clinical_approval": false,
+                    "kind": "finding",
+                    "statement_sha256": "6b27ba6af3c079b50ea2e550a0a3f5e5b031d5dfe83fdcb1167bc7c48b0aa018"
+                  },
+                  "requires_context": false
+                }
+              ],
+              "exclude_from_bulk_normal": false,
+              "compartment": "Chest"
+            },
+            {
+              "id": "anatomy-pleura-and-pericardium",
+              "anatomy_id": "pleura-and-pericardium",
+              "label": "Pleura and pericardium",
+              "group": "Chest",
+              "source_sections": [
+                "Chest"
+              ],
+              "report_section_id": "compartment-chest",
+              "report_section_label": "CHEST",
+              "normal": {
+                "id": "ct.chest-abdomen-pelvis:pleura-and-pericardium:normal",
+                "label": "Normal",
+                "text": "No pleural or pericardial effusion.",
+                "segments": [
+                  {
+                    "text": "No pleural or pericardial effusion."
+                  }
+                ],
+                "slots": [],
+                "source": {
+                  "source_file": "data/radiology/anatomic-additions-20261119.json",
+                  "source_kind": "curated-anatomic-report",
+                  "investigation_id": "ct.chest-abdomen-pelvis",
+                  "step_index": 2,
+                  "reviewed_at": "2026-11-19",
+                  "source_ids": [
+                    "acr-parameters"
+                  ],
+                  "reference_ids": [
+                    "anatomic-additions-20261119:acr-parameters"
+                  ],
+                  "clinical_approval": false,
+                  "kind": "normal",
+                  "statement_sha256": "19024f75a692449acaea9c229c126d015cb9415eae9d0464284bb8e554a43e52"
+                },
+                "requires_context": false
+              },
+              "findings": [
+                {
+                  "id": "ct.chest-abdomen-pelvis:pleura-and-pericardium:effusion",
+                  "label": "Pleural effusion",
+                  "text": "There is a [small / moderate / large] [right / left / bilateral] pleural effusion.",
+                  "segments": [
+                    {
+                      "text": "There is a "
+                    },
+                    {
+                      "slot": "slot-1"
+                    },
+                    {
+                      "text": " "
+                    },
+                    {
+                      "slot": "slot-2"
+                    },
+                    {
+                      "text": " pleural effusion."
+                    }
+                  ],
+                  "slots": [
+                    {
+                      "id": "slot-1",
+                      "kind": "choice",
+                      "label": "There is",
+                      "required": true,
+                      "options": [
+                        {
+                          "value": "small",
+                          "label": "small"
+                        },
+                        {
+                          "value": "moderate",
+                          "label": "moderate"
+                        },
+                        {
+                          "value": "large",
+                          "label": "large"
+                        }
+                      ],
+                      "source_token": "[small / moderate / large]",
+                      "source_span": {
+                        "start": 11,
+                        "end": 37,
+                        "unit": "unicode_code_points"
+                      }
+                    },
+                    {
+                      "id": "slot-2",
+                      "kind": "choice",
+                      "label": "There is",
+                      "required": true,
+                      "options": [
+                        {
+                          "value": "right",
+                          "label": "right"
+                        },
+                        {
+                          "value": "left",
+                          "label": "left"
+                        },
+                        {
+                          "value": "bilateral",
+                          "label": "bilateral"
+                        }
+                      ],
+                      "source_token": "[right / left / bilateral]",
+                      "source_span": {
+                        "start": 38,
+                        "end": 64,
+                        "unit": "unicode_code_points"
+                      }
+                    }
+                  ],
+                  "source": {
+                    "source_file": "data/radiology/anatomic-additions-20261119.json",
+                    "source_kind": "curated-anatomic-report",
+                    "investigation_id": "ct.chest-abdomen-pelvis",
+                    "step_index": 2,
+                    "reviewed_at": "2026-11-19",
+                    "source_ids": [
+                      "acr-parameters"
+                    ],
+                    "reference_ids": [
+                      "anatomic-additions-20261119:acr-parameters"
+                    ],
+                    "clinical_approval": false,
+                    "kind": "finding",
+                    "statement_sha256": "49fc0b2c68b52a5fe4e178ef6f54d6b4b032009242dccda280a1a8878ee4e750"
+                  },
+                  "requires_context": false
+                },
+                {
+                  "id": "ct.chest-abdomen-pelvis:pleura-and-pericardium:pleura",
+                  "label": "Pleural disease",
+                  "text": "There is [right / left / bilateral] pleural [thickening / nodularity].",
+                  "segments": [
+                    {
+                      "text": "There is "
+                    },
+                    {
+                      "slot": "slot-1"
+                    },
+                    {
+                      "text": " pleural "
+                    },
+                    {
+                      "slot": "slot-2"
+                    },
+                    {
+                      "text": "."
+                    }
+                  ],
+                  "slots": [
+                    {
+                      "id": "slot-1",
+                      "kind": "choice",
+                      "label": "There is",
+                      "required": true,
+                      "options": [
+                        {
+                          "value": "right",
+                          "label": "right"
+                        },
+                        {
+                          "value": "left",
+                          "label": "left"
+                        },
+                        {
+                          "value": "bilateral",
+                          "label": "bilateral"
+                        }
+                      ],
+                      "source_token": "[right / left / bilateral]",
+                      "source_span": {
+                        "start": 9,
+                        "end": 35,
+                        "unit": "unicode_code_points"
+                      }
+                    },
+                    {
+                      "id": "slot-2",
+                      "kind": "choice",
+                      "label": "There is pleural",
+                      "required": true,
+                      "options": [
+                        {
+                          "value": "thickening",
+                          "label": "thickening"
+                        },
+                        {
+                          "value": "nodularity",
+                          "label": "nodularity"
+                        }
+                      ],
+                      "source_token": "[thickening / nodularity]",
+                      "source_span": {
+                        "start": 44,
+                        "end": 69,
+                        "unit": "unicode_code_points"
+                      }
+                    }
+                  ],
+                  "source": {
+                    "source_file": "data/radiology/anatomic-additions-20261119.json",
+                    "source_kind": "curated-anatomic-report",
+                    "investigation_id": "ct.chest-abdomen-pelvis",
+                    "step_index": 2,
+                    "reviewed_at": "2026-11-19",
+                    "source_ids": [
+                      "acr-parameters"
+                    ],
+                    "reference_ids": [
+                      "anatomic-additions-20261119:acr-parameters"
+                    ],
+                    "clinical_approval": false,
+                    "kind": "finding",
+                    "statement_sha256": "f5877d99759926743564b1817d8549fbb90270d110dc83c4c193d00ff6d1a265"
+                  },
+                  "requires_context": false
+                },
+                {
+                  "id": "ct.chest-abdomen-pelvis:pleura-and-pericardium:pericardium",
+                  "label": "Pericardial effusion",
+                  "text": "There is a [small / moderate / large] pericardial effusion.",
+                  "segments": [
+                    {
+                      "text": "There is a "
+                    },
+                    {
+                      "slot": "slot-1"
+                    },
+                    {
+                      "text": " pericardial effusion."
+                    }
+                  ],
+                  "slots": [
+                    {
+                      "id": "slot-1",
+                      "kind": "choice",
+                      "label": "There is",
+                      "required": true,
+                      "options": [
+                        {
+                          "value": "small",
+                          "label": "small"
+                        },
+                        {
+                          "value": "moderate",
+                          "label": "moderate"
+                        },
+                        {
+                          "value": "large",
+                          "label": "large"
+                        }
+                      ],
+                      "source_token": "[small / moderate / large]",
+                      "source_span": {
+                        "start": 11,
+                        "end": 37,
+                        "unit": "unicode_code_points"
+                      }
+                    }
+                  ],
+                  "source": {
+                    "source_file": "data/radiology/anatomic-additions-20261119.json",
+                    "source_kind": "curated-anatomic-report",
+                    "investigation_id": "ct.chest-abdomen-pelvis",
+                    "step_index": 2,
+                    "reviewed_at": "2026-11-19",
+                    "source_ids": [
+                      "acr-parameters"
+                    ],
+                    "reference_ids": [
+                      "anatomic-additions-20261119:acr-parameters"
+                    ],
+                    "clinical_approval": false,
+                    "kind": "finding",
+                    "statement_sha256": "6f1649e3f34fa91c3f1843414dfc3482ccb674726395360bdccaaafd0f70e9ad"
+                  },
+                  "requires_context": false
+                }
+              ],
+              "exclude_from_bulk_normal": false,
+              "compartment": "Chest"
+            },
+            {
+              "id": "anatomy-thoracic-lymph-nodes",
+              "anatomy_id": "thoracic-lymph-nodes",
+              "label": "Thoracic lymph nodes",
+              "group": "Chest",
+              "source_sections": [
+                "Chest"
+              ],
+              "report_section_id": "compartment-chest",
+              "report_section_label": "CHEST",
+              "normal": {
+                "id": "ct.chest-abdomen-pelvis:thoracic-lymph-nodes:normal",
+                "label": "Normal",
+                "text": "No mediastinal, hilar or axillary lymphadenopathy.",
+                "segments": [
+                  {
+                    "text": "No mediastinal, hilar or axillary lymphadenopathy."
+                  }
+                ],
+                "slots": [],
+                "source": {
+                  "source_file": "data/radiology/anatomic-additions-20261119.json",
+                  "source_kind": "curated-anatomic-report",
+                  "investigation_id": "ct.chest-abdomen-pelvis",
+                  "step_index": 3,
+                  "reviewed_at": "2026-11-19",
+                  "source_ids": [
+                    "acr-parameters"
+                  ],
+                  "reference_ids": [
+                    "anatomic-additions-20261119:acr-parameters"
+                  ],
+                  "clinical_approval": false,
+                  "kind": "normal",
+                  "statement_sha256": "66344832a0090e2fcda65e19ce2a33d72fe78106cfa93967acfdd2238d40b357"
+                },
+                "requires_context": false
+              },
+              "findings": [
+                {
+                  "id": "ct.chest-abdomen-pelvis:thoracic-lymph-nodes:node",
+                  "label": "Enlarged node",
+                  "text": "An enlarged [mediastinal / hilar / axillary / supraclavicular] lymph node is present.",
+                  "segments": [
+                    {
+                      "text": "An enlarged "
+                    },
+                    {
+                      "slot": "slot-1"
+                    },
+                    {
+                      "text": " lymph node is present."
+                    }
+                  ],
+                  "slots": [
+                    {
+                      "id": "slot-1",
+                      "kind": "choice",
+                      "label": "An enlarged",
+                      "required": true,
+                      "options": [
+                        {
+                          "value": "mediastinal",
+                          "label": "mediastinal"
+                        },
+                        {
+                          "value": "hilar",
+                          "label": "hilar"
+                        },
+                        {
+                          "value": "axillary",
+                          "label": "axillary"
+                        },
+                        {
+                          "value": "supraclavicular",
+                          "label": "supraclavicular"
+                        }
+                      ],
+                      "source_token": "[mediastinal / hilar / axillary / supraclavicular]",
+                      "source_span": {
+                        "start": 12,
+                        "end": 62,
+                        "unit": "unicode_code_points"
+                      }
+                    }
+                  ],
+                  "source": {
+                    "source_file": "data/radiology/anatomic-additions-20261119.json",
+                    "source_kind": "curated-anatomic-report",
+                    "investigation_id": "ct.chest-abdomen-pelvis",
+                    "step_index": 3,
+                    "reviewed_at": "2026-11-19",
+                    "source_ids": [
+                      "acr-parameters"
+                    ],
+                    "reference_ids": [
+                      "anatomic-additions-20261119:acr-parameters"
+                    ],
+                    "clinical_approval": false,
+                    "kind": "finding",
+                    "statement_sha256": "e7772f33446a3977657e82f8e8f623020ebcb5579e6fcdac0aba1f4e201a0073"
+                  },
+                  "requires_context": false
+                },
+                {
+                  "id": "ct.chest-abdomen-pelvis:thoracic-lymph-nodes:size",
+                  "label": "Short axis",
+                  "text": "The thoracic lymph node measures __ mm in short axis.",
+                  "segments": [
+                    {
+                      "text": "The thoracic lymph node measures "
+                    },
+                    {
+                      "slot": "slot-1"
+                    },
+                    {
+                      "text": " mm in short axis."
+                    }
+                  ],
+                  "slots": [
+                    {
+                      "id": "slot-1",
+                      "kind": "number",
+                      "label": "The thoracic lymph node measures (mm)",
+                      "required": true,
+                      "options": [],
+                      "source_token": "__",
+                      "source_span": {
+                        "start": 33,
+                        "end": 35,
+                        "unit": "unicode_code_points"
+                      },
+                      "unit": "mm"
+                    }
+                  ],
+                  "source": {
+                    "source_file": "data/radiology/anatomic-additions-20261119.json",
+                    "source_kind": "curated-anatomic-report",
+                    "investigation_id": "ct.chest-abdomen-pelvis",
+                    "step_index": 3,
+                    "reviewed_at": "2026-11-19",
+                    "source_ids": [
+                      "acr-parameters"
+                    ],
+                    "reference_ids": [
+                      "anatomic-additions-20261119:acr-parameters"
+                    ],
+                    "clinical_approval": false,
+                    "kind": "finding",
+                    "statement_sha256": "fd3163a44207e12b5949092ba20a4fa2d7c7ecaaa3cf9f5b239485f81001a22d"
+                  },
+                  "requires_context": false,
+                  "requires_any": [
+                    "ct.chest-abdomen-pelvis:thoracic-lymph-nodes:node"
+                  ]
+                }
+              ],
+              "exclude_from_bulk_normal": false,
+              "compartment": "Chest"
+            },
+            {
+              "id": "anatomy-heart-and-great-vessels",
+              "anatomy_id": "heart-and-great-vessels",
+              "label": "Heart and great vessels",
+              "group": "Chest",
+              "source_sections": [
+                "Chest"
+              ],
+              "report_section_id": "compartment-chest",
+              "report_section_label": "CHEST",
+              "normal": {
+                "id": "ct.chest-abdomen-pelvis:heart-and-great-vessels:normal",
+                "label": "Normal",
+                "text": "The heart and great vessels are normal.",
+                "segments": [
+                  {
+                    "text": "The heart and great vessels are normal."
+                  }
+                ],
+                "slots": [],
+                "source": {
+                  "source_file": "data/radiology/anatomic-additions-20261119.json",
+                  "source_kind": "curated-anatomic-report",
+                  "investigation_id": "ct.chest-abdomen-pelvis",
+                  "step_index": 4,
+                  "reviewed_at": "2026-11-19",
+                  "source_ids": [
+                    "acr-parameters"
+                  ],
+                  "reference_ids": [
+                    "anatomic-additions-20261119:acr-parameters"
+                  ],
+                  "clinical_approval": false,
+                  "kind": "normal",
+                  "statement_sha256": "64510e2c4de610a1ba6932cd105d3fe62a17fc34734175efa61d2060e55a77f6"
+                },
+                "requires_context": false
+              },
+              "findings": [
+                {
+                  "id": "ct.chest-abdomen-pelvis:heart-and-great-vessels:abnormal",
+                  "label": "Cardiovascular abnormality",
+                  "text": "There is [a pulmonary embolus / tumour thrombus / cardiomegaly / an aortic aneurysm / coronary artery calcification].",
+                  "segments": [
+                    {
+                      "text": "There is "
+                    },
+                    {
+                      "slot": "slot-1"
+                    },
+                    {
+                      "text": "."
+                    }
+                  ],
+                  "slots": [
+                    {
+                      "id": "slot-1",
+                      "kind": "choice",
+                      "label": "There is",
+                      "required": true,
+                      "options": [
+                        {
+                          "value": "a pulmonary embolus",
+                          "label": "a pulmonary embolus"
+                        },
+                        {
+                          "value": "tumour thrombus",
+                          "label": "tumour thrombus"
+                        },
+                        {
+                          "value": "cardiomegaly",
+                          "label": "cardiomegaly"
+                        },
+                        {
+                          "value": "an aortic aneurysm",
+                          "label": "an aortic aneurysm"
+                        },
+                        {
+                          "value": "coronary artery calcification",
+                          "label": "coronary artery calcification"
+                        }
+                      ],
+                      "source_token": "[a pulmonary embolus / tumour thrombus / cardiomegaly / an aortic aneurysm / coronary artery calcification]",
+                      "source_span": {
+                        "start": 9,
+                        "end": 116,
+                        "unit": "unicode_code_points"
+                      }
+                    }
+                  ],
+                  "source": {
+                    "source_file": "data/radiology/anatomic-additions-20261119.json",
+                    "source_kind": "curated-anatomic-report",
+                    "investigation_id": "ct.chest-abdomen-pelvis",
+                    "step_index": 4,
+                    "reviewed_at": "2026-11-19",
+                    "source_ids": [
+                      "acr-parameters"
+                    ],
+                    "reference_ids": [
+                      "anatomic-additions-20261119:acr-parameters"
+                    ],
+                    "clinical_approval": false,
+                    "kind": "finding",
+                    "statement_sha256": "dcf2bdbbde47d0377b6ad073ff2020aa20f090b4dcc691ef0ed9ead9600abed7"
+                  },
+                  "requires_context": false
+                }
+              ],
+              "exclude_from_bulk_normal": false,
+              "compartment": "Chest"
+            },
+            {
+              "id": "anatomy-liver",
+              "anatomy_id": "liver",
+              "label": "Liver",
+              "group": "Abdomen and pelvis",
+              "source_sections": [
+                "Abdomen and pelvis"
+              ],
+              "report_section_id": "compartment-abdomen-and-pelvis",
+              "report_section_label": "ABDOMEN AND PELVIS",
+              "normal": {
+                "id": "ct.chest-abdomen-pelvis:liver:normal",
+                "label": "Normal",
+                "text": "No focal liver lesion.",
+                "segments": [
+                  {
+                    "text": "No focal liver lesion."
+                  }
+                ],
+                "slots": [],
+                "source": {
+                  "source_file": "data/radiology/anatomic-additions-20261119.json",
+                  "source_kind": "curated-anatomic-report",
+                  "investigation_id": "ct.chest-abdomen-pelvis",
+                  "step_index": 5,
+                  "reviewed_at": "2026-11-19",
+                  "source_ids": [
+                    "acr-parameters"
+                  ],
+                  "reference_ids": [
+                    "anatomic-additions-20261119:acr-parameters"
+                  ],
+                  "clinical_approval": false,
+                  "kind": "normal",
+                  "statement_sha256": "1ccd2e11036409f310bac45e2612481e1c900f0cd9eb4a9606e336d2712b78b2"
+                },
+                "requires_context": false
+              },
+              "findings": [
+                {
+                  "id": "ct.chest-abdomen-pelvis:liver:lesion",
+                  "label": "Liver lesion",
+                  "text": "A focal liver lesion is present in the [right lobe / left lobe / caudate lobe].",
+                  "segments": [
+                    {
+                      "text": "A focal liver lesion is present in the "
+                    },
+                    {
+                      "slot": "slot-1"
+                    },
+                    {
+                      "text": "."
+                    }
+                  ],
+                  "slots": [
+                    {
+                      "id": "slot-1",
+                      "kind": "choice",
+                      "label": "A focal liver lesion is present in",
+                      "required": true,
+                      "options": [
+                        {
+                          "value": "right lobe",
+                          "label": "right lobe"
+                        },
+                        {
+                          "value": "left lobe",
+                          "label": "left lobe"
+                        },
+                        {
+                          "value": "caudate lobe",
+                          "label": "caudate lobe"
+                        }
+                      ],
+                      "source_token": "[right lobe / left lobe / caudate lobe]",
+                      "source_span": {
+                        "start": 39,
+                        "end": 78,
+                        "unit": "unicode_code_points"
+                      }
+                    }
+                  ],
+                  "source": {
+                    "source_file": "data/radiology/anatomic-additions-20261119.json",
+                    "source_kind": "curated-anatomic-report",
+                    "investigation_id": "ct.chest-abdomen-pelvis",
+                    "step_index": 5,
+                    "reviewed_at": "2026-11-19",
+                    "source_ids": [
+                      "acr-parameters"
+                    ],
+                    "reference_ids": [
+                      "anatomic-additions-20261119:acr-parameters"
+                    ],
+                    "clinical_approval": false,
+                    "kind": "finding",
+                    "statement_sha256": "34782bde07be1d8f82b4d8eeb5a1dba4650df429cdb55648bd3428fdd71d3f52"
+                  },
+                  "requires_context": false
+                },
+                {
+                  "id": "ct.chest-abdomen-pelvis:liver:size",
+                  "label": "Lesion size",
+                  "text": "The liver lesion measures __ mm.",
+                  "segments": [
+                    {
+                      "text": "The liver lesion measures "
+                    },
+                    {
+                      "slot": "slot-1"
+                    },
+                    {
+                      "text": " mm."
+                    }
+                  ],
+                  "slots": [
+                    {
+                      "id": "slot-1",
+                      "kind": "number",
+                      "label": "The liver lesion measures (mm)",
+                      "required": true,
+                      "options": [],
+                      "source_token": "__",
+                      "source_span": {
+                        "start": 26,
+                        "end": 28,
+                        "unit": "unicode_code_points"
+                      },
+                      "unit": "mm"
+                    }
+                  ],
+                  "source": {
+                    "source_file": "data/radiology/anatomic-additions-20261119.json",
+                    "source_kind": "curated-anatomic-report",
+                    "investigation_id": "ct.chest-abdomen-pelvis",
+                    "step_index": 5,
+                    "reviewed_at": "2026-11-19",
+                    "source_ids": [
+                      "acr-parameters"
+                    ],
+                    "reference_ids": [
+                      "anatomic-additions-20261119:acr-parameters"
+                    ],
+                    "clinical_approval": false,
+                    "kind": "finding",
+                    "statement_sha256": "cdb2aa945b11b5b239c138ba22f9bc4abed46220ec7c530c77d19a39517cd643"
+                  },
+                  "requires_context": false,
+                  "requires_any": [
+                    "ct.chest-abdomen-pelvis:liver:lesion"
+                  ]
+                },
+                {
+                  "id": "ct.chest-abdomen-pelvis:liver:nature",
+                  "label": "Lesion appearance",
+                  "text": "The liver lesion is [hypodense / hyperenhancing / cystic / indeterminate].",
+                  "segments": [
+                    {
+                      "text": "The liver lesion is "
+                    },
+                    {
+                      "slot": "slot-1"
+                    },
+                    {
+                      "text": "."
+                    }
+                  ],
+                  "slots": [
+                    {
+                      "id": "slot-1",
+                      "kind": "choice",
+                      "label": "The liver lesion is",
+                      "required": true,
+                      "options": [
+                        {
+                          "value": "hypodense",
+                          "label": "hypodense"
+                        },
+                        {
+                          "value": "hyperenhancing",
+                          "label": "hyperenhancing"
+                        },
+                        {
+                          "value": "cystic",
+                          "label": "cystic"
+                        },
+                        {
+                          "value": "indeterminate",
+                          "label": "indeterminate"
+                        }
+                      ],
+                      "source_token": "[hypodense / hyperenhancing / cystic / indeterminate]",
+                      "source_span": {
+                        "start": 20,
+                        "end": 73,
+                        "unit": "unicode_code_points"
+                      }
+                    }
+                  ],
+                  "source": {
+                    "source_file": "data/radiology/anatomic-additions-20261119.json",
+                    "source_kind": "curated-anatomic-report",
+                    "investigation_id": "ct.chest-abdomen-pelvis",
+                    "step_index": 5,
+                    "reviewed_at": "2026-11-19",
+                    "source_ids": [
+                      "acr-parameters"
+                    ],
+                    "reference_ids": [
+                      "anatomic-additions-20261119:acr-parameters"
+                    ],
+                    "clinical_approval": false,
+                    "kind": "finding",
+                    "statement_sha256": "ae6bddf9711b78ea63f68888158913d2d257e2a9d738c984725b15d5c9b1ff27"
+                  },
+                  "requires_context": false,
+                  "requires_any": [
+                    "ct.chest-abdomen-pelvis:liver:lesion"
+                  ]
+                },
+                {
+                  "id": "ct.chest-abdomen-pelvis:liver:diffuse",
+                  "label": "Diffuse liver disease",
+                  "text": "The liver shows [steatosis / cirrhotic morphology / hepatomegaly].",
+                  "segments": [
+                    {
+                      "text": "The liver shows "
+                    },
+                    {
+                      "slot": "slot-1"
+                    },
+                    {
+                      "text": "."
+                    }
+                  ],
+                  "slots": [
+                    {
+                      "id": "slot-1",
+                      "kind": "choice",
+                      "label": "The liver shows",
+                      "required": true,
+                      "options": [
+                        {
+                          "value": "steatosis",
+                          "label": "steatosis"
+                        },
+                        {
+                          "value": "cirrhotic morphology",
+                          "label": "cirrhotic morphology"
+                        },
+                        {
+                          "value": "hepatomegaly",
+                          "label": "hepatomegaly"
+                        }
+                      ],
+                      "source_token": "[steatosis / cirrhotic morphology / hepatomegaly]",
+                      "source_span": {
+                        "start": 16,
+                        "end": 65,
+                        "unit": "unicode_code_points"
+                      }
+                    }
+                  ],
+                  "source": {
+                    "source_file": "data/radiology/anatomic-additions-20261119.json",
+                    "source_kind": "curated-anatomic-report",
+                    "investigation_id": "ct.chest-abdomen-pelvis",
+                    "step_index": 5,
+                    "reviewed_at": "2026-11-19",
+                    "source_ids": [
+                      "acr-parameters"
+                    ],
+                    "reference_ids": [
+                      "anatomic-additions-20261119:acr-parameters"
+                    ],
+                    "clinical_approval": false,
+                    "kind": "finding",
+                    "statement_sha256": "15040d8a2b469d4902cd8d8da8601da625bd9dba8d2a1e9a3c9f4b77de284a33"
+                  },
+                  "requires_context": false
+                }
+              ],
+              "exclude_from_bulk_normal": false,
+              "compartment": "Abdomen and pelvis"
+            },
+            {
+              "id": "anatomy-gallbladder-pancreas-and-spleen",
+              "anatomy_id": "gallbladder-pancreas-and-spleen",
+              "label": "Gallbladder, pancreas and spleen",
+              "group": "Abdomen and pelvis",
+              "source_sections": [
+                "Abdomen and pelvis"
+              ],
+              "report_section_id": "compartment-abdomen-and-pelvis",
+              "report_section_label": "ABDOMEN AND PELVIS",
+              "normal": {
+                "id": "ct.chest-abdomen-pelvis:gallbladder-pancreas-and-spleen:normal",
+                "label": "Normal",
+                "text": "The gallbladder, pancreas and spleen are normal.",
+                "segments": [
+                  {
+                    "text": "The gallbladder, pancreas and spleen are normal."
+                  }
+                ],
+                "slots": [],
+                "source": {
+                  "source_file": "data/radiology/anatomic-additions-20261119.json",
+                  "source_kind": "curated-anatomic-report",
+                  "investigation_id": "ct.chest-abdomen-pelvis",
+                  "step_index": 6,
+                  "reviewed_at": "2026-11-19",
+                  "source_ids": [
+                    "acr-parameters"
+                  ],
+                  "reference_ids": [
+                    "anatomic-additions-20261119:acr-parameters"
+                  ],
+                  "clinical_approval": false,
+                  "kind": "normal",
+                  "statement_sha256": "852f08bd7c3ca98d5e36c5469b00abc76531b9c89750a4ecd0103d868d54eb97"
+                },
+                "requires_context": false
+              },
+              "findings": [
+                {
+                  "id": "ct.chest-abdomen-pelvis:gallbladder-pancreas-and-spleen:abnormal",
+                  "label": "Abnormality",
+                  "text": "There is [a pancreatic lesion / pancreatic duct dilatation / a splenic lesion / splenomegaly / gallstones / biliary dilatation].",
+                  "segments": [
+                    {
+                      "text": "There is "
+                    },
+                    {
+                      "slot": "slot-1"
+                    },
+                    {
+                      "text": "."
+                    }
+                  ],
+                  "slots": [
+                    {
+                      "id": "slot-1",
+                      "kind": "choice",
+                      "label": "There is",
+                      "required": true,
+                      "options": [
+                        {
+                          "value": "a pancreatic lesion",
+                          "label": "a pancreatic lesion"
+                        },
+                        {
+                          "value": "pancreatic duct dilatation",
+                          "label": "pancreatic duct dilatation"
+                        },
+                        {
+                          "value": "a splenic lesion",
+                          "label": "a splenic lesion"
+                        },
+                        {
+                          "value": "splenomegaly",
+                          "label": "splenomegaly"
+                        },
+                        {
+                          "value": "gallstones",
+                          "label": "gallstones"
+                        },
+                        {
+                          "value": "biliary dilatation",
+                          "label": "biliary dilatation"
+                        }
+                      ],
+                      "source_token": "[a pancreatic lesion / pancreatic duct dilatation / a splenic lesion / splenomegaly / gallstones / biliary dilatation]",
+                      "source_span": {
+                        "start": 9,
+                        "end": 127,
+                        "unit": "unicode_code_points"
+                      }
+                    }
+                  ],
+                  "source": {
+                    "source_file": "data/radiology/anatomic-additions-20261119.json",
+                    "source_kind": "curated-anatomic-report",
+                    "investigation_id": "ct.chest-abdomen-pelvis",
+                    "step_index": 6,
+                    "reviewed_at": "2026-11-19",
+                    "source_ids": [
+                      "acr-parameters"
+                    ],
+                    "reference_ids": [
+                      "anatomic-additions-20261119:acr-parameters"
+                    ],
+                    "clinical_approval": false,
+                    "kind": "finding",
+                    "statement_sha256": "b9cc68294bc4200c53ed6c5586254cb83865f462e1f3e68810399b2c82dba7f5"
+                  },
+                  "requires_context": false
+                }
+              ],
+              "exclude_from_bulk_normal": false,
+              "compartment": "Abdomen and pelvis"
+            },
+            {
+              "id": "anatomy-adrenal-glands",
+              "anatomy_id": "adrenal-glands",
+              "label": "Adrenal glands",
+              "group": "Abdomen and pelvis",
+              "source_sections": [
+                "Abdomen and pelvis"
+              ],
+              "report_section_id": "compartment-abdomen-and-pelvis",
+              "report_section_label": "ABDOMEN AND PELVIS",
+              "normal": {
+                "id": "ct.chest-abdomen-pelvis:adrenal-glands:normal",
+                "label": "Normal",
+                "text": "The adrenal glands are normal.",
+                "segments": [
+                  {
+                    "text": "The adrenal glands are normal."
+                  }
+                ],
+                "slots": [],
+                "source": {
+                  "source_file": "data/radiology/anatomic-additions-20261119.json",
+                  "source_kind": "curated-anatomic-report",
+                  "investigation_id": "ct.chest-abdomen-pelvis",
+                  "step_index": 7,
+                  "reviewed_at": "2026-11-19",
+                  "source_ids": [
+                    "acr-parameters"
+                  ],
+                  "reference_ids": [
+                    "anatomic-additions-20261119:acr-parameters"
+                  ],
+                  "clinical_approval": false,
+                  "kind": "normal",
+                  "statement_sha256": "a290160e4bbc5f69fae3aafd3fed68e78d942641d0a02085079a69ab5c8e1094"
+                },
+                "requires_context": false
+              },
+              "findings": [
+                {
+                  "id": "ct.chest-abdomen-pelvis:adrenal-glands:nodule",
+                  "label": "Adrenal nodule",
+                  "text": "There is a [right / left] adrenal nodule.",
+                  "segments": [
+                    {
+                      "text": "There is a "
+                    },
+                    {
+                      "slot": "slot-1"
+                    },
+                    {
+                      "text": " adrenal nodule."
+                    }
+                  ],
+                  "slots": [
+                    {
+                      "id": "slot-1",
+                      "kind": "choice",
+                      "label": "There is",
+                      "required": true,
+                      "options": [
+                        {
+                          "value": "right",
+                          "label": "right"
+                        },
+                        {
+                          "value": "left",
+                          "label": "left"
+                        }
+                      ],
+                      "source_token": "[right / left]",
+                      "source_span": {
+                        "start": 11,
+                        "end": 25,
+                        "unit": "unicode_code_points"
+                      }
+                    }
+                  ],
+                  "source": {
+                    "source_file": "data/radiology/anatomic-additions-20261119.json",
+                    "source_kind": "curated-anatomic-report",
+                    "investigation_id": "ct.chest-abdomen-pelvis",
+                    "step_index": 7,
+                    "reviewed_at": "2026-11-19",
+                    "source_ids": [
+                      "acr-parameters"
+                    ],
+                    "reference_ids": [
+                      "anatomic-additions-20261119:acr-parameters"
+                    ],
+                    "clinical_approval": false,
+                    "kind": "finding",
+                    "statement_sha256": "ae0873de72ef57250b2ca03e177bd781800a61b31b6f922fb8acfe34a2c21af8"
+                  },
+                  "requires_context": false
+                },
+                {
+                  "id": "ct.chest-abdomen-pelvis:adrenal-glands:size",
+                  "label": "Nodule size",
+                  "text": "The adrenal nodule measures __ mm.",
+                  "segments": [
+                    {
+                      "text": "The adrenal nodule measures "
+                    },
+                    {
+                      "slot": "slot-1"
+                    },
+                    {
+                      "text": " mm."
+                    }
+                  ],
+                  "slots": [
+                    {
+                      "id": "slot-1",
+                      "kind": "number",
+                      "label": "The adrenal nodule measures (mm)",
+                      "required": true,
+                      "options": [],
+                      "source_token": "__",
+                      "source_span": {
+                        "start": 28,
+                        "end": 30,
+                        "unit": "unicode_code_points"
+                      },
+                      "unit": "mm"
+                    }
+                  ],
+                  "source": {
+                    "source_file": "data/radiology/anatomic-additions-20261119.json",
+                    "source_kind": "curated-anatomic-report",
+                    "investigation_id": "ct.chest-abdomen-pelvis",
+                    "step_index": 7,
+                    "reviewed_at": "2026-11-19",
+                    "source_ids": [
+                      "acr-parameters"
+                    ],
+                    "reference_ids": [
+                      "anatomic-additions-20261119:acr-parameters"
+                    ],
+                    "clinical_approval": false,
+                    "kind": "finding",
+                    "statement_sha256": "b99e0dfafcb1fef798833bc5b0dec0523d5ca65fdde4773074ca03b9e258fbe5"
+                  },
+                  "requires_context": false,
+                  "requires_any": [
+                    "ct.chest-abdomen-pelvis:adrenal-glands:nodule"
+                  ]
+                }
+              ],
+              "exclude_from_bulk_normal": false,
+              "compartment": "Abdomen and pelvis"
+            },
+            {
+              "id": "anatomy-kidneys-and-bladder",
+              "anatomy_id": "kidneys-and-bladder",
+              "label": "Kidneys and bladder",
+              "group": "Abdomen and pelvis",
+              "source_sections": [
+                "Abdomen and pelvis"
+              ],
+              "report_section_id": "compartment-abdomen-and-pelvis",
+              "report_section_label": "ABDOMEN AND PELVIS",
+              "normal": {
+                "id": "ct.chest-abdomen-pelvis:kidneys-and-bladder:normal",
+                "label": "Normal",
+                "text": "The kidneys and bladder are normal, with no hydronephrosis.",
+                "segments": [
+                  {
+                    "text": "The kidneys and bladder are normal, with no hydronephrosis."
+                  }
+                ],
+                "slots": [],
+                "source": {
+                  "source_file": "data/radiology/anatomic-additions-20261119.json",
+                  "source_kind": "curated-anatomic-report",
+                  "investigation_id": "ct.chest-abdomen-pelvis",
+                  "step_index": 8,
+                  "reviewed_at": "2026-11-19",
+                  "source_ids": [
+                    "acr-parameters"
+                  ],
+                  "reference_ids": [
+                    "anatomic-additions-20261119:acr-parameters"
+                  ],
+                  "clinical_approval": false,
+                  "kind": "normal",
+                  "statement_sha256": "ed8c06263c75b0ae5ed3aa9f7d3dd72c8929101b201147c913524d772ff57acd"
+                },
+                "requires_context": false
+              },
+              "findings": [
+                {
+                  "id": "ct.chest-abdomen-pelvis:kidneys-and-bladder:renal",
+                  "label": "Renal lesion",
+                  "text": "There is a [renal cyst / renal mass / renal calculus] in the [right / left] kidney.",
+                  "segments": [
+                    {
+                      "text": "There is a "
+                    },
+                    {
+                      "slot": "slot-1"
+                    },
+                    {
+                      "text": " in the "
+                    },
+                    {
+                      "slot": "slot-2"
+                    },
+                    {
+                      "text": " kidney."
+                    }
+                  ],
+                  "slots": [
+                    {
+                      "id": "slot-1",
+                      "kind": "choice",
+                      "label": "There is",
+                      "required": true,
+                      "options": [
+                        {
+                          "value": "renal cyst",
+                          "label": "renal cyst"
+                        },
+                        {
+                          "value": "renal mass",
+                          "label": "renal mass"
+                        },
+                        {
+                          "value": "renal calculus",
+                          "label": "renal calculus"
+                        }
+                      ],
+                      "source_token": "[renal cyst / renal mass / renal calculus]",
+                      "source_span": {
+                        "start": 11,
+                        "end": 53,
+                        "unit": "unicode_code_points"
+                      }
+                    },
+                    {
+                      "id": "slot-2",
+                      "kind": "choice",
+                      "label": "There is a in",
+                      "required": true,
+                      "options": [
+                        {
+                          "value": "right",
+                          "label": "right"
+                        },
+                        {
+                          "value": "left",
+                          "label": "left"
+                        }
+                      ],
+                      "source_token": "[right / left]",
+                      "source_span": {
+                        "start": 61,
+                        "end": 75,
+                        "unit": "unicode_code_points"
+                      }
+                    }
+                  ],
+                  "source": {
+                    "source_file": "data/radiology/anatomic-additions-20261119.json",
+                    "source_kind": "curated-anatomic-report",
+                    "investigation_id": "ct.chest-abdomen-pelvis",
+                    "step_index": 8,
+                    "reviewed_at": "2026-11-19",
+                    "source_ids": [
+                      "acr-parameters"
+                    ],
+                    "reference_ids": [
+                      "anatomic-additions-20261119:acr-parameters"
+                    ],
+                    "clinical_approval": false,
+                    "kind": "finding",
+                    "statement_sha256": "a97b1b49789d683555593ea0498b934bddec039bbffaaa31fbe5e8623bef5c3e"
+                  },
+                  "requires_context": false
+                },
+                {
+                  "id": "ct.chest-abdomen-pelvis:kidneys-and-bladder:hydronephrosis",
+                  "label": "Hydronephrosis",
+                  "text": "There is [right / left / bilateral] hydronephrosis.",
+                  "segments": [
+                    {
+                      "text": "There is "
+                    },
+                    {
+                      "slot": "slot-1"
+                    },
+                    {
+                      "text": " hydronephrosis."
+                    }
+                  ],
+                  "slots": [
+                    {
+                      "id": "slot-1",
+                      "kind": "choice",
+                      "label": "There is",
+                      "required": true,
+                      "options": [
+                        {
+                          "value": "right",
+                          "label": "right"
+                        },
+                        {
+                          "value": "left",
+                          "label": "left"
+                        },
+                        {
+                          "value": "bilateral",
+                          "label": "bilateral"
+                        }
+                      ],
+                      "source_token": "[right / left / bilateral]",
+                      "source_span": {
+                        "start": 9,
+                        "end": 35,
+                        "unit": "unicode_code_points"
+                      }
+                    }
+                  ],
+                  "source": {
+                    "source_file": "data/radiology/anatomic-additions-20261119.json",
+                    "source_kind": "curated-anatomic-report",
+                    "investigation_id": "ct.chest-abdomen-pelvis",
+                    "step_index": 8,
+                    "reviewed_at": "2026-11-19",
+                    "source_ids": [
+                      "acr-parameters"
+                    ],
+                    "reference_ids": [
+                      "anatomic-additions-20261119:acr-parameters"
+                    ],
+                    "clinical_approval": false,
+                    "kind": "finding",
+                    "statement_sha256": "7c14f344d26baf88b7ba49f93d1780e75399d9723969d3f7f69dc440cf371b9e"
+                  },
+                  "requires_context": false
+                },
+                {
+                  "id": "ct.chest-abdomen-pelvis:kidneys-and-bladder:bladder",
+                  "label": "Bladder abnormality",
+                  "text": "There is [bladder wall thickening / a bladder mass].",
+                  "segments": [
+                    {
+                      "text": "There is "
+                    },
+                    {
+                      "slot": "slot-1"
+                    },
+                    {
+                      "text": "."
+                    }
+                  ],
+                  "slots": [
+                    {
+                      "id": "slot-1",
+                      "kind": "choice",
+                      "label": "There is",
+                      "required": true,
+                      "options": [
+                        {
+                          "value": "bladder wall thickening",
+                          "label": "bladder wall thickening"
+                        },
+                        {
+                          "value": "a bladder mass",
+                          "label": "a bladder mass"
+                        }
+                      ],
+                      "source_token": "[bladder wall thickening / a bladder mass]",
+                      "source_span": {
+                        "start": 9,
+                        "end": 51,
+                        "unit": "unicode_code_points"
+                      }
+                    }
+                  ],
+                  "source": {
+                    "source_file": "data/radiology/anatomic-additions-20261119.json",
+                    "source_kind": "curated-anatomic-report",
+                    "investigation_id": "ct.chest-abdomen-pelvis",
+                    "step_index": 8,
+                    "reviewed_at": "2026-11-19",
+                    "source_ids": [
+                      "acr-parameters"
+                    ],
+                    "reference_ids": [
+                      "anatomic-additions-20261119:acr-parameters"
+                    ],
+                    "clinical_approval": false,
+                    "kind": "finding",
+                    "statement_sha256": "88b364133d8b13c50b3ecbb2e18e3989840d6facd2821cb28619b1608292aa13"
+                  },
+                  "requires_context": false
+                }
+              ],
+              "exclude_from_bulk_normal": false,
+              "compartment": "Abdomen and pelvis"
+            },
+            {
+              "id": "anatomy-bowel-and-peritoneum",
+              "anatomy_id": "bowel-and-peritoneum",
+              "label": "Bowel and peritoneum",
+              "group": "Abdomen and pelvis",
+              "source_sections": [
+                "Abdomen and pelvis"
+              ],
+              "report_section_id": "compartment-abdomen-and-pelvis",
+              "report_section_label": "ABDOMEN AND PELVIS",
+              "normal": {
+                "id": "ct.chest-abdomen-pelvis:bowel-and-peritoneum:normal",
+                "label": "Normal",
+                "text": "The bowel is normal in calibre, with no wall thickening, ascites or peritoneal nodularity.",
+                "segments": [
+                  {
+                    "text": "The bowel is normal in calibre, with no wall thickening, ascites or peritoneal nodularity."
+                  }
+                ],
+                "slots": [],
+                "source": {
+                  "source_file": "data/radiology/anatomic-additions-20261119.json",
+                  "source_kind": "curated-anatomic-report",
+                  "investigation_id": "ct.chest-abdomen-pelvis",
+                  "step_index": 9,
+                  "reviewed_at": "2026-11-19",
+                  "source_ids": [
+                    "acr-parameters"
+                  ],
+                  "reference_ids": [
+                    "anatomic-additions-20261119:acr-parameters"
+                  ],
+                  "clinical_approval": false,
+                  "kind": "normal",
+                  "statement_sha256": "8b7d31fb56c63785ef24d270ee44030e52d3eb7b9d21b306e92e8c9c4aced719"
+                },
+                "requires_context": false
+              },
+              "findings": [
+                {
+                  "id": "ct.chest-abdomen-pelvis:bowel-and-peritoneum:bowel",
+                  "label": "Bowel abnormality",
+                  "text": "There is [bowel wall thickening / a bowel mass / bowel obstruction] involving the [stomach / small bowel / colon / rectum].",
+                  "segments": [
+                    {
+                      "text": "There is "
+                    },
+                    {
+                      "slot": "slot-1"
+                    },
+                    {
+                      "text": " involving the "
+                    },
+                    {
+                      "slot": "slot-2"
+                    },
+                    {
+                      "text": "."
+                    }
+                  ],
+                  "slots": [
+                    {
+                      "id": "slot-1",
+                      "kind": "choice",
+                      "label": "There is",
+                      "required": true,
+                      "options": [
+                        {
+                          "value": "bowel wall thickening",
+                          "label": "bowel wall thickening"
+                        },
+                        {
+                          "value": "a bowel mass",
+                          "label": "a bowel mass"
+                        },
+                        {
+                          "value": "bowel obstruction",
+                          "label": "bowel obstruction"
+                        }
+                      ],
+                      "source_token": "[bowel wall thickening / a bowel mass / bowel obstruction]",
+                      "source_span": {
+                        "start": 9,
+                        "end": 67,
+                        "unit": "unicode_code_points"
+                      }
+                    },
+                    {
+                      "id": "slot-2",
+                      "kind": "choice",
+                      "label": "There is involving",
+                      "required": true,
+                      "options": [
+                        {
+                          "value": "stomach",
+                          "label": "stomach"
+                        },
+                        {
+                          "value": "small bowel",
+                          "label": "small bowel"
+                        },
+                        {
+                          "value": "colon",
+                          "label": "colon"
+                        },
+                        {
+                          "value": "rectum",
+                          "label": "rectum"
+                        }
+                      ],
+                      "source_token": "[stomach / small bowel / colon / rectum]",
+                      "source_span": {
+                        "start": 82,
+                        "end": 122,
+                        "unit": "unicode_code_points"
+                      }
+                    }
+                  ],
+                  "source": {
+                    "source_file": "data/radiology/anatomic-additions-20261119.json",
+                    "source_kind": "curated-anatomic-report",
+                    "investigation_id": "ct.chest-abdomen-pelvis",
+                    "step_index": 9,
+                    "reviewed_at": "2026-11-19",
+                    "source_ids": [
+                      "acr-parameters"
+                    ],
+                    "reference_ids": [
+                      "anatomic-additions-20261119:acr-parameters"
+                    ],
+                    "clinical_approval": false,
+                    "kind": "finding",
+                    "statement_sha256": "2c93f99905f0f24c49102422304226172bb9d1a5af79dd14667bb5fb082a92fa"
+                  },
+                  "requires_context": false
+                },
+                {
+                  "id": "ct.chest-abdomen-pelvis:bowel-and-peritoneum:peritoneum",
+                  "label": "Peritoneal disease",
+                  "text": "There is [ascites / peritoneal nodularity / omental disease / a collection].",
+                  "segments": [
+                    {
+                      "text": "There is "
+                    },
+                    {
+                      "slot": "slot-1"
+                    },
+                    {
+                      "text": "."
+                    }
+                  ],
+                  "slots": [
+                    {
+                      "id": "slot-1",
+                      "kind": "choice",
+                      "label": "There is",
+                      "required": true,
+                      "options": [
+                        {
+                          "value": "ascites",
+                          "label": "ascites"
+                        },
+                        {
+                          "value": "peritoneal nodularity",
+                          "label": "peritoneal nodularity"
+                        },
+                        {
+                          "value": "omental disease",
+                          "label": "omental disease"
+                        },
+                        {
+                          "value": "a collection",
+                          "label": "a collection"
+                        }
+                      ],
+                      "source_token": "[ascites / peritoneal nodularity / omental disease / a collection]",
+                      "source_span": {
+                        "start": 9,
+                        "end": 75,
+                        "unit": "unicode_code_points"
+                      }
+                    }
+                  ],
+                  "source": {
+                    "source_file": "data/radiology/anatomic-additions-20261119.json",
+                    "source_kind": "curated-anatomic-report",
+                    "investigation_id": "ct.chest-abdomen-pelvis",
+                    "step_index": 9,
+                    "reviewed_at": "2026-11-19",
+                    "source_ids": [
+                      "acr-parameters"
+                    ],
+                    "reference_ids": [
+                      "anatomic-additions-20261119:acr-parameters"
+                    ],
+                    "clinical_approval": false,
+                    "kind": "finding",
+                    "statement_sha256": "a4245d74d43717712ec63471b5d21488fd7b59d416bc91f5aad48770029ff98b"
+                  },
+                  "requires_context": false
+                }
+              ],
+              "exclude_from_bulk_normal": false,
+              "compartment": "Abdomen and pelvis"
+            },
+            {
+              "id": "anatomy-reproductive-organs",
+              "anatomy_id": "reproductive-organs",
+              "label": "Reproductive organs",
+              "group": "Abdomen and pelvis",
+              "source_sections": [
+                "Abdomen and pelvis"
+              ],
+              "report_section_id": "compartment-abdomen-and-pelvis",
+              "report_section_label": "ABDOMEN AND PELVIS",
+              "normal": {
+                "id": "ct.chest-abdomen-pelvis:reproductive-organs:normal",
+                "label": "Normal",
+                "text": "The reproductive organs are unremarkable.",
+                "segments": [
+                  {
+                    "text": "The reproductive organs are unremarkable."
+                  }
+                ],
+                "slots": [],
+                "source": {
+                  "source_file": "data/radiology/anatomic-additions-20261119.json",
+                  "source_kind": "curated-anatomic-report",
+                  "investigation_id": "ct.chest-abdomen-pelvis",
+                  "step_index": 10,
+                  "reviewed_at": "2026-11-19",
+                  "source_ids": [
+                    "acr-parameters"
+                  ],
+                  "reference_ids": [
+                    "anatomic-additions-20261119:acr-parameters"
+                  ],
+                  "clinical_approval": false,
+                  "kind": "normal",
+                  "statement_sha256": "3f1d5f8245772a80a26fdbe760a851f5eae35f9fe6138d9adf5039e7f397292e"
+                },
+                "requires_context": false
+              },
+              "findings": [
+                {
+                  "id": "ct.chest-abdomen-pelvis:reproductive-organs:abnormal",
+                  "label": "Abnormality",
+                  "text": "There is [an adnexal mass / a uterine mass / prostatic enlargement / a prostatic lesion].",
+                  "segments": [
+                    {
+                      "text": "There is "
+                    },
+                    {
+                      "slot": "slot-1"
+                    },
+                    {
+                      "text": "."
+                    }
+                  ],
+                  "slots": [
+                    {
+                      "id": "slot-1",
+                      "kind": "choice",
+                      "label": "There is",
+                      "required": true,
+                      "options": [
+                        {
+                          "value": "an adnexal mass",
+                          "label": "an adnexal mass"
+                        },
+                        {
+                          "value": "a uterine mass",
+                          "label": "a uterine mass"
+                        },
+                        {
+                          "value": "prostatic enlargement",
+                          "label": "prostatic enlargement"
+                        },
+                        {
+                          "value": "a prostatic lesion",
+                          "label": "a prostatic lesion"
+                        }
+                      ],
+                      "source_token": "[an adnexal mass / a uterine mass / prostatic enlargement / a prostatic lesion]",
+                      "source_span": {
+                        "start": 9,
+                        "end": 88,
+                        "unit": "unicode_code_points"
+                      }
+                    }
+                  ],
+                  "source": {
+                    "source_file": "data/radiology/anatomic-additions-20261119.json",
+                    "source_kind": "curated-anatomic-report",
+                    "investigation_id": "ct.chest-abdomen-pelvis",
+                    "step_index": 10,
+                    "reviewed_at": "2026-11-19",
+                    "source_ids": [
+                      "acr-parameters"
+                    ],
+                    "reference_ids": [
+                      "anatomic-additions-20261119:acr-parameters"
+                    ],
+                    "clinical_approval": false,
+                    "kind": "finding",
+                    "statement_sha256": "441dc8007a7fba215d8e201ec51e745088dac9c1cd21be70f2d7c217362f662f"
+                  },
+                  "requires_context": false
+                }
+              ],
+              "exclude_from_bulk_normal": false,
+              "compartment": "Abdomen and pelvis"
+            },
+            {
+              "id": "anatomy-abdominal-and-pelvic-lymph-nodes",
+              "anatomy_id": "abdominal-and-pelvic-lymph-nodes",
+              "label": "Abdominal and pelvic lymph nodes",
+              "group": "Abdomen and pelvis",
+              "source_sections": [
+                "Abdomen and pelvis"
+              ],
+              "report_section_id": "compartment-abdomen-and-pelvis",
+              "report_section_label": "ABDOMEN AND PELVIS",
+              "normal": {
+                "id": "ct.chest-abdomen-pelvis:abdominal-and-pelvic-lymph-nodes:normal",
+                "label": "Normal",
+                "text": "No abdominal or pelvic lymphadenopathy.",
+                "segments": [
+                  {
+                    "text": "No abdominal or pelvic lymphadenopathy."
+                  }
+                ],
+                "slots": [],
+                "source": {
+                  "source_file": "data/radiology/anatomic-additions-20261119.json",
+                  "source_kind": "curated-anatomic-report",
+                  "investigation_id": "ct.chest-abdomen-pelvis",
+                  "step_index": 11,
+                  "reviewed_at": "2026-11-19",
+                  "source_ids": [
+                    "acr-parameters"
+                  ],
+                  "reference_ids": [
+                    "anatomic-additions-20261119:acr-parameters"
+                  ],
+                  "clinical_approval": false,
+                  "kind": "normal",
+                  "statement_sha256": "714c054d2702f73bd11652d7b1cf1278b74826fcb7bf83aaba4162bed4bac122"
+                },
+                "requires_context": false
+              },
+              "findings": [
+                {
+                  "id": "ct.chest-abdomen-pelvis:abdominal-and-pelvic-lymph-nodes:node",
+                  "label": "Enlarged node",
+                  "text": "An enlarged [retroperitoneal / mesenteric / pelvic / inguinal] lymph node is present.",
+                  "segments": [
+                    {
+                      "text": "An enlarged "
+                    },
+                    {
+                      "slot": "slot-1"
+                    },
+                    {
+                      "text": " lymph node is present."
+                    }
+                  ],
+                  "slots": [
+                    {
+                      "id": "slot-1",
+                      "kind": "choice",
+                      "label": "An enlarged",
+                      "required": true,
+                      "options": [
+                        {
+                          "value": "retroperitoneal",
+                          "label": "retroperitoneal"
+                        },
+                        {
+                          "value": "mesenteric",
+                          "label": "mesenteric"
+                        },
+                        {
+                          "value": "pelvic",
+                          "label": "pelvic"
+                        },
+                        {
+                          "value": "inguinal",
+                          "label": "inguinal"
+                        }
+                      ],
+                      "source_token": "[retroperitoneal / mesenteric / pelvic / inguinal]",
+                      "source_span": {
+                        "start": 12,
+                        "end": 62,
+                        "unit": "unicode_code_points"
+                      }
+                    }
+                  ],
+                  "source": {
+                    "source_file": "data/radiology/anatomic-additions-20261119.json",
+                    "source_kind": "curated-anatomic-report",
+                    "investigation_id": "ct.chest-abdomen-pelvis",
+                    "step_index": 11,
+                    "reviewed_at": "2026-11-19",
+                    "source_ids": [
+                      "acr-parameters"
+                    ],
+                    "reference_ids": [
+                      "anatomic-additions-20261119:acr-parameters"
+                    ],
+                    "clinical_approval": false,
+                    "kind": "finding",
+                    "statement_sha256": "0ab42e287ec70b200dd8c83aae73b48171929fda829ba8bd265b6cd2243b053b"
+                  },
+                  "requires_context": false
+                },
+                {
+                  "id": "ct.chest-abdomen-pelvis:abdominal-and-pelvic-lymph-nodes:size",
+                  "label": "Short axis",
+                  "text": "The abdominal or pelvic lymph node measures __ mm in short axis.",
+                  "segments": [
+                    {
+                      "text": "The abdominal or pelvic lymph node measures "
+                    },
+                    {
+                      "slot": "slot-1"
+                    },
+                    {
+                      "text": " mm in short axis."
+                    }
+                  ],
+                  "slots": [
+                    {
+                      "id": "slot-1",
+                      "kind": "number",
+                      "label": "The abdominal or pelvic lymph node measures (mm)",
+                      "required": true,
+                      "options": [],
+                      "source_token": "__",
+                      "source_span": {
+                        "start": 44,
+                        "end": 46,
+                        "unit": "unicode_code_points"
+                      },
+                      "unit": "mm"
+                    }
+                  ],
+                  "source": {
+                    "source_file": "data/radiology/anatomic-additions-20261119.json",
+                    "source_kind": "curated-anatomic-report",
+                    "investigation_id": "ct.chest-abdomen-pelvis",
+                    "step_index": 11,
+                    "reviewed_at": "2026-11-19",
+                    "source_ids": [
+                      "acr-parameters"
+                    ],
+                    "reference_ids": [
+                      "anatomic-additions-20261119:acr-parameters"
+                    ],
+                    "clinical_approval": false,
+                    "kind": "finding",
+                    "statement_sha256": "dc0d4de36d984f0f923eb45216b8f98fb18a2f8b5dc9c57427285a26856cd093"
+                  },
+                  "requires_context": false,
+                  "requires_any": [
+                    "ct.chest-abdomen-pelvis:abdominal-and-pelvic-lymph-nodes:node"
+                  ]
+                }
+              ],
+              "exclude_from_bulk_normal": false,
+              "compartment": "Abdomen and pelvis"
+            },
+            {
+              "id": "anatomy-bones",
+              "anatomy_id": "bones",
+              "label": "Bones",
+              "group": "Bones",
+              "source_sections": [
+                "Bones"
+              ],
+              "report_section_id": "compartment-bones",
+              "report_section_label": "BONES",
+              "normal": {
+                "id": "ct.chest-abdomen-pelvis:bones:normal",
+                "label": "Normal",
+                "text": "No suspicious bone lesion.",
+                "segments": [
+                  {
+                    "text": "No suspicious bone lesion."
+                  }
+                ],
+                "slots": [],
+                "source": {
+                  "source_file": "data/radiology/anatomic-additions-20261119.json",
+                  "source_kind": "curated-anatomic-report",
+                  "investigation_id": "ct.chest-abdomen-pelvis",
+                  "step_index": 12,
+                  "reviewed_at": "2026-11-19",
+                  "source_ids": [
+                    "acr-parameters"
+                  ],
+                  "reference_ids": [
+                    "anatomic-additions-20261119:acr-parameters"
+                  ],
+                  "clinical_approval": false,
+                  "kind": "normal",
+                  "statement_sha256": "17fbd735b7092062661828280c532204fd1161f22d16f402258778e8ad476f57"
+                },
+                "requires_context": false
+              },
+              "findings": [
+                {
+                  "id": "ct.chest-abdomen-pelvis:bones:lesion",
+                  "label": "Bone lesion",
+                  "text": "There is a [lytic / sclerotic / mixed] bone lesion in the [spine / ribs / pelvis / sternum / proximal femur / proximal humerus].",
+                  "segments": [
+                    {
+                      "text": "There is a "
+                    },
+                    {
+                      "slot": "slot-1"
+                    },
+                    {
+                      "text": " bone lesion in the "
+                    },
+                    {
+                      "slot": "slot-2"
+                    },
+                    {
+                      "text": "."
+                    }
+                  ],
+                  "slots": [
+                    {
+                      "id": "slot-1",
+                      "kind": "choice",
+                      "label": "There is",
+                      "required": true,
+                      "options": [
+                        {
+                          "value": "lytic",
+                          "label": "lytic"
+                        },
+                        {
+                          "value": "sclerotic",
+                          "label": "sclerotic"
+                        },
+                        {
+                          "value": "mixed",
+                          "label": "mixed"
+                        }
+                      ],
+                      "source_token": "[lytic / sclerotic / mixed]",
+                      "source_span": {
+                        "start": 11,
+                        "end": 38,
+                        "unit": "unicode_code_points"
+                      }
+                    },
+                    {
+                      "id": "slot-2",
+                      "kind": "choice",
+                      "label": "There is a bone lesion in",
+                      "required": true,
+                      "options": [
+                        {
+                          "value": "spine",
+                          "label": "spine"
+                        },
+                        {
+                          "value": "ribs",
+                          "label": "ribs"
+                        },
+                        {
+                          "value": "pelvis",
+                          "label": "pelvis"
+                        },
+                        {
+                          "value": "sternum",
+                          "label": "sternum"
+                        },
+                        {
+                          "value": "proximal femur",
+                          "label": "proximal femur"
+                        },
+                        {
+                          "value": "proximal humerus",
+                          "label": "proximal humerus"
+                        }
+                      ],
+                      "source_token": "[spine / ribs / pelvis / sternum / proximal femur / proximal humerus]",
+                      "source_span": {
+                        "start": 58,
+                        "end": 127,
+                        "unit": "unicode_code_points"
+                      }
+                    }
+                  ],
+                  "source": {
+                    "source_file": "data/radiology/anatomic-additions-20261119.json",
+                    "source_kind": "curated-anatomic-report",
+                    "investigation_id": "ct.chest-abdomen-pelvis",
+                    "step_index": 12,
+                    "reviewed_at": "2026-11-19",
+                    "source_ids": [
+                      "acr-parameters"
+                    ],
+                    "reference_ids": [
+                      "anatomic-additions-20261119:acr-parameters"
+                    ],
+                    "clinical_approval": false,
+                    "kind": "finding",
+                    "statement_sha256": "2d55e5abe7dbc431918a311c4e4075df63397dcb5870af9efe5e593f0dae008b"
+                  },
+                  "requires_context": false
+                },
+                {
+                  "id": "ct.chest-abdomen-pelvis:bones:fracture",
+                  "label": "Pathological fracture",
+                  "text": "The bone lesion [has / does not have] an associated pathological fracture.",
+                  "segments": [
+                    {
+                      "text": "The bone lesion "
+                    },
+                    {
+                      "slot": "slot-1"
+                    },
+                    {
+                      "text": " an associated pathological fracture."
+                    }
+                  ],
+                  "slots": [
+                    {
+                      "id": "slot-1",
+                      "kind": "choice",
+                      "label": "The bone lesion",
+                      "required": true,
+                      "options": [
+                        {
+                          "value": "has",
+                          "label": "has"
+                        },
+                        {
+                          "value": "does not have",
+                          "label": "does not have"
+                        }
+                      ],
+                      "source_token": "[has / does not have]",
+                      "source_span": {
+                        "start": 16,
+                        "end": 37,
+                        "unit": "unicode_code_points"
+                      }
+                    }
+                  ],
+                  "source": {
+                    "source_file": "data/radiology/anatomic-additions-20261119.json",
+                    "source_kind": "curated-anatomic-report",
+                    "investigation_id": "ct.chest-abdomen-pelvis",
+                    "step_index": 12,
+                    "reviewed_at": "2026-11-19",
+                    "source_ids": [
+                      "acr-parameters"
+                    ],
+                    "reference_ids": [
+                      "anatomic-additions-20261119:acr-parameters"
+                    ],
+                    "clinical_approval": false,
+                    "kind": "finding",
+                    "statement_sha256": "e1743d4379e7ac601d0a708cc50b7668ef2d435e434a13b7f3fee233412cd1ae"
+                  },
+                  "requires_context": false,
+                  "requires_any": [
+                    "ct.chest-abdomen-pelvis:bones:lesion"
+                  ]
+                }
+              ],
+              "exclude_from_bulk_normal": false,
+              "compartment": "Bones"
+            },
+            {
+              "id": "anatomy-target-lesions",
+              "anatomy_id": "target-lesions",
+              "label": "Target lesions",
+              "group": "Target lesions",
+              "source_sections": [
+                "Target lesions"
+              ],
+              "report_section_id": "compartment-target-lesions",
+              "report_section_label": "TARGET LESIONS",
+              "normal": {
+                "id": "ct.chest-abdomen-pelvis:target-lesions:normal",
+                "label": "Normal",
+                "text": "No measurable disease.",
+                "segments": [
+                  {
+                    "text": "No measurable disease."
+                  }
+                ],
+                "slots": [],
+                "source": {
+                  "source_file": "data/radiology/anatomic-additions-20261119.json",
+                  "source_kind": "curated-anatomic-report",
+                  "investigation_id": "ct.chest-abdomen-pelvis",
+                  "step_index": 13,
+                  "reviewed_at": "2026-11-19",
+                  "source_ids": [
+                    "acr-parameters"
+                  ],
+                  "reference_ids": [
+                    "anatomic-additions-20261119:acr-parameters"
+                  ],
+                  "clinical_approval": false,
+                  "kind": "normal",
+                  "statement_sha256": "d84f77396c68b180abb0d2224b85c6f38c1e3211e61b75733d3ee863f4c3ebec"
+                },
+                "requires_context": false
+              },
+              "findings": [
+                {
+                  "id": "ct.chest-abdomen-pelvis:target-lesions:measurable",
+                  "label": "Measurable disease",
+                  "text": "Measurable disease is present.",
+                  "segments": [
+                    {
+                      "text": "Measurable disease is present."
+                    }
+                  ],
+                  "slots": [],
+                  "source": {
+                    "source_file": "data/radiology/anatomic-additions-20261119.json",
+                    "source_kind": "curated-anatomic-report",
+                    "investigation_id": "ct.chest-abdomen-pelvis",
+                    "step_index": 13,
+                    "reviewed_at": "2026-11-19",
+                    "source_ids": [
+                      "acr-parameters"
+                    ],
+                    "reference_ids": [
+                      "anatomic-additions-20261119:acr-parameters"
+                    ],
+                    "clinical_approval": false,
+                    "kind": "finding",
+                    "statement_sha256": "87998403a4d13c3f20e0cc57fb0efee9b1aff15291f9b973b782f73c848a7e2e"
+                  },
+                  "requires_context": false
+                },
+                {
+                  "id": "ct.chest-abdomen-pelvis:target-lesions:sum",
+                  "label": "Sum of diameters",
+                  "text": "The sum of target lesion diameters is __ mm.",
+                  "segments": [
+                    {
+                      "text": "The sum of target lesion diameters is "
+                    },
+                    {
+                      "slot": "slot-1"
+                    },
+                    {
+                      "text": " mm."
+                    }
+                  ],
+                  "slots": [
+                    {
+                      "id": "slot-1",
+                      "kind": "number",
+                      "label": "The sum of target lesion diameters is (mm)",
+                      "required": true,
+                      "options": [],
+                      "source_token": "__",
+                      "source_span": {
+                        "start": 38,
+                        "end": 40,
+                        "unit": "unicode_code_points"
+                      },
+                      "unit": "mm"
+                    }
+                  ],
+                  "source": {
+                    "source_file": "data/radiology/anatomic-additions-20261119.json",
+                    "source_kind": "curated-anatomic-report",
+                    "investigation_id": "ct.chest-abdomen-pelvis",
+                    "step_index": 13,
+                    "reviewed_at": "2026-11-19",
+                    "source_ids": [
+                      "acr-parameters"
+                    ],
+                    "reference_ids": [
+                      "anatomic-additions-20261119:acr-parameters"
+                    ],
+                    "clinical_approval": false,
+                    "kind": "finding",
+                    "statement_sha256": "84df0cc444439584fb4264597cdb4d57f6747a869e189231ff530470509905f9"
+                  },
+                  "requires_context": false,
+                  "requires_any": [
+                    "ct.chest-abdomen-pelvis:target-lesions:measurable"
+                  ]
+                },
+                {
+                  "id": "ct.chest-abdomen-pelvis:target-lesions:response",
+                  "label": "Response",
+                  "text": "The response is [complete response / partial response / stable disease / progressive disease] by RECIST 1.1.",
+                  "segments": [
+                    {
+                      "text": "The response is "
+                    },
+                    {
+                      "slot": "slot-1"
+                    },
+                    {
+                      "text": " by RECIST 1.1."
+                    }
+                  ],
+                  "slots": [
+                    {
+                      "id": "slot-1",
+                      "kind": "choice",
+                      "label": "The response is",
+                      "required": true,
+                      "options": [
+                        {
+                          "value": "complete response",
+                          "label": "complete response"
+                        },
+                        {
+                          "value": "partial response",
+                          "label": "partial response"
+                        },
+                        {
+                          "value": "stable disease",
+                          "label": "stable disease"
+                        },
+                        {
+                          "value": "progressive disease",
+                          "label": "progressive disease"
+                        }
+                      ],
+                      "source_token": "[complete response / partial response / stable disease / progressive disease]",
+                      "source_span": {
+                        "start": 16,
+                        "end": 93,
+                        "unit": "unicode_code_points"
+                      }
+                    }
+                  ],
+                  "source": {
+                    "source_file": "data/radiology/anatomic-additions-20261119.json",
+                    "source_kind": "curated-anatomic-report",
+                    "investigation_id": "ct.chest-abdomen-pelvis",
+                    "step_index": 13,
+                    "reviewed_at": "2026-11-19",
+                    "source_ids": [
+                      "acr-parameters"
+                    ],
+                    "reference_ids": [
+                      "anatomic-additions-20261119:acr-parameters"
+                    ],
+                    "clinical_approval": false,
+                    "kind": "finding",
+                    "statement_sha256": "6e0f022c35e5f80d2ed9f6958db90dce7bf1b992d78eed0f3df97c40c18d703a"
+                  },
+                  "requires_context": false,
+                  "requires_any": [
+                    "ct.chest-abdomen-pelvis:target-lesions:measurable"
+                  ]
+                }
+              ],
+              "exclude_from_bulk_normal": false,
+              "compartment": "Target lesions"
+            }
+          ],
+          "presentation": "anatomic_rows",
+          "content_revision": "2026-11-19",
+          "sources": [
+            {
+              "id": "acr-parameters",
+              "title": "ACR practice parameters and technical standards",
+              "url": "https://www.acr.org/clinical-resources/clinical-tools-and-reference/practice-parameters-and-technical-standards"
+            }
+          ],
+          "clinical_approval": false,
+          "base_investigation_id": "ra.recist",
+          "compartments": [
+            {
+              "id": "technique",
+              "label": "Technique",
+              "section_ids": [
+                "anatomy-technique"
+              ]
+            },
+            {
+              "id": "chest",
+              "label": "Chest",
+              "section_ids": [
+                "anatomy-lungs-and-airways",
+                "anatomy-pleura-and-pericardium",
+                "anatomy-thoracic-lymph-nodes",
+                "anatomy-heart-and-great-vessels"
+              ]
+            },
+            {
+              "id": "abdomen-and-pelvis",
+              "label": "Abdomen and pelvis",
+              "section_ids": [
+                "anatomy-liver",
+                "anatomy-gallbladder-pancreas-and-spleen",
+                "anatomy-adrenal-glands",
+                "anatomy-kidneys-and-bladder",
+                "anatomy-bowel-and-peritoneum",
+                "anatomy-reproductive-organs",
+                "anatomy-abdominal-and-pelvic-lymph-nodes"
+              ]
+            },
+            {
+              "id": "bones",
+              "label": "Bones",
+              "section_ids": [
+                "anatomy-bones"
+              ]
+            },
+            {
+              "id": "target-lesions",
+              "label": "Target lesions",
+              "section_ids": [
+                "anatomy-target-lesions"
+              ]
+            }
+          ],
+          "presentation_revision": "2026-10-28",
+          "report_format": 3,
+          "report_protocol": {
+            "label": "Chest and staging coverage",
+            "options": [
+              "Postcontrast chest acquisition after IV iodinated contrast.",
+              "Portal venous phase through the included abdomen and pelvis.",
+              "Thin-section lung and soft-tissue reconstructions."
+            ],
+            "sources": [
+              "https://radiologyassistant.nl/more/ct-protocols/ct-contrast-injection-and-protocols"
+            ],
+            "study_specific": true,
+            "standard_text": "Postcontrast chest acquisition after IV iodinated contrast. Portal venous phase through the included abdomen and pelvis. Thin-section lung and soft-tissue reconstructions."
+          }
         }
       ],
       "sources": [
@@ -214299,7 +217014,7 @@
         "defaults": "none",
         "anatomic_expansion": "Original structure-specific reporting choices; references retained; no clinical approval implied."
       },
-      "schema_hash": "fc8f5dc9b1d14f3db8c0bb9566fb24d3b3abc51aac77a1aeca998fa6d51d5b0a",
+      "schema_hash": "069e8159925d9bdedb8c229e8272f2b4245fe9c67a69e7d9f8593bddaf0f3146",
       "anatomic_sources": {
         "anatomic-additions-20261026:recist": {
           "id": "recist",
@@ -214307,6 +217022,11 @@
           "url": "https://recist.eortc.org/recist/wp-content/uploads/sites/14/2025/12/RECISTGuidelines.pdf"
         },
         "anatomic-additions-20261112:acr-parameters": {
+          "id": "acr-parameters",
+          "title": "ACR practice parameters and technical standards",
+          "url": "https://www.acr.org/clinical-resources/clinical-tools-and-reference/practice-parameters-and-technical-standards"
+        },
+        "anatomic-additions-20261119:acr-parameters": {
           "id": "acr-parameters",
           "title": "ACR practice parameters and technical standards",
           "url": "https://www.acr.org/clinical-resources/clinical-tools-and-reference/practice-parameters-and-technical-standards"
@@ -1900598,21 +1903318,21 @@
     }
   },
   "summary": {
-    "anatomic_findings": 26900,
-    "anatomic_investigations": 334,
-    "anatomic_structures": 7056,
+    "anatomic_findings": 26931,
+    "anatomic_investigations": 335,
+    "anatomic_structures": 7070,
     "assessment_statements": 86,
-    "choice_slots": 18860,
-    "complete_normal_sections": 5684,
+    "choice_slots": 18890,
+    "complete_normal_sections": 5697,
     "complete_normal_statements": 438,
     "context_slots": 0,
-    "descriptors": 32584,
-    "descriptors_complete_without_context": 32584,
+    "descriptors": 32628,
+    "descriptors_complete_without_context": 32628,
     "descriptors_requiring_context": 0,
     "guides": 98,
-    "investigations": 334,
-    "number_slots": 5459,
-    "sections": 7056,
+    "investigations": 335,
+    "number_slots": 5465,
+    "sections": 7070,
     "sections_without_authored_normal": 181,
     "sections_without_template_heading_match": 420,
     "source_choice_slots": 379,
@@ -1905160,6 +1907880,29 @@
         "left-neck-nodes",
         "vessels",
         "muscles-and-soft-tissues"
+      ],
+      "source_file": "data/radiology/anatomic-additions-20261119.json"
+    },
+    {
+      "guide_id": "rad.4.oncology-response",
+      "investigation_id": "ct.chest-abdomen-pelvis",
+      "structures": 14,
+      "findings": 31,
+      "anatomy_ids": [
+        "technique",
+        "lungs-and-airways",
+        "pleura-and-pericardium",
+        "thoracic-lymph-nodes",
+        "heart-and-great-vessels",
+        "liver",
+        "gallbladder-pancreas-and-spleen",
+        "adrenal-glands",
+        "kidneys-and-bladder",
+        "bowel-and-peritoneum",
+        "reproductive-organs",
+        "abdominal-and-pelvic-lymph-nodes",
+        "bones",
+        "target-lesions"
       ],
       "source_file": "data/radiology/anatomic-additions-20261119.json"
     },
@@ -1910698,5 +1913441,5 @@
     "number_policy": "Only actual supplied measurements; no numeric defaults. A number picker is an input method, not a measurement source.",
     "report_policy": "All slots in selected statements must resolve before a report is complete. Preserve source statement wording."
   },
-  "schema_hash": "ad4615d33eaae30ec575d404462f06ffc6da4f3fd7079275a9b43a149f05c1f2"
+  "schema_hash": "0c3932955802d8634f5dddad784f2b886fd3705983cdfd7bcabde4044998f38e"
 }

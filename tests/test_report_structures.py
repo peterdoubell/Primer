@@ -299,3 +299,38 @@ def test_oncology_scans_state_the_practices_own_technique():
     assert technique('ct.oncology-staging') == 'Arterial phase neck, chest and upper abdomen. Portal venous abdomen and pelvis.'
     for identifier in ('ra.recist', 'oncology.recist-follow-up', 'ra.ct-peritoneal-carcinomatosis'):
         assert technique(identifier) == 'Arterial phase chest and upper abdomen. Portal venous abdomen and pelvis.', identifier
+
+
+def test_ct_chest_abdomen_and_pelvis_is_the_staging_scan_without_the_neck():
+    """Peter asked for it (2026-11-19): the plain chest, abdomen and pelvis titles picked the RECIST lesion table,
+    where the practice reports organ by organ."""
+    library = rt.library()
+    cap, staging = library['ct.chest-abdomen-pelvis'], library['ct.oncology-staging']
+    assert cap['title'] == 'CT chest, abdomen and pelvis with contrast'
+    assert cap['sections'] == [section for section in staging['sections'] if section.get('group') != 'Neck']
+    assert list(_groups('ct.chest-abdomen-pelvis')) == ['Chest', 'Abdomen and pelvis']
+    assert _headings('ct.chest-abdomen-pelvis')[-2:] == ['Bones', 'Target lesions']
+    # The practice's technique, word for word, and the neck added for the staging scan.
+    assert cap['technique']['normal'] == 'Arterial phase chest and upper abdomen. Portal venous abdomen and pelvis.'
+    assert staging['technique']['normal'] == 'Arterial phase neck, chest and upper abdomen. Portal venous abdomen and pelvis.'
+    # The plain titles choose it; the RECIST baseline table keeps titles that name it.
+    assert {'CT chest abdomen and pelvis', 'CT CAP'} <= set(PRISM['titles']['ct.chest-abdomen-pelvis'])
+    assert PRISM['titles']['ra.recist'] == ['CT chest abdomen and pelvis RECIST baseline', 'CT CAP baseline']
+    assert PRISM['practice_studies']['CT chest, abdomen and pelvis'] == 'ct.chest-abdomen-pelvis'
+    dictation = {template['id']: template for template in radproof_export.export(dictation=True)}
+    assert dictation['ct.chest-abdomen-pelvis']['name'] == 'CT chest, abdomen and pelvis with contrast'
+    assert dictation['ct.chest-abdomen-pelvis']['text'] == (
+        '**__Clinical history:__**\n[]\n\n**__Comparison:__**\n[]\n\n**__CT chest, abdomen and pelvis with contrast:__**\n'
+        '**__Technique:__**\nArterial phase chest and upper abdomen. Portal venous abdomen and pelvis.\n\n'
+        '**__Findings:__**\nChest:\nLungs and airways: []\nPleura and pericardium: []\nThoracic lymph nodes: []\n'
+        'Heart and great vessels: []\n\nAbdomen and pelvis:\nLiver: []\nGallbladder, pancreas and spleen: []\n'
+        'Adrenal glands: []\nKidneys and bladder: []\nBowel and peritoneum: []\nReproductive organs: []\n'
+        'Abdominal and pelvic lymph nodes: []\n\nBones: []\nTarget lesions: []\n\n'
+        '**__Impression:__**\n[]\n\n**__Recommendation:__**\n[]')
+    # The click builder has a row for each heading and takes the same technique by default.
+    from primer.reporting_bridge import descriptor_forms
+    investigation = next(i for form in descriptor_forms()['forms'].values() for i in form['investigations']
+                         if i['id'] == 'ct.chest-abdomen-pelvis')
+    assert investigation['modality'] == 'CT'
+    assert [section['label'] for section in investigation['sections']][1:] == _headings('ct.chest-abdomen-pelvis')
+    assert investigation['report_protocol']['standard_text'] == cap['technique']['normal']

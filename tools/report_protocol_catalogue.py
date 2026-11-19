@@ -235,7 +235,7 @@ PROTOCOLS = [
         'Portal venous phase after IV iodinated contrast through the prescribed abdominal or pelvic coverage.',
         'Delayed postcontrast images through the region of concern.',
     ), (CT,)),
-    ('ra.ct-lung-cancer ct.oncology-staging ra.ct-mediastinum ra.paediatric-chest-ct ra.ct-cardiovascular-pearls',
+    ('ra.ct-lung-cancer ct.oncology-staging ct.chest-abdomen-pelvis ra.ct-mediastinum ra.paediatric-chest-ct ra.ct-cardiovascular-pearls',
      'Chest and staging coverage', (
         'Postcontrast chest acquisition after IV iodinated contrast.',
         'Portal venous phase through the included abdomen and pelvis.',
