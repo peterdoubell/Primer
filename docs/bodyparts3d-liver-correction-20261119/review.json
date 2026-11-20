@@ -1,0 +1,462 @@
+{
+ "decision": "On 2026-11-19 the project owner asked for the mislabelled liver meshes of the BodyParts3D atlas to be fixed. The atlas is rebuilt from the official archive with two documented corrections to the official table, and the portal vein is shown by its three own concepts.",
+ "reviewer": "Claude (Anthropic). This compares source tables and mesh positions; it is not a radiologist review.",
+ "clinical_approval": false,
+ "fine_anatomical_approval": false,
+ "frame": "BodyParts3D coordinates in millimetres: -X is the body’s right, -Y is anterior, +Z is up.",
+ "official_table": {
+  "evidence": "docs/bodyparts3d-liver-correction-20261119/evidence/bodyparts3d-4.0-isa-element-parts-excerpt.json",
+  "evidence_sha256": "30a4d5c4b7960153f902fcd8511bef848b9e24ce29ce01e7bdce0be6d8c9bab3",
+  "assignments": {
+   "caudate lobe of liver": {
+    "concept": "FMA13365",
+    "elements": [
+     "FJ2816"
+    ]
+   },
+   "hepatovenous segment ii": {
+    "concept": "FMA15739",
+    "elements": [
+     "FJ2818"
+    ]
+   },
+   "hepatovenous segment iii": {
+    "concept": "FMA15741",
+    "elements": [
+     "FJ2819"
+    ]
+   },
+   "hepatovenous segment iv": {
+    "concept": "FMA15742",
+    "elements": [
+     "FJ2820"
+    ]
+   },
+   "hepatovenous segment v": {
+    "concept": "FMA15743",
+    "elements": [
+     "FJ2821"
+    ]
+   },
+   "hepatovenous segment vi": {
+    "concept": "FMA15744",
+    "elements": [
+     "FJ2822"
+    ]
+   },
+   "hepatovenous segment vii": {
+    "concept": "FMA15745",
+    "elements": [
+     "FJ2409"
+    ]
+   },
+   "hepatovenous segment viii": {
+    "concept": "FMA15746",
+    "elements": [
+     "FJ2823",
+     "FJ2824"
+    ]
+   },
+   "pre-hepatic portal vein": {
+    "concept": "FMA71904",
+    "elements": [
+     "FJ3082"
+    ]
+   },
+   "trunk of left portal vein": {
+    "concept": "FMA82697",
+    "elements": [
+     "FJ3102"
+    ]
+   },
+   "trunk of portal vein": {
+    "concept": "FMA14329",
+    "elements": [
+     "FJ3102",
+     "FJ3122"
+    ]
+   },
+   "trunk of right portal vein": {
+    "concept": "FMA82695",
+    "elements": [
+     "FJ3122"
+    ]
+   }
+  }
+ },
+ "later_object_table": {
+  "evidence": "docs/cardiac-wall-context-review-20261016/obj2FMA-4.3.html",
+  "evidence_sha256": "cab10eda6338a6935d0216810eaba78dd049877df496323a0a4916d290dd8e3a",
+  "objects": {
+   "FJ2409": {
+    "concept": "FMA15744",
+    "name": "Hepatovenous segment VI"
+   },
+   "FJ2822": {
+    "concept": "FMA15744",
+    "name": "Hepatovenous segment VI"
+   },
+   "FJ2823": {
+    "concept": "FMA15745",
+    "name": "Hepatovenous segment VII"
+   },
+   "FJ2824": {
+    "concept": "FMA15746",
+    "name": "Hepatovenous segment VIII"
+   },
+   "FJ3082": {
+    "concept": "FMA71904",
+    "name": "Pre-hepatic portal vein"
+   },
+   "FJ3102": {
+    "concept": "FMA82697",
+    "name": "Trunk of left portal vein"
+   },
+   "FJ3122": {
+    "concept": "FMA82695",
+    "name": "Trunk of right portal vein"
+   }
+  }
+ },
+ "corrections": [
+  {
+   "concept": "hepatovenous segment vii",
+   "official_table_objects": [
+    "FJ2409"
+   ],
+   "atlas_objects": [
+    "FJ2823"
+   ],
+   "finding": "FJ2409 has the bounds of segment VI (FJ2822) to within 0.325 mm, and the later object table lists it as segment VI. The atlas showed it under the name segment VII.",
+   "change": "Segment VII is built from FJ2823, which the later object table lists as segment VII. FJ2409 is no longer delivered."
+  },
+  {
+   "concept": "hepatovenous segment viii",
+   "official_table_objects": [
+    "FJ2823",
+    "FJ2824"
+   ],
+   "atlas_objects": [
+    "FJ2824"
+   ],
+   "finding": "The official table unites two separate objects. FJ2823 lies posterior and superior, where segment VII lies.",
+   "change": "Segment VIII is built from FJ2824 alone, which the later object table lists as segment VIII."
+  }
+ ],
+ "relabelled": [
+  {
+   "earlier_concept": "trunk of portal vein",
+   "earlier_objects": [
+    "FJ3102",
+    "FJ3122"
+   ],
+   "finding": "The concept is the class of both portal trunks; the official table also lists FJ3102 as the trunk of the left portal vein and FJ3122 as the trunk of the right portal vein. United under the class name, the mesh read as the main portal trunk.",
+   "change": "The region names the two trunks by their own concepts and adds the pre-hepatic portal vein (FJ3082), the main trunk. No correction to the official table is needed."
+  }
+ ],
+ "measurements": {
+  "segment_vi_and_the_object_the_official_table_calls_vii_largest_bound_difference_mm": 0.325,
+  "removed_object_fj2409_vertex_to_nearest_vertex_mm": {
+   "note": "Measured on the removed file before it was deleted; the two meshes have different vertex counts, so vertices do not coincide.",
+   "to segment vi (FJ2822)": {
+    "median": 0.84,
+    "ninety_fifth_percentile": 5.19,
+    "largest": 11.2
+   },
+   "to segment vii (FJ2823)": {
+    "median": 31.38,
+    "ninety_fifth_percentile": 69.13,
+    "largest": 73.73
+   }
+  },
+  "centroids_mm": {
+   "segment v": [
+    -59.7,
+    -159.8,
+    1086.2
+   ],
+   "segment vi": [
+    -86.4,
+    -107.2,
+    1072.9
+   ],
+   "segment vii": [
+    -76.9,
+    -88.6,
+    1123.0
+   ],
+   "segment viii": [
+    -54.8,
+    -132.9,
+    1149.8
+   ],
+   "pre-hepatic portal vein": [
+    -13.9,
+    -133.3,
+    1085.3
+   ],
+   "trunk of right portal vein": [
+    -22.0,
+    -140.9,
+    1109.3
+   ],
+   "trunk of left portal vein": [
+    -8.5,
+    -148.8,
+    1120.5
+   ]
+  },
+  "nearest_distance_mm": {
+   "pre-hepatic portal vein to trunk of left portal vein": 0.09,
+   "pre-hepatic portal vein to trunk of right portal vein": 0.6,
+   "trunk of left portal vein to trunk of right portal vein": 0.26
+  }
+ },
+ "meshes_removed": {
+  "FJ2409": {
+   "name": "hepatovenous segment vii",
+   "fma": "FMA15745",
+   "source_ids": [
+    "FJ2409"
+   ],
+   "vertices": 5091,
+   "triangles": 8534,
+   "bounds": [
+    [
+     -114.768,
+     -165.212,
+     1027.94
+    ],
+    [
+     -21.0945,
+     -44.2721,
+     1110.78
+    ]
+   ],
+   "sha256": "a27f04a15f2355df1b76d6f6081f0baa2b6a3449030d8c063f6c04e04d55dcb2",
+   "bytes": 224604
+  },
+  "FMA14329": {
+   "name": "trunk of portal vein",
+   "fma": "FMA14329",
+   "source_ids": [
+    "FJ3102",
+    "FJ3122"
+   ],
+   "vertices": 472,
+   "triangles": 936,
+   "bounds": [
+    [
+     -28.9291,
+     -158.299,
+     1104.08
+    ],
+    [
+     8.23729,
+     -137.308,
+     1138.04
+    ]
+   ],
+   "sha256": "c87331d6f694abbc3e0c329cac6f36d87d96c6030a6a0e195664e1a03281536b",
+   "bytes": 22572
+  },
+  "FMA15746": {
+   "name": "hepatovenous segment viii",
+   "fma": "FMA15746",
+   "source_ids": [
+    "FJ2823",
+    "FJ2824"
+   ],
+   "vertices": 21689,
+   "triangles": 40748,
+   "bounds": [
+    [
+     -115.064,
+     -198.73,
+     1090.15
+    ],
+    [
+     -17.5186,
+     -43.3287,
+     1183.14
+    ]
+   ],
+   "sha256": "f8dd2407b9ff1a2f8c46dac54522f51e8cedfa96d57790330c9e3356d46b5cee",
+   "bytes": 1009524
+  }
+ },
+ "meshes_added": {
+  "FJ2823": {
+   "name": "hepatovenous segment vii",
+   "fma": "FMA15745",
+   "source_ids": [
+    "FJ2823"
+   ],
+   "vertices": 10230,
+   "triangles": 19156,
+   "bounds": [
+    [
+     -115.064,
+     -151.812,
+     1090.15
+    ],
+    [
+     -20.192,
+     -43.3287,
+     1174.84
+    ]
+   ],
+   "sha256": "c3b8d12b559140e01b4c06def76f4942252429c93eef0fbe024f00f28abfecba",
+   "bytes": 475404
+  },
+  "FJ2824": {
+   "name": "hepatovenous segment viii",
+   "fma": "FMA15746",
+   "source_ids": [
+    "FJ2824"
+   ],
+   "vertices": 11459,
+   "triangles": 21592,
+   "bounds": [
+    [
+     -109.329,
+     -198.73,
+     1108.18
+    ],
+    [
+     -17.5186,
+     -70.8945,
+     1183.14
+    ]
+   ],
+   "sha256": "68a565eaebae16b10ae276b5e1e4a744362fd8f1069e76ba3746fd781eeb74e6",
+   "bytes": 534132
+  },
+  "FJ3082": {
+   "name": "pre-hepatic portal vein",
+   "fma": "FMA71904",
+   "source_ids": [
+    "FJ3082"
+   ],
+   "vertices": 1793,
+   "triangles": 3582,
+   "bounds": [
+    [
+     -21.4488,
+     -144.215,
+     1062.32
+    ],
+    [
+     -7.08181,
+     -123.593,
+     1111.13
+    ]
+   ],
+   "sha256": "d609a9bf3b32ad0ec63b0e8d6af8685d56125112853594e816d1a508fbc150c7",
+   "bytes": 86028
+  },
+  "FJ3102": {
+   "name": "trunk of left portal vein",
+   "fma": "FMA82697",
+   "source_ids": [
+    "FJ3102"
+   ],
+   "vertices": 367,
+   "triangles": 730,
+   "bounds": [
+    [
+     -21.2142,
+     -158.299,
+     1104.08
+    ],
+    [
+     8.23729,
+     -137.308,
+     1138.04
+    ]
+   ],
+   "sha256": "f2aa4a74ad0167a544b95cbcb986e73d0f77ef58aa553a4e692ff7e71a44ab70",
+   "bytes": 17580
+  },
+  "FJ3122": {
+   "name": "trunk of right portal vein",
+   "fma": "FMA82695",
+   "source_ids": [
+    "FJ3122"
+   ],
+   "vertices": 105,
+   "triangles": 206,
+   "bounds": [
+    [
+     -28.9291,
+     -144.206,
+     1104.62
+    ],
+    [
+     -14.9449,
+     -137.749,
+     1113.79
+    ]
+   ],
+   "sha256": "bab526eb7a8a5aec89958f843790e27030789f1661e18bb086313196661ba353",
+   "bytes": 5004
+  }
+ },
+ "same_geometry": {
+  "statement": "The two united meshes are split, not rebuilt: joining the new meshes in source order reproduces each removed mesh byte for byte. FJ2409, a second mesh of segment VI, has no successor.",
+  "FMA15746": {
+   "from": [
+    "FJ2823",
+    "FJ2824"
+   ],
+   "reproduced_sha256": "f8dd2407b9ff1a2f8c46dac54522f51e8cedfa96d57790330c9e3356d46b5cee"
+  },
+  "FMA14329": {
+   "from": [
+    "FJ3102",
+    "FJ3122"
+   ],
+   "reproduced_sha256": "c87331d6f694abbc3e0c329cac6f36d87d96c6030a6a0e195664e1a03281536b"
+  }
+ },
+ "manifest": {
+  "path": "web/anatomy/bodyparts3d/manifest.json",
+  "before_sha256": "01ac96ea0d59c5c03a1dce23a44cfd0971860cea298be99c8905c2abe9a4a250",
+  "after_sha256": "b7101dc187fc7c6a1804fc36ac4b551cc9515978df4e1b8af533af4c01c454eb",
+  "meshes_before": 96,
+  "meshes_after": 98,
+  "unchanged": "Every other mesh record and every region except the liver are identical."
+ },
+ "registry": "data/radiology/source-anatomy-references.json is unchanged. Its brain reference pins the manifest it was reviewed against; primer/source_mesh_integrity.py names the corrected manifest as that manifest’s one successor.",
+ "reporting_steps": {
+  "path": "data/radiology/reporting-steps/abdomen.json",
+  "investigations": [
+   "ra.liver-lirads",
+   "ra.liver-masses"
+  ],
+  "part_identifiers": {
+   "FJ2409": [
+    "FJ2823"
+   ],
+   "FMA15746": [
+    "FJ2824"
+   ],
+   "FMA14329": [
+    "FJ3082",
+    "FJ3122",
+    "FJ3102"
+   ]
+  },
+  "effective_contract_sha256": {
+   "ra.liver-masses": {
+    "before": "43c76d03f8a912f8e46830b54119628e1a644f24b374ef28e61db1f0d831d9f1",
+    "after": "db4d3aa79db92846a1cc11c00b881d0591f7e64a2e6c1c44400f48254a5f0c6e"
+   },
+   "ra.liver-lirads": {
+    "before": "a657efff11ca7cfc89b20969b96cdc321d07a33989541bcc7424bb505e134fe3",
+    "after": "3ff4032b11da97233d99233f968f6bbd82caaca848f76446f7b4d8cde3696454"
+   }
+  }
+ },
+ "reproduction": "tools/build_detailed_anatomy.py rebuilds all 98 meshes and the manifest from the official archive, byte for byte."
+}

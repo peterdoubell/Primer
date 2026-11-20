@@ -128,6 +128,9 @@ def before_remaining_inventories(raw):
         return raw
     receipt = json.loads(RECEIPT.read_text())
     encoded = raw.encode() if isinstance(raw, str) else raw
+    # The later BodyParts3D liver correction changed two contract fingerprints; it restores them first.
+    from tools.liver_atlas_compatibility import before_liver_correction_requirements
+    encoded = before_liver_correction_requirements(encoded)
     if hashlib.sha256(encoded).hexdigest() != receipt['after_sha256']:
         return raw
     (a0, a1), (b0, b1) = receipt['removed_byte_ranges']

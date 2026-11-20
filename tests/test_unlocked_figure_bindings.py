@@ -6,6 +6,7 @@ from tools import lesson_activities_compatibility as history
 from tools.anatomy_sources import bind_stored_caption_assets_pass2 as second
 from tools.anatomy_sources import bind_unlocked_figures as tool
 from tools.anatomy_sources.bind_models import before_model_bindings
+from tools.anatomy_sources.bind_body_reader_models import before_body_reader_model_records
 from tools.anatomy_sources.bind_reader_models import before_reader_model_records
 from tools.anatomy_sources import repair_source_context_codes as repair
 from tools.anatomy_sources.bind_stored_caption_assets import only_caption_bindings
@@ -121,7 +122,7 @@ def test_withdrawn_and_out_of_scope_pairs_stay_unbound():
 
 def test_unlocked_bindings_have_an_exact_inverse_and_only_add_bindings():
     receipt = json.loads(tool.RECEIPT.read_text())
-    raw = before_model_bindings(before_reader_model_records(tool.EVIDENCE.read_bytes()))  # The 3D models and the reader meshes followed.
+    raw = before_model_bindings(before_reader_model_records(before_body_reader_model_records(tool.EVIDENCE.read_bytes())))  # The 3D models and the reader meshes followed.
     assert second.sha(raw) == receipt['after_sha256']
     before = tool.before_unlocked_figure_bindings(raw)
     assert second.sha(before) == receipt['before_sha256']

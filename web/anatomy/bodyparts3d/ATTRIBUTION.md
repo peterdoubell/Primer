@@ -15,4 +15,13 @@ The Primer selects source anatomical elements and combines only components of th
 
 The source is an adult male reference anatomy. These are surface models with the detail available in the published source meshes; they are not complete clinical segmentations or patient-specific models. The 3D viewer identifies omitted fine structures. The source prostate is an external surface without PI-RADS zones; the MSK source selection does not contain articular cartilage, labra, menisci, or all ligaments.
 
+## Corrections to the official table
+
+The meshes follow the official BodyParts3D 4.0 concept table, with two exceptions in the liver. That table gives two liver segments the wrong objects. The BodyParts3D 4.3 object table and the objects' own positions agree on the assignment used here:
+
+- **Hepatovenous segment VII** is object FJ2823. The 4.0 table assigns FJ2409, which is a second mesh of segment VI and is not delivered.
+- **Hepatovenous segment VIII** is object FJ2824. The 4.0 table unites FJ2823 and FJ2824.
+
+`manifest.json` records the official assignment and the reason under `source_correction` for both meshes. The portal vein is shown by three concepts of the official table: the pre-hepatic portal vein, and the trunks of the right and left portal vein. No geometry is altered. The measurements are in `docs/bodyparts3d-liver-correction-20261119/`.
+
 `manifest.json` records each anatomical concept, original FMA / FJ identifiers, source and derived file hashes, geometry counts, bounds, regional membership and license. `tools/build_detailed_anatomy.py` reproduces these assets from the official archive using range requests.

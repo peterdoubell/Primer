@@ -54,14 +54,16 @@ def test_new_requirements_are_bound_only_where_a_source_states_the_structure_and
     by_id = {row['investigation_id']: row for row in audit_structure_coverage.coverage()}
     assert len(by_id) == 136
     for identifier in RECEIPT['investigation_ids']:
-        expected = {'ra.ct-covid': 2, 'ra.dynamic-rectal-examination': 2, 'ra.intracranial-hypotension': 1, 'ra.mri-brain-tumours': 1, 'ra.mri-dementia': 4, 'ra.mri-ms': 2, 'ra.paediatric-chest-ct': 4, 'ra.thoracic-ultrasound': 2, 'ra.thymus': 1, 'ra.transvaginal-nongynaecology': 4, 'ra.ultrasound-acute-abdomen': 4, 'ra.ultrasound-acute-gynaecology': 3, 'ra.ultrasound-gi-tract': 3, 'ra.ultrasound-neonatal-brain': 5, 'ra.ultrasound-paediatric-scrotum': 6, 'ra.venous-sinus-thrombosis': 3}.get(identifier, 0)
+        expected = {'ra.ct-covid': 2, 'ra.dynamic-rectal-examination': 2, 'ra.intracranial-hypotension': 1, 'ra.mri-brain-tumours': 1, 'ra.mri-dementia': 5, 'ra.mri-ms': 2, 'ra.paediatric-chest-ct': 4, 'ra.thoracic-ultrasound': 2, 'ra.thymus': 1, 'ra.transvaginal-nongynaecology': 4, 'ra.ultrasound-acute-abdomen': 4, 'ra.ultrasound-acute-gynaecology': 3, 'ra.ultrasound-gi-tract': 3, 'ra.ultrasound-neonatal-brain': 5, 'ra.ultrasound-paediatric-scrotum': 6, 'ra.venous-sinus-thrombosis': 11}.get(identifier, 0)
         assert by_id[identifier]['bound'] == expected and by_id[identifier]['required'] > 0
 
 
 def test_the_additions_are_removed_byte_for_byte():
     from tools.anatomy_sources.expand_remaining_requirements import before_remaining_inventories
     from tools.source_studies_compatibility import before_source_studies_bytes
-    raw = (ROOT / PATH).read_bytes()
+    from tools.liver_atlas_compatibility import before_liver_correction_requirements
+    # The later BodyParts3D liver correction changed two contract fingerprints.
+    raw = before_liver_correction_requirements((ROOT / PATH).read_bytes())
     assert hashlib.sha256(raw).hexdigest() == RECEIPT['after_sha256']
     restored = before_remaining_inventories(raw)
     assert hashlib.sha256(restored).hexdigest() == RECEIPT['before_sha256']

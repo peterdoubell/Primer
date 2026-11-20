@@ -13,6 +13,23 @@ from pathlib import Path
 CDN_ATLASES = frozenset(('bodyparts3d', 'bp3d-carotid-4.3', 'hra-female-pelvis-v1.10', 'bp3d-sella-4.3', 'liu-lumbosacral-sub03', 'verse521', 'hvsmr2-pat7', 'openear-zeta', 'totalseg-v3-s0358', 'totalseg-v3-esophagus-s0358', 'ispy1-expert1002', 'prostate-biopsy0001', 'fedbca-center1-001', 'fedbca-center2-01', 'fedbca-center3-01', 'fedbca-center4-01'))
 
 
+# A source reference pins the manifest bytes it was reviewed against. The liver correction of
+# 2026-11-19 changed the BodyParts3D manifest outside the reviewed brain region. The registry keeps
+# the reviewed hash; this table names the one manifest that may stand in its place. The exact
+# inverse in tools/liver_atlas_compatibility.py recovers the reviewed bytes from it, and
+# tests/test_bodyparts3d_liver_correction.py checks that the brain region and its meshes are unchanged.
+REVIEWED_MANIFEST_SUCCESSORS = {
+    ('bodyparts3d', '01ac96ea0d59c5c03a1dce23a44cfd0971860cea298be99c8905c2abe9a4a250'):
+        'b7101dc187fc7c6a1804fc36ac4b551cc9515978df4e1b8af533af4c01c454eb',
+}
+
+
+def is_reviewed_manifest(atlas, raw, reviewed_sha256):
+    """True for the reviewed manifest bytes, or for their one recorded successor."""
+    actual = hashlib.sha256(raw).hexdigest()
+    return actual == reviewed_sha256 or REVIEWED_MANIFEST_SUCCESSORS.get((atlas, reviewed_sha256)) == actual
+
+
 @lru_cache(maxsize=1)
 def _inventory(path):
     data = json.loads(Path(path).read_text())

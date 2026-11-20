@@ -118,6 +118,9 @@ def restore_prior_view(path, data, tokens):
 
 
 def restore_prior_contract(identifier, contract):
+    # The later BodyParts3D liver correction changed two walkthroughs; it restores them first.
+    from tools.liver_atlas_compatibility import before_liver_correction_contract
+    contract = before_liver_correction_contract(identifier, contract)
     from tools.epilepsy_figure_runtime_compatibility import restore_prior_contract as before_figure_contract
     # Existing callers may already carry the exact older HippUnfold view.
     row = reviewed()['contracts'].get(identifier)
@@ -130,7 +133,9 @@ def restore_prior_contract(identifier, contract):
 
 
 def restore_prior_contracts(contracts):
-    result = dict(contracts)
+    # The later BodyParts3D liver correction changed two contract fingerprints; it restores them first.
+    from tools.liver_atlas_compatibility import before_liver_correction_contract_hashes
+    result = before_liver_correction_contract_hashes(contracts)
     for identifier, row in reviewed()['contracts'].items():
         if identifier not in result or result[identifier] == row['before_sha256']:
             continue

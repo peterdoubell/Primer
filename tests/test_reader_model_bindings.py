@@ -7,6 +7,7 @@ import pytest
 from tools import lesson_activities_compatibility as history
 from tools.anatomy_sources import bind_models
 from tools.anatomy_sources import bind_reader_models as tool
+from tools.anatomy_sources.bind_body_reader_models import before_body_reader_model_records
 from tools.anatomy_sources import bind_stored_caption_assets_pass2 as second
 from tools.check_msk_fidelity import inspect_binding, inspect_requirement_coverage
 
@@ -137,7 +138,7 @@ def test_every_other_mesh_of_the_readers_is_listed_with_its_reason():
 
 def test_reader_model_records_have_an_exact_inverse_and_only_add_records():
     receipt = json.loads(tool.RECEIPT.read_text())
-    raw = tool.EVIDENCE.read_bytes()
+    raw = before_body_reader_model_records(tool.EVIDENCE.read_bytes())  # The body readers' meshes were recorded afterwards.
     assert second.sha(raw) == receipt['after_sha256'] and receipt['path'] == PATH
     before = tool.before_reader_model_records(raw)
     assert second.sha(before) == receipt['before_sha256']
@@ -159,7 +160,7 @@ def test_reader_model_records_have_an_exact_inverse_and_only_add_records():
 def test_the_tool_refuses_a_row_that_breaks_a_rule(tmp_path, monkeypatch):
     review = json.loads(tool.REVIEW.read_text())
     ledger, document = tmp_path / 'evidence.json', tmp_path / 'review.json'
-    ledger.write_bytes(tool.before_reader_model_records(tool.EVIDENCE.read_bytes()))
+    ledger.write_bytes(tool.before_reader_model_records(before_body_reader_model_records(tool.EVIDENCE.read_bytes())))
     monkeypatch.setattr(tool, 'EVIDENCE', ledger)
     monkeypatch.setattr(tool, 'REVIEW', document)
     document.write_text(json.dumps(review))

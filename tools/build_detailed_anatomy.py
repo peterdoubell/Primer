@@ -24,8 +24,18 @@ REGIONS = {
  'coronary': {'title':'Heart and coronary arteries','names':['wall of ventricle','wall of right atrium','wall of left atrium','ascending aorta','trunk of right coronary artery','trunk of left coronary artery','trunk of anterior interventricular branch of left coronary artery','circumflex branch of left coronary artery','posterior interventricular branch of right coronary artery'], 'bone_count':4, 'labels':['Heart','Coronaries'], 'side':'whole organ'},
  'prostate': {'title':'Prostate and neighbouring organs','names':['prostate','urinary bladder','right seminal vesicle','left seminal vesicle'], 'bone_count':1, 'labels':['Prostate','Neighbours'], 'side':'pelvis'},
  'renal': {'title':'Kidneys and urinary tract','names':['right kidney','left kidney','right ureter','left ureter','urinary bladder','right renal artery','left renal artery'], 'bone_count':2, 'labels':['Kidneys','Tracts / vessels'], 'side':'bilateral'},
- 'liver': {'title':'Liver segments','names':['caudate lobe of liver','hepatovenous segment ii','hepatovenous segment iii','hepatovenous segment iv','hepatovenous segment v','hepatovenous segment vi','hepatovenous segment vii','hepatovenous segment viii','gallbladder','trunk of portal vein','right hepatic vein','middle hepatic vein','left hepatic vein'], 'bone_count':8, 'labels':['Segments','Vessels / gallbladder'], 'side':'whole organ'},
+ 'liver': {'title':'Liver segments','names':['caudate lobe of liver','hepatovenous segment ii','hepatovenous segment iii','hepatovenous segment iv','hepatovenous segment v','hepatovenous segment vi','hepatovenous segment vii','hepatovenous segment viii','gallbladder','pre-hepatic portal vein','trunk of right portal vein','trunk of left portal vein','right hepatic vein','middle hepatic vein','left hepatic vein'], 'bone_count':8, 'labels':['Segments','Vessels / gallbladder'], 'side':'whole organ'},
  'brain': {'title':'Brain','names':['right cerebral hemisphere','left cerebral hemisphere','cerebellum','right lateral ventricle','left lateral ventricle','third ventricle','fourth ventricle'], 'bone_count':3, 'labels':['Brain','Ventricles'], 'side':'bilateral'},
+}
+
+# The official 4.0 IS-A table gives two liver segments the wrong objects. The BodyParts3D 4.3 object
+# table and the objects' own positions agree on the assignments below; the measurements are in
+# docs/bodyparts3d-liver-correction-20261119/. A changed table stops the build.
+SOURCE_CORRECTIONS = {
+ 'hepatovenous segment vii': {'table_source_ids':['FJ2409'],'source_ids':['FJ2823'],
+  'reason':'The official 4.0 table assigns FJ2409, whose bounds equal those of segment VI (FJ2822) to within 0.4 mm. The BodyParts3D 4.3 object table lists FJ2409 as hepatovenous segment VI and FJ2823 as hepatovenous segment VII. FJ2823 lies above segment VI and behind segment VIII.'},
+ 'hepatovenous segment viii': {'table_source_ids':['FJ2823','FJ2824'],'source_ids':['FJ2824'],
+  'reason':'The official 4.0 table unites FJ2823 and FJ2824. The BodyParts3D 4.3 object table lists FJ2823 as hepatovenous segment VII and FJ2824 as hepatovenous segment VIII. FJ2824 lies above segment V and in front of segment VII.'},
 }
 
 def fetch(url, headers=None):
@@ -96,8 +106,13 @@ def main():
  selected={}
  for name in sorted(names):
   if name not in elements:raise ValueError('No source mesh: '+name)
-  rows=elements[name];fids=sorted({r[2] for r in rows});fid=fids[0] if len(fids)==1 else rows[0][0]
+  rows=elements[name];fids=sorted({r[2] for r in rows});correction=SOURCE_CORRECTIONS.get(name)
+  if correction:
+   if fids!=correction['table_source_ids']:raise ValueError('Source table changed under a correction: '+name)
+   fids=correction['source_ids']
+  fid=fids[0] if len(fids)==1 else rows[0][0]
   selected[fid]={'name':name,'fma':rows[0][0],'source_ids':fids}
+  if correction:selected[fid]['source_correction']={'official_table_source_ids':correction['table_source_ids'],'reason':correction['reason']}
  archive_index=index();files={}
  with concurrent.futures.ThreadPoolExecutor(max_workers=12) as pool:
   pending={pool.submit(download,fid,archive_index):fid for fid in {fid for p in selected.values() for fid in p['source_ids']}}
@@ -110,7 +125,7 @@ def main():
  regions={}
  for key,region in REGIONS.items():
   regions[key]={'title':region['title'],'side':region.get('side','right'),'labels':region.get('labels',['Bones','Soft tissue']),'parts':[{'id':byname[n]['id'],'layer':'bone' if i<region['bone_count'] else 'soft'} for i,n in enumerate(region['names'])]}
- manifest={'dataset':'BodyParts3D 4.0','license':'CC BY 4.0','license_url':'https://creativecommons.org/licenses/by/4.0/','source_url':'https://dbarchive.biosciencedbc.jp/en/bodyparts3d/download.html','source_archive':ARCHIVE,'license_evidence':'https://dbarchive.biosciencedbc.jp/data/bodyparts3d/LATEST/README_e.html#license','attribution':'BodyParts3D, © The Database Center for Life Science licensed under CC Attribution 4.0 International','adaptations':'Selected meshes from the 99% polygon-reduced archive, converted to indexed binary geometry with averaged vertex normals. Registered source coordinates preserved. Display cropping only; no generated anatomy.','parts':selected,'regions':regions}
+ manifest={'dataset':'BodyParts3D 4.0','license':'CC BY 4.0','license_url':'https://creativecommons.org/licenses/by/4.0/','source_url':'https://dbarchive.biosciencedbc.jp/en/bodyparts3d/download.html','source_archive':ARCHIVE,'license_evidence':'https://dbarchive.biosciencedbc.jp/data/bodyparts3d/LATEST/README_e.html#license','attribution':'BodyParts3D, © The Database Center for Life Science licensed under CC Attribution 4.0 International','adaptations':'Selected meshes from the 99% polygon-reduced archive, converted to indexed binary geometry with averaged vertex normals. Registered source coordinates preserved. Display cropping only; no generated anatomy. Hepatovenous segments VII and VIII use the objects that the BodyParts3D 4.3 object table assigns them; each records the official 4.0 table assignment under source_correction.','parts':selected,'regions':regions}
  (DEST/'manifest.json').write_text(json.dumps(manifest,indent=2)+'\n')
  print('TOTAL',len(selected),'meshes',sum(p['bytes'] for p in selected.values()),'bytes')
 if __name__=='__main__':main()

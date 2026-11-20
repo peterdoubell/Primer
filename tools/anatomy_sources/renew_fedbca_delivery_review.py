@@ -9,6 +9,7 @@ from pathlib import Path
 
 from primer.curriculum import Curriculum
 from primer.module_media import source_model_bindings
+from primer.source_mesh_integrity import is_reviewed_manifest
 from tools.check_radiology_fidelity import digest
 
 ROOT = Path(__file__).resolve().parents[2]
@@ -73,14 +74,16 @@ def verified_source_files(root, sources):
     """Check local bytes against the retained descriptor/manifest identities."""
     files = {}
 
-    def record(url, expected, decoded_sha256=None, payload=None):
+    def record(url, expected, decoded_sha256=None, payload=None, atlas=None):
         if not url.startswith('/app/'):
             raise ValueError('Source file requires a local application path')
         path = root / 'web' / url.removeprefix('/app/')
         raw = path.read_bytes()
-        if hashlib.sha256(raw).hexdigest() != expected:
+        actual_sha256 = hashlib.sha256(raw).hexdigest()
+        # A manifest may be the one recorded successor of its reviewed bytes; the row records the delivered bytes.
+        if actual_sha256 != expected and not (atlas and is_reviewed_manifest(atlas, raw, expected)):
             raise ValueError('Reviewed source bytes changed: ' + url)
-        row = {'path': path.relative_to(root).as_posix(), 'sha256': expected, 'bytes': len(raw)}
+        row = {'path': path.relative_to(root).as_posix(), 'sha256': actual_sha256, 'bytes': len(raw)}
         if decoded_sha256 or payload:
             decoded = gzip.decompress(raw)
             actual = hashlib.sha256(decoded).hexdigest()
@@ -95,7 +98,7 @@ def verified_source_files(root, sources):
         return raw
 
     for source in sources:
-        manifest = json.loads(record(source['manifest_url'], source['manifest_sha256']))
+        manifest = json.loads(record(source['manifest_url'], source['manifest_sha256'], atlas=source['atlas']))
         for part in manifest['parts'].values():
             record(part['file'], part['sha256'], part.get('decoded_sha256'))
         image = source.get('source_image')
