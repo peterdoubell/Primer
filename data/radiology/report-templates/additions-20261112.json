@@ -1032,18 +1032,36 @@
       "impression": "Bone age appropriate for chronological age."
     },
     "dxa.bone-densitometry": {
+      "dictation": {
+        "title": "Bone densitometry (DXA)",
+        "technique": "DXA of the lumbar spine, both hips and a forearm.",
+        "findings": [
+          "Spine: BMD = [], T-score = [] ([]).",
+          "Left hip: BMD = [], T-score = [] ([]).",
+          "Left neck of femur: BMD = [], T-score = [] ([]).",
+          "Right hip: BMD = [], T-score = [] ([]).",
+          "Right neck of femur: BMD = [], T-score = [] ([]).",
+          "[] forearm: BMD = [], T-score = [] ([])."
+        ]
+      },
       "title": "Bone densitometry (DXA)",
       "radiograph": false,
-      "technique": {"normal": "DXA of the lumbar spine (L1 to L4) and both hips.",
+      "technique": {"normal": "DXA of the lumbar spine, both hips and a forearm.",
                     "options": []},
       "sections": [
-        {"heading": "Lumbar spine", "normal": "Lumbar spine (L1 to L4) T-score above -1.0.",
-         "options": ["L1 to L4 BMD [ ] g/cm2, T-score [ ], Z-score [ ].",
+        {"heading": "Spine", "normal": "Spine T-score at or above -1.0.",
+         "options": ["BMD = [ ], T-score = [ ] ([ ]).",
                      "Excluded vertebrae: [ ]."]},
-        {"heading": "Hips", "normal": "Total hip and femoral neck T-scores above -1.0.",
-         "options": ["Total hip BMD [ ] g/cm2, T-score [ ]. Femoral neck T-score [ ]."]},
-        {"heading": "Interval change", "normal": "No prior study for comparison.",
-         "options": ["Change since [ ]: [ ] percent at the [ ]."]}
+        {"heading": "Left hip", "normal": "Left hip T-score at or above -1.0.",
+         "options": ["BMD = [ ], T-score = [ ] ([ ])."]},
+        {"heading": "Left neck of femur", "normal": "Left neck of femur T-score at or above -1.0.",
+         "options": ["BMD = [ ], T-score = [ ] ([ ])."]},
+        {"heading": "Right hip", "normal": "Right hip T-score at or above -1.0.",
+         "options": ["BMD = [ ], T-score = [ ] ([ ])."]},
+        {"heading": "Right neck of femur", "normal": "Right neck of femur T-score at or above -1.0.",
+         "options": ["BMD = [ ], T-score = [ ] ([ ])."]},
+        {"heading": "Forearm", "normal": "Forearm T-score at or above -1.0.",
+         "options": ["[Right / Left] forearm: BMD = [ ], T-score = [ ] ([ ])."]}
       ],
       "impression": "Normal bone mineral density (WHO)."
     },
