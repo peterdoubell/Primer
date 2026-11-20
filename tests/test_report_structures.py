@@ -122,8 +122,7 @@ def test_spine_mri_reports_every_disc_level():
 
 
 def test_bilateral_and_multi_region_studies_group_their_headings():
-    assert list(_groups('ct.trauma-panscan')) == ['Head', 'Cervical spine', 'Chest', 'Abdomen and pelvis',
-                                                  'Thoracolumbar spine and pelvis']
+    assert list(_groups('ct.trauma-panscan')) == ['Brain', 'Cervical spine', 'Chest', 'Abdomen and pelvis', 'Skeletal']
     assert list(_groups('ct.oncology-staging')) == ['Neck', 'Chest', 'Abdomen and pelvis']
     assert list(_groups('ct.angiogram-lower-limbs')) == ['Right leg', 'Left leg']
     assert _groups('ra.carotid-obstruction')['Right carotid'] == [
@@ -176,9 +175,9 @@ def test_the_normal_report_says_a_group_once_when_all_of_it_is_normal():
     assert 'Intact Achilles tendon.' in normal['ra.mri-ankle'] and 'Normal Hoffa fat pad.' in normal['ra.mri-knee']
     # A whole-body study prints each region above its own lines.
     lines = normal['ct.trauma-panscan'].split('\n')
-    assert lines[lines.index('Cervical spine') + 1] == 'Normal cervical alignment, including the craniocervical junction.'
-    assert [line for line in lines if line in {'Head', 'Cervical spine', 'Chest', 'Abdomen and pelvis'}] == [
-        'Head', 'Cervical spine', 'Chest', 'Abdomen and pelvis']
+    assert lines[lines.index('Cervical spine') + 1] == 'Intact craniocervical junction.'
+    assert [line for line in lines if line in {'Brain', 'Cervical spine', 'Chest', 'Abdomen and pelvis', 'Skeletal'}] == [
+        'Brain', 'Cervical spine', 'Chest', 'Abdomen and pelvis', 'Skeletal']
 
 
 def test_ct_and_mri_of_the_same_organ_keep_their_own_vocabulary():
@@ -334,3 +333,41 @@ def test_ct_chest_abdomen_and_pelvis_is_the_staging_scan_without_the_neck():
     assert investigation['modality'] == 'CT'
     assert [section['label'] for section in investigation['sections']][1:] == _headings('ct.chest-abdomen-pelvis')
     assert investigation['report_protocol']['standard_text'] == cap['technique']['normal']
+
+
+def test_the_trauma_panscan_follows_peters_own():
+    """Peter's own panscan template (photo, 2026-11-20): its regions, what each reports and its wording, in the
+    uniform layout."""
+    item = rt.library()['ct.trauma-panscan']
+    cap = rt.library()['ct.chest-abdomen-pelvis']['technique']['normal']
+    assert item['technique']['normal'] == 'Uncontrasted brain and cervical spine. ' + cap
+    assert _groups('ct.trauma-panscan') == {
+        'Brain': ['Brain parenchyma', 'Haemorrhage', 'Ventricles and basal cisterns', 'Orbits',
+                  'Paranasal sinuses and mastoids', 'Skull and facial bones'],
+        'Cervical spine': ['Craniocervical junction', 'Cervical alignment', 'Cervical vertebrae', 'Prevertebral soft tissues'],
+        'Chest': ['Airways', 'Mediastinum and aorta', 'Heart and pericardium', 'Pleura', 'Lungs', 'Diaphragm'],
+        'Abdomen and pelvis': ['Liver', 'Gallbladder and bile ducts', 'Pancreas and spleen', 'Adrenal glands, kidneys and bladder',
+                               'Stomach and bowel', 'Peritoneum and retroperitoneum', 'Abdominal vessels'],
+        'Skeletal': ['Sternum and ribs', 'Shoulder girdles', 'Thoracic and lumbar spine', 'Pelvis and hips'],
+    }
+    assert _headings('ct.trauma-panscan')[-1] == 'Lines and devices'
+    # The normal report reads as his does, region by region.
+    normal = {template['id']: template['text'] for template in radproof_export.export()}['ct.trauma-panscan']
+    for block in ('Brain\nNormal grey-white differentiation.\nNormal midline and posterior fossa structures.\n',
+                  'Normal orbital contents.\nClear paranasal sinuses and mastoids.\nNo craniofacial fracture.\n',
+                  'Cervical spine\nIntact craniocervical junction.\nNormal vertebral alignment.\nNo fracture or dislocation.\n'
+                  'No prevertebral soft tissue swelling.\n',
+                  'Chest\nMajor airways patent and undisplaced.\nNo major vascular injury.\n',
+                  'No pneumothorax or haemothorax.\nNo pulmonary contusion.\n',
+                  'Abdomen and pelvis\nNo focal liver lesion or contour irregularity.\n',
+                  'Normal pancreas and spleen.\nNormal adrenal glands, kidneys and bladder.\nNo gastric or bowel wall thickening.\n'
+                  'No haemoperitoneum or pneumoperitoneum.\n',
+                  'Skeletal\nNo sternal or rib fracture.\nShoulder joints intact.\n', 'No pelvic or hip fracture.\n'):
+        assert block in normal, block
+    # The practice calls it a panscan, and that title chooses it.
+    assert {'panscan', 'pan-scan', 'CT panscan', 'trauma panscan'} <= set(PRISM['titles']['ct.trauma-panscan'])
+    # The click builder takes the same technique by default.
+    from primer.reporting_bridge import descriptor_forms
+    investigation = next(i for form in descriptor_forms()['forms'].values() for i in form['investigations']
+                         if i['id'] == 'ct.trauma-panscan')
+    assert investigation['report_protocol']['standard_text'] == item['technique']['normal']

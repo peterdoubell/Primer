@@ -918,35 +918,57 @@ Pelvis and hips | Normal visualised pelvic marrow and hip joints. No enthesitis.
 # ---------------------------------------------------------------- whole-body and multi-region studies
 
 ## ct.trauma-panscan
+# Peter's own panscan template (photo, 2026-11-20) gives the regions, what each reports and the wording of the normal
+# lines; negatives are in the library's singular ("No fracture"). The house adds Diaphragm, Abdominal vessels, Lines and
+# devices, "No mediastinal haematoma." and "Normal thoracolumbar alignment."
 ! Brain
-! Cervical spine
-! Chest
-! Abdomen and pelvis
-! Thoracolumbar spine and pelvis
-> Head
-Brain | No intracranial haemorrhage, contusion or mass effect. | [Extradural / Subdural / Subarachnoid / Intraparenchymal] haemorrhage [ ]. | [Midline shift / Herniation] [ ].
-Skull and facial bones | No skull or facial fracture. | [Skull vault / Skull base / Facial] fracture [ ].
+! Skull and facial bones
+! Cervical alignment
+! Cervical vertebrae
+! Prevertebral soft tissues
+! Lungs and pleura
+! Mediastinum and aorta
+! Chest wall
+! Liver and spleen
+! Kidneys and adrenal glands
+! Pancreas, bowel and mesentery
+! Bladder
+! Peritoneum and retroperitoneum
+! Thoracic spine
+! Lumbar spine
+! Pelvis and hips
+> Brain
+Brain parenchyma | Normal grey-white differentiation. Normal midline and posterior fossa structures. | [Contusion / Diffuse axonal injury / Infarct / Oedema] in the [ ].
+Haemorrhage | No intra-axial or extra-axial space-occupying lesion or haemorrhage. | [Extradural / Subdural / Subarachnoid / Intraparenchymal / Intraventricular] haemorrhage [ ], [ ] mm.
+Ventricles and basal cisterns | Patent surface sulci, basal cisterns and fourth ventricle. Central midline. No hydrocephalus. | Midline shift [ ] mm to the [right / left]. | [Effaced basal cisterns / Herniation / Hydrocephalus] [ ].
+Orbits | Normal orbital contents. | [Globe injury / Retrobulbar haematoma / Orbital emphysema] [ ].
+Paranasal sinuses and mastoids | Clear. | [Haemosinus / Mastoid effusion / Pneumocephalus] [ ].
+Skull and facial bones | No craniofacial fracture. | [Skull vault / Skull base / Facial] fracture [ ].
 > Cervical spine
-Cervical alignment | Normal cervical alignment, including the craniocervical junction. | [Anterolisthesis / Facet subluxation / Facet dislocation / Atlanto-occipital dissociation] at [ ].
-Cervical vertebrae | No cervical fracture. | Fracture of [ ].
-Prevertebral soft tissues | Normal. | Prevertebral swelling [ ] mm at [ ].
+Craniocervical junction | Intact. | [Occipital condyle fracture / Atlanto-occipital dissociation / Atlantoaxial subluxation] [ ].
+Cervical alignment | Normal vertebral alignment. | [Anterolisthesis / Facet subluxation / Facet dislocation] at [ ].
+Cervical vertebrae | No fracture or dislocation. | Fracture of [ ].
+Prevertebral soft tissues | No prevertebral soft tissue swelling. | Prevertebral swelling [ ] mm at [ ].
 > Chest
-Lungs and pleura | No pneumothorax, haemothorax or pulmonary contusion. | [Pneumothorax / Haemothorax / Contusion / Laceration] on the [right / left].
-Mediastinum and aorta | No mediastinal haematoma. Intact thoracic aorta. | [Aortic injury / Mediastinal haematoma / Pneumomediastinum] [ ].
-Heart and pericardium | No pericardial effusion. | [Haemopericardium / Cardiac injury] [ ].
-Chest wall | No rib, sternal, clavicular or scapular fracture. | Fractures of the [right / left] ribs [ ]; flail segment [present / absent]. | [Sternal / Clavicular / Scapular] fracture.
-Diaphragm | Intact. | [Right / Left] diaphragmatic rupture.
+Airways | Major airways patent and undisplaced. | [Tracheobronchial injury / Airway displacement / Endobronchial blood] [ ].
+Mediastinum and aorta | No major vascular injury. No mediastinal haematoma. | [Aortic injury / Mediastinal haematoma / Pneumomediastinum] [ ].
+= Heart and pericardium
+Pleura | No pneumothorax or haemothorax. | [Small / Moderate / Large] [right / left / bilateral] [pneumothorax / haemothorax].
+Lungs | No pulmonary contusion. | [Contusion / Laceration / Aspiration / Atelectasis] in the [ ]. | Bibasal dependent lung changes.
+= Diaphragm
 > Abdomen and pelvis
-Liver and spleen | No liver or splenic injury. | [Liver / Spleen] injury, AAST grade [1 / 2 / 3 / 4 / 5].
-Kidneys and adrenal glands | No renal or adrenal injury. | [Right / Left] renal injury, AAST grade [1 / 2 / 3 / 4 / 5]. | [Right / Left] adrenal haematoma.
-Pancreas, bowel and mesentery | No pancreatic, bowel or mesenteric injury. | [Pancreatic laceration / Bowel wall discontinuity / Mesenteric haematoma] [ ].
-Bladder | No bladder injury. | [Intraperitoneal / Extraperitoneal] bladder rupture.
-Peritoneum and retroperitoneum | No free fluid, free gas or retroperitoneal haematoma. | [Free fluid / Free gas / Retroperitoneal haematoma] [ ].
-Abdominal vessels | Intact abdominal aorta. No active extravasation. | Active extravasation from [ ]. | [Aortic / Iliac / Mesenteric] vascular injury.
-> Thoracolumbar spine and pelvis
-Thoracic spine | Normal thoracic alignment. No thoracic fracture. | Fracture of [ ], [compression / burst / Chance / translation].
-Lumbar spine | Normal lumbar alignment. No lumbar fracture. | Fracture of [ ], [compression / burst / Chance / transverse process].
-Pelvis and hips | No pelvic or proximal femoral fracture. Congruent sacroiliac joints and hips. | [Pelvic ring / Acetabular / Sacral / Proximal femoral] fracture [ ].
+Liver | No focal liver lesion or contour irregularity. | Liver injury, AAST grade [I / II / III / IV / V], segment [ ].
+Gallbladder and bile ducts | No intrahepatic or extrahepatic biliary dilatation. Normal gallbladder. | [Gallbladder injury / Pericholecystic haematoma / Gallstones] [ ].
+Pancreas and spleen | Normal. | Splenic injury, AAST grade [I / II / III / IV / V]. | [Pancreatic contusion / Pancreatic laceration] [ ].
+Adrenal glands, kidneys and bladder | Normal. | [Right / Left] renal injury, AAST grade [I / II / III / IV / V]. | [Right / Left] adrenal haematoma. | [Intraperitoneal / Extraperitoneal] bladder rupture.
+Stomach and bowel | No gastric or bowel wall thickening. | [Bowel wall discontinuity / Bowel wall thickening / Mesenteric haematoma / Extraluminal gas] [ ].
+Peritoneum and retroperitoneum | No haemoperitoneum or pneumoperitoneum. | [Small / Moderate / Large] haemoperitoneum [ ]. | [Pneumoperitoneum / Retroperitoneal haematoma] [ ].
+= Abdominal vessels
+> Skeletal
+Sternum and ribs | No sternal or rib fracture. | Fractures of the [right / left] ribs [ ]; flail segment [present / absent]. | Sternal fracture [ ].
+Shoulder girdles | Shoulder joints intact. | [Clavicular / Scapular / Proximal humeral] fracture on the [right / left]. | [Glenohumeral / Acromioclavicular] dislocation on the [right / left].
+Thoracic and lumbar spine | Normal thoracolumbar alignment. No thoracolumbar compression fracture. | Fracture of [ ], [compression / burst / Chance / translation / transverse process].
+Pelvis and hips | No pelvic or hip fracture. | [Pelvic ring / Acetabular / Sacral / Proximal femoral] fracture [ ]. | [Sacroiliac / Symphyseal] diastasis [ ] mm.
 >
 = Lines and devices
 
