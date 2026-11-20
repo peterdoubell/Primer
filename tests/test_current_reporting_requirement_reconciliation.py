@@ -94,12 +94,6 @@ def test_all_sixty_two_brain_rows_have_explicit_ids_and_source_limitations():
 
 def test_global_reconciliation_retains_all_report_rows_without_module_alias_shortcuts():
     data, _, _ = inputs()
-    # This dated reconciliation fingerprints each requirement record. The later BodyParts3D liver correction changed the
-    # reporting-contract fingerprint of the two liver records and nothing else in them.
-    from tools.liver_atlas_compatibility import before_liver_correction_inventory
-    changed = [i["investigation_id"] for i in data["investigations"] if before_liver_correction_inventory(i) != i]
-    assert changed == ["ra.liver-masses", "ra.liver-lirads"]
-    data = dict(data, investigations=[before_liver_correction_inventory(i) for i in data["investigations"]])
     result = reporting_reconciliation(ROOT, data)
     assert result == read("docs/mullerian-reporting-inventory/reporting-reconciliation.json")
     assert (result["current_investigations"], result["current_report_rows"]) == (335, 7070)

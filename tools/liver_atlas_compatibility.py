@@ -83,14 +83,6 @@ def before_liver_correction_contract_hashes(contracts):
     return result
 
 
-def before_liver_correction_inventory(investigation):
-    """A requirement record with the contract fingerprint it carried before; any other record is returned untouched."""
-    row = CONTRACTS.get(investigation.get('investigation_id'))
-    if row is None or investigation.get('source_contract_sha256') != row['after']:
-        return investigation
-    return dict(investigation, source_contract_sha256=row['before'])
-
-
 def united(first, second):
     """The single mesh the earlier build made of two source objects, from their separate meshes.
 

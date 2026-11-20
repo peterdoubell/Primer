@@ -315,14 +315,6 @@ def test_the_two_liver_contracts_restore_to_their_earlier_fingerprints():
     assert link.before_liver_correction_contract_hashes(dict(hashes, other='x')) == dict(
         {identifier: row['before'] for identifier, row in link.CONTRACTS.items()}, other='x')
     assert restore_prior_contracts(hashes) == {identifier: row['before'] for identifier, row in link.CONTRACTS.items()}
-    # A requirement record restores to the fingerprint it carried, and to nothing else.
-    for identifier in LIVER:
-        earlier = link.before_liver_correction_inventory(requirements[identifier])
-        assert earlier['source_contract_sha256'] == link.CONTRACTS[identifier]['before'] and list(earlier) == list(requirements[identifier])
-        assert {key for key in earlier if earlier[key] != requirements[identifier][key]} == {'source_contract_sha256'}
-        assert link.before_liver_correction_inventory(earlier) is earlier
-    other = requirements['ra.brain-anatomy']
-    assert link.before_liver_correction_inventory(other) is other
 
 
 def test_the_delivery_reviews_and_the_attribution_describe_the_delivered_atlas():
