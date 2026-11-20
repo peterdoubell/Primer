@@ -66,8 +66,7 @@ PROTOCOLS = {
     'oncology.recist-follow-up': 'Arterial phase chest and upper abdomen. Portal venous abdomen and pelvis.',
     'ct.paediatric-abdomen-solid': CT_PAEDIATRIC,
     'ra.paediatric-renal-tumours': CT_PAEDIATRIC,
-    'ct.trauma-panscan': ('Unenhanced head and cervical spine; arterial phase chest and portal venous phase abdomen and pelvis '
-                          'after IV contrast; spine reformats.'),
+    'ct.trauma-panscan': 'Uncontrasted brain and cervical spine. Arterial phase chest and upper abdomen. Portal venous abdomen and pelvis.',  # Peter's own panscan (photo, 2026-11-20)
     'ct.guided-biopsy': 'Planning CT, intermittent CT guidance during needle placement and post-procedure CT.',
     # Urinary tract and adrenals
     'ct.kub': 'Unenhanced low-dose, kidneys to bladder base; coronal reformats.',
