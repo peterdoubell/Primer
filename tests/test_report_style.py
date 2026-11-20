@@ -206,6 +206,10 @@ def test_one_spelling_for_one_term():
         assert not variants.search(json.dumps(item, ensure_ascii=False)), identifier
         if rt.acquisition_heading(identifier, item) == 'Protocol':
             assert not re.search(r'\bDWI(?! with ADC| neurography)', item['technique']['normal']), identifier
+        # A negative names one finding ("No fracture", never "No fractures"); AAST grades are Roman numerals.
+        for section in item['sections']:
+            assert not re.search(r'\bNo\b[^.]*\b(?:fractures|lesions)\b', section['normal']), (identifier, section['normal'])
+            assert not re.search(r'AAST grade \[\d', ' '.join(section.get('options', []))), (identifier, section['heading'])
 
 
 def test_exported_normal_reports_are_flat_self_contained_and_say_nothing_twice():
