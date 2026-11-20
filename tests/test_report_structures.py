@@ -371,3 +371,35 @@ def test_the_trauma_panscan_follows_peters_own():
     investigation = next(i for form in descriptor_forms()['forms'].values() for i in form['investigations']
                          if i['id'] == 'ct.trauma-panscan')
     assert investigation['report_protocol']['standard_text'] == item['technique']['normal']
+
+
+def test_densitometry_keeps_peters_line_for_each_site():
+    """Peter's own densitometry template (photo, 2026-11-20): the sites he reports, each with his line to fill, in
+    the uniform layout."""
+    import densitometry_dictation_20261120 as densitometry
+    identifier = 'dxa.bone-densitometry'
+    item = rt.library()[identifier]
+    assert _headings(identifier) == ['Spine', 'Left hip', 'Left neck of femur', 'Right hip', 'Right neck of femur', 'Forearm']
+    assert not _groups(identifier)
+    # The library holds what the script writes: one dictation line for each heading, in the same order.
+    text = densitometry.PATH.read_text(encoding='utf-8')
+    assert densitometry.rewrite(text) == text
+    assert item['dictation'] == densitometry.draft(item)
+    assert item['technique']['normal'] == item['dictation']['technique'] == densitometry.TECHNIQUE
+    lines = ('Spine: BMD = [], T-score = [] ([]).\nLeft hip: BMD = [], T-score = [] ([]).\n'
+             'Left neck of femur: BMD = [], T-score = [] ([]).\nRight hip: BMD = [], T-score = [] ([]).\n'
+             'Right neck of femur: BMD = [], T-score = [] ([]).\n[] forearm: BMD = [], T-score = [] ([]).')
+    # The uniform layout around his lines: history, comparison, study name, then impression and recommendation.
+    assert rt.quick_report(identifier)['dictation']['text'] == (
+        'Clinical history:\n[]\n\nComparison:\n[]\n\nBone densitometry (DXA)\n' + lines
+        + '\n\nImpression:\n[]\n\nRecommendation:\n[]')
+    exported = {template['id']: template for template in radproof_export.export(dictation=True)}[identifier]
+    assert exported['name'] == 'Bone densitometry (DXA)'
+    assert exported['text'] == (
+        '**__Clinical history:__**\n[]\n\n**__Comparison:__**\n[]\n\n**__Bone densitometry (DXA):__**\n' + lines
+        + '\n\n**__Impression:__**\n[]\n\n**__Recommendation:__**\n[]')
+    # The fast template offers the same line under every heading; the forearm's names its side.
+    assert all(section['options'][0] == 'BMD = [ ], T-score = [ ] ([ ]).' for section in item['sections'][:-1])
+    assert item['sections'][-1]['options'] == ['[Right / Left] forearm: BMD = [ ], T-score = [ ] ([ ]).']
+    # A normal T-score is -1.0 or above (WHO).
+    assert all(section['normal'] == f"{section['heading']} T-score at or above -1.0." for section in item['sections'])

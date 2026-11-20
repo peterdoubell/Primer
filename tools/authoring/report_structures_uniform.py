@@ -265,4 +265,19 @@ Target | Target lesion identified with a safe access route. | Lesion [ ] mm in t
 = Target
 = Injection -> Procedure | Informed consent obtained. Time-out completed. Needle tip confirmed within the joint; injectate distributed freely.
 = Outcome -> Complications | No immediate complication. Aftercare advice given.
+
+# ---------------------------------------------------------------- bone densitometry: one line for each site measured
+
+## dxa.bone-densitometry
+# Peter's own densitometry template (photo, 2026-11-20) names the sites and gives each one line to fill: BMD, T-score
+# and a bracket. densitometry_dictation_20261120.py writes that line into the dictation layout.
+! Lumbar spine
+! Hips
+! Interval change
+Spine | Spine T-score at or above -1.0. | BMD = [ ], T-score = [ ] ([ ]). | Excluded vertebrae: [ ].
+Left hip | Left hip T-score at or above -1.0. | BMD = [ ], T-score = [ ] ([ ]).
+Left neck of femur | Left neck of femur T-score at or above -1.0. | BMD = [ ], T-score = [ ] ([ ]).
+Right hip | Right hip T-score at or above -1.0. | BMD = [ ], T-score = [ ] ([ ]).
+Right neck of femur | Right neck of femur T-score at or above -1.0. | BMD = [ ], T-score = [ ] ([ ]).
+Forearm | Forearm T-score at or above -1.0. | [Right / Left] forearm: BMD = [ ], T-score = [ ] ([ ]).
 '''
