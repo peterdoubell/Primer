@@ -11,6 +11,7 @@ from tools.anatomy_sources import bind_unlocked_figures as unlocked
 from tools.anatomy_sources.bind_body_reader_models import before_body_reader_model_records
 from tools.anatomy_sources.bind_reader_models import before_reader_model_records
 from tools.anatomy_sources.bind_stored_caption_assets import only_caption_bindings
+from tools.anatomy_sources.structure_display_names import display_structure_name
 from tools.check_msk_fidelity import inspect_binding, inspect_requirement_coverage, side_unstated
 
 PATH = 'data/radiology/radiology-asset-evidence.json'
@@ -42,7 +43,8 @@ def test_every_binding_quotes_the_models_own_label_and_passes_the_checker():
     for row in rows:
         asset = assets[row['asset_id']]
         assert asset['kind'] == 'model' and holders[row['structure_id']] & set(asset['investigation_ids'])
-        assert row['name'] == required[row['structure_id']][0]['name']
+        requirement = required[row['structure_id']][0]
+        assert display_structure_name(row['name'], requirement.get('laterality')) == requirement['name']
         assert row['quote'] in asset['name'] and row.get('side_quote', row['quote']) in asset['name']
         coverage = asset['requirement_coverage'][row['structure_id']]
         assert row['structure_id'] in asset['structure_ids'] and coverage == {'extent': 'partial', 'basis': tool.basis(row)}
