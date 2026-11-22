@@ -690,3 +690,28 @@ test('DIAPIX-FL preserves all case-sensitive source rows and transparent vowel m
   assert.ok(model.plotPosition(500,3000,box).x<model.plotPosition(500,1000,box).x);
   assert.ok(model.plotPosition(1000,2000,box).y>model.plotPosition(500,2000,box).y);
 });
+
+test('vernier lines physically coincide at the indicated fraction and zero correction recovers the specimen', async () => {
+  const {readScale, inspectDivision, makeSpecimen} = await import('../web/physics/vernier-caliper/model.mjs');
+  for (const divisions of [10, 20]) {
+    for (let zero = -3; zero <= 3; zero++) {
+      for (let gap = 0; gap <= 30 * divisions; gap++) {
+        const r = readScale(gap, zero, divisions);
+        const matches = [];
+        for (let index = 0; index < divisions; index++) {
+          if ((gap + zero + index * (divisions - 1)) % divisions === 0) matches.push(index);
+        }
+        assert.deepEqual(matches, [r.matchingDivision]);
+        const tick = inspectDivision(r, r.matchingDivision);
+        near(tick.offset, 0);
+        assert.equal(tick.nearest, r.whole + r.matchingDivision);
+        near(r.whole + r.matchingDivision / divisions - readScale(0, zero, divisions).origin, gap / divisions);
+      }
+    }
+    for (const u of [0, 0.5, 0.999999]) {
+      const sample = makeSpecimen(divisions, () => u);
+      assert.ok(Number.isInteger(sample.widthSteps) && sample.widthSteps >= 3 * divisions && sample.widthSteps < 24 * divisions);
+      assert.ok(sample.zeroSteps >= -3 && sample.zeroSteps <= 3);
+    }
+  }
+});

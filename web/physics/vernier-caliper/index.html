@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Read a vernier caliper · Primer</title>
+<link rel="stylesheet" href="/app/activities/kit.css">
+<link rel="stylesheet" href="style.css">
+<script defer src="lab.js" type="module"></script>
+</head>
+<body><main>
+<nav aria-label="Lessons"><a href="/app/#/node/phys.2.units">Measuring the World</a> · <a href="/app/#/node/phys.4.experiment">The Art of Experiment</a></nav>
+<h1>Read a vernier caliper</h1>
+<p class="lede">How wide is the metal block? Read the caliper with its jaws closed, then fit the block and correct for any zero error.</p>
+<div class="bench">
+  <div class="choices">
+    <button id="zero" type="button">Check closed jaws</button>
+    <button id="sample" type="button">Insert block</button>
+    <button id="contact" type="button">Close to contact</button>
+  </div>
+  <figure><canvas id="instrument" role="img" aria-label="Rotatable caliper showing the fixed jaw, sliding jaw and their contact with the block."></canvas><figcaption id="contact-state"></figcaption></figure>
+  <div class="controls">
+    <div><label for="gap">Slide the moving jaw</label><input type="range" id="gap" aria-describedby="contact-state"></div>
+    <div><label for="angle">Turn the instrument</label><input type="range" id="angle" min="-40" max="40" value="18" step="1"></div>
+  </div>
+</div>
+<h2>Read the two scales</h2>
+<p id="construction"></p>
+<figure><canvas id="scale" role="img" aria-label="Fixed millimetre scale above the moving vernier. A bracket marks the division in the magnifier."></canvas>
+<figcaption>Start at the vernier zero and find the vernier line that meets a fixed line. The bracket follows the division you inspect.</figcaption></figure>
+<div class="loupe">
+  <div><label for="division">Inspect vernier division</label><input type="range" id="division" min="0" max="10" value="0"><output for="division" id="division-out"></output>
+    <div class="choices"><button type="button" id="previous" aria-label="Inspect previous division">Previous</button><button type="button" id="next" aria-label="Inspect next division">Next</button></div>
+  </div>
+  <figure><canvas id="detail" role="img" aria-label="Magnified fixed and moving graduation marks"></canvas><figcaption id="alignment"></figcaption></figure>
+</div>
+<details><summary>Read the scale positions as text</summary><p id="description"></p></details>
+<form id="measurement">
+  <h2>Record the measurement</h2>
+  <p>Enter the signed reading with the jaws closed. Then enter the reading at contact. Subtract the closed reading to find the block width.</p>
+  <div class="fields">
+    <div><label for="blank">Closed jaws (mm)</label><input id="blank" type="number" inputmode="text" step="any" required></div>
+    <div><label for="loaded">At contact (mm)</label><input id="loaded" type="number" inputmode="decimal" step="any" required></div>
+    <div><label for="corrected">Corrected width (mm)</label><input id="corrected" type="number" inputmode="decimal" step="any" required></div>
+  </div>
+  <div class="choices"><button class="primary" type="submit">Check measurement</button><button type="button" id="solution">Show worked reading</button></div>
+</form>
+<p id="result" role="status">The jaws start closed. Inspect their zero before fitting the block.</p>
+<div class="setup"><label for="graduations">Vernier construction</label><select id="graduations"><option value="10">10 divisions across 9 mm</option><option value="20">20 divisions across 19 mm</option></select>
+<button type="button" id="new-sample">New block and zero setting</button></div>
+<p class="source">The model uses rigid, parallel contact faces and samples whose widths fall on a graduation. The instrument geometry and zero correction follow <a href="https://www.science.clemson.edu/physics/labs/labs/cupol/vernier/index.html">Clemson University's vernier caliper lab</a>.</p>
+</main></body></html>
