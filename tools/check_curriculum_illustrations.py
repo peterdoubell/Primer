@@ -41,6 +41,71 @@ def webp_dimensions(path: Path) -> tuple[int, int]:
     return width, height
 
 
+def activity_source_illustrations(errors: List[str]) -> set[Path]:
+    """Recognise the registered corpus's source art, separate from lesson plates."""
+    corpus_path = WEB_ROOT / "language/word-samples/corpus.json"
+    if not corpus_path.is_file():
+        return set()
+    paths = set()
+    try:
+        registry = json.loads((WEB_ROOT / "activities/registry.json").read_text())
+        if not any(link.get("href") == "/app/language/word-samples/index.html"
+                   for link in registry.get("lang.5.comp-ling", [])):
+            raise ValueError("corpus has no registered Computational Linguistics entry")
+        if not (WEB_ROOT / "language/word-samples/index.html").is_file():
+            raise ValueError("registered corpus activity page is missing")
+        receipt = json.loads((ROOT / "docs/word-samples/source.json").read_text())
+        raw = corpus_path.read_bytes()
+        if hashlib.sha256(raw).hexdigest() != receipt["corpusSHA256"]:
+            raise ValueError("corpus fingerprint differs from its source receipt")
+        book = json.loads(raw)
+        if book["commit"] != receipt["commit"]:
+            raise ValueError("corpus and source receipt identify different editions")
+        chapters = {row["number"]: row for row in receipt["chapters"]}
+        figures = {(row["chapter"], row["offset"]): row for row in receipt["illustrations"]}
+        if len(chapters) != 12 or len(figures) != 41 or len(figures) != len(receipt["illustrations"]):
+            raise ValueError("source receipt must identify twelve chapters and 41 figures")
+        dimensions = json.loads((ROOT / "data/lesson-illustrations.json").read_text())
+        used_figures = set()
+        used_chapters = set()
+        for chapter in book["chapters"]:
+            number = chapter["number"]
+            if number in used_chapters or hashlib.sha256(chapter["text"].encode()).hexdigest() != chapters[number]["textSHA256"]:
+                raise ValueError("chapter identity or source text differs")
+            used_chapters.add(number)
+            for figure in chapter["illustrations"]:
+                key = (number, figure["offset"])
+                if key in used_figures or not 0 <= figure["offset"] <= len(chapter["text"]) or not figure["alt"].strip():
+                    raise ValueError("figure has an invalid or repeated chapter anchor")
+                source = figures[key]
+                used_figures.add(key)
+                for width, field in ((800, "file"), (1600, "large")):
+                    rendition = source["variants"][str(width)]
+                    url = figure[field]
+                    relative = Path(url.removeprefix("/app/"))
+                    if (url != rendition["url"] or not url.startswith("/app/illustrations/word-samples/")
+                            or ".." in relative.parts or not CANONICAL_WEBP.fullmatch(relative.name)
+                            or relative in paths):
+                        raise ValueError("figure rendition has an invalid or repeated source URL")
+                    path = WEB_ROOT / relative
+                    blob = path.read_bytes()
+                    actual = webp_dimensions(path)
+                    if (actual != (width, rendition["height"]) or rendition["width"] != width
+                            or len(blob) != rendition["bytes"]
+                            or hashlib.sha256(blob).hexdigest() != rendition["sha256"]
+                            or any(dimensions[url][name] != rendition[name] for name in ("width", "height", "sha256"))):
+                        raise ValueError("figure rendition differs from its source receipt: " + url)
+                    if width == 800 and (figure["width"], figure["height"]) != actual:
+                        raise ValueError("figure display dimensions differ: " + url)
+                    paths.add(relative)
+        if used_chapters != set(chapters) or used_figures != set(figures) or len(paths) != 82:
+            raise ValueError("corpus does not reference exactly the reviewed chapters and figures")
+    except (KeyError, TypeError, ValueError, OSError) as exc:
+        errors.append("word-samples source artwork: " + str(exc))
+        return set()
+    return paths
+
+
 def audit() -> Dict[str, object]:
     errors: List[str] = []
     domains = []
@@ -151,12 +216,14 @@ def audit() -> Dict[str, object]:
             "missing": missing,
         })
     referenced_paths = {Path(url.removeprefix("/app/")) for url in urls}
-    canonical_paths = {
+    activity_paths = activity_source_illustrations(errors)
+    audited_paths = {
         path.relative_to(WEB_ROOT)
         for path in (WEB_ROOT / "illustrations").rglob("*.webp")
         if CANONICAL_WEBP.fullmatch(path.name)
+        or path.parent == WEB_ROOT / "illustrations/word-samples"
     }
-    orphan_webps = sorted(str(path) for path in canonical_paths - referenced_paths)
+    orphan_webps = sorted(str(path) for path in audited_paths - referenced_paths - activity_paths)
     for path in orphan_webps:
         errors.append("orphan raster is not referenced by curriculum: {}".format(path))
     return {
@@ -165,6 +232,7 @@ def audit() -> Dict[str, object]:
         "missing": total_nodes - total_illustrated,
         "plates": total_plates,
         "responsive_webps": len(urls),
+        "activity_source_webps": len(activity_paths),
         "interactive_models": total_models,
         "long_descriptions": total_long_descriptions,
         "orphan_webps": orphan_webps,
