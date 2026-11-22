@@ -258,10 +258,15 @@ def test_the_liver_steps_highlight_the_corrected_meshes():
 
 
 def test_the_inverse_restores_each_pinned_file_exactly_and_rejects_other_bytes():
+    from tools.lynos_station_locator_compatibility import before_lynos_station_locator_bytes
+    from tools.anatomy_sources.structure_display_names import before_structure_display_name_bytes
+
     receipt = json.loads(link.PROOF.read_text())
     assert sha(link.PROOF.read_bytes()) == link.PIN and set(receipt) == link.PATHS
     for path in sorted(link.PATHS):
         raw = (ROOT / path).read_bytes()
+        raw = before_lynos_station_locator_bytes(path, raw)
+        raw = before_structure_display_name_bytes(path, raw)
         assert sha(raw) == receipt[path]['after']
         earlier = link.before_liver_correction_bytes(path, raw)
         assert sha(earlier) == receipt[path]['before'] != receipt[path]['after']
