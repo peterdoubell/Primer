@@ -22,13 +22,17 @@ def records():
 
 
 def test_every_record_quotes_its_meshs_own_label_and_passes_the_checker():
+    from tools.anatomy_sources.structure_display_names import display_structure_name
+
     review, assets, leaves, names = records()
     rows = review['accepted']
     assert len(rows) == 192 and len({row['asset_id'] for row in rows}) == 186 and len({row['structure_id'] for row in rows}) == 103
     assert 'not a radiologist review' in review['reviewer'] and '2026-11-19' in review['decision']
     for row in rows:
         asset = assets[row['asset_id']]
-        assert asset['kind'] == 'model' and asset['name'] == row['quote'] and row['name'] == names[row['structure_id']]
+        requirement = next(iter(leaves[row['structure_id']].values()))
+        assert asset['kind'] == 'model' and asset['name'] == row['quote']
+        assert display_structure_name(row['name'], requirement['laterality']) == names[row['structure_id']]
         raw = (tool.ROOT / asset['local_path']).read_bytes()
         assert asset['local_path'] == 'web/anatomy/' + row['mesh'] and hashlib.sha256(raw).hexdigest() == asset['sha256']
         if 'faces_path' in asset['geometry']:
