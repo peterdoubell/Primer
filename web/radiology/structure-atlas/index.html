@@ -9,9 +9,9 @@
 <script defer src="lab.js"></script>
 </head>
 <body><main>
-<a href="/app/#/node/rad.4.structured-reporting">Return to Structured reporting</a>
+<a id="return-link" href="/app/#/node/rad.4.structured-reporting">Return to Structured reporting</a>
 <h1>Structure source locator</h1>
-<p class="lede">Where each reportable structure is shown in the named sources: the Stanford MSK MRI Atlas (xrayhead.com) for musculoskeletal work, and Radiology Assistant for everything else.</p>
+<p class="lede">Where each reportable structure is shown in the named sources: the Stanford MSK MRI Atlas (xrayhead.com) for musculoskeletal work, Radiology Assistant, and reviewed original LyNoS node examples.</p>
 <p id="policy" class="note"></p>
 <div class="controls">
 <div><label for="investigation">Investigation</label><select id="investigation"></select></div>
@@ -19,8 +19,11 @@
 <div><input id="located" type="checkbox"> <label for="located">Only structures with a locator</label></div>
 </div>
 <p id="summary" role="status"></p>
+<section id="native-context" class="note" hidden></section>
+<div class="locator-table" tabindex="0" role="region" aria-label="Reportable structure source table">
 <table><caption>Reportable structures</caption>
-<thead><tr><th scope="col">Structure</th><th scope="col">Stanford MSK MRI Atlas</th><th scope="col">Radiology Assistant</th></tr></thead>
+<thead><tr><th scope="col">Structure</th><th scope="col">Stanford MSK MRI Atlas</th><th scope="col">Radiology Assistant</th><th scope="col" id="native-source-heading" hidden>LyNoS node examples</th></tr></thead>
 <tbody id="rows"></tbody></table>
+</div>
 <p class="note" id="credit"></p>
 </main></body></html>

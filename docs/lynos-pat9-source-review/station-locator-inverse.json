@@ -1,0 +1,362 @@
+{
+  "docs/radiology-fidelity-scope.json": {
+    "before": "279226ead9676b5bb95987fdfaa3867ac72f50da5077d5a8002d3e5fcc6a05b3",
+    "after": "2f55217379be62f6c83a6053a7971c9020a5f948d8d7d078d607e483952c2930",
+    "changes": [
+      {
+        "start": 73960,
+        "end": 73962,
+        "before": "            \"complete_reporting_anatomy_approved\": false\n",
+        "after": "            \"complete_reporting_anatomy_approved\": false,\n            \"structure_locator_url\": \"/app/radiology/structure-atlas/index.html?i=ra.ct-lung-cancer\"\n"
+      },
+      {
+        "start": 74462,
+        "end": 74464,
+        "before": "            \"complete_reporting_anatomy_approved\": false\n",
+        "after": "            \"complete_reporting_anatomy_approved\": false,\n            \"structure_locator_url\": \"/app/radiology/structure-atlas/index.html?i=ra.ct-mediastinum\"\n"
+      }
+    ]
+  },
+  "primer/lynos_pat9_reference.py": {
+    "before": "19a9b6ba97223b83befa64c9afbe0281e970987e7915120cf37f874a7f73fb00",
+    "after": "505f2ad67b9fd3ae74453af89d82d9ceaeb45151ea3dc37ace5bdede0e76a663",
+    "changes": [
+      {
+        "start": 90,
+        "end": 94,
+        "before": "    return {identifier: [dict(item)] for identifier in ('ra.ct-mediastinum', 'ra.ct-lung-cancer')}\n",
+        "after": "    return {\n        identifier: [dict(item, structure_locator_url='/app/radiology/structure-atlas/index.html?i=' + identifier)]\n        for identifier in ('ra.ct-mediastinum', 'ra.ct-lung-cancer')\n    }\n"
+      }
+    ]
+  },
+  "web/app.js": {
+    "before": "0137c72557c628a3bb7f297775d392606ab8f59acbeab6be272c257490c30789",
+    "after": "2099e0a5bb5098d4ce301655e3c1867281796ea80ab22759140e04567e5413af",
+    "changes": [
+      {
+        "start": 2086,
+        "end": 2090,
+        "before": "",
+        "after": "  if (asset.id === 'lynos-pat9' && asset.structure_locator_url) {\n    section.append(el('p', {}, el('a', { href: asset.structure_locator_url },\n      'Source examples by reporting structure')));\n  }\n"
+      }
+    ]
+  },
+  "web/radiology/structure-atlas/index.html": {
+    "before": "3ecca0daf47c19b6ef7de86841d750784a3d042ae64e568fc308d4209084b6cf",
+    "after": "1b9c60e25367ae4de1fe3be5ac9206975dd19dad0a987919056756fbd3a60c18",
+    "changes": [
+      {
+        "start": 11,
+        "end": 12,
+        "before": "<a href=\"/app/#/node/rad.4.structured-reporting\">Return to Structured reporting</a>\n",
+        "after": "<a id=\"return-link\" href=\"/app/#/node/rad.4.structured-reporting\">Return to Structured reporting</a>\n"
+      },
+      {
+        "start": 13,
+        "end": 14,
+        "before": "<p class=\"lede\">Where each reportable structure is shown in the named sources: the Stanford MSK MRI Atlas (xrayhead.com) for musculoskeletal work, and Radiology Assistant for everything else.</p>\n",
+        "after": "<p class=\"lede\">Where each reportable structure is shown in the named sources: the Stanford MSK MRI Atlas (xrayhead.com) for musculoskeletal work, Radiology Assistant, and reviewed original LyNoS node examples.</p>\n"
+      },
+      {
+        "start": 21,
+        "end": 23,
+        "before": "",
+        "after": "<section id=\"native-context\" class=\"note\" hidden></section>\n<div class=\"locator-table\" tabindex=\"0\" role=\"region\" aria-label=\"Reportable structure source table\">\n"
+      },
+      {
+        "start": 24,
+        "end": 25,
+        "before": "<thead><tr><th scope=\"col\">Structure</th><th scope=\"col\">Stanford MSK MRI Atlas</th><th scope=\"col\">Radiology Assistant</th></tr></thead>\n",
+        "after": "<thead><tr><th scope=\"col\">Structure</th><th scope=\"col\">Stanford MSK MRI Atlas</th><th scope=\"col\">Radiology Assistant</th><th scope=\"col\" id=\"native-source-heading\" hidden>LyNoS node examples</th></tr></thead>\n"
+      },
+      {
+        "start": 26,
+        "end": 27,
+        "before": "",
+        "after": "</div>\n"
+      }
+    ]
+  },
+  "web/radiology/structure-atlas/index.json": {
+    "before": "e4ead3861590936be1527a60516e057ca2d1b47eb9f288d023ad5d44d8cae1dc",
+    "after": "496c53f507fcbeb2be4fa0d5deccfca2fb9430a9e013d251f88e8f32cd44431b",
+    "changes": [
+      {
+        "start": 5912,
+        "end": 5914,
+        "before": "",
+        "after": "   \"located_structures\": 18,\n   \"native_example_rows\": 15,\n"
+      },
+      {
+        "start": 5922,
+        "end": 5924,
+        "before": "",
+        "after": "   \"located_structures\": 15,\n   \"native_example_rows\": 15,\n"
+      }
+    ]
+  },
+  "web/radiology/structure-atlas/lab.js": {
+    "before": "8cf484a5b1ecbfb15280d527fea48848440940b91a92e17d6280b893da103f72",
+    "after": "f4d0417d2f38551cb4ca02144025981191db0e47bcee9ac8c0f5a97996398a69",
+    "changes": [
+      {
+        "start": 24,
+        "end": 33,
+        "before": "    if (locatedOnly && !structure.atlas && !structure.radiology_assistant) return false;\n    return !text || structure.name.toLowerCase().includes(text.trim().toLowerCase());\n",
+        "after": "    if (locatedOnly && !structure.atlas && !structure.radiology_assistant && !structure.native_examples?.length) return false;\n    const words = [structure.name, ...(structure.native_examples || []).map(example =>\n      'node ' + example.source_node_id + ' ' + example.primary_station)].join(' ').toLowerCase();\n    return !text || words.includes(text.trim().toLowerCase());\n  },\n  nativeUrl(value) {\n    if (typeof value !== 'string') return null;\n    const match = /^\\/app\\/anatomy\\/lynos-pat9\\/(?:index|surfaces)\\.html\\?node=(\\d{1,2})$/.exec(value);\n    return match && Number(match[1]) >= 1 && Number(match[1]) <= 44 ? value : null;\n"
+      },
+      {
+        "start": 85,
+        "end": 126,
+        "before": "",
+        "after": "  function nativeCell(structure) {\n    const cell = el('td');\n    if (!structure.native_examples?.length) {\n      cell.append(el('span', { class: 'none' }, 'No directly matched primary assignment'));\n      return cell;\n    }\n    const list = el('ul');\n    for (const example of structure.native_examples) {\n      const ct = Locator.nativeUrl(example.ct_url), model = Locator.nativeUrl(example.model_url);\n      if (!ct || !model) continue;\n      const row = el('li', {},\n        el('a', { href: ct }, 'Node ' + example.source_node_id + ' CT'), ' \u00b7 ',\n        el('a', { href: model }, '3D'),\n        el('small', {}, example.primary_station));\n      if (example.secondary_station) row.append(el('small', {}, 'Secondary: ' + example.secondary_station));\n      if (example.tertiary_station) row.append(el('small', {}, 'Tertiary: ' + example.tertiary_station));\n      list.append(row);\n    }\n    cell.append(list);\n    return cell;\n  }\n\n  function sourceContext() {\n    const context = $('native-context');\n    context.replaceChildren();\n    const source = current.native_source;\n    context.hidden = !source;\n    $('native-source-heading').hidden = !source;\n    if (!source) return;\n    const omitted = el('details', {}, el('summary', {}, 'Source assignments excluded from direct station matches'));\n    const list = el('ul');\n    for (const row of source.omitted_primary_assignments) {\n      list.append(el('li', {}, 'Mask ' + row.sourceMaskValue + ': ' + row.primaryStationLiteral + ' (' + row.reason + ').'));\n    }\n    omitted.append(list);\n    context.append(el('h2', {}, 'LyNoS individual node examples'),\n      el('p', {}, source.note), omitted,\n      el('p', {}, el('a', { href: source.source_url, target: '_blank', rel: 'noopener noreferrer' }, 'Bouget and colleagues \u00b7 LyNoS Pat9'),\n        ' \u00b7 ', el('a', { href: source.license_url, target: '_blank', rel: 'noopener noreferrer' }, source.license)));\n  }\n\n"
+      },
+      {
+        "start": 131,
+        "end": 136,
+        "before": "    for (const structure of shown) body.append(el('tr', {}, el('th', { scope: 'row' }, structure.name), atlasCell(structure), sourceCell(structure)));\n",
+        "after": "    for (const structure of shown) {\n      const row = el('tr', {}, el('th', { scope: 'row' }, structure.name), atlasCell(structure), sourceCell(structure));\n      if (current.native_source) row.append(nativeCell(structure));\n      body.append(row);\n    }\n"
+      },
+      {
+        "start": 137,
+        "end": 142,
+        "before": "    $('summary').textContent = counts.either + ' of ' + counts.requirements + ' reportable structures have a locator ('\n      + counts.atlas + ' in the atlas, ' + counts.radiology_assistant + ' in Radiology Assistant). Showing ' + shown.length + '.';\n",
+        "after": "    const total = current.structures.filter(row => row.atlas || row.radiology_assistant || row.native_examples?.length).length;\n    const native = current.structures.filter(row => row.native_examples?.length).length;\n    $('summary').textContent = total + ' of ' + counts.requirements + ' reportable structures have a locator ('\n      + counts.atlas + ' in the atlas, ' + counts.radiology_assistant + ' in Radiology Assistant'\n      + (native ? ', ' + native + ' with LyNoS node examples' : '') + '). Showing ' + shown.length + '.';\n"
+      },
+      {
+        "start": 147,
+        "end": 149,
+        "before": "",
+        "after": "    $('return-link').href = '/app/#/radiology/' + encodeURIComponent(row.investigation_id);\n    $('return-link').textContent = 'Return to reporting reference';\n"
+      },
+      {
+        "start": 150,
+        "end": 151,
+        "before": "",
+        "after": "    sourceContext();\n"
+      },
+      {
+        "start": 160,
+        "end": 161,
+        "before": "      $('investigation').append(el('option', { value: row.investigation_id }, row.investigation_id.replace('ra.', '').replace(/-/g, ' ') + ' (' + row.either + '/' + row.requirements + ')'));\n",
+        "after": "      $('investigation').append(el('option', { value: row.investigation_id }, row.investigation_id.replace('ra.', '').replace(/-/g, ' ') + ' (' + (row.located_structures ?? row.either) + '/' + row.requirements + ')'));\n"
+      }
+    ]
+  },
+  "web/radiology/structure-atlas/locators/ct-lung-cancer.json": {
+    "before": "3043bb14ef9acda645936dc275dffa3619992b3bb07992c9f8bde83d0f7b3716",
+    "after": "cc77db7e6a7a636b7c455915e2786bfc289e4af1c25387f09cb0a86f994ee606",
+    "changes": [
+      {
+        "start": 14,
+        "end": 49,
+        "before": "",
+        "after": " \"native_source\": {\n  \"license\": \"CC BY 4.0\",\n  \"license_url\": \"https://creativecommons.org/licenses/by/4.0/\",\n  \"name\": \"LyNoS Pat9 individual node examples\",\n  \"note\": \"These examples link the authors\\u2019 primary station terms to individual Pat9 masks under their IASLC 2009 scheme. The source retains secondary and tertiary assignments. Whole-station region boundaries remain unrepresented by these node masks.\",\n  \"omitted_primary_assignments\": [\n   {\n    \"primaryStationLiteral\": \"11Rs - Interlobar middle-lower (Right)\",\n    \"reason\": \"literal code differs from inventory\",\n    \"sourceMaskValue\": 12\n   },\n   {\n    \"primaryStationLiteral\": \"7L - Subcarinal (Left)\",\n    \"reason\": \"literal code differs from inventory\",\n    \"sourceMaskValue\": 14\n   },\n   {\n    \"primaryStationLiteral\": \"11L - Interlobar (Right)\",\n    \"reason\": \"source laterality discrepancy\",\n    \"sourceMaskValue\": 19\n   },\n   {\n    \"primaryStationLiteral\": \"Undefined - Outside the scope of IASLC\",\n    \"reason\": \"literal code differs from inventory\",\n    \"sourceMaskValue\": 21\n   },\n   {\n    \"primaryStationLiteral\": \"7R - Subcarinal (Right)\",\n    \"reason\": \"literal code differs from inventory\",\n    \"sourceMaskValue\": 26\n   }\n  ],\n  \"source_url\": \"https://zenodo.org/records/10102261\",\n  \"whole_station_boundaries_represented\": false\n },\n"
+      },
+      {
+        "start": 180,
+        "end": 191,
+        "before": "   \"name\": \"IASLC station 1L\"\n",
+        "after": "   \"name\": \"IASLC station 1L\",\n   \"native_examples\": [\n    {\n     \"ct_url\": \"/app/anatomy/lynos-pat9/index.html?node=1\",\n     \"model_url\": \"/app/anatomy/lynos-pat9/surfaces.html?node=1\",\n     \"primary_station\": \"1L - Low cervical, supraclavicular, and sternal notch nodes (Left)\",\n     \"secondary_station\": \"2L - Upper paratracheal (Left)\",\n     \"source_node_id\": 1,\n     \"tertiary_station\": \"\"\n    }\n   ]\n"
+      },
+      {
+        "start": 194,
+        "end": 253,
+        "before": "   \"name\": \"IASLC station 2R\"\n",
+        "after": "   \"name\": \"IASLC station 2R\",\n   \"native_examples\": [\n    {\n     \"ct_url\": \"/app/anatomy/lynos-pat9/index.html?node=32\",\n     \"model_url\": \"/app/anatomy/lynos-pat9/surfaces.html?node=32\",\n     \"primary_station\": \"2R - Upper paratracheal (Right)\",\n     \"secondary_station\": \"\",\n     \"source_node_id\": 32,\n     \"tertiary_station\": \"\"\n    },\n    {\n     \"ct_url\": \"/app/anatomy/lynos-pat9/index.html?node=33\",\n     \"model_url\": \"/app/anatomy/lynos-pat9/surfaces.html?node=33\",\n     \"primary_station\": \"2R - Upper paratracheal (Right)\",\n     \"secondary_station\": \"\",\n     \"source_node_id\": 33,\n     \"tertiary_station\": \"\"\n    },\n    {\n     \"ct_url\": \"/app/anatomy/lynos-pat9/index.html?node=34\",\n     \"model_url\": \"/app/anatomy/lynos-pat9/surfaces.html?node=34\",\n     \"primary_station\": \"2R - Upper paratracheal (Right)\",\n     \"secondary_station\": \"\",\n     \"source_node_id\": 34,\n     \"tertiary_station\": \"\"\n    },\n    {\n     \"ct_url\": \"/app/anatomy/lynos-pat9/index.html?node=36\",\n     \"model_url\": \"/app/anatomy/lynos-pat9/surfaces.html?node=36\",\n     \"primary_station\": \"2R - Upper paratracheal (Right)\",\n     \"secondary_station\": \"4R - Lower paratracheal (Right)\",\n     \"source_node_id\": 36,\n     \"tertiary_station\": \"\"\n    },\n    {\n     \"ct_url\": \"/app/anatomy/lynos-pat9/index.html?node=37\",\n     \"model_url\": \"/app/anatomy/lynos-pat9/surfaces.html?node=37\",\n     \"primary_station\": \"2R - Upper paratracheal (Right)\",\n     \"secondary_station\": \"\",\n     \"source_node_id\": 37,\n     \"tertiary_station\": \"\"\n    },\n    {\n     \"ct_url\": \"/app/anatomy/lynos-pat9/index.html?node=38\",\n     \"model_url\": \"/app/anatomy/lynos-pat9/surfaces.html?node=38\",\n     \"primary_station\": \"2R - Upper paratracheal (Right)\",\n     \"secondary_station\": \"\",\n     \"source_node_id\": 38,\n     \"tertiary_station\": \"\"\n    },\n    {\n     \"ct_url\": \"/app/anatomy/lynos-pat9/index.html?node=41\",\n     \"model_url\": \"/app/anatomy/lynos-pat9/surfaces.html?node=41\",\n     \"primary_station\": \"2R - Upper paratracheal (Right)\",\n     \"secondary_station\": \"2L - Upper paratracheal (Left)\",\n     \"source_node_id\": 41,\n     \"tertiary_station\": \"\"\n    }\n   ]\n"
+      },
+      {
+        "start": 256,
+        "end": 267,
+        "before": "   \"name\": \"IASLC station 2L\"\n",
+        "after": "   \"name\": \"IASLC station 2L\",\n   \"native_examples\": [\n    {\n     \"ct_url\": \"/app/anatomy/lynos-pat9/index.html?node=30\",\n     \"model_url\": \"/app/anatomy/lynos-pat9/surfaces.html?node=30\",\n     \"primary_station\": \"2L - Upper paratracheal (Left)\",\n     \"secondary_station\": \"4L - Lower paratracheal (Left)\",\n     \"source_node_id\": 30,\n     \"tertiary_station\": \"\"\n    }\n   ]\n"
+      },
+      {
+        "start": 270,
+        "end": 281,
+        "before": "   \"name\": \"IASLC station 3A\"\n",
+        "after": "   \"name\": \"IASLC station 3A\",\n   \"native_examples\": [\n    {\n     \"ct_url\": \"/app/anatomy/lynos-pat9/index.html?node=39\",\n     \"model_url\": \"/app/anatomy/lynos-pat9/surfaces.html?node=39\",\n     \"primary_station\": \"3a - Prevascular\",\n     \"secondary_station\": \"2R - Upper paratracheal (Right)\",\n     \"source_node_id\": 39,\n     \"tertiary_station\": \"\"\n    }\n   ]\n"
+      },
+      {
+        "start": 284,
+        "end": 359,
+        "before": "   \"name\": \"IASLC station 3P\"\n",
+        "after": "   \"name\": \"IASLC station 3P\",\n   \"native_examples\": [\n    {\n     \"ct_url\": \"/app/anatomy/lynos-pat9/index.html?node=2\",\n     \"model_url\": \"/app/anatomy/lynos-pat9/surfaces.html?node=2\",\n     \"primary_station\": \"3p - Retrotracheal\",\n     \"secondary_station\": \"\",\n     \"source_node_id\": 2,\n     \"tertiary_station\": \"\"\n    },\n    {\n     \"ct_url\": \"/app/anatomy/lynos-pat9/index.html?node=3\",\n     \"model_url\": \"/app/anatomy/lynos-pat9/surfaces.html?node=3\",\n     \"primary_station\": \"3p - Retrotracheal\",\n     \"secondary_station\": \"\",\n     \"source_node_id\": 3,\n     \"tertiary_station\": \"\"\n    },\n    {\n     \"ct_url\": \"/app/anatomy/lynos-pat9/index.html?node=4\",\n     \"model_url\": \"/app/anatomy/lynos-pat9/surfaces.html?node=4\",\n     \"primary_station\": \"3p - Retrotracheal\",\n     \"secondary_station\": \"2R - Upper paratracheal (Right)\",\n     \"source_node_id\": 4,\n     \"tertiary_station\": \"\"\n    },\n    {\n     \"ct_url\": \"/app/anatomy/lynos-pat9/index.html?node=23\",\n     \"model_url\": \"/app/anatomy/lynos-pat9/surfaces.html?node=23\",\n     \"primary_station\": \"3p - Retrotracheal\",\n     \"secondary_station\": \"7 - Subcarinal\",\n     \"source_node_id\": 23,\n     \"tertiary_station\": \"\"\n    },\n    {\n     \"ct_url\": \"/app/anatomy/lynos-pat9/index.html?node=24\",\n     \"model_url\": \"/app/anatomy/lynos-pat9/surfaces.html?node=24\",\n     \"primary_station\": \"3p - Retrotracheal\",\n     \"secondary_station\": \"\",\n     \"source_node_id\": 24,\n     \"tertiary_station\": \"\"\n    },\n    {\n     \"ct_url\": \"/app/anatomy/lynos-pat9/index.html?node=28\",\n     \"model_url\": \"/app/anatomy/lynos-pat9/surfaces.html?node=28\",\n     \"primary_station\": \"3p - Retrotracheal\",\n     \"secondary_station\": \"\",\n     \"source_node_id\": 28,\n     \"tertiary_station\": \"\"\n    },\n    {\n     \"ct_url\": \"/app/anatomy/lynos-pat9/index.html?node=29\",\n     \"model_url\": \"/app/anatomy/lynos-pat9/surfaces.html?node=29\",\n     \"primary_station\": \"3p - Retrotracheal\",\n     \"secondary_station\": \"\",\n     \"source_node_id\": 29,\n     \"tertiary_station\": \"\"\n    },\n    {\n     \"ct_url\": \"/app/anatomy/lynos-pat9/index.html?node=31\",\n     \"model_url\": \"/app/anatomy/lynos-pat9/surfaces.html?node=31\",\n     \"primary_station\": \"3p - Retrotracheal\",\n     \"secondary_station\": \"\",\n     \"source_node_id\": 31,\n     \"tertiary_station\": \"\"\n    },\n    {\n     \"ct_url\": \"/app/anatomy/lynos-pat9/index.html?node=35\",\n     \"model_url\": \"/app/anatomy/lynos-pat9/surfaces.html?node=35\",\n     \"primary_station\": \"3p - Retrotracheal\",\n     \"secondary_station\": \"\",\n     \"source_node_id\": 35,\n     \"tertiary_station\": \"\"\n    }\n   ]\n"
+      },
+      {
+        "start": 362,
+        "end": 405,
+        "before": "   \"name\": \"IASLC station 4R\"\n",
+        "after": "   \"name\": \"IASLC station 4R\",\n   \"native_examples\": [\n    {\n     \"ct_url\": \"/app/anatomy/lynos-pat9/index.html?node=5\",\n     \"model_url\": \"/app/anatomy/lynos-pat9/surfaces.html?node=5\",\n     \"primary_station\": \"4R - Lower paratracheal (Right)\",\n     \"secondary_station\": \"\",\n     \"source_node_id\": 5,\n     \"tertiary_station\": \"\"\n    },\n    {\n     \"ct_url\": \"/app/anatomy/lynos-pat9/index.html?node=6\",\n     \"model_url\": \"/app/anatomy/lynos-pat9/surfaces.html?node=6\",\n     \"primary_station\": \"4R - Lower paratracheal (Right)\",\n     \"secondary_station\": \"\",\n     \"source_node_id\": 6,\n     \"tertiary_station\": \"\"\n    },\n    {\n     \"ct_url\": \"/app/anatomy/lynos-pat9/index.html?node=8\",\n     \"model_url\": \"/app/anatomy/lynos-pat9/surfaces.html?node=8\",\n     \"primary_station\": \"4R - Lower paratracheal (Right)\",\n     \"secondary_station\": \"\",\n     \"source_node_id\": 8,\n     \"tertiary_station\": \"\"\n    },\n    {\n     \"ct_url\": \"/app/anatomy/lynos-pat9/index.html?node=9\",\n     \"model_url\": \"/app/anatomy/lynos-pat9/surfaces.html?node=9\",\n     \"primary_station\": \"4R - Lower paratracheal (Right)\",\n     \"secondary_station\": \"\",\n     \"source_node_id\": 9,\n     \"tertiary_station\": \"\"\n    },\n    {\n     \"ct_url\": \"/app/anatomy/lynos-pat9/index.html?node=44\",\n     \"model_url\": \"/app/anatomy/lynos-pat9/surfaces.html?node=44\",\n     \"primary_station\": \"4R - Lower paratracheal (Right)\",\n     \"secondary_station\": \"10R - Hilar (Right)\",\n     \"source_node_id\": 44,\n     \"tertiary_station\": \"10L - Hilar (Left)\"\n    }\n   ]\n"
+      },
+      {
+        "start": 408,
+        "end": 427,
+        "before": "   \"name\": \"IASLC station 4L\"\n",
+        "after": "   \"name\": \"IASLC station 4L\",\n   \"native_examples\": [\n    {\n     \"ct_url\": \"/app/anatomy/lynos-pat9/index.html?node=10\",\n     \"model_url\": \"/app/anatomy/lynos-pat9/surfaces.html?node=10\",\n     \"primary_station\": \"4L - Lower paratracheal (Left)\",\n     \"secondary_station\": \"10L - Hilar (Left)\",\n     \"source_node_id\": 10,\n     \"tertiary_station\": \"\"\n    },\n    {\n     \"ct_url\": \"/app/anatomy/lynos-pat9/index.html?node=43\",\n     \"model_url\": \"/app/anatomy/lynos-pat9/surfaces.html?node=43\",\n     \"primary_station\": \"4L - Lower paratracheal (Left)\",\n     \"secondary_station\": \"10L - Hilar (Left)\",\n     \"source_node_id\": 43,\n     \"tertiary_station\": \"\"\n    }\n   ]\n"
+      },
+      {
+        "start": 438,
+        "end": 449,
+        "before": "   \"name\": \"IASLC station 7\"\n",
+        "after": "   \"name\": \"IASLC station 7\",\n   \"native_examples\": [\n    {\n     \"ct_url\": \"/app/anatomy/lynos-pat9/index.html?node=16\",\n     \"model_url\": \"/app/anatomy/lynos-pat9/surfaces.html?node=16\",\n     \"primary_station\": \"7 - Subcarinal\",\n     \"secondary_station\": \"8R - Paraesophageal below carina (Right)\",\n     \"source_node_id\": 16,\n     \"tertiary_station\": \"\"\n    }\n   ]\n"
+      },
+      {
+        "start": 452,
+        "end": 463,
+        "before": "   \"name\": \"IASLC station 8R\"\n",
+        "after": "   \"name\": \"IASLC station 8R\",\n   \"native_examples\": [\n    {\n     \"ct_url\": \"/app/anatomy/lynos-pat9/index.html?node=42\",\n     \"model_url\": \"/app/anatomy/lynos-pat9/surfaces.html?node=42\",\n     \"primary_station\": \"8R - Paraesophageal below carina (Right)\",\n     \"secondary_station\": \"\",\n     \"source_node_id\": 42,\n     \"tertiary_station\": \"\"\n    }\n   ]\n"
+      },
+      {
+        "start": 466,
+        "end": 493,
+        "before": "   \"name\": \"IASLC station 8L\"\n",
+        "after": "   \"name\": \"IASLC station 8L\",\n   \"native_examples\": [\n    {\n     \"ct_url\": \"/app/anatomy/lynos-pat9/index.html?node=17\",\n     \"model_url\": \"/app/anatomy/lynos-pat9/surfaces.html?node=17\",\n     \"primary_station\": \"8L - Paraesophageal below carina (Left)\",\n     \"secondary_station\": \"7L - Subcarinal (Left)\",\n     \"source_node_id\": 17,\n     \"tertiary_station\": \"\"\n    },\n    {\n     \"ct_url\": \"/app/anatomy/lynos-pat9/index.html?node=18\",\n     \"model_url\": \"/app/anatomy/lynos-pat9/surfaces.html?node=18\",\n     \"primary_station\": \"8L - Paraesophageal below carina (Left)\",\n     \"secondary_station\": \"7L - Subcarinal (Left)\",\n     \"source_node_id\": 18,\n     \"tertiary_station\": \"\"\n    },\n    {\n     \"ct_url\": \"/app/anatomy/lynos-pat9/index.html?node=40\",\n     \"model_url\": \"/app/anatomy/lynos-pat9/surfaces.html?node=40\",\n     \"primary_station\": \"8L - Paraesophageal below carina (Left)\",\n     \"secondary_station\": \"\",\n     \"source_node_id\": 40,\n     \"tertiary_station\": \"\"\n    }\n   ]\n"
+      },
+      {
+        "start": 504,
+        "end": 515,
+        "before": "   \"name\": \"IASLC station 10R\"\n",
+        "after": "   \"name\": \"IASLC station 10R\",\n   \"native_examples\": [\n    {\n     \"ct_url\": \"/app/anatomy/lynos-pat9/index.html?node=7\",\n     \"model_url\": \"/app/anatomy/lynos-pat9/surfaces.html?node=7\",\n     \"primary_station\": \"10R - Hilar (Right)\",\n     \"secondary_station\": \"4R - Lower paratracheal (Right)\",\n     \"source_node_id\": 7,\n     \"tertiary_station\": \"\"\n    }\n   ]\n"
+      },
+      {
+        "start": 530,
+        "end": 541,
+        "before": "   \"name\": \"IASLC station 12R\"\n",
+        "after": "   \"name\": \"IASLC station 12R\",\n   \"native_examples\": [\n    {\n     \"ct_url\": \"/app/anatomy/lynos-pat9/index.html?node=15\",\n     \"model_url\": \"/app/anatomy/lynos-pat9/surfaces.html?node=15\",\n     \"primary_station\": \"12R - Lobar (Right)\",\n     \"secondary_station\": \"\",\n     \"source_node_id\": 15,\n     \"tertiary_station\": \"\"\n    }\n   ]\n"
+      },
+      {
+        "start": 544,
+        "end": 571,
+        "before": "   \"name\": \"IASLC station 12L\"\n",
+        "after": "   \"name\": \"IASLC station 12L\",\n   \"native_examples\": [\n    {\n     \"ct_url\": \"/app/anatomy/lynos-pat9/index.html?node=13\",\n     \"model_url\": \"/app/anatomy/lynos-pat9/surfaces.html?node=13\",\n     \"primary_station\": \"12L - Lobar (Left)\",\n     \"secondary_station\": \"10L - Hilar (Left)\",\n     \"source_node_id\": 13,\n     \"tertiary_station\": \"\"\n    },\n    {\n     \"ct_url\": \"/app/anatomy/lynos-pat9/index.html?node=22\",\n     \"model_url\": \"/app/anatomy/lynos-pat9/surfaces.html?node=22\",\n     \"primary_station\": \"12L - Lobar (Left)\",\n     \"secondary_station\": \"\",\n     \"source_node_id\": 22,\n     \"tertiary_station\": \"\"\n    },\n    {\n     \"ct_url\": \"/app/anatomy/lynos-pat9/index.html?node=27\",\n     \"model_url\": \"/app/anatomy/lynos-pat9/surfaces.html?node=27\",\n     \"primary_station\": \"12L - Lobar (Left)\",\n     \"secondary_station\": \"10L - Hilar (Left)\",\n     \"source_node_id\": 27,\n     \"tertiary_station\": \"\"\n    }\n   ]\n"
+      },
+      {
+        "start": 574,
+        "end": 593,
+        "before": "   \"name\": \"IASLC station 13R\"\n",
+        "after": "   \"name\": \"IASLC station 13R\",\n   \"native_examples\": [\n    {\n     \"ct_url\": \"/app/anatomy/lynos-pat9/index.html?node=20\",\n     \"model_url\": \"/app/anatomy/lynos-pat9/surfaces.html?node=20\",\n     \"primary_station\": \"13R - Segmental (Right)\",\n     \"secondary_station\": \"\",\n     \"source_node_id\": 20,\n     \"tertiary_station\": \"\"\n    },\n    {\n     \"ct_url\": \"/app/anatomy/lynos-pat9/index.html?node=25\",\n     \"model_url\": \"/app/anatomy/lynos-pat9/surfaces.html?node=25\",\n     \"primary_station\": \"13R - Segmental (Right)\",\n     \"secondary_station\": \"\",\n     \"source_node_id\": 25,\n     \"tertiary_station\": \"\"\n    }\n   ]\n"
+      },
+      {
+        "start": 596,
+        "end": 607,
+        "before": "   \"name\": \"IASLC station 13L\"\n",
+        "after": "   \"name\": \"IASLC station 13L\",\n   \"native_examples\": [\n    {\n     \"ct_url\": \"/app/anatomy/lynos-pat9/index.html?node=11\",\n     \"model_url\": \"/app/anatomy/lynos-pat9/surfaces.html?node=11\",\n     \"primary_station\": \"13L - Segmental (Left)\",\n     \"secondary_station\": \"14L - Subsegmental (Left)\",\n     \"source_node_id\": 11,\n     \"tertiary_station\": \"\"\n    }\n   ]\n"
+      }
+    ]
+  },
+  "web/radiology/structure-atlas/locators/ct-mediastinum.json": {
+    "before": "466c30f1ecee5bff285f374b684cfbb42ecf051f5e3f72e201f850e3ee4568c4",
+    "after": "1f4d42477c727a241e7edd0d38e627c5a93348d76ae8f0ef41f42d55786b88de",
+    "changes": [
+      {
+        "start": 13,
+        "end": 48,
+        "before": "",
+        "after": " \"native_source\": {\n  \"license\": \"CC BY 4.0\",\n  \"license_url\": \"https://creativecommons.org/licenses/by/4.0/\",\n  \"name\": \"LyNoS Pat9 individual node examples\",\n  \"note\": \"These examples link the authors\\u2019 primary station terms to individual Pat9 masks under their IASLC 2009 scheme. The source retains secondary and tertiary assignments. Whole-station region boundaries remain unrepresented by these node masks.\",\n  \"omitted_primary_assignments\": [\n   {\n    \"primaryStationLiteral\": \"11Rs - Interlobar middle-lower (Right)\",\n    \"reason\": \"literal code differs from inventory\",\n    \"sourceMaskValue\": 12\n   },\n   {\n    \"primaryStationLiteral\": \"7L - Subcarinal (Left)\",\n    \"reason\": \"literal code differs from inventory\",\n    \"sourceMaskValue\": 14\n   },\n   {\n    \"primaryStationLiteral\": \"11L - Interlobar (Right)\",\n    \"reason\": \"source laterality discrepancy\",\n    \"sourceMaskValue\": 19\n   },\n   {\n    \"primaryStationLiteral\": \"Undefined - Outside the scope of IASLC\",\n    \"reason\": \"literal code differs from inventory\",\n    \"sourceMaskValue\": 21\n   },\n   {\n    \"primaryStationLiteral\": \"7R - Subcarinal (Right)\",\n    \"reason\": \"literal code differs from inventory\",\n    \"sourceMaskValue\": 26\n   }\n  ],\n  \"source_url\": \"https://zenodo.org/records/10102261\",\n  \"whole_station_boundaries_represented\": false\n },\n"
+      },
+      {
+        "start": 99,
+        "end": 110,
+        "before": "   \"name\": \"IASLC station 1L\"\n",
+        "after": "   \"name\": \"IASLC station 1L\",\n   \"native_examples\": [\n    {\n     \"ct_url\": \"/app/anatomy/lynos-pat9/index.html?node=1\",\n     \"model_url\": \"/app/anatomy/lynos-pat9/surfaces.html?node=1\",\n     \"primary_station\": \"1L - Low cervical, supraclavicular, and sternal notch nodes (Left)\",\n     \"secondary_station\": \"2L - Upper paratracheal (Left)\",\n     \"source_node_id\": 1,\n     \"tertiary_station\": \"\"\n    }\n   ]\n"
+      },
+      {
+        "start": 113,
+        "end": 172,
+        "before": "   \"name\": \"IASLC station 2R\"\n",
+        "after": "   \"name\": \"IASLC station 2R\",\n   \"native_examples\": [\n    {\n     \"ct_url\": \"/app/anatomy/lynos-pat9/index.html?node=32\",\n     \"model_url\": \"/app/anatomy/lynos-pat9/surfaces.html?node=32\",\n     \"primary_station\": \"2R - Upper paratracheal (Right)\",\n     \"secondary_station\": \"\",\n     \"source_node_id\": 32,\n     \"tertiary_station\": \"\"\n    },\n    {\n     \"ct_url\": \"/app/anatomy/lynos-pat9/index.html?node=33\",\n     \"model_url\": \"/app/anatomy/lynos-pat9/surfaces.html?node=33\",\n     \"primary_station\": \"2R - Upper paratracheal (Right)\",\n     \"secondary_station\": \"\",\n     \"source_node_id\": 33,\n     \"tertiary_station\": \"\"\n    },\n    {\n     \"ct_url\": \"/app/anatomy/lynos-pat9/index.html?node=34\",\n     \"model_url\": \"/app/anatomy/lynos-pat9/surfaces.html?node=34\",\n     \"primary_station\": \"2R - Upper paratracheal (Right)\",\n     \"secondary_station\": \"\",\n     \"source_node_id\": 34,\n     \"tertiary_station\": \"\"\n    },\n    {\n     \"ct_url\": \"/app/anatomy/lynos-pat9/index.html?node=36\",\n     \"model_url\": \"/app/anatomy/lynos-pat9/surfaces.html?node=36\",\n     \"primary_station\": \"2R - Upper paratracheal (Right)\",\n     \"secondary_station\": \"4R - Lower paratracheal (Right)\",\n     \"source_node_id\": 36,\n     \"tertiary_station\": \"\"\n    },\n    {\n     \"ct_url\": \"/app/anatomy/lynos-pat9/index.html?node=37\",\n     \"model_url\": \"/app/anatomy/lynos-pat9/surfaces.html?node=37\",\n     \"primary_station\": \"2R - Upper paratracheal (Right)\",\n     \"secondary_station\": \"\",\n     \"source_node_id\": 37,\n     \"tertiary_station\": \"\"\n    },\n    {\n     \"ct_url\": \"/app/anatomy/lynos-pat9/index.html?node=38\",\n     \"model_url\": \"/app/anatomy/lynos-pat9/surfaces.html?node=38\",\n     \"primary_station\": \"2R - Upper paratracheal (Right)\",\n     \"secondary_station\": \"\",\n     \"source_node_id\": 38,\n     \"tertiary_station\": \"\"\n    },\n    {\n     \"ct_url\": \"/app/anatomy/lynos-pat9/index.html?node=41\",\n     \"model_url\": \"/app/anatomy/lynos-pat9/surfaces.html?node=41\",\n     \"primary_station\": \"2R - Upper paratracheal (Right)\",\n     \"secondary_station\": \"2L - Upper paratracheal (Left)\",\n     \"source_node_id\": 41,\n     \"tertiary_station\": \"\"\n    }\n   ]\n"
+      },
+      {
+        "start": 175,
+        "end": 186,
+        "before": "   \"name\": \"IASLC station 2L\"\n",
+        "after": "   \"name\": \"IASLC station 2L\",\n   \"native_examples\": [\n    {\n     \"ct_url\": \"/app/anatomy/lynos-pat9/index.html?node=30\",\n     \"model_url\": \"/app/anatomy/lynos-pat9/surfaces.html?node=30\",\n     \"primary_station\": \"2L - Upper paratracheal (Left)\",\n     \"secondary_station\": \"4L - Lower paratracheal (Left)\",\n     \"source_node_id\": 30,\n     \"tertiary_station\": \"\"\n    }\n   ]\n"
+      },
+      {
+        "start": 189,
+        "end": 200,
+        "before": "   \"name\": \"IASLC station 3A\"\n",
+        "after": "   \"name\": \"IASLC station 3A\",\n   \"native_examples\": [\n    {\n     \"ct_url\": \"/app/anatomy/lynos-pat9/index.html?node=39\",\n     \"model_url\": \"/app/anatomy/lynos-pat9/surfaces.html?node=39\",\n     \"primary_station\": \"3a - Prevascular\",\n     \"secondary_station\": \"2R - Upper paratracheal (Right)\",\n     \"source_node_id\": 39,\n     \"tertiary_station\": \"\"\n    }\n   ]\n"
+      },
+      {
+        "start": 203,
+        "end": 278,
+        "before": "   \"name\": \"IASLC station 3P\"\n",
+        "after": "   \"name\": \"IASLC station 3P\",\n   \"native_examples\": [\n    {\n     \"ct_url\": \"/app/anatomy/lynos-pat9/index.html?node=2\",\n     \"model_url\": \"/app/anatomy/lynos-pat9/surfaces.html?node=2\",\n     \"primary_station\": \"3p - Retrotracheal\",\n     \"secondary_station\": \"\",\n     \"source_node_id\": 2,\n     \"tertiary_station\": \"\"\n    },\n    {\n     \"ct_url\": \"/app/anatomy/lynos-pat9/index.html?node=3\",\n     \"model_url\": \"/app/anatomy/lynos-pat9/surfaces.html?node=3\",\n     \"primary_station\": \"3p - Retrotracheal\",\n     \"secondary_station\": \"\",\n     \"source_node_id\": 3,\n     \"tertiary_station\": \"\"\n    },\n    {\n     \"ct_url\": \"/app/anatomy/lynos-pat9/index.html?node=4\",\n     \"model_url\": \"/app/anatomy/lynos-pat9/surfaces.html?node=4\",\n     \"primary_station\": \"3p - Retrotracheal\",\n     \"secondary_station\": \"2R - Upper paratracheal (Right)\",\n     \"source_node_id\": 4,\n     \"tertiary_station\": \"\"\n    },\n    {\n     \"ct_url\": \"/app/anatomy/lynos-pat9/index.html?node=23\",\n     \"model_url\": \"/app/anatomy/lynos-pat9/surfaces.html?node=23\",\n     \"primary_station\": \"3p - Retrotracheal\",\n     \"secondary_station\": \"7 - Subcarinal\",\n     \"source_node_id\": 23,\n     \"tertiary_station\": \"\"\n    },\n    {\n     \"ct_url\": \"/app/anatomy/lynos-pat9/index.html?node=24\",\n     \"model_url\": \"/app/anatomy/lynos-pat9/surfaces.html?node=24\",\n     \"primary_station\": \"3p - Retrotracheal\",\n     \"secondary_station\": \"\",\n     \"source_node_id\": 24,\n     \"tertiary_station\": \"\"\n    },\n    {\n     \"ct_url\": \"/app/anatomy/lynos-pat9/index.html?node=28\",\n     \"model_url\": \"/app/anatomy/lynos-pat9/surfaces.html?node=28\",\n     \"primary_station\": \"3p - Retrotracheal\",\n     \"secondary_station\": \"\",\n     \"source_node_id\": 28,\n     \"tertiary_station\": \"\"\n    },\n    {\n     \"ct_url\": \"/app/anatomy/lynos-pat9/index.html?node=29\",\n     \"model_url\": \"/app/anatomy/lynos-pat9/surfaces.html?node=29\",\n     \"primary_station\": \"3p - Retrotracheal\",\n     \"secondary_station\": \"\",\n     \"source_node_id\": 29,\n     \"tertiary_station\": \"\"\n    },\n    {\n     \"ct_url\": \"/app/anatomy/lynos-pat9/index.html?node=31\",\n     \"model_url\": \"/app/anatomy/lynos-pat9/surfaces.html?node=31\",\n     \"primary_station\": \"3p - Retrotracheal\",\n     \"secondary_station\": \"\",\n     \"source_node_id\": 31,\n     \"tertiary_station\": \"\"\n    },\n    {\n     \"ct_url\": \"/app/anatomy/lynos-pat9/index.html?node=35\",\n     \"model_url\": \"/app/anatomy/lynos-pat9/surfaces.html?node=35\",\n     \"primary_station\": \"3p - Retrotracheal\",\n     \"secondary_station\": \"\",\n     \"source_node_id\": 35,\n     \"tertiary_station\": \"\"\n    }\n   ]\n"
+      },
+      {
+        "start": 281,
+        "end": 324,
+        "before": "   \"name\": \"IASLC station 4R\"\n",
+        "after": "   \"name\": \"IASLC station 4R\",\n   \"native_examples\": [\n    {\n     \"ct_url\": \"/app/anatomy/lynos-pat9/index.html?node=5\",\n     \"model_url\": \"/app/anatomy/lynos-pat9/surfaces.html?node=5\",\n     \"primary_station\": \"4R - Lower paratracheal (Right)\",\n     \"secondary_station\": \"\",\n     \"source_node_id\": 5,\n     \"tertiary_station\": \"\"\n    },\n    {\n     \"ct_url\": \"/app/anatomy/lynos-pat9/index.html?node=6\",\n     \"model_url\": \"/app/anatomy/lynos-pat9/surfaces.html?node=6\",\n     \"primary_station\": \"4R - Lower paratracheal (Right)\",\n     \"secondary_station\": \"\",\n     \"source_node_id\": 6,\n     \"tertiary_station\": \"\"\n    },\n    {\n     \"ct_url\": \"/app/anatomy/lynos-pat9/index.html?node=8\",\n     \"model_url\": \"/app/anatomy/lynos-pat9/surfaces.html?node=8\",\n     \"primary_station\": \"4R - Lower paratracheal (Right)\",\n     \"secondary_station\": \"\",\n     \"source_node_id\": 8,\n     \"tertiary_station\": \"\"\n    },\n    {\n     \"ct_url\": \"/app/anatomy/lynos-pat9/index.html?node=9\",\n     \"model_url\": \"/app/anatomy/lynos-pat9/surfaces.html?node=9\",\n     \"primary_station\": \"4R - Lower paratracheal (Right)\",\n     \"secondary_station\": \"\",\n     \"source_node_id\": 9,\n     \"tertiary_station\": \"\"\n    },\n    {\n     \"ct_url\": \"/app/anatomy/lynos-pat9/index.html?node=44\",\n     \"model_url\": \"/app/anatomy/lynos-pat9/surfaces.html?node=44\",\n     \"primary_station\": \"4R - Lower paratracheal (Right)\",\n     \"secondary_station\": \"10R - Hilar (Right)\",\n     \"source_node_id\": 44,\n     \"tertiary_station\": \"10L - Hilar (Left)\"\n    }\n   ]\n"
+      },
+      {
+        "start": 327,
+        "end": 346,
+        "before": "   \"name\": \"IASLC station 4L\"\n",
+        "after": "   \"name\": \"IASLC station 4L\",\n   \"native_examples\": [\n    {\n     \"ct_url\": \"/app/anatomy/lynos-pat9/index.html?node=10\",\n     \"model_url\": \"/app/anatomy/lynos-pat9/surfaces.html?node=10\",\n     \"primary_station\": \"4L - Lower paratracheal (Left)\",\n     \"secondary_station\": \"10L - Hilar (Left)\",\n     \"source_node_id\": 10,\n     \"tertiary_station\": \"\"\n    },\n    {\n     \"ct_url\": \"/app/anatomy/lynos-pat9/index.html?node=43\",\n     \"model_url\": \"/app/anatomy/lynos-pat9/surfaces.html?node=43\",\n     \"primary_station\": \"4L - Lower paratracheal (Left)\",\n     \"secondary_station\": \"10L - Hilar (Left)\",\n     \"source_node_id\": 43,\n     \"tertiary_station\": \"\"\n    }\n   ]\n"
+      },
+      {
+        "start": 357,
+        "end": 368,
+        "before": "   \"name\": \"IASLC station 7\"\n",
+        "after": "   \"name\": \"IASLC station 7\",\n   \"native_examples\": [\n    {\n     \"ct_url\": \"/app/anatomy/lynos-pat9/index.html?node=16\",\n     \"model_url\": \"/app/anatomy/lynos-pat9/surfaces.html?node=16\",\n     \"primary_station\": \"7 - Subcarinal\",\n     \"secondary_station\": \"8R - Paraesophageal below carina (Right)\",\n     \"source_node_id\": 16,\n     \"tertiary_station\": \"\"\n    }\n   ]\n"
+      },
+      {
+        "start": 371,
+        "end": 382,
+        "before": "   \"name\": \"IASLC station 8R\"\n",
+        "after": "   \"name\": \"IASLC station 8R\",\n   \"native_examples\": [\n    {\n     \"ct_url\": \"/app/anatomy/lynos-pat9/index.html?node=42\",\n     \"model_url\": \"/app/anatomy/lynos-pat9/surfaces.html?node=42\",\n     \"primary_station\": \"8R - Paraesophageal below carina (Right)\",\n     \"secondary_station\": \"\",\n     \"source_node_id\": 42,\n     \"tertiary_station\": \"\"\n    }\n   ]\n"
+      },
+      {
+        "start": 385,
+        "end": 412,
+        "before": "   \"name\": \"IASLC station 8L\"\n",
+        "after": "   \"name\": \"IASLC station 8L\",\n   \"native_examples\": [\n    {\n     \"ct_url\": \"/app/anatomy/lynos-pat9/index.html?node=17\",\n     \"model_url\": \"/app/anatomy/lynos-pat9/surfaces.html?node=17\",\n     \"primary_station\": \"8L - Paraesophageal below carina (Left)\",\n     \"secondary_station\": \"7L - Subcarinal (Left)\",\n     \"source_node_id\": 17,\n     \"tertiary_station\": \"\"\n    },\n    {\n     \"ct_url\": \"/app/anatomy/lynos-pat9/index.html?node=18\",\n     \"model_url\": \"/app/anatomy/lynos-pat9/surfaces.html?node=18\",\n     \"primary_station\": \"8L - Paraesophageal below carina (Left)\",\n     \"secondary_station\": \"7L - Subcarinal (Left)\",\n     \"source_node_id\": 18,\n     \"tertiary_station\": \"\"\n    },\n    {\n     \"ct_url\": \"/app/anatomy/lynos-pat9/index.html?node=40\",\n     \"model_url\": \"/app/anatomy/lynos-pat9/surfaces.html?node=40\",\n     \"primary_station\": \"8L - Paraesophageal below carina (Left)\",\n     \"secondary_station\": \"\",\n     \"source_node_id\": 40,\n     \"tertiary_station\": \"\"\n    }\n   ]\n"
+      },
+      {
+        "start": 423,
+        "end": 434,
+        "before": "   \"name\": \"IASLC station 10R\"\n",
+        "after": "   \"name\": \"IASLC station 10R\",\n   \"native_examples\": [\n    {\n     \"ct_url\": \"/app/anatomy/lynos-pat9/index.html?node=7\",\n     \"model_url\": \"/app/anatomy/lynos-pat9/surfaces.html?node=7\",\n     \"primary_station\": \"10R - Hilar (Right)\",\n     \"secondary_station\": \"4R - Lower paratracheal (Right)\",\n     \"source_node_id\": 7,\n     \"tertiary_station\": \"\"\n    }\n   ]\n"
+      },
+      {
+        "start": 449,
+        "end": 460,
+        "before": "   \"name\": \"IASLC station 12R\"\n",
+        "after": "   \"name\": \"IASLC station 12R\",\n   \"native_examples\": [\n    {\n     \"ct_url\": \"/app/anatomy/lynos-pat9/index.html?node=15\",\n     \"model_url\": \"/app/anatomy/lynos-pat9/surfaces.html?node=15\",\n     \"primary_station\": \"12R - Lobar (Right)\",\n     \"secondary_station\": \"\",\n     \"source_node_id\": 15,\n     \"tertiary_station\": \"\"\n    }\n   ]\n"
+      },
+      {
+        "start": 463,
+        "end": 490,
+        "before": "   \"name\": \"IASLC station 12L\"\n",
+        "after": "   \"name\": \"IASLC station 12L\",\n   \"native_examples\": [\n    {\n     \"ct_url\": \"/app/anatomy/lynos-pat9/index.html?node=13\",\n     \"model_url\": \"/app/anatomy/lynos-pat9/surfaces.html?node=13\",\n     \"primary_station\": \"12L - Lobar (Left)\",\n     \"secondary_station\": \"10L - Hilar (Left)\",\n     \"source_node_id\": 13,\n     \"tertiary_station\": \"\"\n    },\n    {\n     \"ct_url\": \"/app/anatomy/lynos-pat9/index.html?node=22\",\n     \"model_url\": \"/app/anatomy/lynos-pat9/surfaces.html?node=22\",\n     \"primary_station\": \"12L - Lobar (Left)\",\n     \"secondary_station\": \"\",\n     \"source_node_id\": 22,\n     \"tertiary_station\": \"\"\n    },\n    {\n     \"ct_url\": \"/app/anatomy/lynos-pat9/index.html?node=27\",\n     \"model_url\": \"/app/anatomy/lynos-pat9/surfaces.html?node=27\",\n     \"primary_station\": \"12L - Lobar (Left)\",\n     \"secondary_station\": \"10L - Hilar (Left)\",\n     \"source_node_id\": 27,\n     \"tertiary_station\": \"\"\n    }\n   ]\n"
+      },
+      {
+        "start": 493,
+        "end": 512,
+        "before": "   \"name\": \"IASLC station 13R\"\n",
+        "after": "   \"name\": \"IASLC station 13R\",\n   \"native_examples\": [\n    {\n     \"ct_url\": \"/app/anatomy/lynos-pat9/index.html?node=20\",\n     \"model_url\": \"/app/anatomy/lynos-pat9/surfaces.html?node=20\",\n     \"primary_station\": \"13R - Segmental (Right)\",\n     \"secondary_station\": \"\",\n     \"source_node_id\": 20,\n     \"tertiary_station\": \"\"\n    },\n    {\n     \"ct_url\": \"/app/anatomy/lynos-pat9/index.html?node=25\",\n     \"model_url\": \"/app/anatomy/lynos-pat9/surfaces.html?node=25\",\n     \"primary_station\": \"13R - Segmental (Right)\",\n     \"secondary_station\": \"\",\n     \"source_node_id\": 25,\n     \"tertiary_station\": \"\"\n    }\n   ]\n"
+      },
+      {
+        "start": 515,
+        "end": 526,
+        "before": "   \"name\": \"IASLC station 13L\"\n",
+        "after": "   \"name\": \"IASLC station 13L\",\n   \"native_examples\": [\n    {\n     \"ct_url\": \"/app/anatomy/lynos-pat9/index.html?node=11\",\n     \"model_url\": \"/app/anatomy/lynos-pat9/surfaces.html?node=11\",\n     \"primary_station\": \"13L - Segmental (Left)\",\n     \"secondary_station\": \"14L - Subsegmental (Left)\",\n     \"source_node_id\": 11,\n     \"tertiary_station\": \"\"\n    }\n   ]\n"
+      }
+    ]
+  },
+  "web/radiology/structure-atlas/page.css": {
+    "before": "45389d5b635bfc3c395f6c6f8fefe2be3d4a0f1a553a6622ec35e1bb511a779b",
+    "after": "10810216a945de9718008a87c3e0ecce25d6736017639ad3c6409e4d197275eb",
+    "changes": [
+      {
+        "start": 6,
+        "end": 10,
+        "before": "",
+        "after": "\n.locator-table { max-width: 100%; overflow-x: auto; }\n.locator-table table { min-width: 44rem; }\n#native-context ul { margin-bottom: .5rem; }\n"
+      }
+    ]
+  }
+}
