@@ -144,4 +144,16 @@ def references():
     from .lynos_pat9_reference import references as lynos_references
     for identifier, entries in lynos_references().items():
         result[identifier] = [*result.get(identifier, []), *entries]
+    from .pulmonary_lobe_reference import references as pulmonary_lobe_references
+    for identifier, entries in pulmonary_lobe_references().items():
+        result[identifier] = [*result.get(identifier, []), *entries]
+    from .segthy_reference import NECK, THYROID, study as thyroid_study
+    for identifier in (THYROID, NECK):
+        result[identifier] = [*result.get(identifier, []), thyroid_study()]
+    from .salivary_ultrasound_reference import references as salivary_references
+    for identifier, entries in salivary_references().items():
+        result[identifier] = [*result.get(identifier, []), *entries]
+    from .salivary_surface_reference import references as salivary_surfaces
+    for identifier, entries in salivary_surfaces().items():
+        result[identifier] = [*result.get(identifier, []), *entries]
     return result

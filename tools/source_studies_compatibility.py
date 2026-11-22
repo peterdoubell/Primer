@@ -103,6 +103,8 @@ def before_reporting_step_evidence_bytes(path, raw):
 
 
 def before_combined_source_release_bytes(path, raw):
+    from tools.pulmonary_lobe_runtime_compatibility import before_pulmonary_lobe_bytes
+    raw = before_pulmonary_lobe_bytes(path, raw)
     # Newest link: the learning-sequence router in primer/server.py (2026-11-18).
     # It must run before the pelvic CT link, whose record is of the bytes before it.
     from tools.learning_games_compatibility import before_learning_games_bytes

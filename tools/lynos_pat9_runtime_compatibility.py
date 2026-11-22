@@ -27,7 +27,9 @@ def before_lynos_pat9_bytes(path, raw):
 def before_lynos_pat9_bindings(bindings):
     from primer.lynos_pat9_reference import references
 
-    previous = dict(bindings)
+    from tools.segthy_runtime_compatibility import before_segthy_bindings
+
+    previous = before_segthy_bindings(bindings)
     for identifier, additions in references().items():
         if identifier not in previous:
             continue

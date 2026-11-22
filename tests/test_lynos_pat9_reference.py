@@ -30,9 +30,9 @@ expected = {
     'recist-pelvic-023-follow-up-1', 'recist-pelvic-023-follow-up-2',
     'lnq-case-0571', source.ATLAS, 'aneurysm-cta-018', 'cmha-mca-005',
     'rhuh-sah-001', 'bp3d-dural-4.3', 'ward-swi-s1', 'illinois-uterus',
-    'endometriosis-mri-evidence', 'hyperpic-venous', 'venat', 'ccth-a01-roi',
+    'endometriosis-mri-evidence', 'hyperpic-venous', 'venat', 'ccth-a01-roi', 'segthy-001', 'zanatomy-salivary',
 }
-assert set(MESH_SOURCE_DIRECTORIES) == expected and len(expected) == 16
+assert set(MESH_SOURCE_DIRECTORIES) == expected and len(expected) == 18
 assert all(value == 'anatomy/' + name for name, value in MESH_SOURCE_DIRECTORIES.items())
 assert NODE_SOURCE_ATLASES == frozenset({
     'recist-pelvic-015', 'recist-pelvic-023',
@@ -54,6 +54,7 @@ with TestClient(app) as client:
             page = client.head('/app/' + directory + '/' + asset, auth=auth)
             assert page.status_code == 200, (atlas, asset)
             may_embed = atlas in NODE_SOURCE_ATLASES and asset in {'index.html', 'surfaces.html', 'comparison.html'}
+            may_embed |= atlas in {'segthy-001', 'zanatomy-salivary'} and asset == 'index.html'
             expected_policy = "frame-ancestors 'self';" if may_embed else "frame-ancestors 'none';"
             assert expected_policy in page.headers['content-security-policy'], (atlas, asset)
     for investigation, expected in source.references().items():
@@ -123,7 +124,8 @@ def test_lynos_binding_preserves_the_newer_learning_router_and_older_source_chai
     lnq = json.loads((ROOT / 'docs/lnq-nodal-source-review/runtime-inverse.json').read_bytes())[path]
     fingerprint = lambda value: hashlib.sha256(value).hexdigest()
     assert b'from .learning_games import router as learning_games_router' in raw
-    assert fingerprint(raw) == ly_source['after']
+    from tools.segthy_runtime_compatibility import before_segthy_bytes
+    assert fingerprint(before_segthy_bytes(path, raw)) == ly_source['after']
     assert fingerprint(before_lynos_pat9_bytes(path, raw)) == ly_source['before'] == learning['after']
     assert fingerprint(before_learning_games_bytes(path, raw)) == learning['before'] == lnq['after']
     assert fingerprint(before_lnq_nodal_bytes(path, raw)) == lnq['before']

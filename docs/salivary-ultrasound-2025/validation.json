@@ -1,0 +1,81 @@
+{
+  "schema_version": 1,
+  "base_commit": "ebc9ad2e6752daf28a5aa076d0be3fe1ad48884f",
+  "tests": {
+    "passed": 508,
+    "suites": [
+      "salivary source",
+      "static raster integrity",
+      "SegThy",
+      "radiology fidelity scope",
+      "native source integration",
+      "LyNoS source and station locators",
+      "BodyParts3D liver correction",
+      "brain/body reader bindings",
+      "remaining reporting inventories",
+      "structured reporting compatibility",
+      "Schirmer navigation/runtime",
+      "structure source locators",
+      "report structures/style",
+      "fast report templates"
+    ]
+  },
+  "verified_rasters": 775,
+  "browser": {
+    "passed": true,
+    "proofs": [
+      {
+        "width": 390,
+        "report": "us.soft-tissue-neck",
+        "sourceCards": 2,
+        "originalPNG": "2bed74483da0d04b30b4915e63b82eb71d34494bdb61f9d03dbd34b21bd000c4",
+        "fullSize": [
+          2056,
+          685
+        ],
+        "photographicZoom": true,
+        "segthySweeps": 2,
+        "segthyLabels": 3,
+        "dictationBlank": true,
+        "normalRowsUnchanged": true,
+        "noPageOverflow": true
+      },
+      {
+        "width": 1440,
+        "report": "us.soft-tissue-neck",
+        "sourceCards": 2,
+        "originalPNG": "2bed74483da0d04b30b4915e63b82eb71d34494bdb61f9d03dbd34b21bd000c4",
+        "fullSize": [
+          2056,
+          685
+        ],
+        "photographicZoom": true,
+        "segthySweeps": 2,
+        "segthyLabels": 3,
+        "dictationBlank": true,
+        "normalRowsUnchanged": true,
+        "noPageOverflow": true
+      }
+    ]
+  },
+  "files_sha256": {
+    "primer/salivary_ultrasound_reference.py": "ab2765e9ae74a196d59f8cabdaa73e61be6a34409723ba2f99a0b463f6bca07a",
+    "primer/server.py": "ada4e8c388c195f0a46bd633184f4bd55cc3177fca2e9a9da04e2d2bcc8f767e",
+    "primer/source_native_inspectors.py": "06339b790416a0f9f2e5a660c4b74a8a0cc39e001f91d4632a9e7f63129f1d50",
+    "web/app.js": "78cd5185e96537728c4231cd8ca9811452608af0327670c29357ddd96fcdc5ed",
+    "data/radiology/salivary-ultrasound-figures.json": "75928af719d06d5cfa8ecdecbcafb763ade72254acca8fd56c3173b9d71c5a39",
+    "data/radiology/radiology-static-rasters.json": "5c343da1e505056e129293b42a4c4252d8d097ccf49fe2849f5d03f31c1e26c0",
+    "web/reference-media/radiology-open/salivary-ultrasound-2025-figure3.png": "2bed74483da0d04b30b4915e63b82eb71d34494bdb61f9d03dbd34b21bd000c4"
+  },
+  "inverse_order": [
+    "salivary photographic source",
+    "SegThy",
+    "Schirmer source navigation",
+    "pulmonary lobe context",
+    "LyNoS station locators",
+    "structure display names",
+    "BodyParts3D liver correction",
+    "earlier runtime layers"
+  ],
+  "remote_writes": false
+}

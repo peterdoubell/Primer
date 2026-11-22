@@ -715,3 +715,36 @@ test('vernier lines physically coincide at the indicated fraction and zero corre
     }
   }
 });
+
+test('Palmer observations retain missing records and reproduce pooled and within-species statistics', async () => {
+  const {readObservations, summary, fit, bins, domain, project} = await import('../web/math/penguin-measurements/data.mjs');
+  const source = path.join(root, 'math/penguin-measurements');
+  const raw=fs.readFileSync(path.join(source,'penguins.csv'));
+  const rows=readObservations(raw.toString());
+  assert.equal(rows.length,344);
+  assert.deepEqual(rows.slice(0,4).map(r=>r.body_mass_g),[3750,3800,3250,null]);
+  const expected=[
+    [rows,342,4050,-0.2350528703555328],
+    [rows.filter(r=>r.species==='Adelie'),151,3700,0.3914916918358763],
+    [rows.filter(r=>r.species==='Chinstrap'),68,3700,0.6535362081800428],
+    [rows.filter(r=>r.species==='Gentoo'),123,5000,0.6433839465253377]
+  ];
+  for (const [subset,n,median,correlation] of expected) {
+    const s=summary(subset,'body_mass_g'), regression=fit(subset,'bill_length_mm','bill_depth_mm');
+    assert.equal(s.n,n); assert.equal(s.median,median);assert.equal(regression.n,n);near(regression.r,correlation);
+    const bars=bins(subset,'body_mass_g',domain(rows,'body_mass_g'));
+    assert.equal(bars.reduce((sum,b)=>sum+b.total,0),n);
+    for (const b of bars) assert.equal(b.total,subset.filter(r=>r.body_mass_g>=b.start && r.body_mass_g<b.end).length);
+  }
+  near(summary(rows,'body_mass_g').sd,801.9545356980955);
+  assert.equal(summary([], 'body_mass_g'),null);
+  assert.equal(fit([{a:2,b:1},{a:2,b:3}],'a','b'),null);
+  for (const [yaw,pitch] of [[0,0],[90,0],[30,75],[-180,-75]]) {
+    const p=project([1,.5,-1],yaw,pitch);
+    near(p.x*p.x+p.y*p.y+p.depth*p.depth,2.25);
+  }
+  const meta=JSON.parse(fs.readFileSync(path.join(source,'sources.json')));
+  const digest=bytes=>require('node:crypto').createHash('sha256').update(bytes).digest('hex');
+  assert.equal(digest(raw),meta.dataSHA256);
+  for (const [name,photo] of Object.entries(meta.photos)) assert.equal(digest(fs.readFileSync(path.join(source,'field-photos',name+'.jpg'))),photo.sha256);
+});

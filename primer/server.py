@@ -1451,7 +1451,13 @@ def radiology_reporting_reference(node_id: str):
         from .reporting_bridge import descriptor_variant, descriptor_variant_detail, with_structured_form
         variant = descriptor_variant(node_id)
         if variant and (not variant.get('base_investigation_id') or resolve(variant['base_investigation_id'])):
-            return with_quick_report(with_structured_form(descriptor_variant_detail(variant, resolve(variant['base_investigation_id']) if variant.get('base_investigation_id') else None)))
+            from .source_native_inspectors import references as native_inspectors
+            regional = resolve(variant['base_investigation_id']) if variant.get('base_investigation_id') else None
+            response = descriptor_variant_detail(variant, regional)
+            inspectors = native_inspectors().get(node_id)
+            if inspectors:
+                response['radiology_reference']['source_native_inspectors'] = inspectors
+            return with_quick_report(with_structured_form(response))
         return JSONResponse({"error": "no such radiology module"}, status_code=404)
     from .reporting_bridge import with_structured_form
     return with_quick_report(with_structured_form(detail(curr, investigation)))
@@ -4283,7 +4289,7 @@ NODE_SOURCE_ATLASES = frozenset((*RECIST_NODE_CASES, LNQ_NODE_ATLAS, LYNOS_NODE_
 MESH_SOURCE_DIRECTORIES = {
     name: "anatomy/" + name
     for name in (
-        *NODE_SOURCE_ATLASES, "aneurysm-cta-018", "cmha-mca-005", "rhuh-sah-001",
+        *NODE_SOURCE_ATLASES, "segthy-001", "zanatomy-salivary", "aneurysm-cta-018", "cmha-mca-005", "rhuh-sah-001",
         "bp3d-dural-4.3", "ward-swi-s1", "illinois-uterus", "endometriosis-mri-evidence",
         "hyperpic-venous", "venat", "ccth-a01-roi",
     )
@@ -4309,7 +4315,8 @@ async def source_mesh_delivery(atlas: str, asset: str, request: Request):
         if asset.endswith(".gz") and os.environ.get("VERCEL"):
             return RedirectResponse("/source-media/" + directory + "/" + asset, status_code=307)
         response = await app.state.source_static.get_response(directory + "/" + asset, request.scope)
-        if registered_atlas in NODE_SOURCE_ATLASES and asset in {"index.html", "surfaces.html", "comparison.html"}:
+        if ((registered_atlas in NODE_SOURCE_ATLASES and asset in {"index.html", "surfaces.html", "comparison.html"})
+                or (registered_atlas in {"segthy-001", "zanatomy-salivary"} and asset == "index.html")):
             response.headers["Content-Security-Policy"] = CSP.replace(
                 "frame-ancestors 'none';", "frame-ancestors 'self';"
             )
@@ -4402,8 +4409,11 @@ async def radiology_image_delivery(asset: str, request: Request):
     url = "/app/reference-media/radiology-open/" + asset
     with open(os.path.join(ROOT, "data/radiology/radiology-open-images.json"), encoding="utf-8") as source:
         registry = json.load(source)
-    if not any(row.get("src") == url or row.get("original_publication_pdf", {}).get("src") == url
-               for rows in registry.values() for row in rows):
+    from .salivary_ultrasound_reference import SRC as salivary_src, figures as salivary_figures
+    if url == salivary_src:
+        salivary_figures()  # Verify the independent photographic source before delivery.
+    elif not any(row.get("src") == url or row.get("original_publication_pdf", {}).get("src") == url
+                 for rows in registry.values() for row in rows):
         return JSONResponse({"detail": "Unknown source image"}, status_code=404)
     if os.environ.get("VERCEL"):
         from urllib.parse import quote, urlencode

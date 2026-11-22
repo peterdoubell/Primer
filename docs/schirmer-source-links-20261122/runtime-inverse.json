@@ -1,0 +1,68 @@
+{
+  "data/radiology/schirmer-vascular-reference.json": {
+    "before": "945b5f2a1dc2922e77dc00a8264e3b40cf2251786eda62e4fe7ee19ae0ee5437",
+    "after": "be015825fea6a06bdac1b8938e4dae7326fd33b1d005e08473eab0d7c76d468c",
+    "changes": [
+      {
+        "start": 312,
+        "end": 314,
+        "after": "      \"sha256\": \"ac4ea74089ecda44217b263a087106c914297b3ebd656b95df8ff196ca2f6f49\",\n      \"bytes\": 19431\n",
+        "before": "      \"bytes\": 19031,\n      \"sha256\": \"2213f13d20c743483c03141fdd2362cb8fd33f5c88a7616389daa4971bba17b7\"\n"
+      }
+    ]
+  },
+  "primer/schirmer_vascular_reference.py": {
+    "before": "305ffb35dd6795ccd58b252621b678f4ade4ab379a44d01d851b0bcbe0f42d86",
+    "after": "a6d42d29a9e77e84e5d8db911041bb0846f5d4b5c0b12c2afe8d19c7e87a6057",
+    "changes": [
+      {
+        "start": 9,
+        "end": 10,
+        "after": "REGISTRY_SHA256 = 'be015825fea6a06bdac1b8938e4dae7326fd33b1d005e08473eab0d7c76d468c'\n",
+        "before": "REGISTRY_SHA256 = '945b5f2a1dc2922e77dc00a8264e3b40cf2251786eda62e4fe7ee19ae0ee5437'\n"
+      },
+      {
+        "start": 106,
+        "end": 108,
+        "after": " from .schirmer_territory_context import decorate\n return {key:[decorate(key,item)]for key in d['bindings']}\n",
+        "before": " return {key:[item]for key in d['bindings']}\n"
+      }
+    ]
+  },
+  "web/anatomy/schirmer-vascular/viewer.js": {
+    "before": "2213f13d20c743483c03141fdd2362cb8fd33f5c88a7616389daa4971bba17b7",
+    "after": "ac4ea74089ecda44217b263a087106c914297b3ebd656b95df8ff196ca2f6f49",
+    "changes": [
+      {
+        "start": 36,
+        "end": 43,
+        "after": "// A link selects one actual fine source value; it never infers a territory.\nconst sourceLink=new URLSearchParams(location.search);\nif(sourceLink.has('code')){\n const value=sourceLink.get('code');\n if(sourceLink.getAll('code').length!==1||! /^[1-9][0-9]*$/.test(value)||!labels.sourceClasses.some(row=>row.code===Number(value)))throw Error('Unknown source region link');\n state.code=Number(value);\n}\n",
+        "before": ""
+      }
+    ]
+  },
+  "web/app.js": {
+    "before": "eae8e52b2d133ed1c69f2f43788812c8bfab93a5aa99bee49eee3b550f04f2c3",
+    "after": "7cafbd9b1f00b41e0efba6059ea533d71c5a7531767e3adc1c2fdbf6a0dcd235",
+    "changes": [
+      {
+        "start": 2089,
+        "end": 2098,
+        "after": "  }\n  if (asset.source_territory_contexts?.length) {\n    section.append(el('table', { class: 'mrv-key source-territory-contexts' },\n      el('caption', {}, 'Source-study territory context for stroke reporting'),\n      el('thead', {}, el('tr', {}, el('th', { scope: 'col' }, 'Reporting territory'), el('th', { scope: 'col' }, 'Source-defined region'))),\n      el('tbody', {}, ...asset.source_territory_contexts.map(row => el('tr', { 'data-requirement-parent': row.requirement_parent_id },\n        el('th', { scope: 'row' }, row.requirement_name),\n        el('td', {}, el('a', { href: row.src, target: '_blank', rel: 'noopener noreferrer' }, row.source_name + ' \u00b7 source value ' + row.source_code)))))),\n      el('p', {}, 'These links select labelled regions of the processed study template. They provide context for the named reporting territories; they do not establish actual tissue extent, arterial lumen or individual branches. MCA divisions and individual cerebellar arteries have no matching source class. Source value 19 remains uninterpreted.'));\n",
+        "before": ""
+      }
+    ]
+  },
+  "docs/radiology-fidelity-scope.json": {
+    "before": "fc35de52fcb002076df27d4471b34265b49567b7481949034d0f5c4a6dd6bc76",
+    "after": "119811ce1129c921eda87ecbb8fb1a33669a1215f8560950ca88956e26570b6d",
+    "changes": [
+      {
+        "start": 108603,
+        "end": 108642,
+        "after": "            \"complete_reporting_anatomy_approved\": false,\n            \"source_territory_contexts\": [\n              {\n                \"requirement_parent_id\": \"stroke.arterial_territory.ACA.left\",\n                \"requirement_name\": \"left ACA\",\n                \"source_code\": 12,\n                \"source_name\": \"Left ACA territory\",\n                \"src\": \"/app/anatomy/schirmer-vascular/index.html?code=12\",\n                \"evidence_role\": \"source-study territory context\",\n                \"structure_coverage_granted\": false\n              },\n              {\n                \"requirement_parent_id\": \"stroke.arterial_territory.ACA.right\",\n                \"requirement_name\": \"right ACA\",\n                \"source_code\": 2,\n                \"source_name\": \"Right ACA territory\",\n                \"src\": \"/app/anatomy/schirmer-vascular/index.html?code=2\",\n                \"evidence_role\": \"source-study territory context\",\n                \"structure_coverage_granted\": false\n              },\n              {\n                \"requirement_parent_id\": \"stroke.arterial_territory.PCA.left\",\n                \"requirement_name\": \"left PCA\",\n                \"source_code\": 16,\n                \"source_name\": \"Left PCA territory\",\n                \"src\": \"/app/anatomy/schirmer-vascular/index.html?code=16\",\n                \"evidence_role\": \"source-study territory context\",\n                \"structure_coverage_granted\": false\n              },\n              {\n                \"requirement_parent_id\": \"stroke.arterial_territory.PCA.right\",\n                \"requirement_name\": \"right PCA\",\n                \"source_code\": 6,\n                \"source_name\": \"Right PCA territory\",\n                \"src\": \"/app/anatomy/schirmer-vascular/index.html?code=6\",\n                \"evidence_role\": \"source-study territory context\",\n                \"structure_coverage_granted\": false\n              }\n            ]\n",
+        "before": "            \"complete_reporting_anatomy_approved\": false\n"
+      }
+    ]
+  }
+}

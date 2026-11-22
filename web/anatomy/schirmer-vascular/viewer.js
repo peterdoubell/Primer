@@ -34,6 +34,13 @@ function navigation(){const r=current(),members=state.level==='fine'?[r.code]:r.
 function populateStructures(){const group=$('source-group').value,visible=rows().filter(r=>state.level!=='fine'||group==='all'||r.structure===group);$('structure').replaceChildren(...visible.map(r=>{const o=new Option(r.name+(r.voxels?'':' — absent from source'),String(r.code));o.disabled=!r.voxels;return o;}));if(!visible.some(r=>r.code===state.code&&r.voxels)){state.code=visible.find(r=>r.voxels).code;state.component=0;}$('structure').value=String(state.code);components();focus();}
 function populateGroups(){const groups=state.level==='fine'?[...new Set(labels.sourceClasses.map(r=>r.structure))].sort():[];$('source-group').replaceChildren(new Option('All source groups','all'),...groups.map(g=>new Option(g,g)));$('source-group').disabled=state.level!=='fine';}
 function setLevel(level,code){if(level!=='fine'&&!Object.hasOwn(hierarchy.levels,level))throw Error('Unknown source scale');const old=current(),fineCode=state.level==='fine'?state.code:old.fineSourceCodes.find(c=>labels.sourceClasses.find(r=>r.code===c)?.voxels);state.level=level;state.component=0;const options=rows();state.code=code??(level==='fine'?fineCode:options.find(r=>r.fineSourceCodes.includes(fineCode))?.code)??options.find(r=>r.voxels).code;$('source-level').value=level;populateGroups();populateStructures();return refresh();}
+// A link selects one actual fine source value; it never infers a territory.
+const sourceLink=new URLSearchParams(location.search);
+if(sourceLink.has('code')){
+ const value=sourceLink.get('code');
+ if(sourceLink.getAll('code').length!==1||! /^[1-9][0-9]*$/.test(value)||!labels.sourceClasses.some(row=>row.code===Number(value)))throw Error('Unknown source region link');
+ state.code=Number(value);
+}
 populateGroups();populateStructures();windowDefaults();
 $('display').onchange=()=>{state.display=$('display').value;for(const id of ['contrast','low','high','overlay'])$(id).disabled=state.display==='schematic';$('context').disabled=state.display!=='schematic';refresh(false);};$('context').onchange=()=>{state.context=$('context').checked;refresh(false);};
 $('source-level').onchange=()=>setLevel($('source-level').value);

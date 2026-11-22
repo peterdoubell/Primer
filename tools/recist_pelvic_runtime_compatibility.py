@@ -46,7 +46,8 @@ def before_recist_pelvic_delivery_bytes(path, raw):
 
 def before_recist_pelvic_lesson_fields(identifier, fields):
     from tools.lnq_nodal_runtime_compatibility import before_lnq_nodal_lesson_fields
-    fields = before_lnq_nodal_lesson_fields(identifier, fields)
+    from tools.segthy_runtime_compatibility import before_segthy_lesson_fields
+    fields = before_lnq_nodal_lesson_fields(identifier, before_segthy_lesson_fields(identifier, fields))
     if identifier not in {'rad.5.bladder-virads', 'rad.4.oncology-response'}:
         return fields
     raw = PROOF.read_bytes()

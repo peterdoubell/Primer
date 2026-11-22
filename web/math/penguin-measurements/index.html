@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Palmer penguin measurements · Primer</title>
+<link rel="stylesheet" href="/app/activities/kit.css"><link rel="stylesheet" href="view.css">
+<script type="module" src="lab.js"></script>
+</head>
+<body><main>
+<nav aria-label="Lessons"><a href="/app/#/node/math.2.data">Data and Averages</a> · <a href="/app/#/node/math.3.statistics">Statistics</a></nav>
+<h1>Palmer penguin measurements</h1>
+<p class="lede">Field researchers measured 344 adult penguins on three islands from 2007 to 2009. Compare the species, then inspect the observations behind each summary.</p>
+<div class="photos">
+<figure><img src="field-photos/adelie.jpg" alt="Three Adélie penguins standing on an icy shoreline"><figcaption><i class="key adelie"></i>Adélie</figcaption></figure>
+<figure><img src="field-photos/chinstrap.jpg" alt="Adult chinstrap penguins and a chick on rocky nesting ground"><figcaption><i class="key chinstrap"></i>Chinstrap</figcaption></figure>
+<figure><img src="field-photos/gentoo.jpg" alt="An adult gentoo penguin nuzzling its chick"><figcaption><i class="key gentoo"></i>Gentoo</figcaption></figure></div>
+<p class="credit">Species photographs by NOAA Fisheries at Cape Shirreff, 2024–25. <a href="https://www.fisheries.noaa.gov/west-coast/population-assessments/cape-shirreff-situation-reports-2024-2025">Field photographs</a></p>
+<fieldset id="explore" disabled><legend>Explore the field records</legend>
+<div class="controls">
+<div><label for="group">Species</label><select id="group"><option value="">All species</option><option value="Adelie">Adélie</option><option>Chinstrap</option><option>Gentoo</option></select></div>
+<div><label for="island">Island</label><select id="island"><option value="">All islands</option><option>Biscoe</option><option>Dream</option><option>Torgersen</option></select></div>
+<div><label for="year">Field year</label><select id="year"><option value="">All years</option><option>2007</option><option>2008</option><option>2009</option></select></div>
+<div><label for="mode">View</label><select id="mode"><option value="hist">Distribution</option><option value="xy">Two measurements</option><option value="xyz">Three measurements in 3D</option></select></div>
+<div><label id="x-label" for="x">Measurement</label><select id="x"></select></div>
+<div id="y-field" hidden><label for="y">Vertical axis</label><select id="y"></select></div>
+<div id="z-field" hidden><label for="z">Depth axis</label><select id="z"></select></div>
+</div>
+<div class="choices"><button type="button" id="bills">Compare bill length and depth</button></div>
+<figure><canvas id="chart" role="img" tabindex="0" aria-label="Field measurements. The summary and data tables below give the measured values."></canvas>
+<figcaption id="caption"></figcaption></figure>
+<p id="selected-point" hidden></p>
+<div id="rotations" class="controls" hidden>
+<div><label for="yaw">Rotate</label><input id="yaw" type="range" min="-180" max="180" value="30" step="1"><output for="yaw" id="yaw-value"></output></div>
+<div><label for="pitch">Tilt</label><input id="pitch" type="range" min="-75" max="75" value="20" step="1"><output for="pitch" id="pitch-value"></output></div>
+</div>
+<p id="status" role="status">Loading the field records…</p>
+<div class="results"><section><h2 id="summary-heading">Summary</h2><table><tbody id="summary"></tbody></table></section>
+<section id="group-summary"></section></div>
+<details id="bins"><summary>Read the histogram counts</summary><div class="table-scroll"><table><thead><tr><th scope="col">Interval</th><th scope="col">Adélie</th><th scope="col">Chinstrap</th><th scope="col">Gentoo</th><th scope="col">All</th></tr></thead><tbody id="bin-counts"></tbody></table></div></details>
+<details><summary>Inspect individual records</summary><div class="controls">
+<div><label for="record">Source record</label><select id="record"></select></div></div>
+<table><tbody id="observations"></tbody></table>
+</details>
+</fieldset>
+<section><h2>Find the middle measurement</h2>
+<p id="question">Choose three records with measurements to compare.</p>
+<form id="practice"><label for="answer">Median <span id="answer-unit"></span></label><input id="answer" type="number" step="any" required>
+<button type="submit" disabled id="check">Check median</button><button type="button" id="another" disabled>Another set</button></form>
+<p id="feedback" aria-live="polite"></p></section>
+<footer><p>Kristen Gorman and Palmer Station LTER collected the measurements. The dataset is available under CC0. <a href="https://allisonhorst.github.io/palmerpenguins/">Data and measurement definitions</a> · <a href="https://doi.org/10.1371/journal.pone.0090081">Original field study</a> · <a href="penguins.csv" download>Download the 344 records</a></p></footer>
+</main></body></html>

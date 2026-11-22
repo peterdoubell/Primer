@@ -1,0 +1,4580 @@
+{
+  "source": "https://www.cs.cit.tum.de/en/camp/publications/segthy-dataset/",
+  "article": "https://doi.org/10.1371/journal.pone.0268550",
+  "mirror": "https://huggingface.co/datasets/MedOtter/SegThy/tree/318d0e04578419d2976a093f9873f14b782f253d",
+  "license": "CC BY, version unspecified by publisher",
+  "acquisition": "Freehand tracked ultrasound, volunteer 001, physician P1, acquisition 1 per side.",
+  "registration": "Separate native sweep grids. The source files contain no inter-sweep registration.",
+  "labelKey": "The US Readme documents manual thyroid and vessel annotations and assigns thyroid code 1. The pinned distribution identifies carotid codes 2/4 and jugular codes 3/5, consistent with the study's MRI class key. Sweep filenames identify side.",
+  "surfaces": "0.5 interfaces of the manual labels, in positive native-index millimetres. No smoothing, decimation, padding beyond the scan, or component removal.",
+  "cases": [
+    {
+      "id": "001_P1_1_left",
+      "side": "Left",
+      "shape": [
+        486,
+        453,
+        370
+      ],
+      "spacingMm": [
+        0.11999999731779099,
+        0.11999999731779099,
+        0.11999999731779099
+      ],
+      "affine": [
+        [
+          -0.11999999731779099,
+          1.6165337924728624e-16,
+          0.0,
+          29.099998474121094
+        ],
+        [
+          -1.6165337924728624e-16,
+          -0.11999999731779099,
+          -0.0,
+          27.119998931884766
+        ],
+        [
+          0.0,
+          -0.0,
+          0.11999999731779099,
+          -22.139999389648438
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "sources": {
+        "image": {
+          "payloadSHA256": "a121ae56daad64b91183190faa08dc53fa71a27608e41919034076fc4538b293",
+          "mirrorPath": "us/train/images/001_P1_1_left.nii.gz"
+        },
+        "mask": {
+          "payloadSHA256": "a77aa43696526e6167445ddbc72a99d300390c99f312740e4a673b1072e6cf87",
+          "mirrorPath": "us/train/masks/001_P1_1_left.nii.gz"
+        }
+      },
+      "brickSize": 96,
+      "bricks": [
+        {
+          "file": "left-0-0-0.gz",
+          "bytes": 72112,
+          "sha256": "d8f4a86317d59eafe5a208c50eb13128c38f6864b7833a0986b7f6a8eb2c2e91",
+          "decodedSHA256": "854fc392d9036a247b6812ea7262df7018f778108d5d657c3062f0f0ee641f66",
+          "start": [
+            0,
+            0,
+            0
+          ],
+          "size": [
+            96,
+            96,
+            96
+          ]
+        },
+        {
+          "file": "left-0-0-96.gz",
+          "bytes": 40383,
+          "sha256": "ce8311092aa73aa4e0094f0929eceb8c48f5d324bb6f782f395a07d05aef65d4",
+          "decodedSHA256": "f13916e89ae0f259d4e5af4415aed761d4bcca3b89b393b6aea5189e19d85bcf",
+          "start": [
+            0,
+            0,
+            96
+          ],
+          "size": [
+            96,
+            96,
+            96
+          ]
+        },
+        {
+          "file": "left-0-0-192.gz",
+          "bytes": 41780,
+          "sha256": "243b30f838b3384b89b742b9a8e988169fd65988325b8a200162333d4aa52287",
+          "decodedSHA256": "3249a0bd4efd86d315c7d28f012abf551f9ae7c0456d8a68048c45cc124d2647",
+          "start": [
+            0,
+            0,
+            192
+          ],
+          "size": [
+            96,
+            96,
+            96
+          ]
+        },
+        {
+          "file": "left-0-0-288.gz",
+          "bytes": 21518,
+          "sha256": "d89615dcbbd64ef9aa78107f4f02b3313344dfb153358a7fc7d12ed267c44224",
+          "decodedSHA256": "abf61f144d81737ef24efe7e4a5de518f1085b9aaef683aac8822e13c32bf037",
+          "start": [
+            0,
+            0,
+            288
+          ],
+          "size": [
+            96,
+            96,
+            82
+          ]
+        },
+        {
+          "file": "left-0-96-0.gz",
+          "bytes": 179157,
+          "sha256": "bdba11214e6e77fe26132e318130a83454d4544ccc7c77e102a7db02e1dbecf6",
+          "decodedSHA256": "e4a5913f3b65c955610c775f858f23e35fd120d1b08327effe9bfe12cbe1a77d",
+          "start": [
+            0,
+            96,
+            0
+          ],
+          "size": [
+            96,
+            96,
+            96
+          ]
+        },
+        {
+          "file": "left-0-96-96.gz",
+          "bytes": 40933,
+          "sha256": "4f1420258fb59964fbe09b4709a2b9eb351dca8aed4fd8a51724817da3043758",
+          "decodedSHA256": "c078054dea70b6ea40afeb9bf895f45de61ee19390b3f0afd6e9505ca40e37ca",
+          "start": [
+            0,
+            96,
+            96
+          ],
+          "size": [
+            96,
+            96,
+            96
+          ]
+        },
+        {
+          "file": "left-0-96-192.gz",
+          "bytes": 7282,
+          "sha256": "7cbe9f2fdd4620ded656955c8ba74fa6c00618749b549a085b96d9887a60a71f",
+          "decodedSHA256": "89b69c62de9383cae9c1b00df931f3c3de7d68e809c59468c57729272dba8718",
+          "start": [
+            0,
+            96,
+            192
+          ],
+          "size": [
+            96,
+            96,
+            96
+          ]
+        },
+        {
+          "file": "left-0-96-288.gz",
+          "bytes": 2004,
+          "sha256": "67d58fad6065aecee790cb12eb04c54e8b7039fc078d7db68d1a4cc9f15e0be6",
+          "decodedSHA256": "f2411fbd9a09c985bddda5a59a773cdf67edd074db5ca4828060d69cbec6eb8c",
+          "start": [
+            0,
+            96,
+            288
+          ],
+          "size": [
+            96,
+            96,
+            82
+          ]
+        },
+        {
+          "file": "left-0-192-0.gz",
+          "bytes": 133018,
+          "sha256": "bf3e7b2f1ca87e2bcae2f609352b0818fccfc58accc4a4ba90fc1c33f426c92d",
+          "decodedSHA256": "9a32093aca0a0ffcb12a32d53ff282a62d86566a9597c555428a3bb1f20dcd3d",
+          "start": [
+            0,
+            192,
+            0
+          ],
+          "size": [
+            96,
+            96,
+            96
+          ]
+        },
+        {
+          "file": "left-0-192-96.gz",
+          "bytes": 54813,
+          "sha256": "cfa500ead06181380101cce04344485b70a89c7672ad907fcc84a883176f9b0d",
+          "decodedSHA256": "333abe2b6dffcef461e6cca91f674d9da844a2540c30d5dfb8476353091a94e4",
+          "start": [
+            0,
+            192,
+            96
+          ],
+          "size": [
+            96,
+            96,
+            96
+          ]
+        },
+        {
+          "file": "left-0-192-192.gz",
+          "bytes": 25889,
+          "sha256": "60765a7fbe39f90f22acb662f74908388a95a94eaa4c005854a827afce0da792",
+          "decodedSHA256": "2700b2560616302d4114130da66c685a602cc0a9e2421816de9c3492ba81d499",
+          "start": [
+            0,
+            192,
+            192
+          ],
+          "size": [
+            96,
+            96,
+            96
+          ]
+        },
+        {
+          "file": "left-0-192-288.gz",
+          "bytes": 2948,
+          "sha256": "bc8dd68ef503a51921b192d837a7df3135269084f870558a9867075a2802470c",
+          "decodedSHA256": "e35eeadbbf6003f9db5bbd95635da2eacb3a130f625dcfb83b5b98f4772dce33",
+          "start": [
+            0,
+            192,
+            288
+          ],
+          "size": [
+            96,
+            96,
+            82
+          ]
+        },
+        {
+          "file": "left-0-288-0.gz",
+          "bytes": 226330,
+          "sha256": "410ebb8a91460ec8350146f5b8be5606114ac659a37ee32dc8d338a46957b232",
+          "decodedSHA256": "7f88e263f1df622eb9abbfba5f53342d318d53ee1973844480bc78a82f075c15",
+          "start": [
+            0,
+            288,
+            0
+          ],
+          "size": [
+            96,
+            96,
+            96
+          ]
+        },
+        {
+          "file": "left-0-288-96.gz",
+          "bytes": 414934,
+          "sha256": "acd48205d716a10374ec9af94fc46556ad79d95117e4e716af2c614b4e501b9a",
+          "decodedSHA256": "1af94f2306b43b65efd2b6aa8420505e73bd47ac4ae067ae17e6582d5e4a6171",
+          "start": [
+            0,
+            288,
+            96
+          ],
+          "size": [
+            96,
+            96,
+            96
+          ]
+        },
+        {
+          "file": "left-0-288-192.gz",
+          "bytes": 490665,
+          "sha256": "10f009ece02c31e7240c755dec4fc8eb37112b4161f2e9e94b51a2811a1ec273",
+          "decodedSHA256": "fd79359d14077a213486b2d14af3e8205be9433a3ff6b0c92f66c076203beb9e",
+          "start": [
+            0,
+            288,
+            192
+          ],
+          "size": [
+            96,
+            96,
+            96
+          ]
+        },
+        {
+          "file": "left-0-288-288.gz",
+          "bytes": 138948,
+          "sha256": "df4adaf009f0f93bc63786adce97c32157cd5be497b7758b4e788b4e1330a9cf",
+          "decodedSHA256": "df9da6cd2dcb281f393f3dbda66f4ea96d3cb10f4cac64922066fb63dcd5ce0e",
+          "start": [
+            0,
+            288,
+            288
+          ],
+          "size": [
+            96,
+            96,
+            82
+          ]
+        },
+        {
+          "file": "left-0-384-0.gz",
+          "bytes": 100465,
+          "sha256": "f55d13ee6c64b7d0234270057bec2053b4ad3302ea2f58d4cbef9b453e99b2ed",
+          "decodedSHA256": "fdd6059cc4029978558abb887586fcb42fe20b6b49f7977e95ab95a4cc918220",
+          "start": [
+            0,
+            384,
+            0
+          ],
+          "size": [
+            96,
+            69,
+            96
+          ]
+        },
+        {
+          "file": "left-0-384-96.gz",
+          "bytes": 146600,
+          "sha256": "99170673640c672b925861d311c617993bb3743542def0bb150b073cdbf258c5",
+          "decodedSHA256": "29af559e74c815e342a42cb4a5250dcc40d573538ff243085e3e0cc97ce5fda5",
+          "start": [
+            0,
+            384,
+            96
+          ],
+          "size": [
+            96,
+            69,
+            96
+          ]
+        },
+        {
+          "file": "left-0-384-192.gz",
+          "bytes": 156857,
+          "sha256": "c9d14c005b6ec530d058222920d6f70441f203b388f7df13588c31e7e96eb52d",
+          "decodedSHA256": "02c68cdc8f654fad754088b0e71c08148e60d1ca8fa14b854fa56bda312055b3",
+          "start": [
+            0,
+            384,
+            192
+          ],
+          "size": [
+            96,
+            69,
+            96
+          ]
+        },
+        {
+          "file": "left-0-384-288.gz",
+          "bytes": 31246,
+          "sha256": "da427603ca182754d7edebf01c2cd0ce3187d9fc30689720829734481807a512",
+          "decodedSHA256": "58a0003ec7495bd6d46db06c24c093a04c0d32e18dca98fc95c955a6dfa42c09",
+          "start": [
+            0,
+            384,
+            288
+          ],
+          "size": [
+            96,
+            69,
+            82
+          ]
+        },
+        {
+          "file": "left-96-0-0.gz",
+          "bytes": 106018,
+          "sha256": "108285a3a1f7508e6618797dda4d6c2933fb09b200ef1eccbb55f2672ecb0fa2",
+          "decodedSHA256": "b36785a4b0939c8c64c7e25ec9240c42cbcdca61cbc6695115a1f21f9d859357",
+          "start": [
+            96,
+            0,
+            0
+          ],
+          "size": [
+            96,
+            96,
+            96
+          ]
+        },
+        {
+          "file": "left-96-0-96.gz",
+          "bytes": 109273,
+          "sha256": "0a14a61d7b934192d3a9c49b970ecc8d5ff0c6e1479d68604b02e68a303d3a26",
+          "decodedSHA256": "7ff205163bf6d0b4d578cc534446baee80b64bd5d852928dcdd1c10fa9f06347",
+          "start": [
+            96,
+            0,
+            96
+          ],
+          "size": [
+            96,
+            96,
+            96
+          ]
+        },
+        {
+          "file": "left-96-0-192.gz",
+          "bytes": 104795,
+          "sha256": "c2047e967365cfad57312dc692f395c719117ce99b35c992ea50aa90d14d9b31",
+          "decodedSHA256": "84b789b3d9d7c691f232d864ab9fedc645170e4923a9f92f5e1cc0882f01546a",
+          "start": [
+            96,
+            0,
+            192
+          ],
+          "size": [
+            96,
+            96,
+            96
+          ]
+        },
+        {
+          "file": "left-96-0-288.gz",
+          "bytes": 61788,
+          "sha256": "16f46f4667d0f84609b10a2ffbfdd3b019704f3bf6277c213ee3b4fc6df05a5d",
+          "decodedSHA256": "6aa0cae20c80df304747485ef6117e07223c35e6ca54d09af8da285dfc4c9825",
+          "start": [
+            96,
+            0,
+            288
+          ],
+          "size": [
+            96,
+            96,
+            82
+          ]
+        },
+        {
+          "file": "left-96-96-0.gz",
+          "bytes": 316425,
+          "sha256": "3636a3b0b7c8e02377167ecb4d2a2d0ef1faced1921a59f1a01ed2731254fa63",
+          "decodedSHA256": "a0b7a9c3f77e1fb806283d3cbf6c580628eca67b914cfdfe2fb9bdf76d1ad0ef",
+          "start": [
+            96,
+            96,
+            0
+          ],
+          "size": [
+            96,
+            96,
+            96
+          ]
+        },
+        {
+          "file": "left-96-96-96.gz",
+          "bytes": 495841,
+          "sha256": "451e9f54c4c946baa043883122e755da185a362fc11abc8ae99f00bc7ace9c41",
+          "decodedSHA256": "3aef4312c88cbc8da9ffb8e10de0d0b9534c3c19b5f07ef005a91692fb51e049",
+          "start": [
+            96,
+            96,
+            96
+          ],
+          "size": [
+            96,
+            96,
+            96
+          ]
+        },
+        {
+          "file": "left-96-96-192.gz",
+          "bytes": 320159,
+          "sha256": "0cd2bfb189a21e34aeb00204c92372b9708998afa838d218f7c5087423a988a5",
+          "decodedSHA256": "932f5992b2d876cd35d2459d97d70d1b33535754ff2e19a2ccb14c61fdfa8090",
+          "start": [
+            96,
+            96,
+            192
+          ],
+          "size": [
+            96,
+            96,
+            96
+          ]
+        },
+        {
+          "file": "left-96-96-288.gz",
+          "bytes": 27690,
+          "sha256": "ecfb4f7be8d78a8454d4b7106e433e4f3036b52ce6d5bb02e6e0ee0fb712ed98",
+          "decodedSHA256": "43d8a99c65e4427a221e1ddb21692da3b2e44fb03ecba2bcaa71d9dd80830e06",
+          "start": [
+            96,
+            96,
+            288
+          ],
+          "size": [
+            96,
+            96,
+            82
+          ]
+        },
+        {
+          "file": "left-96-192-0.gz",
+          "bytes": 390455,
+          "sha256": "bf63696b6b3afa8534637709fbb0c89475bdda21c03702ba5e1e874e09e526db",
+          "decodedSHA256": "193b82f77dce9111c0b5c524944ee30a5adcada501487b1f4d53b993cba1d928",
+          "start": [
+            96,
+            192,
+            0
+          ],
+          "size": [
+            96,
+            96,
+            96
+          ]
+        },
+        {
+          "file": "left-96-192-96.gz",
+          "bytes": 681819,
+          "sha256": "c2244c389c8456cd716a06dbda298d0437be6c1c44bb452b00137f85f0d43724",
+          "decodedSHA256": "84fb0ce98c043f81779d02d369360951d82bab9db87947f0dd5c5b598accde84",
+          "start": [
+            96,
+            192,
+            96
+          ],
+          "size": [
+            96,
+            96,
+            96
+          ]
+        },
+        {
+          "file": "left-96-192-192.gz",
+          "bytes": 681397,
+          "sha256": "98b1d3b716a3ceef69b6311dc5b56aeff9a07207f346d42dd5613813d06ac45a",
+          "decodedSHA256": "2faba97db01426ea4aa47de109b740ef9a5b96f89654554825580e945514e5dc",
+          "start": [
+            96,
+            192,
+            192
+          ],
+          "size": [
+            96,
+            96,
+            96
+          ]
+        },
+        {
+          "file": "left-96-192-288.gz",
+          "bytes": 253161,
+          "sha256": "1adaf37bfbb525f435b6eb48f028d20e68173a33e86bbc4a555df7738ca55b3e",
+          "decodedSHA256": "d02cb7794d23839f386cd99e93f72217501073adbe0d139fa8a9d11eef3e0d55",
+          "start": [
+            96,
+            192,
+            288
+          ],
+          "size": [
+            96,
+            96,
+            82
+          ]
+        },
+        {
+          "file": "left-96-288-0.gz",
+          "bytes": 384087,
+          "sha256": "3b58c8352de73a1646f93097f18cc52cf69ca8dd47835f29ea31a3f882b7ce31",
+          "decodedSHA256": "8fa667b4819703ea31e4ca2be87f13fffe15cd606e7c13805cd37065616a89e8",
+          "start": [
+            96,
+            288,
+            0
+          ],
+          "size": [
+            96,
+            96,
+            96
+          ]
+        },
+        {
+          "file": "left-96-288-96.gz",
+          "bytes": 671800,
+          "sha256": "87e9184a44fbcc2ea0b4b6df137ff10f2a50d20ac63a308f7aef79835ef24d70",
+          "decodedSHA256": "2b7935a1c2f4a472aeff9d1e935a42a0d88cc9666169fd472b63a5070bd12ab4",
+          "start": [
+            96,
+            288,
+            96
+          ],
+          "size": [
+            96,
+            96,
+            96
+          ]
+        },
+        {
+          "file": "left-96-288-192.gz",
+          "bytes": 442024,
+          "sha256": "3064fe5a1c71e82ac5199fbb759f7a98eabff982b0657d29d65c302969773d72",
+          "decodedSHA256": "6a1369a844a0c6d3f5a9889f2060f92b45c49b8addf318923709e03329e2ab62",
+          "start": [
+            96,
+            288,
+            192
+          ],
+          "size": [
+            96,
+            96,
+            96
+          ]
+        },
+        {
+          "file": "left-96-288-288.gz",
+          "bytes": 106498,
+          "sha256": "cd17b72aea8b26f987d2f2a18f967fc7ad25a7f5d88c572c10ba9234db7fbf3a",
+          "decodedSHA256": "879e08395d796ce92b8ac6277607d4a5142d98e1e239142f47c85c37c8d1f4e4",
+          "start": [
+            96,
+            288,
+            288
+          ],
+          "size": [
+            96,
+            96,
+            82
+          ]
+        },
+        {
+          "file": "left-96-384-0.gz",
+          "bytes": 116880,
+          "sha256": "dc5f3abe27e3be6014f30f7a299947623c74fbd0edd8a57d76cb78fbb1b54d4f",
+          "decodedSHA256": "a8755a5da0ede77c989329e2f98a4b6a26cee4edf1d1c10692c933b82a4e49d6",
+          "start": [
+            96,
+            384,
+            0
+          ],
+          "size": [
+            96,
+            69,
+            96
+          ]
+        },
+        {
+          "file": "left-96-384-96.gz",
+          "bytes": 191843,
+          "sha256": "029fde5b3187f3db949c6f757cbc861cc7d8d7e529c96c379c71c98aceb58902",
+          "decodedSHA256": "5efc68579d9e1b53f891e04adb5da327ece5b77fa939344047544a659238b270",
+          "start": [
+            96,
+            384,
+            96
+          ],
+          "size": [
+            96,
+            69,
+            96
+          ]
+        },
+        {
+          "file": "left-96-384-192.gz",
+          "bytes": 219419,
+          "sha256": "216d860cc2fb332796ec62e39f85c4e5f6a19125210b178d9e951ff5360ae670",
+          "decodedSHA256": "e8bcf44d45e8ac4af0b4f3c88f1fce6f4e11e02f7cdd5afe67b3803a9616d47c",
+          "start": [
+            96,
+            384,
+            192
+          ],
+          "size": [
+            96,
+            69,
+            96
+          ]
+        },
+        {
+          "file": "left-96-384-288.gz",
+          "bytes": 38125,
+          "sha256": "e248ea466bddab2c5088c5480d0d4955de61f29c14b56cdf24f843f2d20cf8ee",
+          "decodedSHA256": "56d97e24f2744ffa495d67edff8fc809bde6b1bbcd75565c71c3fc385cd2b8e7",
+          "start": [
+            96,
+            384,
+            288
+          ],
+          "size": [
+            96,
+            69,
+            82
+          ]
+        },
+        {
+          "file": "left-192-0-0.gz",
+          "bytes": 220639,
+          "sha256": "d81f15d970a7e0193bc9fb0f77c4cbcd2111ad077a27f6e9ed99dbf9ec0c38f6",
+          "decodedSHA256": "3d0b8c6eda00035712cb12a1eaa522efee390d784d8f0a5d29f6b67e0d8a5f1e",
+          "start": [
+            192,
+            0,
+            0
+          ],
+          "size": [
+            96,
+            96,
+            96
+          ]
+        },
+        {
+          "file": "left-192-0-96.gz",
+          "bytes": 360695,
+          "sha256": "a1796ed3bb94dad11aa917f2c54330ca28a03cc038c51a968c1fe6fb2897a76a",
+          "decodedSHA256": "1cebab32219bf7db83985edc5d763dd16229f73d0453d492220881be19528cdf",
+          "start": [
+            192,
+            0,
+            96
+          ],
+          "size": [
+            96,
+            96,
+            96
+          ]
+        },
+        {
+          "file": "left-192-0-192.gz",
+          "bytes": 283561,
+          "sha256": "5e177786b956444b034f0bbd6b7774d8fd3c20736a45d9d0464836cb19dac4b6",
+          "decodedSHA256": "ff40bb27c2d1d385f211a45963bfef868a8dcc8d7d8dbc4a9316e0309d03c5c9",
+          "start": [
+            192,
+            0,
+            192
+          ],
+          "size": [
+            96,
+            96,
+            96
+          ]
+        },
+        {
+          "file": "left-192-0-288.gz",
+          "bytes": 120988,
+          "sha256": "a18072aef48ec7b8107121457c7ac1ebe086ce1ce0da7b320a8030cd9e25a510",
+          "decodedSHA256": "e881c5518569181c374c94124e8dc57043fdb45d2c4cdbdb6520e94944c141c3",
+          "start": [
+            192,
+            0,
+            288
+          ],
+          "size": [
+            96,
+            96,
+            82
+          ]
+        },
+        {
+          "file": "left-192-96-0.gz",
+          "bytes": 428901,
+          "sha256": "5a0f70e68973e6dc87a5629fdb2842ac16bbbbb93a4dd74519b4caf0d95e1013",
+          "decodedSHA256": "6f67a387475f74d43e0eaf53d5ab0eb4b2e2a884b905b14031ba7e06fae54991",
+          "start": [
+            192,
+            96,
+            0
+          ],
+          "size": [
+            96,
+            96,
+            96
+          ]
+        },
+        {
+          "file": "left-192-96-96.gz",
+          "bytes": 709068,
+          "sha256": "fe4d3e0e21136fd51a5afafa4505e6f51923d0a72d3fb87317897807148feffb",
+          "decodedSHA256": "fc2773d644ba9cc1ebe32f7befa6d78664c1589813c24d7adab81c274a8753ce",
+          "start": [
+            192,
+            96,
+            96
+          ],
+          "size": [
+            96,
+            96,
+            96
+          ]
+        },
+        {
+          "file": "left-192-96-192.gz",
+          "bytes": 653400,
+          "sha256": "07ba8814f36d48c79989631c5a077ca67f95129f18b8d52a46f1324c66e2f5ea",
+          "decodedSHA256": "cb8e4646d1501103dbd43583f88b219d838a05f75ec7456f058a0898ea00344e",
+          "start": [
+            192,
+            96,
+            192
+          ],
+          "size": [
+            96,
+            96,
+            96
+          ]
+        },
+        {
+          "file": "left-192-96-288.gz",
+          "bytes": 305624,
+          "sha256": "0995258eb2645c06384ca86b5ecad5025584b7b10e90e424c531cbe188fc9754",
+          "decodedSHA256": "134e6fdff03e16a2ba4a01390aa394de5f74bca8a2967a58571e85ac5309b085",
+          "start": [
+            192,
+            96,
+            288
+          ],
+          "size": [
+            96,
+            96,
+            82
+          ]
+        },
+        {
+          "file": "left-192-192-0.gz",
+          "bytes": 427527,
+          "sha256": "8893a21bc56e2c2d970182b20c3e0633e1cee31eb91a30f23f0a395f31e605e6",
+          "decodedSHA256": "a897611fc9ecaa7a8f9f08461ee842c9487d4244967b96ea5e7b20ac032e7483",
+          "start": [
+            192,
+            192,
+            0
+          ],
+          "size": [
+            96,
+            96,
+            96
+          ]
+        },
+        {
+          "file": "left-192-192-96.gz",
+          "bytes": 787600,
+          "sha256": "70e43739c908fcaa5da41bcc65d1aeedb58efc66e4142f966daef57a52a5f92c",
+          "decodedSHA256": "04340d37d25a9fbe11e4d57275e2b59c05b99f6297e9d427e824971892424060",
+          "start": [
+            192,
+            192,
+            96
+          ],
+          "size": [
+            96,
+            96,
+            96
+          ]
+        },
+        {
+          "file": "left-192-192-192.gz",
+          "bytes": 723997,
+          "sha256": "55444f24a52e9f0c79e3f0bda896b5f841fd9045a89e10e5df4d07ae80e5a57e",
+          "decodedSHA256": "b94af0618a505cbb2e2a623f818917f304dffb21beba7baabf9ea764273823a8",
+          "start": [
+            192,
+            192,
+            192
+          ],
+          "size": [
+            96,
+            96,
+            96
+          ]
+        },
+        {
+          "file": "left-192-192-288.gz",
+          "bytes": 251067,
+          "sha256": "97d845f328b2433643a2e02fc78a215283c25ea8b7321aca2676e36973c6bedd",
+          "decodedSHA256": "30f39b4be3ed527e65f18f3c1e1cacb4b87faf1f5da4a7707e49a4877c680eab",
+          "start": [
+            192,
+            192,
+            288
+          ],
+          "size": [
+            96,
+            96,
+            82
+          ]
+        },
+        {
+          "file": "left-192-288-0.gz",
+          "bytes": 354231,
+          "sha256": "ccfc0fd0498da55cece2d78a83af78529f288ce15ffcd02e163ecad62b4b5df1",
+          "decodedSHA256": "b025e8468320ad87094a3e15c69b03d22b8b7bd4b9085dd1497b99d6a7cbb538",
+          "start": [
+            192,
+            288,
+            0
+          ],
+          "size": [
+            96,
+            96,
+            96
+          ]
+        },
+        {
+          "file": "left-192-288-96.gz",
+          "bytes": 722699,
+          "sha256": "da8f1e39a29c3f1da9dee703810b7bd88ec1d12a0a114b0d4781d4c6af8f2f6c",
+          "decodedSHA256": "d627278b91be099f661aaa4adac727bd2553a73fd61e7d0b71ee8c8f0e1e9cb8",
+          "start": [
+            192,
+            288,
+            96
+          ],
+          "size": [
+            96,
+            96,
+            96
+          ]
+        },
+        {
+          "file": "left-192-288-192.gz",
+          "bytes": 689522,
+          "sha256": "9db78845cbf11649bc7178d60a869869590f05ed24b25ede453537af50334f4a",
+          "decodedSHA256": "b005ed079b53c8d015de439d3cc2e4e9a185ca583dc9fb4210c767de3a066bcb",
+          "start": [
+            192,
+            288,
+            192
+          ],
+          "size": [
+            96,
+            96,
+            96
+          ]
+        },
+        {
+          "file": "left-192-288-288.gz",
+          "bytes": 137486,
+          "sha256": "1b7da65279d6b30fc3b5390d1b806d7275daacef3fc4ab0fcb977e34d638d7fd",
+          "decodedSHA256": "9b411db916a31583969a1aa9676066e81ff9a33383f08afdbaa5e695c010f1b9",
+          "start": [
+            192,
+            288,
+            288
+          ],
+          "size": [
+            96,
+            96,
+            82
+          ]
+        },
+        {
+          "file": "left-192-384-0.gz",
+          "bytes": 57471,
+          "sha256": "3e48b3d8f35eabecc73b614cf26ef2069462495568071fdaee08416e277e1c2f",
+          "decodedSHA256": "9e94acf31355e04fb3f2085f0af03ab5bcd0ef0077db6b216a6ce7f119a26f57",
+          "start": [
+            192,
+            384,
+            0
+          ],
+          "size": [
+            96,
+            69,
+            96
+          ]
+        },
+        {
+          "file": "left-192-384-96.gz",
+          "bytes": 151330,
+          "sha256": "8ec126742fcea5a6403b90ae6c13635521f271de7f314d85e0ec61b51ae3dbc3",
+          "decodedSHA256": "908cddb0015f11459ad335d7a904864d14a33b45fd34652cebd2f36f7a108a2b",
+          "start": [
+            192,
+            384,
+            96
+          ],
+          "size": [
+            96,
+            69,
+            96
+          ]
+        },
+        {
+          "file": "left-192-384-192.gz",
+          "bytes": 263305,
+          "sha256": "51152032a93eb3e5fe426a3a162a043bf030e7542a58275681e320aa24c60972",
+          "decodedSHA256": "8b8a62ec12a8d204d69d57ea69dcc393898aca911a27282e20f8ae406422e7dc",
+          "start": [
+            192,
+            384,
+            192
+          ],
+          "size": [
+            96,
+            69,
+            96
+          ]
+        },
+        {
+          "file": "left-192-384-288.gz",
+          "bytes": 24388,
+          "sha256": "9335ea2ec69977e75f19ba432f7a63acd1079582ef0408146e3b72a68d23b139",
+          "decodedSHA256": "4797638ad81eb02fe1dcaa68b29264a8700287d35d4df1de85e8d934b4f9786f",
+          "start": [
+            192,
+            384,
+            288
+          ],
+          "size": [
+            96,
+            69,
+            82
+          ]
+        },
+        {
+          "file": "left-288-0-0.gz",
+          "bytes": 120503,
+          "sha256": "03c89c757d7e85584e213aaaf0fc21318a203dbf85a583f36c2ba948007d7bb2",
+          "decodedSHA256": "496598cbbace5766bc19cbcdd801d772cd674f437623cf36335f8da9c9907511",
+          "start": [
+            288,
+            0,
+            0
+          ],
+          "size": [
+            96,
+            96,
+            96
+          ]
+        },
+        {
+          "file": "left-288-0-96.gz",
+          "bytes": 313521,
+          "sha256": "c304dd6ac560f54798538642150af4ae886bfacad72540f7d904362fc062ae9c",
+          "decodedSHA256": "2b70e46f7999a50a83bc3c6312f7019e3dec4e2b0d66f16e8144c88fcd4af972",
+          "start": [
+            288,
+            0,
+            96
+          ],
+          "size": [
+            96,
+            96,
+            96
+          ]
+        },
+        {
+          "file": "left-288-0-192.gz",
+          "bytes": 246330,
+          "sha256": "2f80ccc349e584eb3acf6c1c83d1beba022df8bebf4a5485cfc4be95fb9fe680",
+          "decodedSHA256": "5b0fb832f2307021ea5c28081e4f0b8d93318a8c262a1a6bdacfc2855e81cc72",
+          "start": [
+            288,
+            0,
+            192
+          ],
+          "size": [
+            96,
+            96,
+            96
+          ]
+        },
+        {
+          "file": "left-288-0-288.gz",
+          "bytes": 113195,
+          "sha256": "e45ee431c1964d64e3375c887d9aa16eb7cdd8d03e4ee642810223be00a6599b",
+          "decodedSHA256": "1c33ab37e5c0ae2636e9a12945a4a0027e74158347253014448e0d6111cd9004",
+          "start": [
+            288,
+            0,
+            288
+          ],
+          "size": [
+            96,
+            96,
+            82
+          ]
+        },
+        {
+          "file": "left-288-96-0.gz",
+          "bytes": 278216,
+          "sha256": "d1ecb8dc2000c981ba73ff6c38e62cb35b71e2443d9f80225dc24762e61e3164",
+          "decodedSHA256": "70042e3d15e8f4fe9a1c1c8e2b5bb87f5c7ed5a7dfd966c0324f547ddc3e1796",
+          "start": [
+            288,
+            96,
+            0
+          ],
+          "size": [
+            96,
+            96,
+            96
+          ]
+        },
+        {
+          "file": "left-288-96-96.gz",
+          "bytes": 601880,
+          "sha256": "6aa9cc38a24fa6da5519cfb4178cee36189bfe9ae77d6fc9e59ac6fcaf190451",
+          "decodedSHA256": "ea21c3ecd320f861efd682a832520129fab51562ae88eca8c36fa4eed7b7c7ee",
+          "start": [
+            288,
+            96,
+            96
+          ],
+          "size": [
+            96,
+            96,
+            96
+          ]
+        },
+        {
+          "file": "left-288-96-192.gz",
+          "bytes": 637630,
+          "sha256": "a8633f046b1f88156d418366d5c728ad6f6bca1636c0dbdc86b5309a5c8c6606",
+          "decodedSHA256": "8b30557f13cf652ac473eef8d49259d6919bb379a538f8cb19fe93dc8db8cda9",
+          "start": [
+            288,
+            96,
+            192
+          ],
+          "size": [
+            96,
+            96,
+            96
+          ]
+        },
+        {
+          "file": "left-288-96-288.gz",
+          "bytes": 281990,
+          "sha256": "a0843e219211967ca712cb8561f7b9b5e42697162bdfe7aa36cf4b701be3dfda",
+          "decodedSHA256": "6127ae828164e1f8fa25288fc049956302e2979fbf76cdeb4e6505cc37cfbbd3",
+          "start": [
+            288,
+            96,
+            288
+          ],
+          "size": [
+            96,
+            96,
+            82
+          ]
+        },
+        {
+          "file": "left-288-192-0.gz",
+          "bytes": 136421,
+          "sha256": "d3e42868bdd9a65f5491172209dfd109c1e1b5b553473ab65bb77b4ab90f277f",
+          "decodedSHA256": "747d1640f15213c2d338d75983ecbcb082ad82f6f7ee26388be9c0af8e698a5c",
+          "start": [
+            288,
+            192,
+            0
+          ],
+          "size": [
+            96,
+            96,
+            96
+          ]
+        },
+        {
+          "file": "left-288-192-96.gz",
+          "bytes": 445805,
+          "sha256": "6615406dd7b29e5ffd41e05b65140e10612c49305377a1d9474fda52deea3ce4",
+          "decodedSHA256": "cf3294a00f6809a900a721ea7d5deb18d319d1088d3b454c815bd92228b9c5e0",
+          "start": [
+            288,
+            192,
+            96
+          ],
+          "size": [
+            96,
+            96,
+            96
+          ]
+        },
+        {
+          "file": "left-288-192-192.gz",
+          "bytes": 582559,
+          "sha256": "229a6ca82ca978dba30e458e272a25c45167cf56d801e23e7c6d3514fce1e7c4",
+          "decodedSHA256": "e418abe3a14d896f76ffaf8be6f239d6d85770cae2727b5094a620bfb1ef9c94",
+          "start": [
+            288,
+            192,
+            192
+          ],
+          "size": [
+            96,
+            96,
+            96
+          ]
+        },
+        {
+          "file": "left-288-192-288.gz",
+          "bytes": 186944,
+          "sha256": "4085f540fc59cf4b160b728230e4afa2a965167c96331002755c10006562db18",
+          "decodedSHA256": "c000448ab055dfc658d13d468768fc4a46077839d2c0cff94845c6bcf0f0c0fb",
+          "start": [
+            288,
+            192,
+            288
+          ],
+          "size": [
+            96,
+            96,
+            82
+          ]
+        },
+        {
+          "file": "left-288-288-0.gz",
+          "bytes": 182453,
+          "sha256": "583b2d074fdc4f7833a37011533d227f4204e0fbed721f3a0a50e3a6faa3af5c",
+          "decodedSHA256": "02f03f2e7123a22959298a539b44391542811401cfba61deb6be9ad573107f01",
+          "start": [
+            288,
+            288,
+            0
+          ],
+          "size": [
+            96,
+            96,
+            96
+          ]
+        },
+        {
+          "file": "left-288-288-96.gz",
+          "bytes": 446535,
+          "sha256": "772238cb1544571a9121ff8f7cc19c85f72adb245714a5dc2846eaca27be395d",
+          "decodedSHA256": "093e4a4a9e5a4000c8324c2d0ea98d815d2f30b0180e0dcb073698ad1b1b314e",
+          "start": [
+            288,
+            288,
+            96
+          ],
+          "size": [
+            96,
+            96,
+            96
+          ]
+        },
+        {
+          "file": "left-288-288-192.gz",
+          "bytes": 346136,
+          "sha256": "4df55f98afae8665a353b0b99139edcaeb997a75c965e6a7a0e0cdacbfdbde92",
+          "decodedSHA256": "aec9801de6d1797fc95997c584645b2d57efacc3071ab2ad78e61e7f9b2ca519",
+          "start": [
+            288,
+            288,
+            192
+          ],
+          "size": [
+            96,
+            96,
+            96
+          ]
+        },
+        {
+          "file": "left-288-288-288.gz",
+          "bytes": 72233,
+          "sha256": "8da8d28ae6a604f1b09a12466f85496c6cdeda4d81a18f3351fdd3c67fdc1c78",
+          "decodedSHA256": "16dc1c315a420f1d1bfda7e09f48c23667dce7110ed674c583f942f2fb359984",
+          "start": [
+            288,
+            288,
+            288
+          ],
+          "size": [
+            96,
+            96,
+            82
+          ]
+        },
+        {
+          "file": "left-288-384-0.gz",
+          "bytes": 18339,
+          "sha256": "b4a4c7c1171c53e9b54b100fa71f6394ff502a76fb367bd63387b3a6d89b7421",
+          "decodedSHA256": "68e6ca33f44c1c8893eb6b4d4f45abc4809b33c2b43af5c1a49c23e051a32bc8",
+          "start": [
+            288,
+            384,
+            0
+          ],
+          "size": [
+            96,
+            69,
+            96
+          ]
+        },
+        {
+          "file": "left-288-384-96.gz",
+          "bytes": 107032,
+          "sha256": "561d88db168ea9bb3e0f2aa6f25a25507467629525840d84d71221082a15ccf3",
+          "decodedSHA256": "a3a9c53afeacb256ee70f7e399f958aef89c33e9b7351e536f1ade13e3865ad7",
+          "start": [
+            288,
+            384,
+            96
+          ],
+          "size": [
+            96,
+            69,
+            96
+          ]
+        },
+        {
+          "file": "left-288-384-192.gz",
+          "bytes": 237723,
+          "sha256": "26d6d62ce8ad4198ea493e74ea9be0dfd04f6c60866d79d4a1369ac18d4c194c",
+          "decodedSHA256": "896b21424547bd210467a31f984b8bf6aad56aff34a057c65c23e2e20efb2abc",
+          "start": [
+            288,
+            384,
+            192
+          ],
+          "size": [
+            96,
+            69,
+            96
+          ]
+        },
+        {
+          "file": "left-288-384-288.gz",
+          "bytes": 3666,
+          "sha256": "968bd00589d2cae9b52a5f9646ba864eb2869298626f7079ee90944ddc7d1bd9",
+          "decodedSHA256": "252d031b50e4b6cedca222675061205a98315eba56b25131af52c212a7f4cf07",
+          "start": [
+            288,
+            384,
+            288
+          ],
+          "size": [
+            96,
+            69,
+            82
+          ]
+        },
+        {
+          "file": "left-384-0-0.gz",
+          "bytes": 18104,
+          "sha256": "f4da959e9e74edf9d01724ecd7bffb7745e7a63cd78906677a5469d670a84552",
+          "decodedSHA256": "73b6533224732153ab332961cc0c2dfddb41a1f22455f9da5f7d9fc884d50af5",
+          "start": [
+            384,
+            0,
+            0
+          ],
+          "size": [
+            96,
+            96,
+            96
+          ]
+        },
+        {
+          "file": "left-384-0-96.gz",
+          "bytes": 22312,
+          "sha256": "89b5ec068710df2b779dc9abf99b2e7b08a741fe81f90c888dfb78bf5d9c00d1",
+          "decodedSHA256": "1ecda564a5e261a4f3213b66f7eaa656cb62877bf34793885483ad96e432c97d",
+          "start": [
+            384,
+            0,
+            96
+          ],
+          "size": [
+            96,
+            96,
+            96
+          ]
+        },
+        {
+          "file": "left-384-0-192.gz",
+          "bytes": 47134,
+          "sha256": "0cef0f79b3a57ea4ec6c49f6a6d3e3a5a13f2a826c89ba98cf4fec81f3ad3707",
+          "decodedSHA256": "7b8bfb841c8e64647d0f47a5bce57e5e4f5dac3c903f840fff897b5d751aee32",
+          "start": [
+            384,
+            0,
+            192
+          ],
+          "size": [
+            96,
+            96,
+            96
+          ]
+        },
+        {
+          "file": "left-384-0-288.gz",
+          "bytes": 37246,
+          "sha256": "f476d9b4ee1e51d4fd08018fc800975fbece1df58071a16254abae5a775744af",
+          "decodedSHA256": "76140e9a72204138b5a77d562524b1129e8b397bf0b438dbb550ce404c37eb67",
+          "start": [
+            384,
+            0,
+            288
+          ],
+          "size": [
+            96,
+            96,
+            82
+          ]
+        },
+        {
+          "file": "left-384-96-0.gz",
+          "bytes": 1756,
+          "sha256": "e0ef1878450c8733fc3fd36f5533037fe0985225a0e946c3f053c1281336eb94",
+          "decodedSHA256": "e88271a434785665863e69a1b3a3109c058da704e6ed3d16ee07ff390ffaf767",
+          "start": [
+            384,
+            96,
+            0
+          ],
+          "size": [
+            96,
+            96,
+            96
+          ]
+        },
+        {
+          "file": "left-384-96-96.gz",
+          "bytes": 9907,
+          "sha256": "e91c22f97fa45167616d40cb0a41aa64f34376d86b0dec3b643e2b870609b582",
+          "decodedSHA256": "9655133c423fbd5ca1fe982263f6368930f316a88acbecfa70530e838fbe36f0",
+          "start": [
+            384,
+            96,
+            96
+          ],
+          "size": [
+            96,
+            96,
+            96
+          ]
+        },
+        {
+          "file": "left-384-96-192.gz",
+          "bytes": 44154,
+          "sha256": "a49b0c74c47c5575ec1201de95325be425900c64c9f92b8d6694ffdf63aa23e8",
+          "decodedSHA256": "008c4e80e746b8c27c478171025ed3d42c0e06cfe71214b98a8e8880ce56d546",
+          "start": [
+            384,
+            96,
+            192
+          ],
+          "size": [
+            96,
+            96,
+            96
+          ]
+        },
+        {
+          "file": "left-384-96-288.gz",
+          "bytes": 43986,
+          "sha256": "103cc059a46080c1868fabcf56129b0856e13d6b613315df118c5c671da40f93",
+          "decodedSHA256": "2c75ed3f2697a941bd7f36b6654803642a3add3532523f8922004c3bfaac7494",
+          "start": [
+            384,
+            96,
+            288
+          ],
+          "size": [
+            96,
+            96,
+            82
+          ]
+        },
+        {
+          "file": "left-384-192-0.gz",
+          "bytes": 1749,
+          "sha256": "86a012f9914ddf0645507fd3a5e0e40d7018fc52496a8c44e51e5884f2ae22ec",
+          "decodedSHA256": "f0a0e8d753bbee26646b9cedd3cad510258b922274c4085b8da7d4f08e4cca3f",
+          "start": [
+            384,
+            192,
+            0
+          ],
+          "size": [
+            96,
+            96,
+            96
+          ]
+        },
+        {
+          "file": "left-384-192-96.gz",
+          "bytes": 7742,
+          "sha256": "c3d4f29f4c7de4c0135dbdf958a4af9e2f4bcea9ff6bfc5f3a28274d012e94b0",
+          "decodedSHA256": "17cd8bdf5a7e993e810e50681eeace404664d419dcf848e690d3ff281e664ee3",
+          "start": [
+            384,
+            192,
+            96
+          ],
+          "size": [
+            96,
+            96,
+            96
+          ]
+        },
+        {
+          "file": "left-384-192-192.gz",
+          "bytes": 16186,
+          "sha256": "4e9247e0c6e898422727794e68bd045cec8da5b8569a874d1977521c5d4770ca",
+          "decodedSHA256": "40aa26caba8fbcac4fdd5d2b799d7f6c0b43ba300b5f289bb6ce57bc825f621f",
+          "start": [
+            384,
+            192,
+            192
+          ],
+          "size": [
+            96,
+            96,
+            96
+          ]
+        },
+        {
+          "file": "left-384-192-288.gz",
+          "bytes": 6799,
+          "sha256": "f4f5d3ca258fc541c9402745e164a85f1be2a26f851b853ab07e6fbb78643d04",
+          "decodedSHA256": "375afd4f88ff0b2706ebe96682546e13f80171e0db1aae9089abdcd67324aaea",
+          "start": [
+            384,
+            192,
+            288
+          ],
+          "size": [
+            96,
+            96,
+            82
+          ]
+        },
+        {
+          "file": "left-384-288-0.gz",
+          "bytes": 61622,
+          "sha256": "b253d486f18bd20095a0b24d92d67ceb5d5452a30ac9ae6d473333888fe0e73b",
+          "decodedSHA256": "616a9b6f7da93dbc9832ffe82dd59447522e3f506efe0078e2f984f534350def",
+          "start": [
+            384,
+            288,
+            0
+          ],
+          "size": [
+            96,
+            96,
+            96
+          ]
+        },
+        {
+          "file": "left-384-288-96.gz",
+          "bytes": 142721,
+          "sha256": "944b6767ab4106386575055e7a164e1fe47e4c4b9a61e51dc08c05a3bfc15105",
+          "decodedSHA256": "c01285fdb8d4e9d7ddcd88a3af0a3368e271b8ec5d421a5b85fc9d46b3998511",
+          "start": [
+            384,
+            288,
+            96
+          ],
+          "size": [
+            96,
+            96,
+            96
+          ]
+        },
+        {
+          "file": "left-384-288-192.gz",
+          "bytes": 22375,
+          "sha256": "df69cb340a3ef0ee799d217d21cb0f74e73b64b1da638c38bb8cf829c23b6fbe",
+          "decodedSHA256": "da9822a5f8d63f5d994c15248f4409e3b1d7b80c6826bfcff370c1fb7adc03f1",
+          "start": [
+            384,
+            288,
+            192
+          ],
+          "size": [
+            96,
+            96,
+            96
+          ]
+        },
+        {
+          "file": "left-384-288-288.gz",
+          "bytes": 1499,
+          "sha256": "b790fe4fd448467e9758a95ba79006bec44f3528f2f332657f8198cd8e022f25",
+          "decodedSHA256": "658ca9ba56dd85a2f560079cb62c93842d382782765733368c4e33ff8a681b85",
+          "start": [
+            384,
+            288,
+            288
+          ],
+          "size": [
+            96,
+            96,
+            82
+          ]
+        },
+        {
+          "file": "left-384-384-0.gz",
+          "bytes": 1324,
+          "sha256": "c43ac29e42e6540fdd4ef7390c25787476f95de350755cf027bd97b8e36a5c81",
+          "decodedSHA256": "11ebfcb4f5174a05f39b50e4053e7716c197f67c86998b0447152c0b6ced4d6a",
+          "start": [
+            384,
+            384,
+            0
+          ],
+          "size": [
+            96,
+            69,
+            96
+          ]
+        },
+        {
+          "file": "left-384-384-96.gz",
+          "bytes": 46651,
+          "sha256": "b4b0a994b46cb15c0657e8e00695fd27f2619908311f796d0777860a76f22c26",
+          "decodedSHA256": "3edb02785761d0057927e88d949fe7758d696431b8232e25b438e5867bc016db",
+          "start": [
+            384,
+            384,
+            96
+          ],
+          "size": [
+            96,
+            69,
+            96
+          ]
+        },
+        {
+          "file": "left-384-384-192.gz",
+          "bytes": 112202,
+          "sha256": "aa797da714157db9047b51d8b3ef3901e250f704568fd5700a887e138dabfc1d",
+          "decodedSHA256": "23cbf1524e444d5f7964f41f46e648704c7a914771466761cc515bfd8fe94c88",
+          "start": [
+            384,
+            384,
+            192
+          ],
+          "size": [
+            96,
+            69,
+            96
+          ]
+        },
+        {
+          "file": "left-384-384-288.gz",
+          "bytes": 1088,
+          "sha256": "fc8f98cc357018714583b75b29c68cb995f54e938223b38b21222453f5464d6b",
+          "decodedSHA256": "ae4c22078d2d9f73cd79645f36fd6f388370c06522babbe0a53308d4fcf3a581",
+          "start": [
+            384,
+            384,
+            288
+          ],
+          "size": [
+            96,
+            69,
+            82
+          ]
+        },
+        {
+          "file": "left-480-0-0.gz",
+          "bytes": 142,
+          "sha256": "2e18aad5c6884c9ad115581d8567c821e1fcd506306a631ae40ee06c0a6d1135",
+          "decodedSHA256": "7c98d2da7afa2bdee9765910c81cb588e14781b77538fb54df84f7e7039e4348",
+          "start": [
+            480,
+            0,
+            0
+          ],
+          "size": [
+            6,
+            96,
+            96
+          ]
+        },
+        {
+          "file": "left-480-0-96.gz",
+          "bytes": 142,
+          "sha256": "2e18aad5c6884c9ad115581d8567c821e1fcd506306a631ae40ee06c0a6d1135",
+          "decodedSHA256": "7c98d2da7afa2bdee9765910c81cb588e14781b77538fb54df84f7e7039e4348",
+          "start": [
+            480,
+            0,
+            96
+          ],
+          "size": [
+            6,
+            96,
+            96
+          ]
+        },
+        {
+          "file": "left-480-0-192.gz",
+          "bytes": 142,
+          "sha256": "2e18aad5c6884c9ad115581d8567c821e1fcd506306a631ae40ee06c0a6d1135",
+          "decodedSHA256": "7c98d2da7afa2bdee9765910c81cb588e14781b77538fb54df84f7e7039e4348",
+          "start": [
+            480,
+            0,
+            192
+          ],
+          "size": [
+            6,
+            96,
+            96
+          ]
+        },
+        {
+          "file": "left-480-0-288.gz",
+          "bytes": 512,
+          "sha256": "c1bf998d44758d100deff8de51818aaca0f30fd0fa011819ffc5904aba56c358",
+          "decodedSHA256": "c4bc5b19e802113965e319f56c5afc5a49d80e8176b32602be9dd8415f22e984",
+          "start": [
+            480,
+            0,
+            288
+          ],
+          "size": [
+            6,
+            96,
+            82
+          ]
+        },
+        {
+          "file": "left-480-96-0.gz",
+          "bytes": 142,
+          "sha256": "2e18aad5c6884c9ad115581d8567c821e1fcd506306a631ae40ee06c0a6d1135",
+          "decodedSHA256": "7c98d2da7afa2bdee9765910c81cb588e14781b77538fb54df84f7e7039e4348",
+          "start": [
+            480,
+            96,
+            0
+          ],
+          "size": [
+            6,
+            96,
+            96
+          ]
+        },
+        {
+          "file": "left-480-96-96.gz",
+          "bytes": 142,
+          "sha256": "2e18aad5c6884c9ad115581d8567c821e1fcd506306a631ae40ee06c0a6d1135",
+          "decodedSHA256": "7c98d2da7afa2bdee9765910c81cb588e14781b77538fb54df84f7e7039e4348",
+          "start": [
+            480,
+            96,
+            96
+          ],
+          "size": [
+            6,
+            96,
+            96
+          ]
+        },
+        {
+          "file": "left-480-96-192.gz",
+          "bytes": 142,
+          "sha256": "2e18aad5c6884c9ad115581d8567c821e1fcd506306a631ae40ee06c0a6d1135",
+          "decodedSHA256": "7c98d2da7afa2bdee9765910c81cb588e14781b77538fb54df84f7e7039e4348",
+          "start": [
+            480,
+            96,
+            192
+          ],
+          "size": [
+            6,
+            96,
+            96
+          ]
+        },
+        {
+          "file": "left-480-96-288.gz",
+          "bytes": 388,
+          "sha256": "aa16c329b983d6db07c3a9c8138d1e239252444b3b9400bd13fc01f2e739f996",
+          "decodedSHA256": "4351c114fae6e411889085a268928dfc886d3dbb622e508e331d235f37b2e9be",
+          "start": [
+            480,
+            96,
+            288
+          ],
+          "size": [
+            6,
+            96,
+            82
+          ]
+        },
+        {
+          "file": "left-480-192-0.gz",
+          "bytes": 142,
+          "sha256": "2e18aad5c6884c9ad115581d8567c821e1fcd506306a631ae40ee06c0a6d1135",
+          "decodedSHA256": "7c98d2da7afa2bdee9765910c81cb588e14781b77538fb54df84f7e7039e4348",
+          "start": [
+            480,
+            192,
+            0
+          ],
+          "size": [
+            6,
+            96,
+            96
+          ]
+        },
+        {
+          "file": "left-480-192-96.gz",
+          "bytes": 142,
+          "sha256": "2e18aad5c6884c9ad115581d8567c821e1fcd506306a631ae40ee06c0a6d1135",
+          "decodedSHA256": "7c98d2da7afa2bdee9765910c81cb588e14781b77538fb54df84f7e7039e4348",
+          "start": [
+            480,
+            192,
+            96
+          ],
+          "size": [
+            6,
+            96,
+            96
+          ]
+        },
+        {
+          "file": "left-480-192-192.gz",
+          "bytes": 142,
+          "sha256": "2e18aad5c6884c9ad115581d8567c821e1fcd506306a631ae40ee06c0a6d1135",
+          "decodedSHA256": "7c98d2da7afa2bdee9765910c81cb588e14781b77538fb54df84f7e7039e4348",
+          "start": [
+            480,
+            192,
+            192
+          ],
+          "size": [
+            6,
+            96,
+            96
+          ]
+        },
+        {
+          "file": "left-480-192-288.gz",
+          "bytes": 126,
+          "sha256": "7d38b7decce74597ac6dfd682c20047a1723e1cd4acf6e44b2a5fac80db80af4",
+          "decodedSHA256": "667ee085ffdff3d5857aa23e9782cd6ba95701a51185ffb8a86d56d03f3ee131",
+          "start": [
+            480,
+            192,
+            288
+          ],
+          "size": [
+            6,
+            96,
+            82
+          ]
+        },
+        {
+          "file": "left-480-288-0.gz",
+          "bytes": 142,
+          "sha256": "2e18aad5c6884c9ad115581d8567c821e1fcd506306a631ae40ee06c0a6d1135",
+          "decodedSHA256": "7c98d2da7afa2bdee9765910c81cb588e14781b77538fb54df84f7e7039e4348",
+          "start": [
+            480,
+            288,
+            0
+          ],
+          "size": [
+            6,
+            96,
+            96
+          ]
+        },
+        {
+          "file": "left-480-288-96.gz",
+          "bytes": 142,
+          "sha256": "2e18aad5c6884c9ad115581d8567c821e1fcd506306a631ae40ee06c0a6d1135",
+          "decodedSHA256": "7c98d2da7afa2bdee9765910c81cb588e14781b77538fb54df84f7e7039e4348",
+          "start": [
+            480,
+            288,
+            96
+          ],
+          "size": [
+            6,
+            96,
+            96
+          ]
+        },
+        {
+          "file": "left-480-288-192.gz",
+          "bytes": 142,
+          "sha256": "2e18aad5c6884c9ad115581d8567c821e1fcd506306a631ae40ee06c0a6d1135",
+          "decodedSHA256": "7c98d2da7afa2bdee9765910c81cb588e14781b77538fb54df84f7e7039e4348",
+          "start": [
+            480,
+            288,
+            192
+          ],
+          "size": [
+            6,
+            96,
+            96
+          ]
+        },
+        {
+          "file": "left-480-288-288.gz",
+          "bytes": 126,
+          "sha256": "7d38b7decce74597ac6dfd682c20047a1723e1cd4acf6e44b2a5fac80db80af4",
+          "decodedSHA256": "667ee085ffdff3d5857aa23e9782cd6ba95701a51185ffb8a86d56d03f3ee131",
+          "start": [
+            480,
+            288,
+            288
+          ],
+          "size": [
+            6,
+            96,
+            82
+          ]
+        },
+        {
+          "file": "left-480-384-0.gz",
+          "bytes": 112,
+          "sha256": "41470c591af19ea20c72a5e44a22a25b621497e248fcbd88459cfeb5e2569c08",
+          "decodedSHA256": "47cbe3085648bc8684694c6963b41a4383936583ca71988a03f59eb00634d8f6",
+          "start": [
+            480,
+            384,
+            0
+          ],
+          "size": [
+            6,
+            69,
+            96
+          ]
+        },
+        {
+          "file": "left-480-384-96.gz",
+          "bytes": 112,
+          "sha256": "41470c591af19ea20c72a5e44a22a25b621497e248fcbd88459cfeb5e2569c08",
+          "decodedSHA256": "47cbe3085648bc8684694c6963b41a4383936583ca71988a03f59eb00634d8f6",
+          "start": [
+            480,
+            384,
+            96
+          ],
+          "size": [
+            6,
+            69,
+            96
+          ]
+        },
+        {
+          "file": "left-480-384-192.gz",
+          "bytes": 112,
+          "sha256": "41470c591af19ea20c72a5e44a22a25b621497e248fcbd88459cfeb5e2569c08",
+          "decodedSHA256": "47cbe3085648bc8684694c6963b41a4383936583ca71988a03f59eb00634d8f6",
+          "start": [
+            480,
+            384,
+            192
+          ],
+          "size": [
+            6,
+            69,
+            96
+          ]
+        },
+        {
+          "file": "left-480-384-288.gz",
+          "bytes": 101,
+          "sha256": "9a6bb04c8c8121c3112f2c211509d86c0a7484f685bfb2595cce51221215492c",
+          "decodedSHA256": "cb60d3f7e7aa104f452973f9c7558fdd6db92b7b8c3bcc06e78c6d292f4a04d3",
+          "start": [
+            480,
+            384,
+            288
+          ],
+          "size": [
+            6,
+            69,
+            82
+          ]
+        }
+      ],
+      "labels": [
+        {
+          "code": 1,
+          "name": "Left thyroid lobe",
+          "color": [
+            255,
+            192,
+            72
+          ],
+          "voxelCount": 1742159,
+          "focus": [
+            127,
+            296,
+            203
+          ],
+          "mesh": {
+            "file": "left-1-mesh.gz",
+            "bytes": 2096073,
+            "sha256": "7a2f5a4de07389988cd87023261942df05e2662e7e6ad8e23c5effeb4b2f89d2",
+            "decodedSHA256": "c250b092bf6cc1e287ed5b5441ddf0ae44c188d720224321a12e27a6ea84c7a6",
+            "vertices": 186249,
+            "triangles": 372670
+          }
+        },
+        {
+          "code": 2,
+          "name": "Left carotid artery",
+          "color": [
+            239,
+            108,
+            109
+          ],
+          "voxelCount": 751813,
+          "focus": [
+            227,
+            265,
+            172
+          ],
+          "mesh": {
+            "file": "left-2-mesh.gz",
+            "bytes": 919722,
+            "sha256": "05783ea8646dfd61c4c470840a7167e8551d47c786474277bfc7594bccf3bf3d",
+            "decodedSHA256": "f5cc4afb0ba254680e9e3ee43b85d208d282c6030984735592fc510a5fa5bc42",
+            "vertices": 82872,
+            "triangles": 165740
+          }
+        },
+        {
+          "code": 3,
+          "name": "Left jugular vein",
+          "color": [
+            87,
+            201,
+            245
+          ],
+          "voxelCount": 1028996,
+          "focus": [
+            304,
+            274,
+            169
+          ],
+          "mesh": {
+            "file": "left-3-mesh.gz",
+            "bytes": 1199572,
+            "sha256": "c17103bb81d9eea0144a4adb1f53057392427c1dae36e11178d1206e7790a6df",
+            "decodedSHA256": "d77be2fc310cd91c1d1496dfe4c5f6a3b262d6b70bd4b02b5de632595c253725",
+            "vertices": 108174,
+            "triangles": 216344
+          }
+        }
+      ]
+    },
+    {
+      "id": "001_P1_1_right",
+      "side": "Right",
+      "shape": [
+        496,
+        404,
+        396
+      ],
+      "spacingMm": [
+        0.11999999731779099,
+        0.11999999731779099,
+        0.11999999731779099
+      ],
+      "affine": [
+        [
+          -0.11999999731779099,
+          1.6165337924728624e-16,
+          0.0,
+          29.69999885559082
+        ],
+        [
+          -1.6165337924728624e-16,
+          -0.11999999731779099,
+          -0.0,
+          24.18000030517578
+        ],
+        [
+          0.0,
+          -0.0,
+          0.11999999731779099,
+          -23.700000762939453
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "sources": {
+        "image": {
+          "payloadSHA256": "168328e09b717340382e9e6f7b36e2eb9103c249c63b271f8be11311f11f07f0",
+          "mirrorPath": "us/train/images/001_P1_1_right.nii.gz"
+        },
+        "mask": {
+          "payloadSHA256": "3ab8a9eb4d554c072a5983ed51cfbb5996ff88631b69e8bf21ebeeb4aa67f3fa",
+          "mirrorPath": "us/train/masks/001_P1_1_right.nii.gz"
+        }
+      },
+      "brickSize": 96,
+      "bricks": [
+        {
+          "file": "right-0-0-0.gz",
+          "bytes": 140075,
+          "sha256": "1d0bd6bd352a1d8e3dfc082b0e7d3da499972f477fd64c487dcd1da221bf762a",
+          "decodedSHA256": "486277c9d2e5a79de6d6bacc7aeabdd624bf5004753e6e5e4522c386cf60b23b",
+          "start": [
+            0,
+            0,
+            0
+          ],
+          "size": [
+            96,
+            96,
+            96
+          ]
+        },
+        {
+          "file": "right-0-0-96.gz",
+          "bytes": 214900,
+          "sha256": "2e16dba3a7483a00b8a8e3a4923fd33e3dfc249e9e1663ec5d0c48e491b24f4c",
+          "decodedSHA256": "3829d8753e947e1ed573307e67a584b29ae60e0c69b28be8de1345370573676b",
+          "start": [
+            0,
+            0,
+            96
+          ],
+          "size": [
+            96,
+            96,
+            96
+          ]
+        },
+        {
+          "file": "right-0-0-192.gz",
+          "bytes": 193369,
+          "sha256": "b7c51e33ace1279c16ad2dce8830ab251b6e7fb489c38b486a27c54dc1023d04",
+          "decodedSHA256": "bcfbb46d6ce231f62b2bda00a31aaf42b9e23596f0dd57d8c889afe9e656ef00",
+          "start": [
+            0,
+            0,
+            192
+          ],
+          "size": [
+            96,
+            96,
+            96
+          ]
+        },
+        {
+          "file": "right-0-0-288.gz",
+          "bytes": 90495,
+          "sha256": "8fd7c6c876edf20f17abc7e6cdc448182bbea0f15279d4ce9e2c48ddeb13c9af",
+          "decodedSHA256": "b1c4f4dc41b94373d0849b1bb3e49c4feddd57da7d44456af7ba60cbc6aeb8bf",
+          "start": [
+            0,
+            0,
+            288
+          ],
+          "size": [
+            96,
+            96,
+            96
+          ]
+        },
+        {
+          "file": "right-0-0-384.gz",
+          "bytes": 249,
+          "sha256": "eb5f47a48b2bf6751f9a4075dd32141cf560c0c0a75f72802fd504727011be2b",
+          "decodedSHA256": "ee961e92ad4f21f2180e880c05620c4c651170bd8d906a75b56b3b3f3c2d4182",
+          "start": [
+            0,
+            0,
+            384
+          ],
+          "size": [
+            96,
+            96,
+            12
+          ]
+        },
+        {
+          "file": "right-0-96-0.gz",
+          "bytes": 275865,
+          "sha256": "db20234fab9a8b1bec5a4b5ddfbb24763e6b9af4cfef4fb4773c595005c78c87",
+          "decodedSHA256": "72e3a9e737e207a66df31c617f7daff9a38276d5f8419d9e128181b4c9e76c23",
+          "start": [
+            0,
+            96,
+            0
+          ],
+          "size": [
+            96,
+            96,
+            96
+          ]
+        },
+        {
+          "file": "right-0-96-96.gz",
+          "bytes": 484234,
+          "sha256": "afb280a02e5108ca85d14f8f6ed2febdc300ccf9d74f0bfd210512ec592624aa",
+          "decodedSHA256": "f22c720e911980b38e4e9f33988ca760bd979c785aee52ce4290635f46e6732f",
+          "start": [
+            0,
+            96,
+            96
+          ],
+          "size": [
+            96,
+            96,
+            96
+          ]
+        },
+        {
+          "file": "right-0-96-192.gz",
+          "bytes": 358343,
+          "sha256": "993d1ea9ac4f52f267264ebc8597ef248bee500c7ad61c46eb790930eaf86c97",
+          "decodedSHA256": "488fba0788b72e4a7efb50a0a4230cfcc7ffef9de38d95474928dfa2168ed8a5",
+          "start": [
+            0,
+            96,
+            192
+          ],
+          "size": [
+            96,
+            96,
+            96
+          ]
+        },
+        {
+          "file": "right-0-96-288.gz",
+          "bytes": 155077,
+          "sha256": "2c44dc875651c3487dddfccfff2d9d9b9bcaed4cadaabc7c48e82a2f1370bc6c",
+          "decodedSHA256": "b28eb3dfab0094b79c5185b777a153c965ffb025661c13e1458aa05febed8d6a",
+          "start": [
+            0,
+            96,
+            288
+          ],
+          "size": [
+            96,
+            96,
+            96
+          ]
+        },
+        {
+          "file": "right-0-96-384.gz",
+          "bytes": 249,
+          "sha256": "eb5f47a48b2bf6751f9a4075dd32141cf560c0c0a75f72802fd504727011be2b",
+          "decodedSHA256": "ee961e92ad4f21f2180e880c05620c4c651170bd8d906a75b56b3b3f3c2d4182",
+          "start": [
+            0,
+            96,
+            384
+          ],
+          "size": [
+            96,
+            96,
+            12
+          ]
+        },
+        {
+          "file": "right-0-192-0.gz",
+          "bytes": 278428,
+          "sha256": "26988206f6c4fde49340f6c5af3fff8530fde0ccf0137c61cd13c8ff9ed8bc71",
+          "decodedSHA256": "d3de5c70bc91702923ab3150fc3fcc9a59a23109cd1c40ecbfddfc77ea5638cd",
+          "start": [
+            0,
+            192,
+            0
+          ],
+          "size": [
+            96,
+            96,
+            96
+          ]
+        },
+        {
+          "file": "right-0-192-96.gz",
+          "bytes": 594766,
+          "sha256": "b5c9f6b15f5e68d40db97dcc7550e36c4700917040750783734c488700ad9049",
+          "decodedSHA256": "6e4e2f1c6ebd1ee76f3a3b19fd2da01e7249fd0919abc81672190f53142eceea",
+          "start": [
+            0,
+            192,
+            96
+          ],
+          "size": [
+            96,
+            96,
+            96
+          ]
+        },
+        {
+          "file": "right-0-192-192.gz",
+          "bytes": 446514,
+          "sha256": "c2925ed1c118f39dddcfc0b6f201afde963f60ef555a4299476548e53177525d",
+          "decodedSHA256": "11687ccb6f42a141cb2f59764532cf9e692b551eeee22c4791999cee58500fdd",
+          "start": [
+            0,
+            192,
+            192
+          ],
+          "size": [
+            96,
+            96,
+            96
+          ]
+        },
+        {
+          "file": "right-0-192-288.gz",
+          "bytes": 129481,
+          "sha256": "8db69d1fdf4c906300bbe80809102b80486641c443efd69c6c8ab62dc67861d8",
+          "decodedSHA256": "1e0b85d486835687e2f12644b68c90ec9063bdc3052035791d2c7404e0c7c972",
+          "start": [
+            0,
+            192,
+            288
+          ],
+          "size": [
+            96,
+            96,
+            96
+          ]
+        },
+        {
+          "file": "right-0-192-384.gz",
+          "bytes": 249,
+          "sha256": "eb5f47a48b2bf6751f9a4075dd32141cf560c0c0a75f72802fd504727011be2b",
+          "decodedSHA256": "ee961e92ad4f21f2180e880c05620c4c651170bd8d906a75b56b3b3f3c2d4182",
+          "start": [
+            0,
+            192,
+            384
+          ],
+          "size": [
+            96,
+            96,
+            12
+          ]
+        },
+        {
+          "file": "right-0-288-0.gz",
+          "bytes": 230420,
+          "sha256": "42f38f49ae503b08ddcfc98a2bb94009bb883c288ded4ceb4a08c61331fa3708",
+          "decodedSHA256": "356af3e9f4a9448e106eeb84fdbfb8f013df3f73f451c4cd75d4211dd3d1ce31",
+          "start": [
+            0,
+            288,
+            0
+          ],
+          "size": [
+            96,
+            96,
+            96
+          ]
+        },
+        {
+          "file": "right-0-288-96.gz",
+          "bytes": 393564,
+          "sha256": "f747aec8b338839a8b08c15a26bd3ab5f8ec721264bec330dd5c757acab65b45",
+          "decodedSHA256": "1b43649c0cc22f771e850f0ee275cb43fe06a8edc97aa47f6ba08dc22e478c2b",
+          "start": [
+            0,
+            288,
+            96
+          ],
+          "size": [
+            96,
+            96,
+            96
+          ]
+        },
+        {
+          "file": "right-0-288-192.gz",
+          "bytes": 349071,
+          "sha256": "7e280f37be34b477226659762deaff9519ab364d21d61fd996bb4beeb92429f5",
+          "decodedSHA256": "ce4fb9898783aab82b2233f2d31489482afff3b2bb5ff73cc47b75c21c968b3e",
+          "start": [
+            0,
+            288,
+            192
+          ],
+          "size": [
+            96,
+            96,
+            96
+          ]
+        },
+        {
+          "file": "right-0-288-288.gz",
+          "bytes": 69167,
+          "sha256": "0e441640b519b8926eb75f6ab4f8df48244bc4029682318ceda7979dac4ae466",
+          "decodedSHA256": "ca4934b97c40de85c3bf5a52700b4d3e124e150e9d3e4f39e331da141f0800fc",
+          "start": [
+            0,
+            288,
+            288
+          ],
+          "size": [
+            96,
+            96,
+            96
+          ]
+        },
+        {
+          "file": "right-0-288-384.gz",
+          "bytes": 249,
+          "sha256": "eb5f47a48b2bf6751f9a4075dd32141cf560c0c0a75f72802fd504727011be2b",
+          "decodedSHA256": "ee961e92ad4f21f2180e880c05620c4c651170bd8d906a75b56b3b3f3c2d4182",
+          "start": [
+            0,
+            288,
+            384
+          ],
+          "size": [
+            96,
+            96,
+            12
+          ]
+        },
+        {
+          "file": "right-0-384-0.gz",
+          "bytes": 32831,
+          "sha256": "03fe9b50146d252dabd7a07d16a086bafa452538acffdfc555aea06659670b4d",
+          "decodedSHA256": "91d36a1a5bbabfe76ef7d48b8cfbe79c4a33ccbc5fe9fad808d38716652b57f5",
+          "start": [
+            0,
+            384,
+            0
+          ],
+          "size": [
+            96,
+            20,
+            96
+          ]
+        },
+        {
+          "file": "right-0-384-96.gz",
+          "bytes": 69826,
+          "sha256": "4e307e4252b029e6c1e1962e3ec5c5f29d4db6809566b192dda09a74e9482b99",
+          "decodedSHA256": "bd5a806989ad5e64d21bdcaaf01940a7abd17e93ec8e487ff23bc2a1d252e308",
+          "start": [
+            0,
+            384,
+            96
+          ],
+          "size": [
+            96,
+            20,
+            96
+          ]
+        },
+        {
+          "file": "right-0-384-192.gz",
+          "bytes": 30466,
+          "sha256": "9468b128e0e152e2f989289ab847e11d6e0ed50592e1aa40785883cdd554ba89",
+          "decodedSHA256": "4dbb2a2f5d5cba4a6181696d5fe5a785d8cf86857943ef7bed6faacdfa0bf101",
+          "start": [
+            0,
+            384,
+            192
+          ],
+          "size": [
+            96,
+            20,
+            96
+          ]
+        },
+        {
+          "file": "right-0-384-288.gz",
+          "bytes": 3605,
+          "sha256": "5bbf090f53a3279f832bface79ff3f8f3bf3a037ba8d47fb13810ccc382b4a90",
+          "decodedSHA256": "c908f5fdc0e6dd02143b47dd066c6511001f9addaf0ed99dc4514e3345465783",
+          "start": [
+            0,
+            384,
+            288
+          ],
+          "size": [
+            96,
+            20,
+            96
+          ]
+        },
+        {
+          "file": "right-0-384-384.gz",
+          "bytes": 80,
+          "sha256": "35a7080a0343589dfdd57c5a7904ed3b71cea491cc3329822ee883b0273924fa",
+          "decodedSHA256": "7e36bec0af80ff78cd2cba3643b862a6c0e3ec56e52acabe92b246dcd6ad4816",
+          "start": [
+            0,
+            384,
+            384
+          ],
+          "size": [
+            96,
+            20,
+            12
+          ]
+        },
+        {
+          "file": "right-96-0-0.gz",
+          "bytes": 154844,
+          "sha256": "917a660aafc0be85405a27fa183b827183a5ac43c60bf14adbf79eebf73eeca8",
+          "decodedSHA256": "d70ce3028edca196a6937da055b58ba31386b821c7fde94b4bb5eaf19cecc786",
+          "start": [
+            96,
+            0,
+            0
+          ],
+          "size": [
+            96,
+            96,
+            96
+          ]
+        },
+        {
+          "file": "right-96-0-96.gz",
+          "bytes": 294567,
+          "sha256": "80e25b444f3bdc5f4626ce15889adf18bcbdf8f4103aae12898636f085c883c1",
+          "decodedSHA256": "aca008149bfd5e96d2c20505b1477fd4d44ed5c7664fc299bc79fb578aaab8c8",
+          "start": [
+            96,
+            0,
+            96
+          ],
+          "size": [
+            96,
+            96,
+            96
+          ]
+        },
+        {
+          "file": "right-96-0-192.gz",
+          "bytes": 159866,
+          "sha256": "9cf66a2af18b47841e9fb312711a2aeb878c2d5e20051853ed2c56095e1d79e8",
+          "decodedSHA256": "c9a00951a8d7674d5bf345dad7c3c3c0ea5edb45991c8b6eb44e326ea256ef05",
+          "start": [
+            96,
+            0,
+            192
+          ],
+          "size": [
+            96,
+            96,
+            96
+          ]
+        },
+        {
+          "file": "right-96-0-288.gz",
+          "bytes": 115625,
+          "sha256": "ec94cb2df92381c1a392d3da42aea979d73f936eca0d5a2bb23010e0109af290",
+          "decodedSHA256": "cdba4725ad03f616e372009bb4e7fdb4840d1d71f2c068cbc11b0f3b64508e04",
+          "start": [
+            96,
+            0,
+            288
+          ],
+          "size": [
+            96,
+            96,
+            96
+          ]
+        },
+        {
+          "file": "right-96-0-384.gz",
+          "bytes": 249,
+          "sha256": "eb5f47a48b2bf6751f9a4075dd32141cf560c0c0a75f72802fd504727011be2b",
+          "decodedSHA256": "ee961e92ad4f21f2180e880c05620c4c651170bd8d906a75b56b3b3f3c2d4182",
+          "start": [
+            96,
+            0,
+            384
+          ],
+          "size": [
+            96,
+            96,
+            12
+          ]
+        },
+        {
+          "file": "right-96-96-0.gz",
+          "bytes": 254723,
+          "sha256": "12c87cdeb8903fa1972d4aa560c1bb8becf222115fb0356cf7bfa710c9cd0ec2",
+          "decodedSHA256": "d9af9ac453973fde4f8fe14dda4e88c98652731dbed28844d7597344280b4a7f",
+          "start": [
+            96,
+            96,
+            0
+          ],
+          "size": [
+            96,
+            96,
+            96
+          ]
+        },
+        {
+          "file": "right-96-96-96.gz",
+          "bytes": 676116,
+          "sha256": "bbc8a250a36f023ec68adfc790a7ec5b1510425f4d9b9225e98517e44efb5157",
+          "decodedSHA256": "9a008f492218c53074e7e333659dd9e2f64acf6472f0f6fd6c3b92d74d3d137a",
+          "start": [
+            96,
+            96,
+            96
+          ],
+          "size": [
+            96,
+            96,
+            96
+          ]
+        },
+        {
+          "file": "right-96-96-192.gz",
+          "bytes": 525821,
+          "sha256": "f2e2ae987dddfdc82a720d951619a700bbecec949144fa0489360d25b0ec7873",
+          "decodedSHA256": "97f879936999621f09464cfd0cb490f3bc8caddde80b3fef116d88c57c055fad",
+          "start": [
+            96,
+            96,
+            192
+          ],
+          "size": [
+            96,
+            96,
+            96
+          ]
+        },
+        {
+          "file": "right-96-96-288.gz",
+          "bytes": 302578,
+          "sha256": "01e58a726e78e6a775030428d1f20072ddb51bb9d6e26abccf5cc471ea9d635e",
+          "decodedSHA256": "7e7d3eec4ea53fb54f802d3e33247712f7c1696bdd6957a61f03c1485a4aff37",
+          "start": [
+            96,
+            96,
+            288
+          ],
+          "size": [
+            96,
+            96,
+            96
+          ]
+        },
+        {
+          "file": "right-96-96-384.gz",
+          "bytes": 249,
+          "sha256": "eb5f47a48b2bf6751f9a4075dd32141cf560c0c0a75f72802fd504727011be2b",
+          "decodedSHA256": "ee961e92ad4f21f2180e880c05620c4c651170bd8d906a75b56b3b3f3c2d4182",
+          "start": [
+            96,
+            96,
+            384
+          ],
+          "size": [
+            96,
+            96,
+            12
+          ]
+        },
+        {
+          "file": "right-96-192-0.gz",
+          "bytes": 335744,
+          "sha256": "c347c16e6b5e11f0d485a9742bcbad1f8c4fc1fd6e310af900afe3b4940202eb",
+          "decodedSHA256": "fdddfaf01c9d09f35f729b4ca2175ba9e04c5547f4b52a655a57020771a704ee",
+          "start": [
+            96,
+            192,
+            0
+          ],
+          "size": [
+            96,
+            96,
+            96
+          ]
+        },
+        {
+          "file": "right-96-192-96.gz",
+          "bytes": 719300,
+          "sha256": "9812bf5b04f8b25fee80b184388be8d11a76baddd04fc22fcad843be9c03cb17",
+          "decodedSHA256": "1313e8e71ebe7e52163e7b9a22cf6ae9997b7b69c246701fae3e18a28b5f1576",
+          "start": [
+            96,
+            192,
+            96
+          ],
+          "size": [
+            96,
+            96,
+            96
+          ]
+        },
+        {
+          "file": "right-96-192-192.gz",
+          "bytes": 624773,
+          "sha256": "ef5628ae9e6e181622729099b5740e4a36055174644bd1b8ce215c39c8a9965b",
+          "decodedSHA256": "a369f4f1d518df341353361eca13f6f1bb0e15e97708142ae9bf3e828a595e46",
+          "start": [
+            96,
+            192,
+            192
+          ],
+          "size": [
+            96,
+            96,
+            96
+          ]
+        },
+        {
+          "file": "right-96-192-288.gz",
+          "bytes": 305944,
+          "sha256": "8f7ecfeb8f2027541f1ec5b9daa440b6f972a2d8a5a6aabecae3fd79c990bccf",
+          "decodedSHA256": "6fccb5839b7ef52ce39e2832f3877915c56005bd65d4a85f755986010b1ff45f",
+          "start": [
+            96,
+            192,
+            288
+          ],
+          "size": [
+            96,
+            96,
+            96
+          ]
+        },
+        {
+          "file": "right-96-192-384.gz",
+          "bytes": 249,
+          "sha256": "eb5f47a48b2bf6751f9a4075dd32141cf560c0c0a75f72802fd504727011be2b",
+          "decodedSHA256": "ee961e92ad4f21f2180e880c05620c4c651170bd8d906a75b56b3b3f3c2d4182",
+          "start": [
+            96,
+            192,
+            384
+          ],
+          "size": [
+            96,
+            96,
+            12
+          ]
+        },
+        {
+          "file": "right-96-288-0.gz",
+          "bytes": 410816,
+          "sha256": "afb2baf7aeff06b435c6ad45e41d8913a3c082266a814010253de744e0d346a4",
+          "decodedSHA256": "24a1db7fd3e45b4f8714c00cba934ed3a8f312afe436ac09df412c3ce010aa77",
+          "start": [
+            96,
+            288,
+            0
+          ],
+          "size": [
+            96,
+            96,
+            96
+          ]
+        },
+        {
+          "file": "right-96-288-96.gz",
+          "bytes": 695756,
+          "sha256": "64e8616cce5234c2b06a3bff0e8e48f2aaf8de143340a889faf6a26c1eec61e7",
+          "decodedSHA256": "2be63ae4d435de2b9c852f13c842f8477eccb4a56f980a0a264420bb692be6fb",
+          "start": [
+            96,
+            288,
+            96
+          ],
+          "size": [
+            96,
+            96,
+            96
+          ]
+        },
+        {
+          "file": "right-96-288-192.gz",
+          "bytes": 547240,
+          "sha256": "46527c37dadad4a104e06dc1fdb25cfe7c5703261e43a691fa83efdf797ed96e",
+          "decodedSHA256": "786fa816834a959c2a13356bd5c316cef3eb1e9be5f2d22dcf5652e0d62c28db",
+          "start": [
+            96,
+            288,
+            192
+          ],
+          "size": [
+            96,
+            96,
+            96
+          ]
+        },
+        {
+          "file": "right-96-288-288.gz",
+          "bytes": 191372,
+          "sha256": "421ca7fee5a60be0ec6e2172edb8cb503aeb6d37b0162e2528df6c5132ccc264",
+          "decodedSHA256": "5924f2ac1cb6f997be5df29a8b51d54540d00a2091a0f557a0e2fb1d1bcd3dcf",
+          "start": [
+            96,
+            288,
+            288
+          ],
+          "size": [
+            96,
+            96,
+            96
+          ]
+        },
+        {
+          "file": "right-96-288-384.gz",
+          "bytes": 249,
+          "sha256": "eb5f47a48b2bf6751f9a4075dd32141cf560c0c0a75f72802fd504727011be2b",
+          "decodedSHA256": "ee961e92ad4f21f2180e880c05620c4c651170bd8d906a75b56b3b3f3c2d4182",
+          "start": [
+            96,
+            288,
+            384
+          ],
+          "size": [
+            96,
+            96,
+            12
+          ]
+        },
+        {
+          "file": "right-96-384-0.gz",
+          "bytes": 43450,
+          "sha256": "ce7f0bf57dc2aedf4d1bb6119f3da007f530ecc1e3efc066b776290f924cd57a",
+          "decodedSHA256": "75daad8a412b8d6107f247c5d889a9d3395e27e0a810aa3ebf51b38c31dab633",
+          "start": [
+            96,
+            384,
+            0
+          ],
+          "size": [
+            96,
+            20,
+            96
+          ]
+        },
+        {
+          "file": "right-96-384-96.gz",
+          "bytes": 88344,
+          "sha256": "8750e575923104016414c3a33be0573cd077eb6647ba6c705f31aadc3ade3f96",
+          "decodedSHA256": "fcfb07d4d6b5af8bc8f928e4b78b0d47e4685807583ceabf0124da6ac60ef0a0",
+          "start": [
+            96,
+            384,
+            96
+          ],
+          "size": [
+            96,
+            20,
+            96
+          ]
+        },
+        {
+          "file": "right-96-384-192.gz",
+          "bytes": 53730,
+          "sha256": "a63698074a9d5ae9b9ef5844ee4483b51df5a7e5907b2206e6dffd5d95b082c6",
+          "decodedSHA256": "b93356675bc5db3ab170f53434c9c259f1b89e67af37193dc2ae980a25fc9f4c",
+          "start": [
+            96,
+            384,
+            192
+          ],
+          "size": [
+            96,
+            20,
+            96
+          ]
+        },
+        {
+          "file": "right-96-384-288.gz",
+          "bytes": 9189,
+          "sha256": "008b05a42dd3af7566254b38933f9298d0817d07df90bd1184216cc4d9d2ca74",
+          "decodedSHA256": "89ea046a9976c7a8d764004bdf6167811f8af607ae7a04787f545259be3ee01b",
+          "start": [
+            96,
+            384,
+            288
+          ],
+          "size": [
+            96,
+            20,
+            96
+          ]
+        },
+        {
+          "file": "right-96-384-384.gz",
+          "bytes": 80,
+          "sha256": "35a7080a0343589dfdd57c5a7904ed3b71cea491cc3329822ee883b0273924fa",
+          "decodedSHA256": "7e36bec0af80ff78cd2cba3643b862a6c0e3ec56e52acabe92b246dcd6ad4816",
+          "start": [
+            96,
+            384,
+            384
+          ],
+          "size": [
+            96,
+            20,
+            12
+          ]
+        },
+        {
+          "file": "right-192-0-0.gz",
+          "bytes": 121793,
+          "sha256": "45314fd65f915f17a8060fc391597fb4c823652560009843ecc8f1de8267bf40",
+          "decodedSHA256": "078246cc79fa5ea1bcef7dc5dd5c0eae323e55fdfd9ae92e068a3418d6de8b94",
+          "start": [
+            192,
+            0,
+            0
+          ],
+          "size": [
+            96,
+            96,
+            96
+          ]
+        },
+        {
+          "file": "right-192-0-96.gz",
+          "bytes": 90032,
+          "sha256": "023b4fb187b9536d5585cb217ae678b658d5210713227fabaf1fbbffa093348c",
+          "decodedSHA256": "930cac227fd37ed2b85cdb31b2ec48ff73e335205977d5a82f237d854b9a2260",
+          "start": [
+            192,
+            0,
+            96
+          ],
+          "size": [
+            96,
+            96,
+            96
+          ]
+        },
+        {
+          "file": "right-192-0-192.gz",
+          "bytes": 94802,
+          "sha256": "78e267f5de4debfe0126b7edb2e26c5f65194c993ce3dc57fbd51dc795caf7a0",
+          "decodedSHA256": "cb4dbe2d46bc694cf61ae868182a0b75db6c3ca8cfa700b557d096ee107d3333",
+          "start": [
+            192,
+            0,
+            192
+          ],
+          "size": [
+            96,
+            96,
+            96
+          ]
+        },
+        {
+          "file": "right-192-0-288.gz",
+          "bytes": 103798,
+          "sha256": "8ffc9cfe60a668f55b62dcbbbe72ff45bcd109fc7a172d5521f08fa2235f8131",
+          "decodedSHA256": "94ed93838a5f46e4252d475af35fa2083693844779b581f83f33e422f1a2f9c1",
+          "start": [
+            192,
+            0,
+            288
+          ],
+          "size": [
+            96,
+            96,
+            96
+          ]
+        },
+        {
+          "file": "right-192-0-384.gz",
+          "bytes": 249,
+          "sha256": "eb5f47a48b2bf6751f9a4075dd32141cf560c0c0a75f72802fd504727011be2b",
+          "decodedSHA256": "ee961e92ad4f21f2180e880c05620c4c651170bd8d906a75b56b3b3f3c2d4182",
+          "start": [
+            192,
+            0,
+            384
+          ],
+          "size": [
+            96,
+            96,
+            12
+          ]
+        },
+        {
+          "file": "right-192-96-0.gz",
+          "bytes": 306117,
+          "sha256": "1dff5509a1e138cfe1fecd051b39d5fb70c43f7c263d02b4d8fb5536b00f26d2",
+          "decodedSHA256": "844d27ccffd8a495290bb5e1bf8fcb138959140d6428f1f2511c5f864a3a0e45",
+          "start": [
+            192,
+            96,
+            0
+          ],
+          "size": [
+            96,
+            96,
+            96
+          ]
+        },
+        {
+          "file": "right-192-96-96.gz",
+          "bytes": 254712,
+          "sha256": "422bdb45ed71e2bbb4dda959e3f19fbba05623462740698a758e59b44008b968",
+          "decodedSHA256": "9d3a32a2883687b319de15947b45e246f68e3e78558d023ba9bceb009e0f2da0",
+          "start": [
+            192,
+            96,
+            96
+          ],
+          "size": [
+            96,
+            96,
+            96
+          ]
+        },
+        {
+          "file": "right-192-96-192.gz",
+          "bytes": 382715,
+          "sha256": "d3c79b2220a2cb834e44c50dc32694a573aecc3fd8d1d2c075693df0fa21d020",
+          "decodedSHA256": "d87d50cfcdd78f4411b52591681bf7ccba0ac886a83315102472073aed02140d",
+          "start": [
+            192,
+            96,
+            192
+          ],
+          "size": [
+            96,
+            96,
+            96
+          ]
+        },
+        {
+          "file": "right-192-96-288.gz",
+          "bytes": 213661,
+          "sha256": "fb15e713bfab5a5bf51017590711951966aa15981a3c284a0c7e65552500224b",
+          "decodedSHA256": "1d596b5def9110dbf90a96f932ee4f84791615e82c6c81e6987bf896e427cc44",
+          "start": [
+            192,
+            96,
+            288
+          ],
+          "size": [
+            96,
+            96,
+            96
+          ]
+        },
+        {
+          "file": "right-192-96-384.gz",
+          "bytes": 249,
+          "sha256": "eb5f47a48b2bf6751f9a4075dd32141cf560c0c0a75f72802fd504727011be2b",
+          "decodedSHA256": "ee961e92ad4f21f2180e880c05620c4c651170bd8d906a75b56b3b3f3c2d4182",
+          "start": [
+            192,
+            96,
+            384
+          ],
+          "size": [
+            96,
+            96,
+            12
+          ]
+        },
+        {
+          "file": "right-192-192-0.gz",
+          "bytes": 247526,
+          "sha256": "3be1c189bd1c90a00f86a868592149b93add87342e235bc7666e1fea8961b065",
+          "decodedSHA256": "93955af453754fbc8df6af0a158dc744e245379a0f2315eb58547c158ce25185",
+          "start": [
+            192,
+            192,
+            0
+          ],
+          "size": [
+            96,
+            96,
+            96
+          ]
+        },
+        {
+          "file": "right-192-192-96.gz",
+          "bytes": 392817,
+          "sha256": "85cca444e1fae8c1e6944788f4918d1aa65ba99c9de5153ac0ef9a47cf9b0a9a",
+          "decodedSHA256": "6484d4d3ae0015477674055da0b7ca8774a666467f89b3cd23fa2133359a012a",
+          "start": [
+            192,
+            192,
+            96
+          ],
+          "size": [
+            96,
+            96,
+            96
+          ]
+        },
+        {
+          "file": "right-192-192-192.gz",
+          "bytes": 662307,
+          "sha256": "f40468afae09fa8afe1423b015d86a4ae7ab6e58f39e7ab40214f01f90473d42",
+          "decodedSHA256": "a48bf9ffc2711f7f7701106f620ec7eccb56c5e4b6f0b2de46e4ca1b203b0808",
+          "start": [
+            192,
+            192,
+            192
+          ],
+          "size": [
+            96,
+            96,
+            96
+          ]
+        },
+        {
+          "file": "right-192-192-288.gz",
+          "bytes": 372102,
+          "sha256": "ffc4db336391871cf5ae97e7b5732131d82f08a498c786f63207a36ff3b08fee",
+          "decodedSHA256": "c39d7cffa1c53d887b256f87fa080c3daf0fb8818b9b0ed1fbf8be8b4c761a38",
+          "start": [
+            192,
+            192,
+            288
+          ],
+          "size": [
+            96,
+            96,
+            96
+          ]
+        },
+        {
+          "file": "right-192-192-384.gz",
+          "bytes": 249,
+          "sha256": "eb5f47a48b2bf6751f9a4075dd32141cf560c0c0a75f72802fd504727011be2b",
+          "decodedSHA256": "ee961e92ad4f21f2180e880c05620c4c651170bd8d906a75b56b3b3f3c2d4182",
+          "start": [
+            192,
+            192,
+            384
+          ],
+          "size": [
+            96,
+            96,
+            12
+          ]
+        },
+        {
+          "file": "right-192-288-0.gz",
+          "bytes": 377385,
+          "sha256": "251bb52edbf58470476067583cfe2f8995617e7d28e19c47528e6f5657b64d07",
+          "decodedSHA256": "bc52cad8790f981dc128ffca20edce7373141830cdb759a19f9f19bb0d858676",
+          "start": [
+            192,
+            288,
+            0
+          ],
+          "size": [
+            96,
+            96,
+            96
+          ]
+        },
+        {
+          "file": "right-192-288-96.gz",
+          "bytes": 689134,
+          "sha256": "524404a1a57c6697f61036e40804a7d9cc82ea75dc0e45717c44bdd87c6d1324",
+          "decodedSHA256": "dde7bc69da8f38b6b85523ff0d55410830563d49726a61454d3db1db9ad991be",
+          "start": [
+            192,
+            288,
+            96
+          ],
+          "size": [
+            96,
+            96,
+            96
+          ]
+        },
+        {
+          "file": "right-192-288-192.gz",
+          "bytes": 650836,
+          "sha256": "27f8572e9dfe463f60890a92395742c25d02ebf93a81ad02ef9e9f5443536015",
+          "decodedSHA256": "231527dfefe25ac7cb94a4f02dd0bba94356f8a981c78282cbac372fb37f6ea3",
+          "start": [
+            192,
+            288,
+            192
+          ],
+          "size": [
+            96,
+            96,
+            96
+          ]
+        },
+        {
+          "file": "right-192-288-288.gz",
+          "bytes": 237611,
+          "sha256": "dd6ebd4a4f4ed43a53e6f13ca5deaf7ce83d9579d1b6cb723564f7c174ad098b",
+          "decodedSHA256": "275baef8033e8065b39ce281dc9f6b32a7e1409ec30ca7c38ec751f89aa16fd6",
+          "start": [
+            192,
+            288,
+            288
+          ],
+          "size": [
+            96,
+            96,
+            96
+          ]
+        },
+        {
+          "file": "right-192-288-384.gz",
+          "bytes": 249,
+          "sha256": "eb5f47a48b2bf6751f9a4075dd32141cf560c0c0a75f72802fd504727011be2b",
+          "decodedSHA256": "ee961e92ad4f21f2180e880c05620c4c651170bd8d906a75b56b3b3f3c2d4182",
+          "start": [
+            192,
+            288,
+            384
+          ],
+          "size": [
+            96,
+            96,
+            12
+          ]
+        },
+        {
+          "file": "right-192-384-0.gz",
+          "bytes": 58293,
+          "sha256": "863c1eb04212915c840a133f022d5a52f8d971d94cadf1ea487f753ea6b91c44",
+          "decodedSHA256": "313472d0dbdd3af871d53c11e6a522c056a40478048091873ffb087e4a27c30a",
+          "start": [
+            192,
+            384,
+            0
+          ],
+          "size": [
+            96,
+            20,
+            96
+          ]
+        },
+        {
+          "file": "right-192-384-96.gz",
+          "bytes": 91058,
+          "sha256": "96383551f50928451246c687fd9a8663503f7c8d4aef41eb834ee71cd28d4320",
+          "decodedSHA256": "495b909dcb81f3f300ef732c7f729f4c02b430fdca9514cc6b300411d25858e8",
+          "start": [
+            192,
+            384,
+            96
+          ],
+          "size": [
+            96,
+            20,
+            96
+          ]
+        },
+        {
+          "file": "right-192-384-192.gz",
+          "bytes": 49520,
+          "sha256": "7379e71648f030eeb0a5b1e54d62783095e02d563f28ff8adaa8cd05daf489ce",
+          "decodedSHA256": "8927413fc7cf40e9f649d37c858eecf1a7fd2fc552eaa9061feab4e08294ef79",
+          "start": [
+            192,
+            384,
+            192
+          ],
+          "size": [
+            96,
+            20,
+            96
+          ]
+        },
+        {
+          "file": "right-192-384-288.gz",
+          "bytes": 4857,
+          "sha256": "b4d4ff766c3a24ce2b64dc19aa2e30780a3ccfbb691726d888e75b65d66607ed",
+          "decodedSHA256": "0e1f14b8412178a01b0a4b79fcb2704e16f5b3a0afe287d4b778de1fc74ee683",
+          "start": [
+            192,
+            384,
+            288
+          ],
+          "size": [
+            96,
+            20,
+            96
+          ]
+        },
+        {
+          "file": "right-192-384-384.gz",
+          "bytes": 80,
+          "sha256": "35a7080a0343589dfdd57c5a7904ed3b71cea491cc3329822ee883b0273924fa",
+          "decodedSHA256": "7e36bec0af80ff78cd2cba3643b862a6c0e3ec56e52acabe92b246dcd6ad4816",
+          "start": [
+            192,
+            384,
+            384
+          ],
+          "size": [
+            96,
+            20,
+            12
+          ]
+        },
+        {
+          "file": "right-288-0-0.gz",
+          "bytes": 100944,
+          "sha256": "15bce6076f40cf234138cc60d0d5a61814c35f12461d1c079fab255d799c2337",
+          "decodedSHA256": "58402745b414f7f2769f6cc1ebaac690eeeb63309861f38275604e6b91a54d5a",
+          "start": [
+            288,
+            0,
+            0
+          ],
+          "size": [
+            96,
+            96,
+            96
+          ]
+        },
+        {
+          "file": "right-288-0-96.gz",
+          "bytes": 72931,
+          "sha256": "b4b7a09f37532c3abfc9ad2956b887fd982c462438c27b07edf4b1abe859fa33",
+          "decodedSHA256": "2e48377ccdd6145b3144213a27a4414fdc0258d5ed841363a7e53710bbd308f9",
+          "start": [
+            288,
+            0,
+            96
+          ],
+          "size": [
+            96,
+            96,
+            96
+          ]
+        },
+        {
+          "file": "right-288-0-192.gz",
+          "bytes": 85415,
+          "sha256": "2d68f4591144a8f406dc98f9e48d3f99eccc40eb68281e28771a233cdcb5e1ea",
+          "decodedSHA256": "659a4fb6ef950466753e4d616dd28f765cd8c2248b7818bfc22136161352436c",
+          "start": [
+            288,
+            0,
+            192
+          ],
+          "size": [
+            96,
+            96,
+            96
+          ]
+        },
+        {
+          "file": "right-288-0-288.gz",
+          "bytes": 95065,
+          "sha256": "29fc1a1542005ca6205ee78beba2decb9b5e880dbca272482d40f901665b5368",
+          "decodedSHA256": "febd28b6e1f07c26f0d12f9b3bdae91c724309829599578387e787929cbbee35",
+          "start": [
+            288,
+            0,
+            288
+          ],
+          "size": [
+            96,
+            96,
+            96
+          ]
+        },
+        {
+          "file": "right-288-0-384.gz",
+          "bytes": 666,
+          "sha256": "3750c23e675fa3789ee428f707b678a1216abe989b8afabec9e5576e965142d1",
+          "decodedSHA256": "cf0432d69c714b4ffe0663eb2437eaca4e9425905ccb0cd0b80cef975e7b38bc",
+          "start": [
+            288,
+            0,
+            384
+          ],
+          "size": [
+            96,
+            96,
+            12
+          ]
+        },
+        {
+          "file": "right-288-96-0.gz",
+          "bytes": 8915,
+          "sha256": "97a5ed60f76c4a4e647d1319f9cdf135c495266e774b88b47257c27ad769376a",
+          "decodedSHA256": "8bdf22b7a9b5d0fd65f02f3d15a58cb589eb11180d35acdedc0e4819233052cc",
+          "start": [
+            288,
+            96,
+            0
+          ],
+          "size": [
+            96,
+            96,
+            96
+          ]
+        },
+        {
+          "file": "right-288-96-96.gz",
+          "bytes": 7845,
+          "sha256": "23ad85fa8c23caeab3e528409f4c5275d278c30e9db772e35d1bc12f4e873a07",
+          "decodedSHA256": "b32f3bc6a6205a6399b0ad2266fb2db68f7afc413a1113ed7cc6166730362134",
+          "start": [
+            288,
+            96,
+            96
+          ],
+          "size": [
+            96,
+            96,
+            96
+          ]
+        },
+        {
+          "file": "right-288-96-192.gz",
+          "bytes": 63433,
+          "sha256": "90974afcbf8c1fbe56ffb060ca666ede2e106afbb95f89199f48be661d776e71",
+          "decodedSHA256": "736c9f844eb3cf7135c76086c423d2e30e6ffdc55d064cde95654c0ee4ee2913",
+          "start": [
+            288,
+            96,
+            192
+          ],
+          "size": [
+            96,
+            96,
+            96
+          ]
+        },
+        {
+          "file": "right-288-96-288.gz",
+          "bytes": 9446,
+          "sha256": "8ab1a1ba8730ecb576dc90ef1ddb8dd6e7d794bd325a48013bdaa9cdbc85ba7e",
+          "decodedSHA256": "13d36ca14329a75474b6e2247611c47a816990185c05b15106f9583c0ae1e0c7",
+          "start": [
+            288,
+            96,
+            288
+          ],
+          "size": [
+            96,
+            96,
+            96
+          ]
+        },
+        {
+          "file": "right-288-96-384.gz",
+          "bytes": 249,
+          "sha256": "eb5f47a48b2bf6751f9a4075dd32141cf560c0c0a75f72802fd504727011be2b",
+          "decodedSHA256": "ee961e92ad4f21f2180e880c05620c4c651170bd8d906a75b56b3b3f3c2d4182",
+          "start": [
+            288,
+            96,
+            384
+          ],
+          "size": [
+            96,
+            96,
+            12
+          ]
+        },
+        {
+          "file": "right-288-192-0.gz",
+          "bytes": 102119,
+          "sha256": "67a4addfcc1691d3848a68e674322d06057afc746e82eaa2584e28ee992af2c5",
+          "decodedSHA256": "a771b2f0c23690287d97cfab8dfa3ec30d06e28f8d1bfb5c48e6fd6ab7d021d1",
+          "start": [
+            288,
+            192,
+            0
+          ],
+          "size": [
+            96,
+            96,
+            96
+          ]
+        },
+        {
+          "file": "right-288-192-96.gz",
+          "bytes": 166478,
+          "sha256": "de4ebd5d50a0e45766469326bfa76d031bf6c11fd161ab98f62c518c4822995e",
+          "decodedSHA256": "e7f9cf03e70abc1ecbb6ff56f1048da5ad0ac556a535e2b62844bae18ac2d6b1",
+          "start": [
+            288,
+            192,
+            96
+          ],
+          "size": [
+            96,
+            96,
+            96
+          ]
+        },
+        {
+          "file": "right-288-192-192.gz",
+          "bytes": 441452,
+          "sha256": "5b35f6a8254a96b93b43fbfba3dfe88eee2d402164686ba1c69947744e65ab38",
+          "decodedSHA256": "826c7472bbd55c4338fb0dc2ae6a62b1462c34f0399556aa957eb26d8f589e6e",
+          "start": [
+            288,
+            192,
+            192
+          ],
+          "size": [
+            96,
+            96,
+            96
+          ]
+        },
+        {
+          "file": "right-288-192-288.gz",
+          "bytes": 207406,
+          "sha256": "6165d275b5de120dfb009345c00ae2bd580860ed9c594878f6bba698e8973e2d",
+          "decodedSHA256": "aef4d7695742570eb680705fbcda01861d132bda0d692a4f856729b4dd328ed5",
+          "start": [
+            288,
+            192,
+            288
+          ],
+          "size": [
+            96,
+            96,
+            96
+          ]
+        },
+        {
+          "file": "right-288-192-384.gz",
+          "bytes": 249,
+          "sha256": "eb5f47a48b2bf6751f9a4075dd32141cf560c0c0a75f72802fd504727011be2b",
+          "decodedSHA256": "ee961e92ad4f21f2180e880c05620c4c651170bd8d906a75b56b3b3f3c2d4182",
+          "start": [
+            288,
+            192,
+            384
+          ],
+          "size": [
+            96,
+            96,
+            12
+          ]
+        },
+        {
+          "file": "right-288-288-0.gz",
+          "bytes": 459168,
+          "sha256": "b9a7c6f2d4f8c28a74367f0aa64642751b8939c56aadcb7eb9a32b92ec5ad467",
+          "decodedSHA256": "9692d577d5ab471b03a574981391252e08268f4daeb873b9e6ed3cc2953cc6af",
+          "start": [
+            288,
+            288,
+            0
+          ],
+          "size": [
+            96,
+            96,
+            96
+          ]
+        },
+        {
+          "file": "right-288-288-96.gz",
+          "bytes": 666501,
+          "sha256": "889a529b4961b219386ea13682fe88bba00c1737ae9874d43f515369eb76a482",
+          "decodedSHA256": "3a300122fb908681c5a9bb4073172ca0c3a5d06dbbcb0c4d05594ec8126bdedd",
+          "start": [
+            288,
+            288,
+            96
+          ],
+          "size": [
+            96,
+            96,
+            96
+          ]
+        },
+        {
+          "file": "right-288-288-192.gz",
+          "bytes": 700481,
+          "sha256": "902587104564c120c0bfc47bf2a38ce6226180e3502d336088945d8e7f16a87e",
+          "decodedSHA256": "8dc65fff748f3947aaee65acf508c3ad1c205f68c7c2628caebe467339d40618",
+          "start": [
+            288,
+            288,
+            192
+          ],
+          "size": [
+            96,
+            96,
+            96
+          ]
+        },
+        {
+          "file": "right-288-288-288.gz",
+          "bytes": 331432,
+          "sha256": "ece0a48542d82af63f5a0d92bbee76c7179424fb390cee857692acf8e1759c9c",
+          "decodedSHA256": "b476bbda818f54ed668d20e649ea04c65e990273e53602c34cdfca2fcef93fd7",
+          "start": [
+            288,
+            288,
+            288
+          ],
+          "size": [
+            96,
+            96,
+            96
+          ]
+        },
+        {
+          "file": "right-288-288-384.gz",
+          "bytes": 249,
+          "sha256": "eb5f47a48b2bf6751f9a4075dd32141cf560c0c0a75f72802fd504727011be2b",
+          "decodedSHA256": "ee961e92ad4f21f2180e880c05620c4c651170bd8d906a75b56b3b3f3c2d4182",
+          "start": [
+            288,
+            288,
+            384
+          ],
+          "size": [
+            96,
+            96,
+            12
+          ]
+        },
+        {
+          "file": "right-288-384-0.gz",
+          "bytes": 75197,
+          "sha256": "7be0927014e77548148b61eb8677de817a394cc44d7cd0369d92b6ea61158ab1",
+          "decodedSHA256": "dcfffd9f6138ef46d1d82de39c4652371345f15c3a2ee591e492b655fe1e6279",
+          "start": [
+            288,
+            384,
+            0
+          ],
+          "size": [
+            96,
+            20,
+            96
+          ]
+        },
+        {
+          "file": "right-288-384-96.gz",
+          "bytes": 91423,
+          "sha256": "fc4f89d3fae3c3cd2f22f083e5a359c3c12a6416fddbe2c0714dade56b2c9d8f",
+          "decodedSHA256": "9eb6c554b59e9f7adc74b7521ef8f774b07217e8f5c683e40a684a0e4dfaac1b",
+          "start": [
+            288,
+            384,
+            96
+          ],
+          "size": [
+            96,
+            20,
+            96
+          ]
+        },
+        {
+          "file": "right-288-384-192.gz",
+          "bytes": 48395,
+          "sha256": "7013c069c59e56f07a23df1e423672a2bd716fedf34c9de6073c5585a0c39f88",
+          "decodedSHA256": "9adb3ce1642e915f977c4416e5b63c8a257ade4f03a34cde4d742ea2363bd257",
+          "start": [
+            288,
+            384,
+            192
+          ],
+          "size": [
+            96,
+            20,
+            96
+          ]
+        },
+        {
+          "file": "right-288-384-288.gz",
+          "bytes": 1559,
+          "sha256": "776c506b2a850a992d38f21f1d69743c363663ecf4ce976f56367ea984bfe6f0",
+          "decodedSHA256": "867bebec93407cda71f249fae2f5964884125e17c0099e5a5c31670a9f19ba82",
+          "start": [
+            288,
+            384,
+            288
+          ],
+          "size": [
+            96,
+            20,
+            96
+          ]
+        },
+        {
+          "file": "right-288-384-384.gz",
+          "bytes": 80,
+          "sha256": "35a7080a0343589dfdd57c5a7904ed3b71cea491cc3329822ee883b0273924fa",
+          "decodedSHA256": "7e36bec0af80ff78cd2cba3643b862a6c0e3ec56e52acabe92b246dcd6ad4816",
+          "start": [
+            288,
+            384,
+            384
+          ],
+          "size": [
+            96,
+            20,
+            12
+          ]
+        },
+        {
+          "file": "right-384-0-0.gz",
+          "bytes": 34359,
+          "sha256": "8d65ddec384b4550fcbdff84ee8fc177d869b393d13d8917dd7242e6f471ba98",
+          "decodedSHA256": "c50856137a9a0a7caed679c67e9334b285b1e55b410f5e027d60733fc0e2a0b9",
+          "start": [
+            384,
+            0,
+            0
+          ],
+          "size": [
+            96,
+            96,
+            96
+          ]
+        },
+        {
+          "file": "right-384-0-96.gz",
+          "bytes": 28699,
+          "sha256": "a29fbe1a2afb3c135e82f71656a657c2187849baf60182830fda67740feec9f1",
+          "decodedSHA256": "0ac0e4b4944b93048cbfb2a3a324352fb38035c402b4beadc0889569ca0d3e0c",
+          "start": [
+            384,
+            0,
+            96
+          ],
+          "size": [
+            96,
+            96,
+            96
+          ]
+        },
+        {
+          "file": "right-384-0-192.gz",
+          "bytes": 39311,
+          "sha256": "eb39f4f4cb2e767b11efede9ce580fe0541817f34a68e07dfa2283542b7412cc",
+          "decodedSHA256": "eee547b6725043cfc9b91b6c4eb5c831b8634e24e8a4e78b49f83d0f79a4a749",
+          "start": [
+            384,
+            0,
+            192
+          ],
+          "size": [
+            96,
+            96,
+            96
+          ]
+        },
+        {
+          "file": "right-384-0-288.gz",
+          "bytes": 59729,
+          "sha256": "96685383b42f53a009516c893bed973b66e604c697d9301d75967b9429848969",
+          "decodedSHA256": "3ced7fb6d6e75c582f2e6817bcc65bb006a4019edb2d75a048d6b8e63b3db297",
+          "start": [
+            384,
+            0,
+            288
+          ],
+          "size": [
+            96,
+            96,
+            96
+          ]
+        },
+        {
+          "file": "right-384-0-384.gz",
+          "bytes": 4082,
+          "sha256": "606b523f32637bf4157209978e8c58e5d2d20e9cb212610153b84e991929b23b",
+          "decodedSHA256": "b7a3bd81425edc17150996c6bbd3f045dec986c7b5ac9c1dada858b944466c05",
+          "start": [
+            384,
+            0,
+            384
+          ],
+          "size": [
+            96,
+            96,
+            12
+          ]
+        },
+        {
+          "file": "right-384-96-0.gz",
+          "bytes": 1977,
+          "sha256": "015bea3396d75cec0814ce10397d67e3df298cd0ba87dc0cd011c7ebf71e3b29",
+          "decodedSHA256": "9822584a0df614eeffebd684958d61dfbfc23bd71586d825415f9c1eef0dadd1",
+          "start": [
+            384,
+            96,
+            0
+          ],
+          "size": [
+            96,
+            96,
+            96
+          ]
+        },
+        {
+          "file": "right-384-96-96.gz",
+          "bytes": 1813,
+          "sha256": "f2d5a70c16392e6bce97332d9ca18466073f27538278344aed40ab46b7c1f2f2",
+          "decodedSHA256": "7b5f4026c8e26d0b2ad971793499b37811002f5f4b22b6999a1aad25bb25583a",
+          "start": [
+            384,
+            96,
+            96
+          ],
+          "size": [
+            96,
+            96,
+            96
+          ]
+        },
+        {
+          "file": "right-384-96-192.gz",
+          "bytes": 4965,
+          "sha256": "b8df8270b4d3276da739cb1a473b690d1067b842820fa93167c3ac6adc438e6a",
+          "decodedSHA256": "1d9226ec8d0b3f5521264b3885f7b05bd479e7fd6524943833f7b6aa3acfc2f0",
+          "start": [
+            384,
+            96,
+            192
+          ],
+          "size": [
+            96,
+            96,
+            96
+          ]
+        },
+        {
+          "file": "right-384-96-288.gz",
+          "bytes": 2196,
+          "sha256": "95aaa733f1d79177463e673514f87f576ba6792eaf221c993a380bc3ad50468b",
+          "decodedSHA256": "881e915033e9992bf3aa858bf2f8c7e9dc0aec88bfb9c4f6ecd1479f8cc651fe",
+          "start": [
+            384,
+            96,
+            288
+          ],
+          "size": [
+            96,
+            96,
+            96
+          ]
+        },
+        {
+          "file": "right-384-96-384.gz",
+          "bytes": 249,
+          "sha256": "eb5f47a48b2bf6751f9a4075dd32141cf560c0c0a75f72802fd504727011be2b",
+          "decodedSHA256": "ee961e92ad4f21f2180e880c05620c4c651170bd8d906a75b56b3b3f3c2d4182",
+          "start": [
+            384,
+            96,
+            384
+          ],
+          "size": [
+            96,
+            96,
+            12
+          ]
+        },
+        {
+          "file": "right-384-192-0.gz",
+          "bytes": 6051,
+          "sha256": "07ce82707bba1bcdb74f1ed3109781e75db7c8e47cd32ae93f56358e539d2ceb",
+          "decodedSHA256": "fdb50ee3066aceea26fa2535127b0c02240ebd28ef2e4ecac08bfef444d38759",
+          "start": [
+            384,
+            192,
+            0
+          ],
+          "size": [
+            96,
+            96,
+            96
+          ]
+        },
+        {
+          "file": "right-384-192-96.gz",
+          "bytes": 6530,
+          "sha256": "116aa3640eb6d5b5de1036fcd75083a91dd9e5d7921da7aa45a7fac6b06c84ce",
+          "decodedSHA256": "d82fe497dd0dc6f2c323036a85ec305572e1354a560a77e59f25ef643201fe70",
+          "start": [
+            384,
+            192,
+            96
+          ],
+          "size": [
+            96,
+            96,
+            96
+          ]
+        },
+        {
+          "file": "right-384-192-192.gz",
+          "bytes": 78892,
+          "sha256": "52499d425a87f8abd371ca32043446c84bf319d1f1ae912373f2fa83a067abc0",
+          "decodedSHA256": "8953eed5bcecff3e80fbfb207872277e8cb78098b56ac1805941214342f5cdba",
+          "start": [
+            384,
+            192,
+            192
+          ],
+          "size": [
+            96,
+            96,
+            96
+          ]
+        },
+        {
+          "file": "right-384-192-288.gz",
+          "bytes": 24117,
+          "sha256": "2112f990d1ae1c6fbf2f3d02dd5815d425b3037b6df794759f64ae0c67d37247",
+          "decodedSHA256": "ccd649aa26888fde49cbfe0de840a719e5ffa1f2669e207e12c51ec7e606b617",
+          "start": [
+            384,
+            192,
+            288
+          ],
+          "size": [
+            96,
+            96,
+            96
+          ]
+        },
+        {
+          "file": "right-384-192-384.gz",
+          "bytes": 249,
+          "sha256": "eb5f47a48b2bf6751f9a4075dd32141cf560c0c0a75f72802fd504727011be2b",
+          "decodedSHA256": "ee961e92ad4f21f2180e880c05620c4c651170bd8d906a75b56b3b3f3c2d4182",
+          "start": [
+            384,
+            192,
+            384
+          ],
+          "size": [
+            96,
+            96,
+            12
+          ]
+        },
+        {
+          "file": "right-384-288-0.gz",
+          "bytes": 65384,
+          "sha256": "5fac686171d01dd885304aea775180fa7a360e3b9e36c535c2cacb8c028b796c",
+          "decodedSHA256": "f363003933ad115041f6e7bb21341e19c6dc4375a66da9f4e2e9e51e4fa59efd",
+          "start": [
+            384,
+            288,
+            0
+          ],
+          "size": [
+            96,
+            96,
+            96
+          ]
+        },
+        {
+          "file": "right-384-288-96.gz",
+          "bytes": 141144,
+          "sha256": "d96737ec793f9c76271d1a168182cafe30549b402ee3dbe02edbb96362f9ebe0",
+          "decodedSHA256": "2d6098210bcf9840d806af9a1ba334bfa53ba46c7555f4d6445a3e3fa7a84e23",
+          "start": [
+            384,
+            288,
+            96
+          ],
+          "size": [
+            96,
+            96,
+            96
+          ]
+        },
+        {
+          "file": "right-384-288-192.gz",
+          "bytes": 286909,
+          "sha256": "30d696d693455ebc4f0e4584f3010356718f43aac6a717377b729ef25e43837b",
+          "decodedSHA256": "9db18e7a61c5502759b34b61a5870d1fe078a7e26a07e270f2c0dd97a39e9923",
+          "start": [
+            384,
+            288,
+            192
+          ],
+          "size": [
+            96,
+            96,
+            96
+          ]
+        },
+        {
+          "file": "right-384-288-288.gz",
+          "bytes": 219752,
+          "sha256": "a89a4ce9445f7da5086440623edcbf3f3296254bba216534743e8642693a06b2",
+          "decodedSHA256": "52e52013a318c10db098d5675cf121b631928043bd250c28b2aaf3842ff17304",
+          "start": [
+            384,
+            288,
+            288
+          ],
+          "size": [
+            96,
+            96,
+            96
+          ]
+        },
+        {
+          "file": "right-384-288-384.gz",
+          "bytes": 249,
+          "sha256": "eb5f47a48b2bf6751f9a4075dd32141cf560c0c0a75f72802fd504727011be2b",
+          "decodedSHA256": "ee961e92ad4f21f2180e880c05620c4c651170bd8d906a75b56b3b3f3c2d4182",
+          "start": [
+            384,
+            288,
+            384
+          ],
+          "size": [
+            96,
+            96,
+            12
+          ]
+        },
+        {
+          "file": "right-384-384-0.gz",
+          "bytes": 45815,
+          "sha256": "8b9fea67252652604027cfec835c11f8d5c576de0515f15865275fa1b1d26fa3",
+          "decodedSHA256": "2034e5280862b8d1b5d2132f840bd546625e297f57d51edafc7ddb7299d8d691",
+          "start": [
+            384,
+            384,
+            0
+          ],
+          "size": [
+            96,
+            20,
+            96
+          ]
+        },
+        {
+          "file": "right-384-384-96.gz",
+          "bytes": 65839,
+          "sha256": "43d031db1a9f59f33fcaff04c2864aa7fec47eeaaec1e91a4ec6103a737da109",
+          "decodedSHA256": "068a956d60ad67774c4a375d4d76d98a9f49b11c56ced48bded371bdab0f2f68",
+          "start": [
+            384,
+            384,
+            96
+          ],
+          "size": [
+            96,
+            20,
+            96
+          ]
+        },
+        {
+          "file": "right-384-384-192.gz",
+          "bytes": 51135,
+          "sha256": "45b00c84e594c1867d78d000b440391649ae278a9715838f19f04d57709a7acf",
+          "decodedSHA256": "51c9908aed7a33f943841281c1877c39a680ca8cef47eafa29fe1a3d92caf933",
+          "start": [
+            384,
+            384,
+            192
+          ],
+          "size": [
+            96,
+            20,
+            96
+          ]
+        },
+        {
+          "file": "right-384-384-288.gz",
+          "bytes": 585,
+          "sha256": "dede1fe8d343124959cc87f303f08b52235f0e6c249fe8c6f4427a61bb819bd6",
+          "decodedSHA256": "6bc25081ca338c054f7d8ccdbbad92501c78c39d0b1edff8a3d70dafce31d759",
+          "start": [
+            384,
+            384,
+            288
+          ],
+          "size": [
+            96,
+            20,
+            96
+          ]
+        },
+        {
+          "file": "right-384-384-384.gz",
+          "bytes": 80,
+          "sha256": "35a7080a0343589dfdd57c5a7904ed3b71cea491cc3329822ee883b0273924fa",
+          "decodedSHA256": "7e36bec0af80ff78cd2cba3643b862a6c0e3ec56e52acabe92b246dcd6ad4816",
+          "start": [
+            384,
+            384,
+            384
+          ],
+          "size": [
+            96,
+            20,
+            12
+          ]
+        },
+        {
+          "file": "right-480-0-0.gz",
+          "bytes": 320,
+          "sha256": "1926bd89b558763fc155ee61a6f07fb02a7c1e31c791766d84f719bf4c3920af",
+          "decodedSHA256": "b9c048de34d844a2381155656d249036a85a52b60cb9fd06bf1600e44d7aa3ae",
+          "start": [
+            480,
+            0,
+            0
+          ],
+          "size": [
+            16,
+            96,
+            96
+          ]
+        },
+        {
+          "file": "right-480-0-96.gz",
+          "bytes": 320,
+          "sha256": "1926bd89b558763fc155ee61a6f07fb02a7c1e31c791766d84f719bf4c3920af",
+          "decodedSHA256": "b9c048de34d844a2381155656d249036a85a52b60cb9fd06bf1600e44d7aa3ae",
+          "start": [
+            480,
+            0,
+            96
+          ],
+          "size": [
+            16,
+            96,
+            96
+          ]
+        },
+        {
+          "file": "right-480-0-192.gz",
+          "bytes": 320,
+          "sha256": "1926bd89b558763fc155ee61a6f07fb02a7c1e31c791766d84f719bf4c3920af",
+          "decodedSHA256": "b9c048de34d844a2381155656d249036a85a52b60cb9fd06bf1600e44d7aa3ae",
+          "start": [
+            480,
+            0,
+            192
+          ],
+          "size": [
+            16,
+            96,
+            96
+          ]
+        },
+        {
+          "file": "right-480-0-288.gz",
+          "bytes": 425,
+          "sha256": "80fa59f84e12c94d678f90dd3272a496346542a61c67961b35fa55b8897a3662",
+          "decodedSHA256": "caee883a9ae43103055d37f40d610eba199bf2e310b1fe6413ea0a2b565dc75d",
+          "start": [
+            480,
+            0,
+            288
+          ],
+          "size": [
+            16,
+            96,
+            96
+          ]
+        },
+        {
+          "file": "right-480-0-384.gz",
+          "bytes": 70,
+          "sha256": "ad59157ffaf91ef9ae90025eacefc73bc2fcbe4d0d8d61d27f26dbd047f9181a",
+          "decodedSHA256": "1c0273095382988333e2f2b5ae487cea460737ed9be65cbad9c5de537f95bf75",
+          "start": [
+            480,
+            0,
+            384
+          ],
+          "size": [
+            16,
+            96,
+            12
+          ]
+        },
+        {
+          "file": "right-480-96-0.gz",
+          "bytes": 320,
+          "sha256": "1926bd89b558763fc155ee61a6f07fb02a7c1e31c791766d84f719bf4c3920af",
+          "decodedSHA256": "b9c048de34d844a2381155656d249036a85a52b60cb9fd06bf1600e44d7aa3ae",
+          "start": [
+            480,
+            96,
+            0
+          ],
+          "size": [
+            16,
+            96,
+            96
+          ]
+        },
+        {
+          "file": "right-480-96-96.gz",
+          "bytes": 320,
+          "sha256": "1926bd89b558763fc155ee61a6f07fb02a7c1e31c791766d84f719bf4c3920af",
+          "decodedSHA256": "b9c048de34d844a2381155656d249036a85a52b60cb9fd06bf1600e44d7aa3ae",
+          "start": [
+            480,
+            96,
+            96
+          ],
+          "size": [
+            16,
+            96,
+            96
+          ]
+        },
+        {
+          "file": "right-480-96-192.gz",
+          "bytes": 320,
+          "sha256": "1926bd89b558763fc155ee61a6f07fb02a7c1e31c791766d84f719bf4c3920af",
+          "decodedSHA256": "b9c048de34d844a2381155656d249036a85a52b60cb9fd06bf1600e44d7aa3ae",
+          "start": [
+            480,
+            96,
+            192
+          ],
+          "size": [
+            16,
+            96,
+            96
+          ]
+        },
+        {
+          "file": "right-480-96-288.gz",
+          "bytes": 320,
+          "sha256": "1926bd89b558763fc155ee61a6f07fb02a7c1e31c791766d84f719bf4c3920af",
+          "decodedSHA256": "b9c048de34d844a2381155656d249036a85a52b60cb9fd06bf1600e44d7aa3ae",
+          "start": [
+            480,
+            96,
+            288
+          ],
+          "size": [
+            16,
+            96,
+            96
+          ]
+        },
+        {
+          "file": "right-480-96-384.gz",
+          "bytes": 70,
+          "sha256": "ad59157ffaf91ef9ae90025eacefc73bc2fcbe4d0d8d61d27f26dbd047f9181a",
+          "decodedSHA256": "1c0273095382988333e2f2b5ae487cea460737ed9be65cbad9c5de537f95bf75",
+          "start": [
+            480,
+            96,
+            384
+          ],
+          "size": [
+            16,
+            96,
+            12
+          ]
+        },
+        {
+          "file": "right-480-192-0.gz",
+          "bytes": 320,
+          "sha256": "1926bd89b558763fc155ee61a6f07fb02a7c1e31c791766d84f719bf4c3920af",
+          "decodedSHA256": "b9c048de34d844a2381155656d249036a85a52b60cb9fd06bf1600e44d7aa3ae",
+          "start": [
+            480,
+            192,
+            0
+          ],
+          "size": [
+            16,
+            96,
+            96
+          ]
+        },
+        {
+          "file": "right-480-192-96.gz",
+          "bytes": 320,
+          "sha256": "1926bd89b558763fc155ee61a6f07fb02a7c1e31c791766d84f719bf4c3920af",
+          "decodedSHA256": "b9c048de34d844a2381155656d249036a85a52b60cb9fd06bf1600e44d7aa3ae",
+          "start": [
+            480,
+            192,
+            96
+          ],
+          "size": [
+            16,
+            96,
+            96
+          ]
+        },
+        {
+          "file": "right-480-192-192.gz",
+          "bytes": 320,
+          "sha256": "1926bd89b558763fc155ee61a6f07fb02a7c1e31c791766d84f719bf4c3920af",
+          "decodedSHA256": "b9c048de34d844a2381155656d249036a85a52b60cb9fd06bf1600e44d7aa3ae",
+          "start": [
+            480,
+            192,
+            192
+          ],
+          "size": [
+            16,
+            96,
+            96
+          ]
+        },
+        {
+          "file": "right-480-192-288.gz",
+          "bytes": 320,
+          "sha256": "1926bd89b558763fc155ee61a6f07fb02a7c1e31c791766d84f719bf4c3920af",
+          "decodedSHA256": "b9c048de34d844a2381155656d249036a85a52b60cb9fd06bf1600e44d7aa3ae",
+          "start": [
+            480,
+            192,
+            288
+          ],
+          "size": [
+            16,
+            96,
+            96
+          ]
+        },
+        {
+          "file": "right-480-192-384.gz",
+          "bytes": 70,
+          "sha256": "ad59157ffaf91ef9ae90025eacefc73bc2fcbe4d0d8d61d27f26dbd047f9181a",
+          "decodedSHA256": "1c0273095382988333e2f2b5ae487cea460737ed9be65cbad9c5de537f95bf75",
+          "start": [
+            480,
+            192,
+            384
+          ],
+          "size": [
+            16,
+            96,
+            12
+          ]
+        },
+        {
+          "file": "right-480-288-0.gz",
+          "bytes": 320,
+          "sha256": "1926bd89b558763fc155ee61a6f07fb02a7c1e31c791766d84f719bf4c3920af",
+          "decodedSHA256": "b9c048de34d844a2381155656d249036a85a52b60cb9fd06bf1600e44d7aa3ae",
+          "start": [
+            480,
+            288,
+            0
+          ],
+          "size": [
+            16,
+            96,
+            96
+          ]
+        },
+        {
+          "file": "right-480-288-96.gz",
+          "bytes": 320,
+          "sha256": "1926bd89b558763fc155ee61a6f07fb02a7c1e31c791766d84f719bf4c3920af",
+          "decodedSHA256": "b9c048de34d844a2381155656d249036a85a52b60cb9fd06bf1600e44d7aa3ae",
+          "start": [
+            480,
+            288,
+            96
+          ],
+          "size": [
+            16,
+            96,
+            96
+          ]
+        },
+        {
+          "file": "right-480-288-192.gz",
+          "bytes": 1171,
+          "sha256": "249a44d2cd362284296c63ed6dd53b1920eb02732ffc9e91f50e0e55a9a80c8b",
+          "decodedSHA256": "eff4fbd103fab47790746fb5f91da9d82de9339779f83be87ed19cd62f995102",
+          "start": [
+            480,
+            288,
+            192
+          ],
+          "size": [
+            16,
+            96,
+            96
+          ]
+        },
+        {
+          "file": "right-480-288-288.gz",
+          "bytes": 18707,
+          "sha256": "468539b44b25ebb86062f3b71cf7a321b0410dc1b1f01c987db460aff7efe73a",
+          "decodedSHA256": "8b6d8e6949251c95bb5d4a099cdc1f755f4590cb246cfde7349f85a8c0f49bb6",
+          "start": [
+            480,
+            288,
+            288
+          ],
+          "size": [
+            16,
+            96,
+            96
+          ]
+        },
+        {
+          "file": "right-480-288-384.gz",
+          "bytes": 70,
+          "sha256": "ad59157ffaf91ef9ae90025eacefc73bc2fcbe4d0d8d61d27f26dbd047f9181a",
+          "decodedSHA256": "1c0273095382988333e2f2b5ae487cea460737ed9be65cbad9c5de537f95bf75",
+          "start": [
+            480,
+            288,
+            384
+          ],
+          "size": [
+            16,
+            96,
+            12
+          ]
+        },
+        {
+          "file": "right-480-384-0.gz",
+          "bytes": 94,
+          "sha256": "a9b205eca4a80ff7864ff44060a6504ed6f58b5836c907b30a93494634339bcd",
+          "decodedSHA256": "0693f6bfa2117a9b14f9ceca13d3a5611de5dca226bf999f20a7f615fbd08dff",
+          "start": [
+            480,
+            384,
+            0
+          ],
+          "size": [
+            16,
+            20,
+            96
+          ]
+        },
+        {
+          "file": "right-480-384-96.gz",
+          "bytes": 94,
+          "sha256": "a9b205eca4a80ff7864ff44060a6504ed6f58b5836c907b30a93494634339bcd",
+          "decodedSHA256": "0693f6bfa2117a9b14f9ceca13d3a5611de5dca226bf999f20a7f615fbd08dff",
+          "start": [
+            480,
+            384,
+            96
+          ],
+          "size": [
+            16,
+            20,
+            96
+          ]
+        },
+        {
+          "file": "right-480-384-192.gz",
+          "bytes": 154,
+          "sha256": "c575bcd9d9886bdaba71afffd1b38060cbf143fd8f746b1d024d3ab2b72648c7",
+          "decodedSHA256": "a0c22981a6c293064b97a9311f2bcc07a8b238607c3bdf7b96dec4874f0b7f8c",
+          "start": [
+            480,
+            384,
+            192
+          ],
+          "size": [
+            16,
+            20,
+            96
+          ]
+        },
+        {
+          "file": "right-480-384-288.gz",
+          "bytes": 94,
+          "sha256": "a9b205eca4a80ff7864ff44060a6504ed6f58b5836c907b30a93494634339bcd",
+          "decodedSHA256": "0693f6bfa2117a9b14f9ceca13d3a5611de5dca226bf999f20a7f615fbd08dff",
+          "start": [
+            480,
+            384,
+            288
+          ],
+          "size": [
+            16,
+            20,
+            96
+          ]
+        },
+        {
+          "file": "right-480-384-384.gz",
+          "bytes": 42,
+          "sha256": "ab041deb816e48372e2e40df1cc81db28376d1eb2178618025a4486799d23152",
+          "decodedSHA256": "f6e28ad1753237d42be72be187a88f09a269097eeda24bcf12908db6bd361246",
+          "start": [
+            480,
+            384,
+            384
+          ],
+          "size": [
+            16,
+            20,
+            12
+          ]
+        }
+      ],
+      "labels": [
+        {
+          "code": 1,
+          "name": "Right thyroid lobe",
+          "color": [
+            255,
+            192,
+            72
+          ],
+          "voxelCount": 2457684,
+          "focus": [
+            245,
+            297,
+            219
+          ],
+          "mesh": {
+            "file": "right-1-mesh.gz",
+            "bytes": 2793099,
+            "sha256": "13cf3018356181db75471323bf84320c9c467776d34b0ca1eb267f21e2d2a54b",
+            "decodedSHA256": "5737d487e623f2cc32ff3a32a2fd05ade0916c492caab58959dbbf28376e1cd6",
+            "vertices": 247725,
+            "triangles": 496394
+          }
+        },
+        {
+          "code": 4,
+          "name": "Right carotid artery",
+          "color": [
+            239,
+            108,
+            109
+          ],
+          "voxelCount": 948827,
+          "focus": [
+            128,
+            256,
+            182
+          ],
+          "mesh": {
+            "file": "right-4-mesh.gz",
+            "bytes": 1097263,
+            "sha256": "42ba0d7a0314883aae49bd4ad1ce06559ff4b3010b9a481e1feb808d873723b0",
+            "decodedSHA256": "0e19aaecdec8a3b96906a7080e031899951772c264b6915c253f335f7af116f1",
+            "vertices": 99078,
+            "triangles": 198152
+          }
+        },
+        {
+          "code": 5,
+          "name": "Right jugular vein",
+          "color": [
+            87,
+            201,
+            245
+          ],
+          "voxelCount": 158841,
+          "focus": [
+            60,
+            262,
+            183
+          ],
+          "mesh": {
+            "file": "right-5-mesh.gz",
+            "bytes": 468236,
+            "sha256": "e2b1d728697f161b13d53ebd3011a4ed520f90044802543da3d38bd7b94b4279",
+            "decodedSHA256": "cf21ffaf99b5d168ddfa2a2b1e9291dc2e8b8acd94aa5e87b6aa0c4d51758d14",
+            "vertices": 42655,
+            "triangles": 85314
+          }
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,13 @@
+The acute-stroke source card now links four literal side/class matches to Schirmer's processed study-template reader: left/right ACA and left/right PCA. Each link selects its original fine source value and focuses its retained source component. All components remain in the matching cell-boundary mesh. The same links appear in the linked lesson's source inspection.
+
+This is source-study territory context. It does not bind any required representation or establish patient tissue extent, individual arterial branches, arterial lumen, anatomical completeness, clinical approval or normal-population anatomy. The template combines 16 older adults (12 CAA, four controls); the supplied 1 mm grid is not the source acquisition resolution. Existing images, labels, masks, interfaces, component counts and attribution are unchanged.
+
+Source names follow the audited publication Figure 1 mapping. Whole MCA classes cannot identify superior/inferior divisions. Cerebellar classes do not identify SCA/AICA/PICA. Combined pons/medulla regions cannot identify separate structures or individual perforator territories. No such guessed row links are added. Code 19 remains an uninterpreted single source cell and has no clinical row mapping; an exact `?code=19` link can still inspect it as released.
+
+Original data: [Schirmer et al., Zenodo 3379848](https://zenodo.org/records/3379848), [publication](https://doi.org/10.3389/fneur.2019.00208), [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/). Exact source inputs, figure semantics, plane and mesh audits remain in the prior `schirmer-vascular-review-20261026` receipt. This release changes source selection and navigation only; source data are unchanged.
+
+The runtime inverse restores five exact files against local parent c1bc4b8dee9d5cd5ad0394cabbf06a03b81a317f. Its field projection removes only the four reviewed context rows and rejects an altered list, preserving historical review scope.
+
+Validation: 120 focused tests passed, including source plane/mesh/semantic and singleton audits, protected delivery, exact inverse checks, fidelity scope, reader bindings, reporting inventories and both reporting formats. The real local browser passed all four report links at 390/1440 px, both lesson gallery entries, all 11 source values, the default selection and three invalid-query rejections. `source-role-review.json` records source identities, unchanged evidence hashes and all stronger requirement leaves retained unbound.
+
+Composed above #317 a9310505. Exact shared-byte order: Schirmer navigation → pulmonary lobe context → LyNoS station links → structure display names → BodyParts3D liver correction → earlier LyNoS/runtime layers. The #314 and #317 receipts remain unchanged.

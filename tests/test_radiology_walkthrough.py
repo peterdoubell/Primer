@@ -250,8 +250,10 @@ def test_step_files_are_canonical_and_cover_each_specialty():
 
 @pytest.mark.skipif(shutil.which('node') is None, reason='Node.js is required')
 def test_walkthrough_helpers_and_step_models_build(references):
+    from tools.pulmonary_lobe_runtime_compatibility import before_pulmonary_lobe_reference_fields
+    # Keep this dated LIDC-only model audit exact; the additional lobe source has its own current checks.
     served = [{'id': identifier, 'model': ref['walkthrough']['spatial_model'],
-               'source_native_inspectors': ref.get('source_native_inspectors', []),
+               'source_native_inspectors': before_pulmonary_lobe_reference_fields(identifier, ref).get('source_native_inspectors', []),
                'key_images': ref['key_images'],
                'parts': [step['parts'] for step in ref['walkthrough']['steps']],
                'landmarks': [step['landmark'] for step in ref['walkthrough']['steps']]}

@@ -1,0 +1,122 @@
+{
+  "docs/radiology-fidelity-scope.json": {
+    "before": "119811ce1129c921eda87ecbb8fb1a33669a1215f8560950ca88956e26570b6d",
+    "after": "1a59fec78dfc95ad25176019b6b5fc8db1211907faa4eb6c86112d10511767e1",
+    "changes": [
+      {
+        "start": 88565,
+        "end": 88584,
+        "before": "        \"source_native_inspectors\": null\n",
+        "after": "        \"source_native_inspectors\": [\n          {\n            \"id\": \"segthy-001\",\n            \"modality\": \"Ultrasound\",\n            \"title\": \"Inspect the thyroid and neck vessels on tracked ultrasound\",\n            \"src\": \"/app/anatomy/segthy-001/index.html\",\n            \"caption\": \"Explore one volunteer\\u2019s left and right acquisitions. Each sweep has its own original B-mode samples, manual thyroid and vessel labels, and matching 3D surfaces. The two sweeps have separate coordinate systems. Nodule features, lymph nodes and blood flow require other source evidence.\",\n            \"source_url\": \"https://www.cs.cit.tum.de/en/camp/publications/segthy-dataset/\",\n            \"publication_url\": \"https://doi.org/10.1371/journal.pone.0268550\",\n            \"source_label\": \"SegThy ultrasound dataset\",\n            \"inline_label\": \"Inspect ultrasound and label surfaces inline\",\n            \"attribution\": \"Kr\\u00f6nke, Eilers, Dimova and colleagues. SegThy, PLOS ONE (2022). CC BY. Display and surface extraction by Primer.\",\n            \"license\": \"CC BY\",\n            \"license_url\": \"https://www.cs.cit.tum.de/en/camp/publications/segthy-dataset/\",\n            \"clinical_approval\": false,\n            \"structure_ids\": [],\n            \"requirement_coverage\": []\n          }\n        ]\n"
+      },
+      {
+        "start": 189131,
+        "end": 189140,
+        "before": "",
+        "after": "          {\n            \"id\": \"module-native-inspectors-rad.5.thyroid-tirads\",\n            \"kind\": \"source-native-inspectors\",\n            \"title\": \"Native source anatomy inspection\",\n            \"instructions\": \"Compare the acquired ultrasound, manual label outlines and 3D surfaces for each thyroid sweep. Left and right were acquired separately.\",\n            \"investigation_ids\": [\n              \"ra.ultrasound-thyroid\"\n            ]\n          },\n"
+      },
+      {
+        "start": 189350,
+        "end": 189351,
+        "before": "      \"module_contract_sha256\": \"90fc1a16467b9023c0c2c458625340d1ce239d47bc86d5888f48fdaa53228931\",\n",
+        "after": "      \"module_contract_sha256\": \"a194857e595bdf055ed762236ce405ec8c6cdd16a672dcaa6a71d45a91359dc7\",\n"
+      }
+    ]
+  },
+  "primer/module_media.py": {
+    "before": "3114eb65a9d26a3a3595ff924fd1b3be9bdf3f3ec10f32a1ed44f7e79ecd547f",
+    "after": "ed860fa97310f9b1fb9a3f143c295ed7e85096ba28489e5bfcf1c6eeb130d62b",
+    "changes": [
+      {
+        "start": 137,
+        "end": 139,
+        "before": "",
+        "after": "                                           'Compare the acquired ultrasound, manual label outlines and 3D surfaces for each thyroid sweep. Left and right were acquired separately.'\n                                           if node['id'] == 'rad.5.thyroid-tirads' else\n"
+      }
+    ]
+  },
+  "primer/server.py": {
+    "before": "99ffa83bf86f543f2cadd2a7a46b919e070086649f73730f0d18c66504a3ef0e",
+    "after": "0baf20fd3862eb9bc6d4808e534df801f6fbbfba835093ac51c90d07502ee2e9",
+    "changes": [
+      {
+        "start": 1453,
+        "end": 1460,
+        "before": "            return with_quick_report(with_structured_form(descriptor_variant_detail(variant, resolve(variant['base_investigation_id']) if variant.get('base_investigation_id') else None)))\n",
+        "after": "            from .source_native_inspectors import references as native_inspectors\n            regional = resolve(variant['base_investigation_id']) if variant.get('base_investigation_id') else None\n            response = descriptor_variant_detail(variant, regional)\n            inspectors = native_inspectors().get(node_id)\n            if inspectors:\n                response['radiology_reference']['source_native_inspectors'] = inspectors\n            return with_quick_report(with_structured_form(response))\n"
+      },
+      {
+        "start": 4291,
+        "end": 4292,
+        "before": "        *NODE_SOURCE_ATLASES, \"aneurysm-cta-018\", \"cmha-mca-005\", \"rhuh-sah-001\",\n",
+        "after": "        *NODE_SOURCE_ATLASES, \"segthy-001\", \"aneurysm-cta-018\", \"cmha-mca-005\", \"rhuh-sah-001\",\n"
+      },
+      {
+        "start": 4317,
+        "end": 4319,
+        "before": "        if registered_atlas in NODE_SOURCE_ATLASES and asset in {\"index.html\", \"surfaces.html\", \"comparison.html\"}:\n",
+        "after": "        if ((registered_atlas in NODE_SOURCE_ATLASES and asset in {\"index.html\", \"surfaces.html\", \"comparison.html\"})\n                or (registered_atlas == \"segthy-001\" and asset == \"index.html\")):\n"
+      }
+    ]
+  },
+  "primer/source_native_inspectors.py": {
+    "before": "8dada858e96abdd2362305fdf9a5728dc6054fd4d9a5cf94124350928a43f7fa",
+    "after": "4a10a78fd103e6f12b967e4e345f9d60195283c8ba11505434875d60b1996475",
+    "changes": [
+      {
+        "start": 149,
+        "end": 152,
+        "before": "",
+        "after": "    from .segthy_reference import NECK, THYROID, study as thyroid_study\n    for identifier in (THYROID, NECK):\n        result[identifier] = [*result.get(identifier, []), thyroid_study()]\n"
+      }
+    ]
+  },
+  "vercel.json": {
+    "before": "9088f8f1444b86f7d56723ccd28a4bc00bb5c01939370c8a1c0315570a0a623f",
+    "after": "3a0dbb5ac30ac6e363b403175b6f1a2920b6ca350c58b01a050e9efbc4b28169",
+    "changes": [
+      {
+        "start": 7,
+        "end": 8,
+        "before": "        \"excludeFiles\": \"{docs/radiology-fidelity-audit-*.json,docs/radiology-fidelity-scope.json,data/radiology/non-msk-structure-requirements.json,data/radiology/radiology-asset-evidence.json,data/radiology/descriptor-history/**,data/radiology/descriptor-reporting.json,.git/**,.github/**,.research/**,tests/**,tools/**,docs/*/**,public/**,web/anatomy/{bodyparts3d,msk-atlas,msk-cervical,msk-mri-knee,msk-mri-ankle,liu-lumbosacral-sub03,verse521,hvsmr2-pat7,openear-zeta,totalseg-v3-s0358,totalseg-v3-esophagus-s0358,ispy1-expert1002,prostate-biopsy0001}/**/*.bin,web/anatomy/{bodyparts3d,msk-atlas,msk-cervical,msk-mri-knee,msk-mri-ankle,liu-lumbosacral-sub03,verse521,hvsmr2-pat7,openear-zeta,totalseg-v3-s0358,totalseg-v3-esophagus-s0358,ispy1-expert1002,prostate-biopsy0001}/**/*.bin.gz,web/reference-media/prenatal-development/prenatal-development.gif,web/reference-media/prenatal-development/day-*.webp,web/illustrations/**/*.webp,web/reference-media/radiology-open/**/*.{jpg,jpeg,png,webp,gif,pdf},web/reference-media/radiology-motion/**,web/anatomy/totalseg-v3-esophagus-s0358/ct-reference.html,web/anatomy/ispy1-expert1002/mri-reference.html,web/anatomy/prostate-biopsy0001/mri-reference.html,web/studies/tcga-dk-aa6p/**,web/anatomy/fedbca-{center1-001,center2-01,center3-01,center4-01}/mri-reference.html,web/anatomy/fedbca-{center1-001,center2-01,center3-01,center4-01}/**/*.bin.gz,web/reference-media/annotated-ct/**/*.jpeg,web/anatomy/bp3d-sella-4.3/**/*.bin.gz,web/anatomy/bp3d-carotid-4.3/**/*.bin.gz,web/anatomy/hra-female-pelvis-v1.10/**/*.bin.gz,web/anatomy/brain-fine-massp2/*.gz,web/reference-media/radiology-open/traumatic-haemorrhage/**,web/anatomy/soop-stroke-sub342/*.gz,web/anatomy/soop-stroke-sub342/sub-342*.json,web/anatomy/lidc-idri-0525/original-ct/**,web/anatomy/lidc-idri-0525/*.gz,web/anatomy/lidc-idri-0525/source-*.zip,web/anatomy/lidc-idri-0525/original-0525.xml,web/anatomy/lidc-idri-0525/ct-source-md5.csv,web/anatomy/lidc-idri-0525/LICENSE,web/anatomy/lidc-idri-0525/ATTRIBUTION.txt,web/anatomy/bp3d-thoracic-4.3/transport/**,web/anatomy/bp3d-thoracic-4.3/originals/**,web/anatomy/totalseg-s0028-lungs/originals/**,web/anatomy/totalseg-s0028-lungs/surfaces/**,web/anatomy/totalseg-s0028-basal-context/originals/**,web/anatomy/totalseg-s0028-basal-context/surfaces/**,web/anatomy/totalseg-v1-s0028-cardiac/originals/**,web/anatomy/totalseg-v1-s0028-cardiac/surfaces/**,web/anatomy/bp3d-cardiac-4.3/originals/**,web/anatomy/bp3d-cardiac-4.3/transport/**,web/reference-media/cardiac-comparisons-2020/images/**,web/anatomy/hippunfold-hcp101006-registered/*.gz,web/anatomy/spl-nac-limbic/*.gz,web/anatomy/spl-nac-reporting/*.gz,web/anatomy/spl-nac-reporting/manifest.json,web/anatomy/spl-nac-limbic/originals/**,web/anatomy/holiatlas/*.pack,web/anatomy/holiatlas/*.mesh.gz,web/anatomy/holiatlas/*-faces.bin.gz,web/anatomy/holiatlas/manifest.json,web/anatomy/holiatlas/labels.json,web/anatomy/holiatlas/hierarchy.json,web/anatomy/schirmer-vascular/*.pack,web/anatomy/schirmer-vascular/*.mesh.gz,web/anatomy/schirmer-vascular/*.faces.gz,web/anatomy/schirmer-vascular/originals/**,web/anatomy/schirmer-vascular/manifest.json,web/anatomy/schirmer-vascular/labels.json,web/anatomy/schirmer-vascular/hierarchy.json,web/anatomy/schirmer-vascular/publication-figure1.webp,web/anatomy/spl-additional-source/*.gz,web/anatomy/spl-additional-source/manifest.json,web/anatomy/verse521/ct-reference.html,web/anatomy/totalseg-v3-s0358/ct-reference.html,web/anatomy/spl-sellar-interfaces/**/*.svg,web/anatomy/spl-sellar-interfaces/**/*.mesh.gz,web/anatomy/spl-sellar-interfaces/viewer/*.json,web/anatomy/cptac-endometrial/*.gz,web/anatomy/colonvessels-pat012/**/*.gz,web/anatomy/liver-regions-mri/*.gz,web/anatomy/bp3d-biliary-4.3/*.gz,web/anatomy/phlf-center2-24/*.gz,web/anatomy/hva-ct-318/*.gz,web/anatomy/aneurysm-cta-018/*.gz,web/anatomy/cmha-mca-005/*.gz,web/anatomy/rhuh-sah-001/*.gz,web/anatomy/bp3d-dural-4.3/*.gz,web/anatomy/ward-swi-s1/*.gz,web/anatomy/illinois-uterus/*.gz,web/anatomy/endometriosis-mri-evidence/*.gz,web/anatomy/hyperpic-venous/**/*.gz,web/anatomy/venat/*.gz,web/anatomy/ccth-a01-roi/*.gz,web/anatomy/{recist-pelvic-015,recist-pelvic-023,recist-pelvic-023-follow-up-1,recist-pelvic-023-follow-up-2}/*.gz,web/anatomy/lnq-case-0571/*.gz,web/anatomy/lynos-pat9/*.gz}\"\n",
+        "after": "        \"excludeFiles\": \"{docs/radiology-fidelity-audit-*.json,docs/radiology-fidelity-scope.json,data/radiology/non-msk-structure-requirements.json,data/radiology/radiology-asset-evidence.json,data/radiology/descriptor-history/**,data/radiology/descriptor-reporting.json,.git/**,.github/**,.research/**,tests/**,tools/**,docs/*/**,public/**,web/anatomy/{bodyparts3d,msk-atlas,msk-cervical,msk-mri-knee,msk-mri-ankle,liu-lumbosacral-sub03,verse521,hvsmr2-pat7,openear-zeta,totalseg-v3-s0358,totalseg-v3-esophagus-s0358,ispy1-expert1002,prostate-biopsy0001}/**/*.bin,web/anatomy/{bodyparts3d,msk-atlas,msk-cervical,msk-mri-knee,msk-mri-ankle,liu-lumbosacral-sub03,verse521,hvsmr2-pat7,openear-zeta,totalseg-v3-s0358,totalseg-v3-esophagus-s0358,ispy1-expert1002,prostate-biopsy0001}/**/*.bin.gz,web/reference-media/prenatal-development/prenatal-development.gif,web/reference-media/prenatal-development/day-*.webp,web/illustrations/**/*.webp,web/reference-media/radiology-open/**/*.{jpg,jpeg,png,webp,gif,pdf},web/reference-media/radiology-motion/**,web/anatomy/totalseg-v3-esophagus-s0358/ct-reference.html,web/anatomy/ispy1-expert1002/mri-reference.html,web/anatomy/prostate-biopsy0001/mri-reference.html,web/studies/tcga-dk-aa6p/**,web/anatomy/fedbca-{center1-001,center2-01,center3-01,center4-01}/mri-reference.html,web/anatomy/fedbca-{center1-001,center2-01,center3-01,center4-01}/**/*.bin.gz,web/reference-media/annotated-ct/**/*.jpeg,web/anatomy/bp3d-sella-4.3/**/*.bin.gz,web/anatomy/bp3d-carotid-4.3/**/*.bin.gz,web/anatomy/hra-female-pelvis-v1.10/**/*.bin.gz,web/anatomy/brain-fine-massp2/*.gz,web/reference-media/radiology-open/traumatic-haemorrhage/**,web/anatomy/soop-stroke-sub342/*.gz,web/anatomy/soop-stroke-sub342/sub-342*.json,web/anatomy/lidc-idri-0525/original-ct/**,web/anatomy/lidc-idri-0525/*.gz,web/anatomy/lidc-idri-0525/source-*.zip,web/anatomy/lidc-idri-0525/original-0525.xml,web/anatomy/lidc-idri-0525/ct-source-md5.csv,web/anatomy/lidc-idri-0525/LICENSE,web/anatomy/lidc-idri-0525/ATTRIBUTION.txt,web/anatomy/bp3d-thoracic-4.3/transport/**,web/anatomy/bp3d-thoracic-4.3/originals/**,web/anatomy/totalseg-s0028-lungs/originals/**,web/anatomy/totalseg-s0028-lungs/surfaces/**,web/anatomy/totalseg-s0028-basal-context/originals/**,web/anatomy/totalseg-s0028-basal-context/surfaces/**,web/anatomy/totalseg-v1-s0028-cardiac/originals/**,web/anatomy/totalseg-v1-s0028-cardiac/surfaces/**,web/anatomy/bp3d-cardiac-4.3/originals/**,web/anatomy/bp3d-cardiac-4.3/transport/**,web/reference-media/cardiac-comparisons-2020/images/**,web/anatomy/hippunfold-hcp101006-registered/*.gz,web/anatomy/spl-nac-limbic/*.gz,web/anatomy/spl-nac-reporting/*.gz,web/anatomy/spl-nac-reporting/manifest.json,web/anatomy/spl-nac-limbic/originals/**,web/anatomy/holiatlas/*.pack,web/anatomy/holiatlas/*.mesh.gz,web/anatomy/holiatlas/*-faces.bin.gz,web/anatomy/holiatlas/manifest.json,web/anatomy/holiatlas/labels.json,web/anatomy/holiatlas/hierarchy.json,web/anatomy/schirmer-vascular/*.pack,web/anatomy/schirmer-vascular/*.mesh.gz,web/anatomy/schirmer-vascular/*.faces.gz,web/anatomy/schirmer-vascular/originals/**,web/anatomy/schirmer-vascular/manifest.json,web/anatomy/schirmer-vascular/labels.json,web/anatomy/schirmer-vascular/hierarchy.json,web/anatomy/schirmer-vascular/publication-figure1.webp,web/anatomy/spl-additional-source/*.gz,web/anatomy/spl-additional-source/manifest.json,web/anatomy/verse521/ct-reference.html,web/anatomy/totalseg-v3-s0358/ct-reference.html,web/anatomy/spl-sellar-interfaces/**/*.svg,web/anatomy/spl-sellar-interfaces/**/*.mesh.gz,web/anatomy/spl-sellar-interfaces/viewer/*.json,web/anatomy/cptac-endometrial/*.gz,web/anatomy/colonvessels-pat012/**/*.gz,web/anatomy/liver-regions-mri/*.gz,web/anatomy/bp3d-biliary-4.3/*.gz,web/anatomy/phlf-center2-24/*.gz,web/anatomy/hva-ct-318/*.gz,web/anatomy/aneurysm-cta-018/*.gz,web/anatomy/cmha-mca-005/*.gz,web/anatomy/rhuh-sah-001/*.gz,web/anatomy/bp3d-dural-4.3/*.gz,web/anatomy/ward-swi-s1/*.gz,web/anatomy/illinois-uterus/*.gz,web/anatomy/endometriosis-mri-evidence/*.gz,web/anatomy/hyperpic-venous/**/*.gz,web/anatomy/venat/*.gz,web/anatomy/ccth-a01-roi/*.gz,web/anatomy/{recist-pelvic-015,recist-pelvic-023,recist-pelvic-023-follow-up-1,recist-pelvic-023-follow-up-2}/*.gz,web/anatomy/lnq-case-0571/*.gz,web/anatomy/lynos-pat9/*.gz,web/anatomy/segthy-001/*.gz}\"\n"
+      },
+      {
+        "start": 241,
+        "end": 245,
+        "before": "",
+        "after": "    },\n    {\n      \"src\": \"web/anatomy/segthy-001/*.gz\",\n      \"use\": \"@vercel/static\"\n"
+      }
+    ]
+  },
+  "web/app.js": {
+    "before": "7cafbd9b1f00b41e0efba6059ea533d71c5a7531767e3adc1c2fdbf6a0dcd235",
+    "after": "31d6e197cb9305a50f97795f64637c4268a995d180cb2ae792bc0d4089d5f395",
+    "changes": [
+      {
+        "start": 2083,
+        "end": 2084,
+        "before": "    radiologySourceLink(sourceContacts ? 'SPL source atlas publication' : fcdMRI ? 'Original FCD MRI and lesion dataset' : hippocampalRaters ? 'Original hippocampal MRI and annotations dataset' : temporalCBCT ? 'OpenEar CBCT and source anatomy dataset' : exVivoMRI ? 'Ex vivo MRI reference dataset' : vascularTemplate ? 'Vascular study-template dataset' : templateMRI ? 'Population brain template dataset' : limbicMRI ? 'SPL atlas publication' : registeredMRI ? 'Published registered MRI training dataset' : curatedSurface ? 'Original curated surface dataset' : comparisonCT ? 'Original CT comparison dataset' : nativeCT ? 'Original CT source dataset' : sourceCase ? 'Original MRI source dataset' : 'Original MRI templates', asset.source_url),\n",
+        "after": "    radiologySourceLink(asset.source_label || (sourceContacts ? 'SPL source atlas publication' : fcdMRI ? 'Original FCD MRI and lesion dataset' : hippocampalRaters ? 'Original hippocampal MRI and annotations dataset' : temporalCBCT ? 'OpenEar CBCT and source anatomy dataset' : exVivoMRI ? 'Ex vivo MRI reference dataset' : vascularTemplate ? 'Vascular study-template dataset' : templateMRI ? 'Population brain template dataset' : limbicMRI ? 'SPL atlas publication' : registeredMRI ? 'Published registered MRI training dataset' : curatedSurface ? 'Original curated surface dataset' : comparisonCT ? 'Original CT comparison dataset' : nativeCT ? 'Original CT source dataset' : sourceCase ? 'Original MRI source dataset' : 'Original MRI templates'), asset.source_url),\n"
+      },
+      {
+        "start": 2107,
+        "end": 2108,
+        "before": "  if (nativeCT || curatedSurface || comparisonCT || registeredMRI || limbicMRI || templateMRI || exVivoMRI || temporalCBCT || hippocampalRaters || fcdMRI || sourceContacts || pituitaryCase || dissectionPhotos) {\n",
+        "after": "  if (asset.inline_label || nativeCT || curatedSurface || comparisonCT || registeredMRI || limbicMRI || templateMRI || exVivoMRI || temporalCBCT || hippocampalRaters || fcdMRI || sourceContacts || pituitaryCase || dissectionPhotos) {\n"
+      },
+      {
+        "start": 2109,
+        "end": 2110,
+        "before": "    const openLabel = dissectionPhotos ? 'Inspect original dissection photographs inline' : pituitaryCase ? 'Inspect provided pituitary MRI and source annotations inline' : sourceContacts ? 'Inspect source-label contact surfaces inline' : fcdMRI ? 'Inspect FCD MRI and source lesion inline' : hippocampalRaters ? 'Inspect hippocampal MRI and compare annotations inline' : temporalCBCT ? 'Inspect source CBCT, masks and surfaces inline' : exVivoMRI ? 'Inspect ex vivo MRI, labels and source boundaries inline' : vascularTemplate ? 'Inspect vascular template MRI and regions inline' : templateMRI ? 'Inspect source brain templates and cell boundaries inline' : additionalMRI ? 'Inspect optic, pituitary and head/neck source anatomy inline' : epilepsyContextMRI ? 'Inspect temporal and ventricular source context inline' : reportingMRI ? 'Inspect native MRI and brain reporting relationships inline' : limbicMRI ? 'Inspect native SPL MRI and limbic surfaces inline' : registeredMRI ? 'Inspect registered hippocampal MRI and surfaces inline' : comparisonCT ? 'Inspect original CT comparison images inline' : cardiacCT ? 'Inspect original cardiac CT and source interfaces inline' : curatedSurface ? 'Inspect original surfaces inline' : basalCT ? 'Inspect matching CT, liver and spleen inline' : lungCT ? 'Inspect matching CT and lung surfaces inline' : 'Inspect source CT and models inline';\n",
+        "after": "    const openLabel = asset.inline_label || (dissectionPhotos ? 'Inspect original dissection photographs inline' : pituitaryCase ? 'Inspect provided pituitary MRI and source annotations inline' : sourceContacts ? 'Inspect source-label contact surfaces inline' : fcdMRI ? 'Inspect FCD MRI and source lesion inline' : hippocampalRaters ? 'Inspect hippocampal MRI and compare annotations inline' : temporalCBCT ? 'Inspect source CBCT, masks and surfaces inline' : exVivoMRI ? 'Inspect ex vivo MRI, labels and source boundaries inline' : vascularTemplate ? 'Inspect vascular template MRI and regions inline' : templateMRI ? 'Inspect source brain templates and cell boundaries inline' : additionalMRI ? 'Inspect optic, pituitary and head/neck source anatomy inline' : epilepsyContextMRI ? 'Inspect temporal and ventricular source context inline' : reportingMRI ? 'Inspect native MRI and brain reporting relationships inline' : limbicMRI ? 'Inspect native SPL MRI and limbic surfaces inline' : registeredMRI ? 'Inspect registered hippocampal MRI and surfaces inline' : comparisonCT ? 'Inspect original CT comparison images inline' : cardiacCT ? 'Inspect original cardiac CT and source interfaces inline' : curatedSurface ? 'Inspect original surfaces inline' : basalCT ? 'Inspect matching CT, liver and spleen inline' : lungCT ? 'Inspect matching CT and lung surfaces inline' : 'Inspect source CT and models inline');\n"
+      },
+      {
+        "start": 3271,
+        "end": 3272,
+        "before": "",
+        "after": "      ...(ref.source_native_inspectors || []).map(sourceNativeInspector),\n"
+      }
+    ]
+  }
+}

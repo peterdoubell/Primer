@@ -43,7 +43,8 @@ def test_reader_hook_is_registry_driven_with_an_exact_inverse():
     from tools.recist_pelvic_runtime_compatibility import PROOF, before_recist_pelvic_delivery_bytes
     from tools.report_layout_compatibility import before_dictation_blanks_bytes, before_rich_report_format_bytes
     from tools.source_studies_compatibility import before_combined_source_release_bytes
-    raw = (ROOT / PATH).read_bytes()
+    from tools.pulmonary_lobe_runtime_compatibility import before_pulmonary_lobe_bytes
+    raw = before_pulmonary_lobe_bytes(PATH, (ROOT / PATH).read_bytes())
     assert raw.count(BLOCK) == 1 and b"fetch('/app/activities/registry.json')" in BLOCK
     # Only same-site activity links are rendered.
     assert b"String(activity.href).startsWith('/app/')" in BLOCK
