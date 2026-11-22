@@ -1,0 +1,220 @@
+{
+  "schema_version": 1,
+  "base_commit": "96aab450a0ae2603dddb5bdc842bdd6271361d37",
+  "reporting_scope": {
+    "investigations": 335,
+    "report_sections": 7070,
+    "with_dedicated_inventory": 137,
+    "without_dedicated_inventory": 198,
+    "known_representation_obligations": 152631,
+    "total_representation_obligations": null
+  },
+  "global_representations": {
+    "clinical_image": {
+      "required": 50877,
+      "verified": 0,
+      "unverified": 142,
+      "missing": 50735,
+      "explicitly_bound": 142,
+      "with_partial_candidates": 68,
+      "complete_set": false,
+      "denominator": "known inventories only; remaining examinations have unknown requirements"
+    },
+    "schematic": {
+      "required": 50877,
+      "verified": 0,
+      "unverified": 82,
+      "missing": 50795,
+      "explicitly_bound": 82,
+      "with_partial_candidates": 17,
+      "complete_set": false,
+      "denominator": "known inventories only; remaining examinations have unknown requirements"
+    },
+    "model": {
+      "required": 50877,
+      "verified": 0,
+      "unverified": 398,
+      "missing": 50479,
+      "explicitly_bound": 398,
+      "with_partial_candidates": 396,
+      "complete_set": false,
+      "denominator": "known inventories only; remaining examinations have unknown requirements"
+    }
+  },
+  "neck": {
+    "investigation_id": "us.soft-tissue-neck",
+    "title": "Ultrasound soft tissue neck",
+    "report_sections": 9,
+    "inventory_status": "dedicated_inventory_present",
+    "inventory": {
+      "kind": "typed_descriptor_inventory",
+      "path": "data/radiology/descriptor-requirements/soft-tissue-neck.json",
+      "sha256": "7a58c37ab057a4447b4ab826de84232c2ee1cc73d2c878031ef5570241b4910d",
+      "report_section_ids": [
+        "technique",
+        "area-of-concern",
+        "parotid-glands",
+        "submandibular-glands",
+        "thyroid-gland",
+        "right-neck-nodes",
+        "left-neck-nodes",
+        "vessels",
+        "muscles-and-soft-tissues"
+      ],
+      "typed_evidence_records": 39,
+      "typed_evidence_by_type": {
+        "assessment_scope": 2,
+        "classification": 1,
+        "current_exam_assessment": 7,
+        "current_finding": 16,
+        "examination_scope": 1,
+        "flow_assessment": 5,
+        "interpretation": 1,
+        "measurement": 6
+      },
+      "patient_evidence_status": "Requires actual current examination; teaching assets cannot satisfy these records.",
+      "clinical_completion_claim": false
+    },
+    "legacy_literal_binding_counts": null,
+    "representations": {
+      "clinical_image": {
+        "required": 15,
+        "verified": 0,
+        "unverified": 0,
+        "missing": 15,
+        "explicitly_bound": 0,
+        "with_partial_candidates": 0,
+        "complete_set": false
+      },
+      "schematic": {
+        "required": 15,
+        "verified": 0,
+        "unverified": 0,
+        "missing": 15,
+        "explicitly_bound": 0,
+        "with_partial_candidates": 0,
+        "complete_set": false
+      },
+      "model": {
+        "required": 15,
+        "verified": 0,
+        "unverified": 0,
+        "missing": 15,
+        "explicitly_bound": 0,
+        "with_partial_candidates": 0,
+        "complete_set": false
+      }
+    },
+    "anatomical_representation_complete": false,
+    "clinical_completion_claim": false
+  },
+  "inventory_sha256": "9fe38dbf9cef19a1c124e72a97c477d4f5f2ee596e662d6c914ab0991965ed4a",
+  "legacy_json_exact_bytes_preserved": true,
+  "legacy_json_sha256": "50be179fb455823d97164c9465dfa3d52c92195bb3067b269f8e277a7460a41a",
+  "original_files_preserved": {
+    "data/radiology/non-msk-structure-requirements.json": "cf5675d99176601704374039c2f5361bae8dfecf84a084ab7b2041431692e6c7",
+    "data/radiology/msk-structure-requirements.json": "46c9eb76d2160fa4a46e7ee2c6c9c9d1046fc64ecd953471c19af1c737d0aa18",
+    "data/radiology/radiology-asset-evidence.json": "019c1bddb803ab85f2548d78042a1a0e9533ee79a9d186f7b622efccf94843bf",
+    "data/radiology/msk-asset-evidence.json": "38f128766fe8b957d3c06037a909ddfe4382e4fca5886aa5ed6ed1c194760404",
+    "data/radiology/anatomic-additions-20261119.json": "12fb0b6abf9409ca5d54d0114810eb579d15f8bbb2bdc6fcadb12fbfb4f7c032",
+    "data/radiology/descriptor-reporting.json": "4b3ceb17c2a2f636dfb5564c4385b41ea73b99103a53a92df696a4f8ad69dc67",
+    "data/radiology/report-templates/additions-20261119.json": "01ab1c672a9800d2cc01f349a6ec73a0f86b85013e6d1756ac87571664e4de15",
+    "docs/mullerian-reporting-inventory/reporting-reconciliation.json": "738b18feec97f6211ab0980969ae1f403e8ac69d634deab4543ae625153750e2",
+    "docs/radiology-fidelity-scope.json": "1a59fec78dfc95ad25176019b6b5fc8db1211907faa4eb6c86112d10511767e1"
+  },
+  "anatomy_targets": [
+    {
+      "id": "neck_us.parotid.right",
+      "name": "right parotid gland",
+      "laterality": "right"
+    },
+    {
+      "id": "neck_us.parotid_duct.right",
+      "name": "right main parotid duct",
+      "laterality": "right"
+    },
+    {
+      "id": "neck_us.parotid.left",
+      "name": "left parotid gland",
+      "laterality": "left"
+    },
+    {
+      "id": "neck_us.parotid_duct.left",
+      "name": "left main parotid duct",
+      "laterality": "left"
+    },
+    {
+      "id": "neck_us.submandibular.right",
+      "name": "right submandibular gland",
+      "laterality": "right"
+    },
+    {
+      "id": "neck_us.submandibular_duct.right",
+      "name": "right main submandibular duct",
+      "laterality": "right"
+    },
+    {
+      "id": "neck_us.submandibular.left",
+      "name": "left submandibular gland",
+      "laterality": "left"
+    },
+    {
+      "id": "neck_us.submandibular_duct.left",
+      "name": "left main submandibular duct",
+      "laterality": "left"
+    },
+    {
+      "id": "neck_us.thyroid_lobe.right",
+      "name": "right thyroid lobe",
+      "laterality": "right"
+    },
+    {
+      "id": "neck_us.thyroid_lobe.left",
+      "name": "left thyroid lobe",
+      "laterality": "left"
+    },
+    {
+      "id": "neck_us.thyroid_isthmus.not_applicable",
+      "name": "thyroid isthmus",
+      "laterality": "not_applicable"
+    },
+    {
+      "id": "neck_us.common_carotid.right",
+      "name": "right common carotid artery",
+      "laterality": "right"
+    },
+    {
+      "id": "neck_us.internal_jugular.right",
+      "name": "right internal jugular vein",
+      "laterality": "right"
+    },
+    {
+      "id": "neck_us.common_carotid.left",
+      "name": "left common carotid artery",
+      "laterality": "left"
+    },
+    {
+      "id": "neck_us.internal_jugular.left",
+      "name": "left internal jugular vein",
+      "laterality": "left"
+    }
+  ],
+  "clinical_approval": false,
+  "source_bindings_added": 0,
+  "runtime_report_or_source_bytes_changed": false,
+  "atlas_dependency_added": false,
+  "validation": {
+    "targeted_tests_passed": 98,
+    "final_typed_tests_passed": 16,
+    "live_index_exam_count": 335,
+    "api_report_fields_match_recorded_fingerprints": true,
+    "legacy_json_byte_projection_verified": true,
+    "partial_source_union_does_not_complete_set": true,
+    "source_assets_unchanged": true,
+    "remote_writes": false
+  },
+  "implementation_sha256": {
+    "tools/audit_structure_coverage.py": "ece63cb39cd42100b065dc43f347305eafd67e8c56920d2e9e84292805be3a2e",
+    "tools/anatomy_sources/build_soft_tissue_neck_inventory.py": "150f50a307317204236b67392ac30eeadaed7a0eb40ddac519722297976f4999"
+  }
+}
