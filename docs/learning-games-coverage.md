@@ -7,7 +7,7 @@ Every module opens with a short interactive sequence that follows one loop: intr
 ## Summary
 
 - Modules with a learning sequence: **558 of 558**
-- Sequences: **564**, checked steps: **2407**
+- Sequences: **565**, checked steps: **2411**
 - Authoring problems: **0**
 
 | Domain | Modules | With a sequence |
@@ -34,12 +34,12 @@ Every module opens with a short interactive sequence that follows one loop: intr
 
 | Interaction type | Steps |
 |---|---:|
-| prediction | 1094 |
+| prediction | 1095 |
 | matching | 312 |
 | classification | 273 |
 | ordering | 253 |
-| missing value | 224 |
-| structural comparison | 73 |
+| missing value | 226 |
+| structural comparison | 74 |
 | parameter exploration | 68 |
 | minimum information | 32 |
 | constrained edit | 27 |
@@ -48,13 +48,13 @@ Every module opens with a short interactive sequence that follows one loop: intr
 
 | Review status | Sequences |
 |---|---:|
-| authored, awaiting subject review | 468 |
+| authored, awaiting subject review | 469 |
 | derived from reviewed reference | 83 |
 | awaiting radiologist review | 13 |
 
 ## Remaining content and review gaps
 
-1. **No authored sequence has had subject review.** All 468 authored sequences were written for Primer and validated mechanically (every step solvable, distractors tagged, hints and explanations present, explore targets reachable, no step repeating a quiz question). Each still needs a reviewer in its field before it is marked reviewed.
+1. **No authored sequence has had subject review.** All 469 authored sequences were written for Primer and validated mechanically (every step solvable, distractors tagged, hints and explanations present, explore targets reachable, no step repeating a quiz question). Each still needs a reviewer in its field before it is marked reviewed.
 2. **13 clinical radiology sequences await a radiologist.** They were written from each module's own goal and question bank, without a reviewed reporting reference, and say so to the reader: `rad.4.paediatric`, `rad.5.anal-cancer`, `rad.5.breast-implants-male`, `rad.5.craniosynostosis`, `rad.5.elbow-mri`, `rad.5.esophagus-swallowing`, `rad.5.gi-tumours-foreign-bodies`, `rad.5.gi-ultrasound`, `rad.5.neonatal-spine`, `rad.5.pelvic-floor`, `rad.5.sella`, `rad.5.tinnitus`, `rad.5.trigeminal`.
 3. **83 radiology sequences are derived** from each module's reviewed reporting reference. Their statements come from the reference; the question framing and distractors were generated and are not separately reviewed.
 4. **35 authored sequences use only two interaction types.** They meet the minimum; a reviewer may want a third kind of step.
@@ -172,9 +172,10 @@ Columns: the learning objective, the interaction types in order of first use, ho
 | `lang.4.comp-lit` Comparative Literature | 4 | Compare works across languages on a stated basis (genre, theme, influence or translation) and say what such a comparison can and cannot show. | structural comparison, classification, prediction | 6 anticipated errors (6 kinds); 4 hints; Why on every step | A student claims that novel B was influenced by novel A, because both are about orphans. What is needed to support the claim? | Bound book · 3D study; Poetic forms across traditions | authored, awaiting subject review |
 | `lang.4.creative` Creative Writing | 4 | Revise creative writing: show rather than tell, choose concrete detail, keep the point of view consistent and cut what does no work. | structural comparison, constrained edit, select all that apply, prediction | 9 anticipated errors (8 kinds); 5 hints; Why on every step; 1 worked by calculation | A draft reads, "The storm was very scary and loud." Which revision is strongest? | Bound book · 3D study; Revise a scene against a writing brief | authored, awaiting subject review |
 | `lang.4.history-english` History of English | 4 | Trace English from Old to Modern: date its main periods, recognise the layers of its vocabulary, and explain why spelling and sound have drifted apart. | ordering, classification, prediction | 4 anticipated errors (3 kinds); 4 hints; Why on every step | English has "kingly", "royal" and "regal", all meaning much the same. What does the triple show? | Printing press · 3D study; Travel along a timeline of English | authored, awaiting subject review |
-| `lang.4.linguistics` Linguistics | 4 | Analyse sentences formally: constituent structure and structural ambiguity, entailment as against implicature, and rule-governed sound patterns. | structural comparison, prediction, classification | 8 anticipated errors (8 kinds); 5 hints; Why on every step | "Flying planes can be dangerous." Why is the sentence ambiguous? | Two trees, two meanings; Speaking and performance space · 3D study; Explore every child and a tree: two scope orders | authored, awaiting subject review |
+| `lang.4.linguistics` Linguistics | 4 | Analyse sentences formally: constituent structure and structural ambiguity, entailment as against implicature, and rule-governed sound patterns. | structural comparison, prediction, classification | 8 anticipated errors (8 kinds); 5 hints; Why on every step | "Flying planes can be dangerous." Why is the sentence ambiguous? | Two trees, two meanings; Speaking and performance space · 3D study; Compare measured English and Spanish vowel spaces; Explore every child and a tree: two scop… | authored, awaiting subject review |
 | `lang.4.lit-theory` Literary Theory | 4 | Distinguish the major critical approaches by the question each one asks of a text, and apply several to the same work. | matching, classification, prediction | 5 anticipated errors (4 kinds); 4 hints; Why on every step | A critic writes of Frankenstein: "The novel sets creator against creature, light against dark, speech against silence, and then lets each pair collapse into the other." Which appr… | Bound book · 3D study; Schools of literary theory | authored, awaiting subject review |
-| `lang.5.comp-ling` Computational Linguistics | 5 | Model language computationally: count tokens and types, estimate the probability of a word from a corpus, and say what a language model predicts and where it fails. | missing value, prediction | 7 anticipated errors (7 kinds); 4 hints; Why on every step | A language model completes "The capital of Australia is" with "Sydney". The capital is Canberra. What best explains the error? | Language from rules and data; Computer architecture · 3D study; Counting word pairs: a tiny language model | authored, awaiting subject review |
+| `lang.5.comp-ling` Computational Linguistics: Computational Linguistics | 5 | Model language computationally: count tokens and types, estimate the probability of a word from a corpus, and say what a language model predicts and where it fails. | missing value, prediction | 7 anticipated errors (7 kinds); 4 hints; Why on every step | A language model completes "The capital of Australia is" with "Sydney". The capital is Canberra. What best explains the error? | Language from rules and data; Computer architecture · 3D study; Counting word pairs: a tiny language model; Measure word reuse in Alice’s Adventures in Wonderl… | authored, awaiting subject review |
+| `lang.5.comp-ling` Computational Linguistics: Chapter samples in Alice | 5 | Audit chapter-based word samples from Alice: distinguish tokens from types, compare equal-length samples, recognise length effects, and calculate an observed share in held-out text. | missing value, structural comparison, prediction | 8 anticipated errors (8 kinds); 4 hints; Why on every step | Hold Chapter II aside while designing the count. Its first 500 tokens contain three occurrences of “rabbit”. Calculate the observed share in this fresh sample. | Language from rules and data; Computer architecture · 3D study; Counting word pairs: a tiny language model; Measure word reuse in Alice’s Adventures in Wonderl… | authored, awaiting subject review |
 | `lang.5.narratology` Narratology and Critical Theory | 5 | Analyse narrative with exact terms: story as against discourse, order, focalisation and the reliability of the narrator. | ordering, matching, prediction | 4 anticipated errors (4 kinds); 4 hints; Why on every step | A narrator insists that he is perfectly calm, while mentioning that he has checked the lock eleven times and has not slept for a week. What should a reader conclude? | Bound book · 3D study; Retell the archive story in a different order | authored, awaiting subject review |
 | `lang.5.philology` Philology and Textual Criticism | 5 | Reconstruct a text from its surviving copies: recognise scribal errors, group manuscripts by shared errors and weigh competing readings. | classification, minimum information, prediction | 5 anticipated errors (4 kinds); 4 hints; Why on every step | Manuscript A reads: "He blessed the bread and gave it to the poor, and he blessed the wine and gave it to the poor, and departed." Manuscript B reads: "He blessed the bread and ga… | Printing press · 3D study; Compare manuscript families | authored, awaiting subject review |
 | `lang.5.psycholing` Psycholinguistics | 5 | Explain how language is acquired and processed in real time, from the evidence of children's errors, sentences that mislead the reader, priming and slips of the tongue. | prediction, ordering, classification | 4 anticipated errors (4 kinds); 4 hints; Why on every step | Readers' eyes are tracked as they read "The florist sent the flowers was pleased." Reading slows sharply at "was". What does the slow-down show? | Two-condition experiment station · 3D study; Garden-path sentences | authored, awaiting subject review |
