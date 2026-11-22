@@ -22,8 +22,15 @@ const Locator = {
       named_parts_only: 'Only named parts are labelled' }[match] || '';
   },
   visible(structure, text, locatedOnly) {
-    if (locatedOnly && !structure.atlas && !structure.radiology_assistant) return false;
-    return !text || structure.name.toLowerCase().includes(text.trim().toLowerCase());
+    if (locatedOnly && !structure.atlas && !structure.radiology_assistant && !structure.native_examples?.length) return false;
+    const words = [structure.name, ...(structure.native_examples || []).map(example =>
+      'node ' + example.source_node_id + ' ' + example.primary_station)].join(' ').toLowerCase();
+    return !text || words.includes(text.trim().toLowerCase());
+  },
+  nativeUrl(value) {
+    if (typeof value !== 'string') return null;
+    const match = /^\/app\/anatomy\/lynos-pat9\/(?:index|surfaces)\.html\?node=(\d{1,2})$/.exec(value);
+    return match && Number(match[1]) >= 1 && Number(match[1]) <= 44 ? value : null;
   },
   safeUrl(url, prefix) { return typeof url === 'string' && url.startsWith(prefix) ? url : null; },
 };
@@ -76,21 +83,72 @@ function start() {
     return cell;
   }
 
+  function nativeCell(structure) {
+    const cell = el('td');
+    if (!structure.native_examples?.length) {
+      cell.append(el('span', { class: 'none' }, 'No directly matched primary assignment'));
+      return cell;
+    }
+    const list = el('ul');
+    for (const example of structure.native_examples) {
+      const ct = Locator.nativeUrl(example.ct_url), model = Locator.nativeUrl(example.model_url);
+      if (!ct || !model) continue;
+      const row = el('li', {},
+        el('a', { href: ct }, 'Node ' + example.source_node_id + ' CT'), ' · ',
+        el('a', { href: model }, '3D'),
+        el('small', {}, example.primary_station));
+      if (example.secondary_station) row.append(el('small', {}, 'Secondary: ' + example.secondary_station));
+      if (example.tertiary_station) row.append(el('small', {}, 'Tertiary: ' + example.tertiary_station));
+      list.append(row);
+    }
+    cell.append(list);
+    return cell;
+  }
+
+  function sourceContext() {
+    const context = $('native-context');
+    context.replaceChildren();
+    const source = current.native_source;
+    context.hidden = !source;
+    $('native-source-heading').hidden = !source;
+    if (!source) return;
+    const omitted = el('details', {}, el('summary', {}, 'Source assignments excluded from direct station matches'));
+    const list = el('ul');
+    for (const row of source.omitted_primary_assignments) {
+      list.append(el('li', {}, 'Mask ' + row.sourceMaskValue + ': ' + row.primaryStationLiteral + ' (' + row.reason + ').'));
+    }
+    omitted.append(list);
+    context.append(el('h2', {}, 'LyNoS individual node examples'),
+      el('p', {}, source.note), omitted,
+      el('p', {}, el('a', { href: source.source_url, target: '_blank', rel: 'noopener noreferrer' }, 'Bouget and colleagues · LyNoS Pat9'),
+        ' · ', el('a', { href: source.license_url, target: '_blank', rel: 'noopener noreferrer' }, source.license)));
+  }
+
   function draw() {
     const body = $('rows');
     body.replaceChildren();
     if (!current) return;
     const shown = current.structures.filter(structure => Locator.visible(structure, $('filter').value, $('located').checked));
-    for (const structure of shown) body.append(el('tr', {}, el('th', { scope: 'row' }, structure.name), atlasCell(structure), sourceCell(structure)));
+    for (const structure of shown) {
+      const row = el('tr', {}, el('th', { scope: 'row' }, structure.name), atlasCell(structure), sourceCell(structure));
+      if (current.native_source) row.append(nativeCell(structure));
+      body.append(row);
+    }
     const counts = current.counts;
-    $('summary').textContent = counts.either + ' of ' + counts.requirements + ' reportable structures have a locator ('
-      + counts.atlas + ' in the atlas, ' + counts.radiology_assistant + ' in Radiology Assistant). Showing ' + shown.length + '.';
+    const total = current.structures.filter(row => row.atlas || row.radiology_assistant || row.native_examples?.length).length;
+    const native = current.structures.filter(row => row.native_examples?.length).length;
+    $('summary').textContent = total + ' of ' + counts.requirements + ' reportable structures have a locator ('
+      + counts.atlas + ' in the atlas, ' + counts.radiology_assistant + ' in Radiology Assistant'
+      + (native ? ', ' + native + ' with LyNoS node examples' : '') + '). Showing ' + shown.length + '.';
   }
 
   async function load(identifier) {
     const row = index.investigations.find(item => item.investigation_id === identifier) || index.investigations[0];
     $('investigation').value = row.investigation_id;
+    $('return-link').href = '/app/#/radiology/' + encodeURIComponent(row.investigation_id);
+    $('return-link').textContent = 'Return to reporting reference';
     current = await (await fetch(row.file)).json();
+    sourceContext();
     draw();
   }
 
@@ -100,7 +158,7 @@ function start() {
     $('credit').textContent = 'Stanford MSK MRI Atlas: ' + data.sources.atlas.author + ', xrayhead.com. ' + data.sources.atlas.reuse
       + ' Radiology Assistant: ' + data.sources.radiology_assistant.reuse;
     for (const row of data.investigations) {
-      $('investigation').append(el('option', { value: row.investigation_id }, row.investigation_id.replace('ra.', '').replace(/-/g, ' ') + ' (' + row.either + '/' + row.requirements + ')'));
+      $('investigation').append(el('option', { value: row.investigation_id }, row.investigation_id.replace('ra.', '').replace(/-/g, ' ') + ' (' + (row.located_structures ?? row.either) + '/' + row.requirements + ')'));
     }
     $('investigation').addEventListener('change', event => load(event.target.value));
     $('filter').addEventListener('input', draw);

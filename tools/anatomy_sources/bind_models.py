@@ -38,6 +38,7 @@ sys.path.insert(0, str(ROOT))
 from tools.anatomy_sources import bind_finding_figures as findings  # noqa: E402
 from tools.anatomy_sources import bind_stored_caption_assets_pass2 as second  # noqa: E402
 from tools.anatomy_sources import bind_unlocked_figures as unlocked  # noqa: E402
+from tools.anatomy_sources.structure_display_names import display_structure_name  # noqa: E402
 
 EVIDENCE = second.EVIDENCE
 DOCS = ROOT / 'docs/model-bindings-20261118'
@@ -198,7 +199,8 @@ def plan():
             raise ValueError('Not a model: ' + where)
         if not holders[row['structure_id']] & set(asset['investigation_ids']):
             raise ValueError('Requirement is not in an investigation of the model: ' + where)
-        if row['name'] != required[row['structure_id']][0]['name'] or row['kind'] not in KINDS:
+        requirement = required[row['structure_id']][0]
+        if display_structure_name(row['name'], requirement.get('laterality')) != requirement['name'] or row['kind'] not in KINDS:
             raise ValueError('Row does not name its requirement: ' + where)
         if len(row['quote']) < 2 or row['quote'] not in asset['name'] or row.get('side_quote', row['quote']) not in asset['name']:
             raise ValueError('Label is not in the model record: ' + where)

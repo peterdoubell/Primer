@@ -1,0 +1,18 @@
+main { max-width: 48rem; }
+.bench { background: #e8edef; border: 1px solid #bbc8cb; border-radius: .5rem; padding: .65rem 1rem 1rem; }
+.bench figure { margin: .4rem 0; }
+canvas { box-sizing: border-box; }
+#instrument { height: clamp(185px, 30vw, 270px); background: #e8edef; border: 0; }
+#scale { height: 130px; }
+#detail { height: 100px; }
+.controls, .fields { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 11rem), 1fr)); gap: .25rem 1rem; }
+input[type="range"] { display: block; width: 100%; margin: .6rem 0; }
+.loupe { display: grid; grid-template-columns: minmax(0, 2fr) minmax(0, 3fr); gap: 1rem; align-items: start; margin: .8rem 0; }
+.loupe figure { margin: 0; }
+.loupe label { margin: 0; }
+.fields input { box-sizing: border-box; width: 100%; padding: .35rem; }
+.primary { background: #184c5a; color: white; }
+.setup { display: flex; align-items: center; flex-wrap: wrap; gap: .65rem; margin: 1rem 0; }
+.setup label { margin: 0; }
+.source { font-size: .9rem; }
+@media (max-width: 35rem) { .loupe { grid-template-columns: 1fr; gap: .4rem; } }

@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Count words in Wonderland · Primer</title>
+  <link rel="stylesheet" href="style.css">
+  <script type="module" src="lab.js"></script>
+</head>
+<body>
+<main>
+  <a href="/app/#/node/lang.5.comp-ling">Return to Computational Linguistics</a>
+  <h1>Count words in Wonderland</h1>
+  <p>How much vocabulary does a passage repeat? Follow the words in Lewis Carroll’s novel and see how the answer changes with sample length.</p>
+  <fieldset id="sample-controls" disabled>
+    <legend>Choose a passage</legend>
+    <label for="chapter">Chapter <select id="chapter"></select></label>
+    <label for="size">Sample length <select id="size"><option>25</option><option>50</option><option selected>100</option><option>200</option><option>400</option><option>800</option></select></label>
+    <label for="case">Word forms <select id="case"><option value="fold">Ignore capitalisation</option><option value="keep">Keep capitalisation</option></select></label>
+    <label class="wide" for="start">First word in chapter <output id="range" for="start"></output><input id="start" type="range" min="1" value="1"></label>
+  </fieldset>
+  <p id="load-status" role="status">Loading the source text…</p>
+  <div id="activity" hidden>
+    <div class="layout">
+      <section aria-labelledby="count-heading">
+        <h2 id="count-heading">Trace the count</h2>
+        <label for="cursor">Words counted <output id="counted" for="cursor"></output></label>
+        <input id="cursor" type="range" min="0" value="0">
+        <div class="buttons"><button id="next">Count one word</button><button id="finish">Count the whole sample</button></div>
+        <dl><div><dt>Distinct forms</dt><dd id="types"></dd></div><div><dt>Type–token ratio</dt><dd id="ratio"></dd></div><div><dt>Mean 25-word ratio</dt><dd id="local-ratio"></dd></div></dl>
+        <canvas id="curve" role="img" aria-label="Word diversity versus the number of words counted"></canvas>
+        <p class="legend"><span class="key global"></span> All words counted <span class="key local"></span> Mean of 25-word windows</p>
+        <p id="current"></p>
+        <h3>Predict whether the word is new</h3>
+        <p id="question"></p>
+        <div class="buttons"><button id="new">New form</button><button id="repeat">Seen earlier</button></div>
+        <p id="feedback" role="status"></p>
+      </section>
+      <section aria-labelledby="passage-heading">
+        <h2 id="passage-heading">Read the sample</h2>
+        <p id="passage" class="passage"></p>
+        <details><summary>Most frequent forms in the count</summary>
+          <table><thead><tr><th scope="col">Form</th><th scope="col">Occurrences</th></tr></thead><tbody id="frequent"></tbody></table>
+        </details>
+        <label for="illustration">Jump to an illustrated passage <select id="illustration"></select></label>
+        <figure><img id="picture" alt=""><figcaption id="caption"></figcaption></figure>
+      </section>
+    </div>
+    <p>The type–token ratio divides the number of distinct forms by the number of words counted. The second curve averages that ratio over every consecutive 25-word window in the count. Internal apostrophes stay in a word. Hyphens split words. The sample uses chapter prose and verse.</p>
+    <p>Text by Lewis Carroll, illustrations by John Tenniel. Based on the Standard Ebooks edition. <a href="https://standardebooks.org/ebooks/lewis-carroll/alices-adventures-in-wonderland/john-tenniel">Read the edition</a> · <a href="https://creativecommons.org/publicdomain/zero/1.0/">Edition contributions and CC0 dedication</a></p>
+  </div>
+</main>
+</body>
+</html>

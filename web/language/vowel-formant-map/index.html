@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Measured vowel spaces · Primer</title>
+<link rel="stylesheet" href="/app/activities/kit.css">
+<link rel="stylesheet" href="style.css">
+<script type="module" src="lab.js"></script>
+</head>
+<body>
+<main>
+<a href="/app/#/node/lang.4.linguistics">← Linguistics lesson</a>
+<header>
+<h1>Explore a measured vowel space</h1>
+<p>The DIAPIX-FL table records first and second formant frequencies for English and Spanish speech. Filter the original tokens and compare group medians.</p>
+</header>
+<p id="status" role="status">Verifying the source table…</p>
+<button type="button" id="retry" hidden>Retry source table</button>
+<fieldset id="filters" disabled>
+<legend>Choose tokens</legend>
+<div class="controls">
+<div><label for="speaking">Language spoken</label><select id="speaking"><option value="">Both languages</option><option value="En" selected>English</option><option value="Sp">Spanish</option></select></div>
+<div><label for="l1">Speaker’s first language (L1)</label><select id="l1"><option value="">Both L1 groups</option><option value="En">English</option><option value="Sp">Spanish</option></select></div>
+<div><label for="vowel">Source vowel code</label><select id="vowel"></select></div>
+<div><label for="speaker">Speaker</label><select id="speaker"></select></div>
+<div><label for="word">Word contains</label><input id="word" type="search" autocomplete="off"></div>
+<div><label for="method">Group summary</label><select id="method"><option value="tokens">Median across tokens</option><option value="speakers">Median of speaker medians</option></select></div>
+</div>
+</fieldset>
+<figure>
+<canvas id="space" width="900" height="600" role="img" tabindex="0" aria-describedby="axes token-detail"></canvas>
+<figcaption id="axes">F2 increases to the left; F1 increases downward. Dots mark tokens. Crosses mark the selected group summary. All coordinates use the original frequencies in Hz.</figcaption>
+</figure>
+<div id="legend" aria-label="Plot groups"></div>
+<fieldset id="navigation" disabled>
+<legend>Inspect a token</legend>
+<label for="token">Token within the filtered set</label>
+<input id="token" type="range" min="0" max="0" step="1" value="0">
+<div class="token-buttons"><button type="button" id="previous">Previous token</button><button type="button" id="next">Next token</button></div>
+<p id="token-detail" role="status"></p>
+</fieldset>
+<section aria-labelledby="table-heading">
+<h2 id="table-heading">Group summaries</h2>
+<p id="denominator"></p>
+<div class="table-scroll" tabindex="0" aria-label="Scrollable group summary table">
+<table><caption id="summary-caption">Current selection</caption><thead><tr><th scope="col">Language spoken · L1 · source code</th><th scope="col">Tokens</th><th scope="col">Speakers</th><th scope="col">F1 (Hz)</th><th scope="col">F2 (Hz)</th></tr></thead><tbody id="summaries"></tbody></table>
+</div>
+</section>
+<section class="challenge" aria-labelledby="challenge-heading">
+<h2 id="challenge-heading">Compare the medians</h2>
+<fieldset id="comparison" disabled>
+<legend>Choose two summaries from the table</legend>
+<div class="controls"><div><label for="first">First summary</label><select id="first"></select></div><div><label for="second">Second summary</label><select id="second"></select></div></div>
+<label for="formant">Compare</label><select id="formant"><option value="f1">F1</option><option value="f2">F2</option></select>
+<p id="question"></p>
+<div class="choices"><button type="button" id="answer-first">First is higher</button><button type="button" id="answer-second">Second is higher</button><button type="button" id="answer-tie">They are equal</button></div>
+</fieldset>
+<p id="feedback" role="status"></p>
+</section>
+<details>
+<summary>How to read these measurements</summary>
+<p>Each row is one vowel token lasting at least 30 ms. F1 and F2 are the source’s estimated median formant frequencies for that token. The source vowel codes are case-sensitive, so <code>I</code> and <code>i</code> remain distinct.</p>
+<p>Formants are vocal-tract resonances. Lower F1 often accompanies a higher tongue position, and higher F2 often accompanies a more fronted vowel. Speaker anatomy, rounding and speech context also affect these frequencies. The plot uses unnormalised Hz. <a href="https://web.stanford.edu/class/linguist205/index_files/Handout%206%20-%20Vowel%20acoustics.pdf">Formant and articulation background</a>.</p>
+<p>Each L1 group contains ten speakers. English and Spanish speakers reuse anonymous identifiers such as <code>s1</code>; the L1 and speaker identifier together identify a person here. These summaries describe the selected sample.</p>
+</details>
+<footer>
+<p>Martin Cooke and Maria Luisa Garcia Lecumberri, <a href="https://zenodo.org/records/14411925">English and Spanish Vowel Formants from DIAPIX-FL</a> (2024), <a href="https://creativecommons.org/licenses/by/4.0/">CC BY 4.0</a>. Primer preserves all 55,978 original rows in the <a href="vowels.txt.gz">losslessly compressed source table</a>.</p>
+</footer>
+</main>
+</body>
+</html>

@@ -88,4 +88,7 @@ def references():
         'normal_anatomical_atlas_approval': False,
         'complete_reporting_anatomy_approved': False,
     }
-    return {identifier: [dict(item)] for identifier in ('ra.ct-mediastinum', 'ra.ct-lung-cancer')}
+    return {
+        identifier: [dict(item, structure_locator_url='/app/radiology/structure-atlas/index.html?i=' + identifier)]
+        for identifier in ('ra.ct-mediastinum', 'ra.ct-lung-cancer')
+    }

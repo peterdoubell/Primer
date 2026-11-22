@@ -7,12 +7,13 @@ from primer.curriculum import Curriculum
 from primer.radiology_catalog import detail,resolve
 from tools.check_radiology_fidelity import digest
 from tools.check_msk_fidelity import requirements_for
+from tools.anatomy_sources.structure_display_names import display_structure_name
 from tools.anatomy_sources.update_cervical_node_reporting import URLS
 ROOT=Path(__file__).resolve().parents[2];IDENT='ra.cervical-lymph-nodes';MODES=['CT','MRI','Ultrasound']
 def build():
     ref=detail(Curriculum(),resolve(IDENT))['radiology_reference'];guide=ref['reporting'];structures=[]
     def add(key,parts,reports,steps,side='not_applicable',pathology=False,map_scope=None):
-        structures.append({'id':'cervical_nodes.'+side+'_'+key,'name':side.replace('_',' ').capitalize()+' '+key.replace('_',' '),'tissue_class':'nodal_compartment_component_boundary_or_adjacent_interface',
+        structures.append({'id':'cervical_nodes.'+side+'_'+key,'name':display_structure_name(side.replace('_',' ').capitalize()+' '+key.replace('_',' '), side),'tissue_class':'nodal_compartment_component_boundary_or_adjacent_interface',
             'required_parts':[{'id':'cervical_nodes.'+side+'_'+key+'.'+p,'name':p.replace('_',' ').capitalize()} for p in parts.split()],
             'laterality':side,'modality_scope':MODES,'condition':'Instantiate every actual covered node, group, component, side, variant, primary/repair and connection, using the explicitly named map/version and descriptive boundaries. A parent group or enlarged-node model is not every node or native tiny cortex/hilum/capsule. A permitted modality cannot supply unresolved, microscopic or unacquired anatomy; US only supplies actually surveyed accessible coverage.',
             'requirement_basis':'effective_cervical_nodal_CT_MRI_US_reporting_scope','map_scope':map_scope or 'Actual named map/version and descriptive source location; no automatic cross-map equivalence',

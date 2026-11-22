@@ -11,6 +11,7 @@ from tools.anatomy_sources.bind_reader_models import before_reader_model_records
 from tools.anatomy_sources import repair_source_context_codes as repair
 from tools.anatomy_sources.bind_stored_caption_assets import only_caption_bindings
 from tools.check_msk_fidelity import inspect_binding, inspect_requirement_coverage, side_unstated
+from tools.anatomy_sources.structure_display_names import display_structure_name
 
 PATH = 'data/radiology/radiology-asset-evidence.json'
 
@@ -35,7 +36,8 @@ def test_every_binding_quotes_a_stored_sentence_about_a_selected_panel_of_an_unl
         asset = assets[row['asset_id']]
         assert row['asset_id'] in repaired and asset['kind'] != 'model'
         assert holders[row['structure_id']] & set(asset['investigation_ids'])
-        assert row['name'] == required[row['structure_id']][0]['name']
+        requirement = required[row['structure_id']][0]
+        assert display_structure_name(row['name'], requirement.get('laterality')) == requirement['name']
         text = second.descriptions(described[row['asset_id']])[row['field']]
         assert row['quote'] in text and row.get('side_quote', row['quote']) in text
         coverage = asset['requirement_coverage'][row['structure_id']]

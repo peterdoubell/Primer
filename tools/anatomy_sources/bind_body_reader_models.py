@@ -338,6 +338,7 @@ def record(key, mesh, rows, review, geometry, leaves):
 def plan():
     """The new records, checked row by row. Refuses any row that breaks a rule."""
     from tools.check_msk_fidelity import inspect_binding, inspect_requirement_coverage
+    from tools.anatomy_sources.structure_display_names import display_structure_name
     review = json.loads(REVIEW.read_text())
     meshes = inventory(review)
     leaves, names, structures = requirement_leaves()
@@ -358,7 +359,10 @@ def plan():
             raise problem('Source is not bound: ' + review['unbound_sources'][mesh['atlas']])
         if row['asset_id'] != asset_id(row['mesh']):
             raise problem('Record identifier does not follow the mesh file')
-        if row['structure_id'] not in leaves or row['name'] != names[row['structure_id']]:
+        if row['structure_id'] not in leaves:
+            raise problem('Requirement leaf or its name is not recorded')
+        requirement = next(iter(leaves[row['structure_id']].values()))
+        if display_structure_name(row['name'], requirement['laterality']) != names[row['structure_id']]:
             raise problem('Requirement leaf or its name is not recorded')
         shown = sorted(investigation for investigation in leaves[row['structure_id']] if investigation in mesh['investigations'])
         if not shown or row['investigations'] != shown:
@@ -371,9 +375,8 @@ def plan():
             limit = review['population_limits'].get(investigation)
             if limit and stage != limit['life_stage']:
                 raise problem('Source population does not fit the investigation: ' + limit['reason'])
-        if row['evidence'] not in EVIDENCE_KINDS or not evidence_fits(row, row['name'], pairs):
+        if row['evidence'] not in EVIDENCE_KINDS or not evidence_fits(row, names[row['structure_id']], pairs):
             raise problem('Label does not name the requirement')
-        requirement = next(iter(leaves[row['structure_id']].values()))
         part = row['name'].split(': ', 1)[1] if ': ' in row['name'] else ''
         is_part = requirement['parent_id'] != row['structure_id']
         named = words(row['term'] if row['evidence'] == 'own_word' else row[row['evidence']]['requirement_word'])

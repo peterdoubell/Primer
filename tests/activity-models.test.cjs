@@ -558,6 +558,79 @@ test('finite source shadows agree with independent ray interception and point-so
   assert.equal(lampView(1, 50, 56).kind, 'lit');
 });
 
+test('Wonderland samples retain chapter offsets and distinguish cumulative from local diversity', async () => {
+  const { tokenize, traceWords, frequentForms } = await import('../web/language/word-samples/counts.mjs');
+  const book = JSON.parse(fs.readFileSync(path.join(root, 'language/word-samples/corpus.json'), 'utf8'));
+  const sizes = [2157, 2115, 1702, 2658, 2172, 2609, 2307, 2493, 2294, 2038, 1898, 2127];
+  assert.equal(book.chapters.length, sizes.length);
+  assert.equal(book.chapters.reduce((sum, chapter) => sum + chapter.illustrations.length, 0), 41);
+  assert.deepEqual(tokenize("Rabbit rabbit’s rabbit's rabbit-hole").map(word => word.form),
+    ['rabbit', "rabbit's", "rabbit's", 'rabbit', 'hole']);
+  assert.deepEqual(tokenize('Alice ALICE', true).map(word => word.form), ['Alice', 'ALICE']);
+  for (const [index, chapter] of book.chapters.entries()) {
+    for (const keepCase of [false, true]) {
+      const tokens = tokenize(chapter.text, keepCase);
+      assert.equal(tokens.length, sizes[index]);
+      const first = Math.floor(tokens.length / 2);
+      const words = tokens.slice(first, first + 80);
+      for (const word of words) assert.equal(chapter.text.slice(word.start, word.end), word.text);
+      const trace = traceWords(words);
+      for (const count of [1, 24, 25, 26, 80]) {
+        const forms = words.slice(0, count).map(word => word.form);
+        const types = new Set(forms).size;
+        const state = trace[count - 1];
+        assert.equal(state.ratio, types / count);
+        assert.equal(state.first, forms.indexOf(forms[count - 1]));
+        assert.equal(state.count, forms.filter(form => form === forms[count - 1]).length);
+        const windows = [];
+        for (let i = 25; i <= count; i++) windows.push(new Set(forms.slice(i - 25, i)).size);
+        assert.equal(state.meanLocalRatio, windows.length ? windows.reduce((a, b) => a + b, 0) / (25 * windows.length) : null);
+      }
+    }
+    for (const figure of chapter.illustrations) {
+      assert.ok(figure.offset >= 0 && figure.offset <= chapter.text.length);
+      for (const link of [figure.file, figure.large]) assert.ok(fs.existsSync(path.join(root, link.slice('/app/'.length))), link);
+    }
+  }
+  const opening = tokenize(book.chapters[0].text).slice(0, 25);
+  assert.equal(traceWords(opening)[24].types, 23);
+  assert.deepEqual(frequentForms(opening, 25).slice(0, 2), [['to', 2], ['of', 2]]);
+});
+
+test('circular arrangement classes agree with explicit necklaces and bracelets', async () => {
+  const { analyse } = await import('../web/math/circular-arrangements/symmetry.mjs');
+  // Independently rotate and reverse literal strings and count equivalence classes.
+  const rotations = word => Array.from({ length: word.length }, (_, i) => word.slice(i) + word.slice(0, i));
+  for (let n = 3; n <= 12; n++) {
+    for (const flip of [false, true]) {
+      const classes = Array.from({ length: n + 1 }, () => new Set());
+      const populations = Array(n + 1).fill(0);
+      for (let bits = 0; bits < 2 ** n; bits++) {
+        const word = bits.toString(2).padStart(n, '0');
+        const k = [...word].filter(bit => bit === '1').length;
+        const views = rotations(word);
+        if (flip) views.push(...rotations([...word].reverse().join('')));
+        classes[k].add(views.sort()[0]);
+        populations[k]++;
+      }
+      for (let k = 0; k <= n; k++) {
+        const pattern = Array.from({ length: n }, (_, i) => Number(i < k));
+        const result = analyse(pattern, false, flip);
+        assert.equal(result.labelled, populations[k]);
+        assert.equal(result.classes, classes[k].size);
+        assert.equal(result.orbitSize * result.stabilizer, result.results.length);
+      }
+    }
+  }
+  const alternating = analyse([0, 1, 0, 1, 0, 1], false, false);
+  assert.deepEqual(alternating.results.map(row => row.fixedCount), [20, 0, 2, 0, 2, 0]);
+  assert.equal(alternating.orbitSize, 2);
+  assert.equal(alternating.classes, 4);
+  const guests = Array.from({ length: 8 }, (_, i) => i);
+  assert.equal(analyse(guests, true, false).classes, 5040);
+  assert.equal(analyse(guests, true, true).classes, 2520);
+});
+
 test('every registered activity has its page, script and a return link to its module', () => {
   const registry = JSON.parse(fs.readFileSync(path.join(root, 'activities', 'registry.json'), 'utf8'));
   const curriculum = fs.readdirSync(path.join(root, '..', 'data', 'curriculum')).map(f => fs.readFileSync(path.join(root, '..', 'data', 'curriculum', f), 'utf8')).join('');
@@ -572,6 +645,73 @@ test('every registered activity has its page, script and a return link to its mo
       assert.ok(fs.existsSync(path.join(dir, 'lab.js')), href);
       // Every control has a label.
       for (const id of [...html.matchAll(/<(?:input|select)[^>]* id="([a-z0-9-]+)"/g)].map(x => x[1])) assert.ok(html.includes('for="' + id + '"'), href + ' ' + id);
+    }
+  }
+});
+
+test('DIAPIX-FL preserves all case-sensitive source rows and transparent vowel medians', async () => {
+  const model = await import('../web/language/vowel-formant-map/data.mjs');
+  const folder = path.join(root, 'language/vowel-formant-map');
+  const packed = fs.readFileSync(path.join(folder, 'vowels.txt.gz'));
+  const raw = require('node:zlib').gunzipSync(packed);
+  const metadata = JSON.parse(fs.readFileSync(path.join(folder, 'source.json')));
+  const hash = require('node:crypto').createHash('sha256').update(raw).digest('hex');
+  assert.equal(hash, '787f99e8d2aa6e0025ba2a864a1f797d1270a5dfafd3cfd06eb76740090a38b6');
+  assert.equal(raw.length, 2582403);
+  assert.equal(metadata.sourceSHA256, hash);
+  assert.equal(metadata.sourceMD5, require('node:crypto').createHash('md5').update(raw).digest('hex'));
+  const tokens = model.readTokens(raw.toString('utf8'));
+  assert.equal(tokens.length, 55978);
+  assert.equal(tokens[0].word, 'theres');
+  assert.deepEqual([tokens[0].f1, tokens[0].f2, tokens[0].row], [439, 1970, 1]);
+  assert.equal(new Set(tokens.map(model.speakerKey)).size, 20);
+  const filters = {speaking:'',l1:'',vowel:'',speaker:'',word:''};
+  assert.deepEqual(model.selectTokens(tokens, filters), tokens);
+  assert.equal(model.selectTokens(tokens, {...filters,speaking:'Sp',vowel:'I'}).length, 4963);
+  assert.equal(model.selectTokens(tokens, {...filters,speaking:'Sp',vowel:'i'}).length, 764);
+  assert.equal(model.selectTokens(tokens, {...filters,speaking:'En',l1:'En'}).length, 8537);
+  assert.equal(model.selectTokens(tokens, {...filters,speaking:'Sp',l1:'Sp'}).length, 21278);
+  const groups = model.summaries(tokens, 'tokens');
+  assert.equal(groups.length, 44);
+  assert.equal(groups.reduce((n,row)=>n+row.tokens,0), tokens.length);
+  assert.ok(groups.every(row=>row.speakers===10));
+  const byId = new Map(groups.map(row=>[row.id,row]));
+  assert.deepEqual([byId.get('En|En|ih').tokens,byId.get('En|En|ih').f1,byId.get('En|En|ih').f2], [1603,447,2002]);
+  assert.deepEqual([byId.get('En|Sp|ih').tokens,byId.get('En|Sp|ih').f1,byId.get('En|Sp|ih').f2], [2154,368,2356]);
+  const equalSpeakers = new Map(model.summaries(tokens, 'speakers').map(row=>[row.id,row]));
+  assert.deepEqual([equalSpeakers.get('En|Sp|ih').f1,equalSpeakers.get('En|Sp|ih').f2], [368.25,2363.75]);
+  assert.deepEqual([equalSpeakers.get('Sp|En|I').f1,equalSpeakers.get('Sp|En|I').f2], [396,2586.25]);
+  assert.equal(model.comparison(byId.get('Sp|Sp|u'),byId.get('Sp|Sp|i'),'f1'),'tie');
+  assert.equal(model.comparison(byId.get('En|En|ih'),byId.get('En|Sp|ih'),'f1'),'first');
+  assert.equal(model.comparison(byId.get('En|En|ih'),byId.get('En|Sp|ih'),'f2'),'second');
+  assert.equal(model.median([8,1,3,2]), 2.5);
+  const box={left:0,right:300,top:0,bottom:210};
+  assert.deepEqual(model.plotPosition(1000,2400,box),{x:100,y:100});
+  assert.ok(model.plotPosition(500,3000,box).x<model.plotPosition(500,1000,box).x);
+  assert.ok(model.plotPosition(1000,2000,box).y>model.plotPosition(500,2000,box).y);
+});
+
+test('vernier lines physically coincide at the indicated fraction and zero correction recovers the specimen', async () => {
+  const {readScale, inspectDivision, makeSpecimen} = await import('../web/physics/vernier-caliper/model.mjs');
+  for (const divisions of [10, 20]) {
+    for (let zero = -3; zero <= 3; zero++) {
+      for (let gap = 0; gap <= 30 * divisions; gap++) {
+        const r = readScale(gap, zero, divisions);
+        const matches = [];
+        for (let index = 0; index < divisions; index++) {
+          if ((gap + zero + index * (divisions - 1)) % divisions === 0) matches.push(index);
+        }
+        assert.deepEqual(matches, [r.matchingDivision]);
+        const tick = inspectDivision(r, r.matchingDivision);
+        near(tick.offset, 0);
+        assert.equal(tick.nearest, r.whole + r.matchingDivision);
+        near(r.whole + r.matchingDivision / divisions - readScale(0, zero, divisions).origin, gap / divisions);
+      }
+    }
+    for (const u of [0, 0.5, 0.999999]) {
+      const sample = makeSpecimen(divisions, () => u);
+      assert.ok(Number.isInteger(sample.widthSteps) && sample.widthSteps >= 3 * divisions && sample.widthSteps < 24 * divisions);
+      assert.ok(sample.zeroSteps >= -3 && sample.zeroSteps <= 3);
     }
   }
 });

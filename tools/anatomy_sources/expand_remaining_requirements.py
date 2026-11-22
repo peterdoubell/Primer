@@ -124,6 +124,8 @@ def insert(text, items):
 
 def before_remaining_inventories(raw):
     """Remove exactly the bytes this tool inserted; any other content is returned untouched."""
+    from tools.anatomy_sources.structure_display_names import before_structure_display_names
+    raw = before_structure_display_names(raw)
     if not RECEIPT.exists():
         return raw
     receipt = json.loads(RECEIPT.read_text())

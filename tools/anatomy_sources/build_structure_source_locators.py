@@ -6,8 +6,12 @@ count towards structure coverage and makes no fidelity claim.
 
 Sources, as directed by the project owner on 2026-11-16:
   * musculoskeletal: the Stanford MSK MRI Atlas at xrayhead.com (Bao Do MD);
-  * everything else: Radiology Assistant articles already cited by the
-    requirement itself.
+  * Radiology Assistant articles already cited by each requirement;
+  * direct primary station assignments on the reviewed LyNoS Pat9 node masks.
+
+The LyNoS additions are applied by lynos_station_locators.refresh after the
+external-source tables are written. It also refreshes existing tables without
+fetching pages when run as a standalone script.
 
 Nothing is copied from either site. For the atlas only the label name and the
 plane and slice numbers on which it appears are recorded. For Radiology
@@ -211,6 +215,11 @@ def source_locators(name, articles):
     return [entry[3] for entry in sorted(found, key=lambda entry: entry[:3])[:3]]
 
 
+def refresh_display_names():
+    from tools.anatomy_sources.structure_display_names import regenerate
+    return regenerate(ROOT)
+
+
 def main(cache):
     cache.mkdir(parents=True, exist_ok=True)
     labels = {region: atlas_labels(fetch(ATLAS + region, cache)) for region in ATLAS_REGIONS}
@@ -264,8 +273,17 @@ def main(cache):
                                     'reuse_url': 'https://radiologyassistant.nl/disclaimer'}},
         'atlas_labels': labels, 'totals': totals, 'investigations': sorted(index, key=lambda row: row['investigation_id']),
     }, indent=1, sort_keys=True) + '\n')
+    sys.path.insert(0, str(ROOT))
+    from tools.anatomy_sources.lynos_station_locators import refresh
+    refresh(ROOT)
     print(json.dumps(totals))
 
 
 if __name__ == '__main__':
-    main(Path(tempfile.gettempdir()) / 'primer-structure-locator-cache')
+    if sys.argv[1:] == ['--refresh-display-names']:
+        sys.path.insert(0, str(ROOT))
+        print(json.dumps(refresh_display_names()))
+    elif sys.argv[1:]:
+        raise SystemExit('Use --refresh-display-names or no arguments.')
+    else:
+        main(Path(tempfile.gettempdir()) / 'primer-structure-locator-cache')

@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Counting around a circle · Primer</title>
+  <link rel="stylesheet" href="style.css">
+  <script type="module" src="lab.js"></script>
+</head>
+<body>
+<main>
+  <a href="/app/#/node/math.4.discrete">Return to Discrete Mathematics</a>
+  <h1>Counting around a circle</h1>
+  <p>When does turning a circle give the same arrangement? Compare distinct guests at a round table with a ring of two bead colours.</p>
+  <fieldset><legend>Counting rules</legend>
+    <label for="kind">Objects <select id="kind"><option value="beads">Two bead colours</option><option value="guests">Distinct guests</option></select></label>
+    <label for="size">Positions <select id="size"></select></label>
+    <label for="group">Count as equivalent <select id="group"><option value="turns">Rotations</option><option value="flips">Rotations and reflections</option></select></label>
+  </fieldset>
+  <div class="layout">
+    <section><h2>Try a symmetry</h2>
+      <label for="map">Movement <select id="map"></select></label>
+      <div class="movement-buttons">
+        <button type="button" id="previous">Previous movement</button>
+        <button type="button" id="next">Next movement</button>
+      </div>
+      <canvas id="rings" role="img" aria-label="Original and transformed arrangements, with positions numbered clockwise from the top"></canvas>
+      <p id="effect" role="status"></p>
+      <div class="edit">
+        <label for="position">Edit position <select id="position"></select></label>
+        <button type="button" id="edit"></button>
+      </div>
+      <details><summary>Positions moved together</summary><p id="cycles"></p>
+        <table><thead><tr><th scope="col">Position</th><th scope="col">Original</th><th scope="col">After movement</th></tr></thead>
+          <tbody id="mapping"></tbody></table>
+      </details>
+    </section>
+    <section><h2>Count the arrangements</h2>
+      <p id="population"></p>
+      <dl><div><dt>Assignments to numbered positions</dt><dd id="labelled"></dd></div>
+        <div><dt>Distinct arrangements under these rules</dt><dd id="classes"></dd></div></dl>
+      <p id="orbit"></p>
+      <h3>Why this count works</h3>
+      <p id="fixed"></p>
+      <table><thead><tr><th scope="col">Movement</th><th scope="col">Assignments it fixes</th></tr></thead>
+        <tbody id="fixed-table"></tbody></table>
+      <p id="average"></p>
+    </section>
+  </div>
+</main>
+</body>
+</html>

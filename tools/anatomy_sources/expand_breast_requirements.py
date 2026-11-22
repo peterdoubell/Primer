@@ -7,6 +7,7 @@ from primer.curriculum import Curriculum
 from primer import radiology_catalog as catalog
 from tools.check_radiology_fidelity import digest
 from tools.check_msk_fidelity import requirements_for
+from tools.anatomy_sources.structure_display_names import display_structure_name
 DATE='2026-10-08'
 IDS=('ra.mammography','ra.ultrasound-breast','ra.mri-breast','ra.breast-cancer-staging','ra.breast-implants','ra.male-breast')
 ACR='https://www.acr.org/Clinical-Resources/Publications-and-Research/ACR-Bulletin/2026/definitive-guide-to-breast-imaging'
@@ -55,7 +56,7 @@ def build_draft(inv,ref,original):
     structures=[];namespace=inv.removeprefix('ra.').replace('-','_')
     def add(key,side,steps,pathology=False):
         ident=namespace+'.'+side+'_'+key.lower();parts=NODE_PARTS if 'nodes' in key else PARTS
-        structures.append({'id':ident,'name':side.capitalize()+' '+key.replace('_',' '),'tissue_class':'breast_source_tissue_route_node_lesion_or_device_interface','laterality':side,'modality_scope':config['modalities'],'required_parts':[{'id':ident+'.'+p,'name':p.replace('_',' ')} for p in parts],'condition':'Instantiate every actual acquired side, tissue, duct/lobular unit, branch, node, lesion, device and treated component. Microscopic or uncovered tissue remains unproven; imaging modality permission does not establish its resolution. Supplied histology, assays and physiological evidence remain identified separate sources.','report_refs':[{'checklist_index':i,**guide['checklist'][i]} for i in steps],'walkthrough_step_indices':steps,'source_urls':[s['url'] for s in guide['sources']],'requirement_basis':'full_effective_breast_reporting_anatomy_and_actual_source_interfaces','requires_site_instantiation':True,'context_requirements':{'purpose':'pathology_example' if pathology else 'anatomical_reference'},'requires_independent_source_layer_review':True})
+        structures.append({'id':ident,'name':display_structure_name(side.capitalize()+' '+key.replace('_',' '), side),'tissue_class':'breast_source_tissue_route_node_lesion_or_device_interface','laterality':side,'modality_scope':config['modalities'],'required_parts':[{'id':ident+'.'+p,'name':p.replace('_',' ')} for p in parts],'condition':'Instantiate every actual acquired side, tissue, duct/lobular unit, branch, node, lesion, device and treated component. Microscopic or uncovered tissue remains unproven; imaging modality permission does not establish its resolution. Supplied histology, assays and physiological evidence remain identified separate sources.','report_refs':[{'checklist_index':i,**guide['checklist'][i]} for i in steps],'walkthrough_step_indices':steps,'source_urls':[s['url'] for s in guide['sources']],'requirement_basis':'full_effective_breast_reporting_anatomy_and_actual_source_interfaces','requires_site_instantiation':True,'context_requirements':{'purpose':'pathology_example' if pathology else 'anatomical_reference'},'requires_independent_source_layer_review':True})
     for side in ['left','right']:
         for key in COMMON:
             if 'nodes' in key or 'nodal_level' in key:steps=[3] if inv=='ra.breast-cancer-staging' else [4]

@@ -13,6 +13,7 @@ sys.path.insert(0, str(Path(__file__).resolve().parents[2]))
 from primer.curriculum import Curriculum
 from primer import radiology_catalog as catalog
 from tools.check_msk_fidelity import requirements_for
+from tools.anatomy_sources.structure_display_names import display_structure_name
 from tools.check_radiology_fidelity import digest
 
 ROOT = Path(__file__).resolve().parents[2]
@@ -146,7 +147,7 @@ def build_draft(ref, original_node):
         parts = event_parts if event else node_parts if "nodes" in key else route_parts if route else shape_parts
         structures.append({
             "id": ident,
-            "name": side.replace("_", " ").capitalize() + " " + key.replace("_", " "),
+            "name": display_structure_name(side.replace("_", " ").capitalize() + " " + key.replace("_", " "), side),
             "tissue_class": "source_esophageal_tissue_route_lesion_or_recorded_event_interface",
             "required_parts": [{"id": ident + "." + part, "name": part.replace("_", " ").capitalize()} for part in parts],
             "laterality": side,

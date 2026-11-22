@@ -101,6 +101,7 @@ def basis(row):
 def plan():
     """Per asset: the structure ids and coverage entries to add. Every row is checked first."""
     from tools.check_msk_fidelity import inspect_binding, side_unstated
+    from tools.anatomy_sources.structure_display_names import display_structure_name
     from tools.anatomy_sources.repair_source_context_codes import REVIEW as REPAIRS
     review = json.loads(REVIEW.read_text())
     assets = {item['id']: item for item in json.loads(EVIDENCE.read_text())['assets']}
@@ -117,7 +118,8 @@ def plan():
             raise ValueError('Not a figure that the context-code repair unlocked: ' + where)
         if not holders[row['structure_id']] & set(asset['investigation_ids']):
             raise ValueError('Requirement is not in an investigation of the figure: ' + where)
-        if row['name'] != required[row['structure_id']][0]['name'] or row['kind'] not in KINDS:
+        requirement = required[row['structure_id']][0]
+        if display_structure_name(row['name'], requirement.get('laterality')) != requirement['name'] or row['kind'] not in KINDS:
             raise ValueError('Row does not name its requirement: ' + where)
         text = second.descriptions(described[row['asset_id']]).get(row['field'], '')
         if text.count(row['quote']) < 1 or len(row['quote']) < 8 or row.get('side_quote', row['quote']) not in text:
