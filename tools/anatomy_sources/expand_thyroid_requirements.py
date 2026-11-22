@@ -7,6 +7,7 @@ from primer.curriculum import Curriculum
 from primer import radiology_catalog as catalog
 from tools.check_radiology_fidelity import digest
 from tools.check_msk_fidelity import requirements_for
+from tools.anatomy_sources.structure_display_names import display_structure_name
 ROOT=Path(__file__).resolve().parents[2];IDENT='ra.ultrasound-thyroid'
 URLS=['https://www.acr.org/Clinical-Resources/Clinical-Tools-and-Reference/Reporting-and-Data-Systems/TI-RADS','https://radssupport.acr.org/support/solutions/articles/11000071474-acr-ti-rads-faq','https://radiologyassistant.nl/head-neck/ti-rads/ti-rads','https://gravitas.acr.org/PPTS/DownloadPreviewDocument?DocId=157&ReleaseId=2']
 def update():
@@ -52,7 +53,7 @@ def update():
     ref=catalog.detail(Curriculum(),catalog.resolve(IDENT))['radiology_reference'];structures=[]
     def add(key,parts,reports,steps,side='not_applicable',pathology=False):
         prefix='thyroid.'+side+'_'+key
-        structures.append({'id':prefix,'name':side.replace('_',' ').capitalize()+' '+key.replace('_',' '),'tissue_class':'thyroid_nodal_component_or_actual_adjacent_interface','required_parts':[{'id':prefix+'.'+p,'name':p.replace('_',' ').capitalize()} for p in parts.split()],
+        structures.append({'id':prefix,'name':display_structure_name(side.replace('_',' ').capitalize()+' '+key.replace('_',' '), side),'tissue_class':'thyroid_nodal_component_or_actual_adjacent_interface','required_parts':[{'id':prefix+'.'+p,'name':p.replace('_',' ').capitalize()} for p in parts.split()],
             'laterality':side,'modality_scope':['Ultrasound'],'condition':'Instantiate every actual covered gland, variant, relevant nodule/node/component, tissue boundary and encountered lesion/treatment interface. A selected index example or generic model does not close other sites. Unacquired/unresolved deep, microscopic or internal tissue extent remains missing; no function or histology is invented as geometry.',
             'requirement_basis':'effective_thyroid_ultrasound_reporting_scope','report_refs':[{'checklist_index':i,**guide['checklist'][i]} for i in reports],'walkthrough_step_indices':steps,'source_urls':URLS,'requires_site_instantiation':True,'context_requirements':{'purpose':'pathology_example' if pathology else 'anatomical_reference'}})
     gland='full_actual_obtained_extent superior_mid_inferior_regions anterior_posterior_medial_lateral_boundaries actual_source_parenchymal_components true_capsular_and_perithyroidal_interface encountered_variant_or_treated_tissue source_unresolved_extent'

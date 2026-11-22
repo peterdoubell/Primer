@@ -14,6 +14,7 @@ from primer.curriculum import Curriculum
 from primer import radiology_catalog as catalog
 from tools.check_radiology_fidelity import digest
 from tools.check_msk_fidelity import requirements_for
+from tools.anatomy_sources.structure_display_names import display_structure_name
 
 ROOT = Path(__file__).resolve().parents[2]
 INV = "ra.tinnitus"
@@ -125,7 +126,7 @@ def build_draft(ref, original_node):
         parts = event_parts if event else vascular_parts if vascular else shape_parts
         structures.append({
             "id": ident,
-            "name": side.replace("_", " ").capitalize() + " " + key.replace("_", " "),
+            "name": display_structure_name(side.replace("_", " ").capitalize() + " " + key.replace("_", " "), side),
             "tissue_class": "source_tinnitus_neural_temporal_vascular_or_clinical_event_interface",
             "required_parts": [{"id": ident + "." + part, "name": part.replace("_", " ").capitalize()} for part in parts],
             "laterality": side,

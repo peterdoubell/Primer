@@ -7,6 +7,7 @@ from primer.curriculum import Curriculum
 from primer import radiology_catalog as catalog
 from tools.check_radiology_fidelity import digest
 from tools.check_msk_fidelity import requirements_for
+from tools.anatomy_sources.structure_display_names import display_structure_name
 IDS=['ra.mri-rectal-cancer','ra.mri-perianal-fistula'];DATE='2026-10-08'
 ANATOMY='https://pmc.ncbi.nlm.nih.gov/articles/PMC9849549/'
 PRIMARY='https://pmc.ncbi.nlm.nih.gov/articles/PMC13212678/'
@@ -53,7 +54,7 @@ def build_draft(inv,ref,node):
     structures=[];namespace='rectal_cancer' if inv==IDS[0] else 'perianal_fistula'
     def add(key,side,steps,pathology=False):
         ident=namespace+'.'+side+'_'+key
-        structures.append({'id':ident,'name':side+' '+key.replace('_',' '),'laterality':side,'tissue_class':'actual_anorectal_tissue_route_compartment_node_or_pathological_interface','modality_scope':['MRI'],'required_parts':[{'id':ident+'.'+p,'name':p.replace('_',' ')} for p in PARTS],'condition':'Instantiate every actual reported side,tissue layer,branch,node,tract/lesion,device or treated component and its native source interfaces. Microscopic,unacquired or unresolved tissue remains unproven; modality permission does not establish visibility or histology.','requires_site_instantiation':True,'requires_independent_source_layer_review':True,'requirement_basis':'full_effective_anorectal_reporting_scope_and_actual_interfaces','walkthrough_step_indices':steps,'report_refs':[{'checklist_index':i,**guide['checklist'][i]} for i in steps],'source_urls':[s['url'] for s in guide['sources']],'context_requirements':{'purpose':'pathology_example' if pathology else 'anatomical_reference'}})
+        structures.append({'id':ident,'name':display_structure_name(side+' '+key.replace('_',' '), side),'laterality':side,'tissue_class':'actual_anorectal_tissue_route_compartment_node_or_pathological_interface','modality_scope':['MRI'],'required_parts':[{'id':ident+'.'+p,'name':p.replace('_',' ')} for p in PARTS],'condition':'Instantiate every actual reported side,tissue layer,branch,node,tract/lesion,device or treated component and its native source interfaces. Microscopic,unacquired or unresolved tissue remains unproven; modality permission does not establish visibility or histology.','requires_site_instantiation':True,'requires_independent_source_layer_review':True,'requirement_basis':'full_effective_anorectal_reporting_scope_and_actual_interfaces','walkthrough_step_indices':steps,'report_refs':[{'checklist_index':i,**guide['checklist'][i]} for i in steps],'source_urls':[s['url'] for s in guide['sources']],'context_requirements':{'purpose':'pathology_example' if pathology else 'anatomical_reference'}})
     for key in COMMON:add(key,'not_applicable',[0,1,2,3,4])
     for side in ['left','right']:
         for key in BILATERAL:add(key,side,[0,1,2,3,4])

@@ -143,3 +143,46 @@ def test_publisher_figures_are_stored_reviewed_and_bound_as_partial_educational_
             for requirement in required[identifier]:
                 assert inspect_binding(item, requirement) == []
                 assert inspect_requirement_coverage(item, requirement) == ['requirement_coverage_partial']
+
+
+def test_non_sided_structure_names_preserve_ids_laterality_and_all_source_matches():
+    from tools.anatomy_sources.structure_display_names import before_structure_display_names, display_structure_name
+
+    path = ROOT / 'data/radiology/non-msk-structure-requirements.json'
+    raw = path.read_bytes()
+    old = json.loads(before_structure_display_names(raw))
+    current = json.loads(raw)
+    review = json.loads((ROOT / 'docs/structure-display-names/review.json').read_text())
+    assert len(review['name_changes']) == 259 and len(review['locators']) == 12
+    assert review['new_source_matches'] == 0 and review['clinical_approval'] is False
+    assert hashlib.sha256(raw).hexdigest() == review['inventory_sha256']
+    assert before_structure_display_names(raw + b'\n') == raw + b'\n'
+    previous = {row['investigation_id']: row for row in old['investigations']}
+    changed = 0
+    for investigation in current['investigations']:
+        expected = json.loads(json.dumps(previous[investigation['investigation_id']]))
+        for structure in expected['structures']:
+            clean = display_structure_name(structure['name'], structure['laterality'])
+            changed += clean != structure['name']
+            structure['name'] = clean
+        assert investigation == expected
+    assert changed == 259
+    for filename, hashes in review['locators'].items():
+        data = (ROOT / filename).read_bytes()
+        assert hashlib.sha256(data).hexdigest() == hashes['after']
+        locator = json.loads(data)
+        names = {row['id']: row['name'] for row in previous[locator['investigation_id']]['structures']}
+        text = data.decode()
+        for row in locator['structures']:
+            if row['name'] != names[row['id']]:
+                text = text.replace('"name": ' + json.dumps(row['name']),
+                                    '"name": ' + json.dumps(names[row['id']]), 1)
+        assert hashlib.sha256(text.encode()).hexdigest() == hashes['before']
+    thyroid = next(row for row in current['investigations'] if row['investigation_id'] == 'ra.ultrasound-thyroid')
+    isthmus = next(row for row in thyroid['structures'] if row['id'] == 'thyroid.not_applicable_isthmus')
+    assert isthmus['name'] == 'Isthmus' and isthmus['laterality'] == 'not_applicable'
+    assert 'isthmus' in ' '.join(row['detail'] for row in thyroid['reporting_checklist']).lower()
+    assert display_structure_name('Right isthmus', 'right') == 'Right isthmus'
+    assert display_structure_name('Left recurrent nerve', 'left') == 'Left recurrent nerve'
+    assert display_structure_name('Not_applicable each actual source ROI', 'not_applicable') == 'Each actual source ROI'
+    assert display_structure_name('Not applicable isthmus', 'not_applicable') == 'Isthmus'

@@ -211,6 +211,11 @@ def source_locators(name, articles):
     return [entry[3] for entry in sorted(found, key=lambda entry: entry[:3])[:3]]
 
 
+def refresh_display_names():
+    from tools.anatomy_sources.structure_display_names import regenerate
+    return regenerate(ROOT)
+
+
 def main(cache):
     cache.mkdir(parents=True, exist_ok=True)
     labels = {region: atlas_labels(fetch(ATLAS + region, cache)) for region in ATLAS_REGIONS}
@@ -268,4 +273,10 @@ def main(cache):
 
 
 if __name__ == '__main__':
-    main(Path(tempfile.gettempdir()) / 'primer-structure-locator-cache')
+    if sys.argv[1:] == ['--refresh-display-names']:
+        sys.path.insert(0, str(ROOT))
+        print(json.dumps(refresh_display_names()))
+    elif sys.argv[1:]:
+        raise SystemExit('Use --refresh-display-names or no arguments.')
+    else:
+        main(Path(tempfile.gettempdir()) / 'primer-structure-locator-cache')

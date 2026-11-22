@@ -12,6 +12,8 @@ PATHS = frozenset({
 
 
 def before_lynos_pat9_bytes(path, raw):
+    from tools.anatomy_sources.structure_display_names import before_structure_display_name_bytes
+    raw = before_structure_display_name_bytes(path, raw)
     # The later BodyParts3D liver correction restores its own recorded lines first.
     from tools.liver_atlas_compatibility import before_liver_correction_bytes
     raw = before_liver_correction_bytes(path, raw)

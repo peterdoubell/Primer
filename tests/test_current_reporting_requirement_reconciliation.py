@@ -93,7 +93,9 @@ def test_all_sixty_two_brain_rows_have_explicit_ids_and_source_limitations():
 
 
 def test_global_reconciliation_retains_all_report_rows_without_module_alias_shortcuts():
-    data, _, _ = inputs()
+    # This dated receipt retains the exact names used for its literal candidate matching.
+    from tools.anatomy_sources.structure_display_names import before_structure_display_names
+    data = json.loads(before_structure_display_names((ROOT / REQUIREMENTS).read_bytes()))
     result = reporting_reconciliation(ROOT, data)
     assert result == read("docs/mullerian-reporting-inventory/reporting-reconciliation.json")
     assert (result["current_investigations"], result["current_report_rows"]) == (335, 7070)
