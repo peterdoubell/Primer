@@ -41,9 +41,9 @@ def representation_counts(requirements, kind):
     selected = [row for row in requirements if row['kind'] == kind]
     statuses = Counter(row['status'] for row in selected)
     partial = sum(any('requirement_coverage_partial' in issues for issues in row['candidates'].values()) for row in selected)
-    return dict(required=len(selected), verified=statuses['verified'], unverified=statuses['unverified'],
+    return dict(required=len(selected), verified=statuses['verified'], partial=statuses['partial'], unverified=statuses['unverified'],
                 missing=statuses['missing'], explicitly_bound=sum(bool(row['candidates']) for row in selected),
-                with_partial_candidates=partial,
+                with_partial_candidates=partial, source_linked=sum(bool(row.get('source_links')) for row in selected),
                 complete_set=bool(selected) and statuses['verified'] == len(selected))
 
 
@@ -66,6 +66,7 @@ def live_coverage():
     from primer.reporting_bridge import with_descriptor_investigations, descriptor_forms
     from tools.check_msk_fidelity import audit, KINDS
     from tools.anatomy_sources.build_soft_tissue_neck_inventory import OUTPUT, validate, digest
+    from tools.anatomy_sources.neck_source_links import OUTPUT as LINKS, validate as validate_links, apply_partial_sources
 
     actual_index = with_descriptor_investigations(index(Curriculum()))
     current = {row['id']: row for row in actual_index['modules']}
@@ -98,7 +99,8 @@ def live_coverage():
         raise ValueError('Descriptor inventory must name one new exact current reporting identity')
     adapted = descriptor_anatomical_inventory(typed)
     typed_audit = audit(adapted, {'assets': [asset for asset in assets if identifier in asset.get('investigation_ids', [])]}, root=root)
-    obligations[identifier] = typed_audit['requirements']
+    source_links = validate_links(json.loads((root / LINKS).read_text()), root)
+    obligations[identifier] = apply_partial_sources(typed_audit['requirements'], source_links['links'])
     inventories[identifier] = dict(kind='typed_descriptor_inventory', path=OUTPUT,
         sha256=digest(typed), report_section_ids=typed['source_report']['source_section_ids'],
         typed_evidence_records=len(typed['evidence_requirements']),
@@ -111,16 +113,18 @@ def live_coverage():
     for identifier, item in sorted(current.items()):
         known = identifier in inventories
         reps = {kind: representation_counts(obligations[identifier], kind) if known else
-                dict(required=None, verified=0, unverified=None, missing=None, explicitly_bound=None,
-                     with_partial_candidates=None, complete_set=False) for kind in KINDS}
+                dict(required=None, verified=0, partial=None, unverified=None, missing=None, explicitly_bound=None,
+                     with_partial_candidates=None, source_linked=None, complete_set=False) for kind in KINDS}
         rows.append(dict(investigation_id=identifier, title=item['title'],
             report_sections=len(report_rows[identifier]),
             inventory_status='dedicated_inventory_present' if known else 'no_dedicated_inventory',
             inventory=inventories.get(identifier), legacy_literal_binding_counts=literal.get(identifier),
+            source_links=source_links['links'] if identifier == typed['investigation_id'] else [],
             representations=reps, anatomical_representation_complete=known and all(row['complete_set'] for row in reps.values()),
             clinical_completion_claim=False))
     all_obligations = [row for group in obligations.values() for row in group]
-    return dict(schema_version=2, scope='All actual reporting examination identities, including descriptor-only studies.',
+    return dict(schema_version=3, source_reference_schema_version=1,
+        scope='All actual reporting examination identities, including descriptor-only studies.',
         denominator_source='/api/radiology/modules via its actual index functions',
         investigations=len(current), report_sections=sum(len(rows) for rows in report_rows.values()),
         with_dedicated_inventory=len(inventories), without_dedicated_inventory=len(current) - len(inventories),
@@ -130,7 +134,9 @@ def live_coverage():
         representations={kind: dict(representation_counts(all_obligations, kind), denominator='known inventories only; remaining examinations have unknown requirements') for kind in KINDS},
         typed_patient_evidence_records=sum(row['typed_evidence_records'] for row in inventories.values()),
         clinical_approval=False, clinical_completion_claim=False,
-        limitations=['Explicit bindings and partial candidates are not verified complete representations.',
+        limitations=['Source-specific partial links are distinct from verified complete evidence and clinical approval.',
+            'Explicitly bound counts retain fidelity-ledger candidates; source_linked counts the separately reviewed native references.',
+            'Explicit bindings and partial candidates are not verified complete representations.',
             "The legacy literal counter still counts parent/part ID attachments; representation denominators use the established fidelity auditor's leaves.",
             'No requirements or complete-set denominator are invented for studies without dedicated inventories.',
             'An unknown inventory does not mean that all source artwork is absent.',
@@ -150,11 +156,13 @@ if __name__ == '__main__':
         else:
             print(f"{report['investigations']} reporting exams: {report['with_dedicated_inventory']} dedicated inventories; {report['without_dedicated_inventory']} remain unexpanded.")
             for kind, counts in report['representations'].items():
-                print(f"{kind}: {counts['verified']} verified, {counts['unverified']} unverified and {counts['missing']} missing of {counts['required']} known obligations.")
+                print(f"{kind}: {counts['verified']} verified, {counts['partial']} partial source, {counts['unverified']} unverified and {counts['missing']} missing of {counts['required']} known obligations.")
             for row in report['rows']:
                 if row['inventory'] and row['inventory']['kind'] == 'typed_descriptor_inventory':
                     counts = row['representations']
                     print(f"{row['investigation_id']}: {row['report_sections']} report sections; "
-                          + ', '.join(f"{kind} {value['verified']}/{value['required']} verified" for kind, value in counts.items())
+                          + ', '.join(f"{kind} {value['verified']}/{value['required']} verified + {value['partial']} partial source" for kind, value in counts.items())
                           + f"; {row['inventory']['typed_evidence_records']} separate patient-evidence records.")
+                    for source in row['source_links']:
+                        print(f"  partial {source['representation']} {source['requirement_id']}: {source['href']}")
             print('No clinical completion is claimed.')

@@ -1,5 +1,6 @@
 import { fingerprint, nativeReader, FetchPool, planes } from './native-volume.mjs';
 import { meshView } from './mesh-view.mjs';
+import { sourceSelection } from './source-selection.mjs';
 
 const byId = id => document.getElementById(id);
 const inputs = ['i', 'j', 'k'].map(byId);
@@ -246,6 +247,7 @@ async function boot() {
     manifest = JSON.parse(new TextDecoder().decode(bytes));
     if (!Array.isArray(manifest.cases) || manifest.cases.length !== 2
         || new Set(manifest.cases.map(value => value.id)).size !== 2) throw Error('The separate sweep inventory is invalid.');
+    const requested = sourceSelection(location.search, manifest.cases);
     byId('volume').replaceChildren(...manifest.cases.map(value => {
       const option = document.createElement('option'); option.value = value.id;
       option.textContent = value.side + ' native sweep'; return option;
@@ -254,10 +256,22 @@ async function boot() {
     const credit = byId('credit');
     const link = document.createElement('a'); link.href = manifest.source; link.textContent = 'SegThy dataset, Technical University of Munich';
     credit.replaceChildren(link, document.createTextNode('. ' + manifest.license + '. ' + manifest.surfaces));
+    if (requested) {
+      byId('volume').value = requested.volume;
+      if (requested.representation === 'clinical_image') byId('mask-mode').value = 'off';
+      document.body.dataset.sourceRepresentation = requested.representation || 'source';
+    }
     byId('selection').disabled = false;
     chooseVolume();
+    if (requested && Number(byId('structure').value) !== requested.label) {
+      byId('structure').value = String(requested.label);
+      chooseLabel();
+    }
   } catch (error) {
-    byId('image-status').textContent = 'The source inventory could not be verified. Reload to retry.';
+    byId('image-status').textContent = error.name === 'SourceSelectionError'
+      ? error.message + ' Open the reader without selectors to choose a source.'
+      : 'The source inventory could not be verified. Reload to retry.';
+    document.body.dataset.sourceLinkError = error.name === 'SourceSelectionError' ? 'true' : 'false';
   }
 }
 boot();

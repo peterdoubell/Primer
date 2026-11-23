@@ -99,7 +99,7 @@ def package_case(inputs, output, side):
 def write_delivery(output):
     manifest = json.loads((output / "manifest.json").read_bytes())
     names = {"manifest.json", "index.html", "viewer.js", "viewer.css", "mesh-view.mjs",
-             "native-volume.mjs", "ATTRIBUTION.md", "README.md"}
+             "native-volume.mjs", "source-selection.mjs", "ATTRIBUTION.md", "README.md"}
     for case in manifest["cases"]:
         names.update(row["file"] for row in case["bricks"])
         names.update(label["mesh"]["file"] for label in case["labels"])

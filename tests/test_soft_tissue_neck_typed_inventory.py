@@ -115,8 +115,9 @@ def test_live_denominator_is_the_real_app_index_and_neck_has_three_distinct_deno
     row = next(row for row in live['rows'] if row['investigation_id'] == neck.CASE)
     assert row['report_sections'] == 9 and row['inventory']['typed_evidence_records'] == 39
     for kind in KINDS:
-        assert row['representations'][kind] == {'required': 15, 'verified': 0, 'unverified': 0, 'missing': 15,
-            'explicitly_bound': 0, 'with_partial_candidates': 0, 'complete_set': False}
+        partial = {'clinical_image': 2, 'schematic': 8, 'model': 10}[kind]
+        assert row['representations'][kind] == {'required': 15, 'verified': 0, 'partial': partial, 'unverified': 0, 'missing': 15 - partial,
+            'explicitly_bound': 0, 'with_partial_candidates': 0, 'source_linked': partial, 'complete_set': False}
     actual, = [item for item in response['radiology_reference']['structured_form']['descriptor_form']['investigations'] if item['id'] == neck.CASE]
     assert [section['anatomy_id'] for section in actual['sections']] == neck.EXPECTED_SECTIONS
     sections = {section['anatomy_id']: section for section in actual['sections']}
@@ -136,7 +137,7 @@ def test_live_known_representation_counts_conserve_leaves_and_unknown_studies_st
     for kind in KINDS:
         total = live['representations'][kind]
         assert total['required'] == 50877
-        assert total['required'] == total['verified'] + total['unverified'] + total['missing']
+        assert total['required'] == total['verified'] + total['partial'] + total['unverified'] + total['missing']
         assert total['explicitly_bound'] == total['verified'] + total['unverified']
         assert total['with_partial_candidates'] <= total['explicitly_bound']
         assert sum(row['representations'][kind]['required'] or 0 for row in live['rows']) == total['required']
