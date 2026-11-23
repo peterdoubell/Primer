@@ -1,7 +1,11 @@
 """Export the published salivary scene through Blender's evaluated mesh API.
 
+Run from the checkout root:
 blender --background --factory-startup --disable-autoexec Startup.blend \
-    --python-exit-code 1 --python tools/anatomy_sources/export_zanatomy_salivary.py -- OUTPUT_DIR
+    --python-exit-code 1 --python tools/anatomy_sources/export_zanatomy_salivary.py -- web/anatomy/zanatomy-salivary
+
+Only this checkout's canonical package is accepted. For scratch reproduction,
+use an isolated checkout and run its copy of this tool (see the source README).
 """
 import gzip
 import hashlib
@@ -13,6 +17,9 @@ from pathlib import Path
 
 import bpy
 import numpy as np
+
+sys.path.insert(0, str(Path(__file__).resolve().parents[2]))
+from tools.anatomy_sources.salivary_package_paths import package_directory, package_member
 
 
 SCENE_SHA = "9f08a17ea0115fed80b2a73ecdf0a1bc2ab2f6956f37c593ce23d513ea35afcd"
@@ -34,6 +41,7 @@ def sha(raw):
 
 
 def export(output):
+    output = package_directory(output)
     scene = bpy.context.scene
     if sha(Path(bpy.data.filepath).read_bytes()) != SCENE_SHA or scene.unit_settings.system != "METRIC":
         raise ValueError("Unexpected Z-Anatomy source file or unit system")
@@ -71,7 +79,7 @@ def export(output):
             base = source_name.rsplit(".", 1)[0] if side else source_name
             label = ((side + "-") if side else "") + base.lower().replace(" ", "-")
             filename = label + ".mesh.gz"
-            (output / filename).write_bytes(packed.getvalue())
+            package_member(filename).write_bytes(packed.getvalue())
             rows.append({
                 "label": label, "name": (side.title() + " " + base.lower()) if side else base,
                 "side": side, "group": kind, "sourceObject": source_name, "sourceData": obj.data.name,
@@ -83,18 +91,18 @@ def export(output):
             })
         finally:
             evaluated.to_mesh_clear()
-    (output / "surfaces.json").write_text(json.dumps(rows, indent=2) + "\n")
+    package_member("surfaces.json").write_text(json.dumps(rows, indent=2) + "\n")
     provenance = {"source": "Z-Anatomy, Models of human anatomy", "revision": ARCHIVE_REV,
                   "sourceURL": f"https://github.com/Z-Anatomy/Models-of-human-anatomy/tree/{ARCHIVE_REV}",
                   "sceneSHA256": SCENE_SHA, "archiveSHA256": "e029688545627bd0214b269e1063143abb580aad72b2c2445d6d8a9a0d9da736",
                   "blenderVersion": bpy.app.version_string, "worldUnitToMillimetres": millimetres,
                   "license": "CC BY-SA 4.0", "baselineCredit": "BodyParts3D © Database Center for Life Science, CC BY-SA 2.1 Japan",
                   "scope": "Atlas gross gland bodies, author-modelled ducts, muscles and bony landmarks. The left/right objects share geometry in this authored atlas. No same-person registration to the thyroid sweeps or published salivary ultrasound panels."}
-    (output / "source.json").write_text(json.dumps(provenance, indent=2, ensure_ascii=False) + "\n")
-    page = output / "index.html"
+    package_member("source.json").write_text(json.dumps(provenance, indent=2, ensure_ascii=False) + "\n")
+    page = package_member("index.html")
     if page.is_file():
         text, count = re.subn(r'data-surfaces-sha256="[0-9a-f]{64}"',
-                              'data-surfaces-sha256="' + sha((output / "surfaces.json").read_bytes()) + '"',
+                              'data-surfaces-sha256="' + sha(package_member("surfaces.json").read_bytes()) + '"',
                               page.read_text())
         if count != 1 or re.findall(r'class="layer" type="checkbox" value="([^"]+)"', text) != [r["label"] for r in rows]:
             raise ValueError("Reader layer order differs from the source objects")
@@ -102,9 +110,9 @@ def export(output):
         members = {"index.html", "view.css", "controls.js", "planes.mjs", "LICENSE.txt", "surfaces.json", "source.json"}
         files = {}
         for name in sorted(members | {r["file"] for r in rows}):
-            content = (output / name).read_bytes()
+            content = package_member(name).read_bytes()
             files[name] = {"bytes": len(content), "sha256": sha(content)}
-        (output / "delivery.json").write_text(json.dumps({"files": files}, indent=2) + "\n")
+        package_member("delivery.json").write_text(json.dumps({"files": files}, indent=2) + "\n")
     print("Exported", len(rows), "scene objects and", sum(row["triangles"] for row in rows), "triangles")
 
 

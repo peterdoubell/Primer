@@ -8,9 +8,20 @@ The packager evaluates the original, author-supplied Blender modifiers and curve
 
 Use Blender 4.2.23 in background mode with automatic script execution disabled. From the repository root, run the two commands with the original scene path in place of `Startup.blend`.
 
+Both tools accept only `web/anatomy/zanatomy-salivary` in the checkout containing the executed script. The absolute path to that same directory is also accepted. Other output directories, unlisted package filenames and symbolic links in the package directory or its members are rejected before package I/O.
+
 ```sh
 blender --background --factory-startup --disable-autoexec Startup.blend --python-exit-code 1 --python tools/anatomy_sources/export_zanatomy_salivary.py -- web/anatomy/zanatomy-salivary
 blender --background --factory-startup --disable-autoexec Startup.blend --python-exit-code 1 --python tools/anatomy_sources/verify_zanatomy_salivary.py -- web/anatomy/zanatomy-salivary
 ```
+
+For scratch reproduction, make an isolated checkout, change to its root and run its copies of both tools with the same relative package path. For example:
+
+```sh
+git worktree add --detach /tmp/salivary-reproduction HEAD
+cd /tmp/salivary-reproduction
+```
+
+Run the two Blender commands above there, using the absolute path to the pinned original `Startup.blend`. The export writes only that checkout's package. Compare its package against the reviewed revision with `git diff --exit-code -- web/anatomy/zanatomy-salivary`; a faithful reproduction leaves every file unchanged. The verifier then checks those scratch files against the original scene independently.
 
 The independent comparison checks every vertex through Blender's native matrix-vector transform and every source triangle against the decoded files. The largest coordinate difference was 0.0001193 mm after float32 rounding. This comparison establishes fidelity to the published artistic model. Clinical anatomical validation remains open.

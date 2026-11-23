@@ -1,6 +1,11 @@
 """Verify every delivered vertex and source triangle using Blender world transforms.
 
-Run inside Blender on the pinned original scene with the output directory following --.
+Run inside Blender on the pinned scene, from this checkout's root:
+blender --background --factory-startup --disable-autoexec Startup.blend \
+    --python-exit-code 1 --python tools/anatomy_sources/verify_zanatomy_salivary.py -- web/anatomy/zanatomy-salivary
+
+Only this checkout's canonical package is accepted. For scratch reproduction,
+use an isolated checkout and run its copy of this tool (see the source README).
 """
 import gzip
 import hashlib
@@ -11,16 +16,20 @@ import sys
 import bpy
 import numpy as np
 
+sys.path.insert(0, str(Path(__file__).resolve().parents[2]))
+from tools.anatomy_sources.salivary_package_paths import package_directory, package_member
+
 
 def verify(output):
-    source = json.loads((output / "source.json").read_text())
+    package_directory(output)
+    source = json.loads(package_member("source.json").read_text())
     assert hashlib.sha256(Path(bpy.data.filepath).read_bytes()).hexdigest() == source["sceneSHA256"]
-    rows = json.loads((output / "surfaces.json").read_text())
+    rows = json.loads(package_member("surfaces.json").read_text())
     assert len(rows) == 18 and len(set(row["sourceObject"] for row in rows)) == len(rows)
     deps = bpy.context.evaluated_depsgraph_get()
     triangle_total, vertex_total, maximum_error = 0, 0, 0
     for row in rows:
-        packed = (output / row["file"]).read_bytes()
+        packed = package_member(row["file"]).read_bytes()
         assert hashlib.sha256(packed).hexdigest() == row["packedSHA256"]
         raw = gzip.decompress(packed)
         assert hashlib.sha256(raw).hexdigest() == row["sha256"]
