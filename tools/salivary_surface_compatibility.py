@@ -5,7 +5,7 @@ from pathlib import Path
 from tools.colonvessels_compatibility import _restore
 
 PROOF = Path(__file__).resolve().parents[1] / 'docs/zanatomy-salivary/runtime-inverse.json'
-PIN = '049e8465994aec3637d243b979088bdd256ac3ba514a232e31169d3a1c520b6f'
+PIN = 'f9a1bc660950e084195401095e861882f9943b632c8528a34b0b33d69bbb5542'
 PATHS = {'docs/radiology-fidelity-scope.json', 'primer/module_media.py', 'primer/server.py',
          'primer/source_native_inspectors.py', 'vercel.json', 'web/app.js', 'tests/test_spl_additional_reference.py'}
 
