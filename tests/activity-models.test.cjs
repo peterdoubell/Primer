@@ -748,3 +748,37 @@ test('Palmer observations retain missing records and reproduce pooled and within
   assert.equal(digest(raw),meta.dataSHA256);
   for (const [name,photo] of Object.entries(meta.photos)) assert.equal(digest(fs.readFileSync(path.join(source,'field-photos',name+'.jpg'))),photo.sha256);
 });
+
+test('manuscript comparison preserves both transcriptions and finds actual word variants', async () => {
+  const {align,tokens,containsWords,prompts} = await import('../web/language/address-drafts/compare.mjs');
+  const data=JSON.parse(fs.readFileSync(path.join(root,'language/address-drafts/witnesses.json'),'utf8'));
+  const texts={};
+  for (const [key,w] of Object.entries(data.witnesses)) {
+    assert.equal(require('node:crypto').createHash('sha256').update(w.transcript).digest('hex'),w.transcriptSHA256);
+    assert.equal(w.passages.length,12);
+    texts[key]=w.passages.map(p=>{
+      assert.ok(p.bands.length && p.bands.every(b=>b.top>=0 && b.top<b.bottom && b.bottom<=w.pages[b.page-1].height));
+      return w.transcript.slice(p.start,p.end);
+    });
+    assert.equal(texts[key].join(''),w.transcript);
+  }
+  assert.deepEqual(prompts.map(q=>[containsWords(texts.nicolay[q.passage],q.phrase),containsWords(texts.hay[q.passage],q.phrase)]),
+    [[false,true],[true,false],[false,true],[false,true],[true,false],[true,true],[true,false],[false,true],[false,true],[true,true]]);
+  const t=(s,p=false,c=false)=>tokens(s,p,c);
+  assert.equal(align(t('liberty'),t('Liberty')).length,1);
+  assert.equal(align(t('liberty',false,true),t('Liberty',false,true)).length,0);
+  assert.equal(align(t('one, two',true),t('one; two',true)).length,2);
+  for(let i=0;i<12;i++){
+    const a=t(texts.nicolay[i],true,true),b=t(texts.hay[i],true,true);
+    const shared=align(a,b);
+    // An independent forward recurrence verifies that this alignment attains the maximum.
+    let previous=Array(b.length+1).fill(0);
+    for(const v of a){
+      const next=[0];
+      for(let j=0;j<b.length;j++) next.push(v.key===b[j].key?previous[j]+1:Math.max(next[j],previous[j+1]));
+      previous=next;
+    }
+    assert.equal(shared.length,previous[b.length]);
+    shared.forEach(([p,q],j)=>{assert.equal(a[p].key,b[q].key);if(j)assert.ok(p>shared[j-1][0] && q>shared[j-1][1]);});
+  }
+});
