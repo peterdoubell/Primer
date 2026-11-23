@@ -1,5 +1,6 @@
 """Confine salivary authoring I/O to the documented package in this checkout."""
-from pathlib import Path
+from os.path import relpath
+from pathlib import Path, PurePath
 
 
 PACKAGE_ROOT = Path(__file__).resolve().parents[2] / "web/anatomy/zanatomy-salivary"
@@ -19,7 +20,9 @@ def package_directory(requested):
     """Validate the CLI spelling, then return the trusted checkout path itself."""
     if PACKAGE_ROOT.resolve() != PACKAGE_ROOT:
         raise ValueError("Salivary package directory must not contain symbolic links")
-    if Path(requested).resolve() != PACKAGE_ROOT:
+    # Compare names without doing filesystem lookups on a user-supplied path.
+    # The caller always receives the directory anchored to this checkout.
+    if PurePath(requested) not in (PACKAGE_ROOT, PurePath(relpath(PACKAGE_ROOT))):
         raise ValueError("Use this checkout's web/anatomy/zanatomy-salivary directory; use an isolated checkout for scratch work")
     return PACKAGE_ROOT
 

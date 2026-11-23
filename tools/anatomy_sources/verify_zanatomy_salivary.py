@@ -65,4 +65,4 @@ def verify(output):
 
 
 if __name__ == "__main__":
-    verify(Path(sys.argv[sys.argv.index("--") + 1]))
+    verify(sys.argv[sys.argv.index("--") + 1])

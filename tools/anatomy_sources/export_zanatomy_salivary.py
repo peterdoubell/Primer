@@ -117,4 +117,4 @@ def export(output):
 
 
 if __name__ == "__main__":
-    export(Path(sys.argv[sys.argv.index("--") + 1]))
+    export(sys.argv[sys.argv.index("--") + 1])
