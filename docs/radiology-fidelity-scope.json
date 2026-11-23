@@ -74941,6 +74941,66 @@
             "whole_goal_complete": false,
             "modality": "CT",
             "publication_url": "https://doi.org/10.1002/mp.14445"
+          },
+          {
+            "id": "totalseg-s0028-lung-native",
+            "modality": "CT",
+            "title": "Same-case CT and five named lung-lobe labels",
+            "src": "/app/anatomy/totalseg-s0028-lungs/index.html",
+            "manifest_url": "/app/anatomy/totalseg-s0028-lungs/viewer-manifest.json",
+            "sha256": "1b1571da331c414ffb96c693c3cd210390dabe7169c62f4fa08e4f337ab3e336",
+            "manifest_sha256": "71a57e66350813c685cfd1fdedafb8edf0396eb506c8f742dac2845ad7a9c3d0",
+            "caption": "Inspect the source CT of TotalSegmentator s0028 with its five original lobe masks and matching surfaces. These labels describe the lobar bodies of s0028. LIDC-IDRI-0525 supplies the independent nodule example. Fissural planes, lingular segments and nodule attachment need their own source evidence.",
+            "attribution": "Jakob Wasserthal. TotalSegmentator dataset v3.0.0, case s0028. DOI 10.5281/zenodo.22688904. CC BY 4.0. Adaptation: original voxel transport, 0.5 label-interface extraction, source-value display and centred review buffers; no smoothing, component deletion or source fitting.",
+            "source_url": "https://zenodo.org/records/22688904",
+            "license": "CC BY 4.0",
+            "license_url": "https://creativecommons.org/licenses/by/4.0/",
+            "bound_source_ids": [
+              "totalseg-s0028-lung-native"
+            ],
+            "clinical_approval": false,
+            "fine_anatomical_approval": false,
+            "current_patient_registration": false,
+            "normal_anatomical_atlas_approval": false,
+            "complete_reporting_anatomy_approved": false,
+            "named_lobe_examples": [
+              {
+                "requirement_parent_id": "pulmonary.right.upper",
+                "source_label": "lung_upper_lobe_right",
+                "name": "right upper lobe",
+                "evidence_role": "source-labelled lobe body",
+                "extent": "partial"
+              },
+              {
+                "requirement_parent_id": "pulmonary.right.middle",
+                "source_label": "lung_middle_lobe_right",
+                "name": "right middle lobe",
+                "evidence_role": "source-labelled lobe body",
+                "extent": "partial"
+              },
+              {
+                "requirement_parent_id": "pulmonary.right.lower",
+                "source_label": "lung_lower_lobe_right",
+                "name": "right lower lobe",
+                "evidence_role": "source-labelled lobe body",
+                "extent": "partial"
+              },
+              {
+                "requirement_parent_id": "pulmonary.left.upper",
+                "source_label": "lung_upper_lobe_left",
+                "name": "left upper lobe",
+                "evidence_role": "source-labelled lobe body",
+                "extent": "partial"
+              },
+              {
+                "requirement_parent_id": "pulmonary.left.lower",
+                "source_label": "lung_lower_lobe_left",
+                "name": "left lower lobe",
+                "evidence_role": "source-labelled lobe body",
+                "extent": "partial"
+              }
+            ],
+            "structure_coverage_granted": false
           }
         ]
       },
@@ -77211,7 +77271,28 @@
         "source_anatomy_references": [],
         "source_motion_references": [],
         "source_study_references": [],
-        "source_native_inspectors": null
+        "source_native_inspectors": [
+          {
+            "id": "zanatomy-salivary",
+            "title": "Salivary glands and ducts in 3D and section",
+            "src": "/app/anatomy/zanatomy-salivary/index.html",
+            "modality": "Gross anatomical atlas",
+            "model_context": true,
+            "caption": "Examine the left and right parotid, submandibular and sublingual gland bodies, the modelled parotid and submandibular ducts, and eight muscular or bony landmarks. The section view cuts the same atlas surfaces. The paired atlas objects share underlying geometry. Imaging findings, nodal boundaries and glandular subdivisions require separate evidence.",
+            "source_label": "Z-Anatomy original Blender scene",
+            "source_url": "https://github.com/Z-Anatomy/Models-of-human-anatomy/tree/ded1a55381328f3f242426f0e8e711c5fca62c14",
+            "publication_url": "https://doi.org/10.5281/zenodo.4953712",
+            "license": "CC BY-SA 4.0",
+            "license_url": "https://creativecommons.org/licenses/by-sa/4.0/",
+            "attribution": "Z-Anatomy \u00b7 The libre 3D atlas of anatomy. Based on BodyParts3D, Copyright \u00a9 2008 Database Center for Life Science, CC BY-SA 2.1 Japan. Primer adaptations include mesh encoding, colours and cross-sections.",
+            "inline_label": "Inspect the atlas surfaces and sections inline",
+            "structure_ids": [],
+            "requirement_coverage": [],
+            "clinical_approval": false,
+            "fine_anatomical_approval": false,
+            "current_patient_registration": false
+          }
+        ]
       },
       "clinical_approval": false
     },
@@ -79221,6 +79302,26 @@
             "current_patient_registration": false,
             "normal_anatomical_atlas_approval": false,
             "complete_reporting_anatomy_approved": false
+          },
+          {
+            "id": "zanatomy-salivary",
+            "title": "Salivary glands and ducts in 3D and section",
+            "src": "/app/anatomy/zanatomy-salivary/index.html",
+            "modality": "Gross anatomical atlas",
+            "model_context": true,
+            "caption": "Examine the left and right parotid, submandibular and sublingual gland bodies, the modelled parotid and submandibular ducts, and eight muscular or bony landmarks. The section view cuts the same atlas surfaces. The paired atlas objects share underlying geometry. Imaging findings, nodal boundaries and glandular subdivisions require separate evidence.",
+            "source_label": "Z-Anatomy original Blender scene",
+            "source_url": "https://github.com/Z-Anatomy/Models-of-human-anatomy/tree/ded1a55381328f3f242426f0e8e711c5fca62c14",
+            "publication_url": "https://doi.org/10.5281/zenodo.4953712",
+            "license": "CC BY-SA 4.0",
+            "license_url": "https://creativecommons.org/licenses/by-sa/4.0/",
+            "attribution": "Z-Anatomy \u00b7 The libre 3D atlas of anatomy. Based on BodyParts3D, Copyright \u00a9 2008 Database Center for Life Science, CC BY-SA 2.1 Japan. Primer adaptations include mesh encoding, colours and cross-sections.",
+            "inline_label": "Inspect the atlas surfaces and sections inline",
+            "structure_ids": [],
+            "requirement_coverage": [],
+            "clinical_approval": false,
+            "fine_anatomical_approval": false,
+            "current_patient_registration": false
           }
         ]
       },
@@ -88503,7 +88604,25 @@
         ],
         "source_motion_references": [],
         "source_study_references": [],
-        "source_native_inspectors": null
+        "source_native_inspectors": [
+          {
+            "id": "segthy-001",
+            "modality": "Ultrasound",
+            "title": "Inspect the thyroid and neck vessels on tracked ultrasound",
+            "src": "/app/anatomy/segthy-001/index.html",
+            "caption": "Explore one volunteer\u2019s left and right acquisitions. Each sweep has its own original B-mode samples, manual thyroid and vessel labels, and matching 3D surfaces. The two sweeps have separate coordinate systems. Nodule features, lymph nodes and blood flow require other source evidence.",
+            "source_url": "https://www.cs.cit.tum.de/en/camp/publications/segthy-dataset/",
+            "publication_url": "https://doi.org/10.1371/journal.pone.0268550",
+            "source_label": "SegThy ultrasound dataset",
+            "inline_label": "Inspect ultrasound and label surfaces inline",
+            "attribution": "Kr\u00f6nke, Eilers, Dimova and colleagues. SegThy, PLOS ONE (2022). CC BY. Display and surface extraction by Primer.",
+            "license": "CC BY",
+            "license_url": "https://www.cs.cit.tum.de/en/camp/publications/segthy-dataset/",
+            "clinical_approval": false,
+            "structure_ids": [],
+            "requirement_coverage": []
+          }
+        ]
       },
       "clinical_approval": false
     },
@@ -108541,7 +108660,45 @@
             "fine_anatomical_approval": false,
             "current_patient_registration": false,
             "normal_anatomical_atlas_approval": false,
-            "complete_reporting_anatomy_approved": false
+            "complete_reporting_anatomy_approved": false,
+            "source_territory_contexts": [
+              {
+                "requirement_parent_id": "stroke.arterial_territory.ACA.left",
+                "requirement_name": "left ACA",
+                "source_code": 12,
+                "source_name": "Left ACA territory",
+                "src": "/app/anatomy/schirmer-vascular/index.html?code=12",
+                "evidence_role": "source-study territory context",
+                "structure_coverage_granted": false
+              },
+              {
+                "requirement_parent_id": "stroke.arterial_territory.ACA.right",
+                "requirement_name": "right ACA",
+                "source_code": 2,
+                "source_name": "Right ACA territory",
+                "src": "/app/anatomy/schirmer-vascular/index.html?code=2",
+                "evidence_role": "source-study territory context",
+                "structure_coverage_granted": false
+              },
+              {
+                "requirement_parent_id": "stroke.arterial_territory.PCA.left",
+                "requirement_name": "left PCA",
+                "source_code": 16,
+                "source_name": "Left PCA territory",
+                "src": "/app/anatomy/schirmer-vascular/index.html?code=16",
+                "evidence_role": "source-study territory context",
+                "structure_coverage_granted": false
+              },
+              {
+                "requirement_parent_id": "stroke.arterial_territory.PCA.right",
+                "requirement_name": "right PCA",
+                "source_code": 6,
+                "source_name": "Right PCA territory",
+                "src": "/app/anatomy/schirmer-vascular/index.html?code=6",
+                "evidence_role": "source-study territory context",
+                "structure_coverage_granted": false
+              }
+            ]
           }
         ]
       },
@@ -142727,6 +142884,66 @@
               "whole_goal_complete": false,
               "modality": "CT",
               "publication_url": "https://doi.org/10.1002/mp.14445"
+            },
+            {
+              "id": "totalseg-s0028-lung-native",
+              "modality": "CT",
+              "title": "Same-case CT and five named lung-lobe labels",
+              "src": "/app/anatomy/totalseg-s0028-lungs/index.html",
+              "manifest_url": "/app/anatomy/totalseg-s0028-lungs/viewer-manifest.json",
+              "sha256": "1b1571da331c414ffb96c693c3cd210390dabe7169c62f4fa08e4f337ab3e336",
+              "manifest_sha256": "71a57e66350813c685cfd1fdedafb8edf0396eb506c8f742dac2845ad7a9c3d0",
+              "caption": "Inspect the source CT of TotalSegmentator s0028 with its five original lobe masks and matching surfaces. These labels describe the lobar bodies of s0028. LIDC-IDRI-0525 supplies the independent nodule example. Fissural planes, lingular segments and nodule attachment need their own source evidence.",
+              "attribution": "Jakob Wasserthal. TotalSegmentator dataset v3.0.0, case s0028. DOI 10.5281/zenodo.22688904. CC BY 4.0. Adaptation: original voxel transport, 0.5 label-interface extraction, source-value display and centred review buffers; no smoothing, component deletion or source fitting.",
+              "source_url": "https://zenodo.org/records/22688904",
+              "license": "CC BY 4.0",
+              "license_url": "https://creativecommons.org/licenses/by/4.0/",
+              "bound_source_ids": [
+                "totalseg-s0028-lung-native"
+              ],
+              "clinical_approval": false,
+              "fine_anatomical_approval": false,
+              "current_patient_registration": false,
+              "normal_anatomical_atlas_approval": false,
+              "complete_reporting_anatomy_approved": false,
+              "named_lobe_examples": [
+                {
+                  "requirement_parent_id": "pulmonary.right.upper",
+                  "source_label": "lung_upper_lobe_right",
+                  "name": "right upper lobe",
+                  "evidence_role": "source-labelled lobe body",
+                  "extent": "partial"
+                },
+                {
+                  "requirement_parent_id": "pulmonary.right.middle",
+                  "source_label": "lung_middle_lobe_right",
+                  "name": "right middle lobe",
+                  "evidence_role": "source-labelled lobe body",
+                  "extent": "partial"
+                },
+                {
+                  "requirement_parent_id": "pulmonary.right.lower",
+                  "source_label": "lung_lower_lobe_right",
+                  "name": "right lower lobe",
+                  "evidence_role": "source-labelled lobe body",
+                  "extent": "partial"
+                },
+                {
+                  "requirement_parent_id": "pulmonary.left.upper",
+                  "source_label": "lung_upper_lobe_left",
+                  "name": "left upper lobe",
+                  "evidence_role": "source-labelled lobe body",
+                  "extent": "partial"
+                },
+                {
+                  "requirement_parent_id": "pulmonary.left.lower",
+                  "source_label": "lung_lower_lobe_left",
+                  "name": "left lower lobe",
+                  "evidence_role": "source-labelled lobe body",
+                  "extent": "partial"
+                }
+              ],
+              "structure_coverage_granted": false
             }
           ]
         },
@@ -142813,6 +143030,66 @@
                   "whole_goal_complete": false,
                   "modality": "CT",
                   "publication_url": "https://doi.org/10.1002/mp.14445"
+                },
+                {
+                  "id": "totalseg-s0028-lung-native",
+                  "modality": "CT",
+                  "title": "Same-case CT and five named lung-lobe labels",
+                  "src": "/app/anatomy/totalseg-s0028-lungs/index.html",
+                  "manifest_url": "/app/anatomy/totalseg-s0028-lungs/viewer-manifest.json",
+                  "sha256": "1b1571da331c414ffb96c693c3cd210390dabe7169c62f4fa08e4f337ab3e336",
+                  "manifest_sha256": "71a57e66350813c685cfd1fdedafb8edf0396eb506c8f742dac2845ad7a9c3d0",
+                  "caption": "Inspect the source CT of TotalSegmentator s0028 with its five original lobe masks and matching surfaces. These labels describe the lobar bodies of s0028. LIDC-IDRI-0525 supplies the independent nodule example. Fissural planes, lingular segments and nodule attachment need their own source evidence.",
+                  "attribution": "Jakob Wasserthal. TotalSegmentator dataset v3.0.0, case s0028. DOI 10.5281/zenodo.22688904. CC BY 4.0. Adaptation: original voxel transport, 0.5 label-interface extraction, source-value display and centred review buffers; no smoothing, component deletion or source fitting.",
+                  "source_url": "https://zenodo.org/records/22688904",
+                  "license": "CC BY 4.0",
+                  "license_url": "https://creativecommons.org/licenses/by/4.0/",
+                  "bound_source_ids": [
+                    "totalseg-s0028-lung-native"
+                  ],
+                  "clinical_approval": false,
+                  "fine_anatomical_approval": false,
+                  "current_patient_registration": false,
+                  "normal_anatomical_atlas_approval": false,
+                  "complete_reporting_anatomy_approved": false,
+                  "named_lobe_examples": [
+                    {
+                      "requirement_parent_id": "pulmonary.right.upper",
+                      "source_label": "lung_upper_lobe_right",
+                      "name": "right upper lobe",
+                      "evidence_role": "source-labelled lobe body",
+                      "extent": "partial"
+                    },
+                    {
+                      "requirement_parent_id": "pulmonary.right.middle",
+                      "source_label": "lung_middle_lobe_right",
+                      "name": "right middle lobe",
+                      "evidence_role": "source-labelled lobe body",
+                      "extent": "partial"
+                    },
+                    {
+                      "requirement_parent_id": "pulmonary.right.lower",
+                      "source_label": "lung_lower_lobe_right",
+                      "name": "right lower lobe",
+                      "evidence_role": "source-labelled lobe body",
+                      "extent": "partial"
+                    },
+                    {
+                      "requirement_parent_id": "pulmonary.left.upper",
+                      "source_label": "lung_upper_lobe_left",
+                      "name": "left upper lobe",
+                      "evidence_role": "source-labelled lobe body",
+                      "extent": "partial"
+                    },
+                    {
+                      "requirement_parent_id": "pulmonary.left.lower",
+                      "source_label": "lung_lower_lobe_left",
+                      "name": "left lower lobe",
+                      "evidence_role": "source-labelled lobe body",
+                      "extent": "partial"
+                    }
+                  ],
+                  "structure_coverage_granted": false
                 }
               ]
             }
@@ -142980,7 +143257,7 @@
         ],
         "kid_text": ""
       },
-      "module_contract_sha256": "1cca9f480719190a488930f5a177d635fb7dd5046339ffc2c3a4c0785b2d49ce",
+      "module_contract_sha256": "ab39133b5d28468f402e85403f7f75a8b8f08a482948a38cb36ff40028892162",
       "existing_msk_scope_note": null,
       "reconciliation_status": "requires_explicit_module_review",
       "clinical_approval": false
@@ -162540,7 +162817,7 @@
             "id": "module-native-inspectors-rad.5.deep-neck-spaces",
             "kind": "source-native-inspectors",
             "title": "Native source anatomy inspection",
-            "instructions": "Inspect the complete provided source selections against native images and separate atlas probabilities. Read population, sampling and anatomical limits before interpretation.",
+            "instructions": "Inspect the source MRI atlas and the separately modelled salivary glands, ducts, muscles and jaw in their own coordinate frames.",
             "investigation_ids": [
               "ra.mri-neck-spaces"
             ]
@@ -162714,7 +162991,7 @@
         ],
         "kid_text": ""
       },
-      "module_contract_sha256": "f9dd4a9d790123225f77dcd0c348deb1d6fbcf3216505f0c9c27c85bcae17d05",
+      "module_contract_sha256": "408122ad445989084fae3cbe1c3fff59b98fc451970c9b50477a4f49b0cc9875",
       "existing_msk_scope_note": null,
       "reconciliation_status": "requires_explicit_module_review",
       "clinical_approval": false
@@ -172239,6 +172516,15 @@
             ]
           },
           {
+            "id": "module-native-inspectors-rad.5.neck-nodes",
+            "kind": "source-native-inspectors",
+            "title": "Native source anatomy inspection",
+            "instructions": "Trace the modelled salivary gland bodies and ducts against the muscles and jaw. Use sections of the same meshes to inspect their spatial relationships.",
+            "investigation_ids": [
+              "ra.cervical-lymph-nodes"
+            ]
+          },
+          {
             "id": "module-anatomy-rad.5.neck-nodes",
             "kind": "model",
             "renderer": "radiology-anatomy",
@@ -172402,7 +172688,7 @@
         ],
         "kid_text": ""
       },
-      "module_contract_sha256": "2ee0305c0afec0ffc4dcc4f54a51b525f026a986cef6e005da84fe6d73442f40",
+      "module_contract_sha256": "e8f07c9b363b04c2dcc3d0c78fe9b4256027ef29ee07244b7475bbd4fcaa55f2",
       "existing_msk_scope_note": null,
       "reconciliation_status": "requires_explicit_module_review",
       "clinical_approval": false
@@ -188894,6 +189180,15 @@
             ]
           },
           {
+            "id": "module-native-inspectors-rad.5.thyroid-tirads",
+            "kind": "source-native-inspectors",
+            "title": "Native source anatomy inspection",
+            "instructions": "Compare the acquired ultrasound, manual label outlines and 3D surfaces for each thyroid sweep. Left and right were acquired separately.",
+            "investigation_ids": [
+              "ra.ultrasound-thyroid"
+            ]
+          },
+          {
             "id": "module-anatomy-rad.5.thyroid-tirads",
             "kind": "model",
             "renderer": "radiology-anatomy",
@@ -189103,7 +189398,7 @@
         ],
         "kid_text": ""
       },
-      "module_contract_sha256": "90fc1a16467b9023c0c2c458625340d1ce239d47bc86d5888f48fdaa53228931",
+      "module_contract_sha256": "a194857e595bdf055ed762236ce405ec8c6cdd16a672dcaa6a71d45a91359dc7",
       "existing_msk_scope_note": null,
       "reconciliation_status": "requires_explicit_module_review",
       "clinical_approval": false

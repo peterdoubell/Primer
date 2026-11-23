@@ -19,6 +19,8 @@ PATHS = frozenset({
 
 
 def before_lynos_station_locator_bytes(path, raw):
+    from tools.pulmonary_lobe_runtime_compatibility import before_pulmonary_lobe_bytes
+    raw = before_pulmonary_lobe_bytes(path, raw)
     if str(path) not in PATHS:
         return raw
     return _restore(path, raw, PROOF, PIN)

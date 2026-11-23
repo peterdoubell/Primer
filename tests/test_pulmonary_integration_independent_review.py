@@ -92,7 +92,9 @@ def test_shared_lesson_and_report_keep_same_exact_source_and_no_part_highlights(
     models = [r for r in lesson['lesson_media'] if r.get('renderer') == 'radiology-anatomy']
     assert len(models) == 1 and models[0]['props']['source_native_only'] is True
     assert models[0]['props']['native_inspectors'] == reference['source_native_inspectors']
-    assert [r['id'] for r in reference['source_native_inspectors']] == ['lidc-idri-0525-native']
+    from tools.pulmonary_lobe_runtime_compatibility import before_pulmonary_lobe_reference_fields
+    historical = before_pulmonary_lobe_reference_fields(CASE, reference)
+    assert [r['id'] for r in historical['source_native_inspectors']] == ['lidc-idri-0525-native']
 
 
 def test_native_model_cannot_be_attached_to_another_lesson():

@@ -1,0 +1,50 @@
+{
+  "data/radiology/radiology-static-rasters.json": {
+    "before": "153e85c8d94cf2158fc8f841216dadccf18dbffbb11b1708fb2f104d65721684",
+    "after": "5c343da1e505056e129293b42a4c4252d8d097ccf49fe2849f5d03f31c1e26c0",
+    "changes": [
+      {
+        "start": 4636,
+        "end": 4644,
+        "after": "    \"/app/reference-media/radiology-open/salivary-ultrasound-2025-figure3.png\": {\n      \"md5\": \"fd4045fce5d17125509a49502844861e\",\n      \"sha256\": \"2bed74483da0d04b30b4915e63b82eb71d34494bdb61f9d03dbd34b21bd000c4\",\n      \"width\": 2056,\n      \"height\": 685,\n      \"bytes\": 568576,\n      \"header_hex\": \"89504e470d0a1a0a0000000d4948445200000808000002ad\"\n    },\n",
+        "before": ""
+      }
+    ]
+  },
+  "primer/server.py": {
+    "before": "0baf20fd3862eb9bc6d4808e534df801f6fbbfba835093ac51c90d07502ee2e9",
+    "after": "ada4e8c388c195f0a46bd633184f4bd55cc3177fca2e9a9da04e2d2bcc8f767e",
+    "changes": [
+      {
+        "start": 4411,
+        "end": 4416,
+        "after": "    from .salivary_ultrasound_reference import SRC as salivary_src, figures as salivary_figures\n    if url == salivary_src:\n        salivary_figures()  # Verify the independent photographic source before delivery.\n    elif not any(row.get(\"src\") == url or row.get(\"original_publication_pdf\", {}).get(\"src\") == url\n                 for rows in registry.values() for row in rows):\n",
+        "before": "    if not any(row.get(\"src\") == url or row.get(\"original_publication_pdf\", {}).get(\"src\") == url\n               for rows in registry.values() for row in rows):\n"
+      }
+    ]
+  },
+  "primer/source_native_inspectors.py": {
+    "before": "4a10a78fd103e6f12b967e4e345f9d60195283c8ba11505434875d60b1996475",
+    "after": "06339b790416a0f9f2e5a660c4b74a8a0cc39e001f91d4632a9e7f63129f1d50",
+    "changes": [
+      {
+        "start": 152,
+        "end": 155,
+        "after": "    from .salivary_ultrasound_reference import references as salivary_references\n    for identifier, entries in salivary_references().items():\n        result[identifier] = [*result.get(identifier, []), *entries]\n",
+        "before": ""
+      }
+    ]
+  },
+  "web/app.js": {
+    "before": "31d6e197cb9305a50f97795f64637c4268a995d180cb2ae792bc0d4089d5f395",
+    "after": "78cd5185e96537728c4231cd8ca9811452608af0327670c29357ddd96fcdc5ed",
+    "changes": [
+      {
+        "start": 2086,
+        "end": 2090,
+        "after": "  if (asset.photographic_figures?.length) {\n    asset.photographic_figures.forEach(figure => section.append(sourceAtlasFigure(figure)));\n    attachPictureHandlers(section);\n  }\n",
+        "before": ""
+      }
+    ]
+  }
+}

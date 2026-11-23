@@ -54,6 +54,8 @@ def before_algebra_openear_reference_fields(identifier,fields):
     return result
 
 def before_algebra_openear_lesson_fields(identifier,fields):
+    from tools.pulmonary_lobe_runtime_compatibility import before_pulmonary_lobe_lesson_fields
+    fields = before_pulmonary_lobe_lesson_fields(identifier, fields)
     from tools.recist_pelvic_runtime_compatibility import before_recist_pelvic_lesson_fields
     fields = before_recist_pelvic_lesson_fields(identifier, fields)
     from tools.hippocampal_rater_runtime_compatibility import before_hippocampal_lesson_fields

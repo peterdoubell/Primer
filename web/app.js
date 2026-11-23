@@ -2081,16 +2081,37 @@ function sourceNativeInspector(asset) {
   const section = el('section', { class: 'rad-protocol source-native-inspector' },
     el('h3', {}, el('a', { href: asset.src, target: '_blank', rel: 'noopener noreferrer' }, asset.title)),
     el('p', {}, asset.caption), el('p', { class: 'rad-image-credit', style: 'overflow-wrap:anywhere' }, asset.attribution),
-    radiologySourceLink(sourceContacts ? 'SPL source atlas publication' : fcdMRI ? 'Original FCD MRI and lesion dataset' : hippocampalRaters ? 'Original hippocampal MRI and annotations dataset' : temporalCBCT ? 'OpenEar CBCT and source anatomy dataset' : exVivoMRI ? 'Ex vivo MRI reference dataset' : vascularTemplate ? 'Vascular study-template dataset' : templateMRI ? 'Population brain template dataset' : limbicMRI ? 'SPL atlas publication' : registeredMRI ? 'Published registered MRI training dataset' : curatedSurface ? 'Original curated surface dataset' : comparisonCT ? 'Original CT comparison dataset' : nativeCT ? 'Original CT source dataset' : sourceCase ? 'Original MRI source dataset' : 'Original MRI templates', asset.source_url),
+    radiologySourceLink(asset.source_label || (sourceContacts ? 'SPL source atlas publication' : fcdMRI ? 'Original FCD MRI and lesion dataset' : hippocampalRaters ? 'Original hippocampal MRI and annotations dataset' : temporalCBCT ? 'OpenEar CBCT and source anatomy dataset' : exVivoMRI ? 'Ex vivo MRI reference dataset' : vascularTemplate ? 'Vascular study-template dataset' : templateMRI ? 'Population brain template dataset' : limbicMRI ? 'SPL atlas publication' : registeredMRI ? 'Published registered MRI training dataset' : curatedSurface ? 'Original curated surface dataset' : comparisonCT ? 'Original CT comparison dataset' : nativeCT ? 'Original CT source dataset' : sourceCase ? 'Original MRI source dataset' : 'Original MRI templates'), asset.source_url),
     ...(curatedSurface || lungCT || basalCT || cardiacCT || comparisonCT ? [] : [' · ', radiologySourceLink(sourceContacts || fcdMRI || hippocampalRaters || templateMRI ? 'Source publication and methods' : limbicMRI ? 'Pinned original files and scene' : sourceCase ? 'Source publication and methods' : 'Original probabilistic atlas', asset.publication_url || asset.atlas_source_url)]), ' · ',
     radiologySourceLink(sourceCase ? asset.license + ' · data' : asset.license, asset.license_url));
+  if (asset.photographic_figures?.length) {
+    asset.photographic_figures.forEach(figure => section.append(sourceAtlasFigure(figure)));
+    attachPictureHandlers(section);
+  }
   if (asset.id === 'lynos-pat9' && asset.structure_locator_url) {
     section.append(el('p', {}, el('a', { href: asset.structure_locator_url },
       'Source examples by reporting structure')));
   }
-  if (nativeCT || curatedSurface || comparisonCT || registeredMRI || limbicMRI || templateMRI || exVivoMRI || temporalCBCT || hippocampalRaters || fcdMRI || sourceContacts || pituitaryCase || dissectionPhotos) {
+  if (asset.source_territory_contexts?.length) {
+    section.append(el('table', { class: 'mrv-key source-territory-contexts' },
+      el('caption', {}, 'Source-study territory context for stroke reporting'),
+      el('thead', {}, el('tr', {}, el('th', { scope: 'col' }, 'Reporting territory'), el('th', { scope: 'col' }, 'Source-defined region'))),
+      el('tbody', {}, ...asset.source_territory_contexts.map(row => el('tr', { 'data-requirement-parent': row.requirement_parent_id },
+        el('th', { scope: 'row' }, row.requirement_name),
+        el('td', {}, el('a', { href: row.src, target: '_blank', rel: 'noopener noreferrer' }, row.source_name + ' · source value ' + row.source_code)))))),
+      el('p', {}, 'These links select labelled regions of the processed study template. They provide context for the named reporting territories; they do not establish actual tissue extent, arterial lumen or individual branches. MCA divisions and individual cerebellar arteries have no matching source class. Source value 19 remains uninterpreted.'));
+  }
+  if (asset.named_lobe_examples?.length) {
+    section.append(el('table', { class: 'mrv-key' },
+      el('caption', {}, 'Named lobe bodies in this source case'),
+      el('thead', {}, el('tr', {}, el('th', { scope: 'col' }, 'Lobe'), el('th', { scope: 'col' }, 'Original label'))),
+      el('tbody', {}, ...asset.named_lobe_examples.map(row => el('tr', {},
+        el('th', { scope: 'row' }, row.name), el('td', {}, el('code', {}, row.source_label)))))),
+      el('p', {}, 'Choose the matching label in the CT viewer to compare its original mask and surface.'));
+  }
+  if (asset.inline_label || nativeCT || curatedSurface || comparisonCT || registeredMRI || limbicMRI || templateMRI || exVivoMRI || temporalCBCT || hippocampalRaters || fcdMRI || sourceContacts || pituitaryCase || dissectionPhotos) {
     if (noduleCT) section.append(' · ', radiologySourceLink('Original standardized annotations', asset.annotation_source_url));
-    const openLabel = dissectionPhotos ? 'Inspect original dissection photographs inline' : pituitaryCase ? 'Inspect provided pituitary MRI and source annotations inline' : sourceContacts ? 'Inspect source-label contact surfaces inline' : fcdMRI ? 'Inspect FCD MRI and source lesion inline' : hippocampalRaters ? 'Inspect hippocampal MRI and compare annotations inline' : temporalCBCT ? 'Inspect source CBCT, masks and surfaces inline' : exVivoMRI ? 'Inspect ex vivo MRI, labels and source boundaries inline' : vascularTemplate ? 'Inspect vascular template MRI and regions inline' : templateMRI ? 'Inspect source brain templates and cell boundaries inline' : additionalMRI ? 'Inspect optic, pituitary and head/neck source anatomy inline' : epilepsyContextMRI ? 'Inspect temporal and ventricular source context inline' : reportingMRI ? 'Inspect native MRI and brain reporting relationships inline' : limbicMRI ? 'Inspect native SPL MRI and limbic surfaces inline' : registeredMRI ? 'Inspect registered hippocampal MRI and surfaces inline' : comparisonCT ? 'Inspect original CT comparison images inline' : cardiacCT ? 'Inspect original cardiac CT and source interfaces inline' : curatedSurface ? 'Inspect original surfaces inline' : basalCT ? 'Inspect matching CT, liver and spleen inline' : lungCT ? 'Inspect matching CT and lung surfaces inline' : 'Inspect source CT and models inline';
+    const openLabel = asset.inline_label || (dissectionPhotos ? 'Inspect original dissection photographs inline' : pituitaryCase ? 'Inspect provided pituitary MRI and source annotations inline' : sourceContacts ? 'Inspect source-label contact surfaces inline' : fcdMRI ? 'Inspect FCD MRI and source lesion inline' : hippocampalRaters ? 'Inspect hippocampal MRI and compare annotations inline' : temporalCBCT ? 'Inspect source CBCT, masks and surfaces inline' : exVivoMRI ? 'Inspect ex vivo MRI, labels and source boundaries inline' : vascularTemplate ? 'Inspect vascular template MRI and regions inline' : templateMRI ? 'Inspect source brain templates and cell boundaries inline' : additionalMRI ? 'Inspect optic, pituitary and head/neck source anatomy inline' : epilepsyContextMRI ? 'Inspect temporal and ventricular source context inline' : reportingMRI ? 'Inspect native MRI and brain reporting relationships inline' : limbicMRI ? 'Inspect native SPL MRI and limbic surfaces inline' : registeredMRI ? 'Inspect registered hippocampal MRI and surfaces inline' : comparisonCT ? 'Inspect original CT comparison images inline' : cardiacCT ? 'Inspect original cardiac CT and source interfaces inline' : curatedSurface ? 'Inspect original surfaces inline' : basalCT ? 'Inspect matching CT, liver and spleen inline' : lungCT ? 'Inspect matching CT and lung surfaces inline' : 'Inspect source CT and models inline');
     const host = el('div', { class: 'source-native-inline-host' });
     let frame = null;
     const toggle = btn({ class: 'btn ghost small', 'aria-expanded': 'false', onclick: () => {
@@ -3252,6 +3273,7 @@ async function renderRadiologyDesk(page, nodeId) {
       pagehead(n.modality + ' · ' + n.topic,n.title,n.goal),
       ...(ref.quick_report ? [el('div', { class: 'rad-report-templates' }, ...renderQuickReport(ref.quick_report, n.id))] : []),
       window.PrimerStructuredReporting.render(ref.structured_form,{investigationId:n.id}),
+      ...(ref.source_native_inspectors || []).map(sourceNativeInspector),
       el('details',{class:'rad-protocol'},el('summary',{},'References'),
         el('ul',{},...(guide.sources||[]).map(source=>el('li',{},radiologySourceLink(source.title,source.url))))));
     return;
@@ -3260,6 +3282,7 @@ async function renderRadiologyDesk(page, nodeId) {
   const cardiacContext = (ref.source_native_inspectors || []).filter(asset => ['totalseg-v1-s0028-cardiac-native', 'bp3d-cardiac-original-context', 'baskaran-2020-cardiac-comparisons'].includes(asset.id));
   const hippocampalContext = (ref.source_native_inspectors || []).filter(asset => asset.id === 'hippunfold-hcp101006-registered-reference');
   const limbicContext = (ref.source_native_inspectors || []).filter(asset => ['mosteiro-cavernous-dissection-reference', 'pandit-pituitary-case1-processed-reference', 'spl-sellar-source-interfaces-reference', 'spl-additional-native-source-reference', 'spl-nac-limbic-native-reference', 'spl-nac-reporting-native-reference', 'spl-epilepsy-temporal-ventricular-source-context', 'holiatlas-source-template-reference'].includes(asset.id));
+  const atlasModelContext = (ref.source_native_inspectors || []).filter(asset => asset.model_context === true);
   const curatedModels = (ref.source_native_inspectors || []).filter(asset => asset.modality === 'Curated 3D anatomy' && asset.id !== 'bp3d-cardiac-original-context' || ['totalseg-s0028-lung-native', 'totalseg-s0028-basal-context'].includes(asset.id));
   const studyReferences = ref.source_study_references || [];
   const atlasImages = (ref.structure_atlas || []).filter(item => item.kind === 'clinical-image');
@@ -3377,12 +3400,12 @@ async function renderRadiologyDesk(page, nodeId) {
       if (illustrations) panel.append(el('details', { class: 'rad-protocol' },
         el('summary', {}, 'Reporting checklist overview'), illustrations));
     }],
-    ['model', curatedModels.length ? 'Original source models' : cardiacContext.length || hippocampalContext.length || limbicContext.length ? '3D anatomy and original source context' : ref.source_native_only ? 'Native source models' : detailedAnatomy || ref.source_anatomy_references?.length ? '3D anatomy' : 'Spatial guide', panel => {
+    ['model', ref.source_native_only ? 'Native source models' : curatedModels.length ? 'Original source models' : cardiacContext.length || hippocampalContext.length || limbicContext.length || atlasModelContext.length ? '3D anatomy and original source context' : detailedAnatomy || ref.source_anatomy_references?.length ? '3D anatomy' : 'Spatial guide', panel => {
       if (ref.source_native_only || curatedModels.length) {
-        (curatedModels.length ? [...curatedModels, ...cardiacContext] : ref.source_native_inspectors || []).forEach(asset => panel.append(sourceNativeInspector(asset)));
+        (ref.source_native_only ? ref.source_native_inspectors || [] : [...curatedModels, ...cardiacContext, ...atlasModelContext]).forEach(asset => panel.append(sourceNativeInspector(asset)));
         return;
       }
-      [...cardiacContext, ...hippocampalContext, ...limbicContext].forEach(asset => panel.append(sourceNativeInspector(asset)));
+      [...cardiacContext, ...hippocampalContext, ...limbicContext, ...atlasModelContext].forEach(asset => panel.append(sourceNativeInspector(asset)));
       if (ref.source_anatomy_references?.length) {
         const host = el('div', { class: 'rad-anatomy-model-host' });
         const reference = el('select', { 'aria-label': 'Anatomy reference' });

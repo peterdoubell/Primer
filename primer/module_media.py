@@ -135,6 +135,12 @@ def attach_module_media(node):
                                            if node['id'] == 'rad.5.dementia' else
                                            'Inspect the complete supplied source arrays and labels in their original grids. Read case, sampling and anatomical limits before interpretation.'
                                            if node['id'] == 'rad.4.stroke' else
+                                           'Compare the acquired ultrasound, manual label outlines and 3D surfaces for each thyroid sweep. Left and right were acquired separately.'
+                                           if node['id'] == 'rad.5.thyroid-tirads' else
+                                           'Trace the modelled salivary gland bodies and ducts against the muscles and jaw. Use sections of the same meshes to inspect their spatial relationships.'
+                                           if node['id'] == 'rad.5.neck-nodes' else
+                                           'Inspect the source MRI atlas and the separately modelled salivary glands, ducts, muscles and jaw in their own coordinate frames.'
+                                           if node['id'] == 'rad.5.deep-neck-spaces' else
                                            'Inspect all original CT sections, separate reader masks and every original XML mark. These source observations neither label every report structure nor establish histology, current-patient findings or longitudinal growth.'
                                            if node['id'] == 'rad.4.pulmonary-nodule' else
                                            'Inspect original curated sources, separate cardiac/lung CT sources and published CT annotation/prediction comparisons. Their coordinates, versions and case identities remain separate; none is registered to the ultrasound examples or current patient. Required anatomy and clinical validation remain incomplete.'

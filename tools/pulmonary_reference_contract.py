@@ -9,6 +9,8 @@ NODE = 'rad.4.pulmonary-nodule'
 
 
 def assert_native_pulmonary_reference(reference):
+    from tools.pulmonary_lobe_runtime_compatibility import before_pulmonary_lobe_reference_fields
+    reference = before_pulmonary_lobe_reference_fields(CASE, reference)
     from primer.pulmonary_native_inspectors import references
     expected = references()[CASE]
     assert reference.get('source_native_only') is True

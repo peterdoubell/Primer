@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Radiation pulse-counting bench · Primer</title>
+<link rel="stylesheet" href="style.css"><script type="module" src="lab.js"></script>
+</head>
+<body><main>
+<nav aria-label="Lesson"><a href="/app/#/node/phys.3.nuclear">← Atoms and Nuclei</a></nav>
+<header><p class="eyebrow">A simulated counting instrument</p><h1>When the counter misses a pulse</h1>
+<p class="lead">A radiation interaction can arrive while the instrument is recovering. Follow the same incoming events through the counting chain, then repeat the measurement to see how the recorded counts vary.</p></header>
+<section class="bench" aria-labelledby="bench-heading">
+<div class="bench-head"><div><h2 id="bench-heading">Pulse-counting bench</h2><p>One gate starts with the instrument ready.</p></div><button id="new-run" type="button">Count another gate</button></div>
+<div class="controls">
+<label for="rate">Incoming interactions per second <output id="rate-value" for="rate"></output><input id="rate" type="range" min="0" max="20000" step="100" value="5000"></label>
+<label for="dead-time">Recovery after a recorded pulse <output id="dead-time-value" for="dead-time"></output><input id="dead-time" type="range" min="0" max="500" step="10" value="200"></label>
+<label for="duration">Gate duration <select id="duration"><option value="0.001">1 ms</option><option value="0.005">5 ms</option><option value="0.01">10 ms</option><option value="0.05">50 ms</option><option value="0.1" selected>100 ms</option><option value="0.5">500 ms</option><option value="1">1 s</option><option value="2">2 s</option></select></label>
+</div>
+<svg class="chain" viewBox="0 0 960 158" role="img" aria-labelledby="chain-title chain-description">
+<title id="chain-title">Counting-chain schematic</title><desc id="chain-description">Incoming interactions produce candidate pulses. Each recorded pulse closes a recovery gate. A scaler counts the pulses that pass.</desc>
+<defs><linearGradient id="tube" x1="0" x2="0" y1="0" y2="1"><stop offset="0" stop-color="#b7c9ce"/><stop offset=".45" stop-color="#526d78"/><stop offset="1" stop-color="#1d343c"/></linearGradient></defs>
+<path d="M40 66h72M310 66h90M577 66h87" class="wire"/><path d="m100 60 12 6-12 6m288-12 12 6-12 6m276-12 12 6-12 6" class="arrow"/>
+<rect x="113" y="27" width="195" height="78" rx="25" fill="url(#tube)" stroke="#b3ccd4"/><ellipse cx="138" cy="66" rx="13" ry="37" fill="#1a2e35" stroke="#b3ccd4"/>
+<path d="M138 66h147" stroke="#f6d687" stroke-width="3"/><circle id="interaction-dot" cx="206" cy="55" r="7" fill="#ffe7ad"/>
+<rect x="400" y="21" width="177" height="91" rx="8" fill="#1a343c" stroke="#9bb9bf"/><path id="recovery-symbol" d="M420 75h30v-33h42v33h65" fill="none" stroke="#f4d38b" stroke-width="3"/>
+<rect x="665" y="18" width="255" height="100" rx="8" fill="#142c33" stroke="#9bb9bf"/><text id="counter-display" x="793" y="74" text-anchor="middle" class="digits">0</text><text x="793" y="101" text-anchor="middle" class="small-label">RECORDED COUNTS / GATE</text>
+<text class="stage-label" x="211" y="143" text-anchor="middle">Interaction → candidate pulse</text><text class="stage-label" x="488" y="143" text-anchor="middle">Recovery gate</text><text class="stage-label" x="792" y="143" text-anchor="middle">Scaler</text>
+</svg>
+<div class="chain-labels" aria-hidden="true"><span>Interaction → pulse</span><span>Recovery gate</span><span>Recorded counts</span></div>
+<div class="meters" aria-live="polite">
+<div><span>Incoming events</span><strong id="incoming-count">0</strong></div><div><span>Recorded</span><strong id="recorded-count">0</strong></div><div><span>Lost in recovery</span><strong id="lost-count">0</strong></div><div><span>Live time in gate</span><strong id="live-time">0</strong></div>
+</div>
+<p id="gate-result" class="result" role="status"></p>
+<div class="presets" aria-label="Counter comparisons"><button type="button" id="ideal">Remove recovery time</button><button type="button" id="restore">Restore 200 µs recovery</button></div>
+</section>
+<section class="panel" aria-labelledby="timing-heading"><h2 id="timing-heading">Inspect the event timing</h2>
+<p>Blue pulses are recorded. Crosses mark lost interactions. Shaded bands show the exact recovery intervals; a lost interaction leaves their end time unchanged.</p>
+<div class="timing-controls"><label for="window">Time shown <select id="window"><option value="0.001">1 ms</option><option value="0.005" selected>5 ms</option><option value="0.01">10 ms</option><option value="0.05">50 ms</option><option value="0.1">100 ms</option></select></label><label for="pan">Move through the gate <output id="pan-value" for="pan"></output><input id="pan" type="range" min="0" max="1" step="0.001" value="0"></label></div>
+<figure><canvas id="timeline" width="1000" height="300" role="img" aria-label="Incoming interactions above recorded counter pulses, sharing a calibrated time axis"></canvas><figcaption id="timeline-caption"></figcaption></figure>
+<div class="event-controls"><button type="button" id="previous">Previous interaction</button><label for="event">Inspect interaction <output id="event-value" for="event"></output><input id="event" type="range" min="0" max="0" value="0" step="1"></label><button type="button" id="next">Next interaction</button></div>
+<p id="event-description" class="event-readout" aria-live="polite"></p>
+<details><summary>Read visible interactions as a table</summary><div class="table-scroll"><table><thead><tr><th scope="col">Event</th><th scope="col">Time after gate opens</th><th scope="col">Counter decision</th></tr></thead><tbody id="event-rows"></tbody></table></div><p id="table-note"></p></details>
+</section>
+<section class="panel" aria-labelledby="repeat-heading"><div class="bench-head"><h2 id="repeat-heading">Repeat the gate</h2><button type="button" id="repeat">Count 256 fresh gates</button></div>
+<p>The settings stay fixed. Each gate uses a fresh simulated interaction stream and starts ready. Compare the observed distribution with the renewal-process prediction for this gate duration.</p>
+<p id="repeat-status" role="status">Preparing the first comparison…</p>
+<div class="legend"><span class="observed-key">256 simulated gates</span><span class="prediction-key">Renewal prediction</span></div>
+<figure id="histogram-figure" hidden><canvas id="histogram" width="1000" height="380" role="img" aria-label="Distribution of recorded counts per gate"></canvas><figcaption id="histogram-caption"></figcaption></figure>
+<div class="table-scroll"><table><thead><tr><th scope="col">Quantity per gate</th><th scope="col">Simulated gates</th><th scope="col">Finite-gate prediction</th></tr></thead><tbody id="statistics"></tbody></table></div>
+<p id="dispersion" class="result"></p>
+</section>
+<section class="notes"><h2>What the instrument model includes</h2>
+<p>The input is a constant-rate Poisson stream of ionising interactions entering the counting chain. The input rate already includes the effects of detection efficiency and geometry; it is not a measurement of a source’s activity. Event times are simulated, with no measured radiation data supplied.</p>
+<p>A recorded pulse disables counting for a fixed time τ. Interactions during that interval are lost and do not extend it. This is the <strong>non-extendable dead-time model</strong>, rather than a complete gas-tube or pulse-height simulation. The schematic shows the counting chain; it does not calculate gas avalanches, pulse amplitudes, energy discrimination or pileup. The settings stay constant during a gate.</p>
+<details><summary>Equations and finite-gate assumptions</summary>
+<p>For input rate λ, independent waiting times are exponential: Δt = −ln(U)/λ, with 0 &lt; U &lt; 1. A pulse at time t is recorded if the counter is ready; the next recovery boundary becomes t + τ. The gate includes 0 ≤ t &lt; T and starts live.</p>
+<p>The time of the nth recorded pulse is S<sub>n</sub> = Gamma(n, rate λ) + (n−1)τ. Thus P(N ≥ n) = P(Gamma(n, λ) &lt; T−(n−1)τ). Differences of these tails give the plotted probabilities, mean and variance. The calculation truncates each tail at a numerical probability threshold of 10<sup>−13</sup> and renormalises the retained distribution.</p>
+<p>The steady output rate is λ/(1+λτ). It approaches 1/τ at high input rates. That steady-rate relation differs slightly from a finite gate that starts live. The displayed predictions use the finite gate, including its start and end boundaries. Removing recovery time recovers Poisson counts, whose variance equals their mean.</p>
+<p>Live time is T minus the portions of recovery intervals inside the gate. Recorded count divided by live time estimates the input rate under this model; one gate still has sampling uncertainty. The counter settings do not model switching recovery time during an acquisition: each changed setting starts a new gate with the same seeded input stream.</p>
+</details>
+<p class="sources">Model basis: <a href="https://doi.org/10.1088/0026-1394/52/3/S3">Pommé, Keightley and Fitzgerald, “Uncertainty of nuclear counting”, Metrologia 52 (2015), S3–S17</a> (<a href="https://www.nist.gov/publications/uncertainty-nuclear-counting">NIST publication and open paper</a>), especially non-extendable throughput and renewal intervals. The finite-gate distribution above is derived for the explicitly ready starting state. Original model and instrument drawings by Primer.</p>
+</section>
+</main></body></html>

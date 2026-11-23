@@ -6,7 +6,8 @@ from PIL import Image
 ROOT=Path(__file__).resolve().parents[1]
 def inventory():
     data=json.loads((ROOT/'data/radiology/radiology-open-images.json').read_text());files={}
-    for images in data.values():
+    salivary = json.loads((ROOT/'data/radiology/salivary-ultrasound-figures.json').read_text())['figures']
+    for images in [*data.values(), salivary]:
         for row in images:
             src=row['src'];prefix='/app/reference-media/radiology-open/'
             if not src.startswith(prefix):raise ValueError('Unexpected source directory')

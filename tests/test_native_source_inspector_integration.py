@@ -59,7 +59,9 @@ def test_native_inspector_reaches_only_matching_brain_lesson_and_source_model():
     thoracic_model = next(m for m in thoracic['lesson_media'] if m.get('renderer') == 'radiology-anatomy')
     assert thoracic_model['props']['source_native_only'] is True
     assert [m['id'] for m in thoracic_model['props']['native_inspectors']] == ['bp3d-thoracic-original-surfaces','totalseg-s0028-lung-native','totalseg-s0028-basal-context','totalseg-v1-s0028-cardiac-native', 'bp3d-cardiac-original-context', 'baskaran-2020-cardiac-comparisons']
-    pulmonary = curriculum.node('rad.4.pulmonary-nodule')
+    from tools.pulmonary_lobe_runtime_compatibility import before_pulmonary_lobe_lesson_fields
+    pulmonary = before_pulmonary_lobe_lesson_fields(
+        'rad.4.pulmonary-nodule', curriculum.node('rad.4.pulmonary-nodule'))
     pulmonary_media, = [m for m in pulmonary['lesson_media'] if m['kind'] == 'source-native-inspectors']
     assert pulmonary_media['investigation_ids'] == ['ra.ct-pulmonary-nodules']
     pulmonary_model = next(m for m in pulmonary['lesson_media'] if m.get('renderer') == 'radiology-anatomy')

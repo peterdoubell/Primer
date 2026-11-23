@@ -100,7 +100,13 @@ def test_each_reader_is_shown_in_the_investigations_the_review_records():
     review = json.loads(tool.REVIEW.read_text())
     readers = review['readers']
     curriculum = Curriculum()
-    references = {item['id']: detail(curriculum, item)['radiology_reference'] for item in catalogue()['investigations']}
+    from tools.pulmonary_lobe_runtime_compatibility import before_pulmonary_lobe_reference_fields
+    # Recover this review's original scope; the added nodule-reader entry has its own source-role proof.
+    references = {
+        item['id']: before_pulmonary_lobe_reference_fields(
+            item['id'], detail(curriculum, item)['radiology_reference'])
+        for item in catalogue()['investigations']
+    }
     # Readers opened from the catalog's source inspectors or source anatomy references.
     for name, reader in readers.items():
         if 'inspector' in reader:

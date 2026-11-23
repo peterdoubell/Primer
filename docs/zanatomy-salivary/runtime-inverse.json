@@ -1,0 +1,192 @@
+{
+  "docs/radiology-fidelity-scope.json": {
+    "before": "1a59fec78dfc95ad25176019b6b5fc8db1211907faa4eb6c86112d10511767e1",
+    "after": "503831054cc7029d7614816aac0f25de88f122a4cf80515dd5b13395f28ecce0",
+    "changes": [
+      {
+        "start": 77273,
+        "end": 77295,
+        "before": "        \"source_native_inspectors\": null\n",
+        "after": "        \"source_native_inspectors\": [\n          {\n            \"id\": \"zanatomy-salivary\",\n            \"title\": \"Salivary glands and ducts in 3D and section\",\n            \"src\": \"/app/anatomy/zanatomy-salivary/index.html\",\n            \"modality\": \"Gross anatomical atlas\",\n            \"model_context\": true,\n            \"caption\": \"Examine the left and right parotid, submandibular and sublingual gland bodies, the modelled parotid and submandibular ducts, and eight muscular or bony landmarks. The section view cuts the same atlas surfaces. The paired atlas objects share underlying geometry. Imaging findings, nodal boundaries and glandular subdivisions require separate evidence.\",\n            \"source_label\": \"Z-Anatomy original Blender scene\",\n            \"source_url\": \"https://github.com/Z-Anatomy/Models-of-human-anatomy/tree/ded1a55381328f3f242426f0e8e711c5fca62c14\",\n            \"publication_url\": \"https://doi.org/10.5281/zenodo.4953712\",\n            \"license\": \"CC BY-SA 4.0\",\n            \"license_url\": \"https://creativecommons.org/licenses/by-sa/4.0/\",\n            \"attribution\": \"Z-Anatomy \\u00b7 The libre 3D atlas of anatomy. Based on BodyParts3D, Copyright \\u00a9 2008 Database Center for Life Science, CC BY-SA 2.1 Japan. Primer adaptations include mesh encoding, colours and cross-sections.\",\n            \"inline_label\": \"Inspect the atlas surfaces and sections inline\",\n            \"structure_ids\": [],\n            \"requirement_coverage\": [],\n            \"clinical_approval\": false,\n            \"fine_anatomical_approval\": false,\n            \"current_patient_registration\": false\n          }\n        ]\n"
+      },
+      {
+        "start": 79304,
+        "end": 79324,
+        "before": "",
+        "after": "          },\n          {\n            \"id\": \"zanatomy-salivary\",\n            \"title\": \"Salivary glands and ducts in 3D and section\",\n            \"src\": \"/app/anatomy/zanatomy-salivary/index.html\",\n            \"modality\": \"Gross anatomical atlas\",\n            \"model_context\": true,\n            \"caption\": \"Examine the left and right parotid, submandibular and sublingual gland bodies, the modelled parotid and submandibular ducts, and eight muscular or bony landmarks. The section view cuts the same atlas surfaces. The paired atlas objects share underlying geometry. Imaging findings, nodal boundaries and glandular subdivisions require separate evidence.\",\n            \"source_label\": \"Z-Anatomy original Blender scene\",\n            \"source_url\": \"https://github.com/Z-Anatomy/Models-of-human-anatomy/tree/ded1a55381328f3f242426f0e8e711c5fca62c14\",\n            \"publication_url\": \"https://doi.org/10.5281/zenodo.4953712\",\n            \"license\": \"CC BY-SA 4.0\",\n            \"license_url\": \"https://creativecommons.org/licenses/by-sa/4.0/\",\n            \"attribution\": \"Z-Anatomy \\u00b7 The libre 3D atlas of anatomy. Based on BodyParts3D, Copyright \\u00a9 2008 Database Center for Life Science, CC BY-SA 2.1 Japan. Primer adaptations include mesh encoding, colours and cross-sections.\",\n            \"inline_label\": \"Inspect the atlas surfaces and sections inline\",\n            \"structure_ids\": [],\n            \"requirement_coverage\": [],\n            \"clinical_approval\": false,\n            \"fine_anatomical_approval\": false,\n            \"current_patient_registration\": false\n"
+      },
+      {
+        "start": 162819,
+        "end": 162820,
+        "before": "            \"instructions\": \"Inspect the complete provided source selections against native images and separate atlas probabilities. Read population, sampling and anatomical limits before interpretation.\",\n",
+        "after": "            \"instructions\": \"Inspect the source MRI atlas and the separately modelled salivary glands, ducts, muscles and jaw in their own coordinate frames.\",\n"
+      },
+      {
+        "start": 162993,
+        "end": 162994,
+        "before": "      \"module_contract_sha256\": \"f9dd4a9d790123225f77dcd0c348deb1d6fbcf3216505f0c9c27c85bcae17d05\",\n",
+        "after": "      \"module_contract_sha256\": \"408122ad445989084fae3cbe1c3fff59b98fc451970c9b50477a4f49b0cc9875\",\n"
+      },
+      {
+        "start": 172517,
+        "end": 172526,
+        "before": "",
+        "after": "          {\n            \"id\": \"module-native-inspectors-rad.5.neck-nodes\",\n            \"kind\": \"source-native-inspectors\",\n            \"title\": \"Native source anatomy inspection\",\n            \"instructions\": \"Trace the modelled salivary gland bodies and ducts against the muscles and jaw. Use sections of the same meshes to inspect their spatial relationships.\",\n            \"investigation_ids\": [\n              \"ra.cervical-lymph-nodes\"\n            ]\n          },\n"
+      },
+      {
+        "start": 172690,
+        "end": 172691,
+        "before": "      \"module_contract_sha256\": \"2ee0305c0afec0ffc4dcc4f54a51b525f026a986cef6e005da84fe6d73442f40\",\n",
+        "after": "      \"module_contract_sha256\": \"e8f07c9b363b04c2dcc3d0c78fe9b4256027ef29ee07244b7475bbd4fcaa55f2\",\n"
+      }
+    ]
+  },
+  "primer/module_media.py": {
+    "before": "ed860fa97310f9b1fb9a3f143c295ed7e85096ba28489e5bfcf1c6eeb130d62b",
+    "after": "43ec3540b444573332ad7684e0dd977870086b1d99c9a07cc8cfd6987ec49902",
+    "changes": [
+      {
+        "start": 139,
+        "end": 143,
+        "before": "",
+        "after": "                                           'Trace the modelled salivary gland bodies and ducts against the muscles and jaw. Use sections of the same meshes to inspect their spatial relationships.'\n                                           if node['id'] == 'rad.5.neck-nodes' else\n                                           'Inspect the source MRI atlas and the separately modelled salivary glands, ducts, muscles and jaw in their own coordinate frames.'\n                                           if node['id'] == 'rad.5.deep-neck-spaces' else\n"
+      }
+    ]
+  },
+  "primer/server.py": {
+    "before": "ada4e8c388c195f0a46bd633184f4bd55cc3177fca2e9a9da04e2d2bcc8f767e",
+    "after": "b16addbd8b3466a8574393c3f47ce13f57e0143848d3f8ff20b54964aaf4f57f",
+    "changes": [
+      {
+        "start": 4291,
+        "end": 4292,
+        "before": "        *NODE_SOURCE_ATLASES, \"segthy-001\", \"aneurysm-cta-018\", \"cmha-mca-005\", \"rhuh-sah-001\",\n",
+        "after": "        *NODE_SOURCE_ATLASES, \"segthy-001\", \"zanatomy-salivary\", \"aneurysm-cta-018\", \"cmha-mca-005\", \"rhuh-sah-001\",\n"
+      },
+      {
+        "start": 4318,
+        "end": 4319,
+        "before": "                or (registered_atlas == \"segthy-001\" and asset == \"index.html\")):\n",
+        "after": "                or (registered_atlas in {\"segthy-001\", \"zanatomy-salivary\"} and asset == \"index.html\")):\n"
+      }
+    ]
+  },
+  "primer/source_native_inspectors.py": {
+    "before": "06339b790416a0f9f2e5a660c4b74a8a0cc39e001f91d4632a9e7f63129f1d50",
+    "after": "1e8a0eab895b68623b399da196dd22d4a7a3aab3b4b391fe55983560289709f6",
+    "changes": [
+      {
+        "start": 155,
+        "end": 158,
+        "before": "",
+        "after": "    from .salivary_surface_reference import references as salivary_surfaces\n    for identifier, entries in salivary_surfaces().items():\n        result[identifier] = [*result.get(identifier, []), *entries]\n"
+      }
+    ]
+  },
+  "vercel.json": {
+    "before": "3a0dbb5ac30ac6e363b403175b6f1a2920b6ca350c58b01a050e9efbc4b28169",
+    "after": "99264d2e486bdc948fdfc4e2e3ad957c8e14974d58d4d2828e9cb78a73c67a01",
+    "changes": [
+      {
+        "start": 7,
+        "end": 8,
+        "before": "        \"excludeFiles\": \"{docs/radiology-fidelity-audit-*.json,docs/radiology-fidelity-scope.json,data/radiology/non-msk-structure-requirements.json,data/radiology/radiology-asset-evidence.json,data/radiology/descriptor-history/**,data/radiology/descriptor-reporting.json,.git/**,.github/**,.research/**,tests/**,tools/**,docs/*/**,public/**,web/anatomy/{bodyparts3d,msk-atlas,msk-cervical,msk-mri-knee,msk-mri-ankle,liu-lumbosacral-sub03,verse521,hvsmr2-pat7,openear-zeta,totalseg-v3-s0358,totalseg-v3-esophagus-s0358,ispy1-expert1002,prostate-biopsy0001}/**/*.bin,web/anatomy/{bodyparts3d,msk-atlas,msk-cervical,msk-mri-knee,msk-mri-ankle,liu-lumbosacral-sub03,verse521,hvsmr2-pat7,openear-zeta,totalseg-v3-s0358,totalseg-v3-esophagus-s0358,ispy1-expert1002,prostate-biopsy0001}/**/*.bin.gz,web/reference-media/prenatal-development/prenatal-development.gif,web/reference-media/prenatal-development/day-*.webp,web/illustrations/**/*.webp,web/reference-media/radiology-open/**/*.{jpg,jpeg,png,webp,gif,pdf},web/reference-media/radiology-motion/**,web/anatomy/totalseg-v3-esophagus-s0358/ct-reference.html,web/anatomy/ispy1-expert1002/mri-reference.html,web/anatomy/prostate-biopsy0001/mri-reference.html,web/studies/tcga-dk-aa6p/**,web/anatomy/fedbca-{center1-001,center2-01,center3-01,center4-01}/mri-reference.html,web/anatomy/fedbca-{center1-001,center2-01,center3-01,center4-01}/**/*.bin.gz,web/reference-media/annotated-ct/**/*.jpeg,web/anatomy/bp3d-sella-4.3/**/*.bin.gz,web/anatomy/bp3d-carotid-4.3/**/*.bin.gz,web/anatomy/hra-female-pelvis-v1.10/**/*.bin.gz,web/anatomy/brain-fine-massp2/*.gz,web/reference-media/radiology-open/traumatic-haemorrhage/**,web/anatomy/soop-stroke-sub342/*.gz,web/anatomy/soop-stroke-sub342/sub-342*.json,web/anatomy/lidc-idri-0525/original-ct/**,web/anatomy/lidc-idri-0525/*.gz,web/anatomy/lidc-idri-0525/source-*.zip,web/anatomy/lidc-idri-0525/original-0525.xml,web/anatomy/lidc-idri-0525/ct-source-md5.csv,web/anatomy/lidc-idri-0525/LICENSE,web/anatomy/lidc-idri-0525/ATTRIBUTION.txt,web/anatomy/bp3d-thoracic-4.3/transport/**,web/anatomy/bp3d-thoracic-4.3/originals/**,web/anatomy/totalseg-s0028-lungs/originals/**,web/anatomy/totalseg-s0028-lungs/surfaces/**,web/anatomy/totalseg-s0028-basal-context/originals/**,web/anatomy/totalseg-s0028-basal-context/surfaces/**,web/anatomy/totalseg-v1-s0028-cardiac/originals/**,web/anatomy/totalseg-v1-s0028-cardiac/surfaces/**,web/anatomy/bp3d-cardiac-4.3/originals/**,web/anatomy/bp3d-cardiac-4.3/transport/**,web/reference-media/cardiac-comparisons-2020/images/**,web/anatomy/hippunfold-hcp101006-registered/*.gz,web/anatomy/spl-nac-limbic/*.gz,web/anatomy/spl-nac-reporting/*.gz,web/anatomy/spl-nac-reporting/manifest.json,web/anatomy/spl-nac-limbic/originals/**,web/anatomy/holiatlas/*.pack,web/anatomy/holiatlas/*.mesh.gz,web/anatomy/holiatlas/*-faces.bin.gz,web/anatomy/holiatlas/manifest.json,web/anatomy/holiatlas/labels.json,web/anatomy/holiatlas/hierarchy.json,web/anatomy/schirmer-vascular/*.pack,web/anatomy/schirmer-vascular/*.mesh.gz,web/anatomy/schirmer-vascular/*.faces.gz,web/anatomy/schirmer-vascular/originals/**,web/anatomy/schirmer-vascular/manifest.json,web/anatomy/schirmer-vascular/labels.json,web/anatomy/schirmer-vascular/hierarchy.json,web/anatomy/schirmer-vascular/publication-figure1.webp,web/anatomy/spl-additional-source/*.gz,web/anatomy/spl-additional-source/manifest.json,web/anatomy/verse521/ct-reference.html,web/anatomy/totalseg-v3-s0358/ct-reference.html,web/anatomy/spl-sellar-interfaces/**/*.svg,web/anatomy/spl-sellar-interfaces/**/*.mesh.gz,web/anatomy/spl-sellar-interfaces/viewer/*.json,web/anatomy/cptac-endometrial/*.gz,web/anatomy/colonvessels-pat012/**/*.gz,web/anatomy/liver-regions-mri/*.gz,web/anatomy/bp3d-biliary-4.3/*.gz,web/anatomy/phlf-center2-24/*.gz,web/anatomy/hva-ct-318/*.gz,web/anatomy/aneurysm-cta-018/*.gz,web/anatomy/cmha-mca-005/*.gz,web/anatomy/rhuh-sah-001/*.gz,web/anatomy/bp3d-dural-4.3/*.gz,web/anatomy/ward-swi-s1/*.gz,web/anatomy/illinois-uterus/*.gz,web/anatomy/endometriosis-mri-evidence/*.gz,web/anatomy/hyperpic-venous/**/*.gz,web/anatomy/venat/*.gz,web/anatomy/ccth-a01-roi/*.gz,web/anatomy/{recist-pelvic-015,recist-pelvic-023,recist-pelvic-023-follow-up-1,recist-pelvic-023-follow-up-2}/*.gz,web/anatomy/lnq-case-0571/*.gz,web/anatomy/lynos-pat9/*.gz,web/anatomy/segthy-001/*.gz}\"\n",
+        "after": "        \"excludeFiles\": \"{docs/radiology-fidelity-audit-*.json,docs/radiology-fidelity-scope.json,data/radiology/non-msk-structure-requirements.json,data/radiology/radiology-asset-evidence.json,data/radiology/descriptor-history/**,data/radiology/descriptor-reporting.json,.git/**,.github/**,.research/**,tests/**,tools/**,docs/*/**,public/**,web/anatomy/{bodyparts3d,msk-atlas,msk-cervical,msk-mri-knee,msk-mri-ankle,liu-lumbosacral-sub03,verse521,hvsmr2-pat7,openear-zeta,totalseg-v3-s0358,totalseg-v3-esophagus-s0358,ispy1-expert1002,prostate-biopsy0001}/**/*.bin,web/anatomy/{bodyparts3d,msk-atlas,msk-cervical,msk-mri-knee,msk-mri-ankle,liu-lumbosacral-sub03,verse521,hvsmr2-pat7,openear-zeta,totalseg-v3-s0358,totalseg-v3-esophagus-s0358,ispy1-expert1002,prostate-biopsy0001}/**/*.bin.gz,web/reference-media/prenatal-development/prenatal-development.gif,web/reference-media/prenatal-development/day-*.webp,web/illustrations/**/*.webp,web/reference-media/radiology-open/**/*.{jpg,jpeg,png,webp,gif,pdf},web/reference-media/radiology-motion/**,web/anatomy/totalseg-v3-esophagus-s0358/ct-reference.html,web/anatomy/ispy1-expert1002/mri-reference.html,web/anatomy/prostate-biopsy0001/mri-reference.html,web/studies/tcga-dk-aa6p/**,web/anatomy/fedbca-{center1-001,center2-01,center3-01,center4-01}/mri-reference.html,web/anatomy/fedbca-{center1-001,center2-01,center3-01,center4-01}/**/*.bin.gz,web/reference-media/annotated-ct/**/*.jpeg,web/anatomy/bp3d-sella-4.3/**/*.bin.gz,web/anatomy/bp3d-carotid-4.3/**/*.bin.gz,web/anatomy/hra-female-pelvis-v1.10/**/*.bin.gz,web/anatomy/brain-fine-massp2/*.gz,web/reference-media/radiology-open/traumatic-haemorrhage/**,web/anatomy/soop-stroke-sub342/*.gz,web/anatomy/soop-stroke-sub342/sub-342*.json,web/anatomy/lidc-idri-0525/original-ct/**,web/anatomy/lidc-idri-0525/*.gz,web/anatomy/lidc-idri-0525/source-*.zip,web/anatomy/lidc-idri-0525/original-0525.xml,web/anatomy/lidc-idri-0525/ct-source-md5.csv,web/anatomy/lidc-idri-0525/LICENSE,web/anatomy/lidc-idri-0525/ATTRIBUTION.txt,web/anatomy/bp3d-thoracic-4.3/transport/**,web/anatomy/bp3d-thoracic-4.3/originals/**,web/anatomy/totalseg-s0028-lungs/originals/**,web/anatomy/totalseg-s0028-lungs/surfaces/**,web/anatomy/totalseg-s0028-basal-context/originals/**,web/anatomy/totalseg-s0028-basal-context/surfaces/**,web/anatomy/totalseg-v1-s0028-cardiac/originals/**,web/anatomy/totalseg-v1-s0028-cardiac/surfaces/**,web/anatomy/bp3d-cardiac-4.3/originals/**,web/anatomy/bp3d-cardiac-4.3/transport/**,web/reference-media/cardiac-comparisons-2020/images/**,web/anatomy/hippunfold-hcp101006-registered/*.gz,web/anatomy/spl-nac-limbic/*.gz,web/anatomy/spl-nac-reporting/*.gz,web/anatomy/spl-nac-reporting/manifest.json,web/anatomy/spl-nac-limbic/originals/**,web/anatomy/holiatlas/*.pack,web/anatomy/holiatlas/*.mesh.gz,web/anatomy/holiatlas/*-faces.bin.gz,web/anatomy/holiatlas/manifest.json,web/anatomy/holiatlas/labels.json,web/anatomy/holiatlas/hierarchy.json,web/anatomy/schirmer-vascular/*.pack,web/anatomy/schirmer-vascular/*.mesh.gz,web/anatomy/schirmer-vascular/*.faces.gz,web/anatomy/schirmer-vascular/originals/**,web/anatomy/schirmer-vascular/manifest.json,web/anatomy/schirmer-vascular/labels.json,web/anatomy/schirmer-vascular/hierarchy.json,web/anatomy/schirmer-vascular/publication-figure1.webp,web/anatomy/spl-additional-source/*.gz,web/anatomy/spl-additional-source/manifest.json,web/anatomy/verse521/ct-reference.html,web/anatomy/totalseg-v3-s0358/ct-reference.html,web/anatomy/spl-sellar-interfaces/**/*.svg,web/anatomy/spl-sellar-interfaces/**/*.mesh.gz,web/anatomy/spl-sellar-interfaces/viewer/*.json,web/anatomy/cptac-endometrial/*.gz,web/anatomy/colonvessels-pat012/**/*.gz,web/anatomy/liver-regions-mri/*.gz,web/anatomy/bp3d-biliary-4.3/*.gz,web/anatomy/phlf-center2-24/*.gz,web/anatomy/hva-ct-318/*.gz,web/anatomy/aneurysm-cta-018/*.gz,web/anatomy/cmha-mca-005/*.gz,web/anatomy/rhuh-sah-001/*.gz,web/anatomy/bp3d-dural-4.3/*.gz,web/anatomy/ward-swi-s1/*.gz,web/anatomy/illinois-uterus/*.gz,web/anatomy/endometriosis-mri-evidence/*.gz,web/anatomy/hyperpic-venous/**/*.gz,web/anatomy/venat/*.gz,web/anatomy/ccth-a01-roi/*.gz,web/anatomy/{recist-pelvic-015,recist-pelvic-023,recist-pelvic-023-follow-up-1,recist-pelvic-023-follow-up-2}/*.gz,web/anatomy/lnq-case-0571/*.gz,web/anatomy/lynos-pat9/*.gz,web/anatomy/segthy-001/*.gz,web/anatomy/zanatomy-salivary/*.gz,data/radiology/descriptor-reporting-v1.json.gz}\"\n"
+      },
+      {
+        "start": 244,
+        "end": 248,
+        "before": "",
+        "after": "      \"use\": \"@vercel/static\"\n    },\n    {\n      \"src\": \"web/anatomy/zanatomy-salivary/*.gz\",\n"
+      }
+    ]
+  },
+  "web/app.js": {
+    "before": "78cd5185e96537728c4231cd8ca9811452608af0327670c29357ddd96fcdc5ed",
+    "after": "359438ac608fc80dd9d8b84ef33c4fab54ad584fb00da7c686dafa52f8eec259",
+    "changes": [
+      {
+        "start": 3284,
+        "end": 3285,
+        "before": "",
+        "after": "  const atlasModelContext = (ref.source_native_inspectors || []).filter(asset => asset.model_context === true);\n"
+      },
+      {
+        "start": 3402,
+        "end": 3403,
+        "before": "    ['model', ref.source_native_only ? 'Native source models' : curatedModels.length ? 'Original source models' : cardiacContext.length || hippocampalContext.length || limbicContext.length ? '3D anatomy and original source context' : detailedAnatomy || ref.source_anatomy_references?.length ? '3D anatomy' : 'Spatial guide', panel => {\n",
+        "after": "    ['model', ref.source_native_only ? 'Native source models' : curatedModels.length ? 'Original source models' : cardiacContext.length || hippocampalContext.length || limbicContext.length || atlasModelContext.length ? '3D anatomy and original source context' : detailedAnatomy || ref.source_anatomy_references?.length ? '3D anatomy' : 'Spatial guide', panel => {\n"
+      },
+      {
+        "start": 3404,
+        "end": 3405,
+        "before": "        (ref.source_native_only ? ref.source_native_inspectors || [] : [...curatedModels, ...cardiacContext]).forEach(asset => panel.append(sourceNativeInspector(asset)));\n",
+        "after": "        (ref.source_native_only ? ref.source_native_inspectors || [] : [...curatedModels, ...cardiacContext, ...atlasModelContext]).forEach(asset => panel.append(sourceNativeInspector(asset)));\n"
+      },
+      {
+        "start": 3407,
+        "end": 3408,
+        "before": "      [...cardiacContext, ...hippocampalContext, ...limbicContext].forEach(asset => panel.append(sourceNativeInspector(asset)));\n",
+        "after": "      [...cardiacContext, ...hippocampalContext, ...limbicContext, ...atlasModelContext].forEach(asset => panel.append(sourceNativeInspector(asset)));\n"
+      }
+    ]
+  },
+  "lessons": {
+    "rad.5.deep-neck-spaces": {
+      "before": {
+        "id": "module-native-inspectors-rad.5.deep-neck-spaces",
+        "kind": "source-native-inspectors",
+        "title": "Native source anatomy inspection",
+        "instructions": "Inspect the complete provided source selections against native images and separate atlas probabilities. Read population, sampling and anatomical limits before interpretation.",
+        "investigation_ids": [
+          "ra.mri-neck-spaces"
+        ]
+      },
+      "after": {
+        "id": "module-native-inspectors-rad.5.deep-neck-spaces",
+        "kind": "source-native-inspectors",
+        "title": "Native source anatomy inspection",
+        "instructions": "Inspect the source MRI atlas and the separately modelled salivary glands, ducts, muscles and jaw in their own coordinate frames.",
+        "investigation_ids": [
+          "ra.mri-neck-spaces"
+        ]
+      }
+    },
+    "rad.5.neck-nodes": {
+      "before": null,
+      "after": {
+        "id": "module-native-inspectors-rad.5.neck-nodes",
+        "kind": "source-native-inspectors",
+        "title": "Native source anatomy inspection",
+        "instructions": "Trace the modelled salivary gland bodies and ducts against the muscles and jaw. Use sections of the same meshes to inspect their spatial relationships.",
+        "investigation_ids": [
+          "ra.cervical-lymph-nodes"
+        ]
+      }
+    }
+  },
+  "tests/test_spl_additional_reference.py": {
+    "before": "82ee9381363e56332d46e23c06f21116887634bb818c7e0cc73e0654fd00c8f7",
+    "after": "7b7ed1f3da44e816e58dc245a73b505ee3d2f245f1c68153fbd17ff25e96f9b3",
+    "changes": [
+      {
+        "start": 125,
+        "end": 126,
+        "before": "",
+        "after": "    from tools.salivary_surface_compatibility import before_surface_bindings, before_surface_lesson\n"
+      },
+      {
+        "start": 128,
+        "end": 130,
+        "before": "        current=curriculum.node(identifier)\n",
+        "after": "        # Check the recorded SPL lesson after undoing the later, independently reviewed atlas addition.\n        current=before_surface_lesson(identifier,curriculum.node(identifier))\n"
+      },
+      {
+        "start": 137,
+        "end": 138,
+        "before": "    original=references();restored=before_additional_bindings(original)\n",
+        "after": "    original=before_surface_bindings(references());restored=before_additional_bindings(original)\n"
+      }
+    ]
+  }
+}

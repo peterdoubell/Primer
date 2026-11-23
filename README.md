@@ -255,7 +255,10 @@ For an older virtual environment, create a new Python 3.10+ environment and inst
 environment, install the current lock file before starting the updated application.
 `run.sh` sets up a virtualenv on first launch.
 
+For regression tests, install the same locked development and source-checking dependencies as CI:
+
 ```bash
+.venv/bin/python -m pip install --requirement requirements.lock.txt --requirement tools/requirements-math-illustrations.txt --requirement tools/requirements-anatomy-source-checks.txt
 .venv/bin/python -m pytest tests/ -q
 ```
 

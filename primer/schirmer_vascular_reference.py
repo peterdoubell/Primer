@@ -7,7 +7,7 @@ ATLAS='schirmer-vascular'
 IDENTIFIER='schirmer-vascular-template-reference'
 PREFIX='/app/anatomy/'+ATLAS+'/'
 REGISTRY=ROOT/'data/radiology/schirmer-vascular-reference.json'
-REGISTRY_SHA256 = '945b5f2a1dc2922e77dc00a8264e3b40cf2251786eda62e4fe7ee19ae0ee5437'
+REGISTRY_SHA256 = 'be015825fea6a06bdac1b8938e4dae7326fd33b1d005e08473eab0d7c76d468c'
 AUTHORED=frozenset({'index.html','viewer.js','viewer.css','schematic.js','config.json','manifest.json','labels.json','hierarchy.json','semantic-mapping.json','ATTRIBUTION.txt','LICENSE.txt'})
 FLAGS=('clinical_approval','fine_anatomical_approval','current_patient_registration','normal_anatomical_atlas_approval','complete_reporting_anatomy_approved')
 NAMES={2:'Right ACA',4:'Right MCA',6:'Right PCA',8:'Right Pons/Medulla',10:'Right Cerebellum',12:'Left ACA',14:'Left MCA',16:'Left PCA',18:'Left Pons/Medulla',19:None,20:'Left Cerebellum'}
@@ -104,4 +104,5 @@ def references():
  if item.get('src')!=PREFIX+'index.html'or item.get('manifest_url')!=PREFIX+'manifest.json'or item.get('sha256')!=d['files']['index.html']['sha256']or item.get('manifest_sha256')!=d['files']['manifest.json']['sha256']or item.get('bound_source_ids')!=[IDENTIFIER]or any(item.get(k)is not False for k in FLAGS):raise ValueError('Vascular source inspector differs')
  if item.get('source_url')!='https://zenodo.org/records/3379848'or item.get('publication_url')!='https://doi.org/10.3389/fneur.2019.00208'or item.get('license')!='CC BY 4.0'or item.get('license_url')!='https://creativecommons.org/licenses/by/4.0/'or item.get('source_grant')!={'publisher_explicitly_applies_license_to_data':True,'terms_url':'https://creativecommons.org/licenses/by/4.0/legalcode','attribution_url':PREFIX+'ATTRIBUTION.txt','marked_derived_version':True}:raise ValueError('Vascular source provenance differs')
  if item['source_grain']!={'kind':'processed older-adult study template','subject_count':16,'CAA_subject_count':12,'control_count':4,'supplied_grid_mm':[1,1,1],'supplied_grid_is_acquisition_resolution':False,'present_source_values':11,'figure_named_source_values':10,'uninterpreted_source_values':[19],'pons_medulla_combined':True,'numeric_name_mapping_derived_from_figure':True}:raise ValueError('Vascular source grain differs')
- return {key:[item]for key in d['bindings']}
+ from .schirmer_territory_context import decorate
+ return {key:[decorate(key,item)]for key in d['bindings']}

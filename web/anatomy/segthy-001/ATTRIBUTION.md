@@ -1,0 +1,11 @@
+# SegThy volunteer 001
+
+The two volumes are tracked freehand ultrasound acquisitions of a healthy volunteer. Each was acquired by physician P1 on the first sweep of that side. The source examples are provided by Markus Krönke, Christine Eilers, Desislava Dimova, Melanie Köhler, Gabriel Buschner, Lilit Schweiger, Lemonia Konstantinidou, Marcus R. Makowski, James Nagarajah, Nassir Navab, Wolfgang Weber and Thomas Wendler. [Study and author citation](https://doi.org/10.1371/journal.pone.0268550)
+
+The Technical University of Munich dataset page specifies Creative Commons Attribution and explicitly permits commercial use with credit. The version number is unspecified. [Publisher’s description and licence](https://www.cs.cit.tum.de/en/camp/publications/segthy-dataset/)
+
+These examples come from the manually annotated ultrasound tier. The four source NIfTI files were obtained from a pinned public redistribution. Their uncompressed file hashes, source paths, grid dimensions and affines are recorded in the manifest. The publisher’s archive endpoint timed out during preparation. [Distribution revision](https://huggingface.co/datasets/MedOtter/SegThy/tree/318d0e04578419d2976a093f9873f14b782f253d)
+
+The ultrasound Readme describes manual thyroid and vessel annotations and identifies thyroid as value 1. Its binary description omits the additional nonzero values present in these two files. The class names for the vessels follow the distribution’s ultrasound key and agree with the authors’ MRI class numbers. Source filenames identify the side of each sweep. [Ultrasound Readme](https://huggingface.co/datasets/MedOtter/SegThy/blob/318d0e04578419d2976a093f9873f14b782f253d/Readme_US.txt) · [MRI Readme](https://huggingface.co/datasets/MedOtter/SegThy/blob/318d0e04578419d2976a093f9873f14b782f253d/Readme_MRI.txt)
+
+Primer reversibly repacks the original intensity and label samples for fast multiplanar viewing. The schematic colours and outlines derive from the manual labels on the same grid. The six surfaces follow the 0.5 label interfaces in native-grid millimetres. The two acquisitions have separate coordinate systems. These data document the acquired field in one volunteer. Nodule features, nodal levels, blood flow and current-patient anatomy require separate observations.

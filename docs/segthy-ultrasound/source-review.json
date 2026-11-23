@@ -1,0 +1,673 @@
+{
+  "schema_version": 1,
+  "reviewed_at": "2026-11-22",
+  "reviewer": "Automated provenance and requirement-boundary audit; not a radiologist review",
+  "base_commit": "e93707f695c0a080608e314d448ff682f82e1fd1",
+  "source_package_commit": "0e61442997a2ef4a26a5df527b8bcd8cc453a119",
+  "manifest_path": "web/anatomy/segthy-001/manifest.json",
+  "manifest_sha256": "d054557d2c5e6230c49659c23812a4f91d2d044ffc43d4f4b31aca88b0f5e440",
+  "scope": [
+    "ra.ultrasound-thyroid",
+    "us.soft-tissue-neck"
+  ],
+  "source_urls": {
+    "publisher": "https://www.cs.cit.tum.de/en/camp/publications/segthy-dataset/",
+    "article": "https://doi.org/10.1371/journal.pone.0268550",
+    "pinned_distribution": "https://huggingface.co/datasets/MedOtter/SegThy/tree/318d0e04578419d2976a093f9873f14b782f253d"
+  },
+  "license": {
+    "name": "CC BY, version unspecified by publisher",
+    "commercial_use": true,
+    "redistribution": true,
+    "attribution_required": true,
+    "license_version_assumed": false,
+    "author_evidence_sha256": "3704e4b782df5634a45dad554bc83a52ea70cf357103411b70518ded509f9474",
+    "author_evidence_url": "https://huggingface.co/datasets/MedOtter/SegThy/blob/318d0e04578419d2976a093f9873f14b782f253d/Readme_US.txt"
+  },
+  "source_key": {
+    "distribution_readme_sha256": "8f2defb9e195ca1d99c620c1d78da3f0ab83fbb9f5c986e7896df5eb5db04c20",
+    "author_US_readme_assigns_only_thyroid_code_1": true,
+    "US_vessel_classes_are_pinned_distribution_claims": true,
+    "MRI_key_is_not_independent_US_diagnostic_validation": true,
+    "distribution_readme_url": "https://huggingface.co/datasets/MedOtter/SegThy/blob/318d0e04578419d2976a093f9873f14b782f253d/README.md"
+  },
+  "source_context": {
+    "setting": "in_vivo",
+    "population": "healthy volunteers from the author’s adult study cohort",
+    "acquisition": "Freehand tracked ultrasound, volunteer 001, physician P1, acquisition 1 per side.",
+    "inter_sweep_registration_present": false,
+    "separate_native_grids": true,
+    "clinical_approval": false
+  },
+  "inventory": {
+    "thyroid_parent_structures": 72,
+    "thyroid_required_leaves": 445,
+    "requirements_file_sha256": "e5372eefd358213334c6f305b01b254f4bdf1f879a76101bb297f536557dac7a",
+    "neck_typed_inventory_present": false,
+    "neck_reporting_base_investigation_id": "ra.cervical-lymph-nodes",
+    "neck_reporting_modality": "Ultrasound",
+    "neck_report_is_a_descriptor_only_addition": true,
+    "neck_in_saved_catalogue_fidelity_scope": false,
+    "inherit_base_investigation_anatomy_or_modality": false
+  },
+  "verified": {
+    "native_intensity_label_pairs": 160810524,
+    "label_meshes": 6,
+    "all_six_label_masks_clear_source_grid_boundaries": true,
+    "voxels_repaired_or_added": false,
+    "approved_requirement_bindings": 0,
+    "completed_requirements": 0,
+    "segmentation_non_clipping_is_not_clinical_extent_approval": true,
+    "all_mesh_signed_volumes_positive": true,
+    "mesh_vertex_verification": {
+      "edge_intersections": 766470,
+      "ambiguous_cell_centres": 283,
+      "method": "Every edge vertex lies halfway between two source sample centres with opposite membership. Each centre vertex lies in a mixed-label cell and all incident mesh faces join it to verified edge intersections of that cell."
+    }
+  },
+  "cases": [
+    {
+      "id": "001_P1_1_left",
+      "side": "Left",
+      "shape": [
+        486,
+        453,
+        370
+      ],
+      "spacing_mm": [
+        0.11999999731779099,
+        0.11999999731779099,
+        0.11999999731779099
+      ],
+      "source_affine": [
+        [
+          -0.11999999731779099,
+          1.6165337924728624e-16,
+          0.0,
+          29.099998474121094
+        ],
+        [
+          -1.6165337924728624e-16,
+          -0.11999999731779099,
+          -0.0,
+          27.119998931884766
+        ],
+        [
+          0.0,
+          -0.0,
+          0.11999999731779099,
+          -22.139999389648438
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "sources": [
+        {
+          "role": "image",
+          "source_path": "us/train/images/001_P1_1_left.nii.gz",
+          "compressed_sha256": "d0d47c66c7556c4b4db612686c590728c3d506cec436f6b556f1b2b465b65bed",
+          "payload_sha256": "a121ae56daad64b91183190faa08dc53fa71a27608e41919034076fc4538b293"
+        },
+        {
+          "role": "mask",
+          "source_path": "us/train/masks/001_P1_1_left.nii.gz",
+          "compressed_sha256": "b0dc9b664fd413b0cb776baa5b3f3186686f8d465e45112339c6a1fb2d8a33ba",
+          "payload_sha256": "a77aa43696526e6167445ddbc72a99d300390c99f312740e4a673b1072e6cf87"
+        }
+      ],
+      "labels": [
+        {
+          "code": 1,
+          "name": "Left thyroid lobe",
+          "color": [
+            255,
+            192,
+            72
+          ],
+          "voxelCount": 1742159,
+          "focus": [
+            127,
+            296,
+            203
+          ],
+          "mesh": {
+            "file": "left-1-mesh.gz",
+            "bytes": 2096073,
+            "sha256": "7a2f5a4de07389988cd87023261942df05e2662e7e6ad8e23c5effeb4b2f89d2",
+            "decodedSHA256": "c250b092bf6cc1e287ed5b5441ddf0ae44c188d720224321a12e27a6ea84c7a6",
+            "vertices": 186249,
+            "triangles": 372670
+          }
+        },
+        {
+          "code": 2,
+          "name": "Left carotid artery",
+          "color": [
+            239,
+            108,
+            109
+          ],
+          "voxelCount": 751813,
+          "focus": [
+            227,
+            265,
+            172
+          ],
+          "mesh": {
+            "file": "left-2-mesh.gz",
+            "bytes": 919722,
+            "sha256": "05783ea8646dfd61c4c470840a7167e8551d47c786474277bfc7594bccf3bf3d",
+            "decodedSHA256": "f5cc4afb0ba254680e9e3ee43b85d208d282c6030984735592fc510a5fa5bc42",
+            "vertices": 82872,
+            "triangles": 165740
+          }
+        },
+        {
+          "code": 3,
+          "name": "Left jugular vein",
+          "color": [
+            87,
+            201,
+            245
+          ],
+          "voxelCount": 1028996,
+          "focus": [
+            304,
+            274,
+            169
+          ],
+          "mesh": {
+            "file": "left-3-mesh.gz",
+            "bytes": 1199572,
+            "sha256": "c17103bb81d9eea0144a4adb1f53057392427c1dae36e11178d1206e7790a6df",
+            "decodedSHA256": "d77be2fc310cd91c1d1496dfe4c5f6a3b262d6b70bd4b02b5de632595c253725",
+            "vertices": 108174,
+            "triangles": 216344
+          }
+        }
+      ],
+      "annotation_bounds": [
+        {
+          "code": 1,
+          "name": "Left thyroid lobe",
+          "minimum_index": [
+            14,
+            215,
+            71
+          ],
+          "maximum_index": [
+            205,
+            389,
+            323
+          ],
+          "touches_volume_boundary": false
+        },
+        {
+          "code": 2,
+          "name": "Left carotid artery",
+          "minimum_index": [
+            181,
+            229,
+            21
+          ],
+          "maximum_index": [
+            275,
+            301,
+            324
+          ],
+          "touches_volume_boundary": false
+        },
+        {
+          "code": 3,
+          "name": "Left jugular vein",
+          "minimum_index": [
+            239,
+            207,
+            40
+          ],
+          "maximum_index": [
+            366,
+            331,
+            315
+          ],
+          "touches_volume_boundary": false
+        }
+      ]
+    },
+    {
+      "id": "001_P1_1_right",
+      "side": "Right",
+      "shape": [
+        496,
+        404,
+        396
+      ],
+      "spacing_mm": [
+        0.11999999731779099,
+        0.11999999731779099,
+        0.11999999731779099
+      ],
+      "source_affine": [
+        [
+          -0.11999999731779099,
+          1.6165337924728624e-16,
+          0.0,
+          29.69999885559082
+        ],
+        [
+          -1.6165337924728624e-16,
+          -0.11999999731779099,
+          -0.0,
+          24.18000030517578
+        ],
+        [
+          0.0,
+          -0.0,
+          0.11999999731779099,
+          -23.700000762939453
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "sources": [
+        {
+          "role": "image",
+          "source_path": "us/train/images/001_P1_1_right.nii.gz",
+          "compressed_sha256": "3728e7ff12bcc2e760b69e9e3703922f1080c836db81735417e5f7872dea5d54",
+          "payload_sha256": "168328e09b717340382e9e6f7b36e2eb9103c249c63b271f8be11311f11f07f0"
+        },
+        {
+          "role": "mask",
+          "source_path": "us/train/masks/001_P1_1_right.nii.gz",
+          "compressed_sha256": "931b4903ef09978893896b332ba3b5824c7cc7f6c2dc2c65b8e100cb208d009a",
+          "payload_sha256": "3ab8a9eb4d554c072a5983ed51cfbb5996ff88631b69e8bf21ebeeb4aa67f3fa"
+        }
+      ],
+      "labels": [
+        {
+          "code": 1,
+          "name": "Right thyroid lobe",
+          "color": [
+            255,
+            192,
+            72
+          ],
+          "voxelCount": 2457684,
+          "focus": [
+            245,
+            297,
+            219
+          ],
+          "mesh": {
+            "file": "right-1-mesh.gz",
+            "bytes": 2793099,
+            "sha256": "13cf3018356181db75471323bf84320c9c467776d34b0ca1eb267f21e2d2a54b",
+            "decodedSHA256": "5737d487e623f2cc32ff3a32a2fd05ade0916c492caab58959dbbf28376e1cd6",
+            "vertices": 247725,
+            "triangles": 496394
+          }
+        },
+        {
+          "code": 4,
+          "name": "Right carotid artery",
+          "color": [
+            239,
+            108,
+            109
+          ],
+          "voxelCount": 948827,
+          "focus": [
+            128,
+            256,
+            182
+          ],
+          "mesh": {
+            "file": "right-4-mesh.gz",
+            "bytes": 1097263,
+            "sha256": "42ba0d7a0314883aae49bd4ad1ce06559ff4b3010b9a481e1feb808d873723b0",
+            "decodedSHA256": "0e19aaecdec8a3b96906a7080e031899951772c264b6915c253f335f7af116f1",
+            "vertices": 99078,
+            "triangles": 198152
+          }
+        },
+        {
+          "code": 5,
+          "name": "Right jugular vein",
+          "color": [
+            87,
+            201,
+            245
+          ],
+          "voxelCount": 158841,
+          "focus": [
+            60,
+            262,
+            183
+          ],
+          "mesh": {
+            "file": "right-5-mesh.gz",
+            "bytes": 468236,
+            "sha256": "e2b1d728697f161b13d53ebd3011a4ed520f90044802543da3d38bd7b94b4279",
+            "decodedSHA256": "cf21ffaf99b5d168ddfa2a2b1e9291dc2e8b8acd94aa5e87b6aa0c4d51758d14",
+            "vertices": 42655,
+            "triangles": 85314
+          }
+        }
+      ],
+      "annotation_bounds": [
+        {
+          "code": 1,
+          "name": "Right thyroid lobe",
+          "minimum_index": [
+            116,
+            212,
+            63
+          ],
+          "maximum_index": [
+            377,
+            372,
+            339
+          ],
+          "touches_volume_boundary": false
+        },
+        {
+          "code": 4,
+          "name": "Right carotid artery",
+          "minimum_index": [
+            58,
+            218,
+            25
+          ],
+          "maximum_index": [
+            200,
+            294,
+            336
+          ],
+          "touches_volume_boundary": false
+        },
+        {
+          "code": 5,
+          "name": "Right jugular vein",
+          "minimum_index": [
+            12,
+            236,
+            73
+          ],
+          "maximum_index": [
+            115,
+            291,
+            329
+          ],
+          "touches_volume_boundary": false
+        }
+      ]
+    }
+  ],
+  "study_level_records": [
+    {
+      "id": "segthy-001-left-label-1",
+      "kind": "model",
+      "local_path": "web/anatomy/segthy-001/left-1-mesh.gz",
+      "sha256": "7a2f5a4de07389988cd87023261942df05e2662e7e6ad8e23c5effeb4b2f89d2",
+      "source_case": "001_P1_1_left",
+      "source_label": 1,
+      "label_in_package": "Left thyroid lobe",
+      "label_evidence": "authors_US_readme_thyroid_code_1_and_filename_side",
+      "investigation_ids": [
+        "ra.ultrasound-thyroid",
+        "us.soft-tissue-neck"
+      ],
+      "structure_ids": [],
+      "requirement_coverage": {},
+      "status": "study_level_context_only",
+      "representation": "source_label_0.5_interface",
+      "vertices": 186249,
+      "triangles": 372670,
+      "anatomical_review": "pending_not_a_radiologist_review",
+      "reason": "This closed manual-label surface is a source annotation envelope. It does not identify the full actual obtained clinical extent, true capsule, vessel wall/lumen, every resolved tissue interface, or independently named subregions."
+    },
+    {
+      "id": "segthy-001-left-label-2",
+      "kind": "model",
+      "local_path": "web/anatomy/segthy-001/left-2-mesh.gz",
+      "sha256": "05783ea8646dfd61c4c470840a7167e8551d47c786474277bfc7594bccf3bf3d",
+      "source_case": "001_P1_1_left",
+      "source_label": 2,
+      "label_in_package": "Left carotid artery",
+      "label_evidence": "pinned_distribution_US_class_key_correlated_with_authors_US_and_MRI_readmes",
+      "investigation_ids": [
+        "ra.ultrasound-thyroid",
+        "us.soft-tissue-neck"
+      ],
+      "structure_ids": [],
+      "requirement_coverage": {},
+      "status": "study_level_context_only",
+      "representation": "source_label_0.5_interface",
+      "vertices": 82872,
+      "triangles": 165740,
+      "anatomical_review": "pending_not_a_radiologist_review",
+      "reason": "This closed manual-label surface is a source annotation envelope. It does not identify the full actual obtained clinical extent, true capsule, vessel wall/lumen, every resolved tissue interface, or independently named subregions."
+    },
+    {
+      "id": "segthy-001-left-label-3",
+      "kind": "model",
+      "local_path": "web/anatomy/segthy-001/left-3-mesh.gz",
+      "sha256": "c17103bb81d9eea0144a4adb1f53057392427c1dae36e11178d1206e7790a6df",
+      "source_case": "001_P1_1_left",
+      "source_label": 3,
+      "label_in_package": "Left jugular vein",
+      "label_evidence": "pinned_distribution_US_class_key_correlated_with_authors_US_and_MRI_readmes",
+      "investigation_ids": [
+        "ra.ultrasound-thyroid",
+        "us.soft-tissue-neck"
+      ],
+      "structure_ids": [],
+      "requirement_coverage": {},
+      "status": "study_level_context_only",
+      "representation": "source_label_0.5_interface",
+      "vertices": 108174,
+      "triangles": 216344,
+      "anatomical_review": "pending_not_a_radiologist_review",
+      "reason": "This closed manual-label surface is a source annotation envelope. It does not identify the full actual obtained clinical extent, true capsule, vessel wall/lumen, every resolved tissue interface, or independently named subregions."
+    },
+    {
+      "id": "segthy-001-left-native-ultrasound",
+      "kind": "native_source_study",
+      "local_path": "web/anatomy/segthy-001/manifest.json",
+      "sha256": "d054557d2c5e6230c49659c23812a4f91d2d044ffc43d4f4b31aca88b0f5e440",
+      "source_case": "001_P1_1_left",
+      "modality": "Ultrasound",
+      "investigation_ids": [
+        "ra.ultrasound-thyroid",
+        "us.soft-tissue-neck"
+      ],
+      "structure_ids": [],
+      "requirement_coverage": {},
+      "status": "study_level_context_only",
+      "source_image_payload_sha256": "a121ae56daad64b91183190faa08dc53fa71a27608e41919034076fc4538b293",
+      "source_mask_payload_sha256": "a77aa43696526e6167445ddbc72a99d300390c99f312740e4a673b1072e6cf87",
+      "intensity_label_pairs": 81458460,
+      "reason": "A native acquired volunteer sweep is an example of ultrasound anatomy. Its presence is not a clinical survey of the reader’s patient, complete gland/neck extent, nodule features, pathology, Doppler, compressibility, motion, or vessel patency. native_source_study is an audit classification, not a new asset-ledger kind."
+    },
+    {
+      "id": "segthy-001-right-label-1",
+      "kind": "model",
+      "local_path": "web/anatomy/segthy-001/right-1-mesh.gz",
+      "sha256": "13cf3018356181db75471323bf84320c9c467776d34b0ca1eb267f21e2d2a54b",
+      "source_case": "001_P1_1_right",
+      "source_label": 1,
+      "label_in_package": "Right thyroid lobe",
+      "label_evidence": "authors_US_readme_thyroid_code_1_and_filename_side",
+      "investigation_ids": [
+        "ra.ultrasound-thyroid",
+        "us.soft-tissue-neck"
+      ],
+      "structure_ids": [],
+      "requirement_coverage": {},
+      "status": "study_level_context_only",
+      "representation": "source_label_0.5_interface",
+      "vertices": 247725,
+      "triangles": 496394,
+      "anatomical_review": "pending_not_a_radiologist_review",
+      "reason": "This closed manual-label surface is a source annotation envelope. It does not identify the full actual obtained clinical extent, true capsule, vessel wall/lumen, every resolved tissue interface, or independently named subregions."
+    },
+    {
+      "id": "segthy-001-right-label-4",
+      "kind": "model",
+      "local_path": "web/anatomy/segthy-001/right-4-mesh.gz",
+      "sha256": "42ba0d7a0314883aae49bd4ad1ce06559ff4b3010b9a481e1feb808d873723b0",
+      "source_case": "001_P1_1_right",
+      "source_label": 4,
+      "label_in_package": "Right carotid artery",
+      "label_evidence": "pinned_distribution_US_class_key_correlated_with_authors_US_and_MRI_readmes",
+      "investigation_ids": [
+        "ra.ultrasound-thyroid",
+        "us.soft-tissue-neck"
+      ],
+      "structure_ids": [],
+      "requirement_coverage": {},
+      "status": "study_level_context_only",
+      "representation": "source_label_0.5_interface",
+      "vertices": 99078,
+      "triangles": 198152,
+      "anatomical_review": "pending_not_a_radiologist_review",
+      "reason": "This closed manual-label surface is a source annotation envelope. It does not identify the full actual obtained clinical extent, true capsule, vessel wall/lumen, every resolved tissue interface, or independently named subregions."
+    },
+    {
+      "id": "segthy-001-right-label-5",
+      "kind": "model",
+      "local_path": "web/anatomy/segthy-001/right-5-mesh.gz",
+      "sha256": "e2b1d728697f161b13d53ebd3011a4ed520f90044802543da3d38bd7b94b4279",
+      "source_case": "001_P1_1_right",
+      "source_label": 5,
+      "label_in_package": "Right jugular vein",
+      "label_evidence": "pinned_distribution_US_class_key_correlated_with_authors_US_and_MRI_readmes",
+      "investigation_ids": [
+        "ra.ultrasound-thyroid",
+        "us.soft-tissue-neck"
+      ],
+      "structure_ids": [],
+      "requirement_coverage": {},
+      "status": "study_level_context_only",
+      "representation": "source_label_0.5_interface",
+      "vertices": 42655,
+      "triangles": 85314,
+      "anatomical_review": "pending_not_a_radiologist_review",
+      "reason": "This closed manual-label surface is a source annotation envelope. It does not identify the full actual obtained clinical extent, true capsule, vessel wall/lumen, every resolved tissue interface, or independently named subregions."
+    },
+    {
+      "id": "segthy-001-right-native-ultrasound",
+      "kind": "native_source_study",
+      "local_path": "web/anatomy/segthy-001/manifest.json",
+      "sha256": "d054557d2c5e6230c49659c23812a4f91d2d044ffc43d4f4b31aca88b0f5e440",
+      "source_case": "001_P1_1_right",
+      "modality": "Ultrasound",
+      "investigation_ids": [
+        "ra.ultrasound-thyroid",
+        "us.soft-tissue-neck"
+      ],
+      "structure_ids": [],
+      "requirement_coverage": {},
+      "status": "study_level_context_only",
+      "source_image_payload_sha256": "168328e09b717340382e9e6f7b36e2eb9103c249c63b271f8be11311f11f07f0",
+      "source_mask_payload_sha256": "3ab8a9eb4d554c072a5983ed51cfbb5996ff88631b69e8bf21ebeeb4aa67f3fa",
+      "intensity_label_pairs": 79352064,
+      "reason": "A native acquired volunteer sweep is an example of ultrasound anatomy. Its presence is not a clinical survey of the reader’s patient, complete gland/neck extent, nodule features, pathology, Doppler, compressibility, motion, or vessel patency. native_source_study is an audit classification, not a new asset-ledger kind."
+    }
+  ],
+  "withheld_lobe_requirements": [
+    {
+      "requirement_id": "thyroid.left_thyroid_lobe.full_actual_obtained_extent",
+      "decision": "withheld",
+      "reason": "All annotation vertices and labels are preserved; annotation completeness and non-clipping do not prove full actual obtained lobe extent or resolve unacquired/under-annotated tissue."
+    },
+    {
+      "requirement_id": "thyroid.left_thyroid_lobe.superior_mid_inferior_regions",
+      "decision": "withheld",
+      "reason": "No separate superior/mid/inferior labels or study-specific region boundaries."
+    },
+    {
+      "requirement_id": "thyroid.left_thyroid_lobe.anterior_posterior_medial_lateral_boundaries",
+      "decision": "withheld",
+      "reason": "The source labels a whole lobe. A closed annotation envelope does not independently identify every directional anatomical boundary."
+    },
+    {
+      "requirement_id": "thyroid.left_thyroid_lobe.actual_source_parenchymal_components",
+      "decision": "withheld",
+      "reason": "No separately named or delineated intraparenchymal components."
+    },
+    {
+      "requirement_id": "thyroid.left_thyroid_lobe.true_capsular_and_perithyroidal_interface",
+      "decision": "withheld",
+      "reason": "No true capsule or perithyroidal-tissue annotation; a class boundary is not proof of that interface."
+    },
+    {
+      "requirement_id": "thyroid.left_thyroid_lobe.encountered_variant_or_treated_tissue",
+      "decision": "withheld",
+      "reason": "Healthy-volunteer source does not identify variant or treated tissue."
+    },
+    {
+      "requirement_id": "thyroid.left_thyroid_lobe.source_unresolved_extent",
+      "decision": "withheld",
+      "reason": "The unsegmented/background class cannot identify tissue that is unacquired or unresolved."
+    },
+    {
+      "requirement_id": "thyroid.right_thyroid_lobe.full_actual_obtained_extent",
+      "decision": "withheld",
+      "reason": "All annotation vertices and labels are preserved; annotation completeness and non-clipping do not prove full actual obtained lobe extent or resolve unacquired/under-annotated tissue."
+    },
+    {
+      "requirement_id": "thyroid.right_thyroid_lobe.superior_mid_inferior_regions",
+      "decision": "withheld",
+      "reason": "No separate superior/mid/inferior labels or study-specific region boundaries."
+    },
+    {
+      "requirement_id": "thyroid.right_thyroid_lobe.anterior_posterior_medial_lateral_boundaries",
+      "decision": "withheld",
+      "reason": "The source labels a whole lobe. A closed annotation envelope does not independently identify every directional anatomical boundary."
+    },
+    {
+      "requirement_id": "thyroid.right_thyroid_lobe.actual_source_parenchymal_components",
+      "decision": "withheld",
+      "reason": "No separately named or delineated intraparenchymal components."
+    },
+    {
+      "requirement_id": "thyroid.right_thyroid_lobe.true_capsular_and_perithyroidal_interface",
+      "decision": "withheld",
+      "reason": "No true capsule or perithyroidal-tissue annotation; a class boundary is not proof of that interface."
+    },
+    {
+      "requirement_id": "thyroid.right_thyroid_lobe.encountered_variant_or_treated_tissue",
+      "decision": "withheld",
+      "reason": "Healthy-volunteer source does not identify variant or treated tissue."
+    },
+    {
+      "requirement_id": "thyroid.right_thyroid_lobe.source_unresolved_extent",
+      "decision": "withheld",
+      "reason": "The unsegmented/background class cannot identify tissue that is unacquired or unresolved."
+    }
+  ],
+  "other_withheld_coverage": [
+    "isthmus and ectopic tissue are not separately labelled",
+    "no nodule/TI-RADS/pathology-example bindings from healthy anatomy",
+    "no nodal survey, maps, hilum, cortex, or perinodal interface bindings",
+    "no distinction of carotid branches or vessel wall/lumen; no Doppler, patency, motion or compressibility claims",
+    "no salivary-gland or lesion bindings for the descriptor-only neck report",
+    "no whole-neck, full-gland, merged bilateral model, or MRI-to-ultrasound claim"
+  ],
+  "implementation": {
+    "central_asset_ledger_changed": false,
+    "requirement_inventory_changed": false,
+    "reporting_or_assertion_data_changed": false,
+    "UI_or_server_changed": false,
+    "registration_boundary": "Parent’s native-study integration may show this source as limited context. These audit records do not add schema kinds, leaf bindings or approval to the clinical evidence ledger."
+  }
+}

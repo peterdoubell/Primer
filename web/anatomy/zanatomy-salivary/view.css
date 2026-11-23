@@ -1,0 +1,17 @@
+body { margin: 0; }
+main { max-width: 85rem; margin: auto; padding: clamp(.75rem,2.5vw,2rem); }
+.views { display: grid; grid-template-columns: repeat(auto-fit,minmax(min(100%,28rem),1fr)); gap: 1.2rem; }
+figure { margin: 0; }
+.views section { min-width: 0; }
+#section { width: 100%; height: clamp(230px,30vw,425px); display: block; background:#101b24; }
+#section-controls, #presets { display: block; }
+#section-controls label { display: block; margin:.55rem 0; }
+#section-controls select, #section-controls input { max-width:100%; }
+#position { display:block;width:100%; }
+.camera { display:grid;grid-template-columns:auto 1fr;align-items:center;gap:.35rem; }
+.camera input { width:100%; }
+.buttons, #cut-key { display:flex;flex-wrap:wrap;gap:.35rem 1rem; }
+#cut-key { list-style:none; padding:0; }
+#cut-key i { display:inline-block; width:.8rem;height:.8rem; margin-right:.3rem; border-radius:50%; }
+fieldset { min-width:0; }
+details { margin-top:1rem; }

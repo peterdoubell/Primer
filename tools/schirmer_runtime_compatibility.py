@@ -55,6 +55,8 @@ def before_schirmer_bytes(path, raw, allow_older=False):
 
 
 def before_schirmer_reference_fields(identifier, fields):
+    from tools.schirmer_navigation_compatibility import before_schirmer_navigation_reference_fields
+    fields = before_schirmer_navigation_reference_fields(identifier, fields)
     from tools.nextbrain_runtime_compatibility import before_nextbrain_reference_fields
     fields = before_nextbrain_reference_fields(identifier, fields)
     import copy
