@@ -43,12 +43,16 @@ def test_original_publisher_bytes_pixels_and_separate_source_panel_roles():
 def test_only_the_actual_neck_report_gets_the_photographs_and_keeps_segthy():
     from primer.server import app
     registered = source_native_inspectors.references()
-    assert [row['id'] for row in registered[source.NECK]] == ['segthy-001', source.IDENTIFIER, 'zanatomy-salivary']
+    assert [row['id'] for row in registered[source.NECK]] == [
+        'segthy-001', source.IDENTIFIER, 'zanatomy-salivary',
+        'regional-node-us-2026-fig4ab', 'periauricular-node-us-2026-fig14']
     assert [row['id'] for row in registered['ra.ultrasound-thyroid']] == ['segthy-001']
     with TestClient(app) as client:
         ref = client.get('/api/radiology/modules/' + source.NECK).json()['radiology_reference']
         assert ref['descriptor_only'] is True
-        assert [row['id'] for row in ref['source_native_inspectors']] == ['segthy-001', source.IDENTIFIER, 'zanatomy-salivary']
+        assert [row['id'] for row in ref['source_native_inspectors']] == [
+        'segthy-001', source.IDENTIFIER, 'zanatomy-salivary',
+        'regional-node-us-2026-fig4ab', 'periauricular-node-us-2026-fig14']
         card = ref['source_native_inspectors'][1]
         assert card['modality'] == 'Ultrasound photographs' and card['photographic_figures'] == source.figures()
         assert card['structure_ids'] == card['requirement_coverage'] == []
@@ -144,7 +148,9 @@ def test_historical_projection_keeps_segthy_and_rejects_an_altered_salivary_card
     current = deepcopy(source_native_inspectors.references())
     before = inverse.before_salivary_bindings(current)
     assert [row['id'] for row in before[source.NECK]] == ['segthy-001']
-    assert [row['id'] for row in current[source.NECK]] == ['segthy-001', source.IDENTIFIER, 'zanatomy-salivary']
+    assert [row['id'] for row in current[source.NECK]] == [
+        'segthy-001', source.IDENTIFIER, 'zanatomy-salivary',
+        'regional-node-us-2026-fig4ab', 'periauricular-node-us-2026-fig14']
     card = current[source.NECK][1]
     if change == 'caption': card['caption'] += ' Extent approved.'
     elif change == 'duplicate': current[source.NECK].append(deepcopy(card))

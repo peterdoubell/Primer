@@ -4410,10 +4410,11 @@ async def radiology_image_delivery(asset: str, request: Request):
     with open(os.path.join(ROOT, "data/radiology/radiology-open-images.json"), encoding="utf-8") as source:
         registry = json.load(source)
     from .salivary_ultrasound_reference import SRC as salivary_src, figures as salivary_figures
+    from .cervical_node_figures import by_url as published_node_figures
     if url == salivary_src:
         salivary_figures()  # Verify the independent photographic source before delivery.
     elif not any(row.get("src") == url or row.get("original_publication_pdf", {}).get("src") == url
-                 for rows in registry.values() for row in rows):
+                 for rows in registry.values() for row in rows) and url not in published_node_figures():
         return JSONResponse({"detail": "Unknown source image"}, status_code=404)
     if os.environ.get("VERCEL"):
         from urllib.parse import quote, urlencode
