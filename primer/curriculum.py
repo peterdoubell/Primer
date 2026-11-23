@@ -52,6 +52,13 @@ ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 CURRICULUM_DIR = os.path.join(ROOT, "data", "curriculum")
 ILLUSTRATION_ROOT = os.path.join(ROOT, "web", "illustrations")
 ILLUSTRATION_MANIFEST = os.path.join(ROOT, "data", "lesson-illustrations.json")
+# Registered manuscript originals retain their native width and source filenames.
+NATIVE_SOURCE_ILLUSTRATION_URLS = frozenset({
+    "/app/illustrations/address-drafts/nicolay-1.webp",
+    "/app/illustrations/address-drafts/nicolay-2.webp",
+    "/app/illustrations/address-drafts/hay-1.webp",
+    "/app/illustrations/address-drafts/hay-2.webp",
+})
 
 
 def _webp_dimensions(path: str):
@@ -90,7 +97,8 @@ def _discover_lesson_illustrations():
         images = {}
         for url, record in records.items():
             if (len(url) > 256 or not url.startswith("/app/illustrations/")
-                    or not url.endswith(("-800.webp", "-1600.webp"))
+                    or (not url.endswith(("-800.webp", "-1600.webp"))
+                        and url not in NATIVE_SOURCE_ILLUSTRATION_URLS)
                     or not re.fullmatch(r"[a-z0-9/-]+", url.removeprefix("/app/illustrations/").removesuffix(".webp"))
                     or any(part in ("", ".", "..") for part in url.split("/")[1:])
                     or not isinstance(record, dict)
