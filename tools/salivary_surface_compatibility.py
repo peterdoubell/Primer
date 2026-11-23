@@ -5,9 +5,9 @@ from pathlib import Path
 from tools.colonvessels_compatibility import _restore
 
 PROOF = Path(__file__).resolve().parents[1] / 'docs/zanatomy-salivary/runtime-inverse.json'
-PIN = '8c73845c3462c61ee802e20ccc28a702473667f67a0242e1ca537cb1c70cc3cf'
+PIN = '049e8465994aec3637d243b979088bdd256ac3ba514a232e31169d3a1c520b6f'
 PATHS = {'docs/radiology-fidelity-scope.json', 'primer/module_media.py', 'primer/server.py',
-         'primer/source_native_inspectors.py', 'vercel.json', 'web/app.js'}
+         'primer/source_native_inspectors.py', 'vercel.json', 'web/app.js', 'tests/test_spl_additional_reference.py'}
 
 
 def before_surface_bytes(path, raw):

@@ -164,5 +164,29 @@
         ]
       }
     }
+  },
+  "tests/test_spl_additional_reference.py": {
+    "before": "82ee9381363e56332d46e23c06f21116887634bb818c7e0cc73e0654fd00c8f7",
+    "after": "7b7ed1f3da44e816e58dc245a73b505ee3d2f245f1c68153fbd17ff25e96f9b3",
+    "changes": [
+      {
+        "start": 125,
+        "end": 126,
+        "before": "",
+        "after": "    from tools.salivary_surface_compatibility import before_surface_bindings, before_surface_lesson\n"
+      },
+      {
+        "start": 128,
+        "end": 130,
+        "before": "        current=curriculum.node(identifier)\n",
+        "after": "        # Check the recorded SPL lesson after undoing the later, independently reviewed atlas addition.\n        current=before_surface_lesson(identifier,curriculum.node(identifier))\n"
+      },
+      {
+        "start": 137,
+        "end": 138,
+        "before": "    original=references();restored=before_additional_bindings(original)\n",
+        "after": "    original=before_surface_bindings(references());restored=before_additional_bindings(original)\n"
+      }
+    ]
   }
 }

@@ -123,9 +123,11 @@ def test_exact_lesson_additions_and_binding_projection_reject_drift():
     from primer.curriculum import Curriculum
     from primer.source_native_inspectors import references
     from tools.spl_additional_runtime_compatibility import before_additional_lesson_fields,before_additional_bindings
+    from tools.salivary_surface_compatibility import before_surface_bindings, before_surface_lesson
     proof=reviewed();curriculum=Curriculum()
     for identifier,row in proof['lessons'].items():
-        current=curriculum.node(identifier)
+        # Check the recorded SPL lesson after undoing the later, independently reviewed atlas addition.
+        current=before_surface_lesson(identifier,curriculum.node(identifier))
         restored=before_additional_lesson_fields(identifier,current)
         assert restored['lesson_media']==row['fields']['lesson_media']['before']
         assert before_additional_lesson_fields(identifier,restored)==restored
@@ -133,7 +135,7 @@ def test_exact_lesson_additions_and_binding_projection_reject_drift():
         addition=next(item for item in changed['lesson_media']if item['kind']=='source-native-inspectors')
         addition['title']+=' unreviewed'
         with pytest.raises(ValueError):before_additional_lesson_fields(identifier,changed)
-    original=references();restored=before_additional_bindings(original)
+    original=before_surface_bindings(references());restored=before_additional_bindings(original)
     assert set(original)-set(restored)=={'ra.mri-sella','ra.mri-neck-spaces'}
     assert all(item['id']!=source.IDENTIFIER for rows in restored.values()for item in rows)
 
