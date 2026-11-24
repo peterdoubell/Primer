@@ -109852,6 +109852,82 @@
         "status": "pending",
         "reason": "A source label boundary is not an independently validated anatomical boundary; no radiologist has reviewed this binding."
       }
+    },
+    {
+      "id": "bp3d-biliary-4.3-FJ3079-common-hepatic",
+      "kind": "model",
+      "name": "Common hepatic duct",
+      "local_path": "web/anatomy/bp3d-biliary-4.3/FJ3079-common-hepatic.mesh.gz",
+      "sha256": "c4c01cd282a95bf8ce6f040dc266f19b078f3f62a08f73aa28a065c37818b660",
+      "regions": [
+        "abdomen"
+      ],
+      "investigation_ids": [
+        "ra.ultrasound-gallbladder"
+      ],
+      "structure_ids": [
+        "gallbladder.ducts.common_hepatic_duct"
+      ],
+      "source_context": {
+        "setting": "unknown",
+        "population": {
+          "life_stage": "adult",
+          "sex": "male"
+        },
+        "depicted_state": "curated_source_reference_not_approved_normal_anatomy",
+        "extent": "complete"
+      },
+      "source": {
+        "url": "https://lifesciencedb.jp/bp3d/",
+        "license": {
+          "name": "CC BY-SA 2.1 Japan",
+          "url": "https://creativecommons.org/licenses/by-sa/2.1/jp/",
+          "commercial_use": true,
+          "redistribution": true,
+          "review_status": "verified",
+          "reviewed_at": "2026-11-19",
+          "evidence_path": "docs/carotid-obstruction-source-review/upstream-bodyparts-license.html",
+          "evidence_sha256": "63d46abcf1b112da9f2d587677d0f4edb7d1654a3c9a8a2bfd1c3d080340512e",
+          "attribution": "BodyParts3D, Copyright © 2008 Database Center for Life Science (DBCLS), licensed under CC BY-SA 2.1 Japan",
+          "conditions": "Attribution and share-alike: adaptations are distributed under the same licence."
+        }
+      },
+      "geometry": {
+        "format": "gzip: float32 positions, then uint32 triangle indices; counts from the source manifest",
+        "vertices": 298,
+        "triangles": 574,
+        "source_label": "Common hepatic duct",
+        "source_label_code": "FJ3079",
+        "source_frame": "bodyparts3d",
+        "source_frame_axes_basis": "anatomy",
+        "share_of_vertices_right_of_source_midline": 1.0,
+        "centroid_mm_right_of_source_midline": 21.91,
+        "source_object_part": {
+          "object": "FJ3079",
+          "part": "above the cystic duct junction",
+          "source_object_sha256": "a6645963ec0b29670a2bdefb2521dd74f4b1919890bb7a29d348b853611304c9",
+          "division_record": "docs/bp3d-biliary-duct-partition-20261124/review.json",
+          "division_tolerance_mm": 3,
+          "triangles_of_source_object": 1364
+        }
+      },
+      "requirement_coverage": {
+        "gallbladder.ducts.common_hepatic_duct": {
+          "extent": "partial",
+          "basis": "Source label “Common hepatic duct” of the BodyParts3D 4.3 objects (one adult male reference body), shown in this investigation’s reader. The label names this part. One source-labelled mesh; the full extent and boundaries of the named anatomy are not established. The mesh is the part of source object FJ3079 above the cystic duct junction. This project divided the object there on 2026-11-24, to within about 3 mm, without changing a triangle (docs/bp3d-biliary-duct-partition-20261124/review.json). The source’s label does not fit the part below the junction, which is not bound. No radiologist has reviewed the division."
+        }
+      },
+      "visual_review": {
+        "status": "source_checked",
+        "reviewed_at": "2026-11-24",
+        "evidence_path": "docs/bp3d-biliary-duct-partition-20261124/review.json",
+        "scope": "A test compares the two delivered parts of object FJ3079 with the kept source object: together they hold exactly its 1,364 triangles, each once, with its float32 coordinates.",
+        "sha256": "c4c01cd282a95bf8ce6f040dc266f19b078f3f62a08f73aa28a065c37818b660"
+      },
+      "anatomical_review": {
+        "status": "pending",
+        "reason": "A source label boundary is not an independently validated anatomical boundary; no radiologist has reviewed this binding."
+      }
     }
   ],
   "reference_rights_assets": [

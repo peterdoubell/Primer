@@ -50,8 +50,13 @@ def test_four_exact_stroke_parent_roles_are_context_with_no_requirement_bindings
     assert [row['source_code'] for row in review['matches']] == [12, 2, 16, 6]
     assert all(any(part.endswith('.actual_tissue_extent_without_generic_territory_mask_claim')
                    for part in row['required_parts_retained_unbound']) for row in review['matches'])
+    from tools.anatomy_sources.bind_biliary_duct_part import before_biliary_duct_part_record
+
     for path, record in review['unchanged_evidence_files'].items():
         raw = (ROOT / path).read_bytes()
+        if path == 'data/radiology/radiology-asset-evidence.json':
+            # The review of 2026-11-22 pins the ledger of its day; the record added on 2026-11-24 is peeled first.
+            raw = before_biliary_duct_part_record(raw)
         assert len(raw) == record['bytes'] and hashlib.sha256(raw).hexdigest() == record['sha256']
 
 

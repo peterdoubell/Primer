@@ -226,8 +226,10 @@ def test_every_other_mesh_of_the_readers_is_listed_with_its_reason():
     recorded = {row['mesh'] for row in review['accepted']}
     assert recorded | set(review['not_recorded']) == set(meshes) and not recorded & set(review['not_recorded'])
     recorded_paths = {asset['local_path'] for asset in assets.values()}
+    later = 'bp3d-biliary-4.3/FJ3079-common-hepatic.mesh.gz'   # recorded by the pass of 2026-11-24, not by this review
     for key, reason in review['not_recorded'].items():
-        assert reason and 'web/anatomy/' + key not in recorded_paths
+        assert reason and ('web/anatomy/' + key not in recorded_paths or key == later)
+    assert 'web/anatomy/' + later in recorded_paths and 'docs/biliary-duct-part-binding-20261124' in review['not_recorded'][later]
     for key, mesh in meshes.items():
         reason = review['not_recorded'].get(key, '')
         if mesh['reader'] == 'hyperpic-venous' and key not in recorded:
@@ -323,7 +325,7 @@ def test_source_objects_whose_labels_disagree_with_their_geometry_are_corrected_
     assert {'bodyparts3d/%s.bin' % code for code in ('FJ2823', 'FJ2824', 'FJ3102', 'FJ3122')} <= recorded
     assert 'bodyparts3d/FJ3082.bin' not in recorded and 'lumen' in review['not_recorded']['bodyparts3d/FJ3082.bin']
     # The object labelled common hepatic duct runs far below the cystic duct. The reader shows it in two parts
-    # since 2026-11-24; their names come from this project's division, not from the source, so neither is bound.
+    # since 2026-11-24; this review records neither. A later pass binds the upper part, which the source's own label fits.
     cystic = bounds('bp3d-biliary-4.3/FJ3080.mesh.gz', meshes)
     upper, lower = (bounds('bp3d-biliary-4.3/FJ3079-common-%s.mesh.gz' % part, meshes) for part in ('hepatic', 'bile'))
     assert upper[5] - lower[4] > 80 and cystic[4] - lower[4] > 55
@@ -417,9 +419,13 @@ def test_each_bound_bile_duct_tributary_lies_inside_the_segment_it_is_bound_to()
 
 
 def test_body_reader_model_records_have_an_exact_inverse_and_only_add_records():
+    from tools.anatomy_sources.bind_biliary_duct_part import before_biliary_duct_part_record
+
     receipt = json.loads(tool.RECEIPT.read_text())
-    raw = tool.EVIDENCE.read_bytes()
+    current = tool.EVIDENCE.read_bytes()
+    raw = before_biliary_duct_part_record(current)   # the pass of 2026-11-24 is a newer link, peeled first
     assert second.sha(raw) == receipt['after_sha256'] and receipt['path'] == PATH
+    assert tool.before_body_reader_model_records(current) == tool.before_body_reader_model_records(raw)
     before = tool.before_body_reader_model_records(raw)
     assert second.sha(before) == receipt['before_sha256']
     assert tool.before_body_reader_model_records(before) == before

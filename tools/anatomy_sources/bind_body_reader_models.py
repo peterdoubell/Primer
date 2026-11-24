@@ -444,6 +444,8 @@ def bind():
 
 def before_body_reader_model_records(raw):
     """Exact earlier bytes of the evidence file; any other state is returned unchanged."""
+    from tools.anatomy_sources.bind_biliary_duct_part import before_biliary_duct_part_record
+    raw = before_biliary_duct_part_record(raw)  # the newer link is peeled first
     receipt = json.loads(RECEIPT.read_text())
     if second.sha(raw) != receipt['after_sha256']:
         return raw

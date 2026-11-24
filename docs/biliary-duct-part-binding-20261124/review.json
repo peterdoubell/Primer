@@ -1,0 +1,302 @@
+{
+ "reviewed_at": "2026-11-24",
+ "reviewer": "Claude review of the divided source object’s label and the requirement leaves; not a radiologist review",
+ "decision": "Bind the two duct parts of BodyParts3D 4.3 object FJ3079. Requested by the project owner on 2026-11-24. One part binds under the rules of the body-reader pass; the other does not.",
+ "rule": "A label mesh is recorded and bound when the reader that shows it is shown in the requirement’s investigation, its own source label names the requirement (own words, another name, or one member of a group), the leaf is the structure itself, the part the label names, the structure’s own body, or one member of a named group, the requirement is anatomy and not an example of pathology, a lumen leaf comes from a source that segments the opacified lumen, the source’s population fits the investigation, the object lies where its label says and is no wider than its label, and a stated side agrees with the requirement and with where the decoded mesh lies: a body side against the source midline and the mirror mesh, an organ half against its named partner. A whole is not bound to its parts, and a part is not bound to its whole. Coverage is always partial.",
+ "readers": {
+  "bp3d-biliary-4.3": {
+   "kind": "surfaces",
+   "atlas": "bodyparts3d-4.3",
+   "directory": "bp3d-biliary-4.3",
+   "frame": "bodyparts3d",
+   "label_before_dot": true,
+   "investigations": [
+    "ra.biliary-duct-pathology",
+    "ra.ultrasound-gallbladder"
+   ],
+   "shown_by": "web/app.js renderBiliaryAtlasStudy links the biliary atlas from these investigations."
+  },
+  "bodyparts3d": {
+   "kind": "bodyparts3d",
+   "atlas": "bodyparts3d",
+   "directory": "bodyparts3d",
+   "manifest": "bodyparts3d/manifest.json",
+   "frame": "bodyparts3d",
+   "regions": {
+    "liver": [
+     "ra.liver-lirads",
+     "ra.liver-masses"
+    ],
+    "renal": [
+     "ra.adrenal-lesions",
+     "ra.paediatric-renal-tumours",
+     "ra.renal-cysts-bosniak",
+     "ra.solid-renal-masses"
+    ],
+    "coronary": [
+     "ra.cardiac-masses",
+     "ra.cardiovascular-devices",
+     "ra.ct-cardiovascular-pearls",
+     "ra.ct-coronary",
+     "ra.mri-cardiomyopathy"
+    ],
+    "brain": [
+     "ra.acute-stroke",
+     "ra.brain-anatomy",
+     "ra.ct-traumatic-haemorrhage",
+     "ra.intracranial-haemorrhage",
+     "ra.intracranial-hypotension",
+     "ra.mri-brain-tumours",
+     "ra.mri-cns-enhancement",
+     "ra.mri-dementia",
+     "ra.mri-epilepsy",
+     "ra.mri-ms",
+     "ra.ultrasound-neonatal-brain",
+     "ra.venous-sinus-thrombosis"
+    ],
+    "prostate": []
+   },
+   "aliases": {
+    "heart": "coronary",
+    "kidney": "renal"
+   },
+   "shown_by": "The 3D tab shows the BodyParts3D region named by the investigation’s spatial-model family (web/radiology-detailed-anatomy.js ALIASES map heart to coronary and kidney to renal) when the investigation has no source anatomy reference of its own; ra.brain-anatomy names the BodyParts3D brain as its whole-brain context reference. The prostate investigation has its own source reference, so no investigation shows the prostate region."
+  }
+ },
+ "frames": {
+  "bodyparts3d": {
+   "axes_basis": "anatomy",
+   "right": "-x",
+   "unit_mm": 1.0,
+   "fit": "plane",
+   "midline_meshes": [
+    "bodyparts3d/FJ1730.bin",
+    "bodyparts3d/FJ1731.bin",
+    "bodyparts3d/FJ3139.bin"
+   ],
+   "labels": [
+    "third ventricle",
+    "fourth ventricle",
+    "prostate"
+   ],
+   "why": "BodyParts3D axes in millimetres with Z up. The liver’s right lobe (hepatovenous segments V to VIII) and the gallbladder lie at -X, and the ventricular wall and the circumflex artery at +X, so -X is the body’s right. The third and fourth ventricles and the prostate mark the midline from head to pelvis. The BodyParts3D 4.3 readers (biliary, dural, cardiac, thoracic) use the same coordinates: their gallbladder and atrial-wall meshes have exactly the centroids of the 4.0 meshes with the same identifiers."
+  }
+ },
+ "sources": {
+  "bodyparts3d-4.3": {
+   "title": "BodyParts3D 4.3 objects (one adult male reference body)",
+   "url": "https://lifesciencedb.jp/bp3d/",
+   "license": {
+    "name": "CC BY-SA 2.1 Japan",
+    "url": "https://creativecommons.org/licenses/by-sa/2.1/jp/",
+    "commercial_use": true,
+    "redistribution": true,
+    "review_status": "verified",
+    "reviewed_at": "2026-11-19",
+    "evidence_path": "docs/carotid-obstruction-source-review/upstream-bodyparts-license.html",
+    "evidence_sha256": "63d46abcf1b112da9f2d587677d0f4edb7d1654a3c9a8a2bfd1c3d080340512e",
+    "attribution": "BodyParts3D, Copyright © 2008 Database Center for Life Science (DBCLS), licensed under CC BY-SA 2.1 Japan",
+    "conditions": "Attribution and share-alike: adaptations are distributed under the same licence."
+   },
+   "source_context": {
+    "setting": "unknown",
+    "population": {
+     "life_stage": "adult",
+     "sex": "male"
+    },
+    "depicted_state": "curated_source_reference_not_approved_normal_anatomy",
+    "extent": "complete"
+   },
+   "visual_review": {
+    "bp3d-biliary-4.3": {
+     "status": "source_checked",
+     "reviewed_at": "2026-11-13",
+     "evidence_path": "web/anatomy/bp3d-biliary-4.3/provenance.json",
+     "scope": "The provenance record matches all 20 delivered objects with the previously reviewed original BodyParts3D 4.3 objects of the CRC-verified archive."
+    },
+    "bp3d-biliary-4.3/FJ3079-common-hepatic.mesh.gz": {
+     "status": "source_checked",
+     "reviewed_at": "2026-11-24",
+     "evidence_path": "docs/bp3d-biliary-duct-partition-20261124/review.json",
+     "scope": "A test compares the two delivered parts of object FJ3079 with the kept source object: together they hold exactly its 1,364 triangles, each once, with its float32 coordinates."
+    }
+   }
+  },
+  "bodyparts3d": {
+   "title": "BodyParts3D 4.0 atlas (one adult male reference body)",
+   "url": "https://dbarchive.biosciencedbc.jp/en/bodyparts3d/download.html",
+   "license": {
+    "name": "CC BY 4.0",
+    "url": "https://creativecommons.org/licenses/by/4.0/",
+    "commercial_use": true,
+    "redistribution": true,
+    "review_status": "verified",
+    "reviewed_at": "2026-11-19",
+    "evidence_path": "docs/body-reader-model-bindings-20261119/evidence/bodyparts3d-4.0-README_e.html",
+    "evidence_sha256": "f9a90b4d945ad0fe50db45c712e931aa54e52667187b30d7085b6cc394f40107",
+    "attribution": "BodyParts3D, © The Database Center for Life Science licensed under CC Attribution 4.0 International",
+    "conditions": "The official README (updated 25 February 2025) licenses the database under CC BY 4.0: use, redistribution and derivative works with attribution."
+   },
+   "source_context": {
+    "setting": "unknown",
+    "population": {
+     "life_stage": "adult",
+     "sex": "male"
+    },
+    "depicted_state": "curated_source_reference_not_approved_normal_anatomy",
+    "extent": "complete"
+   },
+   "visual_review": {
+    "bodyparts3d": {
+     "status": "pending",
+     "reason": "No review has compared this delivered mesh with its source object or with the requirement.",
+     "recorded_at": "2026-10-28",
+     "evidence_path": "web/anatomy/bodyparts3d/manifest.json",
+     "scope": "The manifest records each mesh’s source concept identifiers, source and derived file hashes and geometry counts; tools/build_detailed_anatomy.py reproduces the meshes from the official archive."
+    }
+   }
+  }
+ },
+ "regions": [
+  "abdomen",
+  "aorta",
+  "brain",
+  "heart",
+  "pelvis",
+  "thorax"
+ ],
+ "body_parts": [
+  "actual parenchymal territory",
+  "complete acquired renal extent",
+  "acquired whole renal extent",
+  "complete branch tree",
+  "complete surface",
+  "complete region",
+  "full covered course",
+  "complete covered course",
+  "complete reported region",
+  "acquired vessel lumen/course",
+  "acquired luminal extent",
+  "complete lumen",
+  "covered course",
+  "full actual acquired extent and unassessed limits",
+  "complete actual acquired extent and unassessed limits"
+ ],
+ "lumen_sources": {
+  "colonvessels": "On contrast-enhanced CT the surgeons’ vessel segmentation (manual, with some large vessels extracted semi-automatically) outlines the opacified blood column, which is the lumen; the source segments arteries on the arterial phase and veins on the venous phase, and the wall is not segmented separately."
+ },
+ "partners": {},
+ "population_limits": {
+  "ra.paediatric-renal-tumours": {
+   "life_stage": "immature",
+   "reason": "paediatric anatomy needs a paediatric source"
+  },
+  "ra.ultrasound-neonatal-brain": {
+   "life_stage": "immature",
+   "reason": "neonatal anatomy needs a neonatal source"
+  }
+ },
+ "unbound_sources": {
+  "kcl-cervix": "pregnancy population atlases; the cervical cancer requirements concern the non-pregnant cervix",
+  "hyperpic": "simulation boundaries: cut planes and the wall of the whole computational domain",
+  "totalsegmentator": "the source reviews limit the cardiac labels to CT context, and no thoracic ultrasound requirement names a lobe, the liver or the spleen as a whole",
+  "hva-ct": "both labels are whole venous systems, and the requirements name their parts"
+ },
+ "another_name_pairs": [],
+ "another_name_reasons": {},
+ "kind_of_pairs": [],
+ "kind_of_reasons": {},
+ "not_recorded": {
+  "bodyparts3d/FJ1730.bin": "Recorded or listed in the body-reader review of 2026-11-19 (docs/body-reader-model-bindings-20261119); this pass does not change it.",
+  "bodyparts3d/FJ1731.bin": "Recorded or listed in the body-reader review of 2026-11-19 (docs/body-reader-model-bindings-20261119); this pass does not change it.",
+  "bodyparts3d/FJ1767.bin": "Recorded or listed in the body-reader review of 2026-11-19 (docs/body-reader-model-bindings-20261119); this pass does not change it.",
+  "bodyparts3d/FJ1814.bin": "Recorded or listed in the body-reader review of 2026-11-19 (docs/body-reader-model-bindings-20261119); this pass does not change it.",
+  "bodyparts3d/FJ2038.bin": "Recorded or listed in the body-reader review of 2026-11-19 (docs/body-reader-model-bindings-20261119); this pass does not change it.",
+  "bodyparts3d/FJ2046.bin": "Recorded or listed in the body-reader review of 2026-11-19 (docs/body-reader-model-bindings-20261119); this pass does not change it.",
+  "bodyparts3d/FJ2414.bin": "Recorded or listed in the body-reader review of 2026-11-19 (docs/body-reader-model-bindings-20261119); this pass does not change it.",
+  "bodyparts3d/FJ2415.bin": "Recorded or listed in the body-reader review of 2026-11-19 (docs/body-reader-model-bindings-20261119); this pass does not change it.",
+  "bodyparts3d/FJ2416.bin": "Recorded or listed in the body-reader review of 2026-11-19 (docs/body-reader-model-bindings-20261119); this pass does not change it.",
+  "bodyparts3d/FJ2428.bin": "Recorded or listed in the body-reader review of 2026-11-19 (docs/body-reader-model-bindings-20261119); this pass does not change it.",
+  "bodyparts3d/FJ2438.bin": "Recorded or listed in the body-reader review of 2026-11-19 (docs/body-reader-model-bindings-20261119); this pass does not change it.",
+  "bodyparts3d/FJ2439.bin": "Recorded or listed in the body-reader review of 2026-11-19 (docs/body-reader-model-bindings-20261119); this pass does not change it.",
+  "bodyparts3d/FJ2631.bin": "Recorded or listed in the body-reader review of 2026-11-19 (docs/body-reader-model-bindings-20261119); this pass does not change it.",
+  "bodyparts3d/FJ2723.bin": "Recorded or listed in the body-reader review of 2026-11-19 (docs/body-reader-model-bindings-20261119); this pass does not change it.",
+  "bodyparts3d/FJ2737.bin": "Recorded or listed in the body-reader review of 2026-11-19 (docs/body-reader-model-bindings-20261119); this pass does not change it.",
+  "bodyparts3d/FJ2816.bin": "Recorded or listed in the body-reader review of 2026-11-19 (docs/body-reader-model-bindings-20261119); this pass does not change it.",
+  "bodyparts3d/FJ2817.bin": "Recorded or listed in the body-reader review of 2026-11-19 (docs/body-reader-model-bindings-20261119); this pass does not change it.",
+  "bodyparts3d/FJ2818.bin": "Recorded or listed in the body-reader review of 2026-11-19 (docs/body-reader-model-bindings-20261119); this pass does not change it.",
+  "bodyparts3d/FJ2819.bin": "Recorded or listed in the body-reader review of 2026-11-19 (docs/body-reader-model-bindings-20261119); this pass does not change it.",
+  "bodyparts3d/FJ2820.bin": "Recorded or listed in the body-reader review of 2026-11-19 (docs/body-reader-model-bindings-20261119); this pass does not change it.",
+  "bodyparts3d/FJ2821.bin": "Recorded or listed in the body-reader review of 2026-11-19 (docs/body-reader-model-bindings-20261119); this pass does not change it.",
+  "bodyparts3d/FJ2822.bin": "Recorded or listed in the body-reader review of 2026-11-19 (docs/body-reader-model-bindings-20261119); this pass does not change it.",
+  "bodyparts3d/FJ2823.bin": "Recorded or listed in the body-reader review of 2026-11-19 (docs/body-reader-model-bindings-20261119); this pass does not change it.",
+  "bodyparts3d/FJ2824.bin": "Recorded or listed in the body-reader review of 2026-11-19 (docs/body-reader-model-bindings-20261119); this pass does not change it.",
+  "bodyparts3d/FJ3082.bin": "Recorded or listed in the body-reader review of 2026-11-19 (docs/body-reader-model-bindings-20261119); this pass does not change it.",
+  "bodyparts3d/FJ3102.bin": "Recorded or listed in the body-reader review of 2026-11-19 (docs/body-reader-model-bindings-20261119); this pass does not change it.",
+  "bodyparts3d/FJ3122.bin": "Recorded or listed in the body-reader review of 2026-11-19 (docs/body-reader-model-bindings-20261119); this pass does not change it.",
+  "bodyparts3d/FJ3137.bin": "Recorded or listed in the body-reader review of 2026-11-19 (docs/body-reader-model-bindings-20261119); this pass does not change it.",
+  "bodyparts3d/FJ3139.bin": "Recorded or listed in the body-reader review of 2026-11-19 (docs/body-reader-model-bindings-20261119); this pass does not change it.",
+  "bodyparts3d/FJ3143.bin": "Recorded or listed in the body-reader review of 2026-11-19 (docs/body-reader-model-bindings-20261119); this pass does not change it.",
+  "bodyparts3d/FJ3144.bin": "Recorded or listed in the body-reader review of 2026-11-19 (docs/body-reader-model-bindings-20261119); this pass does not change it.",
+  "bodyparts3d/FJ3145.bin": "Recorded or listed in the body-reader review of 2026-11-19 (docs/body-reader-model-bindings-20261119); this pass does not change it.",
+  "bodyparts3d/FJ3146.bin": "Recorded or listed in the body-reader review of 2026-11-19 (docs/body-reader-model-bindings-20261119); this pass does not change it.",
+  "bodyparts3d/FJ3147.bin": "Recorded or listed in the body-reader review of 2026-11-19 (docs/body-reader-model-bindings-20261119); this pass does not change it.",
+  "bodyparts3d/FJ3149.bin": "Recorded or listed in the body-reader review of 2026-11-19 (docs/body-reader-model-bindings-20261119); this pass does not change it.",
+  "bodyparts3d/FJ3413.bin": "Recorded or listed in the body-reader review of 2026-11-19 (docs/body-reader-model-bindings-20261119); this pass does not change it.",
+  "bodyparts3d/FMA3840.bin": "Recorded or listed in the body-reader review of 2026-11-19 (docs/body-reader-model-bindings-20261119); this pass does not change it.",
+  "bodyparts3d/FMA3895.bin": "Recorded or listed in the body-reader review of 2026-11-19 (docs/body-reader-model-bindings-20261119); this pass does not change it.",
+  "bodyparts3d/FMA61819.bin": "Recorded or listed in the body-reader review of 2026-11-19 (docs/body-reader-model-bindings-20261119); this pass does not change it.",
+  "bodyparts3d/FMA67292.bin": "Recorded or listed in the body-reader review of 2026-11-19 (docs/body-reader-model-bindings-20261119); this pass does not change it.",
+  "bodyparts3d/FMA67944.bin": "Recorded or listed in the body-reader review of 2026-11-19 (docs/body-reader-model-bindings-20261119); this pass does not change it.",
+  "bp3d-biliary-4.3/FJ1883.mesh.gz": "Recorded or listed in the body-reader review of 2026-11-19 (docs/body-reader-model-bindings-20261119); this pass does not change it.",
+  "bp3d-biliary-4.3/FJ2817.mesh.gz": "Recorded or listed in the body-reader review of 2026-11-19 (docs/body-reader-model-bindings-20261119); this pass does not change it.",
+  "bp3d-biliary-4.3/FJ3071.mesh.gz": "Recorded or listed in the body-reader review of 2026-11-19 (docs/body-reader-model-bindings-20261119); this pass does not change it.",
+  "bp3d-biliary-4.3/FJ3072.mesh.gz": "Recorded or listed in the body-reader review of 2026-11-19 (docs/body-reader-model-bindings-20261119); this pass does not change it.",
+  "bp3d-biliary-4.3/FJ3079-common-bile.mesh.gz": "The lower part of object FJ3079 is common bile duct by the division of 2026-11-24. The source’s own label, “Common hepatic duct”, does not name it. Every requirement of the reader’s two investigations that names the common bile duct asks for a segment of it (supraduodenal, retroduodenal, intrapancreatic, intramural; the visible or the distal segment), its lumen, its wall or a margin. A whole is not bound to its parts, and a BodyParts3D surface shows neither lumen nor wall alone.",
+  "bp3d-biliary-4.3/FJ3080.mesh.gz": "Recorded or listed in the body-reader review of 2026-11-19 (docs/body-reader-model-bindings-20261119); this pass does not change it.",
+  "bp3d-biliary-4.3/FJ3088.mesh.gz": "Recorded or listed in the body-reader review of 2026-11-19 (docs/body-reader-model-bindings-20261119); this pass does not change it.",
+  "bp3d-biliary-4.3/FJ3089.mesh.gz": "Recorded or listed in the body-reader review of 2026-11-19 (docs/body-reader-model-bindings-20261119); this pass does not change it.",
+  "bp3d-biliary-4.3/FJ3090.mesh.gz": "Recorded or listed in the body-reader review of 2026-11-19 (docs/body-reader-model-bindings-20261119); this pass does not change it.",
+  "bp3d-biliary-4.3/FJ3096.mesh.gz": "Recorded or listed in the body-reader review of 2026-11-19 (docs/body-reader-model-bindings-20261119); this pass does not change it.",
+  "bp3d-biliary-4.3/FJ3103.mesh.gz": "Recorded or listed in the body-reader review of 2026-11-19 (docs/body-reader-model-bindings-20261119); this pass does not change it.",
+  "bp3d-biliary-4.3/FJ3104.mesh.gz": "Recorded or listed in the body-reader review of 2026-11-19 (docs/body-reader-model-bindings-20261119); this pass does not change it.",
+  "bp3d-biliary-4.3/FJ3105.mesh.gz": "Recorded or listed in the body-reader review of 2026-11-19 (docs/body-reader-model-bindings-20261119); this pass does not change it.",
+  "bp3d-biliary-4.3/FJ3108.mesh.gz": "Recorded or listed in the body-reader review of 2026-11-19 (docs/body-reader-model-bindings-20261119); this pass does not change it.",
+  "bp3d-biliary-4.3/FJ3109.mesh.gz": "Recorded or listed in the body-reader review of 2026-11-19 (docs/body-reader-model-bindings-20261119); this pass does not change it.",
+  "bp3d-biliary-4.3/FJ3110.mesh.gz": "Recorded or listed in the body-reader review of 2026-11-19 (docs/body-reader-model-bindings-20261119); this pass does not change it.",
+  "bp3d-biliary-4.3/FJ3123.mesh.gz": "Recorded or listed in the body-reader review of 2026-11-19 (docs/body-reader-model-bindings-20261119); this pass does not change it.",
+  "bp3d-biliary-4.3/FJ4526.mesh.gz": "Recorded or listed in the body-reader review of 2026-11-19 (docs/body-reader-model-bindings-20261119); this pass does not change it.",
+  "bp3d-biliary-4.3/FJ5812.mesh.gz": "Recorded or listed in the body-reader review of 2026-11-19 (docs/body-reader-model-bindings-20261119); this pass does not change it.",
+  "bp3d-biliary-4.3/FJ5819.mesh.gz": "Recorded or listed in the body-reader review of 2026-11-19 (docs/body-reader-model-bindings-20261119); this pass does not change it."
+ },
+ "candidates_not_bound": {
+  "gallbladder.ducts.common_bile_duct_visible_segment": "Names the segment an ultrasound examination shows; the mesh is the whole duct of the source object.",
+  "gallbladder.ducts.distal_common_bile_duct_if_seen": "Names the distal segment; the mesh is the whole duct of the source object.",
+  "biliary.duct_common_hepatic.complete_lumen": "A lumen leaf binds only a source whose segmentation shows the opacified lumen.",
+  "biliary.duct_common_hepatic.proximal_margin, .distal_margin, .wall_if_resolved, .actual_branch_junction": "The label names the duct, not its margin, wall or junction.",
+  "biliary.duct_supraduodenal_common_bile, .duct_retroduodenal_common_bile, .duct_intrapancreatic_common_bile, .duct_intramural_common_bile (all parts)": "The requirements split the common bile duct into four segments; the source object marks none of them.",
+  "gallbladder.neck_outlet.interface_to_common_hepatic_duct, .cystic_duct_common_duct_junction": "An interface or junction, not the duct."
+ },
+ "method": "Both parts were compared with every requirement leaf of the two investigations that show the biliary reader and name a common duct.",
+ "accepted": [
+  {
+   "mesh": "bp3d-biliary-4.3/FJ3079-common-hepatic.mesh.gz",
+   "asset_id": "bp3d-biliary-4.3-FJ3079-common-hepatic",
+   "atlas": "bodyparts3d-4.3",
+   "quote": "Common hepatic duct",
+   "structure_id": "gallbladder.ducts.common_hepatic_duct",
+   "name": "Actual acquired ductal distribution: common hepatic duct",
+   "kind": "structure",
+   "evidence": "own_word",
+   "term": "common hepatic duct",
+   "leaf_basis": "named_part",
+   "investigations": [
+    "ra.ultrasound-gallbladder"
+   ],
+   "side_basis": "unsided",
+   "mesh_side": "right",
+   "region": "abdomen"
+  }
+ ],
+ "readers_note": "The BodyParts3D 4.0 atlas is listed only because its midline meshes fix the source frame’s midline. This pass records none of its meshes."
+}
