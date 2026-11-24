@@ -1,0 +1,92 @@
+{
+ "reviewed_at": "2026-11-24",
+ "reviewer": "Claude measurement of the delivered BodyParts3D 4.3 biliary objects; not a radiologist review",
+ "decision": "Show object FJ3079 in two labelled parts, divided where the source cystic duct objects meet it. Requested by the project owner on 2026-11-24.",
+ "source": {
+  "atlas": "BodyParts3D 4.3",
+  "object": "FJ3079",
+  "source_label": "Common hepatic duct",
+  "fma": "FMA14668",
+  "licence": "CC BY-SA 2.1 Japan",
+  "source_has_common_bile_duct_object": false,
+  "published_comparison": "https://pubmed.ncbi.nlm.nih.gov/30815072/",
+  "mesh_sha256": "a6645963ec0b29670a2bdefb2521dd74f4b1919890bb7a29d348b853611304c9",
+  "delivered_file_sha256": "0685ffa9813a152d87fe81f67b4cdc3ed10c30ab4df2511be7f92a5ef8e1774d",
+  "vertices": 684,
+  "triangles": 1364,
+  "kept_copy": "docs/bp3d-biliary-duct-partition-20261124/evidence/FJ3079.mesh.gz"
+ },
+ "definition": "The common bile duct is the duct below the union of the cystic duct and the common hepatic duct. The division therefore follows from where the cystic duct meets the object.",
+ "measurements": {
+  "contact_vertices": 9,
+  "contact_distance_mm": 1.0,
+  "contact_minimum_gap_mm": {
+   "FJ3080": 0.201,
+   "FJ4526": 0.206
+  },
+  "contact_z_mm": [
+   1079.92,
+   1084.49
+  ],
+  "contact_extent_along_course_mm": 4.15,
+  "centre_mm": [
+   -22.709,
+   -130.219,
+   1082.387
+  ],
+  "course_direction": [
+   0.0926,
+   -0.6566,
+   0.7485
+  ],
+  "course_vertices": 92,
+  "course_distance_mm": 10.0,
+  "extent_above_plane_mm": 24.3,
+  "extent_below_plane_mm": 56.5,
+  "hepatic_confluence_above_plane_mm": [
+   20.2,
+   24.3
+  ],
+  "boundary_vertices": 20,
+  "boundary_spread_along_course_mm": 6.03
+ },
+ "method": [
+  "A duct vertex within 1 mm of a vertex of either source cystic duct object (FJ3080, FJ4526) belongs to the junction.",
+  "The plane passes through the mean of those vertices.",
+  "The plane is perpendicular to the duct’s course there: the direction of greatest spread of the duct vertices within 10 mm of that point.",
+  "Each source triangle goes whole to the part on whose side of the plane its centroid lies. No vertex is moved and none is made."
+ ],
+ "tolerance_mm": 3,
+ "tolerance_basis": "The cystic duct touches the object over 4.2 mm along its course, and the boundary between the parts follows whole triangles over 6.0 mm.",
+ "parts": {
+  "above": {
+   "file": "FJ3079-common-hepatic.mesh.gz",
+   "label": "Common hepatic duct · FJ3079 above the cystic duct",
+   "structure": "common hepatic duct",
+   "vertices": 298,
+   "triangles": 574,
+   "mesh_sha256": "97a5b590c1459592334b8f92e88f1b1e4f6fb287c206411cb0770d40ae55b992",
+   "delivered_file_sha256": "c4c01cd282a95bf8ce6f040dc266f19b078f3f62a08f73aa28a065c37818b660",
+   "connected_pieces": 1
+  },
+  "below": {
+   "file": "FJ3079-common-bile.mesh.gz",
+   "label": "Common bile duct · FJ3079 below the cystic duct",
+   "structure": "common bile duct",
+   "vertices": 406,
+   "triangles": 790,
+   "mesh_sha256": "151283c9a9e36de8f26ea10a8d9aece1c8276807c3b61565f929aeafb1cd1ac1",
+   "delivered_file_sha256": "beea9b810261987750174d381e4b76e8f2ee4b6cd731f485c5e26c870b96e435",
+   "connected_pieces": 1
+  }
+ },
+ "same_geometry": "The two parts together hold exactly the 1,364 source triangles, each once, with the source’s float32 coordinates.",
+ "limits": [
+  "No radiologist has reviewed the division.",
+  "The source’s cystic duct insertion is one modelled anatomy; cystic duct variants are not shown.",
+  "An earlier review of these objects records that vertex proximity does not prove a biological junction (docs/bodyparts-biliary-source-review).",
+  "The lower part ends where the source object ends. Whether it reaches the ampulla was not measured; the intrapancreatic and intramural segments are not marked.",
+  "The surface shows neither lumen nor wall alone."
+ ],
+ "bindings": "None. The parts’ names come from this division, not from the source’s own label."
+}

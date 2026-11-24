@@ -960,7 +960,7 @@
  "source_findings": [
   "BodyParts3D 4.0, hepatovenous segments VII and VIII: the official table assigns object FJ2409 to segment VII, and objects FJ2823 and FJ2824 to segment VIII. FJ2409 has the bounds of segment VI (FJ2822) to within 0.4 mm, and BodyParts3D 4.3 lists it as segment VI. FJ2823 lies posterior and superior, where segment VII lies, and BodyParts3D 4.3 lists it as segment VII. The atlas is corrected with this change (docs/bodyparts3d-liver-correction-20261119): it builds segment VII from FJ2823 and segment VIII from FJ2824, and no longer delivers FJ2409. The two corrected meshes are bound.",
   "BodyParts3D 4.0, trunk of portal vein: the concept is the class of both portal trunks. The official table assigns it objects FJ3102 and FJ3122, and lists the same objects as the trunk of the left and of the right portal vein. The atlas united them under the class name, which reads as the main portal trunk. It now shows the two trunks under their own names, and the pre-hepatic portal vein (FJ3082) as the main trunk.",
-  "BodyParts3D 4.3, common hepatic duct: object FJ3079 spans 84 mm in height and ends 60 mm below the cystic duct, so it holds the common bile duct as well. The source labels no common bile duct.",
+  "BodyParts3D 4.3, common hepatic duct: object FJ3079 spans 84 mm in height and ends 60 mm below the cystic duct, so it holds the common bile duct as well. The source labels no common bile duct. Since 2026-11-24 the reader shows the object in two parts, divided where the cystic duct meets it; neither part is bound.",
   "BodyParts3D 4.3 biliary objects: six labels have two objects each. Three pairs occupy nearly the same place (cystic duct FJ3080 and FJ4526; medial inferior tributary FJ3103 and FJ5819; caudate tributary FJ1883 and FJ5812). Each object has its own record; a pair is not two independent observations.",
   "The gallbladder and both atrial walls have identical geometry in the BodyParts3D 4.0 atlas and in the 4.3 readers. Each file has its own record, because a different reader delivers it.",
   "HRA bladder: two regions of each organ carry the one label “fundus of urinary bladder”; the node names call them dome and base.",
@@ -1325,7 +1325,8 @@
   "bodyparts3d/FMA3840.bin": "The label’s side names its parent artery, but the posterior interventricular groove lies left of the body midline, and the source has no left-named partner against which to check an organ half. The coronary CT requirements split this artery into origin, proximal and distal lumen and wall.",
   "bodyparts3d/FMA61819.bin": "No requirement of the investigations that show it names the whole cerebral hemisphere.",
   "bodyparts3d/FMA67292.bin": "No requirement of the investigations that show it names the whole cerebral hemisphere.",
-  "bp3d-biliary-4.3/FJ3079.mesh.gz": "The object labelled common hepatic duct spans 84 mm in height, from the hepatic duct confluence to 60 mm below the cystic duct, so it also holds the common bile duct, which the source does not label. An earlier source review (docs/bodyparts-biliary-source-review.md) and a published comparison flag its extent. A whole is not bound to its part.",
+  "bp3d-biliary-4.3/FJ3079-common-bile.mesh.gz": "A part of BodyParts3D 4.3 object FJ3079, which the source labels common hepatic duct as a whole. This project divided the object where the cystic duct meets it on 2026-11-24 (docs/bp3d-biliary-duct-partition-20261124). The part’s name comes from that division, not from the source’s own label, so the rule that a mesh’s own label names the requirement is not met. No radiologist has reviewed the division.",
+  "bp3d-biliary-4.3/FJ3079-common-hepatic.mesh.gz": "A part of BodyParts3D 4.3 object FJ3079, which the source labels common hepatic duct as a whole. This project divided the object where the cystic duct meets it on 2026-11-24 (docs/bp3d-biliary-duct-partition-20261124). The part’s name comes from that division, not from the source’s own label, so the rule that a mesh’s own label names the requirement is not met. No radiologist has reviewed the division.",
   "bp3d-cardiac-4.3/transport/FJ2418.bin.gz": "The label names one head of a papillary muscle; the requirements name whole papillary groups, and a part is not bound to its whole.",
   "bp3d-cardiac-4.3/transport/FJ2428.bin.gz": "The source holds both ventricular walls in one class; the requirements name the left and right ventricular walls, the septum and the cavities separately, and a whole is not bound to its parts.",
   "bp3d-dural-4.3/FJ4654.mesh.gz": "The source names this unpaired midline vein (the great cerebral vein of Galen) with a side; the requirement states no side, and the label’s side cannot be checked against a partner.",
@@ -5653,6 +5654,14 @@
    "side_basis": "unsided",
    "mesh_side": "not_measured",
    "region": "thorax"
+  }
+ ],
+ "amendments": [
+  {
+   "date": "2026-11-24",
+   "change": "The biliary reader shows object FJ3079 as two part meshes in place of the one whole mesh. The inventory is 264 meshes, with 141 not recorded. No record or binding changed.",
+   "record": "docs/bp3d-biliary-duct-partition-20261124/review.json",
+   "earlier_reason_for_the_whole_object": "The object labelled common hepatic duct spans 84 mm in height, from the hepatic duct confluence to 60 mm below the cystic duct, so it also holds the common bile duct, which the source does not label. An earlier source review (docs/bodyparts-biliary-source-review.md) and a published comparison flag its extent. A whole is not bound to its part."
   }
  ]
 }

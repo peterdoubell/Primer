@@ -222,7 +222,7 @@ def test_sides_agree_with_where_the_decoded_meshes_lie():
 def test_every_other_mesh_of_the_readers_is_listed_with_its_reason():
     review, assets, _, _ = records()
     meshes = tool.inventory(review)
-    assert len(meshes) == 263 and len(review['readers']) == 17
+    assert len(meshes) == 264 and len(review['readers']) == 17
     recorded = {row['mesh'] for row in review['accepted']}
     assert recorded | set(review['not_recorded']) == set(meshes) and not recorded & set(review['not_recorded'])
     recorded_paths = {asset['local_path'] for asset in assets.values()}
@@ -322,11 +322,16 @@ def test_source_objects_whose_labels_disagree_with_their_geometry_are_corrected_
     # The four corrected meshes are bound; the main portal vein is not, because the requirements split it into lumen and wall.
     assert {'bodyparts3d/%s.bin' % code for code in ('FJ2823', 'FJ2824', 'FJ3102', 'FJ3122')} <= recorded
     assert 'bodyparts3d/FJ3082.bin' not in recorded and 'lumen' in review['not_recorded']['bodyparts3d/FJ3082.bin']
-    # The object labelled common hepatic duct runs far below the cystic duct, and stays unbound.
-    duct, cystic = bounds('bp3d-biliary-4.3/FJ3079.mesh.gz', meshes), bounds('bp3d-biliary-4.3/FJ3080.mesh.gz', meshes)
-    assert duct[5] - duct[4] > 80 and cystic[4] - duct[4] > 55
-    key = 'bp3d-biliary-4.3/FJ3079.mesh.gz'
-    assert key not in recorded and 'common bile duct' in review['not_recorded'][key]
+    # The object labelled common hepatic duct runs far below the cystic duct. The reader shows it in two parts
+    # since 2026-11-24; their names come from this project's division, not from the source, so neither is bound.
+    cystic = bounds('bp3d-biliary-4.3/FJ3080.mesh.gz', meshes)
+    upper, lower = (bounds('bp3d-biliary-4.3/FJ3079-common-%s.mesh.gz' % part, meshes) for part in ('hepatic', 'bile'))
+    assert upper[5] - lower[4] > 80 and cystic[4] - lower[4] > 55
+    for part in ('hepatic', 'bile'):
+        key = 'bp3d-biliary-4.3/FJ3079-common-%s.mesh.gz' % part
+        assert key not in recorded and 'own label' in review['not_recorded'][key]
+    assert 'bp3d-biliary-4.3/FJ3079.mesh.gz' not in meshes
+    assert review['amendments'][0]['date'] == '2026-11-24' and '264 meshes' in review['amendments'][0]['change']
     assert len(review['source_findings']) == 7 and all(review['source_findings'])
     assert 'corrected' in review['source_findings'][0] and 'FJ2823' in review['source_findings'][0]
     # Repeated source objects keep their own records; the cystic duct pair fills the same place.
