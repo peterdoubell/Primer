@@ -58,7 +58,8 @@ def test_the_tool_reproduces_the_delivered_parts_and_the_recorded_measurements()
     assert measured == review['measurements']
     for side, row in parts().items():
         assert tool.sha(made[side]['raw']) == row['sha256']
-        assert tool.gz(made[side]['raw']) == (READER / row['file']).read_bytes()
+        # Compressed bytes differ between zlib builds; the mesh inside must be the same.
+        assert gzip.decompress(tool.gz(made[side]['raw'])) == made[side]['raw'] == gzip.decompress((READER / row['file']).read_bytes())
         assert made[side]['bounds'] == row['bounds']
 
 
