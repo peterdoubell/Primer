@@ -48,9 +48,9 @@ the parts follows whole triangles over 6.0 mm.
 
 ## Bindings
 
-Neither part is bound to a requirement. The binding rule needs a mesh's own source label to name the requirement, and
-these names come from this division. The body-reader binding review of 2026-11-19 lists both parts under `not_recorded`
-and carries an amendment.
+This record binds nothing. On the same day the project owner asked for the two parts to be bound
+(`docs/biliary-duct-part-binding-20261124`): the upper part binds to one requirement, because the source's own label,
+"Common hepatic duct", fits it. The lower part stays unbound.
 
 ## Licence
 
