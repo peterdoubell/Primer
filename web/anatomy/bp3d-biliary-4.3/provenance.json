@@ -658,5 +658,35 @@
     ],
     "archiveSha256": "7142b7061e2c66dca4177cab868af93e52a8b608cb955906e7b1aec22bf2b407",
     "version": "4.3"
+  },
+  "partition": {
+    "object": "FJ3079",
+    "source_label": "Common hepatic duct",
+    "source_object_sha256": "a6645963ec0b29670a2bdefb2521dd74f4b1919890bb7a29d348b853611304c9",
+    "parts": {
+      "above": {
+        "file": "FJ3079-common-hepatic.mesh.gz",
+        "structure": "common hepatic duct"
+      },
+      "below": {
+        "file": "FJ3079-common-bile.mesh.gz",
+        "structure": "common bile duct"
+      }
+    },
+    "method": "Each source triangle is assigned whole to one part by the side of one plane on which its centroid lies. No vertex is moved and none is made.",
+    "plane": {
+      "point_mm": [
+        -22.709,
+        -130.219,
+        1082.387
+      ],
+      "normal": [
+        0.0926,
+        -0.6566,
+        0.7485
+      ]
+    },
+    "record": "docs/bp3d-biliary-duct-partition-20261124/review.json",
+    "anatomical_review": "none"
   }
 }

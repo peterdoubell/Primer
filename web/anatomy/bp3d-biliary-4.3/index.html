@@ -1,7 +1,7 @@
 <!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Biliary atlas geometry</title><link rel="stylesheet" href="viewer.css"><script defer src="surface-viewer.js"></script><script defer src="navigation.js"></script></head>
-<body><main data-surfaces-sha256="8d4f89e3dd169589a0f31a7ea46a6fbf9e9cbd7622f4fdfac776b41504426dfb">
+<body><main data-surfaces-sha256="7e0339783f7b6319c5abd146b8ca0714997fc6c598f7340152f1b69520a530e3">
 <p><a id="study-return" href="/app/#/node/rad.5.biliary">Return to Biliary Obstruction</a></p><h1>Biliary ducts and gallbladder</h1>
-<p>Inspect 20 original BodyParts3D objects across 14 source groups. Each control selects one object by its published label and identifier.</p>
+<p>Inspect 20 original BodyParts3D objects across 14 source groups. Object FJ3079 is shown in two parts. Each other control selects one object by its published label and identifier.</p>
 <figure><canvas id="surface" width="640" height="480" aria-label="Original biliary atlas meshes"></canvas></figure>
 <label>Rotation <input id="rotation" type="range" min="-180" max="180" value="25"></label><label>Tilt <input id="tilt" type="range" min="-90" max="90" value="15"></label>
 <p id="surface-status" role="status">Verifying source objects…</p>
@@ -9,7 +9,8 @@
 <label><input class="layer" type="checkbox" >Anterior superior tributary of right hepatic biliary tree · FJ3071</label>
 <label><input class="layer" type="checkbox" >Caudate lobe tributary of left hepatic biliary tree · FJ1883</label>
 <label><input class="layer" type="checkbox" >Caudate lobe tributary of left hepatic biliary tree · FJ5812</label>
-<label><input class="layer" type="checkbox" checked >Common hepatic duct · FJ3079</label>
+<label><input class="layer" type="checkbox" checked >Common bile duct · FJ3079 below the cystic duct</label>
+<label><input class="layer" type="checkbox" checked >Common hepatic duct · FJ3079 above the cystic duct</label>
 <label><input class="layer" type="checkbox" checked >Cystic duct · FJ3080</label>
 <label><input class="layer" type="checkbox" checked >Cystic duct · FJ4526</label>
 <label><input class="layer" type="checkbox" checked >Gallbladder · FJ2817</label>
@@ -25,6 +26,6 @@
 <label><input class="layer" type="checkbox" >Posterior superior tributary of right hepatic biliary tree · FJ3109</label>
 <label><input class="layer" type="checkbox" >Posterior superior tributary of right hepatic biliary tree · FJ3110</label>
 <label><input class="layer" type="checkbox" checked >Right hepatic duct · FJ3123</label></fieldset>
-<p>Objects preserve their source coordinates and remain independently selectable. Repeated labels are separate source representations. The source labels include gallbladder, common hepatic duct, cystic duct, right and left hepatic ducts and selected tributaries. A <a href="https://pubmed.ncbi.nlm.nih.gov/30815072/">published comparison of anatomical resources</a> flagged a BodyParts3D common hepatic duct segmentation error. The label here identifies the source object. Its anatomical boundary remains under review. A separately labelled common bile duct, continuous lumina, wall layers and clinical variants remain outside this collection.</p>
-<p>Adapted from <a href="https://lifesciencedb.jp/bp3d/">BodyParts3D 4.3</a>, Copyright 2008 Database Center for Life Science. Adaptations include binary encoding, colour and interactive viewing. <a href="https://creativecommons.org/licenses/by-sa/2.1/jp/">CC BY-SA 2.1 Japan</a>.</p>
+<p>Objects preserve their source coordinates and remain independently selectable. Repeated labels are separate source representations. The source labels include gallbladder, common hepatic duct, cystic duct, right and left hepatic ducts and selected tributaries. The source labels all of object FJ3079 common hepatic duct and has no common bile duct object. The object runs from the hepatic duct confluence to about 60 mm below the cystic duct, so most of it is common bile duct. A <a href="https://pubmed.ncbi.nlm.nih.gov/30815072/">published comparison of anatomical resources</a> flagged this segmentation. Here the object is shown in two parts, divided where the source cystic duct meets it, to within about 3 mm. Every source triangle is in one part, unchanged. The division was placed by measurement and no radiologist has reviewed it. Continuous lumina, wall layers, the intrapancreatic and intramural segments and clinical variants remain outside this collection.</p>
+<p>Adapted from <a href="https://lifesciencedb.jp/bp3d/">BodyParts3D 4.3</a>, Copyright 2008 Database Center for Life Science. Adaptations include binary encoding, colour, interactive viewing and the division of object FJ3079 into two parts. <a href="https://creativecommons.org/licenses/by-sa/2.1/jp/">CC BY-SA 2.1 Japan</a>.</p>
 </main></body></html>

@@ -76,6 +76,9 @@ of this change (`docs/bodyparts3d-liver-correction-20261119`). The bindings here
 - **The "common hepatic duct" object also holds the common bile duct.** BodyParts3D 4.3 object FJ3079 spans 84 mm in height
   and ends 60 mm below the cystic duct. The source labels no common bile duct. An earlier source review
   (`docs/bodyparts-biliary-source-review.md`) had flagged its extent. It is not bound.
+  Since 2026-11-24 the reader shows the object in two parts, divided where the cystic duct meets it
+  (`docs/bp3d-biliary-duct-partition-20261124`). Neither part is bound: their names come from that division, not from the
+  source's own label.
 
 A test checks that the segment meshes of each source lie where their numbers say, against the source's own axes: right lobe
 against left lateral section, superior above inferior, anterior before posterior. Another test checks that each of the 12
@@ -195,6 +198,8 @@ exists to check against.
 ## What was not recorded
 
 All 140 other label meshes of these readers are listed under `not_recorded`, each with its reason:
+
+(Since the amendment of 2026-11-24 the list holds 141: the two parts of FJ3079 stand in place of the whole object.)
 
 | Meshes | Reason |
 | --- | --- |
