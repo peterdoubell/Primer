@@ -142,6 +142,9 @@ def source_rows(sections, modality):
         for finding in section['findings']:
             text = filter_text(finding['text'], modality)
             local = finding['id'].split(':')[-1]
+            # Hepatobiliary-phase signal intensity applies to the MRI parent.
+            if modality == 'CT' and section.get('anatomy_id') == 'hepatic-observation' and local == 'hb':
+                continue
             if text is None:
                 dropped.add(local)
                 continue
