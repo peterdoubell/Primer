@@ -2,9 +2,14 @@
 const get=id=>document.getElementById(id);
 let volume,generation=0,current;
 const cache=new Map();
-const from = new URLSearchParams(location.search).get('from');
+const query = new URLSearchParams(location.search);
+const from = query.get('from');
 const referenceNames = {'ra.liver-masses':'liver mass reporting', 'ra.liver-lirads':'LI-RADS reporting'};
-if (Object.hasOwn(referenceNames, from)) {
+if (from === 'ct.chest-abdomen-pelvis') {
+  get('return-context').href = '/app/anatomy/ct-torso-s0028/index.html?exam=ct.chest-abdomen-pelvis&row=liver';
+  get('return-context').textContent = 'Return to the chest, abdomen and pelvis CT liver row';
+  get('return-context').hidden = false;
+} else if (Object.hasOwn(referenceNames, from)) {
   get('return-context').href = '/app/#/radiology/' + from;
   get('return-context').textContent = 'Return to ' + referenceNames[from];
   get('return-context').hidden = false;
@@ -46,7 +51,7 @@ async function draw(){
  const slice=get('slice').valueAsNumber,region=Number(get('region').value);
  const black=get('black').valueAsNumber,white=get('white').valueAsNumber;
  get('section').textContent=(slice+1)+' / '+volume.shape[2];
- if(!Number.isFinite(black)||!Number.isFinite(white)||white<=black){get('status').textContent='Use finite display values with white greater than black.';return;}
+ if(!get('map-only').checked&&(!Number.isFinite(black)||!Number.isFinite(white)||white<=black)){get('status').textContent='Use finite display values with white greater than black.';return;}
  get('status').textContent='Loading verified source section…';
  try{
   const chunk=volume.chunks.find(row=>slice>=row.firstSlice&&slice<row.firstSlice+row.slices);
@@ -57,10 +62,15 @@ async function draw(){
   const labelAt=(x,y)=>x<0||y<0||x>=width||y>=height?0:labels[index(x,y)];
   const valueAt=(x,y)=>stored[index(x,y)]*volume.sourceScaling.slope+volume.sourceScaling.intercept;
   const context=canvas.getContext('2d'),pixels=context.createImageData(width,height),overlay=get('overlay').checked;
+  const mapOnly = get('map-only').checked;
   for(let y=0;y<height;y++)for(let x=0;x<width;x++){
    const label=labelAt(x,y),gray=255*(valueAt(x,y)-black)/(white-black);
    const boundary=overlay&&label&&(region===0||label===region)&&[[x-1,y],[x+1,y],[x,y-1],[x,y+1]].some(([i,j])=>labelAt(i,j)!==label);
-   pixels.data.set(boundary?[...volume.colors[label-1],255]:[gray,gray,gray,255],4*(x+width*y));
+   let color = boundary ? volume.colors[label-1] : [gray,gray,gray];
+   if (mapOnly) {
+     color = label && (!region || label === region) ? volume.colors[label-1] : [13,20,27];
+   }
+   pixels.data.set([...color,255],4*(x+width*y));
   }
   context.putImageData(pixels,0,0);
   current={slice,index,labelAt,valueAt};
@@ -79,12 +89,26 @@ async function start(){
  get('retry').hidden=true;
  try{
   volume=await metadata('volume');
+  get('slice').max=volume.shape[2]-1;
   get('slice').value=volume.initialSlice;
-  get('slice').max=volume.shape[2]-1;get('slice').disabled=false;regionChanged();
+  const controlled = ['region','slice','representation'];
+  if (controlled.some(key => query.has(key))) {
+    const region=query.get('region'), section=query.get('slice'), kind=query.get('representation');
+    const valid=controlled.every(key => query.getAll(key).length===1) && /^[1-8]$/.test(region) &&
+      /^(0|[1-9][0-9]*)$/.test(section) && Number(section)<volume.shape[2] && ['schematic','model'].includes(kind);
+    if (valid) {
+      get('region').value=region;
+      get('slice').value=section;
+      get('map-only').checked=kind==='schematic';
+    } else {
+      get('link-status').hidden=false;
+    }
+  }
+  get('slice').disabled=false;regionChanged();
  }catch{volume=null;get('status').textContent='Source metadata could not be verified.';get('retry').hidden=false;}
 }
 get('region').addEventListener('change',regionChanged);
-for(const id of ['slice','black','white','overlay'])get(id).addEventListener('input',()=>{if(volume)draw();});
+for(const id of ['slice','black','white','overlay','map-only'])get(id).addEventListener('input',()=>{if(volume)draw();});
 get('zoom').addEventListener('change',resize);
 get('retry').addEventListener('click',()=>volume?draw():start());
 get('mri').addEventListener('keydown',event=>{

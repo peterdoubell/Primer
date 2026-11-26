@@ -37,7 +37,11 @@ let record,
   crop,
   controller,
   serial = 0;
-let byName, byCode, areas, exam;
+let byName, byCode, areas, exam, reportGuide;
+const representationModes = new Map([
+  ['clinical_image', 'raw'], ['schematic', 'selected-map'], ['model', 'outline']
+]);
+const guideFingerprint = 'c29eba4d40722702dc94aa9480e6688c10ca9328a86adb78ba850e47c71348b2';
 const presets = { soft: [-125, 225], lung: [-1350, 150], bone: [-300, 1200] };
 const format = (value) => value.toLocaleString('en-US', { maximumFractionDigits: 2 });
 function selectOptions(rows) {
@@ -62,7 +66,84 @@ function areaLabels(area, labels) {
   const included = new Set(area.sourceLabels);
   return labels.filter((item) => included.has(item.sourceLabel));
 }
+function guideTargets() {
+  return reportGuide?.[currentArea()?.id]?.targets || [];
+}
+function showTarget(target) {
+  const state = {
+    labelled: 'This case includes a source label for this structure.',
+    reaches_edge: 'The source label reaches the scan boundary. Its visible extent ends there.',
+    empty: 'The publisher supplied an empty mask. This case has no delineated example.',
+    unlabelled: 'This case has no separate source label for this structure.'
+  };
+  get('target-status').textContent = target ? state[target.state] : '';
+  const links = get('target-views');
+  links.replaceChildren();
+  const sourceViews = [
+    [target?.links.clinical_image, 'Unmarked CT'], [target?.links.schematic, 'Section map'],
+    [target?.links.model, '3D surface'], [target?.separateMRI?.schematic, 'Separate MRI · segment map'],
+    [target?.separateMRI?.model, 'Separate MRI · 3D surface']
+  ];
+  for (const [href, title] of sourceViews) {
+    if (!href) continue;
+    const link = document.createElement('a');
+    link.href = href;
+    link.textContent = title;
+    if (target.separateMRI && Object.values(target.separateMRI).includes(href)) {
+      link.target = '_blank';
+      link.rel = 'noopener';
+      link.title = 'Open the separate MRI study in a new tab';
+    }
+    link.setAttribute('aria-label', title + ' · ' + target.name + (link.target ? ' (opens in a new tab)' : ''));
+    links.append(link);
+  }
+  links.hidden = !links.childElementCount;
+}
+function showGuide(area) {
+  const entry = reportGuide?.[area?.id];
+  get('report-guide').hidden = !entry;
+  if (!entry) return;
+  get('guide-note').textContent = entry.note;
+  const guidance = get('guide-guidance');
+  guidance.replaceChildren(...(entry.guidance || []).map(source => {
+    const link = document.createElement('a');
+    link.href = source.url;
+    link.textContent = source.title;
+    link.target = '_blank';
+    link.rel = 'noopener';
+    return link;
+  }));
+  guidance.hidden = !guidance.childElementCount;
+  const control = get('report-target');
+  control.replaceChildren(new Option('Choose a report structure', ''),
+    ...entry.targets.map((t, i) => new Option(t.name, String(i))));
+  get('target-control').hidden = !entry.targets.length;
+  get('comparison').hidden = !entry.comparison;
+  if (entry.comparison) {
+    const link = get('comparison').querySelector('a');
+    link.href = entry.comparison.href;
+    link.textContent = entry.comparison.title;
+    link.setAttribute('aria-label', entry.comparison.title + ' (opens in a new tab)');
+  }
+  showTarget(null);
+}
+function syncGuide(row) {
+  if (!reportGuide || get('report-guide').hidden) return;
+  const targets = guideTargets();
+  const index = row ? targets.findIndex(t => t.sourceLabel === row.sourceLabel) : -1;
+  get('report-target').value = index < 0 ? '' : String(index);
+  showTarget(targets[index]);
+}
+get('report-target').addEventListener('change', () => {
+  const value = get('report-target').value;
+  const target = value === '' ? undefined : guideTargets()[Number(value)];
+  selectLabel(target?.sourceLabel ? byName.get(target.sourceLabel) : null, true);
+  // Unlabelled report structures have no matching option in the source inventory.
+  get('report-target').value = value;
+  showTarget(target);
+});
 function setArea(area, requested, focus) {
+  showGuide(area);
   get('search').value = '';
   get('matches').hidden = true;
   const subset = areaLabels(area, record.labels);
@@ -80,6 +161,7 @@ function setArea(area, requested, focus) {
 }
 function selectLabel(row, focus) {
   label = row;
+  syncGuide(row);
   get('structure').value = row?.sourceLabel ?? '';
   get('focus').disabled = !row?.voxelCount;
   get('link').hidden = !row;
@@ -180,7 +262,7 @@ function render() {
   const black = get('low').valueAsNumber,
     white = get('high').valueAsNumber,
     mode = get('mode').value;
-  if (mode !== 'map' && !(white > black)) {
+  if (!['map', 'selected-map'].includes(mode) && !(white > black)) {
     crop = null;
     get('image-frame').hidden = true;
     get('voxel').textContent = '';
@@ -209,7 +291,9 @@ function render() {
         counts.set(second, (counts.get(second) || 0) + 1);
       }
       let colour = null;
-      if (mode === 'map')
+      if (mode === 'selected-map') {
+        colour = code && contains(i, code) ? (second ? [255, 255, 255] : label.color) : [13, 20, 27];
+      } else if (mode === 'map')
         colour = second ? [255, 255, 255] : first ? byCode.get(first).color : [13, 20, 27];
       else if (
         mode === 'outline' &&
@@ -446,7 +530,11 @@ async function start() {
   const groups = query.getAll('row'),
     labels = query.getAll('label');
   const area = areas.find((a) => a.id === groups[0]);
+  const requestedViews = query.getAll('representation');
+  const view = requestedViews[0];
   const invalid =
+    requestedViews.length > 1 ||
+    (requestedViews.length && (!representationModes.has(view) || !byName.get(labels[0])?.voxelCount)) ||
     badExam ||
     groups.length > 1 ||
     labels.length > 1 ||
@@ -456,7 +544,26 @@ async function start() {
   get('setup').textContent = invalid
     ? 'This link does not identify a source structure in the requested report area. Choose a class.'
     : '';
+  if (!invalid && view) {
+    get('mode').value = representationModes.get(view);
+    const preset = area?.id === 'bones' ? 'bone' : area?.id === 'lungs-and-airways' ? 'lung' : 'soft';
+    get('window').value = preset;
+    [get('low').value, get('high').value] = presets[preset];
+  }
   setArea(area, invalid ? null : (labels[0] ?? (area ? undefined : 'liver')), true);
+  if (exam === 'ct.chest-abdomen-pelvis') {
+    try {
+      const response = await fetch('report-guide.json');
+      if (!response.ok) throw Error();
+      const raw = await response.arrayBuffer();
+      if ((await fingerprint(raw)) !== guideFingerprint) throw Error();
+      reportGuide = JSON.parse(new TextDecoder().decode(raw));
+      showGuide(currentArea());
+      syncGuide(label);
+    } catch {
+      get('setup').textContent += ' The report structure guide could not be loaded.';
+    }
+  }
 }
 start().catch(() => {
   get('setup').textContent = 'The case inventory could not be verified. Reload to retry.';

@@ -10,11 +10,17 @@
 <label>Source structure<select id="structure"></select></label>
 <button type="button" id="focus">Focus this label</button><a id="link" hidden>Open selected structure</a>
 <p id="matches" aria-live="polite" hidden></p><p id="scope"></p><p id="evidence"></p></fieldset>
+<section id="report-guide" class="report-guide" aria-labelledby="guide-heading" hidden>
+<h2 id="guide-heading">Anatomy for this report area</h2><p id="guide-note"></p>
+<label id="target-control">Report structure<select id="report-target"></select></label>
+<p id="target-status" aria-live="polite"></p><nav id="target-views" aria-label="Source views"></nav>
+<nav id="guide-guidance" aria-label="Reporting guidance" hidden></nav>
+<p id="comparison" hidden><a target="_blank" rel="noopener"></a></p></section>
 <p role="status" id="setup">Verifying the case inventory…</p>
-<div class="workspace" id="workspace" inert><section class="panel"><h2>CT and section map</h2>
+<div class="workspace" id="workspace" inert><section class="panel" id="ct-section"><h2>CT and section map</h2>
 <div class="image-controls"><label>Plane<select id="plane"><option value="ij">Axial · fixed K</option><option value="ik">Coronal · fixed J</option><option value="jk">Sagittal · fixed I</option></select></label>
 <label>Orientation<select id="orientation"><option value="radiology">Radiological · source affine</option><option value="index">Source index order</option></select></label>
-<label>Display<select id="mode"><option value="outline">CT with selected outline</option><option value="raw">Unmarked CT</option><option value="map">All source masks on this section</option></select></label>
+<label>Display<select id="mode"><option value="outline">CT with selected outline</option><option value="raw">Unmarked CT</option><option value="selected-map">Selected structure on this section</option><option value="map">All source masks on this section</option></select></label>
 <label>Window<select id="window"><option value="soft">Soft tissue</option><option value="lung">Lung</option><option value="bone">Bone</option><option value="custom">Custom</option></select></label>
 <label>Field of view<select id="field"><option value="full">Full section</option><option value="detail">Selected label and margin</option></select></label>
 <label>Black point<input type="number" id="low" value="-125"></label><label>White point<input type="number" id="high" value="225"></label></div>
@@ -24,7 +30,7 @@
 <div class="coords"><label>I<input type="number" step="1" id="i"></label><label>J<input type="number" step="1" id="j"></label><label>K<input type="number" step="1" id="k"></label><button id="go" type="button">Go to voxel</button></div>
 <p id="voxel" aria-live="polite"></p><p>Select a pixel to read its stored CT value and every source label at that position. White in the section map marks cells shared by two masks.</p>
 <details><summary>Labels crossing this section</summary><table><thead><tr><th scope="col">Source structure</th><th scope="col">Area (mm²)</th></tr></thead><tbody id="key"></tbody></table></details></section>
-<section class="panel"><h2>Selected mask in 3D</h2>
+<section class="panel" id="source-surface"><h2>Selected mask in 3D</h2>
 <div class="mesh-frame"><canvas id="surface" width="640" height="480" tabindex="0" role="img" aria-label="Selected source mask surface"></canvas>
 <svg id="mesh-locator" viewBox="0 0 640 480" aria-hidden="true"></svg></div><p id="mesh-status" role="status">Choose a structure to inspect its surface.</p>
 <div class="orbit-controls"><label>Rotation <output id="yaw-value" for="yaw"></output><input id="yaw" type="range" min="-180" max="180" value="25"></label>

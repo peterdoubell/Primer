@@ -137,8 +137,12 @@ def write_delivery():
     text, changed = re.subn(r"(await fingerprint\(bytes\)\) !== ')[0-9a-f]{64}(')", lambda m: m[1] + sha((OUT/'manifest.json').read_bytes()) + m[2], viewer.read_text())
     if changed != 1:
         raise ValueError('Missing pinned CT inventory in the reader')
+    guide_digest = sha((OUT/'report-guide.json').read_bytes())
+    text, changed = re.subn(r"(const guideFingerprint = ')[0-9a-f]{64}(')", lambda m: m[1] + guide_digest + m[2], text)
+    if changed != 1:
+        raise ValueError('Missing pinned CAP report guide in the reader')
     viewer.write_text(text)
-    names = {'index.html', 'viewer.css', 'viewer.js', 'report-areas.json', 'manifest.json'}
+    names = {'index.html', 'viewer.css', 'viewer.js', 'report-areas.json', 'report-guide.json', 'manifest.json'}
     for group in GROUPS.values():
         for name in group:
             if any(row['sourceLabel'] == name and row['voxelCount'] for row in manifest['labels']):
