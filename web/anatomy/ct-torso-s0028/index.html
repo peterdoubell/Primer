@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Chest, abdomen and pelvis on CT · Primer</title>
+<link rel="stylesheet" href="../segthy-001/viewer.css"><link rel="stylesheet" href="viewer.css">
+<script type="module" src="viewer.js"></script></head><body><main>
+<nav aria-label="Reporting references"><a href="/app/#/radiology/ct.chest-abdomen-pelvis">CT chest, abdomen and pelvis</a> · <a href="/app/#/radiology/ct.trauma-panscan">Trauma panscan</a></nav>
+<header><h1>Chest, abdomen and pelvis on CT</h1><p>Follow a labelled structure through scan s0028, compare its CT appearance with the source mask, and rotate its matching surface. All views use the same acquisition.</p></header>
+<fieldset id="selection" class="selection" disabled><legend>Source anatomy</legend>
+<label>Report area<select id="region"></select></label><label>Find a structure<input id="search" type="search" placeholder="e.g. aorta, left rib, pancreas"></label>
+<label>Source structure<select id="structure"></select></label>
+<button type="button" id="focus">Focus this label</button><a id="link" hidden>Open selected structure</a>
+<p id="matches" aria-live="polite" hidden></p><p id="scope"></p><p id="evidence"></p></fieldset>
+<p role="status" id="setup">Verifying the case inventory…</p>
+<div class="workspace" id="workspace" inert><section class="panel"><h2>CT and section map</h2>
+<div class="image-controls"><label>Plane<select id="plane"><option value="ij">Axial · fixed K</option><option value="ik">Coronal · fixed J</option><option value="jk">Sagittal · fixed I</option></select></label>
+<label>Orientation<select id="orientation"><option value="radiology">Radiological · source affine</option><option value="index">Source index order</option></select></label>
+<label>Display<select id="mode"><option value="outline">CT with selected outline</option><option value="raw">Unmarked CT</option><option value="map">All source masks on this section</option></select></label>
+<label>Window<select id="window"><option value="soft">Soft tissue</option><option value="lung">Lung</option><option value="bone">Bone</option><option value="custom">Custom</option></select></label>
+<label>Field of view<select id="field"><option value="full">Full section</option><option value="detail">Selected label and margin</option></select></label>
+<label>Black point<input type="number" id="low" value="-125"></label><label>White point<input type="number" id="high" value="225"></label></div>
+<div class="scan-scroll"><div id="image-frame" class="scan-image" hidden><canvas id="ct" tabindex="0" role="img" aria-label="Source CT section and label display. Use arrow keys to move through sections."></canvas><svg id="cursor" aria-hidden="true"></svg><span class="edge top" id="top-edge"></span><span class="edge left" id="left-edge"></span><span class="edge bottom" id="bottom-edge"></span><span class="edge right" id="right-edge"></span></div></div>
+<p id="section-status" role="status"></p><button id="retry" type="button" hidden>Retry CT section</button>
+<label><span>Section <output id="slice-value" for="slice"></output></span><input id="slice" type="range" min="0" value="0"></label>
+<div class="coords"><label>I<input type="number" step="1" id="i"></label><label>J<input type="number" step="1" id="j"></label><label>K<input type="number" step="1" id="k"></label><button id="go" type="button">Go to voxel</button></div>
+<p id="voxel" aria-live="polite"></p><p>Select a pixel to read its stored CT value and every source label at that position. White in the section map marks cells shared by two masks.</p>
+<details><summary>Labels crossing this section</summary><table><thead><tr><th scope="col">Source structure</th><th scope="col">Area (mm²)</th></tr></thead><tbody id="key"></tbody></table></details></section>
+<section class="panel"><h2>Selected mask in 3D</h2>
+<div class="mesh-frame"><canvas id="surface" width="640" height="480" tabindex="0" role="img" aria-label="Selected source mask surface"></canvas>
+<svg id="mesh-locator" viewBox="0 0 640 480" aria-hidden="true"></svg></div><p id="mesh-status" role="status">Choose a structure to inspect its surface.</p>
+<div class="orbit-controls"><label>Rotation <output id="yaw-value" for="yaw"></output><input id="yaw" type="range" min="-180" max="180" value="25"></label>
+<label>Tilt <output id="pitch-value" for="pitch"></output><input id="pitch" type="range" min="-85" max="85" value="18"></label>
+<label>Zoom<input id="zoom" type="range" min=".5" max="3" value="1" step=".05"></label></div><div class="buttons">
+<button type="button" id="reset-orbit">Reset view</button><button type="button" id="retry-mesh" hidden>Retry surface</button></div>
+<p>The rectangle locates the current section in this mask’s extent. Drag to rotate or use the arrow keys, plus and minus to zoom, and Home to reset.</p></section></div>
+<details><summary>Case, sampling and source limits</summary>
+<p>The source identifies s0028 as a 59-year-old female neck–chest–abdomen–pelvis CT in the training set. Its stored grid is 299 × 299 × 394 with 1.5 mm spacing. I, J and K are source indices. The NIfTI aligned sform gives increasing I, J and K toward right, anterior and superior. Radiological view places source right on the left in axial and coronal planes and source anterior on the left in sagittal planes. The header omits a physical-unit flag; measurements use the documented 1.5 mm sampling. Original DICOM orientation and HU calibration have not been independently verified.</p>
+<p>The 117 supplied masks include 109 with labelled cells and eight empty masks. Twenty masks reach an edge of the acquired grid. Surfaces follow the 0.5 mask interface without capping, smoothing or removing components. A mask describes the source’s labelled extent. It does not establish lesion absence, reportable injury, acquisition phase, or tumour response.</p>
+<p>Jakob Wasserthal and the TotalSegmentator team, University Hospital Basel. TotalSegmentator v3.0.0, CC BY 4.0. Primer adaptations include lossless voxel transport, display colours, sections and surface extraction. <a href="https://zenodo.org/records/22688904">Dataset and case metadata</a> · <a href="https://doi.org/10.1148/ryai.230024">Dataset methods (v1)</a> · <a href="https://creativecommons.org/licenses/by/4.0/">Licence</a></p></details>
+</main></body></html>

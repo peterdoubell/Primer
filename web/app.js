@@ -2084,6 +2084,17 @@ function sourceNativeInspector(asset) {
     radiologySourceLink(asset.source_label || (sourceContacts ? 'SPL source atlas publication' : fcdMRI ? 'Original FCD MRI and lesion dataset' : hippocampalRaters ? 'Original hippocampal MRI and annotations dataset' : temporalCBCT ? 'OpenEar CBCT and source anatomy dataset' : exVivoMRI ? 'Ex vivo MRI reference dataset' : vascularTemplate ? 'Vascular study-template dataset' : templateMRI ? 'Population brain template dataset' : limbicMRI ? 'SPL atlas publication' : registeredMRI ? 'Published registered MRI training dataset' : curatedSurface ? 'Original curated surface dataset' : comparisonCT ? 'Original CT comparison dataset' : nativeCT ? 'Original CT source dataset' : sourceCase ? 'Original MRI source dataset' : 'Original MRI templates'), asset.source_url),
     ...(curatedSurface || lungCT || basalCT || cardiacCT || comparisonCT ? [] : [' · ', radiologySourceLink(sourceContacts || fcdMRI || hippocampalRaters || templateMRI ? 'Source publication and methods' : limbicMRI ? 'Pinned original files and scene' : sourceCase ? 'Source publication and methods' : 'Original probabilistic atlas', asset.publication_url || asset.atlas_source_url)]), ' · ',
     radiologySourceLink(sourceCase ? asset.license + ' · data' : asset.license, asset.license_url));
+  if (asset.report_area_links?.length) {
+    const list = el('ul', {});
+    for (const area of asset.report_area_links) {
+      const name = area.present
+        ? el('a', { href: area.src, target: '_blank', rel: 'noopener noreferrer' }, area.name)
+        : el('strong', {}, area.name);
+      const count = area.present ? ' · ' + area.present + ' nonempty source masks. ' : ' · ';
+      list.append(el('li', {}, name, count + area.note));
+    }
+    section.append(el('details', { class: 'rad-protocol' }, el('summary', {}, 'Source anatomy by report area'), list));
+  }
   if (asset.photographic_figures?.length) {
     asset.photographic_figures.forEach(figure => section.append(sourceAtlasFigure(figure)));
     attachPictureHandlers(section);

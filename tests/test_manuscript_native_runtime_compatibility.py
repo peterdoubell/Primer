@@ -3,11 +3,12 @@ import hashlib,json
 from pathlib import Path
 import pytest
 from tools import manuscript_native_runtime_compatibility as bridge
+from tools.ct_torso_compatibility import before_torso_bytes
 ROOT=Path(__file__).resolve().parents[1]
 
 def test_exact_allowance_projection_and_proof_are_checked(tmp_path,monkeypatch):
     proof=bridge.PROOF.read_bytes();assert hashlib.sha256(proof).hexdigest()==bridge.PIN
-    row=json.loads(proof)['primer/curriculum.py'];raw=(ROOT/'primer/curriculum.py').read_bytes()
+    row=json.loads(proof)['primer/curriculum.py'];raw=before_torso_bytes('primer/curriculum.py',(ROOT/'primer/curriculum.py').read_bytes())
     assert hashlib.sha256(raw).hexdigest()==row['after']
     before=bridge.before_manuscript_native_bytes('primer/curriculum.py',raw)
     assert hashlib.sha256(before).hexdigest()==row['before']

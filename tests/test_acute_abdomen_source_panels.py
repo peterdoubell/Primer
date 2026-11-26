@@ -141,10 +141,11 @@ def test_generated_map_and_professional_row_links_match_the_reviewed_source_and_
 
 
 def test_exact_inverse_retains_foreign_edits_and_the_locator_keeps_all_original_rows():
+    from tools.ct_torso_compatibility import before_torso_bytes
     raw = history.PROOF.read_bytes()
     assert hashlib.sha256(raw).hexdigest() == history.PIN
     for path, entry in json.loads(raw).items():
-        current = (ROOT / path).read_bytes()
+        current = before_torso_bytes(path, (ROOT / path).read_bytes())
         assert hashlib.sha256(current).hexdigest() == entry['after']
         before = history.before_acute_panel_bytes(path, current)
         assert hashlib.sha256(before).hexdigest() == entry['before']

@@ -350,6 +350,10 @@ def _validate_lesson_media(node: Dict) -> None:
                            else native_inspectors())
             for identifier in identifiers:
                 investigation = radiology_catalog.resolve(identifier)
+                if not investigation and kind == 'source-native-inspectors':
+                    from .ct_torso_reference import EXAMS as torso_exams
+                    if torso_exams.get(node.get('id')) == identifier and source_sets.get(identifier):
+                        continue
                 if (not investigation or investigation['id'] != identifier
                         or investigation['module_id'] != node.get('id')
                         or not source_sets.get(identifier)):

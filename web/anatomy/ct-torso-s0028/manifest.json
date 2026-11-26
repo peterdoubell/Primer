@@ -1,0 +1,7215 @@
+{
+  "id": "s0028",
+  "encoding": "int16-le+two-labels",
+  "shape": [
+    299,
+    299,
+    394
+  ],
+  "spacingMm": [
+    1.5,
+    1.5,
+    1.5
+  ],
+  "affine": [
+    [
+      1.5,
+      0.0,
+      0.0,
+      -230.5625
+    ],
+    [
+      0.0,
+      1.5,
+      0.0,
+      -81.5625
+    ],
+    [
+      0.0,
+      0.0,
+      1.5,
+      -5.0
+    ],
+    [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+    ]
+  ],
+  "ctSHA256": "d11b8acbf137277d157930f7d0cb3a5f259364a5e5af18dafcd3cac0ecf4168c",
+  "ctSampleSHA256": "1db65353bfa5cafb2cf6b5ba7d3f4493e3fce34ec298e16c6b0c541130d03911",
+  "groups": [
+    "Head, neck and chest organs",
+    "Abdomen and pelvis",
+    "Blood vessels",
+    "Spine and spinal cord",
+    "Ribs and chest wall",
+    "Other bones",
+    "Muscles"
+  ],
+  "labels": [
+    {
+      "code": 1,
+      "name": "Brain",
+      "sourceLabel": "brain",
+      "group": "Head, neck and chest organs",
+      "color": [
+        101,
+        139,
+        230
+      ],
+      "voxelCount": 0,
+      "sourceSHA256": "4371570eeeb75aa1d9b52ad7a59731e2ad85c500ff704a17f5eb02880d280dcc"
+    },
+    {
+      "code": 2,
+      "name": "Left lung upper lobe",
+      "sourceLabel": "lung_upper_lobe_left",
+      "group": "Head, neck and chest organs",
+      "color": [
+        176,
+        230,
+        101
+      ],
+      "voxelCount": 231258,
+      "sourceSHA256": "a1f65922aafbed62a56fada553d7201f763caac28781ac78e5e17d57f9fd029c",
+      "focus": [
+        106,
+        161,
+        329
+      ],
+      "boundsIndex": [
+        [
+          71,
+          112,
+          264
+        ],
+        [
+          147,
+          203,
+          374
+        ]
+      ],
+      "touchesGridEdge": false,
+      "mesh": {
+        "file": "lung-upper-lobe-left.mesh.gz",
+        "bytes": 429697,
+        "sha256": "e122df487e3e373e2998932d68613f3a4e5c07963cf331f6712d5268c1d7508a",
+        "decodedSHA256": "df95b41b2768f5f05e5646e7d7ad45e10677f459757a1866cd4e32622e48d499",
+        "vertices": 38031,
+        "triangles": 76070
+      }
+    },
+    {
+      "code": 3,
+      "name": "Left lung lower lobe",
+      "sourceLabel": "lung_lower_lobe_left",
+      "group": "Head, neck and chest organs",
+      "color": [
+        230,
+        101,
+        214
+      ],
+      "voxelCount": 223040,
+      "sourceSHA256": "f58c971a64526b5c764975a4796efb6334a407da188d90e035c73d3fe5483ed6",
+      "focus": [
+        102,
+        130,
+        283
+      ],
+      "boundsIndex": [
+        [
+          64,
+          100,
+          221
+        ],
+        [
+          142,
+          187,
+          349
+        ]
+      ],
+      "touchesGridEdge": false,
+      "mesh": {
+        "file": "lung-lower-lobe-left.mesh.gz",
+        "bytes": 443772,
+        "sha256": "e3b8d8fd059dbd8a20f0ce96622fa21b4bad46de3882ac80982cd28a526d1d9d",
+        "decodedSHA256": "24bca90ee236a4bea0a07bb42367c0b013862a07af2bce27f6450e7bc7641440",
+        "vertices": 40146,
+        "triangles": 80320
+      }
+    },
+    {
+      "code": 4,
+      "name": "Right lung upper lobe",
+      "sourceLabel": "lung_upper_lobe_right",
+      "group": "Head, neck and chest organs",
+      "color": [
+        101,
+        230,
+        209
+      ],
+      "voxelCount": 206409,
+      "sourceSHA256": "62a5f5fcfda0bb98456a513170a64d762b67cbb5d14735398af7156f44d898a6",
+      "focus": [
+        193,
+        158,
+        334
+      ],
+      "boundsIndex": [
+        [
+          147,
+          109,
+          298
+        ],
+        [
+          231,
+          205,
+          372
+        ]
+      ],
+      "touchesGridEdge": false,
+      "mesh": {
+        "file": "lung-upper-lobe-right.mesh.gz",
+        "bytes": 366895,
+        "sha256": "530c30d9d9f4fdd2f9d8a4ac86fd3a4da09651be4b791da56a88c40bff2223d2",
+        "decodedSHA256": "efb89d9157de3700857c3ba148409e8196268cc1d0d706e6c18dfc2647af6e08",
+        "vertices": 32773,
+        "triangles": 65554
+      }
+    },
+    {
+      "code": 5,
+      "name": "Right lung middle lobe",
+      "sourceLabel": "lung_middle_lobe_right",
+      "group": "Head, neck and chest organs",
+      "color": [
+        230,
+        171,
+        101
+      ],
+      "voxelCount": 79993,
+      "sourceSHA256": "7aea32f3cfd6a4d0cb88f2b6fe3720b0766cce2f699cbad0d1726bfab1fa243c",
+      "focus": [
+        196,
+        182,
+        289
+      ],
+      "boundsIndex": [
+        [
+          151,
+          147,
+          248
+        ],
+        [
+          231,
+          207,
+          311
+        ]
+      ],
+      "touchesGridEdge": false,
+      "mesh": {
+        "file": "lung-middle-lobe-right.mesh.gz",
+        "bytes": 207116,
+        "sha256": "49e5f0ce1bd0ccf3da18f6bfb974da4bc3d33f681732bb974d09280c0e62708a",
+        "decodedSHA256": "66e6ee9600a83ad231d0efa4e83b8e92b63341a5a8cc708f3be4d41e5af0112e",
+        "vertices": 18925,
+        "triangles": 37858
+      }
+    },
+    {
+      "code": 6,
+      "name": "Right lung lower lobe",
+      "sourceLabel": "lung_lower_lobe_right",
+      "group": "Head, neck and chest organs",
+      "color": [
+        134,
+        101,
+        230
+      ],
+      "voxelCount": 262976,
+      "sourceSHA256": "d1928da02bdd9038a262a24038e76c0e0f0e9b50c25e4143052e7e58cee9038d",
+      "focus": [
+        195,
+        129,
+        282
+      ],
+      "boundsIndex": [
+        [
+          149,
+          96,
+          218
+        ],
+        [
+          235,
+          194,
+          340
+        ]
+      ],
+      "touchesGridEdge": false,
+      "mesh": {
+        "file": "lung-lower-lobe-right.mesh.gz",
+        "bytes": 509911,
+        "sha256": "f3f747a92f63b64fb98a55d7747037bedd531b1d36ae4d4ca5a29d9d3f6b3ffd",
+        "decodedSHA256": "2d73c6b7e4b51dfa51a5547f3650e83da2f0263cbd4daa2a91a791e2d51e7c06",
+        "vertices": 45961,
+        "triangles": 91982
+      }
+    },
+    {
+      "code": 7,
+      "name": "Esophagus",
+      "sourceLabel": "esophagus",
+      "group": "Head, neck and chest organs",
+      "color": [
+        107,
+        230,
+        101
+      ],
+      "voxelCount": 8894,
+      "sourceSHA256": "112ba8a39ad213c5a4cdc51d02689707d8cf33cee7e7224d3b8c6468d26f79ee",
+      "focus": [
+        149,
+        139,
+        302
+      ],
+      "boundsIndex": [
+        [
+          134,
+          133,
+          246
+        ],
+        [
+          157,
+          164,
+          382
+        ]
+      ],
+      "touchesGridEdge": false,
+      "mesh": {
+        "file": "esophagus.mesh.gz",
+        "bytes": 71479,
+        "sha256": "1ebfb379db3c79c24d4b58de9f6fcfed3145c0683424728e210e05379b8a65d0",
+        "decodedSHA256": "8fb7c888a2f4d8f8f70e2ebc33f4d52ca18575b713565786827ffaca025bcac5",
+        "vertices": 6450,
+        "triangles": 12896
+      }
+    },
+    {
+      "code": 8,
+      "name": "Trachea",
+      "sourceLabel": "trachea",
+      "group": "Head, neck and chest organs",
+      "color": [
+        230,
+        101,
+        144
+      ],
+      "voxelCount": 7134,
+      "sourceSHA256": "c6d20694d45ba84575e930d3d3c716d2562e74f17c4a4ba1d6326dbf48185bc5",
+      "focus": [
+        154,
+        152,
+        345
+      ],
+      "boundsIndex": [
+        [
+          124,
+          138,
+          315
+        ],
+        [
+          178,
+          179,
+          383
+        ]
+      ],
+      "touchesGridEdge": false,
+      "mesh": {
+        "file": "trachea.mesh.gz",
+        "bytes": 52521,
+        "sha256": "c6c9f4f49c44487a2aabbcf25b7a50f2cd8a3a880c6b3ea5956bb3a02b819b38",
+        "decodedSHA256": "c9e88cf8c97c0aceb527a7f502acd62e74485feb9f48b1ac0354b738a04c3548",
+        "vertices": 4846,
+        "triangles": 9688
+      }
+    },
+    {
+      "code": 9,
+      "name": "Thyroid gland",
+      "sourceLabel": "thyroid_gland",
+      "group": "Head, neck and chest organs",
+      "color": [
+        101,
+        182,
+        230
+      ],
+      "voxelCount": 7684,
+      "sourceSHA256": "1ad37cc582451ba50699908c2da5cf1cdd7321b82f73d3ad2d4101630303cd7c",
+      "focus": [
+        155,
+        167,
+        369
+      ],
+      "boundsIndex": [
+        [
+          137,
+          153,
+          354
+        ],
+        [
+          167,
+          177,
+          393
+        ]
+      ],
+      "touchesGridEdge": true,
+      "mesh": {
+        "file": "thyroid-gland.mesh.gz",
+        "bytes": 49259,
+        "sha256": "185dbc9c9844c913de43a805c759a6ccf2bd56d6af2a024b534ea4c0b0d6b17b",
+        "decodedSHA256": "c209886d685bff37b846ab350e6c6854f3febe5445f7f10798cc3a85d7962c29",
+        "vertices": 4539,
+        "triangles": 9070
+      }
+    },
+    {
+      "code": 10,
+      "name": "Heart",
+      "sourceLabel": "heart",
+      "group": "Head, neck and chest organs",
+      "color": [
+        219,
+        230,
+        101
+      ],
+      "voxelCount": 130095,
+      "sourceSHA256": "17a9b38786eed8b59f7db6825b86cdd8f240d64220673b1e48b496c07d2a8a0b",
+      "focus": [
+        138,
+        171,
+        286
+      ],
+      "boundsIndex": [
+        [
+          98,
+          134,
+          255
+        ],
+        [
+          181,
+          200,
+          331
+        ]
+      ],
+      "touchesGridEdge": false,
+      "mesh": {
+        "file": "heart.mesh.gz",
+        "bytes": 336282,
+        "sha256": "73247d60b54855e94c5eea059688f6cc46e5e13ca8725b5fa5879ca292cdeebd",
+        "decodedSHA256": "33c693a68c71c556294e803614fc9eea697a98dfdff75a864b93df0fabf8a18d",
+        "vertices": 30288,
+        "triangles": 60604
+      }
+    },
+    {
+      "code": 11,
+      "name": "Left atrial appendage",
+      "sourceLabel": "atrial_appendage_left",
+      "group": "Head, neck and chest organs",
+      "color": [
+        203,
+        101,
+        230
+      ],
+      "voxelCount": 1617,
+      "sourceSHA256": "4fb7e3a3d1533fc1da799c8294fbaea9b1db2ea9f2c609458b8d0dab57876d17",
+      "focus": [
+        123,
+        156,
+        301
+      ],
+      "boundsIndex": [
+        [
+          112,
+          147,
+          295
+        ],
+        [
+          134,
+          165,
+          308
+        ]
+      ],
+      "touchesGridEdge": false,
+      "mesh": {
+        "file": "atrial-appendage-left.mesh.gz",
+        "bytes": 14380,
+        "sha256": "b492e3e8904d1ed57e772d3f070951926dba01f614b4e0956e26a7ca53069f14",
+        "decodedSHA256": "3b59f50bb1ca1f8e16be28ae7590c14d6006865d1602041fbdbc365a2dd4aa5b",
+        "vertices": 1320,
+        "triangles": 2636
+      }
+    },
+    {
+      "code": 12,
+      "name": "Spleen",
+      "sourceLabel": "spleen",
+      "group": "Abdomen and pelvis",
+      "color": [
+        101,
+        230,
+        166
+      ],
+      "voxelCount": 28224,
+      "sourceSHA256": "9572a5ec13640611ba60f2f9d673c9c2802ed9516ff56657357ba329be722e97",
+      "focus": [
+        80,
+        134,
+        224
+      ],
+      "boundsIndex": [
+        [
+          62,
+          112,
+          200
+        ],
+        [
+          104,
+          160,
+          245
+        ]
+      ],
+      "touchesGridEdge": false,
+      "mesh": {
+        "file": "spleen.mesh.gz",
+        "bytes": 91567,
+        "sha256": "5faa4fc25737878d41c7fefa606ff8210d392ca2ab16b229d606fb575a646a20",
+        "decodedSHA256": "0522cb5de26a0ec8db55ce1922fb64bc45ee43dc148b0977841d2e0e85e0d5a9",
+        "vertices": 8450,
+        "triangles": 16896
+      }
+    },
+    {
+      "code": 13,
+      "name": "Right kidney",
+      "sourceLabel": "kidney_right",
+      "group": "Abdomen and pelvis",
+      "color": [
+        230,
+        128,
+        101
+      ],
+      "voxelCount": 32085,
+      "sourceSHA256": "c055b3fb96cc97e92852f8557cb34ef569e0a91018e29744616f2a3b397b9c80",
+      "focus": [
+        185,
+        135,
+        179
+      ],
+      "boundsIndex": [
+        [
+          164,
+          114,
+          149
+        ],
+        [
+          204,
+          154,
+          204
+        ]
+      ],
+      "touchesGridEdge": false,
+      "mesh": {
+        "file": "kidney-right.mesh.gz",
+        "bytes": 115444,
+        "sha256": "30c7a4ac89a116c11e3846b95ad3d37db291203b6b10c8e7cba357ad4830eb6f",
+        "decodedSHA256": "d6b98f535c44f1ef72154020224373fc5dd93f61de7a3b7236ea53700c8c885f",
+        "vertices": 10354,
+        "triangles": 20704
+      }
+    },
+    {
+      "code": 14,
+      "name": "Left kidney",
+      "sourceLabel": "kidney_left",
+      "group": "Abdomen and pelvis",
+      "color": [
+        101,
+        112,
+        230
+      ],
+      "voxelCount": 32125,
+      "sourceSHA256": "5925298249dbe8d311ee7115911800173532406d8b02a9e80fc5ef896da3ec74",
+      "focus": [
+        104,
+        135,
+        191
+      ],
+      "boundsIndex": [
+        [
+          86,
+          118,
+          154
+        ],
+        [
+          126,
+          151,
+          218
+        ]
+      ],
+      "touchesGridEdge": false,
+      "mesh": {
+        "file": "kidney-left.mesh.gz",
+        "bytes": 118381,
+        "sha256": "84da7069bb5d83c2f659f8f4aa1f430537a7e9848cf1bd985d16dcf5e9accfc7",
+        "decodedSHA256": "70e5aae68a1e90db71db05bbcd7ad3cedcc98e86367efdf260d024aa5e3b0020",
+        "vertices": 10590,
+        "triangles": 21176
+      }
+    },
+    {
+      "code": 15,
+      "name": "Gallbladder",
+      "sourceLabel": "gallbladder",
+      "group": "Abdomen and pelvis",
+      "color": [
+        150,
+        230,
+        101
+      ],
+      "voxelCount": 1426,
+      "sourceSHA256": "01dc8ca612d8c5fa4be60886718f93c1fad712b3a339984c995e1cd7abba6a70",
+      "focus": [
+        195,
+        178,
+        208
+      ],
+      "boundsIndex": [
+        [
+          185,
+          170,
+          202
+        ],
+        [
+          204,
+          187,
+          216
+        ]
+      ],
+      "touchesGridEdge": false,
+      "mesh": {
+        "file": "gallbladder.mesh.gz",
+        "bytes": 11997,
+        "sha256": "8c1e21c58ca85d642e62df5672a6771aa9ec48d47e924062ac738b594f9cafa0",
+        "decodedSHA256": "e86809ec8e3f993ea4b6257d7b8d35f0dec7919bc1b118f92ee062ce91072d4a",
+        "vertices": 1104,
+        "triangles": 2204
+      }
+    },
+    {
+      "code": 16,
+      "name": "Liver",
+      "sourceLabel": "liver",
+      "group": "Abdomen and pelvis",
+      "color": [
+        230,
+        101,
+        187
+      ],
+      "voxelCount": 398759,
+      "sourceSHA256": "10549818924d105f875a75ed70b7107e6bb8af0dcbb21c3aaa6d05a0d2caee4e",
+      "focus": [
+        189,
+        160,
+        231
+      ],
+      "boundsIndex": [
+        [
+          75,
+          105,
+          175
+        ],
+        [
+          235,
+          209,
+          274
+        ]
+      ],
+      "touchesGridEdge": false,
+      "mesh": {
+        "file": "liver.mesh.gz",
+        "bytes": 647323,
+        "sha256": "7eb7125ab2d08ec59c6635fe9839716fc299e291fbc4493fc27c73bdd827fddf",
+        "decodedSHA256": "4564fd3fc51ec38976a727423f24d958e3a93b76273c4d1ab62ba15ba0f42b84",
+        "vertices": 59136,
+        "triangles": 118304
+      }
+    },
+    {
+      "code": 17,
+      "name": "Stomach",
+      "sourceLabel": "stomach",
+      "group": "Abdomen and pelvis",
+      "color": [
+        101,
+        225,
+        230
+      ],
+      "voxelCount": 168540,
+      "sourceSHA256": "aae7e04e3fa785dbde2aa04534f5cc65dbe8d3553ce07567036ee50d2c00780d",
+      "focus": [
+        122,
+        175,
+        218
+      ],
+      "boundsIndex": [
+        [
+          78,
+          122,
+          159
+        ],
+        [
+          180,
+          212,
+          257
+        ]
+      ],
+      "touchesGridEdge": false,
+      "mesh": {
+        "file": "stomach.mesh.gz",
+        "bytes": 322881,
+        "sha256": "b53fc47f075d6f769108eaeed3d7ebf29c8678b7f0f3e2be92f2a9f8f7c1d492",
+        "decodedSHA256": "cdcab796f0941751e950a1eb995ae8d5ff64587ba5fc54587ed8645b151eeece",
+        "vertices": 29258,
+        "triangles": 58512
+      }
+    },
+    {
+      "code": 18,
+      "name": "Pancreas",
+      "sourceLabel": "pancreas",
+      "group": "Abdomen and pelvis",
+      "color": [
+        230,
+        198,
+        101
+      ],
+      "voxelCount": 22725,
+      "sourceSHA256": "37b6580de54f2fb9a11b8013fce39239c723f060295ea29ee21612e831487033",
+      "focus": [
+        142,
+        168,
+        201
+      ],
+      "boundsIndex": [
+        [
+          86,
+          149,
+          165
+        ],
+        [
+          172,
+          183,
+          221
+        ]
+      ],
+      "touchesGridEdge": false,
+      "mesh": {
+        "file": "pancreas.mesh.gz",
+        "bytes": 110350,
+        "sha256": "8c04bdb4bfa279ba6b218d2a1cdbf181545f9c59bfb9fdd219af22ca62034ea8",
+        "decodedSHA256": "ec1b03cfee6bce2018e0218a4e465d0edbb2cc79dfed2b29b3876a4790cad5d1",
+        "vertices": 10144,
+        "triangles": 20284
+      }
+    },
+    {
+      "code": 19,
+      "name": "Right adrenal gland",
+      "sourceLabel": "adrenal_gland_right",
+      "group": "Abdomen and pelvis",
+      "color": [
+        160,
+        101,
+        230
+      ],
+      "voxelCount": 775,
+      "sourceSHA256": "147c910940824f603f04e117e2975178292b6bbdbdc587b747c88c7f9ee5c934",
+      "focus": [
+        163,
+        138,
+        217
+      ],
+      "boundsIndex": [
+        [
+          157,
+          127,
+          206
+        ],
+        [
+          168,
+          142,
+          226
+        ]
+      ],
+      "touchesGridEdge": false,
+      "mesh": {
+        "file": "adrenal-gland-right.mesh.gz",
+        "bytes": 10234,
+        "sha256": "03535e2ac32a2f3d1982db027c5ed8619015275636a3eb0d6899c76eda5a5fcc",
+        "decodedSHA256": "5a04fac48df81972fdad73efbd0ded6c5710f87838629d1c75ca464938bbf368",
+        "vertices": 935,
+        "triangles": 1870
+      }
+    },
+    {
+      "code": 20,
+      "name": "Left adrenal gland",
+      "sourceLabel": "adrenal_gland_left",
+      "group": "Abdomen and pelvis",
+      "color": [
+        101,
+        230,
+        123
+      ],
+      "voxelCount": 739,
+      "sourceSHA256": "5e59379a366fb4611b5eea0848921185babe0cda4e7005048dcc9321958c54e3",
+      "focus": [
+        127,
+        149,
+        214
+      ],
+      "boundsIndex": [
+        [
+          118,
+          139,
+          202
+        ],
+        [
+          133,
+          153,
+          224
+        ]
+      ],
+      "touchesGridEdge": false,
+      "mesh": {
+        "file": "adrenal-gland-left.mesh.gz",
+        "bytes": 11963,
+        "sha256": "40cc3a5e753d2ba7ef5d71514a38c83245cca65803e0e0bea5e457ce2c43fe0b",
+        "decodedSHA256": "0535640ecb3d4c5d16cf0a079d722ec9a4d400819392639901586a11e2d26a51",
+        "vertices": 1074,
+        "triangles": 2152
+      }
+    },
+    {
+      "code": 21,
+      "name": "Small bowel",
+      "sourceLabel": "small_bowel",
+      "group": "Abdomen and pelvis",
+      "color": [
+        230,
+        101,
+        118
+      ],
+      "voxelCount": 279482,
+      "sourceSHA256": "d6d026951d811c57c225fab2232a325c16590052df0c26423fc2f6381eb4bd69",
+      "focus": [
+        134,
+        167,
+        111
+      ],
+      "boundsIndex": [
+        [
+          72,
+          104,
+          36
+        ],
+        [
+          198,
+          203,
+          203
+        ]
+      ],
+      "touchesGridEdge": false,
+      "mesh": {
+        "file": "small-bowel.mesh.gz",
+        "bytes": 913532,
+        "sha256": "9ed77ebab76b8f1788600588e5fda51d6a3090cb6b0dd224b7eb428516c7c296",
+        "decodedSHA256": "eadb1a3eb757bede005b20fc3300729acdd4dc7a3a91d344f0b4fb6cffdbbf3f",
+        "vertices": 82583,
+        "triangles": 165230
+      }
+    },
+    {
+      "code": 22,
+      "name": "Duodenum",
+      "sourceLabel": "duodenum",
+      "group": "Abdomen and pelvis",
+      "color": [
+        101,
+        155,
+        230
+      ],
+      "voxelCount": 18099,
+      "sourceSHA256": "2056a02419a2df22b2d93109a08919caf0f419154013452a4c9a5dfee190815c",
+      "focus": [
+        173,
+        161,
+        183
+      ],
+      "boundsIndex": [
+        [
+          130,
+          146,
+          151
+        ],
+        [
+          195,
+          181,
+          211
+        ]
+      ],
+      "touchesGridEdge": false,
+      "mesh": {
+        "file": "duodenum.mesh.gz",
+        "bytes": 99456,
+        "sha256": "b2dd187b4fa5ee974cb7d31a312846a077178f3fac751c36bfb9952d735cfa5f",
+        "decodedSHA256": "2ac9d2b17e2c0b2d1d013b5f4dbb6536b25bb0368f185f11fbf293670b8b9276",
+        "vertices": 9188,
+        "triangles": 18376
+      }
+    },
+    {
+      "code": 23,
+      "name": "Colon",
+      "sourceLabel": "colon",
+      "group": "Abdomen and pelvis",
+      "color": [
+        193,
+        230,
+        101
+      ],
+      "voxelCount": 139471,
+      "sourceSHA256": "f32c7373577d90b79c478153efc374ebcff944c24f0a89c61fdd3df4b7fde721",
+      "focus": [
+        163,
+        187,
+        142
+      ],
+      "boundsIndex": [
+        [
+          68,
+          89,
+          22
+        ],
+        [
+          223,
+          209,
+          225
+        ]
+      ],
+      "touchesGridEdge": false,
+      "mesh": {
+        "file": "colon.mesh.gz",
+        "bytes": 546219,
+        "sha256": "b8e03d5610bebf15279412df6dab7162aa7bc91f50125405f060d46699a0515d",
+        "decodedSHA256": "6eccbc0c6a9322fc1c2dc290bb0c15f494bafaaffaae176b0417f4873a0cbb97",
+        "vertices": 50160,
+        "triangles": 100316
+      }
+    },
+    {
+      "code": 24,
+      "name": "Urinary bladder",
+      "sourceLabel": "urinary_bladder",
+      "group": "Abdomen and pelvis",
+      "color": [
+        230,
+        101,
+        230
+      ],
+      "voxelCount": 15629,
+      "sourceSHA256": "733b7f24a08b963fbe5a508c8f0b9fadc8556533179bd20dffad11069a5e0e27",
+      "focus": [
+        144,
+        156,
+        32
+      ],
+      "boundsIndex": [
+        [
+          123,
+          138,
+          20
+        ],
+        [
+          165,
+          178,
+          41
+        ]
+      ],
+      "touchesGridEdge": false,
+      "mesh": {
+        "file": "urinary-bladder.mesh.gz",
+        "bytes": 56442,
+        "sha256": "f0676254e98ae4b6e0b87413e173a528ad789562cbc779183f14106f2803a137",
+        "decodedSHA256": "6c640e0b227561169f02e0d05f3aa6a1ee2db7f0c3a8b8fb474ff171adecd096",
+        "vertices": 5420,
+        "triangles": 10836
+      }
+    },
+    {
+      "code": 25,
+      "name": "Prostate",
+      "sourceLabel": "prostate",
+      "group": "Abdomen and pelvis",
+      "color": [
+        101,
+        230,
+        192
+      ],
+      "voxelCount": 0,
+      "sourceSHA256": "4371570eeeb75aa1d9b52ad7a59731e2ad85c500ff704a17f5eb02880d280dcc"
+    },
+    {
+      "code": 26,
+      "name": "Left kidney cyst",
+      "sourceLabel": "kidney_cyst_left",
+      "group": "Abdomen and pelvis",
+      "color": [
+        230,
+        155,
+        101
+      ],
+      "voxelCount": 53,
+      "sourceSHA256": "5fab8bed5fc1be58dd11ea48f26f0b84fb8a796c3f0d93fe50e561225798b80b",
+      "focus": [
+        94,
+        123,
+        188
+      ],
+      "boundsIndex": [
+        [
+          93,
+          121,
+          186
+        ],
+        [
+          96,
+          125,
+          190
+        ]
+      ],
+      "touchesGridEdge": false,
+      "mesh": {
+        "file": "kidney-cyst-left.mesh.gz",
+        "bytes": 1070,
+        "sha256": "c5673dc82a95b136132f2d1e8e0d6c95eff43e4895c8a76cf248381d8fa07bf8",
+        "decodedSHA256": "fe05c454c3923127bfb97f25b99d021864b6f5caea89003b00687ed3c48ef96a",
+        "vertices": 102,
+        "triangles": 200
+      }
+    },
+    {
+      "code": 27,
+      "name": "Right kidney cyst",
+      "sourceLabel": "kidney_cyst_right",
+      "group": "Abdomen and pelvis",
+      "color": [
+        117,
+        101,
+        230
+      ],
+      "voxelCount": 0,
+      "sourceSHA256": "4371570eeeb75aa1d9b52ad7a59731e2ad85c500ff704a17f5eb02880d280dcc"
+    },
+    {
+      "code": 28,
+      "name": "Aorta",
+      "sourceLabel": "aorta",
+      "group": "Blood vessels",
+      "color": [
+        123,
+        230,
+        101
+      ],
+      "voxelCount": 47775,
+      "sourceSHA256": "ea6b1a111d3173bd3f50d8db2cb53e5ca333ddf7be029a695339eb16bac668e9",
+      "focus": [
+        143,
+        163,
+        295
+      ],
+      "boundsIndex": [
+        [
+          129,
+          122,
+          133
+        ],
+        [
+          164,
+          183,
+          347
+        ]
+      ],
+      "touchesGridEdge": false,
+      "mesh": {
+        "file": "aorta.mesh.gz",
+        "bytes": 205719,
+        "sha256": "b65a222543dd19a921a6ed190f5813e3f34a6ba9b3372a8bec90c206a3dcd7f3",
+        "decodedSHA256": "37a89317a834d7077865112bc525a93f616e2dc85c8421723af3731f4f48f870",
+        "vertices": 18568,
+        "triangles": 37132
+      }
+    },
+    {
+      "code": 29,
+      "name": "Pulmonary vein",
+      "sourceLabel": "pulmonary_vein",
+      "group": "Blood vessels",
+      "color": [
+        230,
+        101,
+        161
+      ],
+      "voxelCount": 6111,
+      "sourceSHA256": "6035ccf47fd721305bd6cbbb0fda510bf3e2087f5966943398019546488dcc28",
+      "focus": [
+        143,
+        145,
+        307
+      ],
+      "boundsIndex": [
+        [
+          115,
+          133,
+          286
+        ],
+        [
+          185,
+          166,
+          322
+        ]
+      ],
+      "touchesGridEdge": false,
+      "mesh": {
+        "file": "pulmonary-vein.mesh.gz",
+        "bytes": 53283,
+        "sha256": "8a72b85e03e727060a537a58c0689381481dedc0f9db662fd2faea84fedc3f99",
+        "decodedSHA256": "82293c477b8cafa6fc441617cf1eb5306986ed3ddff4f337c842f1c31c98e793",
+        "vertices": 4895,
+        "triangles": 9778
+      }
+    },
+    {
+      "code": 30,
+      "name": "Brachiocephalic trunk",
+      "sourceLabel": "brachiocephalic_trunk",
+      "group": "Blood vessels",
+      "color": [
+        101,
+        198,
+        230
+      ],
+      "voxelCount": 1017,
+      "sourceSHA256": "d406222d0d18aca54092f3b6885e0b3c1c864181582ffe4089db19582a634b4c",
+      "focus": [
+        152,
+        164,
+        350
+      ],
+      "boundsIndex": [
+        [
+          145,
+          159,
+          344
+        ],
+        [
+          161,
+          170,
+          358
+        ]
+      ],
+      "touchesGridEdge": false,
+      "mesh": {
+        "file": "brachiocephalic-trunk.mesh.gz",
+        "bytes": 9052,
+        "sha256": "f19a25e165b1dc1c705bae1319aa9af4d30819b5d001e44cc11240aca2c672b9",
+        "decodedSHA256": "f3b2009b5b48118f21a043f5af2814651afa22ca798d06d6f1363c79bb674fd3",
+        "vertices": 828,
+        "triangles": 1652
+      }
+    },
+    {
+      "code": 31,
+      "name": "Right subclavian artery",
+      "sourceLabel": "subclavian_artery_right",
+      "group": "Blood vessels",
+      "color": [
+        230,
+        224,
+        101
+      ],
+      "voxelCount": 1639,
+      "sourceSHA256": "1107c3dbcfa51c58d2887ec9ec9f99935f950567ace8157250d156e5e7ed2c90",
+      "focus": [
+        186,
+        161,
+        369
+      ],
+      "boundsIndex": [
+        [
+          161,
+          153,
+          353
+        ],
+        [
+          225,
+          165,
+          374
+        ]
+      ],
+      "touchesGridEdge": false,
+      "mesh": {
+        "file": "subclavian-artery-right.mesh.gz",
+        "bytes": 19373,
+        "sha256": "e81e068135df56252905ccc5fe88f00b2cd90e8ab93344ddf894fe9188d653d7",
+        "decodedSHA256": "4ce648f95bd25dbb12cdbb58a268de40bf5dd6ac257ba86c254f19f25081f308",
+        "vertices": 1810,
+        "triangles": 3616
+      }
+    },
+    {
+      "code": 32,
+      "name": "Left subclavian artery",
+      "sourceLabel": "subclavian_artery_left",
+      "group": "Blood vessels",
+      "color": [
+        187,
+        101,
+        230
+      ],
+      "voxelCount": 1425,
+      "sourceSHA256": "f6b08e9376480def22c943a90e08954ca69ef0eb4dfd0603ea89ffb2ebc45e3b",
+      "focus": [
+        127,
+        155,
+        367
+      ],
+      "boundsIndex": [
+        [
+          81,
+          145,
+          348
+        ],
+        [
+          143,
+          165,
+          376
+        ]
+      ],
+      "touchesGridEdge": false,
+      "mesh": {
+        "file": "subclavian-artery-left.mesh.gz",
+        "bytes": 18464,
+        "sha256": "b0ea45db192c204281223441f83e4733d4fe4b2af030037981892a116220807a",
+        "decodedSHA256": "782621729834d9d5afab862e19a376060669eb3d20f4360f08240b1841aaf782",
+        "vertices": 1714,
+        "triangles": 3424
+      }
+    },
+    {
+      "code": 33,
+      "name": "Right common carotid artery",
+      "sourceLabel": "common_carotid_artery_right",
+      "group": "Blood vessels",
+      "color": [
+        101,
+        230,
+        149
+      ],
+      "voxelCount": 525,
+      "sourceSHA256": "9029050f97b9a545e37acfba69fd1440d6cc1724dffdb87803d4071609d3d900",
+      "focus": [
+        166,
+        162,
+        375
+      ],
+      "boundsIndex": [
+        [
+          162,
+          159,
+          358
+        ],
+        [
+          171,
+          171,
+          393
+        ]
+      ],
+      "touchesGridEdge": true,
+      "mesh": {
+        "file": "common-carotid-artery-right.mesh.gz",
+        "bytes": 8547,
+        "sha256": "dc9d8a7eb243ceb60fd9b00776613c0a6650d6030e7df5b7cdf3220fc5daeba9",
+        "decodedSHA256": "e659ab653afb4c234343dfc9a914c86b8a9944ec2699ae21744949108aab08d5",
+        "vertices": 788,
+        "triangles": 1558
+      }
+    },
+    {
+      "code": 34,
+      "name": "Left common carotid artery",
+      "sourceLabel": "common_carotid_artery_left",
+      "group": "Blood vessels",
+      "color": [
+        230,
+        112,
+        101
+      ],
+      "voxelCount": 840,
+      "sourceSHA256": "9c41a2afde0e2b6d39988af2562691573626d0ed0d78d9d8a36593a169c6d94f",
+      "focus": [
+        140,
+        155,
+        367
+      ],
+      "boundsIndex": [
+        [
+          137,
+          151,
+          347
+        ],
+        [
+          145,
+          169,
+          393
+        ]
+      ],
+      "touchesGridEdge": true,
+      "mesh": {
+        "file": "common-carotid-artery-left.mesh.gz",
+        "bytes": 12348,
+        "sha256": "6ab569e28d65eb738e4385bbecf83e4fbf948903d1232c78d31f97e61886e579",
+        "decodedSHA256": "3e7144be47db9f0f54e1580cf47b34a4f07f3186fb470dab75082526f6068e45",
+        "vertices": 1117,
+        "triangles": 2220
+      }
+    },
+    {
+      "code": 35,
+      "name": "Left brachiocephalic vein",
+      "sourceLabel": "brachiocephalic_vein_left",
+      "group": "Blood vessels",
+      "color": [
+        101,
+        129,
+        230
+      ],
+      "voxelCount": 3997,
+      "sourceSHA256": "effe38dac45e735fdec2d38426e3969b0300d474a4d49397c46f789146842ca7",
+      "focus": [
+        148,
+        173,
+        348
+      ],
+      "boundsIndex": [
+        [
+          127,
+          161,
+          336
+        ],
+        [
+          165,
+          183,
+          362
+        ]
+      ],
+      "touchesGridEdge": false,
+      "mesh": {
+        "file": "brachiocephalic-vein-left.mesh.gz",
+        "bytes": 26411,
+        "sha256": "49080eec402f47c0c82d5c88b6f165341e42131d59ff0c21acdd995a84ec7085",
+        "decodedSHA256": "826354f7c4263995ccc6b1f645ccdb9a48070de797aceb3be3c1eb9f893c997b",
+        "vertices": 2426,
+        "triangles": 4848
+      }
+    },
+    {
+      "code": 36,
+      "name": "Right brachiocephalic vein",
+      "sourceLabel": "brachiocephalic_vein_right",
+      "group": "Blood vessels",
+      "color": [
+        166,
+        230,
+        101
+      ],
+      "voxelCount": 1225,
+      "sourceSHA256": "4462b5773ad4c21bd106830c23ef64ef26df42275c81ee6dff84367027a5176c",
+      "focus": [
+        171,
+        168,
+        355
+      ],
+      "boundsIndex": [
+        [
+          163,
+          162,
+          349
+        ],
+        [
+          179,
+          174,
+          361
+        ]
+      ],
+      "touchesGridEdge": false,
+      "mesh": {
+        "file": "brachiocephalic-vein-right.mesh.gz",
+        "bytes": 9683,
+        "sha256": "18aead611abdeb4e3db05fdf1c4b7a8671688b4d6423162fd14c6c007bf8d8f2",
+        "decodedSHA256": "7d992467dc69d4e6f102dc37914ba42487376886d17ad1f658ddbe6b36f7592f",
+        "vertices": 900,
+        "triangles": 1796
+      }
+    },
+    {
+      "code": 37,
+      "name": "Superior vena cava",
+      "sourceLabel": "superior_vena_cava",
+      "group": "Blood vessels",
+      "color": [
+        230,
+        101,
+        204
+      ],
+      "voxelCount": 5493,
+      "sourceSHA256": "e80b0ab889647489770c6a9bd255631b5f3d98833abfc78dad531dbc1ddcd286",
+      "focus": [
+        166,
+        164,
+        325
+      ],
+      "boundsIndex": [
+        [
+          159,
+          154,
+          299
+        ],
+        [
+          173,
+          175,
+          348
+        ]
+      ],
+      "touchesGridEdge": false,
+      "mesh": {
+        "file": "superior-vena-cava.mesh.gz",
+        "bytes": 33289,
+        "sha256": "d3dbcf0f5005e1286edad837a59a0e30dc257f4b7c521ee0e0ce6a76bbe82a81",
+        "decodedSHA256": "2f9f89777740531b6977360c6b59f9e442ce1f2da2eb0d31a343b1a021cc8791",
+        "vertices": 2992,
+        "triangles": 5980
+      }
+    },
+    {
+      "code": 38,
+      "name": "Inferior vena cava",
+      "sourceLabel": "inferior_vena_cava",
+      "group": "Blood vessels",
+      "color": [
+        101,
+        230,
+        219
+      ],
+      "voxelCount": 20497,
+      "sourceSHA256": "2cd0fa06d036f01f1481c6ff9dbf1456375a452472d66a6ff7ad5adb159ca14b",
+      "focus": [
+        158,
+        152,
+        207
+      ],
+      "boundsIndex": [
+        [
+          149,
+          141,
+          129
+        ],
+        [
+          168,
+          164,
+          279
+        ]
+      ],
+      "touchesGridEdge": false,
+      "mesh": {
+        "file": "inferior-vena-cava.mesh.gz",
+        "bytes": 99737,
+        "sha256": "7e6ce11f03b4b67dc847653fb3e2756c53f187c9c75378dacb2a9a4fb8fc47eb",
+        "decodedSHA256": "cdf78857878c77496e942191e74abe9e45629fdac8daa1cfb166259eac7d7d74",
+        "vertices": 9256,
+        "triangles": 18508
+      }
+    },
+    {
+      "code": 39,
+      "name": "Portal vein and splenic vein",
+      "sourceLabel": "portal_vein_and_splenic_vein",
+      "group": "Blood vessels",
+      "color": [
+        230,
+        181,
+        101
+      ],
+      "voxelCount": 5690,
+      "sourceSHA256": "f1ea0abdb068d6726059b02262981663a4bee2f68296aa1035db5fd46063db8c",
+      "focus": [
+        156,
+        161,
+        214
+      ],
+      "boundsIndex": [
+        [
+          81,
+          141,
+          197
+        ],
+        [
+          195,
+          189,
+          235
+        ]
+      ],
+      "touchesGridEdge": false,
+      "mesh": {
+        "file": "portal-vein-and-splenic-vein.mesh.gz",
+        "bytes": 54449,
+        "sha256": "ce04a0507fbf5759036160d42db102706ca2f09e6e969794577b2da13b6593e5",
+        "decodedSHA256": "008da2b752339a4a205dc110ef2537095d57594231e166ed5b52ad49acaaf413",
+        "vertices": 5106,
+        "triangles": 10204
+      }
+    },
+    {
+      "code": 40,
+      "name": "Left iliac artery",
+      "sourceLabel": "iliac_artery_left",
+      "group": "Blood vessels",
+      "color": [
+        144,
+        101,
+        230
+      ],
+      "voxelCount": 3016,
+      "sourceSHA256": "64e90cd210c653a05bb74641ee13a28239389ceed4fd0c4189a9aaa2644c86cf",
+      "focus": [
+        112,
+        164,
+        85
+      ],
+      "boundsIndex": [
+        [
+          93,
+          153,
+          24
+        ],
+        [
+          141,
+          184,
+          137
+        ]
+      ],
+      "touchesGridEdge": false,
+      "mesh": {
+        "file": "iliac-artery-left.mesh.gz",
+        "bytes": 35671,
+        "sha256": "538e1099584fbb4b29a3b2177fe99570056a01020847bb013791eb70f74f5831",
+        "decodedSHA256": "ffd989c8190a7aea67e898277977fa7a072eac53f3b5bd69afbb143230eaf204",
+        "vertices": 3344,
+        "triangles": 6684
+      }
+    },
+    {
+      "code": 41,
+      "name": "Right iliac artery",
+      "sourceLabel": "iliac_artery_right",
+      "group": "Blood vessels",
+      "color": [
+        101,
+        230,
+        106
+      ],
+      "voxelCount": 3191,
+      "sourceSHA256": "fe20fab78fcc19fc023fa5152b392bed9be48222aa3af3c6e69c663c98f3eec5",
+      "focus": [
+        175,
+        158,
+        87
+      ],
+      "boundsIndex": [
+        [
+          142,
+          146,
+          24
+        ],
+        [
+          199,
+          178,
+          137
+        ]
+      ],
+      "touchesGridEdge": false,
+      "mesh": {
+        "file": "iliac-artery-right.mesh.gz",
+        "bytes": 37731,
+        "sha256": "9b6a9f5c678c07b3a9e506d4434771995c3d6a4d806f65633d761a5b441e2668",
+        "decodedSHA256": "01b57528e84c0a057dab719f3eaf30ed5b619ecd2f2b97f3065bb480b79528d9",
+        "vertices": 3542,
+        "triangles": 7072
+      }
+    },
+    {
+      "code": 42,
+      "name": "Left iliac vena",
+      "sourceLabel": "iliac_vena_left",
+      "group": "Blood vessels",
+      "color": [
+        230,
+        101,
+        134
+      ],
+      "voxelCount": 8252,
+      "sourceSHA256": "62325c31b12d16b15debb7b2fef5bc49ccc5ff1c2c62535a2acb55779a407e1c",
+      "focus": [
+        115,
+        156,
+        85
+      ],
+      "boundsIndex": [
+        [
+          99,
+          141,
+          27
+        ],
+        [
+          151,
+          183,
+          131
+        ]
+      ],
+      "touchesGridEdge": false,
+      "mesh": {
+        "file": "iliac-vena-left.mesh.gz",
+        "bytes": 60752,
+        "sha256": "8e3f5b0197deaaaf6ed8f7621d5a329da953fc045b60cf6828adf5934f3f8a05",
+        "decodedSHA256": "9e80c8e1e0a8a049896113b793e060e39e4fce8c558b699020aa17dea8ee08a1",
+        "vertices": 5612,
+        "triangles": 11220
+      }
+    },
+    {
+      "code": 43,
+      "name": "Right iliac vena",
+      "sourceLabel": "iliac_vena_right",
+      "group": "Blood vessels",
+      "color": [
+        101,
+        172,
+        230
+      ],
+      "voxelCount": 6833,
+      "sourceSHA256": "1b3159c6aced4a7edaab3d30c3374d347a3c0adbfb9ccd0a2d82f877fe4e93e2",
+      "focus": [
+        174,
+        156,
+        80
+      ],
+      "boundsIndex": [
+        [
+          152,
+          140,
+          24
+        ],
+        [
+          192,
+          178,
+          129
+        ]
+      ],
+      "touchesGridEdge": false,
+      "mesh": {
+        "file": "iliac-vena-right.mesh.gz",
+        "bytes": 52012,
+        "sha256": "30349d410ae772d6e116ba8225fdd8d34884d17078ea227ca834a8b6b0152a5c",
+        "decodedSHA256": "90ac4e2bee31dba912438de3b8ce8dcabc0d3533c6ea6a884bded6d4b561a156",
+        "vertices": 4862,
+        "triangles": 9720
+      }
+    },
+    {
+      "code": 44,
+      "name": "Sacrum",
+      "sourceLabel": "sacrum",
+      "group": "Spine and spinal cord",
+      "color": [
+        209,
+        230,
+        101
+      ],
+      "voxelCount": 42690,
+      "sourceSHA256": "7459c0d2c8be58c452793b1940c1d65e67de4e5c5125e87d7bd9841ef3df8493",
+      "focus": [
+        139,
+        104,
+        88
+      ],
+      "boundsIndex": [
+        [
+          106,
+          76,
+          28
+        ],
+        [
+          175,
+          144,
+          119
+        ]
+      ],
+      "touchesGridEdge": false,
+      "mesh": {
+        "file": "sacrum.mesh.gz",
+        "bytes": 239374,
+        "sha256": "baa0df06045e4cf4ae9628f462334fdd867cb16e5d8bfca128d93c9b0571dd76",
+        "decodedSHA256": "2ad041531180a31bd6fcb6c1fde571976f525faa2d08d9992ac41879374d04dc",
+        "vertices": 21793,
+        "triangles": 43682
+      }
+    },
+    {
+      "code": 45,
+      "name": "Spinal cord",
+      "sourceLabel": "spinal_cord",
+      "group": "Spine and spinal cord",
+      "color": [
+        213,
+        101,
+        230
+      ],
+      "voxelCount": 21770,
+      "sourceSHA256": "15b2353df1b384d622c571927469d63026608586733dbec0e03436e5f7b4cc62",
+      "focus": [
+        147,
+        114,
+        234
+      ],
+      "boundsIndex": [
+        [
+          134,
+          103,
+          99
+        ],
+        [
+          158,
+          151,
+          393
+        ]
+      ],
+      "touchesGridEdge": true,
+      "mesh": {
+        "file": "spinal-cord.mesh.gz",
+        "bytes": 147710,
+        "sha256": "028b9bd255453748d3d53c6d3d9840548240156473992e66c4971016094d55a2",
+        "decodedSHA256": "415671177f36242d93327394d313989c560e9055a09b73cbefa3c4e8e1039f8e",
+        "vertices": 13601,
+        "triangles": 27160
+      }
+    },
+    {
+      "code": 46,
+      "name": "C1 vertebra",
+      "sourceLabel": "vertebrae_C1",
+      "group": "Spine and spinal cord",
+      "color": [
+        101,
+        230,
+        176
+      ],
+      "voxelCount": 0,
+      "sourceSHA256": "4e834f9a3f3eb2516cd09ef866e19356f815953679edc4e61a2af28ae7b6fa8e"
+    },
+    {
+      "code": 47,
+      "name": "C2 vertebra",
+      "sourceLabel": "vertebrae_C2",
+      "group": "Spine and spinal cord",
+      "color": [
+        230,
+        138,
+        101
+      ],
+      "voxelCount": 0,
+      "sourceSHA256": "abd03cc796bcabc8375d0a3d514df0e1fb2dd3d67eca688d0cc9ab497969e618"
+    },
+    {
+      "code": 48,
+      "name": "C3 vertebra",
+      "sourceLabel": "vertebrae_C3",
+      "group": "Spine and spinal cord",
+      "color": [
+        101,
+        102,
+        230
+      ],
+      "voxelCount": 0,
+      "sourceSHA256": "55b235ffa758ac111318f05f5c4330dcd4c3a1d732450b940364c8d23a210433"
+    },
+    {
+      "code": 49,
+      "name": "C4 vertebra",
+      "sourceLabel": "vertebrae_C4",
+      "group": "Spine and spinal cord",
+      "color": [
+        140,
+        230,
+        101
+      ],
+      "voxelCount": 0,
+      "sourceSHA256": "56a8e29844d3cd7a7226fb64522a3cca13eed6c7fc4554f91a58560caa3bf325"
+    },
+    {
+      "code": 50,
+      "name": "C5 vertebra",
+      "sourceLabel": "vertebrae_C5",
+      "group": "Spine and spinal cord",
+      "color": [
+        230,
+        101,
+        177
+      ],
+      "voxelCount": 138,
+      "sourceSHA256": "fea0ce297d3fa9b85220b2a6e403a044786838d9a2689205bde538e11f817c24",
+      "focus": [
+        152,
+        162,
+        392
+      ],
+      "boundsIndex": [
+        [
+          147,
+          159,
+          390
+        ],
+        [
+          158,
+          165,
+          393
+        ]
+      ],
+      "touchesGridEdge": true,
+      "mesh": {
+        "file": "vertebrae-c5.mesh.gz",
+        "bytes": 1694,
+        "sha256": "6138c4f409d370152b1321c802c125d7df3668a235a2b257e5f01e15e9be7129",
+        "decodedSHA256": "259c54e94dd8789df54abd96fa95803679cc4b4b0b4dd17c4f79b9ad65abc74f",
+        "vertices": 172,
+        "triangles": 304
+      }
+    },
+    {
+      "code": 51,
+      "name": "C6 vertebra",
+      "sourceLabel": "vertebrae_C6",
+      "group": "Spine and spinal cord",
+      "color": [
+        101,
+        215,
+        230
+      ],
+      "voxelCount": 2064,
+      "sourceSHA256": "e20f1f4bccd923f0b518d4d761e994f65171797349b8ed13353d6f61c5b66e34",
+      "focus": [
+        153,
+        154,
+        389
+      ],
+      "boundsIndex": [
+        [
+          135,
+          137,
+          381
+        ],
+        [
+          170,
+          161,
+          393
+        ]
+      ],
+      "touchesGridEdge": true,
+      "mesh": {
+        "file": "vertebrae-c6.mesh.gz",
+        "bytes": 20387,
+        "sha256": "6f74169b9102ae3e91a81a8deed515a726c0fc45989ab7ea37241910dec05a77",
+        "decodedSHA256": "7fb915a7bf6cbcf93a8efef9bb7b7eec45a9da57408d61d55ca4f27dabe76669",
+        "vertices": 1934,
+        "triangles": 3656
+      }
+    },
+    {
+      "code": 52,
+      "name": "C7 vertebra",
+      "sourceLabel": "vertebrae_C7",
+      "group": "Spine and spinal cord",
+      "color": [
+        230,
+        208,
+        101
+      ],
+      "voxelCount": 4046,
+      "sourceSHA256": "9bb87f0507a61ff3fa25a24ecd737079cbe9ca5b44db11f2547e07df19e6d778",
+      "focus": [
+        152,
+        145,
+        381
+      ],
+      "boundsIndex": [
+        [
+          130,
+          119,
+          373
+        ],
+        [
+          174,
+          155,
+          391
+        ]
+      ],
+      "touchesGridEdge": false,
+      "mesh": {
+        "file": "vertebrae-c7.mesh.gz",
+        "bytes": 40641,
+        "sha256": "db4108eefc10faf91aea72853d2af43e1cf4fc5c6b5a541dcf2daf7dac603195",
+        "decodedSHA256": "df498aae77056e4d2e30443179ce80e94a55dab63d46d962a9d1c40319ba0ea8",
+        "vertices": 3712,
+        "triangles": 7420
+      }
+    },
+    {
+      "code": 53,
+      "name": "T1 vertebra",
+      "sourceLabel": "vertebrae_T1",
+      "group": "Spine and spinal cord",
+      "color": [
+        170,
+        101,
+        230
+      ],
+      "voxelCount": 4893,
+      "sourceSHA256": "67a7bb0ac24c7130cad767e65f967807b0ad832b01ca49ee9410af8593f5c45b",
+      "focus": [
+        153,
+        138,
+        372
+      ],
+      "boundsIndex": [
+        [
+          128,
+          110,
+          363
+        ],
+        [
+          175,
+          148,
+          383
+        ]
+      ],
+      "touchesGridEdge": false,
+      "mesh": {
+        "file": "vertebrae-t1.mesh.gz",
+        "bytes": 43917,
+        "sha256": "3311b1ca1a4ac36d92739794bae29e6a99fc38814377027fd18e2deaf8db591e",
+        "decodedSHA256": "0bf8879a52664bd3653ac5f6a384911bdd24d62aa2c2e67f3bcb02057a5dc762",
+        "vertices": 4023,
+        "triangles": 8050
+      }
+    },
+    {
+      "code": 54,
+      "name": "T2 vertebra",
+      "sourceLabel": "vertebrae_T2",
+      "group": "Spine and spinal cord",
+      "color": [
+        101,
+        230,
+        133
+      ],
+      "voxelCount": 4379,
+      "sourceSHA256": "d7e65258f860ce8b8397f2a188c7b393021f076da0ca9b29fa549de7aa57b308",
+      "focus": [
+        152,
+        131,
+        360
+      ],
+      "boundsIndex": [
+        [
+          131,
+          103,
+          352
+        ],
+        [
+          174,
+          143,
+          374
+        ]
+      ],
+      "touchesGridEdge": false,
+      "mesh": {
+        "file": "vertebrae-t2.mesh.gz",
+        "bytes": 40739,
+        "sha256": "964d202cb19688e30611c230eb061ed80707a9970e8c00f0de16a5e90cc09f85",
+        "decodedSHA256": "6cf29385b88b4d9d8284077df5d54c260579e9f4d1ebf4d7d0603433cf77f772",
+        "vertices": 3726,
+        "triangles": 7452
+      }
+    },
+    {
+      "code": 55,
+      "name": "T3 vertebra",
+      "sourceLabel": "vertebrae_T3",
+      "group": "Spine and spinal cord",
+      "color": [
+        230,
+        101,
+        108
+      ],
+      "voxelCount": 4185,
+      "sourceSHA256": "e83c6dfeb335ac6c173c370f4e9ea46fd780e7f42da249ff2da5166124f3f698",
+      "focus": [
+        156,
+        125,
+        350
+      ],
+      "boundsIndex": [
+        [
+          134,
+          98,
+          340
+        ],
+        [
+          173,
+          138,
+          362
+        ]
+      ],
+      "touchesGridEdge": false,
+      "mesh": {
+        "file": "vertebrae-t3.mesh.gz",
+        "bytes": 38946,
+        "sha256": "f70f7c6de9b3b1f7d1fc5349a1e7f7d508a89cf1b25dce4e53bcc6b1e9b3a5cc",
+        "decodedSHA256": "f5809c3f79b27310f0c07f92fda5180370af5d428e4b38933779f0787394c96f",
+        "vertices": 3584,
+        "triangles": 7168
+      }
+    },
+    {
+      "code": 56,
+      "name": "T4 vertebra",
+      "sourceLabel": "vertebrae_T4",
+      "group": "Spine and spinal cord",
+      "color": [
+        101,
+        145,
+        230
+      ],
+      "voxelCount": 4378,
+      "sourceSHA256": "0cb8af759de81566e2720a55a66d28f5acc462a0303efa40c50702f46a8fd4e8",
+      "focus": [
+        155,
+        121,
+        336
+      ],
+      "boundsIndex": [
+        [
+          135,
+          95,
+          321
+        ],
+        [
+          173,
+          134,
+          348
+        ]
+      ],
+      "touchesGridEdge": false,
+      "mesh": {
+        "file": "vertebrae-t4.mesh.gz",
+        "bytes": 39709,
+        "sha256": "b08eae495c45dc33046c0ad35f28d64fd7c709cad35dc62eec70615ff9d65ba6",
+        "decodedSHA256": "b1b79ed61cb0cff1c9cf000ab8729218b88c89aaf1797e8fc62d98af4de48caf",
+        "vertices": 3649,
+        "triangles": 7302
+      }
+    },
+    {
+      "code": 57,
+      "name": "T5 vertebra",
+      "sourceLabel": "vertebrae_T5",
+      "group": "Spine and spinal cord",
+      "color": [
+        183,
+        230,
+        101
+      ],
+      "voxelCount": 4766,
+      "sourceSHA256": "9c1c3c83be4140b8969f8bdb376390236f5d65d401ee7f040a5f8e822013ddab",
+      "focus": [
+        154,
+        118,
+        323
+      ],
+      "boundsIndex": [
+        [
+          134,
+          92,
+          306
+        ],
+        [
+          174,
+          132,
+          337
+        ]
+      ],
+      "touchesGridEdge": false,
+      "mesh": {
+        "file": "vertebrae-t5.mesh.gz",
+        "bytes": 42358,
+        "sha256": "b9ce8c49161d9bcd9ebd573b34570b68d8027bff96003b5b1f9023c5cf921630",
+        "decodedSHA256": "cafc1430b643d14de9b67afde243b225dd74692e9988638495f098d7b907ad0f",
+        "vertices": 3892,
+        "triangles": 7784
+      }
+    },
+    {
+      "code": 58,
+      "name": "T6 vertebra",
+      "sourceLabel": "vertebrae_T6",
+      "group": "Spine and spinal cord",
+      "color": [
+        230,
+        101,
+        220
+      ],
+      "voxelCount": 5389,
+      "sourceSHA256": "9f35cc324e7faf6da0d192b98e89ec216796592fb309e2f4dc1e593fd6875376",
+      "focus": [
+        153,
+        115,
+        309
+      ],
+      "boundsIndex": [
+        [
+          133,
+          90,
+          291
+        ],
+        [
+          172,
+          130,
+          323
+        ]
+      ],
+      "touchesGridEdge": false,
+      "mesh": {
+        "file": "vertebrae-t6.mesh.gz",
+        "bytes": 44894,
+        "sha256": "624125d92ac8a628ebb1a477482df7e1280e9eacce8fa8657a9da272ba9264d3",
+        "decodedSHA256": "19358355d11e54997edab5b6ecd398c2265dc832e09f7cd4b0de36cb090aec6c",
+        "vertices": 4133,
+        "triangles": 8270
+      }
+    },
+    {
+      "code": 59,
+      "name": "T7 vertebra",
+      "sourceLabel": "vertebrae_T7",
+      "group": "Spine and spinal cord",
+      "color": [
+        101,
+        230,
+        202
+      ],
+      "voxelCount": 5731,
+      "sourceSHA256": "08f6cab2f029d8ded0a587705ca9d4119e042091efaa4f94eac47739b7778467",
+      "focus": [
+        152,
+        114,
+        296
+      ],
+      "boundsIndex": [
+        [
+          131,
+          88,
+          279
+        ],
+        [
+          171,
+          129,
+          309
+        ]
+      ],
+      "touchesGridEdge": false,
+      "mesh": {
+        "file": "vertebrae-t7.mesh.gz",
+        "bytes": 44914,
+        "sha256": "573b130824cccf3bfc6887f93a45d58d42de8fb732f2e6da7cb757192eaf233b",
+        "decodedSHA256": "3adc6267a6d6475b45675bfa81899a468c382cd02b5151098bb1f33fd8657b98",
+        "vertices": 4142,
+        "triangles": 8284
+      }
+    },
+    {
+      "code": 60,
+      "name": "T8 vertebra",
+      "sourceLabel": "vertebrae_T8",
+      "group": "Spine and spinal cord",
+      "color": [
+        230,
+        165,
+        101
+      ],
+      "voxelCount": 6416,
+      "sourceSHA256": "2a20b426898672f3470e710ee2020f8dcffa7c95df12387666410cacf0a61c28",
+      "focus": [
+        150,
+        114,
+        282
+      ],
+      "boundsIndex": [
+        [
+          131,
+          88,
+          266
+        ],
+        [
+          169,
+          130,
+          294
+        ]
+      ],
+      "touchesGridEdge": false,
+      "mesh": {
+        "file": "vertebrae-t8.mesh.gz",
+        "bytes": 48460,
+        "sha256": "f9d949be4d1b97d0f51087ed11705f20654d0366eb738da9398e739c4d8d63f3",
+        "decodedSHA256": "b028077410ee8ac0d379d416658abb7f46ffa37611a592efa47c3fad80eeeed0",
+        "vertices": 4462,
+        "triangles": 8924
+      }
+    },
+    {
+      "code": 61,
+      "name": "T9 vertebra",
+      "sourceLabel": "vertebrae_T9",
+      "group": "Spine and spinal cord",
+      "color": [
+        127,
+        101,
+        230
+      ],
+      "voxelCount": 6812,
+      "sourceSHA256": "14071cabff1c405c265cecf378f0b0395401a8d33f0a3e777bdfcbde472018d4",
+      "focus": [
+        149,
+        114,
+        267
+      ],
+      "boundsIndex": [
+        [
+          128,
+          89,
+          252
+        ],
+        [
+          168,
+          130,
+          279
+        ]
+      ],
+      "touchesGridEdge": false,
+      "mesh": {
+        "file": "vertebrae-t9.mesh.gz",
+        "bytes": 50295,
+        "sha256": "caf22047588b9c263f07b62bce90151e5d1ae61581c50f0c6524c0fdf0dfe47f",
+        "decodedSHA256": "3546317d35ae061a778cd64e4a7e901b81ffb73cbbf6551d343a7da0733d5e0d",
+        "vertices": 4664,
+        "triangles": 9328
+      }
+    },
+    {
+      "code": 62,
+      "name": "T10 vertebra",
+      "sourceLabel": "vertebrae_T10",
+      "group": "Spine and spinal cord",
+      "color": [
+        113,
+        230,
+        101
+      ],
+      "voxelCount": 7762,
+      "sourceSHA256": "ce8625510b9454945b494465b1b1ecb9eefbb644740c06bb41d45777332a40f9",
+      "focus": [
+        147,
+        114,
+        252
+      ],
+      "boundsIndex": [
+        [
+          128,
+          90,
+          236
+        ],
+        [
+          167,
+          131,
+          266
+        ]
+      ],
+      "touchesGridEdge": false,
+      "mesh": {
+        "file": "vertebrae-t10.mesh.gz",
+        "bytes": 54967,
+        "sha256": "f12ce61adfe69ff5eb7840055155b971a4d2d1cc3d4abd6d20fd03de9215e53a",
+        "decodedSHA256": "39739a6d71ec4a7944f81d059cc97e316da4354e3c970e09019127a4e336cc76",
+        "vertices": 5081,
+        "triangles": 10166
+      }
+    },
+    {
+      "code": 63,
+      "name": "T11 vertebra",
+      "sourceLabel": "vertebrae_T11",
+      "group": "Spine and spinal cord",
+      "color": [
+        230,
+        101,
+        151
+      ],
+      "voxelCount": 8801,
+      "sourceSHA256": "0c6a3a751370c97a90b04ec7cd73196f9fbdb2e6e9d548f64b245b75c26030fa",
+      "focus": [
+        145,
+        116,
+        235
+      ],
+      "boundsIndex": [
+        [
+          129,
+          92,
+          218
+        ],
+        [
+          162,
+          133,
+          246
+        ]
+      ],
+      "touchesGridEdge": false,
+      "mesh": {
+        "file": "vertebrae-t11.mesh.gz",
+        "bytes": 54888,
+        "sha256": "c2b79e70d1ab368dedce508603db229eac64f4c6579e7ffec911fa4ab034f457",
+        "decodedSHA256": "0351ebf44244dd62d730b68fa4806d30f3f5f883add009eba0a96c98b81c0de4",
+        "vertices": 5070,
+        "triangles": 10140
+      }
+    },
+    {
+      "code": 64,
+      "name": "T12 vertebra",
+      "sourceLabel": "vertebrae_T12",
+      "group": "Spine and spinal cord",
+      "color": [
+        101,
+        188,
+        230
+      ],
+      "voxelCount": 9942,
+      "sourceSHA256": "92aa16b53ab3b8f8abaa52ee1caaca42ac24da0cb4097e8530d8bc2bba502267",
+      "focus": [
+        144,
+        119,
+        215
+      ],
+      "boundsIndex": [
+        [
+          130,
+          94,
+          197
+        ],
+        [
+          158,
+          137,
+          227
+        ]
+      ],
+      "touchesGridEdge": false,
+      "mesh": {
+        "file": "vertebrae-t12.mesh.gz",
+        "bytes": 61880,
+        "sha256": "3c5ca3f998035e093f05a4b7cfa725553116002175104165ae490aa45585e69f",
+        "decodedSHA256": "940cc1d37553f254792c1254915b16acaf9f756d72d4cdb51b5954b979e7af4f",
+        "vertices": 5690,
+        "triangles": 11388
+      }
+    },
+    {
+      "code": 65,
+      "name": "L1 vertebra",
+      "sourceLabel": "vertebrae_L1",
+      "group": "Spine and spinal cord",
+      "color": [
+        226,
+        230,
+        101
+      ],
+      "voxelCount": 10882,
+      "sourceSHA256": "97aa1c8f4222b7ed7bfd26c6154c467c31c3644ae6b5c70d525815a387436580",
+      "focus": [
+        144,
+        124,
+        195
+      ],
+      "boundsIndex": [
+        [
+          121,
+          96,
+          176
+        ],
+        [
+          167,
+          142,
+          207
+        ]
+      ],
+      "touchesGridEdge": false,
+      "mesh": {
+        "file": "vertebrae-l1.mesh.gz",
+        "bytes": 68955,
+        "sha256": "f22490710a2edf6900b80f640f013ce446cce2dc27176b0319076c09565a2c7a",
+        "decodedSHA256": "f08f525c7e86f52eae48d9d5f390a1f52a9c85cec96ee2e5617282f4de47b597",
+        "vertices": 6350,
+        "triangles": 12700
+      }
+    },
+    {
+      "code": 66,
+      "name": "L2 vertebra",
+      "sourceLabel": "vertebrae_L2",
+      "group": "Spine and spinal cord",
+      "color": [
+        197,
+        101,
+        230
+      ],
+      "voxelCount": 12021,
+      "sourceSHA256": "34ecd3f29f70d6a688f0d6693c91f494baf8a169cd4d5b76f517139e610f1b46",
+      "focus": [
+        144,
+        129,
+        174
+      ],
+      "boundsIndex": [
+        [
+          118,
+          99,
+          153
+        ],
+        [
+          171,
+          148,
+          186
+        ]
+      ],
+      "touchesGridEdge": false,
+      "mesh": {
+        "file": "vertebrae-l2.mesh.gz",
+        "bytes": 75576,
+        "sha256": "7650525eaf140b00ca7b2492f705b144221f23cfb11129e216e23c7bf27daa14",
+        "decodedSHA256": "574db43b7abb810c7f0c2161fe61152e3b6e2f25b4d2dff53246a575a9f4e1e6",
+        "vertices": 7012,
+        "triangles": 14024
+      }
+    },
+    {
+      "code": 67,
+      "name": "L3 vertebra",
+      "sourceLabel": "vertebrae_L3",
+      "group": "Spine and spinal cord",
+      "color": [
+        101,
+        230,
+        159
+      ],
+      "voxelCount": 13467,
+      "sourceSHA256": "e086a3000d56d95a1e03630383eabc7e282f3361e467ba97dbacb50890454b4d",
+      "focus": [
+        143,
+        132,
+        152
+      ],
+      "boundsIndex": [
+        [
+          111,
+          100,
+          132
+        ],
+        [
+          175,
+          151,
+          164
+        ]
+      ],
+      "touchesGridEdge": false,
+      "mesh": {
+        "file": "vertebrae-l3.mesh.gz",
+        "bytes": 80762,
+        "sha256": "d86f9a75cb8ba878016db0c97c00c6e57e782cd6961846cb27f557a2ff839d6f",
+        "decodedSHA256": "086c8c93548030c1113919824374b02c07625fdd1dc574d1b79e50874914076b",
+        "vertices": 7638,
+        "triangles": 15276
+      }
+    },
+    {
+      "code": 68,
+      "name": "L4 vertebra",
+      "sourceLabel": "vertebrae_L4",
+      "group": "Spine and spinal cord",
+      "color": [
+        230,
+        122,
+        101
+      ],
+      "voxelCount": 13288,
+      "sourceSHA256": "b8d6ff2740d74d1ec23bd164fc5dd3d984d0584ab128a7f96d8093ac9deca9f2",
+      "focus": [
+        144,
+        133,
+        131
+      ],
+      "boundsIndex": [
+        [
+          113,
+          102,
+          118
+        ],
+        [
+          172,
+          152,
+          152
+        ]
+      ],
+      "touchesGridEdge": false,
+      "mesh": {
+        "file": "vertebrae-l4.mesh.gz",
+        "bytes": 81532,
+        "sha256": "4e55675f7414c99beca36e6ec61cc384aee058eb84fd3a9dd33cb55f5d56b315",
+        "decodedSHA256": "f8db32618e6341f90c23f09b0c267c261c6260e4605d080f3cefc50d48c4418b",
+        "vertices": 7646,
+        "triangles": 15280
+      }
+    },
+    {
+      "code": 69,
+      "name": "L5 vertebra",
+      "sourceLabel": "vertebrae_L5",
+      "group": "Spine and spinal cord",
+      "color": [
+        101,
+        119,
+        230
+      ],
+      "voxelCount": 14401,
+      "sourceSHA256": "d122ab9961b50528c19eda97383e5bc025bb8520d149a17b6917f9f9ec8dad65",
+      "focus": [
+        143,
+        127,
+        112
+      ],
+      "boundsIndex": [
+        [
+          119,
+          101,
+          95
+        ],
+        [
+          173,
+          144,
+          129
+        ]
+      ],
+      "touchesGridEdge": false,
+      "mesh": {
+        "file": "vertebrae-l5.mesh.gz",
+        "bytes": 85425,
+        "sha256": "20c73c6abf22758a9fc05d4ab5e5e937966aa209685c7001fd813c870125c78f",
+        "decodedSHA256": "5096cd693d25345f4db282488f9fa4af1385643c112573c8de7b8c1a0595bbc2",
+        "vertices": 7887,
+        "triangles": 15794
+      }
+    },
+    {
+      "code": 70,
+      "name": "L6 vertebra",
+      "sourceLabel": "vertebrae_L6",
+      "group": "Spine and spinal cord",
+      "color": [
+        156,
+        230,
+        101
+      ],
+      "voxelCount": 0,
+      "sourceSHA256": "4371570eeeb75aa1d9b52ad7a59731e2ad85c500ff704a17f5eb02880d280dcc"
+    },
+    {
+      "code": 71,
+      "name": "Sternum",
+      "sourceLabel": "sternum",
+      "group": "Ribs and chest wall",
+      "color": [
+        230,
+        101,
+        194
+      ],
+      "voxelCount": 11605,
+      "sourceSHA256": "d43db3a40c7a750065bf09fdf7de8ec4401c04680f8f88173e785a573611c109",
+      "focus": [
+        152,
+        197,
+        331
+      ],
+      "boundsIndex": [
+        [
+          133,
+          180,
+          285
+        ],
+        [
+          171,
+          214,
+          361
+        ]
+      ],
+      "touchesGridEdge": false,
+      "mesh": {
+        "file": "sternum.mesh.gz",
+        "bytes": 76213,
+        "sha256": "e03d37f6e436b63dc54b2a010179416c5380e9b7e7ce12e60e7e4dc501057148",
+        "decodedSHA256": "6b747cc8985f31445910013b70d8da811198511c4152d2b8c24f2d2158ef7713",
+        "vertices": 6754,
+        "triangles": 13504
+      }
+    },
+    {
+      "code": 72,
+      "name": "Costal cartilages",
+      "sourceLabel": "costal_cartilages",
+      "group": "Ribs and chest wall",
+      "color": [
+        101,
+        230,
+        229
+      ],
+      "voxelCount": 24746,
+      "sourceSHA256": "14d4a30c934a7761615820e2a006f6c875e98c93bbbe7b0131ef174d9d798f7f",
+      "focus": [
+        149,
+        207,
+        276
+      ],
+      "boundsIndex": [
+        [
+          78,
+          179,
+          207
+        ],
+        [
+          217,
+          217,
+          357
+        ]
+      ],
+      "touchesGridEdge": false,
+      "mesh": {
+        "file": "costal-cartilages.mesh.gz",
+        "bytes": 258195,
+        "sha256": "e9985add20122f0dc3a2570bb6eda4bc9d6a212ba90d220ddfd4c40717489da1",
+        "decodedSHA256": "54ec00a33a6f4799fac689b5939cf76151d76b96fe8874530569e5c3a7d6d0cc",
+        "vertices": 23539,
+        "triangles": 47210
+      }
+    },
+    {
+      "code": 73,
+      "name": "Left rib 1",
+      "sourceLabel": "rib_left_1",
+      "group": "Ribs and chest wall",
+      "color": [
+        230,
+        191,
+        101
+      ],
+      "voxelCount": 2284,
+      "sourceSHA256": "65dfe4d59eb02d2b4b2217305ab45283f9e230915d83abe35b7527448375abc6",
+      "focus": [
+        116,
+        162,
+        368
+      ],
+      "boundsIndex": [
+        [
+          105,
+          134,
+          349
+        ],
+        [
+          131,
+          190,
+          382
+        ]
+      ],
+      "touchesGridEdge": false,
+      "mesh": {
+        "file": "rib-left-1.mesh.gz",
+        "bytes": 31562,
+        "sha256": "a297611cb0821c67cf1602a6defa63a3a0e376914ab301dc4aaabe00ff5e5ca0",
+        "decodedSHA256": "04c66fa5983a04c2d36490e8985daefeca36cfbf171af9355cb9a23464ddc4d5",
+        "vertices": 2775,
+        "triangles": 5558
+      }
+    },
+    {
+      "code": 74,
+      "name": "Left rib 2",
+      "sourceLabel": "rib_left_2",
+      "group": "Ribs and chest wall",
+      "color": [
+        154,
+        101,
+        230
+      ],
+      "voxelCount": 2568,
+      "sourceSHA256": "0bbe9f12642f90fa548fece39dabde53e33377f6f1d53a22bafdb8ae7afd1deb",
+      "focus": [
+        95,
+        157,
+        366
+      ],
+      "boundsIndex": [
+        [
+          88,
+          123,
+          332
+        ],
+        [
+          128,
+          201,
+          378
+        ]
+      ],
+      "touchesGridEdge": false,
+      "mesh": {
+        "file": "rib-left-2.mesh.gz",
+        "bytes": 37933,
+        "sha256": "7fe8465f2654fdb519ee4ba401cd32c933808bed4c7c9d61d00345bcf2eb84f8",
+        "decodedSHA256": "984cc5f31f6f6f0cfc568773abb3ff10430052ac2c0ec91be0061be83ed41c84",
+        "vertices": 3404,
+        "triangles": 6820
+      }
+    },
+    {
+      "code": 75,
+      "name": "Left rib 3",
+      "sourceLabel": "rib_left_3",
+      "group": "Ribs and chest wall",
+      "color": [
+        101,
+        230,
+        116
+      ],
+      "voxelCount": 3273,
+      "sourceSHA256": "c1e5217cccb40f934af0eab24b7ea36db134763c42bd9873af48167a33e72fec",
+      "focus": [
+        84,
+        156,
+        357
+      ],
+      "boundsIndex": [
+        [
+          78,
+          113,
+          310
+        ],
+        [
+          130,
+          204,
+          372
+        ]
+      ],
+      "touchesGridEdge": false,
+      "mesh": {
+        "file": "rib-left-3.mesh.gz",
+        "bytes": 48169,
+        "sha256": "77b49a62cbd7e9218c99359dca8b968616c2a553b7212600e47e5a350079d3dc",
+        "decodedSHA256": "2ae426ba56b82467194a99083e96b23e66b17da85d912c592581a0c5753acccf",
+        "vertices": 4374,
+        "triangles": 8760
+      }
+    },
+    {
+      "code": 76,
+      "name": "Left rib 4",
+      "sourceLabel": "rib_left_4",
+      "group": "Ribs and chest wall",
+      "color": [
+        230,
+        101,
+        124
+      ],
+      "voxelCount": 4337,
+      "sourceSHA256": "0e3927e1e22ca88a6fbaff809676452984358c3cbac6d4aabcae6c1efe50b193",
+      "focus": [
+        79,
+        160,
+        341
+      ],
+      "boundsIndex": [
+        [
+          74,
+          105,
+          288
+        ],
+        [
+          130,
+          206,
+          360
+        ]
+      ],
+      "touchesGridEdge": false,
+      "mesh": {
+        "file": "rib-left-4.mesh.gz",
+        "bytes": 56223,
+        "sha256": "78b32af356c85debd67e1182fd0f50fcfc13e6381af9a5c1f9e7cf64d70adeb9",
+        "decodedSHA256": "1415df2fce6da2dff85dee0df9b4cebb5eacc01466150227a0fefe9d1dbf5eb0",
+        "vertices": 5138,
+        "triangles": 10280
+      }
+    },
+    {
+      "code": 77,
+      "name": "Left rib 5",
+      "sourceLabel": "rib_left_5",
+      "group": "Ribs and chest wall",
+      "color": [
+        101,
+        162,
+        230
+      ],
+      "voxelCount": 4650,
+      "sourceSHA256": "f926cc748df08d3d259c2a7a7eb3608a17aaf8d2be06a22e4842c2ae51b03989",
+      "focus": [
+        74,
+        157,
+        326
+      ],
+      "boundsIndex": [
+        [
+          70,
+          101,
+          271
+        ],
+        [
+          130,
+          205,
+          346
+        ]
+      ],
+      "touchesGridEdge": false,
+      "mesh": {
+        "file": "rib-left-5.mesh.gz",
+        "bytes": 57705,
+        "sha256": "c6d6cb7c7b972bb7b2272720601df562ae1e77bc28ab314c2d5765364d08c2da",
+        "decodedSHA256": "d39d3e82dabac38fe953bbd11139e08ad52771c5d62ea21a98218754cf17e5a1",
+        "vertices": 5272,
+        "triangles": 10564
+      }
+    },
+    {
+      "code": 78,
+      "name": "Left rib 6",
+      "sourceLabel": "rib_left_6",
+      "group": "Ribs and chest wall",
+      "color": [
+        199,
+        230,
+        101
+      ],
+      "voxelCount": 4967,
+      "sourceSHA256": "be16beeda26d49ca22630a6e50b8c6782e39f016aea352f0170d40a8bf306714",
+      "focus": [
+        71,
+        155,
+        309
+      ],
+      "boundsIndex": [
+        [
+          67,
+          97,
+          253
+        ],
+        [
+          129,
+          204,
+          332
+        ]
+      ],
+      "touchesGridEdge": false,
+      "mesh": {
+        "file": "rib-left-6.mesh.gz",
+        "bytes": 60141,
+        "sha256": "6194a066ec5fe7a5d03b6633dbddb86939d28580c78948c1bbdbedcc2a3e4ecb",
+        "decodedSHA256": "73545f2e3197bf6581141deb9367ac4db541cb8eda9fa8f1e7a8cd8efb5f2e1e",
+        "vertices": 5523,
+        "triangles": 11094
+      }
+    },
+    {
+      "code": 79,
+      "name": "Left rib 7",
+      "sourceLabel": "rib_left_7",
+      "group": "Ribs and chest wall",
+      "color": [
+        223,
+        101,
+        230
+      ],
+      "voxelCount": 4863,
+      "sourceSHA256": "7e898e0ffaa420aa00f49eaf2cf5a849edbf4c75a09775d833bc0d1da0a669f8",
+      "focus": [
+        70,
+        146,
+        294
+      ],
+      "boundsIndex": [
+        [
+          64,
+          95,
+          232
+        ],
+        [
+          128,
+          205,
+          313
+        ]
+      ],
+      "touchesGridEdge": false,
+      "mesh": {
+        "file": "rib-left-7.mesh.gz",
+        "bytes": 61530,
+        "sha256": "4e91b215b261902936bdb61098d53c316ab185499c45e9985fc3dd603f110f6c",
+        "decodedSHA256": "ae9a20103f405292a9e71292a398c7ac88358f9942664a1d06eb4eeedacbc8d1",
+        "vertices": 5635,
+        "triangles": 11302
+      }
+    },
+    {
+      "code": 80,
+      "name": "Left rib 8",
+      "sourceLabel": "rib_left_8",
+      "group": "Ribs and chest wall",
+      "color": [
+        101,
+        230,
+        186
+      ],
+      "voxelCount": 4050,
+      "sourceSHA256": "99b9afd40c7e9d35e76bc413c0ac55c567fdb1d2a3b0147e14a00d74d4737268",
+      "focus": [
+        70,
+        139,
+        276
+      ],
+      "boundsIndex": [
+        [
+          62,
+          95,
+          220
+        ],
+        [
+          126,
+          199,
+          295
+        ]
+      ],
+      "touchesGridEdge": false,
+      "mesh": {
+        "file": "rib-left-8.mesh.gz",
+        "bytes": 53938,
+        "sha256": "dd98e82a37b49046e19683b4f81d9a42772f95f80efc1fceadef42d2d95500d2",
+        "decodedSHA256": "ec201ab8ef8cc3a08823b736d4bb85faedff215ff705c363d49217e230f618a1",
+        "vertices": 4979,
+        "triangles": 9990
+      }
+    },
+    {
+      "code": 81,
+      "name": "Left rib 9",
+      "sourceLabel": "rib_left_9",
+      "group": "Ribs and chest wall",
+      "color": [
+        230,
+        148,
+        101
+      ],
+      "voxelCount": 3402,
+      "sourceSHA256": "2d2e2c82775954734cda09c9d28f3bede8fa6ccc34aa00dd0427c0d6a354bce6",
+      "focus": [
+        70,
+        127,
+        256
+      ],
+      "boundsIndex": [
+        [
+          60,
+          96,
+          207
+        ],
+        [
+          125,
+          191,
+          279
+        ]
+      ],
+      "touchesGridEdge": false,
+      "mesh": {
+        "file": "rib-left-9.mesh.gz",
+        "bytes": 47051,
+        "sha256": "6cfed1d88d81bf5cacf462f1a3fde1887945801a49c58e08232014ee31be267b",
+        "decodedSHA256": "a77f82696ccf68929bdd1f4af4efec275869aa82146c2322e9e1451d6069b435",
+        "vertices": 4354,
+        "triangles": 8736
+      }
+    },
+    {
+      "code": 82,
+      "name": "Left rib 10",
+      "sourceLabel": "rib_left_10",
+      "group": "Ribs and chest wall",
+      "color": [
+        111,
+        101,
+        230
+      ],
+      "voxelCount": 2945,
+      "sourceSHA256": "d91ce3dd8f5191ed0528a6d3bb2c966e09ea40b86585833fee42b9ca0a341ad7",
+      "focus": [
+        73,
+        118,
+        233
+      ],
+      "boundsIndex": [
+        [
+          59,
+          96,
+          194
+        ],
+        [
+          126,
+          179,
+          264
+        ]
+      ],
+      "touchesGridEdge": false,
+      "mesh": {
+        "file": "rib-left-10.mesh.gz",
+        "bytes": 41262,
+        "sha256": "3fbcbf0229924a06ec49355490d2ed65eeb96ddd64e322dfc421aee132b8da00",
+        "decodedSHA256": "4ecca605d7b3fd15985af35f72b81235b5a2a256abd5cc12402be82c610c7340",
+        "vertices": 3820,
+        "triangles": 7636
+      }
+    },
+    {
+      "code": 83,
+      "name": "Left rib 11",
+      "sourceLabel": "rib_left_11",
+      "group": "Ribs and chest wall",
+      "color": [
+        130,
+        230,
+        101
+      ],
+      "voxelCount": 1716,
+      "sourceSHA256": "c1c05d050fd98510608096c71ec20c2050a1eb29dda342a82a9a92e1657a691e",
+      "focus": [
+        87,
+        110,
+        215
+      ],
+      "boundsIndex": [
+        [
+          65,
+          100,
+          181
+        ],
+        [
+          125,
+          149,
+          242
+        ]
+      ],
+      "touchesGridEdge": false,
+      "mesh": {
+        "file": "rib-left-11.mesh.gz",
+        "bytes": 28350,
+        "sha256": "314301f1a505e18f3cb1a9f211c55d46cb135dadd5978b5a8f3b03ed69455a81",
+        "decodedSHA256": "438eb56154855d27b8def67578690d8a669b35b9a555b0f8bee3470959c6069b",
+        "vertices": 2649,
+        "triangles": 5298
+      }
+    },
+    {
+      "code": 84,
+      "name": "Left rib 12",
+      "sourceLabel": "rib_left_12",
+      "group": "Ribs and chest wall",
+      "color": [
+        230,
+        101,
+        167
+      ],
+      "voxelCount": 456,
+      "sourceSHA256": "4917d9680eb95828ab907a58da93cd94068f8866544d4109d0636aca1a42ecc3",
+      "focus": [
+        108,
+        112,
+        202
+      ],
+      "boundsIndex": [
+        [
+          89,
+          109,
+          183
+        ],
+        [
+          122,
+          121,
+          216
+        ]
+      ],
+      "touchesGridEdge": false,
+      "mesh": {
+        "file": "rib-left-12.mesh.gz",
+        "bytes": 8997,
+        "sha256": "cc55739979ccd3449a67a1cd08f8d026dd759be4830940c514e3a7fb7445c1b1",
+        "decodedSHA256": "a746d2df173fd6328a724b55bb4df18f370dd1077380380e48d1d63315b8863b",
+        "vertices": 841,
+        "triangles": 1682
+      }
+    },
+    {
+      "code": 85,
+      "name": "Right rib 1",
+      "sourceLabel": "rib_right_1",
+      "group": "Ribs and chest wall",
+      "color": [
+        101,
+        205,
+        230
+      ],
+      "voxelCount": 2389,
+      "sourceSHA256": "3abc9b88a576987e1ed2e79d96ceef235433a274634ad12fb0f0b547e4875da9",
+      "focus": [
+        187,
+        164,
+        365
+      ],
+      "boundsIndex": [
+        [
+          173,
+          136,
+          347
+        ],
+        [
+          200,
+          190,
+          381
+        ]
+      ],
+      "touchesGridEdge": false,
+      "mesh": {
+        "file": "rib-right-1.mesh.gz",
+        "bytes": 32340,
+        "sha256": "b14b0a047a872617dde0be3f713dd2aa61840fe60c8f69149cf9d5ce2587cc26",
+        "decodedSHA256": "58f1bc69cbb9f6c71c65d32be95e75a7e94268be5337cb1e53b59af246dd38d5",
+        "vertices": 2847,
+        "triangles": 5718
+      }
+    },
+    {
+      "code": 86,
+      "name": "Right rib 2",
+      "sourceLabel": "rib_right_2",
+      "group": "Ribs and chest wall",
+      "color": [
+        230,
+        218,
+        101
+      ],
+      "voxelCount": 2493,
+      "sourceSHA256": "77388103368467c668dd64b08687538b656980999c0b0a49357c2dd851b85422",
+      "focus": [
+        209,
+        156,
+        360
+      ],
+      "boundsIndex": [
+        [
+          175,
+          126,
+          333
+        ],
+        [
+          217,
+          203,
+          374
+        ]
+      ],
+      "touchesGridEdge": false,
+      "mesh": {
+        "file": "rib-right-2.mesh.gz",
+        "bytes": 37167,
+        "sha256": "8e071c0693a2c8b1836cd005389e42642c5d1a35c445aa6c3cd43fe036330d83",
+        "decodedSHA256": "69d6e3f97b1567f139ab88d5dc9aba5cb867dd0babd80efea4bbe83f33a39149",
+        "vertices": 3378,
+        "triangles": 6776
+      }
+    },
+    {
+      "code": 87,
+      "name": "Right rib 3",
+      "sourceLabel": "rib_right_3",
+      "group": "Ribs and chest wall",
+      "color": [
+        180,
+        101,
+        230
+      ],
+      "voxelCount": 3103,
+      "sourceSHA256": "0eccee88f3371d4ae67b4242c7177697dd43068724b80fa0618f9be7465eb977",
+      "focus": [
+        222,
+        161,
+        348
+      ],
+      "boundsIndex": [
+        [
+          176,
+          114,
+          310
+        ],
+        [
+          228,
+          208,
+          367
+        ]
+      ],
+      "touchesGridEdge": false,
+      "mesh": {
+        "file": "rib-right-3.mesh.gz",
+        "bytes": 47558,
+        "sha256": "e6a089794d8b29f7a663bf9f89c52245fb91edf3230d558d229a25b53c19a417",
+        "decodedSHA256": "82960524b2a35ce3f412cf80120d6248a992a0abe33cb5e84d8e2234a1128cac",
+        "vertices": 4387,
+        "triangles": 8782
+      }
+    },
+    {
+      "code": 88,
+      "name": "Right rib 4",
+      "sourceLabel": "rib_right_4",
+      "group": "Ribs and chest wall",
+      "color": [
+        101,
+        230,
+        143
+      ],
+      "voxelCount": 4204,
+      "sourceSHA256": "3a3c055314a9e27f0ccc8afbe474e95a67af35c6e42da6508d9400beaa19ca9c",
+      "focus": [
+        228,
+        161,
+        334
+      ],
+      "boundsIndex": [
+        [
+          176,
+          107,
+          290
+        ],
+        [
+          233,
+          211,
+          354
+        ]
+      ],
+      "touchesGridEdge": false,
+      "mesh": {
+        "file": "rib-right-4.mesh.gz",
+        "bytes": 55366,
+        "sha256": "088a0142ba22cd6739fd5d2a10836cf5918182c68bf35e86f95293116217595a",
+        "decodedSHA256": "fa2bd105585d8b4113491549fdc37c47297ba5cd5a8999e6815c4266f72aa8cf",
+        "vertices": 5113,
+        "triangles": 10250
+      }
+    },
+    {
+      "code": 89,
+      "name": "Right rib 5",
+      "sourceLabel": "rib_right_5",
+      "group": "Ribs and chest wall",
+      "color": [
+        230,
+        105,
+        101
+      ],
+      "voxelCount": 4502,
+      "sourceSHA256": "a1ec0b7c14dd33424d1d74a6cb010e1ec545887357edd0235f4c08f061f4cd36",
+      "focus": [
+        232,
+        153,
+        320
+      ],
+      "boundsIndex": [
+        [
+          177,
+          101,
+          275
+        ],
+        [
+          235,
+          212,
+          340
+        ]
+      ],
+      "touchesGridEdge": false,
+      "mesh": {
+        "file": "rib-right-5.mesh.gz",
+        "bytes": 57019,
+        "sha256": "616340f633c8e15c1d200a7a80638b997efc8e1a0eaa7178b42a460f876637ce",
+        "decodedSHA256": "940cbd6a7904eadc02a9acc43daf494e564e4f6921c802ece3f6e72aa316fdf9",
+        "vertices": 5339,
+        "triangles": 10686
+      }
+    },
+    {
+      "code": 90,
+      "name": "Right rib 6",
+      "sourceLabel": "rib_right_6",
+      "group": "Ribs and chest wall",
+      "color": [
+        101,
+        135,
+        230
+      ],
+      "voxelCount": 5540,
+      "sourceSHA256": "fddd0053a848a0d1bc4f9f4e9cdc9b02e291a6029fcf1669f24fe684867c809e",
+      "focus": [
+        232,
+        148,
+        303
+      ],
+      "boundsIndex": [
+        [
+          176,
+          96,
+          255
+        ],
+        [
+          236,
+          207,
+          324
+        ]
+      ],
+      "touchesGridEdge": false,
+      "mesh": {
+        "file": "rib-right-6.mesh.gz",
+        "bytes": 63987,
+        "sha256": "2b852f71622739bdf5484b781c39c211a031137ca23f7bc153c35517a8193831",
+        "decodedSHA256": "f52911f6097da9e9ae9147be1f6ce9e54f096dd55a93d148311089478d32f61b",
+        "vertices": 5931,
+        "triangles": 11878
+      }
+    },
+    {
+      "code": 91,
+      "name": "Right rib 7",
+      "sourceLabel": "rib_right_7",
+      "group": "Ribs and chest wall",
+      "color": [
+        173,
+        230,
+        101
+      ],
+      "voxelCount": 4864,
+      "sourceSHA256": "234c97f42bc25632301647c3c46a97d48f25bbbeac16e1dfc933dea82793d688",
+      "focus": [
+        233,
+        140,
+        288
+      ],
+      "boundsIndex": [
+        [
+          174,
+          92,
+          235
+        ],
+        [
+          238,
+          204,
+          307
+        ]
+      ],
+      "touchesGridEdge": false,
+      "mesh": {
+        "file": "rib-right-7.mesh.gz",
+        "bytes": 59788,
+        "sha256": "3df7baa5b8982048b0d564ed985f56d292e27fb645ec1d206a6ac737b4d60ced",
+        "decodedSHA256": "eec83159f7b09e43220b0940d7fc4ba4c434e89da7c203615ffbf04839cb4841",
+        "vertices": 5570,
+        "triangles": 11152
+      }
+    },
+    {
+      "code": 92,
+      "name": "Right rib 8",
+      "sourceLabel": "rib_right_8",
+      "group": "Ribs and chest wall",
+      "color": [
+        230,
+        101,
+        210
+      ],
+      "voxelCount": 4221,
+      "sourceSHA256": "ec70394daa4e73c798b1535f721fd789f10c85b6d5cf487aa1b51d2999dbd0ac",
+      "focus": [
+        231,
+        128,
+        271
+      ],
+      "boundsIndex": [
+        [
+          173,
+          91,
+          219
+        ],
+        [
+          239,
+          198,
+          291
+        ]
+      ],
+      "touchesGridEdge": false,
+      "mesh": {
+        "file": "rib-right-8.mesh.gz",
+        "bytes": 54933,
+        "sha256": "5ad2a4981a6f8fb6e661a97363549942cc4453498401bf843817fb675717feaf",
+        "decodedSHA256": "8528086584ea9b3c6085e4f5ebaca1003b96f0bc95fd6a7f26e6695de4cd196b",
+        "vertices": 5135,
+        "triangles": 10286
+      }
+    },
+    {
+      "code": 93,
+      "name": "Right rib 9",
+      "sourceLabel": "rib_right_9",
+      "group": "Ribs and chest wall",
+      "color": [
+        101,
+        230,
+        212
+      ],
+      "voxelCount": 3752,
+      "sourceSHA256": "4c57b5abfeb30cdd5b10bbe7dc14ba6d6ad7cb8f77881b51265415751e5997dd",
+      "focus": [
+        229,
+        122,
+        248
+      ],
+      "boundsIndex": [
+        [
+          172,
+          90,
+          205
+        ],
+        [
+          239,
+          196,
+          276
+        ]
+      ],
+      "touchesGridEdge": false,
+      "mesh": {
+        "file": "rib-right-9.mesh.gz",
+        "bytes": 51872,
+        "sha256": "99ded4ae96776141aa530aec16cc73502a0ddba4c32abf948f1cc6813ef7c79d",
+        "decodedSHA256": "3ece68fc19a1af09caa755d6a498dfdcbef1baec32e418e24d78d559435eb5e1",
+        "vertices": 4819,
+        "triangles": 9662
+      }
+    },
+    {
+      "code": 94,
+      "name": "Right rib 10",
+      "sourceLabel": "rib_right_10",
+      "group": "Ribs and chest wall",
+      "color": [
+        230,
+        175,
+        101
+      ],
+      "voxelCount": 2777,
+      "sourceSHA256": "a67012ef75fed6ff878528b5dac8cbd6fe5fff41cce0bcffb059a910f56bf352",
+      "focus": [
+        220,
+        111,
+        228
+      ],
+      "boundsIndex": [
+        [
+          171,
+          91,
+          190
+        ],
+        [
+          235,
+          184,
+          258
+        ]
+      ],
+      "touchesGridEdge": false,
+      "mesh": {
+        "file": "rib-right-10.mesh.gz",
+        "bytes": 40158,
+        "sha256": "97782ca48a5d3cebaa74be1f09accdc07ca04998ee8aef5af6e2b7efcaa119e3",
+        "decodedSHA256": "263c2c0d62a37d63c74a0a83146d9dcca16be760ecf278faf09e32c663c470f3",
+        "vertices": 3728,
+        "triangles": 7448
+      }
+    },
+    {
+      "code": 95,
+      "name": "Right rib 11",
+      "sourceLabel": "rib_right_11",
+      "group": "Ribs and chest wall",
+      "color": [
+        137,
+        101,
+        230
+      ],
+      "voxelCount": 1605,
+      "sourceSHA256": "fb1861b250fa8e492df8fe27bb664161147caf3e41d81963134d11e20e010643",
+      "focus": [
+        202,
+        106,
+        208
+      ],
+      "boundsIndex": [
+        [
+          166,
+          96,
+          178
+        ],
+        [
+          224,
+          140,
+          239
+        ]
+      ],
+      "touchesGridEdge": false,
+      "mesh": {
+        "file": "rib-right-11.mesh.gz",
+        "bytes": 27595,
+        "sha256": "5d246e800682957470654f457f11a0097a8fe08ac741aa4a64feaa3c60f9a82e",
+        "decodedSHA256": "0d537cce14d57ba2a548ea36bb6c40b03a7e0543bb060ae4c828b3ac4f0e4ee5",
+        "vertices": 2568,
+        "triangles": 5132
+      }
+    },
+    {
+      "code": 96,
+      "name": "Right rib 12",
+      "sourceLabel": "rib_right_12",
+      "group": "Ribs and chest wall",
+      "color": [
+        103,
+        230,
+        101
+      ],
+      "voxelCount": 395,
+      "sourceSHA256": "27b88239686a37a9087b708805ae2142a57dbe2567a8c9e8990d006f4c015408",
+      "focus": [
+        178,
+        109,
+        200
+      ],
+      "boundsIndex": [
+        [
+          164,
+          107,
+          179
+        ],
+        [
+          197,
+          118,
+          216
+        ]
+      ],
+      "touchesGridEdge": false,
+      "mesh": {
+        "file": "rib-right-12.mesh.gz",
+        "bytes": 8806,
+        "sha256": "178386a09507daec87e8b61f1bc29b335e13f5fce1f460523511a831c019dfe4",
+        "decodedSHA256": "a188f1c18f8b7db935e6364b020d01f9730114cb9abbc07ed23255f050ace2a1",
+        "vertices": 822,
+        "triangles": 1648
+      }
+    },
+    {
+      "code": 97,
+      "name": "Skull",
+      "sourceLabel": "skull",
+      "group": "Other bones",
+      "color": [
+        230,
+        101,
+        141
+      ],
+      "voxelCount": 1005,
+      "sourceSHA256": "6d4af71b4615fb09a1fe8fd1ee99dbfb31bbd40a98ffaf4dbf0807c118ae81d2",
+      "focus": [
+        155,
+        215,
+        391
+      ],
+      "boundsIndex": [
+        [
+          140,
+          207,
+          387
+        ],
+        [
+          169,
+          221,
+          393
+        ]
+      ],
+      "touchesGridEdge": true,
+      "mesh": {
+        "file": "skull.mesh.gz",
+        "bytes": 7905,
+        "sha256": "bfef57368a00c3855837327c6eb1dbf0669fc11946f614d1c03a9226aaeb291b",
+        "decodedSHA256": "c0af21eed921d54bd5696a311dbb027a3151fdc6a01531d09260a34c7eb7a961",
+        "vertices": 774,
+        "triangles": 1446
+      }
+    },
+    {
+      "code": 98,
+      "name": "Left humerus",
+      "sourceLabel": "humerus_left",
+      "group": "Other bones",
+      "color": [
+        101,
+        178,
+        230
+      ],
+      "voxelCount": 11745,
+      "sourceSHA256": "1c30788724a7b26e57a99160f0dfdbdf91ed316aaa00238546f9acbad9d2c956",
+      "focus": [
+        43,
+        150,
+        382
+      ],
+      "boundsIndex": [
+        [
+          29,
+          134,
+          369
+        ],
+        [
+          58,
+          165,
+          393
+        ]
+      ],
+      "touchesGridEdge": true,
+      "mesh": {
+        "file": "humerus-left.mesh.gz",
+        "bytes": 38238,
+        "sha256": "ccbc0b9a6d6fa1997a0791577ca0bcf55e54c87fb0b5c3fd9fcafb28856be11d",
+        "decodedSHA256": "9370ee69bc80b8a29a65a4fe63a86e4e3b2a9a1706e547e2fdd0832f21dfba9a",
+        "vertices": 3522,
+        "triangles": 6954
+      }
+    },
+    {
+      "code": 99,
+      "name": "Right humerus",
+      "sourceLabel": "humerus_right",
+      "group": "Other bones",
+      "color": [
+        216,
+        230,
+        101
+      ],
+      "voxelCount": 14534,
+      "sourceSHA256": "b324ac9d6d27a8b1645f7cdff8d4145e3cb9f02980cabcd8849290eb369de8b0",
+      "focus": [
+        258,
+        157,
+        377
+      ],
+      "boundsIndex": [
+        [
+          243,
+          141,
+          361
+        ],
+        [
+          274,
+          171,
+          393
+        ]
+      ],
+      "touchesGridEdge": true,
+      "mesh": {
+        "file": "humerus-right.mesh.gz",
+        "bytes": 48873,
+        "sha256": "ad613703f1d210744a3811cce41f119d7c3bf248b1760001e6c2b74578c4daff",
+        "decodedSHA256": "3258d1c086821c045a6b6abca9d461fa42d883b89615a39e50b63052239a7aa7",
+        "vertices": 4510,
+        "triangles": 8948
+      }
+    },
+    {
+      "code": 100,
+      "name": "Left scapula",
+      "sourceLabel": "scapula_left",
+      "group": "Other bones",
+      "color": [
+        207,
+        101,
+        230
+      ],
+      "voxelCount": 19762,
+      "sourceSHA256": "895b7e33944770ac43f69ea8e31160987467935d62c5ffb61428e0f17e0898c2",
+      "focus": [
+        65,
+        127,
+        353
+      ],
+      "boundsIndex": [
+        [
+          39,
+          102,
+          286
+        ],
+        [
+          97,
+          163,
+          393
+        ]
+      ],
+      "touchesGridEdge": true,
+      "mesh": {
+        "file": "scapula-left.mesh.gz",
+        "bytes": 192022,
+        "sha256": "d865480d73c3c9c1ac3b919cad3760572d083a3b43327191abe2481633c88243",
+        "decodedSHA256": "7693797493d892355ad8e6e9c6a240bc897a312f8a2787fda779f178da0b6f45",
+        "vertices": 17814,
+        "triangles": 35580
+      }
+    },
+    {
+      "code": 101,
+      "name": "Right scapula",
+      "sourceLabel": "scapula_right",
+      "group": "Other bones",
+      "color": [
+        101,
+        230,
+        169
+      ],
+      "voxelCount": 21143,
+      "sourceSHA256": "934b6060dbea3c3f21b172a1958edccab5f9bfc30422bacbd4b0ee510258632e",
+      "focus": [
+        241,
+        130,
+        347
+      ],
+      "boundsIndex": [
+        [
+          208,
+          101,
+          277
+        ],
+        [
+          264,
+          164,
+          393
+        ]
+      ],
+      "touchesGridEdge": true,
+      "mesh": {
+        "file": "scapula-right.mesh.gz",
+        "bytes": 207978,
+        "sha256": "b4dda76d5053e3e72e390b99c09469642f5afc7cc333b162320878db756cf766",
+        "decodedSHA256": "cc3f7c28a94e2e52f074d86fc4c9bc2553dd2a2e5d519c5f944596869180bdfd",
+        "vertices": 18992,
+        "triangles": 37936
+      }
+    },
+    {
+      "code": 102,
+      "name": "Left clavicula",
+      "sourceLabel": "clavicula_left",
+      "group": "Other bones",
+      "color": [
+        230,
+        132,
+        101
+      ],
+      "voxelCount": 4657,
+      "sourceSHA256": "749c26e1cca7ed7b0b092090d2664d15bbb627a2aa48e4c3a02e98e5f67c4dbb",
+      "focus": [
+        112,
+        171,
+        374
+      ],
+      "boundsIndex": [
+        [
+          65,
+          138,
+          355
+        ],
+        [
+          140,
+          189,
+          393
+        ]
+      ],
+      "touchesGridEdge": true,
+      "mesh": {
+        "file": "clavicula-left.mesh.gz",
+        "bytes": 38002,
+        "sha256": "6d638e9f2683704828713659f98ff10592ba9ff4679722ec544eddf9a0da57c3",
+        "decodedSHA256": "0997cceee3397a8928676b1ee642b08b5d29c1785a9ea25c1940fabf25c11ebf",
+        "vertices": 3608,
+        "triangles": 7142
+      }
+    },
+    {
+      "code": 103,
+      "name": "Right clavicula",
+      "sourceLabel": "clavicula_right",
+      "group": "Other bones",
+      "color": [
+        101,
+        109,
+        230
+      ],
+      "voxelCount": 5795,
+      "sourceSHA256": "7a66dd126fd5b7deb2c9ce99925dbd43e1fec9507e283939c72ce5d4f0a0a2a1",
+      "focus": [
+        200,
+        169,
+        374
+      ],
+      "boundsIndex": [
+        [
+          165,
+          138,
+          355
+        ],
+        [
+          242,
+          189,
+          391
+        ]
+      ],
+      "touchesGridEdge": false,
+      "mesh": {
+        "file": "clavicula-right.mesh.gz",
+        "bytes": 46961,
+        "sha256": "2c8c35aeedc34b920b7d0d0e1a41c33020fa10ed855eaa0aa483fd00a1f31588",
+        "decodedSHA256": "b3657951abb25d8792a27387a9fa0094faf19cb10475bf5f5dd876015df61703",
+        "vertices": 4414,
+        "triangles": 8820
+      }
+    },
+    {
+      "code": 104,
+      "name": "Left femur",
+      "sourceLabel": "femur_left",
+      "group": "Other bones",
+      "color": [
+        146,
+        230,
+        101
+      ],
+      "voxelCount": 32101,
+      "sourceSHA256": "d859c3099b291592cd55f42bdd24ed3f1035730eb2ae129d4981c30326b8e436",
+      "focus": [
+        74,
+        150,
+        27
+      ],
+      "boundsIndex": [
+        [
+          48,
+          133,
+          0
+        ],
+        [
+          104,
+          165,
+          53
+        ]
+      ],
+      "touchesGridEdge": true,
+      "mesh": {
+        "file": "femur-left.mesh.gz",
+        "bytes": 100635,
+        "sha256": "60e1e0999da6369ca181522b8917a1c4240f0ed51c9b420363032addb1dbdccc",
+        "decodedSHA256": "dd9664a01105f1e530cf505c2d02561060c3b5d1bb3874ef8f1e2b98a4cc7a60",
+        "vertices": 9410,
+        "triangles": 18738
+      }
+    },
+    {
+      "code": 105,
+      "name": "Right femur",
+      "sourceLabel": "femur_right",
+      "group": "Other bones",
+      "color": [
+        230,
+        101,
+        184
+      ],
+      "voxelCount": 31694,
+      "sourceSHA256": "a1fdf1228c1091370c2508d3b14db612ff2ca16ab3f9e8c54778a642816d41e7",
+      "focus": [
+        210,
+        143,
+        26
+      ],
+      "boundsIndex": [
+        [
+          181,
+          126,
+          0
+        ],
+        [
+          237,
+          158,
+          51
+        ]
+      ],
+      "touchesGridEdge": true,
+      "mesh": {
+        "file": "femur-right.mesh.gz",
+        "bytes": 98029,
+        "sha256": "881a4e8804f19dba5ee843d72056b3850f2e9de6058d2cf12b656daa941f1e4f",
+        "decodedSHA256": "4e693a2f60401380fa6e2281ef95b33d988f50115aae78ffe2c079282a2e4584",
+        "vertices": 9255,
+        "triangles": 18412
+      }
+    },
+    {
+      "code": 106,
+      "name": "Left hip",
+      "sourceLabel": "hip_left",
+      "group": "Other bones",
+      "color": [
+        101,
+        221,
+        230
+      ],
+      "voxelCount": 74312,
+      "sourceSHA256": "e4b116fff9c6e8fef7be2143721d8072c132f7008974cf15e2975a4b914d0ca7",
+      "focus": [
+        96,
+        142,
+        70
+      ],
+      "boundsIndex": [
+        [
+          58,
+          97,
+          0
+        ],
+        [
+          143,
+          185,
+          129
+        ]
+      ],
+      "touchesGridEdge": true,
+      "mesh": {
+        "file": "hip-left.mesh.gz",
+        "bytes": 360019,
+        "sha256": "3a451bfd5f2f5941b3e2983d48193fdc4c38957cce1a0fff18bbbaa806215cd5",
+        "decodedSHA256": "6141d01d0feaad1ce9655115356d826de97f39d5e5be90aa6d01201d1c5d8508",
+        "vertices": 33211,
+        "triangles": 66370
+      }
+    },
+    {
+      "code": 107,
+      "name": "Right hip",
+      "sourceLabel": "hip_right",
+      "group": "Other bones",
+      "color": [
+        230,
+        201,
+        101
+      ],
+      "voxelCount": 73964,
+      "sourceSHA256": "b84e790f3a68440f434e32f042deaa08ad13f2a5b97148611232eaea9d1b6fc2",
+      "focus": [
+        189,
+        137,
+        68
+      ],
+      "boundsIndex": [
+        [
+          144,
+          94,
+          0
+        ],
+        [
+          234,
+          184,
+          125
+        ]
+      ],
+      "touchesGridEdge": true,
+      "mesh": {
+        "file": "hip-right.mesh.gz",
+        "bytes": 363072,
+        "sha256": "4ed3e6780e3137fc6a5c21ddabe0802ae017f3559f9766a23660721e445917b9",
+        "decodedSHA256": "fa81d131a37ecc359954c795beede5c2f8ef4eb0890237c553599df4512348db",
+        "vertices": 33066,
+        "triangles": 66054
+      }
+    },
+    {
+      "code": 108,
+      "name": "Left gluteus maximus",
+      "sourceLabel": "gluteus_maximus_left",
+      "group": "Muscles",
+      "color": [
+        164,
+        101,
+        230
+      ],
+      "voxelCount": 122495,
+      "sourceSHA256": "976abd1554d74d906a6c37030b42305f824e47f29a60272040c26c624c64487e",
+      "focus": [
+        83,
+        113,
+        47
+      ],
+      "boundsIndex": [
+        [
+          45,
+          78,
+          0
+        ],
+        [
+          128,
+          154,
+          111
+        ]
+      ],
+      "touchesGridEdge": true,
+      "mesh": {
+        "file": "gluteus-maximus-left.mesh.gz",
+        "bytes": 317892,
+        "sha256": "582963088cdfacfeaeaca381d64965e446e66e89aed41cdd245fae4dccc5c08e",
+        "decodedSHA256": "1b2fe6cccc8fef7bf3ef5c01716278faf14a3f5b699c606cc399babed3fb6736",
+        "vertices": 30867,
+        "triangles": 61530
+      }
+    },
+    {
+      "code": 109,
+      "name": "Right gluteus maximus",
+      "sourceLabel": "gluteus_maximus_right",
+      "group": "Muscles",
+      "color": [
+        101,
+        230,
+        126
+      ],
+      "voxelCount": 110247,
+      "sourceSHA256": "95d5ebf9223033d584f09a11e864d1f0a1c2793f5b4ee9f73ed0da180404ecee",
+      "focus": [
+        193,
+        105,
+        45
+      ],
+      "boundsIndex": [
+        [
+          148,
+          77,
+          0
+        ],
+        [
+          237,
+          131,
+          107
+        ]
+      ],
+      "touchesGridEdge": true,
+      "mesh": {
+        "file": "gluteus-maximus-right.mesh.gz",
+        "bytes": 283460,
+        "sha256": "187b86e9e45b400c3a427f0aa60b8355fb7f5839401f8469aa118b91c50121eb",
+        "decodedSHA256": "804cbd92694806b22e2189088f664648d33d57157427c71aca8eba913302ead1",
+        "vertices": 27237,
+        "triangles": 54280
+      }
+    },
+    {
+      "code": 110,
+      "name": "Left gluteus medius",
+      "sourceLabel": "gluteus_medius_left",
+      "group": "Muscles",
+      "color": [
+        230,
+        101,
+        114
+      ],
+      "voxelCount": 53529,
+      "sourceSHA256": "1baea788b9b31fe1353aaaef4a14687590b7bc6503335ceb69d63927bdf43925",
+      "focus": [
+        68,
+        144,
+        81
+      ],
+      "boundsIndex": [
+        [
+          48,
+          112,
+          45
+        ],
+        [
+          96,
+          178,
+          121
+        ]
+      ],
+      "touchesGridEdge": false,
+      "mesh": {
+        "file": "gluteus-medius-left.mesh.gz",
+        "bytes": 166223,
+        "sha256": "e69ceec8324dfd19bfddf8c7cca2c7b971ef8d19e9562396692f7e225f4e5351",
+        "decodedSHA256": "afbc5c1a12abbf100ba5d8d81456802ba0b3fe3a4d45249d8597efdcc216960a",
+        "vertices": 15876,
+        "triangles": 31748
+      }
+    },
+    {
+      "code": 111,
+      "name": "Right gluteus medius",
+      "sourceLabel": "gluteus_medius_right",
+      "group": "Muscles",
+      "color": [
+        101,
+        152,
+        230
+      ],
+      "voxelCount": 46456,
+      "sourceSHA256": "f3a5cd85a83b55e2f09008613421e3e080fdab03b1efb94b8a846c686b0459b9",
+      "focus": [
+        219,
+        135,
+        76
+      ],
+      "boundsIndex": [
+        [
+          184,
+          108,
+          36
+        ],
+        [
+          244,
+          164,
+          119
+        ]
+      ],
+      "touchesGridEdge": false,
+      "mesh": {
+        "file": "gluteus-medius-right.mesh.gz",
+        "bytes": 160982,
+        "sha256": "cdef741229eb3d8af89758236fd33df0e0c2f25d88c300c8b98dc8b06e3967d2",
+        "decodedSHA256": "e3fc8df2a07cc9fc1bce651fed714f2051d4a89fa4922dd06c439b8dfd94da18",
+        "vertices": 15296,
+        "triangles": 30588
+      }
+    },
+    {
+      "code": 112,
+      "name": "Left gluteus minimus",
+      "sourceLabel": "gluteus_minimus_left",
+      "group": "Muscles",
+      "color": [
+        189,
+        230,
+        101
+      ],
+      "voxelCount": 13473,
+      "sourceSHA256": "1a520e3b57106917cd466bdd0cd897c312522f7babd80114cd4067034146701d",
+      "focus": [
+        73,
+        157,
+        67
+      ],
+      "boundsIndex": [
+        [
+          62,
+          131,
+          44
+        ],
+        [
+          87,
+          178,
+          92
+        ]
+      ],
+      "touchesGridEdge": false,
+      "mesh": {
+        "file": "gluteus-minimus-left.mesh.gz",
+        "bytes": 71603,
+        "sha256": "2f2317b7cc47424a3c6fbbfd3aba1e8b319c0c311f69d91e72078dd010703db3",
+        "decodedSHA256": "83cfcebcb38d8c23773ba2f7d2506edb69b21139c8cd1e452a28e852dea80f80",
+        "vertices": 6902,
+        "triangles": 13800
+      }
+    },
+    {
+      "code": 113,
+      "name": "Right gluteus minimus",
+      "sourceLabel": "gluteus_minimus_right",
+      "group": "Muscles",
+      "color": [
+        230,
+        101,
+        227
+      ],
+      "voxelCount": 14348,
+      "sourceSHA256": "193f2776c7571dad8b09e2f9b9d9641df22b9ed0f00ba74b2299f414e6f490bb",
+      "focus": [
+        214,
+        145,
+        68
+      ],
+      "boundsIndex": [
+        [
+          196,
+          127,
+          42
+        ],
+        [
+          230,
+          166,
+          93
+        ]
+      ],
+      "touchesGridEdge": false,
+      "mesh": {
+        "file": "gluteus-minimus-right.mesh.gz",
+        "bytes": 76150,
+        "sha256": "6622c93ed848946d95720e122d9d255eead616c083836dab614120e39cb96865",
+        "decodedSHA256": "df40330467490f870ea3df19c84deaa9f90c2dd65caa9ffeab4ba5518b19a344",
+        "vertices": 7154,
+        "triangles": 14304
+      }
+    },
+    {
+      "code": 114,
+      "name": "Left autochthon",
+      "sourceLabel": "autochthon_left",
+      "group": "Muscles",
+      "color": [
+        101,
+        230,
+        196
+      ],
+      "voxelCount": 125651,
+      "sourceSHA256": "255e77227e9011bc95ebcb1615fabe792dff51ffd3b6c3c8b0a94ee0c957881a",
+      "focus": [
+        125,
+        103,
+        212
+      ],
+      "boundsIndex": [
+        [
+          95,
+          86,
+          89
+        ],
+        [
+          150,
+          141,
+          393
+        ]
+      ],
+      "touchesGridEdge": true,
+      "mesh": {
+        "file": "autochthon-left.mesh.gz",
+        "bytes": 383773,
+        "sha256": "c80a552327a4ca4ecf8e1a6b8e2475db1c51affa42120a4cddbc9199b6f019f1",
+        "decodedSHA256": "bb47d2b33165ea87ab20c55e44a4cfc1b105478a449d487a63667dca9a7a303b",
+        "vertices": 34923,
+        "triangles": 69780
+      }
+    },
+    {
+      "code": 115,
+      "name": "Right autochthon",
+      "sourceLabel": "autochthon_right",
+      "group": "Muscles",
+      "color": [
+        230,
+        158,
+        101
+      ],
+      "voxelCount": 118336,
+      "sourceSHA256": "4aff88000c0fc00b0ee46ddd62dae4b43963c45d8b8c8b4b84d36cf2ff83493e",
+      "focus": [
+        164,
+        102,
+        212
+      ],
+      "boundsIndex": [
+        [
+          141,
+          83,
+          86
+        ],
+        [
+          192,
+          142,
+          393
+        ]
+      ],
+      "touchesGridEdge": true,
+      "mesh": {
+        "file": "autochthon-right.mesh.gz",
+        "bytes": 387290,
+        "sha256": "ca8575c43b48de045cba2d46c7211a0f864420005439cc2d344ab050442cd853",
+        "decodedSHA256": "2d444fd3522fc296eff442a8c6cddf696847643de7dc15ab317560098d632632",
+        "vertices": 35145,
+        "triangles": 70222
+      }
+    },
+    {
+      "code": 116,
+      "name": "Left iliopsoas",
+      "sourceLabel": "iliopsoas_left",
+      "group": "Muscles",
+      "color": [
+        121,
+        101,
+        230
+      ],
+      "voxelCount": 60886,
+      "sourceSHA256": "39b46cec43cd09ced7733f35b594f191e2d22f926f1c078871ba40e82a7c97f2",
+      "focus": [
+        99,
+        157,
+        96
+      ],
+      "boundsIndex": [
+        [
+          72,
+          121,
+          8
+        ],
+        [
+          129,
+          187,
+          194
+        ]
+      ],
+      "touchesGridEdge": false,
+      "mesh": {
+        "file": "iliopsoas-left.mesh.gz",
+        "bytes": 252571,
+        "sha256": "7eef9faf8c87f424ee5f2b0ecab74dd35ba74f20db2cbd1eaa08d4e186c3a1b7",
+        "decodedSHA256": "6e9ae754d776f81922b992b20de055e80f8ca88b1d33e93f2ebae6e7210bd7f1",
+        "vertices": 23114,
+        "triangles": 46224
+      }
+    },
+    {
+      "code": 117,
+      "name": "Right iliopsoas",
+      "sourceLabel": "iliopsoas_right",
+      "group": "Muscles",
+      "color": [
+        119,
+        230,
+        101
+      ],
+      "voxelCount": 58968,
+      "sourceSHA256": "f508d46f31965dbb96ab09c5565904848ee95a774d0349754170b8500fb6f1e8",
+      "focus": [
+        187,
+        150,
+        94
+      ],
+      "boundsIndex": [
+        [
+          159,
+          120,
+          9
+        ],
+        [
+          216,
+          178,
+          194
+        ]
+      ],
+      "touchesGridEdge": false,
+      "mesh": {
+        "file": "iliopsoas-right.mesh.gz",
+        "bytes": 240505,
+        "sha256": "60f99d77783a06b8d3aa858f3b6b05bd4f711d3b22944c952d1e434f07729207",
+        "decodedSHA256": "b6c6c1217601723a7743c3e9dac997c0a2fccdc0685bc904e910822a303a64d1",
+        "vertices": 21720,
+        "triangles": 43436
+      }
+    }
+  ],
+  "brickSize": 64,
+  "bricks": [
+    {
+      "file": "brick-0-0-0.gz",
+      "bytes": 169402,
+      "sha256": "f198cd30b75180d93e10ef156aa4cb74b204c7b34f6f8805523a33846f7690fb",
+      "decodedSHA256": "ebfc5a1fbef0cb3e83f5b7e98d1018ee717793bc31475a4c3025fdde48614471",
+      "start": [
+        0,
+        0,
+        0
+      ],
+      "size": [
+        64,
+        64,
+        64
+      ]
+    },
+    {
+      "file": "brick-0-0-64.gz",
+      "bytes": 169571,
+      "sha256": "4f895efbcc856bf91f2f99539f4b1d26f16e04af00ba090f434fa90b5c4baedb",
+      "decodedSHA256": "c2bbb017f91ae29e97bb9737d8c38e72074db9854093307aa076f7af163ee7fe",
+      "start": [
+        0,
+        0,
+        64
+      ],
+      "size": [
+        64,
+        64,
+        64
+      ]
+    },
+    {
+      "file": "brick-0-0-128.gz",
+      "bytes": 168795,
+      "sha256": "d2c27ac665eb9d0b2b984ea7f18a3bbd0d2edf8552a9d22bdf46aa3c16657a9e",
+      "decodedSHA256": "a6878b65b0a3435e70eeb17eeac59787fcca389b82b8a813afd625fbb215d496",
+      "start": [
+        0,
+        0,
+        128
+      ],
+      "size": [
+        64,
+        64,
+        64
+      ]
+    },
+    {
+      "file": "brick-0-0-192.gz",
+      "bytes": 169044,
+      "sha256": "04a4947e65d84ed969ec75e2fd36c933157661a94774c566e6f307d03c71b202",
+      "decodedSHA256": "9f15f88c0da99c2c2d1cb0ac3d3b1bf7ad99bfd8699bfe37063a056b9ebf3094",
+      "start": [
+        0,
+        0,
+        192
+      ],
+      "size": [
+        64,
+        64,
+        64
+      ]
+    },
+    {
+      "file": "brick-0-0-256.gz",
+      "bytes": 169336,
+      "sha256": "845b94d277d05ec6a7244e6950f2d1ae05c6de3b083dba94e43aefd6f3155aac",
+      "decodedSHA256": "84270f1c7ccaef71dff88eb52b9c516631cc5b0049f2e88f455dc0fd4894b91c",
+      "start": [
+        0,
+        0,
+        256
+      ],
+      "size": [
+        64,
+        64,
+        64
+      ]
+    },
+    {
+      "file": "brick-0-0-320.gz",
+      "bytes": 167944,
+      "sha256": "e3ca142776510c5d185baa4f8878f3d2448e356276945d8657e8d0d639dff1cf",
+      "decodedSHA256": "f3ee2be4ebb451aab2ca850f9a0faad06c19c50d55b92ddfc8a51af15b82caa8",
+      "start": [
+        0,
+        0,
+        320
+      ],
+      "size": [
+        64,
+        64,
+        64
+      ]
+    },
+    {
+      "file": "brick-0-0-384.gz",
+      "bytes": 26543,
+      "sha256": "95f9d6f26b22610e3717630d73fb7c438c38ed3fabf8caaa64bed6ad1232cbd7",
+      "decodedSHA256": "88836e62aae7739098a000b6b5bd805abc12185fc37c28f487c6ef24b231b06a",
+      "start": [
+        0,
+        0,
+        384
+      ],
+      "size": [
+        64,
+        64,
+        10
+      ]
+    },
+    {
+      "file": "brick-0-64-0.gz",
+      "bytes": 400529,
+      "sha256": "72a5c31b92e8231eb49a461b52963f5291603af57f9573634a3ce6f8a80ebfa0",
+      "decodedSHA256": "e7bbb54e2dbfffccffa58dae2f31a1852fd46474091e8b9e1bbb680b15dd5cfa",
+      "start": [
+        0,
+        64,
+        0
+      ],
+      "size": [
+        64,
+        64,
+        64
+      ]
+    },
+    {
+      "file": "brick-0-64-64.gz",
+      "bytes": 394241,
+      "sha256": "ac88fdf1c946062d8df67de24541b808b1b0a78ceb853326e8c7b58ad6f8328a",
+      "decodedSHA256": "9a9c172ba372f09f00ebf58a4e7cf37c0e81d30b8a99420a79e2f6b9afaaabe4",
+      "start": [
+        0,
+        64,
+        64
+      ],
+      "size": [
+        64,
+        64,
+        64
+      ]
+    },
+    {
+      "file": "brick-0-64-128.gz",
+      "bytes": 394885,
+      "sha256": "ca8310c968abadf665b3c9773ded8dc0d43c3380fb1b1fb021e0c383f4260ed2",
+      "decodedSHA256": "37aca832503eace487e797477899d7d6dc8195746bfada95e5ea074e54be9f84",
+      "start": [
+        0,
+        64,
+        128
+      ],
+      "size": [
+        64,
+        64,
+        64
+      ]
+    },
+    {
+      "file": "brick-0-64-192.gz",
+      "bytes": 391758,
+      "sha256": "4c0fc4127d44943badefd7da646f76499a8a86855deaca36a5c68f7dac9ae401",
+      "decodedSHA256": "1d1e4cff7109e5a72834c6850df78027cccc0842fd314d2237f0f286b81b1cb5",
+      "start": [
+        0,
+        64,
+        192
+      ],
+      "size": [
+        64,
+        64,
+        64
+      ]
+    },
+    {
+      "file": "brick-0-64-256.gz",
+      "bytes": 396375,
+      "sha256": "2b55cf5264983be9f272ff8312dd0cace8b125d2d899e945d30346d3ef47b922",
+      "decodedSHA256": "84adb2492095fb5b8a346e87c03de555f564402db7c07c3f04bb903cd3fcf016",
+      "start": [
+        0,
+        64,
+        256
+      ],
+      "size": [
+        64,
+        64,
+        64
+      ]
+    },
+    {
+      "file": "brick-0-64-320.gz",
+      "bytes": 399356,
+      "sha256": "c91adfbd4eae5f91a0a871b7990b424f37c711ea6c3578581af39485ce1b5d8d",
+      "decodedSHA256": "6dfa06b07d0b789d35f75bc7ff31cc02f6b5e718e0dec7703e1c0ff56b564819",
+      "start": [
+        0,
+        64,
+        320
+      ],
+      "size": [
+        64,
+        64,
+        64
+      ]
+    },
+    {
+      "file": "brick-0-64-384.gz",
+      "bytes": 64635,
+      "sha256": "b6c7b3e55255c10fb31e7deb5cbbf87c11e44eccd4de4acad5ebaccb73ccff0c",
+      "decodedSHA256": "a6d174f7dc22021c9cfa8ed871f1032fca58cc0e03f691b6d76c8337c9cf9732",
+      "start": [
+        0,
+        64,
+        384
+      ],
+      "size": [
+        64,
+        64,
+        10
+      ]
+    },
+    {
+      "file": "brick-0-128-0.gz",
+      "bytes": 383512,
+      "sha256": "93123e0314e3fc4903705b54da7a6449c2424fc8a7960d562385ca2b34eb928c",
+      "decodedSHA256": "f9606399eb90d588ad42929dfccae2f237e95c1d3ce397e98c7a9edc72d6cd2c",
+      "start": [
+        0,
+        128,
+        0
+      ],
+      "size": [
+        64,
+        64,
+        64
+      ]
+    },
+    {
+      "file": "brick-0-128-64.gz",
+      "bytes": 370028,
+      "sha256": "4075e56860b7258568a5a4951259b0200d6d04a2b070fa610e0a9d00f2afa61f",
+      "decodedSHA256": "a64c8626d8fdb0e398f68303aa551c7b492c6b2d8f8ffc76e8a588e05bff1afb",
+      "start": [
+        0,
+        128,
+        64
+      ],
+      "size": [
+        64,
+        64,
+        64
+      ]
+    },
+    {
+      "file": "brick-0-128-128.gz",
+      "bytes": 353427,
+      "sha256": "4b30965f5d4c3314716a3ed8327405b139a8183aca52cf1566c51237791c58e5",
+      "decodedSHA256": "8d75da00152589efef27ce102e378eb85e9f2d2d92be873bb9b01dfb470c50c4",
+      "start": [
+        0,
+        128,
+        128
+      ],
+      "size": [
+        64,
+        64,
+        64
+      ]
+    },
+    {
+      "file": "brick-0-128-192.gz",
+      "bytes": 357494,
+      "sha256": "5a306a1ef3ecdba7f03129fd234526d85b794cde183f6d812b0d0cc85c629e9c",
+      "decodedSHA256": "80c1885ded3a6a704bd725c0c2111e0f18bcc579daa62fb2781b15a9fab6d9ef",
+      "start": [
+        0,
+        128,
+        192
+      ],
+      "size": [
+        64,
+        64,
+        64
+      ]
+    },
+    {
+      "file": "brick-0-128-256.gz",
+      "bytes": 364574,
+      "sha256": "354fabc1ae8df888decdfaf7b170c33601c8e71a718eb4b9848be64253027161",
+      "decodedSHA256": "cb212039289c222901c01e2765f8992cea5bf94a708c5b9d042ea901c962e800",
+      "start": [
+        0,
+        128,
+        256
+      ],
+      "size": [
+        64,
+        64,
+        64
+      ]
+    },
+    {
+      "file": "brick-0-128-320.gz",
+      "bytes": 375919,
+      "sha256": "0c93f27a672affaa9b9047605792193caed1297e9742a9cae55ac392e59f6eb8",
+      "decodedSHA256": "036e2b5f1455e9c3a15ef02beab5c063130b3e6079031114d60c3d195a717925",
+      "start": [
+        0,
+        128,
+        320
+      ],
+      "size": [
+        64,
+        64,
+        64
+      ]
+    },
+    {
+      "file": "brick-0-128-384.gz",
+      "bytes": 65289,
+      "sha256": "94e0ed20a93f13d9526a2f7d41b8d2cd6f0f2538b99635acd58f68f777d5da79",
+      "decodedSHA256": "105a14b165d53523f109884f1c216ff5b0d5477946f6dbed17a3342fe637379c",
+      "start": [
+        0,
+        128,
+        384
+      ],
+      "size": [
+        64,
+        64,
+        10
+      ]
+    },
+    {
+      "file": "brick-0-192-0.gz",
+      "bytes": 291092,
+      "sha256": "fa980baa6741faf3bb54b8372e066498e3d31d3ae91aed94cb05c1036e7bacab",
+      "decodedSHA256": "0bdc838491ddf56070af85afaf48cc8f21d4484f22954863e7275187a9ec5411",
+      "start": [
+        0,
+        192,
+        0
+      ],
+      "size": [
+        64,
+        64,
+        64
+      ]
+    },
+    {
+      "file": "brick-0-192-64.gz",
+      "bytes": 265288,
+      "sha256": "b0167af68c6b1f1872411110c338bde1e7ecbb7f57ece8f2fe63bb507a6fe94d",
+      "decodedSHA256": "20f80b3de6e8d3890184b37d9a1f6c6551377a9c64d807e26f086622d6e5a248",
+      "start": [
+        0,
+        192,
+        64
+      ],
+      "size": [
+        64,
+        64,
+        64
+      ]
+    },
+    {
+      "file": "brick-0-192-128.gz",
+      "bytes": 268446,
+      "sha256": "2c5de0eeb7d154b9448261238f07ab4389c37cf9f65486e90fa03fa6092722d7",
+      "decodedSHA256": "084aef9614143e3505755cdb77477031f2e2d274a4a08529ee1572f0f7aff0bf",
+      "start": [
+        0,
+        192,
+        128
+      ],
+      "size": [
+        64,
+        64,
+        64
+      ]
+    },
+    {
+      "file": "brick-0-192-192.gz",
+      "bytes": 268627,
+      "sha256": "e2a0927992af2cc2cdf5021db0d9134f77a67d03afa293d0ebcc3e97e8a63c8a",
+      "decodedSHA256": "7cb755c0261a60bdbcfc409043f40c5b4030473fb1ae2ea6d8cdfc8a78460667",
+      "start": [
+        0,
+        192,
+        192
+      ],
+      "size": [
+        64,
+        64,
+        64
+      ]
+    },
+    {
+      "file": "brick-0-192-256.gz",
+      "bytes": 290812,
+      "sha256": "1fc5fdd4a78ed1498e1f40f4842464e1a99936345b75621568a4c6f62aed470c",
+      "decodedSHA256": "5f7093d079a968f688ddc7af5ee6c429cbd64ac54a8c30a0d7bf7518f0f27d86",
+      "start": [
+        0,
+        192,
+        256
+      ],
+      "size": [
+        64,
+        64,
+        64
+      ]
+    },
+    {
+      "file": "brick-0-192-320.gz",
+      "bytes": 273857,
+      "sha256": "7247868d8c3f7e9098fd258e438bfe6e9b237e43545135af72a2239a392484b2",
+      "decodedSHA256": "88d8f5ef6ef4d3530b348b16150b9abb1fbab4534e94c32cce3f8aa7cc4b9850",
+      "start": [
+        0,
+        192,
+        320
+      ],
+      "size": [
+        64,
+        64,
+        64
+      ]
+    },
+    {
+      "file": "brick-0-192-384.gz",
+      "bytes": 41238,
+      "sha256": "c89d8a17c545b857c84b0108b94ed0bcf9fd8033ade2f6f9310c9542f7002891",
+      "decodedSHA256": "752006247fc5f0dc017e77c77bca42897aeab1d7a09a341f2153dfa2a8bd6dc9",
+      "start": [
+        0,
+        192,
+        384
+      ],
+      "size": [
+        64,
+        64,
+        10
+      ]
+    },
+    {
+      "file": "brick-0-256-0.gz",
+      "bytes": 74587,
+      "sha256": "36221985fb22352515235af6f0186b6d71a2bedd5a93c370f6c8dd933d0b07c1",
+      "decodedSHA256": "cffbc31f2d4673611cbc569ed82d1fab22cb1b8115a480fada293a8f65568159",
+      "start": [
+        0,
+        256,
+        0
+      ],
+      "size": [
+        64,
+        43,
+        64
+      ]
+    },
+    {
+      "file": "brick-0-256-64.gz",
+      "bytes": 74547,
+      "sha256": "4497cf3d6e9cabb089cd8326435bffd7218941de0a312624839789b126f17e3f",
+      "decodedSHA256": "2ad4b61d695e276c86e3a3bb0101a27a1ce4d0eac39a15a69a639b07a0f89f76",
+      "start": [
+        0,
+        256,
+        64
+      ],
+      "size": [
+        64,
+        43,
+        64
+      ]
+    },
+    {
+      "file": "brick-0-256-128.gz",
+      "bytes": 73779,
+      "sha256": "df157dfe4bb9f9c85d5a4d5203ea86042c94df4a648ddef693273089f75cbfe8",
+      "decodedSHA256": "4753bafbe95829f611a50043e58e3e92711f0ad3752da8f546f6a255708c61a2",
+      "start": [
+        0,
+        256,
+        128
+      ],
+      "size": [
+        64,
+        43,
+        64
+      ]
+    },
+    {
+      "file": "brick-0-256-192.gz",
+      "bytes": 74604,
+      "sha256": "c727e97f8020f2b43b994ac98723e038f0ad7f9f02cca4403367ed1750b93341",
+      "decodedSHA256": "68baaaf6822884317dd4a2e0325279d16d272398bd60b1b010ab038d1ac5fa3e",
+      "start": [
+        0,
+        256,
+        192
+      ],
+      "size": [
+        64,
+        43,
+        64
+      ]
+    },
+    {
+      "file": "brick-0-256-256.gz",
+      "bytes": 75784,
+      "sha256": "08a1019c7669707f8689ba037af1703c3644f21e24e204b6c6fc735fc4a0654b",
+      "decodedSHA256": "4337fe94862047f5ee62dad02facd144a1af17863da63f9dbffa7bdde1fc1073",
+      "start": [
+        0,
+        256,
+        256
+      ],
+      "size": [
+        64,
+        43,
+        64
+      ]
+    },
+    {
+      "file": "brick-0-256-320.gz",
+      "bytes": 73388,
+      "sha256": "a8be3be6e50f0bb02368aa99bf009e0719d48919109d458798db71124c622991",
+      "decodedSHA256": "15c02477fc92f44dffb0cb574fb17924d9905e5faed8074a00a823b9627679be",
+      "start": [
+        0,
+        256,
+        320
+      ],
+      "size": [
+        64,
+        43,
+        64
+      ]
+    },
+    {
+      "file": "brick-0-256-384.gz",
+      "bytes": 11474,
+      "sha256": "cc6b66a9e74e5a7251278e03f90335f10c9c36f44ed5b84fbcf711350ebbfee8",
+      "decodedSHA256": "7a7fb93348cd02a25ac887b445f65ec794671e7cbe8036aa629024f80efd315f",
+      "start": [
+        0,
+        256,
+        384
+      ],
+      "size": [
+        64,
+        43,
+        10
+      ]
+    },
+    {
+      "file": "brick-64-0-0.gz",
+      "bytes": 339405,
+      "sha256": "8141a0624f2f06ee72b0983039ba2ac1456fdcde54dbf1ee10f9bd6cccccfde5",
+      "decodedSHA256": "f62c2fed05fe47e2cbaa1b857793e499ea10cc6f108b2efcf3d82b7694c7cdd0",
+      "start": [
+        64,
+        0,
+        0
+      ],
+      "size": [
+        64,
+        64,
+        64
+      ]
+    },
+    {
+      "file": "brick-64-0-64.gz",
+      "bytes": 338994,
+      "sha256": "02d59df23fd2b1749f9033d0a14e2f01405253fb694523f563d524aefce79d04",
+      "decodedSHA256": "178074817419bc48f39ba7fea2950d30d6dbe38691485848b657cf9a454cf098",
+      "start": [
+        64,
+        0,
+        64
+      ],
+      "size": [
+        64,
+        64,
+        64
+      ]
+    },
+    {
+      "file": "brick-64-0-128.gz",
+      "bytes": 334363,
+      "sha256": "1fa04591dfe5804642b1f5c4c2c6b209feafe24733473a37a2e8261407b5286a",
+      "decodedSHA256": "ddea4f131c2e865ec6e35b6aab7a240f1474212a88e3b8c8b34d3de45e0f8272",
+      "start": [
+        64,
+        0,
+        128
+      ],
+      "size": [
+        64,
+        64,
+        64
+      ]
+    },
+    {
+      "file": "brick-64-0-192.gz",
+      "bytes": 335475,
+      "sha256": "95da9a4492143e363d69a30099110c8f5e04e838fbe6a8d6c4b3c820f193432d",
+      "decodedSHA256": "45a6f79197016185298ff25236f4fc027c3d736aae35a4093758d45cb6d5142e",
+      "start": [
+        64,
+        0,
+        192
+      ],
+      "size": [
+        64,
+        64,
+        64
+      ]
+    },
+    {
+      "file": "brick-64-0-256.gz",
+      "bytes": 335511,
+      "sha256": "0ac60fbf2dd05e084942a83b8ebdb2387b650b98631efbdd1436b944e1ddccdc",
+      "decodedSHA256": "5e02c3d016eb8311e63f82357a5e0d4de4e11c6e82c147cb57c32b7b100c1c04",
+      "start": [
+        64,
+        0,
+        256
+      ],
+      "size": [
+        64,
+        64,
+        64
+      ]
+    },
+    {
+      "file": "brick-64-0-320.gz",
+      "bytes": 332376,
+      "sha256": "a11a80322210008d855076013b1b1b9ad44339da9d05146c0fa2228d592f192e",
+      "decodedSHA256": "bf262c8de024fb779d5d2b5a090beffd59d6575f866749af8ee347a851a8633b",
+      "start": [
+        64,
+        0,
+        320
+      ],
+      "size": [
+        64,
+        64,
+        64
+      ]
+    },
+    {
+      "file": "brick-64-0-384.gz",
+      "bytes": 51934,
+      "sha256": "907ef76e8a153eb8f669e5d9210c7d326fdb9fc25392d6faa1062ebe46930ca8",
+      "decodedSHA256": "2e5ffb14c045e897de790245c06831165c050c1d6879ab7b11b7185eb77389f5",
+      "start": [
+        64,
+        0,
+        384
+      ],
+      "size": [
+        64,
+        64,
+        10
+      ]
+    },
+    {
+      "file": "brick-64-64-0.gz",
+      "bytes": 407153,
+      "sha256": "489532092f8378e954040a74adbaee112b1b3c859c6d64594d4a1cdc2513112b",
+      "decodedSHA256": "f7601696ed7395110d361c4dcbe904efdf9b03ca79342235999d17000a62e192",
+      "start": [
+        64,
+        64,
+        0
+      ],
+      "size": [
+        64,
+        64,
+        64
+      ]
+    },
+    {
+      "file": "brick-64-64-64.gz",
+      "bytes": 425038,
+      "sha256": "a18913e07e567534db2f1f0344d7e05b78ccc706599a8385f63804cab3c585ad",
+      "decodedSHA256": "8f57c04df67c124c0243a429a6abf18e92ea5b062b87cbcf1b53a614f9ff6621",
+      "start": [
+        64,
+        64,
+        64
+      ],
+      "size": [
+        64,
+        64,
+        64
+      ]
+    },
+    {
+      "file": "brick-64-64-128.gz",
+      "bytes": 391239,
+      "sha256": "03b23db4f4de4f939dda37c239f0796aeac274437687f72c39a0bb69e964d2b4",
+      "decodedSHA256": "9b606730ff75d123c6d1d3b81015b5b92d18677843ea0ef2ca6c5c3c1fc3e40e",
+      "start": [
+        64,
+        64,
+        128
+      ],
+      "size": [
+        64,
+        64,
+        64
+      ]
+    },
+    {
+      "file": "brick-64-64-192.gz",
+      "bytes": 417564,
+      "sha256": "c797c680590cdac596b20850b2def1b6d14222008df0f4b95bb422cbf2c11658",
+      "decodedSHA256": "cf1b112343be0a56925e105efc704dbd3f0731ffc05e58d9640b387d2edaa9b2",
+      "start": [
+        64,
+        64,
+        192
+      ],
+      "size": [
+        64,
+        64,
+        64
+      ]
+    },
+    {
+      "file": "brick-64-64-256.gz",
+      "bytes": 426689,
+      "sha256": "13fd450050ab3803739c6f1ea895f3fd1a575468df1b46afac3ade7d5cb25891",
+      "decodedSHA256": "5f5299ec30e7715dd92b2936cef99b94b3c7017e0f0be51ff7212c08b7ef2290",
+      "start": [
+        64,
+        64,
+        256
+      ],
+      "size": [
+        64,
+        64,
+        64
+      ]
+    },
+    {
+      "file": "brick-64-64-320.gz",
+      "bytes": 414206,
+      "sha256": "6b325b6bfbdb92dadf1e8228d76855ca7da0c011ad45d766d320c78b9722166f",
+      "decodedSHA256": "ce41c511dbeee8b679dbc6723d4e598b60472490c9b92ab712b3b3bd33be7926",
+      "start": [
+        64,
+        64,
+        320
+      ],
+      "size": [
+        64,
+        64,
+        64
+      ]
+    },
+    {
+      "file": "brick-64-64-384.gz",
+      "bytes": 60449,
+      "sha256": "1a6c132a0c8cdccbcf26c2a01e20870c9565ba6134c639a971e2fb737ecd4935",
+      "decodedSHA256": "3b276b79d3c1cddb232a3f34d0921e746fd22d85d02f041d868d8413eedb1c3a",
+      "start": [
+        64,
+        64,
+        384
+      ],
+      "size": [
+        64,
+        64,
+        10
+      ]
+    },
+    {
+      "file": "brick-64-128-0.gz",
+      "bytes": 435723,
+      "sha256": "74fab813c61f5ea2ce10dc7916416afa9be59f9c650083d3d7d6ec72ad8d440e",
+      "decodedSHA256": "36177fa0e2e4596f723e1c9f25503ec626d8c48b0f6a9a608576d9c264dec53d",
+      "start": [
+        64,
+        128,
+        0
+      ],
+      "size": [
+        64,
+        64,
+        64
+      ]
+    },
+    {
+      "file": "brick-64-128-64.gz",
+      "bytes": 452499,
+      "sha256": "07ecf804df86b3118a50049a074adbab31bc0ecd11ff7a61a44356a6cb129c2f",
+      "decodedSHA256": "5649991defacaec0ab63a4845e2c26282b3c57300e682dfb2b58546baddb6030",
+      "start": [
+        64,
+        128,
+        64
+      ],
+      "size": [
+        64,
+        64,
+        64
+      ]
+    },
+    {
+      "file": "brick-64-128-128.gz",
+      "bytes": 416024,
+      "sha256": "032e7ca28ad93cfcbb425c8acc89311fcec8e7e7d61bbae5720ed6b852445707",
+      "decodedSHA256": "fcef7e74063ca5a256e8d14fcec9f346c8ecad8ae07e21b04f0df26c05be1a7f",
+      "start": [
+        64,
+        128,
+        128
+      ],
+      "size": [
+        64,
+        64,
+        64
+      ]
+    },
+    {
+      "file": "brick-64-128-192.gz",
+      "bytes": 406445,
+      "sha256": "74ebb628ecfb1e691cbfd6fe63246bc66226dea8748fbda01b65cb3804c9010a",
+      "decodedSHA256": "ffd36b140cbea3a8d2b8ba426397b8b153b64f5f80063a5450be1bf3d6afa5f0",
+      "start": [
+        64,
+        128,
+        192
+      ],
+      "size": [
+        64,
+        64,
+        64
+      ]
+    },
+    {
+      "file": "brick-64-128-256.gz",
+      "bytes": 447374,
+      "sha256": "8be944caafcfb10ba73e6871b3af93a6915e85c22e147f0c29cc07009962e9a8",
+      "decodedSHA256": "66008414a3d58943c3c18045d8e491262481433b15dd23de0aa4dd0edea8cc5d",
+      "start": [
+        64,
+        128,
+        256
+      ],
+      "size": [
+        64,
+        64,
+        64
+      ]
+    },
+    {
+      "file": "brick-64-128-320.gz",
+      "bytes": 431775,
+      "sha256": "51515013a0ccf4000e582411505e807bde45e9de90bc652d753e9218f1b1967d",
+      "decodedSHA256": "d3206a4f75d9cf1dec887d7512dba7a3ff05210672875b6c853be8cd16acdd40",
+      "start": [
+        64,
+        128,
+        320
+      ],
+      "size": [
+        64,
+        64,
+        64
+      ]
+    },
+    {
+      "file": "brick-64-128-384.gz",
+      "bytes": 62213,
+      "sha256": "d9ecaa3c6e649a135a5423b1b2bc919ec5cd833eb841d842f813136d28f32f39",
+      "decodedSHA256": "0c3cd2006c28d1a82c40e39efc68c5ef68e24cd7dfcf32f5663baf315db4c602",
+      "start": [
+        64,
+        128,
+        384
+      ],
+      "size": [
+        64,
+        64,
+        10
+      ]
+    },
+    {
+      "file": "brick-64-192-0.gz",
+      "bytes": 338883,
+      "sha256": "627139a0b366053559bc4243db297760329ee7751d08d7b933a504d0725eb9bc",
+      "decodedSHA256": "0639e53b7cd7f2cedfc590b2c94d05efe761bb7c40f9d69459f08dce6bc2a8ed",
+      "start": [
+        64,
+        192,
+        0
+      ],
+      "size": [
+        64,
+        64,
+        64
+      ]
+    },
+    {
+      "file": "brick-64-192-64.gz",
+      "bytes": 345490,
+      "sha256": "a95f5ac3a8340f6674acbcc109ed6ef1fc14bdcd4b8d1c7064a68999af1a568d",
+      "decodedSHA256": "6050a95d36d62fb23fc93f61c8617ae7129b1178c2831a4ed11712e663a93f6b",
+      "start": [
+        64,
+        192,
+        64
+      ],
+      "size": [
+        64,
+        64,
+        64
+      ]
+    },
+    {
+      "file": "brick-64-192-128.gz",
+      "bytes": 363979,
+      "sha256": "fc3ffcee8dcfeffeb1f5845d5c325e24d8ca73f79c8697d22628931642392fce",
+      "decodedSHA256": "53289064fefeb7343b5d5b74c487a5064349332c643b77d77ebf648decdb2dc0",
+      "start": [
+        64,
+        192,
+        128
+      ],
+      "size": [
+        64,
+        64,
+        64
+      ]
+    },
+    {
+      "file": "brick-64-192-192.gz",
+      "bytes": 383879,
+      "sha256": "87de8a1450e255c8aa499fd366a3376b7d56f47f30850b316d51a09dfe73a893",
+      "decodedSHA256": "aed3d52d75e9bf2d4e231f5cccbf2d3c1c111a55e16a42079d4db0d7d436f9c9",
+      "start": [
+        64,
+        192,
+        192
+      ],
+      "size": [
+        64,
+        64,
+        64
+      ]
+    },
+    {
+      "file": "brick-64-192-256.gz",
+      "bytes": 370141,
+      "sha256": "63bcac786c81cde12973d6acb3014edb1d7e4a5f5e1eca2e79106a66f8b3bdfa",
+      "decodedSHA256": "590f8b137c399560fe0896ee230dfdbdfed2b1d88b57f0c1b75af6930fd12700",
+      "start": [
+        64,
+        192,
+        256
+      ],
+      "size": [
+        64,
+        64,
+        64
+      ]
+    },
+    {
+      "file": "brick-64-192-320.gz",
+      "bytes": 323079,
+      "sha256": "bc18459e4ff19732013bf8d0dd6df5b52df43dbc4eb9276e434b9f618cc5785b",
+      "decodedSHA256": "bb1a35cbbf08ec52fbc25baae5d7f783efd062c80476bca44f71fb805097008b",
+      "start": [
+        64,
+        192,
+        320
+      ],
+      "size": [
+        64,
+        64,
+        64
+      ]
+    },
+    {
+      "file": "brick-64-192-384.gz",
+      "bytes": 48019,
+      "sha256": "5edba9a20dada5e3127d769b03feda360888c2b717893d482db0c995121fc770",
+      "decodedSHA256": "08299b77f2890959207ca5c8a5155d6d251f581dd3d83e2a7d4acad29f7eeaca",
+      "start": [
+        64,
+        192,
+        384
+      ],
+      "size": [
+        64,
+        64,
+        10
+      ]
+    },
+    {
+      "file": "brick-64-256-0.gz",
+      "bytes": 164300,
+      "sha256": "967a2356e92ac3a11450e65cefd96dc67821559e6e409d344dac5e046449689e",
+      "decodedSHA256": "e1cd9d62c704f72ce74f2099859dee5b334ade3ddbbabb7cda0c706f8eac29de",
+      "start": [
+        64,
+        256,
+        0
+      ],
+      "size": [
+        64,
+        43,
+        64
+      ]
+    },
+    {
+      "file": "brick-64-256-64.gz",
+      "bytes": 168753,
+      "sha256": "d451344bdc5f37f7b31a1ce7036a18bd5f3dc2f6460b5fbfb2508d5bf93cdfda",
+      "decodedSHA256": "80b97f98e4bcf8fbf907d071673c825a15a4cdba94b8843b7716ede72e86f5fa",
+      "start": [
+        64,
+        256,
+        64
+      ],
+      "size": [
+        64,
+        43,
+        64
+      ]
+    },
+    {
+      "file": "brick-64-256-128.gz",
+      "bytes": 168601,
+      "sha256": "fce8b533fa9545928dd0ce23ea0e1c3fddbee6dc36edf716554a4236476cf183",
+      "decodedSHA256": "39d3cf121d6f0b9bd825b9b1cb56428f01ab731e0ba109b4984de416e03ce0b7",
+      "start": [
+        64,
+        256,
+        128
+      ],
+      "size": [
+        64,
+        43,
+        64
+      ]
+    },
+    {
+      "file": "brick-64-256-192.gz",
+      "bytes": 170760,
+      "sha256": "71cc2acbae04cc61fe39cda10c016e23ec155c3a3700b044af7984839c314212",
+      "decodedSHA256": "3b703b348fdebbfda61985a44baa10b58f39899cbda67ff26912bb053c479b32",
+      "start": [
+        64,
+        256,
+        192
+      ],
+      "size": [
+        64,
+        43,
+        64
+      ]
+    },
+    {
+      "file": "brick-64-256-256.gz",
+      "bytes": 168830,
+      "sha256": "69215d353ea1bee81c692189709949df1b975bee9b836552e8ae68b28676a9c7",
+      "decodedSHA256": "1deff40fa7b1093cefa4afc5446c3b8da3e695a5fdd7770c49fbb2384e7df2a3",
+      "start": [
+        64,
+        256,
+        256
+      ],
+      "size": [
+        64,
+        43,
+        64
+      ]
+    },
+    {
+      "file": "brick-64-256-320.gz",
+      "bytes": 160017,
+      "sha256": "62aeabdefc2ca52d4a1688c4c1c8b2cb2a815e039137304dfd5032923387673d",
+      "decodedSHA256": "26d994f210430aa85dc6e7f6eb7b00cd5f53c1f244f845762ef66cb42433ef69",
+      "start": [
+        64,
+        256,
+        320
+      ],
+      "size": [
+        64,
+        43,
+        64
+      ]
+    },
+    {
+      "file": "brick-64-256-384.gz",
+      "bytes": 24382,
+      "sha256": "d079d1c8e0af12366c9815b08f5bfdc11a2634368af61ab672ae87c76d7973b7",
+      "decodedSHA256": "2ab8faeb5300d9505ef32eff36cef20556648a944f5f4af9a1bb4c707d7189fc",
+      "start": [
+        64,
+        256,
+        384
+      ],
+      "size": [
+        64,
+        43,
+        10
+      ]
+    },
+    {
+      "file": "brick-128-0-0.gz",
+      "bytes": 333686,
+      "sha256": "e01f7694fd2dbaa098b3c4488c7acc307a179df02dcc798aeb615701108bda43",
+      "decodedSHA256": "e2d70f2c14fc6588b1104c95a3455fd287c7c7dc4489c2418e232605382003bd",
+      "start": [
+        128,
+        0,
+        0
+      ],
+      "size": [
+        64,
+        64,
+        64
+      ]
+    },
+    {
+      "file": "brick-128-0-64.gz",
+      "bytes": 335169,
+      "sha256": "8a907ee651b13876b4bb18ae3623a76350219cae7650b9c1ea37a669af4b7fc0",
+      "decodedSHA256": "ae7d7f56445f9016baab142544d55a96125728cacf3d398c3f17307f9e5a54a8",
+      "start": [
+        128,
+        0,
+        64
+      ],
+      "size": [
+        64,
+        64,
+        64
+      ]
+    },
+    {
+      "file": "brick-128-0-128.gz",
+      "bytes": 330247,
+      "sha256": "516cc9db112e1f914c0b3a1904582f7da5b856da0380b98d71a1619919ef48b1",
+      "decodedSHA256": "492f87bd7dbf935ae052479347a1a2131e844abd6857ae6aa7da0a1ba4d2da74",
+      "start": [
+        128,
+        0,
+        128
+      ],
+      "size": [
+        64,
+        64,
+        64
+      ]
+    },
+    {
+      "file": "brick-128-0-192.gz",
+      "bytes": 331017,
+      "sha256": "5787fac0dded2d37088c2c010a8d848ba82f9f8333200c31b1c19267d0ee1fc9",
+      "decodedSHA256": "b72058cbbfe7865fffdc30d51fb7e79b20cebb7648665ff33ac18e096eac2693",
+      "start": [
+        128,
+        0,
+        192
+      ],
+      "size": [
+        64,
+        64,
+        64
+      ]
+    },
+    {
+      "file": "brick-128-0-256.gz",
+      "bytes": 326929,
+      "sha256": "c4252940eda9a9f141e1881ff2bcd915ebf3d369927001ee8919859fabaa3a32",
+      "decodedSHA256": "61b4aeeacdd761bbabfc9f67c0cb848713130bda58b645deca56c06d639acece",
+      "start": [
+        128,
+        0,
+        256
+      ],
+      "size": [
+        64,
+        64,
+        64
+      ]
+    },
+    {
+      "file": "brick-128-0-320.gz",
+      "bytes": 324855,
+      "sha256": "782a276b435e457d1c86ec8c65e5529ede093f7bea9f135d43fcd5bf5f329fbc",
+      "decodedSHA256": "3af1526441c2b8c3a71d699ae9d1da0134038ef4d9ac8e9afd872adff33efeee",
+      "start": [
+        128,
+        0,
+        320
+      ],
+      "size": [
+        64,
+        64,
+        64
+      ]
+    },
+    {
+      "file": "brick-128-0-384.gz",
+      "bytes": 53372,
+      "sha256": "f847be86820cd49159eff5b30c47e634053f1f4c845490b73ea59bdc147f4ae0",
+      "decodedSHA256": "e88990632de40eecb961b0b9fc28395f5e5ba3044d30fcb74cac41bf2757c0cb",
+      "start": [
+        128,
+        0,
+        384
+      ],
+      "size": [
+        64,
+        64,
+        10
+      ]
+    },
+    {
+      "file": "brick-128-64-0.gz",
+      "bytes": 408573,
+      "sha256": "fab5228f1cc30e0dabd96856bcfda51521c8f97016e0cef3e3534ac2eed5f0c7",
+      "decodedSHA256": "a836b8b985a0239c55d3f5df22c09fa64b978acab1fa70099940fdb2b0f3bfd8",
+      "start": [
+        128,
+        64,
+        0
+      ],
+      "size": [
+        64,
+        64,
+        64
+      ]
+    },
+    {
+      "file": "brick-128-64-64.gz",
+      "bytes": 446128,
+      "sha256": "838394b1ed1b9cd3ff849ebd046854f550a7e0eddca2327b45e155edae94946d",
+      "decodedSHA256": "9bf0ba9958585fb9d9f76c3236a53d60ef0579f8eec2b9f9e444ce02b0f0317d",
+      "start": [
+        128,
+        64,
+        64
+      ],
+      "size": [
+        64,
+        64,
+        64
+      ]
+    },
+    {
+      "file": "brick-128-64-128.gz",
+      "bytes": 422218,
+      "sha256": "cc43b08cc8acb4eca99312ad2898717bf7eaab970655648496e27c18ad885815",
+      "decodedSHA256": "d8fde34750704e66b13503a861d4712bdb5d8aec69de5a7985f14c4d89aa9f4d",
+      "start": [
+        128,
+        64,
+        128
+      ],
+      "size": [
+        64,
+        64,
+        64
+      ]
+    },
+    {
+      "file": "brick-128-64-192.gz",
+      "bytes": 438390,
+      "sha256": "8997c5bca57728db07ae0deb272270c5dd7eb329bddf6d3e0530760b9825050c",
+      "decodedSHA256": "780fb3491c14052004a9aed82efb4618e8e63bf73bf98a036a5284cd27603e3f",
+      "start": [
+        128,
+        64,
+        192
+      ],
+      "size": [
+        64,
+        64,
+        64
+      ]
+    },
+    {
+      "file": "brick-128-64-256.gz",
+      "bytes": 455426,
+      "sha256": "9005e1b505472209a2bea62556d94b177cbc60a3caaa0a92c355e4ffe56b0618",
+      "decodedSHA256": "2c774e4444ff3d3c0e71fc63c090a9aab377f0ac9d4f6a461da1eb13da8e09ad",
+      "start": [
+        128,
+        64,
+        256
+      ],
+      "size": [
+        64,
+        64,
+        64
+      ]
+    },
+    {
+      "file": "brick-128-64-320.gz",
+      "bytes": 416920,
+      "sha256": "8d290902cd94f2acd4317cb7e24d61fc679f95b808dada2f558e3cc3ae953ef8",
+      "decodedSHA256": "14a5f8248b159206cf6b898310d6f5d79a60136f8c9a3c6d40adfd364beb7bda",
+      "start": [
+        128,
+        64,
+        320
+      ],
+      "size": [
+        64,
+        64,
+        64
+      ]
+    },
+    {
+      "file": "brick-128-64-384.gz",
+      "bytes": 58544,
+      "sha256": "2a56206da95c65affc39248106737af971e19f5995ac230ac1eab9504b00ad33",
+      "decodedSHA256": "5a10b4815737b137929116eca5637e74926c410b6b5cd9809d65a89d76f6a686",
+      "start": [
+        128,
+        64,
+        384
+      ],
+      "size": [
+        64,
+        64,
+        10
+      ]
+    },
+    {
+      "file": "brick-128-128-0.gz",
+      "bytes": 425719,
+      "sha256": "4e58934801be1be5fce171f7723a351aefa0b63d091245f1725d22de43ae0a1e",
+      "decodedSHA256": "56f2fbc9d97d6eea1987e721dc48c2fa69b37f6340244a96456b9b579b766607",
+      "start": [
+        128,
+        128,
+        0
+      ],
+      "size": [
+        64,
+        64,
+        64
+      ]
+    },
+    {
+      "file": "brick-128-128-64.gz",
+      "bytes": 444454,
+      "sha256": "07c607bf5eed60d62297d83fcb37e3f3628ad0e1ddec9314a4c8ee5d04fd1400",
+      "decodedSHA256": "74d3b006a85242fee3f5297478552f4d1155983bce9f38f96712771ab00f43ec",
+      "start": [
+        128,
+        128,
+        64
+      ],
+      "size": [
+        64,
+        64,
+        64
+      ]
+    },
+    {
+      "file": "brick-128-128-128.gz",
+      "bytes": 438387,
+      "sha256": "9d110cb75b10c84ff10e0c2cea04b29392c635a49adc0439a47a6ae56485518f",
+      "decodedSHA256": "e78b42f1781101b7c041e6c49fa9f515e41a139afd1a2f1a96b927c2376136a2",
+      "start": [
+        128,
+        128,
+        128
+      ],
+      "size": [
+        64,
+        64,
+        64
+      ]
+    },
+    {
+      "file": "brick-128-128-192.gz",
+      "bytes": 415767,
+      "sha256": "0236d75825a6794fb912d28e0b376178c7bca1b040bf5b1a57eeda50f9604668",
+      "decodedSHA256": "6569bacbef9186e1d45c34f5937e6f32b6a5cb59e7839d1d8ee40a8ad6d8d7e1",
+      "start": [
+        128,
+        128,
+        192
+      ],
+      "size": [
+        64,
+        64,
+        64
+      ]
+    },
+    {
+      "file": "brick-128-128-256.gz",
+      "bytes": 447539,
+      "sha256": "f3d0b181ef8a44d283f4ff7dfc1fa2fa8379515d793b23c50928fbd24d292647",
+      "decodedSHA256": "7ee42d2ed6c6aeba9cf19e8b993d584968129543530301a5a7f1cd0b922dcb2b",
+      "start": [
+        128,
+        128,
+        256
+      ],
+      "size": [
+        64,
+        64,
+        64
+      ]
+    },
+    {
+      "file": "brick-128-128-320.gz",
+      "bytes": 466475,
+      "sha256": "ebef150e3f6a131e599dd96116dc4c0c55724ac7a2e614b8aa1c13fb7e959f6e",
+      "decodedSHA256": "ad0f2439d5385eaaedefbdd3546a80ee2634826ff84d6f12ed3ed259508cce15",
+      "start": [
+        128,
+        128,
+        320
+      ],
+      "size": [
+        64,
+        64,
+        64
+      ]
+    },
+    {
+      "file": "brick-128-128-384.gz",
+      "bytes": 70636,
+      "sha256": "004764db48e369a77435379a731ea5fcaafa54be87238783e1b696b7487b757b",
+      "decodedSHA256": "c57aff6b450e2b6979c03d94e8992eb8f06490edc16d75789791d9b704cf2bf6",
+      "start": [
+        128,
+        128,
+        384
+      ],
+      "size": [
+        64,
+        64,
+        10
+      ]
+    },
+    {
+      "file": "brick-128-192-0.gz",
+      "bytes": 339192,
+      "sha256": "f87c5ce82d0475d12c738abd1c0fe2923d5b9693b6ea4c0b401860ef11c98bd3",
+      "decodedSHA256": "d83cdd246e715f875ecbbb6f4d813e976d29c4e6e78e6fb0ddfc9deb0f2de739",
+      "start": [
+        128,
+        192,
+        0
+      ],
+      "size": [
+        64,
+        64,
+        64
+      ]
+    },
+    {
+      "file": "brick-128-192-64.gz",
+      "bytes": 356273,
+      "sha256": "71ad0449def8865d1293cda41c3d5adf1c497f54bffda93bc07b9e7ac9cdafcf",
+      "decodedSHA256": "868559d61d8b3f68eb2ed185f73ff3c1f0cdbfa285d2ae5f278143cf8a8b1107",
+      "start": [
+        128,
+        192,
+        64
+      ],
+      "size": [
+        64,
+        64,
+        64
+      ]
+    },
+    {
+      "file": "brick-128-192-128.gz",
+      "bytes": 383896,
+      "sha256": "78fda380ebe5563d0fa71b266898f4be5275bfe90d50b971afb028eefee7b674",
+      "decodedSHA256": "a97cc6ddba4532e262c5328ff68d4ae8a7ff22962a8ac77daf94e4a6aeb72861",
+      "start": [
+        128,
+        192,
+        128
+      ],
+      "size": [
+        64,
+        64,
+        64
+      ]
+    },
+    {
+      "file": "brick-128-192-192.gz",
+      "bytes": 380918,
+      "sha256": "786b6d480104b733e87746eea6f925caa7abb62483837e84ec024ddee6386e44",
+      "decodedSHA256": "79aab784209e6733c690e32b044117489efb6fa6da398ec7c161ce84df2aadf7",
+      "start": [
+        128,
+        192,
+        192
+      ],
+      "size": [
+        64,
+        64,
+        64
+      ]
+    },
+    {
+      "file": "brick-128-192-256.gz",
+      "bytes": 392415,
+      "sha256": "ad8437f5644d4e9637b7794f1e0e7e991b847a7cfdb49489cd26731190140c5b",
+      "decodedSHA256": "bf4e5442722535348806c6dd557593801d49c8d515dd2b835a2e1dd2379900f8",
+      "start": [
+        128,
+        192,
+        256
+      ],
+      "size": [
+        64,
+        64,
+        64
+      ]
+    },
+    {
+      "file": "brick-128-192-320.gz",
+      "bytes": 347699,
+      "sha256": "c34997e6baf2213ca99e5ad77e96bfda26ba1ef883499fbdbd350835e4825846",
+      "decodedSHA256": "214c3ba76c8f09343e87221f4d79e729532df09b0831d1f16945ccfea9ae348c",
+      "start": [
+        128,
+        192,
+        320
+      ],
+      "size": [
+        64,
+        64,
+        64
+      ]
+    },
+    {
+      "file": "brick-128-192-384.gz",
+      "bytes": 57914,
+      "sha256": "11e7ecc28866f7b847086a5a89a18d280fa03aafb5a2dbf0c40ba289e4cb56c1",
+      "decodedSHA256": "7e01a9dfd2862803b4cdff2b3a85668840ed02fad019b53276c558f91d9539ae",
+      "start": [
+        128,
+        192,
+        384
+      ],
+      "size": [
+        64,
+        64,
+        10
+      ]
+    },
+    {
+      "file": "brick-128-256-0.gz",
+      "bytes": 163202,
+      "sha256": "6a06ecc64dc07ff2f5b6bfb3f2de7c769e1ecbf94e231b6dff84539a54107524",
+      "decodedSHA256": "ca874b18a9a9c3eae1ab7f28a7ee137f98b7d58796341c500f51c40e1039f8a1",
+      "start": [
+        128,
+        256,
+        0
+      ],
+      "size": [
+        64,
+        43,
+        64
+      ]
+    },
+    {
+      "file": "brick-128-256-64.gz",
+      "bytes": 168711,
+      "sha256": "2b6f29891b25c6c01f4aabbf92011e35396c9254d3c49284cf3a1ea980b59472",
+      "decodedSHA256": "ebd6dea7e323358151a6e83fe4abbf103ed6c81dd0deee0df778aa81e610f0d5",
+      "start": [
+        128,
+        256,
+        64
+      ],
+      "size": [
+        64,
+        43,
+        64
+      ]
+    },
+    {
+      "file": "brick-128-256-128.gz",
+      "bytes": 169382,
+      "sha256": "fa92bc8cde294d8dee35b6c806fc58012ebe9bb6c24c19d14a24580067ba10a4",
+      "decodedSHA256": "03ecabcf37bdc4abcf72f576ac773700a29cdf5f46cb62c80dc972c103243691",
+      "start": [
+        128,
+        256,
+        128
+      ],
+      "size": [
+        64,
+        43,
+        64
+      ]
+    },
+    {
+      "file": "brick-128-256-192.gz",
+      "bytes": 169022,
+      "sha256": "fe5b2fbd9b4b23183d1e045864e8f669cc518cac57e4053e7875de6e3e41ccab",
+      "decodedSHA256": "83c92abc88742f9407b42388bf46df1d886dbe72e731cd77e6133a7101730f6f",
+      "start": [
+        128,
+        256,
+        192
+      ],
+      "size": [
+        64,
+        43,
+        64
+      ]
+    },
+    {
+      "file": "brick-128-256-256.gz",
+      "bytes": 166182,
+      "sha256": "01fdaece2c1ca31cd4e20bc66866445cd3b750ec86b89539d4c290cba583456e",
+      "decodedSHA256": "a4042f6213751d3474e4ccb3eb84937bea058068370bd97fa0f56d765d92189a",
+      "start": [
+        128,
+        256,
+        256
+      ],
+      "size": [
+        64,
+        43,
+        64
+      ]
+    },
+    {
+      "file": "brick-128-256-320.gz",
+      "bytes": 158860,
+      "sha256": "cea7a6d054583e59d834efc852c64ae43735be0a18d609953365d71b312bed33",
+      "decodedSHA256": "9655b522832f739961aa5c0eb0561c95d9138a8d97f575bea96ee588630f2a47",
+      "start": [
+        128,
+        256,
+        320
+      ],
+      "size": [
+        64,
+        43,
+        64
+      ]
+    },
+    {
+      "file": "brick-128-256-384.gz",
+      "bytes": 25224,
+      "sha256": "acff7287470015110568b85889f5f2f33db7418eff7771a981db86cabf516cdd",
+      "decodedSHA256": "bb41fde6e4dad1dd4e6d32b2d4be742693c6c1c5d22240716eddd8900e45d882",
+      "start": [
+        128,
+        256,
+        384
+      ],
+      "size": [
+        64,
+        43,
+        10
+      ]
+    },
+    {
+      "file": "brick-192-0-0.gz",
+      "bytes": 325396,
+      "sha256": "cf185f70b66f7a375470467228fdb38be336f0db7e2f96e925fa006098db2522",
+      "decodedSHA256": "cf40b5a0a306aa0429c9dc573000f03793abc80404a75b2e3f33ff0475b37adf",
+      "start": [
+        192,
+        0,
+        0
+      ],
+      "size": [
+        64,
+        64,
+        64
+      ]
+    },
+    {
+      "file": "brick-192-0-64.gz",
+      "bytes": 327455,
+      "sha256": "54d2109035aec7073dc046f03f58d8faffd45c6805a4b92d08211dc4d7124ea3",
+      "decodedSHA256": "1f385d4d9acac0e7552e0c0bfe5a0200102528dbcd9f054b92aadcd720bc015f",
+      "start": [
+        192,
+        0,
+        64
+      ],
+      "size": [
+        64,
+        64,
+        64
+      ]
+    },
+    {
+      "file": "brick-192-0-128.gz",
+      "bytes": 322839,
+      "sha256": "262f12d09da455b4c80615c716f105cb309f017340468bcfdddac893b4502793",
+      "decodedSHA256": "9777c707227d59e00567248d60ecf19c959d35ccaea7e4ad17a735326013a9e4",
+      "start": [
+        192,
+        0,
+        128
+      ],
+      "size": [
+        64,
+        64,
+        64
+      ]
+    },
+    {
+      "file": "brick-192-0-192.gz",
+      "bytes": 323236,
+      "sha256": "206dc9b0d45706b61c595aff24d8e7668c7a77ab6114fc767ead0b3c65b628c3",
+      "decodedSHA256": "00f88d972886d06cc41273acbc527fa1e108a0267e2daddf2aabd81f4ee3707f",
+      "start": [
+        192,
+        0,
+        192
+      ],
+      "size": [
+        64,
+        64,
+        64
+      ]
+    },
+    {
+      "file": "brick-192-0-256.gz",
+      "bytes": 324386,
+      "sha256": "d7759287fc17f5c2c570f847d8e7defeda09b35f0d36d6e69502d5efe5894146",
+      "decodedSHA256": "85cccccb1732a7df5a80e89aa08dd4ab7a77f25819ce44592ba8430a2975b4f4",
+      "start": [
+        192,
+        0,
+        256
+      ],
+      "size": [
+        64,
+        64,
+        64
+      ]
+    },
+    {
+      "file": "brick-192-0-320.gz",
+      "bytes": 320113,
+      "sha256": "8dc9f6a15cf1e788023c656d09bff10a59ed02739d60d74671023c95fca7b9c6",
+      "decodedSHA256": "34baf21bf28521038d8d2fbcd9cede6063ea95dafffd8e9b2fb2224252b9ebdd",
+      "start": [
+        192,
+        0,
+        320
+      ],
+      "size": [
+        64,
+        64,
+        64
+      ]
+    },
+    {
+      "file": "brick-192-0-384.gz",
+      "bytes": 49627,
+      "sha256": "723068a1efdc403ec92627fc474b0e9b5af5ccec66fffb96e551985761dcb1f6",
+      "decodedSHA256": "d09b19916414c6c304ea3a98d001e70c3c36e0e084e777680c6bdd972f41c8de",
+      "start": [
+        192,
+        0,
+        384
+      ],
+      "size": [
+        64,
+        64,
+        10
+      ]
+    },
+    {
+      "file": "brick-192-64-0.gz",
+      "bytes": 388825,
+      "sha256": "53f93990b8d03aa0b7ae14fbcdd45e86a05e80ff67cd6573b30144fe6f780f23",
+      "decodedSHA256": "7cf2c3dec37b1cddc9631228e3afc893350615865fce95e2719aeabeb22fd85d",
+      "start": [
+        192,
+        64,
+        0
+      ],
+      "size": [
+        64,
+        64,
+        64
+      ]
+    },
+    {
+      "file": "brick-192-64-64.gz",
+      "bytes": 385693,
+      "sha256": "18d8c5fe78400fadc572015dbadd6a7d8c819ca0db85a70062dce91a20cae1e1",
+      "decodedSHA256": "163b17df8ada9fcb194c1950f2c32fd78bdb586a29ef0bcd53374bef1bdfa237",
+      "start": [
+        192,
+        64,
+        64
+      ],
+      "size": [
+        64,
+        64,
+        64
+      ]
+    },
+    {
+      "file": "brick-192-64-128.gz",
+      "bytes": 371284,
+      "sha256": "90cbc692ab6ec7c8b47dc9cf2b1e2a42b7283656a7d2b5ff57e03638a84f373e",
+      "decodedSHA256": "1a915cc09c32f2b4061bb1ec466e8608ef901deca2e4f58c8243432b9d0292c9",
+      "start": [
+        192,
+        64,
+        128
+      ],
+      "size": [
+        64,
+        64,
+        64
+      ]
+    },
+    {
+      "file": "brick-192-64-192.gz",
+      "bytes": 410314,
+      "sha256": "b44ae4464b538ad92c8f0784732ad0022678851dc3365a1364faac5c2a56bf71",
+      "decodedSHA256": "f98f55a3bb399959919aa1776a2902bff3763c979fafb9d79765419ebf41ab49",
+      "start": [
+        192,
+        64,
+        192
+      ],
+      "size": [
+        64,
+        64,
+        64
+      ]
+    },
+    {
+      "file": "brick-192-64-256.gz",
+      "bytes": 428040,
+      "sha256": "7f41aa006e4ffab4d69e6e7a5ccced94d0a3e3591fdd4ab8f87a0c56e11fe696",
+      "decodedSHA256": "e1b3a70b6b57395b0a1d1d5ccf4add5d40a75255e54b41ba56abe9dcd4c37aa8",
+      "start": [
+        192,
+        64,
+        256
+      ],
+      "size": [
+        64,
+        64,
+        64
+      ]
+    },
+    {
+      "file": "brick-192-64-320.gz",
+      "bytes": 407566,
+      "sha256": "449b1246129a0c8e1c2da1bc60232b750755f864c1dd49f9ba1003fa0df202ee",
+      "decodedSHA256": "ce17f01f86ebdccdd2355c682a4b89db5d5419ce7a0655d9cf9ac5daf6ea4a6b",
+      "start": [
+        192,
+        64,
+        320
+      ],
+      "size": [
+        64,
+        64,
+        64
+      ]
+    },
+    {
+      "file": "brick-192-64-384.gz",
+      "bytes": 58736,
+      "sha256": "66682671079f7e5c4428db880ba4f9c645d7ed006ccda1b5a68e66db119fac07",
+      "decodedSHA256": "ef3d2b499d09d005d12f8abb36dc77281d24f1e930dc926c50640d9f0da60d4d",
+      "start": [
+        192,
+        64,
+        384
+      ],
+      "size": [
+        64,
+        64,
+        10
+      ]
+    },
+    {
+      "file": "brick-192-128-0.gz",
+      "bytes": 414936,
+      "sha256": "7905cde46522d3e2548aa6b518d1fd971addf4d33c2e53d6fad482570781ab88",
+      "decodedSHA256": "994cd34bcc4f6fbefe39dc6a9052f68a71e26d5f78c4cb0de76f7fa33f9a5d5d",
+      "start": [
+        192,
+        128,
+        0
+      ],
+      "size": [
+        64,
+        64,
+        64
+      ]
+    },
+    {
+      "file": "brick-192-128-64.gz",
+      "bytes": 413256,
+      "sha256": "7ea171d5348460fddd55fc0ae442b6b8a9c468453a2440a8a1c9ea227c14a465",
+      "decodedSHA256": "5e91fcb3fc629796fff01d4dc94ba497fa4856a0d2dcad0ddc53d24a332675b3",
+      "start": [
+        192,
+        128,
+        64
+      ],
+      "size": [
+        64,
+        64,
+        64
+      ]
+    },
+    {
+      "file": "brick-192-128-128.gz",
+      "bytes": 391727,
+      "sha256": "de9d3042c0873b47f890f490d8366e9703f39d03ec4eb006824aacb144e5e749",
+      "decodedSHA256": "40fcba3ca4e4e35804820f6c4dea7d4450c444bc3f6f21ad467b6713fde9b7d5",
+      "start": [
+        192,
+        128,
+        128
+      ],
+      "size": [
+        64,
+        64,
+        64
+      ]
+    },
+    {
+      "file": "brick-192-128-192.gz",
+      "bytes": 390012,
+      "sha256": "cc16b5ace0a0c587aa05107b056fae797837cedf465531ed0a463db1479051dc",
+      "decodedSHA256": "706d00b7aec805923d1e3cb68344614a4b765fac46548b6e499016170540f70f",
+      "start": [
+        192,
+        128,
+        192
+      ],
+      "size": [
+        64,
+        64,
+        64
+      ]
+    },
+    {
+      "file": "brick-192-128-256.gz",
+      "bytes": 430077,
+      "sha256": "644d9f5018d6aceb3b7904b706526858c07a12ea613f2a2ae792a9b8121ae460",
+      "decodedSHA256": "8a244f25baa678a35919045d14590d5937bf3b80df362e0647095091651127a2",
+      "start": [
+        192,
+        128,
+        256
+      ],
+      "size": [
+        64,
+        64,
+        64
+      ]
+    },
+    {
+      "file": "brick-192-128-320.gz",
+      "bytes": 420401,
+      "sha256": "5fd59adce3aa0a05aaa2088c2d0c45d52db60d2d84cf57eb529ea367a4c7725d",
+      "decodedSHA256": "f745b8b25e9a90fdebcd0c6b3d31795b577dc36841247ec27f93db7f91ef9091",
+      "start": [
+        192,
+        128,
+        320
+      ],
+      "size": [
+        64,
+        64,
+        64
+      ]
+    },
+    {
+      "file": "brick-192-128-384.gz",
+      "bytes": 61000,
+      "sha256": "149e6f2118a33bce9ed8a2f786e5498863a18613c6b2cc88abc7161f155f7dfb",
+      "decodedSHA256": "07e3dd61d72b4b7b34d3357c852c71a9c55264a0767751e4f03bd18a1640e438",
+      "start": [
+        192,
+        128,
+        384
+      ],
+      "size": [
+        64,
+        64,
+        10
+      ]
+    },
+    {
+      "file": "brick-192-192-0.gz",
+      "bytes": 313894,
+      "sha256": "cf72c21bbda04c29fb5c23bf9b48dddbf8e6235594f18269010e02939f248fab",
+      "decodedSHA256": "83f6718ec153c79e202981021226acdbcb7c658e0e2d93abbb866025b8b781d0",
+      "start": [
+        192,
+        192,
+        0
+      ],
+      "size": [
+        64,
+        64,
+        64
+      ]
+    },
+    {
+      "file": "brick-192-192-64.gz",
+      "bytes": 321190,
+      "sha256": "19151c1c448128bf0cc9809220bfdb23941415b361078adf38bbf5ab9a3470d0",
+      "decodedSHA256": "39a1c7f40378b0703308dc576561750c90aeb343fac6405ef10442150ab2b10d",
+      "start": [
+        192,
+        192,
+        64
+      ],
+      "size": [
+        64,
+        64,
+        64
+      ]
+    },
+    {
+      "file": "brick-192-192-128.gz",
+      "bytes": 339631,
+      "sha256": "0c0de8d892e90f2ad4090019c79903f12f51b34cb6435c350229fef18fc5def3",
+      "decodedSHA256": "a819cc82cc5678ab38764ce64d449a820a7efda4b69f7d252a8b593a2d55effc",
+      "start": [
+        192,
+        192,
+        128
+      ],
+      "size": [
+        64,
+        64,
+        64
+      ]
+    },
+    {
+      "file": "brick-192-192-192.gz",
+      "bytes": 352046,
+      "sha256": "f4ed10bfbbce09d685794a3da160efe34fac5c4fd2b24f69bbb74c23d43cbcfd",
+      "decodedSHA256": "801a16903fe875669c7a951f93a17269ace62b33f26b2e593f41a9f285633a4f",
+      "start": [
+        192,
+        192,
+        192
+      ],
+      "size": [
+        64,
+        64,
+        64
+      ]
+    },
+    {
+      "file": "brick-192-192-256.gz",
+      "bytes": 367248,
+      "sha256": "25cb12c70d6a3cd743926caef8f1ec80a88243f9e31ebc09708573146bac8978",
+      "decodedSHA256": "f27418b4251afe9b920604e4c32c036b314f53d50019406964ade5236b294a41",
+      "start": [
+        192,
+        192,
+        256
+      ],
+      "size": [
+        64,
+        64,
+        64
+      ]
+    },
+    {
+      "file": "brick-192-192-320.gz",
+      "bytes": 317303,
+      "sha256": "31ebbd1f14356ccf0e87d749971be47de01a6ec295b528a6333d882af6b60a8a",
+      "decodedSHA256": "37f61562c25247001c6d9f2828ccfab44683e5df79e2737d93e7cd9fc288ffbe",
+      "start": [
+        192,
+        192,
+        320
+      ],
+      "size": [
+        64,
+        64,
+        64
+      ]
+    },
+    {
+      "file": "brick-192-192-384.gz",
+      "bytes": 46667,
+      "sha256": "10f2fe44db89e9bcc3284342383d76930ee680bcb681a214dcc93dc68938b3f2",
+      "decodedSHA256": "b594142f62900e001bb5df3e126d7dcfda119f01c304be346771eaea3977a8e4",
+      "start": [
+        192,
+        192,
+        384
+      ],
+      "size": [
+        64,
+        64,
+        10
+      ]
+    },
+    {
+      "file": "brick-192-256-0.gz",
+      "bytes": 161058,
+      "sha256": "54a162021824780a450f9a525236e868015b3c10f401d4dbb2faa0aa7c540e0d",
+      "decodedSHA256": "d42744346840ccb52f0797041494eb7be48f38afe1a1f64e490c6135a92e596e",
+      "start": [
+        192,
+        256,
+        0
+      ],
+      "size": [
+        64,
+        43,
+        64
+      ]
+    },
+    {
+      "file": "brick-192-256-64.gz",
+      "bytes": 163950,
+      "sha256": "199f54b7462476c0f12994a2cca0e5396f1b3545b3cb92082c8269f3aa4bfd24",
+      "decodedSHA256": "a7a993eeb4afb8ae9da914c44009856684eedfa09f4243bddd9a373117b7c5cf",
+      "start": [
+        192,
+        256,
+        64
+      ],
+      "size": [
+        64,
+        43,
+        64
+      ]
+    },
+    {
+      "file": "brick-192-256-128.gz",
+      "bytes": 162722,
+      "sha256": "d177858c779af7bb794264bfddd734d061465695a4206e0381bcc841916cdbd9",
+      "decodedSHA256": "c7aeefba999196433cd473b631b51811a2642a02f2603358f1ea83f9ea21949d",
+      "start": [
+        192,
+        256,
+        128
+      ],
+      "size": [
+        64,
+        43,
+        64
+      ]
+    },
+    {
+      "file": "brick-192-256-192.gz",
+      "bytes": 164429,
+      "sha256": "651a02a58767f63abe3af4a28e375f3d93b34efca7661b4253ffcbd43b60d4f8",
+      "decodedSHA256": "a982328f33d1cdb0af4f3c51880ac2f6d6a0da702422d3f8b135cd3a0cbc2f22",
+      "start": [
+        192,
+        256,
+        192
+      ],
+      "size": [
+        64,
+        43,
+        64
+      ]
+    },
+    {
+      "file": "brick-192-256-256.gz",
+      "bytes": 163501,
+      "sha256": "4b48f620fb504470f00743a55796e652e55496f34c93cbc8f068d4b929b2ccc0",
+      "decodedSHA256": "b97aeb0c32a0257d2ff7096f135ee3dba3849d19f2c21c4d6b5e7f75db04da71",
+      "start": [
+        192,
+        256,
+        256
+      ],
+      "size": [
+        64,
+        43,
+        64
+      ]
+    },
+    {
+      "file": "brick-192-256-320.gz",
+      "bytes": 156757,
+      "sha256": "5f7878289381756b0dd4e3f659c8ae052c6432069c4ab888b3e7b0ae681b1822",
+      "decodedSHA256": "1b00f67c9eebecac90eaf00a8ea17fe9cd6b14fb4c2ab251f3e1ac354ea58f07",
+      "start": [
+        192,
+        256,
+        320
+      ],
+      "size": [
+        64,
+        43,
+        64
+      ]
+    },
+    {
+      "file": "brick-192-256-384.gz",
+      "bytes": 24703,
+      "sha256": "f521ecc201f5c19ef95333ede7713698202dbd5c74b1ff13f51eb833bf79c2ce",
+      "decodedSHA256": "c9eac10084cd0013f561da9200ec7d3f81bbb6b194431ceedd35d283be34262e",
+      "start": [
+        192,
+        256,
+        384
+      ],
+      "size": [
+        64,
+        43,
+        10
+      ]
+    },
+    {
+      "file": "brick-256-0-0.gz",
+      "bytes": 107087,
+      "sha256": "2f4a0c766550588605336da04cbbe5bfed0fe0440b74e8faaf50b3030de159ae",
+      "decodedSHA256": "2f18d605bcd0470be34447e2b4922b39b6f2e039ed7741a82681a952e584ffaf",
+      "start": [
+        256,
+        0,
+        0
+      ],
+      "size": [
+        43,
+        64,
+        64
+      ]
+    },
+    {
+      "file": "brick-256-0-64.gz",
+      "bytes": 106598,
+      "sha256": "c6cdda29a60a8b42971fa663f1be0522e29e17b60ebfcab63052eb022b553459",
+      "decodedSHA256": "d31e05f9d52da0e6c696613e3f577dbaa0cecebdcce1d493107388980ea7beb1",
+      "start": [
+        256,
+        0,
+        64
+      ],
+      "size": [
+        43,
+        64,
+        64
+      ]
+    },
+    {
+      "file": "brick-256-0-128.gz",
+      "bytes": 105973,
+      "sha256": "d43b5ef11e1667952dbadc969f3fdeb7b22567f5c2bdaaf6d0ec4f8d1dec86b0",
+      "decodedSHA256": "d63489f96c07e0fe14bd5a0f8e865cb73537c8f7220aa7adade3c434349392f1",
+      "start": [
+        256,
+        0,
+        128
+      ],
+      "size": [
+        43,
+        64,
+        64
+      ]
+    },
+    {
+      "file": "brick-256-0-192.gz",
+      "bytes": 106876,
+      "sha256": "339434e342d38f3b7b7a46fac2c08cce1c5734032c5fe9fca9843efbd96e912f",
+      "decodedSHA256": "8c9036d45f303e609f47ca3a56620d507303cd273033fa1fcae126110e2d5c70",
+      "start": [
+        256,
+        0,
+        192
+      ],
+      "size": [
+        43,
+        64,
+        64
+      ]
+    },
+    {
+      "file": "brick-256-0-256.gz",
+      "bytes": 107131,
+      "sha256": "9d22985bb81c56e70f5a95b680e7551e248a09ae5a3dbbf5700a15edb58ecefb",
+      "decodedSHA256": "66b890499ec73f12c5657cc2165952dd7d7564702600b6118fdcb24e81021139",
+      "start": [
+        256,
+        0,
+        256
+      ],
+      "size": [
+        43,
+        64,
+        64
+      ]
+    },
+    {
+      "file": "brick-256-0-320.gz",
+      "bytes": 105408,
+      "sha256": "f802de87e600201312e7540a36d9ad1b3c3b10a84a05f2046ecfbce765975f0f",
+      "decodedSHA256": "3428ea515c6e5b1a2d83849333abf458ca6795c5b6a6cc6b5bbd4e8fa73b5c34",
+      "start": [
+        256,
+        0,
+        320
+      ],
+      "size": [
+        43,
+        64,
+        64
+      ]
+    },
+    {
+      "file": "brick-256-0-384.gz",
+      "bytes": 16917,
+      "sha256": "09c9321417c57ab22c39e2dcf845aaf30ec6af518c247f4032d4f66fad059559",
+      "decodedSHA256": "27090f072315772fa369624bfbae424c92a1183d5445912d44ef3b42fb2faf26",
+      "start": [
+        256,
+        0,
+        384
+      ],
+      "size": [
+        43,
+        64,
+        10
+      ]
+    },
+    {
+      "file": "brick-256-64-0.gz",
+      "bytes": 257649,
+      "sha256": "c5ef6d91f41e2a2ca44a58876aec59338dbf2c013d17716936d8a51353dfccd9",
+      "decodedSHA256": "6b4e88baf2d68320523bf88fde863446bf0fac1f04ed39d4ac86b2fc9f40f9ef",
+      "start": [
+        256,
+        64,
+        0
+      ],
+      "size": [
+        43,
+        64,
+        64
+      ]
+    },
+    {
+      "file": "brick-256-64-64.gz",
+      "bytes": 261220,
+      "sha256": "a71835c33b7b9d62aa095c10428b3feb3043f7b74615a9d36191d245794f7830",
+      "decodedSHA256": "bf77b67a9ffba6b3b548f17f6e532bb6c84228abf5d78b15c19c484572af8ef4",
+      "start": [
+        256,
+        64,
+        64
+      ],
+      "size": [
+        43,
+        64,
+        64
+      ]
+    },
+    {
+      "file": "brick-256-64-128.gz",
+      "bytes": 258978,
+      "sha256": "fb833e9f9506da80edaed87d57c198909da7c202a3b12f8b2fda52527dd964fd",
+      "decodedSHA256": "36cccb9bb76f004df10d599036d77d0b5bbd7950aac3f5e22b1a002e2e70b0ad",
+      "start": [
+        256,
+        64,
+        128
+      ],
+      "size": [
+        43,
+        64,
+        64
+      ]
+    },
+    {
+      "file": "brick-256-64-192.gz",
+      "bytes": 258818,
+      "sha256": "233d673d54c4345bb30f7f3cc9b7eee1990ec7a284d89388420b97852621c2dd",
+      "decodedSHA256": "f50e9ce7f0a7acb23dec7e6ab256c003ffdc2da25434249174e51500af1c3dd3",
+      "start": [
+        256,
+        64,
+        192
+      ],
+      "size": [
+        43,
+        64,
+        64
+      ]
+    },
+    {
+      "file": "brick-256-64-256.gz",
+      "bytes": 268908,
+      "sha256": "25b00aaf5c5bd53a4c009bbcdbeb5b28d18dd8922cd081acb624eaf8efe151cc",
+      "decodedSHA256": "fec00d706ab8c1c01d46855c00c0432e41438ffb611ac5ed1ddf632bc6aafda1",
+      "start": [
+        256,
+        64,
+        256
+      ],
+      "size": [
+        43,
+        64,
+        64
+      ]
+    },
+    {
+      "file": "brick-256-64-320.gz",
+      "bytes": 269471,
+      "sha256": "0dc901a913963a75393a20cfe48d62d5500d5a97fb7bfc300c2cea8eb1b18f78",
+      "decodedSHA256": "8b7325bd7c25514a239ba570d1e5bdfd39e73bca89b1bb18bb95c19eac424344",
+      "start": [
+        256,
+        64,
+        320
+      ],
+      "size": [
+        43,
+        64,
+        64
+      ]
+    },
+    {
+      "file": "brick-256-64-384.gz",
+      "bytes": 42406,
+      "sha256": "5ae3e50db96f0c83a1614d6ee9a91cdc6766a70580df153b65492bb0a1a3bd42",
+      "decodedSHA256": "86880693620b1166fc7f088aeae3d22e00311aa7b6e11755c89f405ac77a79db",
+      "start": [
+        256,
+        64,
+        384
+      ],
+      "size": [
+        43,
+        64,
+        10
+      ]
+    },
+    {
+      "file": "brick-256-128-0.gz",
+      "bytes": 228579,
+      "sha256": "0ebdd6d8772ab376993b81b74224dfc3b470641133eb55d192bd02ca23927821",
+      "decodedSHA256": "1a1d1847fb294bd631da899a35b65ba4879fce678f2690bb5560cec1567f4689",
+      "start": [
+        256,
+        128,
+        0
+      ],
+      "size": [
+        43,
+        64,
+        64
+      ]
+    },
+    {
+      "file": "brick-256-128-64.gz",
+      "bytes": 226533,
+      "sha256": "227ecbe50542db78eb4d8e87313f8aeddf2ea5df79e091dc13dae839b9ccf95f",
+      "decodedSHA256": "c9faf3d6755c95e4e4437ee28c2b91f2f11109cdd0d4be5f0521bdf077cf880d",
+      "start": [
+        256,
+        128,
+        64
+      ],
+      "size": [
+        43,
+        64,
+        64
+      ]
+    },
+    {
+      "file": "brick-256-128-128.gz",
+      "bytes": 224317,
+      "sha256": "ff831df18653e9ce17f36308df8e610f1ddeca761f9df26108d8f6cf9adc206e",
+      "decodedSHA256": "938583c210b6eca9cdc5a23bcca0dd679e06f6a54aaa07439cfe71ad252d61f1",
+      "start": [
+        256,
+        128,
+        128
+      ],
+      "size": [
+        43,
+        64,
+        64
+      ]
+    },
+    {
+      "file": "brick-256-128-192.gz",
+      "bytes": 214190,
+      "sha256": "d88d928f14a4f8dd649d05fbcf6659aacc95802fded5ab111e1fe8866d2f9bab",
+      "decodedSHA256": "bbfc91224b41dc22783eff2455ad7080abf7d3d1d739568f2c26ad8e07e129ea",
+      "start": [
+        256,
+        128,
+        192
+      ],
+      "size": [
+        43,
+        64,
+        64
+      ]
+    },
+    {
+      "file": "brick-256-128-256.gz",
+      "bytes": 243656,
+      "sha256": "1d459c4304fa3b19c16f7fd14229e804a67ef501bcdeedfb795e7a1634fb55f3",
+      "decodedSHA256": "3b4eeacca2b8449e9199b537ca20cd44d8b8e646667dfd04597046b2171066dd",
+      "start": [
+        256,
+        128,
+        256
+      ],
+      "size": [
+        43,
+        64,
+        64
+      ]
+    },
+    {
+      "file": "brick-256-128-320.gz",
+      "bytes": 244954,
+      "sha256": "159b39eabae73e375e6cf01fe16524908c7fb3635ae136654e904345dfe49398",
+      "decodedSHA256": "3476f83a84a23f48b782c4fce355594e3286b84c88799131404a163662589854",
+      "start": [
+        256,
+        128,
+        320
+      ],
+      "size": [
+        43,
+        64,
+        64
+      ]
+    },
+    {
+      "file": "brick-256-128-384.gz",
+      "bytes": 42914,
+      "sha256": "3cdd4151287d7939fbb8d673103df3dea634f0503b2dc4a7aa90fde3abfa54c2",
+      "decodedSHA256": "c36e53718909e52cf8e2da3d1598874a6b467853b358f88fa163a35eb522031e",
+      "start": [
+        256,
+        128,
+        384
+      ],
+      "size": [
+        43,
+        64,
+        10
+      ]
+    },
+    {
+      "file": "brick-256-192-0.gz",
+      "bytes": 177860,
+      "sha256": "bef129d26af8d9ed5133daf1f733351d34e0c806b275a17702149f38cbf45cf0",
+      "decodedSHA256": "012de92079b8f44557d9cdc522d3d13ae11308ade28de0390c9ddf2688f15f67",
+      "start": [
+        256,
+        192,
+        0
+      ],
+      "size": [
+        43,
+        64,
+        64
+      ]
+    },
+    {
+      "file": "brick-256-192-64.gz",
+      "bytes": 169046,
+      "sha256": "fbe97e5ef6f9563373bf9fbdefb08fc9916895ac6c3e7cca9e47f9851741ba54",
+      "decodedSHA256": "ee17324cffd7d0562cdb084fec24bacab530afe1cdb4a01eeb1746277cd1a86f",
+      "start": [
+        256,
+        192,
+        64
+      ],
+      "size": [
+        43,
+        64,
+        64
+      ]
+    },
+    {
+      "file": "brick-256-192-128.gz",
+      "bytes": 166662,
+      "sha256": "93860f45bcf401af0f32f3524e0e285ba99f2ee7256ebe8cb8196d7d0b110698",
+      "decodedSHA256": "bc618dc2035f7bb94dbacc967593a73bd923c71e8fc4571e44ff399abaf814c0",
+      "start": [
+        256,
+        192,
+        128
+      ],
+      "size": [
+        43,
+        64,
+        64
+      ]
+    },
+    {
+      "file": "brick-256-192-192.gz",
+      "bytes": 172904,
+      "sha256": "482973168f3c236b4c9e57474154ea974b0afbc0b466686996623481fc327efe",
+      "decodedSHA256": "8366026ca1ca518247835d37c6dbd429a00ff94f2cad20a8efd2cd7c49f637b7",
+      "start": [
+        256,
+        192,
+        192
+      ],
+      "size": [
+        43,
+        64,
+        64
+      ]
+    },
+    {
+      "file": "brick-256-192-256.gz",
+      "bytes": 192922,
+      "sha256": "3f7c8fcc4012bc737baeff495a0fcebf6441350e87230e34b1995f77ff2db086",
+      "decodedSHA256": "2af26b31e9a4d8ba2b6037bc940537be37a2c7cb342534736b6fbb02572043fb",
+      "start": [
+        256,
+        192,
+        256
+      ],
+      "size": [
+        43,
+        64,
+        64
+      ]
+    },
+    {
+      "file": "brick-256-192-320.gz",
+      "bytes": 185352,
+      "sha256": "67959ae3204f681a4335cab0e1c100f7722a2eb71a0c243e21f8d2d945efcaa4",
+      "decodedSHA256": "66f72e5e12adfe93b44cae6bbe7d1080b730b9c8a0a2576d92a3c5775c4ffd44",
+      "start": [
+        256,
+        192,
+        320
+      ],
+      "size": [
+        43,
+        64,
+        64
+      ]
+    },
+    {
+      "file": "brick-256-192-384.gz",
+      "bytes": 28423,
+      "sha256": "c0c8852c9e02c6526ca11fbfcf028416204cd0b91b84df6ea9bad982a314af3d",
+      "decodedSHA256": "78b48794c25b09cb9a88284f489684314a10ac03b8d7c62a8eb01524a56d99c2",
+      "start": [
+        256,
+        192,
+        384
+      ],
+      "size": [
+        43,
+        64,
+        10
+      ]
+    },
+    {
+      "file": "brick-256-256-0.gz",
+      "bytes": 42894,
+      "sha256": "73608a5ea84e8a8a9f3bc0d502137d95c735402cdae5dd3897aa1ea75d4b7b5a",
+      "decodedSHA256": "ffba3dcb9624e886a41a03b68bbe308728b7024c9ca7518500096119e8c06c85",
+      "start": [
+        256,
+        256,
+        0
+      ],
+      "size": [
+        43,
+        43,
+        64
+      ]
+    },
+    {
+      "file": "brick-256-256-64.gz",
+      "bytes": 43699,
+      "sha256": "43449400ff5e58931f48f1f422747c147d022205d8e77fc06808e46c5faa2116",
+      "decodedSHA256": "66da915b96f00f1995b07209fad99fa7624d97e451888415b742910627dc361f",
+      "start": [
+        256,
+        256,
+        64
+      ],
+      "size": [
+        43,
+        43,
+        64
+      ]
+    },
+    {
+      "file": "brick-256-256-128.gz",
+      "bytes": 42628,
+      "sha256": "ea0886c1bb5ab1aa777821d90442a5245a77fb9b2f9f211ce6bdd09a09dbee6c",
+      "decodedSHA256": "d9592a41d2a6d65eb070f164fe13abb4bbe81d121a69454046bc15a06adc5603",
+      "start": [
+        256,
+        256,
+        128
+      ],
+      "size": [
+        43,
+        43,
+        64
+      ]
+    },
+    {
+      "file": "brick-256-256-192.gz",
+      "bytes": 43118,
+      "sha256": "e0fd664eea247e80727feff7566c8d88222e7f4065c64365992e4341ff6a3de6",
+      "decodedSHA256": "9d89e617398d2c48d90de0748d594ce5b1fecc8656c495e5f362981fe313c40b",
+      "start": [
+        256,
+        256,
+        192
+      ],
+      "size": [
+        43,
+        43,
+        64
+      ]
+    },
+    {
+      "file": "brick-256-256-256.gz",
+      "bytes": 43596,
+      "sha256": "5130984c546434998b53c82cd0247bdfd72f811d5fe78ce22869cb9d7fb3e9c3",
+      "decodedSHA256": "ee3af3b84a81d36ad8e7db5fc1e30adcd873e6c95b100ba68b1aec6c4f45cadc",
+      "start": [
+        256,
+        256,
+        256
+      ],
+      "size": [
+        43,
+        43,
+        64
+      ]
+    },
+    {
+      "file": "brick-256-256-320.gz",
+      "bytes": 42458,
+      "sha256": "2a59224093e8738eebe9c75d13185a475d47c05b152fee665aecacd6f999f405",
+      "decodedSHA256": "06c98d52fc69521f84e92ab1b4ebe62bd44d94584683e49fc934d1b34046b15b",
+      "start": [
+        256,
+        256,
+        320
+      ],
+      "size": [
+        43,
+        43,
+        64
+      ]
+    },
+    {
+      "file": "brick-256-256-384.gz",
+      "bytes": 6698,
+      "sha256": "a4b3d9c144993c1dfd7ed07bc72312cfbf1120d91ec0db0be38184cb19a5f78c",
+      "decodedSHA256": "2b5cd6f71825969ad8c4de624a84381e7ff8f5c1728ede49aa1a67a1ab75305e",
+      "start": [
+        256,
+        256,
+        384
+      ],
+      "size": [
+        43,
+        43,
+        10
+      ]
+    }
+  ],
+  "overlapVoxels": 5676,
+  "labelledVoxels": 3748111,
+  "sourceURL": "https://zenodo.org/records/22688904",
+  "license": "CC BY 4.0"
+}

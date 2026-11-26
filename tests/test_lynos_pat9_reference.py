@@ -30,9 +30,9 @@ expected = {
     'recist-pelvic-023-follow-up-1', 'recist-pelvic-023-follow-up-2',
     'lnq-case-0571', source.ATLAS, 'aneurysm-cta-018', 'cmha-mca-005',
     'rhuh-sah-001', 'bp3d-dural-4.3', 'ward-swi-s1', 'illinois-uterus',
-    'endometriosis-mri-evidence', 'hyperpic-venous', 'venat', 'ccth-a01-roi', 'segthy-001', 'zanatomy-salivary',
+    'endometriosis-mri-evidence', 'hyperpic-venous', 'venat', 'ccth-a01-roi', 'ct-torso-s0028', 'segthy-001', 'zanatomy-salivary',
 }
-assert set(MESH_SOURCE_DIRECTORIES) == expected and len(expected) == 18
+assert set(MESH_SOURCE_DIRECTORIES) == expected and len(expected) == 19
 assert all(value == 'anatomy/' + name for name, value in MESH_SOURCE_DIRECTORIES.items())
 assert NODE_SOURCE_ATLASES == frozenset({
     'recist-pelvic-015', 'recist-pelvic-023',
@@ -54,7 +54,7 @@ with TestClient(app) as client:
             page = client.head('/app/' + directory + '/' + asset, auth=auth)
             assert page.status_code == 200, (atlas, asset)
             may_embed = atlas in NODE_SOURCE_ATLASES and asset in {'index.html', 'surfaces.html', 'comparison.html'}
-            may_embed |= atlas in {'segthy-001', 'zanatomy-salivary'} and asset == 'index.html'
+            may_embed |= atlas in {'ct-torso-s0028', 'segthy-001', 'zanatomy-salivary'} and asset == 'index.html'
             expected_policy = "frame-ancestors 'self';" if may_embed else "frame-ancestors 'none';"
             assert expected_policy in page.headers['content-security-policy'], (atlas, asset)
     for investigation, expected in source.references().items():

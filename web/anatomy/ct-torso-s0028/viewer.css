@@ -1,0 +1,18 @@
+.selection label { flex: 1 1 15rem; }
+.selection a { align-self:center; }
+#image-frame { aspect-ratio: 1; }
+.coords { display:flex; gap:.5rem; flex-wrap:wrap; align-items:end; }
+.coords input { max-width:5rem; }
+#key th,#key td { text-align:left;padding:.35rem .4rem; }
+#key td:last-child { text-align:right;font-variant-numeric:tabular-nums; }
+#key button { text-align:left;min-height:2rem;padding:.25rem .5rem; }
+#cursor { pointer-events:none; }
+#scope { font-size:.95rem; }
+
+.edge { position:absolute;pointer-events:none;background:rgba(4,13,19,.8);color:#fff;
+        padding:.08rem .28rem;font:600 .82rem system-ui,sans-serif; }
+.edge.top,.edge.bottom { left:50%;transform:translateX(-50%); }
+.edge.left,.edge.right { top:50%;transform:translateY(-50%); }
+.edge.top {top:1px}.edge.bottom {bottom:1px}.edge.left {left:1px}.edge.right {right:1px}
+
+#search { color:inherit;background:#233e50;border:1px solid #71899a;border-radius:5px;padding:.5rem;min-height:2.7rem; }

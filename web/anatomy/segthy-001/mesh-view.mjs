@@ -33,7 +33,7 @@ function shape(tag, attributes, text) {
   return node;
 }
 
-export function meshView(canvas, overlay, status, controls) {
+export function meshView(canvas, overlay, status, controls, readMesh = verifiedBytes) {
   const gl = canvas.getContext('webgl2', { preserveDrawingBuffer: true });
   let scene = null;
   let latest = null;
@@ -166,7 +166,7 @@ export function meshView(canvas, overlay, status, controls) {
     let resources = null;
     try {
       const metadata = label.mesh;
-      const bytes = await verifiedBytes(metadata, pending.signal);
+      const bytes = await readMesh(metadata, pending.signal);
       if (bytes.byteLength !== 12 * (metadata.vertices + metadata.triangles)) {
         throw Error('The source surface byte count differs.');
       }

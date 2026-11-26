@@ -159,4 +159,7 @@ def references():
     from .cervical_node_figures import references as published_nodes
     for identifier, entries in published_nodes().items():
         result[identifier] = [*result.get(identifier, []), *entries]
+    from .ct_torso_reference import references as torso_references
+    for identifier, entries in torso_references().items():
+        result[identifier] = [*result.get(identifier, []), *entries]
     return result

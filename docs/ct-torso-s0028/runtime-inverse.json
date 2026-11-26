@@ -1,0 +1,265 @@
+{
+  "docs/radiology-fidelity-scope.json": {
+    "before": "e6c4306bfb7d1573977589ff0aed4037b0375b8cd845e76149ee9ce180d3b1ed",
+    "after": "8c084b73e04ccf515dd16e47cb1b176936ef0b90ccaf06e96b73068656769b78",
+    "changes": [
+      {
+        "start": 142027,
+        "end": 142028,
+        "before": "            \"instructions\": \"Inspect the complete provided source selections against native images and separate atlas probabilities. Read population, sampling and anatomical limits before interpretation.\",\n",
+        "after": "            \"instructions\": \"Inspect the original response-assessment studies and the separate chest, abdomen and pelvis anatomical reference. Each study retains its own measurements and coordinates.\",\n"
+      },
+      {
+        "start": 142029,
+        "end": 142031,
+        "before": "              \"ra.recist\"\n",
+        "after": "              \"ra.recist\",\n              \"ct.chest-abdomen-pelvis\"\n"
+      },
+      {
+        "start": 142194,
+        "end": 142195,
+        "before": "      \"module_contract_sha256\": \"2f5afa5599c0a38063d17a5eed9c4ec968d8b2c46b7e95c9322e7a3337ed5d1c\",\n",
+        "after": "      \"module_contract_sha256\": \"a16f0730e3d9e3c6de2d492552ad147ec9b7beef7575d5dbe4e784fb7e416ded\",\n"
+      },
+      {
+        "start": 145909,
+        "end": 145918,
+        "before": "",
+        "after": "          {\n            \"id\": \"module-native-inspectors-rad.5.abdominal-trauma\",\n            \"kind\": \"source-native-inspectors\",\n            \"title\": \"Native source anatomy inspection\",\n            \"instructions\": \"Use the labelled CT, sections and surfaces as anatomical references for the trauma survey. Injury and technique must be assessed on the actual examination.\",\n            \"investigation_ids\": [\n              \"ct.trauma-panscan\"\n            ]\n          },\n"
+      },
+      {
+        "start": 146094,
+        "end": 146095,
+        "before": "      \"module_contract_sha256\": \"14ff7765810c100c5552df736bca9ffe87c96e73f4cf22553791098daad01d54\",\n",
+        "after": "      \"module_contract_sha256\": \"50fa081b74b87c326c60a220f502c297f9096ed245d1812a1977f2f1de660598\",\n"
+      }
+    ]
+  },
+  "primer/curriculum.py": {
+    "before": "63683b240e1bf8882f281896ad37d986ad900aa1f8b3bc488c98e3ce88d4659f",
+    "after": "7547d7c294f6029db05daf827bf56c6dcb58b58a0513f2e7c93599cda66d7f4e",
+    "changes": [
+      {
+        "start": 352,
+        "end": 356,
+        "before": "",
+        "after": "                if not investigation and kind == 'source-native-inspectors':\n                    from .ct_torso_reference import EXAMS as torso_exams\n                    if torso_exams.get(node.get('id')) == identifier and source_sets.get(identifier):\n                        continue\n"
+      }
+    ]
+  },
+  "primer/module_media.py": {
+    "before": "ce0ed6b795c233165f60b88cc1372dc1d8d9b2fed3f11378d565d34eab9098e9",
+    "after": "c6f6a1fb349d42efc3a07838735d3d76bc64ef7bc9e8a7641e7c44585d33b920",
+    "changes": [
+      {
+        "start": 122,
+        "end": 125,
+        "before": "",
+        "after": "        from .ct_torso_reference import EXAMS as torso_exams\n        if node['id'] in torso_exams:\n            native_ids.append(torso_exams[node['id']])\n"
+      },
+      {
+        "start": 142,
+        "end": 146,
+        "before": "",
+        "after": "                                           'Inspect the original response-assessment studies and the separate chest, abdomen and pelvis anatomical reference. Each study retains its own measurements and coordinates.'\n                                           if node['id'] == 'rad.4.oncology-response' else\n                                           'Use the labelled CT, sections and surfaces as anatomical references for the trauma survey. Injury and technique must be assessed on the actual examination.'\n                                           if node['id'] == 'rad.5.abdominal-trauma' else\n"
+      }
+    ]
+  },
+  "primer/server.py": {
+    "before": "50635e50f06845adc749a6ae883ba0d1fbafa7f528b1c4551405221c04368e9d",
+    "after": "b2b7012799bf1d3e699d49ff2a1c336c0c1fbf9eb128926618f08d7e54b43108",
+    "changes": [
+      {
+        "start": 4291,
+        "end": 4292,
+        "before": "        *NODE_SOURCE_ATLASES, \"segthy-001\", \"zanatomy-salivary\", \"aneurysm-cta-018\", \"cmha-mca-005\", \"rhuh-sah-001\",\n",
+        "after": "        *NODE_SOURCE_ATLASES, \"ct-torso-s0028\", \"segthy-001\", \"zanatomy-salivary\", \"aneurysm-cta-018\", \"cmha-mca-005\", \"rhuh-sah-001\",\n"
+      },
+      {
+        "start": 4318,
+        "end": 4319,
+        "before": "                or (registered_atlas in {\"segthy-001\", \"zanatomy-salivary\"} and asset == \"index.html\")):\n",
+        "after": "                or (registered_atlas in {\"ct-torso-s0028\", \"segthy-001\", \"zanatomy-salivary\"} and asset == \"index.html\")):\n"
+      }
+    ]
+  },
+  "primer/source_native_inspectors.py": {
+    "before": "ad364249e6428d972c71e75d55e4cad2c75f6ba8630ddcfdd11f7f8ab1bd87f5",
+    "after": "b4b63cba1ae7f465677597078de09cdbca5075ace1492c8b58a61f5ca8458ef2",
+    "changes": [
+      {
+        "start": 161,
+        "end": 164,
+        "before": "",
+        "after": "    from .ct_torso_reference import references as torso_references\n    for identifier, entries in torso_references().items():\n        result[identifier] = [*result.get(identifier, []), *entries]\n"
+      }
+    ]
+  },
+  "vercel.json": {
+    "before": "a351deb5e3712a6145d737ec064ad0f513e18788f6aa8641e3407d0dff33b417",
+    "after": "41f89da06b9b0a6b4b7c94f47d7599efa2d02df414d8d08f29e9b91416984538",
+    "changes": [
+      {
+        "start": 7,
+        "end": 8,
+        "before": "        \"excludeFiles\": \"{docs/radiology-fidelity-audit-*.json,docs/radiology-fidelity-scope.json,data/radiology/non-msk-structure-requirements.json,data/radiology/radiology-asset-evidence.json,data/radiology/descriptor-history/**,data/radiology/descriptor-reporting.json,data/radiology/structured-reporting.json,.git/**,.github/**,.research/**,tests/**,tools/**,docs/*/**,public/**,web/anatomy/{bodyparts3d,msk-atlas,msk-cervical,msk-mri-knee,msk-mri-ankle,liu-lumbosacral-sub03,verse521,hvsmr2-pat7,openear-zeta,totalseg-v3-s0358,totalseg-v3-esophagus-s0358,ispy1-expert1002,prostate-biopsy0001}/**/*.bin,web/anatomy/{bodyparts3d,msk-atlas,msk-cervical,msk-mri-knee,msk-mri-ankle,liu-lumbosacral-sub03,verse521,hvsmr2-pat7,openear-zeta,totalseg-v3-s0358,totalseg-v3-esophagus-s0358,ispy1-expert1002,prostate-biopsy0001}/**/*.bin.gz,web/reference-media/prenatal-development/prenatal-development.gif,web/reference-media/prenatal-development/day-*.webp,web/illustrations/**/*.webp,web/reference-media/radiology-open/**/*.{jpg,jpeg,png,webp,gif,pdf},web/reference-media/radiology-motion/**,web/reference-media/lesson-sources/**,web/anatomy/totalseg-v3-esophagus-s0358/ct-reference.html,web/anatomy/ispy1-expert1002/mri-reference.html,web/anatomy/prostate-biopsy0001/mri-reference.html,web/studies/tcga-dk-aa6p/**,web/anatomy/fedbca-{center1-001,center2-01,center3-01,center4-01}/mri-reference.html,web/anatomy/fedbca-{center1-001,center2-01,center3-01,center4-01}/**/*.bin.gz,web/reference-media/annotated-ct/**/*.jpeg,web/anatomy/bp3d-sella-4.3/**/*.bin.gz,web/anatomy/bp3d-carotid-4.3/**/*.bin.gz,web/anatomy/hra-female-pelvis-v1.10/**/*.bin.gz,web/anatomy/brain-fine-massp2/*.gz,web/reference-media/radiology-open/traumatic-haemorrhage/**,web/anatomy/soop-stroke-sub342/*.gz,web/anatomy/soop-stroke-sub342/sub-342*.json,web/anatomy/lidc-idri-0525/original-ct/**,web/anatomy/lidc-idri-0525/*.gz,web/anatomy/lidc-idri-0525/source-*.zip,web/anatomy/lidc-idri-0525/original-0525.xml,web/anatomy/lidc-idri-0525/ct-source-md5.csv,web/anatomy/lidc-idri-0525/LICENSE,web/anatomy/lidc-idri-0525/ATTRIBUTION.txt,web/anatomy/bp3d-thoracic-4.3/transport/**,web/anatomy/bp3d-thoracic-4.3/originals/**,web/anatomy/totalseg-s0028-lungs/originals/**,web/anatomy/totalseg-s0028-lungs/surfaces/**,web/anatomy/totalseg-s0028-basal-context/originals/**,web/anatomy/totalseg-s0028-basal-context/surfaces/**,web/anatomy/totalseg-v1-s0028-cardiac/originals/**,web/anatomy/totalseg-v1-s0028-cardiac/surfaces/**,web/anatomy/bp3d-cardiac-4.3/originals/**,web/anatomy/bp3d-cardiac-4.3/transport/**,web/reference-media/cardiac-comparisons-2020/images/**,web/anatomy/hippunfold-hcp101006-registered/*.gz,web/anatomy/spl-nac-limbic/*.gz,web/anatomy/spl-nac-reporting/*.gz,web/anatomy/spl-nac-reporting/manifest.json,web/anatomy/spl-nac-limbic/originals/**,web/anatomy/holiatlas/*.pack,web/anatomy/holiatlas/*.mesh.gz,web/anatomy/holiatlas/*-faces.bin.gz,web/anatomy/holiatlas/manifest.json,web/anatomy/holiatlas/labels.json,web/anatomy/holiatlas/hierarchy.json,web/anatomy/schirmer-vascular/*.pack,web/anatomy/schirmer-vascular/*.mesh.gz,web/anatomy/schirmer-vascular/*.faces.gz,web/anatomy/schirmer-vascular/originals/**,web/anatomy/schirmer-vascular/manifest.json,web/anatomy/schirmer-vascular/labels.json,web/anatomy/schirmer-vascular/hierarchy.json,web/anatomy/schirmer-vascular/publication-figure1.webp,web/anatomy/spl-additional-source/*.gz,web/anatomy/spl-additional-source/manifest.json,web/anatomy/verse521/ct-reference.html,web/anatomy/totalseg-v3-s0358/ct-reference.html,web/anatomy/spl-sellar-interfaces/**/*.svg,web/anatomy/spl-sellar-interfaces/**/*.mesh.gz,web/anatomy/spl-sellar-interfaces/viewer/*.json,web/anatomy/cptac-endometrial/*.gz,web/anatomy/colonvessels-pat012/**/*.gz,web/anatomy/liver-regions-mri/*.gz,web/anatomy/bp3d-biliary-4.3/*.gz,web/anatomy/phlf-center2-24/*.gz,web/anatomy/hva-ct-318/*.gz,web/anatomy/aneurysm-cta-018/*.gz,web/anatomy/cmha-mca-005/*.gz,web/anatomy/rhuh-sah-001/*.gz,web/anatomy/bp3d-dural-4.3/*.gz,web/anatomy/ward-swi-s1/*.gz,web/anatomy/illinois-uterus/*.gz,web/anatomy/endometriosis-mri-evidence/*.gz,web/anatomy/hyperpic-venous/**/*.gz,web/anatomy/venat/*.gz,web/anatomy/ccth-a01-roi/*.gz,web/anatomy/{recist-pelvic-015,recist-pelvic-023,recist-pelvic-023-follow-up-1,recist-pelvic-023-follow-up-2}/*.gz,web/anatomy/lnq-case-0571/*.gz,web/anatomy/lynos-pat9/*.gz,web/anatomy/segthy-001/*.gz,web/anatomy/zanatomy-salivary/*.gz,data/radiology/descriptor-reporting-v1.json.gz}\"\n",
+        "after": "        \"excludeFiles\": \"{docs/radiology-fidelity-audit-*.json,docs/radiology-fidelity-scope.json,data/radiology/non-msk-structure-requirements.json,data/radiology/radiology-asset-evidence.json,data/radiology/descriptor-history/**,data/radiology/descriptor-reporting.json,data/radiology/structured-reporting.json,.git/**,.github/**,.research/**,tests/**,tools/**,docs/*/**,public/**,web/anatomy/{bodyparts3d,msk-atlas,msk-cervical,msk-mri-knee,msk-mri-ankle,liu-lumbosacral-sub03,verse521,hvsmr2-pat7,openear-zeta,totalseg-v3-s0358,totalseg-v3-esophagus-s0358,ispy1-expert1002,prostate-biopsy0001}/**/*.bin,web/anatomy/{bodyparts3d,msk-atlas,msk-cervical,msk-mri-knee,msk-mri-ankle,liu-lumbosacral-sub03,verse521,hvsmr2-pat7,openear-zeta,totalseg-v3-s0358,totalseg-v3-esophagus-s0358,ispy1-expert1002,prostate-biopsy0001}/**/*.bin.gz,web/reference-media/prenatal-development/prenatal-development.gif,web/reference-media/prenatal-development/day-*.webp,web/illustrations/**/*.webp,web/reference-media/radiology-open/**/*.{jpg,jpeg,png,webp,gif,pdf},web/reference-media/radiology-motion/**,web/reference-media/lesson-sources/**,web/anatomy/totalseg-v3-esophagus-s0358/ct-reference.html,web/anatomy/ispy1-expert1002/mri-reference.html,web/anatomy/prostate-biopsy0001/mri-reference.html,web/studies/tcga-dk-aa6p/**,web/anatomy/fedbca-{center1-001,center2-01,center3-01,center4-01}/mri-reference.html,web/anatomy/fedbca-{center1-001,center2-01,center3-01,center4-01}/**/*.bin.gz,web/reference-media/annotated-ct/**/*.jpeg,web/anatomy/bp3d-sella-4.3/**/*.bin.gz,web/anatomy/bp3d-carotid-4.3/**/*.bin.gz,web/anatomy/hra-female-pelvis-v1.10/**/*.bin.gz,web/anatomy/brain-fine-massp2/*.gz,web/reference-media/radiology-open/traumatic-haemorrhage/**,web/anatomy/soop-stroke-sub342/*.gz,web/anatomy/soop-stroke-sub342/sub-342*.json,web/anatomy/lidc-idri-0525/original-ct/**,web/anatomy/lidc-idri-0525/*.gz,web/anatomy/lidc-idri-0525/source-*.zip,web/anatomy/lidc-idri-0525/original-0525.xml,web/anatomy/lidc-idri-0525/ct-source-md5.csv,web/anatomy/lidc-idri-0525/LICENSE,web/anatomy/lidc-idri-0525/ATTRIBUTION.txt,web/anatomy/bp3d-thoracic-4.3/transport/**,web/anatomy/bp3d-thoracic-4.3/originals/**,web/anatomy/totalseg-s0028-lungs/originals/**,web/anatomy/totalseg-s0028-lungs/surfaces/**,web/anatomy/totalseg-s0028-basal-context/originals/**,web/anatomy/totalseg-s0028-basal-context/surfaces/**,web/anatomy/totalseg-v1-s0028-cardiac/originals/**,web/anatomy/totalseg-v1-s0028-cardiac/surfaces/**,web/anatomy/bp3d-cardiac-4.3/originals/**,web/anatomy/bp3d-cardiac-4.3/transport/**,web/reference-media/cardiac-comparisons-2020/images/**,web/anatomy/hippunfold-hcp101006-registered/*.gz,web/anatomy/spl-nac-limbic/*.gz,web/anatomy/spl-nac-reporting/*.gz,web/anatomy/spl-nac-reporting/manifest.json,web/anatomy/spl-nac-limbic/originals/**,web/anatomy/holiatlas/*.pack,web/anatomy/holiatlas/*.mesh.gz,web/anatomy/holiatlas/*-faces.bin.gz,web/anatomy/holiatlas/manifest.json,web/anatomy/holiatlas/labels.json,web/anatomy/holiatlas/hierarchy.json,web/anatomy/schirmer-vascular/*.pack,web/anatomy/schirmer-vascular/*.mesh.gz,web/anatomy/schirmer-vascular/*.faces.gz,web/anatomy/schirmer-vascular/originals/**,web/anatomy/schirmer-vascular/manifest.json,web/anatomy/schirmer-vascular/labels.json,web/anatomy/schirmer-vascular/hierarchy.json,web/anatomy/schirmer-vascular/publication-figure1.webp,web/anatomy/spl-additional-source/*.gz,web/anatomy/spl-additional-source/manifest.json,web/anatomy/verse521/ct-reference.html,web/anatomy/totalseg-v3-s0358/ct-reference.html,web/anatomy/spl-sellar-interfaces/**/*.svg,web/anatomy/spl-sellar-interfaces/**/*.mesh.gz,web/anatomy/spl-sellar-interfaces/viewer/*.json,web/anatomy/cptac-endometrial/*.gz,web/anatomy/colonvessels-pat012/**/*.gz,web/anatomy/liver-regions-mri/*.gz,web/anatomy/bp3d-biliary-4.3/*.gz,web/anatomy/phlf-center2-24/*.gz,web/anatomy/hva-ct-318/*.gz,web/anatomy/aneurysm-cta-018/*.gz,web/anatomy/cmha-mca-005/*.gz,web/anatomy/rhuh-sah-001/*.gz,web/anatomy/bp3d-dural-4.3/*.gz,web/anatomy/ward-swi-s1/*.gz,web/anatomy/illinois-uterus/*.gz,web/anatomy/endometriosis-mri-evidence/*.gz,web/anatomy/hyperpic-venous/**/*.gz,web/anatomy/venat/*.gz,web/anatomy/ccth-a01-roi/*.gz,web/anatomy/{recist-pelvic-015,recist-pelvic-023,recist-pelvic-023-follow-up-1,recist-pelvic-023-follow-up-2}/*.gz,web/anatomy/lnq-case-0571/*.gz,web/anatomy/lynos-pat9/*.gz,web/anatomy/segthy-001/*.gz,web/anatomy/zanatomy-salivary/*.gz,web/anatomy/ct-torso-s0028/*.gz,data/radiology/descriptor-reporting-v1.json.gz}\"\n"
+      },
+      {
+        "start": 253,
+        "end": 257,
+        "before": "",
+        "after": "    },\n    {\n      \"src\": \"web/anatomy/ct-torso-s0028/*.gz\",\n      \"use\": \"@vercel/static\"\n"
+      }
+    ]
+  },
+  "web/app.js": {
+    "before": "c906e0cdeeca361c80dd834d4b274155964d0c4902eb636742e426bb835a1b6b",
+    "after": "d0c9842cfad0e2aa94fd521f57e37af2ffb973778d3dfd328d7a122bbd99a031",
+    "changes": [
+      {
+        "start": 2086,
+        "end": 2097,
+        "before": "",
+        "after": "  if (asset.report_area_links?.length) {\n    const list = el('ul', {});\n    for (const area of asset.report_area_links) {\n      const name = area.present\n        ? el('a', { href: area.src, target: '_blank', rel: 'noopener noreferrer' }, area.name)\n        : el('strong', {}, area.name);\n      const count = area.present ? ' · ' + area.present + ' nonempty source masks. ' : ' · ';\n      list.append(el('li', {}, name, count + area.note));\n    }\n    section.append(el('details', { class: 'rad-protocol' }, el('summary', {}, 'Source anatomy by report area'), list));\n  }\n"
+      }
+    ]
+  },
+  "web/anatomy/segthy-001/delivery.json": {
+    "before": "77903dbd67e0e2e10555fc9144fb7ff2e04684620082a7633eeb5599fb77d55d",
+    "after": "9f16554c156f3acb48298d60c5fb5048d55902bb25d82b187874a049adade0a6",
+    "changes": [
+      {
+        "start": 511,
+        "end": 513,
+        "before": "      \"bytes\": 11889,\n      \"sha256\": \"9e43845ecf23664d4583d1405c9e486868ab28cee35ce85126cb0437d711bce5\"\n",
+        "after": "      \"bytes\": 11910,\n      \"sha256\": \"059a78db9c05d69db61b8c4553e4bad6a6d9e176c1f27648ec06fd1cabc44509\"\n"
+      },
+      {
+        "start": 515,
+        "end": 517,
+        "before": "      \"bytes\": 8950,\n      \"sha256\": \"03d1fa09b68a37a851f08726d64a76dcfb4359c90b4f1e488dc9a697003a1d81\"\n",
+        "after": "      \"bytes\": 9625,\n      \"sha256\": \"307ff7be310f700fa5e3ed4719842fa9c3bdca45704b8e73433ed9aaea4a1a92\"\n"
+      }
+    ]
+  },
+  "web/anatomy/segthy-001/native-volume.mjs": {
+    "before": "03d1fa09b68a37a851f08726d64a76dcfb4359c90b4f1e488dc9a697003a1d81",
+    "after": "307ff7be310f700fa5e3ed4719842fa9c3bdca45704b8e73433ed9aaea4a1a92",
+    "changes": [
+      {
+        "start": 11,
+        "end": 12,
+        "before": "export function assetURL(file) {\n",
+        "after": "export function assetURL(file, base = import.meta.url) {\n"
+      },
+      {
+        "start": 13,
+        "end": 14,
+        "before": "  const directory = new URL('./', import.meta.url);\n",
+        "after": "  const directory = new URL('./', base);\n"
+      },
+      {
+        "start": 15,
+        "end": 17,
+        "before": "  if (target.origin !== directory.origin || !target.pathname.startsWith(directory.pathname)\n",
+        "after": "  if (directory.origin !== new URL(import.meta.url).origin || target.origin !== directory.origin\n      || !target.pathname.startsWith(directory.pathname)\n"
+      },
+      {
+        "start": 21,
+        "end": 23,
+        "before": "export async function verifiedBytes(record, signal) {\n  const response = await fetch(assetURL(record.file), { signal });\n",
+        "after": "export async function verifiedBytes(record, signal, base = import.meta.url) {\n  const response = await fetch(assetURL(record.file, base), { signal });\n"
+      },
+      {
+        "start": 135,
+        "end": 138,
+        "before": "",
+        "after": "  const ct = record.encoding === 'int16-le+two-labels';\n  if (record.encoding !== undefined && !ct) throw Error('Unrecognised source sample format.');\n  const sampleBytes = ct ? 4 : 2;\n"
+      },
+      {
+        "start": 151,
+        "end": 152,
+        "before": "      const expected = brick.size.reduce((product, value) => product * value, 2);\n",
+        "after": "      const expected = brick.size.reduce((product, value) => product * value, sampleBytes);\n"
+      },
+      {
+        "start": 181,
+        "end": 183,
+        "before": "    const image = new Uint8Array(width * height);\n",
+        "after": "    const image = ct ? new Int16Array(width * height) : new Uint8Array(width * height);\n    const overlap = ct ? new Uint8Array(width * height) : null;\n"
+      },
+      {
+        "start": 202,
+        "end": 203,
+        "before": "            const input = 2 * (start + h * strides[axes.horizontal]);\n",
+        "after": "            const input = sampleBytes * (start + h * strides[axes.horizontal]);\n"
+      },
+      {
+        "start": 204,
+        "end": 212,
+        "before": "            image[output] = bytes[input];\n            labels[output] = bytes[input + 1];\n",
+        "after": "            if (ct) {\n              image[output] = bytes[input] | (bytes[input + 1] << 8);\n              labels[output] = bytes[input + 2];\n              overlap[output] = bytes[input + 3];\n            } else {\n              image[output] = bytes[input];\n              labels[output] = bytes[input + 1];\n            }\n"
+      },
+      {
+        "start": 220,
+        "end": 221,
+        "before": "    return { image, labels, width, height, axes, fixed, position: [...position],\n",
+        "after": "    return { image, labels, ...(overlap ? { overlap } : {}), width, height, axes, fixed, position: [...position],\n"
+      }
+    ]
+  },
+  "web/anatomy/segthy-001/mesh-view.mjs": {
+    "before": "9e43845ecf23664d4583d1405c9e486868ab28cee35ce85126cb0437d711bce5",
+    "after": "059a78db9c05d69db61b8c4553e4bad6a6d9e176c1f27648ec06fd1cabc44509",
+    "changes": [
+      {
+        "start": 35,
+        "end": 36,
+        "before": "export function meshView(canvas, overlay, status, controls) {\n",
+        "after": "export function meshView(canvas, overlay, status, controls, readMesh = verifiedBytes) {\n"
+      },
+      {
+        "start": 168,
+        "end": 169,
+        "before": "      const bytes = await verifiedBytes(metadata, pending.signal);\n",
+        "after": "      const bytes = await readMesh(metadata, pending.signal);\n"
+      }
+    ]
+  },
+  "lessons": {
+    "rad.4.oncology-response": {
+      "before": {
+        "id": "module-native-inspectors-rad.4.oncology-response",
+        "kind": "source-native-inspectors",
+        "title": "Native source anatomy inspection",
+        "instructions": "Inspect the complete provided source selections against native images and separate atlas probabilities. Read population, sampling and anatomical limits before interpretation.",
+        "investigation_ids": [
+          "ra.recist"
+        ]
+      },
+      "after": {
+        "id": "module-native-inspectors-rad.4.oncology-response",
+        "kind": "source-native-inspectors",
+        "title": "Native source anatomy inspection",
+        "instructions": "Inspect the original response-assessment studies and the separate chest, abdomen and pelvis anatomical reference. Each study retains its own measurements and coordinates.",
+        "investigation_ids": [
+          "ra.recist",
+          "ct.chest-abdomen-pelvis"
+        ]
+      }
+    },
+    "rad.5.abdominal-trauma": {
+      "before": null,
+      "after": {
+        "id": "module-native-inspectors-rad.5.abdominal-trauma",
+        "kind": "source-native-inspectors",
+        "title": "Native source anatomy inspection",
+        "instructions": "Use the labelled CT, sections and surfaces as anatomical references for the trauma survey. Injury and technique must be assessed on the actual examination.",
+        "investigation_ids": [
+          "ct.trauma-panscan"
+        ]
+      }
+    }
+  }
+}
