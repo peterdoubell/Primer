@@ -17,3 +17,13 @@ def test_exact_allowance_projection_and_proof_are_checked(tmp_path,monkeypatch):
     changed=tmp_path/'proof.json';changed.write_bytes(proof+b'changed');monkeypatch.setattr(bridge,'PROOF',changed)
     with pytest.raises(ValueError,match='evidence changed'):
         bridge.before_manuscript_native_bytes('primer/curriculum.py',raw)
+
+
+def test_direct_shell_projection_keeps_the_recorded_reader_curriculum_fingerprint():
+    from tools.module_mission_compatibility import previous_shell_bytes
+    name='primer/curriculum.py';raw=(ROOT/name).read_bytes()
+    row=json.loads(bridge.PROOF.read_bytes())[name]
+    restored=previous_shell_bytes(name,raw)
+    assert hashlib.sha256(restored).hexdigest()==row['before']
+    assert previous_shell_bytes(name,restored)==restored
+    assert previous_shell_bytes(name,raw+b'foreign')==raw+b'foreign'

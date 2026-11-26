@@ -17,8 +17,6 @@ def reviewed():
     return data
 
 def before_language_computation_bytes(path,raw,allow_older=False):
-    from tools.manuscript_native_runtime_compatibility import before_manuscript_native_bytes
-    raw = before_manuscript_native_bytes(path, raw)
     from tools.glioblastoma_runtime_compatibility import before_glioblastoma_bytes
     raw = before_glioblastoma_bytes(path, raw, allow_older=True)
     path=str(path)
