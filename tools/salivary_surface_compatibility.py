@@ -11,6 +11,8 @@ PATHS = {'docs/radiology-fidelity-scope.json', 'primer/module_media.py', 'primer
 
 
 def before_surface_bytes(path, raw):
+    from tools.structured_forms_runtime_compatibility import before_structured_forms_pack_bytes
+    raw = before_structured_forms_pack_bytes(path, raw)
     from tools.bennu_source_delivery_compatibility import before_lesson_sources_bytes
     raw = before_lesson_sources_bytes(path, raw)
     from tools.acute_abdomen_panels_compatibility import before_acute_panel_bytes
