@@ -191,7 +191,7 @@ window.PrimerStructuredReporting = (() => {
     if ((studyTitle && line === studyTitle) ||
         (mainReportHeading.test(line) && (namedSection || line.endsWith(':')))) return ['u', line, ''];
     if (namedSection || (line.endsWith(':') && !line.startsWith('•'))) return ['em', line, ''];
-    const inline = /^([A-Z][^:]*:)( \[\](?: .*)?)$/.exec(line);
+    const inline = /^([A-Z][^:]*:)( \[\].*)$/.exec(line);
     return inline ? ['em', inline[1], inline[2]] : ['', '', line];
   }
   function reportHTML(text, studyTitle = '', sectionHeadings = []) {

@@ -163,6 +163,8 @@ def before_draft_acquisition_heading_bytes(path, raw):
 def before_stacked_headings_bytes(path, raw):
     """Undo the stacked-heading layout of primer/report_templates.py (2026-11-19): finding headings follow one
     another without a blank line, and the dictation study name runs into its first heading."""
+    from tools.report_working_draft_compatibility import before_working_draft_bytes
+    raw = before_working_draft_bytes(path, raw)
     if str(path) != 'primer/report_templates.py':
         return raw
     raw = before_draft_acquisition_heading_bytes(path, raw)
