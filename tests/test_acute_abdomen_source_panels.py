@@ -145,7 +145,7 @@ def test_exact_inverse_retains_foreign_edits_and_the_locator_keeps_all_original_
     raw = history.PROOF.read_bytes()
     assert hashlib.sha256(raw).hexdigest() == history.PIN
     for path, entry in json.loads(raw).items():
-        current = before_torso_bytes(path, (ROOT / path).read_bytes())
+        current = before_torso_bytes(path, history.before_liver_row_sources(path, (ROOT / path).read_bytes()))
         assert hashlib.sha256(current).hexdigest() == entry['after']
         before = history.before_acute_panel_bytes(path, current)
         assert hashlib.sha256(before).hexdigest() == entry['before']

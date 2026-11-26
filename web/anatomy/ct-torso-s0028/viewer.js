@@ -507,6 +507,11 @@ async function start() {
   byName = new Map(record.labels.map((row) => [row.sourceLabel, row]));
   byCode = new Map(record.labels.map((row) => [row.code, row]));
   const query = new URLSearchParams(location.search);
+  const referrals = query.getAll('from');
+  if (referrals.length === 1 && ['ct.liver-mass', 'ct.liver-lirads', 'ct.liver-lirads-calculated'].includes(referrals[0])) {
+    get('referring-report').hidden = false;
+    get('referring-report').querySelector('a').href = '/app/#/radiology/' + referrals[0];
+  }
   const exams = query.getAll('exam');
   const badExam =
     exams.length > 1 ||
