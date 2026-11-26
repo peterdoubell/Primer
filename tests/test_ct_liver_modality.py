@@ -5,7 +5,7 @@ from pathlib import Path
 
 from fastapi.testclient import TestClient
 from primer.server import app
-from tools.authoring.examination_additions_20261112 import source_rows
+from tools.authoring.examination_additions_20261112 import filter_text, source_rows
 
 ROOT = Path(__file__).resolve().parents[1]
 BASE = ROOT/'data/radiology'
@@ -53,3 +53,19 @@ def test_source_variant_builder_preserves_mr_and_excludes_mr_signal_in_ct():
             fields = observation(actual)['findings']
             assert {f['id'].rsplit(':',1)[1] for f in fields} >= {'ap','pv','delayed','growth'}
             assert all('hepatobiliary phase' not in f['text'].lower() for f in fields)
+
+
+def test_quick_ct_liver_template_keeps_enhancement_choices_and_mr_keeps_hepatobiliary_signal():
+    files = sorted((BASE/'report-templates').glob('*.json'))
+    templates = {key:t for file in files for key,t in json.loads(file.read_bytes())['templates'].items()}
+    def lesion_options(exam):
+        return next(s['options'] for s in templates[exam]['sections'] if s['heading']=='Focal lesions')
+    original = next(option for option in lesion_options('ra.liver-masses') if 'hepatobiliary hypointensity' in option)
+    assert filter_text(original, 'MRI') == original
+    corrected = filter_text(original, 'CT')
+    assert corrected == original.replace(' / hepatobiliary hypointensity', '')
+    assert corrected in lesion_options('ct.liver-mass')
+    with TestClient(app) as client:
+        report = client.get('/api/radiology/modules/ct.liver-mass').json()['radiology_reference']['quick_report']
+        assert 'hepatobiliary hypointensity' not in json.dumps(report).lower()
+        assert 'peripheral nodular enhancement' in json.dumps(report).lower()
