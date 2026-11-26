@@ -170,6 +170,8 @@ def before_stacked_headings_bytes(path, raw):
 
 
 def before_acquisition_conflicts_bytes(path, raw):
+    from tools.acute_abdomen_panels_compatibility import before_acute_panel_bytes
+    raw = before_acute_panel_bytes(path, raw)
     if str(path) not in {'primer/descriptor_reporting.py', 'primer/report_templates.py', 'web/radiology-structured.js'}:
         return raw
     raw = before_stacked_headings_bytes(path, raw)

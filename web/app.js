@@ -2531,6 +2531,12 @@ function sourceAtlasFigure(asset, { onExploreSource, createElement = el, sourceL
       sourceLink(derived ? 'Source dataset' : 'Source article', asset.source_url), ' · ',
       sourceLink(nativeVolume ? 'Source volume record' : derived ? 'Source geometry' : tableArtwork ? 'Original table' : 'Original figure', asset.figure_url), ' · ',
       sourceLink(asset.license, asset.license_url)));
+  if (typeof asset.id === 'string' && asset.id.startsWith('open-acute-abdomen-ref-')) {
+    figure.append(createElement('p', {class: 'rad-source-panel-link'}, createElement('a', {
+      href: '/app/radiology/acute-abdomen-panels/index.html?figure=' + encodeURIComponent(asset.id),
+      target: '_blank', rel: 'noopener',
+    }, 'Inspect these source panels by report and anatomy target')));
+  }
   if (asset.source_label_locator) {
     const locator = asset.source_label_locator;
     figure.dataset.sourceLabelFigure = locator.figure_id;
@@ -3092,6 +3098,35 @@ const liverReportingStudies = {
 };
 
 function renderReportingStepEvidence(nodeId, sections) {
+  if (nodeId === 'ra.acute-abdomen') {
+    const groups = [
+      ['BOWEL AND APPENDIX', [
+        ['appendix.lumen', 'Compare normal and inflamed appendix source panels'],
+        ['bowel_observations.wall_thickening_site', 'Locate the source bowel-wall findings'],
+        ['bowel_observations.local_fat_change', 'Inspect local fat-change examples'],
+        ['bowel_observations.each_source_visible_transition', 'Inspect the source transition examples'],
+        ['hernia_wall_if_relevant.contents_if_supported', 'Inspect the reported incisional-hernia contents'],
+      ]],
+      ['SOLID ORGANS', [
+        ['gallbladder_detail.calculus_or_sludge_if_present', 'Inspect the source gallbladder sludge and wall example'],
+        ['organ_common_bile_duct_if_resolved.lumen_or_duct_if_resolved', 'Compare separate ultrasound, T2 MRI and MRCP duct examples'],
+        ['organ_pancreatic_tail.covered_tissue', 'Locate the source pancreatic-tail observation'],
+      ]],
+      ['PERITONEUM AND VESSELS', [
+        ['vessel_sma_and_actual_branches.lumen_if_resolved', 'Inspect a source-labelled SMA lumen on CT and in 3D'],
+        ['vessel_smv_and_actual_tributaries.lumen_if_resolved', 'Inspect a source-labelled SMV lumen on CT and in 3D'],
+      ]],
+    ];
+    const examples = groups.filter(([heading]) => sections.includes(heading)).flatMap(([, examples]) => examples);
+    if (!examples.length) return null;
+    return el('section', {class: 'card', 'aria-label': 'Source evidence for this step'},
+      el('h4', {}, 'Source panels for this step'),
+      el('ul', {}, ...examples.map(([target, title]) => el('li', {}, el('a', {
+        href: '/app/radiology/acute-abdomen-panels/index.html?target=' + encodeURIComponent('acute_abdomen.' + target),
+        target: '_blank', rel: 'noopener',
+      }, title)))),
+      el('p', {class: 'muted'}, 'These are selected partial examples from their own source cases. The vessel CT is a separate case. Links open in a new tab so this report stays open.'));
+  }
   let studies = [];
   if (nodeId === 'ra.intracranial-haemorrhage') {
     if (sections.includes('UNDERLYING CAUSE')) studies = [haemorrhageStudies.sac, haemorrhageStudies.branches];

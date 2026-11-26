@@ -49,8 +49,10 @@ def test_the_lower_part_and_the_other_candidates_stay_unbound_with_reasons():
 
 
 def test_the_record_has_an_exact_inverse_and_the_chain_peels_it_first():
+    from tools.acute_abdomen_panels_compatibility import before_acute_panel_evidence
+
     receipt = json.loads(tool.RECEIPT.read_text())
-    raw = tool.EVIDENCE.read_bytes()
+    raw = before_acute_panel_evidence(tool.EVIDENCE.read_bytes())
     assert second.sha(raw) == receipt['after_sha256'] and receipt['path'] == PATH
     before = tool.before_biliary_duct_part_record(raw)
     assert second.sha(before) == receipt['before_sha256'] == json.loads(body.RECEIPT.read_text())['after_sha256']
@@ -64,6 +66,8 @@ def test_the_record_has_an_exact_inverse_and_the_chain_peels_it_first():
 
 
 def test_the_tool_refuses_the_lower_part_and_a_lumen(tmp_path, monkeypatch):
+    from tools.acute_abdomen_panels_compatibility import before_acute_panel_evidence
+
     review = json.loads(tool.REVIEW.read_text())
     receipt = json.loads(tool.RECEIPT.read_text())
     monkeypatch.setattr(tool, 'EVIDENCE', tmp_path / 'evidence.json')
@@ -71,7 +75,7 @@ def test_the_tool_refuses_the_lower_part_and_a_lumen(tmp_path, monkeypatch):
     (tmp_path / 'evidence.json').write_bytes(tool.before_biliary_duct_part_record((ROOT / PATH).read_bytes()))
     assert second.sha((tmp_path / 'evidence.json').read_bytes()) == receipt['before_sha256']
     made, = tool.plan()
-    assert made == json.loads((ROOT / PATH).read_text())['assets'][-1]
+    assert made == json.loads(before_acute_panel_evidence((ROOT / PATH).read_bytes()))['assets'][-1]
     document = tmp_path / 'review.json'
     monkeypatch.setattr(tool, 'REVIEW', document)
     row = review['accepted'][0]

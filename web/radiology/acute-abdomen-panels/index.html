@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Acute abdomen source panels · Primer</title>
+<link rel="stylesheet" href="/app/activities/kit.css"><link rel="stylesheet" href="style.css">
+<script type="module" src="lab.js"></script>
+</head>
+<body><main>
+<nav><a href="/app/#/radiology/ra.acute-abdomen">Acute-abdomen reporting reference</a> · <a href="/app/radiology/structure-atlas/index.html?i=ra.acute-abdomen">All reportable structures</a></nav>
+<h1>Acute abdomen: match the source to the target</h1>
+<p>Inspect the original published panels for a report or anatomy target. The vessel reference uses a separate CT case. Selected examples provide partial source correspondence; clinical and complete anatomical validation remain open.</p>
+<p id="status" role="status">Loading the reviewed source map…</p>
+<fieldset id="choices" disabled><legend>Choose a source example</legend>
+<div class="controls">
+<div><label for="target">Report / anatomy target</label><select id="target"></select></div>
+<div><label for="modality">Source type</label><select id="modality"><option value="">All source types</option><option>Ultrasound</option><option>CT</option><option>MRI</option><option value="native">Native CT and 3D</option></select></div>
+<div class="wide"><label for="panel">Original source panel</label><select id="panel"></select></div>
+</div>
+<div class="buttons"><button id="previous" type="button">Previous example</button><button id="next" type="button">Next example</button></div>
+</fieldset>
+<p id="selection" role="status"></p>
+<section id="report-context" class="note" hidden><p id="report-row"></p><button id="all-targets" type="button">Show all mapped source examples</button></section>
+<div class="layout">
+<section aria-labelledby="view-heading">
+<h2 id="view-heading">Original source</h2>
+<div id="image-view" hidden>
+<div class="view-controls"><button id="whole" type="button">Show complete figure</button><button id="reset" type="button">Reset view</button>
+<label for="zoom">Magnification <input id="zoom" type="range" min="1" max="4" step="0.25" value="1"></label></div>
+<svg id="picture" xmlns="http://www.w3.org/2000/svg" role="img" tabindex="0" aria-describedby="observation view-help"><defs><clipPath id="panel-clip" clipPathUnits="userSpaceOnUse"><rect id="panel-crop" /></clipPath></defs><image id="original" clip-path="url(#panel-clip)" preserveAspectRatio="xMidYMid meet" /></svg>
+<p id="view-help">The initial view follows the original panel boundary. Magnification preserves the supplied image; it adds no resolution. When the picture is focused, left/right arrows change examples, +/− magnify, and Home resets the view.</p>
+<p><a id="image-file" target="_blank" rel="noopener">Open the complete original image</a></p>
+</div>
+<div id="native-view" hidden><p id="native-scope"></p><p><a id="open-native" target="_blank" rel="noopener">Inspect source CT and 3D</a></p><p>The original CT and 3D reader opens in a separate source tab. Close that tab to return to this target.</p></div>
+<p id="empty" hidden>No reviewed source example is mapped to this selection.</p>
+<h3>Matched targets</h3><ul id="matched"></ul>
+</section>
+<aside aria-labelledby="source-heading">
+<h2 id="source-heading">Source observation</h2>
+<p id="observation"></p><p id="coverage" class="note"></p>
+<section id="caption-section"><h3>Complete original figure caption</h3><p id="caption"></p></section>
+<details open><summary>Source limits</summary><p id="limits"></p></details>
+<details><summary>Original source and licence</summary><p id="credit"></p><p id="links"></p></details>
+<p id="case-context" class="note"></p>
+</aside>
+</div>
+<details><summary>What remains unrepresented</summary><ul id="scope-limits"></ul><p id="denominator"></p></details>
+<p>Source links from the reporting reference open separately so the current report stays open. Record the findings of the examination you are reporting.</p>
+</main></body></html>

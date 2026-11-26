@@ -45,7 +45,8 @@ def test_step_links_are_complete_and_existing_source_bindings_do_not_transfer():
     ref=detail(Curriculum(),resolve('ra.acute-abdomen'))['radiology_reference']
     assert {i for s in ref['walkthrough']['steps'] for i in s['images'] if i.startswith('open-acute-abdomen-ref-')}=={r['id'] for r in ref['structure_atlas']}
     assert not ref['walkthrough']['steps'][4]['images']
-    evidence=json.loads((ROOT/'data/radiology/radiology-asset-evidence.json').read_text());assets={r['id']:r for r in evidence['assets']}
+    from tools.acute_abdomen_panels_compatibility import before_acute_panel_evidence
+    evidence=json.loads(before_acute_panel_evidence((ROOT/'data/radiology/radiology-asset-evidence.json').read_bytes()));assets={r['id']:r for r in evidence['assets']}
     for row in ref['structure_atlas']:
         candidate=assets[row['id']];original=assets[row['source_reuse']['original_asset_id']]
         assert candidate['structure_ids']==[] and candidate['requirement_coverage']=={}

@@ -53,6 +53,8 @@ def reviewed_ledger():
 
 
 def before_holiatlas_bytes(path, raw, allow_older=False):
+    from tools.acute_abdomen_panels_compatibility import before_acute_panel_bytes
+    raw = before_acute_panel_bytes(path, raw)
     from tools.fidelity_continuation_runtime_compatibility import before_continuation_bytes
     raw = before_continuation_bytes(path, raw, allow_older=True)
     path = str(path)

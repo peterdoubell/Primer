@@ -1,0 +1,32 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Measure asteroid Bennu · Primer</title><link rel="stylesheet" href="/app/activities/kit.css"><link rel="stylesheet" href="style.css"><script type="module" src="lab.js"></script></head>
+<body><main><nav aria-label="Lessons"><a href="/app/#/node/math.2.geometry">Area, Perimeter and Volume</a> · <a href="/app/#/node/math.4.int-calc">Integral Calculus</a> · <a href="/app/#/node/math.5.numerical">Numerical Analysis</a></nav>
+<h1>Measure asteroid Bennu</h1>
+<div class="intro"><figure><a href="/source-media/reference-media/lesson-sources/bennu/polycam.png" aria-label="Open the full PolyCam mosaic"><img width="1024" height="968" src="/source-media/reference-media/lesson-sources/bennu/polycam.png" alt="Spacecraft mosaic of Bennu showing its equatorial bulge, boulders and shadowed limb"></a><figcaption>PolyCam observed Bennu from 24 km on 2 December 2018. NASA/Goddard/University of Arizona. <a href="https://science.nasa.gov/resource/bennu-mosaic/">Original mosaic</a></figcaption></figure>
+<div><p>How do you measure the volume of an irregular solid? Cut the spacecraft’s laser-altimetry shape model into sections. Then compare a stack of slabs with the volume enclosed by all its triangular faces.</p>
+<label for="resolution">Shape model · nominal resolution</label><select id="resolution" disabled></select>
+<p id="mesh-info"></p></div></div>
+<p role="status" id="status">Loading the archived shape…</p><button type="button" id="retry" hidden>Retry model</button>
+<fieldset id="controls" disabled><legend>Place a section</legend>
+<div class="controls"><div><label for="axis">Axis perpendicular to the section</label><select id="axis"><option value="2">Z</option><option value="0">X</option><option value="1">Y</option></select></div>
+<div><label for="height">Position <output id="height-value" for="height"></output></label><input type="range" id="height" min="0" max="128" step="1" value="64"></div>
+<div><label for="cutaway"><input id="cutaway" type="checkbox" checked> Hide the surface above this plane</label></div></div>
+<div class="views"><section><h2>Survey model</h2><canvas id="solid" tabindex="0" role="img" aria-label="Rotatable shape model of Bennu showing the selected section"></canvas>
+<p id="webgl-note">The teal face marks the cut through the model. Drag to rotate, or use the arrow keys.</p><div class="controls"><div><label for="yaw">Rotation</label><input id="yaw" type="range" min="-180" max="180" value="27"></div><div><label for="pitch">Tilt</label><input id="pitch" type="range" min="-88" max="88" value="28"></div></div></section>
+<section><h2>Section boundary</h2><canvas id="slice" role="img" aria-label="True intersection between the selected plane and the model’s triangle faces"></canvas><p id="slice-reading"></p></section></div>
+<h2>Build up the volume</h2>
+<div class="controls"><div><label for="slabs">Equal-thickness slabs</label><select id="slabs"><option>2</option><option>4</option><option selected>8</option><option>16</option><option>32</option><option>64</option></select></div>
+<div><label for="rule">Area used in each slab</label><select id="rule"><option value="midpoint">Midpoint</option><option value="left">Left endpoint</option><option value="trapezoid">Average of both endpoints</option></select></div></div>
+<canvas id="profile" role="img" aria-label="Area against position, with the selected slab approximation"></canvas>
+<p>The green curve connects 129 measured section areas. The shaded strips show the approximation. The orange line follows the selected section.</p>
+<table><caption>Volume estimate</caption><tbody id="results"></tbody></table>
+<section><h3>Find a sufficient slice count</h3><p>Find the smallest listed number of slabs that brings the chosen rule within the target error for this model and axis.</p>
+<div class="controls"><div><label for="target">Target relative error</label><select id="target"><option value="1">1%</option><option value="0.5" selected>0.5%</option><option value="0.1">0.1%</option></select></div>
+<div><label for="guess">Your answer</label><select id="guess"><option>2</option><option>4</option><option>8</option><option>16</option><option>32</option><option>64</option><option value="0">None of these</option></select></div></div>
+<button type="button" id="check-answer">Check slice count</button><p id="feedback" aria-live="polite"></p></section>
+<details><summary>Read the individual slab areas</summary><div class="scroll"><table><thead><tr><th scope="col">Slab</th><th scope="col">Position interval (m)</th><th scope="col">Area used (m²)</th><th scope="col">Contribution (m³)</th></tr></thead><tbody id="slab-data"></tbody></table></div></details>
+</fieldset>
+<details><summary>Compare the three archived resolutions</summary><div class="scroll"><table><thead><tr><th scope="col">Resolution</th><th scope="col">Faces</th><th scope="col">Area (m²)</th><th scope="col">Volume (m³)</th></tr></thead><tbody id="models"></tbody></table></div>
+<p>Finer triangles capture more surface relief. For each closed model, surface area is the sum of the triangle areas. Volume is the sum of the signed tetrahedral volumes formed by the origin and each oriented face.</p></details>
+<footer><p>Source geometry by the OSIRIS-REx Altimetry Working Group, archived in NASA’s Planetary Data System. The Canadian Space Agency contributed the laser altimeter. The three v21a meshes use the same body-fixed frame. Their differences measure how these representations differ; the spacecraft photograph provides a separate view. <a href="https://naif.jpl.nasa.gov/pub/naif/pds/pds4/orex/orex_spice/spice_kernels/dsk/">PDS shape archive</a> · <a id="label-link" href="source.json">Selected model record</a></p></footer>
+</main></body></html>
