@@ -106,6 +106,49 @@ def activity_source_illustrations(errors: List[str]) -> set[Path]:
     return paths
 
 
+
+def manuscript_illustrations(errors: List[str]) -> set[Path]:
+    """Recognise the four facsimiles only when the manuscript activity actually references them."""
+    catalog = WEB_ROOT / 'language/address-drafts/witnesses.json'
+    if not catalog.is_file():
+        return set()
+    try:
+        entry = '/app/language/address-drafts/index.html'
+        registry = json.loads((WEB_ROOT / 'activities/registry.json').read_bytes())
+        if not (WEB_ROOT / entry.removeprefix('/app/')).is_file() or any(
+                not any(row.get('href') == entry for row in registry.get(node, []))
+                for node in ('lang.5.philology', 'lang.3.rhetoric')):
+            raise ValueError('manuscript activity registration is incomplete')
+        receipt = json.loads((ROOT / 'docs/address-drafts/source.json').read_bytes())
+        raw = catalog.read_bytes()
+        if hashlib.sha256(raw).hexdigest() != receipt['catalogSHA256']:
+            raise ValueError('manuscript catalog differs from its source receipt')
+        witnesses = json.loads(raw)['witnesses']
+        index = json.loads((ROOT / 'data/lesson-illustrations.json').read_bytes())
+        expected_pages = {page['image']: page for page in receipt['pages']}
+        paths = set()
+        for key in ('nicolay', 'hay'):
+            pages = witnesses[key]['pages']
+            if [p['number'] for p in pages] != [1, 2]:
+                raise ValueError('each manuscript requires its two original pages')
+            for number, page in zip((1, 2), pages):
+                relative = Path('illustrations/address-drafts') / f'{key}-{number}.webp'
+                url = '/app/' + relative.as_posix()
+                if page['image'] != url or expected_pages.get(url) != page:
+                    raise ValueError('source manuscript page identity differs')
+                image = WEB_ROOT / relative
+                metadata = {k: page[k] for k in ('width', 'height', 'sha256')}
+                if (index.get(url) != metadata or webp_dimensions(image) != (page['width'], page['height'])
+                        or image.stat().st_size != page['bytes'] or hashlib.sha256(image.read_bytes()).hexdigest() != page['sha256']):
+                    raise ValueError('source manuscript rendition differs: ' + url)
+                paths.add(relative)
+        if len(expected_pages) != 4:
+            raise ValueError('unexpected source pages')
+        return paths
+    except (KeyError, TypeError, ValueError, OSError) as exc:
+        errors.append('manuscript source art: ' + str(exc))
+        return set()
+
 def audit() -> Dict[str, object]:
     errors: List[str] = []
     domains = []
@@ -216,12 +259,12 @@ def audit() -> Dict[str, object]:
             "missing": missing,
         })
     referenced_paths = {Path(url.removeprefix("/app/")) for url in urls}
-    activity_paths = activity_source_illustrations(errors)
+    activity_paths = activity_source_illustrations(errors) | manuscript_illustrations(errors)
     audited_paths = {
         path.relative_to(WEB_ROOT)
         for path in (WEB_ROOT / "illustrations").rglob("*.webp")
         if CANONICAL_WEBP.fullmatch(path.name)
-        or path.parent == WEB_ROOT / "illustrations/word-samples"
+        or path.parent in {WEB_ROOT / "illustrations/word-samples", WEB_ROOT / "illustrations/address-drafts"}
     }
     orphan_webps = sorted(str(path) for path in audited_paths - referenced_paths - activity_paths)
     for path in orphan_webps:

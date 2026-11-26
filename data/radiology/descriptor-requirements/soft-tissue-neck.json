@@ -1,0 +1,2931 @@
+{
+  "schema_version": 1,
+  "schema": "primer.typed-descriptor-requirements/1",
+  "investigation_id": "us.soft-tissue-neck",
+  "title": "Ultrasound soft tissue neck",
+  "guide_id": "rad.5.neck-nodes",
+  "clinical_validation_status": "unreviewed",
+  "clinical_approval": false,
+  "structure_coverage_granted": false,
+  "representation_completion_claim": false,
+  "source_report": {
+    "author_path": "data/radiology/anatomic-additions-20261119.json",
+    "author_investigation_sha256": "4e9f7c44e788fca1e7c1ed9be061640583db002830b17f962679ee26cfdc8d39",
+    "compiled_path": "data/radiology/descriptor-reporting.json",
+    "compiled_investigation_sha256": "6c7a139f85a10c3658f38be819e00f66683cdfaf3dde6e1178d2fbb6e8ca4d34",
+    "fast_report_path": "data/radiology/report-templates/additions-20261119.json",
+    "fast_report_sha256": "7e516e1f32d73a5ffb2107e28746d4422844492fdfb302e5c45e8fdf4247845c",
+    "source_section_ids": [
+      "technique",
+      "area-of-concern",
+      "parotid-glands",
+      "submandibular-glands",
+      "thyroid-gland",
+      "right-neck-nodes",
+      "left-neck-nodes",
+      "vessels",
+      "muscles-and-soft-tissues"
+    ],
+    "source_section_count": 9,
+    "authored_report_citation_ids": [
+      "acr-parameters"
+    ],
+    "citation_scope": "The original authoring cites the generic ACR parameter index. The specific AIUM citation is an independent audit rationale; no direct derivation of the author text is claimed."
+  },
+  "sources": [
+    {
+      "id": "current-neck-authoring",
+      "kind": "current_authored_report",
+      "path": "data/radiology/anatomic-additions-20261119.json",
+      "clinical_approval": false
+    },
+    {
+      "id": "aium-head-neck-2023",
+      "kind": "author_guidance",
+      "title": "AIUM Practice Parameter for Diagnostic Ultrasound of the Thyroid and Extracranial Head and Neck",
+      "doi": "10.1002/jum.16251",
+      "url": "https://onlinelibrary.wiley.com/doi/10.1002/jum.16251",
+      "published": "2023-05-05",
+      "checked_on": "2026-11-22",
+      "use": "Requirement rationale and scope; no copied images, altered report, clinical approval or automatic classification."
+    }
+  ],
+  "conventions": {
+    "ordinary_anatomy": "Image, schematic and model are separate Primer learning obligations, not a claim that the guidance mandates three teaching representations.",
+    "current_observations": "Findings, measurements, flow, classification and examination scope need actual patient evidence. They do not create automatic normal-mesh obligations.",
+    "sides": "Paired targets follow explicit right/left report choices and the authored bilateral examination. The thyroid isthmus is not duplicated.",
+    "vasculature": "Named common-carotid and internal-jugular landmarks are distinct from patency, thrombus and stenosis assessment. No quantitative duplex thresholds or complete duplex protocol are added.",
+    "scope": "A focused examination retains acquired and unassessed limits. No unlisted muscle set, sublingual glands, parathyroids, arterial branches or twelve full nodal station volumes are inferred.",
+    "completion": "A label, literal binding, license or multiple partial examples never establishes a complete set or clinical approval."
+  },
+  "sections": [
+    {
+      "id": "technique",
+      "label": "Examination performed",
+      "section_sha256": "4336137a743c189c369d53954401608f8386c3ae5c4b63e0a6a85201df0f23f3",
+      "anatomical_requirement_ids": [],
+      "typed_record_ids": [
+        "neck_us.technique.assessment"
+      ]
+    },
+    {
+      "id": "area-of-concern",
+      "label": "Area of concern",
+      "section_sha256": "d0e7fbedf9b181748b85091135a12f02612f6cf41d1edcd53fade8d95df4aab6",
+      "anatomical_requirement_ids": [],
+      "typed_record_ids": [
+        "neck_us.area-of-concern.normal",
+        "neck_us.area-of-concern.lesion",
+        "neck_us.area-of-concern.size",
+        "neck_us.area-of-concern.vascularity",
+        "neck_us.area-of-concern.nature"
+      ]
+    },
+    {
+      "id": "parotid-glands",
+      "label": "Parotid glands",
+      "section_sha256": "80fb0e01f7dbd39685dad6596ea86be52ff86aeb15db00e2b1e79be460679b9e",
+      "anatomical_requirement_ids": [
+        "neck_us.parotid.right",
+        "neck_us.parotid_duct.right",
+        "neck_us.parotid.left",
+        "neck_us.parotid_duct.left"
+      ],
+      "typed_record_ids": [
+        "neck_us.parotid-glands.normal",
+        "neck_us.parotid-glands.lesion",
+        "neck_us.parotid-glands.size",
+        "neck_us.parotid-glands.diffuse",
+        "neck_us.parotid-glands.calculus"
+      ]
+    },
+    {
+      "id": "submandibular-glands",
+      "label": "Submandibular glands",
+      "section_sha256": "e46bb412e962f5b38ba30f95695cda7adbd03a70df1d983905c7bffae779ddc8",
+      "anatomical_requirement_ids": [
+        "neck_us.submandibular.right",
+        "neck_us.submandibular_duct.right",
+        "neck_us.submandibular.left",
+        "neck_us.submandibular_duct.left"
+      ],
+      "typed_record_ids": [
+        "neck_us.submandibular-glands.normal",
+        "neck_us.submandibular-glands.lesion",
+        "neck_us.submandibular-glands.size",
+        "neck_us.submandibular-glands.diffuse",
+        "neck_us.submandibular-glands.calculus"
+      ]
+    },
+    {
+      "id": "thyroid-gland",
+      "label": "Thyroid gland",
+      "section_sha256": "0ebecbddf55a5010a85ccb5c9e5271dbf3380dd16160265b4c478293497a0c79",
+      "anatomical_requirement_ids": [
+        "neck_us.thyroid_lobe.right",
+        "neck_us.thyroid_lobe.left",
+        "neck_us.thyroid_isthmus.not_applicable"
+      ],
+      "typed_record_ids": [
+        "neck_us.thyroid-gland.normal",
+        "neck_us.thyroid-gland.nodule",
+        "neck_us.thyroid-gland.size",
+        "neck_us.thyroid-gland.tirads",
+        "neck_us.thyroid-gland.diffuse",
+        "neck_us.thyroid-gland.diffuse.flow"
+      ]
+    },
+    {
+      "id": "right-neck-nodes",
+      "label": "Right neck",
+      "section_sha256": "20dfac6f9ff2f86142e60575e66ab19995bd9f831657a2d7eda19bb8edc5dc1e",
+      "anatomical_requirement_ids": [],
+      "typed_record_ids": [
+        "neck_us.right-neck-nodes.normal",
+        "neck_us.right-neck-nodes.node",
+        "neck_us.right-neck-nodes.size",
+        "neck_us.right-neck-nodes.features",
+        "neck_us.right-neck-nodes.features.flow",
+        "neck_us.nodal_scope.right"
+      ]
+    },
+    {
+      "id": "left-neck-nodes",
+      "label": "Left neck",
+      "section_sha256": "ee0fb81047d70e779f55f1c0c598fbc444281848235ce7700ec1bfb35d91c9bc",
+      "anatomical_requirement_ids": [],
+      "typed_record_ids": [
+        "neck_us.left-neck-nodes.normal",
+        "neck_us.left-neck-nodes.node",
+        "neck_us.left-neck-nodes.size",
+        "neck_us.left-neck-nodes.features",
+        "neck_us.left-neck-nodes.features.flow",
+        "neck_us.nodal_scope.left"
+      ]
+    },
+    {
+      "id": "vessels",
+      "label": "Vessels",
+      "section_sha256": "f86c821a867bc76aaa579ac664def27d5de2bc4ce7998683a84eb57a1ff85d0e",
+      "anatomical_requirement_ids": [
+        "neck_us.common_carotid.right",
+        "neck_us.internal_jugular.right",
+        "neck_us.common_carotid.left",
+        "neck_us.internal_jugular.left"
+      ],
+      "typed_record_ids": [
+        "neck_us.vessels.normal",
+        "neck_us.vessels.thrombus",
+        "neck_us.vessels.carotid"
+      ]
+    },
+    {
+      "id": "muscles-and-soft-tissues",
+      "label": "Muscles and soft tissues",
+      "section_sha256": "b1d2043396ffdd9d77c83a0c61f654e12d98abc40a1ecbd2f56c8bb06bc56d6c",
+      "anatomical_requirement_ids": [],
+      "typed_record_ids": [
+        "neck_us.muscles-and-soft-tissues.normal",
+        "neck_us.muscles-and-soft-tissues.abnormal"
+      ]
+    }
+  ],
+  "anatomical_requirements": [
+    {
+      "id": "neck_us.parotid.right",
+      "name": "right parotid gland",
+      "requirement_type": "anatomical_landmark",
+      "laterality": "right",
+      "tissue_class": "gland_body",
+      "source_section_id": "parotid-glands",
+      "report_provenance": {
+        "path": "data/radiology/anatomic-additions-20261119.json",
+        "section_id": "parotid-glands",
+        "section_sha256": "80fb0e01f7dbd39685dad6596ea86be52ff86aeb15db00e2b1e79be460679b9e"
+      },
+      "guidance": [
+        {
+          "source_id": "aium-head-neck-2023",
+          "sections": [
+            "Parotid and Submandibular Evaluation"
+          ]
+        }
+      ],
+      "required_representations": [
+        "clinical_image",
+        "schematic",
+        "model"
+      ],
+      "modality_scope": [
+        "Ultrasound"
+      ],
+      "required_extent": "The named structure, its relevant interfaces and acquired limits. A partial source or a label alone cannot establish the complete requirement.",
+      "clinical_approval": false,
+      "representation_completion_claim": false
+    },
+    {
+      "id": "neck_us.parotid_duct.right",
+      "name": "right main parotid duct",
+      "requirement_type": "anatomical_landmark",
+      "laterality": "right",
+      "tissue_class": "salivary_duct",
+      "source_section_id": "parotid-glands",
+      "report_provenance": {
+        "path": "data/radiology/anatomic-additions-20261119.json",
+        "section_id": "parotid-glands",
+        "section_sha256": "80fb0e01f7dbd39685dad6596ea86be52ff86aeb15db00e2b1e79be460679b9e"
+      },
+      "guidance": [
+        {
+          "source_id": "aium-head-neck-2023",
+          "sections": [
+            "Parotid and Submandibular Evaluation"
+          ]
+        }
+      ],
+      "required_representations": [
+        "clinical_image",
+        "schematic",
+        "model"
+      ],
+      "modality_scope": [
+        "Ultrasound"
+      ],
+      "required_extent": "The named structure, its relevant interfaces and acquired limits. A partial source or a label alone cannot establish the complete requirement.",
+      "clinical_approval": false,
+      "representation_completion_claim": false,
+      "acquisition_condition": "Duct/obstruction question and actual visibility; no claim that a normal nondilated duct must be fully visible."
+    },
+    {
+      "id": "neck_us.parotid.left",
+      "name": "left parotid gland",
+      "requirement_type": "anatomical_landmark",
+      "laterality": "left",
+      "tissue_class": "gland_body",
+      "source_section_id": "parotid-glands",
+      "report_provenance": {
+        "path": "data/radiology/anatomic-additions-20261119.json",
+        "section_id": "parotid-glands",
+        "section_sha256": "80fb0e01f7dbd39685dad6596ea86be52ff86aeb15db00e2b1e79be460679b9e"
+      },
+      "guidance": [
+        {
+          "source_id": "aium-head-neck-2023",
+          "sections": [
+            "Parotid and Submandibular Evaluation"
+          ]
+        }
+      ],
+      "required_representations": [
+        "clinical_image",
+        "schematic",
+        "model"
+      ],
+      "modality_scope": [
+        "Ultrasound"
+      ],
+      "required_extent": "The named structure, its relevant interfaces and acquired limits. A partial source or a label alone cannot establish the complete requirement.",
+      "clinical_approval": false,
+      "representation_completion_claim": false
+    },
+    {
+      "id": "neck_us.parotid_duct.left",
+      "name": "left main parotid duct",
+      "requirement_type": "anatomical_landmark",
+      "laterality": "left",
+      "tissue_class": "salivary_duct",
+      "source_section_id": "parotid-glands",
+      "report_provenance": {
+        "path": "data/radiology/anatomic-additions-20261119.json",
+        "section_id": "parotid-glands",
+        "section_sha256": "80fb0e01f7dbd39685dad6596ea86be52ff86aeb15db00e2b1e79be460679b9e"
+      },
+      "guidance": [
+        {
+          "source_id": "aium-head-neck-2023",
+          "sections": [
+            "Parotid and Submandibular Evaluation"
+          ]
+        }
+      ],
+      "required_representations": [
+        "clinical_image",
+        "schematic",
+        "model"
+      ],
+      "modality_scope": [
+        "Ultrasound"
+      ],
+      "required_extent": "The named structure, its relevant interfaces and acquired limits. A partial source or a label alone cannot establish the complete requirement.",
+      "clinical_approval": false,
+      "representation_completion_claim": false,
+      "acquisition_condition": "Duct/obstruction question and actual visibility; no claim that a normal nondilated duct must be fully visible."
+    },
+    {
+      "id": "neck_us.submandibular.right",
+      "name": "right submandibular gland",
+      "requirement_type": "anatomical_landmark",
+      "laterality": "right",
+      "tissue_class": "gland_body",
+      "source_section_id": "submandibular-glands",
+      "report_provenance": {
+        "path": "data/radiology/anatomic-additions-20261119.json",
+        "section_id": "submandibular-glands",
+        "section_sha256": "e46bb412e962f5b38ba30f95695cda7adbd03a70df1d983905c7bffae779ddc8"
+      },
+      "guidance": [
+        {
+          "source_id": "aium-head-neck-2023",
+          "sections": [
+            "Parotid and Submandibular Evaluation"
+          ]
+        }
+      ],
+      "required_representations": [
+        "clinical_image",
+        "schematic",
+        "model"
+      ],
+      "modality_scope": [
+        "Ultrasound"
+      ],
+      "required_extent": "The named structure, its relevant interfaces and acquired limits. A partial source or a label alone cannot establish the complete requirement.",
+      "clinical_approval": false,
+      "representation_completion_claim": false
+    },
+    {
+      "id": "neck_us.submandibular_duct.right",
+      "name": "right main submandibular duct",
+      "requirement_type": "anatomical_landmark",
+      "laterality": "right",
+      "tissue_class": "salivary_duct",
+      "source_section_id": "submandibular-glands",
+      "report_provenance": {
+        "path": "data/radiology/anatomic-additions-20261119.json",
+        "section_id": "submandibular-glands",
+        "section_sha256": "e46bb412e962f5b38ba30f95695cda7adbd03a70df1d983905c7bffae779ddc8"
+      },
+      "guidance": [
+        {
+          "source_id": "aium-head-neck-2023",
+          "sections": [
+            "Parotid and Submandibular Evaluation"
+          ]
+        }
+      ],
+      "required_representations": [
+        "clinical_image",
+        "schematic",
+        "model"
+      ],
+      "modality_scope": [
+        "Ultrasound"
+      ],
+      "required_extent": "The named structure, its relevant interfaces and acquired limits. A partial source or a label alone cannot establish the complete requirement.",
+      "clinical_approval": false,
+      "representation_completion_claim": false,
+      "acquisition_condition": "Duct/obstruction question and actual visibility; no claim that a normal nondilated duct must be fully visible."
+    },
+    {
+      "id": "neck_us.submandibular.left",
+      "name": "left submandibular gland",
+      "requirement_type": "anatomical_landmark",
+      "laterality": "left",
+      "tissue_class": "gland_body",
+      "source_section_id": "submandibular-glands",
+      "report_provenance": {
+        "path": "data/radiology/anatomic-additions-20261119.json",
+        "section_id": "submandibular-glands",
+        "section_sha256": "e46bb412e962f5b38ba30f95695cda7adbd03a70df1d983905c7bffae779ddc8"
+      },
+      "guidance": [
+        {
+          "source_id": "aium-head-neck-2023",
+          "sections": [
+            "Parotid and Submandibular Evaluation"
+          ]
+        }
+      ],
+      "required_representations": [
+        "clinical_image",
+        "schematic",
+        "model"
+      ],
+      "modality_scope": [
+        "Ultrasound"
+      ],
+      "required_extent": "The named structure, its relevant interfaces and acquired limits. A partial source or a label alone cannot establish the complete requirement.",
+      "clinical_approval": false,
+      "representation_completion_claim": false
+    },
+    {
+      "id": "neck_us.submandibular_duct.left",
+      "name": "left main submandibular duct",
+      "requirement_type": "anatomical_landmark",
+      "laterality": "left",
+      "tissue_class": "salivary_duct",
+      "source_section_id": "submandibular-glands",
+      "report_provenance": {
+        "path": "data/radiology/anatomic-additions-20261119.json",
+        "section_id": "submandibular-glands",
+        "section_sha256": "e46bb412e962f5b38ba30f95695cda7adbd03a70df1d983905c7bffae779ddc8"
+      },
+      "guidance": [
+        {
+          "source_id": "aium-head-neck-2023",
+          "sections": [
+            "Parotid and Submandibular Evaluation"
+          ]
+        }
+      ],
+      "required_representations": [
+        "clinical_image",
+        "schematic",
+        "model"
+      ],
+      "modality_scope": [
+        "Ultrasound"
+      ],
+      "required_extent": "The named structure, its relevant interfaces and acquired limits. A partial source or a label alone cannot establish the complete requirement.",
+      "clinical_approval": false,
+      "representation_completion_claim": false,
+      "acquisition_condition": "Duct/obstruction question and actual visibility; no claim that a normal nondilated duct must be fully visible."
+    },
+    {
+      "id": "neck_us.thyroid_lobe.right",
+      "name": "right thyroid lobe",
+      "requirement_type": "anatomical_landmark",
+      "laterality": "right",
+      "tissue_class": "gland_body",
+      "source_section_id": "thyroid-gland",
+      "report_provenance": {
+        "path": "data/radiology/anatomic-additions-20261119.json",
+        "section_id": "thyroid-gland",
+        "section_sha256": "0ebecbddf55a5010a85ccb5c9e5271dbf3380dd16160265b4c478293497a0c79"
+      },
+      "guidance": [
+        {
+          "source_id": "aium-head-neck-2023",
+          "sections": [
+            "Thyroid Evaluation"
+          ]
+        }
+      ],
+      "required_representations": [
+        "clinical_image",
+        "schematic",
+        "model"
+      ],
+      "modality_scope": [
+        "Ultrasound"
+      ],
+      "required_extent": "The named structure, its relevant interfaces and acquired limits. A partial source or a label alone cannot establish the complete requirement.",
+      "clinical_approval": false,
+      "representation_completion_claim": false
+    },
+    {
+      "id": "neck_us.thyroid_lobe.left",
+      "name": "left thyroid lobe",
+      "requirement_type": "anatomical_landmark",
+      "laterality": "left",
+      "tissue_class": "gland_body",
+      "source_section_id": "thyroid-gland",
+      "report_provenance": {
+        "path": "data/radiology/anatomic-additions-20261119.json",
+        "section_id": "thyroid-gland",
+        "section_sha256": "0ebecbddf55a5010a85ccb5c9e5271dbf3380dd16160265b4c478293497a0c79"
+      },
+      "guidance": [
+        {
+          "source_id": "aium-head-neck-2023",
+          "sections": [
+            "Thyroid Evaluation"
+          ]
+        }
+      ],
+      "required_representations": [
+        "clinical_image",
+        "schematic",
+        "model"
+      ],
+      "modality_scope": [
+        "Ultrasound"
+      ],
+      "required_extent": "The named structure, its relevant interfaces and acquired limits. A partial source or a label alone cannot establish the complete requirement.",
+      "clinical_approval": false,
+      "representation_completion_claim": false
+    },
+    {
+      "id": "neck_us.thyroid_isthmus.not_applicable",
+      "name": "thyroid isthmus",
+      "requirement_type": "anatomical_landmark",
+      "laterality": "not_applicable",
+      "tissue_class": "gland_body",
+      "source_section_id": "thyroid-gland",
+      "report_provenance": {
+        "path": "data/radiology/anatomic-additions-20261119.json",
+        "section_id": "thyroid-gland",
+        "section_sha256": "0ebecbddf55a5010a85ccb5c9e5271dbf3380dd16160265b4c478293497a0c79"
+      },
+      "guidance": [
+        {
+          "source_id": "aium-head-neck-2023",
+          "sections": [
+            "Thyroid Evaluation"
+          ]
+        }
+      ],
+      "required_representations": [
+        "clinical_image",
+        "schematic",
+        "model"
+      ],
+      "modality_scope": [
+        "Ultrasound"
+      ],
+      "required_extent": "The named structure, its relevant interfaces and acquired limits. A partial source or a label alone cannot establish the complete requirement.",
+      "clinical_approval": false,
+      "representation_completion_claim": false
+    },
+    {
+      "id": "neck_us.common_carotid.right",
+      "name": "right common carotid artery",
+      "requirement_type": "anatomical_landmark",
+      "laterality": "right",
+      "tissue_class": "artery_landmark",
+      "source_section_id": "vessels",
+      "report_provenance": {
+        "path": "data/radiology/anatomic-additions-20261119.json",
+        "section_id": "vessels",
+        "section_sha256": "f86c821a867bc76aaa579ac664def27d5de2bc4ce7998683a84eb57a1ff85d0e"
+      },
+      "guidance": [
+        {
+          "source_id": "aium-head-neck-2023",
+          "sections": [
+            "Specification of the Examination",
+            "Equipment Specification"
+          ]
+        }
+      ],
+      "required_representations": [
+        "clinical_image",
+        "schematic",
+        "model"
+      ],
+      "modality_scope": [
+        "Ultrasound"
+      ],
+      "required_extent": "The named structure, its relevant interfaces and acquired limits. A partial source or a label alone cannot establish the complete requirement.",
+      "clinical_approval": false,
+      "representation_completion_claim": false,
+      "guidance_scope": "Target identity comes from the actual report; the parameter supports acquisition/documentation, not a complete vascular protocol."
+    },
+    {
+      "id": "neck_us.internal_jugular.right",
+      "name": "right internal jugular vein",
+      "requirement_type": "anatomical_landmark",
+      "laterality": "right",
+      "tissue_class": "vein_landmark",
+      "source_section_id": "vessels",
+      "report_provenance": {
+        "path": "data/radiology/anatomic-additions-20261119.json",
+        "section_id": "vessels",
+        "section_sha256": "f86c821a867bc76aaa579ac664def27d5de2bc4ce7998683a84eb57a1ff85d0e"
+      },
+      "guidance": [
+        {
+          "source_id": "aium-head-neck-2023",
+          "sections": [
+            "Specification of the Examination",
+            "Equipment Specification"
+          ]
+        }
+      ],
+      "required_representations": [
+        "clinical_image",
+        "schematic",
+        "model"
+      ],
+      "modality_scope": [
+        "Ultrasound"
+      ],
+      "required_extent": "The named structure, its relevant interfaces and acquired limits. A partial source or a label alone cannot establish the complete requirement.",
+      "clinical_approval": false,
+      "representation_completion_claim": false,
+      "guidance_scope": "Target identity comes from the actual report; the parameter supports acquisition/documentation, not a complete vascular protocol."
+    },
+    {
+      "id": "neck_us.common_carotid.left",
+      "name": "left common carotid artery",
+      "requirement_type": "anatomical_landmark",
+      "laterality": "left",
+      "tissue_class": "artery_landmark",
+      "source_section_id": "vessels",
+      "report_provenance": {
+        "path": "data/radiology/anatomic-additions-20261119.json",
+        "section_id": "vessels",
+        "section_sha256": "f86c821a867bc76aaa579ac664def27d5de2bc4ce7998683a84eb57a1ff85d0e"
+      },
+      "guidance": [
+        {
+          "source_id": "aium-head-neck-2023",
+          "sections": [
+            "Specification of the Examination",
+            "Equipment Specification"
+          ]
+        }
+      ],
+      "required_representations": [
+        "clinical_image",
+        "schematic",
+        "model"
+      ],
+      "modality_scope": [
+        "Ultrasound"
+      ],
+      "required_extent": "The named structure, its relevant interfaces and acquired limits. A partial source or a label alone cannot establish the complete requirement.",
+      "clinical_approval": false,
+      "representation_completion_claim": false,
+      "guidance_scope": "Target identity comes from the actual report; the parameter supports acquisition/documentation, not a complete vascular protocol."
+    },
+    {
+      "id": "neck_us.internal_jugular.left",
+      "name": "left internal jugular vein",
+      "requirement_type": "anatomical_landmark",
+      "laterality": "left",
+      "tissue_class": "vein_landmark",
+      "source_section_id": "vessels",
+      "report_provenance": {
+        "path": "data/radiology/anatomic-additions-20261119.json",
+        "section_id": "vessels",
+        "section_sha256": "f86c821a867bc76aaa579ac664def27d5de2bc4ce7998683a84eb57a1ff85d0e"
+      },
+      "guidance": [
+        {
+          "source_id": "aium-head-neck-2023",
+          "sections": [
+            "Specification of the Examination",
+            "Equipment Specification"
+          ]
+        }
+      ],
+      "required_representations": [
+        "clinical_image",
+        "schematic",
+        "model"
+      ],
+      "modality_scope": [
+        "Ultrasound"
+      ],
+      "required_extent": "The named structure, its relevant interfaces and acquired limits. A partial source or a label alone cannot establish the complete requirement.",
+      "clinical_approval": false,
+      "representation_completion_claim": false,
+      "guidance_scope": "Target identity comes from the actual report; the parameter supports acquisition/documentation, not a complete vascular protocol."
+    }
+  ],
+  "evidence_requirements": [
+    {
+      "id": "neck_us.technique.assessment",
+      "name": "Examination performed",
+      "requirement_type": "examination_scope",
+      "source_section_id": "technique",
+      "source_field_id": "assessment",
+      "report_provenance": {
+        "path": "data/radiology/anatomic-additions-20261119.json",
+        "section_id": "technique",
+        "field_id": "assessment",
+        "statement": "The examination was performed [to the standard protocol / with a modified protocol / as a limited examination].",
+        "statement_sha256": "16020ac63b94b5ba93c2ea8016e2b98727b55706440180f0c03573e893a192c1",
+        "compiled_field_id": "us.soft-tissue-neck:technique:assessment",
+        "compiled_field_sha256": "c2ec5884a38776cebc894322d09b3e9131a39576031706eee264667569e17036"
+      },
+      "guidance": [
+        {
+          "source_id": "aium-head-neck-2023",
+          "sections": [
+            "Specification of the Examination",
+            "Documentation",
+            "Equipment Specification"
+          ]
+        }
+      ],
+      "requires_any": [],
+      "source_slots": [
+        {
+          "id": "slot-1",
+          "kind": "choice",
+          "source_token": "[to the standard protocol / with a modified protocol / as a limited examination]",
+          "options": [
+            {
+              "value": "to the standard protocol",
+              "label": "to the standard protocol"
+            },
+            {
+              "value": "with a modified protocol",
+              "label": "with a modified protocol"
+            },
+            {
+              "value": "as a limited examination",
+              "label": "as a limited examination"
+            }
+          ]
+        }
+      ],
+      "required_evidence": [
+        "actual_exam_scope_and_unassessed_limits"
+      ],
+      "required_representations": [],
+      "repeated_instances": "actual_exam_scope",
+      "current_patient_evidence": "requires_actual_exam; teaching assets cannot satisfy it",
+      "clinical_approval": false,
+      "representation_completion_claim": false
+    },
+    {
+      "id": "neck_us.area-of-concern.normal",
+      "name": "Area of concern assessment",
+      "requirement_type": "current_exam_assessment",
+      "source_section_id": "area-of-concern",
+      "source_field_id": "normal",
+      "report_provenance": {
+        "path": "data/radiology/anatomic-additions-20261119.json",
+        "section_id": "area-of-concern",
+        "field_id": "normal",
+        "statement": "No abnormality is identified in the area of concern.",
+        "statement_sha256": "ca19b609f112f4ac50a1d326411b13ded3d81a8c9149ab19775c1f9cd5b76310",
+        "compiled_field_id": "us.soft-tissue-neck:area-of-concern:normal",
+        "compiled_field_sha256": "b1086b69a5930ab302b1b62605802b59893f9d49e6d6f93364e402654e8b0629"
+      },
+      "guidance": [
+        {
+          "source_id": "aium-head-neck-2023",
+          "sections": [
+            "Indications",
+            "Specification of the Examination"
+          ]
+        }
+      ],
+      "requires_any": [],
+      "source_slots": [],
+      "required_evidence": [
+        "actual_acquired_grayscale_assessment"
+      ],
+      "required_representations": [],
+      "repeated_instances": "actual_exam_scope",
+      "current_patient_evidence": "requires_actual_exam; teaching assets cannot satisfy it",
+      "clinical_approval": false,
+      "representation_completion_claim": false
+    },
+    {
+      "id": "neck_us.area-of-concern.lesion",
+      "name": "Lesion",
+      "requirement_type": "current_finding",
+      "source_section_id": "area-of-concern",
+      "source_field_id": "lesion",
+      "report_provenance": {
+        "path": "data/radiology/anatomic-additions-20261119.json",
+        "section_id": "area-of-concern",
+        "field_id": "lesion",
+        "statement": "A [cystic / solid / mixed cystic and solid / fatty] lesion is present in the area of concern.",
+        "statement_sha256": "61bf3fe3f0cb38555f485c53ac4eea428e7cf0720737766fc7ea1db818419b49",
+        "compiled_field_id": "us.soft-tissue-neck:area-of-concern:lesion",
+        "compiled_field_sha256": "996d3789877f4998ff6a3c665a9e3aa7a9ddd3e88341d336f6d2eda039f05861"
+      },
+      "guidance": [
+        {
+          "source_id": "aium-head-neck-2023",
+          "sections": [
+            "Indications",
+            "Specification of the Examination"
+          ]
+        }
+      ],
+      "requires_any": [],
+      "source_slots": [
+        {
+          "id": "slot-1",
+          "kind": "choice",
+          "source_token": "[cystic / solid / mixed cystic and solid / fatty]",
+          "options": [
+            {
+              "value": "cystic",
+              "label": "cystic"
+            },
+            {
+              "value": "solid",
+              "label": "solid"
+            },
+            {
+              "value": "mixed cystic and solid",
+              "label": "mixed cystic and solid"
+            },
+            {
+              "value": "fatty",
+              "label": "fatty"
+            }
+          ]
+        }
+      ],
+      "required_evidence": [
+        "actual_patient_acquisition_and_localization"
+      ],
+      "required_representations": [],
+      "repeated_instances": "each_actual_finding_when_present",
+      "current_patient_evidence": "requires_actual_exam; teaching assets cannot satisfy it",
+      "clinical_approval": false,
+      "representation_completion_claim": false
+    },
+    {
+      "id": "neck_us.area-of-concern.size",
+      "name": "Size",
+      "requirement_type": "measurement",
+      "source_section_id": "area-of-concern",
+      "source_field_id": "size",
+      "report_provenance": {
+        "path": "data/radiology/anatomic-additions-20261119.json",
+        "section_id": "area-of-concern",
+        "field_id": "size",
+        "statement": "The lesion measures __ × __ × __ mm.",
+        "statement_sha256": "76ccbdba8b7680298c2765caf75b0354754d733c4c25d4a17e931bc7f074954b",
+        "compiled_field_id": "us.soft-tissue-neck:area-of-concern:size",
+        "compiled_field_sha256": "9d1123d96f05c1a56c40368504c2f3c4fe2a01260596148e6d9d1cabb612f509"
+      },
+      "guidance": [
+        {
+          "source_id": "aium-head-neck-2023",
+          "sections": [
+            "Indications",
+            "Specification of the Examination"
+          ]
+        }
+      ],
+      "requires_any": [
+        "us.soft-tissue-neck:area-of-concern:lesion"
+      ],
+      "source_slots": [
+        {
+          "id": "slot-1",
+          "kind": "number",
+          "unit": "mm",
+          "source_token": "__",
+          "options": []
+        },
+        {
+          "id": "slot-2",
+          "kind": "number",
+          "unit": "mm",
+          "source_token": "__",
+          "options": []
+        },
+        {
+          "id": "slot-3",
+          "kind": "number",
+          "unit": "mm",
+          "source_token": "__",
+          "options": []
+        }
+      ],
+      "required_evidence": [
+        "actual_patient_calibrated_measurement"
+      ],
+      "required_representations": [],
+      "repeated_instances": "each_actual_finding_when_present",
+      "current_patient_evidence": "requires_actual_exam; teaching assets cannot satisfy it",
+      "clinical_approval": false,
+      "representation_completion_claim": false,
+      "measurement": {
+        "unit": "mm",
+        "number_of_values": 3,
+        "axis_definition": "three_dimensions"
+      }
+    },
+    {
+      "id": "neck_us.area-of-concern.vascularity",
+      "name": "Vascularity",
+      "requirement_type": "flow_assessment",
+      "source_section_id": "area-of-concern",
+      "source_field_id": "vascularity",
+      "report_provenance": {
+        "path": "data/radiology/anatomic-additions-20261119.json",
+        "section_id": "area-of-concern",
+        "field_id": "vascularity",
+        "statement": "The lesion shows [no / peripheral / internal] Doppler vascularity.",
+        "statement_sha256": "40a8356356af02feb51c9c8ef8802f92c474109a46d458cb443beeb520109f3a",
+        "compiled_field_id": "us.soft-tissue-neck:area-of-concern:vascularity",
+        "compiled_field_sha256": "c723c2cd6bd2e33ab543d2828aa67654c316906e832104552ff8ece2471e1700"
+      },
+      "guidance": [
+        {
+          "source_id": "aium-head-neck-2023",
+          "sections": [
+            "Indications",
+            "Specification of the Examination"
+          ]
+        }
+      ],
+      "requires_any": [
+        "us.soft-tissue-neck:area-of-concern:lesion"
+      ],
+      "source_slots": [
+        {
+          "id": "slot-1",
+          "kind": "choice",
+          "source_token": "[no / peripheral / internal]",
+          "options": [
+            {
+              "value": "no",
+              "label": "no"
+            },
+            {
+              "value": "peripheral",
+              "label": "peripheral"
+            },
+            {
+              "value": "internal",
+              "label": "internal"
+            }
+          ]
+        }
+      ],
+      "required_evidence": [
+        "actual_patient_flow_sensitive_acquisition"
+      ],
+      "required_representations": [],
+      "repeated_instances": "each_actual_finding_when_present",
+      "current_patient_evidence": "requires_actual_exam; teaching assets cannot satisfy it",
+      "clinical_approval": false,
+      "representation_completion_claim": false
+    },
+    {
+      "id": "neck_us.area-of-concern.nature",
+      "name": "Appearance",
+      "requirement_type": "interpretation",
+      "source_section_id": "area-of-concern",
+      "source_field_id": "nature",
+      "report_provenance": {
+        "path": "data/radiology/anatomic-additions-20261119.json",
+        "section_id": "area-of-concern",
+        "field_id": "nature",
+        "statement": "The appearances are of [a lymph node / a thyroglossal duct cyst / a branchial cleft cyst / a lipoma / an abscess / a haematoma].",
+        "statement_sha256": "6690d891418073d8370330d246f771e121aac0b5cc35f5f97d8e19e08830018c",
+        "compiled_field_id": "us.soft-tissue-neck:area-of-concern:nature",
+        "compiled_field_sha256": "615d8ccfe157c684f3feb16a0a951a596de74914bb233a31849fb3c602c61bc5"
+      },
+      "guidance": [
+        {
+          "source_id": "aium-head-neck-2023",
+          "sections": [
+            "Indications",
+            "Specification of the Examination"
+          ]
+        }
+      ],
+      "requires_any": [
+        "us.soft-tissue-neck:area-of-concern:lesion"
+      ],
+      "source_slots": [
+        {
+          "id": "slot-1",
+          "kind": "choice",
+          "source_token": "[a lymph node / a thyroglossal duct cyst / a branchial cleft cyst / a lipoma / an abscess / a haematoma]",
+          "options": [
+            {
+              "value": "a lymph node",
+              "label": "a lymph node"
+            },
+            {
+              "value": "a thyroglossal duct cyst",
+              "label": "a thyroglossal duct cyst"
+            },
+            {
+              "value": "a branchial cleft cyst",
+              "label": "a branchial cleft cyst"
+            },
+            {
+              "value": "a lipoma",
+              "label": "a lipoma"
+            },
+            {
+              "value": "an abscess",
+              "label": "an abscess"
+            },
+            {
+              "value": "a haematoma",
+              "label": "a haematoma"
+            }
+          ]
+        }
+      ],
+      "required_evidence": [
+        "actual_patient_findings_and_clinical_context"
+      ],
+      "required_representations": [],
+      "repeated_instances": "each_actual_finding_when_present",
+      "current_patient_evidence": "requires_actual_exam; teaching assets cannot satisfy it",
+      "clinical_approval": false,
+      "representation_completion_claim": false
+    },
+    {
+      "id": "neck_us.parotid-glands.normal",
+      "name": "Parotid glands assessment",
+      "requirement_type": "current_exam_assessment",
+      "source_section_id": "parotid-glands",
+      "source_field_id": "normal",
+      "report_provenance": {
+        "path": "data/radiology/anatomic-additions-20261119.json",
+        "section_id": "parotid-glands",
+        "field_id": "normal",
+        "statement": "The parotid glands are normal in size and echotexture, with no focal lesion.",
+        "statement_sha256": "3bde66d61de98253a6b5f03b1e017477462fdf34db3f4202b92ac13f4fe9d568",
+        "compiled_field_id": "us.soft-tissue-neck:parotid-glands:normal",
+        "compiled_field_sha256": "bbdc1f29e4848a3b37df70bd9d2924fa3f7cb6020355b02a39570948b4323018"
+      },
+      "guidance": [
+        {
+          "source_id": "aium-head-neck-2023",
+          "sections": [
+            "Parotid and Submandibular Evaluation"
+          ]
+        }
+      ],
+      "requires_any": [],
+      "source_slots": [],
+      "required_evidence": [
+        "actual_acquired_grayscale_assessment"
+      ],
+      "required_representations": [],
+      "repeated_instances": "actual_exam_scope",
+      "current_patient_evidence": "requires_actual_exam; teaching assets cannot satisfy it",
+      "clinical_approval": false,
+      "representation_completion_claim": false
+    },
+    {
+      "id": "neck_us.parotid-glands.lesion",
+      "name": "Parotid lesion",
+      "requirement_type": "current_finding",
+      "source_section_id": "parotid-glands",
+      "source_field_id": "lesion",
+      "report_provenance": {
+        "path": "data/radiology/anatomic-additions-20261119.json",
+        "section_id": "parotid-glands",
+        "field_id": "lesion",
+        "statement": "A [solid / cystic / mixed] lesion is present in the [right / left] parotid gland.",
+        "statement_sha256": "8c41384c57ca2207f02d39b2d4be546898ad5dc69c6f860c1de4eddd23907afd",
+        "compiled_field_id": "us.soft-tissue-neck:parotid-glands:lesion",
+        "compiled_field_sha256": "a9ab86221fe96b0a66c00f6d967c0e01012b4018016cc6402c8c3b65548117bf"
+      },
+      "guidance": [
+        {
+          "source_id": "aium-head-neck-2023",
+          "sections": [
+            "Parotid and Submandibular Evaluation"
+          ]
+        }
+      ],
+      "requires_any": [],
+      "source_slots": [
+        {
+          "id": "slot-1",
+          "kind": "choice",
+          "source_token": "[solid / cystic / mixed]",
+          "options": [
+            {
+              "value": "solid",
+              "label": "solid"
+            },
+            {
+              "value": "cystic",
+              "label": "cystic"
+            },
+            {
+              "value": "mixed",
+              "label": "mixed"
+            }
+          ]
+        },
+        {
+          "id": "slot-2",
+          "kind": "choice",
+          "source_token": "[right / left]",
+          "options": [
+            {
+              "value": "right",
+              "label": "right"
+            },
+            {
+              "value": "left",
+              "label": "left"
+            }
+          ]
+        }
+      ],
+      "required_evidence": [
+        "actual_patient_acquisition_and_localization"
+      ],
+      "required_representations": [],
+      "repeated_instances": "each_actual_finding_when_present",
+      "current_patient_evidence": "requires_actual_exam; teaching assets cannot satisfy it",
+      "clinical_approval": false,
+      "representation_completion_claim": false
+    },
+    {
+      "id": "neck_us.parotid-glands.size",
+      "name": "Lesion size",
+      "requirement_type": "measurement",
+      "source_section_id": "parotid-glands",
+      "source_field_id": "size",
+      "report_provenance": {
+        "path": "data/radiology/anatomic-additions-20261119.json",
+        "section_id": "parotid-glands",
+        "field_id": "size",
+        "statement": "The parotid lesion measures __ mm.",
+        "statement_sha256": "d3f00d5a88b0767cb05b57db4b429d25f0f8da954082a13469c855c872574482",
+        "compiled_field_id": "us.soft-tissue-neck:parotid-glands:size",
+        "compiled_field_sha256": "e11fc65c4c95a928297958656d91b6f4eff2e762b6e5e9253a89b0ac5a5b2889"
+      },
+      "guidance": [
+        {
+          "source_id": "aium-head-neck-2023",
+          "sections": [
+            "Parotid and Submandibular Evaluation"
+          ]
+        }
+      ],
+      "requires_any": [
+        "us.soft-tissue-neck:parotid-glands:lesion"
+      ],
+      "source_slots": [
+        {
+          "id": "slot-1",
+          "kind": "number",
+          "unit": "mm",
+          "source_token": "__",
+          "options": []
+        }
+      ],
+      "required_evidence": [
+        "actual_patient_calibrated_measurement"
+      ],
+      "required_representations": [],
+      "repeated_instances": "each_actual_finding_when_present",
+      "current_patient_evidence": "requires_actual_exam; teaching assets cannot satisfy it",
+      "clinical_approval": false,
+      "representation_completion_claim": false,
+      "measurement": {
+        "unit": "mm",
+        "number_of_values": 1,
+        "axis_definition": "dimension_not_specified_by_this_field"
+      }
+    },
+    {
+      "id": "neck_us.parotid-glands.diffuse",
+      "name": "Diffuse change",
+      "requirement_type": "current_finding",
+      "source_section_id": "parotid-glands",
+      "source_field_id": "diffuse",
+      "report_provenance": {
+        "path": "data/radiology/anatomic-additions-20261119.json",
+        "section_id": "parotid-glands",
+        "field_id": "diffuse",
+        "statement": "The [right / left / both] parotid glands are [enlarged and hypoechoic / heterogeneous / atrophic].",
+        "statement_sha256": "2be0bc7e1f34b257303f75c17270af03bb1f9630663e0f10ae8a6d3fdccd81da",
+        "compiled_field_id": "us.soft-tissue-neck:parotid-glands:diffuse",
+        "compiled_field_sha256": "493de637d59067b6e9ec2f5f8462cbff401f04e8e05792afed4b641b5db3a196"
+      },
+      "guidance": [
+        {
+          "source_id": "aium-head-neck-2023",
+          "sections": [
+            "Parotid and Submandibular Evaluation"
+          ]
+        }
+      ],
+      "requires_any": [],
+      "source_slots": [
+        {
+          "id": "slot-1",
+          "kind": "choice",
+          "source_token": "[right / left / both]",
+          "options": [
+            {
+              "value": "right",
+              "label": "right"
+            },
+            {
+              "value": "left",
+              "label": "left"
+            },
+            {
+              "value": "both",
+              "label": "both"
+            }
+          ]
+        },
+        {
+          "id": "slot-2",
+          "kind": "choice",
+          "source_token": "[enlarged and hypoechoic / heterogeneous / atrophic]",
+          "options": [
+            {
+              "value": "enlarged and hypoechoic",
+              "label": "enlarged and hypoechoic"
+            },
+            {
+              "value": "heterogeneous",
+              "label": "heterogeneous"
+            },
+            {
+              "value": "atrophic",
+              "label": "atrophic"
+            }
+          ]
+        }
+      ],
+      "required_evidence": [
+        "actual_patient_acquisition_and_localization"
+      ],
+      "required_representations": [],
+      "repeated_instances": "each_actual_finding_when_present",
+      "current_patient_evidence": "requires_actual_exam; teaching assets cannot satisfy it",
+      "clinical_approval": false,
+      "representation_completion_claim": false
+    },
+    {
+      "id": "neck_us.parotid-glands.calculus",
+      "name": "Calculus",
+      "requirement_type": "current_finding",
+      "source_section_id": "parotid-glands",
+      "source_field_id": "calculus",
+      "report_provenance": {
+        "path": "data/radiology/anatomic-additions-20261119.json",
+        "section_id": "parotid-glands",
+        "field_id": "calculus",
+        "statement": "There is a [right / left] parotid duct calculus [with / without] duct dilatation.",
+        "statement_sha256": "6630454b403f7eefd0bf5e49cc362c507328c08d10e9289e06b9e1d5a57c4e6d",
+        "compiled_field_id": "us.soft-tissue-neck:parotid-glands:calculus",
+        "compiled_field_sha256": "87d5c240bd094336f7f26efa4f9c74b5a310c01a18c61c0eb4bf08425be408c0"
+      },
+      "guidance": [
+        {
+          "source_id": "aium-head-neck-2023",
+          "sections": [
+            "Parotid and Submandibular Evaluation"
+          ]
+        }
+      ],
+      "requires_any": [],
+      "source_slots": [
+        {
+          "id": "slot-1",
+          "kind": "choice",
+          "source_token": "[right / left]",
+          "options": [
+            {
+              "value": "right",
+              "label": "right"
+            },
+            {
+              "value": "left",
+              "label": "left"
+            }
+          ]
+        },
+        {
+          "id": "slot-2",
+          "kind": "choice",
+          "source_token": "[with / without]",
+          "options": [
+            {
+              "value": "with",
+              "label": "with"
+            },
+            {
+              "value": "without",
+              "label": "without"
+            }
+          ]
+        }
+      ],
+      "required_evidence": [
+        "actual_patient_acquisition_and_localization"
+      ],
+      "required_representations": [],
+      "repeated_instances": "each_actual_finding_when_present",
+      "current_patient_evidence": "requires_actual_exam; teaching assets cannot satisfy it",
+      "clinical_approval": false,
+      "representation_completion_claim": false
+    },
+    {
+      "id": "neck_us.submandibular-glands.normal",
+      "name": "Submandibular glands assessment",
+      "requirement_type": "current_exam_assessment",
+      "source_section_id": "submandibular-glands",
+      "source_field_id": "normal",
+      "report_provenance": {
+        "path": "data/radiology/anatomic-additions-20261119.json",
+        "section_id": "submandibular-glands",
+        "field_id": "normal",
+        "statement": "The submandibular glands are normal in size and echotexture, with no focal lesion.",
+        "statement_sha256": "c791d3ac46ffee6d87a48f7b39eb020d6ab3b50eaf892543fd023c2e0613cb26",
+        "compiled_field_id": "us.soft-tissue-neck:submandibular-glands:normal",
+        "compiled_field_sha256": "744857c16db586595480346b135ad1d2ce876580df1ffdab1bdfd0310d0d324d"
+      },
+      "guidance": [
+        {
+          "source_id": "aium-head-neck-2023",
+          "sections": [
+            "Parotid and Submandibular Evaluation"
+          ]
+        }
+      ],
+      "requires_any": [],
+      "source_slots": [],
+      "required_evidence": [
+        "actual_acquired_grayscale_assessment"
+      ],
+      "required_representations": [],
+      "repeated_instances": "actual_exam_scope",
+      "current_patient_evidence": "requires_actual_exam; teaching assets cannot satisfy it",
+      "clinical_approval": false,
+      "representation_completion_claim": false
+    },
+    {
+      "id": "neck_us.submandibular-glands.lesion",
+      "name": "Submandibular lesion",
+      "requirement_type": "current_finding",
+      "source_section_id": "submandibular-glands",
+      "source_field_id": "lesion",
+      "report_provenance": {
+        "path": "data/radiology/anatomic-additions-20261119.json",
+        "section_id": "submandibular-glands",
+        "field_id": "lesion",
+        "statement": "A [solid / cystic / mixed] lesion is present in the [right / left] submandibular gland.",
+        "statement_sha256": "0c587b9f3b7befadbacc98d3e418b63c73ce77f0372e53bfba285159f59a7010",
+        "compiled_field_id": "us.soft-tissue-neck:submandibular-glands:lesion",
+        "compiled_field_sha256": "c5a089279ac58c28b4b072dcc4b5771032cdf6e4a787b5ae8797b7a3af031a14"
+      },
+      "guidance": [
+        {
+          "source_id": "aium-head-neck-2023",
+          "sections": [
+            "Parotid and Submandibular Evaluation"
+          ]
+        }
+      ],
+      "requires_any": [],
+      "source_slots": [
+        {
+          "id": "slot-1",
+          "kind": "choice",
+          "source_token": "[solid / cystic / mixed]",
+          "options": [
+            {
+              "value": "solid",
+              "label": "solid"
+            },
+            {
+              "value": "cystic",
+              "label": "cystic"
+            },
+            {
+              "value": "mixed",
+              "label": "mixed"
+            }
+          ]
+        },
+        {
+          "id": "slot-2",
+          "kind": "choice",
+          "source_token": "[right / left]",
+          "options": [
+            {
+              "value": "right",
+              "label": "right"
+            },
+            {
+              "value": "left",
+              "label": "left"
+            }
+          ]
+        }
+      ],
+      "required_evidence": [
+        "actual_patient_acquisition_and_localization"
+      ],
+      "required_representations": [],
+      "repeated_instances": "each_actual_finding_when_present",
+      "current_patient_evidence": "requires_actual_exam; teaching assets cannot satisfy it",
+      "clinical_approval": false,
+      "representation_completion_claim": false
+    },
+    {
+      "id": "neck_us.submandibular-glands.size",
+      "name": "Lesion size",
+      "requirement_type": "measurement",
+      "source_section_id": "submandibular-glands",
+      "source_field_id": "size",
+      "report_provenance": {
+        "path": "data/radiology/anatomic-additions-20261119.json",
+        "section_id": "submandibular-glands",
+        "field_id": "size",
+        "statement": "The submandibular lesion measures __ mm.",
+        "statement_sha256": "649fa4534ca33bbd2c20e4aa6f99fae0754bd9a455fbff393c724c236401e959",
+        "compiled_field_id": "us.soft-tissue-neck:submandibular-glands:size",
+        "compiled_field_sha256": "12f34cc07ad9615485faf1aab1a3aa78da18c624fe7b81de9d7b22ddd3e237f0"
+      },
+      "guidance": [
+        {
+          "source_id": "aium-head-neck-2023",
+          "sections": [
+            "Parotid and Submandibular Evaluation"
+          ]
+        }
+      ],
+      "requires_any": [
+        "us.soft-tissue-neck:submandibular-glands:lesion"
+      ],
+      "source_slots": [
+        {
+          "id": "slot-1",
+          "kind": "number",
+          "unit": "mm",
+          "source_token": "__",
+          "options": []
+        }
+      ],
+      "required_evidence": [
+        "actual_patient_calibrated_measurement"
+      ],
+      "required_representations": [],
+      "repeated_instances": "each_actual_finding_when_present",
+      "current_patient_evidence": "requires_actual_exam; teaching assets cannot satisfy it",
+      "clinical_approval": false,
+      "representation_completion_claim": false,
+      "measurement": {
+        "unit": "mm",
+        "number_of_values": 1,
+        "axis_definition": "dimension_not_specified_by_this_field"
+      }
+    },
+    {
+      "id": "neck_us.submandibular-glands.diffuse",
+      "name": "Diffuse change",
+      "requirement_type": "current_finding",
+      "source_section_id": "submandibular-glands",
+      "source_field_id": "diffuse",
+      "report_provenance": {
+        "path": "data/radiology/anatomic-additions-20261119.json",
+        "section_id": "submandibular-glands",
+        "field_id": "diffuse",
+        "statement": "The [right / left / both] submandibular glands are [enlarged and hypoechoic / heterogeneous / atrophic].",
+        "statement_sha256": "b862bb6a712948ca137522cae8416a8d642f8c7de5c3168b97a284b38a3c7bfe",
+        "compiled_field_id": "us.soft-tissue-neck:submandibular-glands:diffuse",
+        "compiled_field_sha256": "c6d2029bbccdf7c30745dff5617f7800b84903b5cdc76dea7a26b00b4706ab7a"
+      },
+      "guidance": [
+        {
+          "source_id": "aium-head-neck-2023",
+          "sections": [
+            "Parotid and Submandibular Evaluation"
+          ]
+        }
+      ],
+      "requires_any": [],
+      "source_slots": [
+        {
+          "id": "slot-1",
+          "kind": "choice",
+          "source_token": "[right / left / both]",
+          "options": [
+            {
+              "value": "right",
+              "label": "right"
+            },
+            {
+              "value": "left",
+              "label": "left"
+            },
+            {
+              "value": "both",
+              "label": "both"
+            }
+          ]
+        },
+        {
+          "id": "slot-2",
+          "kind": "choice",
+          "source_token": "[enlarged and hypoechoic / heterogeneous / atrophic]",
+          "options": [
+            {
+              "value": "enlarged and hypoechoic",
+              "label": "enlarged and hypoechoic"
+            },
+            {
+              "value": "heterogeneous",
+              "label": "heterogeneous"
+            },
+            {
+              "value": "atrophic",
+              "label": "atrophic"
+            }
+          ]
+        }
+      ],
+      "required_evidence": [
+        "actual_patient_acquisition_and_localization"
+      ],
+      "required_representations": [],
+      "repeated_instances": "each_actual_finding_when_present",
+      "current_patient_evidence": "requires_actual_exam; teaching assets cannot satisfy it",
+      "clinical_approval": false,
+      "representation_completion_claim": false
+    },
+    {
+      "id": "neck_us.submandibular-glands.calculus",
+      "name": "Calculus",
+      "requirement_type": "current_finding",
+      "source_section_id": "submandibular-glands",
+      "source_field_id": "calculus",
+      "report_provenance": {
+        "path": "data/radiology/anatomic-additions-20261119.json",
+        "section_id": "submandibular-glands",
+        "field_id": "calculus",
+        "statement": "There is a [right / left] submandibular duct calculus [with / without] duct dilatation.",
+        "statement_sha256": "6e72a5f6e4ad908165aeb36bb18195f95a71c61532ad7ce57aca940adfbc2539",
+        "compiled_field_id": "us.soft-tissue-neck:submandibular-glands:calculus",
+        "compiled_field_sha256": "2fd388997c44e1ea54d7fe1735c48293363eacb1d419558f7467931e7188dfea"
+      },
+      "guidance": [
+        {
+          "source_id": "aium-head-neck-2023",
+          "sections": [
+            "Parotid and Submandibular Evaluation"
+          ]
+        }
+      ],
+      "requires_any": [],
+      "source_slots": [
+        {
+          "id": "slot-1",
+          "kind": "choice",
+          "source_token": "[right / left]",
+          "options": [
+            {
+              "value": "right",
+              "label": "right"
+            },
+            {
+              "value": "left",
+              "label": "left"
+            }
+          ]
+        },
+        {
+          "id": "slot-2",
+          "kind": "choice",
+          "source_token": "[with / without]",
+          "options": [
+            {
+              "value": "with",
+              "label": "with"
+            },
+            {
+              "value": "without",
+              "label": "without"
+            }
+          ]
+        }
+      ],
+      "required_evidence": [
+        "actual_patient_acquisition_and_localization"
+      ],
+      "required_representations": [],
+      "repeated_instances": "each_actual_finding_when_present",
+      "current_patient_evidence": "requires_actual_exam; teaching assets cannot satisfy it",
+      "clinical_approval": false,
+      "representation_completion_claim": false
+    },
+    {
+      "id": "neck_us.thyroid-gland.normal",
+      "name": "Thyroid gland assessment",
+      "requirement_type": "current_exam_assessment",
+      "source_section_id": "thyroid-gland",
+      "source_field_id": "normal",
+      "report_provenance": {
+        "path": "data/radiology/anatomic-additions-20261119.json",
+        "section_id": "thyroid-gland",
+        "field_id": "normal",
+        "statement": "The thyroid gland is normal in size and echotexture, with no nodule.",
+        "statement_sha256": "72d96a376ade72ec425e7f7d84cd082e667d0671c45c21fc8aa0ebb0f8e96261",
+        "compiled_field_id": "us.soft-tissue-neck:thyroid-gland:normal",
+        "compiled_field_sha256": "fa950be10c238526c72da692401fc91536558fbb90540136b95dfdd041a36712"
+      },
+      "guidance": [
+        {
+          "source_id": "aium-head-neck-2023",
+          "sections": [
+            "Thyroid Evaluation"
+          ]
+        }
+      ],
+      "requires_any": [],
+      "source_slots": [],
+      "required_evidence": [
+        "actual_acquired_grayscale_assessment"
+      ],
+      "required_representations": [],
+      "repeated_instances": "actual_exam_scope",
+      "current_patient_evidence": "requires_actual_exam; teaching assets cannot satisfy it",
+      "clinical_approval": false,
+      "representation_completion_claim": false
+    },
+    {
+      "id": "neck_us.thyroid-gland.nodule",
+      "name": "Thyroid nodule",
+      "requirement_type": "current_finding",
+      "source_section_id": "thyroid-gland",
+      "source_field_id": "nodule",
+      "report_provenance": {
+        "path": "data/radiology/anatomic-additions-20261119.json",
+        "section_id": "thyroid-gland",
+        "field_id": "nodule",
+        "statement": "A thyroid nodule is present in the [right lobe / left lobe / isthmus].",
+        "statement_sha256": "e43eb91e7dace84f7419b7c10c1e2c677e73bb4cfd5ec7692ef957ac2ade8dd6",
+        "compiled_field_id": "us.soft-tissue-neck:thyroid-gland:nodule",
+        "compiled_field_sha256": "e17beeb3dbf36762569d77ef79778f5b052676f344b72b06284719e919ccb752"
+      },
+      "guidance": [
+        {
+          "source_id": "aium-head-neck-2023",
+          "sections": [
+            "Thyroid Evaluation"
+          ]
+        }
+      ],
+      "requires_any": [],
+      "source_slots": [
+        {
+          "id": "slot-1",
+          "kind": "choice",
+          "source_token": "[right lobe / left lobe / isthmus]",
+          "options": [
+            {
+              "value": "right lobe",
+              "label": "right lobe"
+            },
+            {
+              "value": "left lobe",
+              "label": "left lobe"
+            },
+            {
+              "value": "isthmus",
+              "label": "isthmus"
+            }
+          ]
+        }
+      ],
+      "required_evidence": [
+        "actual_patient_acquisition_and_localization"
+      ],
+      "required_representations": [],
+      "repeated_instances": "each_actual_finding_when_present",
+      "current_patient_evidence": "requires_actual_exam; teaching assets cannot satisfy it",
+      "clinical_approval": false,
+      "representation_completion_claim": false
+    },
+    {
+      "id": "neck_us.thyroid-gland.size",
+      "name": "Nodule size",
+      "requirement_type": "measurement",
+      "source_section_id": "thyroid-gland",
+      "source_field_id": "size",
+      "report_provenance": {
+        "path": "data/radiology/anatomic-additions-20261119.json",
+        "section_id": "thyroid-gland",
+        "field_id": "size",
+        "statement": "The thyroid nodule measures __ mm.",
+        "statement_sha256": "86a95f63b81560c3cdea1976e835f1762616961975b7fc4b801955fbb43b874a",
+        "compiled_field_id": "us.soft-tissue-neck:thyroid-gland:size",
+        "compiled_field_sha256": "3c21bdfbca9ff65eb781b50a8f770ad590774cf5d3e5d0b3a5adfc5edac8c9e0"
+      },
+      "guidance": [
+        {
+          "source_id": "aium-head-neck-2023",
+          "sections": [
+            "Thyroid Evaluation"
+          ]
+        }
+      ],
+      "requires_any": [
+        "us.soft-tissue-neck:thyroid-gland:nodule"
+      ],
+      "source_slots": [
+        {
+          "id": "slot-1",
+          "kind": "number",
+          "unit": "mm",
+          "source_token": "__",
+          "options": []
+        }
+      ],
+      "required_evidence": [
+        "actual_patient_calibrated_measurement"
+      ],
+      "required_representations": [],
+      "repeated_instances": "each_actual_finding_when_present",
+      "current_patient_evidence": "requires_actual_exam; teaching assets cannot satisfy it",
+      "clinical_approval": false,
+      "representation_completion_claim": false,
+      "measurement": {
+        "unit": "mm",
+        "number_of_values": 1,
+        "axis_definition": "dimension_not_specified_by_this_field"
+      }
+    },
+    {
+      "id": "neck_us.thyroid-gland.tirads",
+      "name": "ACR TI-RADS",
+      "requirement_type": "classification",
+      "source_section_id": "thyroid-gland",
+      "source_field_id": "tirads",
+      "report_provenance": {
+        "path": "data/radiology/anatomic-additions-20261119.json",
+        "section_id": "thyroid-gland",
+        "field_id": "tirads",
+        "statement": "The nodule is ACR TI-RADS [TR1 / TR2 / TR3 / TR4 / TR5].",
+        "statement_sha256": "1b7771abf65c8d0e553d560ddedc5e211bc1993a05c6dfff9a3e05b13a56bc27",
+        "compiled_field_id": "us.soft-tissue-neck:thyroid-gland:tirads",
+        "compiled_field_sha256": "c8f663aa4dc68718b3f2e3b65eb01ccbb0ce129ac263638571d0be8ec66fd846"
+      },
+      "guidance": [
+        {
+          "source_id": "aium-head-neck-2023",
+          "sections": [
+            "Thyroid Evaluation"
+          ]
+        }
+      ],
+      "requires_any": [
+        "us.soft-tissue-neck:thyroid-gland:nodule"
+      ],
+      "source_slots": [
+        {
+          "id": "slot-1",
+          "kind": "choice",
+          "source_token": "[TR1 / TR2 / TR3 / TR4 / TR5]",
+          "options": [
+            {
+              "value": "TR1",
+              "label": "TR1"
+            },
+            {
+              "value": "TR2",
+              "label": "TR2"
+            },
+            {
+              "value": "TR3",
+              "label": "TR3"
+            },
+            {
+              "value": "TR4",
+              "label": "TR4"
+            },
+            {
+              "value": "TR5",
+              "label": "TR5"
+            }
+          ]
+        }
+      ],
+      "required_evidence": [
+        "actual_patient_features_and_named_classification"
+      ],
+      "required_representations": [],
+      "repeated_instances": "each_actual_finding_when_present",
+      "current_patient_evidence": "requires_actual_exam; teaching assets cannot satisfy it",
+      "clinical_approval": false,
+      "representation_completion_claim": false
+    },
+    {
+      "id": "neck_us.thyroid-gland.diffuse",
+      "name": "Diffuse change",
+      "requirement_type": "current_finding",
+      "source_section_id": "thyroid-gland",
+      "source_field_id": "diffuse",
+      "report_provenance": {
+        "path": "data/radiology/anatomic-additions-20261119.json",
+        "section_id": "thyroid-gland",
+        "field_id": "diffuse",
+        "statement": "The thyroid gland is [enlarged / heterogeneous / diffusely hypoechoic / hypervascular].",
+        "statement_sha256": "c97b2bafd8dd88213b889c43586c3cf7f7b45cb7e9c63442ba3333476fcac04b",
+        "compiled_field_id": "us.soft-tissue-neck:thyroid-gland:diffuse",
+        "compiled_field_sha256": "2b0e84784d1a41000c65bcefb801fdda13e199530f82b42b0cae73f5634130a2"
+      },
+      "guidance": [
+        {
+          "source_id": "aium-head-neck-2023",
+          "sections": [
+            "Thyroid Evaluation"
+          ]
+        }
+      ],
+      "requires_any": [],
+      "source_slots": [
+        {
+          "id": "slot-1",
+          "kind": "choice",
+          "source_token": "[enlarged / heterogeneous / diffusely hypoechoic / hypervascular]",
+          "options": [
+            {
+              "value": "enlarged",
+              "label": "enlarged"
+            },
+            {
+              "value": "heterogeneous",
+              "label": "heterogeneous"
+            },
+            {
+              "value": "diffusely hypoechoic",
+              "label": "diffusely hypoechoic"
+            },
+            {
+              "value": "hypervascular",
+              "label": "hypervascular"
+            }
+          ]
+        }
+      ],
+      "required_evidence": [
+        "actual_patient_acquisition_and_localization"
+      ],
+      "required_representations": [],
+      "repeated_instances": "each_actual_finding_when_present",
+      "current_patient_evidence": "requires_actual_exam; teaching assets cannot satisfy it",
+      "clinical_approval": false,
+      "representation_completion_claim": false
+    },
+    {
+      "id": "neck_us.thyroid-gland.diffuse.flow",
+      "name": "Conditional flow finding",
+      "requirement_type": "flow_assessment",
+      "source_section_id": "thyroid-gland",
+      "source_field_id": "diffuse",
+      "report_provenance": {
+        "path": "data/radiology/anatomic-additions-20261119.json",
+        "section_id": "thyroid-gland",
+        "field_id": "diffuse",
+        "statement": "The thyroid gland is [enlarged / heterogeneous / diffusely hypoechoic / hypervascular].",
+        "statement_sha256": "c97b2bafd8dd88213b889c43586c3cf7f7b45cb7e9c63442ba3333476fcac04b",
+        "compiled_field_id": "us.soft-tissue-neck:thyroid-gland:diffuse",
+        "compiled_field_sha256": "2b0e84784d1a41000c65bcefb801fdda13e199530f82b42b0cae73f5634130a2"
+      },
+      "guidance": [
+        {
+          "source_id": "aium-head-neck-2023",
+          "sections": [
+            "Thyroid Evaluation"
+          ]
+        }
+      ],
+      "requires_any": [],
+      "source_slots": [
+        {
+          "id": "slot-1",
+          "kind": "choice",
+          "source_token": "[enlarged / heterogeneous / diffusely hypoechoic / hypervascular]",
+          "options": [
+            {
+              "value": "enlarged",
+              "label": "enlarged"
+            },
+            {
+              "value": "heterogeneous",
+              "label": "heterogeneous"
+            },
+            {
+              "value": "diffusely hypoechoic",
+              "label": "diffusely hypoechoic"
+            },
+            {
+              "value": "hypervascular",
+              "label": "hypervascular"
+            }
+          ]
+        }
+      ],
+      "required_evidence": [
+        "actual_patient_flow_sensitive_acquisition"
+      ],
+      "required_representations": [],
+      "repeated_instances": "each_actual_finding_when_present",
+      "current_patient_evidence": "requires_actual_exam; teaching assets cannot satisfy it",
+      "clinical_approval": false,
+      "representation_completion_claim": false,
+      "applies_when": {
+        "compiled_field_id": "us.soft-tissue-neck:thyroid-gland:diffuse",
+        "selected_value": "hypervascular"
+      }
+    },
+    {
+      "id": "neck_us.right-neck-nodes.normal",
+      "name": "Right neck assessment",
+      "requirement_type": "current_exam_assessment",
+      "source_section_id": "right-neck-nodes",
+      "source_field_id": "normal",
+      "report_provenance": {
+        "path": "data/radiology/anatomic-additions-20261119.json",
+        "section_id": "right-neck-nodes",
+        "field_id": "normal",
+        "statement": "No morphologically abnormal lymph node is seen in levels I to VI of the right neck.",
+        "statement_sha256": "71741628191188176d330de8dab6567ebe98d50d92dc566a44810653c3c58e12",
+        "compiled_field_id": "us.soft-tissue-neck:right-neck-nodes:normal",
+        "compiled_field_sha256": "207bf99ef94a8b28115ff50a46cadb4c0b4942be60b0d4c0d09eafca91626158"
+      },
+      "guidance": [
+        {
+          "source_id": "aium-head-neck-2023",
+          "sections": [
+            "Cervical Lymph Node Evaluation"
+          ]
+        }
+      ],
+      "requires_any": [],
+      "source_slots": [],
+      "required_evidence": [
+        "actual_acquired_grayscale_assessment"
+      ],
+      "required_representations": [],
+      "repeated_instances": "actual_exam_scope",
+      "current_patient_evidence": "requires_actual_exam; teaching assets cannot satisfy it",
+      "clinical_approval": false,
+      "representation_completion_claim": false
+    },
+    {
+      "id": "neck_us.right-neck-nodes.node",
+      "name": "Abnormal right neck node",
+      "requirement_type": "current_finding",
+      "source_section_id": "right-neck-nodes",
+      "source_field_id": "node",
+      "report_provenance": {
+        "path": "data/radiology/anatomic-additions-20261119.json",
+        "section_id": "right-neck-nodes",
+        "field_id": "node",
+        "statement": "An abnormal right level [I / II / III / IV / V / VI] lymph node is present.",
+        "statement_sha256": "0e2a3840694943e9fe65584c6e7264a040232bfbd1b9bc9bc2e7b839ac139075",
+        "compiled_field_id": "us.soft-tissue-neck:right-neck-nodes:node",
+        "compiled_field_sha256": "27e79dc4c198037d7b9fb4bef6b3b338afa1e0d166c53837546313c15fd514cd"
+      },
+      "guidance": [
+        {
+          "source_id": "aium-head-neck-2023",
+          "sections": [
+            "Cervical Lymph Node Evaluation"
+          ]
+        }
+      ],
+      "requires_any": [],
+      "source_slots": [
+        {
+          "id": "slot-1",
+          "kind": "choice",
+          "source_token": "[I / II / III / IV / V / VI]",
+          "options": [
+            {
+              "value": "I",
+              "label": "I"
+            },
+            {
+              "value": "II",
+              "label": "II"
+            },
+            {
+              "value": "III",
+              "label": "III"
+            },
+            {
+              "value": "IV",
+              "label": "IV"
+            },
+            {
+              "value": "V",
+              "label": "V"
+            },
+            {
+              "value": "VI",
+              "label": "VI"
+            }
+          ]
+        }
+      ],
+      "required_evidence": [
+        "actual_patient_acquisition_and_localization"
+      ],
+      "required_representations": [],
+      "repeated_instances": "each_actual_finding_when_present",
+      "current_patient_evidence": "requires_actual_exam; teaching assets cannot satisfy it",
+      "clinical_approval": false,
+      "representation_completion_claim": false
+    },
+    {
+      "id": "neck_us.right-neck-nodes.size",
+      "name": "Short axis",
+      "requirement_type": "measurement",
+      "source_section_id": "right-neck-nodes",
+      "source_field_id": "size",
+      "report_provenance": {
+        "path": "data/radiology/anatomic-additions-20261119.json",
+        "section_id": "right-neck-nodes",
+        "field_id": "size",
+        "statement": "The right neck node measures __ mm in short axis.",
+        "statement_sha256": "814d053c56ead1307df6e986f1fa6878ca567b4a6ab83009aa3532f5441d3440",
+        "compiled_field_id": "us.soft-tissue-neck:right-neck-nodes:size",
+        "compiled_field_sha256": "1188539510afdcd96cae2c1dd25e73fd0844eaa737944b9497eb63fd1492340c"
+      },
+      "guidance": [
+        {
+          "source_id": "aium-head-neck-2023",
+          "sections": [
+            "Cervical Lymph Node Evaluation"
+          ]
+        }
+      ],
+      "requires_any": [
+        "us.soft-tissue-neck:right-neck-nodes:node"
+      ],
+      "source_slots": [
+        {
+          "id": "slot-1",
+          "kind": "number",
+          "unit": "mm",
+          "source_token": "__",
+          "options": []
+        }
+      ],
+      "required_evidence": [
+        "actual_patient_calibrated_measurement"
+      ],
+      "required_representations": [],
+      "repeated_instances": "each_actual_finding_when_present",
+      "current_patient_evidence": "requires_actual_exam; teaching assets cannot satisfy it",
+      "clinical_approval": false,
+      "representation_completion_claim": false,
+      "measurement": {
+        "unit": "mm",
+        "number_of_values": 1,
+        "axis_definition": "short_axis"
+      }
+    },
+    {
+      "id": "neck_us.right-neck-nodes.features",
+      "name": "Node features",
+      "requirement_type": "current_finding",
+      "source_section_id": "right-neck-nodes",
+      "source_field_id": "features",
+      "report_provenance": {
+        "path": "data/radiology/anatomic-additions-20261119.json",
+        "section_id": "right-neck-nodes",
+        "field_id": "features",
+        "statement": "The node shows [loss of the fatty hilum / a round shape / cystic change / necrosis / calcification / peripheral vascularity].",
+        "statement_sha256": "6992e8593fad7c7f1a831481e157f4b43b67ef81fc61cca928080816221321c3",
+        "compiled_field_id": "us.soft-tissue-neck:right-neck-nodes:features",
+        "compiled_field_sha256": "d280453c29c1774fe0026b46f1749048cad940134162c03c26fd6df6e22c61ab"
+      },
+      "guidance": [
+        {
+          "source_id": "aium-head-neck-2023",
+          "sections": [
+            "Cervical Lymph Node Evaluation"
+          ]
+        }
+      ],
+      "requires_any": [
+        "us.soft-tissue-neck:right-neck-nodes:node"
+      ],
+      "source_slots": [
+        {
+          "id": "slot-1",
+          "kind": "choice",
+          "source_token": "[loss of the fatty hilum / a round shape / cystic change / necrosis / calcification / peripheral vascularity]",
+          "options": [
+            {
+              "value": "loss of the fatty hilum",
+              "label": "loss of the fatty hilum"
+            },
+            {
+              "value": "a round shape",
+              "label": "a round shape"
+            },
+            {
+              "value": "cystic change",
+              "label": "cystic change"
+            },
+            {
+              "value": "necrosis",
+              "label": "necrosis"
+            },
+            {
+              "value": "calcification",
+              "label": "calcification"
+            },
+            {
+              "value": "peripheral vascularity",
+              "label": "peripheral vascularity"
+            }
+          ]
+        }
+      ],
+      "required_evidence": [
+        "actual_patient_acquisition_and_localization"
+      ],
+      "required_representations": [],
+      "repeated_instances": "each_actual_finding_when_present",
+      "current_patient_evidence": "requires_actual_exam; teaching assets cannot satisfy it",
+      "clinical_approval": false,
+      "representation_completion_claim": false
+    },
+    {
+      "id": "neck_us.right-neck-nodes.features.flow",
+      "name": "Conditional flow finding",
+      "requirement_type": "flow_assessment",
+      "source_section_id": "right-neck-nodes",
+      "source_field_id": "features",
+      "report_provenance": {
+        "path": "data/radiology/anatomic-additions-20261119.json",
+        "section_id": "right-neck-nodes",
+        "field_id": "features",
+        "statement": "The node shows [loss of the fatty hilum / a round shape / cystic change / necrosis / calcification / peripheral vascularity].",
+        "statement_sha256": "6992e8593fad7c7f1a831481e157f4b43b67ef81fc61cca928080816221321c3",
+        "compiled_field_id": "us.soft-tissue-neck:right-neck-nodes:features",
+        "compiled_field_sha256": "d280453c29c1774fe0026b46f1749048cad940134162c03c26fd6df6e22c61ab"
+      },
+      "guidance": [
+        {
+          "source_id": "aium-head-neck-2023",
+          "sections": [
+            "Cervical Lymph Node Evaluation"
+          ]
+        }
+      ],
+      "requires_any": [
+        "us.soft-tissue-neck:right-neck-nodes:node"
+      ],
+      "source_slots": [
+        {
+          "id": "slot-1",
+          "kind": "choice",
+          "source_token": "[loss of the fatty hilum / a round shape / cystic change / necrosis / calcification / peripheral vascularity]",
+          "options": [
+            {
+              "value": "loss of the fatty hilum",
+              "label": "loss of the fatty hilum"
+            },
+            {
+              "value": "a round shape",
+              "label": "a round shape"
+            },
+            {
+              "value": "cystic change",
+              "label": "cystic change"
+            },
+            {
+              "value": "necrosis",
+              "label": "necrosis"
+            },
+            {
+              "value": "calcification",
+              "label": "calcification"
+            },
+            {
+              "value": "peripheral vascularity",
+              "label": "peripheral vascularity"
+            }
+          ]
+        }
+      ],
+      "required_evidence": [
+        "actual_patient_flow_sensitive_acquisition"
+      ],
+      "required_representations": [],
+      "repeated_instances": "each_actual_finding_when_present",
+      "current_patient_evidence": "requires_actual_exam; teaching assets cannot satisfy it",
+      "clinical_approval": false,
+      "representation_completion_claim": false,
+      "applies_when": {
+        "compiled_field_id": "us.soft-tissue-neck:right-neck-nodes:features",
+        "selected_value": "peripheral vascularity"
+      }
+    },
+    {
+      "id": "neck_us.nodal_scope.right",
+      "name": "right neck nodal assessment scope",
+      "requirement_type": "assessment_scope",
+      "source_section_id": "right-neck-nodes",
+      "report_provenance": {
+        "path": "data/radiology/anatomic-additions-20261119.json",
+        "section_id": "right-neck-nodes",
+        "section_sha256": "20dfac6f9ff2f86142e60575e66ab19995bd9f831657a2d7eda19bb8edc5dc1e"
+      },
+      "guidance": [
+        {
+          "source_id": "aium-head-neck-2023",
+          "sections": [
+            "Cervical Lymph Node Evaluation"
+          ]
+        }
+      ],
+      "laterality": "right",
+      "source_level_choices": [
+        "I",
+        "II",
+        "III",
+        "IV",
+        "V",
+        "VI"
+      ],
+      "level_meaning": "Report location choices, not twelve independent anatomical compartments or complete station volumes. Preserve actual node location and unassessed regions, including central-compartment ambiguity.",
+      "required_evidence": [
+        "actual_exam_level_and_site_documentation"
+      ],
+      "required_representations": [],
+      "clinical_approval": false,
+      "representation_completion_claim": false
+    },
+    {
+      "id": "neck_us.left-neck-nodes.normal",
+      "name": "Left neck assessment",
+      "requirement_type": "current_exam_assessment",
+      "source_section_id": "left-neck-nodes",
+      "source_field_id": "normal",
+      "report_provenance": {
+        "path": "data/radiology/anatomic-additions-20261119.json",
+        "section_id": "left-neck-nodes",
+        "field_id": "normal",
+        "statement": "No morphologically abnormal lymph node is seen in levels I to VI of the left neck.",
+        "statement_sha256": "6056c6985f437744e52b7aac867bc9271acfed595d586d03fb9641f247add0eb",
+        "compiled_field_id": "us.soft-tissue-neck:left-neck-nodes:normal",
+        "compiled_field_sha256": "c8a5182eb2902cbc6a37c4746cce22944b2b30e54954260428d29a4aec98c353"
+      },
+      "guidance": [
+        {
+          "source_id": "aium-head-neck-2023",
+          "sections": [
+            "Cervical Lymph Node Evaluation"
+          ]
+        }
+      ],
+      "requires_any": [],
+      "source_slots": [],
+      "required_evidence": [
+        "actual_acquired_grayscale_assessment"
+      ],
+      "required_representations": [],
+      "repeated_instances": "actual_exam_scope",
+      "current_patient_evidence": "requires_actual_exam; teaching assets cannot satisfy it",
+      "clinical_approval": false,
+      "representation_completion_claim": false
+    },
+    {
+      "id": "neck_us.left-neck-nodes.node",
+      "name": "Abnormal left neck node",
+      "requirement_type": "current_finding",
+      "source_section_id": "left-neck-nodes",
+      "source_field_id": "node",
+      "report_provenance": {
+        "path": "data/radiology/anatomic-additions-20261119.json",
+        "section_id": "left-neck-nodes",
+        "field_id": "node",
+        "statement": "An abnormal left level [I / II / III / IV / V / VI] lymph node is present.",
+        "statement_sha256": "b180b44335a878c9bd7bbddf36165f787b008fc0cf938f33931312248dfee598",
+        "compiled_field_id": "us.soft-tissue-neck:left-neck-nodes:node",
+        "compiled_field_sha256": "4ed30ecdce78aad62da0ad3accfd3dedbce4cc9a8f471ea5ff4900e94f7774f3"
+      },
+      "guidance": [
+        {
+          "source_id": "aium-head-neck-2023",
+          "sections": [
+            "Cervical Lymph Node Evaluation"
+          ]
+        }
+      ],
+      "requires_any": [],
+      "source_slots": [
+        {
+          "id": "slot-1",
+          "kind": "choice",
+          "source_token": "[I / II / III / IV / V / VI]",
+          "options": [
+            {
+              "value": "I",
+              "label": "I"
+            },
+            {
+              "value": "II",
+              "label": "II"
+            },
+            {
+              "value": "III",
+              "label": "III"
+            },
+            {
+              "value": "IV",
+              "label": "IV"
+            },
+            {
+              "value": "V",
+              "label": "V"
+            },
+            {
+              "value": "VI",
+              "label": "VI"
+            }
+          ]
+        }
+      ],
+      "required_evidence": [
+        "actual_patient_acquisition_and_localization"
+      ],
+      "required_representations": [],
+      "repeated_instances": "each_actual_finding_when_present",
+      "current_patient_evidence": "requires_actual_exam; teaching assets cannot satisfy it",
+      "clinical_approval": false,
+      "representation_completion_claim": false
+    },
+    {
+      "id": "neck_us.left-neck-nodes.size",
+      "name": "Short axis",
+      "requirement_type": "measurement",
+      "source_section_id": "left-neck-nodes",
+      "source_field_id": "size",
+      "report_provenance": {
+        "path": "data/radiology/anatomic-additions-20261119.json",
+        "section_id": "left-neck-nodes",
+        "field_id": "size",
+        "statement": "The left neck node measures __ mm in short axis.",
+        "statement_sha256": "92c25d2e55494fbe2a0dc23d495b1ab6a1d46d6a70ec25c178c5a3811320c70f",
+        "compiled_field_id": "us.soft-tissue-neck:left-neck-nodes:size",
+        "compiled_field_sha256": "0cb765fbaf29094f85de89126b2834289fa31af5116da8906bf57bb3bcf194fb"
+      },
+      "guidance": [
+        {
+          "source_id": "aium-head-neck-2023",
+          "sections": [
+            "Cervical Lymph Node Evaluation"
+          ]
+        }
+      ],
+      "requires_any": [
+        "us.soft-tissue-neck:left-neck-nodes:node"
+      ],
+      "source_slots": [
+        {
+          "id": "slot-1",
+          "kind": "number",
+          "unit": "mm",
+          "source_token": "__",
+          "options": []
+        }
+      ],
+      "required_evidence": [
+        "actual_patient_calibrated_measurement"
+      ],
+      "required_representations": [],
+      "repeated_instances": "each_actual_finding_when_present",
+      "current_patient_evidence": "requires_actual_exam; teaching assets cannot satisfy it",
+      "clinical_approval": false,
+      "representation_completion_claim": false,
+      "measurement": {
+        "unit": "mm",
+        "number_of_values": 1,
+        "axis_definition": "short_axis"
+      }
+    },
+    {
+      "id": "neck_us.left-neck-nodes.features",
+      "name": "Node features",
+      "requirement_type": "current_finding",
+      "source_section_id": "left-neck-nodes",
+      "source_field_id": "features",
+      "report_provenance": {
+        "path": "data/radiology/anatomic-additions-20261119.json",
+        "section_id": "left-neck-nodes",
+        "field_id": "features",
+        "statement": "The node shows [loss of the fatty hilum / a round shape / cystic change / necrosis / calcification / peripheral vascularity].",
+        "statement_sha256": "6992e8593fad7c7f1a831481e157f4b43b67ef81fc61cca928080816221321c3",
+        "compiled_field_id": "us.soft-tissue-neck:left-neck-nodes:features",
+        "compiled_field_sha256": "6cb90a9257db4b8505a1a09b668e0d59af65241b299521c2b05516f41cd43485"
+      },
+      "guidance": [
+        {
+          "source_id": "aium-head-neck-2023",
+          "sections": [
+            "Cervical Lymph Node Evaluation"
+          ]
+        }
+      ],
+      "requires_any": [
+        "us.soft-tissue-neck:left-neck-nodes:node"
+      ],
+      "source_slots": [
+        {
+          "id": "slot-1",
+          "kind": "choice",
+          "source_token": "[loss of the fatty hilum / a round shape / cystic change / necrosis / calcification / peripheral vascularity]",
+          "options": [
+            {
+              "value": "loss of the fatty hilum",
+              "label": "loss of the fatty hilum"
+            },
+            {
+              "value": "a round shape",
+              "label": "a round shape"
+            },
+            {
+              "value": "cystic change",
+              "label": "cystic change"
+            },
+            {
+              "value": "necrosis",
+              "label": "necrosis"
+            },
+            {
+              "value": "calcification",
+              "label": "calcification"
+            },
+            {
+              "value": "peripheral vascularity",
+              "label": "peripheral vascularity"
+            }
+          ]
+        }
+      ],
+      "required_evidence": [
+        "actual_patient_acquisition_and_localization"
+      ],
+      "required_representations": [],
+      "repeated_instances": "each_actual_finding_when_present",
+      "current_patient_evidence": "requires_actual_exam; teaching assets cannot satisfy it",
+      "clinical_approval": false,
+      "representation_completion_claim": false
+    },
+    {
+      "id": "neck_us.left-neck-nodes.features.flow",
+      "name": "Conditional flow finding",
+      "requirement_type": "flow_assessment",
+      "source_section_id": "left-neck-nodes",
+      "source_field_id": "features",
+      "report_provenance": {
+        "path": "data/radiology/anatomic-additions-20261119.json",
+        "section_id": "left-neck-nodes",
+        "field_id": "features",
+        "statement": "The node shows [loss of the fatty hilum / a round shape / cystic change / necrosis / calcification / peripheral vascularity].",
+        "statement_sha256": "6992e8593fad7c7f1a831481e157f4b43b67ef81fc61cca928080816221321c3",
+        "compiled_field_id": "us.soft-tissue-neck:left-neck-nodes:features",
+        "compiled_field_sha256": "6cb90a9257db4b8505a1a09b668e0d59af65241b299521c2b05516f41cd43485"
+      },
+      "guidance": [
+        {
+          "source_id": "aium-head-neck-2023",
+          "sections": [
+            "Cervical Lymph Node Evaluation"
+          ]
+        }
+      ],
+      "requires_any": [
+        "us.soft-tissue-neck:left-neck-nodes:node"
+      ],
+      "source_slots": [
+        {
+          "id": "slot-1",
+          "kind": "choice",
+          "source_token": "[loss of the fatty hilum / a round shape / cystic change / necrosis / calcification / peripheral vascularity]",
+          "options": [
+            {
+              "value": "loss of the fatty hilum",
+              "label": "loss of the fatty hilum"
+            },
+            {
+              "value": "a round shape",
+              "label": "a round shape"
+            },
+            {
+              "value": "cystic change",
+              "label": "cystic change"
+            },
+            {
+              "value": "necrosis",
+              "label": "necrosis"
+            },
+            {
+              "value": "calcification",
+              "label": "calcification"
+            },
+            {
+              "value": "peripheral vascularity",
+              "label": "peripheral vascularity"
+            }
+          ]
+        }
+      ],
+      "required_evidence": [
+        "actual_patient_flow_sensitive_acquisition"
+      ],
+      "required_representations": [],
+      "repeated_instances": "each_actual_finding_when_present",
+      "current_patient_evidence": "requires_actual_exam; teaching assets cannot satisfy it",
+      "clinical_approval": false,
+      "representation_completion_claim": false,
+      "applies_when": {
+        "compiled_field_id": "us.soft-tissue-neck:left-neck-nodes:features",
+        "selected_value": "peripheral vascularity"
+      }
+    },
+    {
+      "id": "neck_us.nodal_scope.left",
+      "name": "left neck nodal assessment scope",
+      "requirement_type": "assessment_scope",
+      "source_section_id": "left-neck-nodes",
+      "report_provenance": {
+        "path": "data/radiology/anatomic-additions-20261119.json",
+        "section_id": "left-neck-nodes",
+        "section_sha256": "ee0fb81047d70e779f55f1c0c598fbc444281848235ce7700ec1bfb35d91c9bc"
+      },
+      "guidance": [
+        {
+          "source_id": "aium-head-neck-2023",
+          "sections": [
+            "Cervical Lymph Node Evaluation"
+          ]
+        }
+      ],
+      "laterality": "left",
+      "source_level_choices": [
+        "I",
+        "II",
+        "III",
+        "IV",
+        "V",
+        "VI"
+      ],
+      "level_meaning": "Report location choices, not twelve independent anatomical compartments or complete station volumes. Preserve actual node location and unassessed regions, including central-compartment ambiguity.",
+      "required_evidence": [
+        "actual_exam_level_and_site_documentation"
+      ],
+      "required_representations": [],
+      "clinical_approval": false,
+      "representation_completion_claim": false
+    },
+    {
+      "id": "neck_us.vessels.normal",
+      "name": "Vessels assessment",
+      "requirement_type": "flow_assessment",
+      "source_section_id": "vessels",
+      "source_field_id": "normal",
+      "report_provenance": {
+        "path": "data/radiology/anatomic-additions-20261119.json",
+        "section_id": "vessels",
+        "field_id": "normal",
+        "statement": "The carotid arteries and internal jugular veins are patent.",
+        "statement_sha256": "7d94e259ceccfa37b27c27428afd2ee99901625ff07dacce790c6b87af7f8017",
+        "compiled_field_id": "us.soft-tissue-neck:vessels:normal",
+        "compiled_field_sha256": "2e037cc9349d725d84da7136e8ba1ab3b69875e9cff91f09d420546ca76209e6"
+      },
+      "guidance": [
+        {
+          "source_id": "aium-head-neck-2023",
+          "sections": [
+            "Specification of the Examination",
+            "Equipment Specification"
+          ]
+        }
+      ],
+      "requires_any": [],
+      "source_slots": [],
+      "required_evidence": [
+        "actual_patient_flow_sensitive_acquisition"
+      ],
+      "required_representations": [],
+      "repeated_instances": "each_actual_finding_when_present",
+      "current_patient_evidence": "requires_actual_exam; teaching assets cannot satisfy it",
+      "clinical_approval": false,
+      "representation_completion_claim": false
+    },
+    {
+      "id": "neck_us.vessels.thrombus",
+      "name": "Venous thrombus",
+      "requirement_type": "current_finding",
+      "source_section_id": "vessels",
+      "source_field_id": "thrombus",
+      "report_provenance": {
+        "path": "data/radiology/anatomic-additions-20261119.json",
+        "section_id": "vessels",
+        "field_id": "thrombus",
+        "statement": "There is thrombus in the [right / left] internal jugular vein.",
+        "statement_sha256": "c94d9192c3257b7fac3d42a1c52db761494947adfe8aa5a4185d811b126a0583",
+        "compiled_field_id": "us.soft-tissue-neck:vessels:thrombus",
+        "compiled_field_sha256": "8223e77991e71da6e34cd7d7c1ca2cb1beee7779f37a40e3f3431e6b6dca78f3"
+      },
+      "guidance": [
+        {
+          "source_id": "aium-head-neck-2023",
+          "sections": [
+            "Specification of the Examination",
+            "Equipment Specification"
+          ]
+        }
+      ],
+      "requires_any": [],
+      "source_slots": [
+        {
+          "id": "slot-1",
+          "kind": "choice",
+          "source_token": "[right / left]",
+          "options": [
+            {
+              "value": "right",
+              "label": "right"
+            },
+            {
+              "value": "left",
+              "label": "left"
+            }
+          ]
+        }
+      ],
+      "required_evidence": [
+        "actual_patient_acquisition_and_localization"
+      ],
+      "required_representations": [],
+      "repeated_instances": "each_actual_finding_when_present",
+      "current_patient_evidence": "requires_actual_exam; teaching assets cannot satisfy it",
+      "clinical_approval": false,
+      "representation_completion_claim": false
+    },
+    {
+      "id": "neck_us.vessels.carotid",
+      "name": "Carotid disease",
+      "requirement_type": "current_finding",
+      "source_section_id": "vessels",
+      "source_field_id": "carotid",
+      "report_provenance": {
+        "path": "data/radiology/anatomic-additions-20261119.json",
+        "section_id": "vessels",
+        "field_id": "carotid",
+        "statement": "There is [plaque / stenosis / occlusion] of the [right / left] common carotid artery.",
+        "statement_sha256": "ac539673d7fd70baa9e16c1d74cb84bb3acf83b32950be2b2f7b692072b8784f",
+        "compiled_field_id": "us.soft-tissue-neck:vessels:carotid",
+        "compiled_field_sha256": "3a105b5e70cfceb8cac330260140f980a4d754556d02e0430bc439cd79935c36"
+      },
+      "guidance": [
+        {
+          "source_id": "aium-head-neck-2023",
+          "sections": [
+            "Specification of the Examination",
+            "Equipment Specification"
+          ]
+        }
+      ],
+      "requires_any": [],
+      "source_slots": [
+        {
+          "id": "slot-1",
+          "kind": "choice",
+          "source_token": "[plaque / stenosis / occlusion]",
+          "options": [
+            {
+              "value": "plaque",
+              "label": "plaque"
+            },
+            {
+              "value": "stenosis",
+              "label": "stenosis"
+            },
+            {
+              "value": "occlusion",
+              "label": "occlusion"
+            }
+          ]
+        },
+        {
+          "id": "slot-2",
+          "kind": "choice",
+          "source_token": "[right / left]",
+          "options": [
+            {
+              "value": "right",
+              "label": "right"
+            },
+            {
+              "value": "left",
+              "label": "left"
+            }
+          ]
+        }
+      ],
+      "required_evidence": [
+        "actual_patient_acquisition_and_localization"
+      ],
+      "required_representations": [],
+      "repeated_instances": "each_actual_finding_when_present",
+      "current_patient_evidence": "requires_actual_exam; teaching assets cannot satisfy it",
+      "clinical_approval": false,
+      "representation_completion_claim": false
+    },
+    {
+      "id": "neck_us.muscles-and-soft-tissues.normal",
+      "name": "Muscles and soft tissues assessment",
+      "requirement_type": "current_exam_assessment",
+      "source_section_id": "muscles-and-soft-tissues",
+      "source_field_id": "normal",
+      "report_provenance": {
+        "path": "data/radiology/anatomic-additions-20261119.json",
+        "section_id": "muscles-and-soft-tissues",
+        "field_id": "normal",
+        "statement": "The neck muscles and subcutaneous soft tissues are normal.",
+        "statement_sha256": "fede298147e1c84ba20c3624c772e974a49c8cd45782d7a73443ef2afde12eda",
+        "compiled_field_id": "us.soft-tissue-neck:muscles-and-soft-tissues:normal",
+        "compiled_field_sha256": "5d3802b11fa019e22348bfe3938ac3fd1e44a50ff2f233723db2fee3f166f43c"
+      },
+      "guidance": [
+        {
+          "source_id": "aium-head-neck-2023",
+          "sections": [
+            "Indications",
+            "Specification of the Examination"
+          ]
+        }
+      ],
+      "requires_any": [],
+      "source_slots": [],
+      "required_evidence": [
+        "actual_acquired_grayscale_assessment"
+      ],
+      "required_representations": [],
+      "repeated_instances": "actual_exam_scope",
+      "current_patient_evidence": "requires_actual_exam; teaching assets cannot satisfy it",
+      "clinical_approval": false,
+      "representation_completion_claim": false
+    },
+    {
+      "id": "neck_us.muscles-and-soft-tissues.abnormal",
+      "name": "Soft tissue abnormality",
+      "requirement_type": "current_finding",
+      "source_section_id": "muscles-and-soft-tissues",
+      "source_field_id": "abnormal",
+      "report_provenance": {
+        "path": "data/radiology/anatomic-additions-20261119.json",
+        "section_id": "muscles-and-soft-tissues",
+        "field_id": "abnormal",
+        "statement": "There is [a collection / oedema / a haematoma / a soft tissue mass / fibromatosis colli] in the [right / left / midline] neck.",
+        "statement_sha256": "c5d9358981a5879219e180b3a5bf97211bfb941c98ab39d231b0beeecd2fef5e",
+        "compiled_field_id": "us.soft-tissue-neck:muscles-and-soft-tissues:abnormal",
+        "compiled_field_sha256": "0ac47b4d41c06fd511059b4cc0194c7e5e161573e603c26b0569b8e3e1cfd6cb"
+      },
+      "guidance": [
+        {
+          "source_id": "aium-head-neck-2023",
+          "sections": [
+            "Indications",
+            "Specification of the Examination"
+          ]
+        }
+      ],
+      "requires_any": [],
+      "source_slots": [
+        {
+          "id": "slot-1",
+          "kind": "choice",
+          "source_token": "[a collection / oedema / a haematoma / a soft tissue mass / fibromatosis colli]",
+          "options": [
+            {
+              "value": "a collection",
+              "label": "a collection"
+            },
+            {
+              "value": "oedema",
+              "label": "oedema"
+            },
+            {
+              "value": "a haematoma",
+              "label": "a haematoma"
+            },
+            {
+              "value": "a soft tissue mass",
+              "label": "a soft tissue mass"
+            },
+            {
+              "value": "fibromatosis colli",
+              "label": "fibromatosis colli"
+            }
+          ]
+        },
+        {
+          "id": "slot-2",
+          "kind": "choice",
+          "source_token": "[right / left / midline]",
+          "options": [
+            {
+              "value": "right",
+              "label": "right"
+            },
+            {
+              "value": "left",
+              "label": "left"
+            },
+            {
+              "value": "midline",
+              "label": "midline"
+            }
+          ]
+        }
+      ],
+      "required_evidence": [
+        "actual_patient_acquisition_and_localization"
+      ],
+      "required_representations": [],
+      "repeated_instances": "each_actual_finding_when_present",
+      "current_patient_evidence": "requires_actual_exam; teaching assets cannot satisfy it",
+      "clinical_approval": false,
+      "representation_completion_claim": false
+    }
+  ],
+  "report_guidance_gaps": [
+    {
+      "section_ids": [
+        "parotid-glands",
+        "submandibular-glands"
+      ],
+      "source_id": "aium-head-neck-2023",
+      "guidance_section": "Parotid and Submandibular Evaluation",
+      "gap": "The report has one lesion-size value. Three-dimensional size, margins and internal flow are not supplied by that value or the static source examples."
+    },
+    {
+      "section_ids": [
+        "thyroid-gland"
+      ],
+      "source_id": "aium-head-neck-2023",
+      "guidance_section": "Thyroid Evaluation",
+      "gap": "A single nodule dimension and a TR choice do not document all three dimensions or every feature required for the selected risk-stratification system."
+    },
+    {
+      "section_ids": [
+        "right-neck-nodes",
+        "left-neck-nodes"
+      ],
+      "source_id": "aium-head-neck-2023",
+      "guidance_section": "Cervical Lymph Node Evaluation",
+      "gap": "Level labels do not instantiate each current node, site boundaries or unassessed tissue. Source shape/hilum observations alone are not specific malignant diagnoses."
+    },
+    {
+      "section_ids": [
+        "vessels"
+      ],
+      "source_id": "current-neck-authoring",
+      "gap": "The form contains no velocity criteria or full dedicated vascular protocol. An ordinary vessel landmark cannot establish patency, thrombus or stenosis severity."
+    }
+  ],
+  "source_contexts": [
+    {
+      "source_id": "segthy-001",
+      "sections": [
+        "thyroid-gland",
+        "vessels"
+      ],
+      "role": "Separate tracked ultrasound sweeps with original labels and surfaces; source-label ambiguities remain explicit.",
+      "requirement_ids": [],
+      "coverage_granted": false,
+      "current_patient_registration": false
+    },
+    {
+      "source_id": "salivary-us-2025",
+      "figure_id": "salivary-us-2025-figure3",
+      "panels": [
+        "A",
+        "B"
+      ],
+      "sections": [
+        "parotid-glands",
+        "submandibular-glands"
+      ],
+      "role": "Unsided healthy-subject grayscale examples only.",
+      "side": "not_reported",
+      "plane": "not_reported",
+      "requirement_ids": [],
+      "coverage_granted": false
+    }
+  ],
+  "counts": {
+    "anatomical_requirements": 15,
+    "representation_obligations": 45,
+    "typed_evidence_records": 39,
+    "evidence_records_by_type": {
+      "assessment_scope": 2,
+      "classification": 1,
+      "current_exam_assessment": 7,
+      "current_finding": 16,
+      "examination_scope": 1,
+      "flow_assessment": 5,
+      "interpretation": 1,
+      "measurement": 6
+    }
+  }
+}

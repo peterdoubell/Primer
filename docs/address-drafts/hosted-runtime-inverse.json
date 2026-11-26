@@ -1,0 +1,20 @@
+{
+  "primer/curriculum.py": {
+    "before": "ff6e9d48c56c3ec846c74232398ea17b4ca4ae9d3e4d9875ae8ba0b804fb035a",
+    "after": "63683b240e1bf8882f281896ad37d986ad900aa1f8b3bc488c98e3ce88d4659f",
+    "changes": [
+      {
+        "start": 54,
+        "end": 61,
+        "after": "# Registered manuscript originals retain their native width and source filenames.\nNATIVE_SOURCE_ILLUSTRATION_URLS = frozenset({\n    \"/app/illustrations/address-drafts/nicolay-1.webp\",\n    \"/app/illustrations/address-drafts/nicolay-2.webp\",\n    \"/app/illustrations/address-drafts/hay-1.webp\",\n    \"/app/illustrations/address-drafts/hay-2.webp\",\n})\n",
+        "before": ""
+      },
+      {
+        "start": 99,
+        "end": 101,
+        "after": "                    or (not url.endswith((\"-800.webp\", \"-1600.webp\"))\n                        and url not in NATIVE_SOURCE_ILLUSTRATION_URLS)\n",
+        "before": "                    or not url.endswith((\"-800.webp\", \"-1600.webp\"))\n"
+      }
+    ]
+  }
+}

@@ -71,3 +71,28 @@ def test_hosted_radiology_illustrations_require_registered_url(monkeypatch, tmp_
     radiology.validate_image_source(sorted(module.LESSON_ILLUSTRATION_URLS)[0])
     with pytest.raises(ValueError, match='Unknown hosted'):
         radiology.validate_image_source('/app/illustrations/seedling/unknown-800.webp')
+
+
+def test_only_the_four_registered_native_manuscript_names_are_accepted(monkeypatch, tmp_path):
+    witnesses = json.loads((ROOT / 'web/language/address-drafts/witnesses.json').read_text())
+    expected = {page['image'] for witness in witnesses['witnesses'].values() for page in witness['pages']}
+    assert expected == module.NATIVE_SOURCE_ILLUSTRATION_URLS and len(expected) == 4
+    original = json.loads(Path(module.ILLUSTRATION_MANIFEST).read_text())
+    assert all(original[url]['width'] == 725 for url in expected)
+    manifest = tmp_path / 'native.json'
+    manifest.write_text(json.dumps({url: original[url] for url in expected}))
+    monkeypatch.setenv('VERCEL', '1')
+    monkeypatch.setattr(module, 'ILLUSTRATION_ROOT', str(tmp_path / 'excluded'))
+    monkeypatch.setattr(module, 'ILLUSTRATION_MANIFEST', str(manifest))
+    assert module._discover_lesson_illustrations() == {url: (original[url]['width'], original[url]['height']) for url in expected}
+    bad = dict(original[next(iter(expected))])
+    for url in ['/app/illustrations/address-drafts/hay-3.webp', '/app/illustrations/address-drafts/nicolay-1-extra.webp',
+                '/app/illustrations/other/native.webp', '/app/illustrations/address-drafts/../hay-1.webp']:
+        manifest.write_text(json.dumps({url: bad}))
+        with pytest.raises(ValueError, match='Invalid hosted'):
+            module._discover_lesson_illustrations()
+    for key, value in [('width', True), ('height', 0), ('sha256', 'not-a-sha')]:
+        record = dict(bad, **{key: value})
+        manifest.write_text(json.dumps({next(iter(expected)): record}))
+        with pytest.raises(ValueError, match='Invalid hosted'):
+            module._discover_lesson_illustrations()

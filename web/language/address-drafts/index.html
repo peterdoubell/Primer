@@ -1,0 +1,28 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Two drafts of the Gettysburg Address · Primer</title>
+<link rel="stylesheet" href="/app/activities/kit.css"><link rel="stylesheet" href="view.css">
+<script type="module" src="lab.js"></script></head><body><main>
+<nav aria-label="Lessons"><a href="/app/#/node/lang.5.philology">Philology and Textual Criticism</a> · <a href="/app/#/node/lang.3.rhetoric">Rhetoric</a></nav>
+<h1>Two drafts of the Gettysburg Address</h1>
+<p class="lede">Compare Lincoln’s handwriting in the Nicolay and Hay manuscripts. Choose a passage to see where he used different words for the same part of the speech.</p>
+<fieldset id="options" disabled><legend>Compare a passage</legend><div class="controls">
+<div><label for="passage">Passage</label><select id="passage"></select></div>
+<div><label for="unit">Compare</label><select id="unit"><option value="words">Words</option><option value="punct">Words and punctuation</option></select></div>
+<div><label for="case">Letter case</label><select id="case"><option value="exact">Distinguish capitals</option><option value="fold">Ignore capitals</option></select></div>
+<div><label for="framing">Page view</label><select id="framing"><option value="lines">Focus on the lines</option><option value="page">Whole page</option></select></div>
+</div><div class="choices"><button id="back" type="button">Previous passage</button><button id="next" type="button">Next passage</button></div></fieldset>
+<p id="status" role="status">Loading both manuscripts…</p>
+<div id="witnesses" class="witnesses"></div>
+<section id="comparisons" hidden><h2>Read the differences</h2>
+<p>Highlighting shows tokens found on one side of this alignment. Shared tokens are plain. The algorithm matches as many tokens as possible in the same order. Repeated words can allow another equally long match.</p>
+<table><caption>Alignment counts for this passage</caption><thead><tr><th scope="col">Reading</th><th scope="col">Matched in both</th><th scope="col">Unmatched</th><th scope="col">Total</th></tr></thead><tbody id="counts"></tbody></table>
+<details><summary>List the unmatched readings</summary>
+<p id="no-variants" hidden>The chosen comparison matches every token in these two readings.</p>
+<table id="variants"><thead><tr><th scope="col">After the shared token</th><th scope="col">Nicolay copy</th><th scope="col">Hay draft</th></tr></thead><tbody id="variant-rows"></tbody></table></details>
+<details><summary>Read the two complete transcriptions</summary><div id="complete" class="witnesses"></div></details></section>
+<section><h2>Find the reading</h2><p id="question">Loading the first reading…</p><button id="show-reading" type="button" disabled>Show this passage</button><div id="answers" class="choices"></div>
+<p id="feedback" aria-live="polite"></p><button id="new-question" type="button" disabled>Next reading</button></section>
+<footer><p>The Library of Congress identifies the Nicolay manuscript as the earliest surviving draft. The Hay manuscript was probably made after Lincoln returned to Washington. Each is evidence of a written version. The precise wording delivered at Gettysburg is a separate historical question.</p>
+<p>Abraham Lincoln, 1863. Manuscript Division, Library of Congress. The photographs reproduce the four exhibition pages, and the text follows the Library’s transcriptions. The marked bands locate groups of lines in the handwriting. <a href="https://www.loc.gov/exhibits/gettysburg-address/exhibition-items.html">Original manuscripts and exhibition notes</a></p></footer>
+</main></body></html>

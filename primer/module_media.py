@@ -137,8 +137,10 @@ def attach_module_media(node):
                                            if node['id'] == 'rad.4.stroke' else
                                            'Compare the acquired ultrasound, manual label outlines and 3D surfaces for each thyroid sweep. Left and right were acquired separately.'
                                            if node['id'] == 'rad.5.thyroid-tirads' else
-                                           'Trace the modelled salivary gland bodies and ducts against the muscles and jaw. Use sections of the same meshes to inspect their spatial relationships.'
+                                           'Compare the published cervical-node ultrasound and Doppler examples. A separate gross atlas shows the salivary glands, ducts and jaw.'
                                            if node['id'] == 'rad.5.neck-nodes' else
+                                           'Compare the labelled paediatric grayscale examples in their published cohort and review the authors’ categories beside the images.'
+                                           if node['id'] == 'rad.5.paeds-masses-neuro' else
                                            'Inspect the source MRI atlas and the separately modelled salivary glands, ducts, muscles and jaw in their own coordinate frames.'
                                            if node['id'] == 'rad.5.deep-neck-spaces' else
                                            'Inspect all original CT sections, separate reader masks and every original XML mark. These source observations neither label every report structure nor establish histology, current-patient findings or longitudinal growth.'

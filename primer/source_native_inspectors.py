@@ -156,4 +156,7 @@ def references():
     from .salivary_surface_reference import references as salivary_surfaces
     for identifier, entries in salivary_surfaces().items():
         result[identifier] = [*result.get(identifier, []), *entries]
+    from .cervical_node_figures import references as published_nodes
+    for identifier, entries in published_nodes().items():
+        result[identifier] = [*result.get(identifier, []), *entries]
     return result
