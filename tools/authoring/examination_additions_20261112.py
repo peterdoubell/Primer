@@ -51,7 +51,7 @@ RETITLED = {}
 
 MODALITY = {
     'CT': r'\bCT\b|\bCTA\b|\bHRCT\b|Hounsfield|\bHU\b|CT angiograph|CT perfusion',
-    'MRI': r'\bMRI?\b|\bMRA\b|\bMRV\b|MRCP|\bDWI\b|\bADC\b|FLAIR|\bSWI\b|gadolinium|T1|T2|STIR|diffusion|susceptib|MR angiograph|MR venograph|chemical[- ]shift|sequence|signal',
+    'MRI': r'\bMRI?\b|\bMRA\b|\bMRV\b|MRCP|\bDWI\b|\bADC\b|FLAIR|\bSWI\b|gadolinium|T1|T2|STIR|diffusion|susceptib|MR angiograph|MR venograph|chemical[- ]shift|sequence|signal|hepatobiliary hypointensity',
     'Ultrasound': r'ultrason|sonograph|Doppler|duplex|graded compression|compressib|Murphy|transducer|echogen|acoustic|\b3D ultrasound',
     'Radiography': r'radiograph|projection|plain film|X-ray',
     'Fluoroscopy': r'fluoroscop|barium|oral contrast swallow',
@@ -142,6 +142,9 @@ def source_rows(sections, modality):
         for finding in section['findings']:
             text = filter_text(finding['text'], modality)
             local = finding['id'].split(':')[-1]
+            # Hepatobiliary-phase signal intensity applies to the MRI parent.
+            if modality == 'CT' and section.get('anatomy_id') == 'hepatic-observation' and local == 'hb':
+                continue
             if text is None:
                 dropped.add(local)
                 continue
