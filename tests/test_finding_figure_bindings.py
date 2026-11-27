@@ -111,9 +111,19 @@ def test_catch_all_requirements_and_guarded_figures_stay_unbound():
                  ('open-bowel-obstruction-pmc4729712-fig10', 'bowel_obstruction.positive_examples')):
         assert pair not in bound and pair[1] not in assets[pair[0]]['structure_ids']
         assert any(row['asset_id'] == pair[0] and 'unconfirmed' in row['reason'] for row in review['rejected'])
-    for asset in assets.values():
-        if asset['id'].startswith('open-acute-abdomen-ref-'):
-            assert asset['structure_ids'] == []
+    from tools.acute_abdomen_panels_compatibility import before_acute_panel_evidence
+    from tools.anatomy_sources import build_acute_abdomen_source_panels as panels
+    before_panels = json.loads(before_acute_panel_evidence(tool.EVIDENCE.read_bytes()))
+    reviewed = json.loads((panels.ROOT / panels.REVIEW).read_bytes())
+    for earlier in before_panels['assets']:
+        identifier = earlier['id']
+        if identifier.startswith('open-acute-abdomen-ref-'):
+            assert earlier['structure_ids'] == []
+            current = assets[identifier]
+            expected = {binding['target_id'] for panel in reviewed['panels'] if panel['figure_id'] == identifier
+                        for binding in panel['bindings']}
+            assert set(current['structure_ids']) == set(current['requirement_coverage']) == expected
+            assert all(row['extent'] == 'partial' for row in current['requirement_coverage'].values())
 
 
 def test_finding_bindings_have_an_exact_inverse_and_only_add_bindings():

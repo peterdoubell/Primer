@@ -20,6 +20,16 @@ window.PrimerStructuredReporting = (() => {
   const choose = (node, active) => node.setAttribute('aria-pressed', String(Boolean(active)));
   const descriptorForm = form => form.descriptor_form || form;
   const MAX_REPEAT_INSTANCES = 50;
+  const ACUTE_SOURCE_ROWS = {"anatomy-appendix": {"target": "acute_abdomen.appendix.lumen", "label": "Normal and inflamed source appendix panels"}, "anatomy-periappendiceal-fat": {"target": "acute_abdomen.appendix.periappendiceal_fat", "label": "Source periappendiceal fat change"}, "anatomy-periappendiceal-fluid": {"target": "acute_abdomen.bowel_observations.extraluminal_region", "label": "Source adjacent fluid marked +"}, "anatomy-ascending-colon": {"target": "acute_abdomen.bowel_observations.wall_thickening_site", "label": "Source ascending-colon wall change"}, "anatomy-sigmoid-colon": {"target": "acute_abdomen.bowel_observations.wall_thickening_site", "label": "Source sigmoid wall and adjacent fat examples"}, "anatomy-pancreas": {"target": "acute_abdomen.organ_pancreatic_tail.covered_tissue", "label": "Source pancreatic-tail observation"}, "anatomy-gallbladder-lumen": {"target": "acute_abdomen.gallbladder_detail.lumen", "label": "Source gallbladder lumen and sludge"}, "anatomy-gallbladder-wall": {"target": "acute_abdomen.solid_observations.abnormal_wall_or_duct_region", "label": "Source thick, striated gallbladder wall"}, "anatomy-common-bile-duct": {"target": "acute_abdomen.organ_common_bile_duct_if_resolved.lumen_or_duct_if_resolved", "label": "CBD source examples: US, T2 MRI and MRCP"}};
+  function rowSourcePanel(exam, section) {
+    const source = exam.id === 'ra.acute-abdomen' && ACUTE_SOURCE_ROWS[section.id];
+    if (!source) return null;
+    const row = element('p', undefined, 'rad-source-panel-row'), link = element('a', source.label);
+    link.href = '/app/radiology/acute-abdomen-panels/index.html?target=' + encodeURIComponent(source.target)
+      + '&report=' + encodeURIComponent(section.id);
+    link.target = '_blank'; link.rel = 'noopener';
+    row.append(link); return row;
+  }
   function expandRepeated(investigation, selections = {}) {
     const sections = [], values = {...selections}, missing = [];
     for (const section of investigation?.sections || []) {
@@ -762,6 +772,8 @@ window.PrimerStructuredReporting = (() => {
         }
         const unassessed = button('Not assessed', () => changeSection(section, {normal: false, not_assessed: !sectionState.not_assessed, findings: {}}));
         unassessed.dataset.radFocus = 'unassessed:' + section.id; choose(unassessed, sectionState.not_assessed); quick.append(unassessed); row.append(quick); panel.append(row);
+        const sourcePanel = rowSourcePanel(exam, section);
+        if (sourcePanel) panel.append(sourcePanel);
         if (section.repeatable) {
           const instances = sectionState.instances || [];
           if (Array.isArray(instances)) instances.forEach((instance,index) => {

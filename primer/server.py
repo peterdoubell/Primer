@@ -4477,4 +4477,8 @@ class _CachedStatic(StaticFiles):
 
 if os.path.isdir(WEB_DIR):
     app.state.source_static = _CachedStatic(directory=WEB_DIR, html=True)
+    # Vercel serves these public source assets through its existing /source-media route.
+    lesson_sources = os.path.join(WEB_DIR, "reference-media", "lesson-sources")
+    if os.path.isdir(lesson_sources):
+        app.mount("/source-media/reference-media/lesson-sources", _CachedStatic(directory=lesson_sources), name="lesson-sources")
     app.mount("/app", app.state.source_static, name="static")

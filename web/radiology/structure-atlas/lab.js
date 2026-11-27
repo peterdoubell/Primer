@@ -22,15 +22,19 @@ const Locator = {
       named_parts_only: 'Only named parts are labelled' }[match] || '';
   },
   visible(structure, text, locatedOnly) {
-    if (locatedOnly && !structure.atlas && !structure.radiology_assistant && !structure.native_examples?.length) return false;
+    if (locatedOnly && !structure.atlas && !structure.radiology_assistant && !structure.native_examples?.length && !structure.source_panels?.length) return false;
     const words = [structure.name, ...(structure.native_examples || []).map(example =>
-      'node ' + example.source_node_id + ' ' + example.primary_station)].join(' ').toLowerCase();
+      'node ' + example.source_node_id + ' ' + example.primary_station),
+      ...(structure.source_panels || []).map(example => example.target_name + ' ' + example.label)].join(' ').toLowerCase();
     return !text || words.includes(text.trim().toLowerCase());
   },
   nativeUrl(value) {
     if (typeof value !== 'string') return null;
     const match = /^\/app\/anatomy\/lynos-pat9\/(?:index|surfaces)\.html\?node=(\d{1,2})$/.exec(value);
     return match && Number(match[1]) >= 1 && Number(match[1]) <= 44 ? value : null;
+  },
+  panelUrl(value) {
+    return typeof value === 'string' && /^\/app\/radiology\/acute-abdomen-panels\/index\.html\?target=acute_abdomen\.[a-z0-9_.]+&panel=[a-z0-9-]+$/.test(value) ? value : null;
   },
   safeUrl(url, prefix) { return typeof url === 'string' && url.startsWith(prefix) ? url : null; },
 };
@@ -124,6 +128,18 @@ function start() {
         ' · ', el('a', { href: source.license_url, target: '_blank', rel: 'noopener noreferrer' }, source.license)));
   }
 
+  function panelCell(structure) {
+    const cell = el('td'), entries = structure.source_panels || [];
+    if (!entries.length) { cell.append(el('span', {class:'none'}, 'No reviewed local source match')); return cell; }
+    const list = el('ul');
+    for (const entry of entries) {
+      const href = Locator.panelUrl(entry.url);
+      if (!href) continue;
+      list.append(el('li', {}, el('a', {href}, entry.target_name), el('small', {}, entry.label + ' · partial source example')));
+    }
+    cell.append(list); return cell;
+  }
+
   function draw() {
     const body = $('rows');
     body.replaceChildren();
@@ -132,14 +148,16 @@ function start() {
     for (const structure of shown) {
       const row = el('tr', {}, el('th', { scope: 'row' }, structure.name), atlasCell(structure), sourceCell(structure));
       if (current.native_source) row.append(nativeCell(structure));
+      if (current.source_panel_rows) row.append(panelCell(structure));
       body.append(row);
     }
     const counts = current.counts;
-    const total = current.structures.filter(row => row.atlas || row.radiology_assistant || row.native_examples?.length).length;
+    const total = current.structures.filter(row => row.atlas || row.radiology_assistant || row.native_examples?.length || row.source_panels?.length).length;
     const native = current.structures.filter(row => row.native_examples?.length).length;
     $('summary').textContent = total + ' of ' + counts.requirements + ' reportable structures have a locator ('
       + counts.atlas + ' in the atlas, ' + counts.radiology_assistant + ' in Radiology Assistant'
-      + (native ? ', ' + native + ' with LyNoS node examples' : '') + '). Showing ' + shown.length + '.';
+      + (native ? ', ' + native + ' with LyNoS node examples' : '')
+      + (current.source_panel_rows ? ', ' + current.source_panel_rows + ' with selected local examples' : '') + '). Showing ' + shown.length + '.';
   }
 
   async function load(identifier) {
@@ -149,6 +167,9 @@ function start() {
     $('return-link').textContent = 'Return to reporting reference';
     current = await (await fetch(row.file)).json();
     sourceContext();
+    $('panel-source-heading').hidden = !current.source_panel_rows;
+    $('panel-context').hidden = !current.source_panel_rows;
+    $('panel-context').textContent = current.source_panel_note || '';
     draw();
   }
 

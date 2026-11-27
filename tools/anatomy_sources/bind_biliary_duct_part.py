@@ -79,6 +79,8 @@ def bind():
 
 def before_biliary_duct_part_record(raw):
     """Exact earlier bytes of the evidence file; any other state is returned unchanged."""
+    from tools.acute_abdomen_panels_compatibility import before_acute_panel_evidence
+    raw = before_acute_panel_evidence(raw)
     receipt = json.loads(RECEIPT.read_text())
     if second.sha(raw) != receipt['after_sha256']:
         return raw

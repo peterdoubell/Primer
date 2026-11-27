@@ -1,0 +1,3 @@
+The function bundle reads the deterministic, lossless `data/radiology/structured-reporting.json.gz` when the authored JSON is absent. The original 3,426,024-byte author file remains in Git and is excluded from the Vercel function; its 259,402-byte runtime copy decompresses to exactly those bytes. A present author file takes precedence during editing. A corrupt packed file raises its decoding error, and the existing empty-form behavior remains when neither input exists.
+
+Regenerate the runtime copy with `python tools/pack_structured_reporting.py`. Tests compare all decompressed bytes and cover author-only, packed-only, both-present, neither-present and corrupt-packed paths. The exact bridge and Vercel inverse preserves the prior reporting and deployment receipts.

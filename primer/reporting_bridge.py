@@ -32,7 +32,10 @@ CALCULATOR_PATHS = {
 @lru_cache(maxsize=1)
 def structured_forms():
     path = Path(__file__).resolve().parents[1] / 'data/radiology/structured-reporting.json'
-    return json.loads(path.read_text()) if path.exists() else {'forms': {}}
+    if path.exists():
+        return json.loads(path.read_text())
+    packed = path.with_suffix('.json.gz')
+    return json.loads(gzip.decompress(packed.read_bytes())) if packed.exists() else {'forms': {}}
 
 
 @lru_cache(maxsize=1)

@@ -398,6 +398,7 @@ def test_the_click_builder_default_acquisition_is_the_template_protocol_with_an_
     from primer.reporting_bridge import descriptor_forms
     from tools.report_compartment_compatibility import before_compartments_bytes
     from tools.report_layout_compatibility import PROTOCOL_ALIGNMENT, PROTOCOL_ALIGNMENT_PATH, before_protocol_alignment_bytes
+    from tools.structured_forms_runtime_compatibility import before_structured_forms_pack_bytes
     packed = ROOT / 'data/radiology/descriptor-reporting.json.gz'
     stored = json.loads(gzip.decompress(packed.read_bytes()) if packed.exists()
                         else (ROOT / 'data/radiology/descriptor-reporting.json').read_text())
@@ -427,7 +428,7 @@ def test_the_click_builder_default_acquisition_is_the_template_protocol_with_an_
     section = next(s for s in knee['sections'] if s.get('normal'))
     report = render_descriptors(form, {'investigation_id': 'ra.mri-knee', 'selections': {section['id']: {'normal': True}}})
     assert report['valid'] and library['ra.mri-knee']['technique']['normal'] in report['text']
-    raw = (ROOT / PROTOCOL_ALIGNMENT_PATH).read_bytes()
+    raw = before_structured_forms_pack_bytes(PROTOCOL_ALIGNMENT_PATH, (ROOT / PROTOCOL_ALIGNMENT_PATH).read_bytes())
     assert hashlib.sha256(raw).hexdigest() == PROTOCOL_ALIGNMENT[1]
     assert hashlib.sha256(before_protocol_alignment_bytes(PROTOCOL_ALIGNMENT_PATH, raw)).hexdigest() == PROTOCOL_ALIGNMENT[0]
     assert before_protocol_alignment_bytes(PROTOCOL_ALIGNMENT_PATH, raw + b'\n') == raw + b'\n'
