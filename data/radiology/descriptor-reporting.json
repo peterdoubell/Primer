@@ -183365,74 +183365,6 @@
                   ]
                 },
                 {
-                  "id": "ct.liver-mass:hepatic-observation:hb",
-                  "label": "Hepatobiliary phase",
-                  "text": "On the acquired hepatobiliary phase the observation is [hypointense / isointense / hyperintense / heterogeneous].",
-                  "segments": [
-                    {
-                      "text": "On the acquired hepatobiliary phase the observation is "
-                    },
-                    {
-                      "slot": "slot-1"
-                    },
-                    {
-                      "text": "."
-                    }
-                  ],
-                  "slots": [
-                    {
-                      "id": "slot-1",
-                      "kind": "choice",
-                      "label": "Acquired hepatobiliary phase the observation is",
-                      "required": true,
-                      "options": [
-                        {
-                          "value": "hypointense",
-                          "label": "hypointense"
-                        },
-                        {
-                          "value": "isointense",
-                          "label": "isointense"
-                        },
-                        {
-                          "value": "hyperintense",
-                          "label": "hyperintense"
-                        },
-                        {
-                          "value": "heterogeneous",
-                          "label": "heterogeneous"
-                        }
-                      ],
-                      "source_token": "[hypointense / isointense / hyperintense / heterogeneous]",
-                      "source_span": {
-                        "start": 55,
-                        "end": 112,
-                        "unit": "unicode_code_points"
-                      }
-                    }
-                  ],
-                  "source": {
-                    "source_file": "data/radiology/anatomic-additions-20261112.json",
-                    "source_kind": "curated-anatomic-report",
-                    "investigation_id": "ct.liver-mass",
-                    "step_index": 2,
-                    "reviewed_at": "2026-11-12",
-                    "source_ids": [
-                      "acr-parameters"
-                    ],
-                    "reference_ids": [
-                      "anatomic-additions-20261112:acr-parameters"
-                    ],
-                    "clinical_approval": false,
-                    "kind": "finding",
-                    "statement_sha256": "e13f636baab1414a66f56693391b6ac50df96e0fea122481ddaeac3fd12a10af"
-                  },
-                  "requires_context": false,
-                  "requires_any": [
-                    "ct.liver-mass:hepatic-observation:lesion"
-                  ]
-                },
-                {
                   "id": "ct.liver-mass:hepatic-observation:growth",
                   "label": "Interval change",
                   "text": "Compared with the available prior examination the observation is [new / enlarged / unchanged / smaller / no longer visible].",
@@ -189160,74 +189092,6 @@
                     "clinical_approval": false,
                     "kind": "finding",
                     "statement_sha256": "a86de89face028515da39b90980ad4f03fbf23aed2a9bd488cdb7bdc5308f10b"
-                  },
-                  "requires_context": false,
-                  "requires_any": [
-                    "ct.liver-lirads:hepatic-observation:lesion"
-                  ]
-                },
-                {
-                  "id": "ct.liver-lirads:hepatic-observation:hb",
-                  "label": "Hepatobiliary phase",
-                  "text": "On the acquired hepatobiliary phase the observation is [hypointense / isointense / hyperintense / heterogeneous].",
-                  "segments": [
-                    {
-                      "text": "On the acquired hepatobiliary phase the observation is "
-                    },
-                    {
-                      "slot": "slot-1"
-                    },
-                    {
-                      "text": "."
-                    }
-                  ],
-                  "slots": [
-                    {
-                      "id": "slot-1",
-                      "kind": "choice",
-                      "label": "Acquired hepatobiliary phase the observation is",
-                      "required": true,
-                      "options": [
-                        {
-                          "value": "hypointense",
-                          "label": "hypointense"
-                        },
-                        {
-                          "value": "isointense",
-                          "label": "isointense"
-                        },
-                        {
-                          "value": "hyperintense",
-                          "label": "hyperintense"
-                        },
-                        {
-                          "value": "heterogeneous",
-                          "label": "heterogeneous"
-                        }
-                      ],
-                      "source_token": "[hypointense / isointense / hyperintense / heterogeneous]",
-                      "source_span": {
-                        "start": 55,
-                        "end": 112,
-                        "unit": "unicode_code_points"
-                      }
-                    }
-                  ],
-                  "source": {
-                    "source_file": "data/radiology/anatomic-additions-20261112.json",
-                    "source_kind": "curated-anatomic-report",
-                    "investigation_id": "ct.liver-lirads",
-                    "step_index": 2,
-                    "reviewed_at": "2026-11-12",
-                    "source_ids": [
-                      "acr-parameters"
-                    ],
-                    "reference_ids": [
-                      "anatomic-additions-20261112:acr-parameters"
-                    ],
-                    "clinical_approval": false,
-                    "kind": "finding",
-                    "statement_sha256": "e13f636baab1414a66f56693391b6ac50df96e0fea122481ddaeac3fd12a10af"
                   },
                   "requires_context": false,
                   "requires_any": [
@@ -201644,7 +201508,7 @@
         "defaults": "none",
         "anatomic_expansion": "Original structure-specific reporting choices; references retained; no clinical approval implied."
       },
-      "schema_hash": "83df1a9f110182b0c26587f194ea72d0965e1353d1499a1260d35d09b5e0eaef",
+      "schema_hash": "836bf32d4e862332958c767037737acf0ddce93e94069f480025a3fabdf34dd9",
       "anatomic_sources": {
         "anatomic-additions-20261026:anatomic-body:characterisation-of-liver-masses": {
           "id": "anatomic-body:characterisation-of-liver-masses",
@@ -1903318,16 +1903182,16 @@
     }
   },
   "summary": {
-    "anatomic_findings": 26931,
+    "anatomic_findings": 26929,
     "anatomic_investigations": 335,
     "anatomic_structures": 7070,
     "assessment_statements": 86,
-    "choice_slots": 18890,
+    "choice_slots": 18888,
     "complete_normal_sections": 5697,
     "complete_normal_statements": 438,
     "context_slots": 0,
-    "descriptors": 32628,
-    "descriptors_complete_without_context": 32628,
+    "descriptors": 32626,
+    "descriptors_complete_without_context": 32626,
     "descriptors_requiring_context": 0,
     "guides": 98,
     "investigations": 335,
@@ -1905651,7 +1905515,7 @@
       "guide_id": "rad.4.liver",
       "investigation_id": "ct.liver-mass",
       "structures": 31,
-      "findings": 77,
+      "findings": 76,
       "anatomy_ids": [
         "liver-background",
         "spleen",
@@ -1905691,7 +1905555,7 @@
       "guide_id": "rad.4.liver",
       "investigation_id": "ct.liver-lirads",
       "structures": 31,
-      "findings": 81,
+      "findings": 80,
       "anatomy_ids": [
         "liver-background",
         "spleen",
@@ -1913441,5 +1913305,5 @@
     "number_policy": "Only actual supplied measurements; no numeric defaults. A number picker is an input method, not a measurement source.",
     "report_policy": "All slots in selected statements must resolve before a report is complete. Preserve source statement wording."
   },
-  "schema_hash": "0c3932955802d8634f5dddad784f2b886fd3705983cdfd7bcabde4044998f38e"
+  "schema_hash": "c62d5d99c51ce26c55274180b652f302cf66b1f51242645cdbbeedffd44c1e44"
 }
