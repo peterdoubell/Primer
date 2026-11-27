@@ -110,8 +110,15 @@ def test_live_denominator_is_the_real_app_index_and_neck_has_three_distinct_deno
     assert index['count'] == live['investigations'] == 335
     assert {row['id'] for row in index['modules']} == {row['investigation_id'] for row in live['rows']}
     assert live['report_sections'] == 7070
-    assert (live['with_dedicated_inventory'], live['without_dedicated_inventory']) == (137, 198)
-    assert (live['legacy_inventory_investigations'], live['typed_descriptor_investigations']) == (136, 1)
+    assert (live['with_dedicated_inventory'], live['without_dedicated_inventory']) == (138, 197)
+    assert (live['legacy_inventory_investigations'], live['typed_descriptor_investigations']) == (136, 2)
+    cap = next(row for row in live['rows'] if row['investigation_id'] == 'ct.chest-abdomen-pelvis')
+    assert cap['report_sections'] == 14 and cap['inventory']['typed_evidence_records'] == 44
+    assert live['typed_patient_evidence_records'] == 83
+    for kind, partial in {'clinical_image': 67, 'schematic': 75, 'model': 75}.items():
+        counts = cap['representations'][kind]
+        assert (counts['required'], counts['verified'], counts['source_linked'], counts['partial'], counts['missing']) == (
+            122, 0, partial, partial, 122 - partial)
     row = next(row for row in live['rows'] if row['investigation_id'] == neck.CASE)
     assert row['report_sections'] == 9 and row['inventory']['typed_evidence_records'] == 39
     for kind in KINDS:
@@ -132,17 +139,17 @@ def test_live_denominator_is_the_real_app_index_and_neck_has_three_distinct_deno
 
 
 def test_live_known_representation_counts_conserve_leaves_and_unknown_studies_stay_unknown(live):
-    assert live['known_representation_obligations'] == 152631
+    assert live['known_representation_obligations'] == 152997
     assert live['total_representation_obligations'] is None
     for kind in KINDS:
         total = live['representations'][kind]
-        assert total['required'] == 50877
+        assert total['required'] == 50999
         assert total['required'] == total['verified'] + total['partial'] + total['unverified'] + total['missing']
         assert total['explicitly_bound'] == total['verified'] + total['unverified']
         assert total['with_partial_candidates'] <= total['explicitly_bound']
         assert sum(row['representations'][kind]['required'] or 0 for row in live['rows']) == total['required']
     unknown = [row for row in live['rows'] if row['inventory_status'] == 'no_dedicated_inventory']
-    assert len(unknown) == 198
+    assert len(unknown) == 197
     assert all(row['representations'][kind]['required'] is None and not row['representations'][kind]['complete_set'] for row in unknown for kind in KINDS)
     assert all(not row['clinical_completion_claim'] for row in live['rows'])
 

@@ -7,6 +7,8 @@ AFTER = '528c7b9793bc601214767509642a9307b5645d1c9bb8b2c5447d83850f927d92'
 ADDITIONS = [b'  <link rel="stylesheet" href="/app/module-mission.css">\n', b'  <script src="/app/module-mission.js"></script>\n']
 
 def previous_shell_bytes(relative, raw):
+    from tools.ct_torso_compatibility import before_torso_bytes
+    raw = before_torso_bytes(relative, raw)
     from tools.manuscript_native_runtime_compatibility import before_manuscript_native_bytes
     raw = before_manuscript_native_bytes(relative, raw)
     if relative != 'web/index.html':

@@ -1,0 +1,3375 @@
+{
+  "schema_version": 1,
+  "schema": "primer.typed-descriptor-requirements/1",
+  "investigation_id": "ct.chest-abdomen-pelvis",
+  "title": "CT chest, abdomen and pelvis with contrast",
+  "guide_id": "rad.4.oncology-response",
+  "clinical_validation_status": "unreviewed",
+  "clinical_approval": false,
+  "representation_completion_claim": false,
+  "sources": [
+    {
+      "id": "acr-thoracic-ct",
+      "url": "https://gravitas.acr.org/PPTS/GetDocumentView?docId=13",
+      "title": "ACR practice parameter for thoracic CT",
+      "scope": "Thoracic acquisition and documentation."
+    },
+    {
+      "id": "acr-abdomen-pelvis-ct",
+      "url": "https://gravitas.acr.org/PPTS/GetDocumentView?docId=168",
+      "title": "ACR practice parameter for abdominal and pelvic CT",
+      "scope": "Abdominopelvic acquisition and documentation."
+    },
+    {
+      "id": "recist-1.1",
+      "url": "https://recist.eortc.org/recist-1-1/",
+      "title": "RECIST Working Group, version 1.1",
+      "scope": "Target selection, measurement and longitudinal response in applicable solid-tumour studies."
+    }
+  ],
+  "conventions": {
+    "scope": "Named anatomy in the two CAP report formats, including field-of-view and patient-dependent regions. Variant levels, nodal stations and actual lesions require individual localisation.",
+    "segments": "The quick report requests a liver segment. The eight functional regions include segment I as the caudate. Segment IV subdivisions require individual assessment.",
+    "sides": "Paired anatomy is individually identified. Reproductive anatomy depends on the organs present.",
+    "evidence": "Clinical findings, acquisition, measurements and response require the patient examination. Teaching sources provide partial anatomical examples."
+  },
+  "source_report": {
+    "author_path": "data/radiology/anatomic-additions-20261119.json",
+    "author_investigation_sha256": "00a8e62c55f517d3f3029acb75840aeddfb5d783d46687fe6e7a48b38994b62d",
+    "compiled_path": "data/radiology/descriptor-reporting.json",
+    "compiled_investigation_sha256": "ec61fc1861c4b38893e42db13e1bb63fdedf70968d05fc5453520b102690f3a6",
+    "fast_report_path": "data/radiology/report-templates/additions-20261119.json",
+    "fast_report_sha256": "b4410093fb7eb481b848a2e76d1c2103bb1584b9f60a6e30619a5e2c3b1e530e",
+    "source_section_ids": [
+      "technique",
+      "lungs-and-airways",
+      "pleura-and-pericardium",
+      "thoracic-lymph-nodes",
+      "heart-and-great-vessels",
+      "liver",
+      "gallbladder-pancreas-and-spleen",
+      "adrenal-glands",
+      "kidneys-and-bladder",
+      "bowel-and-peritoneum",
+      "reproductive-organs",
+      "abdominal-and-pelvic-lymph-nodes",
+      "bones",
+      "target-lesions"
+    ]
+  },
+  "sections": [
+    {
+      "id": "technique",
+      "label": "Examination performed",
+      "section_sha256": "4336137a743c189c369d53954401608f8386c3ae5c4b63e0a6a85201df0f23f3",
+      "quick_report": {
+        "normal": "Arterial phase chest and upper abdomen. Portal venous abdomen and pelvis.",
+        "options": []
+      },
+      "source_field_ids": [
+        "ct.chest-abdomen-pelvis:technique:assessment"
+      ],
+      "anatomical_requirement_ids": []
+    },
+    {
+      "id": "lungs-and-airways",
+      "label": "Lungs and airways",
+      "section_sha256": "6035776785b6b5b3b1738634826b8dc6896109fa4d9b7744e3666cba6b0f5edf",
+      "quick_report": {
+        "heading": "Lungs and airways",
+        "group": "Chest",
+        "normal": "No pulmonary nodule, mass or consolidation.",
+        "options": [
+          "Pulmonary nodule [ ] mm in the [ ].",
+          "[Mass / Consolidation / Lymphangitis] in the [ ]."
+        ]
+      },
+      "source_field_ids": [
+        "ct.chest-abdomen-pelvis:lungs-and-airways:normal",
+        "ct.chest-abdomen-pelvis:lungs-and-airways:nodule",
+        "ct.chest-abdomen-pelvis:lungs-and-airways:size",
+        "ct.chest-abdomen-pelvis:lungs-and-airways:parenchyma",
+        "ct.chest-abdomen-pelvis:lungs-and-airways:airway"
+      ],
+      "anatomical_requirement_ids": [
+        "cap.lung_upper_lobe_right",
+        "cap.lung_middle_lobe_right",
+        "cap.lung_lower_lobe_right",
+        "cap.lung_upper_lobe_left",
+        "cap.lung_lower_lobe_left",
+        "cap.lingula",
+        "cap.trachea",
+        "cap.main_bronchus.right",
+        "cap.main_bronchus.left"
+      ]
+    },
+    {
+      "id": "pleura-and-pericardium",
+      "label": "Pleura and pericardium",
+      "section_sha256": "3368e07b8158ffeaebdd749001f03747e19aa72de4ba0beb696f1fef91a1e6ff",
+      "quick_report": {
+        "heading": "Pleura and pericardium",
+        "group": "Chest",
+        "normal": "No pleural or pericardial effusion.",
+        "options": [
+          "[Pleural effusion / Pleural nodularity / Pericardial effusion] [ ]."
+        ]
+      },
+      "source_field_ids": [
+        "ct.chest-abdomen-pelvis:pleura-and-pericardium:normal",
+        "ct.chest-abdomen-pelvis:pleura-and-pericardium:effusion",
+        "ct.chest-abdomen-pelvis:pleura-and-pericardium:pleura",
+        "ct.chest-abdomen-pelvis:pleura-and-pericardium:pericardium"
+      ],
+      "anatomical_requirement_ids": [
+        "cap.pleura.right",
+        "cap.pleura.left",
+        "cap.pleural_space.right",
+        "cap.pleural_space.left",
+        "cap.pericardium",
+        "cap.pericardial_space"
+      ]
+    },
+    {
+      "id": "thoracic-lymph-nodes",
+      "label": "Thoracic lymph nodes",
+      "section_sha256": "831d4e40eedc4bcc136f46d5b6c0013c835574d7c19ff4fb936d4ab276644dad",
+      "quick_report": {
+        "heading": "Thoracic lymph nodes",
+        "group": "Chest",
+        "normal": "No mediastinal, hilar or axillary lymphadenopathy.",
+        "options": [
+          "[Mediastinal / Hilar / Axillary] lymph node [ ] mm at station [ ]."
+        ]
+      },
+      "source_field_ids": [
+        "ct.chest-abdomen-pelvis:thoracic-lymph-nodes:normal",
+        "ct.chest-abdomen-pelvis:thoracic-lymph-nodes:node",
+        "ct.chest-abdomen-pelvis:thoracic-lymph-nodes:size"
+      ],
+      "anatomical_requirement_ids": [
+        "cap.mediastinal_nodal_region",
+        "cap.hilar_nodal_region.right",
+        "cap.hilar_nodal_region.left",
+        "cap.axillary_nodal_region.right",
+        "cap.axillary_nodal_region.left",
+        "cap.supraclavicular_nodal_region.right",
+        "cap.supraclavicular_nodal_region.left"
+      ]
+    },
+    {
+      "id": "heart-and-great-vessels",
+      "label": "Heart and great vessels",
+      "section_sha256": "649c5ccf0b856d1c5f779aef85d557755e108406a468ed8d0878d2b64360adf9",
+      "quick_report": {
+        "heading": "Heart and great vessels",
+        "group": "Chest",
+        "normal": "Normal.",
+        "options": [
+          "[Pulmonary embolism / Tumour thrombus / Pericardial involvement] [ ]."
+        ]
+      },
+      "source_field_ids": [
+        "ct.chest-abdomen-pelvis:heart-and-great-vessels:normal",
+        "ct.chest-abdomen-pelvis:heart-and-great-vessels:abnormal"
+      ],
+      "anatomical_requirement_ids": [
+        "cap.heart",
+        "cap.aorta",
+        "cap.pulmonary_trunk",
+        "cap.pulmonary_artery.right",
+        "cap.pulmonary_artery.left",
+        "cap.coronary_tree",
+        "cap.superior_vena_cava",
+        "cap.inferior_vena_cava"
+      ]
+    },
+    {
+      "id": "liver",
+      "label": "Liver",
+      "section_sha256": "057ff7a4f0ae49b66760cc43962c71470e5c0c9df02f4ec221deb5124e29a666",
+      "quick_report": {
+        "heading": "Liver",
+        "group": "Abdomen and pelvis",
+        "normal": "No focal liver lesion.",
+        "options": [
+          "Liver lesion [ ] mm in segment [ ]."
+        ]
+      },
+      "source_field_ids": [
+        "ct.chest-abdomen-pelvis:liver:normal",
+        "ct.chest-abdomen-pelvis:liver:lesion",
+        "ct.chest-abdomen-pelvis:liver:size",
+        "ct.chest-abdomen-pelvis:liver:nature",
+        "ct.chest-abdomen-pelvis:liver:diffuse"
+      ],
+      "anatomical_requirement_ids": [
+        "cap.liver",
+        "cap.hepatic_lobe.right",
+        "cap.hepatic_lobe.left",
+        "cap.liver_segment_1",
+        "cap.liver_segment_2",
+        "cap.liver_segment_3",
+        "cap.liver_segment_4",
+        "cap.liver_segment_5",
+        "cap.liver_segment_6",
+        "cap.liver_segment_7",
+        "cap.liver_segment_8"
+      ]
+    },
+    {
+      "id": "gallbladder-pancreas-and-spleen",
+      "label": "Gallbladder, pancreas and spleen",
+      "section_sha256": "d5660dcfc6cbdfb903ccdd56cfdfcf4aa315c3e2e793fa5b60eb6bb1ec4d9ee6",
+      "quick_report": {
+        "heading": "Gallbladder, pancreas and spleen",
+        "group": "Abdomen and pelvis",
+        "normal": "Normal.",
+        "options": [
+          "[Pancreatic / Splenic / Gallbladder] lesion [ ]."
+        ]
+      },
+      "source_field_ids": [
+        "ct.chest-abdomen-pelvis:gallbladder-pancreas-and-spleen:normal",
+        "ct.chest-abdomen-pelvis:gallbladder-pancreas-and-spleen:abnormal"
+      ],
+      "anatomical_requirement_ids": [
+        "cap.gallbladder",
+        "cap.pancreas",
+        "cap.spleen",
+        "cap.pancreatic_duct",
+        "cap.intrahepatic_ducts",
+        "cap.common_hepatic_duct",
+        "cap.common_bile_duct"
+      ]
+    },
+    {
+      "id": "adrenal-glands",
+      "label": "Adrenal glands",
+      "section_sha256": "814b2e0047c5ba8d3fe39763a5446ee6d0eecbe9754238933ddb40ced3b24001",
+      "quick_report": {
+        "heading": "Adrenal glands",
+        "group": "Abdomen and pelvis",
+        "normal": "Normal.",
+        "options": [
+          "[Right / Left] adrenal nodule [ ] mm."
+        ]
+      },
+      "source_field_ids": [
+        "ct.chest-abdomen-pelvis:adrenal-glands:normal",
+        "ct.chest-abdomen-pelvis:adrenal-glands:nodule",
+        "ct.chest-abdomen-pelvis:adrenal-glands:size"
+      ],
+      "anatomical_requirement_ids": [
+        "cap.adrenal.right",
+        "cap.adrenal.left"
+      ]
+    },
+    {
+      "id": "kidneys-and-bladder",
+      "label": "Kidneys and bladder",
+      "section_sha256": "bb0fe1e2fc048319d26838e77ec622e770fe97707bbdca4e41358f2aebffbe51",
+      "quick_report": {
+        "heading": "Kidneys and bladder",
+        "group": "Abdomen and pelvis",
+        "normal": "Normal.",
+        "options": [
+          "[Renal / Bladder] lesion [ ].",
+          "Hydronephrosis on the [right / left]."
+        ]
+      },
+      "source_field_ids": [
+        "ct.chest-abdomen-pelvis:kidneys-and-bladder:normal",
+        "ct.chest-abdomen-pelvis:kidneys-and-bladder:renal",
+        "ct.chest-abdomen-pelvis:kidneys-and-bladder:hydronephrosis",
+        "ct.chest-abdomen-pelvis:kidneys-and-bladder:bladder"
+      ],
+      "anatomical_requirement_ids": [
+        "cap.kidney.right",
+        "cap.kidney.left",
+        "cap.collecting_system.right",
+        "cap.collecting_system.left",
+        "cap.urinary_bladder",
+        "cap.bladder_wall"
+      ]
+    },
+    {
+      "id": "bowel-and-peritoneum",
+      "label": "Bowel and peritoneum",
+      "section_sha256": "9c2b857dff52b7187de9570140067499cb266b8c1c055447fd3c9246775b7425",
+      "quick_report": {
+        "heading": "Bowel and peritoneum",
+        "group": "Abdomen and pelvis",
+        "normal": "Normal bowel. No ascites or peritoneal nodularity.",
+        "options": [
+          "[Bowel mass / Peritoneal nodularity / Omental disease / Ascites] [ ]."
+        ]
+      },
+      "source_field_ids": [
+        "ct.chest-abdomen-pelvis:bowel-and-peritoneum:normal",
+        "ct.chest-abdomen-pelvis:bowel-and-peritoneum:bowel",
+        "ct.chest-abdomen-pelvis:bowel-and-peritoneum:peritoneum"
+      ],
+      "anatomical_requirement_ids": [
+        "cap.stomach",
+        "cap.small_bowel",
+        "cap.colon",
+        "cap.rectum",
+        "cap.peritoneal_surface",
+        "cap.peritoneal_cavity",
+        "cap.omentum"
+      ]
+    },
+    {
+      "id": "reproductive-organs",
+      "label": "Reproductive organs",
+      "section_sha256": "35953e226e06a95afec2b4680661234628f744ceaada35cb0a35cbfb4cbbec50",
+      "quick_report": {
+        "heading": "Reproductive organs",
+        "group": "Abdomen and pelvis",
+        "normal": "Normal.",
+        "options": [
+          "[Adnexal mass / Uterine mass / Prostate abnormality] [ ]."
+        ]
+      },
+      "source_field_ids": [
+        "ct.chest-abdomen-pelvis:reproductive-organs:normal",
+        "ct.chest-abdomen-pelvis:reproductive-organs:abnormal"
+      ],
+      "anatomical_requirement_ids": [
+        "cap.uterus",
+        "cap.adnexa.right",
+        "cap.adnexa.left",
+        "cap.prostate"
+      ]
+    },
+    {
+      "id": "abdominal-and-pelvic-lymph-nodes",
+      "label": "Abdominal and pelvic lymph nodes",
+      "section_sha256": "1ec4446f2d6ea411fa25c3f9d73977c7b54c8a60c02bb4695e93c94a14756edf",
+      "quick_report": {
+        "heading": "Abdominal and pelvic lymph nodes",
+        "group": "Abdomen and pelvis",
+        "normal": "No abdominal or pelvic lymphadenopathy.",
+        "options": [
+          "[Retroperitoneal / Mesenteric / Pelvic / Inguinal] lymph node [ ] mm."
+        ]
+      },
+      "source_field_ids": [
+        "ct.chest-abdomen-pelvis:abdominal-and-pelvic-lymph-nodes:normal",
+        "ct.chest-abdomen-pelvis:abdominal-and-pelvic-lymph-nodes:node",
+        "ct.chest-abdomen-pelvis:abdominal-and-pelvic-lymph-nodes:size"
+      ],
+      "anatomical_requirement_ids": [
+        "cap.retroperitoneal_nodal_region",
+        "cap.mesenteric_nodal_region",
+        "cap.pelvic_nodal_region.right",
+        "cap.pelvic_nodal_region.left",
+        "cap.inguinal_nodal_region.right",
+        "cap.inguinal_nodal_region.left"
+      ]
+    },
+    {
+      "id": "bones",
+      "label": "Bones",
+      "section_sha256": "843a95bb970acc1f72d351d7336d1bfd6837d168e766f05e8cbf17fb144bfdb0",
+      "quick_report": {
+        "heading": "Bones",
+        "normal": "No suspicious bone lesion.",
+        "options": [
+          "[Lytic / Sclerotic / Mixed] lesion in the [ ]; [no / with] pathological fracture."
+        ]
+      },
+      "source_field_ids": [
+        "ct.chest-abdomen-pelvis:bones:normal",
+        "ct.chest-abdomen-pelvis:bones:lesion",
+        "ct.chest-abdomen-pelvis:bones:fracture"
+      ],
+      "anatomical_requirement_ids": [
+        "cap.vertebra_t1",
+        "cap.vertebra_t2",
+        "cap.vertebra_t3",
+        "cap.vertebra_t4",
+        "cap.vertebra_t5",
+        "cap.vertebra_t6",
+        "cap.vertebra_t7",
+        "cap.vertebra_t8",
+        "cap.vertebra_t9",
+        "cap.vertebra_t10",
+        "cap.vertebra_t11",
+        "cap.vertebra_t12",
+        "cap.vertebra_l1",
+        "cap.vertebra_l2",
+        "cap.vertebra_l3",
+        "cap.vertebra_l4",
+        "cap.vertebra_l5",
+        "cap.rib_1.right",
+        "cap.rib_1.left",
+        "cap.rib_2.right",
+        "cap.rib_2.left",
+        "cap.rib_3.right",
+        "cap.rib_3.left",
+        "cap.rib_4.right",
+        "cap.rib_4.left",
+        "cap.rib_5.right",
+        "cap.rib_5.left",
+        "cap.rib_6.right",
+        "cap.rib_6.left",
+        "cap.rib_7.right",
+        "cap.rib_7.left",
+        "cap.rib_8.right",
+        "cap.rib_8.left",
+        "cap.rib_9.right",
+        "cap.rib_9.left",
+        "cap.rib_10.right",
+        "cap.rib_10.left",
+        "cap.rib_11.right",
+        "cap.rib_11.left",
+        "cap.rib_12.right",
+        "cap.rib_12.left",
+        "cap.sacrum",
+        "cap.sternum",
+        "cap.hip_bone.right",
+        "cap.hip_bone.left",
+        "cap.proximal_femur.right",
+        "cap.proximal_femur.left",
+        "cap.proximal_humerus.right",
+        "cap.proximal_humerus.left"
+      ]
+    },
+    {
+      "id": "target-lesions",
+      "label": "Target lesions",
+      "section_sha256": "c69e08f96c0da2ce6299cfb269ee19115593dcc4956a0459abfef07ab3a1d110",
+      "quick_report": {
+        "heading": "Target lesions",
+        "normal": "No measurable disease.",
+        "options": [
+          "Target lesion [ ]: [ ] mm (series [ ], image [ ]).",
+          "Sum of diameters [ ] mm; [complete response / partial response / stable disease / progressive disease] (RECIST 1.1)."
+        ]
+      },
+      "source_field_ids": [
+        "ct.chest-abdomen-pelvis:target-lesions:normal",
+        "ct.chest-abdomen-pelvis:target-lesions:measurable",
+        "ct.chest-abdomen-pelvis:target-lesions:sum",
+        "ct.chest-abdomen-pelvis:target-lesions:response"
+      ],
+      "anatomical_requirement_ids": []
+    }
+  ],
+  "anatomical_requirements": [
+    {
+      "id": "cap.lung_upper_lobe_right",
+      "name": "Right upper lobe",
+      "laterality": "right",
+      "tissue_class": "lung_lobe",
+      "source_section_id": "lungs-and-airways",
+      "source_label": "lung_upper_lobe_right",
+      "requirement_type": "anatomical_landmark",
+      "required_representations": [
+        "clinical_image",
+        "schematic",
+        "model"
+      ],
+      "report_provenance": {
+        "path": "data/radiology/anatomic-additions-20261119.json",
+        "section_sha256": "6035776785b6b5b3b1738634826b8dc6896109fa4d9b7744e3666cba6b0f5edf"
+      }
+    },
+    {
+      "id": "cap.lung_middle_lobe_right",
+      "name": "Right middle lobe",
+      "laterality": "right",
+      "tissue_class": "lung_lobe",
+      "source_section_id": "lungs-and-airways",
+      "source_label": "lung_middle_lobe_right",
+      "requirement_type": "anatomical_landmark",
+      "required_representations": [
+        "clinical_image",
+        "schematic",
+        "model"
+      ],
+      "report_provenance": {
+        "path": "data/radiology/anatomic-additions-20261119.json",
+        "section_sha256": "6035776785b6b5b3b1738634826b8dc6896109fa4d9b7744e3666cba6b0f5edf"
+      }
+    },
+    {
+      "id": "cap.lung_lower_lobe_right",
+      "name": "Right lower lobe",
+      "laterality": "right",
+      "tissue_class": "lung_lobe",
+      "source_section_id": "lungs-and-airways",
+      "source_label": "lung_lower_lobe_right",
+      "requirement_type": "anatomical_landmark",
+      "required_representations": [
+        "clinical_image",
+        "schematic",
+        "model"
+      ],
+      "report_provenance": {
+        "path": "data/radiology/anatomic-additions-20261119.json",
+        "section_sha256": "6035776785b6b5b3b1738634826b8dc6896109fa4d9b7744e3666cba6b0f5edf"
+      }
+    },
+    {
+      "id": "cap.lung_upper_lobe_left",
+      "name": "Left upper lobe",
+      "laterality": "left",
+      "tissue_class": "lung_lobe",
+      "source_section_id": "lungs-and-airways",
+      "source_label": "lung_upper_lobe_left",
+      "requirement_type": "anatomical_landmark",
+      "required_representations": [
+        "clinical_image",
+        "schematic",
+        "model"
+      ],
+      "report_provenance": {
+        "path": "data/radiology/anatomic-additions-20261119.json",
+        "section_sha256": "6035776785b6b5b3b1738634826b8dc6896109fa4d9b7744e3666cba6b0f5edf"
+      }
+    },
+    {
+      "id": "cap.lung_lower_lobe_left",
+      "name": "Left lower lobe",
+      "laterality": "left",
+      "tissue_class": "lung_lobe",
+      "source_section_id": "lungs-and-airways",
+      "source_label": "lung_lower_lobe_left",
+      "requirement_type": "anatomical_landmark",
+      "required_representations": [
+        "clinical_image",
+        "schematic",
+        "model"
+      ],
+      "report_provenance": {
+        "path": "data/radiology/anatomic-additions-20261119.json",
+        "section_sha256": "6035776785b6b5b3b1738634826b8dc6896109fa4d9b7744e3666cba6b0f5edf"
+      }
+    },
+    {
+      "id": "cap.lingula",
+      "name": "Lingula",
+      "laterality": "left",
+      "tissue_class": "lung_subdivision",
+      "source_section_id": "lungs-and-airways",
+      "source_label": null,
+      "requirement_type": "anatomical_landmark",
+      "required_representations": [
+        "clinical_image",
+        "schematic",
+        "model"
+      ],
+      "report_provenance": {
+        "path": "data/radiology/anatomic-additions-20261119.json",
+        "section_sha256": "6035776785b6b5b3b1738634826b8dc6896109fa4d9b7744e3666cba6b0f5edf"
+      }
+    },
+    {
+      "id": "cap.trachea",
+      "name": "Trachea",
+      "laterality": "not_applicable",
+      "tissue_class": "central_airway",
+      "source_section_id": "lungs-and-airways",
+      "source_label": "trachea",
+      "requirement_type": "anatomical_landmark",
+      "required_representations": [
+        "clinical_image",
+        "schematic",
+        "model"
+      ],
+      "report_provenance": {
+        "path": "data/radiology/anatomic-additions-20261119.json",
+        "section_sha256": "6035776785b6b5b3b1738634826b8dc6896109fa4d9b7744e3666cba6b0f5edf"
+      }
+    },
+    {
+      "id": "cap.main_bronchus.right",
+      "name": "Right main bronchus",
+      "laterality": "right",
+      "tissue_class": "central_airway",
+      "source_section_id": "lungs-and-airways",
+      "source_label": null,
+      "requirement_type": "anatomical_landmark",
+      "required_representations": [
+        "clinical_image",
+        "schematic",
+        "model"
+      ],
+      "report_provenance": {
+        "path": "data/radiology/anatomic-additions-20261119.json",
+        "section_sha256": "6035776785b6b5b3b1738634826b8dc6896109fa4d9b7744e3666cba6b0f5edf"
+      }
+    },
+    {
+      "id": "cap.main_bronchus.left",
+      "name": "Left main bronchus",
+      "laterality": "left",
+      "tissue_class": "central_airway",
+      "source_section_id": "lungs-and-airways",
+      "source_label": null,
+      "requirement_type": "anatomical_landmark",
+      "required_representations": [
+        "clinical_image",
+        "schematic",
+        "model"
+      ],
+      "report_provenance": {
+        "path": "data/radiology/anatomic-additions-20261119.json",
+        "section_sha256": "6035776785b6b5b3b1738634826b8dc6896109fa4d9b7744e3666cba6b0f5edf"
+      }
+    },
+    {
+      "id": "cap.pleura.right",
+      "name": "Right pleura",
+      "laterality": "right",
+      "tissue_class": "serosal_membrane",
+      "source_section_id": "pleura-and-pericardium",
+      "source_label": null,
+      "requirement_type": "anatomical_landmark",
+      "required_representations": [
+        "clinical_image",
+        "schematic",
+        "model"
+      ],
+      "report_provenance": {
+        "path": "data/radiology/anatomic-additions-20261119.json",
+        "section_sha256": "3368e07b8158ffeaebdd749001f03747e19aa72de4ba0beb696f1fef91a1e6ff"
+      }
+    },
+    {
+      "id": "cap.pleura.left",
+      "name": "Left pleura",
+      "laterality": "left",
+      "tissue_class": "serosal_membrane",
+      "source_section_id": "pleura-and-pericardium",
+      "source_label": null,
+      "requirement_type": "anatomical_landmark",
+      "required_representations": [
+        "clinical_image",
+        "schematic",
+        "model"
+      ],
+      "report_provenance": {
+        "path": "data/radiology/anatomic-additions-20261119.json",
+        "section_sha256": "3368e07b8158ffeaebdd749001f03747e19aa72de4ba0beb696f1fef91a1e6ff"
+      }
+    },
+    {
+      "id": "cap.pleural_space.right",
+      "name": "Right pleural space",
+      "laterality": "right",
+      "tissue_class": "potential_space",
+      "source_section_id": "pleura-and-pericardium",
+      "source_label": null,
+      "requirement_type": "anatomical_landmark",
+      "required_representations": [
+        "clinical_image",
+        "schematic",
+        "model"
+      ],
+      "report_provenance": {
+        "path": "data/radiology/anatomic-additions-20261119.json",
+        "section_sha256": "3368e07b8158ffeaebdd749001f03747e19aa72de4ba0beb696f1fef91a1e6ff"
+      }
+    },
+    {
+      "id": "cap.pleural_space.left",
+      "name": "Left pleural space",
+      "laterality": "left",
+      "tissue_class": "potential_space",
+      "source_section_id": "pleura-and-pericardium",
+      "source_label": null,
+      "requirement_type": "anatomical_landmark",
+      "required_representations": [
+        "clinical_image",
+        "schematic",
+        "model"
+      ],
+      "report_provenance": {
+        "path": "data/radiology/anatomic-additions-20261119.json",
+        "section_sha256": "3368e07b8158ffeaebdd749001f03747e19aa72de4ba0beb696f1fef91a1e6ff"
+      }
+    },
+    {
+      "id": "cap.pericardium",
+      "name": "Pericardium",
+      "laterality": "not_applicable",
+      "tissue_class": "membrane",
+      "source_section_id": "pleura-and-pericardium",
+      "source_label": null,
+      "requirement_type": "anatomical_landmark",
+      "required_representations": [
+        "clinical_image",
+        "schematic",
+        "model"
+      ],
+      "report_provenance": {
+        "path": "data/radiology/anatomic-additions-20261119.json",
+        "section_sha256": "3368e07b8158ffeaebdd749001f03747e19aa72de4ba0beb696f1fef91a1e6ff"
+      }
+    },
+    {
+      "id": "cap.pericardial_space",
+      "name": "Pericardial space",
+      "laterality": "not_applicable",
+      "tissue_class": "potential_space",
+      "source_section_id": "pleura-and-pericardium",
+      "source_label": null,
+      "requirement_type": "anatomical_landmark",
+      "required_representations": [
+        "clinical_image",
+        "schematic",
+        "model"
+      ],
+      "report_provenance": {
+        "path": "data/radiology/anatomic-additions-20261119.json",
+        "section_sha256": "3368e07b8158ffeaebdd749001f03747e19aa72de4ba0beb696f1fef91a1e6ff"
+      }
+    },
+    {
+      "id": "cap.mediastinal_nodal_region",
+      "name": "Mediastinal nodal regions",
+      "laterality": "not_applicable",
+      "tissue_class": "nodal_region",
+      "source_section_id": "thoracic-lymph-nodes",
+      "source_label": null,
+      "requirement_type": "anatomical_landmark",
+      "required_representations": [
+        "clinical_image",
+        "schematic",
+        "model"
+      ],
+      "report_provenance": {
+        "path": "data/radiology/anatomic-additions-20261119.json",
+        "section_sha256": "831d4e40eedc4bcc136f46d5b6c0013c835574d7c19ff4fb936d4ab276644dad"
+      }
+    },
+    {
+      "id": "cap.hilar_nodal_region.right",
+      "name": "Right hilar nodal region",
+      "laterality": "right",
+      "tissue_class": "nodal_region",
+      "source_section_id": "thoracic-lymph-nodes",
+      "source_label": null,
+      "requirement_type": "anatomical_landmark",
+      "required_representations": [
+        "clinical_image",
+        "schematic",
+        "model"
+      ],
+      "report_provenance": {
+        "path": "data/radiology/anatomic-additions-20261119.json",
+        "section_sha256": "831d4e40eedc4bcc136f46d5b6c0013c835574d7c19ff4fb936d4ab276644dad"
+      }
+    },
+    {
+      "id": "cap.hilar_nodal_region.left",
+      "name": "Left hilar nodal region",
+      "laterality": "left",
+      "tissue_class": "nodal_region",
+      "source_section_id": "thoracic-lymph-nodes",
+      "source_label": null,
+      "requirement_type": "anatomical_landmark",
+      "required_representations": [
+        "clinical_image",
+        "schematic",
+        "model"
+      ],
+      "report_provenance": {
+        "path": "data/radiology/anatomic-additions-20261119.json",
+        "section_sha256": "831d4e40eedc4bcc136f46d5b6c0013c835574d7c19ff4fb936d4ab276644dad"
+      }
+    },
+    {
+      "id": "cap.axillary_nodal_region.right",
+      "name": "Right axillary nodal region",
+      "laterality": "right",
+      "tissue_class": "nodal_region",
+      "source_section_id": "thoracic-lymph-nodes",
+      "source_label": null,
+      "requirement_type": "anatomical_landmark",
+      "required_representations": [
+        "clinical_image",
+        "schematic",
+        "model"
+      ],
+      "report_provenance": {
+        "path": "data/radiology/anatomic-additions-20261119.json",
+        "section_sha256": "831d4e40eedc4bcc136f46d5b6c0013c835574d7c19ff4fb936d4ab276644dad"
+      }
+    },
+    {
+      "id": "cap.axillary_nodal_region.left",
+      "name": "Left axillary nodal region",
+      "laterality": "left",
+      "tissue_class": "nodal_region",
+      "source_section_id": "thoracic-lymph-nodes",
+      "source_label": null,
+      "requirement_type": "anatomical_landmark",
+      "required_representations": [
+        "clinical_image",
+        "schematic",
+        "model"
+      ],
+      "report_provenance": {
+        "path": "data/radiology/anatomic-additions-20261119.json",
+        "section_sha256": "831d4e40eedc4bcc136f46d5b6c0013c835574d7c19ff4fb936d4ab276644dad"
+      }
+    },
+    {
+      "id": "cap.supraclavicular_nodal_region.right",
+      "name": "Right supraclavicular nodal region",
+      "laterality": "right",
+      "tissue_class": "nodal_region",
+      "source_section_id": "thoracic-lymph-nodes",
+      "source_label": null,
+      "requirement_type": "anatomical_landmark",
+      "required_representations": [
+        "clinical_image",
+        "schematic",
+        "model"
+      ],
+      "report_provenance": {
+        "path": "data/radiology/anatomic-additions-20261119.json",
+        "section_sha256": "831d4e40eedc4bcc136f46d5b6c0013c835574d7c19ff4fb936d4ab276644dad"
+      }
+    },
+    {
+      "id": "cap.supraclavicular_nodal_region.left",
+      "name": "Left supraclavicular nodal region",
+      "laterality": "left",
+      "tissue_class": "nodal_region",
+      "source_section_id": "thoracic-lymph-nodes",
+      "source_label": null,
+      "requirement_type": "anatomical_landmark",
+      "required_representations": [
+        "clinical_image",
+        "schematic",
+        "model"
+      ],
+      "report_provenance": {
+        "path": "data/radiology/anatomic-additions-20261119.json",
+        "section_sha256": "831d4e40eedc4bcc136f46d5b6c0013c835574d7c19ff4fb936d4ab276644dad"
+      }
+    },
+    {
+      "id": "cap.heart",
+      "name": "Heart",
+      "laterality": "not_applicable",
+      "tissue_class": "organ",
+      "source_section_id": "heart-and-great-vessels",
+      "source_label": "heart",
+      "requirement_type": "anatomical_landmark",
+      "required_representations": [
+        "clinical_image",
+        "schematic",
+        "model"
+      ],
+      "report_provenance": {
+        "path": "data/radiology/anatomic-additions-20261119.json",
+        "section_sha256": "649c5ccf0b856d1c5f779aef85d557755e108406a468ed8d0878d2b64360adf9"
+      }
+    },
+    {
+      "id": "cap.aorta",
+      "name": "Aorta",
+      "laterality": "not_applicable",
+      "tissue_class": "artery",
+      "source_section_id": "heart-and-great-vessels",
+      "source_label": "aorta",
+      "requirement_type": "anatomical_landmark",
+      "required_representations": [
+        "clinical_image",
+        "schematic",
+        "model"
+      ],
+      "report_provenance": {
+        "path": "data/radiology/anatomic-additions-20261119.json",
+        "section_sha256": "649c5ccf0b856d1c5f779aef85d557755e108406a468ed8d0878d2b64360adf9"
+      }
+    },
+    {
+      "id": "cap.pulmonary_trunk",
+      "name": "Pulmonary trunk",
+      "laterality": "not_applicable",
+      "tissue_class": "artery",
+      "source_section_id": "heart-and-great-vessels",
+      "source_label": null,
+      "requirement_type": "anatomical_landmark",
+      "required_representations": [
+        "clinical_image",
+        "schematic",
+        "model"
+      ],
+      "report_provenance": {
+        "path": "data/radiology/anatomic-additions-20261119.json",
+        "section_sha256": "649c5ccf0b856d1c5f779aef85d557755e108406a468ed8d0878d2b64360adf9"
+      }
+    },
+    {
+      "id": "cap.pulmonary_artery.right",
+      "name": "Right pulmonary artery",
+      "laterality": "right",
+      "tissue_class": "artery",
+      "source_section_id": "heart-and-great-vessels",
+      "source_label": null,
+      "requirement_type": "anatomical_landmark",
+      "required_representations": [
+        "clinical_image",
+        "schematic",
+        "model"
+      ],
+      "report_provenance": {
+        "path": "data/radiology/anatomic-additions-20261119.json",
+        "section_sha256": "649c5ccf0b856d1c5f779aef85d557755e108406a468ed8d0878d2b64360adf9"
+      }
+    },
+    {
+      "id": "cap.pulmonary_artery.left",
+      "name": "Left pulmonary artery",
+      "laterality": "left",
+      "tissue_class": "artery",
+      "source_section_id": "heart-and-great-vessels",
+      "source_label": null,
+      "requirement_type": "anatomical_landmark",
+      "required_representations": [
+        "clinical_image",
+        "schematic",
+        "model"
+      ],
+      "report_provenance": {
+        "path": "data/radiology/anatomic-additions-20261119.json",
+        "section_sha256": "649c5ccf0b856d1c5f779aef85d557755e108406a468ed8d0878d2b64360adf9"
+      }
+    },
+    {
+      "id": "cap.coronary_tree",
+      "name": "Epicardial coronary arteries",
+      "laterality": "not_applicable",
+      "tissue_class": "arterial_tree",
+      "source_section_id": "heart-and-great-vessels",
+      "source_label": null,
+      "requirement_type": "anatomical_landmark",
+      "required_representations": [
+        "clinical_image",
+        "schematic",
+        "model"
+      ],
+      "report_provenance": {
+        "path": "data/radiology/anatomic-additions-20261119.json",
+        "section_sha256": "649c5ccf0b856d1c5f779aef85d557755e108406a468ed8d0878d2b64360adf9"
+      }
+    },
+    {
+      "id": "cap.superior_vena_cava",
+      "name": "Superior vena cava",
+      "laterality": "not_applicable",
+      "tissue_class": "vein",
+      "source_section_id": "heart-and-great-vessels",
+      "source_label": "superior_vena_cava",
+      "requirement_type": "anatomical_landmark",
+      "required_representations": [
+        "clinical_image",
+        "schematic",
+        "model"
+      ],
+      "report_provenance": {
+        "path": "data/radiology/anatomic-additions-20261119.json",
+        "section_sha256": "649c5ccf0b856d1c5f779aef85d557755e108406a468ed8d0878d2b64360adf9"
+      }
+    },
+    {
+      "id": "cap.inferior_vena_cava",
+      "name": "Inferior vena cava",
+      "laterality": "not_applicable",
+      "tissue_class": "vein",
+      "source_section_id": "heart-and-great-vessels",
+      "source_label": "inferior_vena_cava",
+      "requirement_type": "anatomical_landmark",
+      "required_representations": [
+        "clinical_image",
+        "schematic",
+        "model"
+      ],
+      "report_provenance": {
+        "path": "data/radiology/anatomic-additions-20261119.json",
+        "section_sha256": "649c5ccf0b856d1c5f779aef85d557755e108406a468ed8d0878d2b64360adf9"
+      }
+    },
+    {
+      "id": "cap.liver",
+      "name": "Liver",
+      "laterality": "not_applicable",
+      "tissue_class": "organ",
+      "source_section_id": "liver",
+      "source_label": "liver",
+      "requirement_type": "anatomical_landmark",
+      "required_representations": [
+        "clinical_image",
+        "schematic",
+        "model"
+      ],
+      "report_provenance": {
+        "path": "data/radiology/anatomic-additions-20261119.json",
+        "section_sha256": "057ff7a4f0ae49b66760cc43962c71470e5c0c9df02f4ec221deb5124e29a666"
+      }
+    },
+    {
+      "id": "cap.hepatic_lobe.right",
+      "name": "Right hepatic lobe",
+      "laterality": "right",
+      "tissue_class": "liver_region",
+      "source_section_id": "liver",
+      "source_label": null,
+      "requirement_type": "anatomical_landmark",
+      "required_representations": [
+        "clinical_image",
+        "schematic",
+        "model"
+      ],
+      "report_provenance": {
+        "path": "data/radiology/anatomic-additions-20261119.json",
+        "section_sha256": "057ff7a4f0ae49b66760cc43962c71470e5c0c9df02f4ec221deb5124e29a666"
+      }
+    },
+    {
+      "id": "cap.hepatic_lobe.left",
+      "name": "Left hepatic lobe",
+      "laterality": "left",
+      "tissue_class": "liver_region",
+      "source_section_id": "liver",
+      "source_label": null,
+      "requirement_type": "anatomical_landmark",
+      "required_representations": [
+        "clinical_image",
+        "schematic",
+        "model"
+      ],
+      "report_provenance": {
+        "path": "data/radiology/anatomic-additions-20261119.json",
+        "section_sha256": "057ff7a4f0ae49b66760cc43962c71470e5c0c9df02f4ec221deb5124e29a666"
+      }
+    },
+    {
+      "id": "cap.liver_segment_1",
+      "name": "Segment I (caudate lobe)",
+      "laterality": "not_applicable",
+      "tissue_class": "functional_liver_region",
+      "source_section_id": "liver",
+      "source_label": null,
+      "requirement_type": "anatomical_landmark",
+      "required_representations": [
+        "clinical_image",
+        "schematic",
+        "model"
+      ],
+      "report_provenance": {
+        "path": "data/radiology/anatomic-additions-20261119.json",
+        "section_sha256": "057ff7a4f0ae49b66760cc43962c71470e5c0c9df02f4ec221deb5124e29a666"
+      }
+    },
+    {
+      "id": "cap.liver_segment_2",
+      "name": "Segment II",
+      "laterality": "not_applicable",
+      "tissue_class": "functional_liver_region",
+      "source_section_id": "liver",
+      "source_label": null,
+      "requirement_type": "anatomical_landmark",
+      "required_representations": [
+        "clinical_image",
+        "schematic",
+        "model"
+      ],
+      "report_provenance": {
+        "path": "data/radiology/anatomic-additions-20261119.json",
+        "section_sha256": "057ff7a4f0ae49b66760cc43962c71470e5c0c9df02f4ec221deb5124e29a666"
+      }
+    },
+    {
+      "id": "cap.liver_segment_3",
+      "name": "Segment III",
+      "laterality": "not_applicable",
+      "tissue_class": "functional_liver_region",
+      "source_section_id": "liver",
+      "source_label": null,
+      "requirement_type": "anatomical_landmark",
+      "required_representations": [
+        "clinical_image",
+        "schematic",
+        "model"
+      ],
+      "report_provenance": {
+        "path": "data/radiology/anatomic-additions-20261119.json",
+        "section_sha256": "057ff7a4f0ae49b66760cc43962c71470e5c0c9df02f4ec221deb5124e29a666"
+      }
+    },
+    {
+      "id": "cap.liver_segment_4",
+      "name": "Segment IV",
+      "laterality": "not_applicable",
+      "tissue_class": "functional_liver_region",
+      "source_section_id": "liver",
+      "source_label": null,
+      "requirement_type": "anatomical_landmark",
+      "required_representations": [
+        "clinical_image",
+        "schematic",
+        "model"
+      ],
+      "report_provenance": {
+        "path": "data/radiology/anatomic-additions-20261119.json",
+        "section_sha256": "057ff7a4f0ae49b66760cc43962c71470e5c0c9df02f4ec221deb5124e29a666"
+      }
+    },
+    {
+      "id": "cap.liver_segment_5",
+      "name": "Segment V",
+      "laterality": "not_applicable",
+      "tissue_class": "functional_liver_region",
+      "source_section_id": "liver",
+      "source_label": null,
+      "requirement_type": "anatomical_landmark",
+      "required_representations": [
+        "clinical_image",
+        "schematic",
+        "model"
+      ],
+      "report_provenance": {
+        "path": "data/radiology/anatomic-additions-20261119.json",
+        "section_sha256": "057ff7a4f0ae49b66760cc43962c71470e5c0c9df02f4ec221deb5124e29a666"
+      }
+    },
+    {
+      "id": "cap.liver_segment_6",
+      "name": "Segment VI",
+      "laterality": "not_applicable",
+      "tissue_class": "functional_liver_region",
+      "source_section_id": "liver",
+      "source_label": null,
+      "requirement_type": "anatomical_landmark",
+      "required_representations": [
+        "clinical_image",
+        "schematic",
+        "model"
+      ],
+      "report_provenance": {
+        "path": "data/radiology/anatomic-additions-20261119.json",
+        "section_sha256": "057ff7a4f0ae49b66760cc43962c71470e5c0c9df02f4ec221deb5124e29a666"
+      }
+    },
+    {
+      "id": "cap.liver_segment_7",
+      "name": "Segment VII",
+      "laterality": "not_applicable",
+      "tissue_class": "functional_liver_region",
+      "source_section_id": "liver",
+      "source_label": null,
+      "requirement_type": "anatomical_landmark",
+      "required_representations": [
+        "clinical_image",
+        "schematic",
+        "model"
+      ],
+      "report_provenance": {
+        "path": "data/radiology/anatomic-additions-20261119.json",
+        "section_sha256": "057ff7a4f0ae49b66760cc43962c71470e5c0c9df02f4ec221deb5124e29a666"
+      }
+    },
+    {
+      "id": "cap.liver_segment_8",
+      "name": "Segment VIII",
+      "laterality": "not_applicable",
+      "tissue_class": "functional_liver_region",
+      "source_section_id": "liver",
+      "source_label": null,
+      "requirement_type": "anatomical_landmark",
+      "required_representations": [
+        "clinical_image",
+        "schematic",
+        "model"
+      ],
+      "report_provenance": {
+        "path": "data/radiology/anatomic-additions-20261119.json",
+        "section_sha256": "057ff7a4f0ae49b66760cc43962c71470e5c0c9df02f4ec221deb5124e29a666"
+      }
+    },
+    {
+      "id": "cap.gallbladder",
+      "name": "Gallbladder",
+      "laterality": "not_applicable",
+      "tissue_class": "organ",
+      "source_section_id": "gallbladder-pancreas-and-spleen",
+      "source_label": "gallbladder",
+      "requirement_type": "anatomical_landmark",
+      "required_representations": [
+        "clinical_image",
+        "schematic",
+        "model"
+      ],
+      "report_provenance": {
+        "path": "data/radiology/anatomic-additions-20261119.json",
+        "section_sha256": "d5660dcfc6cbdfb903ccdd56cfdfcf4aa315c3e2e793fa5b60eb6bb1ec4d9ee6"
+      }
+    },
+    {
+      "id": "cap.pancreas",
+      "name": "Pancreas",
+      "laterality": "not_applicable",
+      "tissue_class": "organ",
+      "source_section_id": "gallbladder-pancreas-and-spleen",
+      "source_label": "pancreas",
+      "requirement_type": "anatomical_landmark",
+      "required_representations": [
+        "clinical_image",
+        "schematic",
+        "model"
+      ],
+      "report_provenance": {
+        "path": "data/radiology/anatomic-additions-20261119.json",
+        "section_sha256": "d5660dcfc6cbdfb903ccdd56cfdfcf4aa315c3e2e793fa5b60eb6bb1ec4d9ee6"
+      }
+    },
+    {
+      "id": "cap.spleen",
+      "name": "Spleen",
+      "laterality": "not_applicable",
+      "tissue_class": "organ",
+      "source_section_id": "gallbladder-pancreas-and-spleen",
+      "source_label": "spleen",
+      "requirement_type": "anatomical_landmark",
+      "required_representations": [
+        "clinical_image",
+        "schematic",
+        "model"
+      ],
+      "report_provenance": {
+        "path": "data/radiology/anatomic-additions-20261119.json",
+        "section_sha256": "d5660dcfc6cbdfb903ccdd56cfdfcf4aa315c3e2e793fa5b60eb6bb1ec4d9ee6"
+      }
+    },
+    {
+      "id": "cap.pancreatic_duct",
+      "name": "Main pancreatic duct",
+      "laterality": "not_applicable",
+      "tissue_class": "duct",
+      "source_section_id": "gallbladder-pancreas-and-spleen",
+      "source_label": null,
+      "requirement_type": "anatomical_landmark",
+      "required_representations": [
+        "clinical_image",
+        "schematic",
+        "model"
+      ],
+      "report_provenance": {
+        "path": "data/radiology/anatomic-additions-20261119.json",
+        "section_sha256": "d5660dcfc6cbdfb903ccdd56cfdfcf4aa315c3e2e793fa5b60eb6bb1ec4d9ee6"
+      }
+    },
+    {
+      "id": "cap.intrahepatic_ducts",
+      "name": "Intrahepatic bile ducts",
+      "laterality": "not_applicable",
+      "tissue_class": "duct_system",
+      "source_section_id": "gallbladder-pancreas-and-spleen",
+      "source_label": null,
+      "requirement_type": "anatomical_landmark",
+      "required_representations": [
+        "clinical_image",
+        "schematic",
+        "model"
+      ],
+      "report_provenance": {
+        "path": "data/radiology/anatomic-additions-20261119.json",
+        "section_sha256": "d5660dcfc6cbdfb903ccdd56cfdfcf4aa315c3e2e793fa5b60eb6bb1ec4d9ee6"
+      }
+    },
+    {
+      "id": "cap.common_hepatic_duct",
+      "name": "Common hepatic duct",
+      "laterality": "not_applicable",
+      "tissue_class": "duct",
+      "source_section_id": "gallbladder-pancreas-and-spleen",
+      "source_label": null,
+      "requirement_type": "anatomical_landmark",
+      "required_representations": [
+        "clinical_image",
+        "schematic",
+        "model"
+      ],
+      "report_provenance": {
+        "path": "data/radiology/anatomic-additions-20261119.json",
+        "section_sha256": "d5660dcfc6cbdfb903ccdd56cfdfcf4aa315c3e2e793fa5b60eb6bb1ec4d9ee6"
+      }
+    },
+    {
+      "id": "cap.common_bile_duct",
+      "name": "Common bile duct",
+      "laterality": "not_applicable",
+      "tissue_class": "duct",
+      "source_section_id": "gallbladder-pancreas-and-spleen",
+      "source_label": null,
+      "requirement_type": "anatomical_landmark",
+      "required_representations": [
+        "clinical_image",
+        "schematic",
+        "model"
+      ],
+      "report_provenance": {
+        "path": "data/radiology/anatomic-additions-20261119.json",
+        "section_sha256": "d5660dcfc6cbdfb903ccdd56cfdfcf4aa315c3e2e793fa5b60eb6bb1ec4d9ee6"
+      }
+    },
+    {
+      "id": "cap.adrenal.right",
+      "name": "Right adrenal gland",
+      "laterality": "right",
+      "tissue_class": "gland",
+      "source_section_id": "adrenal-glands",
+      "source_label": "adrenal_gland_right",
+      "requirement_type": "anatomical_landmark",
+      "required_representations": [
+        "clinical_image",
+        "schematic",
+        "model"
+      ],
+      "report_provenance": {
+        "path": "data/radiology/anatomic-additions-20261119.json",
+        "section_sha256": "814b2e0047c5ba8d3fe39763a5446ee6d0eecbe9754238933ddb40ced3b24001"
+      }
+    },
+    {
+      "id": "cap.adrenal.left",
+      "name": "Left adrenal gland",
+      "laterality": "left",
+      "tissue_class": "gland",
+      "source_section_id": "adrenal-glands",
+      "source_label": "adrenal_gland_left",
+      "requirement_type": "anatomical_landmark",
+      "required_representations": [
+        "clinical_image",
+        "schematic",
+        "model"
+      ],
+      "report_provenance": {
+        "path": "data/radiology/anatomic-additions-20261119.json",
+        "section_sha256": "814b2e0047c5ba8d3fe39763a5446ee6d0eecbe9754238933ddb40ced3b24001"
+      }
+    },
+    {
+      "id": "cap.kidney.right",
+      "name": "Right kidney",
+      "laterality": "right",
+      "tissue_class": "organ",
+      "source_section_id": "kidneys-and-bladder",
+      "source_label": "kidney_right",
+      "requirement_type": "anatomical_landmark",
+      "required_representations": [
+        "clinical_image",
+        "schematic",
+        "model"
+      ],
+      "report_provenance": {
+        "path": "data/radiology/anatomic-additions-20261119.json",
+        "section_sha256": "bb0fe1e2fc048319d26838e77ec622e770fe97707bbdca4e41358f2aebffbe51"
+      }
+    },
+    {
+      "id": "cap.kidney.left",
+      "name": "Left kidney",
+      "laterality": "left",
+      "tissue_class": "organ",
+      "source_section_id": "kidneys-and-bladder",
+      "source_label": "kidney_left",
+      "requirement_type": "anatomical_landmark",
+      "required_representations": [
+        "clinical_image",
+        "schematic",
+        "model"
+      ],
+      "report_provenance": {
+        "path": "data/radiology/anatomic-additions-20261119.json",
+        "section_sha256": "bb0fe1e2fc048319d26838e77ec622e770fe97707bbdca4e41358f2aebffbe51"
+      }
+    },
+    {
+      "id": "cap.collecting_system.right",
+      "name": "Right renal collecting system",
+      "laterality": "right",
+      "tissue_class": "pelvicalyceal_system",
+      "source_section_id": "kidneys-and-bladder",
+      "source_label": null,
+      "requirement_type": "anatomical_landmark",
+      "required_representations": [
+        "clinical_image",
+        "schematic",
+        "model"
+      ],
+      "report_provenance": {
+        "path": "data/radiology/anatomic-additions-20261119.json",
+        "section_sha256": "bb0fe1e2fc048319d26838e77ec622e770fe97707bbdca4e41358f2aebffbe51"
+      }
+    },
+    {
+      "id": "cap.collecting_system.left",
+      "name": "Left renal collecting system",
+      "laterality": "left",
+      "tissue_class": "pelvicalyceal_system",
+      "source_section_id": "kidneys-and-bladder",
+      "source_label": null,
+      "requirement_type": "anatomical_landmark",
+      "required_representations": [
+        "clinical_image",
+        "schematic",
+        "model"
+      ],
+      "report_provenance": {
+        "path": "data/radiology/anatomic-additions-20261119.json",
+        "section_sha256": "bb0fe1e2fc048319d26838e77ec622e770fe97707bbdca4e41358f2aebffbe51"
+      }
+    },
+    {
+      "id": "cap.urinary_bladder",
+      "name": "Urinary bladder",
+      "laterality": "not_applicable",
+      "tissue_class": "organ",
+      "source_section_id": "kidneys-and-bladder",
+      "source_label": "urinary_bladder",
+      "requirement_type": "anatomical_landmark",
+      "required_representations": [
+        "clinical_image",
+        "schematic",
+        "model"
+      ],
+      "report_provenance": {
+        "path": "data/radiology/anatomic-additions-20261119.json",
+        "section_sha256": "bb0fe1e2fc048319d26838e77ec622e770fe97707bbdca4e41358f2aebffbe51"
+      }
+    },
+    {
+      "id": "cap.bladder_wall",
+      "name": "Urinary bladder wall",
+      "laterality": "not_applicable",
+      "tissue_class": "organ_wall",
+      "source_section_id": "kidneys-and-bladder",
+      "source_label": null,
+      "requirement_type": "anatomical_landmark",
+      "required_representations": [
+        "clinical_image",
+        "schematic",
+        "model"
+      ],
+      "report_provenance": {
+        "path": "data/radiology/anatomic-additions-20261119.json",
+        "section_sha256": "bb0fe1e2fc048319d26838e77ec622e770fe97707bbdca4e41358f2aebffbe51"
+      }
+    },
+    {
+      "id": "cap.stomach",
+      "name": "Stomach",
+      "laterality": "not_applicable",
+      "tissue_class": "digestive_organ",
+      "source_section_id": "bowel-and-peritoneum",
+      "source_label": "stomach",
+      "requirement_type": "anatomical_landmark",
+      "required_representations": [
+        "clinical_image",
+        "schematic",
+        "model"
+      ],
+      "report_provenance": {
+        "path": "data/radiology/anatomic-additions-20261119.json",
+        "section_sha256": "9c2b857dff52b7187de9570140067499cb266b8c1c055447fd3c9246775b7425"
+      }
+    },
+    {
+      "id": "cap.small_bowel",
+      "name": "Small bowel",
+      "laterality": "not_applicable",
+      "tissue_class": "digestive_organ",
+      "source_section_id": "bowel-and-peritoneum",
+      "source_label": "small_bowel",
+      "requirement_type": "anatomical_landmark",
+      "required_representations": [
+        "clinical_image",
+        "schematic",
+        "model"
+      ],
+      "report_provenance": {
+        "path": "data/radiology/anatomic-additions-20261119.json",
+        "section_sha256": "9c2b857dff52b7187de9570140067499cb266b8c1c055447fd3c9246775b7425"
+      }
+    },
+    {
+      "id": "cap.colon",
+      "name": "Colon",
+      "laterality": "not_applicable",
+      "tissue_class": "digestive_organ",
+      "source_section_id": "bowel-and-peritoneum",
+      "source_label": "colon",
+      "requirement_type": "anatomical_landmark",
+      "required_representations": [
+        "clinical_image",
+        "schematic",
+        "model"
+      ],
+      "report_provenance": {
+        "path": "data/radiology/anatomic-additions-20261119.json",
+        "section_sha256": "9c2b857dff52b7187de9570140067499cb266b8c1c055447fd3c9246775b7425"
+      }
+    },
+    {
+      "id": "cap.rectum",
+      "name": "Rectum",
+      "laterality": "not_applicable",
+      "tissue_class": "digestive_organ",
+      "source_section_id": "bowel-and-peritoneum",
+      "source_label": null,
+      "requirement_type": "anatomical_landmark",
+      "required_representations": [
+        "clinical_image",
+        "schematic",
+        "model"
+      ],
+      "report_provenance": {
+        "path": "data/radiology/anatomic-additions-20261119.json",
+        "section_sha256": "9c2b857dff52b7187de9570140067499cb266b8c1c055447fd3c9246775b7425"
+      }
+    },
+    {
+      "id": "cap.peritoneal_surface",
+      "name": "Peritoneal surfaces",
+      "laterality": "not_applicable",
+      "tissue_class": "serosal_membrane",
+      "source_section_id": "bowel-and-peritoneum",
+      "source_label": null,
+      "requirement_type": "anatomical_landmark",
+      "required_representations": [
+        "clinical_image",
+        "schematic",
+        "model"
+      ],
+      "report_provenance": {
+        "path": "data/radiology/anatomic-additions-20261119.json",
+        "section_sha256": "9c2b857dff52b7187de9570140067499cb266b8c1c055447fd3c9246775b7425"
+      }
+    },
+    {
+      "id": "cap.peritoneal_cavity",
+      "name": "Peritoneal cavity",
+      "laterality": "not_applicable",
+      "tissue_class": "potential_space",
+      "source_section_id": "bowel-and-peritoneum",
+      "source_label": null,
+      "requirement_type": "anatomical_landmark",
+      "required_representations": [
+        "clinical_image",
+        "schematic",
+        "model"
+      ],
+      "report_provenance": {
+        "path": "data/radiology/anatomic-additions-20261119.json",
+        "section_sha256": "9c2b857dff52b7187de9570140067499cb266b8c1c055447fd3c9246775b7425"
+      }
+    },
+    {
+      "id": "cap.omentum",
+      "name": "Omentum",
+      "laterality": "not_applicable",
+      "tissue_class": "peritoneal_fold",
+      "source_section_id": "bowel-and-peritoneum",
+      "source_label": null,
+      "requirement_type": "anatomical_landmark",
+      "required_representations": [
+        "clinical_image",
+        "schematic",
+        "model"
+      ],
+      "report_provenance": {
+        "path": "data/radiology/anatomic-additions-20261119.json",
+        "section_sha256": "9c2b857dff52b7187de9570140067499cb266b8c1c055447fd3c9246775b7425"
+      }
+    },
+    {
+      "id": "cap.uterus",
+      "name": "Uterus",
+      "laterality": "not_applicable",
+      "tissue_class": "organ",
+      "source_section_id": "reproductive-organs",
+      "source_label": null,
+      "requirement_type": "anatomical_landmark",
+      "required_representations": [
+        "clinical_image",
+        "schematic",
+        "model"
+      ],
+      "report_provenance": {
+        "path": "data/radiology/anatomic-additions-20261119.json",
+        "section_sha256": "35953e226e06a95afec2b4680661234628f744ceaada35cb0a35cbfb4cbbec50"
+      }
+    },
+    {
+      "id": "cap.adnexa.right",
+      "name": "Right adnexa",
+      "laterality": "right",
+      "tissue_class": "adnexal_region",
+      "source_section_id": "reproductive-organs",
+      "source_label": null,
+      "requirement_type": "anatomical_landmark",
+      "required_representations": [
+        "clinical_image",
+        "schematic",
+        "model"
+      ],
+      "report_provenance": {
+        "path": "data/radiology/anatomic-additions-20261119.json",
+        "section_sha256": "35953e226e06a95afec2b4680661234628f744ceaada35cb0a35cbfb4cbbec50"
+      }
+    },
+    {
+      "id": "cap.adnexa.left",
+      "name": "Left adnexa",
+      "laterality": "left",
+      "tissue_class": "adnexal_region",
+      "source_section_id": "reproductive-organs",
+      "source_label": null,
+      "requirement_type": "anatomical_landmark",
+      "required_representations": [
+        "clinical_image",
+        "schematic",
+        "model"
+      ],
+      "report_provenance": {
+        "path": "data/radiology/anatomic-additions-20261119.json",
+        "section_sha256": "35953e226e06a95afec2b4680661234628f744ceaada35cb0a35cbfb4cbbec50"
+      }
+    },
+    {
+      "id": "cap.prostate",
+      "name": "Prostate",
+      "laterality": "not_applicable",
+      "tissue_class": "gland",
+      "source_section_id": "reproductive-organs",
+      "source_label": "prostate",
+      "requirement_type": "anatomical_landmark",
+      "required_representations": [
+        "clinical_image",
+        "schematic",
+        "model"
+      ],
+      "report_provenance": {
+        "path": "data/radiology/anatomic-additions-20261119.json",
+        "section_sha256": "35953e226e06a95afec2b4680661234628f744ceaada35cb0a35cbfb4cbbec50"
+      }
+    },
+    {
+      "id": "cap.retroperitoneal_nodal_region",
+      "name": "Retroperitoneal nodal regions",
+      "laterality": "not_applicable",
+      "tissue_class": "nodal_region",
+      "source_section_id": "abdominal-and-pelvic-lymph-nodes",
+      "source_label": null,
+      "requirement_type": "anatomical_landmark",
+      "required_representations": [
+        "clinical_image",
+        "schematic",
+        "model"
+      ],
+      "report_provenance": {
+        "path": "data/radiology/anatomic-additions-20261119.json",
+        "section_sha256": "1ec4446f2d6ea411fa25c3f9d73977c7b54c8a60c02bb4695e93c94a14756edf"
+      }
+    },
+    {
+      "id": "cap.mesenteric_nodal_region",
+      "name": "Mesenteric nodal regions",
+      "laterality": "not_applicable",
+      "tissue_class": "nodal_region",
+      "source_section_id": "abdominal-and-pelvic-lymph-nodes",
+      "source_label": null,
+      "requirement_type": "anatomical_landmark",
+      "required_representations": [
+        "clinical_image",
+        "schematic",
+        "model"
+      ],
+      "report_provenance": {
+        "path": "data/radiology/anatomic-additions-20261119.json",
+        "section_sha256": "1ec4446f2d6ea411fa25c3f9d73977c7b54c8a60c02bb4695e93c94a14756edf"
+      }
+    },
+    {
+      "id": "cap.pelvic_nodal_region.right",
+      "name": "Right pelvic nodal regions",
+      "laterality": "right",
+      "tissue_class": "nodal_region",
+      "source_section_id": "abdominal-and-pelvic-lymph-nodes",
+      "source_label": null,
+      "requirement_type": "anatomical_landmark",
+      "required_representations": [
+        "clinical_image",
+        "schematic",
+        "model"
+      ],
+      "report_provenance": {
+        "path": "data/radiology/anatomic-additions-20261119.json",
+        "section_sha256": "1ec4446f2d6ea411fa25c3f9d73977c7b54c8a60c02bb4695e93c94a14756edf"
+      }
+    },
+    {
+      "id": "cap.pelvic_nodal_region.left",
+      "name": "Left pelvic nodal regions",
+      "laterality": "left",
+      "tissue_class": "nodal_region",
+      "source_section_id": "abdominal-and-pelvic-lymph-nodes",
+      "source_label": null,
+      "requirement_type": "anatomical_landmark",
+      "required_representations": [
+        "clinical_image",
+        "schematic",
+        "model"
+      ],
+      "report_provenance": {
+        "path": "data/radiology/anatomic-additions-20261119.json",
+        "section_sha256": "1ec4446f2d6ea411fa25c3f9d73977c7b54c8a60c02bb4695e93c94a14756edf"
+      }
+    },
+    {
+      "id": "cap.inguinal_nodal_region.right",
+      "name": "Right inguinal nodal region",
+      "laterality": "right",
+      "tissue_class": "nodal_region",
+      "source_section_id": "abdominal-and-pelvic-lymph-nodes",
+      "source_label": null,
+      "requirement_type": "anatomical_landmark",
+      "required_representations": [
+        "clinical_image",
+        "schematic",
+        "model"
+      ],
+      "report_provenance": {
+        "path": "data/radiology/anatomic-additions-20261119.json",
+        "section_sha256": "1ec4446f2d6ea411fa25c3f9d73977c7b54c8a60c02bb4695e93c94a14756edf"
+      }
+    },
+    {
+      "id": "cap.inguinal_nodal_region.left",
+      "name": "Left inguinal nodal region",
+      "laterality": "left",
+      "tissue_class": "nodal_region",
+      "source_section_id": "abdominal-and-pelvic-lymph-nodes",
+      "source_label": null,
+      "requirement_type": "anatomical_landmark",
+      "required_representations": [
+        "clinical_image",
+        "schematic",
+        "model"
+      ],
+      "report_provenance": {
+        "path": "data/radiology/anatomic-additions-20261119.json",
+        "section_sha256": "1ec4446f2d6ea411fa25c3f9d73977c7b54c8a60c02bb4695e93c94a14756edf"
+      }
+    },
+    {
+      "id": "cap.vertebra_t1",
+      "name": "T1 vertebra",
+      "laterality": "not_applicable",
+      "tissue_class": "vertebra",
+      "source_section_id": "bones",
+      "source_label": "vertebrae_T1",
+      "requirement_type": "anatomical_landmark",
+      "required_representations": [
+        "clinical_image",
+        "schematic",
+        "model"
+      ],
+      "report_provenance": {
+        "path": "data/radiology/anatomic-additions-20261119.json",
+        "section_sha256": "843a95bb970acc1f72d351d7336d1bfd6837d168e766f05e8cbf17fb144bfdb0"
+      }
+    },
+    {
+      "id": "cap.vertebra_t2",
+      "name": "T2 vertebra",
+      "laterality": "not_applicable",
+      "tissue_class": "vertebra",
+      "source_section_id": "bones",
+      "source_label": "vertebrae_T2",
+      "requirement_type": "anatomical_landmark",
+      "required_representations": [
+        "clinical_image",
+        "schematic",
+        "model"
+      ],
+      "report_provenance": {
+        "path": "data/radiology/anatomic-additions-20261119.json",
+        "section_sha256": "843a95bb970acc1f72d351d7336d1bfd6837d168e766f05e8cbf17fb144bfdb0"
+      }
+    },
+    {
+      "id": "cap.vertebra_t3",
+      "name": "T3 vertebra",
+      "laterality": "not_applicable",
+      "tissue_class": "vertebra",
+      "source_section_id": "bones",
+      "source_label": "vertebrae_T3",
+      "requirement_type": "anatomical_landmark",
+      "required_representations": [
+        "clinical_image",
+        "schematic",
+        "model"
+      ],
+      "report_provenance": {
+        "path": "data/radiology/anatomic-additions-20261119.json",
+        "section_sha256": "843a95bb970acc1f72d351d7336d1bfd6837d168e766f05e8cbf17fb144bfdb0"
+      }
+    },
+    {
+      "id": "cap.vertebra_t4",
+      "name": "T4 vertebra",
+      "laterality": "not_applicable",
+      "tissue_class": "vertebra",
+      "source_section_id": "bones",
+      "source_label": "vertebrae_T4",
+      "requirement_type": "anatomical_landmark",
+      "required_representations": [
+        "clinical_image",
+        "schematic",
+        "model"
+      ],
+      "report_provenance": {
+        "path": "data/radiology/anatomic-additions-20261119.json",
+        "section_sha256": "843a95bb970acc1f72d351d7336d1bfd6837d168e766f05e8cbf17fb144bfdb0"
+      }
+    },
+    {
+      "id": "cap.vertebra_t5",
+      "name": "T5 vertebra",
+      "laterality": "not_applicable",
+      "tissue_class": "vertebra",
+      "source_section_id": "bones",
+      "source_label": "vertebrae_T5",
+      "requirement_type": "anatomical_landmark",
+      "required_representations": [
+        "clinical_image",
+        "schematic",
+        "model"
+      ],
+      "report_provenance": {
+        "path": "data/radiology/anatomic-additions-20261119.json",
+        "section_sha256": "843a95bb970acc1f72d351d7336d1bfd6837d168e766f05e8cbf17fb144bfdb0"
+      }
+    },
+    {
+      "id": "cap.vertebra_t6",
+      "name": "T6 vertebra",
+      "laterality": "not_applicable",
+      "tissue_class": "vertebra",
+      "source_section_id": "bones",
+      "source_label": "vertebrae_T6",
+      "requirement_type": "anatomical_landmark",
+      "required_representations": [
+        "clinical_image",
+        "schematic",
+        "model"
+      ],
+      "report_provenance": {
+        "path": "data/radiology/anatomic-additions-20261119.json",
+        "section_sha256": "843a95bb970acc1f72d351d7336d1bfd6837d168e766f05e8cbf17fb144bfdb0"
+      }
+    },
+    {
+      "id": "cap.vertebra_t7",
+      "name": "T7 vertebra",
+      "laterality": "not_applicable",
+      "tissue_class": "vertebra",
+      "source_section_id": "bones",
+      "source_label": "vertebrae_T7",
+      "requirement_type": "anatomical_landmark",
+      "required_representations": [
+        "clinical_image",
+        "schematic",
+        "model"
+      ],
+      "report_provenance": {
+        "path": "data/radiology/anatomic-additions-20261119.json",
+        "section_sha256": "843a95bb970acc1f72d351d7336d1bfd6837d168e766f05e8cbf17fb144bfdb0"
+      }
+    },
+    {
+      "id": "cap.vertebra_t8",
+      "name": "T8 vertebra",
+      "laterality": "not_applicable",
+      "tissue_class": "vertebra",
+      "source_section_id": "bones",
+      "source_label": "vertebrae_T8",
+      "requirement_type": "anatomical_landmark",
+      "required_representations": [
+        "clinical_image",
+        "schematic",
+        "model"
+      ],
+      "report_provenance": {
+        "path": "data/radiology/anatomic-additions-20261119.json",
+        "section_sha256": "843a95bb970acc1f72d351d7336d1bfd6837d168e766f05e8cbf17fb144bfdb0"
+      }
+    },
+    {
+      "id": "cap.vertebra_t9",
+      "name": "T9 vertebra",
+      "laterality": "not_applicable",
+      "tissue_class": "vertebra",
+      "source_section_id": "bones",
+      "source_label": "vertebrae_T9",
+      "requirement_type": "anatomical_landmark",
+      "required_representations": [
+        "clinical_image",
+        "schematic",
+        "model"
+      ],
+      "report_provenance": {
+        "path": "data/radiology/anatomic-additions-20261119.json",
+        "section_sha256": "843a95bb970acc1f72d351d7336d1bfd6837d168e766f05e8cbf17fb144bfdb0"
+      }
+    },
+    {
+      "id": "cap.vertebra_t10",
+      "name": "T10 vertebra",
+      "laterality": "not_applicable",
+      "tissue_class": "vertebra",
+      "source_section_id": "bones",
+      "source_label": "vertebrae_T10",
+      "requirement_type": "anatomical_landmark",
+      "required_representations": [
+        "clinical_image",
+        "schematic",
+        "model"
+      ],
+      "report_provenance": {
+        "path": "data/radiology/anatomic-additions-20261119.json",
+        "section_sha256": "843a95bb970acc1f72d351d7336d1bfd6837d168e766f05e8cbf17fb144bfdb0"
+      }
+    },
+    {
+      "id": "cap.vertebra_t11",
+      "name": "T11 vertebra",
+      "laterality": "not_applicable",
+      "tissue_class": "vertebra",
+      "source_section_id": "bones",
+      "source_label": "vertebrae_T11",
+      "requirement_type": "anatomical_landmark",
+      "required_representations": [
+        "clinical_image",
+        "schematic",
+        "model"
+      ],
+      "report_provenance": {
+        "path": "data/radiology/anatomic-additions-20261119.json",
+        "section_sha256": "843a95bb970acc1f72d351d7336d1bfd6837d168e766f05e8cbf17fb144bfdb0"
+      }
+    },
+    {
+      "id": "cap.vertebra_t12",
+      "name": "T12 vertebra",
+      "laterality": "not_applicable",
+      "tissue_class": "vertebra",
+      "source_section_id": "bones",
+      "source_label": "vertebrae_T12",
+      "requirement_type": "anatomical_landmark",
+      "required_representations": [
+        "clinical_image",
+        "schematic",
+        "model"
+      ],
+      "report_provenance": {
+        "path": "data/radiology/anatomic-additions-20261119.json",
+        "section_sha256": "843a95bb970acc1f72d351d7336d1bfd6837d168e766f05e8cbf17fb144bfdb0"
+      }
+    },
+    {
+      "id": "cap.vertebra_l1",
+      "name": "L1 vertebra",
+      "laterality": "not_applicable",
+      "tissue_class": "vertebra",
+      "source_section_id": "bones",
+      "source_label": "vertebrae_L1",
+      "requirement_type": "anatomical_landmark",
+      "required_representations": [
+        "clinical_image",
+        "schematic",
+        "model"
+      ],
+      "report_provenance": {
+        "path": "data/radiology/anatomic-additions-20261119.json",
+        "section_sha256": "843a95bb970acc1f72d351d7336d1bfd6837d168e766f05e8cbf17fb144bfdb0"
+      }
+    },
+    {
+      "id": "cap.vertebra_l2",
+      "name": "L2 vertebra",
+      "laterality": "not_applicable",
+      "tissue_class": "vertebra",
+      "source_section_id": "bones",
+      "source_label": "vertebrae_L2",
+      "requirement_type": "anatomical_landmark",
+      "required_representations": [
+        "clinical_image",
+        "schematic",
+        "model"
+      ],
+      "report_provenance": {
+        "path": "data/radiology/anatomic-additions-20261119.json",
+        "section_sha256": "843a95bb970acc1f72d351d7336d1bfd6837d168e766f05e8cbf17fb144bfdb0"
+      }
+    },
+    {
+      "id": "cap.vertebra_l3",
+      "name": "L3 vertebra",
+      "laterality": "not_applicable",
+      "tissue_class": "vertebra",
+      "source_section_id": "bones",
+      "source_label": "vertebrae_L3",
+      "requirement_type": "anatomical_landmark",
+      "required_representations": [
+        "clinical_image",
+        "schematic",
+        "model"
+      ],
+      "report_provenance": {
+        "path": "data/radiology/anatomic-additions-20261119.json",
+        "section_sha256": "843a95bb970acc1f72d351d7336d1bfd6837d168e766f05e8cbf17fb144bfdb0"
+      }
+    },
+    {
+      "id": "cap.vertebra_l4",
+      "name": "L4 vertebra",
+      "laterality": "not_applicable",
+      "tissue_class": "vertebra",
+      "source_section_id": "bones",
+      "source_label": "vertebrae_L4",
+      "requirement_type": "anatomical_landmark",
+      "required_representations": [
+        "clinical_image",
+        "schematic",
+        "model"
+      ],
+      "report_provenance": {
+        "path": "data/radiology/anatomic-additions-20261119.json",
+        "section_sha256": "843a95bb970acc1f72d351d7336d1bfd6837d168e766f05e8cbf17fb144bfdb0"
+      }
+    },
+    {
+      "id": "cap.vertebra_l5",
+      "name": "L5 vertebra",
+      "laterality": "not_applicable",
+      "tissue_class": "vertebra",
+      "source_section_id": "bones",
+      "source_label": "vertebrae_L5",
+      "requirement_type": "anatomical_landmark",
+      "required_representations": [
+        "clinical_image",
+        "schematic",
+        "model"
+      ],
+      "report_provenance": {
+        "path": "data/radiology/anatomic-additions-20261119.json",
+        "section_sha256": "843a95bb970acc1f72d351d7336d1bfd6837d168e766f05e8cbf17fb144bfdb0"
+      }
+    },
+    {
+      "id": "cap.rib_1.right",
+      "name": "Right rib 1",
+      "laterality": "right",
+      "tissue_class": "rib",
+      "source_section_id": "bones",
+      "source_label": "rib_right_1",
+      "requirement_type": "anatomical_landmark",
+      "required_representations": [
+        "clinical_image",
+        "schematic",
+        "model"
+      ],
+      "report_provenance": {
+        "path": "data/radiology/anatomic-additions-20261119.json",
+        "section_sha256": "843a95bb970acc1f72d351d7336d1bfd6837d168e766f05e8cbf17fb144bfdb0"
+      }
+    },
+    {
+      "id": "cap.rib_1.left",
+      "name": "Left rib 1",
+      "laterality": "left",
+      "tissue_class": "rib",
+      "source_section_id": "bones",
+      "source_label": "rib_left_1",
+      "requirement_type": "anatomical_landmark",
+      "required_representations": [
+        "clinical_image",
+        "schematic",
+        "model"
+      ],
+      "report_provenance": {
+        "path": "data/radiology/anatomic-additions-20261119.json",
+        "section_sha256": "843a95bb970acc1f72d351d7336d1bfd6837d168e766f05e8cbf17fb144bfdb0"
+      }
+    },
+    {
+      "id": "cap.rib_2.right",
+      "name": "Right rib 2",
+      "laterality": "right",
+      "tissue_class": "rib",
+      "source_section_id": "bones",
+      "source_label": "rib_right_2",
+      "requirement_type": "anatomical_landmark",
+      "required_representations": [
+        "clinical_image",
+        "schematic",
+        "model"
+      ],
+      "report_provenance": {
+        "path": "data/radiology/anatomic-additions-20261119.json",
+        "section_sha256": "843a95bb970acc1f72d351d7336d1bfd6837d168e766f05e8cbf17fb144bfdb0"
+      }
+    },
+    {
+      "id": "cap.rib_2.left",
+      "name": "Left rib 2",
+      "laterality": "left",
+      "tissue_class": "rib",
+      "source_section_id": "bones",
+      "source_label": "rib_left_2",
+      "requirement_type": "anatomical_landmark",
+      "required_representations": [
+        "clinical_image",
+        "schematic",
+        "model"
+      ],
+      "report_provenance": {
+        "path": "data/radiology/anatomic-additions-20261119.json",
+        "section_sha256": "843a95bb970acc1f72d351d7336d1bfd6837d168e766f05e8cbf17fb144bfdb0"
+      }
+    },
+    {
+      "id": "cap.rib_3.right",
+      "name": "Right rib 3",
+      "laterality": "right",
+      "tissue_class": "rib",
+      "source_section_id": "bones",
+      "source_label": "rib_right_3",
+      "requirement_type": "anatomical_landmark",
+      "required_representations": [
+        "clinical_image",
+        "schematic",
+        "model"
+      ],
+      "report_provenance": {
+        "path": "data/radiology/anatomic-additions-20261119.json",
+        "section_sha256": "843a95bb970acc1f72d351d7336d1bfd6837d168e766f05e8cbf17fb144bfdb0"
+      }
+    },
+    {
+      "id": "cap.rib_3.left",
+      "name": "Left rib 3",
+      "laterality": "left",
+      "tissue_class": "rib",
+      "source_section_id": "bones",
+      "source_label": "rib_left_3",
+      "requirement_type": "anatomical_landmark",
+      "required_representations": [
+        "clinical_image",
+        "schematic",
+        "model"
+      ],
+      "report_provenance": {
+        "path": "data/radiology/anatomic-additions-20261119.json",
+        "section_sha256": "843a95bb970acc1f72d351d7336d1bfd6837d168e766f05e8cbf17fb144bfdb0"
+      }
+    },
+    {
+      "id": "cap.rib_4.right",
+      "name": "Right rib 4",
+      "laterality": "right",
+      "tissue_class": "rib",
+      "source_section_id": "bones",
+      "source_label": "rib_right_4",
+      "requirement_type": "anatomical_landmark",
+      "required_representations": [
+        "clinical_image",
+        "schematic",
+        "model"
+      ],
+      "report_provenance": {
+        "path": "data/radiology/anatomic-additions-20261119.json",
+        "section_sha256": "843a95bb970acc1f72d351d7336d1bfd6837d168e766f05e8cbf17fb144bfdb0"
+      }
+    },
+    {
+      "id": "cap.rib_4.left",
+      "name": "Left rib 4",
+      "laterality": "left",
+      "tissue_class": "rib",
+      "source_section_id": "bones",
+      "source_label": "rib_left_4",
+      "requirement_type": "anatomical_landmark",
+      "required_representations": [
+        "clinical_image",
+        "schematic",
+        "model"
+      ],
+      "report_provenance": {
+        "path": "data/radiology/anatomic-additions-20261119.json",
+        "section_sha256": "843a95bb970acc1f72d351d7336d1bfd6837d168e766f05e8cbf17fb144bfdb0"
+      }
+    },
+    {
+      "id": "cap.rib_5.right",
+      "name": "Right rib 5",
+      "laterality": "right",
+      "tissue_class": "rib",
+      "source_section_id": "bones",
+      "source_label": "rib_right_5",
+      "requirement_type": "anatomical_landmark",
+      "required_representations": [
+        "clinical_image",
+        "schematic",
+        "model"
+      ],
+      "report_provenance": {
+        "path": "data/radiology/anatomic-additions-20261119.json",
+        "section_sha256": "843a95bb970acc1f72d351d7336d1bfd6837d168e766f05e8cbf17fb144bfdb0"
+      }
+    },
+    {
+      "id": "cap.rib_5.left",
+      "name": "Left rib 5",
+      "laterality": "left",
+      "tissue_class": "rib",
+      "source_section_id": "bones",
+      "source_label": "rib_left_5",
+      "requirement_type": "anatomical_landmark",
+      "required_representations": [
+        "clinical_image",
+        "schematic",
+        "model"
+      ],
+      "report_provenance": {
+        "path": "data/radiology/anatomic-additions-20261119.json",
+        "section_sha256": "843a95bb970acc1f72d351d7336d1bfd6837d168e766f05e8cbf17fb144bfdb0"
+      }
+    },
+    {
+      "id": "cap.rib_6.right",
+      "name": "Right rib 6",
+      "laterality": "right",
+      "tissue_class": "rib",
+      "source_section_id": "bones",
+      "source_label": "rib_right_6",
+      "requirement_type": "anatomical_landmark",
+      "required_representations": [
+        "clinical_image",
+        "schematic",
+        "model"
+      ],
+      "report_provenance": {
+        "path": "data/radiology/anatomic-additions-20261119.json",
+        "section_sha256": "843a95bb970acc1f72d351d7336d1bfd6837d168e766f05e8cbf17fb144bfdb0"
+      }
+    },
+    {
+      "id": "cap.rib_6.left",
+      "name": "Left rib 6",
+      "laterality": "left",
+      "tissue_class": "rib",
+      "source_section_id": "bones",
+      "source_label": "rib_left_6",
+      "requirement_type": "anatomical_landmark",
+      "required_representations": [
+        "clinical_image",
+        "schematic",
+        "model"
+      ],
+      "report_provenance": {
+        "path": "data/radiology/anatomic-additions-20261119.json",
+        "section_sha256": "843a95bb970acc1f72d351d7336d1bfd6837d168e766f05e8cbf17fb144bfdb0"
+      }
+    },
+    {
+      "id": "cap.rib_7.right",
+      "name": "Right rib 7",
+      "laterality": "right",
+      "tissue_class": "rib",
+      "source_section_id": "bones",
+      "source_label": "rib_right_7",
+      "requirement_type": "anatomical_landmark",
+      "required_representations": [
+        "clinical_image",
+        "schematic",
+        "model"
+      ],
+      "report_provenance": {
+        "path": "data/radiology/anatomic-additions-20261119.json",
+        "section_sha256": "843a95bb970acc1f72d351d7336d1bfd6837d168e766f05e8cbf17fb144bfdb0"
+      }
+    },
+    {
+      "id": "cap.rib_7.left",
+      "name": "Left rib 7",
+      "laterality": "left",
+      "tissue_class": "rib",
+      "source_section_id": "bones",
+      "source_label": "rib_left_7",
+      "requirement_type": "anatomical_landmark",
+      "required_representations": [
+        "clinical_image",
+        "schematic",
+        "model"
+      ],
+      "report_provenance": {
+        "path": "data/radiology/anatomic-additions-20261119.json",
+        "section_sha256": "843a95bb970acc1f72d351d7336d1bfd6837d168e766f05e8cbf17fb144bfdb0"
+      }
+    },
+    {
+      "id": "cap.rib_8.right",
+      "name": "Right rib 8",
+      "laterality": "right",
+      "tissue_class": "rib",
+      "source_section_id": "bones",
+      "source_label": "rib_right_8",
+      "requirement_type": "anatomical_landmark",
+      "required_representations": [
+        "clinical_image",
+        "schematic",
+        "model"
+      ],
+      "report_provenance": {
+        "path": "data/radiology/anatomic-additions-20261119.json",
+        "section_sha256": "843a95bb970acc1f72d351d7336d1bfd6837d168e766f05e8cbf17fb144bfdb0"
+      }
+    },
+    {
+      "id": "cap.rib_8.left",
+      "name": "Left rib 8",
+      "laterality": "left",
+      "tissue_class": "rib",
+      "source_section_id": "bones",
+      "source_label": "rib_left_8",
+      "requirement_type": "anatomical_landmark",
+      "required_representations": [
+        "clinical_image",
+        "schematic",
+        "model"
+      ],
+      "report_provenance": {
+        "path": "data/radiology/anatomic-additions-20261119.json",
+        "section_sha256": "843a95bb970acc1f72d351d7336d1bfd6837d168e766f05e8cbf17fb144bfdb0"
+      }
+    },
+    {
+      "id": "cap.rib_9.right",
+      "name": "Right rib 9",
+      "laterality": "right",
+      "tissue_class": "rib",
+      "source_section_id": "bones",
+      "source_label": "rib_right_9",
+      "requirement_type": "anatomical_landmark",
+      "required_representations": [
+        "clinical_image",
+        "schematic",
+        "model"
+      ],
+      "report_provenance": {
+        "path": "data/radiology/anatomic-additions-20261119.json",
+        "section_sha256": "843a95bb970acc1f72d351d7336d1bfd6837d168e766f05e8cbf17fb144bfdb0"
+      }
+    },
+    {
+      "id": "cap.rib_9.left",
+      "name": "Left rib 9",
+      "laterality": "left",
+      "tissue_class": "rib",
+      "source_section_id": "bones",
+      "source_label": "rib_left_9",
+      "requirement_type": "anatomical_landmark",
+      "required_representations": [
+        "clinical_image",
+        "schematic",
+        "model"
+      ],
+      "report_provenance": {
+        "path": "data/radiology/anatomic-additions-20261119.json",
+        "section_sha256": "843a95bb970acc1f72d351d7336d1bfd6837d168e766f05e8cbf17fb144bfdb0"
+      }
+    },
+    {
+      "id": "cap.rib_10.right",
+      "name": "Right rib 10",
+      "laterality": "right",
+      "tissue_class": "rib",
+      "source_section_id": "bones",
+      "source_label": "rib_right_10",
+      "requirement_type": "anatomical_landmark",
+      "required_representations": [
+        "clinical_image",
+        "schematic",
+        "model"
+      ],
+      "report_provenance": {
+        "path": "data/radiology/anatomic-additions-20261119.json",
+        "section_sha256": "843a95bb970acc1f72d351d7336d1bfd6837d168e766f05e8cbf17fb144bfdb0"
+      }
+    },
+    {
+      "id": "cap.rib_10.left",
+      "name": "Left rib 10",
+      "laterality": "left",
+      "tissue_class": "rib",
+      "source_section_id": "bones",
+      "source_label": "rib_left_10",
+      "requirement_type": "anatomical_landmark",
+      "required_representations": [
+        "clinical_image",
+        "schematic",
+        "model"
+      ],
+      "report_provenance": {
+        "path": "data/radiology/anatomic-additions-20261119.json",
+        "section_sha256": "843a95bb970acc1f72d351d7336d1bfd6837d168e766f05e8cbf17fb144bfdb0"
+      }
+    },
+    {
+      "id": "cap.rib_11.right",
+      "name": "Right rib 11",
+      "laterality": "right",
+      "tissue_class": "rib",
+      "source_section_id": "bones",
+      "source_label": "rib_right_11",
+      "requirement_type": "anatomical_landmark",
+      "required_representations": [
+        "clinical_image",
+        "schematic",
+        "model"
+      ],
+      "report_provenance": {
+        "path": "data/radiology/anatomic-additions-20261119.json",
+        "section_sha256": "843a95bb970acc1f72d351d7336d1bfd6837d168e766f05e8cbf17fb144bfdb0"
+      }
+    },
+    {
+      "id": "cap.rib_11.left",
+      "name": "Left rib 11",
+      "laterality": "left",
+      "tissue_class": "rib",
+      "source_section_id": "bones",
+      "source_label": "rib_left_11",
+      "requirement_type": "anatomical_landmark",
+      "required_representations": [
+        "clinical_image",
+        "schematic",
+        "model"
+      ],
+      "report_provenance": {
+        "path": "data/radiology/anatomic-additions-20261119.json",
+        "section_sha256": "843a95bb970acc1f72d351d7336d1bfd6837d168e766f05e8cbf17fb144bfdb0"
+      }
+    },
+    {
+      "id": "cap.rib_12.right",
+      "name": "Right rib 12",
+      "laterality": "right",
+      "tissue_class": "rib",
+      "source_section_id": "bones",
+      "source_label": "rib_right_12",
+      "requirement_type": "anatomical_landmark",
+      "required_representations": [
+        "clinical_image",
+        "schematic",
+        "model"
+      ],
+      "report_provenance": {
+        "path": "data/radiology/anatomic-additions-20261119.json",
+        "section_sha256": "843a95bb970acc1f72d351d7336d1bfd6837d168e766f05e8cbf17fb144bfdb0"
+      }
+    },
+    {
+      "id": "cap.rib_12.left",
+      "name": "Left rib 12",
+      "laterality": "left",
+      "tissue_class": "rib",
+      "source_section_id": "bones",
+      "source_label": "rib_left_12",
+      "requirement_type": "anatomical_landmark",
+      "required_representations": [
+        "clinical_image",
+        "schematic",
+        "model"
+      ],
+      "report_provenance": {
+        "path": "data/radiology/anatomic-additions-20261119.json",
+        "section_sha256": "843a95bb970acc1f72d351d7336d1bfd6837d168e766f05e8cbf17fb144bfdb0"
+      }
+    },
+    {
+      "id": "cap.sacrum",
+      "name": "Sacrum",
+      "laterality": "not_applicable",
+      "tissue_class": "bone",
+      "source_section_id": "bones",
+      "source_label": "sacrum",
+      "requirement_type": "anatomical_landmark",
+      "required_representations": [
+        "clinical_image",
+        "schematic",
+        "model"
+      ],
+      "report_provenance": {
+        "path": "data/radiology/anatomic-additions-20261119.json",
+        "section_sha256": "843a95bb970acc1f72d351d7336d1bfd6837d168e766f05e8cbf17fb144bfdb0"
+      }
+    },
+    {
+      "id": "cap.sternum",
+      "name": "Sternum",
+      "laterality": "not_applicable",
+      "tissue_class": "bone",
+      "source_section_id": "bones",
+      "source_label": "sternum",
+      "requirement_type": "anatomical_landmark",
+      "required_representations": [
+        "clinical_image",
+        "schematic",
+        "model"
+      ],
+      "report_provenance": {
+        "path": "data/radiology/anatomic-additions-20261119.json",
+        "section_sha256": "843a95bb970acc1f72d351d7336d1bfd6837d168e766f05e8cbf17fb144bfdb0"
+      }
+    },
+    {
+      "id": "cap.hip_bone.right",
+      "name": "Right hip bone",
+      "laterality": "right",
+      "tissue_class": "bone",
+      "source_section_id": "bones",
+      "source_label": "hip_right",
+      "requirement_type": "anatomical_landmark",
+      "required_representations": [
+        "clinical_image",
+        "schematic",
+        "model"
+      ],
+      "report_provenance": {
+        "path": "data/radiology/anatomic-additions-20261119.json",
+        "section_sha256": "843a95bb970acc1f72d351d7336d1bfd6837d168e766f05e8cbf17fb144bfdb0"
+      }
+    },
+    {
+      "id": "cap.hip_bone.left",
+      "name": "Left hip bone",
+      "laterality": "left",
+      "tissue_class": "bone",
+      "source_section_id": "bones",
+      "source_label": "hip_left",
+      "requirement_type": "anatomical_landmark",
+      "required_representations": [
+        "clinical_image",
+        "schematic",
+        "model"
+      ],
+      "report_provenance": {
+        "path": "data/radiology/anatomic-additions-20261119.json",
+        "section_sha256": "843a95bb970acc1f72d351d7336d1bfd6837d168e766f05e8cbf17fb144bfdb0"
+      }
+    },
+    {
+      "id": "cap.proximal_femur.right",
+      "name": "Right proximal femur",
+      "laterality": "right",
+      "tissue_class": "bone_region",
+      "source_section_id": "bones",
+      "source_label": null,
+      "requirement_type": "anatomical_landmark",
+      "required_representations": [
+        "clinical_image",
+        "schematic",
+        "model"
+      ],
+      "report_provenance": {
+        "path": "data/radiology/anatomic-additions-20261119.json",
+        "section_sha256": "843a95bb970acc1f72d351d7336d1bfd6837d168e766f05e8cbf17fb144bfdb0"
+      }
+    },
+    {
+      "id": "cap.proximal_femur.left",
+      "name": "Left proximal femur",
+      "laterality": "left",
+      "tissue_class": "bone_region",
+      "source_section_id": "bones",
+      "source_label": null,
+      "requirement_type": "anatomical_landmark",
+      "required_representations": [
+        "clinical_image",
+        "schematic",
+        "model"
+      ],
+      "report_provenance": {
+        "path": "data/radiology/anatomic-additions-20261119.json",
+        "section_sha256": "843a95bb970acc1f72d351d7336d1bfd6837d168e766f05e8cbf17fb144bfdb0"
+      }
+    },
+    {
+      "id": "cap.proximal_humerus.right",
+      "name": "Right proximal humerus",
+      "laterality": "right",
+      "tissue_class": "bone_region",
+      "source_section_id": "bones",
+      "source_label": null,
+      "requirement_type": "anatomical_landmark",
+      "required_representations": [
+        "clinical_image",
+        "schematic",
+        "model"
+      ],
+      "report_provenance": {
+        "path": "data/radiology/anatomic-additions-20261119.json",
+        "section_sha256": "843a95bb970acc1f72d351d7336d1bfd6837d168e766f05e8cbf17fb144bfdb0"
+      }
+    },
+    {
+      "id": "cap.proximal_humerus.left",
+      "name": "Left proximal humerus",
+      "laterality": "left",
+      "tissue_class": "bone_region",
+      "source_section_id": "bones",
+      "source_label": null,
+      "requirement_type": "anatomical_landmark",
+      "required_representations": [
+        "clinical_image",
+        "schematic",
+        "model"
+      ],
+      "report_provenance": {
+        "path": "data/radiology/anatomic-additions-20261119.json",
+        "section_sha256": "843a95bb970acc1f72d351d7336d1bfd6837d168e766f05e8cbf17fb144bfdb0"
+      }
+    }
+  ],
+  "evidence_requirements": [
+    {
+      "id": "ct.chest-abdomen-pelvis:technique:assessment",
+      "source_section_id": "technique",
+      "name": "Examination performed",
+      "requirement_type": "examination_scope",
+      "statement": "The examination was performed [to the standard protocol / with a modified protocol / as a limited examination].",
+      "source_sha256": "bcec2a92e28cde4fe33e684f5503848eeb73129c6f75ab65d2ebe381814a9bf1",
+      "required_representations": [],
+      "requires_any": [],
+      "slots": [
+        {
+          "kind": "choice",
+          "source_token": "[to the standard protocol / with a modified protocol / as a limited examination]"
+        }
+      ]
+    },
+    {
+      "id": "ct.chest-abdomen-pelvis:lungs-and-airways:normal",
+      "source_section_id": "lungs-and-airways",
+      "name": "Normal",
+      "requirement_type": "current_exam_assessment",
+      "statement": "The lungs are clear, with no pulmonary nodule, mass or consolidation, and the central airways are patent.",
+      "source_sha256": "f5be09055f988b560a9d8a2be67195e7a2c7223b0da8fc52a3a1808bf1fb79c4",
+      "required_representations": [],
+      "requires_any": [],
+      "slots": []
+    },
+    {
+      "id": "ct.chest-abdomen-pelvis:lungs-and-airways:nodule",
+      "source_section_id": "lungs-and-airways",
+      "name": "Pulmonary nodule",
+      "requirement_type": "current_finding",
+      "statement": "A pulmonary nodule is present in the [right upper lobe / right middle lobe / right lower lobe / left upper lobe / lingula / left lower lobe].",
+      "source_sha256": "f60bcc709d0786a3ab194331a3ca8c3abecc2f2db807b996d044b9b1bca53cf5",
+      "required_representations": [],
+      "requires_any": [],
+      "slots": [
+        {
+          "kind": "choice",
+          "source_token": "[right upper lobe / right middle lobe / right lower lobe / left upper lobe / lingula / left lower lobe]"
+        }
+      ]
+    },
+    {
+      "id": "ct.chest-abdomen-pelvis:lungs-and-airways:size",
+      "source_section_id": "lungs-and-airways",
+      "name": "Nodule size",
+      "requirement_type": "measurement",
+      "statement": "The pulmonary nodule measures __ mm.",
+      "source_sha256": "e2d2d32a4169a8530e7561c15abef135dc9265e67a4773e738856b856adaadca",
+      "required_representations": [],
+      "requires_any": [
+        "ct.chest-abdomen-pelvis:lungs-and-airways:nodule"
+      ],
+      "slots": [
+        {
+          "kind": "number",
+          "source_token": "__"
+        }
+      ],
+      "unit": "mm",
+      "axis": "not_specified_in_field"
+    },
+    {
+      "id": "ct.chest-abdomen-pelvis:lungs-and-airways:parenchyma",
+      "source_section_id": "lungs-and-airways",
+      "name": "Lung abnormality",
+      "requirement_type": "current_finding",
+      "statement": "There is [a mass / consolidation / lymphangitic thickening / atelectasis] in the [right lung / left lung / both lungs].",
+      "source_sha256": "c4f83b694a00bbfe73ed85682b4ffdce4c921d9bc46cc52a7560a702aae9fc26",
+      "required_representations": [],
+      "requires_any": [],
+      "slots": [
+        {
+          "kind": "choice",
+          "source_token": "[a mass / consolidation / lymphangitic thickening / atelectasis]"
+        },
+        {
+          "kind": "choice",
+          "source_token": "[right lung / left lung / both lungs]"
+        }
+      ]
+    },
+    {
+      "id": "ct.chest-abdomen-pelvis:lungs-and-airways:airway",
+      "source_section_id": "lungs-and-airways",
+      "name": "Airway abnormality",
+      "requirement_type": "current_finding",
+      "statement": "There is [bronchial wall thickening / an endobronchial lesion / bronchial obstruction].",
+      "source_sha256": "16abce6720ac623052554560582bc76933ac8cac6eef8de48aab075cd9c3be77",
+      "required_representations": [],
+      "requires_any": [],
+      "slots": [
+        {
+          "kind": "choice",
+          "source_token": "[bronchial wall thickening / an endobronchial lesion / bronchial obstruction]"
+        }
+      ]
+    },
+    {
+      "id": "ct.chest-abdomen-pelvis:pleura-and-pericardium:normal",
+      "source_section_id": "pleura-and-pericardium",
+      "name": "Normal",
+      "requirement_type": "current_exam_assessment",
+      "statement": "No pleural or pericardial effusion.",
+      "source_sha256": "be0009a73e23ff28f79946640e1199677251c95ee6fab32ff400f3b4759fc113",
+      "required_representations": [],
+      "requires_any": [],
+      "slots": []
+    },
+    {
+      "id": "ct.chest-abdomen-pelvis:pleura-and-pericardium:effusion",
+      "source_section_id": "pleura-and-pericardium",
+      "name": "Pleural effusion",
+      "requirement_type": "current_finding",
+      "statement": "There is a [small / moderate / large] [right / left / bilateral] pleural effusion.",
+      "source_sha256": "22d0320d18a7ae6bb59e823bb068b7876e601ba1017a106b337efd36c6fdb5d1",
+      "required_representations": [],
+      "requires_any": [],
+      "slots": [
+        {
+          "kind": "choice",
+          "source_token": "[small / moderate / large]"
+        },
+        {
+          "kind": "choice",
+          "source_token": "[right / left / bilateral]"
+        }
+      ]
+    },
+    {
+      "id": "ct.chest-abdomen-pelvis:pleura-and-pericardium:pleura",
+      "source_section_id": "pleura-and-pericardium",
+      "name": "Pleural disease",
+      "requirement_type": "current_finding",
+      "statement": "There is [right / left / bilateral] pleural [thickening / nodularity].",
+      "source_sha256": "8758d25cacd38714ad08e4d710ebe2f8bb3ceedab90d9b0fe3305def33557fef",
+      "required_representations": [],
+      "requires_any": [],
+      "slots": [
+        {
+          "kind": "choice",
+          "source_token": "[right / left / bilateral]"
+        },
+        {
+          "kind": "choice",
+          "source_token": "[thickening / nodularity]"
+        }
+      ]
+    },
+    {
+      "id": "ct.chest-abdomen-pelvis:pleura-and-pericardium:pericardium",
+      "source_section_id": "pleura-and-pericardium",
+      "name": "Pericardial effusion",
+      "requirement_type": "current_finding",
+      "statement": "There is a [small / moderate / large] pericardial effusion.",
+      "source_sha256": "485a16401b40c5fdd19f306bdd7fa301cde7555180bc29c8bf5f6afb469dfe00",
+      "required_representations": [],
+      "requires_any": [],
+      "slots": [
+        {
+          "kind": "choice",
+          "source_token": "[small / moderate / large]"
+        }
+      ]
+    },
+    {
+      "id": "ct.chest-abdomen-pelvis:thoracic-lymph-nodes:normal",
+      "source_section_id": "thoracic-lymph-nodes",
+      "name": "Normal",
+      "requirement_type": "current_exam_assessment",
+      "statement": "No mediastinal, hilar or axillary lymphadenopathy.",
+      "source_sha256": "8e2be106a7bfb1e2f8d62122c53634d3cfb07f64824325d2c82db935333b894b",
+      "required_representations": [],
+      "requires_any": [],
+      "slots": []
+    },
+    {
+      "id": "ct.chest-abdomen-pelvis:thoracic-lymph-nodes:node",
+      "source_section_id": "thoracic-lymph-nodes",
+      "name": "Enlarged node",
+      "requirement_type": "current_finding",
+      "statement": "An enlarged [mediastinal / hilar / axillary / supraclavicular] lymph node is present.",
+      "source_sha256": "d9ab79f89381fcf38a238f45f2e55dd2f2335b8b1fe75de330de1be65f6f6cc8",
+      "required_representations": [],
+      "requires_any": [],
+      "slots": [
+        {
+          "kind": "choice",
+          "source_token": "[mediastinal / hilar / axillary / supraclavicular]"
+        }
+      ]
+    },
+    {
+      "id": "ct.chest-abdomen-pelvis:thoracic-lymph-nodes:size",
+      "source_section_id": "thoracic-lymph-nodes",
+      "name": "Short axis",
+      "requirement_type": "measurement",
+      "statement": "The thoracic lymph node measures __ mm in short axis.",
+      "source_sha256": "24d95f950d80b32f6e89e29616f1ba1bd4a4a5582a040bb601bf70c3874d1d59",
+      "required_representations": [],
+      "requires_any": [
+        "ct.chest-abdomen-pelvis:thoracic-lymph-nodes:node"
+      ],
+      "slots": [
+        {
+          "kind": "number",
+          "source_token": "__"
+        }
+      ],
+      "unit": "mm",
+      "axis": "short_axis"
+    },
+    {
+      "id": "ct.chest-abdomen-pelvis:heart-and-great-vessels:normal",
+      "source_section_id": "heart-and-great-vessels",
+      "name": "Normal",
+      "requirement_type": "current_exam_assessment",
+      "statement": "The heart and great vessels are normal.",
+      "source_sha256": "a948e5f2866a7df9f7677f77a448621e8313b0aa7cb6e0f0edc3091d81002db5",
+      "required_representations": [],
+      "requires_any": [],
+      "slots": []
+    },
+    {
+      "id": "ct.chest-abdomen-pelvis:heart-and-great-vessels:abnormal",
+      "source_section_id": "heart-and-great-vessels",
+      "name": "Cardiovascular abnormality",
+      "requirement_type": "current_finding",
+      "statement": "There is [a pulmonary embolus / tumour thrombus / cardiomegaly / an aortic aneurysm / coronary artery calcification].",
+      "source_sha256": "9d22e74d82f08197063438e995c9e359205fba57732d52bb0e53bbd6f4b87b81",
+      "required_representations": [],
+      "requires_any": [],
+      "slots": [
+        {
+          "kind": "choice",
+          "source_token": "[a pulmonary embolus / tumour thrombus / cardiomegaly / an aortic aneurysm / coronary artery calcification]"
+        }
+      ]
+    },
+    {
+      "id": "ct.chest-abdomen-pelvis:liver:normal",
+      "source_section_id": "liver",
+      "name": "Normal",
+      "requirement_type": "current_exam_assessment",
+      "statement": "No focal liver lesion.",
+      "source_sha256": "a4dfe8c42d8e30afb0f0c30f9d36fe7596d3121c16e403ffba4fe62404a4a1e9",
+      "required_representations": [],
+      "requires_any": [],
+      "slots": []
+    },
+    {
+      "id": "ct.chest-abdomen-pelvis:liver:lesion",
+      "source_section_id": "liver",
+      "name": "Liver lesion",
+      "requirement_type": "current_finding",
+      "statement": "A focal liver lesion is present in the [right lobe / left lobe / caudate lobe].",
+      "source_sha256": "eb46918cd974b1b95431c485922442e21aaafc489ff8c2e33434c9655eb6ceae",
+      "required_representations": [],
+      "requires_any": [],
+      "slots": [
+        {
+          "kind": "choice",
+          "source_token": "[right lobe / left lobe / caudate lobe]"
+        }
+      ]
+    },
+    {
+      "id": "ct.chest-abdomen-pelvis:liver:size",
+      "source_section_id": "liver",
+      "name": "Lesion size",
+      "requirement_type": "measurement",
+      "statement": "The liver lesion measures __ mm.",
+      "source_sha256": "108c50e3c4091d80c2d648fd3954aa28ffb5b0e23ab356f647d471b6a320b7b4",
+      "required_representations": [],
+      "requires_any": [
+        "ct.chest-abdomen-pelvis:liver:lesion"
+      ],
+      "slots": [
+        {
+          "kind": "number",
+          "source_token": "__"
+        }
+      ],
+      "unit": "mm",
+      "axis": "not_specified_in_field"
+    },
+    {
+      "id": "ct.chest-abdomen-pelvis:liver:nature",
+      "source_section_id": "liver",
+      "name": "Lesion appearance",
+      "requirement_type": "characterisation",
+      "statement": "The liver lesion is [hypodense / hyperenhancing / cystic / indeterminate].",
+      "source_sha256": "bac48556ab7b57e55c8402adb0c4b6d0ffa1aa22b983782f66b35187036a5ca0",
+      "required_representations": [],
+      "requires_any": [
+        "ct.chest-abdomen-pelvis:liver:lesion"
+      ],
+      "slots": [
+        {
+          "kind": "choice",
+          "source_token": "[hypodense / hyperenhancing / cystic / indeterminate]"
+        }
+      ]
+    },
+    {
+      "id": "ct.chest-abdomen-pelvis:liver:diffuse",
+      "source_section_id": "liver",
+      "name": "Diffuse liver disease",
+      "requirement_type": "current_finding",
+      "statement": "The liver shows [steatosis / cirrhotic morphology / hepatomegaly].",
+      "source_sha256": "524823945d6db07182fc4cd0d5f3b6d944cb50f5028ee7211fe29880e93fa91e",
+      "required_representations": [],
+      "requires_any": [],
+      "slots": [
+        {
+          "kind": "choice",
+          "source_token": "[steatosis / cirrhotic morphology / hepatomegaly]"
+        }
+      ]
+    },
+    {
+      "id": "ct.chest-abdomen-pelvis:gallbladder-pancreas-and-spleen:normal",
+      "source_section_id": "gallbladder-pancreas-and-spleen",
+      "name": "Normal",
+      "requirement_type": "current_exam_assessment",
+      "statement": "The gallbladder, pancreas and spleen are normal.",
+      "source_sha256": "79c84fab635745cc275883b32c21671f4ef1b416d4c66a42c9ca23e234abf8dc",
+      "required_representations": [],
+      "requires_any": [],
+      "slots": []
+    },
+    {
+      "id": "ct.chest-abdomen-pelvis:gallbladder-pancreas-and-spleen:abnormal",
+      "source_section_id": "gallbladder-pancreas-and-spleen",
+      "name": "Abnormality",
+      "requirement_type": "current_finding",
+      "statement": "There is [a pancreatic lesion / pancreatic duct dilatation / a splenic lesion / splenomegaly / gallstones / biliary dilatation].",
+      "source_sha256": "60d303fe2453ccdf3f9d9779cb070321eee175cbb821fea09f8ba4c452e55d8a",
+      "required_representations": [],
+      "requires_any": [],
+      "slots": [
+        {
+          "kind": "choice",
+          "source_token": "[a pancreatic lesion / pancreatic duct dilatation / a splenic lesion / splenomegaly / gallstones / biliary dilatation]"
+        }
+      ]
+    },
+    {
+      "id": "ct.chest-abdomen-pelvis:adrenal-glands:normal",
+      "source_section_id": "adrenal-glands",
+      "name": "Normal",
+      "requirement_type": "current_exam_assessment",
+      "statement": "The adrenal glands are normal.",
+      "source_sha256": "a477ef42932460ce7dc2c5783642c833876dedcae7b8fcdceedb065561622e48",
+      "required_representations": [],
+      "requires_any": [],
+      "slots": []
+    },
+    {
+      "id": "ct.chest-abdomen-pelvis:adrenal-glands:nodule",
+      "source_section_id": "adrenal-glands",
+      "name": "Adrenal nodule",
+      "requirement_type": "current_finding",
+      "statement": "There is a [right / left] adrenal nodule.",
+      "source_sha256": "3eb7b09938f645b03708d393d499aaa951d55b859df44636200436b979ccab9e",
+      "required_representations": [],
+      "requires_any": [],
+      "slots": [
+        {
+          "kind": "choice",
+          "source_token": "[right / left]"
+        }
+      ]
+    },
+    {
+      "id": "ct.chest-abdomen-pelvis:adrenal-glands:size",
+      "source_section_id": "adrenal-glands",
+      "name": "Nodule size",
+      "requirement_type": "measurement",
+      "statement": "The adrenal nodule measures __ mm.",
+      "source_sha256": "f1fcef784cbdeefdbd355bd8ad25d595ba4d3717cd8524d83597a9f5c9633ffe",
+      "required_representations": [],
+      "requires_any": [
+        "ct.chest-abdomen-pelvis:adrenal-glands:nodule"
+      ],
+      "slots": [
+        {
+          "kind": "number",
+          "source_token": "__"
+        }
+      ],
+      "unit": "mm",
+      "axis": "not_specified_in_field"
+    },
+    {
+      "id": "ct.chest-abdomen-pelvis:kidneys-and-bladder:normal",
+      "source_section_id": "kidneys-and-bladder",
+      "name": "Normal",
+      "requirement_type": "current_exam_assessment",
+      "statement": "The kidneys and bladder are normal, with no hydronephrosis.",
+      "source_sha256": "f2c62b4b0decc106d7454669fc1809d20c411c79b03322e323d1eca55df19a13",
+      "required_representations": [],
+      "requires_any": [],
+      "slots": []
+    },
+    {
+      "id": "ct.chest-abdomen-pelvis:kidneys-and-bladder:renal",
+      "source_section_id": "kidneys-and-bladder",
+      "name": "Renal lesion",
+      "requirement_type": "current_finding",
+      "statement": "There is a [renal cyst / renal mass / renal calculus] in the [right / left] kidney.",
+      "source_sha256": "e866cfcc97c57524c991919431d54bb522dd3ea6ff9b9da6802012dfbaf01367",
+      "required_representations": [],
+      "requires_any": [],
+      "slots": [
+        {
+          "kind": "choice",
+          "source_token": "[renal cyst / renal mass / renal calculus]"
+        },
+        {
+          "kind": "choice",
+          "source_token": "[right / left]"
+        }
+      ]
+    },
+    {
+      "id": "ct.chest-abdomen-pelvis:kidneys-and-bladder:hydronephrosis",
+      "source_section_id": "kidneys-and-bladder",
+      "name": "Hydronephrosis",
+      "requirement_type": "current_finding",
+      "statement": "There is [right / left / bilateral] hydronephrosis.",
+      "source_sha256": "8b88e1f7e2382352b8160ec6153dd3e0c2f3bb24defc1b812be8b68760479bc5",
+      "required_representations": [],
+      "requires_any": [],
+      "slots": [
+        {
+          "kind": "choice",
+          "source_token": "[right / left / bilateral]"
+        }
+      ]
+    },
+    {
+      "id": "ct.chest-abdomen-pelvis:kidneys-and-bladder:bladder",
+      "source_section_id": "kidneys-and-bladder",
+      "name": "Bladder abnormality",
+      "requirement_type": "current_finding",
+      "statement": "There is [bladder wall thickening / a bladder mass].",
+      "source_sha256": "c345aae7c640eed6437c6eca7168d534daae7f19ff216c292a85ad63624f17dd",
+      "required_representations": [],
+      "requires_any": [],
+      "slots": [
+        {
+          "kind": "choice",
+          "source_token": "[bladder wall thickening / a bladder mass]"
+        }
+      ]
+    },
+    {
+      "id": "ct.chest-abdomen-pelvis:bowel-and-peritoneum:normal",
+      "source_section_id": "bowel-and-peritoneum",
+      "name": "Normal",
+      "requirement_type": "current_exam_assessment",
+      "statement": "The bowel is normal in calibre, with no wall thickening, ascites or peritoneal nodularity.",
+      "source_sha256": "2d1a1b9ad527841b84e587114e6561616591b549b3afd4ab4ca0967eb5f15dc8",
+      "required_representations": [],
+      "requires_any": [],
+      "slots": []
+    },
+    {
+      "id": "ct.chest-abdomen-pelvis:bowel-and-peritoneum:bowel",
+      "source_section_id": "bowel-and-peritoneum",
+      "name": "Bowel abnormality",
+      "requirement_type": "current_finding",
+      "statement": "There is [bowel wall thickening / a bowel mass / bowel obstruction] involving the [stomach / small bowel / colon / rectum].",
+      "source_sha256": "3df1519b93c5bc0ca1b96534db6790bf09181952dc033bc6d4dc0d83333d9fa0",
+      "required_representations": [],
+      "requires_any": [],
+      "slots": [
+        {
+          "kind": "choice",
+          "source_token": "[bowel wall thickening / a bowel mass / bowel obstruction]"
+        },
+        {
+          "kind": "choice",
+          "source_token": "[stomach / small bowel / colon / rectum]"
+        }
+      ]
+    },
+    {
+      "id": "ct.chest-abdomen-pelvis:bowel-and-peritoneum:peritoneum",
+      "source_section_id": "bowel-and-peritoneum",
+      "name": "Peritoneal disease",
+      "requirement_type": "current_finding",
+      "statement": "There is [ascites / peritoneal nodularity / omental disease / a collection].",
+      "source_sha256": "6c055451f2b0d23fab90cd1f0db871772864535ad1e783e165fdd0e2b2a63e4a",
+      "required_representations": [],
+      "requires_any": [],
+      "slots": [
+        {
+          "kind": "choice",
+          "source_token": "[ascites / peritoneal nodularity / omental disease / a collection]"
+        }
+      ]
+    },
+    {
+      "id": "ct.chest-abdomen-pelvis:reproductive-organs:normal",
+      "source_section_id": "reproductive-organs",
+      "name": "Normal",
+      "requirement_type": "current_exam_assessment",
+      "statement": "The reproductive organs are unremarkable.",
+      "source_sha256": "335d17107b22b926eb017a2e76586bc43d6293a15b25d6d956b406d95c7b9f7c",
+      "required_representations": [],
+      "requires_any": [],
+      "slots": []
+    },
+    {
+      "id": "ct.chest-abdomen-pelvis:reproductive-organs:abnormal",
+      "source_section_id": "reproductive-organs",
+      "name": "Abnormality",
+      "requirement_type": "current_finding",
+      "statement": "There is [an adnexal mass / a uterine mass / prostatic enlargement / a prostatic lesion].",
+      "source_sha256": "bad52f0e21e692b72953fbad07bbed906d1be3328248dc5e9cdc28ca3f44fc9d",
+      "required_representations": [],
+      "requires_any": [],
+      "slots": [
+        {
+          "kind": "choice",
+          "source_token": "[an adnexal mass / a uterine mass / prostatic enlargement / a prostatic lesion]"
+        }
+      ]
+    },
+    {
+      "id": "ct.chest-abdomen-pelvis:abdominal-and-pelvic-lymph-nodes:normal",
+      "source_section_id": "abdominal-and-pelvic-lymph-nodes",
+      "name": "Normal",
+      "requirement_type": "current_exam_assessment",
+      "statement": "No abdominal or pelvic lymphadenopathy.",
+      "source_sha256": "b6dc4c16f95d9b67056a4b990c4c5b9b3c91925e1427ae425c90d170da22004d",
+      "required_representations": [],
+      "requires_any": [],
+      "slots": []
+    },
+    {
+      "id": "ct.chest-abdomen-pelvis:abdominal-and-pelvic-lymph-nodes:node",
+      "source_section_id": "abdominal-and-pelvic-lymph-nodes",
+      "name": "Enlarged node",
+      "requirement_type": "current_finding",
+      "statement": "An enlarged [retroperitoneal / mesenteric / pelvic / inguinal] lymph node is present.",
+      "source_sha256": "e2fd17b99617116f9e0e635f490c790dbe41428b41375021e6343ccf617f3d0d",
+      "required_representations": [],
+      "requires_any": [],
+      "slots": [
+        {
+          "kind": "choice",
+          "source_token": "[retroperitoneal / mesenteric / pelvic / inguinal]"
+        }
+      ]
+    },
+    {
+      "id": "ct.chest-abdomen-pelvis:abdominal-and-pelvic-lymph-nodes:size",
+      "source_section_id": "abdominal-and-pelvic-lymph-nodes",
+      "name": "Short axis",
+      "requirement_type": "measurement",
+      "statement": "The abdominal or pelvic lymph node measures __ mm in short axis.",
+      "source_sha256": "eac8cc6bd7b083b3f72f2b7eaad7e6c694bab3cc313dc874c638be9ef7bbacc5",
+      "required_representations": [],
+      "requires_any": [
+        "ct.chest-abdomen-pelvis:abdominal-and-pelvic-lymph-nodes:node"
+      ],
+      "slots": [
+        {
+          "kind": "number",
+          "source_token": "__"
+        }
+      ],
+      "unit": "mm",
+      "axis": "short_axis"
+    },
+    {
+      "id": "ct.chest-abdomen-pelvis:bones:normal",
+      "source_section_id": "bones",
+      "name": "Normal",
+      "requirement_type": "current_exam_assessment",
+      "statement": "No suspicious bone lesion.",
+      "source_sha256": "d5f6bf7554fa92a337cb1ec41bb2f9769244207c2a2125646cfeef46fc3985aa",
+      "required_representations": [],
+      "requires_any": [],
+      "slots": []
+    },
+    {
+      "id": "ct.chest-abdomen-pelvis:bones:lesion",
+      "source_section_id": "bones",
+      "name": "Bone lesion",
+      "requirement_type": "current_finding",
+      "statement": "There is a [lytic / sclerotic / mixed] bone lesion in the [spine / ribs / pelvis / sternum / proximal femur / proximal humerus].",
+      "source_sha256": "9ccbd5ca1a4abc268ade8add4da224efec592eae104efcb5e652a04d1da48f00",
+      "required_representations": [],
+      "requires_any": [],
+      "slots": [
+        {
+          "kind": "choice",
+          "source_token": "[lytic / sclerotic / mixed]"
+        },
+        {
+          "kind": "choice",
+          "source_token": "[spine / ribs / pelvis / sternum / proximal femur / proximal humerus]"
+        }
+      ]
+    },
+    {
+      "id": "ct.chest-abdomen-pelvis:bones:fracture",
+      "source_section_id": "bones",
+      "name": "Pathological fracture",
+      "requirement_type": "current_finding",
+      "statement": "The bone lesion [has / does not have] an associated pathological fracture.",
+      "source_sha256": "2607cc452ecc147cf54ab7a581ed98a3e5dfda7a628e9446656ae3f704d65af2",
+      "required_representations": [],
+      "requires_any": [
+        "ct.chest-abdomen-pelvis:bones:lesion"
+      ],
+      "slots": [
+        {
+          "kind": "choice",
+          "source_token": "[has / does not have]"
+        }
+      ]
+    },
+    {
+      "id": "ct.chest-abdomen-pelvis:target-lesions:normal",
+      "source_section_id": "target-lesions",
+      "name": "Normal",
+      "requirement_type": "current_exam_assessment",
+      "statement": "No measurable disease.",
+      "source_sha256": "a13cbaec992bed907dfdc68435e84ea27c5644586451c46607b37fcc55ea6ae5",
+      "required_representations": [],
+      "requires_any": [],
+      "slots": []
+    },
+    {
+      "id": "ct.chest-abdomen-pelvis:target-lesions:measurable",
+      "source_section_id": "target-lesions",
+      "name": "Measurable disease",
+      "requirement_type": "measurability_assessment",
+      "statement": "Measurable disease is present.",
+      "source_sha256": "9953bed2cb93284d9489dd61bd1afaf616859acb806d76f80680c42264de003d",
+      "required_representations": [],
+      "requires_any": [],
+      "slots": []
+    },
+    {
+      "id": "ct.chest-abdomen-pelvis:target-lesions:sum",
+      "source_section_id": "target-lesions",
+      "name": "Sum of diameters",
+      "requirement_type": "aggregate_measurement",
+      "statement": "The sum of target lesion diameters is __ mm.",
+      "source_sha256": "ff20c17362544d557c7b2c86e7a120aa8328684364a488b8a4831c97b7adea42",
+      "required_representations": [],
+      "requires_any": [
+        "ct.chest-abdomen-pelvis:target-lesions:measurable"
+      ],
+      "slots": [
+        {
+          "kind": "number",
+          "source_token": "__"
+        }
+      ],
+      "unit": "mm",
+      "evidence": [
+        "individual_target_identity_and_size",
+        "applicable_measurement_axis"
+      ]
+    },
+    {
+      "id": "ct.chest-abdomen-pelvis:target-lesions:response",
+      "source_section_id": "target-lesions",
+      "name": "Response",
+      "requirement_type": "longitudinal_classification",
+      "statement": "The response is [complete response / partial response / stable disease / progressive disease] by RECIST 1.1.",
+      "source_sha256": "2c2cadfd288179d0aaaf403107745a59f3c1740ce3d59da38a2b6dd743bba220",
+      "required_representations": [],
+      "requires_any": [
+        "ct.chest-abdomen-pelvis:target-lesions:measurable"
+      ],
+      "slots": [
+        {
+          "kind": "choice",
+          "source_token": "[complete response / partial response / stable disease / progressive disease]"
+        }
+      ],
+      "evidence": [
+        "comparable_exams",
+        "baseline_and_nadir",
+        "individual_targets",
+        "non_target_disease",
+        "new_lesions",
+        "appropriate_response_criteria"
+      ]
+    }
+  ],
+  "counts": {
+    "anatomical_requirements": 122,
+    "representation_obligations": 366,
+    "typed_evidence_records": 44,
+    "evidence_records_by_type": {
+      "aggregate_measurement": 1,
+      "characterisation": 1,
+      "current_exam_assessment": 13,
+      "current_finding": 21,
+      "examination_scope": 1,
+      "longitudinal_classification": 1,
+      "measurability_assessment": 1,
+      "measurement": 5
+    }
+  }
+}

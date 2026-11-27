@@ -7,6 +7,8 @@
 <label>Source section <input id="slice" type="range" min="0" max="75" value="38" disabled><output id="section"></output></label>
 <label>Display black <input id="black" type="number" value="0"></label><label>Display white <input id="white" type="number" value="1800"></label>
 <label><input id="overlay" type="checkbox" checked> Label outlines</label>
+<label><input type="checkbox" id="map-only"> Source segmentation map</label>
+<p id="link-status" role="status" hidden>This link has an invalid region, section or view. Choose a region to continue.</p>
 <label>Image size <select id="zoom"><option value="fit">Fit width</option><option value="1">Original pixels</option><option value="2">Double size</option></select></label>
 <p id="status" role="status">Verifying source metadata…</p><button id="retry" hidden>Retry MRI</button>
 <div class="views"><figure><div id="image-region" tabindex="0" role="region" aria-label="Source MRI. Scroll to inspect enlarged pixels."><canvas id="mri" width="512" height="512" tabindex="0" aria-label="Axial source MRI. Right at left and anterior at top. Arrow keys change section." hidden></canvas></div>

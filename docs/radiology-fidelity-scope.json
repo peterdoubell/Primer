@@ -142025,9 +142025,10 @@
             "id": "module-native-inspectors-rad.4.oncology-response",
             "kind": "source-native-inspectors",
             "title": "Native source anatomy inspection",
-            "instructions": "Inspect the complete provided source selections against native images and separate atlas probabilities. Read population, sampling and anatomical limits before interpretation.",
+            "instructions": "Inspect the original response-assessment studies and the separate chest, abdomen and pelvis anatomical reference. Each study retains its own measurements and coordinates.",
             "investigation_ids": [
-              "ra.recist"
+              "ra.recist",
+              "ct.chest-abdomen-pelvis"
             ]
           },
           {
@@ -142191,7 +142192,7 @@
         ],
         "kid_text": ""
       },
-      "module_contract_sha256": "2f5afa5599c0a38063d17a5eed9c4ec968d8b2c46b7e95c9322e7a3337ed5d1c",
+      "module_contract_sha256": "a16f0730e3d9e3c6de2d492552ad147ec9b7beef7575d5dbe4e784fb7e416ded",
       "existing_msk_scope_note": null,
       "reconciliation_status": "requires_explicit_module_review",
       "clinical_approval": false
@@ -145907,6 +145908,15 @@
             ]
           },
           {
+            "id": "module-native-inspectors-rad.5.abdominal-trauma",
+            "kind": "source-native-inspectors",
+            "title": "Native source anatomy inspection",
+            "instructions": "Use the labelled CT, sections and surfaces as anatomical references for the trauma survey. Injury and technique must be assessed on the actual examination.",
+            "investigation_ids": [
+              "ct.trauma-panscan"
+            ]
+          },
+          {
             "id": "module-anatomy-rad.5.abdominal-trauma",
             "kind": "model",
             "renderer": "radiology-anatomy",
@@ -146082,7 +146092,7 @@
         ],
         "kid_text": ""
       },
-      "module_contract_sha256": "14ff7765810c100c5552df736bca9ffe87c96e73f4cf22553791098daad01d54",
+      "module_contract_sha256": "50fa081b74b87c326c60a220f502c297f9096ed245d1812a1977f2f1de660598",
       "existing_msk_scope_note": null,
       "reconciliation_status": "requires_explicit_module_review",
       "clinical_approval": false

@@ -93,21 +93,26 @@ def live_coverage():
             inventories[identifier] = dict(kind='legacy_structure_inventory', path='data/radiology/' + name,
                                            typed_evidence_records=0, clinical_completion_claim=False)
             obligations[identifier] = [row for row in report['requirements'] if row['investigation_id'] == identifier]
-    typed = validate(json.loads((root / OUTPUT).read_text()), root)
-    identifier = typed['investigation_id']
-    if identifier in inventories or identifier not in current:
-        raise ValueError('Descriptor inventory must name one new exact current reporting identity')
-    adapted = descriptor_anatomical_inventory(typed)
-    typed_audit = audit(adapted, {'assets': [asset for asset in assets if identifier in asset.get('investigation_ids', [])]}, root=root)
-    source_links = validate_links(json.loads((root / LINKS).read_text()), root)
-    obligations[identifier] = apply_partial_sources(typed_audit['requirements'], source_links['links'])
-    inventories[identifier] = dict(kind='typed_descriptor_inventory', path=OUTPUT,
-        sha256=digest(typed), report_section_ids=typed['source_report']['source_section_ids'],
-        typed_evidence_records=len(typed['evidence_requirements']),
-        typed_evidence_by_type=typed['counts']['evidence_records_by_type'],
-        patient_evidence_status='Requires actual current examination; teaching assets cannot satisfy these records.',
-        clinical_completion_claim=False)
-
+    from tools.anatomy_sources import build_cap_inventory as cap
+    neck = validate(json.loads((root / OUTPUT).read_text()), root)
+    neck_links = validate_links(json.loads((root / LINKS).read_text()), root)['links']
+    torso = cap.validate(json.loads((root / cap.OUTPUT).read_text()), root)
+    typed_sources = {}
+    for typed, path, links in [(neck, OUTPUT, neck_links), (torso, cap.OUTPUT, cap.references(torso, root))]:
+        identifier = typed['investigation_id']
+        if identifier in inventories or identifier not in current:
+            raise ValueError('Descriptor inventory must name one new exact current reporting identity')
+        adapted = descriptor_anatomical_inventory(typed)
+        matching = [asset for asset in assets if identifier in asset.get('investigation_ids', [])]
+        typed_audit = audit(adapted, {'assets': matching}, root=root)
+        typed_sources[identifier] = links
+        obligations[identifier] = apply_partial_sources(typed_audit['requirements'], links)
+        inventories[identifier] = dict(kind='typed_descriptor_inventory', path=path,
+            sha256=digest(typed), report_section_ids=typed['source_report']['source_section_ids'],
+            typed_evidence_records=len(typed['evidence_requirements']),
+            typed_evidence_by_type=typed['counts']['evidence_records_by_type'],
+            patient_evidence_status='Requires actual current examination; teaching assets cannot satisfy these records.',
+            clinical_completion_claim=False)
 
     rows = []
     for identifier, item in sorted(current.items()):
@@ -119,7 +124,7 @@ def live_coverage():
             report_sections=len(report_rows[identifier]),
             inventory_status='dedicated_inventory_present' if known else 'no_dedicated_inventory',
             inventory=inventories.get(identifier), legacy_literal_binding_counts=literal.get(identifier),
-            source_links=source_links['links'] if identifier == typed['investigation_id'] else [],
+            source_links=typed_sources.get(identifier, []),
             representations=reps, anatomical_representation_complete=known and all(row['complete_set'] for row in reps.values()),
             clinical_completion_claim=False))
     all_obligations = [row for group in obligations.values() for row in group]
@@ -140,7 +145,7 @@ def live_coverage():
             "The legacy literal counter still counts parent/part ID attachments; representation denominators use the established fidelity auditor's leaves.",
             'No requirements or complete-set denominator are invented for studies without dedicated inventories.',
             'An unknown inventory does not mean that all source artwork is absent.',
-            'The typed neck records distinguish actual patient findings, flow and measurements from ordinary anatomy.'],
+            'The typed neck and torso records distinguish patient findings, measurements and clinical classifications from anatomical learning targets.'],
         rows=rows)
 
 

@@ -58,10 +58,11 @@ def test_invalid_packed_data_is_not_silently_replaced_with_empty_forms(tmp_path,
 
 
 def test_shared_runtime_and_build_bytes_keep_the_exact_prior_inverse():
+    from tools.ct_torso_compatibility import before_torso_bytes
     raw = PROOF.read_bytes()
     assert hashlib.sha256(raw).hexdigest() == PIN
     for path, record in json.loads(raw).items():
-        current = (ROOT/path).read_bytes()
+        current = before_torso_bytes(path, (ROOT/path).read_bytes())
         assert hashlib.sha256(current).hexdigest() == record['after']
         previous = before_structured_forms_pack_bytes(path, current)
         assert hashlib.sha256(previous).hexdigest() == record['before']

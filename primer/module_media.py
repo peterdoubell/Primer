@@ -120,6 +120,9 @@ def attach_module_media(node):
         inspectors = native_inspectors()
         native_ids = [i['id'] for i in radiology_catalog.catalogue()['investigations']
                       if i['module_id'] == node['id'] and inspectors.get(i['id'])]
+        from .ct_torso_reference import EXAMS as torso_exams
+        if node['id'] in torso_exams:
+            native_ids.append(torso_exams[node['id']])
         if native_ids:
             media.append({'id': 'module-native-inspectors-' + node['id'], 'kind': 'source-native-inspectors',
                           'title': ('MRI and limbic source anatomy'
@@ -137,6 +140,10 @@ def attach_module_media(node):
                                            if node['id'] == 'rad.4.stroke' else
                                            'Compare the acquired ultrasound, manual label outlines and 3D surfaces for each thyroid sweep. Left and right were acquired separately.'
                                            if node['id'] == 'rad.5.thyroid-tirads' else
+                                           'Inspect the original response-assessment studies and the separate chest, abdomen and pelvis anatomical reference. Each study retains its own measurements and coordinates.'
+                                           if node['id'] == 'rad.4.oncology-response' else
+                                           'Use the labelled CT, sections and surfaces as anatomical references for the trauma survey. Injury and technique must be assessed on the actual examination.'
+                                           if node['id'] == 'rad.5.abdominal-trauma' else
                                            'Compare the published cervical-node ultrasound and Doppler examples. A separate gross atlas shows the salivary glands, ducts and jaw.'
                                            if node['id'] == 'rad.5.neck-nodes' else
                                            'Compare the labelled paediatric grayscale examples in their published cohort and review the authors’ categories beside the images.'

@@ -11,6 +11,8 @@ PATHS = {'docs/radiology-fidelity-scope.json', 'primer/module_media.py', 'primer
 
 
 def before_surface_bytes(path, raw):
+    from tools.ct_torso_compatibility import before_torso_bytes
+    raw = before_torso_bytes(path, raw)
     from tools.structured_forms_runtime_compatibility import before_structured_forms_pack_bytes
     raw = before_structured_forms_pack_bytes(path, raw)
     from tools.bennu_source_delivery_compatibility import before_lesson_sources_bytes
@@ -27,7 +29,8 @@ def before_surface_bytes(path, raw):
 def before_surface_bindings(bindings):
     from primer.salivary_surface_reference import ATLAS, references
     from tools.cervical_node_figure_compatibility import before_node_figure_bindings
-    previous = before_node_figure_bindings(bindings)
+    from tools.ct_torso_compatibility import before_torso_bindings
+    previous = before_node_figure_bindings(before_torso_bindings(bindings))
     for exam, expected in references().items():
         items = previous.get(exam, [])
         matches = [item for item in items if item['id'] == ATLAS]
@@ -45,7 +48,8 @@ def before_surface_bindings(bindings):
 
 def before_surface_lesson(identifier, fields):
     from tools.cervical_node_figure_compatibility import before_node_figure_lesson
-    fields = before_node_figure_lesson(identifier, fields)
+    from tools.ct_torso_compatibility import before_torso_lesson
+    fields = before_node_figure_lesson(identifier, before_torso_lesson(identifier, fields))
     if identifier not in ('rad.5.deep-neck-spaces', 'rad.5.neck-nodes'):
         return fields
     raw = PROOF.read_bytes()
