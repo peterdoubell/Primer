@@ -41,7 +41,7 @@ let byName, byCode, areas, exam, reportGuide;
 const representationModes = new Map([
   ['clinical_image', 'raw'], ['schematic', 'selected-map'], ['model', 'outline']
 ]);
-const guideFingerprint = 'c29eba4d40722702dc94aa9480e6688c10ca9328a86adb78ba850e47c71348b2';
+const guideFingerprint = 'e846bceb6fa33fd431f8b0da9fec3e73d043d0038bc51ec3467b3ff88185b359';
 const presets = { soft: [-125, 225], lung: [-1350, 150], bone: [-300, 1200] };
 const format = (value) => value.toLocaleString('en-US', { maximumFractionDigits: 2 });
 function selectOptions(rows) {
@@ -81,18 +81,24 @@ function showTarget(target) {
   links.replaceChildren();
   const sourceViews = [
     [target?.links.clinical_image, 'Unmarked CT'], [target?.links.schematic, 'Section map'],
-    [target?.links.model, '3D surface'], [target?.separateMRI?.schematic, 'Separate MRI · segment map'],
-    [target?.separateMRI?.model, 'Separate MRI · 3D surface']
+    [target?.links.model, '3D surface']
   ];
-  for (const [href, title] of sourceViews) {
+  for (const region of target?.separateCT || []) {
+    const name = 'Separate CT · ' + region.name;
+    sourceViews.push([region.views.clinical_image, name + ' on CT', true],
+      [region.views.schematic, name + ' map', true], [region.views.model, name + ' in 3D', true]);
+  }
+  sourceViews.push([target?.separateMRI?.schematic, 'Separate MRI · segment map', true],
+    [target?.separateMRI?.model, 'Separate MRI · 3D surface', true]);
+  for (const [href, title, separateCase] of sourceViews) {
     if (!href) continue;
     const link = document.createElement('a');
     link.href = href;
     link.textContent = title;
-    if (target.separateMRI && Object.values(target.separateMRI).includes(href)) {
+    if (separateCase) {
       link.target = '_blank';
       link.rel = 'noopener';
-      link.title = 'Open the separate MRI study in a new tab';
+      link.title = 'Open the comparison study in a new tab';
     }
     link.setAttribute('aria-label', title + ' · ' + target.name + (link.target ? ' (opens in a new tab)' : ''));
     links.append(link);

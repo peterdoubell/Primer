@@ -42,7 +42,8 @@ def test_only_the_reviewed_report_rows_open_sources(published):
                 assert url.path.startswith('/app/anatomy/') and not url.netloc and not url.scheme
                 assert (ROOT/'web'/url.path.removeprefix('/app/')).is_file()
                 if url.query:
-                    assert parse_qs(url.query)['from'] == [exam]
+                    key = 'exam' if '/medseg-liver-001/' in url.path else 'from'
+                    assert parse_qs(url.query)[key] == [exam]
 
 
 def test_mri_segment_iv_is_retained_as_a_whole_region(published):
@@ -50,8 +51,10 @@ def test_mri_segment_iv_is_retained_as_a_whole_region(published):
              'v': (5,48), 'vi': (6,48), 'vii': (7,49), 'viii': (8,50)}
     for num, (region,section) in areas.items():
         item = published[EXAMS[0]]['segment-'+num]
-        for link in item['links']:
-            url = urlsplit(link['href']); params = parse_qs(url.query)
+        mr = [urlsplit(link['href']) for link in item['links'] if '/liver-regions-mri/' in link['href']]
+        assert len(mr) == 2
+        for url in mr:
+            params = parse_qs(url.query)
             assert url.path == '/app/anatomy/liver-regions-mri/index.html'
             assert params['slice'] == [str(section)] and params['region'] == [str(region)]
         if num in ('iva','ivb'):
@@ -78,3 +81,16 @@ def test_vessel_system_focus_reproduces_source_segmentation_and_bile_duct_part()
     shared = [row for row in surfaces if row['label'] == 'FJ3079']
     assert {row['sourcePart']['structure'] for row in shared} == {'common bile duct','common hepatic duct'}
     assert "['common-bile', ['FJ3079-common-bile']]" in (atlas/'surface-viewer.js').read_text()
+
+
+def test_three_ct_liver_reports_open_the_native_segment_in_all_three_views(published):
+    segments = {'i':'1','ii':'2','iii':'3','iva':'4a','ivb':'4b','v':'5','vi':'6','vii':'7','viii':'8'}
+    for exam, rows in published.items():
+        for number, segment in segments.items():
+            links = [urlsplit(link['href']) for link in rows['segment-' + number]['links']
+                     if '/medseg-liver-001/' in link['href']]
+            assert len(links) == 3 and {url.fragment for url in links} == {'ct','map','surface'}
+            for url in links:
+                display = {'ct':'raw','map':'map','surface':'outline'}[url.fragment]
+                assert parse_qs(url.query) == {'exam':[exam], 'segment':[segment], 'plane':['ij'],
+                                               'display':[display], 'focus':['label']}

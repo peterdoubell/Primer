@@ -261,7 +261,7 @@ def references(inventory, root=ROOT):
                               surface_sha256=label['mesh']['sha256'] if kind == 'model' else None,
                               complete_extent=False, current_patient_registration=False, clinical_approval=False,
                               href='/app/anatomy/ct-torso-s0028/index.html?' + query + '#' + ANCHORS[kind]))
-    return links + liver_segment_links(inventory, root)
+    return links + liver_segment_links(inventory, root) + ct_segment_links(inventory, root)
 
 
 def liver_segment_links(inventory, root=ROOT):
@@ -311,13 +311,60 @@ def liver_segment_links(inventory, root=ROOT):
     return links
 
 
+def ct_segment_links(inventory, root=ROOT):
+    """Keep a second CT case and its two segment IV subdivisions individually identifiable."""
+    source = 'medseg-liver-001'
+    manifest = read(root, 'web/anatomy/' + source + '/manifest.json')
+    proof = read(root, 'docs/' + source + '/source-comparison.json')
+    expected = ('1', '2', '3', '4a', '4b', '5', '6', '7', '8')
+    labels = manifest['labels']
+    if (manifest['id'] != source or proof['caseId'] != source
+            or [label['segment'] for label in labels] != list(expected)
+            or len(proof['labels']) != len(labels)
+            or not proof['transport']['allCTValuesMatchSource'] or not proof['transport']['allLabelCodesMatchSource']):
+        raise ValueError('CAP comparison requires the nine verified MedSeg CT regions')
+    targets = {target['id']: target for target in inventory['anatomical_requirements']}
+    views = {'clinical_image': ('raw', 'ct'), 'schematic': ('map', 'map'), 'model': ('outline', 'surface')}
+    links = []
+    for label, ref in zip(labels, proof['labels']):
+        segment = label['segment']
+        subdivision = segment in ('4a', '4b')
+        region = '4' if subdivision else segment
+        target = targets['cap.liver_segment_' + region]
+        if (ref['segment'] != segment or ref['code'] != label['code'] or ref['sourceName'] != label['sourceName']
+                or not ref['focusVerified'] or ref['focusCode'] != label['code'] or ref['focus'] != label['focus']
+                or ref['voxelCount'] != label['voxelCount'] or ref['mesh']['sha256'] != label['mesh']['sha256']
+                or target['tissue_class'] != 'functional_liver_region'):
+            raise ValueError('CT region, source probe and surface must refer to the same label')
+        for kind, (display, anchor) in views.items():
+            query = urlencode({'segment': segment, 'plane': 'ij', 'display': display, 'focus': 'label', 'exam': EXAM})
+            links.append(dict(investigation_id=EXAM, requirement_id=target['id'], representation=kind,
+                status='partial', source_id=source, source_case=manifest['sourceCase'], source_modality='CT',
+                source_label=label['sourceName'], source_code=label['code'], segment=segment,
+                target_relation='named_subregion' if subdivision else 'same_named_region',
+                focus=label['focus'], source_voxels=label['voxelCount'], anatomy_role=target['tissue_class'],
+                side=target['laterality'], ct_sample_sha256=manifest['originalSampleSHA256'],
+                mask_sha256=manifest['originalLabelSampleSHA256'], surface_sha256=label['mesh']['sha256'] if kind == 'model' else None,
+                complete_extent=False, clinical_approval=False, current_patient_registration=False,
+                href='/app/anatomy/' + source + '/index.html?' + query + '#' + anchor))
+    return links
+
+
 def viewer_guide(inventory, links, root=ROOT):
     labels = {row['sourceLabel']: row for row in read(root, ATLAS + '/manifest.json')['labels']}
     views = {}
-    comparisons = {}
+    mr = {}
+    ct = {}
     for link in links:
-        destination = comparisons if link['source_id'] == 'liver-regions-mri' else views
-        destination.setdefault(link['requirement_id'], {})[link['representation']] = link['href']
+        target_id = link['requirement_id']
+        if link['source_id'] == 'medseg-liver-001':
+            # Segment IV has two separately delineated source objects.
+            region = ct.setdefault(target_id, {}).setdefault(link['segment'], {
+                'name': link['source_label'], 'views': {}})
+            region['views'][link['representation']] = link['href']
+        else:
+            destination = mr if link['source_id'] == 'liver-regions-mri' else views
+            destination.setdefault(target_id, {})[link['representation']] = link['href']
     guide = {}
     for section in inventory['sections']:
         key = section['id']
@@ -329,8 +376,10 @@ def viewer_guide(inventory, links, root=ROOT):
             state = ('unlabelled' if obj is None else 'empty' if not obj['voxelCount']
                      else 'reaches_edge' if obj['touchesGridEdge'] else 'labelled')
             target = dict(name=t['name'], sourceLabel=t['source_label'], state=state, links=views.get(t['id'], {}))
-            if t['id'] in comparisons:
-                target['separateMRI'] = comparisons[t['id']]
+            if t['id'] in mr:
+                target['separateMRI'] = mr[t['id']]
+            if t['id'] in ct:
+                target['separateCT'] = list(ct[t['id']].values())
             targets.append(target)
         guide[key] = dict(note=NOTES[key], targets=targets)
         if key == 'technique':

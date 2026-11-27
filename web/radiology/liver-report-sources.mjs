@@ -30,10 +30,15 @@ export function sourcesFor(exam, key) {
   if (!exams.has(exam)) return null;
   if (Object.hasOwn(segments, key)) {
     const [region, slice] = segments[key], params = {from:exam, region, slice};
+    const segment = key === 'segment-iva' ? '4a' : key === 'segment-ivb' ? '4b' : String(region);
+    const ct = {exam, segment, plane:'ij', focus:'label'};
     return {
-      note: region === 4 ? 'This separate MRI labels segment IV as one region. Its IVa and IVb boundary is unavailable.'
-        : 'These segment boundaries follow the annotations on a separate MRI.',
+      note: region === 4 ? 'MedSeg labels IVa and IVb individually on CT. The separate MRI labels segment IV as one region.'
+        : 'Compare the annotated region in two different people. The CT has 5 mm section spacing.',
       links: [
+        study('medseg-liver-001/index.html', {...ct, display:'raw'}, 'ct', 'Unmarked CT'),
+        study('medseg-liver-001/index.html', {...ct, display:'map'}, 'map', 'CT segment map'),
+        study('medseg-liver-001/index.html', {...ct, display:'outline'}, 'surface', 'CT-derived 3D region'),
         study('liver-regions-mri/index.html', {...params, representation:'schematic'}, 'image-region', 'MRI segment map'),
         study('liver-regions-mri/index.html', {...params, representation:'model'}, 'surface', 'MRI-derived 3D region')
       ]
