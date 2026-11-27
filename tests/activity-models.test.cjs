@@ -782,3 +782,35 @@ test('manuscript comparison preserves both transcriptions and finds actual word 
     shared.forEach(([p,q],j)=>{assert.equal(a[p].key,b[q].key);if(j)assert.ok(p>shared[j-1][0] && q>shared[j-1][1]);});
   }
 });
+
+test('Bennu sections use the oriented surface and quadrature samples from each native mesh', async () => {
+  const {crossSection,estimate} = await import('../web/math/bennu-sections/geometry.mjs');
+  const raw = JSON.parse(fs.readFileSync(path.join(root,'math/bennu-sections/source.json')));
+  const media=path.join(root,'reference-media/lesson-sources/bennu');
+  const sha=data=>require('node:crypto').createHash('sha256').update(data).digest('hex');
+  assert.equal(sha(fs.readFileSync(path.join(media,'polycam.png'))),raw.photoSHA256);
+  assert.deepEqual(raw.models.map(m=>m.triangles),[196608,49152,12288]);
+  for(const m of raw.models){
+    const packed=fs.readFileSync(path.join(media,m.mesh));
+    assert.equal(sha(packed),m.sha256);
+    const bytes=require('node:zlib').gunzipSync(packed);assert.equal(sha(bytes),m.decodedSHA256);
+    const aligned=bytes.buffer.slice(bytes.byteOffset,bytes.byteOffset+bytes.byteLength);
+    const v=new Float64Array(aligned,0,3*m.vertices), f=new Uint32Array(aligned,24*m.vertices);
+    assert.equal(f.length,3*m.triangles);
+    assert.equal(m.uniqueVertices-m.edges+m.triangles,2);
+    for(let axis=0;axis<3;axis++) {
+      const span=m.bounds[1][axis]-m.bounds[0][axis];
+      for (const i of [0,24,64,103,128]) {
+        const cut=m.bounds[0][axis]+span*i/raw.steps;
+        const result=crossSection(v,f,axis,cut);
+        assert.ok(Math.abs(result.area-m.profiles[axis][i])<.00001);
+        assert.ok(result.segments.every((x,k)=>k%3!==axis || Math.abs(x-cut)<1e-7));
+      }
+      for(const method of ['midpoint','left','trapezoid']){
+        const result=estimate(m,axis,64,method);
+        assert.ok(Math.abs(result.error)/m.volumeM3<.002);
+        assert.equal(result.slabs.length,64);
+      }
+    }
+  }
+});

@@ -1,0 +1,779 @@
+{
+  "schema_version": 1,
+  "base_commit": "0f620a581e5aa4306df58965a77eb8a8c52b5e3b",
+  "reviewed_at": "2026-11-26",
+  "reviewer": "Codex source image, full caption and requirement correspondence; not a radiologist review",
+  "investigation_id": "ra.acute-abdomen",
+  "clinical_approval": false,
+  "fine_anatomical_approval": false,
+  "new_pixels_or_geometry": false,
+  "source_cases_registered_to_each_other": false,
+  "source_report_wording_changed": false,
+  "inventory_sha256": "cf5675d99176601704374039c2f5361bae8dfecf84a084ab7b2041431692e6c7",
+  "figures": [
+    {
+      "id": "open-acute-abdomen-ref-appendix-mostbeck-2016-fig1",
+      "caption_full": "Longitudinal real-time US scan of a normal appendix. Diameter 0.3 cm. ** psoas muscle, * rectus muscle, x caecum, + terminal ileum",
+      "caption_evidence": "docs/appendix-source-review/acquisition-and-review.json",
+      "caption_evidence_sha256": "f56627d8d099af60517d42b97d6ee2a4635dfe2fd8134b421862b232ab5b1377",
+      "case_group": "PMC4805616-fig1",
+      "default_panel": "whole"
+    },
+    {
+      "id": "open-acute-abdomen-ref-appendix-mostbeck-2016-fig2",
+      "caption_full": "Longitudinal ( a ) and transverse ( b ) real-time US scan of acute appendicitis with thickening of the wall ( crosses 2 ), target–sign, diameter > 6 mm ( crosses 1 ) and free fluid surrounding the appendix (+)",
+      "caption_evidence": "docs/appendix-source-review/acquisition-and-review.json",
+      "caption_evidence_sha256": "f56627d8d099af60517d42b97d6ee2a4635dfe2fd8134b421862b232ab5b1377",
+      "case_group": "PMC4805616-fig2",
+      "default_panel": "a"
+    },
+    {
+      "id": "open-acute-abdomen-ref-appendix-mostbeck-2016-fig3",
+      "caption_full": "US and CT in acute appendicitis. 45-year-old male patient with pain in the right lower quadrant and increased inflammation parameters (white blood cell count and C-reactive protein elevation). a US real-time scan: local pain in combination with some fluid and thickened appendix, only seen in part (between crosses ). b contrast-enhanced CT: thickened appendix, mesenteric infiltration around the appendix, inflammatory thickening of the sigmoid colon",
+      "caption_evidence": "docs/appendix-source-review/acquisition-and-review.json",
+      "caption_evidence_sha256": "f56627d8d099af60517d42b97d6ee2a4635dfe2fd8134b421862b232ab5b1377",
+      "case_group": "PMC4805616-fig3",
+      "default_panel": "b"
+    },
+    {
+      "id": "open-acute-abdomen-ref-bowel-wall-pmc3999365-fig6",
+      "caption_full": "Acute diverticulitis. Reformatted coronal contrast-enhanced CT scan showing sigmoid diverticuli ( arrow ), mild bowel wall thickening ( arrowhead ) and pericolonic disproportionate fat stranding. These findings are compatible with sigmoid diverticulitis",
+      "caption_evidence": "docs/bowel-wall-published-source-review/original-source-review.json",
+      "caption_evidence_sha256": "3ae59eae4b8fcfad48030056f52c41bdff1e0a691519d86d640701e9118d423c",
+      "case_group": "PMC3999365-fig6",
+      "default_panel": "whole"
+    },
+    {
+      "id": "open-acute-abdomen-ref-bowel-wall-pmc3999365-fig9",
+      "caption_full": "Acute appendicitis. Axial ( a ) and coronal ( b ) contrast-enhanced CT scan shows the retrocaecal enlarged fluid-filled appendix ( arrows ) associated with adjacent fat stranding and reactive wall thickening of the ascending colon ( asterisk )",
+      "caption_evidence": "docs/bowel-wall-published-source-review/original-source-review.json",
+      "caption_evidence_sha256": "3ae59eae4b8fcfad48030056f52c41bdff1e0a691519d86d640701e9118d423c",
+      "case_group": "PMC3999365-fig9",
+      "default_panel": "a"
+    },
+    {
+      "id": "open-acute-abdomen-ref-bowel-obstruction-pmc4729712-fig2",
+      "caption_full": "a , b Patient with abdominal pain because of a closed-loop SBO. Both ends of a fluid-filled distended closed loop taper fusiformly, in a way similar to a beak—the beak sign ( arrows in a ). Mesenteric edema ( star in a ), peritoneal fluid and reduced enhancement of the bowel wall comparatively to other small-bowel loops ( arrowhead in a ) are also evident, findings that suggest strangulation. A slightly cranial image shows the twisting of the mesenteric vessels at the mesenteric root—whirl sign ( curved arrow in b )",
+      "caption_evidence": "docs/bowel-obstruction-published-source-review/original-source-review.json",
+      "caption_evidence_sha256": "29d25b843c952e008bf2489eb383f5b7ebf79dea108bcb8f4b89a661f051a043",
+      "case_group": "PMC4729712-fig2",
+      "default_panel": "a"
+    },
+    {
+      "id": "open-acute-abdomen-ref-bowel-obstruction-pmc4729712-fig7",
+      "caption_full": "a , b Patient with an incisional external hernia. A cluster of fluid and air-filled dilated bowel loops is found inside the hernial sac on the right flank ( stars ). Narrowing of the afferent and efferent ends of the closed loop at the site of hernial neck can also be appreciated—the beak sign ( arrows in a ). Stretching of the mesenteric vessels is seen on the coronal reformation ( arrowhead in b )",
+      "caption_evidence": "docs/bowel-obstruction-published-source-review/original-source-review.json",
+      "caption_evidence_sha256": "29d25b843c952e008bf2489eb383f5b7ebf79dea108bcb8f4b89a661f051a043",
+      "case_group": "PMC4729712-fig7",
+      "default_panel": "a"
+    },
+    {
+      "id": "open-acute-abdomen-ref-pancreatitis-sureka-2015-fig1",
+      "caption_full": "Axial contrast-enhanced CT scan in a 22-year-old male patient with interstitial oedematous pancreatitis, showing mildly increased bulk in pancreatic tail region with peripancreatic fat stranding (arrow).",
+      "caption_evidence": "docs/pancreatitis-published-source-review/original-figure-acquisition.json",
+      "caption_evidence_sha256": "18961162acf4922820c363d49a8e73b6a02097e9a478026143cfd3c07e3873fe",
+      "case_group": "PMC4760067-fig1",
+      "default_panel": "whole"
+    },
+    {
+      "id": "open-acute-abdomen-ref-gallbladder-pmc12181115-fig1",
+      "caption_full": "Acalculous acute cholecystitis in a critically ill 82-year-old female with altered mental status, increasing leukocytosis and right upper quadrant tenderness.Long axis ultrasound image of the gallbladder demonstrates thick and striated wall (between calipers), and echogenic sludge (arrowhead). No echogenic stone with posterior shadowing present",
+      "caption_evidence": "docs/gallbladder-published-source-review/original-source-review.json",
+      "caption_evidence_sha256": "71558addb653f67180ee363df99fdfd1fc2d6bb02e6e9ef82614c3235e3c9ba7",
+      "case_group": "PMC12181115-fig1",
+      "default_panel": "whole"
+    },
+    {
+      "id": "open-acute-abdomen-ref-cbd-stone-pmc12017295-fig1",
+      "caption_full": "Initial right upper quadrant (RUQ) ultrasound showing a 1.5 cm x 0.8 cm stone (arrow) in the common bile duct (CBD), consistent with choledocholithiasis, but there were no sonographic findings of acute cholecystitis.",
+      "caption_evidence": "docs/cbd-stone-published-source-review/original-source-review.json",
+      "caption_evidence_sha256": "d3d26fdb95e7f23fb636600f378a1723c0759a573d07b8ebefe396275d82fe39",
+      "case_group": "PMC12017295-fig1",
+      "default_panel": "whole"
+    },
+    {
+      "id": "open-acute-abdomen-ref-cbd-stone-pmc12463306-fig1",
+      "caption_full": "Coronal T2-weighted MRI image showing an intraductal filling defect in the region of the mid common bile duct (CBD), suggestive of an intraductal calculus",
+      "caption_evidence": "docs/cbd-stone-published-source-review/original-source-review.json",
+      "caption_evidence_sha256": "d3d26fdb95e7f23fb636600f378a1723c0759a573d07b8ebefe396275d82fe39",
+      "case_group": "PMC12463306-published-case",
+      "default_panel": "whole"
+    },
+    {
+      "id": "open-acute-abdomen-ref-cbd-stone-pmc12463306-fig3",
+      "caption_full": "Magnetic resonance cholangiopancreatography (MRCP) shows a bright biliary tree with a central filling defect seen in the mid common bile duct region, suggestive of a calculus",
+      "caption_evidence": "docs/cbd-stone-published-source-review/original-source-review.json",
+      "caption_evidence_sha256": "d3d26fdb95e7f23fb636600f378a1723c0759a573d07b8ebefe396275d82fe39",
+      "case_group": "PMC12463306-published-case",
+      "default_panel": "whole"
+    }
+  ],
+  "panels": [
+    {
+      "id": "appendix-mostbeck-2016-fig1-whole",
+      "figure_id": "open-acute-abdomen-ref-appendix-mostbeck-2016-fig1",
+      "source_panel": "whole",
+      "panel_bounds": [
+        0,
+        0,
+        499,
+        338
+      ],
+      "bounds_meaning": "Original published panel rectangle; not an anatomical boundary or new tissue annotation.",
+      "observation": "Source normal appendix on one longitudinal ultrasound section. Muscle-star correspondence is unresolved.",
+      "bindings": [
+        {
+          "target_id": "acute_abdomen.appendix.actual_visualised_extent",
+          "extent": "partial",
+          "basis": "The full caption identifies a normal appendix in this longitudinal section. Only this locally visualised extent is represented; caecal origin, tip, full course and dynamic compression are not established."
+        },
+        {
+          "target_id": "acute_abdomen.appendix.lumen",
+          "extent": "partial",
+          "basis": "The preserved source review identifies the local normal appendiceal wall/lumen bands in the labelled longitudinal appendix. This is a partial lumen example, not a complete lumen or measurement validation."
+        }
+      ],
+      "context_targets": []
+    },
+    {
+      "id": "appendix-mostbeck-2016-fig2-a",
+      "figure_id": "open-acute-abdomen-ref-appendix-mostbeck-2016-fig2",
+      "source_panel": "a",
+      "panel_bounds": [
+        0,
+        0,
+        499,
+        370
+      ],
+      "bounds_meaning": "Original published panel rectangle; not an anatomical boundary or new tissue annotation.",
+      "observation": "Longitudinal source ultrasound with the original local diameter and wall calipers.",
+      "bindings": [
+        {
+          "target_id": "acute_abdomen.appendix.lumen",
+          "extent": "partial",
+          "basis": "Panel a shows the local lumen within the source-labelled thickened appendix, as identified in the existing reviewed observations; only a selected longitudinal section is represented."
+        },
+        {
+          "target_id": "acute_abdomen.bowel_observations.wall_thickening_site",
+          "extent": "partial",
+          "basis": "The full caption explicitly identifies wall thickening at crosses 2 in panel a. This locates the source finding without validating full wall extent, histological layers or a universal diagnostic threshold."
+        },
+        {
+          "target_id": "acute_abdomen.bowel_observations.actual_caliper_site",
+          "extent": "partial",
+          "basis": "The original calipers marked crosses 1 and crosses 2 are preserved in panel a. Their location is represented, not independent physical calibration or measurement accuracy."
+        },
+        {
+          "target_id": "acute_abdomen.bowel_observations.appendix_abnormal_region",
+          "extent": "partial",
+          "basis": "The caption identifies this as a source case of acute appendicitis and panel a depicts its local thickened appendiceal region. The case interpretation is retained as source context, not a new clinical approval."
+        }
+      ],
+      "context_targets": []
+    },
+    {
+      "id": "appendix-mostbeck-2016-fig2-b",
+      "figure_id": "open-acute-abdomen-ref-appendix-mostbeck-2016-fig2",
+      "source_panel": "b",
+      "panel_bounds": [
+        0,
+        384,
+        499,
+        342
+      ],
+      "bounds_meaning": "Original published panel rectangle; not an anatomical boundary or new tissue annotation.",
+      "observation": "Transverse source ultrasound; + marks the adjacent fluid described by the authors.",
+      "bindings": [
+        {
+          "target_id": "acute_abdomen.appendix.lumen",
+          "extent": "partial",
+          "basis": "Panel b provides a second selected local lumen section of the source-labelled appendix, without a complete appendiceal course or volume."
+        },
+        {
+          "target_id": "acute_abdomen.bowel_observations.appendix_abnormal_region",
+          "extent": "partial",
+          "basis": "The source transverse panel b illustrates the abnormal appendiceal region described in the caption; the extent and diagnosis are not independently established."
+        },
+        {
+          "target_id": "acute_abdomen.bowel_observations.extraluminal_region",
+          "extent": "partial",
+          "basis": "The source caption identifies fluid surrounding the appendix and marks it + in panel b. This is a partial adjacent extraluminal-region example, not evidence of a wall defect, perforation, abscess or a complete compartment survey."
+        }
+      ],
+      "context_targets": []
+    },
+    {
+      "id": "appendix-mostbeck-2016-fig3-a",
+      "figure_id": "open-acute-abdomen-ref-appendix-mostbeck-2016-fig3",
+      "source_panel": "a",
+      "panel_bounds": [
+        0,
+        0,
+        499,
+        411
+      ],
+      "bounds_meaning": "Original published panel rectangle; not an anatomical boundary or new tissue annotation.",
+      "observation": "The caption states that ultrasound shows the thickened appendix only in part. This ultrasound panel is contextual; the existing figure asset selects CT panel b.",
+      "bindings": [],
+      "context_targets": [
+        "acute_abdomen.appendix.actual_visualised_extent"
+      ]
+    },
+    {
+      "id": "appendix-mostbeck-2016-fig3-b",
+      "figure_id": "open-acute-abdomen-ref-appendix-mostbeck-2016-fig3",
+      "source_panel": "b",
+      "panel_bounds": [
+        0,
+        428,
+        499,
+        496
+      ],
+      "bounds_meaning": "Original published panel rectangle; not an anatomical boundary or new tissue annotation.",
+      "observation": "The separate contrast-enhanced CT panel identifies a thickened appendix, surrounding infiltration and sigmoid wall change.",
+      "bindings": [
+        {
+          "target_id": "acute_abdomen.bowel_observations.appendix_abnormal_region",
+          "extent": "partial",
+          "basis": "The original caption names the thickened appendix in CT panel b; only this selected local region is represented."
+        },
+        {
+          "target_id": "acute_abdomen.bowel_observations.wall_thickening_site",
+          "extent": "partial",
+          "basis": "The original caption explicitly names inflammatory thickening of the sigmoid colon in CT panel b. This represents the local source wall-change site, not its full extent or independent cause."
+        },
+        {
+          "target_id": "acute_abdomen.bowel_observations.local_fat_change",
+          "extent": "partial",
+          "basis": "The full caption identifies mesenteric infiltration around the appendix in CT panel b. The source frame supports local fat-change correspondence only."
+        },
+        {
+          "target_id": "acute_abdomen.ct_observations.each_actual_fat_stranding_region",
+          "extent": "partial",
+          "basis": "The CT panel b caption identifies local mesenteric infiltration around the appendix; the selected CT section supplies this local region, not a complete fat-space assessment."
+        },
+        {
+          "target_id": "acute_abdomen.appendix.periappendiceal_fat",
+          "extent": "partial",
+          "basis": "The source caption locates the mesenteric infiltration or adjacent fat stranding around the appendix in this CT section. This identifies a local periappendiceal-fat example, not the complete mesoappendix or a full fat-space survey."
+        }
+      ],
+      "context_targets": []
+    },
+    {
+      "id": "bowel-wall-pmc3999365-fig6-whole",
+      "figure_id": "open-acute-abdomen-ref-bowel-wall-pmc3999365-fig6",
+      "source_panel": "whole",
+      "panel_bounds": [
+        0,
+        0,
+        727,
+        727
+      ],
+      "bounds_meaning": "Original published panel rectangle; not an anatomical boundary or new tissue annotation.",
+      "observation": "Coronal CT with source-labelled sigmoid diverticula, wall thickening and pericolonic fat change.",
+      "bindings": [
+        {
+          "target_id": "acute_abdomen.bowel_observations.wall_thickening_site",
+          "extent": "partial",
+          "basis": "The source caption identifies mild sigmoid bowel-wall thickening at the arrowhead. No separate diverticular neck, full wall thickness or complete segment is established."
+        },
+        {
+          "target_id": "acute_abdomen.bowel_observations.local_fat_change",
+          "extent": "partial",
+          "basis": "The source caption explicitly identifies disproportionate pericolonic fat stranding in this coronal CT section. The source diverticulitis interpretation is not an independent diagnosis."
+        },
+        {
+          "target_id": "acute_abdomen.ct_observations.each_actual_fat_stranding_region",
+          "extent": "partial",
+          "basis": "The CT source caption names pericolonic disproportionate fat stranding. This is a partial local CT finding, without a complete compartment survey."
+        }
+      ],
+      "context_targets": []
+    },
+    {
+      "id": "bowel-wall-pmc3999365-fig9-a",
+      "figure_id": "open-acute-abdomen-ref-bowel-wall-pmc3999365-fig9",
+      "source_panel": "a",
+      "panel_bounds": [
+        0,
+        0,
+        727,
+        726
+      ],
+      "bounds_meaning": "Original published panel rectangle; not an anatomical boundary or new tissue annotation.",
+      "observation": "Source axial CT of the appendix; the caption also identifies reactive ascending-colon wall thickening.",
+      "bindings": [
+        {
+          "target_id": "acute_abdomen.appendix.lumen",
+          "extent": "partial",
+          "basis": "The original caption identifies an enlarged fluid-filled retrocaecal appendix in axial a and coronal b. The selected a section supplies only a local lumen example."
+        },
+        {
+          "target_id": "acute_abdomen.bowel_observations.appendix_abnormal_region",
+          "extent": "partial",
+          "basis": "The source-caption appendix abnormal region is shown in panel a; complete appendiceal course, attachment and clinical diagnosis remain unapproved."
+        },
+        {
+          "target_id": "acute_abdomen.bowel_observations.local_fat_change",
+          "extent": "partial",
+          "basis": "The source caption identifies adjacent fat stranding in the selected CT panels. This records only the local source correspondence."
+        },
+        {
+          "target_id": "acute_abdomen.ct_observations.each_actual_fat_stranding_region",
+          "extent": "partial",
+          "basis": "The source caption identifies adjacent fat stranding on these CT sections; no complete fat-space extent is supplied."
+        },
+        {
+          "target_id": "acute_abdomen.appendix.periappendiceal_fat",
+          "extent": "partial",
+          "basis": "The source caption locates the mesenteric infiltration or adjacent fat stranding around the appendix in this CT section. This identifies a local periappendiceal-fat example, not the complete mesoappendix or a full fat-space survey."
+        }
+      ],
+      "context_targets": []
+    },
+    {
+      "id": "bowel-wall-pmc3999365-fig9-b",
+      "figure_id": "open-acute-abdomen-ref-bowel-wall-pmc3999365-fig9",
+      "source_panel": "b",
+      "panel_bounds": [
+        0,
+        744,
+        727,
+        727
+      ],
+      "bounds_meaning": "Original published panel rectangle; not an anatomical boundary or new tissue annotation.",
+      "observation": "Source coronal CT of the appendix; the caption also identifies reactive ascending-colon wall thickening.",
+      "bindings": [
+        {
+          "target_id": "acute_abdomen.appendix.lumen",
+          "extent": "partial",
+          "basis": "The original caption identifies an enlarged fluid-filled retrocaecal appendix in axial a and coronal b. The selected b section supplies only a local lumen example."
+        },
+        {
+          "target_id": "acute_abdomen.bowel_observations.appendix_abnormal_region",
+          "extent": "partial",
+          "basis": "The source-caption appendix abnormal region is shown in panel b; complete appendiceal course, attachment and clinical diagnosis remain unapproved."
+        },
+        {
+          "target_id": "acute_abdomen.bowel_observations.local_fat_change",
+          "extent": "partial",
+          "basis": "The source caption identifies adjacent fat stranding in the selected CT panels. This records only the local source correspondence."
+        },
+        {
+          "target_id": "acute_abdomen.ct_observations.each_actual_fat_stranding_region",
+          "extent": "partial",
+          "basis": "The source caption identifies adjacent fat stranding on these CT sections; no complete fat-space extent is supplied."
+        },
+        {
+          "target_id": "acute_abdomen.bowel_observations.wall_thickening_site",
+          "extent": "partial",
+          "basis": "The source caption identifies reactive ascending-colon wall thickening at the asterisk, visible in coronal panel b. Only this local source site is represented."
+        },
+        {
+          "target_id": "acute_abdomen.appendix.periappendiceal_fat",
+          "extent": "partial",
+          "basis": "The source caption locates the mesenteric infiltration or adjacent fat stranding around the appendix in this CT section. This identifies a local periappendiceal-fat example, not the complete mesoappendix or a full fat-space survey."
+        }
+      ],
+      "context_targets": []
+    },
+    {
+      "id": "bowel-obstruction-pmc4729712-fig2-a",
+      "figure_id": "open-acute-abdomen-ref-bowel-obstruction-pmc4729712-fig2",
+      "source_panel": "a",
+      "panel_bounds": [
+        0,
+        0,
+        762,
+        619
+      ],
+      "bounds_meaning": "Original published panel rectangle; not an anatomical boundary or new tissue annotation.",
+      "observation": "Source beak-shaped loop ends, mesenteric oedema and author-described reduced wall enhancement.",
+      "bindings": [
+        {
+          "target_id": "acute_abdomen.bowel_observations.each_source_visible_transition",
+          "extent": "partial",
+          "basis": "The caption explicitly describes both ends tapering in a beak shape in source panel a. These selected local transitions do not demonstrate complete loop connectivity."
+        },
+        {
+          "target_id": "acute_abdomen.ct_observations.each_actual_abnormal_enhancement_region",
+          "extent": "partial",
+          "basis": "The source caption describes reduced bowel-wall enhancement relative to other loops at the arrowhead in panel a. This is a partial source observation, not a verified perfusion or viability assessment."
+        }
+      ],
+      "context_targets": []
+    },
+    {
+      "id": "bowel-obstruction-pmc4729712-fig2-b",
+      "figure_id": "open-acute-abdomen-ref-bowel-obstruction-pmc4729712-fig2",
+      "source_panel": "b",
+      "panel_bounds": [
+        762,
+        0,
+        762,
+        619
+      ],
+      "bounds_meaning": "Original published panel rectangle; not an anatomical boundary or new tissue annotation.",
+      "observation": "A more cranial source section shows the author-described mesenteric whirl. Complete vascular geometry and bowel viability are not supplied.",
+      "bindings": [],
+      "context_targets": [
+        "acute_abdomen.bowel_observations.each_source_visible_transition"
+      ]
+    },
+    {
+      "id": "bowel-obstruction-pmc4729712-fig7-a",
+      "figure_id": "open-acute-abdomen-ref-bowel-obstruction-pmc4729712-fig7",
+      "source_panel": "a",
+      "panel_bounds": [
+        0,
+        0,
+        762,
+        648
+      ],
+      "bounds_meaning": "Original published panel rectangle; not an anatomical boundary or new tissue annotation.",
+      "observation": "Source axial CT shows bowel loops in the reported incisional hernia and tapering loop ends.",
+      "bindings": [
+        {
+          "target_id": "acute_abdomen.hernia_wall_if_relevant.contents_if_supported",
+          "extent": "partial",
+          "basis": "The source caption identifies a cluster of fluid- and air-filled bowel loops within an incisional hernial sac on the right flank, marked by stars. Only the depicted source contents are represented."
+        },
+        {
+          "target_id": "acute_abdomen.hernia_wall_if_relevant.neck_if_resolved",
+          "extent": "partial",
+          "basis": "The source caption identifies tapering afferent and efferent ends at the hernial neck in panel a. This is a local neck example, not a complete defect, sac or orifice geometry."
+        },
+        {
+          "target_id": "acute_abdomen.bowel_observations.each_source_visible_transition",
+          "extent": "partial",
+          "basis": "The source caption identifies the tapering ends at the hernial neck in panel a. The source postoperative context is retained; no complete closed-loop reconstruction is inferred."
+        }
+      ],
+      "context_targets": []
+    },
+    {
+      "id": "bowel-obstruction-pmc4729712-fig7-b",
+      "figure_id": "open-acute-abdomen-ref-bowel-obstruction-pmc4729712-fig7",
+      "source_panel": "b",
+      "panel_bounds": [
+        762,
+        0,
+        762,
+        648
+      ],
+      "bounds_meaning": "Original published panel rectangle; not an anatomical boundary or new tissue annotation.",
+      "observation": "The source coronal panel identifies stretched mesenteric vessels at its arrowhead.",
+      "bindings": [
+        {
+          "target_id": "acute_abdomen.hernia_wall_if_relevant.mesenteric_or_vessel_interface",
+          "extent": "partial",
+          "basis": "The original caption identifies stretching of mesenteric vessels on coronal panel b within this incisional-hernia example. Only this local source interface is represented, not a complete pedicle, vessel tree or viability assessment."
+        }
+      ],
+      "context_targets": []
+    },
+    {
+      "id": "pancreatitis-sureka-2015-fig1-whole",
+      "figure_id": "open-acute-abdomen-ref-pancreatitis-sureka-2015-fig1",
+      "source_panel": "whole",
+      "panel_bounds": [
+        0,
+        0,
+        760,
+        551
+      ],
+      "bounds_meaning": "Original published panel rectangle; not an anatomical boundary or new tissue annotation.",
+      "observation": "Source contrast-enhanced CT of mildly increased pancreatic-tail bulk and adjacent fat stranding.",
+      "bindings": [
+        {
+          "target_id": "acute_abdomen.organ_pancreatic_tail.covered_tissue",
+          "extent": "partial",
+          "basis": "The original caption specifically names the pancreatic tail region in this axial CT section. It is a partial covered-tail tissue example, not an entire pancreas or duct demonstration."
+        },
+        {
+          "target_id": "acute_abdomen.solid_observations.periorgan_change",
+          "extent": "partial",
+          "basis": "The full source caption identifies peripancreatic fat stranding at the arrow. Only this local periorgan change is represented, without necrosis or collection classification."
+        },
+        {
+          "target_id": "acute_abdomen.ct_observations.each_actual_fat_stranding_region",
+          "extent": "partial",
+          "basis": "The source CT caption identifies peripancreatic fat stranding; no full compartment extent, source timing or independent clinical severity is established."
+        }
+      ],
+      "context_targets": []
+    },
+    {
+      "id": "gallbladder-pmc12181115-fig1-whole",
+      "figure_id": "open-acute-abdomen-ref-gallbladder-pmc12181115-fig1",
+      "source_panel": "whole",
+      "panel_bounds": [
+        0,
+        0,
+        981,
+        750
+      ],
+      "bounds_meaning": "Original published panel rectangle; not an anatomical boundary or new tissue annotation.",
+      "observation": "Source gallbladder ultrasound with a striated wall and echogenic sludge; original calipers and arrowhead are retained.",
+      "bindings": [
+        {
+          "target_id": "acute_abdomen.gallbladder_detail.lumen",
+          "extent": "partial",
+          "basis": "The source long-axis ultrasound contains the gallbladder lumen and the caption identifies echogenic sludge within it. This is a local lumen example, not a full gallbladder or outlet survey."
+        },
+        {
+          "target_id": "acute_abdomen.gallbladder_detail.calculus_or_sludge_if_present",
+          "extent": "partial",
+          "basis": "The full caption identifies echogenic sludge at the arrowhead and states that no shadowing stone is present in this source frame. Only the sludge member of this requirement is represented; no stone or dynamic assessment is inferred."
+        },
+        {
+          "target_id": "acute_abdomen.solid_observations.abnormal_wall_or_duct_region",
+          "extent": "partial",
+          "basis": "The original source caption identifies the thick, striated gallbladder wall between calipers. This locates the source wall abnormality without identifying separate histological layers or independently diagnosing cholecystitis."
+        }
+      ],
+      "context_targets": []
+    },
+    {
+      "id": "cbd-stone-pmc12017295-fig1-whole",
+      "figure_id": "open-acute-abdomen-ref-cbd-stone-pmc12017295-fig1",
+      "source_panel": "whole",
+      "panel_bounds": [
+        0,
+        0,
+        2892,
+        1539
+      ],
+      "bounds_meaning": "Original published panel rectangle; not an anatomical boundary or new tissue annotation.",
+      "observation": "Initial source ultrasound with a reported common-bile-duct stone and the original marker and calipers.",
+      "bindings": [
+        {
+          "target_id": "acute_abdomen.organ_common_bile_duct_if_resolved.lumen_or_duct_if_resolved",
+          "extent": "partial",
+          "basis": "The source ultrasound caption identifies a stone within the common bile duct, and the original image labels the CBD. Only this local duct/luminal region is represented."
+        },
+        {
+          "target_id": "acute_abdomen.solid_observations.calculus_or_obstructing_interface_if_supported",
+          "extent": "partial",
+          "basis": "The source case reports a CBD stone at the marker/calipers in this initial ultrasound. This is a partial source-calculus example, not independent proof of complete obstruction, mobility, calibrated dimensions or the entire clinical episode."
+        }
+      ],
+      "context_targets": []
+    },
+    {
+      "id": "cbd-stone-pmc12463306-fig1-whole",
+      "figure_id": "open-acute-abdomen-ref-cbd-stone-pmc12463306-fig1",
+      "source_panel": "whole",
+      "panel_bounds": [
+        0,
+        0,
+        2892,
+        2889
+      ],
+      "bounds_meaning": "Original published panel rectangle; not an anatomical boundary or new tissue annotation.",
+      "observation": "Source coronal T2 MRI with a mid-CBD filling defect; the original caption retains suggestive calculus wording.",
+      "bindings": [
+        {
+          "target_id": "acute_abdomen.organ_common_bile_duct_if_resolved.lumen_or_duct_if_resolved",
+          "extent": "partial",
+          "basis": "The source coronal T2 MRI caption locates a filling defect within the mid common bile duct. This is a partial local duct/lumen example, not a complete duct volume or wall-boundary assessment."
+        },
+        {
+          "target_id": "acute_abdomen.solid_observations.abnormal_wall_or_duct_region",
+          "extent": "partial",
+          "basis": "The source coronal T2 MRI caption identifies a mid-CBD filling defect, suggestive of a calculus. The bound observation is the abnormal duct region; the uncertain calculus interpretation is not promoted to a definitive calculus binding."
+        }
+      ],
+      "context_targets": []
+    },
+    {
+      "id": "cbd-stone-pmc12463306-fig3-whole",
+      "figure_id": "open-acute-abdomen-ref-cbd-stone-pmc12463306-fig3",
+      "source_panel": "whole",
+      "panel_bounds": [
+        0,
+        0,
+        2892,
+        2889
+      ],
+      "bounds_meaning": "Original published panel rectangle; not an anatomical boundary or new tissue annotation.",
+      "observation": "Source MRCP projection with a mid-CBD filling defect; the original caption retains suggestive calculus wording.",
+      "bindings": [
+        {
+          "target_id": "acute_abdomen.organ_common_bile_duct_if_resolved.lumen_or_duct_if_resolved",
+          "extent": "partial",
+          "basis": "The source MRCP projection caption locates a filling defect within the mid common bile duct. This is a partial local duct/lumen example, not a complete duct volume or wall-boundary assessment."
+        },
+        {
+          "target_id": "acute_abdomen.solid_observations.abnormal_wall_or_duct_region",
+          "extent": "partial",
+          "basis": "The source MRCP projection caption identifies a mid-CBD filling defect, suggestive of a calculus. The bound observation is the abnormal duct region; the uncertain calculus interpretation is not promoted to a definitive calculus binding."
+        }
+      ],
+      "context_targets": []
+    }
+  ],
+  "native_references": [
+    {
+      "id": "sma-source-lumen",
+      "original_asset_id": "colonvessels-pat012-arteries-layer-3-value-1",
+      "target_id": "acute_abdomen.vessel_sma_and_actual_branches.lumen_if_resolved",
+      "reader_url": "/app/anatomy/colonvessels-pat012/arterial/index.html?segment=3:1",
+      "extent": "partial",
+      "basis": "The source explicitly labels this mesenteric vessel. Its surgeon-delineated segmentation on contrast-enhanced CT represents the provided opacified lumen, as recorded by the existing body-reader review. This is one named member of the acute-abdomen mesenteric vessel group, not every branch or tributary, wall, occlusion or bowel-viability evidence. The CT case pat_012 is separate from all twelve published figures; no registration is implied."
+    },
+    {
+      "id": "smv-source-lumen",
+      "original_asset_id": "colonvessels-pat012-veins-layer-1-value-11",
+      "target_id": "acute_abdomen.vessel_smv_and_actual_tributaries.lumen_if_resolved",
+      "reader_url": "/app/anatomy/colonvessels-pat012/venous/index.html?segment=1:11",
+      "extent": "partial",
+      "basis": "The source explicitly labels this mesenteric vessel. Its surgeon-delineated segmentation on contrast-enhanced CT represents the provided opacified lumen, as recorded by the existing body-reader review. This is one named member of the acute-abdomen mesenteric vessel group, not every branch or tributary, wall, occlusion or bowel-viability evidence. The CT case pat_012 is separate from all twelve published figures; no registration is implied."
+    }
+  ],
+  "limits": [
+    "Selected published sections do not establish a full examination, source resolution or measurement calibration.",
+    "Normal appendix and inflamed examples retain their distinct source states. No dynamic compression, tenderness, Doppler, mobility, flow or clinical severity is inferred.",
+    "No full loop connectivity, vessel-wall anatomy, perfusion, viability or complete branch tree is supplied by the selected panels or separate vascular source models.",
+    "Mostbeck Figure 1 muscle-star correspondence remains unresolved; those muscle names are not bound.",
+    "Mostbeck Figure 3 ultrasound panel a remains contextual; the existing target asset selects only CT panel b.",
+    "MRI/MRCP filling defects retain the source wording suggestive of calculus. No acoustic shadowing or complete duct volume is inferred."
+  ],
+  "target_labels": {
+    "acute_abdomen.appendix.actual_visualised_extent": "Appendix: visible source extent",
+    "acute_abdomen.appendix.lumen": "Appendix: lumen",
+    "acute_abdomen.appendix.periappendiceal_fat": "Appendix: adjacent fat",
+    "acute_abdomen.bowel_observations.wall_thickening_site": "Bowel: wall thickening",
+    "acute_abdomen.bowel_observations.actual_caliper_site": "Bowel: original caliper location",
+    "acute_abdomen.bowel_observations.appendix_abnormal_region": "Appendix: source abnormal region",
+    "acute_abdomen.bowel_observations.local_fat_change": "Bowel: local fat change",
+    "acute_abdomen.bowel_observations.each_source_visible_transition": "Bowel: visible transition",
+    "acute_abdomen.bowel_observations.extraluminal_region": "Bowel: adjacent extraluminal region",
+    "acute_abdomen.ct_observations.each_actual_abnormal_enhancement_region": "CT: source abnormal enhancement",
+    "acute_abdomen.ct_observations.each_actual_fat_stranding_region": "CT: local fat stranding",
+    "acute_abdomen.hernia_wall_if_relevant.contents_if_supported": "Hernia: source contents",
+    "acute_abdomen.hernia_wall_if_relevant.neck_if_resolved": "Hernia: visible neck",
+    "acute_abdomen.hernia_wall_if_relevant.mesenteric_or_vessel_interface": "Hernia: mesenteric or vessel interface",
+    "acute_abdomen.organ_pancreatic_tail.covered_tissue": "Pancreatic tail: covered tissue",
+    "acute_abdomen.solid_observations.periorgan_change": "Solid organs: surrounding change",
+    "acute_abdomen.solid_observations.abnormal_wall_or_duct_region": "Solid organs: abnormal wall or duct",
+    "acute_abdomen.gallbladder_detail.lumen": "Gallbladder: lumen",
+    "acute_abdomen.gallbladder_detail.calculus_or_sludge_if_present": "Gallbladder: calculus or sludge",
+    "acute_abdomen.organ_common_bile_duct_if_resolved.lumen_or_duct_if_resolved": "Common bile duct: visible lumen",
+    "acute_abdomen.solid_observations.calculus_or_obstructing_interface_if_supported": "Solid organs: source calculus or interface",
+    "acute_abdomen.vessel_sma_and_actual_branches.lumen_if_resolved": "SMA: source-labelled lumen",
+    "acute_abdomen.vessel_smv_and_actual_tributaries.lumen_if_resolved": "SMV: source-labelled lumen"
+  },
+  "report_rows": [
+    {
+      "id": "anatomy-appendix",
+      "label": "Appendix",
+      "target_id": "acute_abdomen.appendix.lumen",
+      "link_label": "Normal and inflamed source appendix panels",
+      "panels": [
+        "appendix-mostbeck-2016-fig1-whole",
+        "appendix-mostbeck-2016-fig2-a",
+        "appendix-mostbeck-2016-fig2-b",
+        "bowel-wall-pmc3999365-fig9-a",
+        "bowel-wall-pmc3999365-fig9-b"
+      ],
+      "scope": "Local source appendix sections; complete course and dynamic compression remain unrepresented.",
+      "report_row_sha256": "470fdb13e400bd7d810502b693ce5fabd127b625098d77b9a30192c09c73f3a5"
+    },
+    {
+      "id": "anatomy-periappendiceal-fat",
+      "label": "Periappendiceal fat",
+      "target_id": "acute_abdomen.appendix.periappendiceal_fat",
+      "link_label": "Source periappendiceal fat change",
+      "panels": [
+        "appendix-mostbeck-2016-fig3-b",
+        "bowel-wall-pmc3999365-fig9-a",
+        "bowel-wall-pmc3999365-fig9-b"
+      ],
+      "scope": "The captions locate local CT fat change around the appendix; this is not the full mesoappendix or fat-space extent.",
+      "report_row_sha256": "69bd67abe2bf2aa579ed07d7c108b0eb6946b10a7403db204c3a68ad0705ae7e"
+    },
+    {
+      "id": "anatomy-periappendiceal-fluid",
+      "label": "Periappendiceal fluid and gas",
+      "target_id": "acute_abdomen.bowel_observations.extraluminal_region",
+      "link_label": "Source adjacent fluid marked +",
+      "panels": [
+        "appendix-mostbeck-2016-fig2-b"
+      ],
+      "scope": "The source marks adjacent free fluid. No gas, perforation or encapsulated collection is established by this panel.",
+      "report_row_sha256": "94dc5d620c9d5ddd3ee478428e55527eda2602d79f56f2793abbf7a58fd93e53"
+    },
+    {
+      "id": "anatomy-ascending-colon",
+      "label": "Ascending colon",
+      "target_id": "acute_abdomen.bowel_observations.wall_thickening_site",
+      "link_label": "Source ascending-colon wall change",
+      "panels": [
+        "bowel-wall-pmc3999365-fig9-b"
+      ],
+      "scope": "The coronal source caption identifies reactive ascending-colon wall thickening at the asterisk.",
+      "report_row_sha256": "83b10d806b0377892f1dcd9df1b21cb121c93b59f5f16b98a37b2873f877f5c7"
+    },
+    {
+      "id": "anatomy-sigmoid-colon",
+      "label": "Sigmoid colon",
+      "target_id": "acute_abdomen.bowel_observations.wall_thickening_site",
+      "link_label": "Source sigmoid wall and adjacent fat examples",
+      "panels": [
+        "bowel-wall-pmc3999365-fig6-whole",
+        "appendix-mostbeck-2016-fig3-b"
+      ],
+      "scope": "These selected CT captions identify sigmoid wall change in their own distinct source cases.",
+      "report_row_sha256": "215838a7ba223c2bf72472564aaca99896153125a5439a0acedd6f9cd65e55ae"
+    },
+    {
+      "id": "anatomy-pancreas",
+      "label": "Pancreas",
+      "target_id": "acute_abdomen.organ_pancreatic_tail.covered_tissue",
+      "link_label": "Source pancreatic-tail observation",
+      "panels": [
+        "pancreatitis-sureka-2015-fig1-whole"
+      ],
+      "scope": "Only the specifically captioned pancreatic-tail region and adjacent change are matched; other pancreatic regions and complete duct extent remain unrepresented.",
+      "report_row_sha256": "d0511b3b2422ce1db0a1ad43a0c4bb9fe966532b929edbcb0a59011a96728f4c"
+    },
+    {
+      "id": "anatomy-gallbladder-lumen",
+      "label": "Gallbladder lumen",
+      "target_id": "acute_abdomen.gallbladder_detail.lumen",
+      "link_label": "Source gallbladder lumen and sludge",
+      "panels": [
+        "gallbladder-pmc12181115-fig1-whole"
+      ],
+      "scope": "The source identifies sludge and explicitly reports no shadowing stone in this frame. It does not supply dynamic observations.",
+      "report_row_sha256": "6e8ba48a02351bbde7bebd4f65e7aba2d9460b6190b335f48841c6b5b014b9bd"
+    },
+    {
+      "id": "anatomy-gallbladder-wall",
+      "label": "Gallbladder wall",
+      "target_id": "acute_abdomen.solid_observations.abnormal_wall_or_duct_region",
+      "link_label": "Source thick, striated gallbladder wall",
+      "panels": [
+        "gallbladder-pmc12181115-fig1-whole"
+      ],
+      "scope": "The source wall between calipers is the match; separate histological layers, tenderness and severity are not established.",
+      "report_row_sha256": "21bebee2564747ee00da7d8b3d5cacc6ef4d04dda0be764511f6afc888fcd29c"
+    },
+    {
+      "id": "anatomy-common-bile-duct",
+      "label": "Common bile duct",
+      "target_id": "acute_abdomen.organ_common_bile_duct_if_resolved.lumen_or_duct_if_resolved",
+      "link_label": "CBD source examples: US, T2 MRI and MRCP",
+      "panels": [
+        "cbd-stone-pmc12017295-fig1-whole",
+        "cbd-stone-pmc12463306-fig1-whole",
+        "cbd-stone-pmc12463306-fig3-whole"
+      ],
+      "scope": "The ultrasound and MRI examples are separate cases. MRI/MRCP retain the source’s suggestive calculus wording, with no complete duct volume or acoustic/dynamic transfer.",
+      "report_row_sha256": "5f96731d4ccf73b983378a44d5ad02ea5430c9918d60b08d85ed1dae4ab3350b"
+    }
+  ],
+  "investigation_definition_sha256": "b6e4b0ba84fb9e10cecb42217a04d8d8e5792316e8114924091888503d936582"
+}

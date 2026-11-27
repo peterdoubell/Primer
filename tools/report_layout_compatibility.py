@@ -132,6 +132,8 @@ PROTOCOL_ALIGNMENT = ('74e5bc667bb579a2d9a1b990803f228b193111cc0510560f9dd5ca214
 
 
 def before_protocol_alignment_bytes(path, raw):
+    from tools.structured_forms_runtime_compatibility import before_structured_forms_pack_bytes
+    raw = before_structured_forms_pack_bytes(path, raw)
     if str(path) != PROTOCOL_ALIGNMENT_PATH or hashlib.sha256(raw).hexdigest() != PROTOCOL_ALIGNMENT[1]:
         return raw
     if raw.count(PROTOCOL_ALIGNMENT[2]) != 1:
@@ -170,6 +172,8 @@ def before_stacked_headings_bytes(path, raw):
 
 
 def before_acquisition_conflicts_bytes(path, raw):
+    from tools.acute_abdomen_panels_compatibility import before_acute_panel_bytes
+    raw = before_acute_panel_bytes(path, raw)
     if str(path) not in {'primer/descriptor_reporting.py', 'primer/report_templates.py', 'web/radiology-structured.js'}:
         return raw
     raw = before_stacked_headings_bytes(path, raw)
