@@ -24,7 +24,7 @@ At the default settings (600 grooves/mm, N=600, m=1, f=300 mm), the principal an
 
 - `node --test tests/grating-spectrometer.test.mjs` checks the closed form against direct complex-wave sums, first zeros and maxima, the two-groove limit, dimensions, density versus aperture changes, calibration inversion, contiguous detector bins and invalid/grazing orders.
 - `tests/fixtures/grating-spectrometer-reference.json` supplies 13 independently integrated pixel responses, including a deliberately demanding wide-pixel/narrow-peak case. The production calculation differs from direct N-groove phasors plus SciPy adaptive quadrature by at most 3.46e-5 in normalized component response, below the test's 1.5e-4 absolute tolerance. This numerical tolerance is not a measurement uncertainty.
-- To reproduce the independent fixture (authoring-only NumPy and SciPy environment): `python tools/physics_sources/verify_grating_spectrometer.py`. Passing an output path writes a new reference file; the default checks the committed one without changing it.
+- To reproduce the independent fixture (authoring-only NumPy and SciPy environment): `python tools/physics_sources/verify_grating_spectrometer.py`. Use `--write` to regenerate the committed reference fixture. The default checks it.
 - `python -m pytest -q tests/test_grating_spectrometer.py tests/test_lesson_activities.py tests/test_learning_games.py` validates the model, original source receipts, existing activities and normal learning-sequence inventory.
 - `python tools/learning_games_inventory.py --check` and `python tools/learning_games_report.py --check` verify the shared inventories. Registry links do not require adding an obsolete hard-coded reader link.
 
