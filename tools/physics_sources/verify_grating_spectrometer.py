@@ -1,11 +1,11 @@
 """Reproduce independent pixel references from direct complex groove sums.
 
 Authoring-only: requires NumPy and SciPy; neither is imported by the activity.
-Writes only the requested JSON path, or checks the committed fixture by default.
+Checks the committed fixture by default. Use --write to regenerate it.
 """
 from pathlib import Path
 import json
-import sys
+import argparse
 import numpy as np
 from scipy.integrate import quad
 
@@ -46,9 +46,12 @@ def reproduce():
 
 
 if __name__ == '__main__':
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument('--write', action='store_true', help='Regenerate the committed reference fixture')
+    args = parser.parse_args()
     result = reproduce()
-    if len(sys.argv) == 2:
-        Path(sys.argv[1]).write_text(json.dumps(result, indent=2) + '\n')
+    if args.write:
+        TARGET.write_text(json.dumps(result, indent=2) + '\n')
     else:
         saved = json.loads(TARGET.read_text())
         assert len(saved['pixels']) == len(result['pixels'])
