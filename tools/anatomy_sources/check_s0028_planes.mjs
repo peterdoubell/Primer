@@ -6,7 +6,7 @@ import { fileURLToPath } from 'node:url';
 import { gunzipSync } from 'node:zlib';
 import { createHash } from 'node:crypto';
 import assert from 'node:assert/strict';
-import { nativeReader, FetchPool } from '../../web/anatomy/segthy-001/native-volume.mjs';
+import { nativeReader, FetchPool, sourceAssetName } from '../../web/anatomy/segthy-001/native-volume.mjs';
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '../..');
 const directory = path.join(root, 'web/anatomy/ct-torso-s0028');
@@ -18,7 +18,7 @@ for (let i=0;i<299;i+=64) for(let j=0;j<299;j+=64) for(let k=0;k<394;k+=64) {
 }
 const digest = bytes => createHash('sha256').update(bytes).digest('hex');
 async function read(brick) {
-  const filename=files.get(brick.file);
+  const filename=files.get(sourceAssetName('ct-torso-s0028',brick.file));
   if(!filename)throw Error('Unknown archive brick.');
   const packed=await fs.readFile(filename);
   assert.equal(digest(packed),brick.sha256);

@@ -1,0 +1,5 @@
+The shared browser adapter selects request URLs from finite, application-owned SegThy, torso CT and MedSeg resource inventories. The existing third argument names an exact app-owned resource namespace. It is not an authentication claim. The assembly reader may select the MedSeg namespace with the literal `/app/anatomy/medseg-liver-001/viewer.js` URL on its own app origin.
+
+No response Location value is followed. A hosted app-route redirect selects only that same asset's fixed same-origin source-media counterpart; that second request rejects redirects. Requests use same-origin mode and credentials. Node file-module imports have no HTTP resource table and must use explicit offline callbacks. `sourceAssetName(study, file)` exposes the same finite canonical-name check for those callbacks.
+
+Compressed size, compressed SHA-256, decoded SHA-256, cancellation, native array shape checks, masks, meshes and all publisher bytes are preserved. The new exact inverse restores the prior shared module and delivery metadata before the existing torso and SegThy compatibility checks.

@@ -10,6 +10,8 @@ PATHS = frozenset(['docs/radiology-fidelity-scope.json', 'primer/curriculum.py',
 
 
 def before_torso_bytes(path, raw):
+    from tools.source_asset_requests_compatibility import before_source_requests_bytes
+    raw = before_source_requests_bytes(path, raw)
     if str(path) not in PATHS:
         return raw
     return _restore(path, raw, PROOF, PIN)
