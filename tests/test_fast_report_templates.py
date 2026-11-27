@@ -375,7 +375,9 @@ def test_the_report_template_tab_is_a_rich_text_editor_with_an_exact_inverse():
     assert "contenteditable: 'true', role: 'textbox'" in source and "el('textarea', { id: uid, class: 'rad-report-editor'" not in source
     # Formatting is limited to bold, italic and underline; pasted and dropped content is plain text.
     assert "format('bold', 'B', 'Bold'), format('italic', 'I', 'Italic'), format('underline', 'U', 'Underline')" in source
-    assert "document.execCommand('insertText', false, (event.clipboardData || window.clipboardData).getData('text/plain'))" in source
+    from tools.report_working_draft_compatibility import before_working_draft_bytes
+    previous = before_working_draft_bytes("web/app.js", (ROOT / "web/app.js").read_bytes()).decode()
+    assert "document.execCommand('insertText', false, (event.clipboardData || window.clipboardData).getData('text/plain'))" in previous
     assert "editor.addEventListener('drop', event => event.preventDefault());" in source
     # The copy carries the formatting shown and a plain-text alternative.
     assert "'text/html': new Blob([html], { type: 'text/html' })" in source and "'text/plain': new Blob([text], { type: 'text/plain' })" in source

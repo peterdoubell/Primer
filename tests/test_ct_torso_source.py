@@ -85,10 +85,11 @@ def test_hosted_redirects_original_bricks_and_rejects_unknown_names(monkeypatch)
 
 
 def test_source_integration_has_an_exact_inverse_for_every_shared_file():
+    from tools.report_working_draft_compatibility import before_working_draft_bytes
     from tools.source_asset_requests_compatibility import before_source_requests_bytes
     proof=json.loads((ROOT/'docs/ct-torso-s0028/runtime-inverse.json').read_bytes())
     for name,row in proof.items():
         if name=='lessons': continue
-        raw=before_source_requests_bytes(name,(ROOT/name).read_bytes())
+        raw=before_source_requests_bytes(name,before_working_draft_bytes(name,(ROOT/name).read_bytes()))
         assert sha(raw)==row['after'] and sha(before_torso_bytes(name,raw))==row['before']
         assert before_torso_bytes(name,raw+b'\n')==raw+b'\n'

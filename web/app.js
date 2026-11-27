@@ -2307,7 +2307,15 @@ function renderRadiologyTemplate(template, index, nodeId, open) {
   // Pasted and dropped content arrives as plain text; a new line is a line break, not a new block.
   editor.addEventListener('paste', event => {
     event.preventDefault();
-    document.execCommand('insertText', false, (event.clipboardData || window.clipboardData).getData('text/plain'));
+    const text = (event.clipboardData || window.clipboardData).getData('text/plain').replace(/\r\n?/g, '\n');
+    if (!text.includes('\n')) document.execCommand('insertText', false, text);
+    else {
+      // insertText builds paragraph blocks for multiline pastes in Chrome,
+      // which add blank lines to the report. Only escaped plain text and
+      // explicit line breaks enter the editor; keep the native undo operation.
+      const escaped = text.replaceAll('&', '&amp;').replaceAll('<', '&lt;').replaceAll('>', '&gt;');
+      document.execCommand('insertHTML', false, escaped.replaceAll('\n', '<br>'));
+    }
   });
   editor.addEventListener('drop', event => event.preventDefault());
   editor.addEventListener('keydown', event => {
@@ -3377,6 +3385,14 @@ async function renderRadiologyDesk(page, nodeId) {
   const legacy = renderRadiologyReference(n);
   const panels = [];
   const templates = legacy.querySelector('.rad-report-templates');
+  let workingEditor;
+  templates?.addEventListener('focusin', event => {
+    const draft = event.target.closest?.('.rad-template');
+    const editor = draft?.querySelector('.rad-report-editor');
+    if (editor) workingEditor = editor;
+  });
+  const currentReportEditor = () => workingEditor && templates.contains(workingEditor)
+    ? workingEditor : templates?.querySelector('.rad-report-editor');
   const choices = [
     ['quick', 'Quick reference', panel => panel.append(renderReportingStart(n,
       key => activate(choices.findIndex(([id]) => id === key), true)))],
@@ -3384,7 +3400,7 @@ async function renderRadiologyDesk(page, nodeId) {
     ...(ref.cancer_staging?.length ? [['staging', 'Staging', panel => panel.append(renderCancerStaging(n, {
       openTab: key => activate(choices.findIndex(([id]) => id === key), true),
       usePrompts: system => {
-        const editor = templates.querySelector('.rad-report-editor');
+        const editor = currentReportEditor();
         if (!editor) return;
         const title = 'STAGING REVIEW — ' + system.title + ' (' + system.version + ')';
         const text = [title, ...system.report_fields.map(field => field + ': [].'),
@@ -3395,7 +3411,7 @@ async function renderRadiologyDesk(page, nodeId) {
         if (formatter?.renderReportPreview) formatter.renderReportPreview(staging, text, title);
         else staging.append(document.createTextNode(text));
         editor.append(document.createElement('br'), document.createElement('br'), staging);
-        templates.querySelector('.rad-template').open = true;
+        editor.closest('.rad-template').open = true;
         editor.dispatchEvent(new Event('input'));
         activate(choices.findIndex(([id]) => id === 'template'), true);
         editor.focus();

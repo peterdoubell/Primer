@@ -10,7 +10,7 @@
 <label>Black point <input id="black" type="number" value="-100"></label><label>White point <input id="white" type="number" value="300"></label>
 <label><input id="overlay" type="checkbox" checked> Show label outlines</label>
 <label>Image size <select id="zoom"><option value="fit">Fit width</option><option value="1">Original pixels</option><option value="2">Double size</option></select></label>
-<p id="status" role="status">Verifying CT and label data…</p><button id="retry" hidden>Retry CT</button>
+<p id="link-status" role="status" hidden>The venous system in this link is unknown. Choose a system to inspect.</p><p id="status" role="status">Verifying CT and label data…</p><button id="retry" hidden>Retry CT</button>
 <div class="views"><figure><div id="image-region"><canvas id="ct" width="512" height="512" tabindex="0" aria-label="Axial CT. Right at left and anterior at top." hidden></canvas></div>
 <figcaption>Patient right is at left. Anterior is at top. Select a pixel to inspect its source value and label.</figcaption><p id="sample"></p></figure>
 <div hidden><input class="layer" type="checkbox" checked><input class="layer" type="checkbox" checked></div>

@@ -1,0 +1,78 @@
+{
+  "base_commit": "5d38dcfb06999e226454f73e7ce05cc01d57e705",
+  "approved_format": "docs/report-template-upgrade-20261115.md",
+  "investigations": 335,
+  "quick_variants_checked": 1005,
+  "common_main_blocks": [
+    "Clinical history",
+    "Comparison",
+    "Impression",
+    "Recommendation"
+  ],
+  "quick_acquisition_layouts": {
+    "Technique": 88,
+    "no acquisition heading": 158,
+    "Protocol": 89
+  },
+  "builder_acquisition_profiles": {
+    "none": 179,
+    "routine": 141,
+    "confirmed_only": 15
+  },
+  "initial_structured_reports_empty": 335,
+  "compiler_text_and_supplied_precision_parity": 335,
+  "quick_rich_font_and_heading_conformance": 1005,
+  "staging_enabled_investigations": 36,
+  "distinct_bound_staging_systems": 25,
+  "staging_bindings": [
+    "ra.adrenal-lesions",
+    "ra.bone-tumours",
+    "ra.breast-cancer-staging",
+    "ra.cartilage-tumours",
+    "ra.cervical-lymph-nodes",
+    "ra.ct-lung-cancer",
+    "ra.ct-mediastinum",
+    "ra.ct-pancreatic-cancer",
+    "ra.ct-peritoneal-carcinomatosis",
+    "ra.ct-small-bowel-tumours",
+    "ra.esophagus",
+    "ra.head-neck-malignancy",
+    "ra.liver-lirads",
+    "ra.liver-masses",
+    "ra.male-breast",
+    "ra.mammography",
+    "ra.mri-anal-cancer",
+    "ra.mri-bladder",
+    "ra.mri-brain-tumours",
+    "ra.mri-breast",
+    "ra.mri-cervical-cancer",
+    "ra.mri-endometrial-cancer",
+    "ra.mri-neck-spaces",
+    "ra.mri-prostate",
+    "ra.mri-rectal-cancer",
+    "ra.ovarian-cysts",
+    "ra.paediatric-mediastinum",
+    "ra.paediatric-neck-masses",
+    "ra.paediatric-renal-tumours",
+    "ra.paediatric-solid-abdominal-masses",
+    "ra.recist",
+    "ra.renal-cysts-bosniak",
+    "ra.solid-renal-masses",
+    "ra.thymus",
+    "ra.ultrasound-breast",
+    "ra.ultrasound-thyroid"
+  ],
+  "real_workspace_browser_cases": 72,
+  "widths": [
+    1440,
+    390
+  ],
+  "clinical_data_files_unchanged": 138,
+  "cap_effect": "Shared report editor paste/formatting can apply to CAP reports; no CAP source study, anatomy/model binding, acquisition wording or clinical data is modified.",
+  "limitations": [
+    "The21quickCT/MRI acquisition layouts without a corresponding builder acquisition profile belong to multimodality/reference/worksheet entries. They are not reclassified as performed CT/MRI acquisitions.",
+    "Routine authored acquisition defaults and15explicit confirmation profiles retain their existing approved behaviour.",
+    "Quick normal reports remain authored starting text for deliberate use after image review; this pass does not supply patient findings or calculate a stage."
+  ],
+  "limits_of_audit": "Format, workflow, text preservation and compiler parity were checked. This does not constitute a new subject-matter review of every clinical sentence or staging criterion."
+}
