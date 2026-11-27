@@ -250,7 +250,11 @@ export function surfaceScene(canvas, status, orbit, bounds, spacing) {
         ' visible regions · ' +
         triangles.toLocaleString('en-US') +
         ' source triangles' +
-        (cut ? ' · cut at the CT section.' : '.');
+        (cut && section
+          ? ' · cut at the CT section.'
+          : cut
+            ? ' · intact while the CT section is unavailable.'
+            : '.');
   }
   init();
   canvas.addEventListener('webglcontextlost', (e) => {

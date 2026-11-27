@@ -48,7 +48,14 @@ let record,
 let sectionRequest,
   version = 0,
   starting = false,
-  meshesLoaded = false;
+  meshesLoaded = false,
+  profileLoaded = false;
+const failures = new Set();
+function markFailure(resource, failed) {
+  if (failed) failures.add(resource);
+  else failures.delete(resource);
+  $('retry').hidden = failures.size === 0;
+}
 
 function linkToNative() {
   const query = new URLSearchParams({
@@ -134,7 +141,7 @@ async function loadSection() {
   $('section-frame').hidden = true;
   $('voxel').textContent = '';
   $('section-status').textContent = 'Loading the native CT section…';
-  $('retry').hidden = true;
+  markFailure('section', false);
   updateSectionLabels();
   render();
   try {
@@ -145,7 +152,7 @@ async function loadSection() {
   } catch (error) {
     if (ticket !== version || controller.signal.aborted) return;
     $('section-status').textContent = 'The source section could not be verified.';
-    $('retry').hidden = false;
+    markFailure('section', true);
   }
 }
 
@@ -198,6 +205,7 @@ function buildTable() {
 
 async function loadMeshes() {
   if (!scene || meshesLoaded) return;
+  markFailure('meshes', false);
   $('model-status').textContent = 'Verifying nine source surfaces…';
   const controller = new AbortController(),
     items = Array(record.labels.length);
@@ -224,7 +232,7 @@ async function loadMeshes() {
   } catch {
     controller.abort();
     $('model-status').textContent = 'The source surfaces could not be verified.';
-    $('retry').hidden = false;
+    markFailure('meshes', true);
   }
 }
 
@@ -251,10 +259,22 @@ async function initialiseSampling() {
   });
 }
 
+async function loadSampling() {
+  markFailure('profile', false);
+  try {
+    await initialiseSampling();
+    profileLoaded = true;
+  } catch {
+    $('sample-result').textContent =
+      'The axial measurement profile could not be verified. Retry the source study.';
+    markFailure('profile', true);
+  }
+}
+
 async function start() {
   if (starting) return;
   starting = true;
-  $('retry').hidden = true;
+  markFailure('inventory', false);
   try {
     if (!record) {
       const response = await fetch('/app/anatomy/medseg-liver-001/manifest.json', {
@@ -287,10 +307,6 @@ async function start() {
         ' cells. Volumes use the original voxel spacing and areas use the current section.';
       buildTable();
       $('controls').disabled = false;
-      initialiseSampling().catch(() => {
-        $('sample-result').textContent =
-          'The axial measurement profile could not be verified. Reload to retry.';
-      });
       try {
         scene = surfaceScene($('model'), $('model-status'), orbit, bounds, record.spacingMm);
       } catch {
@@ -298,10 +314,11 @@ async function start() {
         scene = null;
       }
     }
-    await Promise.all([loadSection(), loadMeshes()]);
+    const sampling = profileLoaded ? null : loadSampling();
+    await Promise.all([loadSection(), loadMeshes(), sampling]);
   } catch {
     $('status').textContent = 'The source study could not be verified.';
-    $('retry').hidden = false;
+    markFailure('inventory', true);
   } finally {
     starting = false;
   }
