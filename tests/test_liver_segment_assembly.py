@@ -1,8 +1,12 @@
 """Keep the multi-region cut planes and section-sampling lesson tied to the original CT labels."""
 import hashlib
 import json
+import os
 from pathlib import Path
 import subprocess
+import sys
+
+import pytest
 from urllib.parse import urlsplit
 
 from tools.anatomy_sources import build_liver_section_profile as profiles
@@ -56,3 +60,34 @@ console.log(JSON.stringify(rows));
         assert len(expected) == len(row['volumes'])
         assert all(abs(a-b)<1e-9 for a,b in zip(row['volumes'],expected))
         assert abs(row['sd']-(sum((v-exact)**2 for v in expected)/stride)**.5) < 1e-9
+
+
+def test_profile_reproduction_uses_the_owned_checkout_from_another_cwd(tmp_path):
+    script = ROOT/'tools/anatomy_sources/build_liver_section_profile.py'
+    output = STUDY/'axial-profile.json'
+    before = output.read_bytes()
+    relative = os.path.relpath(ROOT, tmp_path)
+    for arguments in [[], ['--root', str(ROOT)], ['--root', relative, '--write']]:
+        result = subprocess.run([sys.executable, str(script), *arguments], cwd=tmp_path,
+                                capture_output=True, text=True, timeout=30)
+        assert result.returncode == 0, result.stdout + result.stderr
+        assert '47 original sections, 9 regions' in result.stdout
+        assert output.read_bytes() == before
+
+
+def test_profile_rejects_other_roots_before_source_reads_or_writes(tmp_path, monkeypatch):
+    output = STUDY/'axial-profile.json'
+    before = output.read_bytes()
+    def unexpected_load(*args, **kwargs):
+        pytest.fail('An unowned root reached source-array loading')
+    monkeypatch.setattr(profiles.nib, 'load', unexpected_load)
+    with pytest.raises(ValueError, match='checkout containing this script'):
+        profiles.build(tmp_path)
+    script = ROOT/'tools/anatomy_sources/build_liver_section_profile.py'
+    other = tmp_path/'unowned-profile-root'
+    result = subprocess.run([sys.executable, str(script), '--root', str(other), '--write'],
+                            cwd=tmp_path, capture_output=True, text=True, timeout=30)
+    assert result.returncode != 0
+    assert 'checkout containing this script' in result.stderr
+    assert not other.exists()
+    assert output.read_bytes() == before

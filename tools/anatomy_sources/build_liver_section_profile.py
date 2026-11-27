@@ -2,6 +2,7 @@
 import argparse
 import hashlib
 import json
+import os
 from pathlib import Path
 
 import nibabel as nib
@@ -12,9 +13,25 @@ CASE = Path('web/anatomy/medseg-liver-001')
 OUTPUT = Path('web/radiology/liver-segment-assembly/axial-profile.json')
 
 
+def _require_owned_root(root):
+    # Validate spellings only. Never resolve, inspect or access the supplied path.
+    trusted = {
+        os.fspath(ROOT),
+        os.fspath(Path(__file__).absolute().parents[2]),
+        os.path.relpath(ROOT, Path.cwd()),
+    }
+    try:
+        requested = os.fspath(root)
+    except TypeError as error:
+        raise ValueError('Root must identify the checkout containing this script') from error
+    if requested not in trusted:
+        raise ValueError('Root must identify the checkout containing this script')
+
+
 def build(root=ROOT):
-    manifest = json.loads((root/CASE/'manifest.json').read_bytes())
-    source = nib.load(root/CASE/'original-labels.nii.gz')
+    _require_owned_root(root)
+    manifest = json.loads((ROOT/CASE/'manifest.json').read_bytes())
+    source = nib.load(ROOT/CASE/'original-labels.nii.gz')
     values = np.asanyarray(source.dataobj)
     original = hashlib.sha256(values.astype('<f4').tobytes(order='F')).hexdigest()
     if original != manifest['originalLabelSampleSHA256'] or list(source.shape) != manifest['shape']:
@@ -36,12 +53,13 @@ def build(root=ROOT):
 
 if __name__ == '__main__':
     args = argparse.ArgumentParser(description=__doc__)
-    args.add_argument('--root',type=Path,default=ROOT)
+    args.add_argument('--root',type=Path,default=ROOT,
+                      help='Trusted absolute or cwd-relative spelling of this script checkout')
     args.add_argument('--write',action='store_true')
     opts=args.parse_args()
     data=build(opts.root)
     payload=json.dumps(data,separators=(',',':'))+'\n'
-    path=opts.root/OUTPUT
+    path=ROOT/OUTPUT
     if opts.write: path.write_text(payload)
     elif path.read_text()!=payload: raise SystemExit('The distributed axial profile differs from the original masks')
     print(f"{len(data['countsByAxialSection'])} original sections, {len(data['codes'])} regions")
