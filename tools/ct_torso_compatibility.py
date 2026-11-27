@@ -14,6 +14,8 @@ def before_torso_bytes(path, raw):
     raw = before_working_draft_bytes(path, raw)
     from tools.acute_abdomen_panels_compatibility import before_liver_row_sources
     raw = before_liver_row_sources(path, raw)
+    from tools.source_asset_requests_compatibility import before_source_requests_bytes
+    raw = before_source_requests_bytes(path, raw)
     if str(path) not in PATHS:
         return raw
     return _restore(path, raw, PROOF, PIN)
