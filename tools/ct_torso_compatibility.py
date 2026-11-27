@@ -10,6 +10,8 @@ PATHS = frozenset(['docs/radiology-fidelity-scope.json', 'primer/curriculum.py',
 
 
 def before_torso_bytes(path, raw):
+    from tools.medseg_liver_compatibility import before_medseg_liver_bytes
+    raw = before_medseg_liver_bytes(path, raw)
     from tools.report_working_draft_compatibility import before_working_draft_bytes
     raw = before_working_draft_bytes(path, raw)
     from tools.acute_abdomen_panels_compatibility import before_liver_row_sources

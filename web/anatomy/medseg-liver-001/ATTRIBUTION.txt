@@ -1,0 +1,23 @@
+MedSeg liver segments dataset, version 2, published 2021.
+DOI: https://doi.org/10.6084/m9.figshare.13643252.v2
+Publisher collection: https://www.medseg.ai/database/liver-segments-50-cases
+Annotation authors credited by the publisher: MedSeg; Håvard Bjørke Jenssen; Tomas Sakinis.
+The publisher release states that segmentations were done by MedSeg and declares CC0 1.0:
+https://creativecommons.org/publicdomain/zero/1.0/
+
+The CT images originate from the Medical Segmentation Decathlon and retain CC BY-SA 4.0:
+https://creativecommons.org/licenses/by-sa/4.0/
+Primary data terms: https://medicaldecathlon.com/
+Dataset papers:
+Simpson AL, Antonelli M, Bakas S, et al. A large annotated medical image dataset for the development and evaluation of segmentation algorithms. arXiv:1902.09063 (2019).
+Antonelli M, Reinke A, Bakas S, et al. The Medical Segmentation Decathlon. Nature Communications 13, 4128 (2022). https://doi.org/10.1038/s41467-022-30695-9
+The CT is not relicensed as CC0. Attribution and ShareAlike obligations apply to redistributed CT-derived data and adaptations.
+
+Exact selected publisher members: img1.nii.gz and mask1.nii.gz from version 2.
+These are MedSeg's case 1; the collection does not publish the original MSD case identifier.
+The unmodified original NIfTIs and publisher label key are included.
+
+Primer adaptations: integer transport that restores the exact original float32 sample bytes; native-section display; use of the publisher RGB label palette; source-mask surface extraction at the binary 0.5 interface; interface and source-native locator. No source-array resampling, annotation editing, inferred IVa/IVb splitting, smoothing or component removal.
+CT-derived adaptations are supplied with the applicable CC BY-SA 4.0 terms. The publisher's separate CC0 annotation declaration is retained.
+
+This source case is not s0028 or the separate MR reference. The 5 mm native slice spacing remains explicit. This reference does not establish acquisition phase, diagnosis, original DICOM HU calibration, patient registration, LI-RADS observations or clinical approval.

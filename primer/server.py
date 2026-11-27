@@ -4289,7 +4289,7 @@ NODE_SOURCE_ATLASES = frozenset((*RECIST_NODE_CASES, LNQ_NODE_ATLAS, LYNOS_NODE_
 MESH_SOURCE_DIRECTORIES = {
     name: "anatomy/" + name
     for name in (
-        *NODE_SOURCE_ATLASES, "ct-torso-s0028", "segthy-001", "zanatomy-salivary", "aneurysm-cta-018", "cmha-mca-005", "rhuh-sah-001",
+        *NODE_SOURCE_ATLASES, "medseg-liver-001", "ct-torso-s0028", "segthy-001", "zanatomy-salivary", "aneurysm-cta-018", "cmha-mca-005", "rhuh-sah-001",
         "bp3d-dural-4.3", "ward-swi-s1", "illinois-uterus", "endometriosis-mri-evidence",
         "hyperpic-venous", "venat", "ccth-a01-roi",
     )
@@ -4316,7 +4316,7 @@ async def source_mesh_delivery(atlas: str, asset: str, request: Request):
             return RedirectResponse("/source-media/" + directory + "/" + asset, status_code=307)
         response = await app.state.source_static.get_response(directory + "/" + asset, request.scope)
         if ((registered_atlas in NODE_SOURCE_ATLASES and asset in {"index.html", "surfaces.html", "comparison.html"})
-                or (registered_atlas in {"ct-torso-s0028", "segthy-001", "zanatomy-salivary"} and asset == "index.html")):
+                or (registered_atlas in {"medseg-liver-001", "ct-torso-s0028", "segthy-001", "zanatomy-salivary"} and asset == "index.html")):
             response.headers["Content-Security-Policy"] = CSP.replace(
                 "frame-ancestors 'none';", "frame-ancestors 'self';"
             )

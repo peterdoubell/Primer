@@ -11,6 +11,7 @@ from primer.curriculum import Curriculum
 from primer.reporting_bridge import descriptor_variant
 from primer.ct_torso_reference import ATLAS, EXAMS, references
 from tools.ct_torso_compatibility import before_torso_bytes
+from tools.medseg_liver_compatibility import before_medseg_liver_bytes
 
 ROOT = Path(__file__).resolve().parents[1]
 DIR = ROOT/'web/anatomy'/ATLAS
@@ -90,6 +91,8 @@ def test_source_integration_has_an_exact_inverse_for_every_shared_file():
     proof=json.loads((ROOT/'docs/ct-torso-s0028/runtime-inverse.json').read_bytes())
     for name,row in proof.items():
         if name=='lessons': continue
-        raw=before_source_requests_bytes(name,before_working_draft_bytes(name,(ROOT/name).read_bytes()))
+        raw = before_medseg_liver_bytes(name, (ROOT/name).read_bytes())
+        raw = before_working_draft_bytes(name, raw)
+        raw = before_source_requests_bytes(name, raw)
         assert sha(raw)==row['after'] and sha(before_torso_bytes(name,raw))==row['before']
         assert before_torso_bytes(name,raw+b'\n')==raw+b'\n'
