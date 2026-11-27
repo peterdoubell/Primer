@@ -22,6 +22,14 @@ window.PrimerStructuredReporting = (() => {
   const MAX_REPEAT_INSTANCES = 50;
   const ACUTE_SOURCE_ROWS = {"anatomy-appendix": {"target": "acute_abdomen.appendix.lumen", "label": "Normal and inflamed source appendix panels"}, "anatomy-periappendiceal-fat": {"target": "acute_abdomen.appendix.periappendiceal_fat", "label": "Source periappendiceal fat change"}, "anatomy-periappendiceal-fluid": {"target": "acute_abdomen.bowel_observations.extraluminal_region", "label": "Source adjacent fluid marked +"}, "anatomy-ascending-colon": {"target": "acute_abdomen.bowel_observations.wall_thickening_site", "label": "Source ascending-colon wall change"}, "anatomy-sigmoid-colon": {"target": "acute_abdomen.bowel_observations.wall_thickening_site", "label": "Source sigmoid wall and adjacent fat examples"}, "anatomy-pancreas": {"target": "acute_abdomen.organ_pancreatic_tail.covered_tissue", "label": "Source pancreatic-tail observation"}, "anatomy-gallbladder-lumen": {"target": "acute_abdomen.gallbladder_detail.lumen", "label": "Source gallbladder lumen and sludge"}, "anatomy-gallbladder-wall": {"target": "acute_abdomen.solid_observations.abnormal_wall_or_duct_region", "label": "Source thick, striated gallbladder wall"}, "anatomy-common-bile-duct": {"target": "acute_abdomen.organ_common_bile_duct_if_resolved.lumen_or_duct_if_resolved", "label": "CBD source examples: US, T2 MRI and MRCP"}};
   function rowSourcePanel(exam, section) {
+    if (['ct.liver-mass', 'ct.liver-lirads', 'ct.liver-lirads-calculated'].includes(exam.id)) {
+      const row = element('p', undefined, 'rad-source-panel-row');
+      row.hidden = true;
+      import('./radiology/liver-report-sources.mjs').then(module => {
+        module.showSources(row, exam.id, section.anatomy_id);
+      }).catch(() => { row.remove(); });
+      return row;
+    }
     const source = exam.id === 'ra.acute-abdomen' && ACUTE_SOURCE_ROWS[section.id];
     if (!source) return null;
     const row = element('p', undefined, 'rad-source-panel-row'), link = element('a', source.label);
@@ -183,7 +191,7 @@ window.PrimerStructuredReporting = (() => {
     if ((studyTitle && line === studyTitle) ||
         (mainReportHeading.test(line) && (namedSection || line.endsWith(':')))) return ['u', line, ''];
     if (namedSection || (line.endsWith(':') && !line.startsWith('•'))) return ['em', line, ''];
-    const inline = /^([A-Z][^:]*:)( \[\](?: .*)?)$/.exec(line);
+    const inline = /^([A-Z][^:]*:)( \[\].*)$/.exec(line);
     return inline ? ['em', inline[1], inline[2]] : ['', '', line];
   }
   function reportHTML(text, studyTitle = '', sectionHeadings = []) {

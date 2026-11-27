@@ -1,0 +1,240 @@
+:root {
+  color-scheme: dark;
+  font-family: system-ui, sans-serif;
+  font-size: 16px;
+  background: #101a21;
+  color: #edf3f5;
+}
+* {
+  box-sizing: border-box;
+}
+main {
+  max-width: 82rem;
+  margin: auto;
+  padding: 1rem clamp(0.8rem, 2vw, 2rem) 3rem;
+}
+a {
+  color: #afe2ed;
+}
+h1 {
+  font-size: clamp(1.65rem, 3.2vw, 2.6rem);
+  margin: 0.8em 0 0.3em;
+}
+h2 {
+  font-size: 1.23rem;
+  margin: 0.2em 0 0.7em;
+}
+p {
+  line-height: 1.5;
+  margin: 0.6rem 0 1rem;
+}
+fieldset,
+.views section {
+  border: 1px solid #3b5060;
+  border-radius: 0.55rem;
+  background: #172630;
+  padding: 0.9rem;
+}
+fieldset,
+.actions,
+.orbit {
+  display: flex;
+  align-items: end;
+  gap: 0.6rem 1rem;
+  flex-wrap: wrap;
+}
+label {
+  display: grid;
+  gap: 0.25rem;
+}
+.slice {
+  min-width: min(14rem, 100%);
+  flex: 1;
+}
+.slice output {
+  display: contents;
+}
+select,
+button {
+  font: inherit;
+  border: 1px solid #76919d;
+  border-radius: 0.3rem;
+  padding: 0.45rem 0.65rem;
+  background: #203741;
+  color: inherit;
+  min-height: 2.5rem;
+}
+button,
+input[type='range'],
+input[type='checkbox'] {
+  cursor: pointer;
+}
+button:hover {
+  background: #314c56;
+}
+button:focus-visible,
+input:focus-visible,
+canvas:focus-visible,
+select:focus-visible,
+a:focus-visible {
+  outline: 3px solid #ffcf77;
+  outline-offset: 2px;
+}
+.views {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.9rem;
+  margin: 0.9rem 0 1.7rem;
+}
+canvas {
+  display: block;
+  max-width: 100%;
+}
+#model {
+  width: 100%;
+  aspect-ratio: 4/3;
+  touch-action: none;
+  background: #0e171e;
+}
+#section-frame {
+  position: relative;
+  width: 100%;
+  background: #0e171e;
+}
+#scan {
+  width: 100%;
+  image-rendering: pixelated;
+  cursor: crosshair;
+}
+.edge {
+  position: absolute;
+  background: #0e171ed9;
+  padding: 0.1rem 0.4rem;
+  pointer-events: none;
+}
+.left {
+  left: 0;
+  top: 50%;
+}
+.top {
+  top: 0;
+  left: 50%;
+}
+.orbit label {
+  min-width: 5rem;
+  flex: 1;
+}
+.orbit input {
+  width: 100%;
+}
+[hidden] {
+  display: none !important;
+}
+table {
+  width: 100%;
+  max-width: 47rem;
+  border-collapse: collapse;
+  margin: 0.75rem 0 1.5rem;
+  font-variant-numeric: tabular-nums;
+}
+th,
+td {
+  padding: 0.4rem;
+  text-align: right;
+  border-bottom: 1px solid #3b5060;
+}
+th:nth-child(-n + 2),
+td:nth-child(-n + 2) {
+  text-align: left;
+}
+tbody th button {
+  display: inline-flex;
+  gap: 0.55rem;
+  align-items: center;
+  text-align: left;
+}
+tbody th button[aria-pressed='true'] {
+  border-color: #ffcf77;
+}
+.swatch {
+  width: 0.85rem;
+  height: 0.85rem;
+  border: 1px solid #ffffff99;
+  border-radius: 0.1rem;
+  display: inline-block;
+  flex: none;
+}
+details {
+  max-width: 65rem;
+}
+summary {
+  cursor: pointer;
+  font-weight: 600;
+}
+@media (max-width: 760px) {
+  .views {
+    grid-template-columns: 1fr;
+  }
+  fieldset label {
+    flex: 1 1 9rem;
+  }
+  .orbit label {
+    min-width: 5rem;
+  }
+  th,
+  td {
+    padding: 0.3rem 0.2rem;
+  }
+  tbody th button {
+    font-size: 0.92rem;
+  }
+  .slice {
+    flex-basis: 100%;
+  }
+}
+
+#sampling {
+  max-width: 57rem;
+  margin: 2rem 0;
+}
+#profile-chart {
+  width: 100%;
+  height: auto;
+  display: block;
+  margin: 0.8rem 0;
+  max-width: 50rem;
+  background: #13212a;
+}
+#profile-chart text {
+  fill: #dfebee;
+  font:
+    15px system-ui,
+    sans-serif;
+}
+#sample-result {
+  font-size: 1.12rem;
+  font-weight: 600;
+}
+#offset-table th {
+  text-align: left;
+}
+
+.model-frame {
+  position: relative;
+}
+#model-reference {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+#model-reference text {
+  fill: #f3f5f5;
+  font:
+    600 12px system-ui,
+    sans-serif;
+  paint-order: stroke;
+  stroke: #101a21;
+  stroke-width: 2.5px;
+}

@@ -115,7 +115,7 @@ def test_live_denominator_is_the_real_app_index_and_neck_has_three_distinct_deno
     cap = next(row for row in live['rows'] if row['investigation_id'] == 'ct.chest-abdomen-pelvis')
     assert cap['report_sections'] == 14 and cap['inventory']['typed_evidence_records'] == 44
     assert live['typed_patient_evidence_records'] == 83
-    for kind, partial in {'clinical_image': 67, 'schematic': 75, 'model': 75}.items():
+    for kind, partial in {'clinical_image': 75, 'schematic': 75, 'model': 75}.items():
         counts = cap['representations'][kind]
         assert (counts['required'], counts['verified'], counts['source_linked'], counts['partial'], counts['missing']) == (
             122, 0, partial, partial, 122 - partial)

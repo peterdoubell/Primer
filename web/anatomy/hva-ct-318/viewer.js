@@ -2,8 +2,10 @@
 const get=id=>document.getElementById(id);
 let volume,generation=0,current;
 const cache=new Map();
-const from = new URLSearchParams(location.search).get('from');
-const referenceNames = {'ra.liver-masses':'liver mass reporting', 'ra.liver-lirads':'LI-RADS reporting'};
+const query = new URLSearchParams(location.search);
+const from = query.get('from');
+const referenceNames = {'ra.liver-masses':'liver mass reporting', 'ra.liver-lirads':'LI-RADS reporting', 'ct.liver-mass':'CT focal liver lesion reporting',
+  'ct.liver-lirads':'CT liver surveillance reporting', 'ct.liver-lirads-calculated':'CT LI-RADS reporting'};
 if (Object.hasOwn(referenceNames, from)) {
   get('return-context').href = '/app/#/radiology/' + from;
   get('return-context').textContent = 'Return to ' + referenceNames[from];
@@ -79,8 +81,17 @@ async function start(){
  get('retry').hidden=true;
  try{
   volume=await metadata('volume');
+  get('slice').max=volume.shape[2]-1;
   get('slice').value=volume.initialSlice;
-  get('slice').max=volume.shape[2]-1;get('slice').disabled=false;regionChanged();
+  const systems = query.getAll('system');
+  if (systems.length === 1 && ['portal','hepatic'].includes(systems[0])) {
+    const portal = systems[0] === 'portal';
+    get('region').value = portal ? '1' : '2';
+    get('slice').value = portal ? 98 : 121;
+  } else if (systems.length) {
+    get('link-status').hidden = false;
+  }
+  get('slice').disabled=false;regionChanged();
  }catch{volume=null;get('status').textContent='Source metadata could not be verified.';get('retry').hidden=false;}
 }
 get('region').addEventListener('change',regionChanged);

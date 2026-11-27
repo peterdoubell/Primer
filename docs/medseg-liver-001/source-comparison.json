@@ -1,0 +1,864 @@
+{
+  "schemaVersion": 1,
+  "caseId": "medseg-liver-001",
+  "source": {
+    "original-ct.nii.gz": {
+      "bytes": 13752158,
+      "sha256": "047452d93f8afad1f59fc767b9ec3496e258336c0073b9960b70c76256cd162b",
+      "dtype": "float32",
+      "sampleSHA256": "6d250a7c066d843a392abfa08470904b624d8bc0b5f850fb7b70223db6212fc6"
+    },
+    "original-labels.nii.gz": {
+      "bytes": 79933,
+      "sha256": "82f000ba6905f45b34f8e9c6427993cd7e87c8c637834e4997500c91de887d90",
+      "dtype": "float32",
+      "sampleSHA256": "ea6d2b5bd722f79336ce88889b5d24dd62428a7ffbc229f938abf23fc1291527"
+    }
+  },
+  "labelKey": {
+    "file": "source-label-key.txt",
+    "bytes": 298,
+    "sha256": "833d2e21d1faf15394db5f387b1a393c76b5bd00e2eb8a5b82e7f3296db97847",
+    "publisherMD5": "470c86bb3740991af74a64212bd2a486"
+  },
+  "geometry": {
+    "shape": [
+      512,
+      512,
+      47
+    ],
+    "spacingMm": [
+      0.9765620231628418,
+      0.9765620231628418,
+      5.0
+    ],
+    "affine": [
+      [
+        0.9765620231628418,
+        0.0,
+        0.0,
+        -499.023193359375
+      ],
+      [
+        0.0,
+        0.9765620231628418,
+        0.0,
+        -499.023193359375
+      ],
+      [
+        0.0,
+        0.0,
+        5.0,
+        0.0
+      ],
+      [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ]
+    ],
+    "qformCode": 1,
+    "sformCode": 1,
+    "units": "mm",
+    "axes": [
+      "R",
+      "A",
+      "S"
+    ]
+  },
+  "labels": [
+    {
+      "code": 1,
+      "segment": "1",
+      "sourceName": "Segment 1",
+      "color": [
+        0,
+        75,
+        135
+      ],
+      "voxelCount": 9806,
+      "focus": [
+        255,
+        278,
+        30
+      ],
+      "focusVerified": true,
+      "focusCode": 1,
+      "focusStoredValue": 133,
+      "focusRASmm": [
+        -249.99987745285034,
+        -227.53895092010498,
+        150.0
+      ],
+      "boundsIndex": [
+        [
+          238,
+          250,
+          24
+        ],
+        [
+          296,
+          296,
+          36
+        ]
+      ],
+      "touchesGridEdge": false,
+      "mesh": {
+        "file": "segment-1.mesh.gz",
+        "bytes": 55689,
+        "sha256": "89fc6fc22b36b9879e1019e706219083cbf90735ef48324f898381be330b80b6",
+        "decodedSHA256": "2b6d179b5dec1363872274f70f421961d228c8e3f954b38cdcc7c6523eaaaff4",
+        "vertices": 5417,
+        "triangles": 10842,
+        "allVerticesMeetSourceBoundaryCells": true,
+        "maximumTrilinearLevelDeviation": 0.125,
+        "closedTwoFaceEdges": true,
+        "outwardSignedVolumeMm3": 46539.859977
+      },
+      "sections": [
+        {
+          "plane": "ij",
+          "fixed": 30,
+          "width": 512,
+          "height": 512,
+          "sourceCTFloat32SHA256": "13ff4f8f5dcd063c65eeddc06d707700695b0c79c3cf6c94e989cf6834a53ba1",
+          "ctInt16SHA256": "77c75e8ef6c7af8104fb04c2ecce78f5bdcbe1ec18bc6d1e85a4650d4a080ea7",
+          "sourceLabelsFloat32SHA256": "4a33b0b0cc616dfa8d115078af64847fc654cdfbfd9a5f5b5c7fb6045fe21400",
+          "labelSHA256": "917d7576d9183ffa39cf4906c74a2c3f78c7cb2c9de31be9ea7f7dafe0200ff0",
+          "areaPixels": 1124,
+          "areaMm2": 1071.92888483
+        },
+        {
+          "plane": "ik",
+          "fixed": 278,
+          "width": 512,
+          "height": 47,
+          "sourceCTFloat32SHA256": "e9e74d0eb10f71b5206e8bb4ac88f6a90ffb6979dccb25aab6bb09f1f010ac2c",
+          "ctInt16SHA256": "26ead67d58c56d53f25f53f710d66220e8e4f1a0c754ea6c3b8de256e042623c",
+          "sourceLabelsFloat32SHA256": "ea609c4185222dfc12eb8fd1bc4cf10298e1b5f7b896e68f89d9202220e18174",
+          "labelSHA256": "d663417ee0d48516d1aefced973b90049dc2420729947a991b8c78507066f5cd",
+          "areaPixels": 428,
+          "areaMm2": 2089.84272957
+        },
+        {
+          "plane": "jk",
+          "fixed": 255,
+          "width": 512,
+          "height": 47,
+          "sourceCTFloat32SHA256": "ff2aab121fb1013fd665e9398f04407dd436ec62ce314a3921d22544582def3c",
+          "ctInt16SHA256": "8cfba02c34265a3cbbd036fd6049b5103d42fa11364380aad434ccb9e5de8320",
+          "sourceLabelsFloat32SHA256": "e7ec0a80f4421abfd0c3a201b73139fba57298c12e5a53e6548bda28cff1ab99",
+          "labelSHA256": "a4036690233626fe4282ee129bba2ef94bd20cc9d5494b758d0ac5dcbfd8589f",
+          "areaPixels": 362,
+          "areaMm2": 1767.57726192
+        }
+      ]
+    },
+    {
+      "code": 2,
+      "segment": "2",
+      "sourceName": "Segment 2",
+      "color": [
+        255,
+        205,
+        0
+      ],
+      "voxelCount": 18396,
+      "focus": [
+        231,
+        308,
+        34
+      ],
+      "focusVerified": true,
+      "focusCode": 2,
+      "focusStoredValue": 95,
+      "focusRASmm": [
+        -273.43736600875854,
+        -198.24209022521973,
+        170.0
+      ],
+      "boundsIndex": [
+        [
+          188,
+          278,
+          32
+        ],
+        [
+          263,
+          370,
+          36
+        ]
+      ],
+      "touchesGridEdge": false,
+      "mesh": {
+        "file": "segment-2.mesh.gz",
+        "bytes": 119036,
+        "sha256": "6e145c1bf30b1192c5e1f8703860b51e039588934c91c4664d345478ab6916be",
+        "decodedSHA256": "72a85aaf2e2fdb0d6c86646e0ae71ca4ea0e769b843481158bc5cbd0c032f25f",
+        "vertices": 13318,
+        "triangles": 26632,
+        "allVerticesMeetSourceBoundaryCells": true,
+        "maximumTrilinearLevelDeviation": 0.0,
+        "closedTwoFaceEdges": true,
+        "outwardSignedVolumeMm3": 87365.008798
+      },
+      "sections": [
+        {
+          "plane": "ij",
+          "fixed": 34,
+          "width": 512,
+          "height": 512,
+          "sourceCTFloat32SHA256": "e3a8ba70b770d9e766fffd6af9f3963ff822e8038772cfa0e6138e5781dba777",
+          "ctInt16SHA256": "871648793acb3210666449eab104c31064f47665bbdfbf52eda70842486042f1",
+          "sourceLabelsFloat32SHA256": "a0e52c0a740a5b139af13131216f4f5cfc01c5974f51974f1531dd67b2f79489",
+          "labelSHA256": "5b3d2158bf951733ff1dd55210ad0e321a7f19e8c997c445f51fca648e5281ee",
+          "areaPixels": 3984,
+          "areaMm2": 3799.43476617
+        },
+        {
+          "plane": "ik",
+          "fixed": 308,
+          "width": 512,
+          "height": 47,
+          "sourceCTFloat32SHA256": "97118c84a7cdc6eae5b431148b70f65df760a911e8c8107c956d0d3b94b327bd",
+          "ctInt16SHA256": "0c42cb12c41191c07bff34ba8b14429ca19fd0f332a6fd693781bb96afbd5083",
+          "sourceLabelsFloat32SHA256": "2d3c08c05d3863859a730b690bcd476d00136f189d5810313a9e1e58218be72c",
+          "labelSHA256": "42337c6a459df9f427f81f69cf054ea3e65bf25580a50fded1f9b5b7cf148ce9",
+          "areaPixels": 257,
+          "areaMm2": 1254.88219976
+        },
+        {
+          "plane": "jk",
+          "fixed": 231,
+          "width": 512,
+          "height": 47,
+          "sourceCTFloat32SHA256": "9448d887e4745b3d1292cc1e20ff56cf080575f1074fb87f6b441038b25f95e7",
+          "ctInt16SHA256": "6afceae44dbdec43bc519a39a8a00dfd8dec45179e815852b3dd19b12cfa04f4",
+          "sourceLabelsFloat32SHA256": "a846f4aa1c24f0855baf689eabc4d6b5667cdab7caa2677817333d3f755567f3",
+          "labelSHA256": "ec154f91826cbd612f4ed9a79750f6de3e6487f6a62b21aef9b46be3aac31c13",
+          "areaPixels": 362,
+          "areaMm2": 1767.57726192
+        }
+      ]
+    },
+    {
+      "code": 3,
+      "segment": "3",
+      "sourceName": "Segment 3",
+      "color": [
+        0,
+        106,
+        68
+      ],
+      "voxelCount": 9392,
+      "focus": [
+        225,
+        360,
+        30
+      ],
+      "focusVerified": true,
+      "focusCode": 3,
+      "focusStoredValue": 90,
+      "focusRASmm": [
+        -279.2967381477356,
+        -147.46086502075195,
+        150.0
+      ],
+      "boundsIndex": [
+        [
+          197,
+          288,
+          28
+        ],
+        [
+          264,
+          377,
+          31
+        ]
+      ],
+      "touchesGridEdge": false,
+      "mesh": {
+        "file": "segment-3.mesh.gz",
+        "bytes": 75430,
+        "sha256": "f17ca6969a9b6a62f8dddefd13281f0d4143310ea329e540df5bb573bd0d7178",
+        "decodedSHA256": "fad5974bf2e1de64ee1b60cbdb028d9581580bd6067d381eb10b8be02bba13e7",
+        "vertices": 8592,
+        "triangles": 17180,
+        "allVerticesMeetSourceBoundaryCells": true,
+        "maximumTrilinearLevelDeviation": 0.0,
+        "closedTwoFaceEdges": true,
+        "outwardSignedVolumeMm3": 44505.554736
+      },
+      "sections": [
+        {
+          "plane": "ij",
+          "fixed": 30,
+          "width": 512,
+          "height": 512,
+          "sourceCTFloat32SHA256": "13ff4f8f5dcd063c65eeddc06d707700695b0c79c3cf6c94e989cf6834a53ba1",
+          "ctInt16SHA256": "77c75e8ef6c7af8104fb04c2ecce78f5bdcbe1ec18bc6d1e85a4650d4a080ea7",
+          "sourceLabelsFloat32SHA256": "4a33b0b0cc616dfa8d115078af64847fc654cdfbfd9a5f5b5c7fb6045fe21400",
+          "labelSHA256": "917d7576d9183ffa39cf4906c74a2c3f78c7cb2c9de31be9ea7f7dafe0200ff0",
+          "areaPixels": 2834,
+          "areaMm2": 2702.71037333
+        },
+        {
+          "plane": "ik",
+          "fixed": 360,
+          "width": 512,
+          "height": 47,
+          "sourceCTFloat32SHA256": "276c107caa4c837bcf903f0ffadb608ee134629e3e64e9f0771664448592ef74",
+          "ctInt16SHA256": "70705e7d9651a6f09784cc83b57a3b98db250a18dc15e71cfe02db08bd0d2534",
+          "sourceLabelsFloat32SHA256": "92e48cfc63ec0cfe6393335956020df0406f3bdb965b14373ccde380f7af8eab",
+          "labelSHA256": "571ea5af82eec3c401080142dfd8e636b6726219eac02707cc6b0ae267057fe1",
+          "areaPixels": 121,
+          "areaMm2": 590.82002401
+        },
+        {
+          "plane": "jk",
+          "fixed": 225,
+          "width": 512,
+          "height": 47,
+          "sourceCTFloat32SHA256": "5df1f44d9774bc4819b9640b7485f74346968c34637425d14ea175e2b317ec7c",
+          "ctInt16SHA256": "c17b3bd3396c0315152daade3fa73d11c4f7ad1663b477b96d7cb293be1de3cf",
+          "sourceLabelsFloat32SHA256": "ca19945ac3b89d42d4eb957ce5ccc572c94b0b709c7e5626a776008521ac73be",
+          "labelSHA256": "f22cb2924c8038e124d9fe03e638490de7fc5f699d904724871c31d1dcf92731",
+          "areaPixels": 176,
+          "areaMm2": 859.37458038
+        }
+      ]
+    },
+    {
+      "code": 4,
+      "segment": "4a",
+      "sourceName": "Segment 4A",
+      "color": [
+        193,
+        39,
+        45
+      ],
+      "voxelCount": 20303,
+      "focus": [
+        278,
+        322,
+        35
+      ],
+      "focusVerified": true,
+      "focusCode": 4,
+      "focusStoredValue": 84,
+      "focusRASmm": [
+        -227.53895092010498,
+        -184.57022190093994,
+        175.0
+      ],
+      "boundsIndex": [
+        [
+          249,
+          269,
+          32
+        ],
+        [
+          327,
+          368,
+          38
+        ]
+      ],
+      "touchesGridEdge": false,
+      "mesh": {
+        "file": "segment-4a.mesh.gz",
+        "bytes": 115451,
+        "sha256": "6dcb8201bcc8cc9f17b8e9eb409ff25419d325dc0e5f970c40dc657d200e8850",
+        "decodedSHA256": "0a38fc71a432f52d63b77e5fa9f28700ef72c95261ad48315c5da0ce7e3b6824",
+        "vertices": 12235,
+        "triangles": 24470,
+        "allVerticesMeetSourceBoundaryCells": true,
+        "maximumTrilinearLevelDeviation": 0.125,
+        "closedTwoFaceEdges": true,
+        "outwardSignedVolumeMm3": 96453.322005
+      },
+      "sections": [
+        {
+          "plane": "ij",
+          "fixed": 35,
+          "width": 512,
+          "height": 512,
+          "sourceCTFloat32SHA256": "17e194577d25c4bf16fff09dc9cc241f71991cc10436e0f4452fa51fb70db73e",
+          "ctInt16SHA256": "d82b44699d8f6479353cf351100e1222a77356265a61acf3bf6ad0b3426f43d4",
+          "sourceLabelsFloat32SHA256": "6d0d03bc09625947ab8f46e7a68b08de6dda58569813532306251c9fbe2fc853",
+          "labelSHA256": "387646d613249a91a6887d311bd25430db95f442895819fd1891a36b4bc10d78",
+          "areaPixels": 2655,
+          "areaMm2": 2532.0028374
+        },
+        {
+          "plane": "ik",
+          "fixed": 322,
+          "width": 512,
+          "height": 47,
+          "sourceCTFloat32SHA256": "be1e40171b08b03627713a3ccc40f02a96cd6997e140cd078babbe68d56cf690",
+          "ctInt16SHA256": "957adedb598ea4cbeccc642d63275196c2fb9b4301cac7e67e9ddaee81c25007",
+          "sourceLabelsFloat32SHA256": "898994b4b864c9c8a5e9408127614e60290e6248d78de6de4022425545393082",
+          "labelSHA256": "735924972e4f44d8b06c150e29175c80e0bae9aea74532e441951982df811171",
+          "areaPixels": 312,
+          "areaMm2": 1523.43675613
+        },
+        {
+          "plane": "jk",
+          "fixed": 278,
+          "width": 512,
+          "height": 47,
+          "sourceCTFloat32SHA256": "50fc4c24650977311a4a9aa3b14049c098df325107c58aeed822a0f1064dca32",
+          "ctInt16SHA256": "0c2476fc98fb8ea576c90e20d10ceb7ec7d1aa3ad16bf934b5cc2be70c7a2118",
+          "sourceLabelsFloat32SHA256": "34c756788f73863be184be1ccf783c8c4b5219ea345744cc2b41a7c68125bb80",
+          "labelSHA256": "72f150d144304b9d8072be017cdcbd9374c0e27acb3e14d85d60ce634f23cb64",
+          "areaPixels": 489,
+          "areaMm2": 2387.69414663
+        }
+      ]
+    },
+    {
+      "code": 5,
+      "segment": "4b",
+      "sourceName": "Segment 4B",
+      "color": [
+        0,
+        173,
+        190
+      ],
+      "voxelCount": 11050,
+      "focus": [
+        266,
+        330,
+        30
+      ],
+      "focusVerified": true,
+      "focusCode": 5,
+      "focusStoredValue": 92,
+      "focusRASmm": [
+        -239.25769519805908,
+        -176.7577257156372,
+        150.0
+      ],
+      "boundsIndex": [
+        [
+          252,
+          267,
+          27
+        ],
+        [
+          329,
+          371,
+          31
+        ]
+      ],
+      "touchesGridEdge": false,
+      "mesh": {
+        "file": "segment-4b.mesh.gz",
+        "bytes": 95544,
+        "sha256": "d837079eb789b940d0a3bf6803b024583a1e968b22794c21f3e8bd061798b61b",
+        "decodedSHA256": "edcf2f2b06d26f6207e19c484e317f69dead7dea218897e01f54b73c1d044e06",
+        "vertices": 10624,
+        "triangles": 21252,
+        "allVerticesMeetSourceBoundaryCells": true,
+        "maximumTrilinearLevelDeviation": 0.125,
+        "closedTwoFaceEdges": true,
+        "outwardSignedVolumeMm3": 52300.041212
+      },
+      "sections": [
+        {
+          "plane": "ij",
+          "fixed": 30,
+          "width": 512,
+          "height": 512,
+          "sourceCTFloat32SHA256": "13ff4f8f5dcd063c65eeddc06d707700695b0c79c3cf6c94e989cf6834a53ba1",
+          "ctInt16SHA256": "77c75e8ef6c7af8104fb04c2ecce78f5bdcbe1ec18bc6d1e85a4650d4a080ea7",
+          "sourceLabelsFloat32SHA256": "4a33b0b0cc616dfa8d115078af64847fc654cdfbfd9a5f5b5c7fb6045fe21400",
+          "labelSHA256": "917d7576d9183ffa39cf4906c74a2c3f78c7cb2c9de31be9ea7f7dafe0200ff0",
+          "areaPixels": 3146,
+          "areaMm2": 3000.25646947
+        },
+        {
+          "plane": "ik",
+          "fixed": 330,
+          "width": 512,
+          "height": 47,
+          "sourceCTFloat32SHA256": "ae6f8bb4fbae533498ff693584e12531932e576d4a6bb368e7e73ad28f0a4bd2",
+          "ctInt16SHA256": "7bcbd4d2c084417e2c3201cbff2af53e413adf1adc70f6e5a45e5b1f3fa37b48",
+          "sourceLabelsFloat32SHA256": "d567f6b5c62c381e0aef733ca6ca3677f0d05fe6541f6f794b567f940de2a0b8",
+          "labelSHA256": "b74fc035ca4998caa61da22560a1ff763ea541e152751f3b1b1f99cee2a5cfd6",
+          "areaPixels": 194,
+          "areaMm2": 947.26516247
+        },
+        {
+          "plane": "jk",
+          "fixed": 266,
+          "width": 512,
+          "height": 47,
+          "sourceCTFloat32SHA256": "1058f76a5de0c53e0c972fff7214136a508fbeda9cd971b64b7b330b114afc58",
+          "ctInt16SHA256": "5ee119239530ed0a74619f5a2a17a89a48a9929b54370b4d6cd7913428b3c164",
+          "sourceLabelsFloat32SHA256": "30d47320b1550e27bd8448fc8533a9b502ce4ca334ce1a07c0c8969482250d38",
+          "labelSHA256": "28391ed2d7d09adf6b08550f3f38d70cb230943caf9fed896256ca2ff3b1b05c",
+          "areaPixels": 190,
+          "areaMm2": 927.733922
+        }
+      ]
+    },
+    {
+      "code": 6,
+      "segment": "5",
+      "sourceName": "Segment 5",
+      "color": [
+        166,
+        0,
+        176
+      ],
+      "voxelCount": 84701,
+      "focus": [
+        335,
+        329,
+        20
+      ],
+      "focusVerified": true,
+      "focusCode": 6,
+      "focusStoredValue": 48,
+      "focusRASmm": [
+        -171.874915599823,
+        -177.73428773880005,
+        100.0
+      ],
+      "boundsIndex": [
+        [
+          264,
+          257,
+          7
+        ],
+        [
+          387,
+          368,
+          26
+        ]
+      ],
+      "touchesGridEdge": false,
+      "mesh": {
+        "file": "segment-5.mesh.gz",
+        "bytes": 223532,
+        "sha256": "68a9f12227b4cfd7cf31c3e0b8c7ecefc68f4e6d95fae9b898f63d3717dd879d",
+        "decodedSHA256": "4eb56ea48da09841f86946e4930b41d5637d2ebafb86747601806749b1f9e21c",
+        "vertices": 22882,
+        "triangles": 45772,
+        "allVerticesMeetSourceBoundaryCells": true,
+        "maximumTrilinearLevelDeviation": 0.125,
+        "closedTwoFaceEdges": true,
+        "outwardSignedVolumeMm3": 403423.71393
+      },
+      "sections": [
+        {
+          "plane": "ij",
+          "fixed": 20,
+          "width": 512,
+          "height": 512,
+          "sourceCTFloat32SHA256": "1b77365a95281278243d999826d9e715609f4f845de82fba903da2b6c118e7ab",
+          "ctInt16SHA256": "2a7ff5ca786985ddc296fb94611abeb21d6df9ce783d1fe8cb823412df430036",
+          "sourceLabelsFloat32SHA256": "2cce277aa78ca3cbd7fc8854b00a6b0da40f22e40943ee5552282f258964017d",
+          "labelSHA256": "c1b58b40d05a85eb17d6ea46b053cc1680e79b4ce69d01be897af80deece79fa",
+          "areaPixels": 6039,
+          "areaMm2": 5759.23357252
+        },
+        {
+          "plane": "ik",
+          "fixed": 329,
+          "width": 512,
+          "height": 47,
+          "sourceCTFloat32SHA256": "a7c000af95f4047b06461f7dd3dd1f54170d3634e65e4a8a74e242176c465c1f",
+          "ctInt16SHA256": "e1cdac9c2c72a9f860e47e1c4676dc493ddd545f7bfce67b65011e13a33dd379",
+          "sourceLabelsFloat32SHA256": "cf12689f841e67d930f05ace5bc09dcc7e63f323f8defd9646a14cbeac07bf1d",
+          "labelSHA256": "8dd59b513e62a5ebf04ce15c85e4ade836ce70c6e24bd985e77e705ce00b256b",
+          "areaPixels": 1343,
+          "areaMm2": 6557.61398554
+        },
+        {
+          "plane": "jk",
+          "fixed": 335,
+          "width": 512,
+          "height": 47,
+          "sourceCTFloat32SHA256": "48aa0e5b3d9a4c13a202b347aaa0bcc31d7ffbd0dd8914619d97526696b5ad72",
+          "ctInt16SHA256": "46a0c61733ba734cc12a4fe66a3adb75e7801e25e9796278f34f5a0fdaf1d1c1",
+          "sourceLabelsFloat32SHA256": "e8aec4221706229208c835dda6f4d7f2a7eecc3129ee567e499ca1aac6349114",
+          "labelSHA256": "6faaf350d38bd92eb6560c2e2b7ea370e54a66030b1bd1906521b9979f706885",
+          "areaPixels": 1237,
+          "areaMm2": 6040.03611326
+        }
+      ]
+    },
+    {
+      "code": 7,
+      "segment": "6",
+      "sourceName": "Segment 6",
+      "color": [
+        204,
+        104,
+        0
+      ],
+      "voxelCount": 134465,
+      "focus": [
+        372,
+        267,
+        19
+      ],
+      "focusVerified": true,
+      "focusCode": 7,
+      "focusStoredValue": 67,
+      "focusRASmm": [
+        -135.74212074279785,
+        -238.28113317489624,
+        95.0
+      ],
+      "boundsIndex": [
+        [
+          284,
+          174,
+          7
+        ],
+        [
+          409,
+          326,
+          26
+        ]
+      ],
+      "touchesGridEdge": false,
+      "mesh": {
+        "file": "segment-6.mesh.gz",
+        "bytes": 323821,
+        "sha256": "6323818d892033a5f39296e2599a98d3cccbceaf8bd931f4bf3589f4bf812b83",
+        "decodedSHA256": "2412ed2eb16b9cf51a92d52c0443b57fd4fd234af433f5af400b5c4d2fe98178",
+        "vertices": 34758,
+        "triangles": 69520,
+        "allVerticesMeetSourceBoundaryCells": true,
+        "maximumTrilinearLevelDeviation": 0.125,
+        "closedTwoFaceEdges": true,
+        "outwardSignedVolumeMm3": 640665.935148
+      },
+      "sections": [
+        {
+          "plane": "ij",
+          "fixed": 19,
+          "width": 512,
+          "height": 512,
+          "sourceCTFloat32SHA256": "092232847ed16e8d0bd4136746626314ff07f93a05092ba5ea4ee1fded223cef",
+          "ctInt16SHA256": "f10ead6be772ec83d3ec8f1f0b113e7d09374081b51f10cba110e1b0fbde1206",
+          "sourceLabelsFloat32SHA256": "8dee47c51492876a939be15c151939d3b052a300e8a3374abdea58f1599e663f",
+          "labelSHA256": "4755578f7f20996efe2fab733fd8690c4a833cc5e2d1122585a29dedcefe3629",
+          "areaPixels": 9225,
+          "areaMm2": 8797.6369774
+        },
+        {
+          "plane": "ik",
+          "fixed": 267,
+          "width": 512,
+          "height": 47,
+          "sourceCTFloat32SHA256": "63e471beb1e2cc52450db14a94588cf26d0df54d07ad93716294491b6a5c7fb1",
+          "ctInt16SHA256": "7065ecff70dbfd79ef6441ec63a81758d61143a89c5753ec991446ee16ff2088",
+          "sourceLabelsFloat32SHA256": "02834948ce2de067388dc8d770b66fcae8f3a2abbad8c66715787ad5c16391a9",
+          "labelSHA256": "431c57f3fa2ac417896206921e22e355db4fc24f4e6afaa7c2eb992d8467f184",
+          "areaPixels": 1591,
+          "areaMm2": 7768.55089426
+        },
+        {
+          "plane": "jk",
+          "fixed": 372,
+          "width": 512,
+          "height": 47,
+          "sourceCTFloat32SHA256": "c374206460e97dacef8296e69ddaf70c90ed461b4f7bf32b5ddbe5fefc2af7b1",
+          "ctInt16SHA256": "f282cf8074a38c64a9e69010443236deb4bc7569cf5a2c1d34b5b33ed3d1ccbe",
+          "sourceLabelsFloat32SHA256": "7af022443cf330f281d58e0d5db018a54b5a943de673d07de7c11320fdfe9673",
+          "labelSHA256": "b1002b84a900a78132a8a2a1b0c7af76191cdd1595aa5c36a55cb5afad98b788",
+          "areaPixels": 1766,
+          "areaMm2": 8623.04266453
+        }
+      ]
+    },
+    {
+      "code": 8,
+      "segment": "7",
+      "sourceName": "Segment 7",
+      "color": [
+        62,
+        95,
+        28
+      ],
+      "voxelCount": 138877,
+      "focus": [
+        348,
+        243,
+        33
+      ],
+      "focusVerified": true,
+      "focusCode": 8,
+      "focusStoredValue": 72,
+      "focusRASmm": [
+        -159.17960929870605,
+        -261.71862173080444,
+        165.0
+      ],
+      "boundsIndex": [
+        [
+          276,
+          166,
+          27
+        ],
+        [
+          407,
+          313,
+          42
+        ]
+      ],
+      "touchesGridEdge": false,
+      "mesh": {
+        "file": "segment-7.mesh.gz",
+        "bytes": 332937,
+        "sha256": "f460c87726a31d5f88ba457b7682ae2c6c1ba296f2e40ba5cda7910c2ce5a7a6",
+        "decodedSHA256": "18ab7686c2fe7c39de43c8dd3c7e3664a84e3cecf8a63472519f20a6d22c8df6",
+        "vertices": 36109,
+        "triangles": 72226,
+        "allVerticesMeetSourceBoundaryCells": true,
+        "maximumTrilinearLevelDeviation": 0.125,
+        "closedTwoFaceEdges": true,
+        "outwardSignedVolumeMm3": 661693.999342
+      },
+      "sections": [
+        {
+          "plane": "ij",
+          "fixed": 33,
+          "width": 512,
+          "height": 512,
+          "sourceCTFloat32SHA256": "9c255c58421df0b93acad0eb4a4cb95be61d9c2d1a32c12597ff6bf24a03552f",
+          "ctInt16SHA256": "99b2ca50f1ad4bafbd1d974b8cc3cc4d250aeab58fa20df447757dca7c7a25e6",
+          "sourceLabelsFloat32SHA256": "733e80f8328d186b21d573a603b21fec53d653b47bac9e7a31e53160ba1a6525",
+          "labelSHA256": "3cc40881927e65684f1f191bb5d69740a05335e6387fbcfee571553f0571dfc4",
+          "areaPixels": 11630,
+          "areaMm2": 11091.22146853
+        },
+        {
+          "plane": "ik",
+          "fixed": 243,
+          "width": 512,
+          "height": 47,
+          "sourceCTFloat32SHA256": "09cc51536704be3e82a667eac0077bf3c0bc76e99931144f2dde3cf67af2f2bb",
+          "ctInt16SHA256": "78b499f74481ae8301eb9605d903329fb13ba5ce5d223c7f711fcc88eb68a6d9",
+          "sourceLabelsFloat32SHA256": "b1b218031076ed170c70c5c97520046af3ac3149123d5c65d601c477d65fcfd5",
+          "labelSHA256": "248b1c5dce71f22558922ba7d88775bbf1b671e6b76e382886aa6cf67408705b",
+          "areaPixels": 1539,
+          "areaMm2": 7514.64476824
+        },
+        {
+          "plane": "jk",
+          "fixed": 348,
+          "width": 512,
+          "height": 47,
+          "sourceCTFloat32SHA256": "ff589df7fb9857d11ebfd12b81c2f3d95392a3b2c958ce765c4a27111ae31e62",
+          "ctInt16SHA256": "2983d9678f3f7244a8b6811fb682f8376aa00b028407ec1d85c91277166e9993",
+          "sourceLabelsFloat32SHA256": "f2714f13d03895935ea0dd5de6745007d4b436757808941060ec1d538586eb6a",
+          "labelSHA256": "d258b27876ff3b6dc42e111662ef24fa061e1970da1fd2444733439d0e34316d",
+          "areaPixels": 1526,
+          "areaMm2": 7451.16823673
+        }
+      ]
+    },
+    {
+      "code": 9,
+      "segment": "8",
+      "sourceName": "Segment 8",
+      "color": [
+        94,
+        87,
+        153
+      ],
+      "voxelCount": 77051,
+      "focus": [
+        341,
+        319,
+        32
+      ],
+      "focusVerified": true,
+      "focusCode": 9,
+      "focusStoredValue": 49,
+      "focusRASmm": [
+        -166.01554346084595,
+        -187.49990797042847,
+        160.0
+      ],
+      "boundsIndex": [
+        [
+          260,
+          249,
+          27
+        ],
+        [
+          393,
+          364,
+          42
+        ]
+      ],
+      "touchesGridEdge": false,
+      "mesh": {
+        "file": "segment-8.mesh.gz",
+        "bytes": 260824,
+        "sha256": "807d95d77df056df747ec3d0dfbf3ee1ba5f71de50a7aff8e765ac62ec0f67a7",
+        "decodedSHA256": "2bc2e758053b8691ffdb1bcd849c13e63794e1f3b767e984ddbaa63f50da7c28",
+        "vertices": 26700,
+        "triangles": 53416,
+        "allVerticesMeetSourceBoundaryCells": true,
+        "maximumTrilinearLevelDeviation": 0.125,
+        "closedTwoFaceEdges": true,
+        "outwardSignedVolumeMm3": 366907.947672
+      },
+      "sections": [
+        {
+          "plane": "ij",
+          "fixed": 32,
+          "width": 512,
+          "height": 512,
+          "sourceCTFloat32SHA256": "18bf651e5cfa77cc27277ab18aff411cb737e8bf308f283247a6cff8439886de",
+          "ctInt16SHA256": "a477c7a53b06e7a73a5b842248c8537bf0306c4a1cd375254d6c024667291bd9",
+          "sourceLabelsFloat32SHA256": "9e402471faae8c32114478be0310fcd49182b3f48bcfbe3439dc85f7429ae3c2",
+          "labelSHA256": "b3ccc3af42fe71cc80a160a86a3182011d7aa5fd76ff161d2c9e25bdf80b2479",
+          "areaPixels": 5775,
+          "areaMm2": 5507.46379886
+        },
+        {
+          "plane": "ik",
+          "fixed": 319,
+          "width": 512,
+          "height": 47,
+          "sourceCTFloat32SHA256": "afd5d7310351006d011db8f691d3b5cbb4018f66aae31ca78e7ef53c8d98e2bb",
+          "ctInt16SHA256": "e3c794183e001d12f9010fad9126d5e1c4449809ad2b384a57bc07acac791af9",
+          "sourceLabelsFloat32SHA256": "dfc9cd5d5f4e13fe9e317762f99f837fdc57223b1f2b7a2cdf9c449a2bd5f556",
+          "labelSHA256": "0e0a8b976610f4327708e7a074d7d3d707c1747c857da9fff973af8928c26b38",
+          "areaPixels": 1230,
+          "areaMm2": 6005.85644245
+        },
+        {
+          "plane": "jk",
+          "fixed": 341,
+          "width": 512,
+          "height": 47,
+          "sourceCTFloat32SHA256": "96922d4950ebfcfcd8c976fc1bd3538d7e33e2cd33ec5abab30ea010d49ece1a",
+          "ctInt16SHA256": "f60acd8fbab81852d255773f45f711f66fec12d684a6c395c4c299e9c0db5131",
+          "sourceLabelsFloat32SHA256": "4387f926e01b60865017882aa70b24977dfe274144867e8c3c43222b0db82417",
+          "labelSHA256": "6b2137969c880a9d5368f4ff037c2e4659b91109f03f69df0d07a654811f939d",
+          "areaPixels": 933,
+          "areaMm2": 4555.66183805
+        }
+      ]
+    }
+  ],
+  "transport": {
+    "bricks": 512,
+    "cellsCompared": 12320768,
+    "allCTValuesMatchSource": true,
+    "allLabelCodesMatchSource": true,
+    "float32CTBytesRestored": true,
+    "float32LabelBytesRestored": true,
+    "emptyOverlapSlot": true
+  }
+}

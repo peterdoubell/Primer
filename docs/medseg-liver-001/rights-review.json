@@ -1,0 +1,15 @@
+{
+  "reviewed": "2026-11-26",
+  "selectedCase": "MedSeg v2 img1.nii.gz paired with mask1.nii.gz",
+  "sourceOwnerChain": [
+    {"url":"https://www.medseg.ai/database/liver-segments-50-cases","role":"Annotator-owned collection page links the exact Figshare release and identifies Decathlon as the image source."},
+    {"url":"https://api.figshare.com/v2/articles/13643252","role":"Publisher metadata names MedSeg, Jenssen and Sakinis; says segmentations were done by MedSeg; declares CC0; enumerates the exact image, mask and label-key files."},
+    {"url":"https://medicaldecathlon.com/","role":"Upstream image data owners declare CC BY-SA 4.0, allowing sharing, distribution and improvement."},
+    {"url":"https://doi.org/10.1038/s41467-022-30695-9","role":"Primary MSD dataset paper explicitly confirms redistribution and commercial usage under CC BY-SA 4.0."}
+  ],
+  "imageLicense":"CC BY-SA 4.0; retained rather than replaced by the annotation publisher's CC0 field",
+  "annotationLicense":"CC0 1.0 from the annotation owner's own release",
+  "adaptations":"Exact-value integer transport, native sections and source-derived mask surfaces; source RGB values retained. CT-derived adaptations retain CC BY-SA 4.0 attribution and ShareAlike terms.",
+  "scopeLimits":["No original MSD case ID published in this collection","No separate phase, demographic, diagnosis or DICOM-calibration metadata","Publisher labels are not an independently re-adjudicated vascular-territory map","Original masks are separate 4A and 4B; no combined-IV completion claim"],
+  "notUsed":["Third-party Hugging Face licence tags","Model-generated Couinaud labels","Rule-based IVa/IVb subdivision","Gated or sign-in sources"]
+}

@@ -208,6 +208,31 @@
 
   }
 
+
+  const objectGroups = new Map([
+    ['common-bile', ['FJ3079-common-bile']],
+    ['right-tree', ['FJ3123', 'FJ3072', 'FJ3071', 'FJ3108', 'FJ3109', 'FJ3110']],
+    ['left-tree', ['FJ3096', 'FJ1883', 'FJ5812', 'FJ3089', 'FJ3088', 'FJ3090', 'FJ3103', 'FJ5819', 'FJ3104', 'FJ3105']]
+  ]);
+  let groupApplied = false;
+  function applySourceGroup(rows) {
+    if (groupApplied) return;
+    groupApplied = true;
+    const selected = new URLSearchParams(location.search).getAll('group');
+    const controls = [...document.querySelectorAll('.layer')];
+    if (controls.length !== rows.length) throw Error('Source object controls differ from the verified inventory.');
+    controls.forEach((input,i) => {input.dataset.object=rows[i].file.replace(/\.mesh\.gz$/, '');});
+    if (!selected.length) return;
+    const objects = selected.length === 1 && objectGroups.get(selected[0]);
+    const available = new Set(controls.map(input => input.dataset.object));
+    const valid = objects && objects.every(id => available.has(id));
+    const status = document.getElementById('selection-status');
+    status.hidden = false;
+    status.textContent = valid ? 'Showing ' + objects.length + (objects.length === 1 ? ' selected source object.' : ' selected source objects.')
+      : 'This link has an unknown group. Choose the source objects to display.';
+    for (const input of controls) input.checked = Boolean(valid && objects.includes(input.dataset.object));
+  }
+
   async function start() {
     const attempt = ++generation;
     pending?.abort();
@@ -236,6 +261,7 @@
         .map(value => value.toString(16).padStart(2, '0')).join('');
       if (digest !== document.querySelector('main').dataset.surfacesSha256) throw Error('Surface inventory checksum differs');
       const rows = JSON.parse(new TextDecoder().decode(metadata));
+      applySourceGroup(rows);
       if (rows.length !== layers.length) throw Error('Surface inventory differs');
       const decoded = await Promise.all(rows.map(row => decode(row, signal)));
       if (!current()) return;

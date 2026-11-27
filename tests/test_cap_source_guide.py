@@ -88,3 +88,24 @@ def test_each_mri_comparison_selects_its_named_segment_and_a_verified_occupied_s
     guide = cap.read(cap.ROOT, cap.GUIDE)['liver']['targets']
     segments = [t for t in guide if t.get('separateMRI')]
     assert len(segments) == 8 and all(t['state'] == 'unlabelled' and not t['links'] for t in segments)
+
+
+def test_comparison_ct_preserves_separate_iv_components_and_exact_source_focus():
+    links = cap.ct_segment_links(cap.build())
+    assert len(links) == 27
+    labels = cap.read(cap.ROOT, 'web/anatomy/medseg-liver-001/manifest.json')['labels']
+    sources = {row['segment']: row for row in labels}
+    for link in links:
+        label = sources[link['segment']]
+        assert link['source_code'] == label['code'] and link['source_label'] == label['sourceName']
+        assert link['focus'] == label['focus'] and link['source_voxels'] == label['voxelCount']
+        assert link['source_modality'] == 'CT' and link['status'] == 'partial'
+        assert not any(link[key] for key in ('complete_extent','clinical_approval','current_patient_registration'))
+    fourth = [link for link in links if link['requirement_id'] == 'cap.liver_segment_4']
+    assert len(fourth) == 6 and {link['segment'] for link in fourth} == {'4a','4b'}
+    assert {link['target_relation'] for link in fourth} == {'named_subregion'}
+    guide = cap.read(cap.ROOT, cap.GUIDE)['liver']['targets']
+    compared = [t for t in guide if 'separateCT' in t]
+    assert len(compared) == 8 and sum(len(t['separateCT']) for t in compared) == 9
+    assert all(t['state'] == 'unlabelled' and not t['links'] for t in compared)
+    assert {u['name'] for t in compared for u in t['separateCT']} == {row['sourceName'] for row in labels}

@@ -1,0 +1,44 @@
+{
+  "web/app.js": {
+    "before": "d0c9842cfad0e2aa94fd521f57e37af2ffb973778d3dfd328d7a122bbd99a031",
+    "after": "3d3fbbdcc8dcf3a468b82ed24fe8e373cf3802eb2ee3aa954a97ceff7701a0b1",
+    "changes": [
+      {
+        "start": 2309,
+        "end": 2318,
+        "before": "    document.execCommand('insertText', false, (event.clipboardData || window.clipboardData).getData('text/plain'));\n",
+        "after": "    const text = (event.clipboardData || window.clipboardData).getData('text/plain').replace(/\\r\\n?/g, '\\n');\n    if (!text.includes('\\n')) document.execCommand('insertText', false, text);\n    else {\n      // insertText builds paragraph blocks for multiline pastes in Chrome,\n      // which add blank lines to the report. Only escaped plain text and\n      // explicit line breaks enter the editor; keep the native undo operation.\n      const escaped = text.replaceAll('&', '&amp;').replaceAll('<', '&lt;').replaceAll('>', '&gt;');\n      document.execCommand('insertHTML', false, escaped.replaceAll('\\n', '<br>'));\n    }\n"
+      },
+      {
+        "start": 3387,
+        "end": 3395,
+        "before": "",
+        "after": "  let workingEditor;\n  templates?.addEventListener('focusin', event => {\n    const draft = event.target.closest?.('.rad-template');\n    const editor = draft?.querySelector('.rad-report-editor');\n    if (editor) workingEditor = editor;\n  });\n  const currentReportEditor = () => workingEditor && templates.contains(workingEditor)\n    ? workingEditor : templates?.querySelector('.rad-report-editor');\n"
+      },
+      {
+        "start": 3402,
+        "end": 3403,
+        "before": "        const editor = templates.querySelector('.rad-report-editor');\n",
+        "after": "        const editor = currentReportEditor();\n"
+      },
+      {
+        "start": 3413,
+        "end": 3414,
+        "before": "        templates.querySelector('.rad-template').open = true;\n",
+        "after": "        editor.closest('.rad-template').open = true;\n"
+      }
+    ]
+  },
+  "web/radiology-structured.js": {
+    "before": "94db1e43c8a66097f35b0d4d90a22b46731ab14c172865d0391ee7870c36c20b",
+    "after": "3be8cbcd42a122c6c7999f1a89f7aace630403ccfcc1aad3746130dd0c6a27a0",
+    "changes": [
+      {
+        "start": 193,
+        "end": 194,
+        "before": "    const inline = /^([A-Z][^:]*:)( \\[\\](?: .*)?)$/.exec(line);\n",
+        "after": "    const inline = /^([A-Z][^:]*:)( \\[\\].*)$/.exec(line);\n"
+      }
+    ]
+  }
+}

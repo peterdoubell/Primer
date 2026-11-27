@@ -1,0 +1,14 @@
+{
+  "web/radiology-structured.js": {
+    "before": "1b85d6cb7dccacac0149bc405e63b637272b1d8b55480a334f8b491c340c8830",
+    "after": "94db1e43c8a66097f35b0d4d90a22b46731ab14c172865d0391ee7870c36c20b",
+    "changes": [
+      {
+        "start": 24,
+        "end": 32,
+        "before": "",
+        "after": "    if (['ct.liver-mass', 'ct.liver-lirads', 'ct.liver-lirads-calculated'].includes(exam.id)) {\n      const row = element('p', undefined, 'rad-source-panel-row');\n      row.hidden = true;\n      import('./radiology/liver-report-sources.mjs').then(module => {\n        module.showSources(row, exam.id, section.anatomy_id);\n      }).catch(() => { row.remove(); });\n      return row;\n    }\n"
+      }
+    ]
+  }
+}
