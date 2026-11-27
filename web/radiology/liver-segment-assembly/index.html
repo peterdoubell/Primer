@@ -1,0 +1,218 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Liver segments in one CT acquisition · Primer</title>
+    <link rel="stylesheet" href="style.css" />
+    <script type="module" src="lab.js"></script>
+  </head>
+  <body>
+    <main>
+      <nav aria-label="Return links">
+        <a id="return" href="/app/#/node/rad.4.liver">Return to the liver lesson</a>
+        <span id="math-links" hidden>
+          <a href="/app/#/node/math.3.statistics">Statistics</a> ·
+          <a href="/app/#/node/math.5.measure">Measure theory</a>
+        </span>
+      </nav>
+      <h1 id="study-title">Liver segments in one CT acquisition</h1>
+      <p id="introduction">
+        Rotate the nine source regions together. Move the section through the liver to see which regions
+        meet on the original CT.
+      </p>
+      <p id="status" role="status">Loading the source inventory…</p>
+      <button id="retry" hidden>Retry source study</button>
+      <fieldset id="controls" disabled>
+        <legend>Section</legend>
+        <label for="plane"
+          >Plane<select id="plane">
+            <option value="ij">Axial</option>
+            <option value="ik">Coronal</option>
+            <option value="jk">Sagittal</option>
+          </select></label
+        >
+        <label for="cut"
+          >3D section<select id="cut">
+            <option value="0">Intact surfaces</option>
+            <option value="1">Keep lower indices</option>
+            <option value="-1">Keep higher indices</option>
+          </select></label
+        >
+        <label for="display"
+          >CT display<select id="display">
+            <option value="outline">CT with label outlines</option>
+            <option value="raw">Unmarked CT</option>
+            <option value="map">Publisher label map</option>
+          </select></label
+        >
+        <label for="slice" class="slice"
+          >Source index <output id="index"></output><input id="slice" type="range" step="1"
+        /></label>
+      </fieldset>
+      <div class="views">
+        <section>
+          <h2>3D regions</h2>
+          <div class="model-frame">
+            <canvas
+              id="model"
+              width="720"
+              height="540"
+              tabindex="0"
+              role="img"
+              aria-label="Nine liver segments in source coordinates. Arrow keys rotate. Plus and minus zoom. Home resets the view."
+            ></canvas
+            ><svg id="model-reference" aria-label="Source RAS orientation and millimetre scale"></svg>
+          </div>
+          <p id="model-status" role="status"></p>
+          <p id="orientation"></p>
+          <div class="orbit">
+            <label for="yaw">Rotation <input id="yaw" type="range" min="-180" max="180" value="18" /></label
+            ><label for="pitch">Tilt <input id="pitch" type="range" min="-89" max="89" value="24" /></label
+            ><label for="zoom"
+              >Zoom <input id="zoom" type="range" min=".55" max="2.8" step=".05" value="1.35" /></label
+            ><button id="reset">Reset view</button>
+          </div>
+        </section>
+        <section>
+          <h2>Corresponding CT section</h2>
+          <div id="section-frame">
+            <canvas
+              id="scan"
+              tabindex="0"
+              role="img"
+              aria-label="Source CT section. Select a pixel to inspect its stored value and segment."
+            ></canvas
+            ><span id="left" class="edge left"></span><span id="top" class="edge top"></span>
+          </div>
+          <p id="section-status" role="status"></p>
+          <p id="voxel" aria-live="polite"></p>
+          <p>
+            <a id="single" href="/app/anatomy/medseg-liver-001/index.html"
+              >Inspect the selected segment in the native CT reader</a
+            >
+          </p>
+        </section>
+      </div>
+      <section>
+        <h2>Source segment measurements</h2>
+        <p id="extent"></p>
+        <div class="actions">
+          <button id="all">Show all regions</button
+          ><button id="isolate">Isolate selected region</button>
+        </div>
+        <table>
+          <thead>
+            <tr>
+              <th scope="col">Visible</th>
+              <th scope="col">Focus region</th>
+              <th scope="col">Volume (mL)</th>
+              <th scope="col">Area on section (mm²)</th>
+            </tr>
+          </thead>
+          <tbody id="regions"></tbody>
+        </table>
+      </section>
+      <section id="sampling" aria-labelledby="sampling-title">
+        <h2 id="sampling-title">Estimate volume from sampled sections</h2>
+        <p>
+          Keep every Nth axial section and vary the starting index. Compare the estimate with the volume
+          obtained from all 47 original label sections.
+        </p>
+        <fieldset id="sampling-controls" disabled>
+          <legend>Systematic sample</legend>
+          <label for="sample-target"
+            >Region<select id="sample-target">
+              <option value="0">All nine regions</option>
+            </select></label
+          >
+          <label for="sample-step"
+            >Keep every Nth section<select id="sample-step">
+              <option>1</option>
+              <option>2</option>
+              <option>3</option>
+              <option selected>4</option>
+              <option>5</option>
+              <option>6</option>
+              <option>8</option>
+              <option>10</option>
+            </select></label
+          >
+          <label for="sample-start">Starting index<select id="sample-start"></select></label
+          ><button id="random-start">Choose a random start</button>
+        </fieldset>
+        <svg
+          id="profile-chart"
+          viewBox="0 0 720 210"
+          role="img"
+          aria-label="Labelled area on each axial section. Gold columns are in the sample."
+        ></svg>
+        <p id="sample-result" aria-live="polite"></p>
+        <p id="sample-formula"></p>
+        <p id="sample-summary"></p>
+        <div class="actions">
+          <label for="sample-section">Sampled section<select id="sample-section"></select></label
+          ><button id="inspect-sample">Inspect this CT section</button>
+        </div>
+        <details>
+          <summary>Read the sampled areas</summary>
+          <table>
+            <thead>
+              <tr>
+                <th scope="col">Source section</th>
+                <th scope="col">Area (cm²)</th>
+                <th scope="col">Estimated slab volume (mL)</th>
+              </tr>
+            </thead>
+            <tbody id="sample-areas"></tbody>
+          </table>
+        </details>
+        <details>
+          <summary>Compare the possible starts</summary>
+          <p>
+            Each source section belongs to exactly one start. Giving each start equal probability makes
+            the mean of the estimates equal to the full measured volume, even when 47 is not divisible
+            by N.
+          </p>
+          <p id="spread"></p>
+          <table>
+            <thead>
+              <tr>
+                <th scope="col">Start</th>
+                <th scope="col">Sections</th>
+                <th scope="col">Estimate (mL)</th>
+                <th scope="col">Error (mL)</th>
+              </tr>
+            </thead>
+            <tbody id="offset-table"></tbody>
+          </table>
+        </details>
+        <p>Which starting index gives the closest estimate for this region and spacing?</p>
+        <button id="closest">Check selected start</button>
+        <p id="score" role="status"></p>
+      </section>
+      <details>
+        <summary>Source and interpretation</summary>
+        <p>
+          MedSeg image 1 and mask 1 share a 512 × 512 × 47 grid with 0.977 × 0.977 × 5 mm sampling. The
+          volume and area measurements use the original mask cells. Segment IVa and IVb have separate
+          publisher labels. The surfaces follow the mask boundary between sampled cells. Section spacing
+          limits fine detail along the superior–inferior axis.
+        </p>
+        <p>
+          Section views use a display window of −125 to 225 stored CT units. The original acquisition
+          phase and independent Hounsfield-unit calibration are unknown. These teaching measurements
+          describe a single source case.
+        </p>
+        <p>
+          CT from the Medical Segmentation Decathlon (CC BY-SA 4.0). Segment annotations by Jenssen and
+          Sakinis, MedSeg (CC0). Primer reconstructed the displayed surfaces and section maps.
+          <a href="https://doi.org/10.6084/m9.figshare.13643252.v2">Published image and annotations</a>
+          · <a href="https://doi.org/10.1038/s41467-022-30695-9">Decathlon data description</a> ·
+          <a href="https://creativecommons.org/licenses/by-sa/4.0/">Image licence</a> ·
+          <a href="https://creativecommons.org/publicdomain/zero/1.0/">Annotation dedication</a>
+        </p>
+      </details>
+    </main>
+  </body>
+</html>
