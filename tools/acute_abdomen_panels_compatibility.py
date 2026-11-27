@@ -9,6 +9,8 @@ PATHS = frozenset(['data/radiology/radiology-asset-evidence.json', 'web/app.js',
 
 
 def before_liver_row_sources(path, raw):
+    from tools.report_working_draft_compatibility import before_working_draft_bytes
+    raw = before_working_draft_bytes(path, raw)
     if str(path) == 'web/radiology-structured.js':
         liver = PROOF.parent.parent / 'liver-report-source-navigation/inverse.json'
         raw = _restore(str(path), raw, liver, '5ef29e985dc2188d5f532a5c8957c1b80119ab5895cae16e14ad16276f309062')

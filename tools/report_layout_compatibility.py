@@ -165,6 +165,8 @@ def before_stacked_headings_bytes(path, raw):
     another without a blank line, and the dictation study name runs into its first heading."""
     from tools.report_working_draft_compatibility import before_working_draft_bytes
     raw = before_working_draft_bytes(path, raw)
+    from tools.acute_abdomen_panels_compatibility import before_liver_row_sources
+    raw = before_liver_row_sources(path, raw)
     if str(path) != 'primer/report_templates.py':
         return raw
     raw = before_draft_acquisition_heading_bytes(path, raw)

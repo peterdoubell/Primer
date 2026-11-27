@@ -1,41 +1,41 @@
 {
   "web/app.js": {
-    "before": "359438ac608fc80dd9d8b84ef33c4fab54ad584fb00da7c686dafa52f8eec259",
-    "after": "796e0b2595553bebfb76a0c43aac5c64fd541312e427637560e46f9fe0797858",
+    "before": "d0c9842cfad0e2aa94fd521f57e37af2ffb973778d3dfd328d7a122bbd99a031",
+    "after": "3d3fbbdcc8dcf3a468b82ed24fe8e373cf3802eb2ee3aa954a97ceff7701a0b1",
     "changes": [
       {
-        "start": 2298,
-        "end": 2307,
+        "start": 2309,
+        "end": 2318,
         "before": "    document.execCommand('insertText', false, (event.clipboardData || window.clipboardData).getData('text/plain'));\n",
         "after": "    const text = (event.clipboardData || window.clipboardData).getData('text/plain').replace(/\\r\\n?/g, '\\n');\n    if (!text.includes('\\n')) document.execCommand('insertText', false, text);\n    else {\n      // insertText builds paragraph blocks for multiline pastes in Chrome,\n      // which add blank lines to the report. Only escaped plain text and\n      // explicit line breaks enter the editor; keep the native undo operation.\n      const escaped = text.replaceAll('&', '&amp;').replaceAll('<', '&lt;').replaceAll('>', '&gt;');\n      document.execCommand('insertHTML', false, escaped.replaceAll('\\n', '<br>'));\n    }\n"
       },
       {
-        "start": 3341,
-        "end": 3349,
+        "start": 3387,
+        "end": 3395,
         "before": "",
         "after": "  let workingEditor;\n  templates?.addEventListener('focusin', event => {\n    const draft = event.target.closest?.('.rad-template');\n    const editor = draft?.querySelector('.rad-report-editor');\n    if (editor) workingEditor = editor;\n  });\n  const currentReportEditor = () => workingEditor && templates.contains(workingEditor)\n    ? workingEditor : templates?.querySelector('.rad-report-editor');\n"
       },
       {
-        "start": 3356,
-        "end": 3357,
+        "start": 3402,
+        "end": 3403,
         "before": "        const editor = templates.querySelector('.rad-report-editor');\n",
         "after": "        const editor = currentReportEditor();\n"
       },
       {
-        "start": 3367,
-        "end": 3368,
+        "start": 3413,
+        "end": 3414,
         "before": "        templates.querySelector('.rad-template').open = true;\n",
         "after": "        editor.closest('.rad-template').open = true;\n"
       }
     ]
   },
   "web/radiology-structured.js": {
-    "before": "fcd275bf064be529f1476ca41af9aab6e6397259e1dc64ea95c17328782cacd6",
-    "after": "03d1220cf5452cf982c52d9688182d87c76f412dc71f6b0988f2f5a1d63b6c18",
+    "before": "94db1e43c8a66097f35b0d4d90a22b46731ab14c172865d0391ee7870c36c20b",
+    "after": "3be8cbcd42a122c6c7999f1a89f7aace630403ccfcc1aad3746130dd0c6a27a0",
     "changes": [
       {
-        "start": 175,
-        "end": 176,
+        "start": 193,
+        "end": 194,
         "before": "    const inline = /^([A-Z][^:]*:)( \\[\\](?: .*)?)$/.exec(line);\n",
         "after": "    const inline = /^([A-Z][^:]*:)( \\[\\].*)$/.exec(line);\n"
       }

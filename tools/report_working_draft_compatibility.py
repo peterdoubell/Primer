@@ -3,7 +3,7 @@ from pathlib import Path
 from tools.colonvessels_compatibility import _restore
 
 PROOF = Path(__file__).resolve().parents[1] / 'docs/report-working-draft/runtime-inverse.json'
-PIN = '3fe501e4a52083d5fe6c94c32ad22078254841b80e4864d75116b94d5f254f6c'
+PIN = '25373a93bae4478439941d17774930c145e94c4a6cf02dc77907d203d3a85cf6'
 
 
 def before_working_draft_bytes(path, raw):
